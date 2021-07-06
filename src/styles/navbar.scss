@@ -1,0 +1,51 @@
+.nav-container {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1rem 10.31rem;
+	border-bottom: 1px solid $border-gray;
+	display: flex;
+	justify-content: space-between;
+
+	.img-cont {
+		// width: 30%;
+		width: 20%;
+		cursor: pointer;
+	}
+
+	.links {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 70%;
+
+		ul {
+			list-style: none;
+			display: flex;
+			justify-content: space-around;
+			padding: 0 1rem;
+			width: 60%;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 0.8rem;
+			line-height: 1.625rem;
+			color: $base-gray;
+
+			:hover {
+				font-weight: 500;
+			}
+
+			li {
+				cursor: pointer;
+			}
+		}
+
+		.btn-links {
+			display: flex;
+			// width: 20%;
+
+			.login-btn {
+				margin-right: 1rem;
+			}
+		}
+	}
+}
