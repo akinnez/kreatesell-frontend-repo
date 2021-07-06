@@ -25,3 +25,15 @@
 .btnBlue {
 	@include customBtn($base-blue, $base-white, $base-blue);
 }
+
+.primaryBlue {
+	width: 100%;
+	background-color: $base-blue;
+	color: $base-white;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 1.25rem;
+	line-height: 1.8rem;
+	border: none;
+	height: 3.375rem;
+}

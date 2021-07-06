@@ -14,9 +14,12 @@ export const Button = ({
 			disabled={loading || rest.disabled}
 			type={type}
 			className={`
+			${rest.className}
 			${styles.button}
 			${bgColor === "white" && styles.btnWhite} 
-			${bgColor === "blue" && styles.btnBlue}`}
+			${bgColor === "blue" && styles.btnBlue}
+			${bgColor === "primaryBlue" && styles.primaryBlue}
+			`}
 		>
 			{text}
 		</button>
