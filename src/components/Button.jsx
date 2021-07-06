@@ -11,9 +11,10 @@ export const Button = ({
 			{...rest}
 			disabled={loading || rest.disabled}
 			type={type}
-			className={`button ${
-				bgColor === "white" ? "btn-white" : bgColor === "blue" ? "btn-blue" : ""
-			}`}
+			className={`button
+			 ${bgColor === "white" && "btn-white"} 
+			 ${bgColor === "blue" && "btn-blue"}
+			 `}
 		>
 			{text}
 		</button>

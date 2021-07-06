@@ -22,7 +22,7 @@ export const Navbar = () => {
 					<div className="login-btn">
 						<Button text="Login" />
 					</div>
-					<div className="signup-btn">
+					<div>
 						<Button text="Signup" bgColor="blue" />
 					</div>
 				</div>
