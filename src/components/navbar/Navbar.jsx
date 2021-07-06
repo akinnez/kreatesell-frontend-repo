@@ -1,15 +1,16 @@
 import Image from "next/image";
 import { KreateSellBrand } from "assets";
 import { Button } from "components";
+import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
 	return (
-		<nav className="nav-container">
-			<div className="img-cont">
+		<nav className={styles.navContainer}>
+			<div className={styles.imgCont}>
 				<Image src={KreateSellBrand} alt="kreatesell brand logo" />
 			</div>
 
-			<div className="links">
+			<div className={styles.navLinks}>
 				<ul className="category-links">
 					<li>How it works</li>
 					<li>Features</li>
@@ -18,8 +19,8 @@ export const Navbar = () => {
 					<li>FAQs</li>
 				</ul>
 
-				<div className="btn-links">
-					<div className="login-btn">
+				<div className={styles.btnLinks}>
+					<div className={styles.loginBtn}>
 						<Button text="Login" />
 					</div>
 					<div>

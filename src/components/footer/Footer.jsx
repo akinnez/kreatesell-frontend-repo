@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FooterBrand, Location, Message, Mobile } from "assets";
+import styles from "./Footer.module.scss";
 
 export const Footer = () => {
 	return (
-		<footer className="footer">
-			<div className="brand">
-				<div className="title">
+		<footer className={styles.footer}>
+			<div className={styles.brand}>
+				<div className={styles.brandTitle}>
 					<Image src={FooterBrand} alt="kreatesell" />
 				</div>
 
-				<div className="contact">
-					<div className="icon">
+				<div className={styles.brandContact}>
+					<div className={styles.brandContactIcon}>
 						<Image src={Message} alt="kreatesell" />
 					</div>
 					<a
@@ -24,8 +25,8 @@ export const Footer = () => {
 					</a>
 				</div>
 
-				<div className="contact">
-					<div className="icon">
+				<div className={styles.brandContact}>
+					<div className={styles.brandContactIcon}>
 						<Image src={Mobile} alt="mobile" />
 					</div>
 					<a
@@ -38,8 +39,8 @@ export const Footer = () => {
 					</a>
 				</div>
 
-				<div className="contact">
-					<div className="icon">
+				<div className={styles.brandContact}>
+					<div className={styles.brandContactIcon}>
 						<Image src={Location} alt="location" />
 					</div>
 					<a
@@ -53,9 +54,9 @@ export const Footer = () => {
 				</div>
 			</div>
 
-			<div className="category">
-				<div className="title">Product</div>
-				<div className="category-link">
+			<div>
+				<div className={styles.categoryTitle}>Product</div>
+				<div className={styles.categoryLink}>
 					<Link href="#">
 						<a>Overview</a>
 					</Link>
@@ -74,9 +75,9 @@ export const Footer = () => {
 				</div>
 			</div>
 
-			<div className="category">
-				<div className="title">Company</div>
-				<div className="category-link">
+			<div>
+				<div className={styles.categoryTitle}>Company</div>
+				<div className={styles.categoryLink}>
 					<Link href="#">
 						<a>About</a>
 					</Link>
@@ -95,9 +96,9 @@ export const Footer = () => {
 				</div>
 			</div>
 
-			<div className="category">
-				<div className="title">Support</div>
-				<div className="category-link">
+			<div>
+				<div className={styles.categoryTitle}>Support</div>
+				<div className={styles.categoryLink}>
 					<Link href="#">
 						<a>Help center</a>
 					</Link>
@@ -116,9 +117,9 @@ export const Footer = () => {
 				</div>
 			</div>
 
-			<div className="category">
-				<div className="title">Legal</div>
-				<div className="category-link">
+			<div>
+				<div className={styles.categoryTitle}>Legal</div>
+				<div className={styles.categoryLink}>
 					<Link href="#">
 						<a>Cookies Policy</a>
 					</Link>
@@ -137,9 +138,9 @@ export const Footer = () => {
 				</div>
 			</div>
 
-			<div className="category">
-				<div className="title">Follow us</div>
-				<div className="category-link">
+			<div>
+				<div className={styles.categoryTitle}>Follow us</div>
+				<div className={styles.categoryLink}>
 					<Link href="#">
 						<a>Facebook</a>
 					</Link>

@@ -1,3 +1,5 @@
+import styles from "./Button.module.scss";
+
 export const Button = ({
 	type,
 	text = "Submit",
@@ -11,10 +13,10 @@ export const Button = ({
 			{...rest}
 			disabled={loading || rest.disabled}
 			type={type}
-			className={`button
-			 ${bgColor === "white" && "btn-white"} 
-			 ${bgColor === "blue" && "btn-blue"}
-			 `}
+			className={`
+			${styles.button}
+			${bgColor === "white" && styles.btnWhite} 
+			${bgColor === "blue" && styles.btnBlue}`}
 		>
 			{text}
 		</button>

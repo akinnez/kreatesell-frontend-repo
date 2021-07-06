@@ -1,0 +1,50 @@
+@import "../../styles//colors.scss";
+
+.navContainer {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1rem 10.31rem;
+	border-bottom: 1px solid $border-gray;
+	display: flex;
+	justify-content: space-between;
+}
+
+.imgCont {
+	width: 20%;
+	cursor: pointer;
+}
+
+.navLinks {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 70%;
+
+	ul {
+		list-style: none;
+		display: flex;
+		justify-content: space-around;
+		padding: 0 1rem;
+		width: 60%;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.8rem;
+		line-height: 1.625rem;
+		color: $base-gray;
+
+		:hover {
+			font-weight: 600;
+		}
+
+		li {
+			cursor: pointer;
+		}
+	}
+}
+
+.btnLinks {
+	display: flex;
+}
+.loginBtn {
+	margin-right: 1rem;
+}
