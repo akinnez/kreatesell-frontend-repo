@@ -9,7 +9,7 @@ export const Input = ({
 	...rest
 }) => {
 	return (
-		<div className={styles.inputContainer}>
+		<div className={`${rest.containerStyle} ${styles.inputContainer}`}>
 			<label htmlFor={name} className={styles.label}>
 				{label}
 			</label>
@@ -18,7 +18,7 @@ export const Input = ({
 				type={type}
 				placeholder={placeholder}
 				name={name}
-				className={`${styles.input} ${rest.className}`}
+				className={`${rest.className} ${styles.input}`}
 			/>
 		</div>
 	);

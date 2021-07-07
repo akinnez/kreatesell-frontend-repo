@@ -2,16 +2,14 @@ import { Layout, Input, Button, Checkbox } from "components";
 import Image from "next/image";
 import Link from "next/link";
 import { FacebookBtn, GoogleBtn } from "assets";
-import ReCAPTCHA from "react-google-recaptcha";
 import { useFormik } from "formik";
-import styles from "./Signup.module.scss";
-import { SignupSchema } from "./Signup.validation";
+import styles from "./Login.module.scss";
+import { LoginSchema } from "./Login.validation";
 
-const Signup = () => {
+const Login = () => {
 	const initialValues = {
 		email: "",
 		password: "",
-		terms: false,
 	};
 
 	const handleSubmit = () => {};
@@ -19,18 +17,16 @@ const Signup = () => {
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: SignupSchema,
+		validationSchema: LoginSchema,
 		validateOnChange: false,
 	});
 
 	return (
 		<Layout>
-			<div className={styles.signup}>
+			<div className={styles.login}>
 				<div className={styles.formContainer}>
 					<div className={styles.form}>
-						<h5 className={styles.formTitle}>
-							Get started with a free account
-						</h5>
+						<h5 className={styles.formTitle}>Login to your account</h5>
 
 						<p className={styles.continue}>Continue with</p>
 
@@ -61,27 +57,26 @@ const Signup = () => {
 							<Input
 								label="Password"
 								name="password"
-								placeholder="Create Password"
+								placeholder="Enter your Password"
 								onChange={formik.handleChange}
 								errorMessage={formik?.errors?.password}
-							/>
-
-							<ReCAPTCHA
-								sitekey="6LcHGn0bAAAAALTtYkBrcDA1pbaRiSXmkADz8khK"
-								size="normal"
+								containerStyle={styles.password}
 							/>
 
 							<div className={styles.terms}>
-								<Checkbox name="terms" onChange={formik.handleChange} />
-								<p>I agree to terms & conditions</p>
+								<Checkbox name="rememberMe" onChange={formik.handleChange} />
+								<Link href="forgot-password">
+									<a className={styles.forget}>Forget Password?</a>
+								</Link>
 							</div>
-							<Button text="Sign up" bgColor="primaryBlue" />
+
+							<Button text="Login" bgColor="primaryBlue" />
 						</form>
 
 						<div className={styles.footer}>
-							Already have an account?{" "}
-							<Link href="/login">
-								<a>Login</a>
+							Don’t have an account?{" "}
+							<Link href="/signup">
+								<a>Get Started</a>
 							</Link>{" "}
 						</div>
 					</div>
@@ -91,4 +86,4 @@ const Signup = () => {
 	);
 };
 
-export default Signup;
+export default Login;

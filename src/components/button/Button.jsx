@@ -1,7 +1,7 @@
 import styles from "./Button.module.scss";
 
 export const Button = ({
-	type,
+	type = "submit",
 	text = "Submit",
 	loading,
 	disabled,
