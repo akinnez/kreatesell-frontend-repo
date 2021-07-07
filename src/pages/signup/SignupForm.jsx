@@ -44,7 +44,7 @@ export const SignupForm = () => {
 				/>
 
 				<ReCAPTCHA
-					sitekey="6LcHGn0bAAAAALTtYkBrcDA1pbaRiSXmkADz8khK"
+					sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 					size="normal"
 				/>
 
