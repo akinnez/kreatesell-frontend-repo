@@ -1,82 +1,5 @@
 @import "../../styles//colors.scss";
 
-.login {
-	display: flex;
-	justify-content: center;
-	background-image: url("../../assets/auth-bg.svg");
-	background-size: initial;
-	background-repeat: no-repeat;
-	padding: 3rem;
-}
-
-.formContainer {
-	width: 30rem;
-	height: auto;
-	margin-top: 5rem;
-	margin-bottom: 1rem;
-	background: $base-white;
-	box-shadow: 0px 10px 30px $form-shadow;
-	border-radius: 8px;
-}
-
-.form {
-	margin: 3rem;
-}
-
-.formTitle {
-	margin: 0;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 1.2rem;
-	line-height: 1.8rem;
-	text-align: center;
-	color: $black-100;
-}
-
-.continue {
-	font-style: normal;
-	text-align: center;
-	font-weight: 400;
-	font-size: 0.9rem;
-	line-height: 1.625rem;
-	color: $base-gray;
-}
-
-.socialBtn {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	.google {
-		cursor: pointer;
-		margin-right: 1rem;
-	}
-}
-
-.midline {
-	display: flex;
-	align-items: center;
-
-	span {
-		border: 1px solid $gray-100;
-		width: 11rem;
-		height: 0px;
-	}
-
-	.text {
-		padding: 0 1rem;
-	}
-
-	p {
-		font-family: Inter;
-		font-style: normal;
-		font-weight: 500;
-		font-size: 1rem;
-		line-height: 26px;
-		color: $base-gray;
-	}
-}
-
 .footer {
 	font-size: 0.8rem;
 	line-height: 26px;
@@ -90,7 +13,7 @@
 }
 
 .password {
-	margin-bottom: 0;
+	margin-bottom: 0 !important;
 }
 
 .terms {
@@ -98,7 +21,21 @@
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 1rem;
-	margin-top: 0.2rem;
+	margin-top: 0 !important;
+
+	.checkbox {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		p {
+			font-style: normal;
+			font-weight: normal;
+			font-size: 0.8rem;
+			line-height: 1.5rem;
+			color: $gray-200;
+		}
+	}
 
 	a {
 		padding-left: 0.5rem;

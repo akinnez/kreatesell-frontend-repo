@@ -16,5 +16,5 @@ export const Meta = ({ title, keywords, description }) => {
 Meta.defaultProps = {
 	title: "KreateSell",
 	keywords: "e-commerce",
-	description: "More than an e-commerce",
+	description: "KreateSell , Sell more, Do less",
 };
