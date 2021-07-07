@@ -1,8 +1,9 @@
-import { Input, Button, Checkbox } from "components";
+import { Input, Button, Checkbox, FormError } from "components";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { SignupSchema } from "./Signup.validation";
 import ReCAPTCHA from "react-google-recaptcha";
+import { isAnEmpytyObject } from "utils";
 import styles from "./Signup.module.scss";
 
 export const SignupForm = () => {
@@ -20,15 +21,19 @@ export const SignupForm = () => {
 		validationSchema: SignupSchema,
 		validateOnChange: false,
 	});
+
+	const errors = formik.errors;
+
 	return (
 		<>
+			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
 					label="Email or Phone number"
 					name="email"
 					placeholder="Enter your Email or Phone number"
 					onChange={formik.handleChange}
-					errorMessage={formik?.errors?.email}
 				/>
 
 				<Input
@@ -36,7 +41,6 @@ export const SignupForm = () => {
 					name="password"
 					placeholder="Create Password"
 					onChange={formik.handleChange}
-					errorMessage={formik?.errors?.password}
 				/>
 
 				<ReCAPTCHA

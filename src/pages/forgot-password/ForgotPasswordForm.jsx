@@ -1,7 +1,8 @@
-import { Input, Button } from "components";
+import { Input, Button, FormError } from "components";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { ForgotPasswordSchema } from "./ForgotPassword.validation";
+import { isAnEmpytyObject } from "utils";
 import styles from "./ForgotPassword.module.scss";
 
 export const ForgotPasswordForm = () => {
@@ -18,8 +19,12 @@ export const ForgotPasswordForm = () => {
 		validateOnChange: false,
 	});
 
+	const errors = formik.errors;
+
 	return (
 		<>
+			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+
 			<form
 				onSubmit={formik.handleSubmit}
 				autoComplete="off"
@@ -30,7 +35,6 @@ export const ForgotPasswordForm = () => {
 					name="email"
 					placeholder="Enter your Email or Phone number"
 					onChange={formik.handleChange}
-					errorMessage={formik?.errors?.email}
 				/>
 
 				<Button text="Reset password" bgColor="primaryBlue" />

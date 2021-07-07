@@ -1,7 +1,9 @@
-import { Input, Button, Checkbox } from "components";
+import { Input, Button, Checkbox, FormError } from "components";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "./Login.validation";
+import { isAnEmpytyObject } from "utils";
+
 import styles from "./Login.module.scss";
 
 export const LoginForm = () => {
@@ -19,15 +21,18 @@ export const LoginForm = () => {
 		validateOnChange: false,
 	});
 
+	const errors = formik.errors;
+
 	return (
 		<>
+			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
 					label="Email or Phone number"
 					name="email"
 					placeholder="Enter your Email or Phone number"
 					onChange={formik.handleChange}
-					errorMessage={formik?.errors?.email}
 				/>
 
 				<Input
@@ -35,7 +40,6 @@ export const LoginForm = () => {
 					name="password"
 					placeholder="Enter your Password"
 					onChange={formik.handleChange}
-					errorMessage={formik?.errors?.password}
 					containerStyle={styles.password}
 				/>
 

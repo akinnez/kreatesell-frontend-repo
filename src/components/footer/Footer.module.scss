@@ -1,4 +1,5 @@
 @import "../../styles//colors.scss";
+@import "../../styles//mixins.scss";
 
 .base-link {
 	font-style: normal;
@@ -14,16 +15,14 @@
 }
 
 .footer {
+	@include flex(row, space-between, null);
 	font-family: "Manrope", sans-serif;
-	display: flex;
-	justify-content: space-between;
 	background-color: $dark-blue;
 	padding: 6rem 10.31rem;
 }
 
 .brand {
-	display: flex;
-	flex-direction: column;
+	@include flex(column, null, null);
 }
 
 .brandTitle {
@@ -31,9 +30,8 @@
 }
 
 .brandContact {
+	@include flex(row, null, center);
 	padding: 0.6rem 0;
-	display: flex;
-	align-items: center;
 
 	a {
 		@extend .base-link;
@@ -55,8 +53,7 @@
 }
 
 .categoryLink {
-	display: flex;
-	flex-direction: column;
+	@include flex(column, null, null);
 
 	a {
 		@extend .base-link;

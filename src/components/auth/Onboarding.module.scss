@@ -1,17 +1,12 @@
 @import "../../styles//colors.scss";
+@import "../../styles//mixins.scss";
 
 .signup {
-	display: flex;
-	justify-content: center;
+	@include flex(row, center, null);
 	background-image: url("../../assets/auth-bg.svg");
 	background-size: initial;
 	background-repeat: no-repeat;
-	// padding: 1.5rem;
 	padding: 5rem;
-	// height: auto;
-
-	// height: 100vh;
-	// min-height: 100vh;
 }
 
 .formContainer {
@@ -48,9 +43,7 @@
 }
 
 .socialBtn {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	@include flex(row, space-between, center);
 
 	.google {
 		cursor: pointer;
@@ -59,8 +52,7 @@
 }
 
 .midline {
-	display: flex;
-	align-items: center;
+	@include flex(row, null, center);
 
 	span {
 		border: 1px solid $gray-100;
@@ -95,8 +87,7 @@
 }
 
 .terms {
-	display: flex;
-	align-items: center;
+	@include flex(row, null, center);
 
 	p {
 		padding-left: 0.5rem;

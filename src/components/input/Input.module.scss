@@ -1,8 +1,8 @@
 @import "../../styles//colors.scss";
+@import "../../styles//mixins.scss";
 
 .inputContainer {
-	display: flex;
-	flex-direction: column;
+	@include flex(column, null, null);
 	margin-bottom: 1rem;
 }
 
