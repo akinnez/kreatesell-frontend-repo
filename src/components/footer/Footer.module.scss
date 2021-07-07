@@ -1,0 +1,62 @@
+@import "../../styles//colors.scss";
+@import "../../styles//mixins.scss";
+
+.base-link {
+	font-style: normal;
+	font-weight: 300;
+	font-size: 0.775rem;
+	line-height: 1.5rem;
+	color: $text-gray;
+	text-decoration: none;
+
+	&:hover {
+		color: $base-white;
+	}
+}
+
+.footer {
+	@include flex(row, space-between, null);
+	font-family: "Manrope", sans-serif;
+	background-color: $dark-blue;
+	padding: 6rem 10.31rem;
+}
+
+.brand {
+	@include flex(column, null, null);
+}
+
+.brandTitle {
+	cursor: pointer;
+}
+
+.brandContact {
+	@include flex(row, null, center);
+	padding: 0.6rem 0;
+
+	a {
+		@extend .base-link;
+	}
+}
+
+.brandContactIcon {
+	padding-right: 0.5rem;
+	cursor: pointer;
+}
+
+.categoryTitle {
+	color: $base-white;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1.75rem;
+	margin-bottom: 0.5rem;
+}
+
+.categoryLink {
+	@include flex(column, null, null);
+
+	a {
+		@extend .base-link;
+		padding-bottom: 0.5rem;
+	}
+}
