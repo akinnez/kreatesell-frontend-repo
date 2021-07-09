@@ -1,8 +1,7 @@
-import { OnboardingLayout } from "../components/auth/Onboarding";
-import { WelcomeForm } from "../components/forms";
+import { OnboardingLayout, WelcomeForm } from "../components";
 import styles from "../public/css/Welcome.module.scss";
 
-const WelcomeOnoarding = () => {
+const WelcomeOnboarding = () => {
 	return (
 		<OnboardingLayout
 			socialBtn={false}
@@ -12,4 +11,4 @@ const WelcomeOnoarding = () => {
 	);
 };
 
-export default WelcomeOnoarding;
+export default WelcomeOnboarding;
