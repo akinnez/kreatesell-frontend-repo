@@ -11,11 +11,12 @@ export const OnboardingLayout = ({
 	keywords,
 	description,
 	subTitle,
+	formStyle,
 }) => {
 	return (
 		<Layout title={title} keywords={keywords} description={description}>
 			<div className={styles.signup}>
-				<div className={styles.formContainer}>
+				<div className={`${formStyle} ${styles.formContainer}`}>
 					<div className={styles.form}>
 						<h5 className={styles.formTitle}>{formTitle}</h5>
 
