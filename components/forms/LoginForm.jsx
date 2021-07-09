@@ -5,7 +5,7 @@ import { LoginSchema } from "../../validation/Login.validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/Login.module.scss";
 
-const LoginForm = () => {
+export const LoginForm = () => {
 	const initialValues = {
 		email: "",
 		password: "",
@@ -65,6 +65,3 @@ const LoginForm = () => {
 		</>
 	);
 };
-
-
-export default LoginForm;

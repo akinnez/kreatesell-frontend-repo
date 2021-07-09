@@ -6,7 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/Signup.module.scss";
 
- const SignupForm = () => {
+export const SignupForm = () => {
 	const initialValues = {
 		email: "",
 		password: "",
@@ -64,6 +64,3 @@ import styles from "../../public/css/Signup.module.scss";
 		</>
 	);
 };
-
-
-export default SignupForm

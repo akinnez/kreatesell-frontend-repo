@@ -8,3 +8,4 @@ export * from "./input/Input";
 export * from "./layout/index";
 export * from "./modal/Modal";
 export * from "./navbar/Navbar";
+export * from "./forms/index";

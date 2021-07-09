@@ -5,7 +5,7 @@ import { Button, Input } from "../";
 import { WelcomeSchema } from "../../validation/Welcome.validation";
 import styles from "../../public/css/Welcome.module.scss";
 
-const WelcomeForm = () => {
+export const WelcomeForm = () => {
 	const [step, setStep] = useState(1);
 
 	const initialValues = {
@@ -74,5 +74,3 @@ const WelcomeForm = () => {
 		</form>
 	);
 };
-
-export default WelcomeForm

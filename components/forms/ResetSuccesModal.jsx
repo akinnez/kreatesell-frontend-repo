@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Button } from "components";
-import { KreateSellBrand } from "assets";
-import styles from "./ResetSuccess.module.scss";
+import { Button } from "../";
+import { KreateSellBrand } from "../../utils";
+import styles from "../../public/css/ResetSuccess.module.scss";
 
 export const ResetPasswordSuccesModal = () => {
 	const router = useRouter();
