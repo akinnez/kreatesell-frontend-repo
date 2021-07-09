@@ -1,11 +1,11 @@
 import { Input, Button, FormError } from "../";
 import Link from "next/link";
 import { useFormik } from "formik";
-import { ForgotPasswordSchema } from "../../validation/ForgotPassword.validation";
+import { ResetPasswordSchema } from "../../validation/ForgotPassword.validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/ForgotPassword.module.scss";
 
-export const ForgotPasswordForm = () => {
+export const ResetPasswordForm = () => {
 	const initialValues = {
 		email: "",
 	};
@@ -15,7 +15,7 @@ export const ForgotPasswordForm = () => {
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: ForgotPasswordSchema,
+		validationSchema: ResetPasswordSchema,
 		validateOnChange: false,
 	});
 
@@ -29,9 +29,16 @@ export const ForgotPasswordForm = () => {
 				className={styles.container}
 			>
 				<Input
-					label="Email or Phone number"
-					name="email"
-					placeholder="Enter your Email or Phone number"
+					label="Enter New Password"
+					name="password"
+					placeholder="Create new password"
+					onChange={formik.handleChange}
+				/>
+
+				<Input
+					label="Confirm New Password"
+					name="confirmPassword"
+					placeholder="Confirm new password"
 					onChange={formik.handleChange}
 				/>
 
