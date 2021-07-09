@@ -1,0 +1,101 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+
+.signup {
+	@include flex(row, center, null);
+	background-image: url("/public/images/auth-bg.svg");
+	background-size: initial;
+	background-repeat: no-repeat;
+	padding: 5rem;
+	min-height: 100vh;
+}
+
+.formContainer {
+	width: 30rem;
+	height: auto;
+	margin-top: 5rem;
+	margin-bottom: 1rem;
+	background: $base-white;
+	box-shadow: 0px 10px 30px $form-shadow;
+	border-radius: 8px;
+}
+
+.form {
+	margin: 3rem;
+}
+
+.formTitle {
+	margin: 0;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+	text-align: center;
+	color: $black-100;
+}
+
+.continue {
+	font-style: normal;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	line-height: 1.625rem;
+	color: $base-gray;
+}
+
+.socialBtn {
+	@include flex(row, space-between, center);
+
+	.google {
+		cursor: pointer;
+		margin-right: 1rem;
+	}
+}
+
+.midline {
+	@include flex(row, null, center);
+
+	span {
+		border: 1px solid $gray-100;
+		width: 11rem;
+		height: 0px;
+	}
+
+	.text {
+		padding: 0 1rem;
+	}
+
+	p {
+		font-family: Inter;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 1rem;
+		line-height: 26px;
+		color: $base-gray;
+	}
+}
+
+.footer {
+	font-size: 0.8rem;
+	line-height: 26px;
+	color: $base-gray;
+	margin-top: 1.25rem;
+	a {
+		text-decoration: none;
+		color: $base-blue;
+		font-weight: 400;
+	}
+}
+
+.terms {
+	@include flex(row, null, center);
+
+	p {
+		padding-left: 0.5rem;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.8rem;
+		line-height: 1.625rem;
+		color: $gray-200;
+	}
+}
