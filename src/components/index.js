@@ -6,4 +6,5 @@ export * from "./footer/Footer";
 export * from "./formError/FormError";
 export * from "./input/Input";
 export * from "./layout/index";
+export * from "./modal/Modal";
 export * from "./navbar/Navbar";

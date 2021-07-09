@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "./Login.validation";
 import { isAnEmpytyObject } from "utils";
-
 import styles from "./Login.module.scss";
 
 export const LoginForm = () => {
@@ -40,7 +39,7 @@ export const LoginForm = () => {
 					name="password"
 					placeholder="Enter your Password"
 					onChange={formik.handleChange}
-					containerStyle={styles.password}
+					containerstyle={styles.password}
 				/>
 
 				<div className={styles.terms}>
@@ -49,12 +48,12 @@ export const LoginForm = () => {
 						<p>Remember Me</p>
 					</div>
 
-					<Link href="forgot-password">
+					<Link href="/forgot-password">
 						<a>Forget Password?</a>
 					</Link>
 				</div>
 
-				<Button text="Login" bgColor="primaryBlue" />
+				<Button type="submit" text="Login" bgColor="primaryBlue" />
 			</form>
 
 			<div className={styles.footer}>
