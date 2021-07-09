@@ -3,7 +3,7 @@
 
 .signup {
 	@include flex(row, center, null);
-	background-image: url("/public/images/auth-bg.svg");
+	background-image: url("/images/auth-bg.svg");
 	background-size: initial;
 	background-repeat: no-repeat;
 	padding: 5rem;
