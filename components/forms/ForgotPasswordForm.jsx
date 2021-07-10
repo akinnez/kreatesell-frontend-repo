@@ -22,7 +22,7 @@ export const ForgotPasswordForm = () => {
 	});
 
 	return (
-		<>
+		<div className={styles.body}>
 			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
 
 			<form
@@ -46,6 +46,6 @@ export const ForgotPasswordForm = () => {
 					<a>Login here</a>
 				</Link>{" "}
 			</div>
-		</>
+		</div>
 	);
 };

@@ -12,11 +12,12 @@ export const OnboardingLayout = ({
 	description,
 	subTitle,
 	formStyle,
+	signupStyle,
 	isForm = true,
 }) => {
 	return (
 		<Layout title={title} keywords={keywords} description={description}>
-			<div className={styles.signup}>
+			<div className={`${signupStyle} ${styles.signup} `}>
 				{!isForm && <Form />}
 				{isForm && (
 					<div className={`${formStyle} ${styles.formContainer}`}>
