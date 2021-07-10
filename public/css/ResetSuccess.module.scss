@@ -1,10 +1,6 @@
 @import "./mixins.scss";
 @import "./colors.scss";
 
-.button {
-	margin-bottom: 3rem;
-}
-
 .resetPasswordModal {
 	@include flex(column, center, center);
 	padding: 0 12rem;

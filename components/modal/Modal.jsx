@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import styles from "./Modal.module.scss";
 
-export const Modal = ({ children, visible, onClose, ...rest }) => {
+export const Modal = ({
+	children,
+	visible,
+	onClose,
+	cancelPropagation = false,
+	...rest
+}) => {
 	const [_visible, setVisible] = useState(false);
 
 	useEffect(() => {
@@ -17,7 +23,7 @@ export const Modal = ({ children, visible, onClose, ...rest }) => {
 			${_visible && styles.styleDisplay} 
 			${rest.className}
 			`}
-			onClick={() => onClose && onClose()}
+			onClick={() => (cancelPropagation ? null : onClose && onClose())}
 		>
 			<div className={styles.container} onClick={(e) => e.stopPropagation()}>
 				{visible && <div className={styles.modalContent}>{children}</div>}

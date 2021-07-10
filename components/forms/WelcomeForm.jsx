@@ -2,10 +2,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { Button, Input, FormError } from "../";
-import {
-	StoreNameSchema,
-	BusinessNameSchema,
-} from "../../validation/Welcome.validation";
+import { StoreNameSchema, BusinessNameSchema } from "../../validation";
 import styles from "../../public/css/Welcome.module.scss";
 import { isAnEmpytyObject } from "../../utils";
 
