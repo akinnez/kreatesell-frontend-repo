@@ -1,8 +1,8 @@
-import { OnboardingLayout, LoginForm } from "../components";
+import { GeneralLayout, LoginForm } from "../components";
 
 const Login = () => {
 	return (
-		<OnboardingLayout
+		<GeneralLayout
 			Form={LoginForm}
 			formTitle="Login to your account"
 			title="KreateSell | Login"

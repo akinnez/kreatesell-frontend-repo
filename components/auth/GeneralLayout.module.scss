@@ -43,6 +43,11 @@
 	color: $base-gray;
 }
 
+.opacity {
+	@extend .continue;
+	opacity: 0.6;
+}
+
 .socialBtn {
 	@include flex(row, space-between, center);
 

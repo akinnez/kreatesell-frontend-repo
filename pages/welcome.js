@@ -1,9 +1,9 @@
-import { OnboardingLayout, WelcomeForm } from "../components";
+import { GeneralLayout, WelcomeForm } from "../components";
 import styles from "../public/css/Welcome.module.scss";
 
 const WelcomeOnboarding = () => {
 	return (
-		<OnboardingLayout
+		<GeneralLayout
 			socialBtn={false}
 			Form={WelcomeForm}
 			formStyle={styles.formStyle}

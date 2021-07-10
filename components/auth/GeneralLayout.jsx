@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { Layout } from "../";
+import { Layout } from "..";
 import { FacebookBtn, GoogleBtn } from "../../utils";
-import styles from "./Onboarding.module.scss";
+import styles from "./GeneralLayout.module.scss";
 
-export const OnboardingLayout = ({
+export const GeneralLayout = ({
 	Form,
 	formTitle,
 	socialBtn = true,
@@ -11,6 +11,7 @@ export const OnboardingLayout = ({
 	keywords,
 	description,
 	subTitle,
+	subTitleOpacity = false,
 	formStyle,
 	signupStyle,
 	isForm = true,
@@ -24,7 +25,9 @@ export const OnboardingLayout = ({
 						<div className={styles.form}>
 							<h5 className={styles.formTitle}>{formTitle}</h5>
 
-							<p className={styles.continue}>{subTitle}</p>
+							<p className={subTitleOpacity ? styles.opacity : styles.continue}>
+								{subTitle}
+							</p>
 
 							{socialBtn && (
 								<>

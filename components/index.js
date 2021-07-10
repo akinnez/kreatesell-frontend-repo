@@ -1,5 +1,5 @@
 export * from "./layout";
-export * from "./auth/Onboarding";
+export * from "./auth/GeneralLayout";
 export * from "./button/Button";
 export * from "./checkbox/Checkbox";
 export * from "./footer/Footer";

@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-	OnboardingLayout,
-	Modal,
-	ResetPasswordSuccesModal,
-} from "../components";
+import { GeneralLayout, Modal, ResetPasswordSuccesModal } from "../components";
 
 const SuccessfulPasswordReset = () => {
 	return (
-		<OnboardingLayout
+		<GeneralLayout
 			Form={SuccessfulPasswordResetForm}
 			socialBtn={false}
 			isForm={false}

@@ -1,8 +1,8 @@
-import { OnboardingLayout, ResetPasswordForm } from "../components";
+import { GeneralLayout, ResetPasswordForm } from "../components";
 
 const ResetPassword = () => {
 	return (
-		<OnboardingLayout
+		<GeneralLayout
 			Form={ResetPasswordForm}
 			formTitle="Forgot Password"
 			title="KreateSell | Forgot Password"
