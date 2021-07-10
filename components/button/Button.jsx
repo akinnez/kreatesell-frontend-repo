@@ -19,8 +19,7 @@ export const Button = ({
 			${bgColor === "white" && styles.btnWhite} 
 			${bgColor === "blue" && styles.btnBlue}
 			${bgColor === "primaryBlue" && styles.primaryBlue}
-			`}
-		>
+			`}>
 			{text}
 		</button>
 	);
