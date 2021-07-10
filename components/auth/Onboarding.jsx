@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Layout } from "../";
-import { FacebookBtn, GoogleBtn } from "../../utils/assets";
+import { FacebookBtn, GoogleBtn } from "../../utils";
 import styles from "./Onboarding.module.scss";
 
 export const OnboardingLayout = ({

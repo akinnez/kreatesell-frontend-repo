@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { OnboardingLayout, Modal } from "../components";
+import {
+	OnboardingLayout,
+	Modal,
+	ResetPasswordSuccesModal,
+} from "../components";
 import styles from "../public/css/ResetSuccess.module.scss";
-import { ResetPasswordSuccesModal } from "../components/forms";
 
 const SuccessfulPasswordReset = () => {
 	return (

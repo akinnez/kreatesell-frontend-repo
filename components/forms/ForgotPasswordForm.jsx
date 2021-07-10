@@ -5,7 +5,7 @@ import { ForgotPasswordSchema } from "../../validation/ForgotPassword.validation
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/ForgotPassword.module.scss";
 
-const ForgotPasswordForm = () => {
+export const ForgotPasswordForm = () => {
 	const initialValues = {
 		email: "",
 	};
@@ -49,5 +49,3 @@ const ForgotPasswordForm = () => {
 		</>
 	);
 };
-
-export default ForgotPasswordForm

@@ -1,5 +1,4 @@
-import { ForgotPasswordForm } from "../components/forms";
-import { OnboardingLayout } from "../components";
+import { OnboardingLayout, ForgotPasswordForm } from "../components";
 
 const ForgotPassword = () => {
 	return (
