@@ -1,0 +1,92 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+
+.container {
+	min-height: 100vh;
+	margin-top: 5rem;
+	box-sizing: border-box;
+	padding: 0rem 10.31rem;
+
+	.hero {
+		text-align: center;
+
+		.main {
+			margin: 0;
+			margin-bottom: 1rem;
+			font-weight: 700;
+			font-size: 3rem;
+			line-height: 64px;
+			color: $black-100;
+		}
+
+		.subtitle {
+			color: $base-gray;
+			margin-bottom: 2rem;
+			font-weight: 400;
+			font-size: 1.125rem;
+			line-height: 2rem;
+		}
+
+		.input {
+			margin: 0;
+			padding: 0;
+		}
+
+		.benefits {
+			display: flex;
+			justify-content: center;
+			margin-top: 0.6rem;
+			font-weight: 400;
+			font-size: 0.75rem;
+			line-height: 0.9375rem;
+			color: $base-gray;
+
+			span {
+				padding: 0 0.4rem;
+			}
+		}
+	}
+
+	.automation {
+		margin-top: 4rem;
+		display: flex;
+
+		.image {
+		}
+
+		.automationText {
+			margin-left: 1rem;
+			h3,
+			p {
+				margin: 0;
+			}
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			.automationTitle {
+				font-weight: 800;
+				font-size: 2.5rem;
+				line-height: 3.375rem;
+				color: $black-100;
+			}
+
+			.automationSubTitle {
+				margin-top: 1rem;
+				font-weight: 400;
+				font-size: 1.125rem;
+				line-height: 1.75rem;
+				color: $base-gray;
+			}
+
+			.linkText {
+				margin-top: 1.25rem;
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 1.875rem;
+				color: $base-blue;
+				cursor: pointer;
+			}
+		}
+	}
+}
