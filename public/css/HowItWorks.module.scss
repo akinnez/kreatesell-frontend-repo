@@ -1,0 +1,79 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+
+@import url("https://db.onlinewebfonts.com/c/25a7a213c7215b479c86172604a49723?family=Beat+Word+demo");
+
+.container {
+	margin-top: 5rem;
+	padding: 0rem 10.31rem;
+
+	.title {
+		h3 {
+			margin: 0;
+			font-weight: 700;
+			font-size: 40px;
+			line-height: 54px;
+			text-align: center;
+			color: $black-100;
+		}
+
+		p {
+			margin: 0;
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 1.75rem;
+			text-align: center;
+			color: #595959;
+		}
+	}
+
+	.rowOne {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 5rem;
+		width: 100%;
+
+		.image {
+			width: 40%;
+		}
+
+		.rowContent {
+			width: 60%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.rowNumber {
+				font-family: "Beat Word demo";
+				font-weight: 700;
+				font-style: normal;
+				font-weight: bold;
+				font-size: 6rem;
+				line-height: 6.25rem;
+				color: $blue-200;
+			}
+
+			.content {
+				padding-left: 2rem;
+
+				h5 {
+					margin: 0;
+					font-weight: 500;
+					font-size: 1.5rem;
+					line-height: 2rem;
+					color: $base-blue;
+				}
+
+				p {
+					font-weight: 400;
+					font-size: 1rem;
+					color: $base-gray;
+				}
+			}
+		}
+	}
+
+	.rowThree {
+		margin-bottom: 5rem;
+	}
+}

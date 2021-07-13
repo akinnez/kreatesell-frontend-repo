@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { KreateSellBrand } from "../../utils/assets";
 import { Button } from "../";
 import styles from "./Navbar.module.scss";
@@ -15,9 +14,9 @@ export const Navbar = () => {
 
 			<div className={styles.navLinks}>
 				<ul className="category-links">
-					<li>How it works</li>
+					<li onClick={() => router.push("/how-it-works")}>How it works</li>
 					<li onClick={() => router.push("/features")}>Features</li>
-					<li>Pricing</li>
+					<li onClick={() => router.push("/pricing")}>Pricing</li>
 					<li>Blog</li>
 					<li>FAQs</li>
 				</ul>
