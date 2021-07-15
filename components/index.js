@@ -10,3 +10,4 @@ export * from "./layout/index";
 export * from "./modal/Modal";
 export * from "./navbar/Navbar";
 export * from "./forms/index";
+export * from "./pricingCard/PricingCard";

@@ -1,0 +1,110 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+
+.container {
+	width: 20.4375rem;
+	height: 42.125rem;
+	border: 1px solid $blue-300;
+	border-radius: 0.625rem;
+	text-align: center;
+	padding-top: 3.125rem;
+	margin-left: 5px;
+
+	&.standard {
+		background: $blue-500;
+		.title {
+			color: $base-white;
+		}
+		.subTitle {
+			color: $base-white;
+		}
+		.featuresContainer {
+			.features {
+				.featuresContent {
+					color: $base-white;
+				}
+			}
+		}
+	}
+
+	.title {
+		font-weight: 500;
+		font-size: 1.5rem;
+		line-height: 2rem;
+		color: $black-200;
+		text-transform: uppercase;
+	}
+
+	.subTitle {
+		padding-top: 2.1875rem;
+		font-weight: 500;
+		font-size: 1rem;
+		line-height: 1.375rem;
+		text-align: center;
+		color: $gray-400;
+	}
+
+	.priceCont {
+		padding-top: 2.3125rem;
+		@include flex(row, center, center);
+
+		.price {
+			font-weight: 800;
+			font-size: 2.5rem;
+			line-height: 3.375rem;
+			color: $blue-300;
+		}
+		.currency {
+			padding-left: 0.625rem;
+			@include flex(column, null, flex-start);
+
+			.currencySign {
+				font-weight: 500;
+				font-size: 1rem;
+				line-height: 1.625rem;
+				color: $blue-300;
+			}
+
+			.month {
+				font-weight: 500;
+				font-size: 0.875rem;
+				line-height: 1.5rem;
+				color: $blue-400;
+			}
+		}
+	}
+
+	.featuresContainer {
+		padding-top: 2.398rem;
+		@include flex(column, null, center);
+
+		.features {
+			width: 75%;
+			display: flex;
+			padding-bottom: 1.1rem;
+
+			.featuresIcons {
+			}
+
+			.featuresContent {
+				padding-left: 0.625rem;
+				font-weight: 500;
+				font-size: 0.75rem;
+				line-height: 1.5rem;
+				color: $black-200;
+			}
+		}
+	}
+
+	.button {
+		padding-top: 2.187rem;
+
+		.btn {
+			width: 12.5rem;
+			height: 3.75rem;
+			font-weight: bold;
+			font-size: 1rem;
+			line-height: 1.875rem;
+		}
+	}
+}

@@ -11,6 +11,8 @@ import PayoutMethod from "../public/images/payment-method.svg";
 import AddProduct from "../public/images/add-product.svg";
 import CreateStore from "../public/images/create-store.svg";
 import Publish from "../public/images/publish.svg";
+import ActivePrice from "../public/images/active-price.svg";
+import InActivePrice from "../public/images/inactive-price.svg";
 import { RightArrow } from "./icons/RightArrow";
 
 export {
@@ -28,4 +30,6 @@ export {
 	AddProduct,
 	CreateStore,
 	Publish,
+	ActivePrice,
+	InActivePrice,
 };
