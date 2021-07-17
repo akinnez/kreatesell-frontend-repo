@@ -10,9 +10,12 @@ import InstantPayout from "../public/images/instant-payout.svg";
 import PayoutMethod from "../public/images/payment-method.svg";
 import AddProduct from "../public/images/add-product.svg";
 import CreateStore from "../public/images/create-store.svg";
-import Publish from "../public/images/publish.svg";
+import Publish from "../public/images/publish-product.svg";
+import HowItWorksHero from "../public/images/how-it-works-hero.svg";
 import ActivePrice from "../public/images/active-price.svg";
 import Faq from "../public/images/faq.svg";
+import LeftSpiral from "../public/images/left-spiral.png";
+import RightSpiral from "../public/images/right-spiral.png";
 import { RightArrow } from "./icons/RightArrow";
 
 export {
@@ -32,4 +35,7 @@ export {
 	Publish,
 	ActivePrice,
 	Faq,
+	LeftSpiral,
+	RightSpiral,
+	HowItWorksHero,
 };

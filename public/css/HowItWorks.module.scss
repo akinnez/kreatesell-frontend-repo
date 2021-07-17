@@ -6,6 +6,8 @@
 .container {
 	margin-top: 5rem;
 	padding: 0rem 10.31rem;
+	background-image: url("/images/partial-general-bg.svg");
+	background-repeat: no-repeat;
 
 	.title {
 		h3 {
@@ -50,7 +52,7 @@
 				font-weight: bold;
 				font-size: 6rem;
 				line-height: 6.25rem;
-				color: $blue-200;
+				color: $green-200;
 			}
 
 			.content {
