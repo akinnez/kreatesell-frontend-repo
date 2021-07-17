@@ -1,0 +1,34 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+
+.select {
+	width: 7.5rem;
+	height: 2.5rem;
+	border: 0.5px solid $blue-600;
+	border-radius: 0.5rem;
+	padding: 0.7rem 0.7rem;
+	font-size: 1rem;
+	color: $gray-200;
+	cursor: pointer;
+	line-height: 1.1;
+	background-color: $base-white;
+	background-image: linear-gradient(to top, #f9f9f9, $base-white 33%);
+	display: grid;
+	grid-template-areas: "select";
+	align-items: center;
+
+	&::after {
+		content: "";
+		width: 0.8rem;
+		height: 0.5rem;
+		background-color: $base-blue;
+		clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+		justify-self: end;
+		grid-area: select;
+	}
+
+	select,
+	.select:after {
+		grid-area: select;
+	}
+}

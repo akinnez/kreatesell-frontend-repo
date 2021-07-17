@@ -1,71 +1,84 @@
-import { ActivePrice, InActivePrice } from "../../utils";
+import { ActivePrice } from "../../utils";
 import Image from "next/image";
 import styles from "./PricingCard.module.scss";
-// import { Button } from "../button/Button";
 import { Button } from "../index";
 
-const PriceFeatures = [
-	{
-		active: true,
-		content: "Unlimited product updates",
-	},
-	{
-		active: true,
-		content: "Unlimited product updates",
-	},
-	{
-		active: true,
-		content: "Unlimited product updates",
-	},
-	{
-		active: false,
-		content: "1GB Cloud storage",
-	},
-	{
-		active: false,
-		content: "Email and community support",
-	},
-];
+export const PricingCard = ({ title, subTitle, price, btnText }) => {
+	const Features =
+		title === "free"
+			? FreeFeatures
+			: title === "premium"
+			? PremiumFeatures
+			: StandardFeatures;
 
-export const PricingCard = ({ title, subTitle, price, type }) => {
 	return (
 		<div
-			className={`${styles.container} ${
-				type === "standard" && styles.standard
+			className={`${styles.priceCard} ${
+				title === "standard" && styles.standardPriceCard
 			}`}
 		>
-			{/* <div className={styles.container}> */}
-			<h3 className={styles.title}>free</h3>
-			<h5 className={styles.subTitle}>
-				Viverra eu placerat <br /> porttitor.
-			</h5>
-
-			<div className={styles.priceCont}>
-				<div className={styles.price}>19.99</div>
-				<div className={styles.currency}>
-					<h3 className={styles.currencySign}>$</h3>
-					<h5 className={styles.month}>Per Month</h5>
-				</div>
+			<div className={styles.header}>
+				<h3 className={styles.title}>{title}</h3>
+				<h5 className={styles.subTitle}>{subTitle}</h5>
+				<hr />
 			</div>
 
-			<div className={styles.featuresContainer}>
-				{PriceFeatures?.map((features, i) => (
+			<div className={styles.price}>
+				<sup className={styles.currency}>NGN</sup> {price}{" "}
+				<sub className={styles.month}>/ Month</sub>
+			</div>
+
+			<div className={styles.featuresCont}>
+				{Features?.map((features, i) => (
 					<div className={styles.features} key={i}>
 						<div className={styles.featuresIcons}>
-							<Image
-								src={features.active ? ActivePrice : InActivePrice}
-								height="23"
-								width="23"
-							/>
+							<Image src={ActivePrice} height="15" width="15" />
 						</div>
-						<h6 className={styles.featuresContent}>{features.content}</h6>
+						<h6 className={styles.featuresContent}>{features}</h6>
 					</div>
 				))}
 			</div>
 
 			<div className={styles.button}>
-				<Button className={styles.btn} text="Try for free" bgColor="blue" />
+				<Button
+					className={`${styles.btn} ${title === "standard" && styles.greenBg}`}
+					text={btnText}
+					bgColor="blue"
+				/>
 			</div>
 		</div>
 	);
 };
+
+const FreeFeatures = [
+	"Ebooks",
+	"Tickets",
+	"Limited Email Marketing",
+	"1GB Storage",
+	"Coaching",
+	"1GB Storage",
+];
+
+const StandardFeatures = [
+	"Everything on FREE plus",
+	"Membership Site",
+	"Video Courses",
+	"1GB Storage",
+	"Up to 20GB Storage",
+	"Full Email Marketing",
+	"Pre-order",
+	"1GB Storage",
+	"Social Proof (10x Conversion Rate)",
+];
+
+const PremiumFeatures = [
+	"Everything on FREE plus",
+	"Membership Site",
+	"Video Courses",
+	"1GB Storage",
+	"Up to 20GB Storage",
+	"Full Email Marketing",
+	"1GB Storage",
+	"1GB Storage",
+	"1GB Storage",
+];
