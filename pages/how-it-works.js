@@ -1,13 +1,77 @@
 import Image from "next/image";
-import { Layout } from "../components";
+import { Layout, InputButton, Button } from "../components";
 import styles from "../public/css/HowItWorks.module.scss";
-import { AddProduct, CreateStore, Publish } from "../utils";
+import {
+	AddProduct,
+	CreateStore,
+	Publish,
+	HowItWorksHero,
+	RightArrow,
+	LeftSpiral,
+	RightSpiral,
+} from "../utils";
 
 const HowItWorks = () => {
 	return (
 		<Layout subFooter={true}>
 			<div className={styles.container}>
-				<div className={styles.title}>
+				<div className={styles.hero}>
+					<h2 className={styles.main}>Just Upload It. Make Money From It.</h2>
+
+					<p className={styles.subtitle}>
+						A Smarter and Better way of making money from your <br /> Digital
+						Content.
+					</p>
+
+					<div className={styles.input}>
+						<InputButton
+							name="email"
+							placeholder="Enter your email..."
+							buttonText="Get Started Free"
+							buttonIcon={<RightArrow />}
+						/>
+					</div>
+
+					<div className={styles.benefits}>
+						<span>Signup for free</span>
+						<span>• Easy setup</span>
+						<span>• Fast payout</span>
+					</div>
+				</div>
+
+				<div className={styles.bestOption}>
+					<div className={styles.content}>
+						<h3>Best Option for</h3>
+						<div className={styles.pillContainer}>
+							<div className={styles.pills}>
+								<div className={styles.pill}>Ebook Author</div>
+								<div className={styles.pill}>Information Seller</div>
+								<div className={styles.pill}>Educators</div>
+							</div>
+							<div className={styles.pills}>
+								<div className={styles.pill}>Membership Creator</div>
+								<div className={styles.pill}>Webinar Hosts</div>
+							</div>
+							<div className={styles.pills}>
+								<div className={styles.pill}>Online Course Creator</div>
+							</div>
+						</div>
+						<p>
+							KreateSell is an ease-to-use, cross-border ecommerce <br />{" "}
+							platform that will enable you to upload your digital products for{" "}
+							<br />
+							fastest and easiest sales and conversion without having to <br />{" "}
+							learn multiple complex sales funnel platforms and instantly get{" "}
+							<br />
+							paid from anywhere in the world conveniently.
+						</p>
+					</div>
+					<div className={styles.image}>
+						<Image src={HowItWorksHero} width="445" height="457" />
+					</div>
+				</div>
+
+				<div className={styles.subCaption}>
 					<h3>How it works</h3>
 					<p>
 						Amazing all-in-one tools that bring a winning customer experience
@@ -26,19 +90,31 @@ const HowItWorks = () => {
 					<div className={styles.rowContent}>
 						<div className={styles.rowNumber}>1</div>
 						<div className={styles.content}>
-							<h5>Create your Store</h5>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fames{" "}
+							<h5>Create your Store and setup Store details</h5>
+							<div>
+								<p className={styles.statement}>
+									To get started, just navigate to the get started or sign up
+									button <br /> and create a free account to have the all-in-one
+									system in action <br /> for use.
+								</p>
 								<br />
-								vitae, euismod sagittis elit morbi at at. Consequat etiam risus{" "}
-								<br />
-								lectus eget morbi nibh fringilla. Ipsum tincidunt ut nunc, lorem{" "}
-								<br />
-								pulvinar odio sed augue viverra. Mattis vel consectetur massa
-								sagittis.
-							</p>
+								<p className={styles.statement}>
+									Getting ready? Now add all your store details for easy <br />
+									recognition. Details that compel, attract and intrigue
+									potential <br /> buyers.
+								</p>
+							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className={styles.spiral}>
+					<Image
+						src={RightSpiral}
+						height="150"
+						width="500"
+						className={styles.img}
+					/>
 				</div>
 
 				<div className={styles.rowOne}>
@@ -46,16 +122,14 @@ const HowItWorks = () => {
 						<div className={styles.rowNumber}>2</div>
 						<div className={styles.content}>
 							<h5>Add Product</h5>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fames{" "}
-								<br />
-								vitae, euismod sagittis elit morbi at at. Consequat etiam risus{" "}
-								<br />
-								lectus eget morbi nibh fringilla. Ipsum tincidunt ut nunc, lorem{" "}
-								<br />
-								pulvinar odio sed augue viverra. Mattis vel consectetur massa
-								sagittis.
-							</p>
+							<div>
+								<p className={styles.statement}>
+									Ready to go global, create your products with awesome <br />
+									descriptions and additional beneficial details that capture
+									the <br /> attention of customers. After that, share your
+									product link for <br /> the target audience.
+								</p>
+							</div>
 						</div>
 					</div>
 					<div className={styles.image}>
@@ -66,6 +140,15 @@ const HowItWorks = () => {
 							alt="create-product"
 						/>
 					</div>
+				</div>
+
+				<div className={styles.spiral}>
+					<Image
+						src={LeftSpiral}
+						height="150"
+						width="500"
+						className={styles.img}
+					/>
 				</div>
 
 				<div className={`${styles.rowOne} ${styles.rowThree}`}>
@@ -80,19 +163,72 @@ const HowItWorks = () => {
 					<div className={styles.rowContent}>
 						<div className={styles.rowNumber}>3</div>
 						<div className={styles.content}>
-							<h5>Publish</h5>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fames{" "}
-								<br />
-								vitae, euismod sagittis elit morbi at at. Consequat etiam risus{" "}
-								<br />
-								lectus eget morbi nibh fringilla. Ipsum tincidunt ut nunc, lorem{" "}
-								<br />
-								pulvinar odio sed augue viverra. Mattis vel consectetur massa
-								sagittis.
-							</p>
+							<h5>Publish - Go live in a seconds</h5>
+							<div>
+								<p className={styles.statement}>
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
+									<br />
+									Semper viverra posuere augue pretium. Egestas malesuada <br />{" "}
+									urna, scelerisque non. Nunc pretium, amet in id duis
+									sollicitudin <br /> eget. Et facilisi pretium pellentesque
+									elit.
+								</p>
+							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className={styles.spiral}>
+					<Image
+						src={RightSpiral}
+						height="150"
+						width="500"
+						className={styles.img}
+					/>
+				</div>
+
+				<div className={styles.rowOne}>
+					<div className={styles.rowContent}>
+						<div className={styles.rowNumber}>4</div>
+						<div className={styles.content}>
+							<h5>Get paid instantly into your account</h5>
+							<div>
+								<p className={styles.statement}>
+									Enter your local bank account and start receiving your sales{" "}
+									<br />
+									payment instantly. No foreign currency barriers again, you'll{" "}
+									<br />
+									receive your payout directly and instantly into the local bank{" "}
+									<br />
+									provided.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className={styles.image}>
+						<Image
+							src={AddProduct}
+							width={280}
+							height={297}
+							alt="create-product"
+						/>
+					</div>
+				</div>
+
+				<div className={styles.subFooter}>
+					<h3>
+						KreateSell solves your marketing <br /> and conversion hectic
+						processes.
+					</h3>
+					<p>
+						Rid yourself of stress. Upload more content. Make money. Enjoy your
+						choiced life to the fullest.
+					</p>
+					<Button
+						text="Get Started Free"
+						bgColor="blue"
+						className={styles.btn}
+					/>
 				</div>
 			</div>
 		</Layout>
