@@ -67,7 +67,8 @@ const Pricing = () => {
 									subTitle="Free for life"
 								/>
 							</div>
-							<div className={styles.standard}>
+							{/* <div className={styles.standard}> */}
+							<div className={`${styles.free} ${styles.standard}`}>
 								<PricingCard
 									title="standard"
 									subTitle="More tools to grow your business"

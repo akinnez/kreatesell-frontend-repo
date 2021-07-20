@@ -5,16 +5,10 @@
 	width: 21.875rem;
 	height: 42.5rem;
 	background: $base-white;
-	border: 0.5px solid $gray-100;
+	border: 0.5px solid $border-gray-100;
 	box-sizing: border-box;
 	border-radius: 0.5rem;
 	text-align: center;
-
-	&.standardPriceCard {
-		height: 44.812rem;
-		border: none;
-		box-shadow: 0px 10px 30px $form-shadow;
-	}
 
 	.header {
 		.title {
@@ -36,7 +30,8 @@
 		hr {
 			border: 0;
 			height: 1px;
-			background: $gray-100;
+			background: $border-gray-100;
+			margin: 0 1rem;
 		}
 	}
 
@@ -89,9 +84,20 @@
 			font-size: 1rem;
 			line-height: 1.875rem;
 		}
-		.greenBg {
-			background-color: $green-100;
-			border: none;
+	}
+
+	&:hover {
+		border: none;
+		box-shadow: 0px 10px 30px $form-shadow;
+		cursor: pointer;
+		position: relative;
+		top: -2rem;
+
+		.button {
+			.btn {
+				background-color: $green-100;
+				border: none;
+			}
 		}
 	}
 }

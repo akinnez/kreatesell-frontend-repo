@@ -6,6 +6,7 @@ export const Button = ({
 	loading,
 	disabled,
 	bgColor = "white",
+	icon,
 	...rest
 }) => {
 	return (
@@ -21,7 +22,10 @@ export const Button = ({
 			${bgColor === "primaryBlue" && styles.primaryBlue}
 			`}
 		>
-			{text}
+			<div className={styles.buttonValue}>
+				{text}
+				{icon && <div className={styles.buttonIcon}>{icon}</div>}
+			</div>
 		</button>
 	);
 };

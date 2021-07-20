@@ -12,11 +12,7 @@ export const PricingCard = ({ title, subTitle, price, btnText }) => {
 			: StandardFeatures;
 
 	return (
-		<div
-			className={`${styles.priceCard} ${
-				title === "standard" && styles.standardPriceCard
-			}`}
-		>
+		<div className={styles.priceCard}>
 			<div className={styles.header}>
 				<h3 className={styles.title}>{title}</h3>
 				<h5 className={styles.subTitle}>{subTitle}</h5>
@@ -40,11 +36,7 @@ export const PricingCard = ({ title, subTitle, price, btnText }) => {
 			</div>
 
 			<div className={styles.button}>
-				<Button
-					className={`${styles.btn} ${title === "standard" && styles.greenBg}`}
-					text={btnText}
-					bgColor="blue"
-				/>
+				<Button className={styles.btn} text={btnText} bgColor="blue" />
 			</div>
 		</div>
 	);

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { KreateSellBrand } from "../../utils/assets";
@@ -6,8 +7,29 @@ import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
 	const router = useRouter();
+	const [navBg, setNavBg] = useState(false);
+
+	const pathName = typeof window !== "undefined" && window;
+
+	/** This useEffect is used to set the navbar "light border-bottom color" when the page is scrolled */
+	useEffect(() => {
+		const handleNavbarChange = () => {
+			if (pathName.scrollY >= 80) {
+				setNavBg(true);
+			} else {
+				setNavBg(false);
+			}
+		};
+
+		pathName?.addEventListener("scroll", handleNavbarChange);
+
+		return () => {
+			pathName.removeEventListener("scroll", handleNavbarChange);
+		};
+	}, [pathName]);
+
 	return (
-		<nav className={styles.navContainer}>
+		<nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
 			<div className={styles.imgCont} onClick={() => router.push("/")}>
 				<Image src={KreateSellBrand} alt="kreatesell brand logo" />
 			</div>

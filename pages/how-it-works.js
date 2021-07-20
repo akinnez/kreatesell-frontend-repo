@@ -228,6 +228,7 @@ const HowItWorks = () => {
 						text="Get Started Free"
 						bgColor="blue"
 						className={styles.btn}
+						icon={<RightArrow />}
 					/>
 				</div>
 			</div>

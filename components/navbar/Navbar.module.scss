@@ -6,6 +6,13 @@
 	width: 100%;
 	box-sizing: border-box;
 	padding: 1rem 10.31rem;
+	position: fixed;
+	top: 0;
+	background-color: $base-white;
+	z-index: 1;
+}
+
+.navBg {
 	border-bottom: 1px solid $border-gray;
 }
 

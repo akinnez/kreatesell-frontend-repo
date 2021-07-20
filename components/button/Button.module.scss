@@ -6,6 +6,16 @@
 	background-color: transparent;
 	border-radius: 0.5rem;
 	cursor: pointer;
+
+	.buttonValue {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.buttonIcon {
+			padding: 0 0.5rem;
+		}
+	}
 }
 
 @mixin customBtn($bg-color, $color, $border-color) {
