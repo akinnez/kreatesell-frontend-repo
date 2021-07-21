@@ -4,7 +4,6 @@
 @import url("https://db.onlinewebfonts.com/c/25a7a213c7215b479c86172604a49723?family=Beat+Word+demo");
 
 .container {
-	margin-top: 5rem;
 	padding: 0rem 10.31rem;
 	background-image: url("/images/partial-general-bg.svg");
 	background-repeat: no-repeat;
@@ -116,11 +115,8 @@
 	.rowOne {
 		display: flex;
 		justify-content: space-between;
-		// margin-top: 2rem;
 		margin-top: 1rem;
 		width: 100%;
-		// border: 2px solid red;
-
 		.image {
 			width: 40%;
 		}

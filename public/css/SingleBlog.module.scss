@@ -1,0 +1,52 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+
+.container {
+	padding: 0 10.31rem;
+
+	.header {
+		text-align: center;
+		.title {
+			font-weight: 700;
+			font-size: 3rem;
+			line-height: 4rem;
+			color: $black-100;
+		}
+		.author {
+			padding-top: 0.8rem;
+			font-weight: 500;
+			font-size: 1rem;
+			line-height: 1.75;
+			color: $base-gray;
+
+			.time {
+				font-weight: 400;
+				font-size: 0.812rem;
+				line-height: 1.75rem;
+				color: $gray-200;
+				padding-left: 0.75rem;
+			}
+		}
+	}
+
+	.main {
+		padding-bottom: 5rem;
+	}
+
+	.moreNewsContainer {
+		h3 {
+			text-align: center;
+			padding-bottom: 2rem;
+			font-weight: 600;
+			font-size: 2.187rem;
+			line-height: 3.375rem;
+			color: $black-100;
+		}
+		.moreNews {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			gap: 1rem;
+			padding-bottom: 7.937rem;
+		}
+	}
+}

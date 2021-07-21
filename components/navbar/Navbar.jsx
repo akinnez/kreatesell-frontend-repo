@@ -39,7 +39,7 @@ export const Navbar = () => {
 					<li onClick={() => router.push("/how-it-works")}>How it works</li>
 					<li onClick={() => router.push("/features")}>Features</li>
 					<li onClick={() => router.push("/pricing")}>Pricing</li>
-					<li>Blog</li>
+					<li onClick={() => router.push("/blog")}>Blog</li>
 					<li>FAQs</li>
 				</ul>
 

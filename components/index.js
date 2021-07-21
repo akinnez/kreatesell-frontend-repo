@@ -12,3 +12,4 @@ export * from "./navbar/Navbar";
 export * from "./forms/index";
 export * from "./pricingCard/PricingCard";
 export * from "./select/Select";
+export * from "./pagination/Pagination";

@@ -16,7 +16,7 @@ const Pricing = () => {
 	const countryOptions = ["Nigeria", "USA", "Spain"];
 
 	return (
-		<Layout>
+		<Layout defaultMarginTop={true}>
 			<div className={styles.container}>
 				<div className={styles.body}>
 					<div className={styles.header}>

@@ -13,7 +13,7 @@ import {
 
 const HowItWorks = () => {
 	return (
-		<Layout subFooter={true}>
+		<Layout subFooter={true} defaultMarginTop={true}>
 			<div className={styles.container}>
 				<div className={styles.hero}>
 					<h2 className={styles.main}>Just Upload It. Make Money From It.</h2>

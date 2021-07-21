@@ -12,7 +12,7 @@ import {
 
 const Features = () => {
 	return (
-		<Layout subFooter={true}>
+		<Layout subFooter={true} defaultMarginTop={true}>
 			<div className={styles.container}>
 				<div className={styles.hero}>
 					<h2 className={styles.main}>

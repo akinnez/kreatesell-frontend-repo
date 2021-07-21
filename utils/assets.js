@@ -16,6 +16,8 @@ import ActivePrice from "../public/images/active-price.svg";
 import Faq from "../public/images/faq.svg";
 import LeftSpiral from "../public/images/left-spiral.png";
 import RightSpiral from "../public/images/right-spiral.png";
+import BlogHero from "../public/images/blog-hero.svg";
+import SingleBlog from "../public/images/blog.svg";
 import { RightArrow } from "./icons/RightArrow";
 
 export {
@@ -38,4 +40,6 @@ export {
 	LeftSpiral,
 	RightSpiral,
 	HowItWorksHero,
+	BlogHero,
+	SingleBlog,
 };

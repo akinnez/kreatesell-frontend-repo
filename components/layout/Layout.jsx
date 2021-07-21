@@ -6,12 +6,13 @@ export const Layout = ({
 	keywords,
 	description,
 	subFooter = false,
+	defaultMarginTop,
 }) => {
 	return (
 		<>
 			<Meta title={title} keywords={keywords} description={description} />
 			<Navbar />
-			<main>{children}</main>
+			<main className={defaultMarginTop && "mt-10"}>{children}</main>
 			{subFooter && <SubFooter />}
 			<Footer />
 		</>
