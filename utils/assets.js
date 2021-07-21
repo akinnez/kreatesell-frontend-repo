@@ -18,6 +18,9 @@ import LeftSpiral from "../public/images/left-spiral.png";
 import RightSpiral from "../public/images/right-spiral.png";
 import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
+import RelatedBlog from "../public/images/related-blog.svg";
+import RelatedImgSmall from "../public/images/related-img.svg";
+import FBLike from "../public/images/fb-like.svg";
 import { RightArrow } from "./icons/RightArrow";
 
 export {
@@ -42,4 +45,7 @@ export {
 	HowItWorksHero,
 	BlogHero,
 	SingleBlog,
+	RelatedBlog,
+	RelatedImgSmall,
+	FBLike,
 };
