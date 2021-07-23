@@ -40,7 +40,7 @@ export const Navbar = () => {
 					<li onClick={() => router.push("/features")}>Features</li>
 					<li onClick={() => router.push("/pricing")}>Pricing</li>
 					<li onClick={() => router.push("/blog")}>Blog</li>
-					<li>FAQs</li>
+					<li onClick={() => router.push("/faq")}>FAQs</li>
 				</ul>
 
 				<div className={styles.btnLinks}>

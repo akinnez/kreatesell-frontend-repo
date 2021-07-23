@@ -20,6 +20,9 @@ import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
 import RelatedBlog from "../public/images/related-blog.svg";
 import RelatedImgSmall from "../public/images/related-img.svg";
+import FAQHero from "../public/images/Faq-hero.svg";
+import ArrowDown from "../public/images/arrow-down.svg";
+import LandingPageHero from "../public/images/landing-hero.svg";
 import FBLike from "../public/images/fb-like.svg";
 import { RightArrow } from "./icons/RightArrow";
 
@@ -48,4 +51,7 @@ export {
 	RelatedBlog,
 	RelatedImgSmall,
 	FBLike,
+	FAQHero,
+	ArrowDown,
+	LandingPageHero,
 };
