@@ -137,7 +137,7 @@ export const Sidebar = ()=>{
                 <div className="side-menu-wrapper">
                    <ul id="side-menu">
                       <MenuItem label="Dashboard" active Icon={Dashboard}/>
-                      <MenuItem label="Store" Icon={Shop}/>
+                      <MenuItem label="Store" Icon={Shop} target="/account/store"/>
                       <MenuItem label="Products" Icon={Product}/>
                       <MenuItem isDropDown 
                         submenu={[{label:"Sales",url:"#"},{label:"Purchases", url:"#"},
