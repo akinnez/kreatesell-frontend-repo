@@ -1,6 +1,6 @@
 <svg width="1440" height="650" viewBox="0 0 1440 650" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g filter="url(#filter0_d)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M266.722 40H1173.28C1176.99 40 1180 42.7167 1180 46.0678V552.932C1180 556.283 1176.99 559 1173.28 559H266.722C263.009 559 260 556.283 260 552.932V46.0678C260 42.7167 263.009 40 266.722 40Z" fill="url(#pattern0)"/>
+<path fill-rule="evenodd" clipRule="evenodd" d="M266.722 40H1173.28C1176.99 40 1180 42.7167 1180 46.0678V552.932C1180 556.283 1176.99 559 1173.28 559H266.722C263.009 559 260 556.283 260 552.932V46.0678C260 42.7167 263.009 40 266.722 40Z" fill="url(#pattern0)"/>
 <rect x="281.961" y="40" width="872.855" height="263.019" fill="#1D1E23"/>
 <rect opacity="0.8" x="260" y="40" width="920" height="519" rx="4" fill="black"/>
 <ellipse cx="720.869" cy="302.509" rx="42.1306" ry="42.0613" fill="#2A7CC7"/>
