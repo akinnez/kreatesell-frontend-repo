@@ -23,6 +23,10 @@ import RelatedImgSmall from "../public/images/related-img.svg";
 import FAQHero from "../public/images/Faq-hero.svg";
 import ArrowDown from "../public/images/arrow-down.svg";
 import LandingPageHero from "../public/images/landing-hero.svg";
+import GrossSales from "../public/images/dashboard-gross-sales.svg";
+import Profit from "../public/images/dashboard-profit.svg";
+import UnitSales from "../public/images/dashboard-unit-sales.svg";
+import Visit from "../public/images/dashboard-visits.svg";
 import FBLike from "../public/images/fb-like.svg";
 import { RightArrow } from "./icons/RightArrow";
 
@@ -54,4 +58,8 @@ export {
 	FAQHero,
 	ArrowDown,
 	LandingPageHero,
+	GrossSales,
+	Profit,
+	UnitSales,
+	Visit,
 };
