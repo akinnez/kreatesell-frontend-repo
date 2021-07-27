@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "chart.js": "^3.5.0",
     "date-fns": "^2.23.0",
     "formik": "^2.2.9",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-calendar": "^3.4.0",
+    "react-chartjs-2": "^3.0.4",
     "react-circle-progress-bar": "^0.1.4",
     "react-date-picker": "^8.2.0",
     "react-dates": "^21.8.0",

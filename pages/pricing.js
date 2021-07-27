@@ -13,7 +13,11 @@ const Pricing = () => {
 
 	// const [select, setSelect] = useState("");
 
-	const countryOptions = ["Nigeria", "USA", "Spain"];
+	const countryOptions = [
+		{ value: "Nigeria", label: "Nigeria" },
+		{ value: "USA", label: "USA" },
+		{ value: "Spain", label: "Spain" },
+	];
 
 	return (
 		<Layout defaultMarginTop={true}>
@@ -47,10 +51,13 @@ const Pricing = () => {
 									Monthly
 								</button>
 							</div>
+
 							<div className={styles.select}>
 								<Select
 									name="country"
 									options={countryOptions}
+									arrowIconColor="#0072EF"
+									borderColor="#40A9FF"
 									// onChange={(e) => setSelect(e.target.value)}
 								/>
 							</div>

@@ -27,6 +27,7 @@ import GrossSales from "../public/images/dashboard-gross-sales.svg";
 import Profit from "../public/images/dashboard-profit.svg";
 import UnitSales from "../public/images/dashboard-unit-sales.svg";
 import Visit from "../public/images/dashboard-visits.svg";
+import DownloadIcon from "../public/images/download.svg";
 import FBLike from "../public/images/fb-like.svg";
 import { RightArrow } from "./icons/RightArrow";
 
@@ -62,4 +63,5 @@ export {
 	Profit,
 	UnitSales,
 	Visit,
+	DownloadIcon,
 };

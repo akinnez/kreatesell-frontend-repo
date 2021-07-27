@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-// import { Input, Select } from "../../../components";
-import { Input } from "../../../components";
-import Select from "react-select";
+import { Select } from "../../../components";
 import { format } from "date-fns";
 import { DateRangePicker } from "react-dates";
 import { AuthLayout } from "../../../components/authlayout";
@@ -14,6 +12,7 @@ import {
 	Visit,
 	RightArrow,
 } from "../../../utils";
+import { RecentAnalytics } from "./partials";
 
 const Dashboard = () => {
 	const [startDate, setStartDate] = useState(null);
@@ -23,6 +22,7 @@ const Dashboard = () => {
 	const date = format(new Date(), "yyyy-LL-d");
 
 	const dayOptions = [
+		{ value: "Custom", label: "Custom" },
 		{ value: "Today", label: "Today" },
 		{ value: "Yesterday", label: "Yesterday" },
 		{ value: "Last 7 days", label: "Last 7 days" },
@@ -31,12 +31,48 @@ const Dashboard = () => {
 		{ value: "All time", label: "All time" },
 	];
 
+	const kreatorsOptions = [
+		{ value: "Kreator’s Dashboard", label: "Kreator’s Dashboard" },
+		{ value: "Quick Stats", label: "Quick Stats" },
+		{ value: "Add Product", label: "Add Product" },
+		{ value: "Coupons", label: "Coupons" },
+		{ value: "Affiliate Options", label: "Affiliate Options" },
+		{ value: "Reports", label: "Reports" },
+	];
+
+	const affiliateOptions = [
+		{ value: "Affiliate Dashboard", label: "Affiliate Dashboard" },
+		{ value: "Quick Stats", label: "Quick Stats" },
+		{ value: "Find Products", label: "Find Products" },
+	];
+
 	return (
 		<AuthLayout>
 			<div className={styles.container}>
+				<div className={styles.selector}>
+					<div className={styles.kreatorSelect}>
+						<Select
+							options={kreatorsOptions}
+							placeholder="Kreators"
+							value="Custom Select"
+							border="none"
+							transparentBg={true}
+						/>
+					</div>
+					<div className={styles.affiliateSelect}>
+						<Select
+							options={affiliateOptions}
+							placeholder="Affiliates"
+							value="Custom Select"
+							border="none"
+							transparentBg={true}
+						/>
+					</div>
+				</div>
+
 				<div className={styles.searchDate}>
 					<div className={styles.input}>
-						<Input type="search" placeholder="Search" />
+						<Select options={dayOptions} value="Custom Select" />
 					</div>
 
 					<div className={styles.dayAndDate}>
@@ -45,7 +81,7 @@ const Dashboard = () => {
 								name="day"
 								value="Select value"
 								options={dayOptions}
-								className={styles.select}
+								// className={styles.select}
 							/>
 						</div>
 						<div className={styles.date}>
@@ -135,6 +171,7 @@ const Dashboard = () => {
 							</div>
 						</div>
 					</div>
+
 					<div className={styles.cardContainer}>
 						<div className={styles.firstCard}>
 							<div className={styles.iconCont}>
@@ -147,6 +184,7 @@ const Dashboard = () => {
 								</div>
 							</div>
 						</div>
+
 						<div className={styles.card}>
 							<div className={styles.iconCont}>
 								<div className={styles.icon}>
@@ -158,6 +196,7 @@ const Dashboard = () => {
 								</div>
 							</div>
 						</div>
+
 						<div className={styles.card}>
 							<div className={styles.iconCont}>
 								<div className={styles.icon}>
@@ -169,6 +208,7 @@ const Dashboard = () => {
 								</div>
 							</div>
 						</div>
+
 						<div className={styles.card}>
 							<div className={styles.iconCont}>
 								<div className={styles.icon}>
@@ -182,6 +222,8 @@ const Dashboard = () => {
 						</div>
 					</div>
 				</div>
+
+				<RecentAnalytics />
 			</div>
 		</AuthLayout>
 	);
