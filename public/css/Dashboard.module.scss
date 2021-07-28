@@ -3,14 +3,13 @@
 
 .container {
 	.selector {
-		background: #fafafa;
-		display: flex;
-		justify-content: center;
+		background: $white-100;
+		@include flex(row, center, null);
 		width: 100%;
-		margin-bottom: 21px;
+		margin-bottom: 1.3125rem;
 		.kreatorSelect {
 			width: 10%;
-			margin-right: 5px;
+			margin-right: 0.00625rem;
 		}
 		.affiliateSelect {
 			width: 10%;
@@ -19,29 +18,82 @@
 
 	.searchDate {
 		width: 100%;
-		@include flex(row, space-between, center);
-		border: 2px solid red;
+		@include flex(row, null, center);
 		height: 2.75rem;
 		margin: 0;
 		padding: 0;
 
-		.input {
-			width: 200px;
-			height: 44px;
+		.filter {
+			font-size: 0.875rem;
+			line-height: 1.625rem;
+			color: $gray-200;
+			padding-right: 0.75rem;
 		}
 
-		.dayAndDate {
-			display: flex;
+		.inputCont {
+			@include flex(row, null, center);
+		}
 
-			.selectCont {
-				margin-right: 36px;
+		.selectDayCont {
+			width: 20%;
+			@include flex(row, null, center);
+			@extend .filter;
+			.selectDay {
+				width: 80%;
+			}
+		}
 
-				.select {
-					height: 2.75rem;
-					width: 12.5rem;
+		.selectCurrencyCont {
+			width: 25%;
+			margin-left: 4.25rem;
+
+			@include flex(row, null, center);
+			@extend .filter;
+			.selectCurrency {
+				width: 100%;
+			}
+		}
+
+		.dateStyle {
+			width: 10rem;
+			height: 2.5rem;
+			margin: 0;
+		}
+
+		.fromDateCont {
+			width: 28%;
+			margin-left: 3.125rem;
+
+			@include flex(row, null, center);
+			.label {
+				@extend .filter;
+				width: 38%;
+			}
+			.selectDate {
+				width: 50%;
+				padding-top: 0.5rem;
+
+				.date {
+					@extend .dateStyle;
 				}
 			}
-			.date {
+		}
+
+		.toDateCont {
+			width: 19%;
+			margin-left: 0.75rem;
+
+			@include flex(row, null, center);
+			@extend .filter;
+			.toDate {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				padding-top: 0.5rem;
+
+				.date {
+					@extend .dateStyle;
+				}
 			}
 		}
 	}
@@ -66,7 +118,7 @@
 					font-weight: 550;
 					font-size: 0.75rem;
 					line-height: 1rem;
-					color: #0072ef;
+					color: $base-blue;
 					cursor: pointer;
 					padding-right: 0.4rem;
 				}

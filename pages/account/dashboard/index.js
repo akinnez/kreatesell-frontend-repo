@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Select } from "../../../components";
+import { Select, Input } from "../../../components";
 import { format } from "date-fns";
-import { DateRangePicker } from "react-dates";
+import { DateRangePicker, SingleDatePicker } from "react-dates";
 import { AuthLayout } from "../../../components/authlayout";
 import styles from "../../../public/css/Dashboard.module.scss";
 import {
@@ -71,34 +71,39 @@ const Dashboard = () => {
 				</div>
 
 				<div className={styles.searchDate}>
-					<div className={styles.input}>
-						<Select options={dayOptions} value="Custom Select" />
-					</div>
-
-					<div className={styles.dayAndDate}>
-						<div className={styles.selectCont}>
+					<div className={styles.selectDayCont}>
+						<div className={styles.filter}>Filter</div>
+						<div className={styles.selectDay}>
 							<Select
-								name="day"
-								value="Select value"
 								options={dayOptions}
-								// className={styles.select}
+								value="Custom Select"
+								placeholder="Today"
 							/>
 						</div>
-						<div className={styles.date}>
-							<DateRangePicker
-								startDate={startDate}
-								startDateId="your_unique_start_date_id"
-								endDate={endDate}
-								endDateId="your_unique_end_date_id"
-								onDatesChange={({ startDate, endDate }) => {
-									setEndDate(endDate);
-									setStartDate(startDate);
-								}}
-								focusedInput={focusedInput}
-								onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
-								startDatePlaceholderText={date}
-								endDatePlaceholderText={date}
+					</div>
+
+					<div className={styles.selectCurrencyCont}>
+						<div className={styles.filter}>Currency</div>
+						<div className={styles.selectCurrency}>
+							<Select
+								options={dayOptions}
+								value="Custom Select"
+								placeholder="All Currencies"
 							/>
+						</div>
+					</div>
+
+					<div className={styles.fromDateCont}>
+						<div className={styles.label}>Show from</div>
+						<div className={styles.selectDate}>
+							<Input type="date" className={styles.date} />
+						</div>
+					</div>
+
+					<div className={styles.toDateCont}>
+						<div className={styles.filter}>to</div>
+						<div className={styles.toDate}>
+							<Input type="date" className={styles.date} />
 						</div>
 					</div>
 				</div>
@@ -107,7 +112,7 @@ const Dashboard = () => {
 					<div className={styles.title}>
 						<div className={styles.userType}>Kreator</div>
 						<div className={styles.userTypeLink}>
-							<p>Kreator’s’s Dashboard</p>
+							<p>Kreator’s Dashboard</p>
 							<div className={styles.arrowIcon}>
 								<RightArrow color="#0072EF" />
 							</div>
