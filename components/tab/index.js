@@ -8,16 +8,29 @@ export const TabItem = ({children})=>{
 }
 
 
-const Index = ()=>{
-
+const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
 
     return(
         <>
         <ul className="tab-wrapper">
-            <li className="completed">Product Design</li>
-            <li className="disabled">Checkout</li>
+            {
+                titles?.map((item,i)=>(
+                    <li key={i} 
+                   onClick={()=>onSelect(i)}
+                    className={active == i ? 'active': active > i ? 'completed':'disabled'}>{item}</li>
+                ))
+            }
+          
         </ul>
-        
+        {
+            React.Children.map(children,(child,i)=>{
+                if(child.type.name == "TabItem" && active == i){
+                    return child
+                }
+                    
+                
+            })
+        }
 
         <style jsx>{`
             .tab-wrapper{
@@ -40,6 +53,7 @@ const Index = ()=>{
                 font-weight:700;
                 color:#0072EF;
                 border-bottom-color:#0072EF;
+                transition:all 4ms ease-in-out;
             }
 
             .tab-wrapper li.completed{

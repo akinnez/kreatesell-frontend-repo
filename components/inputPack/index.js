@@ -1,7 +1,7 @@
 import React,{useState,useRef} from 'react'
 import Select from 'react-select'
 import {DropdownIndicator, ProfileInputIcon, UploaderIcon,CheckMark} from '../IconPack'
-
+import Calendar from '../calendar'
 
 
 export const TextInput = ({disabled, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra,...rest})=>{
@@ -450,14 +450,14 @@ export const  Checkbox = ({value, onChange =()=>{}, label,extralable})=>{
 }
 
 
-export const  Radio = ({value, onChange =()=>{}, label, extralable})=>{
+export const  Radio = ({value, content, onChange =()=>{}, label, extralable})=>{
 
     return(
         <>
             <div className="radio-wrapper">
-                <div className={`radio ${value ? 'checked' : ''}`} onClick={()=>onChange(!value)}>
+                <div className={`radio ${value == content ? 'checked' : ''}`} onClick={()=>onChange(content)}>
                     {
-                        value ? <div className="indicator"/>:null
+                        value == content ? <div className="indicator"/>:null
                     }
                    
                 </div>
@@ -479,10 +479,13 @@ export const  Radio = ({value, onChange =()=>{}, label, extralable})=>{
                     display:flex;
                     align-items:center;
                     justify-content:center;
+                    transition:all 400ms ease-in;
+                    cursor:pointer;
                 }
 
                 .checked{
                     border-color:#0072EF;
+                    transition:all 400ms ease-in;
                 }
 
                 .radio .indicator{
@@ -490,6 +493,7 @@ export const  Radio = ({value, onChange =()=>{}, label, extralable})=>{
                     height:10px;
                     background:#0072EF;
                     border-radius:50%;
+                    transition:all 400ms ease-in;
                 }
 
                 .label{
@@ -509,11 +513,11 @@ export const  Radio = ({value, onChange =()=>{}, label, extralable})=>{
 }
 
 
-export const DateInput = ({onChange=()=>{}, value})=>{
+export const DatePicker = ({onChange=()=>{}, value})=>{
 
     return(
         <>
-       
+            <Calendar CustomInput={TextInput}/>
       
         </>
     )
