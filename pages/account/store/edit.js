@@ -14,7 +14,7 @@ const Index = ()=>{
         
         <AuthLayout>
             <Formik
-            initialValues={{storeName:"", userName:"", bio:"", profilePicture:"", country:"", facebook:"", instagram:"", linkedIn:"", twitter:""}}
+            initialValues={{storeName:"", userName:"", phone:"", bio:"", profilePicture:"", country:"", facebook:"", instagram:"", linkedIn:"", twitter:""}}
             >{({values,setFieldValue, isSubmitting, errors})=>(
                 <Form>
            <Card style={{padding:"0 150px"}}>
@@ -83,6 +83,17 @@ const Index = ()=>{
                             label="Country"
                             value={values.country}
                             onChange={(e)=>setFieldValue("country",e)}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <TextInput
+                            type="tel"
+                            label="Phone number (+234___)"
+                            placeholder="+234"
+                            value={values.phone}
+                            onChange={(e)=>setFieldValue("phone",e)}
                         />
                     </div>
                 </div>

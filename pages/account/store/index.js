@@ -1,11 +1,18 @@
 import React from 'react'
+import styles from '../../../public/css/Store.module.scss'
 import {AuthLayout} from "../../../components/authlayout"
 import Topbar from '../../../components/topbar'
-import {Button} from '../../../components/button/Button'
+import {Button} from '../../../components/inputPack'
 import {Card} from '../../../components/card'
 import Image from 'next/image'
-import { EditIcon, ShareIcon, Progress } from '../../../components/IconPack'
+import { EditIcon, ShareIcon,ViewAs } from '../../../components/IconPack'
+import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css'
+import List from '../../../components/list'
 import Router from 'next/router'
+import Dropdown from '../../../components/dropdown'
+import StoreHeader from '../../../components/storeHeader'
+
 
 
 
@@ -14,129 +21,70 @@ const cardStyles = {
     padding:"10px 30px"
 }
 
+const progressbarStyles = buildStyles({
+    rotation: 0.30,
+   strokeLinecap: 'round',
+   textSize: '24px',
+   fontWeight:600,
+   pathTransitionDuration: 0.5,
+   pathColor: '#0072EF',
+   textColor: '#595959',
+   trailColor: '#E6F7FF'
+ })
+
+
+
 const Index = ()=>{
 
     return(
         <>
         
         <AuthLayout>
-           <div className="bg-wrapper" style={{backgroundImage: `url(/images/placeholder-1.jpg)`}}>
-               <div className="inner">
-               <div className="inner-item-profile">
-                   <div className="profile-wrapper">
-                   <div className="image-intro-text" style={{backgroundImage:`url(/images/placeholder-2.jpg)`}}/>
-                   <div className="txt-wrapper">
-                   <h3>Olumide John</h3>
-                   <p>https://kreatesell.com/olumidejohn</p>
-                   </div>
-                   </div>
-                    <div className="cta-link-wrapper">
-                        <ul>
-                            <li onClick={()=>Router.push("/account/store/edit")}><EditIcon /> Edit Profile</li>
-                            <li><ShareIcon /> Share Link</li>
-                           
-                           
-                        </ul>
-                    </div>
-                </div>
-               </div>
-                
-           </div>
+          <StoreHeader />
             <div className="row" style={{marginTop:"100px"}}>
-                <div className="col-8">
+                <div className="col-7">
                     <Card style={cardStyles}>
+                        <div className={styles.bio_info}>
                         <h5>Bio</h5>
-                        <p className="bio-text">I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills</p>
+                        <p>I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills</p>
+                        <p>I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills</p>
+                        </div>
                     </Card>
                 </div>
-                <div className="col-4">
-                <Card  style={cardStyles}>
-                   <Progress />
+                <div className="col-5">
+                <Card  style={{...cardStyles}}>
+                <div className={styles.progress_wrapper}>
+                    <div className={styles.progress}>
+                        <CircularProgressbar 
+                        text="40%"
+                        value={40}
+                        strokeWidth={15}
+                        styles={progressbarStyles} />
+                    </div>
+                    <div id={styles.progress_text}>
+                        <p>You've completed <strong>40%</strong> of your store setup</p>
+                    </div>
+                </div>
+                <div className="divider"/>
+
+                <List step={1} 
+                    list={[
+                    "Complete your store profile details",
+                    "Add your bank account details to receive your payments",
+                    "Add your first product to increase your store completion"]}/>
                 </Card>
                 </div>
             </div>
-        </AuthLayout>
-        <style jsx>{`
-            .bg-wrapper{
-                height:300px;
-                background-position:center;
-                background-size:cover;
-                border-radius:12px;
-                position:relative;
-            }
 
-            .inner{
-                display:flex;
-                justify-content:center;
-            }
-
-            .inner-item-profile{
-                background: rgba(255, 255, 255, 0.80059);
-                box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
-                height:104px;
-                position:absolute;
-                bottom:-50px;
-                width:70%;
-                margin:0 auto;
-                backdrop-filter: blur(27.1828px);
-                padding: 12px 10px 12px 16px;
-                border-radius:12px;
-                display:flex;
-                justify-content:space-between;
-                
-            }
-
-            .image-intro-text{
-               height:80px;
-               width:80px;
-               border-radius:12px;
-               background-size:cover;
-               background-position:center;
-            }
-
-            .profile-wrapper{
-                display:flex;
-                gap:10px;
-            }
-
-            .txt-wrapper{
-                display:flex;
-                flex-direction:column;
-                justify-content:center;
-            }
-            .txt-wrapper h3, .txt-wrapper p{
-                margin:0;
-            }
-            .txt-wrapper p{
-                color:#262626;
-                font-size:15px;
-                font-style: italic;
-            }
-
-            .cta-link-wrapper ul{
-                list-style-type:none;
-                padding:0 10px;
-                display:flex;
-                gap:10px;
-            }
-
-            .cta-link-wrapper ul li{
-                font-size:14px;
-                display:flex;
-                align-items:center;
-                gap:5px;
-                box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.12), 0px 2px 4px -1px rgba(0, 0, 0, 0.07);
-                padding:2px 10px;
-                border-radius:8px;
-                cursor:pointer;
-            }
+            <div className="row">
+                <div className="col-12 center">
+                    <p>Almost there, now click the button to add your product</p>
+                        <Button label="+ Add Product" onClick={()=>Router.push("/account/product")}/>
+                </div>
+            </div>
         
-                .bio-text{
-                    color:#8c8c8c;
-                    font-size:14px;
-                    line-height: 24px;
-                }
-        `}</style>
+        </AuthLayout>
+       
         
         </>
     )

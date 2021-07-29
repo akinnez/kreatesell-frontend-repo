@@ -4,6 +4,8 @@ import Topbar from '../../../components/topbar'
 import {Card} from '../../../components/card'
 import {TextInput,Button, TextArea,Radio, CustomSelect, DateInput, FileInput, Uploader,Checkbox} from '../../../components/inputPack'
 import {Formik, Form} from 'formik'
+import Router from 'next/router'
+import Tab from '../../../components/tab'
 
 
 
@@ -13,6 +15,7 @@ const Index = ()=>{
         <>
         
         <AuthLayout>
+            <Tab />
             <Formik
             initialValues={{productName:"", preOrder:false, userName:"", bio:"", profilePicture:"", country:"", facebook:"", instagram:"", linkedIn:"", twitter:""}}
             >{({values,setFieldValue, isSubmitting, errors})=>(
@@ -119,7 +122,7 @@ const Index = ()=>{
                 <div className="row">
                     <div className="col-12 center" style={{padding:"30px 0"}}>
                         <p className="muted-text">Almost there, now click the button to create product from template</p>
-                        <Button label="Next"/>
+                        <Button label="Next" onClick={()=>Router.push("/account/product/checkout")}/>
                     </div>
                 </div>
                

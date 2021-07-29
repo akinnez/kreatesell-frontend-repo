@@ -138,7 +138,7 @@ export const Sidebar = ()=>{
                    <ul id="side-menu">
                       <MenuItem label="Dashboard" active Icon={Dashboard}/>
                       <MenuItem label="Store" Icon={Shop} target="/account/store"/>
-                      <MenuItem label="Products" Icon={Product}/>
+                      <MenuItem label="Products" Icon={Product} target="/account/product"/>
                       <MenuItem isDropDown 
                         submenu={[{label:"Sales",url:"#"},{label:"Purchases", url:"#"},
                         {label:"Transactions", url:"#"},{label:"Customers", url:"#"}

@@ -4,7 +4,7 @@ import {DropdownIndicator, ProfileInputIcon, UploaderIcon,CheckMark} from '../Ic
 
 
 
-export const TextInput = ({disabled, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra})=>{
+export const TextInput = ({disabled, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra,...rest})=>{
 
     return(
         <>
@@ -17,6 +17,7 @@ export const TextInput = ({disabled, name, type="text", value, onChange=()=>{},o
                 onChange={(e)=>onChange(e.target.value)}
                 placeholder={placeholder}
                 onBlur={(e)=>onBlur(e.target.value)}
+                {...rest}
                 />
 
                 <style jsx>{`
@@ -51,7 +52,7 @@ export const TextInput = ({disabled, name, type="text", value, onChange=()=>{},o
     )
 }
 
-export const TextArea = ({disabled, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra})=>{
+export const TextArea = ({disabled, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra,...rest})=>{
 
     return(
         <>
@@ -65,6 +66,7 @@ export const TextArea = ({disabled, name, type="text", value, onChange=()=>{},on
                 placeholder={placeholder}
                 onBlur={(e)=>onBlur(e.target.value)}
                 rows="8"
+                {...rest}
                 />
 
                 <style jsx>{`
@@ -392,7 +394,7 @@ export const Uploader = ({disabled,label,extralable, value, onChange=()=>{},onBl
 }
 
 
-export const  Checkbox = ({value, onChange =()=>{}, label})=>{
+export const  Checkbox = ({value, onChange =()=>{}, label,extralable})=>{
 
     return(
         <>
@@ -400,7 +402,7 @@ export const  Checkbox = ({value, onChange =()=>{}, label})=>{
                 <span className={`indicator ${value ? "checked":''}`} onClick={()=>onChange(!value)}>
                     <CheckMark />
                 </span>
-                <span className="label">{label}</span>
+                <span className="label">{label} <span className="extra">{extralable}</span></span>
             </div>
 
 
@@ -429,11 +431,18 @@ export const  Checkbox = ({value, onChange =()=>{}, label})=>{
                     background:#0072EF;
                 }
 
+               
                 .label{
                     margin-left:10px;
                     font-weight:500;
                     font-size:16px;
+                    flex:1;
                 }
+
+                .extra{
+                    color: #8C8C8C;
+                }
+               
             
             `}</style>
         </>
