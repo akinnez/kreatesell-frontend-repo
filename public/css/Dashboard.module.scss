@@ -177,4 +177,42 @@
 			}
 		}
 	}
+
+	.modal {
+		width: 80%;
+		margin-left: auto;
+
+		.dashboardModal {
+			text-align: center;
+
+			.modalTitle {
+				font-weight: 600;
+				font-size: 1rem;
+				line-height: 1.75rem;
+				color: $base-gray;
+			}
+
+			.content {
+				padding-top: 2rem;
+				font-size: 0.875rem;
+				line-height: 1.5rem;
+				color: $base-gray;
+			}
+
+			.buttonContainer {
+				padding-top: 3.0625rem;
+				.btn {
+					width: 36%;
+				}
+
+				.tipBtn {
+					@extend .btn;
+					margin-right: 2.5rem;
+				}
+				.proceedBtn {
+					@extend .btn;
+				}
+			}
+		}
+	}
 }
