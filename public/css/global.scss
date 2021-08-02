@@ -11,8 +11,39 @@ body {
 	font-family: "Inter", sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
 * {
 	box-sizing: border-box;
+}
+
+select {
+	appearance: none;
+	background-color: transparent;
+	border: none;
+	padding: 0 1em 0 0;
+	margin: 0;
+	width: 100%;
+	font-family: inherit;
+	font-size: inherit;
+	cursor: inherit;
+	line-height: inherit;
+	outline: none;
+	font-weight: 400;
+	font-size: 0.8rem;
+	color: $gray-200;
+
+	&::after {
+		grid-area: select;
+	}
 }
 
 .cursor {
@@ -21,4 +52,8 @@ body {
 
 .hidden {
 	display: none;
+}
+
+.mt-10 {
+	margin-top: 10rem;
 }

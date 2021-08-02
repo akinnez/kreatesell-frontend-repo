@@ -62,13 +62,13 @@ export const Footer = () => {
 					<Link href="#">
 						<a>Overview</a>
 					</Link>
-					<Link href="#">
+					<Link href="/features">
 						<a>Features</a>
 					</Link>
-					<Link href="#">
+					<Link href="/how-it-works">
 						<a>Tutorials</a>
 					</Link>
-					<Link href="#">
+					<Link href="/pricing">
 						<a>Pricing</a>
 					</Link>
 					<Link href="#">
