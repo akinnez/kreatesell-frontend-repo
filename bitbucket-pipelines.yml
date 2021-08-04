@@ -19,7 +19,7 @@ pipelines:
           - step:
             name: Create ZIP_FILE
             script:
-              - tar czfv kreatesell.tgz /path/to/src
+              - tar -czfv kreatesell.gz $HOME/projects/
             artifacts:
               - kreatesell.tgz
         - step:
@@ -30,4 +30,4 @@ pipelines:
                 variables:
                   HEROKU_API_KEY: $HEROKU_API_KEY
                   HEROKU_APP_NAME: $HEROKU_APP_NAME
-                  ZIP_FILE: "kreatesell.tgz"
+                  ZIP_FILE: "kreatesell.gz"
