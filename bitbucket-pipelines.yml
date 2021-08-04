@@ -16,12 +16,8 @@ pipelines:
               - npm install
               - npm run test
               - npm run dev
-          - step:
-            name: Create ZIP_FILE
-            script:
-              - tar -czfv kreatesell.gz $HOME/projects/
             artifacts:
-              - kreatesell.tgz
+              - build/**
         - step:
             name: Deployment
             deployment: production
@@ -30,4 +26,4 @@ pipelines:
                 variables:
                   HEROKU_API_KEY: $HEROKU_API_KEY
                   HEROKU_APP_NAME: $HEROKU_APP_NAME
-                  ZIP_FILE: "kreatesell.gz"
+                  ZIP_FILE: "build"
