@@ -16,4 +16,4 @@ pipelines:
               - npm install
               - npm run test
               - npm run build
-              - git push https://heroku:01247ac7-6c51-4fd2-aa70-9872101f417e@git.https://git.heroku.com/kreatesell.git HEAD
+              - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/kreatesell.git HEAD
