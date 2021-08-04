@@ -40,11 +40,24 @@ export const StatsCard = ({
 						</div>
 					)}
 
-					{router.pathname ===
-						("/account/dashboard/affiliate" ||
-							"/account/dashboard/kreator") && (
-						<div className={styles.userTypeLink}>
-							<p>Quick Stats</p>
+					{router.pathname === "/account/dashboard/affiliate" && (
+						<div
+							className={styles.userTypeLink}
+							onClick={() => router.push("/account/dashboard/affiliate/order")}
+						>
+							<p>See Orders</p>
+							<div className={styles.arrowIcon}>
+								<RightArrow color="#0072EF" />
+							</div>
+						</div>
+					)}
+
+					{router.pathname === "/account/dashboard/kreator" && (
+						<div
+							className={styles.userTypeLink}
+							onClick={() => router.push("/account/dashboard/kreator/order")}
+						>
+							<p>See Orders</p>
 							<div className={styles.arrowIcon}>
 								<RightArrow color="#0072EF" />
 							</div>

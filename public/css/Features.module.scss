@@ -15,7 +15,7 @@
 			margin-bottom: 1rem;
 			font-weight: 700;
 			font-size: 3rem;
-			line-height: 64px;
+			line-height: 4rem;
 			color: $black-100;
 		}
 
@@ -50,29 +50,32 @@
 			padding-top: 6rem;
 			h3 {
 				font-weight: 600;
-				font-size: 40px;
-				line-height: 54px;
-				color: #262626;
+				font-size: 2.5rem;
+				line-height: 3.375rem;
+				color: $black-100;
 			}
 			p {
 				margin: 0;
 				font-weight: 400;
-				font-size: 17px;
-				line-height: 28px;
-				color: #595959;
+				font-size: 1.0625rem;
+				line-height: 1.75rem;
+				color: $base-gray;
 			}
 		}
 	}
 
 	.automation {
-		// margin-top: 4rem;
 		display: flex;
+		width: 100%;
 
 		.image {
 			margin-top: 4rem;
+			width: 50%;
 		}
 
 		.automationText {
+			width: 50%;
+
 			padding-left: 7rem;
 			h3,
 			p {

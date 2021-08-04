@@ -29,6 +29,8 @@ import UnitSales from "../public/images/dashboard-unit-sales.svg";
 import Visit from "../public/images/dashboard-visits.svg";
 import DownloadIcon from "../public/images/download.svg";
 import FBLike from "../public/images/fb-like.svg";
+import AirBnBLogo from "../public/images/Airbnb-logo.svg";
+import MicrosoftLogo from "../public/images/Microsoft-logo.svg";
 import { RightArrow } from "./icons/RightArrow";
 
 export {
@@ -64,4 +66,6 @@ export {
 	UnitSales,
 	Visit,
 	DownloadIcon,
+	AirBnBLogo,
+	MicrosoftLogo,
 };

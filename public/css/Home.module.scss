@@ -3,7 +3,200 @@
 
 .container {
 	min-height: 60vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+
+	.body {
+		background-repeat: no-repeat;
+		background-image: url("/images/partial-general-bg.svg");
+		padding: 0rem 10.31rem;
+
+		.header {
+			text-align: center;
+
+			h1 {
+				font-weight: 700;
+				font-size: 2.5rem;
+				line-height: 4rem;
+				letter-spacing: 0.2px;
+				color: $black-100;
+
+				.digital {
+					color: $base-blue;
+				}
+			}
+			.subHeader {
+				padding-top: 1rem;
+				font-weight: 400;
+				font-size: 0.9rem;
+				line-height: 1.5rem;
+				color: $base-gray;
+			}
+			.inputContainer {
+				margin-top: 2rem;
+			}
+
+			.benefits {
+				@include flex(row, center, null);
+				margin-top: 0.6rem;
+				font-weight: 400;
+				font-size: 0.75rem;
+				line-height: 0.9375rem;
+				color: $base-gray;
+				.benefitSpan {
+					padding: 0 0.4rem;
+				}
+			}
+		}
+
+		.heroImage {
+			margin-top: 4.375rem;
+		}
+
+		.featured {
+			margin-top: 3.125rem;
+			margin-bottom: 2.53rem;
+			text-align: center;
+			.title {
+				font-weight: 600;
+				font-size: 1.5rem;
+				line-height: 2rem;
+				color: $black-100;
+				padding-bottom: 2rem;
+			}
+
+			.featuredImages {
+				@include flex(row, space-evenly, null);
+				border-top: 1px solid $gray-100;
+				border-bottom: 1px solid $gray-100;
+				padding: 2rem 0;
+				.imageStyle {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.howItWorks {
+		background: $white-100;
+		padding: 4rem 10.31rem;
+		.howItWorkstitleCont {
+			text-align: center;
+			.howItWorksTitle {
+				font-weight: 600;
+				font-size: 1.875rem;
+				line-height: 3.375rem;
+				color: $black-100;
+			}
+			.howItWorksSubTitle {
+				font-weight: 400;
+				font-size: 1rem;
+				line-height: 1.75rem;
+				color: $base-gray;
+			}
+		}
+		.howItWorksImgCont {
+			padding-top: 5.25rem;
+			padding-bottom: 4.06rem;
+			@include flex(row, space-evenly, null);
+			.howItWorksImgSingle {
+				@include flex(column, null, null);
+				.howItWorksImgTitle {
+					font-weight: 500;
+					font-size: 1.125rem;
+					line-height: 2rem;
+					color: $black-100;
+					text-align: center;
+				}
+				.howItWorksImgSubTitle {
+					font-size: 0.875rem;
+					line-height: 1.75rem;
+					color: $base-gray;
+				}
+			}
+		}
+		.howItWorksBtnCont {
+			@include flex(row, center, null);
+			.howItWorksBtn {
+				width: 8.75rem;
+				height: 3.125rem;
+				align-items: center;
+			}
+		}
+	}
+
+	.featuresSection {
+		padding: 4rem 10.31rem;
+
+		.subHero {
+			text-align: center;
+			padding-top: 2rem;
+			h3 {
+				font-weight: 600;
+				font-size: 2.5rem;
+				line-height: 3.375rem;
+				color: $black-100;
+			}
+			p {
+				margin: 0;
+				font-weight: 400;
+				font-size: 1.0625rem;
+				line-height: 1.75rem;
+				color: $base-gray;
+			}
+		}
+
+		.automation {
+			width: 100%;
+			display: flex;
+
+			.image {
+				margin-top: 4rem;
+				width: 50%;
+			}
+
+			.automationText {
+				width: 50%;
+				padding-left: 7rem;
+				h3,
+				p {
+					margin: 0;
+				}
+				@include flex(column, center, null);
+
+				.automationTitle {
+					font-weight: 800;
+					font-size: 2.5rem;
+					line-height: 3.375rem;
+					color: $black-100;
+				}
+
+				.automationSubTitle {
+					margin-top: 1rem;
+					font-weight: 400;
+					font-size: 1.125rem;
+					line-height: 1.75rem;
+					color: $base-gray;
+				}
+
+				.linkText {
+					margin-top: 1.25rem;
+					font-weight: 500;
+					font-size: 1.25rem;
+					line-height: 1.875rem;
+					color: $base-blue;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.spiral {
+			@include flex(row, center, null);
+			margin-top: -3.25rem;
+
+			.img {
+			}
+		}
+	}
+
+	.midSection {
+	}
 }
