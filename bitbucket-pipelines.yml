@@ -1,18 +1,26 @@
-#  Template NodeJS build
+image: node:10.14.1
 
-#  This template allows you to validate your NodeJS code.
-#  The workflow allows running tests and code linting on the default branch.
+ # Doing a full clone to be able to push back to Heroku.
+ clone:
+   depth: full
 
-image: node:10.15.3
-
-pipelines:
-  default:
-    - parallel:
-        - step:
-            name: Build and Test
-            caches:
-              - node
-            script:
-              - npm install
-              - npm run dev
-              - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/kreatesell.git HEAD
+ pipelines:
+   branches:
+     # When code is pushed to the staging branch it is deployed automatically to the staging environment.
+     staging:
+       - step:
+           caches:
+             - node
+           script:
+             - npm install
+             - npm run build
+             - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_STAGING.git staging:master
+     # When code is pushed to the production branch it is deployed automatically to the production environment.
+     production:
+       - step:
+           caches:
+             - node
+           script:
+             - npm install
+             - npm run build
+             - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_PRODUCTION.git production:master
