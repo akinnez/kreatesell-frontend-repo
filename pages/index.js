@@ -13,6 +13,11 @@ import {
 	RightSpiral,
 	PayoutMethod,
 	InstantPayout,
+	EclipseHero,
+	PrimaryNews,
+	SecondaryNews,
+	PrimaryNewsFooterImg,
+	videoThumbnail,
 } from "../utils";
 import Image from "next/image";
 
@@ -206,7 +211,120 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div className={styles.midSection}></div>
+				<div className={styles.midSection}>
+					<div className={styles.midSectionText}>
+						<div className={styles.midSectionTitle}>
+							Easier, faster, and safer <br /> way to sell your Digital <br />
+							Content Online
+						</div>
+						<p className={styles.midSectionSubTitle}>
+							Create an account for free and sell your digital <br /> products
+							online from home or anywhere.
+						</p>
+						<div className={styles.midSectionInputBtn}>
+							<Button
+								text="Get Started Free"
+								icon={<RightArrow color="#0072ef" />}
+								className={styles.btn}
+							/>
+						</div>
+					</div>
+					<div className={styles.midSectionImage}>
+						<Image src={EclipseHero} width="728" height="728" />
+					</div>
+				</div>
+
+				<div className={styles.newsAndEvents}>
+					<div className={styles.newsAndEventsHeader}>
+						<h3 className={styles.newsAndEventTitle}>
+							News, events and insights for you
+						</h3>
+						<div className={styles.newsAndEventSubTitle}>
+							<p>See more</p>
+							<RightArrow color="#0072EF" />
+						</div>
+					</div>
+
+					<div className={styles.newsAndEventsCardCont}>
+						<div className={styles.firstRow}>
+							<div className={styles.primaryNews}>
+								<div className={styles.primaryNewsImage}>
+									<Image src={PrimaryNews} width="352" />
+								</div>
+								<div className={styles.primaryNewsCont}>
+									<div className={styles.primaryTitle}>
+										Google I / O 2020 <br /> news update
+									</div>
+									<div className={styles.primaryContent}>
+										Out of concern for the health and safety of our developers,
+										employees, and local communities — and in line with recent
+										...
+									</div>
+
+									<div className={styles.primaryFooterCont}>
+										<div className={styles.primaryFooterImage}>
+											<Image src={PrimaryNewsFooterImg} />
+										</div>
+										<div className={styles.primaryFooterPosition}>
+											<div className={styles.primaryName}>Sundar pichai</div>
+											<div className={styles.primaryPosition}>
+												CEO at Salvo Agency
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div className={styles.newsCard}>
+								<div className={styles.newsImage}>
+									<Image src={SecondaryNews} width="352" />
+								</div>
+								<div className={styles.newsTextCont}>
+									<div className={styles.newsTitle}>
+										Minimal workspace for inspirations
+									</div>
+									<div className={styles.newsAuthor}>Anthony Masional</div>
+								</div>
+							</div>
+						</div>
+
+						<div className={styles.secondRow}>
+							<div className={styles.newsCard}>
+								<div className={styles.newsImage}>
+									<Image src={SecondaryNews} width="352" />
+								</div>
+								<div className={styles.newsTextCont}>
+									<div className={styles.newsTitle}>
+										Minimal workspace for inspirations
+									</div>
+									<div className={styles.newsAuthor}>Anthony Masional</div>
+								</div>
+							</div>{" "}
+							<div className={styles.newsCard}>
+								<div className={styles.newsImage}>
+									<Image src={SecondaryNews} width="352" />
+								</div>
+								<div className={styles.newsTextCont}>
+									<div className={styles.newsTitle}>
+										Minimal workspace for inspirations
+									</div>
+									<div className={styles.newsAuthor}>Anthony Masional</div>
+								</div>
+							</div>{" "}
+							<div className={styles.newsCard}>
+								<div className={styles.newsImage}>
+									<Image src={SecondaryNews} width="352" />
+								</div>
+								<div className={styles.newsTextCont}>
+									<div className={styles.newsTitle}>
+										Minimal workspace for inspirations
+									</div>
+									<div className={styles.newsAuthor}>Anthony Masional</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</Layout>
 	);
