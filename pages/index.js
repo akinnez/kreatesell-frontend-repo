@@ -23,7 +23,7 @@ import Image from "next/image";
 
 export default function Home() {
 	return (
-		<Layout subFooter={true} defaultMarginTop={true}>
+		<Layout subFooter={false} defaultMarginTop={true}>
 			<div className={styles.container}>
 				<div className={styles.body}>
 					<div className={styles.header}>
@@ -323,6 +323,76 @@ export default function Home() {
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<div className={styles.testimonial}>
+					<div className={styles.testimonialContainer}>
+						<div className={styles.testimonialCont}>
+							<h3 className={styles.testimonialTitle}>
+								Don’t be told, Trying is believing
+							</h3>
+							<p className={styles.testimonialSubTitle}>
+								See what amazing people are saying about the uniqueness and
+								effectiveness <br /> of KreateSell.
+							</p>
+
+							<div className={styles.videoContainer}>
+								<div className={styles.singleVideoContainer}>
+									<div className={styles.videoImage}>
+										<Image src={videoThumbnail} alt="testimonial video" />
+									</div>
+									<div className={styles.videoAuthor}>
+										Review by Michelle Hyatt
+									</div>
+									<div className={styles.videoExcerpt}>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+										Risus, sit imperdiet risus, venenatis at.
+									</div>
+								</div>
+
+								<div className={styles.singleVideoContainer}>
+									<div className={styles.videoImage}>
+										<Image src={videoThumbnail} alt="testimonial video" />
+									</div>
+									<div className={styles.videoAuthor}>
+										Review by Michelle Hyatt
+									</div>
+									<div className={styles.videoExcerpt}>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+										Risus, sit imperdiet risus, venenatis at.
+									</div>
+								</div>
+
+								<div className={styles.singleVideoContainer}>
+									<div className={styles.videoImage}>
+										<Image src={videoThumbnail} alt="testimonial video" />
+									</div>
+									<div className={styles.videoAuthor}>
+										Review by Michelle Hyatt
+									</div>
+									<div className={styles.videoExcerpt}>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+										Risus, sit imperdiet risus, venenatis at.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div className={styles.subFooter}>
+					<h3 className={styles.subFooterTitle}>
+						<span>Hiya</span>, Are you ready to start making <br /> money from
+						Selling your contents?
+					</h3>
+					<div className={styles.footerInput}>
+						<InputButton
+							name="email"
+							placeholder="Enter your email..."
+							buttonText="Get Started Free"
+							buttonIcon={<RightArrow />}
+						/>
 					</div>
 				</div>
 			</div>

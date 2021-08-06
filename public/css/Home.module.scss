@@ -360,4 +360,89 @@
 			}
 		}
 	}
+
+	.testimonial {
+		background: $blue-100;
+		width: 100%;
+
+		.testimonialContainer {
+			background: $blue-100;
+			background-repeat: no-repeat;
+			background-image: url("/images/quote.svg");
+			background-position: right 40%;
+			padding: 5rem 0;
+			margin-right: 2rem;
+
+			.testimonialCont {
+				min-height: 60vh;
+				padding: 0 10.13rem;
+
+				.testimonialTitle {
+					font-weight: 700;
+					font-size: 2.1875rem;
+					line-height: 3.375rem;
+					color: $black-100;
+				}
+				.testimonialSubTitle {
+					font-weight: 500;
+					font-size: 1rem;
+					line-height: 1.75rem;
+					color: $base-gray;
+				}
+
+				.videoContainer {
+					margin-top: 3rem;
+					display: flex;
+					justify-content: space-between;
+					width: 100%;
+					.singleVideoContainer {
+						min-width: 33.3%;
+						margin-right: 1rem;
+						cursor: pointer;
+
+						&:last-child {
+							margin-right: 0;
+						}
+						.videoImage {
+						}
+						.videoAuthor {
+							font-weight: 500;
+							font-size: 1.25rem;
+							line-height: 2rem;
+							padding-top: 0.8rem;
+							color: $black-100;
+						}
+						.videoExcerpt {
+							font-style: normal;
+							font-weight: 400;
+							font-size: 0.875rem;
+							line-height: 1.625rem;
+							color: $base-gray;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.subFooter {
+		background: $base-white;
+		padding: 0rem 10.31rem;
+		text-align: center;
+		padding-top: 5rem;
+		padding-bottom: 3rem;
+		.subFooterTitle {
+			font-weight: 700;
+			font-size: 2.5rem;
+			line-height: 3.375rem;
+			color: $base-blue;
+			padding-bottom: 2.5rem;
+
+			span {
+				color: $green-100;
+			}
+		}
+		.footerInput {
+		}
+	}
 }
