@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './Index.module.scss'
 import { EditIcon,ShareIcon,ViewAs } from '../IconPack'
 import Dropdown from '../dropdown'
+import Router from 'next/router'
+
 
 const CtaButton = ({Icon=()=><></>, label, active})=>{
 

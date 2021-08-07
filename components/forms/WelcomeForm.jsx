@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { useFormik } from "formik";
-import { Button, Input } from "../";
-import { WelcomeSchema } from "../../validation/Welcome.validation";
+import { Button, Input, FormError } from "../";
+import { StoreNameSchema, BusinessNameSchema } from "../../validation";
 import styles from "../../public/css/Welcome.module.scss";
+import { isAnEmpytyObject } from "../../utils";
 
 export const WelcomeForm = () => {
 	const [step, setStep] = useState(1);
@@ -23,12 +24,9 @@ export const WelcomeForm = () => {
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: WelcomeSchema,
+		validationSchema: step === 1 ? BusinessNameSchema : StoreNameSchema,
 		validateOnChange: false,
 	});
-
-	const errors = formik.errors;
-	console.log("form errors -->", errors);
 
 	return (
 		<form
@@ -40,6 +38,8 @@ export const WelcomeForm = () => {
 			<p className={styles.subTitle}>
 				Now that you're all signed up, let's personalize your store.
 			</p>
+
+			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
 
 			<p className={styles.label}>
 				{step === 1 &&
@@ -66,7 +66,8 @@ export const WelcomeForm = () => {
 			)}
 
 			<Button
-				type="submit"
+				// type="submit"
+				type={step === 1 ? "click" : "submit"}
 				text="Continue"
 				bgColor="primaryBlue"
 				className={styles.button}

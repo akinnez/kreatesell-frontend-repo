@@ -1,7 +1,7 @@
 import { Input, Button, Checkbox, FormError } from "../";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { LoginSchema } from "../../validation/Login.validation";
+import { LoginSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/Login.module.scss";
 

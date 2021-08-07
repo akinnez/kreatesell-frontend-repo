@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FooterBrand, Location, Message, Mobile } from "../../utils/assets";
+import { useRouter } from "next/router";
+import { FooterBrand, Location, Message, Mobile } from "../../utils";
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {
+	const router = useRouter();
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.brand}>
-				<div className={styles.brandTitle}>
+				<div className={styles.brandTitle} onClick={() => router.push("/")}>
 					<Image src={FooterBrand} alt="kreatesell" />
 				</div>
 
@@ -60,13 +62,13 @@ export const Footer = () => {
 					<Link href="#">
 						<a>Overview</a>
 					</Link>
-					<Link href="#">
+					<Link href="/features">
 						<a>Features</a>
 					</Link>
-					<Link href="#">
+					<Link href="/how-it-works">
 						<a>Tutorials</a>
 					</Link>
-					<Link href="#">
+					<Link href="/pricing">
 						<a>Pricing</a>
 					</Link>
 					<Link href="#">

@@ -2,16 +2,17 @@ import React,{useState} from 'react'
 import {AuthLayout} from "../../../components/authlayout"
 import Topbar from '../../../components/topbar'
 import {Card} from '../../../components/card'
-import {TextInput,Button, TextArea,Radio, CustomSelect,DatePicker, DateInput, FileInput, Uploader,Checkbox} from '../../../components/inputPack'
+import {TextInput,Button, TextArea,Radio,Percentage, CustomSelect,DatePicker, DateInput, FileInput, Uploader,Checkbox, Switch} from '../../../components/inputPack'
 import {Formik, Form} from 'formik'
 import Router from 'next/router'
 import Tab,{TabItem} from '../../../components/tab'
+import styles from '../../../public/css/Product.module.scss'
 
 
 
 const Index = ()=>{
 
-    const [tab, setTab] = useState(0)
+    const [tab, setTab] = useState(1)
 
     return(
         <>
@@ -34,11 +35,12 @@ const Index = ()=>{
                         redirect_buyer:false,
                         preorder_details:{},
                         file_details:{},
-                        product_settings:{}
+                        product_settings:{},
+                        prelease_date:""
                     }}
                     >{({values,setFieldValue, isSubmitting, errors})=>(
                     <Form>
-                            <div style={{padding:"0 0 0 40px"}}>
+                            <div className={styles.form_container}>
                 <div className="row">
                     <div className="col-12">
                             <h3>Add new digital product</h3>
@@ -77,7 +79,11 @@ const Index = ()=>{
 
                <div className="row">
                    <div className="col-4">
-                       <DatePicker label="Preorder release date"/>
+                       <DatePicker 
+                       value={values.prelease_date}
+                       onChange={(e)=>setFieldValue("prelease_date",e)}
+                       format="MMMM DD, YYYY  HH:h"
+                       label="Preorder release date"/>
                    </div>
                </div>
               
@@ -142,7 +148,7 @@ const Index = ()=>{
                 <div className="row">
                     <div className="col-12 center" style={{padding:"30px 0"}}>
                         <p className="muted-text">Almost there, now click the button to create product from template</p>
-                        <Button label="Next" onClick={()=>Router.push("/account/product/checkout")}/>
+                        <Button label="Next" onClick={()=>setTab(tab+1)}/>
                     </div>
                 </div>
                 </Form>
@@ -154,7 +160,7 @@ const Index = ()=>{
             >{({values,setFieldValue, isSubmitting, errors})=>(
                 <Form>
            
-               <div style={{padding:"5px 0 0 40px"}}>
+               <div className={styles.form_container}>
                <div className="row">
                    <div className="col-12">
                         <h3>Checkout details</h3>
@@ -168,7 +174,7 @@ const Index = ()=>{
                             style={{width:"320px"}}
                             onChange={(e)=>setFieldValue("productName",e)}
                             placeholder="Buy now"/>
-                             <p className="form-desc-txt">Enter a customised CTA only if you want to override the default label for the checkout button on the product page.</p>
+                             <p className={styles.form_desc_txt}>Enter a customised CTA only if you want to override the default label for the checkout button on the product page.</p>
                    </div>
                </div>
                <div className="row">
@@ -181,7 +187,7 @@ const Index = ()=>{
                             onChange={(e)=>setFieldValue("productName",e)}
                             style={{width:"320px"}}
                             placeholder="0"/>
-                            <p className="form-desc-txt">By default, you set the price in your local currency and we automatically convert the amount to other currencies on your store page, but if you'd like to set the fixed price for other currencies, e.g USD?, you can enable this option on your <a href="#">currency settings</a> page.</p>
+                            <p className={styles.form_desc_txt}>By default, you set the price in your local currency and we automatically convert the amount to other currencies on your store page, but if you'd like to set the fixed price for other currencies, e.g USD?, you can enable this option on your <a href="#">currency settings</a> page.</p>
                    </div>
                </div>
 
@@ -217,7 +223,7 @@ const Index = ()=>{
                             onChange={(e)=>setFieldValue("productName",e)}
                             placeholder="Enter coupon code"
                             style={{width:"320px"}}/>
-                            <p className="form-desc-txt">For the coupon discount, you can set either the percentage or the fixed amount discount. 
+                            <p className={styles.form_desc_txt}>For the coupon discount, you can set either the percentage or the fixed amount discount. 
 If you want to create coupon for other products you can see more on coupon settings page.</p>
                    </div>
                </div>
@@ -228,12 +234,13 @@ If you want to create coupon for other products you can see more on coupon setti
              
                <div className="row">
                    <div className="col-4">
-                       <DateInput label="Preorder release date"/>
+                      
                    </div>
                </div>
               
             <div className="row">
                 <div className="col-3">
+              
                     <Radio label="Percentage(%)"/>
                     <TextInput 
                         placeholder="0"/>
@@ -245,6 +252,18 @@ If you want to create coupon for other products you can see more on coupon setti
                 </div>
             </div>
 
+               
+                    <div className="row">
+                    <div className="col-6">
+                        <h4 className={styles.section_title}>Settings</h4>
+                    <Switch label="Allow affiliates to market product"/>
+                    <Percentage />
+                    <Switch label="Limit product sales"/>
+                    <Switch label="Publicly show the number of sales on your product page"/>
+                    </div>
+                    </div>
+               
+
             
             
            
@@ -252,7 +271,7 @@ If you want to create coupon for other products you can see more on coupon setti
                   
                 <div className="row">
                     <div className="col-12 center" style={{padding:"30px 0"}}>
-                        <p className="muted-text">Almost there, now click the button to create product from template</p>
+                        <p className={styles.form_desc_txt}>Almost there, now click the button to create product from template</p>
                         <Button label="Next"/>
                     </div>
                 </div>
@@ -284,6 +303,9 @@ If you want to create coupon for other products you can see more on coupon setti
             p#grey-bg-title span{
                 color:#8C8C8C;
             }
+
+          
+
 
           
         `}</style>

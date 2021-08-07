@@ -25,7 +25,7 @@ const Index = ()=>{
                         <p className="muted-text">Fill out the fields below to complete your profile</p>
                     </div>
                </div>
-               <div className="row">
+               <div className="row" style={{paddingTop:"25px"}}>
                    <div className="col-12">
                         <TextInput 
                             label="Name"
@@ -35,21 +35,19 @@ const Index = ()=>{
                             placeholder="Brand name, Business name or Full name"/>
                    </div>
                </div>
-
-               <p className="text-label">Username <span className="muted-text"> - choose the username of your store page</span></p>
-                <div className="highlight">
                 <div className="row">
-                   <div className="col-3">
-                       <h3 style={{fontWeight: 500, fontSize:"18px"}}>Kreatesell.com/</h3>
-                       </div>
-                       <div className="col-9">
-                        <TextInput
+                    <div className="col-12">
+                    <p className="text-label">Username <span className="muted-text"> - choose the username of your store page</span></p>
+                    <div className="highlight">
+                    <h3 style={{fontWeight: 500, fontSize:"18px", color:"#595959"}}>Kreatesell.com/</h3>
+                    <TextInput
                             value={values.userName}
                             onChange={(e)=>setFieldValue("userName",e)}
                             placeholder="olumidejohn"/>
-                   </div>
-               </div>
+                        </div>
+                    </div>
                 </div>
+              
                 <div className="row">
                     <div className="col-12">
                         <TextArea
@@ -164,6 +162,13 @@ const Index = ()=>{
                 display:flex;
                 gap:15px;
                 justify-content:center;
+                margin-top:10px;
+            }
+
+            .highlight{
+                display:flex;
+                align-items:center;
+                gap:10px;
             }
         `}</style>
         </>

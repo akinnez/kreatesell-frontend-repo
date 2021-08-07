@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import {
-	OnboardingLayout,
-	Modal,
-	ResetPasswordSuccesModal,
-} from "../components";
-import styles from "../public/css/ResetSuccess.module.scss";
+import { GeneralLayout, Modal, ResetPasswordSuccesModal } from "../components";
 
 const SuccessfulPasswordReset = () => {
 	return (
-		<OnboardingLayout Form={SuccessfulPasswordResetForm} socialBtn={false} />
+		<GeneralLayout
+			Form={SuccessfulPasswordResetForm}
+			socialBtn={false}
+			isForm={false}
+		/>
 	);
 };
 
@@ -20,18 +19,13 @@ export const SuccessfulPasswordResetForm = () => {
 	}, []);
 
 	return (
-		<>
-			<button
-				className={styles.button}
-				onClick={() => setVisible(!modalVisible)}
-			>
-				Click me
-			</button>
-
-			<Modal onClose={() => setVisible(false)} visible={modalVisible}>
-				<ResetPasswordSuccesModal />
-			</Modal>
-		</>
+		<Modal
+			onClose={() => setVisible(false)}
+			visible={modalVisible}
+			cancelPropagation={true}
+		>
+			<ResetPasswordSuccesModal />
+		</Modal>
 	);
 };
 

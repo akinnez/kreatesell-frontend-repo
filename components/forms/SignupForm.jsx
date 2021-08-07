@@ -1,7 +1,7 @@
 import { Input, Button, Checkbox, FormError } from "../";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { SignupSchema } from "../../validation/Signup.validation";
+import { SignupSchema } from "../../validation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/Signup.module.scss";

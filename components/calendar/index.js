@@ -139,6 +139,7 @@ const Calendar = ({width,value,onChange=()=>{},label,format="DD/MM/YYYY",CustomI
                 align-items:center;
                 justify-content:center;
             }
+            
             .calendar-container{
               min-height:400px;
               width:400px;

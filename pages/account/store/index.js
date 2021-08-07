@@ -1,16 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styles from '../../../public/css/Store.module.scss'
 import {AuthLayout} from "../../../components/authlayout"
-import Topbar from '../../../components/topbar'
 import {Button} from '../../../components/inputPack'
 import {Card} from '../../../components/card'
-import Image from 'next/image'
-import { EditIcon, ShareIcon,ViewAs } from '../../../components/IconPack'
 import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
 import List from '../../../components/list'
 import Router from 'next/router'
-import Dropdown from '../../../components/dropdown'
 import StoreHeader from '../../../components/storeHeader'
 
 
@@ -18,7 +14,7 @@ import StoreHeader from '../../../components/storeHeader'
 
 const cardStyles = {
     borderRadius:"8px",
-    padding:"10px 30px"
+    padding:"35px 30px"
 }
 
 const progressbarStyles = buildStyles({
@@ -35,6 +31,8 @@ const progressbarStyles = buildStyles({
 
 
 const Index = ()=>{
+
+    const [step, setStep] = useState(0)
 
     return(
         <>
@@ -67,7 +65,7 @@ const Index = ()=>{
                 </div>
                 <div className="divider"/>
 
-                <List step={1} 
+                <List step={step} 
                     list={[
                     "Complete your store profile details",
                     "Add your bank account details to receive your payments",
@@ -77,9 +75,9 @@ const Index = ()=>{
             </div>
 
             <div className="row">
-                <div className="col-12 center">
+                <div className="col-12 center" style={{marginTop:"20px"}}>
                     <p>Almost there, now click the button to add your product</p>
-                        <Button label="+ Add Product" onClick={()=>Router.push("/account/product")}/>
+                        <Button label="+ Add Product" style={{marginTop:"20px"}} onClick={()=>Router.push("/account/product")}/>
                 </div>
             </div>
         

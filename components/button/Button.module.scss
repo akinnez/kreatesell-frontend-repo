@@ -6,6 +6,16 @@
 	background-color: transparent;
 	border-radius: 0.5rem;
 	cursor: pointer;
+
+	.buttonValue {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.buttonIcon {
+			padding: 0 0.5rem;
+		}
+	}
 }
 
 @mixin customBtn($bg-color, $color, $border-color) {
@@ -32,7 +42,7 @@
 	color: $base-white;
 	font-style: normal;
 	font-weight: bold;
-	font-size: 1.25rem;
+	font-size: 1.2rem;
 	line-height: 1.8rem;
 	border: none;
 	height: 3.375rem;

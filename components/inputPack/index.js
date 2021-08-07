@@ -4,11 +4,11 @@ import {DropdownIndicator, ProfileInputIcon, UploaderIcon,CheckMark} from '../Ic
 import Calendar from '../calendar'
 
 
-export const TextInput = ({disabled, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra,...rest})=>{
+export const TextInput = ({disabled,labelStyle, name, type="text", value, onChange=()=>{},onBlur=()=>{}, label, placeholder, labelExtra,...rest})=>{
 
     return(
         <>
-            <label>{label} {labelExtra ? <span>- {labelExtra}</span>:null}</label>
+            <label style={labelStyle}>{label} {labelExtra ? <span>- {labelExtra}</span>:null}</label>
             <input 
                 type={type} 
                 name={name}
@@ -102,7 +102,7 @@ export const TextArea = ({disabled, name, type="text", value, onChange=()=>{},on
     )
 }
 
-export const CustomSelect = ({label,width,disabled,onChange=()=>{},isMultiple = false, value,error,placeholder, list =[]})=>{
+export const CustomSelect = ({label,width, margin= "8px 0px", labelStyle,disabled,onChange=()=>{},isMultiple = false, value,error,placeholder, list =[],...rest})=>{
   
 
     const selectStyle = {
@@ -115,7 +115,7 @@ export const CustomSelect = ({label,width,disabled,onChange=()=>{},isMultiple = 
             color:"#8C8C8C",
             background:"#fff",
             borderRadius:8,
-            margin: "8px 0px"
+            margin
           }),
           indicatorSeparator: () => {}
     }
@@ -155,7 +155,7 @@ export const CustomSelect = ({label,width,disabled,onChange=()=>{},isMultiple = 
         <>
         <div className="input-wrapper" >
             <div className="input-plus-label-wrapper">
-            <label>{label}</label>
+            <label style={labelStyle}>{label}</label>
             <Select isDisabled={disabled} styles={selectStyle} isMulti = {isMultiple}
                     placeholder={placeholder}
                     options={list}
@@ -196,15 +196,15 @@ export const CustomSelect = ({label,width,disabled,onChange=()=>{},isMultiple = 
     )
 }
 
-export const Button = ({onClick=()=>{},style, label="Submit", disabled,loading})=>{
+export const Button = ({onClick=()=>{},Icon=()=><></>,label="Submit", disabled,loading,...rest})=>{
 
 
     return(
         <>
-            <button style={style}
+            <button {...rest}
                 onClick={()=>onClick()}
                 disabled={disabled || loading}> 
-                {loading ? "Loading...": label}</button>
+                {loading ? "Loading...": <><Icon/> {label}</>}</button>
 
             <style jsx>{`
                 button{
@@ -501,6 +501,7 @@ export const  Radio = ({value, content, onChange =()=>{}, label, extralable})=>{
                     font-weight:500;
                     font-size:16px;
                     flex:1;
+                    color:#595959;
                 }
 
                 .extra{
@@ -513,12 +514,176 @@ export const  Radio = ({value, content, onChange =()=>{}, label, extralable})=>{
 }
 
 
-export const DatePicker = ({onChange=()=>{}, value})=>{
+export const DatePicker = ({onChange=()=>{}, value, format})=>{
 
     return(
         <>
-            <Calendar CustomInput={TextInput}/>
+            <Calendar CustomInput={TextInput} value={value} onChange={(e)=>onChange(e)} format={format}/>
       
+        </>
+    )
+}
+
+
+export const Switch = ({value, onChange=()=>{}, label})=>{
+
+    return(
+        <>
+        <div className="switch-wrapper">
+            <span className="label">{label}</span>
+            <label className="switch">
+                <input type="checkbox" checked={value} onChange={(e)=>onChange(e.target.checked)}/>
+                <span className="slider round"></span>
+            </label>
+        </div>
+        
+        <style jsx>{`
+
+        .label{
+            margin-right:20px;
+            color:#8C8C8C;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 53px;
+            height: 28px;
+          }
+          
+        
+          .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+          
+      
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #D9D9D9;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+          
+          .slider:before {
+            position: absolute;
+            content: "";
+            height: 28px;
+            width: 28px;
+            left: 0;
+            bottom: 0px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+          
+          input:checked + .slider {
+            background-color: #0072EF;
+            left: -10px;
+          }
+          
+          input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+          }
+          
+          input:checked + .slider:before {
+            -webkit-transform: translateX(36px);
+            -ms-transform: translateX(36px);
+            transform: translateX(36px);
+          }
+          
+   
+          .slider.round {
+            border-radius: 34px;
+          }
+          
+          .slider.round:before {
+            border-radius: 50%;
+          }
+
+          .switch-wrapper{
+              display:flex;
+              justify-content:space-between;
+              margin:20px 0;
+          }
+        `}</style>
+        </>
+    )
+}
+
+export const Percentage = ({value, onChange=()=>{}})=>{
+
+    return(
+        <>
+            <div className="perc-wrapper">
+                <label>How much percentage are you willing to pay affiliate</label>
+                <div className="perc-input-wrapper">
+                    <input 
+                        type="number" 
+                        placeholder="0" 
+                        value={value} 
+                        onChange={(e)=>onChange(e.target.value)}/>
+                    <span>%</span>
+                </div>
+            </div>
+
+            <style jsx>{`
+                .perc-wrapper{
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    background:#F5F5F5;
+                    padding:10px;
+                    gap:10px;
+                    margin:10px 0;
+                }
+
+                label{
+                    flex:1;
+                    font-size:14px;
+                    color:#8C8C8C;
+                }
+
+                .perc-input-wrapper{
+                    width:60px;
+                    height:26px;
+                    display:flex;
+                }
+
+                .perc-input-wrapper input[type=number]{
+                    width:50%;
+                    outline:none;
+                    border:none;
+                    text-align:center;
+                    color:#8C8C8C;
+                }
+
+                input[type=number]::-webkit-outer-spin-button,
+                input[type=number]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                    -moz-appearance: textfield;
+                }
+
+                .perc-input-wrapper input:placeholder{
+                    color:#8C8C8C;
+                }
+
+                .perc-input-wrapper span{
+                    flex:1;
+                    background:#0072EF;
+                    color:#ffffff;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                }
+            
+            `}</style>
         </>
     )
 }
