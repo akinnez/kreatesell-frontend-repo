@@ -154,6 +154,7 @@
 			height: fit-content;
 			text-align: center;
 			padding: 5rem 1rem;
+			overflow-y: scroll;
 
 			.mobileCategoryLinks {
 				list-style: none;
@@ -193,6 +194,41 @@
 
 		.btnLinks {
 			width: 50%;
+		}
+	}
+}
+
+@include screen("medium") {
+	.navContainer {
+		width: 100%;
+		padding: 1.187rem 2%;
+	}
+	.mobileMenuCont {
+		max-width: 10%;
+		position: fixed;
+	}
+	.imgCont {
+		max-width: 40%;
+	}
+	.navLinks {
+		display: none;
+	}
+	.btnLinks {
+		// width: 50%;
+		display: flex;
+		justify-content: flex-end;
+
+		.loginBtn {
+			.loginBtnStyle {
+				border: none;
+				width: 80%;
+				color: #8c8c8c;
+			}
+		}
+
+		.signUpBtn {
+			.signUpBtnStyle {
+			}
 		}
 	}
 }

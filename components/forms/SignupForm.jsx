@@ -1,19 +1,22 @@
 import { Input, Button, Checkbox, FormError } from "../";
 import { useFormik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { SignupSchema } from "../../validation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/Signup.module.scss";
 
 export const SignupForm = () => {
+	const router = useRouter();
+
 	const initialValues = {
 		email: "",
 		password: "",
 		terms: false,
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = () => router.push("/welcome");
 
 	const formik = useFormik({
 		initialValues,

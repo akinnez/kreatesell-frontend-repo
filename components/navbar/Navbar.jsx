@@ -82,10 +82,17 @@ export const Navbar = () => {
 
 			<div className={styles.btnLinks}>
 				<div className={styles.loginBtn} onClick={() => router.push("/login")}>
-					<Button text="Login" />
+					<Button text="Login" className={styles.loginBtnStyle} />
 				</div>
-				<div onClick={() => router.push("/signup")}>
-					<Button text="Signup" bgColor="blue" />
+				<div
+					className={styles.signUpBtn}
+					onClick={() => router.push("/signup")}
+				>
+					<Button
+						text="Signup"
+						bgColor="blue"
+						className={styles.signUpBtnStyle}
+					/>
 				</div>
 			</div>
 		</nav>

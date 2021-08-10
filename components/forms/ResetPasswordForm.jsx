@@ -1,19 +1,20 @@
-import { Input, Button, FormError } from "../";
+import { useState } from "react";
+import { Input, Button, FormError, Modal, ResetPasswordSuccesModal } from "../";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { ResetPasswordSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/ForgotPassword.module.scss";
 
 export const ResetPasswordForm = () => {
-	const router = useRouter();
+	const [modalVisible, setVisible] = useState(false);
 
 	const initialValues = {
-		email: "",
+		password: "",
+		confirmPassword: "",
 	};
 
-	const handleSubmit = () => router.push("/reset-successful");
+	const handleSubmit = () => setVisible(true);
 
 	const formik = useFormik({
 		initialValues,
@@ -36,6 +37,7 @@ export const ResetPasswordForm = () => {
 					name="password"
 					placeholder="Create new password"
 					onChange={formik.handleChange}
+					type="password"
 				/>
 
 				<Input
@@ -43,6 +45,7 @@ export const ResetPasswordForm = () => {
 					name="confirmPassword"
 					placeholder="Confirm new password"
 					onChange={formik.handleChange}
+					type="password"
 				/>
 
 				<Button text="Reset password" bgColor="primaryBlue" />
@@ -54,6 +57,14 @@ export const ResetPasswordForm = () => {
 					<a>Login here</a>
 				</Link>{" "}
 			</div>
+
+			<Modal
+				onClose={() => setVisible(false)}
+				visible={modalVisible}
+				cancelPropagation={true}
+			>
+				<ResetPasswordSuccesModal />
+			</Modal>
 		</>
 	);
 };
