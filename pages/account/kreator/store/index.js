@@ -1,13 +1,13 @@
 import React,{useState} from 'react'
-import styles from '../../../public/css/Store.module.scss'
-import {AuthLayout} from "../../../components/authlayout"
-import {Button} from '../../../components/inputPack'
-import {Card} from '../../../components/card'
+import styles from '../../../../public/css/Store.module.scss'
+import {AuthLayout} from "../../../../components/authlayout"
+import {Button} from '../../../../components/inputPack'
+import {Card} from '../../../../components/card'
 import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
-import List from '../../../components/list'
+import List from '../../../../components/list'
 import Router from 'next/router'
-import StoreHeader from '../../../components/storeHeader'
+import {ProtectedStoreHeader} from '../../../../components/storeHeader'
 
 
 
@@ -38,7 +38,7 @@ const Index = ()=>{
         <>
         
         <AuthLayout>
-          <StoreHeader />
+          <ProtectedStoreHeader />
             <div className="row" style={{marginTop:"100px"}}>
                 <div className="col-7">
                     <Card style={cardStyles}>

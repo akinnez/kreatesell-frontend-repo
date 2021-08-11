@@ -32,7 +32,40 @@ const CtaButton = ({Icon=()=><></>, label, active})=>{
     )
  }
 
-const Index = ()=>{
+export const ProtectedStoreHeader = ()=>{
+
+    return(
+        <>
+             <div className={styles.bg_wrapper} style={{backgroundImage: `url(/images/placeholder-1.jpg)`}}>
+               <div className={styles.inner}>
+               <div className={styles.inner_item_profile}>
+                   <div className={styles.profile_wrapper}>
+                   <div className={styles.image_intro_text} style={{backgroundImage:`url(/images/placeholder-2.jpg)`}}/>
+                   <div className={styles.txt_wrapper}>
+                   <h3>Olumide John</h3>
+                   <p>https://kreatesell.com/olumidejohn</p>
+                   </div>
+                   </div>
+                    <div className={styles.cta_link_wrapper}>
+                        <ul>
+                            <li onClick={()=>Router.push("/account/kreator/store/edit")}>
+                            <CtaButton Icon={EditIcon} label="Edit Profile" active/></li>
+                            <li><Dropdown Button={<CtaButton Icon={ShareIcon} label="Share Link"/>}/></li>
+                            <li><CtaButton Icon={ViewAs} label="View As"/></li>
+                        </ul>
+                    </div>
+                </div>
+               </div>
+                
+           </div>
+
+        
+        </>
+    )
+}
+
+
+export const StoreHeader = ()=>{
 
     return(
         <>
@@ -52,8 +85,6 @@ const Index = ()=>{
                             <CtaButton Icon={EditIcon} label="Edit Profile" active/></li>
                             <li><Dropdown Button={<CtaButton Icon={ShareIcon} label="Share Link"/>}/></li>
                             <li><CtaButton Icon={ViewAs} label="View As"/></li>
-                           
-                           
                         </ul>
                     </div>
                 </div>
@@ -65,5 +96,3 @@ const Index = ()=>{
         </>
     )
 }
-
-export default Index
