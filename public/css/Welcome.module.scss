@@ -1,23 +1,50 @@
 @import "./mixins.scss";
 @import "./colors.scss";
+@import "./screens.scss";
 
 .formStyle {
 	@include flex(column, center, center);
 	width: 80%;
 	height: 20rem;
-	// height: 60vh;
+	@include screen("medium") {
+		min-height: 24rem;
+	}
+	@include screen("tablet") {
+		min-height: 25rem;
+	}
 }
 
 .welcome {
 	text-align: center;
 	width: 45vw;
 
-	h5 {
+	@include screen("medium") {
+		width: 75vw;
+		padding-bottom: 2rem;
+	}
+
+	.title {
 		margin: 0;
 		font-weight: 500;
 		font-size: 1.4rem;
 		line-height: 1.8rem;
 		color: $black-100;
+	}
+
+	.mobileTitle {
+		display: none;
+		@extend .title;
+		@include screen("tablet") {
+			display: block;
+			font-weight: 600;
+		}
+	}
+
+	.webTitle {
+		@extend .title;
+		@include screen("tablet") {
+			display: none;
+		}
 	}
 
 	.base {
@@ -44,4 +71,7 @@
 
 .button {
 	width: 70%;
+	@include screen("tablet") {
+		width: 100%;
+	}
 }

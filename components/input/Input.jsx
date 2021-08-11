@@ -11,7 +11,9 @@ export const Input = ({ type, placeholder, label, name, ...rest }) => {
 				type={type}
 				placeholder={placeholder}
 				name={name}
-				className={`${rest.className} ${styles.input}`}
+				className={`${rest.className} ${type === "search" && styles.search} ${
+					styles.input
+				}`}
 			/>
 		</div>
 	);

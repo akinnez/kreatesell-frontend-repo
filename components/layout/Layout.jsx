@@ -1,4 +1,5 @@
 import { Meta, Navbar, Footer, SubFooter } from "..";
+import styles from "../../public/css/Signup.module.scss";
 
 export const Layout = ({
 	children,
@@ -12,7 +13,9 @@ export const Layout = ({
 		<>
 			<Meta title={title} keywords={keywords} description={description} />
 			<Navbar />
-			<main className={defaultMarginTop && "mt-10"}>{children}</main>
+			<main className={defaultMarginTop && styles.layoutMargin}>
+				{children}
+			</main>
 			{subFooter && <SubFooter />}
 			<Footer />
 		</>

@@ -15,6 +15,15 @@ export const LoginSchema = () => {
 	});
 };
 
+export const AccountVerificationSchema = () => {
+	return Yup.object().shape({
+		otp: Yup.number()
+			.required("OTP Code is required")
+			.min(6, "OTP must be a six digit number")
+			.max(6, "OTP must be a six digit number"),
+	});
+};
+
 export const ForgotPasswordSchema = () => {
 	return Yup.object().shape({
 		email: Yup.string().email().required("Please input a valid email address"),
