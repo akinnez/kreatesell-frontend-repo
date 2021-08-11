@@ -1,5 +1,6 @@
 @import "../../public/css/colors.scss";
 @import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
 
 .container {
 	@include flex(row, center, center);
@@ -45,6 +46,24 @@
 
 		.btnIcon {
 			padding-left: 0.5rem;
+		}
+	}
+
+	@include screen("medium") {
+		width: 100%;
+		input {
+			width: 65%;
+		}
+		button {
+			width: 35%;
+
+			.btnText {
+				font-size: 0.7rem;
+			}
+
+			.btnIcon {
+				display: none;
+			}
 		}
 	}
 }

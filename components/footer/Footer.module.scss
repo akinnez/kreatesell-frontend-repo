@@ -82,6 +82,10 @@
 		text-align: center;
 		color: $base-blue;
 	}
+
+	@include screen("medium") {
+		display: none;
+	}
 }
 
 .mobileFooter {
