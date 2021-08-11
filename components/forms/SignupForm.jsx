@@ -6,17 +6,25 @@ import { SignupSchema } from "../../validation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/Signup.module.scss";
+import { Signup } from "../../redux/actions/auth.actions";
 
 export const SignupForm = () => {
 	const router = useRouter();
+	const signup = Signup();
 
 	const initialValues = {
-		email: "",
-		password: "",
+		Email: "",
+		Password: "",
+		phoneNo: "",
 		terms: false,
 	};
 
-	const handleSubmit = () => router.push("/welcome");
+	// const handleSubmit = (data) => router.push("/welcome");
+	const handleSubmit = (data) => {
+		signup(data, () => {
+			router.push("/welcome");
+		});
+	};
 
 	const formik = useFormik({
 		initialValues,
@@ -33,15 +41,23 @@ export const SignupForm = () => {
 
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
-					label="Email or Phone number"
-					name="email"
-					placeholder="Enter your Email or Phone number"
+					label="Email address"
+					name="Email"
+					placeholder="Enter your Email address"
+					onChange={formik.handleChange}
+				/>
+
+				<Input
+					label="Phone number"
+					name="phoneNo"
+					placeholder="Enter your Phone number"
+					type="alphaNumeric"
 					onChange={formik.handleChange}
 				/>
 
 				<Input
 					label="Password"
-					name="password"
+					name="Password"
 					placeholder="Create Password"
 					onChange={formik.handleChange}
 				/>
