@@ -8,6 +8,11 @@
 	background-image: url("/images/partial-general-bg.svg");
 	background-repeat: no-repeat;
 
+	@include screen("tablet") {
+		padding: 0rem 2rem;
+		padding-top: 2rem;
+	}
+
 	@include screen("medium") {
 		padding: 0rem 1.5rem;
 		background-image: url("/images/mobile-general-bg.svg");
@@ -87,6 +92,16 @@
 				color: $base-gray;
 			}
 
+			@include screen("tablet") {
+				padding-top: 4rem;
+				padding-bottom: 3rem;
+				h3 {
+					font-size: 2rem;
+					line-height: 0.5rem;
+					padding-bottom: 1rem;
+				}
+			}
+
 			@include screen("medium") {
 				padding-top: 4rem;
 				h3 {
@@ -100,6 +115,16 @@
 					padding: 0 2.5rem;
 					padding-top: 1rem;
 				}
+			}
+		}
+
+		@include screen("tablet") {
+			.webTitle {
+				display: block;
+				text-align: center;
+			}
+			.mobileTitle {
+				display: none;
 			}
 		}
 
@@ -128,6 +153,17 @@
 		.image {
 			margin-top: 4rem;
 			width: 50%;
+		}
+
+		@include screen("tablet") {
+			width: 100%;
+
+			.image {
+			}
+			.automationText {
+				width: 100%;
+				padding-left: 0;
+			}
 		}
 
 		@include screen("medium") {
