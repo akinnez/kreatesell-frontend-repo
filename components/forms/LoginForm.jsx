@@ -3,15 +3,25 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
+import { Login } from "../../redux/actions/auth.actions";
+import { useRouter } from "next/router";
 import styles from "../../public/css/Login.module.scss";
 
 export const LoginForm = () => {
+	const login = Login();
+	const router = useRouter();
+
 	const initialValues = {
-		email: "",
+		username: "",
 		password: "",
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = (data) => {
+		/**Login endpoint is called with data */
+		login(data, () => {
+			router.push("/");
+		});
+	};
 
 	const formik = useFormik({
 		initialValues,
@@ -29,7 +39,7 @@ export const LoginForm = () => {
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
 					label="Email or Phone number"
-					name="email"
+					name="username"
 					placeholder="Enter your Email or Phone number"
 					onChange={formik.handleChange}
 				/>

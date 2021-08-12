@@ -16,4 +16,9 @@ export const generateActions = (action) => {
 	};
 };
 
-export const getToken = () => {};
+export const getToken = () => localStorage.getItem("token");
+
+export const getUser = () => {
+	const user = localStorage.getItem("user");
+	return JSON.parse(user);
+};

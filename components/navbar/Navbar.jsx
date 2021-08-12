@@ -28,11 +28,13 @@ export const Navbar = () => {
 		};
 	}, [pathName]);
 
+	const handleNavbar = () => setOpenMobileNav((value) => !value);
+
 	return (
 		<nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
 			<div
 				className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
-				onClick={() => setOpenMobileNav((value) => !value)}
+				onClick={() => handleNavbar()}
 			>
 				<div className={styles.hamburger}></div>
 			</div>
@@ -57,11 +59,48 @@ export const Navbar = () => {
 
 			<div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
 				<ul className={styles.mobileCategoryLinks}>
-					<li onClick={() => router.push("/how-it-works")}>How it works</li>
-					<li onClick={() => router.push("/features")}>Features</li>
-					<li onClick={() => router.push("/pricing")}>Pricing</li>
-					<li onClick={() => router.push("/blog")}>Blog</li>
-					<li onClick={() => router.push("/faq")}>FAQs</li>
+					<li
+						onClick={() => {
+							handleNavbar();
+							router.push("/how-it-works");
+						}}
+					>
+						How it works
+					</li>
+					<li
+						onClick={() => {
+							handleNavbar();
+							router.push("/features");
+						}}
+					>
+						Features
+					</li>
+					<li
+						onClick={() => {
+							handleNavbar();
+
+							router.push("/pricing");
+						}}
+					>
+						Pricing
+					</li>
+					<li
+						onClick={() => {
+							handleNavbar();
+							router.push("/blog");
+						}}
+					>
+						Blog
+					</li>
+					<li
+						onClick={() => {
+							handleNavbar();
+
+							router.push("/faq");
+						}}
+					>
+						FAQs
+					</li>
 				</ul>
 				<div className={styles.mobileInput}>
 					<Input type="" placeholder="Enter your email..." />

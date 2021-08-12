@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { SignupSchema } from "../../validation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
-import styles from "../../public/css/Signup.module.scss";
 import { Signup } from "../../redux/actions/auth.actions";
+import styles from "../../public/css/Signup.module.scss";
 
 export const SignupForm = () => {
 	const router = useRouter();
@@ -19,9 +19,13 @@ export const SignupForm = () => {
 		terms: false,
 	};
 
-	// const handleSubmit = (data) => router.push("/welcome");
 	const handleSubmit = (data) => {
-		signup(data, () => {
+		let formData = new FormData();
+		for (let value in data) {
+			formData.append(value, data[value]);
+		}
+		/**Signup endpoint is called with data */
+		signup(formData, () => {
 			router.push("/welcome");
 		});
 	};
@@ -51,13 +55,14 @@ export const SignupForm = () => {
 					label="Phone number"
 					name="phoneNo"
 					placeholder="Enter your Phone number"
-					type="alphaNumeric"
+					inputMode="numeric"
 					onChange={formik.handleChange}
 				/>
 
 				<Input
 					label="Password"
 					name="Password"
+					type="password"
 					placeholder="Create Password"
 					onChange={formik.handleChange}
 				/>
