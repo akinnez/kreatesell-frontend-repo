@@ -1,32 +1,71 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { Button, Input, FormError } from "../";
-import { StoreNameSchema, BusinessNameSchema } from "../../validation";
+import { Button, Input, FormError, Select } from "../";
+import {
+	StoreNameSchema,
+	BusinessNameSchema,
+	CountrySchema,
+} from "../../validation";
 import styles from "../../public/css/Welcome.module.scss";
 import { isAnEmpytyObject } from "../../utils";
+import { GetCountries, StoreOnboarding } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
 export const WelcomeForm = () => {
+	const getCountries = GetCountries();
+	const storeOnboarding = StoreOnboarding();
 	const [step, setStep] = useState(1);
 
+	const { countries } = useSelector((state) => state.utils);
+	const { store, loading } = useSelector((state) => state.store);
+	console.log("countries --->", countries);
+	console.log("store reducer --->", store);
+
+	useEffect(() => {
+		getCountries();
+	}, []);
+
 	const initialValues = {
-		businessName: "",
-		storeName: "",
+		Brand_Name: "",
+		Store_Name: "",
+		Country_Id: "",
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async (data) => {
 		if (step === 1) {
 			setStep(2);
+		} else if (step === 2) {
+			setStep(3);
+		} else if (step === 3) {
+			/**Submit Action goes here */
+			let formData = new FormData();
+			for (let value in data) {
+				formData.append(value, data[value]);
+			}
+
+			/**Signup endpoint is called with data */
+			await storeOnboarding(formData, () => {
+				router.push("/account");
+			});
 		}
-		/**Submit Action goes here */
 	};
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: step === 1 ? BusinessNameSchema : StoreNameSchema,
+		validationSchema:
+			step === 1
+				? CountrySchema
+				: step === 2
+				? BusinessNameSchema
+				: StoreNameSchema,
 		validateOnChange: false,
 	});
+
+	const { setFieldValue } = formik;
+
+	console.log("formik values --->", formik.values);
 
 	return (
 		<form
@@ -45,34 +84,50 @@ export const WelcomeForm = () => {
 			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
 
 			<p className={styles.label}>
-				{step === 1 &&
-					`1. Your Business Name - will be displayed on your store`}
-				{step === 2 && `2.  What would you like your store username to be? `}
+				{step === 1 && `1. Select your country`}
+				{step === 2 &&
+					`2. Your Business Name - will be displayed on your store`}
+				{step === 3 && `3.  What would you like your store username to be? `}
 			</p>
 
 			{step === 1 && (
-				<Input
-					placeholder="Enter name here ... "
-					name="businessName"
-					className={styles.input}
-					onChange={formik.handleChange}
-				/>
+				<div className={styles.selectCont}>
+					<Select
+						arrowIconColor="#0072EF"
+						placeholder="Select Country"
+						options={countries?.map((e) => ({ label: e.name, value: e.id }))}
+						className={styles.selectStyle}
+						height="3.375rem"
+						name="Country_Id"
+						onChange={(e) => setFieldValue("Country_Id", e.value)}
+					/>
+				</div>
 			)}
 
 			{step === 2 && (
 				<Input
 					placeholder="Enter name here ... "
-					name="storeName"
+					name="Brand_Name"
+					className={styles.input}
+					onChange={formik.handleChange}
+				/>
+			)}
+
+			{step === 3 && (
+				<Input
+					placeholder="Enter name here ... "
+					name="Store_Name"
 					className={styles.input}
 					onChange={formik.handleChange}
 				/>
 			)}
 
 			<Button
-				type={step === 1 ? "click" : "submit"}
-				text="Continue"
+				type={step === 3 ? "submit" : "click"}
+				text={step === 3 ? "Submit" : "Continue"}
 				bgColor="primaryBlue"
 				className={styles.button}
+				loading={loading}
 			/>
 		</form>
 	);

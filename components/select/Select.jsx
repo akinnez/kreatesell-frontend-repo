@@ -12,6 +12,7 @@ export const Select = ({
 	placeholderStyle,
 	bgColor = "#ffffff",
 	placeHolderColor,
+	height = "38px",
 	...rest
 }) => {
 	const customStyles = {
@@ -21,6 +22,7 @@ export const Select = ({
 			border: border === `none` ? "none" : `1px solid ${borderColor}`,
 			borderRadius: "8px",
 			background: transparentBg ? "transparent" : bgColor,
+			minHeight: height,
 		}),
 		indicatorSeparator: (provided, state) => ({
 			...provided,

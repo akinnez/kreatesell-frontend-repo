@@ -8,7 +8,8 @@ export const SignupSchema = () => {
 			.required("Phone number is required")
 			.matches(/^[0-9]+$/, "Phone number can only be digits")
 			.length(11, "Phone number must be 11 digits"),
-		// terms: Yup.bool().oneOf([true], "Terms and conditions must be accepted"),
+		terms: Yup.bool().oneOf([true], "Terms and conditions must be accepted"),
+		recaptchaToken: Yup.string().required("Verify you're not a robot!"),
 	});
 };
 

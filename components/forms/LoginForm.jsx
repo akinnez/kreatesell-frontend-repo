@@ -3,13 +3,16 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
-import { Login } from "../../redux/actions/auth.actions";
+import { Login } from "../../redux/actions";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import styles from "../../public/css/Login.module.scss";
 
 export const LoginForm = () => {
 	const login = Login();
 	const router = useRouter();
+
+	const { loading } = useSelector((state) => state.auth);
 
 	const initialValues = {
 		username: "",
@@ -64,7 +67,12 @@ export const LoginForm = () => {
 					</Link>
 				</div>
 
-				<Button type="submit" text="Login" bgColor="primaryBlue" />
+				<Button
+					type="submit"
+					text="Login"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>

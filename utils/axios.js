@@ -32,8 +32,7 @@ class ApiService {
 
 	handleError = (error) => {
 		// const status = error?.response?.status;
-		console.log("axios error whole response --->", error?.response);
-		return Promise.reject(error?.response);
+		return Promise.reject(error?.response?.data);
 	};
 
 	request(

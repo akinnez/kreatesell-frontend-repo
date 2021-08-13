@@ -2,6 +2,7 @@ import axios from "../../utils/axios";
 import * as types from "../types";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { showToast } from "../../utils";
 
 export const Signup = () => {
 	const dispatch = useDispatch();
@@ -14,11 +15,12 @@ export const Signup = () => {
 				const { token, user } = res;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user", JSON.stringify(user));
-				dispatch({ type: types.SIGNUP.SUCCESS, payload: res?.data });
+				dispatch({ type: types.SIGNUP.SUCCESS, payload: res });
 				successCallback?.();
 			},
 			(err) => {
-				dispatch({ type: types.SIGNUP.FAILURE, payload: err });
+				dispatch({ type: types.SIGNUP.FAILURE, payload: err?.error });
+				showToast(err?.error?.message, "error");
 				errorCallback?.();
 			},
 			data
@@ -37,12 +39,12 @@ export const Login = () => {
 				const { token, user } = res;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user", JSON.stringify(user));
-				dispatch({ type: types.LOGIN.SUCCESS, payload: res?.data });
+				dispatch({ type: types.LOGIN.SUCCESS, payload: res });
 				successCallback?.();
 			},
 			(err) => {
-				console.log("Signup err --->", err);
 				dispatch({ type: types.LOGIN.FAILURE, payload: err });
+				showToast(err?.error, "error");
 				errorCallback?.();
 			},
 			data
