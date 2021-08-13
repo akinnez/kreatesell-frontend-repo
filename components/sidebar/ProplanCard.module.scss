@@ -1,0 +1,45 @@
+.card_bg {
+    height: 190px;
+    border-radius: 16px;
+    background-image: url("/images/card-bg.png");
+    position: relative;
+
+    .overlay {
+        background: linear-gradient(
+            163.16deg,
+            rgba(0, 102, 255, 0.5) 10.04%,
+            rgba(0, 147, 53, 0.5) 101.52%
+        );
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        mix-blend-mode: normal;
+        border-radius: 16px;
+        padding: 20px;
+
+        p {
+            margin: 0;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 26px;
+        }
+
+        .btn_link {
+            background: #ffffff;
+            box-shadow: 0px 4px 7px -1px rgba(0, 0, 0, 0.11),
+                0px 2px 4px -1px rgba(0, 0, 0, 0.07);
+            border-radius: 8px;
+            padding: 8px 0;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+    }
+}
+
+
+

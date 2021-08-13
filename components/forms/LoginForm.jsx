@@ -40,6 +40,7 @@ export const LoginForm = () => {
 					placeholder="Enter your Password"
 					onChange={formik.handleChange}
 					containerstyle={styles.password}
+					type="password"
 				/>
 
 				<div className={styles.terms}>

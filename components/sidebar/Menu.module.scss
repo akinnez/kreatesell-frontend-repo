@@ -1,0 +1,117 @@
+.li{
+    &:not(:first-child) {
+        margin-top: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        display: block;
+
+        .nav_menu_icon_wrapper {
+            display: flex;
+            align-items: center;
+            height: 58px;
+            border-radius: 8px;
+            padding-left: 20px;
+
+            &:hover, .active {
+                box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+                transition: all 400ms ease-in;
+            }
+
+            span {
+                margin-left: 12px;
+                color: #67748e;
+                font-size: 1rem;
+            }
+
+            .menu_icon {
+                box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.12),
+                    0px 2px 4px -1px rgba(0, 0, 0, 0.07);
+                border-radius: 8px;
+                width: 42px;
+                height: 42px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+        .menu_drop_minus{
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 5px;
+        }
+        }
+    }
+
+    .opaque {
+        background: #0072ef;
+        transition: 400ms ease-in;
+    }
+
+    &:hover{
+        .menu_icon, .opaque {
+            background: #0072ef;
+            transition: 400ms ease-in;
+        }
+        a{
+            .nav_menu_icon_wrapper{
+                span{
+                    color:blue
+                }
+            }
+        }
+    }
+
+}
+
+
+.sub_menu {
+    list-style-type: none;
+    padding-left: 75px;
+    margin-top: 20px;
+
+    li {
+        a {
+            color: #67748e;
+            padding: 12px 0 12px 6px;
+        }
+    }
+    
+}
+
+
+.side_menu_wrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 33px 10px 15px 28px;
+    border-top: 1px solid #f5f5f5;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #c4c4c4;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    .side_menu {
+        list-style-type: none;
+        padding: 0;
+    }
+
+}
+
+
+// .menu-drop-minus {
+//     flex: 1;
+//     display: flex;
+//     justify-content: flex-end;
+//     padding-right: 5px;
+// }

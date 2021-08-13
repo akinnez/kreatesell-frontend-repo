@@ -1,11 +1,23 @@
 @import "./colors.scss";
 @import "./mixins.scss";
+@import "./screens.scss";
 
 .container {
 	box-sizing: border-box;
 	padding: 0rem 10.31rem;
 	background-image: url("/images/partial-general-bg.svg");
 	background-repeat: no-repeat;
+
+	@include screen("tablet") {
+		padding: 0rem 2rem;
+		padding-top: 2rem;
+	}
+
+	@include screen("medium") {
+		padding: 0rem 1.5rem;
+		background-image: url("/images/mobile-general-bg.svg");
+		width: 100%;
+	}
 
 	.hero {
 		text-align: center;
@@ -15,16 +27,34 @@
 			margin-bottom: 1rem;
 			font-weight: 700;
 			font-size: 3rem;
-			line-height: 64px;
+			line-height: 4rem;
 			color: $black-100;
 		}
 
-		.subtitle {
+		.webTitle {
+			@extend .main;
+		}
+		.mobileTitle {
+			display: none;
+			@extend .main;
+		}
+
+		.subtitleStyle {
 			color: $base-gray;
 			margin-bottom: 2rem;
 			font-weight: 400;
 			font-size: 1.125rem;
 			line-height: 2rem;
+		}
+
+		.webSubtitle {
+			@extend .subtitleStyle;
+		}
+		.mobileSubtitle {
+			display: none;
+			@extend .subtitleStyle;
+			font-weight: 300;
+			line-height: 1.5rem;
 		}
 
 		.input {
@@ -50,49 +80,140 @@
 			padding-top: 6rem;
 			h3 {
 				font-weight: 600;
-				font-size: 40px;
-				line-height: 54px;
-				color: #262626;
+				font-size: 2.5rem;
+				line-height: 3.375rem;
+				color: $black-100;
 			}
 			p {
 				margin: 0;
 				font-weight: 400;
-				font-size: 17px;
-				line-height: 28px;
-				color: #595959;
+				font-size: 1.0625rem;
+				line-height: 1.75rem;
+				color: $base-gray;
+			}
+
+			@include screen("tablet") {
+				padding-top: 4rem;
+				padding-bottom: 3rem;
+				h3 {
+					font-size: 2rem;
+					line-height: 0.5rem;
+					padding-bottom: 1rem;
+				}
+			}
+
+			@include screen("medium") {
+				padding-top: 4rem;
+				h3 {
+					font-weight: 600;
+					font-size: 1.6rem;
+					line-height: 2.5rem;
+				}
+				p {
+					font-weight: 300;
+					font-size: 1.15rem;
+					padding: 0 2.5rem;
+					padding-top: 1rem;
+				}
+			}
+		}
+
+		@include screen("tablet") {
+			.webTitle {
+				display: block;
+				text-align: center;
+			}
+			.mobileTitle {
+				display: none;
+			}
+		}
+
+		@include screen("medium") {
+			.webTitle {
+				display: none;
+			}
+			.mobileTitle {
+				display: block;
+				font-size: 1.5rem;
+				line-height: 2rem;
+			}
+			.webSubtitle {
+				display: none;
+			}
+			.mobileSubtitle {
+				display: block;
 			}
 		}
 	}
 
 	.automation {
-		// margin-top: 4rem;
 		display: flex;
+		width: 100%;
 
 		.image {
 			margin-top: 4rem;
+			width: 50%;
+		}
+
+		@include screen("tablet") {
+			width: 100%;
+
+			.image {
+			}
+			.automationText {
+				width: 100%;
+				padding-left: 0;
+			}
+		}
+
+		@include screen("medium") {
+			flex-direction: column;
+
+			&.mobileReverse {
+				flex-direction: column-reverse;
+			}
+			.image {
+				width: 100%;
+				margin-top: 2rem;
+			}
 		}
 
 		.automationText {
-			padding-left: 7rem;
-			h3,
-			p {
-				margin: 0;
-			}
 			@include flex(column, center, null);
+			width: 50%;
+			padding-left: 7rem;
 
-			.automationTitle {
+			.automationTitleStyle {
 				font-weight: 800;
 				font-size: 2.5rem;
 				line-height: 3.375rem;
 				color: $black-100;
 			}
 
-			.automationSubTitle {
+			.webAutomationTitle {
+				@extend .automationTitleStyle;
+			}
+
+			.mobileAutomationTitle {
+				display: none;
+				@extend .automationTitleStyle;
+			}
+
+			.automationSubTitleStyle {
 				margin-top: 1rem;
 				font-weight: 400;
 				font-size: 1.125rem;
 				line-height: 1.75rem;
 				color: $base-gray;
+			}
+
+			.webAutomationSubTitle {
+				@extend .automationSubTitleStyle;
+			}
+
+			.mobileAutomationSubTitle {
+				@extend .automationSubTitleStyle;
+				display: none;
 			}
 
 			.linkText {
@@ -103,6 +224,32 @@
 				color: $base-blue;
 				cursor: pointer;
 			}
+
+			@include screen("medium") {
+				width: 100%;
+				padding: 0;
+				.webAutomationTitle {
+					display: none;
+				}
+				.mobileAutomationTitle {
+					display: block;
+					font-weight: 450;
+					font-size: 1.5rem;
+					line-height: 2rem;
+					text-align: center;
+				}
+				.webAutomationSubTitle {
+					display: none;
+				}
+				.mobileAutomationSubTitle {
+					display: block;
+					text-align: center;
+					font-size: 0.9rem;
+				}
+				.linkText {
+					text-align: center;
+				}
+			}
 		}
 	}
 
@@ -111,6 +258,50 @@
 		margin-top: -3.25rem;
 
 		.img {
+		}
+
+		@include screen("medium") {
+			display: none;
+		}
+	}
+
+	.mobileSubFooter {
+		display: none;
+	}
+
+	@include screen("medium") {
+		.mobileSubFooter {
+			padding-bottom: 3rem;
+			padding-top: 5rem;
+			display: block;
+
+			.content {
+				text-align: center;
+				font-weight: 800;
+				font-size: 28px;
+				line-height: 40px;
+				color: $base-blue;
+				padding-bottom: 1rem;
+
+				span {
+					color: $green-100;
+				}
+			}
+			.inputContainer {
+				.benefits {
+					display: flex;
+					justify-content: center;
+					margin-top: 0.6rem;
+					font-weight: 400;
+					font-size: 0.75rem;
+					line-height: 0.9375rem;
+					color: $base-gray;
+
+					span {
+						padding: 0 0.4rem;
+					}
+				}
+			}
 		}
 	}
 }

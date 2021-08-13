@@ -45,7 +45,7 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
             .tab-wrapper li{
                 border-bottom:2px solid transparent;
                 padding:10px;
-                font-size:18px;
+                font-size:16px;
                 cursor:pointer;
             }
 
@@ -60,10 +60,6 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
                 color:#2DC071;
             }
 
-            .tab-wrapper li.disabled{
-                color:#8C8C8C;
-                cursor:not-allowed;
-            }
         
         `}</style>
         </>

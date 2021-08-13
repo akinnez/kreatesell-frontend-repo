@@ -1,5 +1,5 @@
-import { AuthLayout } from "../../../components/authlayout";
-import { RecentAnalytics, StatsCard, DateHeader } from "./partials";
+import { AuthLayout } from "../../../../components/authlayout";
+import { RecentAnalytics, StatsCard, DateHeader } from "../partials";
 
 const kreator = () => {
 	return (

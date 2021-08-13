@@ -46,6 +46,12 @@ export const TextInput = ({disabled,labelStyle, name, type="text", value, onChan
 
                     }
 
+                    @media screen and (max-width:600px){
+                        input{
+                            font-size:12px;
+                        }
+                    }
+
                 
                 `}</style>
         </>
@@ -94,6 +100,12 @@ export const TextArea = ({disabled, name, type="text", value, onChange=()=>{},on
                         font-size:14px;
                         resize:none;
                         font-family: 'Inter'
+                    }
+
+                    @media screen and (max-width:600px){
+                        textarea{
+                            font-size:12px;
+                        }
                     }
 
                 
@@ -305,6 +317,11 @@ export const FileInput = ({
                     position:relative;
                 }
             
+                @media screen and (max-width:600px){
+                    .file-input-label{
+                        font-size:12px;
+                    }
+                }
             `}</style>
         </>
     )
@@ -351,6 +368,7 @@ export const Uploader = ({disabled,label,extralable, value, onChange=()=>{},onBl
                 background-size:cover;
                 background-position:center;
                 background-repeat:no-repeat;
+                padding:10px;
             }
 
             .uploader-wrapper input[type=file]{
@@ -386,7 +404,6 @@ export const Uploader = ({disabled,label,extralable, value, onChange=()=>{},onBl
                 color: #8C8C8C;
                 font-size:14px;
                 margin-top:10px;
-
             }
         `}</style>
         </>

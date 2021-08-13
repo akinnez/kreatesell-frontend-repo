@@ -34,7 +34,10 @@ export const WelcomeForm = () => {
 			onSubmit={formik.handleSubmit}
 			autoComplete="off"
 		>
-			<h5 className={styles.title}>Tell us a little about yourself</h5>
+			<h5 className={styles.mobileTitle}>
+				Tell us a little about <br /> yourself
+			</h5>
+			<h5 className={styles.webTitle}>Tell us a little about yourself</h5>
 			<p className={styles.subTitle}>
 				Now that you're all signed up, let's personalize your store.
 			</p>
@@ -66,7 +69,6 @@ export const WelcomeForm = () => {
 			)}
 
 			<Button
-				// type="submit"
 				type={step === 1 ? "click" : "submit"}
 				text="Continue"
 				bgColor="primaryBlue"

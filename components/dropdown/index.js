@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
 
-const Index = ({Button,children, ...rest})=>{
+const Index = ({Button,children,width, ...rest})=>{
 
     const [show, setShow] = useState(false)
 
@@ -17,29 +17,30 @@ const Index = ({Button,children, ...rest})=>{
                    <span onClick={()=>setShow(!show)}>{
                        Button || "Click here"
                    }</span>
-            <div className="dropdown-wrapper" {...rest}>
-               
-                {
-                    show ? <div className="dropdown-menu">
-                    {children}
-                </div>:null
-                }
+                    <div className="dropdown-wrapper" {...rest}>
+                        {
+                            show ? 
+                        <div className="dropdown-menu">
+                           {children}
+                        </div>:null
+                        }
 
-            </div>
+                    </div>
 
             <style jsx>{`
                 .dropdown-wrapper{
                     position:relative;
-                    width:100%;
+                    width:auto;
+                    right:0;
                     margin-top:10px;
+                    background:blue
                 }
 
 
                 .dropdown-menu{
                     position:absolute;
+                    display:inline-block;
                     top:20;
-                    left:0;
-                    right:0;
                     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
                     border-radius: 8px;
                     padding:5px;
@@ -48,6 +49,10 @@ const Index = ({Button,children, ...rest})=>{
                     animation-fill-mode: both;
                     will-change: transform;
                     background-color:#ffffff;
+                }
+
+                .dropdown-menu div{
+                    width:200px
                 }
 
                 @keyframes DropDownSlide{

@@ -1,8 +1,8 @@
 // import { format } from "date-fns";
 import { useState, useEffect } from "react";
-import { Modal, Button } from "../../../components";
-import { AuthLayout } from "../../../components/authlayout";
-import styles from "../../../public/css/Dashboard.module.scss";
+import { Modal, Button } from "../../../../components";
+import { AuthLayout } from "../../../../components/authlayout";
+import styles from "../../../../public/css/Dashboard.module.scss";
 import { RecentAnalytics, StatsCard, DateHeader } from "./partials";
 
 const Dashboard = () => {

@@ -1,5 +1,5 @@
-import { Select, Input } from "../../../../components";
-import styles from "../../../../public/css/Dashboard.module.scss";
+import { Select, Input } from "../../../../../components";
+import styles from "../../../../../public/css/Dashboard.module.scss";
 
 export const DateHeader = () => {
 	const dayOptions = [

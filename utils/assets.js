@@ -29,6 +29,18 @@ import UnitSales from "../public/images/dashboard-unit-sales.svg";
 import Visit from "../public/images/dashboard-visits.svg";
 import DownloadIcon from "../public/images/download.svg";
 import FBLike from "../public/images/fb-like.svg";
+import AirBnBLogo from "../public/images/Airbnb-logo.svg";
+import MicrosoftLogo from "../public/images/Microsoft-logo.svg";
+import EclipseHero from "../public/images/hero-eclipse.svg";
+import PrimaryNews from "../public/images/primary-news.svg";
+import PrimaryNewsFooterImg from "../public/images/primary-news-footer.svg";
+import SecondaryNews from "../public/images/secondary-news.svg";
+import videoThumbnail from "../public/images/Video-thumbnail.svg";
+import FBIcon from "../public/images/Facebook.svg";
+import InstaIcon from "../public/images/Instagram.svg";
+import LinkedIcon from "../public/images/Linkedin.svg";
+import TwitterIcon from "../public/images/TwitterSquare.svg";
+import WhatsappIcon from "../public/images/WhatsApp.svg";
 import { RightArrow } from "./icons/RightArrow";
 
 export {
@@ -64,4 +76,16 @@ export {
 	UnitSales,
 	Visit,
 	DownloadIcon,
+	AirBnBLogo,
+	MicrosoftLogo,
+	EclipseHero,
+	PrimaryNews,
+	SecondaryNews,
+	PrimaryNewsFooterImg,
+	videoThumbnail,
+	FBIcon,
+	InstaIcon,
+	LinkedIcon,
+	TwitterIcon,
+	WhatsappIcon,
 };
