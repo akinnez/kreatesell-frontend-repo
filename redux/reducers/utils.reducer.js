@@ -7,10 +7,10 @@ const initialState = {
 	error: "",
 };
 
-export default (state = initialState, { type, payload }) => {
+const UtilsReducer = (state = initialState, { type, payload }) => {
 	switch (type) {
-		case types.GET_STORE_DETAILS.REQUEST:
 		case types.GET_COUNTRIES.REQUEST:
+		case types.GET_STORE_DETAILS.REQUEST:
 			return { ...state, loading: true };
 
 		case types.GET_STORE_DETAILS.SUCCESS:
@@ -27,3 +27,5 @@ export default (state = initialState, { type, payload }) => {
 			return state;
 	}
 };
+
+export default UtilsReducer;

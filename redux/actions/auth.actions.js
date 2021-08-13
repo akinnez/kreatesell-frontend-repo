@@ -82,6 +82,8 @@ export const ValidateResetToken = () => {
 			`post`,
 			`auth/forgot_password/confirm_token`,
 			(res) => {
+				const { token } = res;
+				localStorage.setItem("token", token);
 				dispatch({
 					type: types.VALIDATE_PASSWORD_RESET_TOKEN.SUCCESS,
 					payload: res,

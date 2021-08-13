@@ -30,8 +30,6 @@ export const GetStoreDetails = () => {
 			`get`,
 			`v1/kreatesell/store/me`,
 			(res) => {
-				// const { user } = res;
-				// localStorage.setItem("user", JSON.stringify(user));
 				dispatch({ type: types.GET_STORE_DETAILS.SUCCESS, payload: res });
 				successCallback?.();
 			},
