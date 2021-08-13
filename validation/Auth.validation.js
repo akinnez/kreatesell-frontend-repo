@@ -4,17 +4,20 @@ export const SignupSchema = () => {
 	return Yup.object().shape({
 		Email: Yup.string().email().required("Please input a valid email address"),
 		Password: Yup.string().required("Please enter a valid password"),
-		phoneNo: Yup.number()
-			.required("Please enter a valid phone number")
-			.min(11, "Phone number must be 11 digits")
-			.max(11, "Phone number must be 11 digits"),
+		phoneNo: Yup.string()
+			.required("Phone number is required")
+			.matches(/^[0-9]+$/, "Phone number can only be digits")
+			.length(11, "Phone number must be 11 digits"),
 		terms: Yup.bool().oneOf([true], "Terms and conditions must be accepted"),
+		recaptchaToken: Yup.string().required("Verify you're not a robot!"),
 	});
 };
 
 export const LoginSchema = () => {
 	return Yup.object().shape({
-		email: Yup.string().email().required("Please input a valid email address"),
+		username: Yup.string()
+			.email()
+			.required("Please input a valid email address"),
 		password: Yup.string().required("Please enter a valid password"),
 	});
 };

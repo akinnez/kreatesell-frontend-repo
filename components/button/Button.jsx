@@ -12,7 +12,7 @@ export const Button = ({
 	return (
 		<button
 			{...rest}
-			disabled={loading || rest.disabled}
+			disabled={loading || disabled}
 			type={type}
 			className={`
 			${rest.className}

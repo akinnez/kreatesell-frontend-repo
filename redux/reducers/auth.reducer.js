@@ -2,8 +2,8 @@ import * as types from "../types";
 
 const initialState = {
 	loading: false,
-	posts: [],
 	user: {},
+	error: {},
 };
 
 const AuthReducer = (state = initialState, { type, payload }) => {
@@ -13,10 +13,12 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 			return { ...state, loading: true };
 
 		case types.LOGIN.SUCCESS:
-		case types.LOGIN.FAILURE:
 		case types.SIGNUP.SUCCESS:
-		case types.SIGNUP.FAILURE:
 			return { ...state, loading: false, user: payload };
+
+		case types.SIGNUP.FAILURE:
+		case types.LOGIN.FAILURE:
+			return { ...state, loading: false, error: payload };
 
 		default:
 			return state;

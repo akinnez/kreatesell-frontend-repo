@@ -1,16 +1,16 @@
 import axios from "axios";
 import { getToken } from ".";
 
-export const baseURL = `
-http://kreatesellcom-001-site1.ctempurl.com/api/`;
+export const baseURL = `http://kreatesellcom-001-site1.ctempurl.com/api/`;
 
 class ApiService {
 	constructor(contentType) {
 		const instance = axios.create({
 			baseURL,
 			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json" || contentType,
+				Accept: "*/*",
+				// "Content-Type": "multipart/form-data",
+				// "Content-Type": "application/json",
 				"Access-Control-Allow-Methods": "*",
 				"Access-Control-Allow-Origin": baseURL,
 			},
@@ -30,7 +30,10 @@ class ApiService {
 
 	handleSuccess = (response) => response;
 
-	handleError = (error) => Promise.reject(error?.response);
+	handleError = (error) => {
+		// const status = error?.response?.status;
+		return Promise.reject(error?.response?.data);
+	};
 
 	request(
 		method,
