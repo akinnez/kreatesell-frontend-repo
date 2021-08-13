@@ -10,16 +10,35 @@ export const StoreOnboarding = () => {
 			`post`,
 			`v1/kreatesell/store/onboarding`,
 			(res) => {
-				console.log("StoreOnboarding action res -->", res);
 				dispatch({ type: types.ONBOARDING_SETUP.SUCCESS, payload: res });
 				successCallback?.();
 			},
 			(err) => {
-				console.log("StoreOnboarding error --->", err);
 				dispatch({ type: types.ONBOARDING_SETUP.FAILURE, payload: err });
 				errorCallback?.();
 			},
 			data
+		)
+	);
+};
+
+export const GetStoreDetails = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.GET_STORE_DETAILS.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/store/me`,
+			(res) => {
+				// const { user } = res;
+				// localStorage.setItem("user", JSON.stringify(user));
+				dispatch({ type: types.GET_STORE_DETAILS.SUCCESS, payload: res });
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.GET_STORE_DETAILS.FAILURE, payload: err });
+				errorCallback?.();
+			}
 		)
 	);
 };

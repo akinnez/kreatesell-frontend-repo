@@ -52,6 +52,82 @@ export const Login = () => {
 	);
 };
 
+export const InitiatePasswordReset = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.INITIATE_PASSWORD_RESET.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/forgot_password/generate_token`,
+			(res) => {
+				dispatch({ type: types.INITIATE_PASSWORD_RESET.SUCCESS, payload: res });
+				showToast("Kindly check your mail for password reset token", "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.INITIATE_PASSWORD_RESET.FAILURE, payload: err });
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const ValidateResetToken = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.VALIDATE_PASSWORD_RESET_TOKEN.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/forgot_password/confirm_token`,
+			(res) => {
+				dispatch({
+					type: types.VALIDATE_PASSWORD_RESET_TOKEN.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.VALIDATE_PASSWORD_RESET_TOKEN.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const ResetPassword = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.RESET_PASSWORD.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/forgot_password/reset_password`,
+			(res) => {
+				dispatch({
+					type: types.RESET_PASSWORD.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.RESET_PASSWORD.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
 export const Logout = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
