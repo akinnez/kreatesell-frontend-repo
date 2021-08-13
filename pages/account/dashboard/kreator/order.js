@@ -1,4 +1,4 @@
-import { Table } from "../../../../components";
+import { Table, Button } from "../../../../components";
 import { AuthLayout } from "../../../../components/authlayout";
 import { DateHeader } from "../partials";
 
@@ -14,6 +14,16 @@ const KreatorOrder = () => {
 };
 
 export default KreatorOrder;
+
+const customComponent = ({ item }) => {
+	const handleSubmit = () => console.log("hello");
+	return (
+		<span>
+			<Button text="Yes" onClick={handleSubmit} />
+			<Button text="No" />
+		</span>
+	);
+};
 
 export const table_header = [
 	{
@@ -48,6 +58,7 @@ export const table_header = [
 		title: "Transaction Status",
 		key: "status",
 	},
+	{ title: "Action", key: "action", component: customComponent },
 ];
 
 const data = [
