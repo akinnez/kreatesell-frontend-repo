@@ -5,16 +5,26 @@ import { useFormik } from "formik";
 import { ResetPasswordSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/ForgotPassword.module.scss";
+import { ResetPassword } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
 export const ResetPasswordForm = () => {
+	const resetPassword = ResetPassword();
+	const { loading } = useSelector((state) => state.store);
+
 	const [modalVisible, setVisible] = useState(false);
 
 	const initialValues = {
 		password: "",
-		confirmPassword: "",
+		confirm_password: "",
 	};
 
-	const handleSubmit = () => setVisible(true);
+	const handleSubmit = (data) => {
+		resetPassword(data, () => {
+			setVisible(true);
+			localStorage.clear();
+		});
+	};
 
 	const formik = useFormik({
 		initialValues,
@@ -42,13 +52,13 @@ export const ResetPasswordForm = () => {
 
 				<Input
 					label="Confirm New Password"
-					name="confirmPassword"
+					name="confirm_password"
 					placeholder="Confirm new password"
 					onChange={formik.handleChange}
 					type="password"
 				/>
 
-				<Button text="Reset password" bgColor="primaryBlue" />
+				<Button text="Reset password" bgColor="primaryBlue" loading={loading} />
 			</form>
 
 			<div className={styles.footer}>

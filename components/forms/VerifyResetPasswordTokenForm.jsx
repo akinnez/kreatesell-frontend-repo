@@ -2,32 +2,32 @@ import { Input, Button, FormError } from "../";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { ForgotPasswordSchema } from "../../validation";
+import { VerifyPasswordTokenSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
-import { InitiatePasswordReset } from "../../redux/actions";
+import { ValidateResetToken } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import styles from "../../public/css/ForgotPassword.module.scss";
 
-export const ForgotPasswordForm = () => {
+export const VerifyResetPasswordTokenForm = () => {
 	const router = useRouter();
-	const initiatePasswordReset = InitiatePasswordReset();
+	const validateToken = ValidateResetToken();
 
 	const { loading } = useSelector((state) => state.auth);
 
 	const initialValues = {
-		username: "",
+		token: "",
 	};
 
 	const handleSubmit = (data) => {
-		initiatePasswordReset(data, () => {
-			router.push("/forgot-password/token");
+		validateToken(data, () => {
+			router.push("/reset-password");
 		});
 	};
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: ForgotPasswordSchema,
+		validationSchema: VerifyPasswordTokenSchema,
 		validateOnChange: false,
 	});
 
@@ -41,13 +41,13 @@ export const ForgotPasswordForm = () => {
 				className={styles.container}
 			>
 				<Input
-					label="Email or Phone number"
-					name="username"
-					placeholder="Enter your Email or Phone number"
+					label="Token"
+					name="token"
+					placeholder="Enter token"
 					onChange={formik.handleChange}
 				/>
 
-				<Button text="Reset password" bgColor="primaryBlue" loading={loading} />
+				<Button text="Verify Token" bgColor="primaryBlue" loading={loading} />
 			</form>
 
 			<div className={styles.footer}>

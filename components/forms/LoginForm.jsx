@@ -3,15 +3,28 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
+import { Login } from "../../redux/actions";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import styles from "../../public/css/Login.module.scss";
 
 export const LoginForm = () => {
+	const login = Login();
+	const router = useRouter();
+
+	const { loading } = useSelector((state) => state.auth);
+
 	const initialValues = {
-		email: "",
+		username: "",
 		password: "",
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = (data) => {
+		/**Login endpoint is called with data */
+		login(data, () => {
+			router.push("/account/dashboard/kreator");
+		});
+	};
 
 	const formik = useFormik({
 		initialValues,
@@ -29,7 +42,7 @@ export const LoginForm = () => {
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
 					label="Email or Phone number"
-					name="email"
+					name="username"
 					placeholder="Enter your Email or Phone number"
 					onChange={formik.handleChange}
 				/>
@@ -54,7 +67,12 @@ export const LoginForm = () => {
 					</Link>
 				</div>
 
-				<Button type="submit" text="Login" bgColor="primaryBlue" />
+				<Button
+					type="submit"
+					text="Login"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>

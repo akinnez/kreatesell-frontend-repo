@@ -5,18 +5,39 @@ import { useRouter } from "next/router";
 import { SignupSchema } from "../../validation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
+import { Signup } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import styles from "../../public/css/Signup.module.scss";
 
 export const SignupForm = () => {
 	const router = useRouter();
+	const signup = Signup();
+
+	const { loading, error } = useSelector((state) => state.auth);
 
 	const initialValues = {
-		email: "",
-		password: "",
+		Email: "",
+		Password: "",
+		phoneNo: "",
 		terms: false,
+		recaptchaToken: "",
 	};
 
-	const handleSubmit = () => router.push("/welcome");
+	const handleSubmit = async (values) => {
+		/**Destructuring the values below so that data used for validation on client side not required by the endpoint isn't passed along */
+		const { Email, Password, phoneNo } = values;
+		const data = { Email, Password, phoneNo };
+
+		let formData = new FormData();
+		for (let value in data) {
+			formData.append(value, data[value]);
+		}
+
+		/**Signup endpoint is called with data */
+		await signup(formData, () => {
+			router.push("/welcome");
+		});
+	};
 
 	const formik = useFormik({
 		initialValues,
@@ -25,7 +46,7 @@ export const SignupForm = () => {
 		validateOnChange: false,
 	});
 
-	const errors = formik.errors;
+	const { errors, setFieldValue } = formik;
 
 	return (
 		<>
@@ -33,29 +54,40 @@ export const SignupForm = () => {
 
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
-					label="Email or Phone number"
-					name="email"
-					placeholder="Enter your Email or Phone number"
+					label="Email address"
+					name="Email"
+					placeholder="Enter your Email address"
 					onChange={formik.handleChange}
 				/>
-
+				<Input
+					label="Phone number"
+					name="phoneNo"
+					placeholder="Enter your Phone number"
+					inputMode="numeric"
+					onChange={formik.handleChange}
+				/>
 				<Input
 					label="Password"
-					name="password"
+					name="Password"
+					type="password"
 					placeholder="Create Password"
 					onChange={formik.handleChange}
 				/>
-
 				<ReCAPTCHA
 					sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 					size="normal"
+					onChange={(value) => setFieldValue("recaptchaToken", value)}
 				/>
-
 				<div className={styles.terms}>
 					<Checkbox name="terms" onChange={formik.handleChange} />
 					<p>I agree to terms & conditions</p>
 				</div>
-				<Button text="Sign up" bgColor="primaryBlue" />
+				<Button
+					text="Sign up"
+					type="submit"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>
