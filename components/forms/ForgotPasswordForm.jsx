@@ -4,15 +4,25 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { ForgotPasswordSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
+import { InitiatePasswordReset } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import styles from "../../public/css/ForgotPassword.module.scss";
 
 export const ForgotPasswordForm = () => {
 	const router = useRouter();
+	const initiatePasswordReset = InitiatePasswordReset();
+
+	const { loading } = useSelector((state) => state.auth);
+
 	const initialValues = {
-		email: "",
+		username: "",
 	};
 
-	const handleSubmit = () => router.push("/reset-password");
+	const handleSubmit = (data) => {
+		initiatePasswordReset(data, () => {
+			router.push("/forgot-password/token");
+		});
+	};
 
 	const formik = useFormik({
 		initialValues,
@@ -32,12 +42,12 @@ export const ForgotPasswordForm = () => {
 			>
 				<Input
 					label="Email or Phone number"
-					name="email"
+					name="username"
 					placeholder="Enter your Email or Phone number"
 					onChange={formik.handleChange}
 				/>
 
-				<Button text="Reset password" bgColor="primaryBlue" />
+				<Button text="Reset password" bgColor="primaryBlue" loading={loading} />
 			</form>
 
 			<div className={styles.footer}>

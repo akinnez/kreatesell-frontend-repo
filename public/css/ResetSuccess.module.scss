@@ -1,13 +1,21 @@
 @import "./mixins.scss";
 @import "./colors.scss";
+@import "../../public/css/screens.scss";
 
 .resetPasswordModal {
 	@include flex(column, center, center);
 	padding: 0 12rem;
 
+	@include screen("tablet") {
+		padding: 0;
+	}
+
 	.image {
 		cursor: pointer;
 		margin-bottom: 1rem;
+		@include screen("medium") {
+			display: none;
+		}
 	}
 
 	h5 {
@@ -19,9 +27,12 @@
 		line-height: 2rem;
 		color: $black-100;
 		text-align: center;
+		@include screen("medium") {
+			font-weight: 600;
+		}
 	}
 
-	p {
+	.modalParagraph {
 		margin: 0;
 		margin-bottom: 2.5rem;
 		text-align: center;
@@ -33,7 +44,25 @@
 		opacity: 0.6;
 	}
 
+	.webParagraph {
+		@extend .modalParagraph;
+		@include screen("medium") {
+			display: none;
+		}
+	}
+
+	.mobileParagraph {
+		display: none;
+		@extend .modalParagraph;
+		@include screen("medium") {
+			display: block;
+		}
+	}
+
 	.button {
 		margin-left: 2rem;
+		@include screen("tablet") {
+			margin: 0;
+		}
 	}
 }

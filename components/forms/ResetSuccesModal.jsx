@@ -12,9 +12,15 @@ export const ResetPasswordSuccesModal = () => {
 			<div className={styles.image}>
 				<Image src={KreateSellBrand} alt="kreatesell" />
 			</div>
-			<h5>Successful password reset!</h5>
-			<p>
-				You can now use your new password to log in to <br /> your account! 🙌
+			<h5>Password Successfully Reset</h5>
+
+			<p className={styles.webParagraph}>
+				You have successfully changed your password. You can now use <br /> your
+				new set password to login into your account. 🙌
+			</p>
+			<p className={styles.mobileParagraph}>
+				You have successfully changed your password. You can now use your new
+				set password to login into your account. 🙌
 			</p>
 			<Button
 				text="Login"

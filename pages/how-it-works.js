@@ -17,10 +17,16 @@ const HowItWorks = () => {
 			<div className={styles.container}>
 				<div className={styles.hero}>
 					<h2 className={styles.main}>Just Upload It. Make Money From It.</h2>
+					<h2 className={styles.mobileHeader}>
+						Just Upload It. Make <br /> Money From It.
+					</h2>
 
 					<p className={styles.subtitle}>
 						A Smarter and Better way of making money from your <br /> Digital
 						Content.
+					</p>
+					<p className={styles.mobileSubtitle}>
+						A Smarter and Better way of making money from your Digital Content.
 					</p>
 
 					<div className={styles.input}>
@@ -56,7 +62,7 @@ const HowItWorks = () => {
 								<div className={styles.pill}>Online Course Creator</div>
 							</div>
 						</div>
-						<p>
+						<p className={styles.pillContent}>
 							KreateSell is an ease-to-use, cross-border ecommerce <br />{" "}
 							platform that will enable you to upload your digital products for{" "}
 							<br />
@@ -64,6 +70,13 @@ const HowItWorks = () => {
 							learn multiple complex sales funnel platforms and instantly get{" "}
 							<br />
 							paid from anywhere in the world conveniently.
+						</p>
+						<p className={styles.mobilePillContent}>
+							KreateSell is an ease-to-use, cross-border ecommerce platform that
+							will enable you to upload your digital products for fastest and
+							easiest sales and conversion without having to learn multiple
+							complex sales funnel platforms and instantly get paid from
+							anywhere in the world conveniently.
 						</p>
 					</div>
 					<div className={styles.image}>
@@ -90,7 +103,12 @@ const HowItWorks = () => {
 					<div className={styles.rowContent}>
 						<div className={styles.rowNumber}>1</div>
 						<div className={styles.content}>
-							<h5>Create your Store and setup Store details</h5>
+							<h5 className={styles.webTitle}>
+								Create your Store and setup Store details
+							</h5>
+							<h5 className={styles.mobileTitle}>
+								Create your Store and <br /> setup Store details
+							</h5>
 							<div>
 								<p className={styles.statement}>
 									To get started, just navigate to the get started or sign up
@@ -102,6 +120,14 @@ const HowItWorks = () => {
 									Getting ready? Now add all your store details for easy <br />
 									recognition. Details that compel, attract and intrigue
 									potential <br /> buyers.
+								</p>
+
+								<p className={styles.mobileStatement}>
+									To get started, just navigate to the get started or sign up
+									button and create a free account to have the all-in-one system
+									in action for use. Getting ready? Now add all your store
+									details for easy recognition. Details that compel, attract and
+									intrigue potential buyers.
 								</p>
 							</div>
 						</div>
@@ -117,17 +143,25 @@ const HowItWorks = () => {
 					/>
 				</div>
 
-				<div className={styles.rowOne}>
+				<div className={`${styles.rowOne} ${styles.evenRow}`}>
 					<div className={styles.rowContent}>
 						<div className={styles.rowNumber}>2</div>
 						<div className={styles.content}>
-							<h5>Add Product</h5>
+							<h5 className={styles.webTitle}>Add Product</h5>
+							<h5 className={styles.mobileTitle}>Add Product</h5>
 							<div>
 								<p className={styles.statement}>
 									Ready to go global, create your products with awesome <br />
 									descriptions and additional beneficial details that capture
 									the <br /> attention of customers. After that, share your
 									product link for <br /> the target audience.
+								</p>
+
+								<p className={styles.mobileStatement}>
+									Ready to go global, create your products with awesome
+									descriptions and additional beneficial details that capture
+									the attention of customers. After that, share your product
+									link for the target audience.
 								</p>
 							</div>
 						</div>
@@ -163,7 +197,10 @@ const HowItWorks = () => {
 					<div className={styles.rowContent}>
 						<div className={styles.rowNumber}>3</div>
 						<div className={styles.content}>
-							<h5>Publish - Go live in a seconds</h5>
+							<h5 className={styles.webTitle}>
+								Publish - Go live in a seconds
+							</h5>
+							<h5 className={styles.mobileTitle}>Publish</h5>
 							<div>
 								<p className={styles.statement}>
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
@@ -172,6 +209,12 @@ const HowItWorks = () => {
 									urna, scelerisque non. Nunc pretium, amet in id duis
 									sollicitudin <br /> eget. Et facilisi pretium pellentesque
 									elit.
+								</p>
+								<p className={styles.mobileStatement}>
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+									Semper viverra posuere augue pretium. Egestas malesuada urna,
+									scelerisque non. Nunc pretium, amet in id duis sollicitudin
+									eget. Et facilisi pretium pellentesque elit.
 								</p>
 							</div>
 						</div>
@@ -187,11 +230,16 @@ const HowItWorks = () => {
 					/>
 				</div>
 
-				<div className={styles.rowOne}>
+				<div className={`${styles.rowOne} ${styles.evenRow}`}>
 					<div className={styles.rowContent}>
 						<div className={styles.rowNumber}>4</div>
 						<div className={styles.content}>
-							<h5>Get paid instantly into your account</h5>
+							<h5 className={styles.webTitle}>
+								Get paid instantly into your account
+							</h5>
+							<h5 className={styles.mobileTitle}>
+								Get paid instantly into your account
+							</h5>
 							<div>
 								<p className={styles.statement}>
 									Enter your local bank account and start receiving your sales{" "}
@@ -200,6 +248,12 @@ const HowItWorks = () => {
 									<br />
 									receive your payout directly and instantly into the local bank{" "}
 									<br />
+									provided.
+								</p>
+								<p className={styles.mobileStatement}>
+									Enter your local bank account and start receiving your sales
+									payment instantly. No foreign currency barriers again, you'll
+									receive your payout directly and instantly into the local bank
 									provided.
 								</p>
 							</div>
@@ -216,9 +270,12 @@ const HowItWorks = () => {
 				</div>
 
 				<div className={styles.subFooter}>
-					<h3>
+					<h3 className={styles.subFooterTitle}>
 						KreateSell solves your marketing <br /> and conversion hectic
 						processes.
+					</h3>
+					<h3 className={styles.mobileSubFooterTitle}>
+						KreateSell solves your marketing and conversion hectic processes.
 					</h3>
 					<p>
 						Rid yourself of stress. Upload more content. Make money. Enjoy your

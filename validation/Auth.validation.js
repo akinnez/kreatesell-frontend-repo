@@ -2,35 +2,56 @@ import * as Yup from "yup";
 
 export const SignupSchema = () => {
 	return Yup.object().shape({
-		email: Yup.string().email().required("Please input a valid email address"),
-		password: Yup.string().required("Please enter a valid password"),
+		Email: Yup.string().email().required("Please input a valid email address"),
+		Password: Yup.string().required("Please enter a valid password"),
+		phoneNo: Yup.string()
+			.required("Phone number is required")
+			.matches(/^[0-9]+$/, "Phone number can only be digits")
+			.length(11, "Phone number must be 11 digits"),
 		terms: Yup.bool().oneOf([true], "Terms and conditions must be accepted"),
+		recaptchaToken: Yup.string().required("Verify you're not a robot!"),
 	});
 };
 
 export const LoginSchema = () => {
 	return Yup.object().shape({
-		email: Yup.string().email().required("Please input a valid email address"),
+		username: Yup.string()
+			.email()
+			.required("Please input a valid email address"),
 		password: Yup.string().required("Please enter a valid password"),
+	});
+};
+
+export const AccountVerificationSchema = () => {
+	return Yup.object().shape({
+		otp: Yup.number()
+			.required("OTP Code is required")
+			.min(6, "OTP must be a six digit number")
+			.max(6, "OTP must be a six digit number"),
 	});
 };
 
 export const ForgotPasswordSchema = () => {
 	return Yup.object().shape({
-		email: Yup.string().email().required("Please input a valid email address"),
+		username: Yup.string().required(
+			"Please input registered email address or phone number"
+		),
+	});
+};
+
+export const VerifyPasswordTokenSchema = () => {
+	return Yup.object().shape({
+		token: Yup.string()
+			.required("Please input token sent to your email")
+			.length(6, "Reset token must be six characters"),
 	});
 };
 
 export const ResetPasswordSchema = () => {
 	return Yup.object().shape({
 		password: Yup.string().required("New password is required"),
-		confirmPassword: Yup.string()
+		confirm_password: Yup.string()
 			.oneOf([Yup.ref("password"), undefined], "Passwords must match")
 			.required("Confirm new password"),
 	});
 };
-
-// newPassword: Yup.string().required("Enter your new password"),
-// confirmPassword: Yup.string()
-// 	.oneOf([Yup.ref("newPassword"), undefined], "Passwords must match")
-// 	.required("Password confirmation is required"),

@@ -1,5 +1,6 @@
 @import "../../public/css/colors.scss";
 @import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
 
 .container {
 	@include flex(row, center, center);
@@ -10,6 +11,8 @@
 		box-sizing: border-box;
 		border-top-left-radius: 0.5rem;
 		border-bottom-left-radius: 0.5rem;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
 		padding: 1rem;
 		color: $gray-200;
 		font-size: 0.875rem;
@@ -45,6 +48,24 @@
 
 		.btnIcon {
 			padding-left: 0.5rem;
+		}
+	}
+
+	@include screen("medium") {
+		width: 100%;
+		input {
+			width: 65%;
+		}
+		button {
+			width: 35%;
+
+			.btnText {
+				font-size: 0.7rem;
+			}
+
+			.btnIcon {
+				display: none;
+			}
 		}
 	}
 }

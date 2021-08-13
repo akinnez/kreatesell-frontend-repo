@@ -32,7 +32,7 @@ const FAQ = () => {
 					<div className={styles.faq}>
 						<h3>FAQs</h3>
 						<Input
-							type="text"
+							type="search"
 							placeholder="Search by keyword"
 							className={styles.input}
 						/>
