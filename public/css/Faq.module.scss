@@ -1,14 +1,24 @@
 @import "./colors.scss";
 @import "./mixins.scss";
+@import "./screens.scss";
 
 .container {
 	box-sizing: border-box;
 	padding: 0rem 10.31rem;
 
+	@include screen("tablet") {
+		padding: 0 1rem;
+	}
+	@include screen("medium") {
+		background-image: url("/images/mobile-general-bg.svg");
+		background-repeat: no-repeat;
+	}
+
 	.hero {
 		width: 100%;
 		display: flex;
 		padding-bottom: 4rem;
+
 		.heroText {
 			width: 70%;
 			h3 {
@@ -33,6 +43,24 @@
 		.heroImage {
 			width: 30%;
 		}
+
+		@include screen("tablet") {
+			flex-direction: column;
+			text-align: center;
+			.heroText {
+				width: 100%;
+				h3 {
+					font-weight: 600;
+					font-size: 2rem;
+				}
+				p {
+					opacity: 0.8;
+				}
+			}
+			.heroImage {
+				width: 100%;
+			}
+		}
 	}
 
 	.body {
@@ -45,6 +73,9 @@
 			margin-right: 5rem;
 			padding: 1.125rem 0 1.125rem 1.5rem;
 			border-radius: 0.5rem;
+			@include screen("tablet") {
+				display: none;
+			}
 
 			h3 {
 				font-weight: 600;
@@ -101,6 +132,7 @@
 
 		.faqQuestionsCont {
 			width: 67%;
+
 			h1 {
 				font-weight: 600;
 				font-size: 3.75rem;
@@ -129,6 +161,15 @@
 						color: $base-blue;
 						text-decoration: none;
 					}
+				}
+			}
+
+			@include screen("tablet") {
+				width: 100%;
+
+				h1 {
+					color: $gray-100;
+					font-size: 50px;
 				}
 			}
 		}
