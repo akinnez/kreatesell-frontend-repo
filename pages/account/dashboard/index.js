@@ -1,9 +1,14 @@
 // import { format } from "date-fns";
 import { useState, useEffect } from "react";
-import { Modal, Button } from "../../../components";
+import {
+	Modal,
+	Button,
+	RecentAnalytics,
+	StatsCard,
+	DateHeader,
+} from "../../../components";
 import { AuthLayout } from "../../../components/authlayout";
 import styles from "../../../public/css/Dashboard.module.scss";
-import { RecentAnalytics, StatsCard, DateHeader } from "./partials";
 
 const Dashboard = () => {
 	const [modalVisible, setVisible] = useState(false);
