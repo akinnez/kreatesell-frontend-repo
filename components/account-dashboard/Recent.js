@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Line } from "react-chartjs-2";
-import { Select } from "../../../../components";
-import { DownloadIcon } from "../../../../utils";
+import { Select } from "../";
+import { DownloadIcon } from "../../utils";
 import styles from "./Recent.module.scss";
 
 export const RecentAnalytics = () => {

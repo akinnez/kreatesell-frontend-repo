@@ -1,13 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import {
-	GrossSales,
-	Profit,
-	UnitSales,
-	Visit,
-	RightArrow,
-} from "../../../../utils";
-import styles from "../../../../public/css/Dashboard.module.scss";
+import { RightArrow, GrossSales, Profit, UnitSales, Visit } from "../../utils";
+import styles from "../../public/css/Dashboard.module.scss";
 
 export const StatsCard = ({
 	name,
