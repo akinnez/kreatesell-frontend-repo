@@ -14,9 +14,13 @@ const Pricing = () => {
 	// const [select, setSelect] = useState("");
 
 	const countryOptions = [
-		{ value: "Nigeria", label: "Nigeria" },
-		{ value: "USA", label: "USA" },
-		{ value: "Spain", label: "Spain" },
+		{ value: "Nigeria", label: "NGN" },
+		{ value: "USA", label: "USD" },
+		{ value: "Spain", label: "GBP" },
+		{ value: "Spain", label: "KES" },
+		{ value: "Spain", label: "ZAR" },
+		{ value: "Spain", label: "TZX" },
+		{ value: "Spain", label: "UGX" },
 	];
 
 	return (
@@ -25,10 +29,7 @@ const Pricing = () => {
 				<div className={styles.body}>
 					<div className={styles.header}>
 						<h2>Cost-friendly and Transparent Pricing</h2>
-						<p>
-							KreateSell provides a cost-friendly and transparent pricing <br />{" "}
-							system for users.
-						</p>
+						<p>No hidden fees that may give you surprises.</p>
 					</div>
 
 					<div className={styles.tabContainer}>
@@ -40,7 +41,7 @@ const Pricing = () => {
 									}
 									className={`${styles.btn1} ${annually && styles.activeBtn}`}
 								>
-									Annually
+									Annually - Save 17%
 								</button>
 								<button
 									onClick={() =>
@@ -68,28 +69,21 @@ const Pricing = () => {
 						<div className={styles.pricingCont}>
 							<div className={styles.free}>
 								<PricingCard
-									title="free"
+									title="basic"
 									price="0"
-									btnText="Try for free"
-									subTitle="Free for life"
-								/>
-							</div>
-							{/* <div className={styles.standard}> */}
-							<div className={`${styles.free} ${styles.standard}`}>
-								<PricingCard
-									title="standard"
-									subTitle="More tools to grow your business"
-									price="10,000"
-									btnText="Select"
+									btnText="Start for free"
+									subTitle="Perfect for newbie course creators"
+									priceType="100% Free "
 								/>
 							</div>
 
-							<div className={styles.free}>
+							<div className={`${styles.free}`}>
 								<PricingCard
-									title="premium"
-									price="15,000"
-									btnText="Select"
-									subTitle="More tools to grow your business"
+									title="business"
+									subTitle="Perfect for professional course creators. Packaged with more, custom options and automated events"
+									price="4,999"
+									btnText="Start for free"
+									priceType="Billed Monthly"
 								/>
 							</div>
 						</div>
@@ -103,9 +97,9 @@ const Pricing = () => {
 						<a
 							rel="noopener noreferrer"
 							target="blank"
-							href="mailto:hello@KreateSell.com"
+							href="mailto:info@KreateSell.com"
 						>
-							hello@KreateSell.com
+							info@KreateSell.com
 						</a>{" "}
 						if your questions or concerns <br /> are not answered here.
 					</p>
@@ -118,6 +112,10 @@ const Pricing = () => {
 					<div className={styles.faqHeader}>
 						<h3 className={styles.title}>
 							Frequently <br /> Asked <br /> Questions
+						</h3>
+						<h3 className={styles.mobileFaqTitle}>
+							Frequently Asked <br />
+							Questions
 						</h3>
 						<div className={styles.faqImage}>
 							<Image src={Faq} width={332} height={234} />

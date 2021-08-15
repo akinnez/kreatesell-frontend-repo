@@ -1,4 +1,4 @@
-import { Input, Button, Checkbox, FormError } from "../";
+import { Input, Button, Checkbox, FormError, PasswordInput } from "../";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "../../validation";
@@ -47,13 +47,12 @@ export const LoginForm = () => {
 					onChange={formik.handleChange}
 				/>
 
-				<Input
+				<PasswordInput
 					label="Password"
 					name="password"
 					placeholder="Enter your Password"
 					onChange={formik.handleChange}
-					containerstyle={styles.password}
-					type="password"
+					className={styles.password}
 				/>
 
 				<div className={styles.terms}>

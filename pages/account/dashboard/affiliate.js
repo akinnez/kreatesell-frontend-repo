@@ -1,5 +1,5 @@
 import { AuthLayout } from "../../../components/authlayout";
-import { RecentAnalytics, StatsCard, DateHeader } from "./partials";
+import { RecentAnalytics, StatsCard, DateHeader } from "../../../components";
 
 const Affiliate = () => {
 	return (

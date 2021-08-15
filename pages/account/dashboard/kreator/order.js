@@ -1,6 +1,5 @@
-import { Table, Button } from "../../../../components";
+import { Table, Button, DateHeader } from "../../../../components";
 import { AuthLayout } from "../../../../components/authlayout";
-import { DateHeader } from "../partials";
 
 const KreatorOrder = () => {
 	return (
