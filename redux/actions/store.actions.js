@@ -39,4 +39,11 @@ export const GetStoreDetails = () => {
 			}
 		)
 	);
-};
+}
+
+export const getStore =(info)=>{
+	return{
+		type:types.GET_STORE_DETAILS.SUCCESS,
+		payload:info
+	}
+}

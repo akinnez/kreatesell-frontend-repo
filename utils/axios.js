@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from ".";
 
-export const baseURL = `http://kreatesellcom-001-site1.ctempurl.com/api/`;
+export const baseURL = process.env.BASE_URL
 
 class ApiService {
 	constructor(contentType) {
@@ -9,7 +9,7 @@ class ApiService {
 			baseURL,
 			headers: {
 				Accept: "*/*",
-				// "Content-Type": "multipart/form-data",
+				//"Content-Type": "multipart/form-data",
 				// "Content-Type": "application/json",
 				"Access-Control-Allow-Methods": "*",
 				"Access-Control-Allow-Origin": baseURL,

@@ -4,6 +4,7 @@ import { EditIcon,ShareIcon,ViewAs } from '../../IconPack'
 import Dropdown from '../../dropdown'
 import Router from 'next/router'
 import Social from './social-media'
+import { useSelector } from 'react-redux'
 
 
 const CtaButton = ({Icon=()=><></>, label, active})=>{
@@ -35,16 +36,20 @@ const CtaButton = ({Icon=()=><></>, label, active})=>{
 
 export const ProtectedStoreHeader = ()=>{
 
+
+    const {user} = useSelector(state=>state.utils) || {}
+   
+
     return(
         <>
-             <div className={styles.bg_wrapper} style={{backgroundImage: `url(/images/placeholder-1.jpg)`}}>
+             <div className={styles.bg_wrapper} style={{backgroundImage: `url(${user?.cover_page || "/images/placeholder-1.jpg"})`}}>
                <div className={styles.inner}>
                 <div className={styles.inner_item_profile}>
                     <div className={styles.profile_wrapper}>
-                        <div className={styles.image_intro_text} style={{backgroundImage:`url(/images/placeholder-2.jpg)`}}/>
+                        <div className={styles.image_intro_text} style={{backgroundImage:`url(${user?.display_picture || '/images/placeholder-2.jpg'})`}}/>
                         <div className={styles.txt_wrapper}>
-                        <h3>Olumide John</h3>
-                        <p>https://kreatesell.com/olumidejohn</p>
+                        <h3>{user?.store_name}</h3>
+                        <p>https://kreatesell.com/{user?.store_name}</p>
                         </div>
                     </div>
                         <div className={styles.cta_link_wrapper}>
@@ -53,7 +58,11 @@ export const ProtectedStoreHeader = ()=>{
                                 <CtaButton Icon={EditIcon} label="Edit Profile" active/></li>
                                 <li><Dropdown
                                         Button={<CtaButton Icon={ShareIcon} label="Share Link"/>}>
-                                        <Social />
+                                        <Social 
+                                            facebook={user?.facebook}
+                                            twitter={user?.twitter} 
+                                            instagram={user?.instagram}
+                                            linkedIn={user?.linked_ln}/>
                                     </Dropdown></li>
                                 <li><CtaButton Icon={ViewAs} label="View As"/></li>
                             </ul>

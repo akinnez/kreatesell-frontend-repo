@@ -1,8 +1,7 @@
 import React from 'react';
 import AuthLayout from "../../../../components/authlayout"
-import {TextInput,Button, TextArea, CustomSelect, FileInput, Uploader} from '../../../../components/inputPack'
-import {Formik, Form} from 'formik'
-import { Row,Col,Card,Divider } from 'antd';
+import { Row,Col,Card,Divider,Form,Input,Space } from 'antd';
+
 
 
 
@@ -12,8 +11,25 @@ const Index = ()=>{
         <>
         
         <AuthLayout>
-            </AuthLayout>
-        
+
+            <Row>
+                <Col span={24}>
+                <Card bordered={false}>
+                    <h3>Welcome to Kreatesell</h3>
+                    <p>Fill out the fields below to complete your profile</p>
+                <Space align="center" size="large" direction="vertical">
+                    <Form>
+                        
+                        <Form.Item>
+                            <Input size="large" placeholder="Brand name, Business name or Full name"/>
+                        </Form.Item>
+                    </Form>
+                    </Space>
+                </Card>
+                </Col>
+            </Row>
+
+        </AuthLayout>
         <style jsx>{`
             .btn-wrapper{
                 display:flex;
