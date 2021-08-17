@@ -6,7 +6,7 @@ const Logo = ()=>{
 
     return(
         <div style={{display:"flex",justifyContent:"center",padding:"10px", marginBottom:"10px"}}>
-            <Image src="/images/logo.png" width={170}/>
+            <Image preview={false} src="/images/logo.png" width={170}/>
         </div>
     )
 }

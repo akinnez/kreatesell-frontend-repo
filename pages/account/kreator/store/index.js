@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Row, Column,Divider } from '../../../../components/grid'
 import styles from '../../../../public/css/Store.module.scss'
 import AuthLayout from "../../../../components/authlayout"
@@ -9,7 +9,10 @@ import 'react-circular-progressbar/dist/styles.css'
 import List from '../../../../components/list'
 import Router from 'next/router'
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader'
-
+import axios from 'axios'
+import ApiService from '../../../../utils/axios'
+import {getStore} from '../../../../redux/actions/store.actions'
+import { useSelector,useDispatch } from 'react-redux'
 
 const cardStyles = {
     borderRadius:"8px",
@@ -32,9 +35,39 @@ const progressbarStyles = buildStyles({
 const Index = ()=>{
 
     const [step] = useState(0)
+    const dispatch = useDispatch()
+    const {user} = useSelector(state=>state.utils) || {}
+
+   
+
+    useEffect(()=>{
+        ApiService.request(
+            'get',
+            'v1/kreatesell/store/me',
+            ({data}) => {
+    
+                console.log(data)
+              dispatch(getStore(data?.store_details))
+               // successCallback?.();
+            },
+            (err) => {
+                // dispatch({ type: types.SIGNUP.FAILURE, payload: err?.error });
+                // showToast(err?.error?.message, "error");
+              //  errorCallback?.();
+            
+            },
+            // {
+            //     Bio_Data:"Hello world",
+            //     Store_Name:"Hell",
+            //     Brand_Name:"hshsh",
+            //     Country_Id:1
+            // }
+        )
+    },[])
 
     return(
         <>
+        
         
         <AuthLayout>
           <ProtectedStoreHeader />
@@ -43,7 +76,7 @@ const Index = ()=>{
                     <Card style={cardStyles}>
                         <div className={styles.bio_info}>
                             <h5>Description</h5>
-                            <p>I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills I will help you evolve your writting skills</p>
+                            <p>{user?.bio_data}</p>
                          </div>
                     </Card>
                 </Column>
@@ -76,7 +109,7 @@ const Index = ()=>{
             <Row>
                 <Column m="12" s="12" align="center" style={{marginTop:"20px"}}>
                     <p>Almost there, now click the button to add your product</p>
-                        <Button label="+ Add Product" style={{marginTop:"20px"}} onClick={()=>Router.push("/account/product")}/>
+                        <Button label="+ Add Product" style={{marginTop:"20px"}} onClick={()=>Router.push("#")}/>
                 </Column>
             </Row>
         

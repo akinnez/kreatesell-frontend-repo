@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {AuthLayout} from "../../../../components/authlayout"
+import AuthLayout from "../../../../components/authlayout"
 import {Card} from '../../../../components/card'
 import Payouts from '../../../../components/payout/payouts'
 import Bank from '../../../../components/payout/bank-settings'
