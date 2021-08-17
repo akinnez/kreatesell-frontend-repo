@@ -17,6 +17,7 @@
     "formik": "^2.2.9",
     "moment": "^2.29.1",
     "next": "11.0.1",
+    "nprogress": "^0.2.0",
     "rc-pagination": "^3.1.7",
     "react": "17.0.2",
     "react-auth-code-input": "^1.2.1",

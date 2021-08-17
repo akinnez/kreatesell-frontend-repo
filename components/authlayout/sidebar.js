@@ -13,7 +13,7 @@ const menuItemStyle = {
 const MenuItem = ({Icon=()=><></>,title,target="#",...rest})=>{
 
         const {pathname} = useRouter()
-        const isPath = target == pathname
+        const isPath = target.split("/")[3] == pathname.split("/")[3]
 
     return(
       
@@ -22,7 +22,8 @@ const MenuItem = ({Icon=()=><></>,title,target="#",...rest})=>{
                 style={menuItemStyle}
                 icon={<Icon className={style.icon} active={isPath} height={20} width={20}/>}
                 title={title}
-                className={isPath ? style.active:style.menuitem }
+                className={isPath ? style.active:style.menuitem}
+                onClick={()=>Router.push(target)}
                 >
                 {title}
             </Menu.Item> 

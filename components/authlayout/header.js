@@ -59,7 +59,7 @@ const Nav = ()=>{
     const {pathname} = useRouter()
 
     const pageTitle = pathname?.split("/")
-    const title = pageTitle.length == 4 ? pageTitle[3]:"Home"
+    const title = pageTitle.length >= 4 ? pageTitle[3].toLocaleUpperCase():"Home"
     
 
     return(
