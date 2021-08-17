@@ -33,20 +33,25 @@ export const AccountVerificationSchema = () => {
 
 export const ForgotPasswordSchema = () => {
 	return Yup.object().shape({
-		email: Yup.string().email().required("Please input a valid email address"),
+		username: Yup.string().required(
+			"Please input registered email address or phone number"
+		),
+	});
+};
+
+export const VerifyPasswordTokenSchema = () => {
+	return Yup.object().shape({
+		token: Yup.string()
+			.required("Please input token sent to your email")
+			.length(6, "Reset token must be six characters"),
 	});
 };
 
 export const ResetPasswordSchema = () => {
 	return Yup.object().shape({
 		password: Yup.string().required("New password is required"),
-		confirmPassword: Yup.string()
+		confirm_password: Yup.string()
 			.oneOf([Yup.ref("password"), undefined], "Passwords must match")
 			.required("Confirm new password"),
 	});
 };
-
-// newPassword: Yup.string().required("Enter your new password"),
-// confirmPassword: Yup.string()
-// 	.oneOf([Yup.ref("newPassword"), undefined], "Passwords must match")
-// 	.required("Password confirmation is required"),

@@ -1,4 +1,4 @@
-import { Input, Button, Checkbox, FormError } from "../";
+import { Input, PasswordInput, Button, Checkbox, FormError } from "../";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ export const SignupForm = () => {
 	const router = useRouter();
 	const signup = Signup();
 
-	const { loading, error } = useSelector((state) => state.auth);
+	const { loading } = useSelector((state) => state.auth);
 
 	const initialValues = {
 		Email: "",
@@ -59,6 +59,7 @@ export const SignupForm = () => {
 					placeholder="Enter your Email address"
 					onChange={formik.handleChange}
 				/>
+
 				<Input
 					label="Phone number"
 					name="phoneNo"
@@ -66,18 +67,20 @@ export const SignupForm = () => {
 					inputMode="numeric"
 					onChange={formik.handleChange}
 				/>
-				<Input
+
+				<PasswordInput
 					label="Password"
 					name="Password"
-					type="password"
 					placeholder="Create Password"
 					onChange={formik.handleChange}
 				/>
+
 				<ReCAPTCHA
 					sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 					size="normal"
 					onChange={(value) => setFieldValue("recaptchaToken", value)}
 				/>
+
 				<div className={styles.terms}>
 					<Checkbox name="terms" onChange={formik.handleChange} />
 					<p>I agree to terms & conditions</p>

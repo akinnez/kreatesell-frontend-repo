@@ -1,5 +1,5 @@
 import React from 'react'
-import {AuthLayout} from "../../../../components/authlayout"
+import AuthLayout from "../../../../components/authlayout"
 import {Card} from '../../../../components/card'
 import {TextInput,Button, TextArea, CustomSelect, FileInput, Uploader} from '../../../../components/inputPack'
 import {Formik, Form} from 'formik'

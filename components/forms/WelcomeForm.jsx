@@ -11,16 +11,16 @@ import styles from "../../public/css/Welcome.module.scss";
 import { isAnEmpytyObject } from "../../utils";
 import { GetCountries, StoreOnboarding } from "../../redux/actions";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 export const WelcomeForm = () => {
+	const router = useRouter();
 	const getCountries = GetCountries();
 	const storeOnboarding = StoreOnboarding();
 	const [step, setStep] = useState(1);
 
 	const { countries } = useSelector((state) => state.utils);
-	const { store, loading } = useSelector((state) => state.store);
-	console.log("countries --->", countries);
-	console.log("store reducer --->", store);
+	const { loading } = useSelector((state) => state.store);
 
 	useEffect(() => {
 		getCountries();
@@ -44,9 +44,8 @@ export const WelcomeForm = () => {
 				formData.append(value, data[value]);
 			}
 
-			/**Signup endpoint is called with data */
 			await storeOnboarding(formData, () => {
-				router.push("/account");
+				router.push("/account/dashboard/kreator");
 			});
 		}
 	};
@@ -64,8 +63,6 @@ export const WelcomeForm = () => {
 	});
 
 	const { setFieldValue } = formik;
-
-	console.log("formik values --->", formik.values);
 
 	return (
 		<form

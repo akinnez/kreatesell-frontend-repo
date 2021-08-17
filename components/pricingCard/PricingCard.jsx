@@ -3,13 +3,8 @@ import Image from "next/image";
 import styles from "./PricingCard.module.scss";
 import { Button } from "../index";
 
-export const PricingCard = ({ title, subTitle, price, btnText }) => {
-	const Features =
-		title === "free"
-			? FreeFeatures
-			: title === "premium"
-			? PremiumFeatures
-			: StandardFeatures;
+export const PricingCard = ({ title, subTitle, price, btnText, priceType }) => {
+	const Features = title === "basic" ? BasicFeatures : BusinessFeatures;
 
 	return (
 		<div className={styles.priceCard}>
@@ -24,6 +19,12 @@ export const PricingCard = ({ title, subTitle, price, btnText }) => {
 				<sub className={styles.month}>/ Month</sub>
 			</div>
 
+			<h5 className={styles.priceType}>{priceType}</h5>
+
+			<div className={styles.button}>
+				<Button className={styles.btn} text={btnText} bgColor="blue" />
+			</div>
+
 			<div className={styles.featuresCont}>
 				{Features?.map((features, i) => (
 					<div className={styles.features} key={i}>
@@ -34,43 +35,44 @@ export const PricingCard = ({ title, subTitle, price, btnText }) => {
 					</div>
 				))}
 			</div>
-
-			<div className={styles.button}>
-				<Button className={styles.btn} text={btnText} bgColor="blue" />
-			</div>
 		</div>
 	);
 };
 
-const FreeFeatures = [
-	"Ebooks",
-	"Tickets",
-	"Limited Email Marketing",
-	"1GB Storage",
-	"Coaching",
-	"1GB Storage",
+const BasicFeatures = [
+	"Unlimited Products",
+	"Robust dashboard analytics.",
+	"Drag and Drop Sales Page Builder",
+	"Multi-currency store - six currencies",
+	"Cryptocurrency payment Method",
+	"Landing Page watermark",
+	"Tracking and Pixel",
+	"Instant Sale Notification ",
+	"Affiliate Instant Commission",
+	"Storage 500MB",
+	"Limit downloads",
+	"Custom Checkout Button (CTA)",
+	"Branded Profile",
 ];
 
-const StandardFeatures = [
-	"Everything on FREE plus",
-	"Membership Site",
-	"Video Courses",
-	"1GB Storage",
-	"Up to 20GB Storage",
-	"Full Email Marketing",
-	"Pre-order",
-	"1GB Storage",
-	"Social Proof (10x Conversion Rate)",
-];
-
-const PremiumFeatures = [
-	"Everything on FREE plus",
-	"Membership Site",
-	"Video Courses",
-	"1GB Storage",
-	"Up to 20GB Storage",
-	"Full Email Marketing",
-	"1GB Storage",
-	"1GB Storage",
-	"1GB Storage",
+const BusinessFeatures = [
+	"Everything on Free Plan",
+	"Unlimited Army of Affiliates",
+	"Highest Converting and beautiful Templates",
+	"Full Email Service Provider Integration",
+	"Webinar integration",
+	"Automated Abandoned Cart Emails",
+	"Installmental Payment",
+	"Membership Course Creation",
+	"Zapier Integration",
+	"Paypal + Stripe for verified merchants",
+	"Webinar replays (Stream online only)",
+	"Social Proof ",
+	"Exit intent Pop up on sales Page ",
+	"Use your own Domain",
+	"Pre order",
+	"Offer coupons",
+	"Remove default Watermark",
+	"15GB Storage",
+	"Advanced reports",
 ];

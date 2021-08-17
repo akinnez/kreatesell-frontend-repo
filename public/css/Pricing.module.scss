@@ -1,12 +1,21 @@
 @import "./colors.scss";
 @import "./mixins.scss";
+@import "./screens.scss";
 
 .container {
 	background-repeat: no-repeat;
 	background-image: url("/images/partial-general-bg.svg");
 
+	@include screen("medium") {
+		background-image: url("/images/mobile-general-bg.svg");
+	}
+
 	.body {
 		padding: 0rem 10.31rem 0 10.31rem;
+
+		@include screen("tablet") {
+			padding: 0rem 1rem;
+		}
 
 		.header {
 			text-align: center;
@@ -22,9 +31,28 @@
 			p {
 				padding-top: 1rem;
 				font-weight: 400;
-				font-size: 0.9rem;
+				font-size: 1rem;
 				line-height: 1.5rem;
 				color: $base-gray;
+				opacity: 0.8;
+			}
+			@include screen("tablet") {
+				h2 {
+					font-weight: 600;
+					font-size: 2rem;
+				}
+			}
+
+			@include screen("medium") {
+				h2 {
+					font-weight: 600;
+					font-size: 1.5rem;
+					line-height: 2rem;
+				}
+
+				p {
+					padding-top: 0.5rem;
+				}
 			}
 		}
 
@@ -37,17 +65,20 @@
 			display: flex;
 			justify-content: space-between;
 			margin-top: 3.187rem;
+			@include screen("medium") {
+				flex-direction: column;
+			}
 
 			.tab {
 				button {
-					width: 5.625rem;
+					width: 9rem;
 					height: 2.5rem;
 					background-color: transparent;
 					border-radius: 0.5rem;
 					cursor: pointer;
 					border: 0.5px solid $blue-600;
 					color: $gray-200;
-					font-size: 0.9rem;
+					font-size: 0.8rem;
 					line-height: 1.625rem;
 				}
 
@@ -70,10 +101,12 @@
 			}
 
 			.select {
-				// padding-left: 3.75rem;
 				margin-left: 3.75rem;
-				width: 120px;
-				// border: 2px solid red;
+				width: 5rem;
+				@include screen("medium") {
+					padding-top: 1.5rem;
+					margin: auto;
+				}
 			}
 		}
 
@@ -81,15 +114,47 @@
 			padding-top: 9.43rem;
 			padding-bottom: 5rem;
 
+			@include screen("tablet") {
+				padding-top: 0;
+				margin: 0 1rem;
+			}
+			@include screen("medium") {
+				padding-top: 0;
+			}
+
 			.pricingCont {
 				@include flex(row, center, null);
 
 				.free {
 					padding-top: 2.3rem;
+					&:first-child {
+						margin-right: 1.5rem;
+					}
+					@include screen("medium") {
+						&:first-child {
+							margin-right: 0;
+						}
+					}
 				}
 				.standard {
 					margin-left: 1rem;
 					margin-right: 1rem;
+				}
+
+				@include screen("tablet") {
+					display: flex;
+					flex-direction: column;
+
+					.free {
+						display: flex;
+						justify-content: center;
+						&:first-child {
+							margin-right: 0;
+						}
+					}
+				}
+				@include screen("medium") {
+					flex-direction: column;
 				}
 			}
 		}
@@ -127,12 +192,36 @@
 				line-height: 1.25rem;
 			}
 		}
+
+		@include screen("medium") {
+			padding: 1rem 0.8rem;
+
+			h3 {
+				font-weight: 800;
+				font-size: 1.75rem;
+				line-height: 2.5rem;
+			}
+			p {
+				font-size: 0.9rem;
+				line-height: 1.75rem;
+				color: $base-white;
+				opacity: 0.9;
+			}
+			.buttonCont {
+				padding-bottom: 1rem;
+			}
+		}
 	}
 
 	.faqContainer {
 		padding: 6.8125rem 10.31rem 5rem 10.31rem;
 		display: flex;
 		width: 100%;
+		@include screen("tablet") {
+			padding: 2rem;
+			flex-direction: column;
+			margin-top: 3rem;
+		}
 
 		.faqHeader {
 			width: 30%;
@@ -145,10 +234,34 @@
 				line-height: 3.375rem;
 				color: $base-black;
 			}
+
+			.mobileFaqTitle {
+				display: none;
+			}
 			.faqImage {
 				padding-top: 2rem;
 			}
+
+			@include screen("tablet") {
+				width: 100%;
+
+				.title {
+					display: none;
+				}
+				.mobileFaqTitle {
+					display: block;
+					text-align: center;
+					font-weight: 500;
+					font-size: 1.5rem;
+					line-height: 2rem;
+				}
+				.faqImage {
+					width: 60%;
+					margin: auto;
+				}
+			}
 		}
+
 		.contentWrapper {
 			width: 70%;
 			margin-left: 4rem;
@@ -166,8 +279,24 @@
 					line-height: 1.5rem;
 					padding-top: 1rem;
 					color: $base-gray;
+					opacity: 0.8;
 					br {
 						padding-bottom: 1rem;
+					}
+				}
+			}
+
+			@include screen("tablet") {
+				margin: 0;
+				width: 100%;
+
+				.content {
+					.question {
+						font-size: 1.125rem;
+						line-height: 1.625rem;
+					}
+					.answer {
+						font-size: 0.75rem;
 					}
 				}
 			}

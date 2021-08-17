@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Row, Column,Divider } from '../../../../components/grid'
 import styles from '../../../../public/css/Store.module.scss'
-import {AuthLayout} from "../../../../components/authlayout"
+import AuthLayout from "../../../../components/authlayout"
 import {Button} from '../../../../components/inputPack'
 import {Card} from '../../../../components/card'
 import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
