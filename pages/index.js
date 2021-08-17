@@ -337,6 +337,9 @@ export default function Home() {
 					<div className={styles.midSectionImage}>
 						<Image src={ElipseImage} />
 					</div>
+					<div className={styles.mobileMidSectionImage}>
+						<Image src={MobileElipse} />
+					</div>
 				</div>
 
 				<div className={styles.newsAndEvents}>

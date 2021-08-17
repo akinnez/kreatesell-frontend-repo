@@ -436,7 +436,18 @@
 		}
 		.midSectionImage {
 			width: 35%;
+			display: flex;
+			justify-content: center;
 			@include screen("tablet") {
+				display: none;
+				width: 100%;
+			}
+		}
+		.mobileMidSectionImage {
+			display: none;
+			@include screen("medium") {
+				display: flex;
+				justify-content: center;
 				width: 100%;
 			}
 		}
