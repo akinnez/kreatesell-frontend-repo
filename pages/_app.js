@@ -3,6 +3,8 @@ import { useStore } from "../redux/store";
 import "../public/css/global.scss";
 import "react-dates/initialize";
 import "antd/dist/antd.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function MyApp({ Component, pageProps }) {
 	const store = useStore(pageProps.initialReduxState);
