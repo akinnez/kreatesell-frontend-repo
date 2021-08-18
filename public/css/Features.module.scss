@@ -14,7 +14,7 @@
 	}
 
 	@include screen("medium") {
-		padding: 0rem 1.5rem;
+		padding: 0rem 1rem;
 		background-image: url("/images/mobile-general-bg.svg");
 		width: 100%;
 	}
@@ -86,13 +86,16 @@
 				display: flex;
 				width: 45%;
 				justify-content: space-between;
+				@include screen("medium") {
+					width: 100%;
+				}
 
 				ul {
 					text-align: start;
 					font-weight: 400;
-					font-size: 16px;
-					line-height: 30px;
-					color: #595959;
+					font-size: 1rem;
+					line-height: 1.875rem;
+					color: $base-gray;
 				}
 
 				.hrDivider {
@@ -135,6 +138,16 @@
 		width: 100%;
 		display: flex;
 
+		@include screen("tablet") {
+			flex-direction: column;
+		}
+
+		&.alte {
+			@include screen("tablet") {
+				flex-direction: column-reverse;
+			}
+		}
+
 		.imageCont {
 			width: 50%;
 			margin-right: 3rem;
@@ -154,18 +167,51 @@
 			}
 			.featureTitle {
 				font-weight: 800;
-				font-size: 48px;
-				line-height: 64px;
-				color: #262626;
+				font-size: 3rem;
+				line-height: 4rem;
+				color: $black-100;
+
+				@include screen("medium") {
+					font-weight: 700;
+					font-size: 1.75rem;
+					line-height: 2.5rem;
+				}
 			}
 			.featureExcerpt {
 				font-weight: 400;
-				font-size: 18px;
-				line-height: 30px;
-				color: #595959;
+				font-size: 1.125rem;
+				line-height: 1.875rem;
+				color: $base-gray;
 				width: 60%;
+
+				@include screen("medium") {
+					font-weight: 400;
+					font-size: 1rem;
+					line-height: 1.5625rem;
+				}
 			}
 			.featureIcon {
+			}
+
+			@include screen("tablet") {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				&.alternate {
+					margin-right: 0;
+					margin-left: 0rem;
+				}
+
+				.featureExcerpt {
+					width: 100%;
+					text-align: center;
+				}
+				.featureIcon {
+					display: none;
+				}
 			}
 		}
 		.cardCont {
@@ -190,6 +236,35 @@
 				&.alternateSecondRow {
 				}
 			}
+
+			@include screen("tablet") {
+				width: 100%;
+				justify-content: center;
+			}
+		}
+
+		.mobileFeatureIcon {
+			display: none;
+			@include screen("tablet") {
+				display: flex;
+				justify-content: center;
+			}
+		}
+
+		&.reassign {
+			display: none;
+			@include screen("tablet") {
+				display: flex;
+				.imageCont {
+					order: 1;
+				}
+				.cardCont {
+					order: 2;
+				}
+				.mobileFeatureIcon {
+					order: 3;
+				}
+			}
 		}
 	}
 
@@ -205,31 +280,44 @@
 		@extend .majorFeatures;
 		margin-bottom: 5rem;
 	}
-	.secureFeatures,
-	deliverFeatures,
-	.customizeFeatures {
+
+	.supportFeatures {
+		@extend .majorFeatures;
+		margin: 5rem 0;
+	}
+
+	.deliverFeatures,
+	.customizeFeatures,
+	.secureFeatures {
 		@extend .majorFeatures;
 		margin: 5rem 0;
 	}
 }
 
 .featureCard {
-	width: 254px;
-	background: #ffffff;
+	width: 15.875rem;
+	background: $base-white;
 	box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
-	border-radius: 8px;
+	border-radius: 0.5rem;
 	padding: 1.5rem 1rem;
 	margin-bottom: 1.5rem;
+
+	@include screen("medium") {
+		width: 11.25rem;
+	}
+	@include screen("small") {
+		width: 100%;
+	}
 	.cardTitle {
 		font-weight: 650;
-		font-size: 16px;
-		line-height: 28px;
-		color: #000000;
+		font-size: 1rem;
+		line-height: 1.75rem;
+		color: $base-black;
 	}
 	.cardContent {
 		font-weight: 400;
-		font-size: 14px;
-		line-height: 26px;
-		color: #595959;
+		font-size: 0.875rem;
+		line-height: 1.625rem;
+		color: $base-gray;
 	}
 }

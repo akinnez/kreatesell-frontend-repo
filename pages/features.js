@@ -119,13 +119,19 @@ const Features = () => {
 								/>
 							</div>
 						</div>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 					</div>
 				</div>
 				{/* Sell Features Row */}
 
 				{/* Deliver Features Row */}
 				<div className={styles.deliverFeatures}>
-					<div className={styles.majorFeatures}>
+					<div className={`${styles.majorFeatures} ${styles.alte}`}>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 						<div className={styles.cardCont}>
 							<div className={`${styles.firstRow} ${styles.alternateFirstRow}`}>
 								<FeatureCard
@@ -201,6 +207,9 @@ const Features = () => {
 								/>
 							</div>
 						</div>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 					</div>
 				</div>
 				{/* Manage Features Row */}
@@ -273,13 +282,19 @@ const Features = () => {
 								/>
 							</div>
 						</div>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 					</div>
 				</div>
 				{/* Market Features Row */}
 
 				{/* Customize Features Row */}
 				<div className={styles.customizeFeatures}>
-					<div className={styles.majorFeatures}>
+					<div className={`${styles.majorFeatures} ${styles.reassign}`}>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 						<div className={styles.cardCont}>
 							<div className={`${styles.firstRow} ${styles.alternateFirstRow}`}>
 								<FeatureCard
@@ -369,13 +384,20 @@ const Features = () => {
 								/>
 							</div>
 						</div>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 					</div>
 				</div>
 				{/* Secure Features Row */}
 
 				{/* Analyze Features Row */}
 				<div className={styles.customizeFeatures}>
-					<div className={styles.majorFeatures}>
+					{/* <div className={styles.majorFeatures}> */}
+					<div className={`${styles.majorFeatures} ${styles.reassign}`}>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 						<div className={styles.cardCont}>
 							<div className={`${styles.firstRow} ${styles.alternateFirstRow}`}>
 								<FeatureCard
@@ -449,13 +471,19 @@ const Features = () => {
 								/>
 							</div>
 						</div>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 					</div>
 				</div>
 				{/* Payout Features Row */}
 
 				{/* Support Features Row */}
-				<div className={styles.customizeFeatures}>
-					<div className={styles.majorFeatures}>
+				<div className={styles.supportFeatures}>
+					<div className={`${styles.majorFeatures} ${styles.reassign}`}>
+						<div className={styles.mobileFeatureIcon}>
+							<Image src={FeatureIcon} />
+						</div>
 						<div className={styles.cardCont}>
 							<div
 								className={`${styles.secondRow} ${styles.alternateSecondRow}`}
