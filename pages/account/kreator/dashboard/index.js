@@ -6,9 +6,9 @@ import {
 	RecentAnalytics,
 	StatsCard,
 	DateHeader,
-} from "../../../components";
-import { AuthLayout } from "../../../components/authlayout";
-import styles from "../../../public/css/Dashboard.module.scss";
+} from "../../../../components";
+import AuthLayout from "../../../../components/authlayout";
+import styles from "../../../../public/css/Dashboard.module.scss";
 
 const Dashboard = () => {
 	const [modalVisible, setVisible] = useState(false);

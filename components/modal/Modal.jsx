@@ -9,6 +9,7 @@ export const Modal = ({
 	onClose,
 	containerStyle,
 	cancelPropagation = false,
+	closeButton = false,
 	...rest
 }) => {
 	const [_visible, setVisible] = useState(false);
@@ -28,9 +29,11 @@ export const Modal = ({
 			`}
 			onClick={() => (cancelPropagation ? null : onClose && onClose())}
 		>
-			<div className={styles.closeIcon} onClick={() => setVisible(!visible)}>
-				<Image src={CloseIcon} />
-			</div>
+			{closeButton && (
+				<div className={styles.closeIcon} onClick={() => setVisible(!visible)}>
+					<Image src={CloseIcon} />
+				</div>
+			)}
 
 			<div
 				className={`${styles.container} ${containerStyle}`}

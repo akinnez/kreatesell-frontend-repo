@@ -1,21 +1,12 @@
 import React from 'react'
-import {AuthLayout} from "../../components/authlayout"
-import Topbar from '../../components/topbar'
-import {Button} from '../../components/button/Button'
+import Layout from '../../components/authlayout'
 
 
 const Index = ()=>{
 
 
     return(
-        <>
-        
-        <AuthLayout>
-            <p>Home</p>
-        </AuthLayout>
-        
-        
-        </>
+        <Layout><p>Hello world</p></Layout>
     )
 }
 

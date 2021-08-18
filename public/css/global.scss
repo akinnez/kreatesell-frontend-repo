@@ -3,6 +3,7 @@
 @import "react-dates/lib/css/_datepicker.css";
 @import "react_dates_overrides.scss";
 
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 
 html,
@@ -63,103 +64,6 @@ select {
 	color: #8c8c8c;
 }
 
-.row {
-	--bs-gutter-x: 1.25rem;
-	--bs-gutter-y: 0;
-	display: flex;
-	flex-wrap: wrap;
-	margin-top: calc(var(--bs-gutter-y) * -1);
-	margin-right: calc(var(--bs-gutter-x) / -2);
-	margin-left: calc(var(--bs-gutter-x) / -2);
-}
-
-.row > * {
-	flex-shrink: 0;
-	width: 100%;
-	max-width: 100%;
-	padding-right: calc(var(--bs-gutter-x) / 2);
-	padding-left: calc(var(--bs-gutter-x) / 2);
-	margin-top: var(--bs-gutter-y);
-}
-
-.row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.right {
-	display: flex;
-	justify-content: flex-end;
-}
-
-.justify {
-	display: flex;
-	justify-content: space-between;
-}
-
-.col-1 {
-	flex: 0 0 auto;
-	width: 8.333333333333333%;
-}
-
-.col-2 {
-	flex: 0 0 auto;
-	width: 16.66666666666667%;
-}
-
-.col-3 {
-	flex: 0 0 auto;
-	width: 25%;
-}
-
-.col-4 {
-	flex: 0 0 auto;
-	width: 33.33333333333333%;
-}
-
-.col-5 {
-	flex: 0 0 auto;
-	width: 41.66666666666666%;
-}
-
-.col-6 {
-	flex: 0 0 auto;
-	width: 50%;
-}
-
-.col-6 {
-	flex: 0 0 auto;
-	width: 50%;
-}
-
-.col-7 {
-	flex: 0 0 auto;
-	width: 58.33333333333333%;
-}
-
-.col-8 {
-	flex: 0 0 auto;
-	width: 66.66666666666666%;
-}
-
-.col-9 {
-	flex: 0 0 auto;
-	width: 75%;
-}
-
-.col-10 {
-	flex: 0 0 auto;
-	width: 83.33333333333333%;
-}
-
-.col-11 {
-	flex: 0 0 auto;
-	width: 91.66666666666666%;
-}
-
-.col-12 {
-	flex: 0 0 auto;
-	width: 100%;
-}
 
 .highlight {
 	background: #f5f5f5;
@@ -174,16 +78,15 @@ select {
 	margin-top: 10px;
 }
 
-.divider {
-	height: 1px;
-	background: #d9d9d9;
-	margin: 20px 0;
-}
-
-.center {
-	text-align: center;
-}
 
 .m-0 {
 	margin: 0;
 }
+
+.ant-menu-item-selected{
+	box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+    color:rgba(0, 114, 239, 1);
+	background-color: #ffffff !important;
+}
+
+

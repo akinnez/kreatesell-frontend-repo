@@ -513,6 +513,7 @@ export default function Home() {
 					visible={modalVisible}
 					cancelPropagation={true}
 					containerStyle={styles.modalContainer}
+					closeButton={true}
 				>
 					<OnboardingModal />
 				</Modal>
