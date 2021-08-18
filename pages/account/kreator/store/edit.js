@@ -31,11 +31,11 @@ const Index = ()=>{
         formData.append("Country_Id",1)
         formData.append("Cover_Picture",file.Cover_Picture)
         formData.append("Mobile_Number",info.Mobile_Number)
-        // formData.append("Store_Social_Handles.Facebook",info.Store_Social_Handles.Facebook)
-        // formData.append("Store_Social_Handles.Instagram",info.Store_Social_Handles.Instagram)
-        // formData.append("Store_Social_Handles.LinkedIn",info.Store_Social_Handles.LinkedIn)
-        // formData.append("Store_Social_Handles.Twitter",info.Store_Social_Handles.Twitter)
-        // // formData.append("Store_Social_Handles.Twitter",info.Store_Social_Handles.Twitter)
+        formData.append("Store_Social_Handles.Facebook",info.facebook)
+        formData.append("Store_Social_Handles.Instagram",info.instagram)
+        formData.append("Store_Social_Handles.LinkedIn",info.linkedin)
+        formData.append("Store_Social_Handles.Twitter",info.twitter)
+    
         
            ApiService.request(
             'post',
