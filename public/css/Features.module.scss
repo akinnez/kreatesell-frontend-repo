@@ -14,7 +14,7 @@
 	}
 
 	@include screen("medium") {
-		padding: 0rem 1.5rem;
+		padding: 0rem 1rem;
 		background-image: url("/images/mobile-general-bg.svg");
 		width: 100%;
 	}
@@ -76,44 +76,32 @@
 			}
 		}
 
-		.subHero {
-			padding-top: 6rem;
-			h3 {
-				font-weight: 600;
-				font-size: 2.5rem;
-				line-height: 3.375rem;
-				color: $black-100;
-			}
-			p {
-				margin: 0;
-				font-weight: 400;
-				font-size: 1.0625rem;
-				line-height: 1.75rem;
-				color: $base-gray;
-			}
+		.features {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			margin-top: 3rem;
 
-			@include screen("tablet") {
-				padding-top: 4rem;
-				padding-bottom: 3rem;
-				h3 {
-					font-size: 2rem;
-					line-height: 0.5rem;
-					padding-bottom: 1rem;
+			.featuresWrapper {
+				display: flex;
+				width: 45%;
+				justify-content: space-between;
+				@include screen("medium") {
+					width: 100%;
 				}
-			}
 
-			@include screen("medium") {
-				padding-top: 4rem;
-				h3 {
-					font-weight: 600;
-					font-size: 1.6rem;
-					line-height: 2.5rem;
+				ul {
+					text-align: start;
+					font-weight: 400;
+					font-size: 1rem;
+					line-height: 1.875rem;
+					color: $base-gray;
 				}
-				p {
-					font-weight: 300;
-					font-size: 1.15rem;
-					padding: 0 2.5rem;
-					padding-top: 1rem;
+
+				.hrDivider {
+					width: 1px;
+					background: #bfbfbf;
+					margin: 0.6rem 0 1.5rem 0;
 				}
 			}
 		}
@@ -146,162 +134,190 @@
 		}
 	}
 
-	.automation {
-		display: flex;
+	.majorFeatures {
 		width: 100%;
-
-		.image {
-			margin-top: 4rem;
-			width: 50%;
-		}
+		display: flex;
 
 		@include screen("tablet") {
-			width: 100%;
-
-			.image {
-			}
-			.automationText {
-				width: 100%;
-				padding-left: 0;
-			}
+			flex-direction: column;
 		}
 
-		@include screen("medium") {
-			flex-direction: column;
-
-			&.mobileReverse {
+		&.alte {
+			@include screen("tablet") {
 				flex-direction: column-reverse;
 			}
-			.image {
-				width: 100%;
-				margin-top: 2rem;
-			}
 		}
 
-		.automationText {
-			@include flex(column, center, null);
+		.imageCont {
 			width: 50%;
-			padding-left: 7rem;
+			margin-right: 3rem;
 
-			.automationTitleStyle {
+			&.alternate {
+				margin-right: 0;
+				margin-left: 5rem;
+			}
+
+			&.centred {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+
+			.featureTitleIcon {
+			}
+			.featureTitle {
 				font-weight: 800;
-				font-size: 2.5rem;
-				line-height: 3.375rem;
+				font-size: 3rem;
+				line-height: 4rem;
 				color: $black-100;
-			}
 
-			.webAutomationTitle {
-				@extend .automationTitleStyle;
+				@include screen("medium") {
+					font-weight: 700;
+					font-size: 1.75rem;
+					line-height: 2.5rem;
+				}
 			}
-
-			.mobileAutomationTitle {
-				display: none;
-				@extend .automationTitleStyle;
-			}
-
-			.automationSubTitleStyle {
-				margin-top: 1rem;
+			.featureExcerpt {
 				font-weight: 400;
 				font-size: 1.125rem;
-				line-height: 1.75rem;
-				color: $base-gray;
-			}
-
-			.webAutomationSubTitle {
-				@extend .automationSubTitleStyle;
-			}
-
-			.mobileAutomationSubTitle {
-				@extend .automationSubTitleStyle;
-				display: none;
-			}
-
-			.linkText {
-				margin-top: 1.25rem;
-				font-weight: 500;
-				font-size: 1.25rem;
 				line-height: 1.875rem;
-				color: $base-blue;
-				cursor: pointer;
+				color: $base-gray;
+				width: 60%;
+
+				@include screen("medium") {
+					font-weight: 400;
+					font-size: 1rem;
+					line-height: 1.5625rem;
+				}
+			}
+			.featureIcon {
 			}
 
-			@include screen("medium") {
+			@include screen("tablet") {
 				width: 100%;
-				padding: 0;
-				.webAutomationTitle {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				&.alternate {
+					margin-right: 0;
+					margin-left: 0rem;
+				}
+
+				.featureExcerpt {
+					width: 100%;
+					text-align: center;
+				}
+				.featureIcon {
 					display: none;
-				}
-				.mobileAutomationTitle {
-					display: block;
-					font-weight: 450;
-					font-size: 1.5rem;
-					line-height: 2rem;
-					text-align: center;
-				}
-				.webAutomationSubTitle {
-					display: none;
-				}
-				.mobileAutomationSubTitle {
-					display: block;
-					text-align: center;
-					font-size: 0.9rem;
-				}
-				.linkText {
-					text-align: center;
 				}
 			}
 		}
-	}
+		.cardCont {
+			width: 50%;
+			display: flex;
+			// background-image: url("../images//feature-bg.svg");
+			// background-repeat: no-repeat;
 
-	.spiral {
-		@include flex(row, center, null);
-		margin-top: -3.25rem;
+			.firstRow {
+				margin-right: 1.5rem;
 
-		.img {
-		}
-
-		@include screen("medium") {
-			display: none;
-		}
-	}
-
-	.mobileSubFooter {
-		display: none;
-	}
-
-	@include screen("medium") {
-		.mobileSubFooter {
-			padding-bottom: 3rem;
-			padding-top: 5rem;
-			display: block;
-
-			.content {
-				text-align: center;
-				font-weight: 800;
-				font-size: 28px;
-				line-height: 40px;
-				color: $base-blue;
-				padding-bottom: 1rem;
-
-				span {
-					color: $green-100;
-				}
-			}
-			.inputContainer {
-				.benefits {
+				&.alternateFirstRow {
 					display: flex;
 					justify-content: center;
-					margin-top: 0.6rem;
-					font-weight: 400;
-					font-size: 0.75rem;
-					line-height: 0.9375rem;
-					color: $base-gray;
+					flex-direction: column;
+				}
+			}
+			.secondRow {
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				&.alternateSecondRow {
+				}
+			}
 
-					span {
-						padding: 0 0.4rem;
-					}
+			@include screen("tablet") {
+				width: 100%;
+				justify-content: center;
+			}
+		}
+
+		.mobileFeatureIcon {
+			display: none;
+			@include screen("tablet") {
+				display: flex;
+				justify-content: center;
+			}
+		}
+
+		&.reassign {
+			display: none;
+			@include screen("tablet") {
+				display: flex;
+				.imageCont {
+					order: 1;
+				}
+				.cardCont {
+					order: 2;
+				}
+				.mobileFeatureIcon {
+					order: 3;
 				}
 			}
 		}
+	}
+
+	.sellFeatures {
+		@extend .majorFeatures;
+		margin: 4rem 0;
+	}
+
+	.manageFeatures {
+		@extend .majorFeatures;
+	}
+	.marketFeatures {
+		@extend .majorFeatures;
+		margin-bottom: 5rem;
+	}
+
+	.supportFeatures {
+		@extend .majorFeatures;
+		margin: 5rem 0;
+	}
+
+	.deliverFeatures,
+	.customizeFeatures,
+	.secureFeatures {
+		@extend .majorFeatures;
+		margin: 5rem 0;
+	}
+}
+
+.featureCard {
+	width: 15.875rem;
+	background: $base-white;
+	box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
+	border-radius: 0.5rem;
+	padding: 1.5rem 1rem;
+	margin-bottom: 1.5rem;
+
+	@include screen("medium") {
+		width: 11.25rem;
+	}
+	@include screen("small") {
+		width: 100%;
+	}
+	.cardTitle {
+		font-weight: 650;
+		font-size: 1rem;
+		line-height: 1.75rem;
+		color: $base-black;
+	}
+	.cardContent {
+		font-weight: 400;
+		font-size: 0.875rem;
+		line-height: 1.625rem;
+		color: $base-gray;
 	}
 }

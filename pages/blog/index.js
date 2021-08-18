@@ -77,6 +77,7 @@ export const BlogPreview = () => {
 				convallis neque in erat amet, egestas feugiat. Mattis nullam id diam
 				posuere libero leo.
 			</p>
+			<div className={styles.divider} />
 		</div>
 	);
 };
