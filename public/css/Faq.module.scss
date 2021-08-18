@@ -63,6 +63,14 @@
 		}
 	}
 
+	.backToTop {
+		display: none;
+
+		@include screen("tablet") {
+			display: block;
+		}
+	}
+
 	.body {
 		display: flex;
 		width: 100%;
