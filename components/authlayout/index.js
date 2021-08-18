@@ -3,9 +3,34 @@ import {Layout} from 'antd'
 import Sidebar from './sidebar'
 import Logo from './logo'
 import Nav from './header'
+import {Spin} from 'antd'
+import { ToastContainer } from 'react-toastify'
 
 
-const Index = ({children})=>{
+const Loader = ()=>{
+
+    return(
+        <>
+        <div className="loader">
+            <Spin size="large"/>
+            <p>Please wait...</p>
+        </div>
+
+        <style jsx>{`
+            .loader{
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                height:100%;
+                flex-direction:column;
+            }
+        
+        `}</style>
+        </>
+    )
+}
+
+const Index = ({loading,children})=>{
     const { Header, Footer, Sider, Content } = Layout
 
 	return(
@@ -29,7 +54,22 @@ const Index = ({children})=>{
              </Sider>
             <Layout>
                 <Nav />
-                <Content style={{backgroundColor:"rgba(245, 245, 245, 1)",padding:"50px 20px 10px 30px"}}>{children}</Content>
+                <Content 
+                style={{backgroundColor:"rgba(245, 245, 245, 1)",
+                padding:"50px 20px 10px 30px"}}>
+                     <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={true}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    />
+                    {loading ? <Loader />:children}
+                </Content>
                 <Footer>Footer</Footer>
             </Layout>
         </Layout>
