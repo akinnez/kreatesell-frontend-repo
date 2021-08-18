@@ -8,8 +8,8 @@ import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
 import List from '../../../../components/list'
 import Router from 'next/router'
+import {Spin} from 'antd'
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader'
-import axios from 'axios'
 import ApiService from '../../../../utils/axios'
 import {getStore} from '../../../../redux/actions/store.actions'
 import { useSelector,useDispatch } from 'react-redux'
@@ -35,33 +35,22 @@ const progressbarStyles = buildStyles({
 const Index = ()=>{
 
     const [step] = useState(0)
+    const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
     const {user} = useSelector(state=>state.utils) || {}
-
    
 
     useEffect(()=>{
+        
         ApiService.request(
             'get',
             'v1/kreatesell/store/me',
             ({data}) => {
-    
-                console.log(data)
-              dispatch(getStore(data?.store_details))
+                setLoading(false)
+              dispatch(getStore({bank_details:data?.bank_details,completed:data?.percentage_completed,...data?.store_details}))
                // successCallback?.();
             },
-            (err) => {
-                // dispatch({ type: types.SIGNUP.FAILURE, payload: err?.error });
-                // showToast(err?.error?.message, "error");
-              //  errorCallback?.();
-            
-            },
-            // {
-            //     Bio_Data:"Hello world",
-            //     Store_Name:"Hell",
-            //     Brand_Name:"hshsh",
-            //     Country_Id:1
-            // }
+          
         )
     },[])
 
@@ -69,7 +58,8 @@ const Index = ()=>{
         <>
         
         
-        <AuthLayout>
+        <AuthLayout loading={loading}>
+           
           <ProtectedStoreHeader />
             <Row style={{marginTop:"100px"}}>
                 <Column m="7" s="12">
@@ -85,8 +75,8 @@ const Index = ()=>{
                 <div className={styles.progress_wrapper}>
                     <div className={styles.progress}>
                         <CircularProgressbar 
-                            text="40%"
-                            value={40}
+                            text={user?.completed+'%'}
+                            value={user?.completed}
                             strokeWidth={15}
                             styles={progressbarStyles} />
                     </div>
@@ -112,6 +102,7 @@ const Index = ()=>{
                         <Button label="+ Add Product" style={{marginTop:"20px"}} onClick={()=>Router.push("#")}/>
                 </Column>
             </Row>
+         
         
         </AuthLayout>
        
