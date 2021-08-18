@@ -42,7 +42,9 @@ import InstaIcon from "../public/images/Instagram.svg";
 import LinkedIcon from "../public/images/Linkedin.svg";
 import TwitterIcon from "../public/images/TwitterSquare.svg";
 import WhatsappIcon from "../public/images/WhatsApp.svg";
+import CloseIcon from "../public/images/close-icon.svg";
 import { RightArrow } from "./icons/RightArrow";
+import { PlayIcon } from "./icons/PlayIcon";
 
 export {
 	KreateSellBrand,
@@ -90,4 +92,6 @@ export {
 	WhatsappIcon,
 	ElipseImage,
 	MobileElipse,
+	PlayIcon,
+	CloseIcon,
 };

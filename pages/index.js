@@ -1,4 +1,5 @@
-import { InputButton, Layout, Button } from "../components";
+import { useState } from "react";
+import { InputButton, Layout, Button, Modal, Input } from "../components";
 import styles from "../public/css/Home.module.scss";
 import {
 	RightArrow,
@@ -19,6 +20,8 @@ import {
 	videoThumbnail,
 	ElipseImage,
 	MobileElipse,
+	PlayIcon,
+	CloseIcon,
 } from "../utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -26,6 +29,9 @@ import Slider from "react-slick";
 
 export default function Home() {
 	const router = useRouter();
+
+	const [modalVisible, setVisible] = useState(true);
+
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -42,7 +48,6 @@ export default function Home() {
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 1,
-					// initialSlide: 1,
 				},
 			},
 			{
@@ -502,6 +507,15 @@ export default function Home() {
 						<span>• Fast payout</span>
 					</div>
 				</div>
+
+				<Modal
+					onClose={() => setVisible(false)}
+					visible={modalVisible}
+					cancelPropagation={true}
+					containerStyle={styles.modalContainer}
+				>
+					<OnboardingModal />
+				</Modal>
 			</div>
 		</Layout>
 	);
@@ -554,6 +568,33 @@ const MobileTestimonialVideoCard = () => {
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
 				imperdiet risus, venenatis at.
 			</div>
+		</div>
+	);
+};
+
+const OnboardingModal = () => {
+	return (
+		<div className={styles.OnboardingModal}>
+			<h5 className={styles.modalTitle}>
+				Do you want to see the amazing things KreateSell can do for you? Watch
+				KreateSell in action
+			</h5>
+
+			<div className={styles.inputCont}>
+				<Input name="email" placeholder="Enter your Email " label="Email" />
+			</div>
+
+			<p className={styles.context}>
+				You'll get helpful resources on how to become and make huge money as a
+				creator.
+			</p>
+
+			<Button
+				leftIcon={<PlayIcon />}
+				text="Watch Demo"
+				bgColor="blue"
+				className={styles.btnCont}
+			/>
 		</div>
 	);
 };

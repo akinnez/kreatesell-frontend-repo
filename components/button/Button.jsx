@@ -7,6 +7,7 @@ export const Button = ({
 	disabled,
 	bgColor = "white",
 	icon,
+	leftIcon,
 	...rest
 }) => {
 	return (
@@ -23,6 +24,7 @@ export const Button = ({
 			`}
 		>
 			<div className={styles.buttonValue}>
+				{leftIcon && <div className={styles.buttonIcon}>{leftIcon}</div>}
 				{text}
 				{icon && <div className={styles.buttonIcon}>{icon}</div>}
 			</div>
