@@ -31,11 +31,11 @@ const Index = ()=>{
         formData.append("Country_Id",1)
         formData.append("Cover_Picture",file.Cover_Picture)
         formData.append("Mobile_Number",info.Mobile_Number)
-        // formData.append("Store_Social_Handles.Facebook",info.Store_Social_Handles.Facebook)
-        // formData.append("Store_Social_Handles.Instagram",info.Store_Social_Handles.Instagram)
-        // formData.append("Store_Social_Handles.LinkedIn",info.Store_Social_Handles.LinkedIn)
-        // formData.append("Store_Social_Handles.Twitter",info.Store_Social_Handles.Twitter)
-        // // formData.append("Store_Social_Handles.Twitter",info.Store_Social_Handles.Twitter)
+        formData.append("Facebook",info.Facebook)
+        formData.append("Instagram",info.Instagram)
+        formData.append("LinkedIn",info.Linkedin)
+        formData.append("Twitter",info.Twitter)
+    
         
            ApiService.request(
             'post',
@@ -68,11 +68,11 @@ const Index = ()=>{
                     Store_Name:data?.store_details?.store_name, 
                     Bio_Data:data?.store_details?.bio_data,
                     Country_Id:data?.store_details?.country_id, 
-                    mobile_number:data?.store_details?.mobile_number,
-                    facebook:data?.store_details?.facebook,
-                    twitter:data?.store_details?.twitter,
-                    instagram:data?.store_details?.instagram,
-                    linkedin:data?.store_details?.linked_in})
+                    Mobile_Number:data?.store_details?.mobile_number,
+                    Facebook:data?.store_details?.facebook,
+                    Twitter:data?.store_details?.twitter,
+                    Instagram:data?.store_details?.instagram,
+                    Linkedin:data?.store_details?.linked_in})
                     dispatch(getStore({bank_details:data?.bank_details,
                     completed:data?.percentage_completed,
                 ...data?.store_details}))
@@ -125,32 +125,29 @@ const Index = ()=>{
                             type="tel"
                             label="Phone Number"
                             placeholder="+234"
-                            value={user?.mobile_number}
+                            value={user?.Mobile_Number}
                             name="Mobile_Number"/>
                         <Input
                             label="Facebook"
                             extraLabel="- link to your Facebook account"
                             placeholder="https://facebook.com/"
-                            name="facebook"
-                            value={user?.facebook}/>
+                            name="Facebook"
+                        />
                         <Input
                             label="Instagram"
                             extraLabel="- link to your Instagram account"
                             placeholder="https://instagram.com/"
-                            name="instagram"
-                            value={user?.instagram}/>
+                            name="Instagram"/>
                         <Input
                             label="LinkedIn"
                             extraLabel="- link to your LinkedIn account"
                             placeholder="https://linkedin.com/"
-                            name="linkedin"
-                            value={user?.linked_in}/>
+                            name="Linkedln"/>
                         <Input
                             label="Twitter"
                             extraLabel="- link to your Twitter account"
                             placeholder="https://twitter.com/"
-                            name="twitter"
-                            value={user?.twitter}/>
+                            name="Twitter"/>
 
                         <Form.Item>
                             <Button loading={loading?.updating} htmlType="submit" type="primary" label="Save"/>
