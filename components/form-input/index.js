@@ -58,11 +58,11 @@ export const Input = ({CustomInput,type="text",placeholder,size="large",label,ex
 }
 
 
-export const Select = ({placeholder,size="large",label,extraLabel,list=[],...rest})=>{
+export const Select = ({placeholder,size="large",onChange=()=>{},loading,label,extraLabel,list=[],...rest})=>{
     return(
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
             {
-                <AntSelect className={style.input} size={size} placeholder={placeholder}>
+                <AntSelect onChange={(e)=>onChange(e)} loading={loading} className={style.input} size={size} placeholder={placeholder}>
                     {list?.map(({label,value},i)=>(
                         <AntSelect.Option key={i} value={value}>{label}</AntSelect.Option>
                     ))}

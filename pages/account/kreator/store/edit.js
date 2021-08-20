@@ -53,7 +53,7 @@ const Index = ()=>{
 
 
     const dispatch = useDispatch()
-    const {user} = useSelector(state=>state.utils) || {}
+    const {user,countries} = useSelector(state=>state.utils) || {}
    
 
     useEffect(()=>{
@@ -118,6 +118,7 @@ const Index = ()=>{
                          <Select
                             label="Country"
                             size="large"
+                            list={countries}
                             value={user?.country_id}
                             placeholder="Choose an option"
                             name="Country_Id"/>

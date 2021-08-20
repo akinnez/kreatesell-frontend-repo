@@ -1,110 +1,69 @@
-import React from 'react'
-import { Row,Column } from '../grid'
-import { TextInput,Button , CustomSelect,DatePicker, DateInput, FileInput, 
-    Uploader,Checkbox, Switch } from '../inputPack'
-import {Formik, Form} from 'formik'
-import Alert from '../alert'
-import {Card} from '../card'
+import React,{useState} from 'react'
+import style from './Index.module.scss'
+import {Card,Row,Col,Form, Radio,Space} from 'antd'
+import {Button} from '../form-input'
+import { useSelector,useDispatch } from 'react-redux'
+import {getBanks} from '../../redux/actions/utilityActions'
+import ApiService from '../../utils/axios'
+import BankModal from './account-info-form'
 
+const BankSettings = ()=>{
 
+        const [mode, setMode] = useState()
+        const [open, setOpen] = useState()
 
-
-const Bank = ()=>{
     return(
         <>
-        <div className="bank-modal-wrapper">
-            <Row>
-                <Column m="2"/>
-                <Column m="8">
-                    <Card>
-
-                
-        <Formik>
-            {()=>(
-                <Form>
-                    <Row>
-                        <Column m="12" align="center">
-                            <h3
-                                style={{fontSize: "24px",lineHeight: "32px",color: "#262626"}}
-                                >Provide your Bank details</h3>
-                            <p style={{fontSize:"16px",lineHeight:"26px",color:"#8C8C8C", marginTop:"10px"}}>We pay your funds to this account</p>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12">
-                            <CustomSelect 
-                                label="Select Country"
-                                list={[{label:"Nigeria",value:"Nigeria"}]}/>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12">
-                        <CustomSelect 
-                                label="Select Bank"
-                                placeholder="Choose Bank"
-                                list={[{label:"FBN",value:"FBN"}]}/>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12">
-                            <TextInput 
-                                label="Account Number"
-                                placeholder="Enter account Number"/>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12">
-                            <TextInput 
-                                label="Account Name"
-                                placeholder="Enter account Name"/>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12">
-                           <Alert />
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12">
-                            <TextInput 
-                                type="password"
-                                label="Enter your current password"
-                                placeholder="*********"/>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column m="12" align="center">
-                           <p>Finished adding your account details?</p>
-                           <Button label="Save Bank Info" style={{marginTop:"10px"}}/>
-                        </Column>
-                    </Row>
-                </Form>
-            )}
-        </Formik>
-        </Card>
-                </Column>
-                <Column m="2"/>
-            </Row>
+         <div className={style.header_container}>
+            <h3>Payout/Bank settings</h3>
         </div>
+        <Row gutter={50}>
+            <Col span={12}>
+            <Card className={style.bank_card}>
+                <p className={style.title}>Payout Schdule</p>
+                <p className={style.subtitle}>How do you want to be receiving your payment?</p>
+                <Form>
+               
+                <Space direction="vertical">
+                    <Radio name="name" value={1}><b>Automatic</b></Radio>
+                    <p className={style.sch_desc}>Your funds will be automatically withdrawn into the provided bank account.</p>
+                    <Radio name="name" value={2}><b>Manual</b></Radio>
+                    <p className={style.sch_desc}>By choosing this option, you'll have to be manually withdrawing your funds to the provided bank account.</p>
+                   <Button label="Update Settings" style={{width:"200px"}} type="primary"/>
+                    </Space>
+              
+                </Form>
+            </Card>
+            </Col>
+            <Col span={12}>
+            <Card className={style.bank_card}>
+            <p className={style.title}>We pay your funds to this account</p>
 
-        <style jsx>{`
-            .bank-modal-wrapper{
-                position:fixed;
-                top:0;
-                left:0;
-                right:0;
-                bottom:0;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                background: rgba(38, 38, 38, .5);
-                max-height:100%;
-                overflow-y:auto;
+            <div className={style.bank_list}>
+                <div>Currency</div>
+                <div>NGN</div>
+            </div>
+            <div className={style.bank_list}>
+                <div>Bank Name</div>
+                <div>First Bank of Nigeria</div>
+            </div>
+            <div className={style.bank_list}>
+                <div>Account Number</div>
+                <div>3077230408</div>
+            </div>
+            <div className={style.bank_list}>
+                <div>Account Name</div>
+                <div>Abiodun Michael</div>
+            </div>
+            <Button type="primary" onClick={()=>setOpen(true)} label="Change payout account settings"/>
+            </Card>
+            </Col>
+            
+        </Row>
 
-            }
-        `}</style>
+        <BankModal open={open} onClose={()=>setOpen(false)}/>
         </>
     )
 }
 
-export default Bank
+export default BankSettings

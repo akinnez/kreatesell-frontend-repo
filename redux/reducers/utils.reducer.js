@@ -3,6 +3,7 @@ import * as types from "../types";
 const initialState = {
 	user: {},
 	countries: [],
+	banks:[],
 	loading: false,
 	error: "",
 };
@@ -18,6 +19,9 @@ const UtilsReducer = (state = initialState, { type, payload }) => {
 
 		case types.GET_COUNTRIES.SUCCESS:
 			return { ...state, loading: false, countries: payload };
+
+		case types.GET_BANKS:
+			return {...state, banks:payload}
 
 		case types.GET_STORE_DETAILS.FAILURE:
 		case types.GET_COUNTRIES.FAILURE:

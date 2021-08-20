@@ -48,7 +48,7 @@ export const ProtectedStoreHeader = ()=>{
                     <div className={styles.profile_wrapper}>
                         <div className={styles.image_intro_text} style={{backgroundImage:`url(${user?.display_picture || '/images/placeholder-2.jpg'})`}}/>
                         <div className={styles.txt_wrapper}>
-                        <h3>{user?.store_name}</h3>
+                        <h3>{user?.brand_name}</h3>
                         <p>https://kreatesell.com/{user?.store_name}</p>
                         </div>
                     </div>

@@ -96,3 +96,35 @@ select {
 	border-radius: 10px!important;
 	text-align: left;
   }
+
+  .ant-tabs-tab{
+	  color: #8C8C8C !important;
+	  font-weight: 500;
+		font-size: 16px;
+		line-height: 26px;
+  }
+
+  .ant-btn-primary{
+	background: rgba(0, 114, 239, 1) !important;
+
+  }
+
+  	.ant-table-thead{
+		.ant-table-cell{
+			background: #F5F5F5;
+
+			&::before{
+				display: none !important;
+			 }
+		  }
+
+	  }
+  
+	  .ant-table-tbody{
+		  color:#595959;
+		  border:1px solid #F0F0F0;
+	  }
+
+	  .ant-pagination{
+		  border:none !important;
+	  }
