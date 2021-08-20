@@ -1,10 +1,14 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {Layout} from 'antd'
 import Sidebar from './sidebar'
 import Logo from './logo'
 import Nav from './header'
 import {Spin} from 'antd'
 import { ToastContainer } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { getCountries } from '../../redux/actions/utilityActions'
+import { getStore } from '../../redux/actions/store.actions'
+import ApiService from '../../utils/axios'
 
 
 const Loader = ()=>{
@@ -31,7 +35,41 @@ const Loader = ()=>{
 }
 
 const Index = ({loading,children})=>{
+    const [isloading, setLoading] = useState(true)
     const { Header, Footer, Sider, Content } = Layout
+    const dispatch = useDispatch()
+    
+useEffect(()=>{
+    ApiService.request(
+        'get',
+        'v1/kreatesell/utils/get-countries',
+        (res) => {
+            const countries = res?.data?.list_of_countries?.map(({id,name})=>({label:name,value:id}))
+            dispatch(getCountries(countries))
+        
+      },
+      (err) => {
+          console.log("GetCountries error --->", err);
+          dispatch({ type: types.GET_COUNTRIES.FAILURE, payload: err });
+          errorCallback?.();
+      }
+    )
+},[])
+
+useEffect(()=>{
+        
+    ApiService.request(
+        'get',
+        'v1/kreatesell/store/me',
+        ({data}) => {
+            setLoading(false)
+          dispatch(getStore({bank_details:data?.bank_details,completed:data?.percentage_completed,...data?.store_details}))
+           // successCallback?.();
+        },
+      
+    )
+},[])
+   
 
 	return(
 		<Layout>
@@ -68,7 +106,7 @@ const Index = ({loading,children})=>{
                         draggable
                         pauseOnHover
                     />
-                    {loading ? <Loader />:children}
+                    {loading || isloading ? <Loader />:children}
                 </Content>
                 <Footer>Footer</Footer>
             </Layout>

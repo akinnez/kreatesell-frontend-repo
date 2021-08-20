@@ -53,23 +53,23 @@ const Sidebar = ()=>{
                 key={3}
                 Icon={Product}
                 title="Products"
-                target="/account/kreator/dashboard"/>
+                target="/account/kreator/products"/>
           
           <MenuItem
                 key={4}
                 Icon={Wallet}
                 title="Payouts"
-                target="/account/kreator/dashboard"/>
+                target="/account/kreator/payouts"/>
              <MenuItem
                 key={5}
                 Icon={Ticket}
                 title="Integrations"
-                target="/account/kreator/dashboard"/>
+                target="/account/kreator/integrations"/>
             <MenuItem
                 key={6}
                 Icon={Setting}
                 title="Settings"
-                target="/account/kreator/dashboard"/>
+                target="/account/kreator/settings"/>
         </Menu>
         </>
     )

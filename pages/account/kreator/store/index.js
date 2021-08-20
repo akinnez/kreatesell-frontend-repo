@@ -35,30 +35,17 @@ const progressbarStyles = buildStyles({
 const Index = ()=>{
 
     const [step] = useState(0)
-    const [loading, setLoading] = useState(true)
-    const dispatch = useDispatch()
+ 
     const {user} = useSelector(state=>state.utils) || {}
    
 
-    useEffect(()=>{
-        
-        ApiService.request(
-            'get',
-            'v1/kreatesell/store/me',
-            ({data}) => {
-                setLoading(false)
-              dispatch(getStore({bank_details:data?.bank_details,completed:data?.percentage_completed,...data?.store_details}))
-               // successCallback?.();
-            },
-          
-        )
-    },[])
+  
 
     return(
         <>
         
         
-        <AuthLayout loading={loading}>
+        <AuthLayout>
            
           <ProtectedStoreHeader />
             <Row style={{marginTop:"100px"}}>
@@ -81,12 +68,12 @@ const Index = ()=>{
                             styles={progressbarStyles} />
                     </div>
                     <div id={styles.progress_text}>
-                        <p>You've completed <strong>40%</strong> of your store setup</p>
+                        <p>You've completed <strong>{user?.completed}%</strong> of your store setup</p>
                     </div>
                 </div>
                 <Divider />
 
-                <List step={step} 
+                <List step={user?.completed <= 40 ? 0: user?.completed > 40 && user?.completed <100 ? 1:3} 
                     list={[
                     "Complete your store profile details",
                     "Add your bank account details to receive your payments",

@@ -3,14 +3,17 @@ import {Layout,Menu} from 'antd'
 import style from './Header.module.scss'
 import {PageDot,ProfileIcon,Cog,Bell} from '../IconPack'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 const Profile = ()=>{
+
+    const {user} = useSelector(state=>state.utils) || {}
 
     return(
         <>
         <div className="profile-wrapper">
             <div id="profile-content">
-                <h4>Abiodun Michael</h4>
+                <h4>{user?.brand_name}</h4>
                 <p>Account</p>
             </div>
             <div className="profile"><ProfileIcon /></div>
