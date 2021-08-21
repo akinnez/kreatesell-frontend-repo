@@ -1,8 +1,19 @@
 @import "./colors.scss";
 @import "./mixins.scss";
+@import "./screens.scss";
 
 .container {
 	padding: 0 10.31rem;
+
+	@include screen("tablet") {
+		padding: 0 1rem;
+		width: 100%;
+	}
+
+	@include screen("medium") {
+		background-image: url("/images/mobile-general-bg.svg");
+		background-repeat: no-repeat;
+	}
 
 	.header {
 		text-align: center;
@@ -12,6 +23,11 @@
 			font-size: 3rem;
 			line-height: 4rem;
 			color: $black-100;
+			@include screen("tablet") {
+				font-size: 2rem;
+				line-height: 1rem;
+				padding-top: 1rem;
+			}
 		}
 		.author {
 			padding-top: 0.8rem;
@@ -27,6 +43,14 @@
 				color: $gray-200;
 				padding-left: 0.75rem;
 			}
+
+			@include screen("tablet") {
+				font-weight: normal;
+				font-size: 12px;
+				line-height: 140%;
+				letter-spacing: -0.3px;
+				opacity: 0.8;
+			}
 		}
 
 		.emojiCont {
@@ -41,6 +65,7 @@
 				line-height: 1.75rem;
 				color: $gray-200;
 				padding-left: 0.687rem;
+				padding-top: 0.7rem;
 				cursor: pointer;
 			}
 			.divider {
@@ -57,6 +82,10 @@
 		padding-bottom: 5rem;
 		width: 100%;
 		display: flex;
+
+		@include screen("tablet") {
+			flex-direction: column;
+		}
 
 		.main {
 			width: 67%;
@@ -84,6 +113,15 @@
 			.RelatedImgSmall {
 			}
 		}
+		@include screen("tablet") {
+			flex-direction: column;
+			.main {
+				width: 100%;
+			}
+			.aside {
+				width: 100%;
+			}
+		}
 	}
 
 	.moreNewsContainer {
@@ -100,6 +138,13 @@
 			grid-template-columns: 1fr 1fr 1fr;
 			gap: 1rem;
 			padding-bottom: 7.937rem;
+
+			@include screen("tablet") {
+				grid-template-columns: 1fr 1fr;
+			}
+			@include screen("medium") {
+				grid-template-columns: 1fr;
+			}
 		}
 	}
 }

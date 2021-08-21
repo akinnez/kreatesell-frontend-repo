@@ -3,11 +3,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { FAQHero, ArrowDown } from "../utils";
 import { Layout, Input } from "../components";
+import { BackTop } from "antd";
 import styles from "../public/css/Faq.module.scss";
 
 const FAQ = () => {
 	const router = useRouter();
 	const [openArrow, setOpenArrow] = useState(false);
+
+	const backToTopStyle = {
+		// backgroundColor: "#0072ef",
+		// color: "#ffffff",
+	};
 
 	return (
 		<Layout defaultMarginTop={true}>
@@ -26,6 +32,10 @@ const FAQ = () => {
 					<div className={styles.heroImage}>
 						<Image src={FAQHero} width="366" height="200" />
 					</div>
+				</div>
+
+				<div className={styles.backToTop}>
+					<BackTop style={backToTopStyle} />
 				</div>
 
 				<div className={styles.body}>

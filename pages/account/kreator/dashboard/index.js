@@ -6,7 +6,7 @@ import {
 	RecentAnalytics,
 	StatsCard,
 	DateHeader,
-} from "../../../../components"
+} from "../../../../components";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/Dashboard.module.scss";
 

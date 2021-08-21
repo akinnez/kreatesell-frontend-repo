@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import { CloseIcon } from "../../utils";
 import styles from "./Modal.module.scss";
 
 export const Modal = ({
 	children,
 	visible,
 	onClose,
+	containerStyle,
 	cancelPropagation = false,
+	closeButton = false,
 	...rest
 }) => {
 	const [_visible, setVisible] = useState(false);
@@ -25,7 +29,16 @@ export const Modal = ({
 			`}
 			onClick={() => (cancelPropagation ? null : onClose && onClose())}
 		>
-			<div className={styles.container} onClick={(e) => e.stopPropagation()}>
+			{closeButton && (
+				<div className={styles.closeIcon} onClick={() => setVisible(!visible)}>
+					<Image src={CloseIcon} />
+				</div>
+			)}
+
+			<div
+				className={`${styles.container} ${containerStyle}`}
+				onClick={(e) => e.stopPropagation()}
+			>
 				{visible && <div className={styles.modalContent}>{children}</div>}
 			</div>
 		</div>

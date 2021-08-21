@@ -17,8 +17,21 @@
 	width: 100vw;
 }
 
+.closeIcon {
+	position: absolute;
+	right: 33%;
+	top: 25%;
+	cursor: pointer;
+	@include screen("tablet") {
+		right: 24%;
+		top: 20%;
+	}
+	@include screen("medium") {
+		right: 5%;
+	}
+}
+
 .container {
-	// width: 34rem;
 	border-radius: 0.5rem;
 	background-color: $base-white;
 	min-height: 40%;
@@ -27,7 +40,6 @@
 	box-shadow: 0px 10px 30px $form-shadow;
 	@include screen("tablet") {
 		width: 90vw;
-		// border: 2px solid red;
 	}
 }
 
