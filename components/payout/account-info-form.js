@@ -99,9 +99,6 @@ const BankModal = ({open,onClose=()=>{}})=>{
                     placeholder="Select bank"
                     rules={[{required:true, message:"Bank is important"}]}
                    />
-                   
-         
-
             
                 <Input size="large"
                     label="Account Number" 
@@ -120,7 +117,7 @@ const BankModal = ({open,onClose=()=>{}})=>{
                 
                <p>
                    <b>Be careful</b><br />Make sure your account details are correct before proceeding. 
-We will not be held liable for failed transactions resulting from incorrect bank details.</p>
+                    We will not be held liable for failed transactions resulting from incorrect bank details.</p>
             </div>
             <Input size="large"
                     label="Enter Current password" 

@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import {Form,Input as AntInput, Select as AntSelect,Upload as AntUpload,Image, Button as AntButton} from 'antd'
 import style from './Index.module.scss'
-import {UploaderIcon} from '../../components/IconPack'
-
+import {UploaderIcon,ProfileInputIcon} from '../../components/IconPack'
+import {toast} from 'react-toastify'
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -79,11 +79,24 @@ export const Dropzone = ({label, onChange=()=>{},extraLabel,...rest})=>{
 
     const handleChange = info =>{
         if (info.file.status === 'done') {
-            onChange(info)
-          getBase64(info.file.originFileObj, imageUrl =>
-            setImgUrl(imageUrl)
-          );
+            const isImage = info?.file?.type?.split("/")[0] == "image"
+            if(isImage){
+                onChange(info.file.originFileObj)
+                getBase64(info.file.originFileObj, imageUrl =>
+                  setImgUrl(imageUrl)
+                );
+            }
+          
         }
+      }
+
+      const handleBeforeUpload = (info)=>{
+          const isImage = info?.type?.split("/")[0] == "image"
+          
+          if(isImage){
+              return true
+          }
+          toast.error("File must be an image")
       }
 
     return(
@@ -93,6 +106,7 @@ export const Dropzone = ({label, onChange=()=>{},extraLabel,...rest})=>{
             previewFile={false}
             style={{padding:0, height:"200px"}}
             onChange={handleChange}
+            beforeUpload={handleBeforeUpload}
             listType="picture-card" 
             showUploadList={false}>
             {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%',height:"100%" }} /> : <UploadPlaceholder/>}
@@ -105,5 +119,93 @@ export const Button = ({label,...rest})=>{
 
     return(
         <AntButton className={style.btn}  {...rest}>{label}</AntButton>
+    )
+}
+
+export const FileInput = ({
+    onChange=()=>{}, 
+    value, 
+    placeholder,
+     label = "Profile picture", 
+     disabled,
+      extralable = "- Your profile picture"
+    })=>{
+
+        const [file, setFile] = useState("")
+
+        const handleChange = (e)=>{
+            setFile(e.target.files[0].name)
+            onChange(e.target.files[0])
+        }
+
+    return (
+        <>
+            <div className="label"><span className="label-text">{label}</span> <span className="extralable">{extralable}</span></div>
+            <div className="input-group-wrapper">
+                <div className="profile-input-icon">
+                    <ProfileInputIcon />
+                </div>
+            <label className="file-input-label">
+                <input type="file" accept="image/*" onChange={(e)=>handleChange(e)}/>
+                {value != "" ? file: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
+            </label>
+            </div>
+
+            <style jsx>{`
+                .file-input-label{
+                        height:45px;
+                        width:100%;
+                        border: 1px solid #D9D9D9;
+                        border-radius:8px;
+                        padding:13px;
+                        padding-left: 50px;
+                        margin: 8px 0px;
+                        color: #8C8C8C;
+                        font-size:14px;
+                        display:block;
+                        text-align:left;
+                }
+
+                .label{
+                    font-weight: 500;
+                        font-size: 14px;
+                        line-height: 26px; 
+                        display:block;
+                        font-weight:600;
+                        text-align:left;
+                }
+
+                span.extralable{
+                    color: #8C8C8C;
+                }
+
+
+                .file-input-label input[type=file]{
+                    display:none;
+                }
+
+                .profile-input-icon{
+                    width:42px;
+                    height:45px;
+                    background:#0072EF;
+                    position:absolute;
+                    top:0px;
+                    border-radius:8px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                }
+
+                .input-group-wrapper{
+                    position:relative;
+                }
+            
+                @media screen and (max-width:600px){
+                    .file-input-label{
+                        font-size:12px;
+                    }
+                }
+            `}</style>
+        </>
     )
 }
