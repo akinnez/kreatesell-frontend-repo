@@ -137,8 +137,6 @@ We will not be held liable for failed transactions resulting from incorrect bank
                     </Form.Item>
         </Form>
       </Modal>
-   
-        
         </>
     )
 }
