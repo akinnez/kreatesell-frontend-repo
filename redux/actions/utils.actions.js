@@ -17,10 +17,32 @@ export const GetCountries = () => {
 				successCallback?.();
 			},
 			(err) => {
-				console.log("GetCountries error --->", err);
 				dispatch({ type: types.GET_COUNTRIES.FAILURE, payload: err });
 				errorCallback?.();
 			}
+		)
+	);
+};
+
+export const GuestSubscription = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.GUEST_SUBSCRIPTION.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/utils/`,
+			(res) => {
+				dispatch({
+					type: types.GUEST_SUBSCRIPTION.SUCCESS,
+					payload: res?.data,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.GUEST_SUBSCRIPTION.FAILURE, payload: err });
+				errorCallback?.();
+			},
+			data
 		)
 	);
 };

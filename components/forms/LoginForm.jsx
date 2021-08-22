@@ -33,7 +33,7 @@ export const LoginForm = () => {
 		validateOnChange: false,
 	});
 
-	const errors = formik.errors;
+	const { errors } = formik;
 
 	return (
 		<>

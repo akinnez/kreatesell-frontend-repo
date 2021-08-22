@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { InputButton, Layout, Button, Modal, Input } from "../components";
+import {
+	InputButton,
+	Layout,
+	Button,
+	Modal,
+	Input,
+	FormError,
+} from "../components";
 import styles from "../public/css/Home.module.scss";
 import {
 	RightArrow,
@@ -21,16 +28,20 @@ import {
 	ElipseImage,
 	MobileElipse,
 	PlayIcon,
-	CloseIcon,
+	isAnEmpytyObject,
 } from "../utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
+import { EmailSchema } from "../validation/Utils.validation";
+import { useFormik } from "formik";
+import { GuestSubscription } from "../redux/actions";
 
 export default function Home() {
 	const router = useRouter();
 
-	const [modalVisible, setVisible] = useState(true);
+	const [modalVisible, setVisible] = useState(false);
+	const [email, setEmail] = useState("");
 
 	const settings = {
 		dots: true,
@@ -87,6 +98,14 @@ export default function Home() {
 								placeholder="Enter your email..."
 								buttonText="Get Started Free"
 								buttonIcon={<RightArrow />}
+								onChange={(e) => setEmail(e.target.value)}
+								onSubmit={(e) => {
+									e.preventDefault();
+									router.push({
+										pathname: "/signup",
+										query: { email },
+									});
+								}}
 							/>
 						</div>
 
@@ -96,7 +115,12 @@ export default function Home() {
 							<span className={styles.benefitSpan}>• Fast payout</span>
 						</div>
 					</div>
-					<div className={styles.heroImage}>
+
+					{/* <div className={styles.heroImage} onClick={() => setVisible(true)}> */}
+					<div
+						className={styles.heroImage}
+						onClick={() => setVisible(!modalVisible)}
+					>
 						<Image src={LandingPageHero} alt="kreatesell hero" />
 					</div>
 
@@ -509,11 +533,12 @@ export default function Home() {
 				</div>
 
 				<Modal
-					onClose={() => setVisible(false)}
+					onClose={() => setVisible(!modalVisible)}
 					visible={modalVisible}
 					cancelPropagation={true}
 					containerStyle={styles.modalContainer}
 					closeButton={true}
+					closeBtnAction={() => setVisible(!modalVisible)}
 				>
 					<OnboardingModal />
 				</Modal>
@@ -574,12 +599,36 @@ const MobileTestimonialVideoCard = () => {
 };
 
 const OnboardingModal = () => {
+	const guestSubscription = GuestSubscription();
+	const initialValues = {
+		Email: "",
+	};
+
+	const handleSubmit = (data) => {
+		guestSubscription(data);
+	};
+
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmit,
+		validationSchema: EmailSchema,
+		validateOnChange: false,
+	});
+
+	const { errors } = formik;
+
 	return (
-		<div className={styles.OnboardingModal}>
+		<form
+			className={styles.OnboardingModal}
+			onSubmit={formik.handleSubmit}
+			autoComplete="off"
+		>
 			<h5 className={styles.modalTitle}>
 				Do you want to see the amazing things KreateSell can do for you? Watch
 				KreateSell in action
 			</h5>
+
+			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
 			<div className={styles.inputCont}>
 				<Input name="email" placeholder="Enter your Email " label="Email" />
@@ -596,6 +645,6 @@ const OnboardingModal = () => {
 				bgColor="blue"
 				className={styles.btnCont}
 			/>
-		</div>
+		</form>
 	);
 };

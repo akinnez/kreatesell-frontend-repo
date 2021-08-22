@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Layout, InputButton } from "../components";
 import styles from "../public/css/Features.module.scss";
 import {
@@ -17,6 +19,9 @@ import {
 } from "../utils";
 
 const Features = () => {
+	const router = useRouter();
+	const [email, setEmail] = useState("");
+
 	return (
 		<Layout subFooter={true} defaultMarginTop={true}>
 			<div className={styles.container}>
@@ -43,6 +48,14 @@ const Features = () => {
 							placeholder="Enter your email..."
 							buttonText="Get Started Free"
 							buttonIcon={<RightArrow />}
+							onChange={(e) => setEmail(e.target.value)}
+							onSubmit={(e) => {
+								e.preventDefault();
+								router.push({
+									pathname: "/signup",
+									query: { email },
+								});
+							}}
 						/>
 					</div>
 

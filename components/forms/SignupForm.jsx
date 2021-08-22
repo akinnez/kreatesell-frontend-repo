@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Input, PasswordInput, Button, Checkbox, FormError } from "../";
 import { useFormik } from "formik";
 import Link from "next/link";
@@ -12,11 +13,13 @@ import styles from "../../public/css/Signup.module.scss";
 export const SignupForm = () => {
 	const router = useRouter();
 	const signup = Signup();
+	const email = router.query?.email;
 
 	const { loading } = useSelector((state) => state.auth);
 
 	const initialValues = {
 		Email: "",
+		FullName: "",
 		Password: "",
 		phoneNo: "",
 		terms: false,
@@ -25,8 +28,8 @@ export const SignupForm = () => {
 
 	const handleSubmit = async (values) => {
 		/**Destructuring the values below so that data used for validation on client side not required by the endpoint isn't passed along */
-		const { Email, Password, phoneNo } = values;
-		const data = { Email, Password, phoneNo };
+		const { Email, Password, phoneNo, FullName } = values;
+		const data = { Email, Password, phoneNo, FullName };
 
 		let formData = new FormData();
 		for (let value in data) {
@@ -48,16 +51,30 @@ export const SignupForm = () => {
 
 	const { errors, setFieldValue } = formik;
 
+	useEffect(() => {
+		if (email) {
+			setFieldValue("Email", email);
+		}
+	}, [email]);
+
 	return (
 		<>
 			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
+					label="Full Name"
+					name="FullName"
+					placeholder="Enter your Full name"
+					onChange={formik.handleChange}
+				/>
+
+				<Input
 					label="Email address"
 					name="Email"
 					placeholder="Enter your Email address"
 					onChange={formik.handleChange}
+					value={formik.values.Email}
 				/>
 
 				<Input

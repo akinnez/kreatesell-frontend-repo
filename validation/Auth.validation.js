@@ -4,6 +4,7 @@ export const SignupSchema = () => {
 	return Yup.object().shape({
 		Email: Yup.string().email().required("Please input a valid email address"),
 		Password: Yup.string().required("Please enter a valid password"),
+		FullName: Yup.string().required("Please enter your full name"),
 		phoneNo: Yup.string()
 			.required("Phone number is required")
 			.matches(/^[0-9]+$/, "Phone number can only be digits")

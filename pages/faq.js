@@ -8,7 +8,16 @@ import styles from "../public/css/Faq.module.scss";
 
 const FAQ = () => {
 	const router = useRouter();
-	const [openArrow, setOpenArrow] = useState(false);
+	const [openArrow, setOpenArrow] = useState({
+		kreator: false,
+		affiliate: false,
+		creator: false,
+		buyer: false,
+		general: false,
+		payment: false,
+	});
+
+	const { kreator, affiliate, creator, buyer, general, payment } = openArrow;
 
 	const backToTopStyle = {
 		// backgroundColor: "#0072ef",
@@ -51,11 +60,14 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											kreator: !kreator,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!kreator ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
 									<h6 className={styles.title}>For Kreator</h6>
@@ -63,7 +75,7 @@ const FAQ = () => {
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!kreator ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -105,10 +117,15 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											affiliate: !affiliate,
+										})
+									}
 								>
 									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
+										className={`${!!affiliate ? styles.open : styles.arrow}`}
 									>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
@@ -117,7 +134,7 @@ const FAQ = () => {
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!affiliate ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -166,11 +183,14 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											creator: !creator,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!creator ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
 									<h6 className={styles.title}>For Creator and Affiliate</h6>
@@ -178,7 +198,7 @@ const FAQ = () => {
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!creator ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -194,20 +214,21 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											buyer: !buyer,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!buyer ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
 									<h6 className={styles.title}>For Buyer</h6>
 								</div>
 
 								<div
-									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
-									}
+									className={!buyer ? `${styles.questionsContainer}` : "hidden"}
 								>
 									<p className={styles.questions}>
 										If the product bought is not genuine, can I get a refund?
@@ -221,11 +242,14 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											general: !general,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!general ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
 									<h6 className={styles.title}>General</h6>
@@ -233,7 +257,7 @@ const FAQ = () => {
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!general ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -246,15 +270,18 @@ const FAQ = () => {
 
 							<div
 								className={styles.dropDown}
-								onClick={() => setOpenArrow((item) => !item)}
+								onClick={() =>
+									setOpenArrow({
+										...openArrow,
+										payment: !payment,
+									})
+								}
 							>
 								<div
 									className={styles.headerArrow}
 									onClick={() => setOpenArrow((item) => !item)}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!payment ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
 									<h6 className={styles.title}>For Payment</h6>
@@ -262,7 +289,7 @@ const FAQ = () => {
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!payment ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
