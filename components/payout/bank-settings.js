@@ -9,8 +9,29 @@ import BankModal from './account-info-form'
 
 const BankSettings = ()=>{
 
-        const [mode, setMode] = useState()
+    const {bank_details} = useSelector(state=>state.utils) || {}
+
+        const [mode, setMode] = useState(1)
         const [open, setOpen] = useState()
+        const [loading, setLoading] = useState(false)
+
+        const handleMode = ()=>{
+            setLoading(true)
+            ApiService.request(
+                'PATCH',
+                'v1/kreatesell/payment/update-payout-mode/'+mode,
+                (res)=>{
+                    setLoading(false)
+                    console.log(res.data)
+                },(err)=>{console.log(err)},
+                {
+                    "country_id": bank_details?.country_id,
+                    "bank_id": bank_details?.bank_id,
+                    "account_number": bank_details?.account_number,
+                    "account_name": bank_details?.account_number,
+                  }
+            )
+        }
 
     return(
         <>
@@ -25,12 +46,12 @@ const BankSettings = ()=>{
                 <Form>
                
                 <Space direction="vertical">
-                    <Radio name="name" value={1}><b>Automatic</b></Radio>
+                    <Radio name="name" value={1} onChange={()=>setMode(1)}  checked={mode == 1}><b>Automatic</b></Radio>
                     <p className={style.sch_desc}>Your funds will be automatically withdrawn into the provided bank account.</p>
-                    <Radio name="name" value={2}><b>Manual</b></Radio>
+                    <Radio name="name" value={2} disabled onChange={()=>setMode(2)} checked={mode == 2}><b>Manual</b></Radio>
                     <p className={style.sch_desc}>By choosing this option, you'll have to be manually withdrawing your funds to the provided bank account.</p>
-                   <Button label="Update Settings" style={{width:"200px"}} type="primary"/>
-                    </Space>
+                   <Button label="Update Settings" loading={loading} onClick={handleMode} style={{width:"200px"}} type="primary"/>
+                </Space>
               
                 </Form>
             </Card>
@@ -45,15 +66,15 @@ const BankSettings = ()=>{
             </div>
             <div className={style.bank_list}>
                 <div>Bank Name</div>
-                <div>First Bank of Nigeria</div>
+                <div>{bank_details?.bank_name}</div>
             </div>
             <div className={style.bank_list}>
                 <div>Account Number</div>
-                <div>3077230408</div>
+                <div>{bank_details?.account_number}</div>
             </div>
             <div className={style.bank_list}>
                 <div>Account Name</div>
-                <div>Abiodun Michael</div>
+                <div>{bank_details?.account_name}</div>
             </div>
             <Button type="primary" onClick={()=>setOpen(true)} label="Change payout account settings"/>
             </Card>

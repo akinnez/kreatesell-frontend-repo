@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import AuthLayout from "../../../../components/authlayout"
 import { Row,Spin,Col,Card,Divider,Form,Space,Input as AntInput, } from 'antd';
-import {Input,Select,Dropzone,Button} from '../../../../components/form-input'
+import {Input,Select,Dropzone,Button,FileInput} from '../../../../components/form-input'
 import style from '../../../../public/css/Store.module.scss'
 import ApiService from '../../../../utils/axios'
 import { toast } from 'react-toastify';
@@ -30,10 +30,11 @@ const Index = ()=>{
         formData.append("Bio_Data",info.Bio_Data)
         formData.append("Country_Id",1)
         formData.append("Cover_Picture",file.Cover_Picture)
+        formData.append("Profile_Picture",file.Profile_Picture)
         formData.append("Mobile_Number",info.Mobile_Number)
         formData.append("Facebook",info.Facebook)
         formData.append("Instagram",info.Instagram)
-        formData.append("LinkedIn",info.Linkedin)
+        formData.append("Linkedln",info.Linkedin)
         formData.append("Twitter",info.Twitter)
     
         
@@ -77,7 +78,7 @@ const Index = ()=>{
                     completed:data?.percentage_completed,
                 ...data?.store_details}))
             },
-            (err) => {},
+            (err) => {console.log(err)},
         )
     },[])
 
@@ -102,10 +103,13 @@ const Index = ()=>{
                             label="Name"
                             initialValue={user?.brand_name}
                             extraLabel="- Your unique username or business name"
-                            placeholder="Brand name, Business name or Full name"/>
+                            placeholder="Brand name, Business name or Full name"
+                            rules={[{required:true, min:4, message:"Brand name is a required field"}]}/>
+                        <FileInput value={file?.Profile_Picture} onChange={(e)=>setFile({...file,Profile_Picture:e})}/>
                         <Dropzone
-                            onChange={({file:e})=>setFile({...file,Cover_Picture:e})}
+                            onChange={(e)=>setFile({...file,Cover_Picture:e})}
                             label="Image"
+                            accept="image/*"
                             extraLabel="- add image on your cover page"/>
                          <Input
                             name="Bio_Data"
@@ -121,30 +125,36 @@ const Index = ()=>{
                             list={countries}
                             value={user?.country_id}
                             placeholder="Choose an option"
-                            name="Country_Id"/>
+                            name="Country_Id"
+                            rules={[{required:true, message:"Country is a required field"}]}/>
                         <Input
                             type="tel"
                             label="Phone Number"
                             placeholder="+234"
+                            rules={[{required:true, message:"Valid phone number is required", min:11, max:11}]}
                             value={user?.Mobile_Number}
                             name="Mobile_Number"/>
                         <Input
                             label="Facebook"
+                            type="url"
                             extraLabel="- link to your Facebook account"
                             placeholder="https://facebook.com/"
                             name="Facebook"
                         />
                         <Input
                             label="Instagram"
+                            type="url"
                             extraLabel="- link to your Instagram account"
                             placeholder="https://instagram.com/"
                             name="Instagram"/>
                         <Input
                             label="LinkedIn"
+                            type="url"
                             extraLabel="- link to your LinkedIn account"
                             placeholder="https://linkedin.com/"
                             name="Linkedln"/>
                         <Input
+                            type="url"
                             label="Twitter"
                             extraLabel="- link to your Twitter account"
                             placeholder="https://twitter.com/"
