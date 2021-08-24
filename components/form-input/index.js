@@ -77,26 +77,20 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
 
     const [imgUrl, setImgUrl] = useState()
 
-    const handleChange = info =>{
-        if (info.file.status === 'done') {
-            const isImage = info?.file?.type?.split("/")[0] == "image"
-            if(isImage){
-                onChange(info.file.originFileObj)
-                getBase64(info.file.originFileObj, imageUrl =>
-                  setImgUrl(imageUrl)
-                );
-            }
-          
-        }
-      }
 
-      const handleBeforeUpload = (info)=>{
+      const handleBeforeUpload = (info,inp)=>{
           const isImage = info?.type?.split("/")[0] == "image"
           
-          if(isImage){
-              return true
+          if(!isImage){
+            toast.error("File must be an image")
+          }else{
+            onChange(inp[0])
+            getBase64(inp[0], imageUrl =>
+                setImgUrl(imageUrl)
+            );
           }
-          toast.error("File must be an image")
+          return false
+          
       }
 
     return(
@@ -105,7 +99,6 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
             <AntUpload.Dragger {...rest}
                 previewFile={false}
                 style={{padding:0, height:"200px"}}
-                onChange={handleChange}
                 beforeUpload={handleBeforeUpload}
                 listType="picture-card" 
                 showUploadList={false}>
