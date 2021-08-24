@@ -73,7 +73,7 @@ export const Select = ({placeholder,size="large",onChange=()=>{},loading,label,e
 }
 
 
-export const Dropzone = ({label, onChange=()=>{},extraLabel,...rest})=>{
+export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
 
     const [imgUrl, setImgUrl] = useState()
 
@@ -102,15 +102,15 @@ export const Dropzone = ({label, onChange=()=>{},extraLabel,...rest})=>{
     return(
         <div className={style.dragger_wrapper}>
         <label className={style.label}>{label} <span>{extraLabel}</span></label>
-        <AntUpload.Dragger {...rest}
-            previewFile={false}
-            style={{padding:0, height:"200px"}}
-            onChange={handleChange}
-            beforeUpload={handleBeforeUpload}
-            listType="picture-card" 
-            showUploadList={false}>
-            {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%',height:"100%" }} /> : <UploadPlaceholder/>}
-        </AntUpload.Dragger>
+            <AntUpload.Dragger {...rest}
+                previewFile={false}
+                style={{padding:0, height:"200px"}}
+                onChange={handleChange}
+                beforeUpload={handleBeforeUpload}
+                listType="picture-card" 
+                showUploadList={false}>
+                {imgUrl || value ? <img src={imgUrl || value} alt="avatar" style={{ width: '100%',height:"100%" }} /> : <UploadPlaceholder/>}
+            </AntUpload.Dragger>
         </div>
     )
 }
@@ -147,7 +147,7 @@ export const FileInput = ({
                 </div>
             <label className="file-input-label">
                 <input type="file" accept="image/*" onChange={(e)=>handleChange(e)}/>
-                {value != "" ? file: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
+                {value != "" ? <div id="fi" style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{file || value}</div>: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
             </label>
             </div>
 

@@ -30,27 +30,7 @@ const columns = [
       }
   ];
 
-  const data = [
-    {
-      key: '1',
-      product: 'John Brown',
-      customer_name: 'John Brown',
-      customer_email: 'mail@mail.com',
-      amount: '￥300,000.00',
-      transaction_date: '12-12-2021',
-      payment_date: '12-12-2021',
-    },
-    {
-        key: '2',
-        product: 'John Brown',
-        customer_name: 'John Brown',
-        customer_email: 'mail@mail.com',
-        amount: '￥300,000.00',
-        transaction_date: '12-12-2021',
-        payment_date: '12-12-2021',
-    },
-    
-  ];
+  const data = [];
 
 const Index = ()=>{
 
