@@ -63,6 +63,10 @@ const Index = ()=>{
             'v1/kreatesell/store/me',
             ({data}) => {
                 console.log(data?.store_details)
+                setFile({
+                    Profile_Picture:data?.store_details?.display_picture,
+                    Cover_Picture:data?.store_details?.cover_page
+                })
                 setLoading({...loading,fetching:false})
                 form.setFieldsValue({
                     Brand_Name:data?.store_details?.brand_name,
@@ -110,6 +114,7 @@ const Index = ()=>{
                             onChange={(e)=>setFile({...file,Cover_Picture:e})}
                             label="Image"
                             accept="image/*"
+                            value={file?.Cover_Picture}
                             extraLabel="- add image on your cover page"/>
                          <Input
                             name="Bio_Data"
@@ -131,7 +136,7 @@ const Index = ()=>{
                             type="tel"
                             label="Phone Number"
                             placeholder="+234"
-                            rules={[{required:true, message:"Valid phone number is required", min:11, max:11}]}
+                            rules={[{required:true, message:"Valid phone number is required", min:11, max:14}]}
                             value={user?.Mobile_Number}
                             name="Mobile_Number"/>
                         <Input
