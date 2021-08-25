@@ -13,6 +13,7 @@ export const Select = ({
 	bgColor = "#ffffff",
 	placeHolderColor,
 	height = "38px",
+	label,
 	...rest
 }) => {
 	const customStyles = {
@@ -40,6 +41,9 @@ export const Select = ({
 
 	return (
 		<div className={styles.select}>
+			<label htmlFor={rest?.name} className={styles.label}>
+				{label}
+			</label>
 			<RSelect
 				{...rest}
 				styles={customStyles}
@@ -47,7 +51,7 @@ export const Select = ({
 				options={options}
 				defaultValue={options?.[0]}
 				placeholder={placeholder || options?.[0]?.label}
-				className={`${styles.selectOptions}`}
+				className={`${styles.selectOptions} ${rest.className}`}
 			/>
 		</div>
 	);

@@ -1,31 +1,16 @@
 import { Select, Input } from "../";
 import styles from "../../public/css/Dashboard.module.scss";
+import { SVGFilter } from "../../utils";
+import Image from "next/image";
+import {
+	dayOptions,
+	kreatorsOptions,
+	affiliateOptions,
+	currencyOptions,
+} from "./partials";
+// import { format } from "date-fns";
 
 export const DateHeader = () => {
-	const dayOptions = [
-		{ value: "Custom", label: "Custom" },
-		{ value: "Today", label: "Today" },
-		{ value: "Yesterday", label: "Yesterday" },
-		{ value: "Last 7 days", label: "Last 7 days" },
-		{ value: "Last 30 days", label: "Last 30 days" },
-		{ value: "This year", label: "This year" },
-		{ value: "All time", label: "All time" },
-	];
-
-	const kreatorsOptions = [
-		{ value: "Kreator’s Dashboard", label: "Kreator’s Dashboard" },
-		{ value: "Quick Stats", label: "Quick Stats" },
-		{ value: "Add Product", label: "Add Product" },
-		{ value: "Coupons", label: "Coupons" },
-		{ value: "Affiliate Options", label: "Affiliate Options" },
-		{ value: "Reports", label: "Reports" },
-	];
-
-	const affiliateOptions = [
-		{ value: "Affiliate Dashboard", label: "Affiliate Dashboard" },
-		{ value: "Quick Stats", label: "Quick Stats" },
-		{ value: "Find Products", label: "Find Products" },
-	];
 	return (
 		<div className={styles.container}>
 			<div className={styles.selector}>
@@ -49,41 +34,55 @@ export const DateHeader = () => {
 				</div>
 			</div>
 
-			<div className={styles.searchDate}>
-				<div className={styles.selectDayCont}>
-					<div className={styles.filter}>Filter</div>
-					<div className={styles.selectDay}>
-						<Select
-							options={dayOptions}
-							value="Custom Select"
-							placeholder="Today"
-						/>
-					</div>
+			<div className={styles.dateHeader}>
+				<div className={styles.searchCont}>
+					<Input
+						placeholder="Search"
+						label="Search"
+						className={styles.searchStyles}
+						labelStyle={styles.label}
+					/>
+				</div>
+				<div className={styles.today}>
+					<Select
+						options={dayOptions}
+						value="Custom Select"
+						placeholder="Today"
+						placeHolderColor="#8c8c8c"
+						label="Show"
+						className={styles.select}
+						height="44px"
+					/>
 				</div>
 
-				<div className={styles.selectCurrencyCont}>
-					<div className={styles.filter}>Currency</div>
-					<div className={styles.selectCurrency}>
-						<Select
-							options={dayOptions}
-							value="Custom Select"
-							placeholder="All Currencies"
-						/>
-					</div>
+				<div className={styles.currency}>
+					<Select
+						options={currencyOptions}
+						value="Custom Select"
+						placeholder="NGN"
+						placeHolderColor="#8c8c8c"
+						label="Currency"
+						className={styles.select}
+						height="44px"
+					/>
 				</div>
 
-				<div className={styles.fromDateCont}>
+				<div className={styles.dateCont}>
 					<div className={styles.label}>Show from</div>
 					<div className={styles.selectDate}>
 						<Input type="date" className={styles.date} />
 					</div>
 				</div>
 
-				<div className={styles.toDateCont}>
-					<div className={styles.filter}>to</div>
-					<div className={styles.toDate}>
+				<div className={styles.dateCont}>
+					<div className={styles.label}>to</div>
+					<div className={styles.selectDate}>
 						<Input type="date" className={styles.date} />
 					</div>
+				</div>
+
+				<div className={styles.filterCont}>
+					<Image src={SVGFilter} alt="filter" width="80" height="44" />
 				</div>
 			</div>
 		</div>

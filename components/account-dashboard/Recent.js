@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Line } from "react-chartjs-2";
 import { Select } from "../";
 import { DownloadIcon } from "../../utils";
+import { dayOptions } from "./partials";
 import styles from "./Recent.module.scss";
 
 export const RecentAnalytics = () => {
@@ -46,16 +47,6 @@ export const RecentAnalytics = () => {
 			},
 		},
 	};
-
-	const dayOptions = [
-		{ value: "Custom", label: "Custom" },
-		{ value: "Today", label: "Today" },
-		{ value: "Yesterday", label: "Yesterday" },
-		{ value: "Last 7 days", label: "Last 7 days" },
-		{ value: "Last 30 days", label: "Last 30 days" },
-		{ value: "This year", label: "This year" },
-		{ value: "All time", label: "All time" },
-	];
 
 	return (
 		<div className={styles.container}>

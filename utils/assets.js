@@ -54,6 +54,7 @@ import PayoutIcon from "../public/images/payout-feature.svg";
 import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
 import SupportIcon from "../public/images/support-feature.svg";
+import SVGFilter from "../public/images/filter.svg";
 import { RightArrow } from "./icons/RightArrow";
 import { PlayIcon } from "./icons/PlayIcon";
 
@@ -116,4 +117,5 @@ export {
 	SecureIcon,
 	SellIcon,
 	SupportIcon,
+	SVGFilter,
 };

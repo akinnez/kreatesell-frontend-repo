@@ -93,7 +93,7 @@ const Index = ({ loading, children }) => {
 				<Content
 					style={{
 						backgroundColor: "rgba(245, 245, 245, 1)",
-						padding: "50px 20px 10px 30px",
+						padding: "50px 20px 10px 20px",
 					}}
 				>
 					<ToastContainer

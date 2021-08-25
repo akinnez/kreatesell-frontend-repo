@@ -37,7 +37,7 @@ const Dashboard = () => {
 					profit="123456"
 				/>
 
-				<RecentAnalytics />
+				{/* <RecentAnalytics /> */}
 
 				<Modal
 					onClose={() => setVisible(false)}

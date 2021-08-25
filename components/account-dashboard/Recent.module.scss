@@ -1,5 +1,6 @@
 @import "../../public//css//mixins.scss";
 @import "../../public//css//colors.scss";
+@import "../../public//css//screens.scss";
 
 .container {
 	margin-top: 1rem;
@@ -24,6 +25,11 @@
 		width: 100%;
 		@include flex(row, null, center);
 
+		@include screen("tablet") {
+			width: 100%;
+			@include flex(column, null, center);
+		}
+
 		.cardStyle {
 			box-shadow: 0px 15px 50px rgba(160, 163, 189, 0.1);
 			border-radius: 0.5rem;
@@ -43,6 +49,12 @@
 			height: 23.125rem;
 			margin-right: 1.562rem;
 			@extend .cardStyle;
+
+			@include screen("tablet") {
+				width: 100%;
+				margin-right: 0;
+				height: 20%;
+			}
 
 			.graphTitle {
 				padding-bottom: 1rem;
@@ -70,6 +82,9 @@
 						letter-spacing: 0.3px;
 						text-transform: uppercase;
 						color: $gray-600;
+						@include screen("medium") {
+							padding-top: 0.5rem;
+						}
 					}
 				}
 			}
@@ -79,11 +94,31 @@
 			width: 35%;
 			@include flex(column, null, null);
 
+			@include screen("tablet") {
+				width: 100%;
+				@include flex(row, space-between, null);
+				margin-top: 1rem;
+			}
+
+			@include screen("medium") {
+				@include flex(column, null, null);
+
+				width: 100%;
+				margin-top: 1rem;
+			}
+
 			.customers {
 				background: $base-white;
 				height: 10.625rem;
 				margin-bottom: 1.25rem;
 				@extend .cardStyle;
+
+				@include screen("tablet") {
+					width: 50%;
+				}
+				@include screen("medium") {
+					width: 100%;
+				}
 
 				.customerTitle {
 					@extend .titleStyle;
@@ -136,6 +171,16 @@
 
 				@extend .cardStyle;
 
+				@include screen("tablet") {
+					width: 50%;
+					margin-left: 1rem;
+					height: 10.7rem;
+				}
+				@include screen("medium") {
+					width: 100%;
+					margin-left: 0;
+				}
+
 				.revenueTitle {
 					@extend .titleStyle;
 				}
@@ -149,6 +194,10 @@
 					font-size: 4rem;
 					line-height: 4rem;
 					color: $base-blue;
+
+					@include screen("tablet") {
+						line-height: 2rem;
+					}
 
 					.currency {
 						font-weight: 600;
