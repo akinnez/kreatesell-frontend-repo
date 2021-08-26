@@ -1,6 +1,7 @@
 import axios from "../../utils/axios";
 import * as types from "../types";
 import { useDispatch } from "react-redux";
+import { showToast } from "../../utils";
 
 export const GetCountries = () => {
 	const dispatch = useDispatch();
@@ -29,9 +30,10 @@ export const GuestSubscription = () => {
 	return (data, successCallback, errorCallback) => (
 		dispatch({ type: types.GUEST_SUBSCRIPTION.REQUEST }),
 		axios.request(
-			`get`,
-			`v1/kreatesell/utils/`,
+			`post`,
+			`v1/kreatesell/utils/subscribe`,
 			(res) => {
+				console.log("suscribe resp --->", res);
 				dispatch({
 					type: types.GUEST_SUBSCRIPTION.SUCCESS,
 					payload: res?.data,
@@ -39,7 +41,10 @@ export const GuestSubscription = () => {
 				successCallback?.();
 			},
 			(err) => {
+				console.log("suscribe err --->", err);
+
 				dispatch({ type: types.GUEST_SUBSCRIPTION.FAILURE, payload: err });
+				showToast(err?.message, "error");
 				errorCallback?.();
 			},
 			data

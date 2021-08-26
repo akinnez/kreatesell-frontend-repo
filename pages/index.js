@@ -33,9 +33,10 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
-import { EmailSchema } from "../validation/Utils.validation";
+import { SubscribeEmailSchema } from "../validation";
 import { useFormik } from "formik";
 import { GuestSubscription } from "../redux/actions";
+import { useSelector } from "react-redux";
 
 export default function Home() {
 	const router = useRouter();
@@ -599,19 +600,24 @@ const MobileTestimonialVideoCard = () => {
 };
 
 const OnboardingModal = () => {
+	const { loading } = useSelector((state) => state.utils);
+
 	const guestSubscription = GuestSubscription();
 	const initialValues = {
-		Email: "",
+		customer_email: "",
+		customer_name: "",
 	};
 
 	const handleSubmit = (data) => {
-		guestSubscription(data);
+		guestSubscription(data, () => {
+			window.location.href = "https://t.me/kreatesell";
+		});
 	};
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: EmailSchema,
+		validationSchema: SubscribeEmailSchema,
 		validateOnChange: false,
 	});
 
@@ -631,7 +637,21 @@ const OnboardingModal = () => {
 			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
 			<div className={styles.inputCont}>
-				<Input name="email" placeholder="Enter your Email " label="Email" />
+				<Input
+					name="customer_name"
+					placeholder="Enter your Name "
+					label="Name"
+					onChange={formik.handleChange}
+				/>
+			</div>
+
+			<div className={styles.inputCont}>
+				<Input
+					name="customer_email"
+					placeholder="Enter your Email "
+					label="Email"
+					onChange={formik.handleChange}
+				/>
 			</div>
 
 			<p className={styles.context}>
@@ -644,6 +664,7 @@ const OnboardingModal = () => {
 				text="Watch Demo"
 				bgColor="blue"
 				className={styles.btnCont}
+				loading={loading}
 			/>
 		</form>
 	);

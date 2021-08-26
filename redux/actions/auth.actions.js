@@ -134,8 +134,9 @@ export const Logout = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	return (successCallback, errorCallback) => (
+		dispatch({ type: types.LOGOUT.REQUEST }),
 		localStorage.clear(),
-		router.push("/"),
-		dispatch({ type: types.LOGOUT.REQUEST })
+		sessionStorage.clear(),
+		router.push("/login")
 	);
 };
