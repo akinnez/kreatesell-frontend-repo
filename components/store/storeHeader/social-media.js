@@ -1,6 +1,7 @@
 import React from 'react'
 import {Copy,Facebook,Twitter,Instagram,LinkedIn} from '../../IconPack'
 import { Divider } from '../../grid'
+import Link from 'next/link'
 
 const Social = ({facebook='#', twitter='#', instagram='#', linkedIn="#"})=>{
 
@@ -10,10 +11,10 @@ const Social = ({facebook='#', twitter='#', instagram='#', linkedIn="#"})=>{
             <div className="social-wrapper">
                 <p>Share store link on</p>
                 <div className="social-icon-wrapper">
-                <a href={facebook}><Facebook /></a>
-                <a href={instagram}><Instagram/></a> 
-                <a href={linkedIn}><LinkedIn /></a> 
-                <a href={twitter}><Twitter /></a>
+                <Link href={facebook}><a><Facebook /></a></Link>
+                <Link href={instagram}><a><Instagram/></a></Link>
+                <Link href={linkedIn}><a><LinkedIn /></a></Link> 
+                <Link href={twitter}><a><Twitter /></a></Link>
                 </div>
                 <Divider />
                 <div className="copy-wrapper">
