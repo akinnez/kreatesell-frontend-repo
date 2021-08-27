@@ -83,7 +83,7 @@ const Index = ({ loading, children }) => {
 				breakpoint="lg"
 				collapsedWidth={0}
 			>
-				<div style={{ padding: "0 10px" }}>
+				<div style={{ padding: "0 15px" }}>
 					<Logo />
 					<Sidebar />
 				</div>
