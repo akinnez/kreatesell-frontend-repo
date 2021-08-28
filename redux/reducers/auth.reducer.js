@@ -15,6 +15,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 		case types.ENABLE_AND_DISABLE_2FA.REQUEST:
 		case types.RESET_PASSWORD.REQUEST:
 		case types.RESOLVE_2FA_LOGIN.REQUEST:
+		case types.RESEND_CONFIRMATION_EMAIL.REQUEST:
 			return { ...state, loading: true };
 
 		case types.LOGIN.SUCCESS:
@@ -26,6 +27,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 		case types.RESET_PASSWORD.SUCCESS:
 		case types.ENABLE_AND_DISABLE_2FA.SUCCESS:
 		case types.RESOLVE_2FA_LOGIN.SUCCESS:
+		case types.RESEND_CONFIRMATION_EMAIL.SUCCESS:
 			return { ...state, loading: false, ...payload };
 
 		case types.SIGNUP.FAILURE:
@@ -35,6 +37,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 		case types.RESET_PASSWORD.FAILURE:
 		case types.ENABLE_AND_DISABLE_2FA.FAILURE:
 		case types.RESOLVE_2FA_LOGIN.FAILURE:
+		case types.RESEND_CONFIRMATION_EMAIL.FAILURE:
 			return { ...state, loading: false, error: payload };
 
 		default:

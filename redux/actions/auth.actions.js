@@ -49,10 +49,38 @@ export const Login = () => {
 			},
 			(err) => {
 				dispatch({ type: types.LOGIN.FAILURE, payload: err });
-				showToast(err?.error, "error");
-				errorCallback?.();
+				showToast(err?.message, "error");
+				errorCallback?.(err);
 			},
 			data
+		)
+	);
+};
+
+export const ResendConfirmationEmail = () => {
+	const dispatch = useDispatch();
+	const endpoint = "auth/resendconfrimationemail/";
+	return (email, successCallback, errorCallback) => (
+		dispatch({ type: types.RESEND_CONFIRMATION_EMAIL.REQUEST }),
+		axios.request(
+			`get`,
+			endpoint + email,
+			(res) => {
+				dispatch({
+					type: types.RESEND_CONFIRMATION_EMAIL.SUCCESS,
+					payload: res,
+				});
+				showToast("Kindly check your mail for verification link", "info");
+				successCallback?.(res);
+			},
+			(err) => {
+				dispatch({
+					type: types.RESEND_CONFIRMATION_EMAIL.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
 		)
 	);
 };
