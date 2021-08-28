@@ -1,6 +1,7 @@
 import axios from "../../utils/axios";
 import * as types from "../types";
 import { useDispatch } from "react-redux";
+import { showToast } from "../../utils";
 
 export const StoreOnboarding = () => {
 	const dispatch = useDispatch();
@@ -39,11 +40,39 @@ export const GetStoreDetails = () => {
 			}
 		)
 	);
-}
+};
 
-export const getStore =(info)=>{
-	return{
-		type:types.GET_STORE_DETAILS.SUCCESS,
-		payload:info
-	}
-}
+export const WelcomeStoreOnboarding = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.WELCOME_STORE_ONBOARDING.REQUEST }),
+		axios.request(
+			`post`,
+			`v1/kreatesell/store/inherit-name`,
+			(res) => {
+				dispatch({
+					type: types.WELCOME_STORE_ONBOARDING.SUCCESS,
+					payload: res,
+				});
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.WELCOME_STORE_ONBOARDING.FAILURE,
+					payload: err,
+				});
+				showToast(err?.title, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const getStore = (info) => {
+	return {
+		type: types.GET_STORE_DETAILS.SUCCESS,
+		payload: info,
+	};
+};

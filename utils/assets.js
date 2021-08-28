@@ -4,6 +4,7 @@ import Mobile from "../public/images/Mobile.svg";
 import FacebookBtn from "../public/images/facebookLogin.svg";
 import GoogleBtn from "../public/images/googleLogin.svg";
 import KreateSellBrand from "../public/images/KreateSell-brand.svg";
+import LogoutIcon from "../public/images/logout.svg";
 import FooterBrand from "../public/images/kreatesell-footer-brand.svg";
 import AutomationIcon from "../public/images/automation.svg";
 import InstantPayout from "../public/images/instant-payout.svg";
@@ -54,6 +55,7 @@ import PayoutIcon from "../public/images/payout-feature.svg";
 import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
 import SupportIcon from "../public/images/support-feature.svg";
+import SVGFilter from "../public/images/filter.svg";
 import { RightArrow } from "./icons/RightArrow";
 import { PlayIcon } from "./icons/PlayIcon";
 
@@ -116,4 +118,6 @@ export {
 	SecureIcon,
 	SellIcon,
 	SupportIcon,
+	SVGFilter,
+	LogoutIcon,
 };

@@ -8,14 +8,23 @@ import {
 	DateHeader,
 } from "../../../../components";
 import AuthLayout from "../../../../components/authlayout";
+import { GetStoreDetails } from "../../../../redux/actions";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import styles from "../../../../public/css/Dashboard.module.scss";
 
 const Dashboard = () => {
+	const router = useRouter();
+	const getStoreDetails = GetStoreDetails();
+
 	const [modalVisible, setVisible] = useState(false);
+	const { user } = useSelector((state) => state.utils);
 
 	useEffect(() => {
 		setVisible(true);
+		getStoreDetails();
 	}, []);
+
 	return (
 		<AuthLayout>
 			<div className={styles.container}>
@@ -37,7 +46,7 @@ const Dashboard = () => {
 					profit="123456"
 				/>
 
-				<RecentAnalytics />
+				{/* <RecentAnalytics /> */}
 
 				<Modal
 					onClose={() => setVisible(false)}
@@ -54,11 +63,15 @@ const Dashboard = () => {
 							content, products <br /> and services across borders.
 						</p>
 						<div className={styles.buttonContainer}>
-							<Button
-								text="Setup Store"
-								bgColor="white"
-								className={styles.tipBtn}
-							/>
+							{user?.completed !== 100 && (
+								<Button
+									text="Setup Store"
+									bgColor="white"
+									className={styles.tipBtn}
+									onClick={() => router.push("/account/kreator/store")}
+								/>
+							)}
+
 							<Button
 								text="Proceed to Dashboard"
 								bgColor="blue"

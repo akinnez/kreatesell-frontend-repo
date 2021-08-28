@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { Layout, InputButton, Button } from "../components";
 import styles from "../public/css/HowItWorks.module.scss";
@@ -12,6 +14,9 @@ import {
 } from "../utils";
 
 const HowItWorks = () => {
+	const router = useRouter();
+	const [email, setEmail] = useState("");
+
 	return (
 		<Layout subFooter={true} defaultMarginTop={true}>
 			<div className={styles.container}>
@@ -35,6 +40,14 @@ const HowItWorks = () => {
 							placeholder="Enter your email..."
 							buttonText="Get Started Free"
 							buttonIcon={<RightArrow />}
+							onChange={(e) => setEmail(e.target.value)}
+							onSubmit={(e) => {
+								e.preventDefault();
+								router.push({
+									pathname: "/signup",
+									query: { email },
+								});
+							}}
 						/>
 					</div>
 
