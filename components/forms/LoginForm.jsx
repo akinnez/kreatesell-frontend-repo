@@ -21,12 +21,27 @@ export const LoginForm = () => {
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
-		login(data, (res) => {
-			if (res?.message?.includes(`Kindly verify token sent to your email`)) {
-				return router.push("/verify-account");
+		login(
+			data,
+			(res) => {
+				if (
+					res?.message
+						?.toLowerCase()
+						.includes(`Kindly verify token sent to your email`)
+				) {
+					return router.push("/verify-account");
+				}
+				if (res?.message?.toLowerCase().includes(`has not been confirmed`)) {
+					return router.push("/resend-email");
+				}
+				return router.push("/account/kreator/dashboard");
+			},
+			(err) => {
+				if (err?.message?.toLowerCase().includes(`has not been confirmed`)) {
+					return router.push("/resend-email");
+				}
 			}
-			return router.push("/account/kreator/dashboard");
-		});
+		);
 	};
 
 	const formik = useFormik({

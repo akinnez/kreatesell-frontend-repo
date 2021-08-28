@@ -23,6 +23,12 @@ export const LoginSchema = () => {
 	});
 };
 
+export const EmailSchema = () => {
+	return Yup.object().shape({
+		email: Yup.string().email().required("Please input a valid email address"),
+	});
+};
+
 export const TwoFAVerificationSchema = () => {
 	return Yup.object().shape({
 		token: Yup.string()
