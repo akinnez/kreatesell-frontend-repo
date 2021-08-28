@@ -23,12 +23,11 @@ export const LoginSchema = () => {
 	});
 };
 
-export const AccountVerificationSchema = () => {
+export const TwoFAVerificationSchema = () => {
 	return Yup.object().shape({
-		otp: Yup.number()
-			.required("OTP Code is required")
-			.min(6, "OTP must be a six digit number")
-			.max(6, "OTP must be a six digit number"),
+		token: Yup.string()
+			.required("Token is required")
+			.length(6, "Token must be a six digit character"),
 	});
 };
 

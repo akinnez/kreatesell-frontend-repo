@@ -10,12 +10,17 @@ export const Signup = () => {
 		dispatch({ type: types.SIGNUP.REQUEST }),
 		axios.request(
 			`post`,
-			`auth/signup`,
+			`auth/signup/EmailConfirmation`,
 			(res) => {
 				const { token, user } = res;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user", JSON.stringify(user));
 				dispatch({ type: types.SIGNUP.SUCCESS, payload: res });
+				showToast(
+					res?.message ||
+						"Signup successful. Verification link has been sent to your mail",
+					"info"
+				);
 				successCallback?.();
 			},
 			(err) => {
@@ -34,16 +39,40 @@ export const Login = () => {
 		dispatch({ type: types.LOGIN.REQUEST }),
 		axios.request(
 			`post`,
-			`auth/signin`,
+			`auth/signin/EmailConfirm`,
 			(res) => {
 				const { token, user } = res;
 				localStorage.setItem("token", token);
 				localStorage.setItem("user", JSON.stringify(user));
 				dispatch({ type: types.LOGIN.SUCCESS, payload: res });
-				successCallback?.();
+				successCallback?.(res);
 			},
 			(err) => {
 				dispatch({ type: types.LOGIN.FAILURE, payload: err });
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const Resolve2FALogin = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.RESOLVE_2FA_LOGIN.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/2fa/validatetoken`,
+			(res) => {
+				const { token, user } = res;
+				localStorage.setItem("token", token);
+				localStorage.setItem("user", JSON.stringify(user));
+				dispatch({ type: types.RESOLVE_2FA_LOGIN.SUCCESS, payload: res });
+				successCallback?.(res);
+			},
+			(err) => {
+				dispatch({ type: types.RESOLVE_2FA_LOGIN.FAILURE, payload: err });
 				showToast(err?.error, "error");
 				errorCallback?.();
 			},
@@ -126,6 +155,32 @@ export const ResetPassword = () => {
 				errorCallback?.();
 			},
 			data
+		)
+	);
+};
+
+export const EnableAndDisable2FA = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.ENABLE_AND_DISABLE_2FA.REQUEST }),
+		axios.request(
+			`post`,
+			`Seller/Activate/De-Activate2FA`,
+			(res) => {
+				dispatch({
+					type: types.ENABLE_AND_DISABLE_2FA.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.ENABLE_AND_DISABLE_2FA.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, "error");
+				errorCallback?.();
+			}
 		)
 	);
 };

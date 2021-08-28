@@ -21,8 +21,11 @@ export const LoginForm = () => {
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
-		login(data, () => {
-			router.push("/account/kreator/dashboard");
+		login(data, (res) => {
+			if (res?.message?.includes(`Kindly verify token sent to your email`)) {
+				return router.push("/verify-account");
+			}
+			return router.push("/account/kreator/dashboard");
 		});
 	};
 
