@@ -1,14 +1,14 @@
-import { Input, Button, Checkbox, FormError, PasswordInput } from "../";
+import { Input, Button, Checkbox, FormError, PasswordInput } from "../..";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { LoginSchema } from "../../validation";
-import { isAnEmpytyObject } from "../../utils";
-import { Login } from "../../redux/actions";
+import { isAnEmpytyObject } from "../../../utils";
+import { Login } from "../../../redux/actions";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import styles from "../../public/css/Login.module.scss";
+import { LoginSchema } from "../../../validation";
+import styles from "../../../public/css/Login.module.scss";
 
-export const LoginForm = () => {
+export const AdminLoginForm = () => {
 	const login = Login();
 	const router = useRouter();
 
@@ -21,11 +21,8 @@ export const LoginForm = () => {
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
-		login(data, (res) => {
-			if (res?.message?.includes(`Kindly verify token sent to your email`)) {
-				return router.push("/verify-account");
-			}
-			return router.push("/account/kreator/dashboard");
+		login(data, () => {
+			router.push("/account/kreator/dashboard");
 		});
 	};
 
@@ -64,7 +61,7 @@ export const LoginForm = () => {
 						<p>Remember Me</p>
 					</div>
 
-					<Link href="/forgot-password">
+					<Link href="/admin/theaccess/forgot-password">
 						<a>Forget Password?</a>
 					</Link>
 				</div>

@@ -4,6 +4,19 @@
 .select {
 	.customStyles {
 	}
+	.label {
+		// font-family: Inter;
+		// font-style: normal;
+		// font-weight: 400;
+		// font-size: 0.8rem;
+		// line-height: 1rem;
+		// color: $base-gray;
+		// margin-bottom: 0.5rem;
+
+		font-size: 0.875rem;
+		line-height: 10px;
+		color: $gray-200;
+	}
 	.selectOptions {
 		border-radius: 0.5rem;
 		width: 100%;

@@ -3,10 +3,17 @@ import { Input as AntInput } from "antd";
 
 const { Password } = AntInput;
 
-export const Input = ({ type, placeholder, label, name, ...rest }) => {
+export const Input = ({
+	type,
+	placeholder,
+	label,
+	name,
+	labelStyle,
+	...rest
+}) => {
 	return (
 		<div className={`${rest.containerstyle} ${styles.inputContainer}`}>
-			<label htmlFor={name} className={styles.label}>
+			<label htmlFor={name} className={`${styles.label} ${labelStyle}`}>
 				{label}
 			</label>
 			<input

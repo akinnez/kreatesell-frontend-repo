@@ -252,7 +252,7 @@
 		}
 
 		&.reassign {
-			display: none;
+			display: flex;
 			@include screen("tablet") {
 				display: flex;
 				.imageCont {

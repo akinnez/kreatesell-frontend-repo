@@ -7,7 +7,7 @@ const VerifyAccount = () => {
 			Form={TwoFAVerificationForm}
 			formTitle="Please verify your account"
 			title="KreateSell | Login"
-			subTitle="Input the 6 digit code that has been sent to adedayo@gmail.com"
+			subTitle="Input the 6 digit code that has been sent to your email"
 			socialBtn={false}
 			signupStyle={styles.signup}
 			subTitleOpacity={true}

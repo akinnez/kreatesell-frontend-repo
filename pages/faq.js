@@ -4,11 +4,21 @@ import { useRouter } from "next/router";
 import { FAQHero, ArrowDown } from "../utils";
 import { Layout, Input } from "../components";
 import { BackTop } from "antd";
+import { Link } from "react-scroll";
 import styles from "../public/css/Faq.module.scss";
 
 const FAQ = () => {
 	const router = useRouter();
-	const [openArrow, setOpenArrow] = useState(false);
+	const [openArrow, setOpenArrow] = useState({
+		kreator: false,
+		affiliate: false,
+		creator: false,
+		buyer: false,
+		general: false,
+		payment: false,
+	});
+
+	const { kreator, affiliate, creator, buyer, general, payment } = openArrow;
 
 	const backToTopStyle = {
 		// backgroundColor: "#0072ef",
@@ -51,19 +61,30 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											kreator: !kreator,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!kreator ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
-									<h6 className={styles.title}>For Kreator</h6>
+									<Link
+										to="for-kreator"
+										spy={true}
+										smooth={true}
+										offset={-50}
+										duration={500}
+									>
+										<h6 className={styles.title}>For Kreator</h6>
+									</Link>
 								</div>
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!kreator ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -105,19 +126,32 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											affiliate: !affiliate,
+										})
+									}
 								>
 									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
+										className={`${!!affiliate ? styles.open : styles.arrow}`}
 									>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
-									<h6 className={styles.title}>For Affiliate </h6>
+									<Link
+										to="for-affiliate"
+										spy={true}
+										smooth={true}
+										offset={-50}
+										duration={500}
+									>
+										<h6 className={styles.title}>For Affiliate </h6>
+									</Link>
 								</div>
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!affiliate ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -166,19 +200,30 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											creator: !creator,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!creator ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
-									<h6 className={styles.title}>For Creator and Affiliate</h6>
+									<Link
+										to="for-creator-and-affiliate"
+										spy={true}
+										smooth={true}
+										offset={-50}
+										duration={500}
+									>
+										<h6 className={styles.title}>For Creator and Affiliate</h6>
+									</Link>
 								</div>
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!creator ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -194,20 +239,29 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											buyer: !buyer,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!buyer ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
-									<h6 className={styles.title}>For Buyer</h6>
+									<Link
+										to="buyer"
+										spy={true}
+										smooth={true}
+										offset={-50}
+										duration={500}
+									>
+										<h6 className={styles.title}>For Buyer</h6>
+									</Link>
 								</div>
 
 								<div
-									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
-									}
+									className={!buyer ? `${styles.questionsContainer}` : "hidden"}
 								>
 									<p className={styles.questions}>
 										If the product bought is not genuine, can I get a refund?
@@ -221,19 +275,30 @@ const FAQ = () => {
 							<div className={styles.dropDown}>
 								<div
 									className={styles.headerArrow}
-									onClick={() => setOpenArrow((item) => !item)}
+									onClick={() =>
+										setOpenArrow({
+											...openArrow,
+											general: !general,
+										})
+									}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!general ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
-									<h6 className={styles.title}>General</h6>
+									<Link
+										to="general"
+										spy={true}
+										smooth={true}
+										offset={-50}
+										duration={500}
+									>
+										<h6 className={styles.title}>General</h6>
+									</Link>
 								</div>
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!general ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -246,23 +311,34 @@ const FAQ = () => {
 
 							<div
 								className={styles.dropDown}
-								onClick={() => setOpenArrow((item) => !item)}
+								onClick={() =>
+									setOpenArrow({
+										...openArrow,
+										payment: !payment,
+									})
+								}
 							>
 								<div
 									className={styles.headerArrow}
 									onClick={() => setOpenArrow((item) => !item)}
 								>
-									<div
-										className={`${!!openArrow ? styles.open : styles.arrow}`}
-									>
+									<div className={`${!!payment ? styles.open : styles.arrow}`}>
 										<Image src={ArrowDown} alt="arrow-down" />
 									</div>
-									<h6 className={styles.title}>For Payment</h6>
+									<Link
+										to="payment"
+										spy={true}
+										smooth={true}
+										offset={-50}
+										duration={500}
+									>
+										<h6 className={styles.title}>For Payment</h6>
+									</Link>
 								</div>
 
 								<div
 									className={
-										!openArrow ? `${styles.questionsContainer}` : "hidden"
+										!payment ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
 									<p className={styles.questions}>
@@ -281,7 +357,7 @@ const FAQ = () => {
 					</div>
 
 					<div className={styles.faqQuestionsCont}>
-						<h1>KREATORS</h1>
+						<h1 id="for-kreator">KREATORS</h1>
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								What is KreateSell and what does it do?
@@ -318,7 +394,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Why should I use KreateSell?
@@ -334,7 +409,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How much does it cost to use KreateSell?
@@ -354,7 +428,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								After Creating my account, what next?
@@ -384,7 +457,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Can't find what you're looking for?
@@ -406,7 +478,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How do I make money on KreateSell as a creator?
@@ -420,7 +491,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How do I create a product?
@@ -429,7 +499,6 @@ const FAQ = () => {
 								<p>Video guide on this coming soon.</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How can my customers make payment?
@@ -442,7 +511,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								I'm afraid of piracy, are my products safe with KreateSell?
@@ -455,7 +523,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How do I notify you in case of any product piracy?
@@ -477,7 +544,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Can I create and sell products for free?
@@ -489,7 +555,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								What are the products KreateSell accepts
@@ -503,7 +568,7 @@ const FAQ = () => {
 							</div>
 						</div>
 
-						<h1>AFFILIATE </h1>
+						<h1 id="for-affiliate">AFFILIATE </h1>
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								What is the KreateSell Affiliate Program?
@@ -519,7 +584,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How to become an affiliate
@@ -537,7 +601,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How to make money as an affiliate?
@@ -553,7 +616,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How much revenue can I earn as a KreateSell Affiliate?
@@ -567,7 +629,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Can anyone join the KreateSell Affiliate Program?
@@ -580,7 +641,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Can I join if I’m participating in another affiliate program?
@@ -593,7 +653,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Can I participate from any Country?
@@ -606,7 +665,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>When do I get paid?</h5>
 							<div className={styles.answer}>
@@ -621,7 +679,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								What form of payment will I receive?
@@ -633,7 +690,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How can I track the success of my promotion?
@@ -646,7 +702,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Who should I contact if I have questions?
@@ -666,7 +721,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								What sort of tools do you provide to your affiliates?
@@ -678,7 +732,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How do I link to your site once I'm an affiliate?
@@ -691,7 +744,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Is there any cost to become an affiliate?
@@ -700,7 +752,6 @@ const FAQ = () => {
 								<p>No, it's absolutely free to sign-up and promote.</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>Do I need to pay tax?</h5>
 							<div className={styles.answer}>
@@ -713,8 +764,7 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
-						<h1>KREATORS & AFFILIATES</h1>
+						<h1 id="for-creator-and-affiliate">KREATORS & AFFILIATES</h1>
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								I don't have foreign payment account, can i still receive my
@@ -727,7 +777,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How can I make money as a Creator?
@@ -742,7 +791,7 @@ const FAQ = () => {
 							</div>
 						</div>
 
-						<h1>BUYER</h1>
+						<h1 id="buyer">BUYER</h1>
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								If the product bought is not genuine, can I get a refund?
@@ -765,7 +814,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Am I Safe to make payment for a membership plan?
@@ -778,7 +826,7 @@ const FAQ = () => {
 							</div>
 						</div>
 
-						<h1>GENERAL</h1>
+						<h1 id="general">GENERAL</h1>
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								Can I sign up with my social media account?
@@ -791,7 +839,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>Is my login details safe?</h5>
 							<div className={styles.answer}>
@@ -802,7 +849,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>How secure is KreateSell</h5>
 							<div className={styles.answer}>
@@ -818,7 +864,7 @@ const FAQ = () => {
 							</div>
 						</div>
 
-						<h1>PAYMENT</h1>
+						<h1 id="payment">PAYMENT</h1>
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How long does it take for funds to be deposited into my account?
@@ -830,7 +876,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How do I know if my customer has paid?
@@ -846,7 +891,6 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								What if my question isn't answered here?

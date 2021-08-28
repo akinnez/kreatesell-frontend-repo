@@ -18,17 +18,10 @@
 }
 
 .closeIcon {
-	position: absolute;
-	right: 33%;
-	top: 25%;
+	float: right;
+	padding-top: 1rem;
+	padding-right: 1rem;
 	cursor: pointer;
-	@include screen("tablet") {
-		right: 24%;
-		top: 20%;
-	}
-	@include screen("medium") {
-		right: 5%;
-	}
 }
 
 .container {

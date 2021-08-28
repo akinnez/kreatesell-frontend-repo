@@ -32,6 +32,7 @@
 	@include flex(row, flex-end, center);
 	width: 60%;
 	padding-right: 3rem;
+	padding-top: 1rem;
 
 	ul {
 		@include flex(row, space-around, null);
@@ -137,6 +138,9 @@
 		.imgCont {
 			min-width: 35%;
 			padding: 0 1rem;
+			@include screen("medium") {
+				padding-top: 0.5rem;
+			}
 		}
 
 		.navLinks {

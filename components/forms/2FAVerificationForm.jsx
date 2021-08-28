@@ -2,23 +2,33 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import AuthCode from "react-auth-code-input";
 import { Button, FormError } from "../";
-import { AccountVerificationSchema } from "../../validation";
+import { TwoFAVerificationSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/ForgotPassword.module.scss";
+import { Resolve2FALogin } from "../../redux/actions";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 export const TwoFAVerificationForm = () => {
+	const router = useRouter();
+	const resolve2FALogin = Resolve2FALogin();
+
+	const { loading } = useSelector((state) => state.auth);
+
 	const initialValues = {
-		otp: "",
+		token: "",
 	};
 
-	const handleSubmit = () => {
-		return null;
+	const handleSubmit = (data) => {
+		resolve2FALogin(data, () => {
+			router.push("/account/kreator/dashboard");
+		});
 	};
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: AccountVerificationSchema,
+		validationSchema: TwoFAVerificationSchema,
 		validateOnChange: false,
 	});
 
@@ -37,14 +47,14 @@ export const TwoFAVerificationForm = () => {
 				<AuthCode
 					characters={6}
 					onChange={(e) => {
-						setFieldValue("otp", e);
+						setFieldValue("token", e);
 					}}
 					containerClassName={styles.twoFaContainer}
 					inputClassName={styles.twoFaInput}
-					allowedCharacters={/^[0-9]/}
-					name="otp"
+					// allowedCharacters={/^[0-9]/}
+					name="token"
 				/>
-				<Button text="Verify Account" bgColor="primaryBlue" />
+				<Button text="Verify Account" bgColor="primaryBlue" loading={loading} />
 			</form>
 
 			<div className={styles.footer}>

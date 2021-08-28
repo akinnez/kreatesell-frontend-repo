@@ -1,5 +1,6 @@
 export * from "./ForgotPasswordForm";
 export * from "./LoginForm";
+export * from "./AdminAuth";
 export * from "./ResetPasswordForm";
 export * from "./ResetSuccesModal";
 export * from "./SignupForm";
