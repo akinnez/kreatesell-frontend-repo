@@ -27,7 +27,7 @@ export const LoginForm = () => {
 				if (
 					res?.message
 						?.toLowerCase()
-						.includes(`Kindly verify token sent to your email`)
+						.includes(`kindly verify token sent to your email`)
 				) {
 					return router.push("/verify-account");
 				}
