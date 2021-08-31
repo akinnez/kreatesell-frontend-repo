@@ -57,6 +57,30 @@ export const Login = () => {
 	);
 };
 
+export const SuperAdminLogin = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.SUPER_ADMIN_LOGIN.REQUEST }),
+		axios.request(
+			`post`,
+			"auth/superadmin/signin",
+			(res) => {
+				const { token, user } = res;
+				localStorage.setItem("token", token);
+				localStorage.setItem("user", JSON.stringify(user));
+				dispatch({ type: types.SUPER_ADMIN_LOGIN.SUCCESS, payload: res });
+				successCallback?.(res);
+			},
+			(err) => {
+				dispatch({ type: types.SUPER_ADMIN_LOGIN.FAILURE, payload: err });
+				showToast(err?.error, "error");
+				errorCallback?.(err);
+			},
+			data
+		)
+	);
+};
+
 export const ResendConfirmationEmail = () => {
 	const dispatch = useDispatch();
 	const endpoint = "auth/resendconfrimationemail/";
@@ -177,6 +201,33 @@ export const ResetPassword = () => {
 			(err) => {
 				dispatch({
 					type: types.RESET_PASSWORD.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const SuperAdminResetPassword = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.SUPER_ADMIN_RESET_PASSWORD.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/superadmin/reset_password`,
+			(res) => {
+				dispatch({
+					type: types.SUPER_ADMIN_RESET_PASSWORD.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.SUPER_ADMIN_RESET_PASSWORD.FAILURE,
 					payload: err,
 				});
 				showToast(err?.error, "error");
