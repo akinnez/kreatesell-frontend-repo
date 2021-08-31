@@ -1,6 +1,6 @@
 import cogoToast from "cogo-toast";
 
-const pathName = typeof window !== "undefined" && window;
+export const pathName = typeof window !== "undefined" && window;
 
 export const isAnEmpytyObject = (obj) => {
 	for (var key in obj) {

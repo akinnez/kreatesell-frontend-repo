@@ -15,3 +15,7 @@ export const RESEND_CONFIRMATION_EMAIL = generateActions(
 	"RESEND_CONFIRMATION_EMAIL"
 );
 export const LOGOUT = generateActions("LOGOUT");
+export const SUPER_ADMIN_LOGIN = generateActions("SUPER_ADMIN_LOGIN");
+export const SUPER_ADMIN_RESET_PASSWORD = generateActions(
+	"SUPER_ADMIN_RESET_PASSWORD"
+);

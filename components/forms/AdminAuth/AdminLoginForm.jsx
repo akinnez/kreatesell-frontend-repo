@@ -2,14 +2,14 @@ import { Input, Button, Checkbox, FormError, PasswordInput } from "../..";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { isAnEmpytyObject } from "../../../utils";
-import { Login } from "../../../redux/actions";
+import { SuperAdminLogin } from "../../../redux/actions";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { LoginSchema } from "../../../validation";
 import styles from "../../../public/css/Login.module.scss";
 
 export const AdminLoginForm = () => {
-	const login = Login();
+	const adminLogin = SuperAdminLogin();
 	const router = useRouter();
 
 	const { loading } = useSelector((state) => state.auth);
@@ -21,7 +21,7 @@ export const AdminLoginForm = () => {
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
-		login(data, () => {
+		adminLogin(data, () => {
 			router.push("/account/kreator/dashboard");
 		});
 	};

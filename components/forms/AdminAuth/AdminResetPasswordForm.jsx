@@ -1,22 +1,22 @@
 import { useState } from "react";
 import {
-	Input,
 	Button,
 	FormError,
 	Modal,
 	ResetPasswordSuccesModal,
+	PasswordInput,
 } from "../../";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { ResetPasswordSchema } from "../../../validation";
 import { isAnEmpytyObject } from "../../../utils";
-import { ResetPassword } from "../../../redux/actions";
+import { SuperAdminResetPassword } from "../../../redux/actions";
 import { useSelector } from "react-redux";
 import styles from "../../../public/css/ForgotPassword.module.scss";
 
 export const AdminResetPasswordForm = () => {
-	const resetPassword = ResetPassword();
-	const { loading } = useSelector((state) => state.store);
+	const resetPassword = SuperAdminResetPassword();
+	const { loading } = useSelector((state) => state.auth);
 
 	const [modalVisible, setVisible] = useState(false);
 
@@ -48,7 +48,7 @@ export const AdminResetPasswordForm = () => {
 				autoComplete="off"
 				className={styles.container}
 			>
-				<Input
+				<PasswordInput
 					label="Enter New Password"
 					name="password"
 					placeholder="Create new password"
@@ -56,7 +56,7 @@ export const AdminResetPasswordForm = () => {
 					type="password"
 				/>
 
-				<Input
+				<PasswordInput
 					label="Confirm New Password"
 					name="confirm_password"
 					placeholder="Confirm new password"
