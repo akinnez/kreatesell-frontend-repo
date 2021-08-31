@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { SignupSchema } from "../../validation";
 import ReCAPTCHA from "react-google-recaptcha";
-import { isAnEmpytyObject } from "../../utils";
+import { isAnEmpytyObject, pathName } from "../../utils";
 import { Signup } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import styles from "../../public/css/Signup.module.scss";
@@ -16,6 +16,11 @@ export const SignupForm = () => {
 	const email = router.query?.email;
 
 	const { loading } = useSelector((state) => state.auth);
+
+	const RecaptchKey =
+		pathName.location?.hostname === "localhost"
+			? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+			: `6Le7-jQcAAAAAOHkoLvhdgAjcmfi2gcHjLKkCzYB`;
 
 	const initialValues = {
 		Email: "",
@@ -93,7 +98,8 @@ export const SignupForm = () => {
 				/>
 
 				<ReCAPTCHA
-					sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+					// sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+					sitekey={RecaptchKey}
 					size="normal"
 					onChange={(value) => setFieldValue("recaptchaToken", value)}
 				/>

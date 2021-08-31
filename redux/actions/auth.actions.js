@@ -49,10 +49,62 @@ export const Login = () => {
 			},
 			(err) => {
 				dispatch({ type: types.LOGIN.FAILURE, payload: err });
-				showToast(err?.error, "error");
-				errorCallback?.();
+				showToast(err?.message, "error");
+				errorCallback?.(err);
 			},
 			data
+		)
+	);
+};
+
+export const SuperAdminLogin = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.SUPER_ADMIN_LOGIN.REQUEST }),
+		axios.request(
+			`post`,
+			"auth/superadmin/signin",
+			(res) => {
+				const { token, user } = res;
+				localStorage.setItem("token", token);
+				localStorage.setItem("user", JSON.stringify(user));
+				dispatch({ type: types.SUPER_ADMIN_LOGIN.SUCCESS, payload: res });
+				successCallback?.(res);
+			},
+			(err) => {
+				dispatch({ type: types.SUPER_ADMIN_LOGIN.FAILURE, payload: err });
+				showToast(err?.error, "error");
+				errorCallback?.(err);
+			},
+			data
+		)
+	);
+};
+
+export const ResendConfirmationEmail = () => {
+	const dispatch = useDispatch();
+	const endpoint = "auth/resendconfrimationemail/";
+	return (email, successCallback, errorCallback) => (
+		dispatch({ type: types.RESEND_CONFIRMATION_EMAIL.REQUEST }),
+		axios.request(
+			`get`,
+			endpoint + email,
+			(res) => {
+				dispatch({
+					type: types.RESEND_CONFIRMATION_EMAIL.SUCCESS,
+					payload: res,
+				});
+				showToast("Kindly check your mail for verification link", "info");
+				successCallback?.(res);
+			},
+			(err) => {
+				dispatch({
+					type: types.RESEND_CONFIRMATION_EMAIL.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
 		)
 	);
 };
@@ -149,6 +201,33 @@ export const ResetPassword = () => {
 			(err) => {
 				dispatch({
 					type: types.RESET_PASSWORD.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const SuperAdminResetPassword = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.SUPER_ADMIN_RESET_PASSWORD.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/superadmin/reset_password`,
+			(res) => {
+				dispatch({
+					type: types.SUPER_ADMIN_RESET_PASSWORD.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.SUPER_ADMIN_RESET_PASSWORD.FAILURE,
 					payload: err,
 				});
 				showToast(err?.error, "error");

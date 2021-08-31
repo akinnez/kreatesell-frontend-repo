@@ -11,4 +11,11 @@ export const VALIDATE_PASSWORD_RESET_TOKEN = generateActions(
 export const RESET_PASSWORD = generateActions("RESET_PASSWORD");
 export const ENABLE_AND_DISABLE_2FA = generateActions("ENABLE_AND_DISABLE_2FA");
 export const RESOLVE_2FA_LOGIN = generateActions("RESOLVE_2FA_LOGIN");
+export const RESEND_CONFIRMATION_EMAIL = generateActions(
+	"RESEND_CONFIRMATION_EMAIL"
+);
 export const LOGOUT = generateActions("LOGOUT");
+export const SUPER_ADMIN_LOGIN = generateActions("SUPER_ADMIN_LOGIN");
+export const SUPER_ADMIN_RESET_PASSWORD = generateActions(
+	"SUPER_ADMIN_RESET_PASSWORD"
+);

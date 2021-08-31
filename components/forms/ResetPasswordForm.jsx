@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Input, Button, FormError, Modal, ResetPasswordSuccesModal } from "../";
+import {
+	PasswordInput,
+	Button,
+	FormError,
+	Modal,
+	ResetPasswordSuccesModal,
+} from "../";
 import Link from "next/link";
 import { useFormik } from "formik";
 import { ResetPasswordSchema } from "../../validation";
@@ -42,7 +48,7 @@ export const ResetPasswordForm = () => {
 				autoComplete="off"
 				className={styles.container}
 			>
-				<Input
+				<PasswordInput
 					label="Enter New Password"
 					name="password"
 					placeholder="Create new password"
@@ -50,7 +56,7 @@ export const ResetPasswordForm = () => {
 					type="password"
 				/>
 
-				<Input
+				<PasswordInput
 					label="Confirm New Password"
 					name="confirm_password"
 					placeholder="Confirm new password"

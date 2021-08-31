@@ -33,7 +33,6 @@ export const GuestSubscription = () => {
 			`post`,
 			`v1/kreatesell/utils/subscribe`,
 			(res) => {
-				console.log("suscribe resp --->", res);
 				dispatch({
 					type: types.GUEST_SUBSCRIPTION.SUCCESS,
 					payload: res?.data,
@@ -41,8 +40,6 @@ export const GuestSubscription = () => {
 				successCallback?.();
 			},
 			(err) => {
-				console.log("suscribe err --->", err);
-
 				dispatch({ type: types.GUEST_SUBSCRIPTION.FAILURE, payload: err });
 				showToast(err?.message, "error");
 				errorCallback?.();
