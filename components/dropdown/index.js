@@ -1,13 +1,20 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 
 
 const Index = ({Button,children,width, ...rest})=>{
 
+    const container = useRef()
+
     const [show, setShow] = useState(false)
 
     useEffect(()=>{
-        document.addEventListener("mousedown",()=>{
-            setShow(false)
+        document.addEventListener("mouseup",(event)=>{
+            if (
+                container.current &&
+                !container.current.contains(event.target)
+              ) {
+                setShow(false)
+              }
         })
     })
 
@@ -17,7 +24,7 @@ const Index = ({Button,children,width, ...rest})=>{
                    <span onClick={()=>setShow(!show)}>{
                        Button || "Click here"
                    }</span>
-                    <div className="dropdown-wrapper" {...rest}>
+                    <div className="dropdown-wrapper" {...rest} ref={container}>
                         {
                             show ? 
                         <div className="dropdown-menu">
