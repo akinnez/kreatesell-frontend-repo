@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SignupSchema } from "../../validation";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import { isAnEmpytyObject } from "../../utils";
 import { Signup } from "../../redux/actions";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ export const SignupForm = () => {
 		Password: "",
 		phoneNo: "",
 		terms: false,
-		recaptchaToken: "",
+		// recaptchaToken: "",
 	};
 
 	const handleSubmit = async (values) => {
@@ -52,9 +52,7 @@ export const SignupForm = () => {
 	const { errors, setFieldValue } = formik;
 
 	useEffect(() => {
-		if (email) {
-			setFieldValue("Email", email);
-		}
+		if (email) setFieldValue("Email", email);
 	}, [email]);
 
 	return (
@@ -92,11 +90,11 @@ export const SignupForm = () => {
 					onChange={formik.handleChange}
 				/>
 
-				<ReCAPTCHA
+				{/* <ReCAPTCHA
 					sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 					size="normal"
 					onChange={(value) => setFieldValue("recaptchaToken", value)}
-				/>
+				/> */}
 
 				<div className={styles.terms}>
 					<Checkbox name="terms" onChange={formik.handleChange} />
