@@ -14,23 +14,23 @@ const BankModal = ({open,onClose=()=>{}})=>{
         countries:false,
         save:false
     })
-    const {countries,banks,bank_details} = useSelector(state=>state.utils) || {}
-    const dispatch = useDispatch()
-    
-
+    const [banks, setBanks] = useState([])
+    const [country, setCountry] = useState([])
+    const {bank_details} = useSelector(state=>state.utils) || {}
+  
     const [form] = Form.useForm()
 
     const handleBank = (id)=>{
         setLoading({...loading, banks:true})
         form.setFieldsValue({bank_id:""})
-        dispatch(getBanks([]))
+        setBanks([])
         ApiService.request(
             "get",
             `v1/kreatesell/utils/get-banks/${id}`,
             (res)=>{
                 setLoading({...loading, banks:false})
-                const banks = res?.data?.list_of_banks?.map(({id,name})=>({label:name,value:id}))
-                dispatch(getBanks(banks))
+                const bank = res?.data?.list_of_banks?.map(({id,name})=>({label:name,value:id}))
+                setBanks(bank)
             },
             (error)=>{
                 setLoading({...loading, banks:false})
@@ -57,11 +57,24 @@ const BankModal = ({open,onClose=()=>{}})=>{
     }
 
     useEffect(()=>{
-        form.setFieldsValue({
-            bank_id:bank_details?.bank_id,
-            country_id:bank_details?.country_id,
-            account_number:bank_details?.account_number,
-            account_name:bank_details?.account_name,
+        ApiService.request('get','v1/kreatesell/store/me',
+        ({data})=>{
+            data?.bank_details?.country_id ? handleBank(parseInt(data?.bank_details?.country_id)):null
+            form.setFieldsValue({
+                bank_id:data?.bank_details?.bank_id ? parseInt(data?.bank_details?.bank_id):'',
+                country_id:data?.bank_details?.country_id ? parseInt(data?.bank_details?.country_id):'',
+                account_number:data?.bank_details?.account_number,
+                account_name:data?.bank_details?.account_name,
+            })
+        })
+        
+    },[])
+
+    useEffect(()=>{
+        ApiService.request('get','v1/kreatesell/utils/get-countries',
+        ({data})=>{
+            const countries = data?.list_of_countries?.map(({id,name})=>({label:name, value:id}))
+            setCountry(countries)
         })
     },[])
 
@@ -83,7 +96,7 @@ const BankModal = ({open,onClose=()=>{}})=>{
         <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Select size="large" 
                     label="Select Country"
-                    list={countries}
+                    list={country}
                     onChange={(e)=>handleBank(e)}
                     placeholder="Select country"
                     name="country_id"

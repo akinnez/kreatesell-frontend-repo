@@ -280,23 +280,32 @@ export const Dash = () => {
 export const Logout = () => {
 	return (
 		<>
-			<svg
-				width="20"
-				height="20"
-				viewBox="0 0 20 20"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					opacity="0.4"
-					d="M0.833984 4.90942C0.833984 2.66267 2.69504 0.833008 4.98147 0.833008H9.52916C11.8109 0.833008 13.6673 2.65717 13.6673 4.90026V15.0899C13.6673 17.3376 11.8063 19.1663 9.5189 19.1663H4.97308C2.69037 19.1663 0.833984 17.3422 0.833984 15.0991V14.2374V4.90942Z"
-					fill="#3A416F"
-				/>
-				<path
-					d="M18.9651 9.49956L16.3565 6.83297C16.0868 6.55797 15.653 6.55797 15.3842 6.83481C15.1164 7.11164 15.1173 7.55806 15.386 7.83306L16.8153 9.29331H15.4449H7.75383C7.37441 9.29331 7.06641 9.60956 7.06641 9.99914C7.06641 10.3896 7.37441 10.705 7.75383 10.705H16.8153L15.386 12.1652C15.1173 12.4402 15.1164 12.8866 15.3842 13.1635C15.519 13.3019 15.6949 13.3716 15.8717 13.3716C16.0467 13.3716 16.2225 13.3019 16.3565 13.1653L18.9651 10.4996C19.0945 10.3667 19.1678 10.1871 19.1678 9.99914C19.1678 9.81214 19.0945 9.63247 18.9651 9.49956Z"
-					fill="#3A416F"
-				/>
-			</svg>
+			<svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dd)">
+<rect x="5.5" y="1.70898" width="32" height="32" rx="8" fill="white"/>
+</g>
+<path opacity="0.4" d="M12.334 12.6194C12.334 10.3726 14.195 8.54297 16.4815 8.54297H21.0292C23.3109 8.54297 25.1673 10.3671 25.1673 12.6102V22.7999C25.1673 25.0476 23.3063 26.8763 21.0189 26.8763H16.4731C14.1904 26.8763 12.334 25.0521 12.334 22.8091V21.9474V12.6194Z" fill="#3A416F"/>
+<path d="M30.4651 17.2105L27.8565 14.5439C27.5868 14.2689 27.153 14.2689 26.8842 14.5457C26.6164 14.8226 26.6173 15.269 26.886 15.544L28.3153 17.0042H26.9449H19.2538C18.8744 17.0042 18.5664 17.3205 18.5664 17.7101C18.5664 18.1006 18.8744 18.4159 19.2538 18.4159H28.3153L26.886 19.8762C26.6173 20.1512 26.6164 20.5976 26.8842 20.8744C27.019 21.0128 27.1949 21.0825 27.3717 21.0825C27.5467 21.0825 27.7225 21.0128 27.8565 20.8762L30.4651 18.2106C30.5945 18.0777 30.6678 17.898 30.6678 17.7101C30.6678 17.5231 30.5945 17.3434 30.4651 17.2105Z" fill="#3A416F"/>
+<defs>
+<filter id="filter0_dd" x="0.5" y="0.708984" width="42" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect1_dropShadow"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect2_dropShadow"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="3"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow" result="effect2_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow" result="shape"/>
+</filter>
+</defs>
+</svg>
+
 		</>
 	);
 };

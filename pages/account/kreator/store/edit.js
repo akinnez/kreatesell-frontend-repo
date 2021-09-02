@@ -1,18 +1,18 @@
 import React,{useState,useEffect} from 'react';
 import AuthLayout from "../../../../components/authlayout"
-import { Row,Spin,Col,Card,Divider,Form,Space,Input as AntInput, } from 'antd';
+import { Row,Col,Card,Form,Input as AntInput, } from 'antd';
 import {Input,Select,Dropzone,Button,FileInput} from '../../../../components/form-input'
 import style from '../../../../public/css/Store.module.scss'
 import ApiService from '../../../../utils/axios'
 import { toast } from 'react-toastify';
-import {getStore} from '../../../../redux/actions/store.actions'
-import { useSelector,useDispatch } from 'react-redux'
 
 const Index = ()=>{
     const [file,setFile] = useState({
         Profile_Picture:"",
         Cover_Picture:""
     })
+
+    const [country, setCountry] = useState([])
     const [loading,setLoading] = useState({
         updating:false,
         fetching:true
@@ -52,9 +52,7 @@ const Index = ()=>{
         )
     }
 
-
-    const dispatch = useDispatch()
-    const {user,countries} = useSelector(state=>state.utils) || {}
+   
    
 
     useEffect(()=>{
@@ -78,12 +76,17 @@ const Index = ()=>{
                     Twitter:data?.store_details?.twitter,
                     Instagram:data?.store_details?.instagram,
                     Linkedin:data?.store_details?.linked_in})
-                    dispatch(getStore({bank_details:data?.bank_details,
-                    completed:data?.percentage_completed,
-                ...data?.store_details}))
             },
             (err) => {console.log(err)},
         )
+    },[])
+
+    useEffect(()=>{
+        ApiService.request('get','v1/kreatesell/utils/get-countries',
+        ({data})=>{
+            const countries = data?.list_of_countries?.map(({id,name})=>({label:name, value:id}))
+            setCountry(countries)
+        })
     },[])
 
     return(
@@ -105,7 +108,6 @@ const Index = ()=>{
                           <Input
                             name="Brand_Name"
                             label="Name"
-                            initialValue={user?.brand_name}
                             extraLabel="- Your unique username or business name"
                             placeholder="Brand name, Business name or Full name"
                             rules={[{required:true, min:4, message:"Brand name is a required field"}]}/>
@@ -120,15 +122,14 @@ const Index = ()=>{
                             name="Bio_Data"
                             CustomInput={AntInput.TextArea}
                             row={5}
-                            value={user?.bio_data}
+                           
                             label="Description"
                             placeholder="Tell us more about your business. 
                             Buyers are also interested in knowing more about your business uniqueness."/>
                          <Select
                             label="Country"
                             size="large"
-                            list={countries}
-                            value={user?.country_id}
+                            list={country}
                             placeholder="Choose an option"
                             name="Country_Id"
                             rules={[{required:true, message:"Country is a required field"}]}/>
@@ -137,7 +138,6 @@ const Index = ()=>{
                             label="Phone Number"
                             placeholder="+234"
                             rules={[{required:true, message:"Valid phone number is required", min:11, max:14}]}
-                            value={user?.Mobile_Number}
                             name="Mobile_Number"/>
                         <Input
                             label="Facebook"

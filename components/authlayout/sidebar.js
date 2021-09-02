@@ -2,8 +2,8 @@ import React,{useState} from 'react'
 import {Menu} from 'antd'
 import style from './sidebar.module.scss'
 import Router,{useRouter}  from 'next/router'
-import {Shop, Dashboard, Product, Wallet,Ticket,Setting} from '../IconPack'
-
+import {Shop, Dashboard, Product, Wallet,Ticket,Setting, Logout} from '../IconPack'
+import {Logout} from '../../redux/actions/auth.actions'
 const menuItemStyle = {
     display:"flex",
     alignItems:"center",
@@ -30,6 +30,28 @@ const MenuItem = ({Icon=()=><></>,title,target="#",...rest})=>{
 
         
     )
+}
+
+const LogoutItem = ({Icon=()=><></>,title,target="#",...rest})=>{
+
+    const {pathname} = useRouter()
+    const isPath = target.split("/")[3] == pathname.split("/")[3]
+
+return(
+  
+    <Menu.Item
+            {...rest}
+            style={{background:"#0072EF",color:"white", ...menuItemStyle}}
+            icon={<Icon className={style.icon} active={true} height={20} width={20}/>}
+            title={title}
+            className={style.active}
+            onClick={()=>Logout()}
+            >
+            {title}
+        </Menu.Item> 
+
+    
+)
 }
 
 
@@ -69,6 +91,11 @@ const Sidebar = ()=>{
                 key={6}
                 Icon={Setting}
                 title="Settings"
+                target="/account/kreator/settings"/>
+            <LogoutItem
+                key={7}
+                Icon={Logout}
+                title="Logout"
                 target="/account/kreator/settings"/>
         </Menu>
         </>

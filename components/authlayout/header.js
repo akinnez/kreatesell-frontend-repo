@@ -1,19 +1,20 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import {Layout,Menu} from 'antd'
 import style from './Header.module.scss'
 import {PageDot,ProfileIcon,Cog,Bell} from '../IconPack'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
+import {Logout} from '../../redux/actions/auth.actions'
 
-const Profile = ()=>{
+const Profile = ({name})=>{
 
-    const {user} = useSelector(state=>state.utils) || {}
+
 
     return(
         <>
         <div className="profile-wrapper">
             <div id="profile-content">
-                <h4>{user?.brand_name}</h4>
+                <h4>{name || "Undefined"}</h4>
                 <p>Account</p>
             </div>
             <div className="profile"><ProfileIcon /></div>
@@ -59,10 +60,17 @@ const Nav = ()=>{
     const {Header} = Layout
     const {SubMenu} = Menu
 
+    const [info, setInfo] = useState({})
+
     const {pathname} = useRouter()
 
     const pageTitle = pathname?.split("/")
     const title = pageTitle.length >= 4 ? pageTitle[3].toLocaleUpperCase():"Home"
+
+    useEffect(()=>{
+        const user = JSON.parse(localStorage.getItem("user"))
+        setInfo(user)
+    },[])
     
 
     return(
@@ -76,15 +84,10 @@ const Nav = ()=>{
                 <Menu  mode="horizontal" style={{backgroundColor:"transparent"}}>
                 <Menu.Item key="setting" icon={<Cog />}/>
                 <Menu.Item key="notification" icon={<Bell />}/>
-                    <SubMenu key="SubMenu" icon={<Profile />}>
-                        <Menu.ItemGroup title="Item 1">
-                            <Menu.Item key="setting:1">Option 1</Menu.Item>
-                            <Menu.Item key="setting:2">Option 2</Menu.Item>
-                        </Menu.ItemGroup>
-                        <Menu.ItemGroup title="Item 2">
-                            <Menu.Item key="setting:3">Option 3</Menu.Item>
-                            <Menu.Item key="setting:4">Option 4</Menu.Item>
-                        </Menu.ItemGroup>
+                    <SubMenu key="SubMenu" icon={<Profile name={info?.full_name}/>}>
+                    <Menu.Item key="prof-1">Profile</Menu.Item>
+                    <Menu.Item key="prof-2" onClick={()=>Logout()}>Logout</Menu.Item>
+                        
                     </SubMenu>
       
                 </Menu>

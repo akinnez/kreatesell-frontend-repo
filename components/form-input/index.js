@@ -62,7 +62,12 @@ export const Select = ({placeholder,size="large",onChange=()=>{},loading,label,e
     return(
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
             {
-                <AntSelect onChange={(e)=>onChange(e)} loading={loading} className={style.input} size={size} placeholder={placeholder}>
+                <AntSelect showSearch
+                optionFilterProp="children"
+                filterOption={(input, option) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                  onChange={(e)=>onChange(e)} loading={loading} className={style.input} size={size} placeholder={placeholder}>
                     {list?.map(({label,value},i)=>(
                         <AntSelect.Option key={i} value={value}>{label}</AntSelect.Option>
                     ))}
@@ -102,7 +107,7 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
                 beforeUpload={handleBeforeUpload}
                 listType="picture-card" 
                 showUploadList={false}>
-                {imgUrl || value ? <img src={imgUrl || value} alt="avatar" style={{ width: '100%',height:"100%" }} /> : <UploadPlaceholder/>}
+                {imgUrl || value ? <Image src={imgUrl || value} alt="avatar" height={300} preview={false}/> : <UploadPlaceholder/>}
             </AntUpload.Dragger>
         </div>
     )

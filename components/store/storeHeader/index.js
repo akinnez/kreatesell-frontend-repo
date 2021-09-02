@@ -34,22 +34,19 @@ const CtaButton = ({Icon=()=><></>, label, active})=>{
     )
  }
 
-export const ProtectedStoreHeader = ()=>{
+export const ProtectedStoreHeader = ({storeName="",coverImage="",displayPicture="", brandName="", social={}})=>{
 
-
-    const {user} = useSelector(state=>state.utils) || {}
-   
 
     return(
         <>
-             <div className={styles.bg_wrapper} style={{backgroundImage: `url(${user?.cover_page || "/images/placeholder-1.jpg"})`}}>
+             <div className={styles.bg_wrapper} style={{backgroundImage: `url(${coverImage || "/images/placeholder-1.jpg"})`}}>
                <div className={styles.inner}>
                 <div className={styles.inner_item_profile}>
                     <div className={styles.profile_wrapper}>
-                        <div className={styles.image_intro_text} style={{backgroundImage:`url(${user?.display_picture || '/images/placeholder-2.jpg'})`}}/>
+                        <div className={styles.image_intro_text} style={{backgroundImage:`url(${displayPicture || '/images/placeholder-2.jpg'})`}}/>
                         <div className={styles.txt_wrapper}>
-                        <h3>{user?.brand_name}</h3>
-                        <p>https://kreatesell.com/{user?.store_name}</p>
+                        <h3>{brandName}</h3>
+                        <p>https://kreatesell.com/{storeName}</p>
                         </div>
                     </div>
                         <div className={styles.cta_link_wrapper}>
@@ -59,10 +56,10 @@ export const ProtectedStoreHeader = ()=>{
                                 <li><Dropdown
                                         Button={<CtaButton Icon={ShareIcon} label="Share Link"/>}>
                                         <Social 
-                                            facebook={user?.facebook}
-                                            twitter={user?.twitter} 
-                                            instagram={user?.instagram}
-                                            linkedIn={user?.linked_ln}/>
+                                            facebook={social?.facebook}
+                                            twitter={social?.twitter} 
+                                            instagram={social?.instagram}
+                                            linkedIn={social?.linkedIn}/>
                                     </Dropdown></li>
                                 <li><CtaButton Icon={ViewAs} label="View As"/></li>
                             </ul>

@@ -1,16 +1,14 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import style from './Index.module.scss'
 import {Card,Row,Col,Form, Radio,Space} from 'antd'
 import {Button} from '../form-input'
 import { useSelector,useDispatch } from 'react-redux'
-import {getBanks} from '../../redux/actions/utilityActions'
 import ApiService from '../../utils/axios'
 import BankModal from './account-info-form'
 
-const BankSettings = ()=>{
+const BankSettings = ({bankInfo})=>{
 
     const {bank_details} = useSelector(state=>state.utils) || {}
-
         const [mode, setMode] = useState(1)
         const [open, setOpen] = useState()
         const [loading, setLoading] = useState(false)
@@ -33,6 +31,8 @@ const BankSettings = ()=>{
             )
         }
 
+        
+
     return(
         <>
          <div className={style.header_container}>
@@ -50,7 +50,7 @@ const BankSettings = ()=>{
                     <p className={style.sch_desc}>Your funds will be automatically withdrawn into the provided bank account.</p>
                     <Radio name="name" value={2} disabled onChange={()=>setMode(2)} checked={mode == 2}><b>Manual</b></Radio>
                     <p className={style.sch_desc}>By choosing this option, you'll have to be manually withdrawing your funds to the provided bank account.</p>
-                   <Button label="Update Settings" loading={loading} onClick={handleMode} style={{width:"200px"}} type="primary"/>
+                   <Button disabled label="Update Settings" loading={loading} onClick={handleMode} style={{width:"200px"}} type="primary"/>
                 </Space>
               
                 </Form>
@@ -66,15 +66,15 @@ const BankSettings = ()=>{
             </div>
             <div className={style.bank_list}>
                 <div>Bank Name</div>
-                <div>{bank_details?.bank_name}</div>
+                <div>{bankInfo?.bank_name}</div>
             </div>
             <div className={style.bank_list}>
                 <div>Account Number</div>
-                <div>{bank_details?.account_number}</div>
+                <div>{bankInfo?.account_number}</div>
             </div>
             <div className={style.bank_list}>
                 <div>Account Name</div>
-                <div>{bank_details?.account_name}</div>
+                <div>{bankInfo?.account_name}</div>
             </div>
             <Button type="primary" onClick={()=>setOpen(true)} label="Change payout account settings"/>
             </Card>
