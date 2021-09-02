@@ -89,7 +89,6 @@ const Nav = ()=>{
                     <Menu.Item key="prof-2" onClick={()=>Logout()}>Logout</Menu.Item>
                         
                     </SubMenu>
-      
                 </Menu>
             </div>
         </Header>

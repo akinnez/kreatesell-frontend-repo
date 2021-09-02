@@ -3,7 +3,7 @@ import {Menu} from 'antd'
 import style from './sidebar.module.scss'
 import Router,{useRouter}  from 'next/router'
 import {Shop, Dashboard, Product, Wallet,Ticket,Setting, Logout} from '../IconPack'
-import {Logout} from '../../redux/actions/auth.actions'
+import {Logout as LogoutAction} from '../../redux/actions/auth.actions'
 const menuItemStyle = {
     display:"flex",
     alignItems:"center",
@@ -45,7 +45,7 @@ return(
             icon={<Icon className={style.icon} active={true} height={20} width={20}/>}
             title={title}
             className={style.active}
-            onClick={()=>Logout()}
+            onClick={()=>LogoutAction()}
             >
             {title}
         </Menu.Item> 
@@ -96,7 +96,7 @@ const Sidebar = ()=>{
                 key={7}
                 Icon={Logout}
                 title="Logout"
-                target="/account/kreator/settings"/>
+               />
         </Menu>
         </>
     )
