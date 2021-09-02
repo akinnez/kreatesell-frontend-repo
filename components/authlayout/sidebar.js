@@ -1,105 +1,108 @@
-import React,{useState} from 'react'
-import {Menu} from 'antd'
-import style from './sidebar.module.scss'
-import Router,{useRouter}  from 'next/router'
-import {Shop, Dashboard, Product, Wallet,Ticket,Setting, Logout} from '../IconPack'
-import {Logout as LogoutAction} from '../../redux/actions/auth.actions'
+import React, { useState } from "react";
+import { Menu } from "antd";
+import style from "./sidebar.module.scss";
+import Router, { useRouter } from "next/router";
+import {
+	Shop,
+	Dashboard,
+	Product,
+	Wallet,
+	Ticket,
+	Setting,
+	Logout,
+} from "../IconPack";
+import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
 const menuItemStyle = {
-    display:"flex",
-    alignItems:"center",
-}
+	display: "flex",
+	alignItems: "center",
+};
 
+const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
+	const { pathname } = useRouter();
+	const isPath = target.split("/")[3] == pathname.split("/")[3];
 
-const MenuItem = ({Icon=()=><></>,title,target="#",...rest})=>{
+	return (
+		<Menu.Item
+			{...rest}
+			style={menuItemStyle}
+			icon={
+				<Icon className={style.icon} active={isPath} height={20} width={20} />
+			}
+			title={title}
+			className={isPath ? style.active : style.menuitem}
+			onClick={() => Router.push(target)}
+		>
+			{title}
+		</Menu.Item>
+	);
+};
 
-        const {pathname} = useRouter()
-        const isPath = target.split("/")[3] == pathname.split("/")[3]
+const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
+	const { pathname } = useRouter();
+	const logout = LogoutAction();
+	const isPath = target.split("/")[3] == pathname.split("/")[3];
 
-    return(
-      
-        <Menu.Item
-                {...rest}
-                style={menuItemStyle}
-                icon={<Icon className={style.icon} active={isPath} height={20} width={20}/>}
-                title={title}
-                className={isPath ? style.active:style.menuitem}
-                onClick={()=>Router.push(target)}
-                >
-                {title}
-            </Menu.Item> 
+	return (
+		<Menu.Item
+			{...rest}
+			style={{ background: "#0072EF", color: "white", ...menuItemStyle }}
+			icon={
+				<Icon className={style.icon} active={true} height={20} width={20} />
+			}
+			title={title}
+			className={style.active}
+			onClick={() => logout()}
+		>
+			{title}
+		</Menu.Item>
+	);
+};
 
-        
-    )
-}
+const Sidebar = () => {
+	return (
+		<>
+			<Menu mode="vertical" theme="light" className={style.menu}>
+				<MenuItem
+					key={1}
+					Icon={Dashboard}
+					title="Dashboard"
+					target="/account/kreator/dashboard"
+				/>
+				<MenuItem
+					key={2}
+					Icon={Shop}
+					title="Store"
+					target="/account/kreator/store"
+				/>
+				<MenuItem
+					key={3}
+					Icon={Product}
+					title="Products"
+					target="/account/kreator/products"
+				/>
 
-const LogoutItem = ({Icon=()=><></>,title,target="#",...rest})=>{
+				<MenuItem
+					key={4}
+					Icon={Wallet}
+					title="Payouts"
+					target="/account/kreator/payouts"
+				/>
+				<MenuItem
+					key={5}
+					Icon={Ticket}
+					title="Integrations"
+					target="/account/kreator/integrations"
+				/>
+				<MenuItem
+					key={6}
+					Icon={Setting}
+					title="Settings"
+					target="/account/kreator/settings"
+				/>
+				<LogoutItem key={7} Icon={Logout} title="Logout" />
+			</Menu>
+		</>
+	);
+};
 
-    const {pathname} = useRouter()
-    const isPath = target.split("/")[3] == pathname.split("/")[3]
-
-return(
-  
-    <Menu.Item
-            {...rest}
-            style={{background:"#0072EF",color:"white", ...menuItemStyle}}
-            icon={<Icon className={style.icon} active={true} height={20} width={20}/>}
-            title={title}
-            className={style.active}
-            onClick={()=>LogoutAction()}
-            >
-            {title}
-        </Menu.Item> 
-
-    
-)
-}
-
-
-const Sidebar = ()=>{
-
-    return(
-        <>
-        <Menu mode="vertical" theme="light"
-        className={style.menu} >
-            <MenuItem
-                key={1}
-                Icon={Dashboard}
-                title="Dashboard"
-                target='/account/kreator/dashboard'/>
-            <MenuItem
-                key={2}
-                Icon={Shop}
-                title="Store"
-                target="/account/kreator/store"/>
-            <MenuItem
-                key={3}
-                Icon={Product}
-                title="Products"
-                target="/account/kreator/products"/>
-          
-          <MenuItem
-                key={4}
-                Icon={Wallet}
-                title="Payouts"
-                target="/account/kreator/payouts"/>
-             <MenuItem
-                key={5}
-                Icon={Ticket}
-                title="Integrations"
-                target="/account/kreator/integrations"/>
-            <MenuItem
-                key={6}
-                Icon={Setting}
-                title="Settings"
-                target="/account/kreator/settings"/>
-            <LogoutItem
-                key={7}
-                Icon={Logout}
-                title="Logout"
-               />
-        </Menu>
-        </>
-    )
-}
-
-export default Sidebar
+export default Sidebar;
