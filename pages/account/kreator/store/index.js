@@ -8,11 +8,9 @@ import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
 import List from '../../../../components/list'
 import Router from 'next/router'
-import {Spin} from 'antd'
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader'
 import ApiService from '../../../../utils/axios'
-import {getStore} from '../../../../redux/actions/store.actions'
-import { useSelector,useDispatch } from 'react-redux'
+
 
 const cardStyles = {
     borderRadius:"8px",
@@ -34,26 +32,45 @@ const progressbarStyles = buildStyles({
 
 const Index = ()=>{
 
-    const [step] = useState(0)
  
-    const {user} = useSelector(state=>state.utils) || {}
+    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(false)
+
    
 
+    useEffect(()=>{
+        setLoading(true)
+        ApiService.request(
+            'get',
+            'v1/kreatesell/store/me',
+        ({data})=>{
+            setData(data)
+            setLoading(false)
+        })
+    },[])
   
 
     return(
         <>
-        
-        
-        <AuthLayout>
+        <AuthLayout loading={loading}>
            
-          <ProtectedStoreHeader />
+          <ProtectedStoreHeader 
+            brandName={data?.store_details?.brand_name}
+            storeName={data?.store_details?.store_name}
+            coverImage={data?.store_details?.cover_page}
+            displayPicture={data?.store_details?.display_picture}
+            social={{
+                facebook:data?.store_details?.facebook,
+                twitter:data?.store_details?.twitter,
+                instagram:data?.store_details?.instagram,
+                linkedIn:data?.store_details?.linked_ln,
+                }}/>
             <Row style={{marginTop:"100px"}}>
                 <Column m="7" s="12">
                     <Card style={cardStyles}>
                         <div className={styles.bio_info}>
                             <h5>Description</h5>
-                            <p>{user?.bio_data}</p>
+                            <p>{data?.store_details?.bio_data}</p>
                          </div>
                     </Card>
                 </Column>
@@ -62,18 +79,18 @@ const Index = ()=>{
                 <div className={styles.progress_wrapper}>
                     <div className={styles.progress}>
                         <CircularProgressbar 
-                            text={user?.completed+'%'}
-                            value={user?.completed}
+                            text={data?.percentage_completed+'%'}
+                            value={data?.percentage_completed}
                             strokeWidth={15}
                             styles={progressbarStyles} />
                     </div>
                     <div id={styles.progress_text}>
-                        <p>You've completed <strong>{user?.completed}%</strong> of your store setup</p>
+                        <p>You've completed <strong>{data?.percentage_completed}%</strong> of your store setup</p>
                     </div>
                 </div>
                 <Divider />
 
-                <List step={user?.completed <= 40 ? 0: user?.completed > 40 && user?.completed <100 ? 1:3} 
+                <List step={data?.percentage_completed <= 40 ? 0: data?.percentage_completed > 40 && data?.percentage_completed < 100 ? 1:3} 
                     list={[
                     "Complete your store profile details",
                     "Add your bank account details to receive your payments",

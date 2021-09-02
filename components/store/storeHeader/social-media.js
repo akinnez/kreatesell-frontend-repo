@@ -11,10 +11,10 @@ const Social = ({facebook='#', twitter='#', instagram='#', linkedIn="#"})=>{
             <div className="social-wrapper">
                 <p>Share store link on</p>
                 <div className="social-icon-wrapper">
-                <Link href={facebook}><a><Facebook /></a></Link>
-                <Link href={instagram}><a><Instagram/></a></Link>
-                <Link href={linkedIn}><a><LinkedIn /></a></Link> 
-                <Link href={twitter}><a><Twitter /></a></Link>
+               <a href={facebook} target="_blank"><Facebook /></a>
+                <a href={instagram} target="_blank"><Instagram/></a>
+                <a href={linkedIn} target="_blank"><LinkedIn /></a>
+                <a href={twitter} target="_blank"><Twitter /></a>
                 </div>
                 <Divider />
                 <div className="copy-wrapper">
