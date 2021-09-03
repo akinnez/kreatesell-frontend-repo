@@ -29,10 +29,16 @@ export const LoginForm = () => {
 						?.toLowerCase()
 						.includes(`kindly verify token sent to your email`)
 				) {
-					return router.push("/verify-account");
+					return router.push({
+						pathname: "/verify-account",
+						query: { email: res?.data?.email },
+					});
 				}
 				if (res?.message?.toLowerCase().includes(`has not been confirmed`)) {
 					return router.push("/resend-email");
+				}
+				if (!res?.user?.business_name || !res?.user?.shop_name) {
+					return router.push("/welcome");
 				}
 				return router.push("/account/kreator/dashboard");
 			},
