@@ -5,21 +5,19 @@ import style from '../../../../public/css/payout.module.scss'
 import Payout from '../../../../components/payout/payouts'
 import BankSettings from '../../../../components/payout/bank-settings'
 import ApiService from '../../../../utils/axios'
+import useSWR from 'swr'
+import fetcher from '../../../../utils/fetcher'
 
 const Index = ()=>{
+  
 
+    const res = useSWR('v1/kreatesell/store/me', fetcher)
+console.log(res)
     const {TabPane} = Tabs
     const [info, setInfo] = useState({})
     const [loading, setLoading] = useState(false)
 
-    useEffect(()=>{
-        setLoading(true)
-        ApiService.request('get','v1/kreatesell/store/me',
-        ({data})=>{
-            setLoading(false)
-            setInfo(data?.bank_details)
-        })
-    },[])
+    
 
     return(
         <>

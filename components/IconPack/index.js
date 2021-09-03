@@ -287,8 +287,8 @@ export const Logout = () => {
 <path opacity="0.4" d="M12.334 12.6194C12.334 10.3726 14.195 8.54297 16.4815 8.54297H21.0292C23.3109 8.54297 25.1673 10.3671 25.1673 12.6102V22.7999C25.1673 25.0476 23.3063 26.8763 21.0189 26.8763H16.4731C14.1904 26.8763 12.334 25.0521 12.334 22.8091V21.9474V12.6194Z" fill="#3A416F"/>
 <path d="M30.4651 17.2105L27.8565 14.5439C27.5868 14.2689 27.153 14.2689 26.8842 14.5457C26.6164 14.8226 26.6173 15.269 26.886 15.544L28.3153 17.0042H26.9449H19.2538C18.8744 17.0042 18.5664 17.3205 18.5664 17.7101C18.5664 18.1006 18.8744 18.4159 19.2538 18.4159H28.3153L26.886 19.8762C26.6173 20.1512 26.6164 20.5976 26.8842 20.8744C27.019 21.0128 27.1949 21.0825 27.3717 21.0825C27.5467 21.0825 27.7225 21.0128 27.8565 20.8762L30.4651 18.2106C30.5945 18.0777 30.6678 17.898 30.6678 17.7101C30.6678 17.5231 30.5945 17.3434 30.4651 17.2105Z" fill="#3A416F"/>
 <defs>
-<filter id="filter0_dd" x="0.5" y="0.708984" width="42" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<filter id="filter0_dd" x="0.5" y="0.708984" width="42" height="42" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect1_dropShadow"/>
 <feOffset dy="2"/>

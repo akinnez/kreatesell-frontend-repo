@@ -10,6 +10,8 @@ import List from '../../../../components/list'
 import Router from 'next/router'
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader'
 import ApiService from '../../../../utils/axios'
+import useSWR  from 'swr'
+import fetcher from '../../../../utils/fetcher'
 
 
 const cardStyles = {
@@ -36,18 +38,19 @@ const Index = ()=>{
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(false)
 
+    const {data:r} = useSWR('v1/kreatesell/store/me',fetcher )
    
-
-    useEffect(()=>{
-        setLoading(true)
-        ApiService.request(
-            'get',
-            'v1/kreatesell/store/me',
-        ({data})=>{
-            setData(data)
-            setLoading(false)
-        })
-    },[])
+console.log(r)
+    // useEffect(()=>{
+    //     setLoading(true)
+    //     ApiService.request(
+    //         'get',
+    //         'v1/kreatesell/store/me',
+    //     ({data})=>{
+    //         setData(data)
+    //         setLoading(false)
+    //     })
+    // },[])
   
 
     return(
