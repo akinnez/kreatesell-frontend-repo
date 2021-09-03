@@ -18,6 +18,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 		case types.RESEND_CONFIRMATION_EMAIL.REQUEST:
 		case types.SUPER_ADMIN_LOGIN.REQUEST:
 		case types.SUPER_ADMIN_RESET_PASSWORD.REQUEST:
+		case types.RESEND_2FA.REQUEST:
 			return { ...state, loading: true };
 
 		case types.LOGIN.SUCCESS:
@@ -32,6 +33,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 		case types.RESOLVE_2FA_LOGIN.SUCCESS:
 		case types.RESEND_CONFIRMATION_EMAIL.SUCCESS:
 		case types.SUPER_ADMIN_RESET_PASSWORD.SUCCESS:
+		case types.RESEND_2FA.SUCCESS:
 			return { ...state, loading: false, ...payload };
 
 		case types.SIGNUP.FAILURE:
@@ -44,6 +46,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
 		case types.RESEND_CONFIRMATION_EMAIL.FAILURE:
 		case types.SUPER_ADMIN_LOGIN.FAILURE:
 		case types.SUPER_ADMIN_RESET_PASSWORD.FAILURE:
+		case types.RESEND_2FA.FAILURE:
 			return { ...state, loading: false, error: payload };
 
 		default:
