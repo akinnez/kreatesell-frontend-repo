@@ -84,7 +84,9 @@ const BankModal = ({open,onClose=()=>{}})=>{
       
         if(accountNumber.length == 10){
             const bank = form.getFieldValue("bank_id")
-           FlutterWave(accountNumber,bank).then((res)=>{
+            const index = banks?.findIndex(el=>el.id == bank)
+            const bankCode = banks[index]?.bank_code
+           FlutterWave(accountNumber,bankCode).then((res)=>{
                console.log(res)
            })
           
