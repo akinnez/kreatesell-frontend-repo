@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const fetcher = (url)=>{
  
-   return ApiService.request('get',url,(res)=>{return res})
+   return ApiService.request('get',url,({data})=>{return data})
  
 }
 

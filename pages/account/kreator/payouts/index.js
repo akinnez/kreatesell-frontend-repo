@@ -4,20 +4,17 @@ import {Card,Tabs} from 'antd'
 import style from '../../../../public/css/payout.module.scss'
 import Payout from '../../../../components/payout/payouts'
 import BankSettings from '../../../../components/payout/bank-settings'
-import ApiService from '../../../../utils/axios'
-import useSWR from 'swr'
+import { useDispatch } from 'react-redux'
+import {getStore} from '../../../../redux/actions/store.actions'
 import fetcher from '../../../../utils/fetcher'
+import useSWR from 'swr'
 
 const Index = ()=>{
-  
 
-    const res = useSWR('v1/kreatesell/store/me', fetcher)
-console.log(res)
     const {TabPane} = Tabs
-    const [info, setInfo] = useState({})
     const [loading, setLoading] = useState(false)
 
-    
+
 
     return(
         <>
@@ -30,7 +27,7 @@ console.log(res)
                         <Payout />
                     </TabPane>
                     <TabPane tab="Payout/Bank Settings" key="2">
-                        <BankSettings bankInfo={info}/>
+                        <BankSettings/>
                     </TabPane>
                     <TabPane tab="Wallet" key="3">
                     Content of Tab Pane 3

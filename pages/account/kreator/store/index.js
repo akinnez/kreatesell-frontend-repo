@@ -9,7 +9,6 @@ import 'react-circular-progressbar/dist/styles.css'
 import List from '../../../../components/list'
 import Router from 'next/router'
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader'
-import ApiService from '../../../../utils/axios'
 import useSWR  from 'swr'
 import fetcher from '../../../../utils/fetcher'
 
@@ -35,12 +34,11 @@ const progressbarStyles = buildStyles({
 const Index = ()=>{
 
  
-    const [data, setData] = useState({})
+  
     const [loading, setLoading] = useState(false)
 
-    const {data:r} = useSWR('v1/kreatesell/store/me',fetcher )
-   
-console.log(r)
+    const {data} = useSWR('v1/kreatesell/store/me',fetcher )
+
     // useEffect(()=>{
     //     setLoading(true)
     //     ApiService.request(

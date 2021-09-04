@@ -2,13 +2,14 @@ import React,{useState, useEffect} from 'react'
 import style from './Index.module.scss'
 import {Card,Row,Col,Form, Radio,Space} from 'antd'
 import {Button} from '../form-input'
-import { useSelector,useDispatch } from 'react-redux'
+import fetcher from '../../utils/fetcher'
+import useSWR from 'swr'
 import ApiService from '../../utils/axios'
 import BankModal from './account-info-form'
 
-const BankSettings = ({bankInfo})=>{
+const BankSettings = ()=>{
 
-    const {bank_details} = useSelector(state=>state.utils) || {}
+        const {data} = useSWR('v1/kreatesell/store/me', fetcher)
         const [mode, setMode] = useState(1)
         const [open, setOpen] = useState()
         const [loading, setLoading] = useState(false)
@@ -20,7 +21,6 @@ const BankSettings = ({bankInfo})=>{
                 'v1/kreatesell/payment/update-payout-mode/'+mode,
                 (res)=>{
                     setLoading(false)
-                    console.log(res.data)
                 },(err)=>{console.log(err)},
                 {
                     "country_id": bank_details?.country_id,
@@ -66,15 +66,15 @@ const BankSettings = ({bankInfo})=>{
             </div>
             <div className={style.bank_list}>
                 <div>Bank Name</div>
-                <div>{bankInfo?.bank_name}</div>
+                <div>{data?.bank_details?.bank_name}</div>
             </div>
             <div className={style.bank_list}>
                 <div>Account Number</div>
-                <div>{bankInfo?.account_number}</div>
+                <div>{data?.bank_details?.account_number}</div>
             </div>
             <div className={style.bank_list}>
                 <div>Account Name</div>
-                <div>{bankInfo?.account_name}</div>
+                <div>{data?.bank_details?.account_name}</div>
             </div>
             <Button type="primary" onClick={()=>setOpen(true)} label="Change payout account settings"/>
             </Card>
