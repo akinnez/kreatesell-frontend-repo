@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Button, Input } from "../";
 import styles from "./Navbar.module.scss";
 import { _isUserLoggedIn } from "../../utils";
-import Logo from "../authlayout/logo";
+import Logo, { MobileLogo } from "../authlayout/logo";
 
 export const Navbar = () => {
 	const router = useRouter();
@@ -42,12 +42,9 @@ export const Navbar = () => {
 			</div>
 			<div className={styles.imgCont} onClick={() => router.push("/")}>
 				<Logo />
-				{/* <Image
-					src={KreateSellBrand}
-					width="120"
-					height="42"
-					alt="kreatesell brand logo"
-				/> */}
+			</div>
+			<div className={styles.MobileLogo} onClick={() => router.push("/")}>
+				<MobileLogo />
 			</div>
 
 			<div className={styles.navLinks}>
@@ -137,6 +134,29 @@ export const Navbar = () => {
 						>
 							<Button
 								text="Signup"
+								bgColor="blue"
+								className={styles.signUpBtnStyle}
+							/>
+						</div>
+					</>
+				)}
+			</div>
+
+			<div className={styles.mobileBtnLinks}>
+				{!isUserLoggedIn && (
+					<>
+						<div
+							className={styles.loginBtn}
+							onClick={() => router.push("/login")}
+						>
+							<Button text="Login" className={styles.loginBtnStyle} />
+						</div>
+						<div
+							className={styles.signUpBtn}
+							onClick={() => router.push("/signup")}
+						>
+							<Button
+								text="Signup Free"
 								bgColor="blue"
 								className={styles.signUpBtnStyle}
 							/>

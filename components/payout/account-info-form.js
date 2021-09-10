@@ -6,7 +6,9 @@ import { useSelector,useDispatch } from 'react-redux'
 import {getBanks} from '../../redux/actions/utilityActions'
 import ApiService from '../../utils/axios'
 import {toast} from 'react-toastify'
-
+import fetcher from '../../utils/fetcher'
+import useSWR from 'swr'
+import FlutterWave from '../../utils/flutterwave'
 
 const BankModal = ({open,onClose=()=>{}})=>{
     const [loading, setLoading] = useState({
@@ -14,10 +16,10 @@ const BankModal = ({open,onClose=()=>{}})=>{
         countries:false,
         save:false
     })
+    const {data} = useSWR('v1/kreatesell/store/me',fetcher)
     const [banks, setBanks] = useState([])
     const [country, setCountry] = useState([])
-    const {bank_details} = useSelector(state=>state.utils) || {}
-  
+   
     const [form] = Form.useForm()
 
     const handleBank = (id)=>{
@@ -57,26 +59,56 @@ const BankModal = ({open,onClose=()=>{}})=>{
     }
 
     useEffect(()=>{
-        ApiService.request('get','v1/kreatesell/store/me',
-        ({data})=>{
-            data?.bank_details?.country_id ? handleBank(parseInt(data?.bank_details?.country_id)):null
-            form.setFieldsValue({
-                bank_id:data?.bank_details?.bank_id ? parseInt(data?.bank_details?.bank_id):'',
-                country_id:data?.bank_details?.country_id ? parseInt(data?.bank_details?.country_id):'',
-                account_number:data?.bank_details?.account_number,
-                account_name:data?.bank_details?.account_name,
-            })
+        form.setFieldsValue({
+            bank_id:data?.bank_details?.bank_id ? parseInt(data?.bank_details?.bank_id):'',
+            country_id:data?.bank_details?.country_id ? parseInt(data?.bank_details?.country_id):'',
+            account_number:data?.bank_details?.account_number,
+            account_name:data?.bank_details?.account_name,
         })
         
-    },[])
+        // ApiService.request('get','v1/kreatesell/store/me',
+        // ({data})=>{
+        //     data?.bank_details?.country_id ? handleBank(parseInt(data?.bank_details?.country_id)):null
+        //     // form.setFieldsValue({
+        //     //     bank_id:data?.bank_details?.bank_id ? parseInt(data?.bank_details?.bank_id):'',
+        //     //     country_id:data?.bank_details?.country_id ? parseInt(data?.bank_details?.country_id):'',
+        //     //     account_number:data?.bank_details?.account_number,
+        //     //     account_name:data?.bank_details?.account_name,
+        //     // })
+        // })
+        
+        
+    },[data])
+
+    const handleAccountNumber = (accountNumber)=>{
+      
+        if(accountNumber.length == 10){
+            const bank = form.getFieldValue("bank_id")
+           FlutterWave(accountNumber,bank).then((res)=>{
+               console.log(res)
+           })
+          
+        }
+        
+    }
+
 
     useEffect(()=>{
+        
         ApiService.request('get','v1/kreatesell/utils/get-countries',
         ({data})=>{
             const countries = data?.list_of_countries?.map(({id,name})=>({label:name, value:id}))
             setCountry(countries)
         })
     },[])
+
+    useEffect(()=>{
+        if(data){
+            handleBank(parseInt(data?.bank_details?.country_id))
+
+        }
+        
+    },[data])
 
     return(
         <>
@@ -93,7 +125,8 @@ const BankModal = ({open,onClose=()=>{}})=>{
         
         <h3 className={style.title}>Provide your Bank details</h3>
         <p className={style.sub_title}>We pay your funds to this account</p>
-        <Form layout="vertical" form={form} onFinish={handleSubmit}>
+        <Form layout="vertical" 
+            form={form} onFinish={handleSubmit}>
         <Select size="large" 
                     label="Select Country"
                     list={country}
@@ -118,12 +151,14 @@ const BankModal = ({open,onClose=()=>{}})=>{
                     placeholder="Enter account number"
                     type="number"
                     name="account_number"
+                    onKeyUp={(e)=>handleAccountNumber(e.target.value)}
                     rules={[{required:true, message:"Account Number is important"}]}/> 
 
                 <Input size="large"
                     label="Account Name" 
                     placeholder="Enter account name"
                     name="account_name"
+                    disabled
                     rules={[{required:true, message:"Account Name is important"}]}/> 
             
             <div className={style.alert}>

@@ -53,7 +53,7 @@ class ApiService {
 					url: path,
 					responseType: "json",
 				})
-				.then((response) => callback(response), errorCallback);
+				.then((response) =>callback(response), errorCallback);
 		} else {
 			return this.service
 				.request({

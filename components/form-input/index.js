@@ -45,13 +45,13 @@ const UploadPlaceholder = ()=>{
 }
 
 
-export const Input = ({CustomInput,type="text",placeholder,size="large",label,extraLabel,row,...rest})=>{
+export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,...rest})=>{
     return(
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
             {
                 CustomInput ? <CustomInput rows={row} className={style.input} size={size} placeholder={placeholder}/>:
 
-                <AntInput className={style.input} type={type} size={size} placeholder={placeholder}/>
+                <AntInput disabled={disabled} className={style.input} type={type} size={size} placeholder={placeholder}/>
             }
         </Form.Item>
     )
