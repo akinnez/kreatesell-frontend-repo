@@ -117,7 +117,6 @@ export default function Home() {
 						</div>
 					</div>
 
-					{/* <div className={styles.heroImage} onClick={() => setVisible(true)}> */}
 					<div
 						className={styles.heroImage}
 						onClick={() => setVisible(!modalVisible)}

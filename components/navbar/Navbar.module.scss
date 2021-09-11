@@ -26,6 +26,17 @@
 	width: 20%;
 	cursor: pointer;
 	@include flex(row, null, center);
+
+	@include screen("medium") {
+		display: none;
+	}
+}
+
+.MobileLogo {
+	display: none;
+	@include screen("medium") {
+		@include flex(row, null, center);
+	}
 }
 
 .navLinks {
@@ -64,6 +75,46 @@
 	width: 20%;
 }
 
+.mobileBtnLinks {
+	display: none;
+	@include screen("medium") {
+		display: flex;
+		justify-content: flex-end;
+
+		.loginBtn {
+			.loginBtnStyle {
+				border: none;
+				width: 80%;
+				color: #8c8c8c;
+				font-size: 0.7rem;
+			}
+		}
+
+		.signUpBtn {
+			.signUpBtnStyle {
+				font-size: 0.7rem;
+			}
+		}
+	}
+
+	@include screen("x-small") {
+		display: flex;
+		justify-content: flex-end;
+
+		.loginBtn {
+			width: 10%;
+			.loginBtnStyle {
+			}
+		}
+
+		.signUpBtn {
+			.signUpBtnStyle {
+				font-size: 0.7rem;
+			}
+		}
+	}
+}
+
 .loginBtn {
 	margin-right: 1rem;
 }
@@ -74,8 +125,6 @@
 		height: 5rem;
 		padding: 0;
 		padding: 1.187rem 1.5rem;
-		// padding: 19px 24px;
-
 		align-items: center;
 
 		.mobileMenuCont {
@@ -219,7 +268,7 @@
 	}
 	.btnLinks {
 		// width: 50%;
-		display: flex;
+		display: none;
 		justify-content: flex-end;
 
 		.loginBtn {

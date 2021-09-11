@@ -54,10 +54,10 @@
 	@include screen("medium") {
 		width: 100%;
 		input {
-			width: 65%;
+			width: 60%;
 		}
 		button {
-			width: 35%;
+			width: 40%;
 
 			.btnText {
 				font-size: 0.7rem;
@@ -65,6 +65,14 @@
 
 			.btnIcon {
 				display: none;
+			}
+		}
+	}
+
+	@include screen("small") {
+		button {
+			.btnText {
+				font-size: 0.6rem;
 			}
 		}
 	}
