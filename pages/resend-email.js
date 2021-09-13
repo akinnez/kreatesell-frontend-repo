@@ -1,4 +1,5 @@
 import { GeneralLayout, ResendVerificationEmailForm } from "../components";
+import styles from "../public/css/ForgotPassword.module.scss";
 
 const ResendVerificationEmailCode = () => {
 	return (
@@ -8,6 +9,8 @@ const ResendVerificationEmailCode = () => {
 			title="KreateSell | Verify Email"
 			subTitle="Verify email address"
 			socialBtn={false}
+			signupStyle={styles.signup}
+			subTitleOpacity={true}
 		/>
 	);
 };
