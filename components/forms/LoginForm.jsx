@@ -86,7 +86,7 @@ export const LoginForm = () => {
 					</div>
 
 					<Link href="/forgot-password">
-						<a>Forget Password?</a>
+						<a>Forgot Password?</a>
 					</Link>
 				</div>
 

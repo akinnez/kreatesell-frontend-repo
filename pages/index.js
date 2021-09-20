@@ -523,6 +523,14 @@ export default function Home() {
 							placeholder="Enter your email..."
 							buttonText="Get Started Free"
 							buttonIcon={<RightArrow />}
+							onChange={(e) => setEmail(e.target.value)}
+							onSubmit={(e) => {
+								e.preventDefault();
+								router.push({
+									pathname: "/signup",
+									query: { email },
+								});
+							}}
 						/>
 					</div>
 					<div className={styles.benefits}>
