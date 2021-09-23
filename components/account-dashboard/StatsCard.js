@@ -24,7 +24,7 @@ export const StatsCard = ({
 						<div
 							className={styles.userTypeLink}
 							onClick={() =>
-								router.push(`/account/kreator/dashboard/${name.toLowerCase()}`)
+								router.push(`/account/dashboard/${name.toLowerCase()}`)
 							}
 						>
 							<p>{name}’s Dashboard</p>
@@ -34,12 +34,10 @@ export const StatsCard = ({
 						</div>
 					)}
 
-					{router.pathname === "/account/kreator/dashboard/affiliate" && (
+					{router.pathname === "/account/dashboard/affiliate" && (
 						<div
 							className={styles.userTypeLink}
-							onClick={() =>
-								router.push("/account/kreator/dashboard/affiliate/order")
-							}
+							onClick={() => router.push("/account/dashboard/affiliate/order")}
 						>
 							<p>See Orders</p>
 							<div className={styles.arrowIcon}>

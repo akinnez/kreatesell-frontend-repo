@@ -303,12 +303,18 @@
 				}
 
 				.linkText {
+					display: flex;
+					align-items: center;
 					margin-top: 1.25rem;
 					font-weight: 500;
 					font-size: 1.25rem;
 					line-height: 1.875rem;
 					color: $base-blue;
 					cursor: pointer;
+
+					span {
+						padding-left: 0.5rem;
+					}
 				}
 			}
 

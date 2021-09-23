@@ -40,7 +40,7 @@ export const LoginForm = () => {
 				if (!res?.user?.business_name || !res?.user?.shop_name) {
 					return router.push("/welcome");
 				}
-				return router.push("/account/kreator/dashboard");
+				return router.push("/account/dashboard");
 			},
 			(err) => {
 				if (err?.message?.toLowerCase().includes(`has not been confirmed`)) {
