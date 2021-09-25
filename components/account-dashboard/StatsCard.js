@@ -18,13 +18,13 @@ export const StatsCard = ({
 				<div className={styles.title}>
 					<div className={styles.userType}>{name}</div>
 
-					{router.pathname !==
+					{/* {router.pathname !==
 						("/account/kreator/kreator/dashboard/affiliate" ||
 							"/account/kreator/kreator/dashboard/kreator") && (
 						<div
 							className={styles.userTypeLink}
 							onClick={() =>
-								router.push(`/account/kreator/dashboard/${name.toLowerCase()}`)
+								router.push(`/account/dashboard/${name.toLowerCase()}`)
 							}
 						>
 							<p>{name}’s Dashboard</p>
@@ -32,14 +32,12 @@ export const StatsCard = ({
 								<RightArrow color="#0072EF" />
 							</div>
 						</div>
-					)}
+					)} */}
 
-					{router.pathname === "/account/kreator/dashboard/affiliate" && (
+					{router.pathname === "/account/dashboard/affiliate" && (
 						<div
 							className={styles.userTypeLink}
-							onClick={() =>
-								router.push("/account/kreator/dashboard/affiliate/order")
-							}
+							onClick={() => router.push("/account/dashboard/affiliate/order")}
 						>
 							<p>See Orders</p>
 							<div className={styles.arrowIcon}>

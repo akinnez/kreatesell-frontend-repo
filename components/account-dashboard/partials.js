@@ -28,7 +28,8 @@ export const kreatorsOptions = [
 ];
 
 export const affiliateOptions = [
-	{ value: "Affiliate Dashboard", label: "Affiliate Dashboard" },
+	// { value: "Affiliate Dashboard", label: "Affiliate Dashboard" },
+	{ value: "/account/dashboard/affiliate", label: "Affiliate Dashboard" },
 	{ value: "Quick Stats", label: "Quick Stats" },
 	{ value: "Find Products", label: "Find Products" },
 ];

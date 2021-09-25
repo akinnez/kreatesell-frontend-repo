@@ -303,12 +303,18 @@
 				}
 
 				.linkText {
+					display: flex;
+					align-items: center;
 					margin-top: 1.25rem;
 					font-weight: 500;
 					font-size: 1.25rem;
 					line-height: 1.875rem;
 					color: $base-blue;
 					cursor: pointer;
+
+					span {
+						padding-left: 0.5rem;
+					}
 				}
 			}
 
@@ -381,7 +387,8 @@
 
 		.midSectionText {
 			padding: 0 10.31rem;
-			width: 65%;
+			// width: 60%;
+			width: 58%;
 			color: $base-white;
 
 			.midSectionTitle {
@@ -450,7 +457,8 @@
 			}
 		}
 		.midSectionImage {
-			width: 35%;
+			// width: 40%;
+			width: 42%;
 			display: flex;
 			justify-content: center;
 			@include screen("tablet") {

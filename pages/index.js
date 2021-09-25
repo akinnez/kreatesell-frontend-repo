@@ -263,7 +263,10 @@ export default function Home() {
 							</p>
 
 							<div className={styles.linkText}>
-								Learn more <RightArrow color="#0072ef" />
+								Learn more{" "}
+								<span>
+									<RightArrow color="#0072ef" />
+								</span>
 							</div>
 						</div>
 					</div>
@@ -297,7 +300,10 @@ export default function Home() {
 							</div>
 
 							<div className={styles.linkText}>
-								Learn more <RightArrow color="#0072ef" />
+								Learn more{" "}
+								<span>
+									<RightArrow color="#0072ef" />
+								</span>
 							</div>
 						</div>
 						<div className={styles.image}>
@@ -331,7 +337,10 @@ export default function Home() {
 							</p>
 
 							<div className={styles.linkText}>
-								Learn more <RightArrow color="#0072ef" />
+								Learn more{" "}
+								<span>
+									<RightArrow color="#0072ef" />
+								</span>
 							</div>
 						</div>
 					</div>
@@ -523,6 +532,14 @@ export default function Home() {
 							placeholder="Enter your email..."
 							buttonText="Get Started Free"
 							buttonIcon={<RightArrow />}
+							onChange={(e) => setEmail(e.target.value)}
+							onSubmit={(e) => {
+								e.preventDefault();
+								router.push({
+									pathname: "/signup",
+									query: { email },
+								});
+							}}
 						/>
 					</div>
 					<div className={styles.benefits}>

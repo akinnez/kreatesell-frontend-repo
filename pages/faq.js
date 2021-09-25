@@ -87,39 +87,134 @@ const FAQ = () => {
 										!kreator ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
-									<p className={styles.questions}>
-										What is KreateSell and what does it do?
-									</p>
-									<p className={styles.questions}>
-										Why should I use KreateSell?
-									</p>
-									<p className={styles.questions}>
-										How much does it cost to use KreateSell?
-									</p>
-									<p className={styles.questions}>
-										After Creating my account, what next?
-									</p>
-									<p className={styles.questions}>
-										Can't find what you're looking for?
-									</p>
-									<p className={styles.questions}>
-										How do I make money on KreateSell as a creator?
-									</p>
-									<p className={styles.questions}>
-										How can my customers make payment?
-									</p>
-									<p className={styles.questions}>
-										I'm afraid of piracy, are my products safe with KreateSell?
-									</p>
-									<p className={styles.questions}>
-										How do I notify you in case of any product piracy?
-									</p>
-									<p className={styles.questions}>
-										Can I create and sell products for free?
-									</p>
-									<p className={styles.questions}>
-										What are the products KreateSell accepts
-									</p>
+									<Link
+										to="What-is-KreateSell"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											What is KreateSell and what does it do?
+										</p>
+									</Link>
+									<Link
+										to="Why-should-I-use-KreateSell"
+										spy={true}
+										smooth={true}
+										offset={-400}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Why should I use KreateSell?
+										</p>
+									</Link>
+									<Link
+										to="How-much-does-it-cost-to-use-KreateSell"
+										spy={true}
+										smooth={true}
+										offset={-500}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How much does it cost to use KreateSell?
+										</p>
+									</Link>
+									<Link
+										to="After-Creating-my-account"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											After Creating my account, what next?
+										</p>
+									</Link>
+									<Link
+										to="Cant-find-what-you-re-looking-for"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Can't find what you're looking for?
+										</p>
+									</Link>
+
+									<Link
+										to="How-do-I-make-money-on-KreateSell"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How do I make money on KreateSell as a creator?
+										</p>
+									</Link>
+
+									<Link
+										to="How-can-my-customers-make-payment"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How can my customers make payment?
+										</p>
+									</Link>
+
+									<Link
+										to="afraid-of-piracy"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											I'm afraid of piracy, are my products safe with
+											KreateSell?
+										</p>
+									</Link>
+
+									<Link
+										to="notify-in-case-of-any-product-piracy"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How do I notify you in case of any product piracy?
+										</p>
+									</Link>
+
+									<Link
+										to="Can-I-create-and-sell-products"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Can I create and sell products for free?
+										</p>
+									</Link>
+
+									<Link
+										to="What-products-KreateSell-accepts"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											What are the products KreateSell accepts
+										</p>
+									</Link>
 								</div>
 							</div>
 
@@ -154,46 +249,182 @@ const FAQ = () => {
 										!affiliate ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
-									<p className={styles.questions}>
-										What is the KreateSell Affiliate Program?
-									</p>
-									<p className={styles.questions}>How to become an affiliate</p>
-									<p className={styles.questions}>
-										How to make money as an affiliate?
-									</p>
-									<p className={styles.questions}>
-										How much revenue can I earn as a KreateSell Affiliate?
-									</p>
-									<p className={styles.questions}>
-										Can anyone join the KreateSell Affiliate Program?
-									</p>
-									<p className={styles.questions}>
-										Can I join if I’m participating in another affiliate
-										program?
-									</p>
-									<p className={styles.questions}>
-										Can I participate from any Country?
-									</p>
-									<p className={styles.questions}>When do I get paid?</p>
-									<p className={styles.questions}>
-										What form of payment will I receive?
-									</p>
-									<p className={styles.questions}>
-										How can I track the success of my promotion?
-									</p>
-									<p className={styles.questions}>
-										Who should I contact if I have questions?
-									</p>
-									<p className={styles.questions}>
-										What sort of tools do you provide to your affiliates?
-									</p>
-									<p className={styles.questions}>
-										How do I link to your site once I'm an affiliate?
-									</p>
-									<p className={styles.questions}>
-										Is there any cost to become an affiliate?
-									</p>
-									<p className={styles.questions}>Do I need to pay tax?</p>
+									<Link
+										to="What-is-the-KreateSell-Affiliate"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											What is the KreateSell Affiliate Program?
+										</p>
+									</Link>
+
+									<Link
+										to="How-to-become-an-affiliate"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How to become an affiliate
+										</p>
+									</Link>
+
+									<Link
+										to="How-to-make-money-as-an-affiliate"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How to make money as an affiliate?
+										</p>
+									</Link>
+
+									<Link
+										to="How-much-revenue-can-I-earn"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How much revenue can I earn as a KreateSell Affiliate?
+										</p>
+									</Link>
+
+									<Link
+										to="can-anyone-join-KreateSell Affiliate"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Can anyone join the KreateSell Affiliate Program?
+										</p>
+									</Link>
+
+									<Link
+										to="can-i-join"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Can I join if I’m participating in another affiliate
+											program?
+										</p>
+									</Link>
+
+									<Link
+										to="Can-I-participate-from-any-Country"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Can I participate from any Country?
+										</p>
+									</Link>
+
+									<Link
+										to="When-do-I-get-paid"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>When do I get paid?</p>
+									</Link>
+
+									<Link
+										to="form-of-payment"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											What form of payment will I receive?
+										</p>
+									</Link>
+
+									<Link
+										to="can-I-track-the-success"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How can I track the success of my promotion?
+										</p>
+									</Link>
+
+									<Link
+										to="Who-should-I-contact"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Who should I contact if I have questions?
+										</p>
+									</Link>
+
+									<Link
+										to="What-sort-of-tools-do-you-provide"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											What sort of tools do you provide to your affiliates?
+										</p>
+									</Link>
+
+									<Link
+										to="How-do-I-link-to-your-site"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How do I link to your site once I'm an affiliate?
+										</p>
+									</Link>
+
+									<Link
+										to="any-cost-to-become-an-affiliate"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Is there any cost to become an affiliate?
+										</p>
+									</Link>
+
+									<Link
+										to="Do-I-need-to-pay-tax"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>Do I need to pay tax?</p>
+									</Link>
 								</div>
 							</div>
 
@@ -226,13 +457,30 @@ const FAQ = () => {
 										!creator ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
-									<p className={styles.questions}>
-										I don't have foreign payment account, can i still receive my
-										payment?
-									</p>
-									<p className={styles.questions}>
-										How can I make money as a Creator?
-									</p>
+									<Link
+										to="foreign-payment-account"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											I don't have foreign payment account, can i still receive
+											my payment?
+										</p>
+									</Link>
+
+									<Link
+										to="make-money-as-a-Creator"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How can I make money as a Creator?
+										</p>
+									</Link>
 								</div>
 							</div>
 
@@ -263,12 +511,29 @@ const FAQ = () => {
 								<div
 									className={!buyer ? `${styles.questionsContainer}` : "hidden"}
 								>
-									<p className={styles.questions}>
-										If the product bought is not genuine, can I get a refund?
-									</p>
-									<p className={styles.questions}>
-										Am I Safe to make payment for a membership plan?
-									</p>
+									<Link
+										to="can-I-get-a-refund"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											If the product bought is not genuine, can I get a refund?
+										</p>
+									</Link>
+
+									<Link
+										to="payment-for-a-membership-plan"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Am I Safe to make payment for a membership plan?
+										</p>
+									</Link>
 								</div>
 							</div>
 
@@ -301,11 +566,39 @@ const FAQ = () => {
 										!general ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
-									<p className={styles.questions}>
-										Can I sign up with my social media account?
-									</p>
-									<p className={styles.questions}>Is my login details safe?</p>
-									<p className={styles.questions}>How secure is KreateSell</p>
+									<Link
+										to="sign-up-with-social-media-account"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Can I sign up with my social media account?
+										</p>
+									</Link>
+
+									<Link
+										to="Is-my-login-details-safe"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											Is my login details safe?
+										</p>
+									</Link>
+
+									<Link
+										to="How-secure-is-KreateSell"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>How secure is KreateSell</p>
+									</Link>
 								</div>
 							</div>
 
@@ -341,16 +634,42 @@ const FAQ = () => {
 										!payment ? `${styles.questionsContainer}` : "hidden"
 									}
 								>
-									<p className={styles.questions}>
-										How long does it take for funds to be deposited into my
-										account?
-									</p>
-									<p className={styles.questions}>
-										How do I know if my customer has paid?
-									</p>
-									<p className={styles.questions}>
-										What if my question isn't answered here?
-									</p>
+									<Link
+										to="funds-to-be-deposited-into-my-account"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How long does it take for funds to be deposited into my
+											account?
+										</p>
+									</Link>
+
+									<Link
+										to="customer-has-paid"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											How do I know if my customer has paid?
+										</p>
+									</Link>
+
+									<Link
+										to="question-isnt-answered-here"
+										spy={true}
+										smooth={true}
+										offset={-100}
+										duration={500}
+									>
+										<p className={styles.questions}>
+											What if my question isn't answered here?
+										</p>
+									</Link>
 								</div>
 							</div>
 						</div>
@@ -362,7 +681,7 @@ const FAQ = () => {
 							<h5 className={styles.questionHead}>
 								What is KreateSell and what does it do?
 							</h5>
-							<div className={styles.answer}>
+							<div className={styles.answer} id="What-is-KreateSell">
 								<p>
 									KreateSell is an ease-to-use, cross-border ecommerce platform
 									that enables creators, entrepreneurs, and online sellers to
@@ -394,7 +713,7 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+						<div className={styles.answerCont} id="Why-should-I-use-KreateSell">
 							<h5 className={styles.questionHead}>
 								Why should I use KreateSell?
 							</h5>
@@ -409,7 +728,10 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+						<div
+							className={styles.answerCont}
+							id="How-much-does-it-cost-to-use-KreateSell"
+						>
 							<h5 className={styles.questionHead}>
 								How much does it cost to use KreateSell?
 							</h5>
@@ -428,7 +750,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="After-Creating-my-account">
 							<h5 className={styles.questionHead}>
 								After Creating my account, what next?
 							</h5>
@@ -457,7 +780,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="Cant-find-what-you-re-looking-for"
+						>
 							<h5 className={styles.questionHead}>
 								Can't find what you're looking for?
 							</h5>
@@ -478,7 +805,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="How-do-I-make-money-on-KreateSell"
+						>
 							<h5 className={styles.questionHead}>
 								How do I make money on KreateSell as a creator?
 							</h5>
@@ -491,6 +822,7 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
+
 						<div className={styles.answerCont}>
 							<h5 className={styles.questionHead}>
 								How do I create a product?
@@ -499,7 +831,11 @@ const FAQ = () => {
 								<p>Video guide on this coming soon.</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="How-can-my-customers-make-payment"
+						>
 							<h5 className={styles.questionHead}>
 								How can my customers make payment?
 							</h5>
@@ -511,7 +847,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="afraid-of-piracy">
 							<h5 className={styles.questionHead}>
 								I'm afraid of piracy, are my products safe with KreateSell?
 							</h5>
@@ -523,7 +860,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="notify-in-case-of-any-product-piracy"
+						>
 							<h5 className={styles.questionHead}>
 								How do I notify you in case of any product piracy?
 							</h5>
@@ -544,7 +885,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="Can-I-create-and-sell-products"
+						>
 							<h5 className={styles.questionHead}>
 								Can I create and sell products for free?
 							</h5>
@@ -555,7 +900,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="What-products-KreateSell-accepts"
+						>
 							<h5 className={styles.questionHead}>
 								What are the products KreateSell accepts
 							</h5>
@@ -569,7 +918,10 @@ const FAQ = () => {
 						</div>
 
 						<h1 id="for-affiliate">AFFILIATE </h1>
-						<div className={styles.answerCont}>
+						<div
+							className={styles.answerCont}
+							id="What-is-the-KreateSell-Affiliate"
+						>
 							<h5 className={styles.questionHead}>
 								What is the KreateSell Affiliate Program?
 							</h5>
@@ -584,7 +936,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="How-to-become-an-affiliate">
 							<h5 className={styles.questionHead}>
 								How to become an affiliate
 							</h5>
@@ -601,7 +954,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="How-to-make-money-as-an-affiliate"
+						>
 							<h5 className={styles.questionHead}>
 								How to make money as an affiliate?
 							</h5>
@@ -616,7 +973,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="How-much-revenue-can-I-earn">
 							<h5 className={styles.questionHead}>
 								How much revenue can I earn as a KreateSell Affiliate?
 							</h5>
@@ -629,7 +987,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="can-anyone-join-KreateSell Affiliate"
+						>
 							<h5 className={styles.questionHead}>
 								Can anyone join the KreateSell Affiliate Program?
 							</h5>
@@ -641,7 +1003,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="can-i-join">
 							<h5 className={styles.questionHead}>
 								Can I join if I’m participating in another affiliate program?
 							</h5>
@@ -653,7 +1016,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="Can-I-participate-from-any-Country"
+						>
 							<h5 className={styles.questionHead}>
 								Can I participate from any Country?
 							</h5>
@@ -665,7 +1032,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="When-do-I-get-paid">
 							<h5 className={styles.questionHead}>When do I get paid?</h5>
 							<div className={styles.answer}>
 								<p>
@@ -679,7 +1047,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="form-of-payment">
 							<h5 className={styles.questionHead}>
 								What form of payment will I receive?
 							</h5>
@@ -690,7 +1059,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="can-I-track-the-success">
 							<h5 className={styles.questionHead}>
 								How can I track the success of my promotion?
 							</h5>
@@ -702,7 +1072,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="Who-should-I-contact">
 							<h5 className={styles.questionHead}>
 								Who should I contact if I have questions?
 							</h5>
@@ -721,7 +1092,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="What-sort-of-tools-do-you-provide"
+						>
 							<h5 className={styles.questionHead}>
 								What sort of tools do you provide to your affiliates?
 							</h5>
@@ -732,7 +1107,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="How-do-I-link-to-your-site">
 							<h5 className={styles.questionHead}>
 								How do I link to your site once I'm an affiliate?
 							</h5>
@@ -744,7 +1120,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="any-cost-to-become-an-affiliate"
+						>
 							<h5 className={styles.questionHead}>
 								Is there any cost to become an affiliate?
 							</h5>
@@ -752,7 +1132,8 @@ const FAQ = () => {
 								<p>No, it's absolutely free to sign-up and promote.</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="Do-I-need-to-pay-tax">
 							<h5 className={styles.questionHead}>Do I need to pay tax?</h5>
 							<div className={styles.answer}>
 								<p>
@@ -764,8 +1145,9 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
+
 						<h1 id="for-creator-and-affiliate">KREATORS & AFFILIATES</h1>
-						<div className={styles.answerCont}>
+						<div className={styles.answerCont} id="foreign-payment-account">
 							<h5 className={styles.questionHead}>
 								I don't have foreign payment account, can i still receive my
 								payment?
@@ -777,7 +1159,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="make-money-as-a-Creator">
 							<h5 className={styles.questionHead}>
 								How can I make money as a Creator?
 							</h5>
@@ -792,7 +1175,7 @@ const FAQ = () => {
 						</div>
 
 						<h1 id="buyer">BUYER</h1>
-						<div className={styles.answerCont}>
+						<div className={styles.answerCont} id="can-I-get-a-refund">
 							<h5 className={styles.questionHead}>
 								If the product bought is not genuine, can I get a refund?
 							</h5>
@@ -814,7 +1197,11 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div
+							className={styles.answerCont}
+							id="payment-for-a-membership-plan"
+						>
 							<h5 className={styles.questionHead}>
 								Am I Safe to make payment for a membership plan?
 							</h5>
@@ -827,7 +1214,10 @@ const FAQ = () => {
 						</div>
 
 						<h1 id="general">GENERAL</h1>
-						<div className={styles.answerCont}>
+						<div
+							className={styles.answerCont}
+							id="sign-up-with-social-media-account"
+						>
 							<h5 className={styles.questionHead}>
 								Can I sign up with my social media account?
 							</h5>
@@ -839,7 +1229,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="Is-my-login-details-safe">
 							<h5 className={styles.questionHead}>Is my login details safe?</h5>
 							<div className={styles.answer}>
 								<p>
@@ -849,7 +1240,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="How-secure-is-KreateSell">
 							<h5 className={styles.questionHead}>How secure is KreateSell</h5>
 							<div className={styles.answer}>
 								<p>
@@ -865,7 +1257,10 @@ const FAQ = () => {
 						</div>
 
 						<h1 id="payment">PAYMENT</h1>
-						<div className={styles.answerCont}>
+						<div
+							className={styles.answerCont}
+							id="funds-to-be-deposited-into-my-account"
+						>
 							<h5 className={styles.questionHead}>
 								How long does it take for funds to be deposited into my account?
 							</h5>
@@ -876,7 +1271,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="customer-has-paid">
 							<h5 className={styles.questionHead}>
 								How do I know if my customer has paid?
 							</h5>
@@ -891,7 +1287,8 @@ const FAQ = () => {
 								</p>
 							</div>
 						</div>
-						<div className={styles.answerCont}>
+
+						<div className={styles.answerCont} id="question-isnt-answered-here">
 							<h5 className={styles.questionHead}>
 								What if my question isn't answered here?
 							</h5>

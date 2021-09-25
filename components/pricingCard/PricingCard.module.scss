@@ -28,12 +28,11 @@
 		}
 		.subTitle {
 			padding-top: 0.437rem;
-			padding-bottom: 1rem;
 			font-weight: 400;
-			font-size: 0.875rem;
+			font-size: 0.9rem;
 			line-height: 1.3rem;
 			color: $gray-200;
-			height: 3rem;
+			min-height: 4.5rem;
 		}
 		hr {
 			border: 0;
@@ -88,6 +87,12 @@
 		font-size: 1.75rem;
 		line-height: 2.5rem;
 		color: $green-100;
+
+		.subPriceType {
+			color: $gray-200;
+			font-size: 1rem;
+			font-weight: 400;
+		}
 		@include screen("medium") {
 			font-weight: 600;
 			font-size: 1.375rem;

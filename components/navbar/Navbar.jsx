@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Input } from "../";
 import styles from "./Navbar.module.scss";
-import { _isUserLoggedIn } from "../../utils";
 import Logo, { MobileLogo } from "../authlayout/logo";
+import Link from "next/link";
 
 export const Navbar = () => {
 	const router = useRouter();
@@ -30,8 +30,6 @@ export const Navbar = () => {
 
 	const handleNavbar = () => setOpenMobileNav((value) => !value);
 
-	const isUserLoggedIn = _isUserLoggedIn();
-
 	return (
 		<nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
 			<div
@@ -49,11 +47,21 @@ export const Navbar = () => {
 
 			<div className={styles.navLinks}>
 				<ul className={styles.categoryLinks}>
-					<li onClick={() => router.push("/how-it-works")}>How it works</li>
-					<li onClick={() => router.push("/features")}>Features</li>
-					<li onClick={() => router.push("/pricing")}>Pricing</li>
-					<li onClick={() => router.push("/blog")}>Blog</li>
-					<li onClick={() => router.push("/faq")}>FAQs</li>
+					<li>
+						<NavLink href="how-it-works" title="How it works" />
+					</li>
+					<li>
+						<NavLink href="features" title="Features" />
+					</li>
+					<li>
+						<NavLink href="pricing" title="Pricing" />
+					</li>
+					<li>
+						<NavLink href="blog" title="Blog" />
+					</li>
+					<li>
+						<NavLink href="faq" title="FAQS" />
+					</li>
 				</ul>
 			</div>
 
@@ -120,50 +128,48 @@ export const Navbar = () => {
 			</div>
 
 			<div className={styles.btnLinks}>
-				{!isUserLoggedIn && (
-					<>
-						<div
-							className={styles.loginBtn}
-							onClick={() => router.push("/login")}
-						>
-							<Button text="Login" className={styles.loginBtnStyle} />
-						</div>
-						<div
-							className={styles.signUpBtn}
-							onClick={() => router.push("/signup")}
-						>
-							<Button
-								text="Signup"
-								bgColor="blue"
-								className={styles.signUpBtnStyle}
-							/>
-						</div>
-					</>
-				)}
+				<div className={styles.loginBtn} onClick={() => router.push("/login")}>
+					<Button text="Login" className={styles.loginBtnStyle} />
+				</div>
+				<div
+					className={styles.signUpBtn}
+					onClick={() => router.push("/signup")}
+				>
+					<Button
+						text="Signup"
+						bgColor="blue"
+						className={styles.signUpBtnStyle}
+					/>
+				</div>
 			</div>
 
 			<div className={styles.mobileBtnLinks}>
-				{!isUserLoggedIn && (
-					<>
-						<div
-							className={styles.loginBtn}
-							onClick={() => router.push("/login")}
-						>
-							<Button text="Login" className={styles.loginBtnStyle} />
-						</div>
-						<div
-							className={styles.signUpBtn}
-							onClick={() => router.push("/signup")}
-						>
-							<Button
-								text="Signup Free"
-								bgColor="blue"
-								className={styles.signUpBtnStyle}
-							/>
-						</div>
-					</>
-				)}
+				<div className={styles.loginBtn} onClick={() => router.push("/login")}>
+					<Button text="Login" className={styles.loginBtnStyle} />
+				</div>
+				<div
+					className={styles.signUpBtn}
+					onClick={() => router.push("/signup")}
+				>
+					<Button
+						text="Signup Free"
+						bgColor="blue"
+						className={styles.signUpBtnStyle}
+					/>
+				</div>
 			</div>
 		</nav>
+	);
+};
+
+const NavLink = ({ href, title }) => {
+	const currentPath = href.toLowerCase();
+	const { pathname } = useRouter();
+	const isActive = pathname == `/${currentPath}`;
+
+	return (
+		<Link href={`/${currentPath}`}>
+			<a className={isActive ? styles.activePath : ""}>{title}</a>
+		</Link>
 	);
 };

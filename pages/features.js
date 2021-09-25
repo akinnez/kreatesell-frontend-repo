@@ -77,7 +77,9 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
+										<span id={styles.bullet}></span>
 										Sell
 									</Link>
 								</li>
@@ -90,7 +92,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
-									>
+										activeClass="react-scroll-active-link"									>
 										Deliver
 									</Link>
 								</li>
@@ -103,6 +105,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Manage
 									</Link>
@@ -118,6 +121,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Market
 									</Link>
@@ -131,6 +135,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Customize
 									</Link>
@@ -144,6 +149,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Secure
 									</Link>
@@ -160,6 +166,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Analyze
 									</Link>
@@ -173,6 +180,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Payouts
 									</Link>
@@ -186,6 +194,7 @@ const Features = () => {
 										offset={-200}
 										duration={500}
 										className={styles.Link}
+										activeClass="react-scroll-active-link"
 									>
 										Supports
 									</Link>
