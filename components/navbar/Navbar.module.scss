@@ -63,6 +63,14 @@
 
 		li {
 			cursor: pointer;
+			a {
+				color: $base-gray;
+
+				&.activePath {
+					color: $base-blue;
+					font-weight: 600;
+				}
+			}
 		}
 	}
 }

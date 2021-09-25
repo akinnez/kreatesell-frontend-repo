@@ -99,6 +99,10 @@
 
 					li {
 						cursor: pointer;
+						color: $base-gray !important;
+						:hover {
+							color: $blue-600 !important;
+						}
 						.Link {
 							color: $base-gray;
 						}
