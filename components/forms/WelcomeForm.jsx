@@ -26,7 +26,7 @@ export const WelcomeForm = () => {
 			setStep(2);
 		} else if (step === 2) {
 			await welcomeStoreOnboarding(data, () => {
-				router.push("/account/kreator/dashboard");
+				router.push("/account/dashboard");
 			});
 		}
 	};

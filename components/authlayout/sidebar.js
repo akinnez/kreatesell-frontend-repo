@@ -66,7 +66,7 @@ const Sidebar = () => {
 					key={1}
 					Icon={Dashboard}
 					title="Dashboard"
-					target="/account/kreator/dashboard"
+					target="/account/dashboard"
 				/>
 				<MenuItem
 					key={2}

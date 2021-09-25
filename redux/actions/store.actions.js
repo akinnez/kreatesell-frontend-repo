@@ -62,7 +62,7 @@ export const WelcomeStoreOnboarding = () => {
 					type: types.WELCOME_STORE_ONBOARDING.FAILURE,
 					payload: err,
 				});
-				showToast(err?.title, "error");
+				showToast(err?.message || err?.title, "error");
 				errorCallback?.();
 			},
 			data
