@@ -40,21 +40,24 @@
 }
 
 .navLinks {
-	@include flex(row, flex-end, center);
+	// @include flex(row, flex-end, center);
+	@include flex(row, center, center);
 	width: 60%;
 	padding-right: 3rem;
 	padding-top: 1rem;
 
 	ul {
-		@include flex(row, space-around, null);
+		// @include flex(row, space-around, null);
+		@include flex(row, space-between, null);
 		list-style: none;
-		padding: 0 1rem;
+		// padding: 0 1rem;
 		width: 60%;
 		font-style: normal;
-		font-weight: 400;
-		font-size: 0.8rem;
+		font-weight: 450;
+		font-size: 0.9rem;
 		line-height: 1.625rem;
 		color: $base-gray;
+		flex-wrap: nowrap;
 
 		:hover {
 			font-weight: 600;

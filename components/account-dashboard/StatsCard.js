@@ -18,7 +18,7 @@ export const StatsCard = ({
 				<div className={styles.title}>
 					<div className={styles.userType}>{name}</div>
 
-					{router.pathname !==
+					{/* {router.pathname !==
 						("/account/kreator/kreator/dashboard/affiliate" ||
 							"/account/kreator/kreator/dashboard/kreator") && (
 						<div
@@ -32,7 +32,7 @@ export const StatsCard = ({
 								<RightArrow color="#0072EF" />
 							</div>
 						</div>
-					)}
+					)} */}
 
 					{router.pathname === "/account/dashboard/affiliate" && (
 						<div
