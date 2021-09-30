@@ -15,3 +15,4 @@ export * from "./select/Select";
 export * from "./pagination/Pagination";
 export * from "./table/Table";
 export * from "./account-dashboard/index";
+export * from "./tableHeader/index";
