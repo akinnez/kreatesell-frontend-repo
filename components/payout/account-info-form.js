@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import style from './Index.module.scss'
-import {Modal, DatePicker,Space,Form,Input as AntInput} from 'antd'
+import {Modal, DatePicker,Space,Form,Input as AntInput,message} from 'antd'
 import {Button,Input,Select} from '../form-input'
 import { useSelector,useDispatch } from 'react-redux'
 import {getBanks} from '../../redux/actions/utilityActions'
@@ -16,6 +16,7 @@ const BankModal = ({open,onClose=()=>{}})=>{
         countries:false,
         save:false
     })
+
     const {data} = useSWR('v1/kreatesell/store/me',fetcher)
     const [banks, setBanks] = useState([])
     const [country, setCountry] = useState([])
@@ -84,12 +85,25 @@ const BankModal = ({open,onClose=()=>{}})=>{
       
         if(accountNumber.length == 10){
             const bank = form.getFieldValue("bank_id")
-            const index = banks?.findIndex(el=>el.id == bank)
-            const bankCode = banks[index]?.bank_code
-           FlutterWave(accountNumber,bankCode).then((res)=>{
-               console.log(res)
-           })
-          
+            
+            const hide = message.loading("Validating account...",0)
+            ApiService.request(
+                'post',
+                'v1/kreatesell/payment/validate-account',
+                (res)=>{
+                    hide()
+                    console.log(res)
+                },
+                (error)=>{
+                    hide()
+                    // setLoading({...loading, save:false})
+                    toast.error(error?.message)
+                },
+                {
+                    account_number: accountNumber,
+                    account_bank: bank
+                  }
+            )
         }
         
     }
@@ -129,7 +143,7 @@ const BankModal = ({open,onClose=()=>{}})=>{
         <p className={style.sub_title}>We pay your funds to this account</p>
         <Form layout="vertical" 
             form={form} onFinish={handleSubmit}>
-        <Select size="large" 
+                <Select size="large" 
                     label="Select Country"
                     list={country}
                     onChange={(e)=>handleBank(e)}
@@ -164,7 +178,6 @@ const BankModal = ({open,onClose=()=>{}})=>{
                     rules={[{required:true, message:"Account Name is important"}]}/> 
             
             <div className={style.alert}>
-                
                <p>
                    <b>Be careful</b><br />Make sure your account details are correct before proceeding. 
                     We will not be held liable for failed transactions resulting from incorrect bank details.</p>
