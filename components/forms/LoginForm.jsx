@@ -29,12 +29,18 @@ export const LoginForm = () => {
 						?.toLowerCase()
 						.includes(`kindly verify token sent to your email`)
 				) {
-					return router.push("/verify-account");
+					return router.push({
+						pathname: "/verify-account",
+						query: { email: res?.data?.email },
+					});
 				}
 				if (res?.message?.toLowerCase().includes(`has not been confirmed`)) {
 					return router.push("/resend-email");
 				}
-				return router.push("/account/kreator/dashboard");
+				if (!res?.user?.business_name || !res?.user?.shop_name) {
+					return router.push("/welcome");
+				}
+				return router.push("/account/dashboard");
 			},
 			(err) => {
 				if (err?.message?.toLowerCase().includes(`has not been confirmed`)) {
@@ -80,7 +86,7 @@ export const LoginForm = () => {
 					</div>
 
 					<Link href="/forgot-password">
-						<a>Forget Password?</a>
+						<a>Forgot Password?</a>
 					</Link>
 				</div>
 

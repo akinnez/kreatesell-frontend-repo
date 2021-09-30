@@ -111,7 +111,7 @@
 		}
 
 		.priceCards {
-			padding-top: 9.43rem;
+			padding-top: 5rem;
 			padding-bottom: 5rem;
 
 			@include screen("tablet") {
@@ -171,6 +171,7 @@
 			font-weight: 700;
 			font-size: 2.375rem;
 			line-height: 3.375rem;
+			color: $base-white;
 		}
 		p {
 			margin: 0;

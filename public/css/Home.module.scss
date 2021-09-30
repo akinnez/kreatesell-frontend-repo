@@ -23,8 +23,8 @@
 			h1 {
 				font-weight: 700;
 				font-size: 2.5rem;
-				line-height: 4rem;
-				letter-spacing: 0.2px;
+				line-height: 3.2rem;
+				// letter-spacing: 0.2px;
 				color: $black-100;
 
 				.digital {
@@ -60,8 +60,8 @@
 			@include screen("medium") {
 				h1 {
 					font-weight: 600;
-					font-size: 2rem;
-					line-height: 2.5rem;
+					font-size: 1.5rem;
+					line-height: 1.9rem;
 				}
 				.subHeader {
 					display: none;
@@ -70,7 +70,7 @@
 					display: block;
 					text-align: center;
 					font-size: 0.9375rem;
-					line-height: 1.75rem;
+					line-height: 1.4rem;
 					opacity: 0.8;
 					color: $base-gray;
 				}
@@ -78,7 +78,7 @@
 		}
 
 		.heroImage {
-			margin-top: 4.375rem;
+			margin-top: 2rem;
 			cursor: pointer;
 		}
 
@@ -137,6 +137,16 @@
 					}
 				}
 			}
+
+			@include screen("medium") {
+				margin-top: 1rem;
+
+				padding-bottom: 1rem;
+				.title {
+					font-size: 1.4rem;
+					line-height: 0rem;
+				}
+			}
 		}
 	}
 
@@ -160,6 +170,11 @@
 				font-size: 1rem;
 				line-height: 1.75rem;
 				color: $base-gray;
+
+				@include screen("medium") {
+					padding: 0 10%;
+					line-height: 1.4rem;
+				}
 			}
 		}
 
@@ -288,12 +303,18 @@
 				}
 
 				.linkText {
+					display: flex;
+					align-items: center;
 					margin-top: 1.25rem;
 					font-weight: 500;
 					font-size: 1.25rem;
 					line-height: 1.875rem;
 					color: $base-blue;
 					cursor: pointer;
+
+					span {
+						padding-left: 0.5rem;
+					}
 				}
 			}
 
@@ -366,7 +387,8 @@
 
 		.midSectionText {
 			padding: 0 10.31rem;
-			width: 65%;
+			// width: 60%;
+			width: 58%;
 			color: $base-white;
 
 			.midSectionTitle {
@@ -435,7 +457,8 @@
 			}
 		}
 		.midSectionImage {
-			width: 35%;
+			// width: 40%;
+			width: 42%;
 			display: flex;
 			justify-content: center;
 			@include screen("tablet") {

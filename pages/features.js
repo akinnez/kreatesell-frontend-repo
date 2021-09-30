@@ -2,13 +2,14 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Layout, InputButton } from "../components";
+import { Link } from "react-scroll";
 import styles from "../public/css/Features.module.scss";
 import {
 	RightArrow,
 	AnalyzeIcon,
 	CustomizeIcon,
 	DeliverIcon,
-	FeatureBg,
+	// FeatureBg,
 	FeatureIcon,
 	ManageIcon,
 	MarketIcon,
@@ -68,22 +69,136 @@ const Features = () => {
 					<div className={styles.features}>
 						<div className={styles.featuresWrapper}>
 							<ul>
-								<li>Sell</li>
-								<li>Deliver</li>
-								<li>Manager</li>
+								<li>
+									<Link
+										to="sell"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										<span id={styles.bullet}></span>
+										Sell
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										to="deliver"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"									>
+										Deliver
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										to="manage"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Manage
+									</Link>
+								</li>
 							</ul>
 							<div className={styles.hrDivider}></div>
 							<ul>
-								<li>Market</li>
-								<li>Customize</li>
-								<li>Secure</li>
+								<li>
+									<Link
+										to="market"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Market
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										to="customize"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Customize
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										to="secure"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Secure
+									</Link>
+								</li>
 							</ul>
 							<div className={styles.hrDivider}></div>
 
 							<ul>
-								<li>Analyze</li>
-								<li>Payouts</li>
-								<li>Supports</li>
+								<li>
+									<Link
+										to="analyze"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Analyze
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										to="payouts"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Payouts
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										to="supports"
+										spy={true}
+										smooth={true}
+										offset={-200}
+										duration={500}
+										className={styles.Link}
+										activeClass="react-scroll-active-link"
+									>
+										Supports
+									</Link>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -96,7 +211,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={SellIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Sell</h2>
+							<h2 className={styles.featureTitle} id="sell">
+								Sell
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Sell your contents to anywhere in the world doing almost
 								nothing.
@@ -174,7 +291,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={DeliverIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Deliver</h2>
+							<h2 className={styles.featureTitle} id="deliver">
+								Deliver
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Customize how, where, when, and the market you want to sell your
 								products to. Delivery will be done faster and safer, based on
@@ -195,7 +314,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={ManageIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Manage</h2>
+							<h2 className={styles.featureTitle} id="manage">
+								Manage
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								You are provided with a full functional toolbox that takes care
 								of the legal and administrative requirements. Concentrate on
@@ -234,7 +355,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={MarketIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Market</h2>
+							<h2 className={styles.featureTitle} id="market">
+								Market
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Reduce your stress by automating your marketing funnel or flow
 								with super-effective tools to help you increase your conversion
@@ -345,7 +468,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={CustomizeIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Customize</h2>
+							<h2 className={styles.featureTitle} id="customize">
+								Customize
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Make the checkout page to look just exactly as you want. Also,
 								to bring ease to your target audience purchasing experience.
@@ -365,7 +490,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={SecureIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Secure</h2>
+							<h2 className={styles.featureTitle} id="secure">
+								Secure
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Get your personal documents and files secured by using the
 								management tools on the platform.
@@ -440,7 +567,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={AnalyzeIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Analyze</h2>
+							<h2 className={styles.featureTitle} id="analyze">
+								Analyze
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Get the proper data and analytics of your store with the
 								comprehensive analytic tools provided by kreatsell.
@@ -460,7 +589,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={PayoutIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Payout</h2>
+							<h2 className={styles.featureTitle} id="payouts">
+								Payout
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
 								aliquam gravida sed nec.
@@ -512,7 +643,9 @@ const Features = () => {
 							<div className={styles.featureTitleIcon}>
 								<Image src={SupportIcon} />
 							</div>
-							<h2 className={styles.featureTitle}>Support</h2>
+							<h2 className={styles.featureTitle} id="supports">
+								Support
+							</h2>
 							<h6 className={styles.featureExcerpt}>
 								Get the proper data and analytics of your store with the
 								comprehensive analytic tools provided by kreatsell.

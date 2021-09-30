@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "antd": "^4.16.11",
     "axios": "^0.21.1",
     "chart.js": "^3.5.0",
@@ -44,7 +45,10 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "autoprefixer": "^10.3.4",
     "eslint": "7.30.0",
-    "eslint-config-next": "11.0.1"
+    "eslint-config-next": "11.0.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.15"
   }
 }

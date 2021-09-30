@@ -22,7 +22,7 @@ export const AdminLoginForm = () => {
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
 		adminLogin(data, () => {
-			router.push("/account/kreator/dashboard");
+			router.push("/account/dashboard");
 		});
 	};
 

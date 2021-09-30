@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout, PricingCard, Select, Button } from "../components";
 import styles from "../public/css/Pricing.module.scss";
 import { Faq } from "../utils";
@@ -11,7 +11,17 @@ const Pricing = () => {
 	});
 	const { annually, monthly } = activeBtn;
 
-	// const [select, setSelect] = useState("");
+	const [businessPrice, setBusinessPrice] = useState("4,999");
+	const [priceLabel, setPriceLabel] = useState("Billed Monthly");
+	const [subPriceType, setSubPriceType] = useState("NGN 9989");
+
+	useEffect(() => {
+		monthly ? setBusinessPrice("4,999") : setBusinessPrice("4,167");
+		monthly
+			? setPriceLabel("Billed Monthly")
+			: setPriceLabel("Billed Annually");
+		monthly ? setSubPriceType("") : setSubPriceType("NGN 9989");
+	}, [monthly]);
 
 	const countryOptions = [
 		{ value: "Nigeria", label: "NGN" },
@@ -72,7 +82,7 @@ const Pricing = () => {
 									title="basic"
 									price="0"
 									btnText="Start for free"
-									subTitle="Perfect for newbie course creators"
+									subTitle="All of the features you need to start selling your contents"
 									priceType="100% Free "
 								/>
 							</div>
@@ -80,10 +90,11 @@ const Pricing = () => {
 							<div className={`${styles.free}`}>
 								<PricingCard
 									title="business"
-									subTitle="Perfect for professional course creators. Packaged with more, custom options and automated events"
-									price="4,999"
+									subTitle="The combination of core tools, custom options, and automated events for professional course creators looking for the growing of their businesses."
+									price={businessPrice}
 									btnText="Start for free"
-									priceType="Billed Monthly"
+									priceType={priceLabel}
+									subPriceType={subPriceType}
 								/>
 							</div>
 						</div>

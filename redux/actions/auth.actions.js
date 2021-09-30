@@ -21,7 +21,7 @@ export const Signup = () => {
 						"Signup successful. Verification link has been sent to your mail",
 					"info"
 				);
-				successCallback?.();
+				successCallback?.(res);
 			},
 			(err) => {
 				dispatch({ type: types.SIGNUP.FAILURE, payload: err?.error });
@@ -260,6 +260,33 @@ export const EnableAndDisable2FA = () => {
 				showToast(err?.error, "error");
 				errorCallback?.();
 			}
+		)
+	);
+};
+
+export const Resend2FA = () => {
+	const dispatch = useDispatch();
+	return (userId, successCallback, errorCallback) => (
+		dispatch({ type: types.RESEND_2FA.REQUEST }),
+		axios.request(
+			`post`,
+			`auth/resend/2FA/${userId}`,
+			(res) => {
+				dispatch({
+					type: types.RESEND_2FA.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.RESEND_2FA.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, "error");
+				errorCallback?.();
+			},
+			{ userId }
 		)
 	);
 };

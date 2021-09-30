@@ -1,17 +1,18 @@
-import Link from "next/link";
 import { useFormik } from "formik";
 import AuthCode from "react-auth-code-input";
 import { Button, FormError } from "../";
 import { TwoFAVerificationSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
 import styles from "../../public/css/ForgotPassword.module.scss";
-import { Resolve2FALogin } from "../../redux/actions";
+import { Resolve2FALogin, Resend2FA } from "../../redux/actions";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 export const TwoFAVerificationForm = () => {
 	const router = useRouter();
 	const resolve2FALogin = Resolve2FALogin();
+	const resend2FA = Resend2FA();
+	const userId = router.query?.email;
 
 	const { loading } = useSelector((state) => state.auth);
 
@@ -20,8 +21,14 @@ export const TwoFAVerificationForm = () => {
 	};
 
 	const handleSubmit = (data) => {
-		resolve2FALogin(data, () => {
-			router.push("/account/kreator/dashboard");
+		resolve2FALogin(data, (res) => {
+			if (!res?.user?.is_email_confirmed) {
+				return router.push("/resend-email");
+			}
+			if (!res?.user?.business_name || !res?.user?.shop_name) {
+				return router.push("/welcome");
+			}
+			return router.push("/account/dashboard");
 		});
 	};
 
@@ -57,11 +64,8 @@ export const TwoFAVerificationForm = () => {
 				<Button text="Verify Account" bgColor="primaryBlue" loading={loading} />
 			</form>
 
-			<div className={styles.footer}>
-				Didn’t get OTP?{" "}
-				<Link href="/login">
-					<a>Resend</a>
-				</Link>{" "}
+			<div className={styles.footer} onClick={() => resend2FA(userId)}>
+				Didn’t get OTP? <span>Resend</span>
 			</div>
 		</div>
 	);
