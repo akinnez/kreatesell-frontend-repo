@@ -1,7 +1,15 @@
 export const ProductsTableData = [
 	{
 		Product: "Air Jordan",
-		ProductLink: "https://hello.com/airjordan",
+		ProductLink: "https://kreatesell.com//the-land-of-hope-and-opportunities",
+		ProductType: "Physical Product",
+		Price: 5000,
+		createdAt: "June 12th, 2021",
+		status: "live",
+	},
+	{
+		Product: "Air Jordan",
+		ProductLink: "https://kreatesell.com//the-land-of-hope-and-opportunities",
 		ProductType: "Physical Product",
 		Price: 5000,
 		createdAt: "June 12th, 2021",
@@ -9,18 +17,26 @@ export const ProductsTableData = [
 	},
 	{
 		Product: "Air Jordan",
-		ProductLink: "https://hello.com/airjordan",
+		ProductLink: "https://kreatesell.com//the-land-of-hope-and-opportunities",
 		ProductType: "Physical Product",
 		Price: 5000,
 		createdAt: "June 12th, 2021",
-		status: "draft",
+		status: "deactivated",
 	},
 	{
 		Product: "Air Jordan",
-		ProductLink: "https://hello.com/airjordan",
+		ProductLink: "https://kreatesell.com//the-land-of-hope-and-opportunities",
 		ProductType: "Physical Product",
 		Price: 5000,
 		createdAt: "June 12th, 2021",
-		status: "draft",
+		status: "flagged",
+	},
+	{
+		Product: "Air Jordan",
+		ProductLink: "https://kreatesell.com//the-land-of-hope-and-opportunities",
+		ProductType: "Physical Product",
+		Price: 5000,
+		createdAt: "June 12th, 2021",
+		status: "revoked",
 	},
 ];

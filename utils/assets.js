@@ -56,6 +56,7 @@ import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
 import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
+import MailClipboard from "../public/images/mail-clipboard.svg";
 import { RightArrow } from "./icons/RightArrow";
 import { PlayIcon } from "./icons/PlayIcon";
 
@@ -120,4 +121,5 @@ export {
 	SupportIcon,
 	SVGFilter,
 	LogoutIcon,
+	MailClipboard,
 };

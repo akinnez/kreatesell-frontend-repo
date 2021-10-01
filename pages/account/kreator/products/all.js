@@ -4,8 +4,7 @@ import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { ProductsTableData } from "components/tableHeader/dummyTableData";
-// import { allP } from "components/tableHeader";
-// ProductsTableData
+import { Pagination } from "antd";
 
 AllProductsTableHeader;
 const AllProducts = () => {
@@ -32,8 +31,12 @@ const AllProducts = () => {
 					<Image src={DownloadIcon} />
 				</div>
 
-				<div>
+				<div className="mb-16">
 					<Table header={AllProductsTableHeader} data={ProductsTableData} />
+				</div>
+
+				<div>
+					<Pagination defaultCurrent={1} total={50} />
 				</div>
 			</div>
 		</AuthLayout>
