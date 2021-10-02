@@ -109,3 +109,27 @@
 		}
 	}
 }
+
+.modalContainer {
+	width: 312px;
+	border-radius: 0.5rem;
+}
+
+.modalPrompt {
+	color: red;
+	text-align: center;
+
+	.cancelBtn {
+		border: 1px solid $gray-200;
+		color: $base-gray;
+		margin-right: 1rem;
+		font-weight: 500;
+	}
+
+	.deleteBtn {
+		color: $base-white;
+		font-weight: 500;
+		border: none;
+		background: #ff7875;
+	}
+}

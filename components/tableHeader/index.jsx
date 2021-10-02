@@ -12,10 +12,10 @@ import {
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { useState } from "react";
+import { Modal } from "antd";
+import { Button } from "components";
 
 export const MobileProductCard = ({ item }) => {
-	// console.log("mobile card item -->", item);
-
 	const [showAction, setShowAction] = useState(false);
 	return (
 		<div
@@ -93,6 +93,29 @@ export const MobileProductCard = ({ item }) => {
 	);
 };
 
+const ModalPrompt = ({ handleCancel, onOk }) => {
+	return (
+		<div className={`py-4 ${styles.modalPrompt}`}>
+			<div className="text-base-gray text-sm">
+				Are you sure you want to delete <br />{" "}
+				<span className="font-normal text-base text-black">LAND OF HOPE?</span>
+			</div>
+			<p className="text-base-gray-200 text-sm py-4">
+				You can not undo this action
+			</p>
+
+			<div className="">
+				<Button
+					text="Cancel"
+					className={styles.cancelBtn}
+					onClick={handleCancel}
+				/>
+				<Button text="Delete" className={styles.deleteBtn} onClick={onOk} />
+			</div>
+		</div>
+	);
+};
+
 const StatusComponent = ({ item }) => {
 	return (
 		<div>
@@ -109,7 +132,15 @@ const StatusComponent = ({ item }) => {
 
 const ActionComponent = ({ item, showAction }) => {
 	const [menu, setMenu] = useState(false);
-	// console.log("mobile item -->", item);
+	const [modalVisible, setVisible] = useState(false);
+
+	const showModal = () => {
+		setVisible(true);
+	};
+
+	const handleCancel = () => {
+		setVisible(false);
+	};
 
 	return (
 		<div className="relative" key={item.id}>
@@ -128,7 +159,7 @@ const ActionComponent = ({ item, showAction }) => {
 				}`}
 			>
 				<ul>
-					<li onClick={() => console.log("item id -->", item.id)}>
+					<li>
 						<span>
 							<Image src={EditProduct} />
 						</span>
@@ -152,13 +183,13 @@ const ActionComponent = ({ item, showAction }) => {
 						</span>
 						<p>Duplicate</p>
 					</li>
-					<li>
+					<li onClick={() => showModal()}>
 						<span>
 							<Image src={DeactvateProduct} />
 						</span>
 						<p>Deactivate (Unpublish)</p>
 					</li>
-					<li>
+					<li onClick={() => showModal()}>
 						<span>
 							<Image src={DeleteProduct} />
 						</span>
@@ -166,6 +197,19 @@ const ActionComponent = ({ item, showAction }) => {
 					</li>
 				</ul>
 			</div>
+
+			<Modal
+				title=""
+				visible={modalVisible}
+				onOk={handleCancel}
+				onCancel={handleCancel}
+				footer=""
+				closable={false}
+				className={styles.modalContainer}
+				width="312"
+			>
+				<ModalPrompt handleCancel={handleCancel} onOk={handleCancel} />
+			</Modal>
 		</div>
 	);
 };
