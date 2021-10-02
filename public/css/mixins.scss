@@ -1,3 +1,5 @@
+@import "./screens.scss";
+
 @mixin flex($direction, $justify, $align) {
 	display: flex;
 	flex-direction: $direction;
@@ -12,7 +14,14 @@
 	line-height: 24px;
 	color: $color;
 	background: $background;
+	min-width: 5rem;
+	text-align: center;
 	border-radius: 0.5rem;
 	text-transform: capitalize;
 	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+
+	@include screen("tablet") {
+		font-size: 14px;
+	}
 }

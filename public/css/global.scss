@@ -174,3 +174,10 @@ select {
 .productTooltip:hover .tooltipText {
 	visibility: visible;
 }
+
+.divider {
+	height: 1px;
+	background: $white-300;
+	margin-top: 0.7rem;
+	margin-bottom: 1rem;
+}

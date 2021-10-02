@@ -5,8 +5,8 @@ import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { ProductsTableData } from "components/tableHeader/dummyTableData";
 import { Pagination } from "antd";
+import { MobileProductCard } from "components/tableHeader";
 
-AllProductsTableHeader;
 const AllProducts = () => {
 	return (
 		<AuthLayout>
@@ -31,8 +31,7 @@ const AllProducts = () => {
 					<Image src={DownloadIcon} />
 				</div>
 
-				<div className="mb-16 mt-8">
-					{/* <Table header={AllProductsTableHeader} data={ProductsTableData} /> */}
+				<div className="hidden lg:block mb-16 mt-8">
 					<Table
 						header={AllProductsTableHeader}
 						data={[...ProductsTableData]?.map((item, i) => ({
@@ -42,7 +41,11 @@ const AllProducts = () => {
 					/>
 				</div>
 
-				<div>
+				{ProductsTableData?.map((item) => (
+					<MobileProductCard item={item} />
+				))}
+
+				<div className="py-8 lg:pt-0">
 					<Pagination defaultCurrent={1} total={50} />
 				</div>
 			</div>

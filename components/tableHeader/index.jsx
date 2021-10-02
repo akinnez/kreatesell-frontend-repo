@@ -7,10 +7,91 @@ import {
 	EditProduct,
 	ManageProduct,
 	ViewSales,
+	MobileIcon,
 } from "utils";
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { useState } from "react";
+
+export const MobileProductCard = ({ item }) => {
+	// console.log("mobile card item -->", item);
+
+	const [showAction, setShowAction] = useState(false);
+	return (
+		<div
+			className="block lg:hidden bg-white my-4 rounded-lg p-4"
+			key={item?.id}
+		>
+			<div className="flex justify-between items-center">
+				<div className="text-base-gray text-sm">{item?.createdAt}</div>
+				<div className={`status-${item?.status}`}>{item?.status}</div>
+				<div>
+					<div
+						onClick={() => {
+							setShowAction((value) => !value);
+						}}
+					>
+						<Image src={MobileIcon} />
+					</div>
+					<div className="z-10">
+						{showAction && (
+							<ActionComponent item={item} showAction={showAction} />
+						)}
+					</div>
+				</div>
+			</div>
+			<div className="divider"></div>
+
+			<div className="mt-8">
+				<div className="flex w-full">
+					<div className="w-1/2">
+						<h4 className="text-black-100 text-sm font-semibold">Product</h4>
+						<p className=" text-base-gray text-sm pt-2">{item?.Product}</p>
+					</div>
+					<div className="w-1/2">
+						<h4 className="text-black-100 text-sm font-semibold">
+							Product Link
+						</h4>
+						<p className="text-base-gray text-sm pt-2">
+							<a
+								href={item?.ProductLink}
+								target="_blank"
+								rel="noopener noreferrer"
+								className={`${
+									item?.status === "revoked" &&
+									"text-base-gray cursor-default pointer-events-none"
+								} ${
+									item?.status === "flagged" &&
+									"text-base-gray cursor-default pointer-events-none"
+								}`}
+								onClick={() => {
+									if (item?.status == "flagged" || "revoked") {
+										return false;
+									}
+								}}
+							>
+								{item?.ProductLink}
+							</a>
+						</p>
+					</div>
+				</div>
+
+				<div className="flex w-full">
+					<div className="w-1/2">
+						<h4 className="text-black-100 text-sm font-semibold pt-4">
+							Product Type
+						</h4>
+						<p className="text-base-gray text-sm pt-2">Membership</p>
+					</div>
+					<div className="w-1/2">
+						<h4 className="text-black-100 text-sm font-semibold pt-4">Price</h4>
+						<p className="text-base-gray text-sm pt-2">NGN {item?.Price}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 const StatusComponent = ({ item }) => {
 	return (
@@ -26,13 +107,14 @@ const StatusComponent = ({ item }) => {
 	);
 };
 
-const ActionComponent = ({ item }) => {
+const ActionComponent = ({ item, showAction }) => {
 	const [menu, setMenu] = useState(false);
+	// console.log("mobile item -->", item);
 
 	return (
 		<div className="relative" key={item.id}>
 			<div
-				className="cursor-pointer pl-4"
+				className="hidden lg:block cursor-pointer pl-4"
 				onClick={() =>
 					menu || typeof menu === "undefined" ? setMenu(false) : setMenu(true)
 				}
@@ -40,9 +122,13 @@ const ActionComponent = ({ item }) => {
 				...
 			</div>
 
-			<div className={` ${styles.action} ${menu ? "visible" : "hidden"}`}>
+			<div
+				className={` ${styles.action} ${
+					menu || showAction ? "visible" : "hidden"
+				}`}
+			>
 				<ul>
-					<li>
+					<li onClick={() => console.log("item id -->", item.id)}>
 						<span>
 							<Image src={EditProduct} />
 						</span>
@@ -143,7 +229,6 @@ export const AllProductsTableHeader = [
 	{
 		title: "Actions",
 		key: "actions",
-		// component: ActionComponent,
 		component: ActionComponent,
 	},
 ];

@@ -1,5 +1,6 @@
 @import "../css//mixins.scss";
 @import "../css//colors.scss";
+@import "../css//screens.scss";
 
 .allProduct {
 	.addProductBtn {
@@ -67,6 +68,21 @@
 		border-width: 5px;
 		border-style: solid;
 		border-color: transparent transparent white transparent;
+	}
+
+	@include screen("medium") {
+		right: 2%;
+
+		::after {
+			content: "";
+			position: absolute;
+			bottom: 100%;
+			left: 90%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: transparent transparent blwhitee transparent;
+		}
 	}
 
 	ul {

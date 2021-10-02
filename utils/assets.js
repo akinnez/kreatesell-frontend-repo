@@ -65,6 +65,7 @@ import DuplicateProduct from "../public/images/products/duplicate.svg";
 import EditProduct from "../public/images/products/edit.svg";
 import ManageProduct from "../public/images/products/manage.svg";
 import ViewSales from "../public/images/products/view-sales.svg";
+import MobileIcon from "../public/images/products/mobile-icon.svg";
 
 export {
 	KreateSellBrand,
@@ -134,4 +135,5 @@ export {
 	EditProduct,
 	ManageProduct,
 	ViewSales,
+	MobileIcon,
 };
