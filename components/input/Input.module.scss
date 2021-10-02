@@ -11,6 +11,11 @@
 	input[type="search"]::-webkit-search-results-decoration {
 		display: none;
 	}
+
+	input[type="date"] {
+		color: $gray-200;
+		background: white;
+	}
 }
 
 .label {
