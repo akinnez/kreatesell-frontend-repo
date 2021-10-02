@@ -31,8 +31,15 @@ const AllProducts = () => {
 					<Image src={DownloadIcon} />
 				</div>
 
-				<div className="mb-16">
-					<Table header={AllProductsTableHeader} data={ProductsTableData} />
+				<div className="mb-16 mt-8">
+					{/* <Table header={AllProductsTableHeader} data={ProductsTableData} /> */}
+					<Table
+						header={AllProductsTableHeader}
+						data={[...ProductsTableData]?.map((item, i) => ({
+							...item,
+							actions: item,
+						}))}
+					/>
 				</div>
 
 				<div>

@@ -143,11 +143,11 @@ select {
 }
 
 .status-flagged {
-	@include allProductsTableHeaderStyle(#595959, #f5f5f5);
+	@include allProductsTableHeaderStyle($base-gray, $white-200);
 }
 
 .status-revoked {
-	@include allProductsTableHeaderStyle(#595959, #f5f5f5);
+	@include allProductsTableHeaderStyle($base-gray, $white-200);
 }
 
 .productTooltip {
@@ -160,7 +160,7 @@ select {
 	visibility: hidden;
 	border-radius: 0.5rem;
 	text-align: center;
-	width: 35vw;
+	width: 37vw;
 	margin-top: 0.3rem;
 	font-size: 0.79rem;
 	line-height: 1rem;

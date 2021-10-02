@@ -9,26 +9,87 @@
 	}
 }
 
-.productTooltip {
+.tooltip {
 	position: relative;
-	display: inline-block;
+}
 
-	.tooltipText {
-		background: $base-white;
-		visibility: hidden;
-		border-radius: 0.5rem;
-		text-align: center;
-		padding-top: 0.5rem;
-		margin-top: 2rem /* 32px */;
-		margin-bottom: 2rem /* 32px */;
-		font-size: 0.75rem /* 12px */;
-		line-height: 1rem /* 16px */;
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 12rem;
+	height: 7rem;
+	background-color: $black-100;
+	opacity: 0.8;
+	box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.3);
+	border-radius: 8px;
+	color: $base-white;
+	font-size: 12px;
+	text-align: center;
+	border-radius: 6px;
+	padding: 0.5rem;
+	position: absolute;
+	z-index: 1000;
+	bottom: 150%;
+	left: 50%;
+	margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+.action {
+	min-height: 25vh;
+	width: 8rem;
+	background: $base-white;
+	border-radius: 0.5rem;
+	color: $base-white;
+	margin-top: 0.7rem;
+	position: absolute;
+	z-index: 1;
+
+	::after {
+		content: "";
 		position: absolute;
-		z-index: 5;
-		height: 2rem;
+		bottom: 100%;
+		left: 18%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: transparent transparent white transparent;
+	}
 
-		&:hover {
-			visibility: visible;
+	ul {
+		li {
+			height: 44px;
+			border-bottom: 0.5px solid $gray-100;
+			padding-left: 0.8rem;
+			padding-right: 0.5rem;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			margin-top: 0.5rem;
+			margin-bottom: 0.5rem;
+			color: $gray-200;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			p {
+				padding-top: 0.4rem;
+				padding-left: 0.5rem;
+			}
 		}
 	}
 }
