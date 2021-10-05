@@ -8,6 +8,7 @@
 	.body {
 		background-repeat: no-repeat;
 		background-image: url("/images/partial-general-bg.svg");
+		background-size: contain;
 		padding: 0rem 10.31rem;
 
 		@include screen("tablet") {
