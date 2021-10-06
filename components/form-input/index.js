@@ -58,7 +58,7 @@ export const Input = ({CustomInput,type="text",placeholder,size="large",disabled
 }
 
 
-export const Select = ({placeholder,size="large",onChange=()=>{},loading,label,extraLabel,list=[],...rest})=>{
+export const Select = ({placeholder,size="large", onChange=()=>{},loading,label,extraLabel,list=[],...rest})=>{
     return(
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
             {

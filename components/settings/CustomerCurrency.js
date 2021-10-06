@@ -19,10 +19,8 @@ const Index = ({list=[]})=>{
 
             <Checkbox.Group style={{ width: '100%' }} onChange={(e)=>console.log(e)}>
                 <Row>
-
-                   
                       {  list?.map(({label,value},i)=>(
-                            <Col key={i} md={2} sm={8}>
+                            <Col key={i} md={8} sm={8}>
                             <Checkbox value={value}>{label}</Checkbox>
                     </Col>
                         ))}
