@@ -8,6 +8,7 @@
 	.body {
 		background-repeat: no-repeat;
 		background-image: url("/images/partial-general-bg.svg");
+		background-size: contain;
 		padding: 0rem 10.31rem;
 
 		@include screen("tablet") {
@@ -22,7 +23,7 @@
 
 			h1 {
 				font-weight: 700;
-				font-size: 2.5rem;
+				font-size: 2.7rem;
 				line-height: 3.2rem;
 				// letter-spacing: 0.2px;
 				color: $black-100;
@@ -34,7 +35,7 @@
 			.subHeader {
 				padding-top: 1rem;
 				font-weight: 400;
-				font-size: 0.9rem;
+				font-size: 1rem;
 				line-height: 1.5rem;
 				color: $base-gray;
 			}
@@ -160,14 +161,14 @@
 		.howItWorkstitleCont {
 			text-align: center;
 			.howItWorksTitle {
-				font-weight: 600;
-				font-size: 1.875rem;
+				font-weight: 700;
+				font-size: 2.3rem;
 				line-height: 3.375rem;
 				color: $black-100;
 			}
 			.howItWorksSubTitle {
 				font-weight: 400;
-				font-size: 1rem;
+				font-size: 1.1rem;
 				line-height: 1.75rem;
 				color: $base-gray;
 
@@ -186,15 +187,17 @@
 			.howItWorksImgSingle {
 				@include flex(column, null, null);
 				.howItWorksImgTitle {
-					font-weight: 500;
-					font-size: 1.125rem;
+					font-weight: 600;
+					font-size: 1.25rem;
 					line-height: 2rem;
 					color: $black-100;
 					text-align: center;
 				}
 				.howItWorksImgSubTitle {
-					font-size: 0.875rem;
-					line-height: 1.75rem;
+					// font-size: 0.875rem;
+					// line-height: 1.75rem;
+					font-size: 1rem;
+					line-height: 1.2rem;
 					color: $base-gray;
 					text-align: center;
 				}
@@ -216,9 +219,10 @@
 		.howItWorksBtnCont {
 			@include flex(row, center, null);
 			.howItWorksBtn {
-				width: 8.75rem;
+				width: 10rem;
 				height: 3.125rem;
 				align-items: center;
+				font-size: 1rem;
 			}
 			@include screen("tablet") {
 				.howItWorksBtn {
@@ -241,14 +245,14 @@
 			text-align: center;
 			padding-top: 2rem;
 			h3 {
-				font-weight: 600;
+				font-weight: 700;
 				font-size: 2.5rem;
-				line-height: 3.375rem;
+				line-height: 2rem;
 				color: $black-100;
 			}
 			p {
 				margin: 0;
-				font-weight: 400;
+				font-weight: 500;
 				font-size: 1.0625rem;
 				line-height: 1.75rem;
 				color: $base-gray;
@@ -293,8 +297,8 @@
 
 				.automationSubTitle {
 					margin-top: 1rem;
-					font-weight: 400;
-					font-size: 1.125rem;
+					font-weight: 500;
+					font-size: 1rem;
 					line-height: 1.75rem;
 					color: $base-gray;
 				}
@@ -306,7 +310,7 @@
 					display: flex;
 					align-items: center;
 					margin-top: 1.25rem;
-					font-weight: 500;
+					font-weight: 700;
 					font-size: 1.25rem;
 					line-height: 1.875rem;
 					color: $base-blue;
@@ -407,15 +411,15 @@
 
 			.midSectionSubTitle {
 				padding-top: 1rem;
-				font-weight: 350;
-				font-size: 1.125rem;
+				font-weight: 500;
+				font-size: 1rem;
 				line-height: 1.75rem;
 			}
 
 			.midSectionInputBtn {
 				margin-top: 1.875rem;
 				width: 10rem;
-				height: 2.8125rem;
+				height: 3rem;
 
 				.btn {
 					width: 100%;
@@ -492,8 +496,8 @@
 			padding-bottom: 2rem;
 
 			.newsAndEventTitle {
-				font-weight: 600;
-				font-size: 2.0625rem;
+				font-weight: 700;
+				font-size: 2.4rem;
 				line-height: 3.375rem;
 				color: $black-100;
 			}
@@ -503,8 +507,8 @@
 				display: flex;
 				align-items: center;
 				color: $base-blue;
-				font-weight: 550;
-				font-size: 1rem;
+				font-weight: 600;
+				font-size: 1.1rem;
 				line-height: 1.875rem;
 
 				p {
@@ -553,13 +557,13 @@
 
 						.primaryTitle {
 							font-weight: 700;
-							font-size: 1.75rem;
+							font-size: 2rem;
 							line-height: 2.5rem;
 							color: $black-100;
 						}
 						.primaryContent {
 							font-weight: 400;
-							font-size: 0.875rem;
+							font-size: 1rem;
 							line-height: 1.625rem;
 							color: $gray-200;
 							padding-top: 2rem;
@@ -581,7 +585,7 @@
 								}
 								.primaryPosition {
 									font-weight: 400;
-									font-size: 0.75rem;
+									font-size: 0.9rem;
 									line-height: 1.625rem;
 									color: $gray-200;
 								}
@@ -600,7 +604,7 @@
 					padding: 1rem;
 
 					.newsTitle {
-						font-weight: 400;
+						font-weight: 500;
 						font-size: 1.125rem;
 						line-height: 1.875rem;
 						color: $black-100;
@@ -608,7 +612,8 @@
 					}
 					.newsAuthor {
 						font-weight: 400;
-						font-size: 0.75rem;
+						// font-size: 0.75rem;
+						font-size: 0.9rem;
 						line-height: 1.625rem;
 						color: $gray-200;
 					}
@@ -875,16 +880,16 @@
 						.videoImage {
 						}
 						.videoAuthor {
-							font-weight: 500;
-							font-size: 1.25rem;
+							font-weight: 600;
+							font-size: 1.3rem;
 							line-height: 2rem;
 							padding-top: 0.8rem;
 							color: $black-100;
 						}
 						.videoExcerpt {
 							font-style: normal;
-							font-weight: 400;
-							font-size: 0.875rem;
+							font-weight: 450;
+							font-size: 0.9rem;
 							line-height: 1.625rem;
 							color: $base-gray;
 						}

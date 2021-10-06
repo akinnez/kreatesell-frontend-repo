@@ -61,6 +61,7 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 
 const Sidebar = () => {
 	const { SubMenu } = Menu;
+	const router = useRouter();
 	return (
 		<>
 			<Menu mode="inline" theme="light" className={style.menu}>
@@ -90,11 +91,17 @@ const Sidebar = () => {
 					expandIcon={<CloseSubMenu />}
 					defaultOpenKeys={34}
 				>
-					<Menu.Item key={34} target="/account/kreator/products">
-						Create Product
+					<Menu.Item
+						key={35}
+						onClick={() => router.push("/account/kreator/products/all")}
+					>
+						All Products
 					</Menu.Item>
-					<Menu.Item key={35} target="/account/kreator/products/all">
-						All Product
+					<Menu.Item
+						key={34}
+						onClick={() => router.push("/account/kreator/products")}
+					>
+						Create Product
 					</Menu.Item>
 				</SubMenu>
 

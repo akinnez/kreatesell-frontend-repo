@@ -38,9 +38,11 @@ export const Navbar = () => {
 			>
 				<div className={styles.hamburger}></div>
 			</div>
-			<div className={styles.imgCont} onClick={() => router.push("/")}>
-				<Logo />
-			</div>
+			<Link href="/">
+				<a className={styles.imgCont}>
+					<Logo />
+				</a>
+			</Link>
 			<div className={styles.MobileLogo} onClick={() => router.push("/")}>
 				<MobileLogo />
 			</div>

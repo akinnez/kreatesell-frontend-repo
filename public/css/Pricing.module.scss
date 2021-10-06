@@ -5,6 +5,7 @@
 .container {
 	background-repeat: no-repeat;
 	background-image: url("/images/partial-general-bg.svg");
+	background-size: contain;
 
 	@include screen("medium") {
 		background-image: url("/images/mobile-general-bg.svg");
