@@ -4,7 +4,7 @@ import {DatePicker,Space,Form,Input as AntInput} from 'antd'
 import {Button,Select} from '../form-input'
 import {FilterIcon} from '../IconPack'
 import BankModal from './account-info-form'
-import Loader from '../loader'
+
 
 
 const Header = ()=>{
@@ -18,16 +18,17 @@ const Header = ()=>{
             <Button onClick={()=>setOpen(true)} type="primary" style={{width:"180px"}} label="Payout Setting"/>
         </div>
 
-<Form layout="vertical" style={{paddingLeft:"25px", marginTop:"20px"}}>
-<Space size={30} wrap>
+            <Form layout="vertical" style={{paddingLeft:"25px", marginTop:"20px"}}>
+            <Space size={30} wrap>
             <Form.Item label="Search">
                 <AntInput placeholder="Search" 
                     size="large"
                     className={style.input} 
                     extraLabel="Search"/>
             </Form.Item>
-            <Form.Item label="Currency">
-                <Select placeholder="NGN" defaultValue="" style={{width:"200px"}} size="large">
+            
+                <Select placeholder="NGN" label="Currency"
+                     defaultValue="" style={{width:"200px"}} size="large">
                     <Select.Option value="NGN">NGN</Select.Option>
                     <Select.Option value="USD">USD</Select.Option>
                     <Select.Option value="GBP">GBP</Select.Option>
@@ -36,7 +37,7 @@ const Header = ()=>{
                     <Select.Option value="TZS">TZS</Select.Option>
                     <Select.Option value="UGX">UGX</Select.Option>
                 </Select>
-            </Form.Item>
+         
             <Form.Item label="Show from">
             <DatePicker size="large" className={style.input} />
             </Form.Item>
