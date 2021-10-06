@@ -1,0 +1,24 @@
+@import "./screens.scss";
+
+.error404 {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	text-align: center;
+
+	.btnCont {
+		margin: auto;
+		width: 60%;
+		padding-top: 1rem;
+
+		@include screen("medium") {
+			width: 100%;
+		}
+		.btn {
+			font-size: 1rem;
+		}
+	}
+}

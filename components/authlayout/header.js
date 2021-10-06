@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
 import style from "./Header.module.scss";
 import { PageDot, ProfileIcon, Cog, Bell } from "../IconPack";
-import { useRouter } from "next/router";
+import Router,{ useRouter } from "next/router";
 import { Logout } from "../../redux/actions";
 
 const Profile = ({ name }) => {
@@ -84,7 +84,7 @@ const Nav = () => {
 						<Menu.Item key="setting" icon={<Cog />} />
 						<Menu.Item key="notification" icon={<Bell />} />
 						<SubMenu key="SubMenu" icon={<Profile name={info?.full_name} />}>
-							<Menu.Item key="prof-1">Profile</Menu.Item>
+							<Menu.Item key="prof-1" onClick={()=>Router.push('/account/kreator/store/edit')}>Profile</Menu.Item>
 							<Menu.Item key="prof-2" onClick={() => logout()}>
 								Logout
 							</Menu.Item>

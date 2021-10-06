@@ -35,7 +35,6 @@ const Loader = () => {
 const Index = ({ loading, children }) => {
 	const { Header, Footer, Sider, Content } = Layout;
 
-
 	return (
 		<Layout>
 			<Sider
@@ -77,7 +76,7 @@ const Index = ({ loading, children }) => {
 					/>
 					{loading ? <Loader /> : children}
 				</Content>
-				<Footer>Footer</Footer>
+				{/* <Footer>Footer</Footer> */}
 			</Layout>
 		</Layout>
 	);

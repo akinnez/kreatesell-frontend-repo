@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./colors.scss";
+@import "./mixins.scss";
 @import "./screens.scss";
 @import "react-dates/lib/css/_datepicker.css";
 @import "react_dates_overrides.scss";
@@ -123,4 +124,77 @@ select {
 
 .ant-pagination {
 	border: none !important;
+}
+
+.react-scroll-active-link {
+	color: $blue-600;
+}
+
+.status-live {
+	@include allProductsTableHeaderStyle(#2dc071, #f1fcf8);
+}
+
+.status-draft {
+	@include allProductsTableHeaderStyle(#fbb500, rgba(255, 214, 102, 0.2));
+}
+
+.status-deactivated {
+	@include allProductsTableHeaderStyle(#f90005, rgba(255, 77, 79, 0.1));
+}
+
+.status-flagged {
+	@include allProductsTableHeaderStyle($base-gray, $white-200);
+}
+
+.status-revoked {
+	@include allProductsTableHeaderStyle($base-gray, $white-200);
+}
+
+.productTooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.productTooltip .tooltipText {
+	background: $base-white;
+	visibility: hidden;
+	border-radius: 0.5rem;
+	text-align: center;
+	width: 37vw;
+	margin-top: 0.3rem;
+	font-size: 0.79rem;
+	line-height: 1rem;
+	position: absolute;
+	z-index: 5;
+	height: 2.5rem;
+	left: 20%;
+	padding-left: 1.5rem;
+}
+
+.productTooltip:hover .tooltipText {
+	visibility: visible;
+}
+
+.divider {
+	height: 1px;
+	background: $white-300;
+	margin-top: 0.7rem;
+	margin-bottom: 1rem;
+}
+
+input[type="date"] {
+	color: $gray-200;
+	background: white;
+	border-radius: 0.5rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	width: 100%;
+	margin-top: 0.5rem;
+	height: 2.75rem;
+	border: 1px solid #d9dbe1;
+
+	@include screen("tablet") {
+		padding-left: 0.3rem;
+		padding-right: 0.3rem;
+	}
 }

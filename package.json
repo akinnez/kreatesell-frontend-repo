@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "antd": "^4.16.11",
     "axios": "^0.21.1",
     "chart.js": "^3.5.0",

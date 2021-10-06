@@ -26,7 +26,7 @@ export const WelcomeForm = () => {
 			setStep(2);
 		} else if (step === 2) {
 			await welcomeStoreOnboarding(data, () => {
-				router.push("/account/kreator/dashboard");
+				router.push("/account/dashboard");
 			});
 		}
 	};
@@ -45,11 +45,17 @@ export const WelcomeForm = () => {
 			autoComplete="off"
 		>
 			<h5 className={styles.mobileTitle}>
-				Tell us a little about <br /> yourself
+				{step === 1 && `Tell us a little about <br /> yourself`}
+				{step === 2 && `Here is what your store link looks like`}
 			</h5>
-			<h5 className={styles.webTitle}>Tell us a little about yourself</h5>
+			<h5 className={styles.webTitle}>
+				{step === 1 && `Tell us a little about yourself`}
+				{step === 2 && `Here is what your store link looks like`}
+			</h5>
 			<p className={styles.subTitle}>
-				Now that you're all signed up, let's personalize your store.
+				{step === 1 &&
+					`Now that you're all signed up, let's personalize your store.`}
+				{step === 2 && `Take time to verify `}
 			</p>
 
 			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
@@ -57,7 +63,7 @@ export const WelcomeForm = () => {
 			<p className={styles.label}>
 				{step === 1 &&
 					`1. Your Business Name - will be displayed on your store`}
-				{step === 2 && `2.  What would you like your store username to be? `}
+				{step === 2 && `2. Personalize your store link.`}
 			</p>
 
 			{step === 1 && (
@@ -70,17 +76,25 @@ export const WelcomeForm = () => {
 			)}
 
 			{step === 2 && (
-				<Input
-					placeholder="Enter name here ... "
-					name="Store_Name"
-					className={styles.input}
-					onChange={formik.handleChange}
-				/>
+				<div className="mb-12">
+					<Input
+						placeholder="Enter name here ... "
+						name="Store_Name"
+						className={styles.input}
+						onChange={formik.handleChange}
+					/>
+
+					{formik.values.Store_Name && (
+						<span className={styles.storePreviewLink}>
+							{`https://kreatesell.com/${formik.values.Store_Name}`}
+						</span>
+					)}
+				</div>
 			)}
 
 			<Button
 				type={step === 2 ? "submit" : "click"}
-				text={step === 2 ? "Submit" : "Continue"}
+				text={step === 2 ? "Start Selling" : "Continue"}
 				bgColor="primaryBlue"
 				className={styles.button}
 				loading={loading}

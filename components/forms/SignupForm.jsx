@@ -38,7 +38,7 @@ export const SignupForm = () => {
 
 		/**Signup endpoint is called with data */
 		await signup(formData, () => {
-			return router.push("/resend-email");
+			return router.push("/login");
 		});
 	};
 

@@ -28,7 +28,7 @@ export const TwoFAVerificationForm = () => {
 			if (!res?.user?.business_name || !res?.user?.shop_name) {
 				return router.push("/welcome");
 			}
-			return router.push("/account/kreator/dashboard");
+			return router.push("/account/dashboard");
 		});
 	};
 

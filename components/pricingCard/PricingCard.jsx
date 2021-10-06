@@ -3,7 +3,14 @@ import Image from "next/image";
 import styles from "./PricingCard.module.scss";
 import { Button } from "../index";
 
-export const PricingCard = ({ title, subTitle, price, btnText, priceType }) => {
+export const PricingCard = ({
+	title,
+	subTitle,
+	price,
+	btnText,
+	priceType,
+	subPriceType = "",
+}) => {
 	const Features = title === "basic" ? BasicFeatures : BusinessFeatures;
 
 	return (
@@ -19,7 +26,12 @@ export const PricingCard = ({ title, subTitle, price, btnText, priceType }) => {
 				<sub className={styles.month}>/ Month</sub>
 			</div>
 
-			<h5 className={styles.priceType}>{priceType}</h5>
+			<h5 className={styles.priceType}>
+				{priceType}{" "}
+				{subPriceType && (
+					<span className={styles.subPriceType}>- Save {subPriceType}</span>
+				)}
+			</h5>
 
 			<div className={styles.button}>
 				<Button className={styles.btn} text={btnText} bgColor="blue" />

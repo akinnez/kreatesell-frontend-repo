@@ -3,15 +3,15 @@ import { useState, useEffect } from "react";
 import {
 	Modal,
 	Button,
-	RecentAnalytics,
 	StatsCard,
 	DateHeader,
-} from "../../../../components";
-import AuthLayout from "../../../../components/authlayout";
-import { GetStoreDetails } from "../../../../redux/actions";
+	RecentAnalytics,
+} from "../../../components";
+import AuthLayout from "../../../components/authlayout";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import styles from "../../../../public/css/Dashboard.module.scss";
+import styles from "../../../public/css/Dashboard.module.scss";
+import { GetStoreDetails } from "../../../redux/actions";
 
 const Dashboard = () => {
 	const router = useRouter();
