@@ -70,8 +70,11 @@ export const Footer = () => {
 				<div>
 					<div className={styles.categoryTitle}>Product</div>
 					<div className={styles.categoryLink}>
-						<Link href="#">
-							<a>Overview</a>
+						<Link href="/">
+							<a>Home</a>
+						</Link>
+						<Link href="/pricing">
+							<a>Pricing</a>
 						</Link>
 						<Link href="/features">
 							<a>Features</a>
@@ -79,11 +82,8 @@ export const Footer = () => {
 						<Link href="/how-it-works">
 							<a>Tutorials</a>
 						</Link>
-						<Link href="/pricing">
-							<a>Pricing</a>
-						</Link>
 						<Link href="#">
-							<a>Releases</a>
+							<a>Affiliates</a>
 						</Link>
 					</div>
 				</div>
@@ -94,6 +94,9 @@ export const Footer = () => {
 						<Link href="#">
 							<a>About</a>
 						</Link>
+						<Link href="/blog">
+							<a>Blog</a>
+						</Link>
 						<Link href="#">
 							<a>Press</a>
 						</Link>
@@ -101,10 +104,7 @@ export const Footer = () => {
 							<a>Careers</a>
 						</Link>
 						<Link href="#">
-							<a>Contact</a>
-						</Link>
-						<Link href="#">
-							<a>Partners</a>
+							<a>Integration</a>
 						</Link>
 					</div>
 				</div>
@@ -112,20 +112,17 @@ export const Footer = () => {
 				<div>
 					<div className={styles.categoryTitle}>Support</div>
 					<div className={styles.categoryLink}>
-						<Link href="#">
-							<a>Help center</a>
+						<Link href="/how-it-works">
+							<a>Getting Started</a>
+						</Link>
+						<Link href="/how-it-works">
+							<a>Tutorials</a>
 						</Link>
 						<Link href="#">
-							<a>Safety Center</a>
+							<a>Contact Support</a>
 						</Link>
-						<Link href="#">
-							<a>Legal</a>
-						</Link>
-						<Link href="#">
-							<a>Privacy Policy</a>
-						</Link>
-						<Link href="#">
-							<a>Status</a>
+						<Link href="/faq">
+							<a>FAQ</a>
 						</Link>
 					</div>
 				</div>
@@ -141,12 +138,6 @@ export const Footer = () => {
 						</Link>
 						<Link href="#">
 							<a>Terms of Service</a>
-						</Link>
-						<Link href="#">
-							<a>Law Enforcement</a>
-						</Link>
-						<Link href="#">
-							<a>Status</a>
 						</Link>
 					</div>
 				</div>

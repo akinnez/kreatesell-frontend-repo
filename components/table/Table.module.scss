@@ -23,7 +23,7 @@
 				font-size: 14px;
 				line-height: 24px;
 				color: $base-gray;
-				border: 1px solid $gray-100;
+				border: 1px solid $gray-border;
 				border-left: none;
 				border-right: none;
 
@@ -34,7 +34,7 @@
 					border-bottom: none;
 				}
 				&:hover {
-					cursor: pointer;
+					// cursor: pointer;
 				}
 				td {
 					width: auto;
@@ -53,6 +53,10 @@
 					font-size: 0.875rem;
 					line-height: 1.25rem;
 					color: $black-100;
+
+					&:last-child {
+						padding-right: 1.5rem;
+					}
 				}
 			}
 		}

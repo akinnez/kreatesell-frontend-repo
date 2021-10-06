@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Menu } from "antd";
 import style from "./sidebar.module.scss";
 import Router, { useRouter } from "next/router";
@@ -10,8 +9,10 @@ import {
 	Ticket,
 	Setting,
 	Logout,
+	CloseSubMenu,
 } from "../IconPack";
 import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
+
 const menuItemStyle = {
 	display: "flex",
 	alignItems: "center",
@@ -59,9 +60,11 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 };
 
 const Sidebar = () => {
+	const { SubMenu } = Menu;
+	const router = useRouter();
 	return (
 		<>
-			<Menu mode="vertical" theme="light" className={style.menu}>
+			<Menu mode="inline" theme="light" className={style.menu}>
 				<MenuItem
 					key={1}
 					Icon={Dashboard}
@@ -74,12 +77,33 @@ const Sidebar = () => {
 					title="Store"
 					target="/account/kreator/store"
 				/>
-				<MenuItem
+				{/* <MenuItem
 					key={3}
 					Icon={Product}
 					title="Products"
 					target="/account/kreator/products"
-				/>
+				/> */}
+				<SubMenu
+					key="sub1"
+					icon={<Product className={style.icon} height={20} width={20} />}
+					title="Products"
+					className={style.subMenu}
+					expandIcon={<CloseSubMenu />}
+					defaultOpenKeys={34}
+				>
+					<Menu.Item
+						key={35}
+						onClick={() => router.push("/account/kreator/products/all")}
+					>
+						All Products
+					</Menu.Item>
+					<Menu.Item
+						key={34}
+						onClick={() => router.push("/account/kreator/products")}
+					>
+						Create Product
+					</Menu.Item>
+				</SubMenu>
 
 				<MenuItem
 					key={4}

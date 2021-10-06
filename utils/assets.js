@@ -56,8 +56,17 @@ import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
 import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
+import MailClipboard from "../public/images/mail-clipboard.svg";
 import { RightArrow } from "./icons/RightArrow";
 import { PlayIcon } from "./icons/PlayIcon";
+import DeactvateProduct from "../public/images/products/deactivate.svg";
+import DeleteProduct from "../public/images/products/delete.svg";
+import DuplicateProduct from "../public/images/products/duplicate.svg";
+import EditProduct from "../public/images/products/edit.svg";
+import ManageProduct from "../public/images/products/manage.svg";
+import ViewSales from "../public/images/products/view-sales.svg";
+import MobileIcon from "../public/images/products/mobile-icon.svg";
+import ErrorImage from "../public/images/404.svg";
 
 export {
 	KreateSellBrand,
@@ -120,4 +129,13 @@ export {
 	SupportIcon,
 	SVGFilter,
 	LogoutIcon,
+	MailClipboard,
+	DeactvateProduct,
+	DeleteProduct,
+	DuplicateProduct,
+	EditProduct,
+	ManageProduct,
+	ViewSales,
+	MobileIcon,
+	ErrorImage,
 };
