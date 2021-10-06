@@ -93,11 +93,11 @@ export const MobileProductCard = ({ item }) => {
 	);
 };
 
-const ModalPrompt = ({ handleCancel, onOk }) => {
+const ModalPrompt = ({ handleCancel, onOk, modalText }) => {
 	return (
 		<div className={`py-4 ${styles.modalPrompt}`}>
 			<div className="text-base-gray text-sm">
-				Are you sure you want to delete <br />{" "}
+				Are you sure you want to {modalText} <br />{" "}
 				<span className="font-normal text-base text-black">LAND OF HOPE?</span>
 			</div>
 			<p className="text-base-gray-200 text-sm py-4">
@@ -110,7 +110,7 @@ const ModalPrompt = ({ handleCancel, onOk }) => {
 					className={styles.cancelBtn}
 					onClick={handleCancel}
 				/>
-				<Button text="Delete" className={styles.deleteBtn} onClick={onOk} />
+				<Button text={modalText} className={styles.deleteBtn} onClick={onOk} />
 			</div>
 		</div>
 	);
@@ -133,9 +133,11 @@ const StatusComponent = ({ item }) => {
 const ActionComponent = ({ item, showAction }) => {
 	const [menu, setMenu] = useState(false);
 	const [modalVisible, setVisible] = useState(false);
+	const [modalText, setModalText] = useState("");
 
-	const showModal = () => {
+	const showModal = (text) => {
 		setVisible(true);
+		setModalText(text);
 	};
 
 	const handleCancel = () => {
@@ -183,13 +185,13 @@ const ActionComponent = ({ item, showAction }) => {
 						</span>
 						<p>Duplicate</p>
 					</li>
-					<li onClick={() => showModal()}>
+					<li onClick={() => showModal("deactivate")}>
 						<span>
 							<Image src={DeactvateProduct} />
 						</span>
 						<p>Deactivate (Unpublish)</p>
 					</li>
-					<li onClick={() => showModal()}>
+					<li onClick={() => showModal("delete")}>
 						<span>
 							<Image src={DeleteProduct} />
 						</span>
@@ -208,7 +210,11 @@ const ActionComponent = ({ item, showAction }) => {
 				className={styles.modalContainer}
 				width="312"
 			>
-				<ModalPrompt handleCancel={handleCancel} onOk={handleCancel} />
+				<ModalPrompt
+					handleCancel={handleCancel}
+					onOk={handleCancel}
+					modalText={modalText}
+				/>
 			</Modal>
 		</div>
 	);

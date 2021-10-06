@@ -48,8 +48,8 @@ const AllProducts = () => {
 					/>
 				</div>
 
-				{ProductsTableData?.map((item) => (
-					<MobileProductCard item={item} />
+				{ProductsTableData?.map((item, i) => (
+					<MobileProductCard item={item} key={item?.id || i} />
 				))}
 
 				<div className="py-8 lg:pt-0">

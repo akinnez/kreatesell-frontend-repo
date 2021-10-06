@@ -43,7 +43,7 @@ export const ProductHeader = () => {
 				</div>
 			</div>
 
-			<div className="flex w-full lg:w-1/2 justify-evenly lg:justify-between pt-3 items-center">
+			<div className="flex w-full lg:w-1/2 justify-evenly lg:justify-between pb-1 items-center">
 				<div className="w-2/5 pr-2 md:pr-0">
 					<p className={styles.label}>Date from</p>
 					<div>
