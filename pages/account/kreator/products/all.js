@@ -1,4 +1,10 @@
-import { DateHeader, Button, Table, AllProductsTableHeader } from "components";
+import {
+	// DateHeader,
+	Button,
+	Table,
+	AllProductsTableHeader,
+	ProductHeader,
+} from "components";
 import { DownloadIcon } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
@@ -22,7 +28,8 @@ const AllProducts = () => {
 					</div>
 				</div>
 
-				<DateHeader showSelect={false} />
+				{/* <DateHeader showSelect={false} /> */}
+				<ProductHeader />
 
 				<div className="flex justify-end pt-3">
 					<div className="text-primary-blue  font-semibold text-xs pr-2">
