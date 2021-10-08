@@ -2,9 +2,16 @@
 @import "../../public//css/mixins.scss";
 @import "../../public//css/screens.scss";
 
+.label {
+	font-weight: 450;
+	font-size: 14px;
+	line-height: 26px;
+	color: $black-100;
+}
+
 .container {
 	.productTypeTab {
-		border: 1px solid $gray-200;
+		border: 1px solid $gray-100;
 		border-radius: 0.5rem;
 		font-weight: 400;
 		font-size: 16px;
@@ -40,15 +47,14 @@
 }
 
 .digitalDownload {
+	.inputLabel {
+		@extend .label;
+	}
+
 	.inputCont {
 		.input {
 			height: 2.5rem;
-		}
-		.inputLabelStyle {
-			font-weight: 450;
-			font-size: 14px;
-			line-height: 26px;
-			color: $black-100;
+			border: 1px solid $gray-100;
 		}
 	}
 }

@@ -4,7 +4,7 @@ export * from "./button/Button";
 export * from "./checkbox/Checkbox";
 export * from "./footer";
 export * from "./formError/FormError";
-export * from "./input/Input";
+export * from "./input/index";
 export * from "./inputButton/InputButton";
 export * from "./layout/index";
 export * from "./modal/Modal";
