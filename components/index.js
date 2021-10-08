@@ -16,3 +16,4 @@ export * from "./pagination/Pagination";
 export * from "./table/Table";
 export * from "./account-dashboard/index";
 export * from "./tableHeader/index";
+export * from "./products/index";
