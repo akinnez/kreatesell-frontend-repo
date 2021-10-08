@@ -98,7 +98,7 @@ const Sidebar = () => {
 						All Products
 					</Menu.Item>
 					<Menu.Item
-						key={34}
+						key={36}
 						onClick={() =>
 							router.push("/account/kreator/products/create-product")
 						}
@@ -106,7 +106,7 @@ const Sidebar = () => {
 						Create Product
 					</Menu.Item>
 					<Menu.Item
-						key={34}
+						key={37}
 						onClick={() => router.push("/account/kreator/products")}
 					>
 						Old Product
