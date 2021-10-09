@@ -23,7 +23,9 @@ export const CreateProductTab = () => {
 			<p className="text-base text-black-100">Product Type</p>
 
 			<div
-				className={`${styles.productTypeTab} ${tab === 1 && styles.active}`}
+				className={`${styles.productTypeTab} ${
+					tab === 1 && styles.active
+				} w-3/4`}
 				onClick={() => setTab(1)}
 				onMouseEnter={() =>
 					setIconHover({
@@ -45,7 +47,9 @@ export const CreateProductTab = () => {
 			</div>
 
 			<div
-				className={`${styles.productTypeTab} ${tab === 2 && styles.active}`}
+				className={`${styles.productTypeTab} ${
+					tab === 2 && styles.active
+				} w-3/4`}
 				onClick={() => setTab(2)}
 				onMouseEnter={() =>
 					setIconHover({
@@ -67,7 +71,9 @@ export const CreateProductTab = () => {
 			</div>
 
 			<div
-				className={`${styles.productTypeTab} ${tab === 3 && styles.active}`}
+				className={`${styles.productTypeTab} ${
+					tab === 3 && styles.active
+				} w-3/4`}
 				onClick={() => setTab(3)}
 				onMouseEnter={() =>
 					setIconHover({
