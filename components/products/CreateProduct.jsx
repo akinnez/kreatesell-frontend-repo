@@ -6,7 +6,6 @@ import {
 	MembershipSubscriptionIcon,
 	DigitalDownloadIcon,
 } from "components/IconPack";
-import Image from "next/image";
 
 export const CreateProductTab = () => {
 	const [tab, setTab] = useState(1);

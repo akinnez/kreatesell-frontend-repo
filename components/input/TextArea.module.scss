@@ -1,0 +1,21 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+
+.textareaContainer {
+	textarea {
+		width: 100%;
+		border: 1px solid $gray-100;
+		border-radius: 0.5rem;
+		padding: 1rem 0 0 1rem;
+		color: $base-black;
+		font-size: 0.8rem;
+
+		&:focus {
+			outline: none;
+		}
+
+		&::placeholder {
+			color: $gray-200;
+		}
+	}
+}

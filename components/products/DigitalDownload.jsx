@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { Button, Input, TextArea } from "components";
+import { CloudUpload, BlogHero } from "utils";
 import styles from "./CreateProduct.module.scss";
 
 export const DigitalDownload = () => {
@@ -29,6 +31,28 @@ export const DigitalDownload = () => {
 
 				<div className="mt-4">
 					<p className={styles.inputLabel}>Product Image</p>
+					<div className="bg-base-white-100 flex p-4 w-full">
+						<div className="w-1/2">
+							<p className="text-base-gray-200 text-xs">
+								This image will be displayed on your store page!
+							</p>
+							<div className={styles.uploadCont}>
+								{/* <Image
+									// src={CloudUpload}
+									src={BlogHero}
+									alt="upload image"
+									width="100"
+									height="100"
+								/> */}
+								{/* <Image src={BlogHero} width="635" height="380" /> */}
+								{/* <CloudUpload /> */}
+								<h5>Drag & Drop or Upload Image </h5>
+							</div>
+						</div>
+						<div className="w-1/2">
+							<p>No image available</p>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>
