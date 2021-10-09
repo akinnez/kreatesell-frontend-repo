@@ -6,10 +6,38 @@ import styles from "./CreateProduct.module.scss";
 import { DeleteIcon } from "components/IconPack";
 import { Radio } from "components/inputPack";
 import { Switch } from "antd";
+import { useDropzone } from "react-dropzone";
+import { useFormik } from "formik";
+import { CreateProductSchema } from "validation/Product.validation";
 
 export const DigitalDownload = () => {
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
+
+	const onDrop = () => {};
+
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+	});
+
+	const initialValues = {
+		product_name: "string",
+		product_description: "string",
+		enable_preorder: false,
+		upload_content: false,
+		product_visibility_status: 0,
+	};
+
+	const handleSubmit = () => {};
+
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmit,
+		validationSchema: CreateProductSchema,
+		validateOnChange: false,
+	});
+
+	const { errors, setFieldValue, values } = formik;
 
 	return (
 		<div className={styles.digitalDownload}>
@@ -23,16 +51,21 @@ export const DigitalDownload = () => {
 						label="Name"
 						labelStyle={styles.inputLabel}
 						className={`${styles.input} w-3/4`}
+						name="product_name"
+						onChange={formik.handleChange}
+						errorMessage={errors.product_name}
 					/>
 				</div>
 
 				<div className="w-3/4">
 					<TextArea
-						name="description"
+						name="product_description"
 						label="Description"
 						placeholder="A well detailed, persuasive and intriguing description about the product drives more sales. Don't forget, it is all about the product audience, So keep it simple and personal."
 						rows={6}
 						labelStyle={styles.inputLabel}
+						onChange={formik.handleChange}
+						errorMessage={errors.product_description}
 					/>
 				</div>
 
@@ -43,11 +76,12 @@ export const DigitalDownload = () => {
 							<p className="text-base-gray-200 text-xs">
 								This image will be displayed on your store page!
 							</p>
-							<div className={styles.uploadCont}>
+							<div className={styles.uploadCont} {...getRootProps()}>
 								<div>
 									<Image src={CloudUpload} alt="upload image" />
 								</div>
-								<h5 className="text-primary-blue text-base pt-2 font-normal">
+								<input {...getInputProps()} />
+								<h5 className="text-primary-blue text-base pt-2 font-normal text-center">
 									Drag & Drop or Upload Image
 								</h5>
 							</div>
@@ -70,22 +104,59 @@ export const DigitalDownload = () => {
 					<div className="flex justify-between items-center w-2/4">
 						<div className="text-black-100">Enable pre-orders</div>
 						<div className="flex">
-							<Switch onChange={() => setPreOrder((value) => !value)} />
+							<Switch
+								onChange={(e) => {
+									setPreOrder((value) => !value);
+									setFieldValue("enable_preorder", e);
+								}}
+							/>
 							<span className="pl-6 text-black-100">
 								{preOrder ? "ON" : "OFF"}
 							</span>
 						</div>
 					</div>
 
+					{preOrder && (
+						<div className={styles.enablePreOrderCont}>
+							<Input
+								type="datetime-local"
+								label="Release date & time"
+								className={styles.inputHeight}
+							/>
+						</div>
+					)}
+
 					<div className="flex justify-between items-center w-2/4 pt-4">
 						<div className="text-black-100">Content Files</div>
 						<div className="flex">
-							<Switch onChange={() => setContentFiles((value) => !value)} />
+							<Switch
+								onChange={(e) => {
+									setContentFiles((value) => !value);
+									setFieldValue("upload_content", e);
+								}}
+							/>
 							<span className="pl-6 text-black-100">
 								{contentFiles ? "ON" : "OFF"}
 							</span>
 						</div>
 					</div>
+
+					{contentFiles && (
+						<div className="pt-2">
+							<p className="text-base-gray-200 text-xs">
+								Only one file is allowed to be uploaded. Bundle all your files
+								into single RAR or ZIP file. <br /> The maximum allowed file
+								size is 1GB.
+							</p>
+							<div className={styles.contentFileUpload} {...getRootProps()}>
+								<input {...getInputProps()} />
+								<Image src={CloudUpload} alt="upload image" />
+								<p className="text-primary-blue text-sm pl-4 my-auto">
+									Drag and Drop or Upload your product files
+								</p>
+							</div>
+						</div>
+					)}
 				</div>
 
 				<div className="pt-4">
@@ -96,34 +167,33 @@ export const DigitalDownload = () => {
 					</p>
 					<div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg">
 						<Radio
-							// value={values.product_visibility_status}
+							value={values.product_visibility_status}
 							content={1}
 							label="Activated"
 							extralable="- Your product will go live and visible to audience for a purchase once you complete creating the sales template"
-							// labelStyle={styles.inputLabel}
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
-							// onChange={(e) => setFieldValue("product_visibility_status", e)}
+							onChange={(e) => setFieldValue("product_visibility_status", e)}
 						/>
 
 						<Radio
-							// value={values.product_visibility_status}
+							value={values.product_visibility_status}
 							content={0}
 							label="Deactivated"
 							extralable="- Nobody would be able to access or purchase this product until you activate it."
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
-							// onChange={(e) => setFieldValue("product_visibility_status", e)}
+							onChange={(e) => setFieldValue("product_visibility_status", e)}
 						/>
 
 						<Radio
-							// value={values.product_visibility_status}
+							value={values.product_visibility_status}
 							content={2}
 							label="Unlisted"
 							extralable="- Product would not be visible on the store page but anyone with direct link can purchase it."
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
-							// onChange={(e) => setFieldValue("product_visibility_status", e)}
+							onChange={(e) => setFieldValue("product_visibility_status", e)}
 						/>
 					</div>
 				</div>
