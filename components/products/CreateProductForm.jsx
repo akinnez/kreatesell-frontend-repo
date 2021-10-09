@@ -10,7 +10,7 @@ import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
 import { CreateProductSchema } from "validation/Product.validation";
 
-export const DigitalDownload = () => {
+export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
 
@@ -42,7 +42,9 @@ export const DigitalDownload = () => {
 	return (
 		<div className={styles.digitalDownload}>
 			<h5 className="text-primary-blue font-medium text-2xl">
-				DIGITAL DOWNLOAD
+				{productType === "digitalDownload" && "DIGITAL DOWNLOAD"}
+				{productType === "oneTimeSubscription" && "ONE-TIME SUBSCRIPTION"}
+				{productType === "membership" && "MEMBERSHIP "}
 			</h5>
 			<form className="pt-3">
 				<div className={styles.inputCont}>
@@ -101,20 +103,22 @@ export const DigitalDownload = () => {
 				</div>
 
 				<div className="mt-4 w-3/4">
-					<div className="flex justify-between items-center w-2/4">
-						<div className="text-black-100">Enable pre-orders</div>
-						<div className="flex">
-							<Switch
-								onChange={(e) => {
-									setPreOrder((value) => !value);
-									setFieldValue("enable_preorder", e);
-								}}
-							/>
-							<span className="pl-6 text-black-100">
-								{preOrder ? "ON" : "OFF"}
-							</span>
+					{productType === "digitalDownload" && (
+						<div className="flex justify-between items-center w-2/4">
+							<div className="text-black-100">Enable pre-orders</div>
+							<div className="flex">
+								<Switch
+									onChange={(e) => {
+										setPreOrder((value) => !value);
+										setFieldValue("enable_preorder", e);
+									}}
+								/>
+								<span className="pl-6 text-black-100">
+									{preOrder ? "ON" : "OFF"}
+								</span>
+							</div>
 						</div>
-					</div>
+					)}
 
 					{preOrder && (
 						<div className={styles.enablePreOrderCont}>
@@ -126,20 +130,22 @@ export const DigitalDownload = () => {
 						</div>
 					)}
 
-					<div className="flex justify-between items-center w-2/4 pt-4">
-						<div className="text-black-100">Content Files</div>
-						<div className="flex">
-							<Switch
-								onChange={(e) => {
-									setContentFiles((value) => !value);
-									setFieldValue("upload_content", e);
-								}}
-							/>
-							<span className="pl-6 text-black-100">
-								{contentFiles ? "ON" : "OFF"}
-							</span>
+					{productType === "digitalDownload" && (
+						<div className="flex justify-between items-center w-2/4 pt-4">
+							<div className="text-black-100">Content Files</div>
+							<div className="flex">
+								<Switch
+									onChange={(e) => {
+										setContentFiles((value) => !value);
+										setFieldValue("upload_content", e);
+									}}
+								/>
+								<span className="pl-6 text-black-100">
+									{contentFiles ? "ON" : "OFF"}
+								</span>
+							</div>
 						</div>
-					</div>
+					)}
 
 					{contentFiles && (
 						<div className="pt-2">

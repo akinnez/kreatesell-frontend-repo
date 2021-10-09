@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { DigitalDownload, Membership, OneTimeSubscription } from "components";
+import { CreateProductForm } from "components";
 import styles from "./CreateProduct.module.scss";
 import {
 	OneTimeSubscriptionIcon,
@@ -100,9 +100,9 @@ export const CreateProductTab = () => {
 			</div>
 
 			<div>
-				{tab === 1 && <DigitalDownload />}
-				{tab === 2 && <OneTimeSubscription />}
-				{tab === 3 && <Membership />}
+				{tab === 1 && <CreateProductForm productType="digitalDownload" />}
+				{tab === 2 && <CreateProductForm productType="oneTimeSubscription" />}
+				{tab === 3 && <CreateProductForm productType="membership" />}
 			</div>
 		</div>
 	);
