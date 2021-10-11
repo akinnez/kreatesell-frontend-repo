@@ -46,7 +46,7 @@ export const OneTimeSubscriptionIcon = ({ active, onHover }) => {
 	);
 };
 
-export const DeleteIcon = () => {
+export const DeleteIcon = ({ color = "#595959" }) => {
 	return (
 		<svg
 			width="20"
@@ -55,7 +55,7 @@ export const DeleteIcon = () => {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
-			<circle cx="10" cy="10" r="10" fill="#595959" />
+			<circle cx="10" cy="10" r="10" fill={color} />
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
