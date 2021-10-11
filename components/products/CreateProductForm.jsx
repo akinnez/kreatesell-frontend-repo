@@ -46,20 +46,21 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 				{productType === "oneTimeSubscription" && "ONE-TIME SUBSCRIPTION"}
 				{productType === "membership" && "MEMBERSHIP "}
 			</h5>
+
 			<form className="pt-3">
 				<div className={styles.inputCont}>
 					<Input
 						placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
 						label="Name"
 						labelStyle={styles.inputLabel}
-						className={`${styles.input} w-3/4`}
+						className={`${styles.input} w-full lg:w-3/4`}
 						name="product_name"
 						onChange={formik.handleChange}
 						errorMessage={errors.product_name}
 					/>
 				</div>
 
-				<div className="w-3/4">
+				<div className="w-full lg:w-3/4">
 					<TextArea
 						name="product_description"
 						label="Description"
@@ -71,10 +72,10 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 					/>
 				</div>
 
-				<div className="mt-4 w-3/4">
+				<div className="mt-4 w-full lg:w-3/4">
 					<p className={styles.inputLabel}>Product Image</p>
-					<div className="bg-base-white-100 flex p-4">
-						<div className="w-1/2 pr-8 pt-3">
+					<div className="bg-base-white-100 flex flex-col lg:flex-row p-4">
+						<div className="w-full lg:w-1/2 lg:pr-8 pt-3">
 							<p className="text-base-gray-200 text-xs">
 								This image will be displayed on your store page!
 							</p>
@@ -83,28 +84,34 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 									<Image src={CloudUpload} alt="upload image" />
 								</div>
 								<input {...getInputProps()} />
-								<h5 className="text-primary-blue text-base pt-2 font-normal text-center">
+								<h5 className="hidden lg:block text-primary-blue text-base pt-2 font-semibold text-center">
 									Drag & Drop or Upload Image
+								</h5>
+								<h5 className="lg:hidden text-primary-blue text-base font-normal text-center">
+									Upload Image
 								</h5>
 							</div>
 							<p className="text-red-500 text-xs pt-4">
 								Allowed Files: PNG, JPG | Maximum file size: 5MB
 							</p>
 						</div>
-						<div className={`w-1/2 p-2 ${styles.noImage} relative`}>
+
+						<div className={`w-full lg:w-1/2 p-2 ${styles.noImage} relative`}>
 							<div className="absolute right-4 cursor-pointer">
 								<DeleteIcon />
 							</div>
-							<div className="absolute inset-1/3 text-center py-4">
+							<div
+								className={`absolute inset-1/3 text-center py-4 ${styles.emptyImg}`}
+							>
 								<p className="text-base-gray-200 text-sm">No image available</p>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div className="mt-4 w-3/4">
+				<div className="mt-4 w-full lg:w-3/4">
 					{productType === "digitalDownload" && (
-						<div className="flex justify-between items-center w-2/4">
+						<div className="flex justify-between items-center w-full lg:w-2/4">
 							<div className="text-black-100">Enable pre-orders</div>
 							<div className="flex">
 								<Switch
@@ -131,7 +138,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 					)}
 
 					{productType === "digitalDownload" && (
-						<div className="flex justify-between items-center w-2/4 pt-4">
+						<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
 							<div className="text-black-100">Content Files</div>
 							<div className="flex">
 								<Switch
@@ -204,15 +211,15 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 					</div>
 				</div>
 
-				<p className="text-center text-base-gray pt-4 text-base">
+				<p className="text-center text-sm text-base-gray pt-4 md:text-base">
 					Almost there, Click the next button to continue
 				</p>
 
-				<div className="flex justify-center pb-4">
+				<div className="flex flex-col-reverse lg:flex-row justify-center items-center pb-4">
 					<div className="">
 						<Button text="Previous" className={styles.digitalBtn} />
 					</div>
-					<div className="pl-4">
+					<div className="pl-0 mb-4 lg:pl-4 lg:mb-0">
 						<Button
 							text="Save and continue"
 							bgColor="blue"

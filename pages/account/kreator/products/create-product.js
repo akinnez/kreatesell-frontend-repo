@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-	Input,
-	Button,
-	CreateProductTab,
-	CheckoutProductTab,
-} from "components";
+import { CreateProductTab, CheckoutProductTab } from "components";
 import Tab, { TabItem } from "components/tab";
 import AuthLayout from "../../../../components/authlayout";
 import { Card } from "components/card";
@@ -14,7 +9,7 @@ const CreateProduct = () => {
 
 	return (
 		<AuthLayout>
-			<Card>
+			<Card style={{ padding: "25px" }}>
 				<Tab
 					titles={["Product Design", "Checkout", "Design and Content"]}
 					active={tab}

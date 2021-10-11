@@ -2,10 +2,16 @@
 @import "../../public//css/mixins.scss";
 @import "../../public//css/screens.scss";
 
+.card {
+	@include screen("tablet") {
+		padding: 0.3125rem;
+	}
+}
+
 .label {
 	font-weight: 450;
-	font-size: 14px;
-	line-height: 26px;
+	font-size: 0.875rem;
+	line-height: 1.625rem;
 	color: $black-100;
 }
 
@@ -14,8 +20,8 @@
 		border: 1px solid $gray-100;
 		border-radius: 0.5rem;
 		font-weight: 400;
-		font-size: 16px;
-		line-height: 26px;
+		font-size: 1rem;
+		line-height: 1.625rem;
 		color: $black-100;
 		padding: 0.7rem 1.5rem;
 		margin-bottom: 1.2rem;
@@ -27,6 +33,22 @@
 			color: $gray-200;
 			font-weight: 400;
 			padding-right: 0.75rem;
+			font-size: 0.875rem;
+		}
+
+		@include screen("inbetween") {
+			font-size: 0.8rem;
+			padding: 0;
+			min-height: 8vh;
+
+			span {
+				padding-left: 1rem;
+				font-size: 0.8rem;
+			}
+
+			.mobileSubTitle {
+				padding-left: 0.2rem;
+			}
 		}
 
 		&.active,
@@ -72,6 +94,10 @@
 		@extend .upload;
 		flex-direction: column;
 		padding: 1.5rem 0;
+
+		@include screen("medium") {
+			padding: 0.1rem 0;
+		}
 	}
 
 	.contentFileUpload {
@@ -81,15 +107,23 @@
 	.noImage {
 		border: 1px solid $gray-100;
 		border-radius: 0.5rem;
+
+		@include screen("tablet") {
+			min-height: 20vh;
+		}
 	}
 
 	.radioLabel {
 		font-weight: 400 !important;
 		color: $black-100 !important;
+		font-size: 0.9rem !important;
 	}
 
 	.extralableStyle {
 		font-weight: 400 !important;
+		@include screen("medium") {
+			font-size: 0.875rem !important;
+		}
 	}
 
 	.enablePreOrderCont {
