@@ -67,6 +67,7 @@ import ManageProduct from "../public/images/products/manage.svg";
 import ViewSales from "../public/images/products/view-sales.svg";
 import MobileIcon from "../public/images/products/mobile-icon.svg";
 import ErrorImage from "../public/images/404.svg";
+import CloudUpload from "../public/images/CloudUpload.svg";
 
 export {
 	KreateSellBrand,
@@ -138,4 +139,5 @@ export {
 	ViewSales,
 	MobileIcon,
 	ErrorImage,
+	CloudUpload,
 };

@@ -26,7 +26,7 @@ const Index = () => {
 			<AuthLayout>
 				<Card>
 					<Tab
-						titles={["Product Design", "Checkout"]}
+						titles={["Product Design", "Checkout", "Design and Content"]}
 						active={tab}
 						onSelect={(e) => setTab(e)}
 					>
