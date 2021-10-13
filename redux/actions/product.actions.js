@@ -42,3 +42,12 @@ export const GetProducts = () => {
 		)
 	);
 };
+
+export const SetProductTab = () => {
+	const dispatch = useDispatch();
+	return (tab, successCallback, errorCallback) =>
+		dispatch({
+			type: types.SET_PRODUCT_TAB.REQUEST,
+			payload: tab,
+		});
+};
