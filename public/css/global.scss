@@ -130,6 +130,13 @@ select {
 	color: $blue-600;
 }
 
+.ant-switch {
+	background-color: #ff7875 !important;
+}
+.ant-switch-checked {
+	background-color: #2dc071 !important;
+}
+
 .status-live {
 	@include allProductsTableHeaderStyle(#2dc071, #f1fcf8);
 }
@@ -197,4 +204,8 @@ input[type="date"] {
 		padding-left: 0.3rem;
 		padding-right: 0.3rem;
 	}
+}
+
+.red {
+	border: 2px solid red;
 }

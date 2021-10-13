@@ -9,6 +9,7 @@ export const Input = ({
 	label,
 	name,
 	labelStyle,
+	errorMessage,
 	...rest
 }) => {
 	return (
@@ -25,6 +26,9 @@ export const Input = ({
 					styles.input
 				}`}
 			/>
+			{errorMessage && (
+				<p className="text-red-600 text-sm pt-2">{errorMessage}</p>
+			)}
 		</div>
 	);
 };
