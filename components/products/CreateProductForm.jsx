@@ -10,8 +10,10 @@ import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
 import { CreateProductSchema } from "validation/Product.validation";
 import filesize from "filesize";
+import { SetProductTab } from "redux/actions";
 
 export const CreateProductForm = ({ productType = "digitalDownload" }) => {
+	const setProductTab = SetProductTab();
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
 
@@ -301,6 +303,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 							text="Save and continue"
 							bgColor="blue"
 							className={styles.digitalBtn}
+							onClick={() => setProductTab(1)}
 						/>
 					</div>
 				</div>
