@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { CreateProductTab, CheckoutProductTab } from "components";
 import Tab, { TabItem } from "components/tab";
 import AuthLayout from "../../../../components/authlayout";
 import { Card } from "components/card";
+import { useSelector } from "react-redux";
+import { SetProductTab } from "redux/actions";
 
 const CreateProduct = () => {
-	const [tab, setTab] = useState(0);
+	const setProductTab = SetProductTab();
+	const { productTab } = useSelector((state) => state.product);
 
 	return (
 		<AuthLayout>
 			<Card style={{ padding: "25px" }}>
 				<Tab
 					titles={["Product Design", "Checkout", "Design and Content"]}
-					active={tab}
-					onSelect={(e) => setTab(e)}
+					active={productTab}
+					onSelect={(e) => setProductTab(e)}
 				>
 					<TabItem>
 						<CreateProductTab />
