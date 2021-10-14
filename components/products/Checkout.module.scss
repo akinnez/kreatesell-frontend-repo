@@ -11,7 +11,7 @@
 		font-weight: 400 !important;
 
 		@include screen("medium") {
-			font-size: 14px !important;
+			font-size: 13px !important;
 		}
 	}
 
@@ -28,5 +28,9 @@
 		width: 15rem;
 		height: 3.3rem;
 		font-size: 1rem;
+	}
+
+	.couponDateTimeLocaleContInput {
+		height: 2.5rem;
 	}
 }

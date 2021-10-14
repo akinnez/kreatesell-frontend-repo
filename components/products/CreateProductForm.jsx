@@ -243,8 +243,11 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 							<div className={styles.contentFileUpload} {...getRootProps()}>
 								<input {...getInputProps()} />
 								<Image src={CloudUpload} alt="upload image" />
-								<p className="text-primary-blue text-sm pl-4 my-auto">
+								<p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
 									Drag and Drop or Upload your product files
+								</p>
+								<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
+									Upload your product files
 								</p>
 							</div>
 						</div>
