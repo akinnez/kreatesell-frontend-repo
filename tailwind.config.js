@@ -11,6 +11,7 @@ module.exports = {
 				"base-gray": "#595959",
 				"base-gray-200": "#8c8c8c",
 				"base-white-100": "#fafafa",
+				"base-green-100": "#2dc071",
 			},
 		},
 	},

@@ -4,6 +4,7 @@ const initialState = {
 	loading: false,
 	products: [],
 	error: {},
+	productTab: 0,
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -21,6 +22,9 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.GET_ALL_PRODUCTS.FAILURE:
 		case types.CREATE_PRODUCT.FAILURE:
 			return { ...state, loading: false, error: payload };
+
+		case types.SET_PRODUCT_TAB.REQUEST:
+			return { ...state, productTab: payload };
 
 		default:
 			return state;
