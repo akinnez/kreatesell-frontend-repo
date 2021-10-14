@@ -18,7 +18,7 @@ const CreateProduct = () => {
 					active={productTab}
 					onSelect={(e) => setProductTab(e)}
 				>
-					<TabItem>
+					{/* <TabItem>
 						<CreateProductTab />
 					</TabItem>
 
@@ -28,8 +28,12 @@ const CreateProduct = () => {
 
 					<TabItem>
 						<h3>hello Design and Content</h3>
-					</TabItem>
+					</TabItem> */}
 				</Tab>
+
+				{productTab === 0 && <CreateProductTab />}
+				{productTab === 1 && <CheckoutProductTab />}
+				{productTab === 2 && <h3>hello Design and Content</h3>}
 			</Card>
 		</AuthLayout>
 	);
