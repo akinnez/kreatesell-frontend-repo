@@ -33,4 +33,27 @@
 	.couponDateTimeLocaleContInput {
 		height: 2.5rem;
 	}
+
+	.limitProductInput {
+		height: 2rem;
+		width: 40%;
+	}
+
+	.upload {
+		border: 1px dotted $base-blue;
+		width: 100%;
+		border-radius: 0.5rem;
+		cursor: pointer;
+
+		&.activeUpload {
+			border-top: 8px solid #00b140;
+		}
+	}
+
+	.contentFileUpload {
+		@extend .upload;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }

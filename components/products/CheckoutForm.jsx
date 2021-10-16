@@ -1,8 +1,12 @@
-import { Radio } from "components/inputPack";
+import { Percentage, Radio } from "components/inputPack";
 import { Input, Button, ProductInput } from "components";
 import { Switch } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { CloudUpload } from "utils";
+import Image from "next/image";
+import { Select } from "components/select/Select";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	/**
@@ -12,56 +16,29 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	 * Installment Payment: 2
 	 * Make It Free: 3
 	 */
-	console.log("ctaBtnText -->", ctaBtnText);
-	console.log("priceType -->", priceType);
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [couponType, setCouponType] = useState(0);
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
+	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
+		useState(false);
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [showTotalSales, setShowTotalSales] = useState(false);
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
 
+	const onDrop = () => {};
+
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+	});
+
 	return (
 		<form>
-			<div>
-				<p className="text-base mb-2">Selling Price</p>
-				<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-					<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-					<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-					<ProductInput prefix="KES" name="KES" placeholder="0" />
-					<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-					<ProductInput prefix="USD" name="USD" placeholder="0" />
-					<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-					<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-					<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-				</div>
-				<p className="text-base-gray-200 text-xs pt-2">
-					Set the equivalent price of your product in the currencies of the
-					country you accept. You can always enable or disable any currency in
-					your currency settings page.
-				</p>
-			</div>
-
-			<div>
-				<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-					<div className="text-black-100">Show Compare-To Price (Optional)</div>
-					<div className="flex">
-						<Switch
-							onChange={(e) => {
-								setCompareToPrice((value) => !value);
-								// setFieldValue("upload_content", e);
-							}}
-						/>
-						<span className="pl-6 text-black-100">
-							{compareToPrice ? "ON" : "OFF"}
-						</span>
-					</div>
-				</div>
-
-				{compareToPrice && (
-					<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-4">
+			{[0].includes(priceType) && (
+				<div>
+					<p className="text-base mb-2">Selling Price</p>
+					<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
 						<ProductInput prefix="NGN" name="NGN" placeholder="0" />
 						<ProductInput prefix="GBP" name="GBP" placeholder="0" />
 						<ProductInput prefix="KES" name="KES" placeholder="0" />
@@ -71,24 +48,176 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 						<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
 						<ProductInput prefix="UGX" name="UGX" placeholder="0" />
 					</div>
-				)}
+					<p className="text-base-gray-200 text-xs pt-2">
+						Set the equivalent price of your product in the currencies of the
+						country you accept. You can always enable or disable any currency in
+						your currency settings page.
+					</p>
+				</div>
+			)}
 
-				<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-					<div className="text-black-100">Apply Coupon Code</div>
-					<div className="flex">
-						<Switch
-							onChange={(e) => {
-								setApplyCoupon((value) => !value);
-								// setFieldValue("upload_content", e);
-							}}
-						/>
-						<span className="pl-6 text-black-100">
-							{applyCoupon ? "ON" : "OFF"}
-						</span>
+			{priceType === 1 && (
+				<div>
+					<div>
+						<p className="text-base mb-2">Minimum Amount</p>
+						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
+					</div>
+
+					<div className="pt-4">
+						<p className="text-base mb-2">Suggested Amount</p>
+						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
 					</div>
 				</div>
+			)}
 
-				{applyCoupon && (
+			{priceType === 2 && (
+				<div>
+					<div>
+						<p className="text-base mb-2">Selling Price</p>
+						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
+					</div>
+					<div className="pt-4">
+						<p className="text-base mb-2">Initial Payment at Checkout</p>
+						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
+					</div>
+
+					<div className="mt-3 w-full">
+						<p className="text-base mb-2">Select Frequency of payments</p>
+						<div className="w-full lg:w-1/5">
+							<Select />
+						</div>
+					</div>
+
+					<div className="mt-3">
+						<p className="text-base mb-2">
+							Division of the remaining payment by the frequency
+						</p>
+						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
+
+						<div className="py-2 lg:hidden">
+							<div className="divider"></div>
+						</div>
+
+						<div className="w-4/5 pt-2 lg:pt-4 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
+					</div>
+
+					<div className="mt-3 w-full">
+						<p className="text-base mb-2">Interval between each payment</p>
+						<div className="w-full lg:w-1/5">
+							<Select />
+						</div>
+					</div>
+				</div>
+			)}
+
+			<div>
+				{[0].includes(priceType) && (
+					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
+						<div className="text-black-100">
+							Show Compare-To Price (Optional)
+						</div>
+						<div className="flex">
+							<Switch
+								onChange={(e) => {
+									setCompareToPrice((value) => !value);
+									// setFieldValue("upload_content", e);
+								}}
+							/>
+							<span className="pl-6 text-black-100">
+								{compareToPrice ? "ON" : "OFF"}
+							</span>
+						</div>
+					</div>
+				)}
+
+				{compareToPrice && (
+					<div className="mt-4">
+						<p className="text-sm">Original price (NGN) </p>
+						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-1">
+							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
+							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+							<ProductInput prefix="KES" name="KES" placeholder="0" />
+							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
+							<ProductInput prefix="USD" name="USD" placeholder="0" />
+							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
+							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
+							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+						</div>
+					</div>
+				)}
+
+				{priceType !== 3 && (
+					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
+						<div className="text-black-100">Apply Coupon Code</div>
+						<div className="flex">
+							<Switch
+								onChange={(e) => {
+									setApplyCoupon((value) => !value);
+									// setFieldValue("upload_content", e);
+								}}
+							/>
+							<span className="pl-6 text-black-100">
+								{applyCoupon ? "ON" : "OFF"}
+							</span>
+						</div>
+					</div>
+				)}
+
+				{priceType !== 3 && applyCoupon && (
 					<div className="my-2">
 						<div className="w-full md:w-2/5">
 							<Input
@@ -210,7 +339,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 				</div>
 
 				<p className="mt-4">Settings</p>
-				<div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3">
+				<div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 w-11/12">
 					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
 						<div className="text-black-100">
 							Allow Affiliates to Market Product
@@ -228,6 +357,50 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 						</div>
 					</div>
 
+					{allowAffiliateMarket && (
+						<>
+							<div className="w-3/5">
+								<Percentage border={true} />
+							</div>
+
+							<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
+								<div className="text-black-100">
+									Upload a Promotional Material for affiliates
+								</div>
+								<div className="flex">
+									<Switch
+										onChange={(e) => {
+											setUploadPromotionalMaterial((value) => !value);
+										}}
+									/>
+									<span className="pl-6 text-black-100">
+										{uploadPromotionalMaterial ? "ON" : "OFF"}
+									</span>
+								</div>
+							</div>
+
+							{uploadPromotionalMaterial && (
+								<div className="pt-2 w-3/5">
+									<p className="text-base-gray-200 text-xs">
+										Only one file is allowed to be uploaded. Bundle all your
+										files into single RAR or ZIP file. <br /> The maximum
+										allowed file size is 1GB.
+									</p>
+									<div className={styles.contentFileUpload} {...getRootProps()}>
+										<input {...getInputProps()} />
+										<Image src={CloudUpload} alt="upload image" />
+										<p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
+											Drag and Drop or Upload your product files
+										</p>
+										<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
+											Upload your product files
+										</p>
+									</div>
+								</div>
+							)}
+						</>
+					)}
+
 					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
 						<div className="text-black-100">Limit Product Sales</div>
 						<div className="flex">
@@ -242,6 +415,15 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							</span>
 						</div>
 					</div>
+
+					{limitProductSale && (
+						<div className="w-3/5 items-center flex justify-between pt-3">
+							<p className="text-base-gray-200 ">Product Sales Limit</p>
+							<div className="">
+								<Input placeholder="100" className={styles.limitProductInput} />
+							</div>
+						</div>
+					)}
 
 					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
 						<div className="text-black-100">
