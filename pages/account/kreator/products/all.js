@@ -12,8 +12,10 @@ import Image from "next/image";
 import { ProductsTableData } from "components/tableHeader/dummyTableData";
 import { Pagination } from "antd";
 import { MobileProductCard } from "components/tableHeader";
+import { useRouter } from "next/router";
 
 const AllProducts = () => {
+	const router = useRouter();
 	return (
 		<AuthLayout>
 			<div className={styles.allProduct}>
@@ -24,6 +26,7 @@ const AllProducts = () => {
 							text="+ Add Product"
 							bgColor="blue"
 							className={styles.addProductBtn}
+							onClick={() => router.push("/account/kreator/products/create")}
 						/>
 					</div>
 				</div>

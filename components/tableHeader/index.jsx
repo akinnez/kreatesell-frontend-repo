@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Modal } from "antd";
 import { Button } from "components";
+import { useRouter } from "next/router";
 
 export const MobileProductCard = ({ item }) => {
 	const [showAction, setShowAction] = useState(false);
@@ -144,6 +145,8 @@ const ActionComponent = ({ item, showAction }) => {
 		setVisible(false);
 	};
 
+	const router = useRouter();
+
 	return (
 		<div className="relative" key={item.id}>
 			<div
@@ -161,7 +164,7 @@ const ActionComponent = ({ item, showAction }) => {
 				}`}
 			>
 				<ul>
-					<li>
+					<li onClick={() => router.push("/account/kreator/products/create")}>
 						<span>
 							<Image src={EditProduct} />
 						</span>
