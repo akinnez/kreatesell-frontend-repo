@@ -139,6 +139,10 @@
 			height: 2.5rem;
 			border: 1px solid $gray-100;
 		}
+
+		@include screen("tablet") {
+			width: 100%;
+		}
 	}
 
 	.digitalBtn {

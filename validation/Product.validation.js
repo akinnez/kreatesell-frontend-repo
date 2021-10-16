@@ -18,3 +18,9 @@ export const CreateProductSchema = () => {
 		// cover_image: "string",
 	});
 };
+
+export const CheckoutProductSchema = () => {
+	return Yup.object().shape({
+		cta_button: Yup.string(),
+	});
+};
