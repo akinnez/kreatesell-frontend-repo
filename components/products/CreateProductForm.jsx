@@ -264,7 +264,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 						<Radio
 							value={values.product_visibility_status}
 							content={1}
-							label="Activated"
+							label="Activate"
 							extralable="- Your product will go live and visible to audience for a purchase once you complete creating the sales template"
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
@@ -274,7 +274,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 						<Radio
 							value={values.product_visibility_status}
 							content={0}
-							label="Deactivated"
+							label="Deactivate"
 							extralable="- Nobody would be able to access or purchase this product until you activate it."
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
@@ -284,7 +284,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 						<Radio
 							value={values.product_visibility_status}
 							content={2}
-							label="Unlisted"
+							label="Unlist"
 							extralable="- Product would not be visible on the store page but anyone with direct link can purchase it."
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
