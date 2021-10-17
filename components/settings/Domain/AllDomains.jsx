@@ -17,7 +17,8 @@ export const AllDomains = () => {
 					/>
 				</div>
 			</div>
-			<div className="productBorder mt-4">
+
+			<div className="productBorder mt-4 bg-white rounded-lg">
 				<a
 					href="tech9ja.com"
 					target="_blank"
@@ -40,7 +41,7 @@ export const AllDomains = () => {
 				</div>
 			</div>
 
-			<div className="productBorder mt-4">
+			<div className="productBorder mt-4 bg-white rounded-lg">
 				<div className="flex justify-between">
 					<a
 						href="www.salvo.hitech.com"

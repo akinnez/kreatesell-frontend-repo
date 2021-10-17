@@ -13,7 +13,7 @@ const Index = () => {
 
 	return (
 		<>
-			<AuthLayout>
+			<AuthLayout mobilePadding={true}>
 				<Card bordered={false} className={style.card}>
 					<Tabs defaultActiveKey="1" centered size="large">
 						<TabPane tab="Currencies" key="1">

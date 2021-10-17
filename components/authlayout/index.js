@@ -32,53 +32,67 @@ const Loader = () => {
 	);
 };
 
-const Index = ({ loading, children }) => {
+const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
 	const { Header, Footer, Sider, Content } = Layout;
 
 	return (
-		<Layout>
-			<Sider
-				width={300}
-				theme="light"
-				style={{
-					height: "100vh",
-					position: "sticky",
-					top: 0,
-					left: 0,
-				}}
-				trigger={null}
-				breakpoint="lg"
-				collapsedWidth={0}
-			>
-				<div style={{ padding: "0 15px" }}>
-					<Logo />
-					<Sidebar />
-				</div>
-			</Sider>
+		<>
 			<Layout>
-				<Nav />
-				<Content
+				<Sider
+					width={300}
+					theme="light"
 					style={{
-						backgroundColor: "rgba(245, 245, 245, 1)",
-						padding: "50px 20px 10px 20px",
+						height: "100vh",
+						position: "sticky",
+						top: 0,
+						left: 0,
 					}}
+					trigger={null}
+					breakpoint="lg"
+					collapsedWidth={0}
 				>
-					<ToastContainer
-						position="top-right"
-						autoClose={5000}
-						hideProgressBar={true}
-						newestOnTop={false}
-						closeOnClick
-						rtl={false}
-						pauseOnFocusLoss
-						draggable
-						pauseOnHover
-					/>
-					{loading ? <Loader /> : children}
-				</Content>
-				{/* <Footer>Footer</Footer> */}
+					<div style={{ padding: "0 15px" }}>
+						<Logo />
+						<Sidebar />
+					</div>
+				</Sider>
+				<Layout>
+					<Nav />
+					<Content
+						// style={{
+						// 	backgroundColor: "rgba(245, 245, 245, 1)",
+						// 	padding: "50px 20px 10px 20px",
+						// }}
+
+						// The previous style above was replaced with the one below cos a different bg needed to be dynamically rendered for mobile view.
+						className={`content ${
+							mobilePadding && `authLayout-no-mobile-padding`
+						}`}
+					>
+						<ToastContainer
+							position="top-right"
+							autoClose={5000}
+							hideProgressBar={true}
+							newestOnTop={false}
+							closeOnClick
+							rtl={false}
+							pauseOnFocusLoss
+							draggable
+							pauseOnHover
+						/>
+						{loading ? <Loader /> : children}
+					</Content>
+					{/* <Footer>Footer</Footer> */}
+				</Layout>
 			</Layout>
-		</Layout>
+
+			<style jsx>{`
+				.content {
+					background-color: rgba(245, 245, 245, 1);
+					padding: 50px 20px 10px 20px;
+				}
+			`}</style>
+		</>
 	);
 };
 

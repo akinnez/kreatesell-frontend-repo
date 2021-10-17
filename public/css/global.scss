@@ -217,5 +217,12 @@ input[type="date"] {
 
 	@include screen("medium") {
 		padding: 1rem;
+		border: none;
+	}
+}
+
+.authLayout-no-mobile-padding {
+	@include screen("tablet") {
+		padding: 10px 0 !important;
 	}
 }

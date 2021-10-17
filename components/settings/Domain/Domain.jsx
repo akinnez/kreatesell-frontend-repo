@@ -1,10 +1,11 @@
-import { EmptyDomain, AllDomains } from "./";
+import { EmptyDomain, AllDomains, CustomDomain } from "./";
 
 const Domain = () => {
 	return (
 		<div>
-			{/* <EmptyDomain /> */}
+			<EmptyDomain />
 			<AllDomains />
+			<CustomDomain />
 		</div>
 	);
 };

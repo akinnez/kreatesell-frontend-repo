@@ -17,7 +17,7 @@ export const EmptyDomain = ({ showHeader = true }) => {
 				</div>
 			)}
 
-			<div className="productBorder mt-4 flex items-center flex-col">
+			<div className="productBorder mt-4 flex items-center flex-col bg-white rounded-lg">
 				<div className="text-base text-black-100 font-medium">
 					Connect an existing domain
 				</div>

@@ -8,7 +8,7 @@ const StoreSettings = () => {
 	const [enableTax, setEnableTax] = useState(false);
 
 	return (
-		<form className="">
+		<form className="bg-white rounded-lg px-3 lg:px-0 py-6 lg:py-0">
 			<div>
 				<h3 className="text-black-100 font-medium text-2xl">Store Settings</h3>
 				<p className="text-sm text-base-gray-200 lg:hidden">
