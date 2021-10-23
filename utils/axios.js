@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getToken } from ".";
+import { getToken, showToast } from ".";
 
-export const baseURL = process.env.BASE_URL
+export const baseURL = process.env.BASE_URL;
 
 class ApiService {
 	constructor(contentType) {
@@ -31,7 +31,13 @@ class ApiService {
 	handleSuccess = (response) => response;
 
 	handleError = (error) => {
-		// const status = error?.response?.status;
+		const status = error?.response?.status;
+		if (status === 401) {
+			localStorage.clear();
+			sessionStorage.clear();
+			window.location.href = "/login";
+			showToast("You need to be logged in to access resource", "info");
+		}
 		return Promise.reject(error?.response?.data);
 	};
 
@@ -53,7 +59,7 @@ class ApiService {
 					url: path,
 					responseType: "json",
 				})
-				.then((response) =>callback(response), errorCallback);
+				.then((response) => callback(response), errorCallback);
 		} else {
 			return this.service
 				.request({

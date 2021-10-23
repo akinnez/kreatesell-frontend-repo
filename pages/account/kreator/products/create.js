@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { CreateProductTab, CheckoutProductTab } from "components";
 import Tab, { TabItem } from "components/tab";
 import AuthLayout from "../../../../components/authlayout";
@@ -17,6 +17,7 @@ const CreateProduct = () => {
 					titles={["Product Design", "Checkout", "Design and Content"]}
 					active={productTab}
 					onSelect={(e) => setProductTab(e)}
+					key={productTab}
 				>
 					{/* <TabItem>
 						<CreateProductTab />

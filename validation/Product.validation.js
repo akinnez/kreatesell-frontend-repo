@@ -11,11 +11,20 @@ export const CreateProductSchema = () => {
 		product_visibility_status: Yup.number().required(
 			"Product Visibility status is required"
 		),
+		preorder_details: {
+			preorder_release_date: Yup.date(),
+			is_preorder_downloadable: Yup.boolean(),
+		},
+		product_type_id: Yup.number(),
+		content_file_details: {
+			product_files: Yup.string(),
+			file_access_type: Yup.number(),
+		},
 		// upload_preview: true,
 		// product_visibility_status: 0,
 		// is_preview_only: true,
 		// redirect_buyer: true,
-		// cover_image: "string",
+		cover_image: Yup.string(),
 	});
 };
 

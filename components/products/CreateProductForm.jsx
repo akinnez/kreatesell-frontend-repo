@@ -10,16 +10,30 @@ import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
 import { CreateProductSchema } from "validation/Product.validation";
 import filesize from "filesize";
-import { SetProductTab } from "redux/actions";
+import { SetProductTab, GetListingStatus, CreateProduct } from "redux/actions";
+import { format } from "date-fns";
+import { useSelector } from "react-redux";
+import { date } from "yup/lib/locale";
 
-export const CreateProductForm = ({ productType = "digitalDownload" }) => {
+export const CreateProductForm = ({
+	productType = "digitalDownload",
+	productTypeId,
+}) => {
 	const setProductTab = SetProductTab();
+	const getListingStatus = GetListingStatus();
+	const createProduct = CreateProduct();
+
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
+
+	const { listingStatus } = useSelector((state) => state.product);
+
+	// console.log("productTypeId --->", productTypeId);
 
 	const [files, setFiles] = useState([]);
 	const [preview, setPreview] = useState([]);
 	// console.log("files --->", files);
+	// console.log("listingStatus --->", listingStatus);
 
 	const removeFile = () => {
 		// console.log("remove file clicked --->");
@@ -32,6 +46,10 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 
 	useEffect(() => {}, [files, preview]);
 
+	// console.log("preview --->", preview);
+	// console.log("files --->", files);
+	// console.log("preview --->", preview);
+
 	const getBase64 = (file) => {
 		return new Promise((resolve, reject) => {
 			const reader = new FileReader();
@@ -40,6 +58,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 			reader.onerror = (error) => reject(error);
 		});
 	};
+
 	const onDrop = async (acceptedFiles) => {
 		setFiles([...files, ...acceptedFiles]);
 		let b64arr = [];
@@ -61,23 +80,49 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 	});
 
 	const initialValues = {
-		product_name: "string",
-		product_description: "string",
+		product_name: "",
+		product_description: "",
 		enable_preorder: false,
 		upload_content: false,
 		product_visibility_status: 0,
+		preorder_details: {
+			preorder_release_date: Date.now(),
+			is_preorder_downloadable: false,
+		},
+		content_file_details: {
+			product_files: "",
+			file_access_type: 0,
+		},
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = (data) => {
+		createProduct(data);
+	};
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: CreateProductSchema,
+		// validationSchema: CreateProductSchema,
 		validateOnChange: false,
 	});
 
 	const { errors, setFieldValue, values } = formik;
+
+	// console.log("formik values -->", values);
+	console.log("formik errors -->", errors);
+
+	useEffect(() => {
+		setFieldValue("product_type_id", productTypeId);
+		setFieldValue("cover_image", preview[0]?.url);
+		setFieldValue(
+			"content_file_details.product_files",
+			preview?.map((item) => item.url)
+		);
+	}, []);
+
+	useEffect(() => {
+		getListingStatus();
+	}, []);
 
 	return (
 		<div className={styles.digitalDownload}>
@@ -87,7 +132,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 				{productType === "membership" && "MEMBERSHIP "}
 			</h5>
 
-			<form className="pt-3">
+			<form className="pt-3" onSubmit={formik.handleSubmit}>
 				<div className={styles.inputCont}>
 					<Input
 						placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
@@ -122,14 +167,14 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 
 							<div
 								className={`${styles.upload} ${
-									files.length > 0 && styles.activeUpload
+									files?.length > 0 && styles.activeUpload
 								}`}
 								{...getRootProps()}
 							>
 								{preview.length > 0 && (
 									<div className="flex justify-between px-4 pt-3 text-base-gray text-sm font-light">
 										<p>{files?.[0]?.name}</p>
-										<p>{filesize(files[0]?.size)}</p>
+										{/* <p>{filesize(files[0]?.size)}</p> */}
 									</div>
 								)}
 								<div className={styles.uploadCont}>
@@ -212,6 +257,12 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 								type="datetime-local"
 								label="Release date & time"
 								className={styles.inputHeight}
+								onChange={(e) => {
+									setFieldValue(
+										"preorder_details.preorder_release_date",
+										e.target.value
+									);
+								}}
 							/>
 						</div>
 					)}
@@ -306,7 +357,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 							text="Save and continue"
 							bgColor="blue"
 							className={styles.digitalBtn}
-							onClick={() => setProductTab(1)}
+							// onClick={() => setProductTab(1)}
 						/>
 					</div>
 				</div>
