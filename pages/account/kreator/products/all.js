@@ -13,9 +13,52 @@ import { ProductsTableData } from "components/tableHeader/dummyTableData";
 import { Pagination } from "antd";
 import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
+import { GetProducts } from "redux/actions";
+import { useEffect, useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 
 const AllProducts = () => {
 	const router = useRouter();
+	const getProducts = GetProducts();
+	const { products, loading } = useSelector((state) => state.product);
+
+	const [productData, setProductData] = useState([]);
+
+	// console.log("productData --->", productData);
+
+	const memoisedProductData = useMemo(
+		() =>
+			productData
+				?.sort((a, b) =>
+					a.product_details?.date_created < b.product_details?.date_created
+						? 1
+						: -1
+				)
+				?.map((item, i) => ({
+					...item,
+					product_name: item?.product_details?.product_name,
+					product_type: item?.product_details?.product_type?.product_type_name,
+					date_created: item?.product_details?.date_created,
+					status: item?.product_details?.status,
+					price: {
+						currency: item?.default_currency,
+						productPrice: item?.default_price,
+					},
+					actions: item,
+				})),
+		[productData]
+	);
+
+	// console.log("memoisedProductData -->", memoisedProductData);
+
+	useEffect(() => {
+		getProducts();
+	}, []);
+
+	useEffect(() => {
+		setProductData(products?.data);
+	}, [products]);
+
 	return (
 		<AuthLayout>
 			<div className={styles.allProduct}>
@@ -44,20 +87,20 @@ const AllProducts = () => {
 				<div className="hidden lg:block mb-16 mt-8">
 					<Table
 						header={AllProductsTableHeader}
-						data={[...ProductsTableData]?.map((item, i) => ({
-							...item,
-							actions: item,
-						}))}
+						data={memoisedProductData}
+						loading={loading}
 					/>
 				</div>
 
-				{ProductsTableData?.map((item, i) => (
+				{memoisedProductData?.map((item, i) => (
 					<MobileProductCard item={item} key={item?.id || i} />
 				))}
 
-				<div className="py-8 lg:pt-0">
-					<Pagination defaultCurrent={1} total={50} />
-				</div>
+				{productData?.length && (
+					<div className="py-8 lg:pt-0">
+						<Pagination defaultCurrent={1} total={50} />
+					</div>
+				)}
 			</div>
 		</AuthLayout>
 	);

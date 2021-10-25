@@ -263,6 +263,67 @@
 }
 
 .productHeader {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+	align-items: center;
+
+	@include screen("tablet") {
+		// grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+
+		// .searchInput {
+		// 	grid-column-start: 0;
+		// 	grid-column-end: 3;
+		// }
+		// .selectToday {
+		// 	grid-column-start: 3;
+		// 	grid-column-end: 5;
+		// }
+
+		// .searchInput {
+		// 	grid-column-start: 1;
+		// 	grid-column-end: 3;
+		// }
+		// .selectToday {
+		// 	grid-column-start: 3;
+		// 	grid-column-end: 5;
+		// }
+
+		// .searchInput {
+		// 	grid-column-start: 1;
+		// 	grid-column-end: 2;
+		// }
+		// .selectToday {
+		// 	grid-column-start: 3;
+		// 	grid-column-end: 4;
+		// }
+
+		//
+		.searchInput {
+			// grid-column-start: 1;
+			// grid-column-end: 2;
+			// grid-area: 1;
+		}
+		.selectToday {
+			grid-column-start: 3;
+			grid-column-end: 5;
+		}
+		//
+		.fromDate {
+			grid-column-start: 1;
+			grid-column-end: 2;
+		}
+		.toDate {
+			grid-column-start: 2;
+			grid-column-end: 3;
+		}
+		.filterCont {
+			grid-column-start: 3;
+			grid-column-end: 4;
+		}
+	}
+
 	.search {
 		height: 2.75rem;
 	}

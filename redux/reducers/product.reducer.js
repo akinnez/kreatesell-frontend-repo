@@ -9,6 +9,8 @@ const initialState = {
 	productTypes: [],
 	pricingTypes: [],
 	listingStatus: [],
+	// productID: null,
+	productID: "KREATE-moulders637707602111416508",
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -49,6 +51,9 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 
 		case types.SET_PRODUCT_TAB.REQUEST:
 			return { ...state, productTab: payload };
+
+		case types.SET_PRODUCT_ID.REQUEST:
+			return { ...state, productID: payload };
 
 		default:
 			return state;

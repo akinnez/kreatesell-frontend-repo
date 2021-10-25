@@ -1,7 +1,7 @@
 import axios from "../../utils/axios";
 import * as types from "../types";
 import { useDispatch } from "react-redux";
-// import { showToast } from "../../utils";
+import { showToast } from "utils";
 
 export const CreateProduct = () => {
 	const dispatch = useDispatch();
@@ -11,12 +11,16 @@ export const CreateProduct = () => {
 			`post`,
 			`v1/kreatesell/product/create-edit`,
 			(res) => {
-				console.log("create product res -->", res);
+				console.log("create edit response ===>", res);
 				dispatch({ type: types.CREATE_PRODUCT.SUCCESS, payload: res });
+				showToast(res?.message, "info");
 				successCallback?.();
 			},
 			(err) => {
+				console.log("create edit error ===>", err);
+
 				dispatch({ type: types.CREATE_PRODUCT.FAILURE, payload: err });
+				showToast(err?.message, "error");
 				errorCallback?.();
 			},
 			data
@@ -29,14 +33,18 @@ export const GetProductByID = () => {
 	return (productID, successCallback, errorCallback) => (
 		dispatch({ type: types.GET_PRODUCT_BY_ID.REQUEST }),
 		axios.request(
-			`post`,
+			`get`,
 			`v1/kreatesell/product/get/${productID}`,
 			(res) => {
-				dispatch({ type: types.GET_PRODUCT_BY_ID.SUCCESS, payload: res });
+				dispatch({
+					type: types.GET_PRODUCT_BY_ID.SUCCESS,
+					payload: res?.data?.data,
+				});
 				successCallback?.();
 			},
 			(err) => {
 				dispatch({ type: types.GET_PRODUCT_BY_ID.FAILURE, payload: err });
+				showToast(err?.message, "error");
 				errorCallback?.();
 			},
 			productID
@@ -58,6 +66,7 @@ export const GetProducts = () => {
 			},
 			(err) => {
 				dispatch({ type: types.GET_ALL_PRODUCTS.FAILURE, payload: err });
+				showToast(err?.message, "error");
 				errorCallback?.();
 			}
 		)
@@ -102,6 +111,7 @@ export const GetPricingTypes = () => {
 			},
 			(err) => {
 				dispatch({ type: types.GET_PRICING_TYPES.FAILURE, payload: err });
+				showToast(err?.message, "error");
 				errorCallback?.();
 			}
 		)
@@ -116,7 +126,6 @@ export const GetListingStatus = () => {
 			`get`,
 			`v1/kreatesell/product/get-listing-status`,
 			(res) => {
-				// console.log("lisiting ===>", res);
 				dispatch({
 					type: types.GET_LISTING_STATUS.SUCCESS,
 					payload: res?.data?.listing_status,
@@ -131,11 +140,44 @@ export const GetListingStatus = () => {
 	);
 };
 
+export const DuplicateProductAction = () => {
+	const dispatch = useDispatch();
+	return (productId, successCallback, errorCallback) => (
+		dispatch({ type: types.DUPLICATE_PRODUCT.REQUEST }),
+		axios.request(
+			`post`,
+			`v1/kreatesell/product/duplicate?productId=${productId}`,
+			(res) => {
+				dispatch({
+					type: types.DUPLICATE_PRODUCT.SUCCESS,
+					payload: res?.data?.listing_status,
+				});
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.DUPLICATE_PRODUCT.FAILURE, payload: err });
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
+		)
+	);
+};
+
 export const SetProductTab = () => {
 	const dispatch = useDispatch();
 	return (tab, successCallback, errorCallback) =>
 		dispatch({
 			type: types.SET_PRODUCT_TAB.REQUEST,
 			payload: tab,
+		});
+};
+
+export const SetProductID = () => {
+	const dispatch = useDispatch();
+	return (productID, successCallback, errorCallback) =>
+		dispatch({
+			type: types.SET_PRODUCT_ID.REQUEST,
+			payload: productID,
 		});
 };

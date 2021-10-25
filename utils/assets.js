@@ -71,6 +71,7 @@ import CloudUpload from "../public/images/CloudUpload.svg";
 import ClockCircle from "../public/images/ClockCircle.svg";
 import DeleteOutline from "../public/images/delete-outline.svg";
 import Lock from "../public/images/Lock.svg";
+import EmptyDataTable from "../public/images/empty-data.svg";
 
 export {
 	KreateSellBrand,
@@ -146,4 +147,5 @@ export {
 	ClockCircle,
 	DeleteOutline,
 	Lock,
+	EmptyDataTable,
 };
