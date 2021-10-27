@@ -9,8 +9,8 @@ const initialState = {
 	productTypes: [],
 	pricingTypes: [],
 	listingStatus: [],
-	// productID: null,
-	productID: "KREATE-moulders637707602111416508",
+	productID: "",
+	productPagination: {},
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -23,8 +23,11 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.GET_LISTING_STATUS.REQUEST:
 			return { ...state, loading: true };
 
+		// case types.GET_ALL_PRODUCTS.SUCCESS:
+		// 	return { ...state, loading: false, products: payload };
+
 		case types.GET_ALL_PRODUCTS.SUCCESS:
-			return { ...state, loading: false, products: payload };
+			return { ...state, loading: false, ...payload };
 
 		case types.CREATE_PRODUCT.SUCCESS:
 			return { ...state, loading: false, ...payload };

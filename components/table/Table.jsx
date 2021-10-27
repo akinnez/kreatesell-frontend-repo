@@ -14,17 +14,17 @@ export const Table = ({ header, data, loading }) => {
 					</tr>
 				</thead>
 
-				{data?.length && (
+				{Boolean(data?.length) && (
 					<tbody className="t-body">
 						{data?.map((data, i) => (
-							<tr key={data.id || i}>
+							<tr key={data?.id || i}>
 								{header?.map((item, i) =>
-									item.component ? (
+									item?.component ? (
 										<td key={i}>
-											{item.component({ item: data[item.key], data })}
+											{item.component({ item: data[item?.key], data })}
 										</td>
 									) : (
-										<td key={i}>{data[item.key]}</td>
+										<td key={i}>{data[item?.key]}</td>
 									)
 								)}
 							</tr>
@@ -33,7 +33,7 @@ export const Table = ({ header, data, loading }) => {
 				)}
 			</table>
 
-			{!data?.length && (
+			{!Boolean(data?.length) && (
 				<div className="w-full h-full flex flex-col items-center justify-center p-8">
 					<div>
 						<Image src={EmptyDataTable} />

@@ -54,14 +54,25 @@ export const GetProductByID = () => {
 
 export const GetProducts = () => {
 	const dispatch = useDispatch();
-	return (successCallback, errorCallback) => (
+	return (page = 1, successCallback, errorCallback) => (
 		dispatch({ type: types.GET_ALL_PRODUCTS.REQUEST }),
 		axios.request(
 			`get`,
-			`v1/kreatesell/product/fetch/all`,
+			// `v1/kreatesell/product/fetch/all`,
+			`v1/kreatesell/product/fetch/all?page=${page}`,
 			(res) => {
-				console.log("all products -->", res);
-				dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload: res?.data });
+				// console.log("all products -->", res);
+				const products = res?.data?.data;
+				const data = res?.data;
+
+				delete data?.data;
+				// console.log("array of data --->", products);
+				const payload = {
+					products,
+					productPagination: { ...data },
+				};
+				// dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload: res?.data });
+				dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload });
 				successCallback?.();
 			},
 			(err) => {

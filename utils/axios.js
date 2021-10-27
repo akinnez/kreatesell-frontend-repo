@@ -32,6 +32,13 @@ class ApiService {
 
 	handleError = (error) => {
 		const status = error?.response?.status;
+
+		if (error?.response?.data?.message === "Please login to continue") {
+			localStorage.clear();
+			sessionStorage.clear();
+			window.location.href = "/login";
+		}
+
 		if (status === 401) {
 			localStorage.clear();
 			sessionStorage.clear();

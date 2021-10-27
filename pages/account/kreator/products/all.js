@@ -9,7 +9,7 @@ import { DownloadIcon } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
-import { ProductsTableData } from "components/tableHeader/dummyTableData";
+// import { ProductsTableData } from "components/tableHeader/dummyTableData";
 import { Pagination } from "antd";
 import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
@@ -20,11 +20,13 @@ import { useSelector } from "react-redux";
 const AllProducts = () => {
 	const router = useRouter();
 	const getProducts = GetProducts();
-	const { products, loading } = useSelector((state) => state.product);
+	const { products, loading, productPagination } = useSelector(
+		(state) => state.product
+	);
+
+	const { page, total_records } = productPagination;
 
 	const [productData, setProductData] = useState([]);
-
-	// console.log("productData --->", productData);
 
 	const memoisedProductData = useMemo(
 		() =>
@@ -49,15 +51,15 @@ const AllProducts = () => {
 		[productData]
 	);
 
-	// console.log("memoisedProductData -->", memoisedProductData);
-
 	useEffect(() => {
 		getProducts();
 	}, []);
 
 	useEffect(() => {
-		setProductData(products?.data);
+		setProductData(products);
 	}, [products]);
+
+	const handlePaginationChange = (page) => getProducts(page);
 
 	return (
 		<AuthLayout>
@@ -98,7 +100,13 @@ const AllProducts = () => {
 
 				{productData?.length && (
 					<div className="py-8 lg:pt-0">
-						<Pagination defaultCurrent={1} total={50} />
+						<Pagination
+							defaultCurrent={1}
+							onChange={handlePaginationChange}
+							current={page}
+							total={total_records}
+							defaultPageSize={10}
+						/>
 					</div>
 				)}
 			</div>

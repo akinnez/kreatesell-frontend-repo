@@ -4,9 +4,18 @@ import Image from "next/image";
 import { dayOptions } from "./partials";
 import styles from "../../public/css/Dashboard.module.scss";
 import { format } from "date-fns";
+// import { useEffect } from "react";
 
-export const ProductHeader = () => {
+export const ProductHeader = ({
+	handleSearchInput,
+	handleDurationInput,
+	handleProductTypeInput,
+	handleDateFromInput,
+	handleDateToInput,
+}) => {
 	const fmtDt = format(Date.now(), "yyyy-MM-dd");
+
+	// useEffect(() => {}, [handleSearchInput]);
 
 	return (
 		<div className={`w-full ${styles.productHeader}`}>
@@ -15,7 +24,11 @@ export const ProductHeader = () => {
 		> */}
 			<div className={`pt-5 w-full ${styles.searchInput}`}>
 				<p className={styles.label}>Search</p>
-				<Input placeholder="Search" className={styles.search} />
+				<Input
+					placeholder="Search"
+					className={styles.search}
+					onChange={handleSearchInput}
+				/>
 			</div>
 
 			<div className={`w-full hidden lg:block ${styles.selectToday}`}>

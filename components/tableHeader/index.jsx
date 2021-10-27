@@ -305,14 +305,14 @@ export const AllProductsTableHeader = [
 					{item.slice(0, 30)}...
 					<div className="tooltipText flex justify-between items-center">
 						<span className="text-black-100">Go to link: </span>
-						<a
+						<span
 							href={item}
 							target="_blank"
 							className="pl-2 pr-4"
 							rel="noopener noreferrer"
 						>
 							{item}
-						</a>
+						</span>
 						<span
 							className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
 							onClick={() => _copyToClipboard(item, "Product Link Copied")}
