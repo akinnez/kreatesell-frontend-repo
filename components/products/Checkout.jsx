@@ -1,14 +1,28 @@
 import { Input, CheckoutForm } from "components";
 import { Radio } from "components/inputPack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { GetPricingTypes } from "redux/actions";
 import styles from "./Checkout.module.scss";
 
 export const CheckoutProductTab = () => {
+	const getPricingTypes = GetPricingTypes();
+	const { pricingTypes } = useSelector((state) => state.product);
+
+	useEffect(() => {
+		getPricingTypes();
+	}, []);
+
+	const filterPriceType = (id) =>
+		pricingTypes?.filter((item) => item.id === id);
+
+	const fixedPrice = filterPriceType(1);
+	const payWhatYouWant = filterPriceType(2);
+	const installment = filterPriceType(3);
+	const freePrice = filterPriceType(4);
+
 	const [priceType, setPriceType] = useState(0);
 	const [ctaBtnText, setCtaBtnText] = useState("");
-	// const [free, setFree] = useState("");
-	// const [installment, setInstallment] = useState("");
-	// const [payWhatever, setPayWhatever] = useState("");
 
 	return (
 		<div className={`px-0 lg:px-8 ${styles.container}`}>
@@ -36,7 +50,7 @@ export const CheckoutProductTab = () => {
 					<Radio
 						value={priceType}
 						content={0}
-						label="Fixed Price"
+						label={fixedPrice[0]?.price_types}
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.radioLabelStyle}
 					/>
@@ -46,7 +60,7 @@ export const CheckoutProductTab = () => {
 					<Radio
 						value={priceType}
 						content={1}
-						label="Pay What You Want"
+						label={payWhatYouWant[0]?.price_types}
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.radioLabelStyle}
 					/>
@@ -56,7 +70,7 @@ export const CheckoutProductTab = () => {
 					<Radio
 						value={priceType}
 						content={2}
-						label="Installment Payment"
+						label={installment[0]?.price_types}
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.radioLabelStyle}
 					/>
@@ -66,7 +80,7 @@ export const CheckoutProductTab = () => {
 					<Radio
 						value={priceType}
 						content={3}
-						label="Make It Free"
+						label={freePrice[0]?.price_types}
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.disabledRadio}
 					/>

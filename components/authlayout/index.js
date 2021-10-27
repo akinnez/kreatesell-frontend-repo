@@ -10,6 +10,8 @@ import { getCountries } from "../../redux/actions/utilityActions";
 import { getStore } from "../../redux/actions/store.actions";
 import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
+import { showToast, _isUserLoggedIn } from "utils";
+import { useRouter } from "next/router";
 
 const Loader = () => {
 	return (
@@ -34,6 +36,14 @@ const Loader = () => {
 
 const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
 	const { Header, Footer, Sider, Content } = Layout;
+	const router = useRouter();
+
+	useEffect(() => {
+		if (!_isUserLoggedIn()) {
+			showToast("Login required to view page", "info");
+			return router.push("/login");
+		}
+	}, []);
 
 	return (
 		<>

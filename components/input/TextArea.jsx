@@ -8,6 +8,7 @@ export const TextArea = ({
 	cols = 36,
 	placeholder,
 	labelStyle,
+	...rest
 }) => {
 	return (
 		<div className={`flex flex-col my-2 ${styles.textareaContainer}`}>
@@ -20,6 +21,7 @@ export const TextArea = ({
 
 			<div>
 				<textarea
+					{...rest}
 					name={name}
 					placeholder={placeholder}
 					id=""

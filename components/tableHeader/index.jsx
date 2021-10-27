@@ -11,21 +11,42 @@ import {
 } from "utils";
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "antd";
 import { Button } from "components";
 import { useRouter } from "next/router";
+import { format, parseISO } from "date-fns";
+import {
+	DuplicateProductAction,
+	GetProducts,
+	CreateProduct,
+	SetProductID,
+} from "redux/actions";
 
 export const MobileProductCard = ({ item }) => {
 	const [showAction, setShowAction] = useState(false);
+
+	const time = parseISO(item?.date_created);
+	const formatTime = format(time, "PPpp");
+
+	const statusList = {
+		1: "Draft",
+		2: "Live",
+		3: "Deativate",
+		4: "Flagged",
+		5: "Revoked",
+	};
+
+	const status = statusList[item?.status]?.toLowerCase();
+
 	return (
 		<div
 			className="block lg:hidden bg-white my-4 rounded-lg p-4"
-			key={item?.id}
+			key={item?.product_details?.id}
 		>
 			<div className="flex justify-between items-center">
-				<div className="text-base-gray text-sm">{item?.createdAt}</div>
-				<div className={`status-${item?.status}`}>{item?.status}</div>
+				<div className="text-base-gray text-sm">{formatTime}</div>
+				<div className={`status-${status}`}>{status}</div>
 				<div>
 					<div
 						onClick={() => {
@@ -47,31 +68,31 @@ export const MobileProductCard = ({ item }) => {
 				<div className="flex w-full">
 					<div className="w-1/2">
 						<h4 className="text-black-100 text-sm font-semibold">Product</h4>
-						<p className=" text-base-gray text-sm pt-2">{item?.Product}</p>
+						<p className=" text-base-gray text-sm pt-2">{item?.product_name}</p>
 					</div>
 					<div className="w-1/2">
 						<h4 className="text-black-100 text-sm font-semibold">
 							Product Link
 						</h4>
-						<p className="text-base-gray text-sm pt-2">
+						<p className="text-base-gray text-sm pt-2 overflow-hidden overflow-ellipsis">
 							<a
-								href={item?.ProductLink}
+								href={item?.product_link}
 								target="_blank"
 								rel="noopener noreferrer"
 								className={`${
-									item?.status === "revoked" &&
+									status === "revoked" &&
 									"text-base-gray cursor-default pointer-events-none"
 								} ${
-									item?.status === "flagged" &&
+									status === "flagged" &&
 									"text-base-gray cursor-default pointer-events-none"
 								}`}
 								onClick={() => {
-									if (item?.status == "flagged" || "revoked") {
+									if (status == "flagged" || "revoked") {
 										return false;
 									}
 								}}
 							>
-								{item?.ProductLink}
+								{item?.product_link}
 							</a>
 						</p>
 					</div>
@@ -86,7 +107,9 @@ export const MobileProductCard = ({ item }) => {
 					</div>
 					<div className="w-1/2">
 						<h4 className="text-black-100 text-sm font-semibold pt-4">Price</h4>
-						<p className="text-base-gray text-sm pt-2">NGN {item?.Price}</p>
+						<p className="text-base-gray text-sm pt-2">
+							{item.price.currency} {item?.price?.productPrice}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -118,21 +141,46 @@ const ModalPrompt = ({ handleCancel, onOk, modalText }) => {
 };
 
 const StatusComponent = ({ item }) => {
+	const statusList = {
+		1: "Draft",
+		2: "Live",
+		3: "Deactivated",
+		4: "Flagged",
+		5: "Revoked",
+	};
+
+	const statusTextList = {
+		1: "You need to complete the editing of this product before it is published.",
+		2: "Your product will go live and visible to audience for purchase once you complete creating the sales page.",
+		3: " No one can see this product. You may reactivate it anytime you like.",
+		4: "Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment.",
+		5: " Product violated copyright terms and has been removed permanently.",
+	};
+
+	const status = statusList[item]?.toLowerCase();
+	const statusText = statusTextList[item];
+
 	return (
 		<div>
-			<div className={`status-${item} ${styles.tooltip}`}>
-				{item}
-				<span className={styles.tooltiptext}>
-					Your product will go live and visible to audience for purchase once
-					you complete creating the sales page.
-				</span>
+			<div className={`status-${status} ${styles.tooltip}`}>
+				{status}
+				<span className={styles.tooltiptext}>{statusText}</span>
 			</div>
 		</div>
 	);
 };
 
 const ActionComponent = ({ item, showAction }) => {
+	const router = useRouter();
+	const duplicateProduct = DuplicateProductAction();
+	const getProducts = GetProducts();
+	const createEditDeleteProduct = CreateProduct();
+	const setProductID = SetProductID();
+	const id = item?.product_details?.id;
+	const kreasell_product_id = item?.product_details?.kreasell_product_id;
+
 	const [menu, setMenu] = useState(false);
+
 	const [modalVisible, setVisible] = useState(false);
 	const [modalText, setModalText] = useState("");
 
@@ -145,10 +193,15 @@ const ActionComponent = ({ item, showAction }) => {
 		setVisible(false);
 	};
 
-	const router = useRouter();
+	/**Used to delete and deactivate product */
+	const handleModalOk = () => {
+		createEditDeleteProduct({ product_id: id, action: "d" }, () => {
+			getProducts();
+		});
+	};
 
 	return (
-		<div className="relative" key={item.id}>
+		<div className="relative" key={id}>
 			<div
 				className="hidden lg:block cursor-pointer pl-4"
 				onClick={() =>
@@ -164,36 +217,46 @@ const ActionComponent = ({ item, showAction }) => {
 				}`}
 			>
 				<ul>
-					<li onClick={() => router.push("/account/kreator/products/create")}>
+					<li
+						onClick={() => {
+							setProductID(kreasell_product_id);
+							router.push("/account/kreator/products/create");
+						}}
+					>
 						<span>
 							<Image src={EditProduct} />
 						</span>
 						<p>Edit</p>
 					</li>
+
 					<li>
 						<span>
 							<Image src={ManageProduct} />
 						</span>
 						<p>Manage Product</p>
 					</li>
+
 					<li>
 						<span>
 							<Image src={ViewSales} />
 						</span>
 						<p>View Sales</p>
 					</li>
-					<li>
+
+					<li onClick={() => duplicateProduct(id, () => getProducts())}>
 						<span>
 							<Image src={DuplicateProduct} />
 						</span>
 						<p>Duplicate</p>
 					</li>
+
 					<li onClick={() => showModal("deactivate")}>
 						<span>
 							<Image src={DeactvateProduct} />
 						</span>
 						<p>Deactivate (Unpublish)</p>
 					</li>
+
 					<li onClick={() => showModal("delete")}>
 						<span>
 							<Image src={DeleteProduct} />
@@ -206,7 +269,7 @@ const ActionComponent = ({ item, showAction }) => {
 			<Modal
 				title=""
 				visible={modalVisible}
-				onOk={handleCancel}
+				onOk={handleModalOk}
 				onCancel={handleCancel}
 				footer=""
 				closable={false}
@@ -215,7 +278,7 @@ const ActionComponent = ({ item, showAction }) => {
 			>
 				<ModalPrompt
 					handleCancel={handleCancel}
-					onOk={handleCancel}
+					onOk={handleModalOk}
 					modalText={modalText}
 				/>
 			</Modal>
@@ -226,11 +289,11 @@ const ActionComponent = ({ item, showAction }) => {
 export const AllProductsTableHeader = [
 	{
 		title: "Product",
-		key: "Product",
+		key: "product_name",
 	},
 	{
 		title: "Product Link",
-		key: "ProductLink",
+		key: "product_link",
 		component: ({ item }) => (
 			<div className="">
 				<a
@@ -242,14 +305,14 @@ export const AllProductsTableHeader = [
 					{item.slice(0, 30)}...
 					<div className="tooltipText flex justify-between items-center">
 						<span className="text-black-100">Go to link: </span>
-						<a
+						<span
 							href={item}
 							target="_blank"
 							className="pl-2 pr-4"
 							rel="noopener noreferrer"
 						>
 							{item}
-						</a>
+						</span>
 						<span
 							className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
 							onClick={() => _copyToClipboard(item, "Product Link Copied")}
@@ -263,16 +326,25 @@ export const AllProductsTableHeader = [
 	},
 	{
 		title: "Product Type",
-		key: "ProductType",
+		key: "product_type",
 	},
 	{
 		title: "Price",
-		key: "Price",
-		component: ({ item }) => <div>NGN {item}</div>,
+		key: "price",
+		component: ({ item }) => (
+			<div>
+				{item?.currency} {item?.productPrice || "0.00"}
+			</div>
+		),
 	},
 	{
 		title: "Date Added",
-		key: "createdAt",
+		key: "date_created",
+		component: ({ item }) => {
+			const time = parseISO(item);
+			const formatTime = format(time, "PPpp");
+			return <div>{formatTime}</div>;
+		},
 	},
 	{
 		title: "Status",
