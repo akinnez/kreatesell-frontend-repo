@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const CreateProductSchema = () => {
+export const DigitalProductSchema = () => {
 	return Yup.object().shape({
 		product_name: Yup.string().required("Product name is required"),
 		product_description: Yup.string().required(
@@ -27,6 +27,22 @@ export const CreateProductSchema = () => {
 		cover_image: Yup.string(),
 	});
 };
+
+export const oneTimeSubscriptionAndMembershipSchema = () => {
+	return Yup.object().shape({
+		product_name: Yup.string().required("Product name is required"),
+		product_description: Yup.string().required(
+			"Product description is required"
+		),
+		product_visibility_status: Yup.number().required(
+			"Product Visibility status is required"
+		),
+		product_type_id: Yup.number(),
+		cover_image: Yup.string(),
+	});
+};
+
+export const membershipProductSchema = () => {};
 
 export const CheckoutProductSchema = () => {
 	return Yup.object().shape({

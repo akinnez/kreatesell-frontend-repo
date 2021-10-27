@@ -8,7 +8,12 @@ import { Radio } from "components/inputPack";
 import { Switch } from "antd";
 import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
-import { CreateProductSchema } from "validation/Product.validation";
+import {
+	DigitalProductSchema,
+	// oneTimeSubscriptionSchema,
+	oneTimeSubscriptionAndMembershipSchema,
+	membershipProductSchema,
+} from "validation";
 import filesize from "filesize";
 import {
 	SetProductTab,
@@ -23,6 +28,7 @@ export const CreateProductForm = ({
 	productType = "digitalDownload",
 	productTypeId,
 }) => {
+	console.log("productType -->", productType);
 	const setProductTab = SetProductTab();
 	const getListingStatus = GetListingStatus();
 	const createProduct = CreateProduct();
@@ -38,6 +44,7 @@ export const CreateProductForm = ({
 
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
+	console.log("files length -->", files);
 
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);
@@ -74,11 +81,10 @@ export const CreateProductForm = ({
 		product_visibility_status: 0,
 		upload_preview: false,
 		preorder_details: {
-			preorder_release_date: Date.now(),
+			preorder_release_date: "",
 			is_preorder_downloadable: true,
 		},
 		content_file_details: {
-			// product_files: "",
 			product_files: [""],
 			file_access_type: 1,
 		},
@@ -86,22 +92,33 @@ export const CreateProductForm = ({
 	};
 
 	const handleSubmit = (data) => {
+		if (["oneTimeSubscription", "membership"].includes(productType)) {
+			delete data?.content_file_details;
+			delete data?.preorder_details;
+			delete data?.enable_preorder;
+			delete data?.upload_content;
+			delete data?.upload_preview;
+		}
 		createProduct(data, () => {
 			setProductTab(1);
 		});
 	};
 
+	// digitalDownload;
+	// oneTimeSubscription;
+	// membership;
+
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		// validationSchema: CreateProductSchema,
+		validationSchema:
+			productType === "digitalDownload"
+				? DigitalProductSchema
+				: oneTimeSubscriptionAndMembershipSchema,
 		validateOnChange: false,
 	});
 
 	const { errors, setFieldValue, values } = formik;
-
-	// console.log("formik values -->", values);
-	// console.log("formik errors -->", errors);
 
 	useEffect(() => {
 		setFieldValue("product_type_id", productTypeId);
@@ -113,7 +130,7 @@ export const CreateProductForm = ({
 	}, [setFieldValue, preview, productTypeId, productFilePreview]);
 
 	useEffect(() => {
-		if (files.length) {
+		if (files.length > 0) {
 			setFieldValue("upload_preview", true);
 		} else {
 			setFieldValue("upload_preview", false);
@@ -221,11 +238,7 @@ export const CreateProductForm = ({
 							<div className={`w-full lg:w-1/2 p-2 ${styles.noImage}`}>
 								<div
 									className="z-10 float-right cursor-pointer"
-									// onClick={() => removeFile()}
-									onClick={() => {
-										console.log("remove file clikced --->");
-										removeFile();
-									}}
+									onClick={() => removeFile()}
 								>
 									<DeleteIcon color="#FF4D4F" />
 								</div>
