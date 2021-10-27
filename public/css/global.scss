@@ -209,3 +209,20 @@ input[type="date"] {
 .red {
 	border: 2px solid red;
 }
+
+.productBorder {
+	border: 1px solid $gray-100;
+	border-radius: 0.5rem;
+	padding: 2rem;
+
+	@include screen("medium") {
+		padding: 1rem;
+		border: none;
+	}
+}
+
+.authLayout-no-mobile-padding {
+	@include screen("tablet") {
+		padding: 10px 0 !important;
+	}
+}

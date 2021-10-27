@@ -89,7 +89,6 @@ const Sidebar = () => {
 					title="Products"
 					className={style.subMenu}
 					expandIcon={<CloseSubMenu />}
-					defaultOpenKeys={34}
 				>
 					<Menu.Item
 						key={35}

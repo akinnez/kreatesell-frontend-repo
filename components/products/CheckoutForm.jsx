@@ -2,13 +2,15 @@ import { Percentage, Radio } from "components/inputPack";
 import { Input, Button, ProductInput } from "components";
 import { Switch } from "antd";
 import styles from "./Checkout.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { CloudUpload } from "utils";
 import Image from "next/image";
 import { Select } from "components/select/Select";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
+	// console.log("ctaBtnText -->", ctaBtnText);
+	// console.log("priceType -->", priceType);
 	/**
 	 * PriceType Values
 	 * FixedPrice: 0
@@ -26,6 +28,29 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [showTotalSales, setShowTotalSales] = useState(false);
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
+	const [sellingPrice, setSellingPrice] = useState([]);
+
+	const [priceData, setPriceData] = useState({
+		currency_name: "",
+		currency_value: 0,
+	});
+
+	const { currency_name, currency_value } = priceData;
+
+	const handleSellingPriceChange = async ({
+		currency_name,
+		currency_value,
+	}) => {
+		setPriceData((data) => ({
+			...data,
+			currency_name,
+			currency_value,
+		}));
+	};
+
+	useEffect(() => {
+		setSellingPrice((e) => [...e, priceData]);
+	}, [currency_name, currency_value]);
 
 	const onDrop = () => {};
 
@@ -33,14 +58,41 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		onDrop,
 	});
 
+	const initialValues = {
+		checkout: {
+			cta_button: "",
+		},
+	};
+
 	return (
 		<form>
 			{[0].includes(priceType) && (
 				<div>
 					<p className="text-base mb-2">Selling Price</p>
 					<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-						<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-						<ProductInput prefix="GBP" name="GBP" placeholder="0" />
+						<ProductInput
+							prefix="NGN"
+							name="NGN"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "NGN",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
+
+						<ProductInput
+							prefix="GBP"
+							name="GBP"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "GBP",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
 						<ProductInput prefix="KES" name="KES" placeholder="0" />
 						<ProductInput prefix="TZS" name="TZS" placeholder="0" />
 						<ProductInput prefix="USD" name="USD" placeholder="0" />

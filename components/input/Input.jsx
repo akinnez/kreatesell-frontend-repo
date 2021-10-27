@@ -10,6 +10,7 @@ export const Input = ({
 	name,
 	labelStyle,
 	errorMessage,
+	height = "default", //default or small
 	...rest
 }) => {
 	return (
@@ -22,9 +23,9 @@ export const Input = ({
 				type={type}
 				placeholder={placeholder}
 				name={name}
-				className={`${rest.className} ${type === "search" && styles.search} ${
-					styles.input
-				}`}
+				className={`${rest.className} ${
+					height === "small" && styles.smallHeight
+				} ${type === "search" && styles.search} ${styles.input}`}
 			/>
 			{errorMessage && (
 				<p className="text-red-600 text-sm pt-2">{errorMessage}</p>

@@ -8,76 +8,144 @@ import { Radio } from "components/inputPack";
 import { Switch } from "antd";
 import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
-import { CreateProductSchema } from "validation/Product.validation";
+import {
+	DigitalProductSchema,
+	// oneTimeSubscriptionSchema,
+	oneTimeSubscriptionAndMembershipSchema,
+	membershipProductSchema,
+} from "validation";
 import filesize from "filesize";
-import { SetProductTab } from "redux/actions";
+import {
+	SetProductTab,
+	GetListingStatus,
+	CreateProduct,
+	GetProductByID,
+} from "redux/actions";
+import { useSelector } from "react-redux";
+import { useUpload } from "hooks";
 
-export const CreateProductForm = ({ productType = "digitalDownload" }) => {
+export const CreateProductForm = ({
+	productType = "digitalDownload",
+	productTypeId,
+}) => {
+	console.log("productType -->", productType);
 	const setProductTab = SetProductTab();
+	const getListingStatus = GetListingStatus();
+	const createProduct = CreateProduct();
+	const getProductByID = GetProductByID();
+
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
 
+	/**product is for single product fetched by ID */
+	const { listingStatus, loading, productID, product } = useSelector(
+		(state) => state.product
+	);
+
 	const [files, setFiles] = useState([]);
-	const [preview, setPreview] = useState([]);
-	// console.log("files --->", files);
+	const [productFile, setProductFile] = useState([]);
+	console.log("files length -->", files);
 
-	const removeFile = () => {
-		// console.log("remove file clicked --->");
-		// files.pop();
-		// preview.pop();
-		setFiles([]);
-		setPreview([]);
-		// console.log("files after removing --->", files);
-	};
+	const filterListingStatus = (id) =>
+		listingStatus?.filter((item) => item.id === id);
 
-	useEffect(() => {}, [files, preview]);
+	const activateStatus = filterListingStatus(1);
+	const deActivateStatus = filterListingStatus(2);
+	const unListStatus = filterListingStatus(3);
 
-	const getBase64 = (file) => {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = () => resolve(reader.result);
-			reader.onerror = (error) => reject(error);
-		});
-	};
-	const onDrop = async (acceptedFiles) => {
-		setFiles([...files, ...acceptedFiles]);
-		let b64arr = [];
-		const pr_arr = await acceptedFiles.map(
-			(item, i) =>
-				new Promise(async (res, rej) => {
-					let b64 = await getBase64(item);
-					b64arr.push({ url: b64, index: i });
-					res(null);
-				})
-		);
+	const {
+		files: customFile,
+		preview,
+		getRootProps,
+		getInputProps,
+		removeFile,
+	} = useUpload({
+		setFileChange: setFiles,
+	});
 
-		await Promise.all(pr_arr);
-		setPreview([...preview, ...b64arr]);
-	};
-
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
-		onDrop,
+	const {
+		files: productFileFile,
+		preview: productFilePreview,
+		getRootProps: getProductFileRootProps,
+		getInputProps: getProductFileInputProps,
+		removeFile: removeProductFile,
+	} = useUpload({
+		setFileChange: setProductFile,
 	});
 
 	const initialValues = {
-		product_name: "string",
-		product_description: "string",
+		product_name: "",
+		product_description: "",
 		enable_preorder: false,
 		upload_content: false,
 		product_visibility_status: 0,
+		upload_preview: false,
+		preorder_details: {
+			preorder_release_date: "",
+			is_preorder_downloadable: true,
+		},
+		content_file_details: {
+			product_files: [""],
+			file_access_type: 1,
+		},
+		action: "c",
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = (data) => {
+		if (["oneTimeSubscription", "membership"].includes(productType)) {
+			delete data?.content_file_details;
+			delete data?.preorder_details;
+			delete data?.enable_preorder;
+			delete data?.upload_content;
+			delete data?.upload_preview;
+		}
+		createProduct(data, () => {
+			setProductTab(1);
+		});
+	};
+
+	// digitalDownload;
+	// oneTimeSubscription;
+	// membership;
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		validationSchema: CreateProductSchema,
+		validationSchema:
+			productType === "digitalDownload"
+				? DigitalProductSchema
+				: oneTimeSubscriptionAndMembershipSchema,
 		validateOnChange: false,
 	});
 
 	const { errors, setFieldValue, values } = formik;
+
+	useEffect(() => {
+		setFieldValue("product_type_id", productTypeId);
+		setFieldValue("cover_image", preview[0]?.url);
+		setFieldValue(
+			"content_file_details.product_files",
+			productFilePreview?.map((item) => item.url)
+		);
+	}, [setFieldValue, preview, productTypeId, productFilePreview]);
+
+	useEffect(() => {
+		if (files.length > 0) {
+			setFieldValue("upload_preview", true);
+		} else {
+			setFieldValue("upload_preview", false);
+		}
+	}, [files]);
+
+	useEffect(() => {
+		getListingStatus();
+	}, []);
+
+	useEffect(() => {
+		if (productID) {
+			getProductByID(productID);
+		}
+	}, [productID]);
 
 	return (
 		<div className={styles.digitalDownload}>
@@ -87,7 +155,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 				{productType === "membership" && "MEMBERSHIP "}
 			</h5>
 
-			<form className="pt-3">
+			<form className="pt-3" onSubmit={formik.handleSubmit}>
 				<div className={styles.inputCont}>
 					<Input
 						placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
@@ -122,7 +190,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 
 							<div
 								className={`${styles.upload} ${
-									files.length > 0 && styles.activeUpload
+									files?.length > 0 && styles.activeUpload
 								}`}
 								{...getRootProps()}
 							>
@@ -212,6 +280,12 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 								type="datetime-local"
 								label="Release date & time"
 								className={styles.inputHeight}
+								onChange={(e) => {
+									setFieldValue(
+										"preorder_details.preorder_release_date",
+										e.target.value
+									);
+								}}
 							/>
 						</div>
 					)}
@@ -223,7 +297,7 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 								<Switch
 									onChange={(e) => {
 										setContentFiles((value) => !value);
-										setFieldValue("upload_content", e);
+										setFieldValue("upload_content", contentFiles);
 									}}
 								/>
 								<span className="pl-6 text-black-100">
@@ -240,15 +314,28 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 								into single RAR or ZIP file. <br /> The maximum allowed file
 								size is 1GB.
 							</p>
-							<div className={styles.contentFileUpload} {...getRootProps()}>
-								<input {...getInputProps()} />
-								<Image src={CloudUpload} alt="upload image" />
-								<p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
-									Drag and Drop or Upload your product files
-								</p>
-								<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
-									Upload your product files
-								</p>
+							<div
+								className={`${styles.contentFileUpload} ${
+									productFile?.length > 0 && styles.activeUpload
+								}`}
+								{...getProductFileRootProps()}
+							>
+								{productFile.length > 0 && (
+									<p className="float-left px-4 pt-3 text-base-gray text-sm font-light">
+										{productFile[0]?.name}
+									</p>
+								)}
+
+								<div className="flex justify-center items-center">
+									<input {...getProductFileInputProps()} />
+									<Image src={CloudUpload} alt="upload image" />
+									<p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
+										Drag and Drop or Upload your product files
+									</p>
+									<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
+										Upload your product files
+									</p>
+								</div>
 							</div>
 						</div>
 					)}
@@ -264,31 +351,46 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 						<Radio
 							value={values.product_visibility_status}
 							content={1}
-							label="Activated"
+							label="Activate"
 							extralable="- Your product will go live and visible to audience for a purchase once you complete creating the sales template"
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
-							onChange={(e) => setFieldValue("product_visibility_status", e)}
-						/>
-
-						<Radio
-							value={values.product_visibility_status}
-							content={0}
-							label="Deactivated"
-							extralable="- Nobody would be able to access or purchase this product until you activate it."
-							labelStyle={styles.radioLabel}
-							extralableStyle={styles.extralableStyle}
-							onChange={(e) => setFieldValue("product_visibility_status", e)}
+							onChange={(e) =>
+								setFieldValue(
+									"product_visibility_status",
+									e || activateStatus[0]?.id
+								)
+							}
 						/>
 
 						<Radio
 							value={values.product_visibility_status}
 							content={2}
-							label="Unlisted"
+							label="Deactivate"
+							extralable="- Nobody would be able to access or purchase this product until you activate it."
+							labelStyle={styles.radioLabel}
+							extralableStyle={styles.extralableStyle}
+							onChange={(e) =>
+								setFieldValue(
+									"product_visibility_status",
+									e || deActivateStatus[0]?.id
+								)
+							}
+						/>
+
+						<Radio
+							value={values.product_visibility_status}
+							content={3}
+							label="Unlist"
 							extralable="- Product would not be visible on the store page but anyone with direct link can purchase it."
 							labelStyle={styles.radioLabel}
 							extralableStyle={styles.extralableStyle}
-							onChange={(e) => setFieldValue("product_visibility_status", e)}
+							onChange={(e) =>
+								setFieldValue(
+									"product_visibility_status",
+									e || unListStatus[0]?.id
+								)
+							}
 						/>
 					</div>
 				</div>
@@ -306,7 +408,8 @@ export const CreateProductForm = ({ productType = "digitalDownload" }) => {
 							text="Save and continue"
 							bgColor="blue"
 							className={styles.digitalBtn}
-							onClick={() => setProductTab(1)}
+							loading={loading}
+							// onClick={() => setProductTab(1)}
 						/>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateProductForm } from "components";
 import styles from "./CreateProduct.module.scss";
 import {
@@ -6,8 +6,12 @@ import {
 	MembershipSubscriptionIcon,
 	DigitalDownloadIcon,
 } from "components/IconPack";
+import { useSelector } from "react-redux";
+import { GetProductTypes } from "redux/actions";
 
 export const CreateProductTab = () => {
+	const getProductTypes = GetProductTypes();
+
 	const [tab, setTab] = useState(1);
 	const [iconHover, setIconHover] = useState({
 		tab1: tab === 1 || false,
@@ -16,6 +20,19 @@ export const CreateProductTab = () => {
 	});
 
 	const { tab1, tab2, tab3 } = iconHover;
+
+	const { productTypes } = useSelector((state) => state.product);
+
+	const filterProductType = (id) =>
+		productTypes?.filter((item) => item.id === id);
+
+	const digitalDownloadMenu = filterProductType(1);
+	const oneTimeSubMenu = filterProductType(2);
+	const membershipMenu = filterProductType(3);
+
+	useEffect(() => {
+		getProductTypes();
+	}, []);
 
 	return (
 		<div className={`px-0 lg:px-8 ${styles.container}`}>
@@ -26,7 +43,8 @@ export const CreateProductTab = () => {
 				className={`${styles.productTypeTab} ${
 					tab === 1 && styles.active
 				} w-full lg:w-3/4`}
-				onClick={() => setTab(1)}
+				key={digitalDownloadMenu[0]?.id ?? 1}
+				onClick={() => setTab(digitalDownloadMenu[0]?.id) ?? 1}
 				onMouseEnter={() =>
 					setIconHover({
 						...iconHover,
@@ -51,9 +69,9 @@ export const CreateProductTab = () => {
 					Digital Download <span>- Start selling immediately</span>
 				</div>
 				<div className="lg:hidden font-semibold">
-					Classic Digital Product{" "}
+					Digital Download
 					<span className={`font-medium ${styles.mobileSubTitle}`}>
-						- Start selling today
+						- Start selling immediately
 					</span>
 				</div>
 			</div>
@@ -62,7 +80,8 @@ export const CreateProductTab = () => {
 				className={`${styles.productTypeTab} ${
 					tab === 2 && styles.active
 				} w-full lg:w-3/4`}
-				onClick={() => setTab(2)}
+				key={oneTimeSubMenu[0]?.id ?? 2}
+				onClick={() => setTab(oneTimeSubMenu[0]?.id) ?? 2}
 				onMouseEnter={() =>
 					setIconHover({
 						...iconHover,
@@ -90,7 +109,7 @@ export const CreateProductTab = () => {
 					One-Time Subscription
 					<span className={`font-medium ${styles.mobileSubTitle}`}>
 						{" "}
-						- Charge one time
+						- Pay only once
 					</span>
 				</div>
 			</div>
@@ -99,7 +118,8 @@ export const CreateProductTab = () => {
 				className={`${styles.productTypeTab} ${
 					tab === 3 && styles.active
 				} w-full lg:w-3/4`}
-				onClick={() => setTab(3)}
+				key={membershipMenu[0]?.id ?? 3}
+				onClick={() => setTab(membershipMenu[0]?.id) ?? 3}
 				onMouseEnter={() =>
 					setIconHover({
 						...iconHover,
@@ -138,9 +158,23 @@ export const CreateProductTab = () => {
 			</div>
 
 			<div>
-				{tab === 1 && <CreateProductForm productType="digitalDownload" />}
-				{tab === 2 && <CreateProductForm productType="oneTimeSubscription" />}
-				{tab === 3 && <CreateProductForm productType="membership" />}
+				{tab === 1 && (
+					<CreateProductForm
+						productType="digitalDownload"
+						productTypeId={tab}
+					/>
+				)}
+
+				{tab === 2 && (
+					<CreateProductForm
+						productType="oneTimeSubscription"
+						productTypeId={tab}
+					/>
+				)}
+
+				{tab === 3 && (
+					<CreateProductForm productType="membership" productTypeId={tab} />
+				)}
 			</div>
 		</div>
 	);

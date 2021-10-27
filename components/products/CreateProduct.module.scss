@@ -105,9 +105,9 @@
 
 	.contentFileUpload {
 		@extend .upload;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		// display: flex;
+		// align-items: center;
+		// justify-content: center;
 	}
 
 	.noImage {
@@ -133,7 +133,8 @@
 	}
 
 	.enablePreOrderCont {
-		width: 28%;
+		// width: 28%;
+		width: 35%;
 		padding-top: 0.5rem;
 		.inputHeight {
 			height: 2.5rem;
