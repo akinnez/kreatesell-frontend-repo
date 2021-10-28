@@ -1,6 +1,8 @@
+import { EmptyDataTable } from "utils";
 import styles from "./Table.module.scss";
+import Image from "next/image";
 
-export const Table = ({ header, data }) => {
+export const Table = ({ header, data, loading }) => {
 	return (
 		<div className={styles.tableContainer}>
 			<table className={styles.table}>
@@ -12,17 +14,17 @@ export const Table = ({ header, data }) => {
 					</tr>
 				</thead>
 
-				{data?.length && (
+				{Boolean(data?.length) && (
 					<tbody className="t-body">
-						{data?.map((data) => (
-							<tr key={data.id}>
+						{data?.map((data, i) => (
+							<tr key={data?.id || i}>
 								{header?.map((item, i) =>
-									item.component ? (
+									item?.component ? (
 										<td key={i}>
-											{item.component({ item: data[item.key], data })}
+											{item.component({ item: data[item?.key], data })}
 										</td>
 									) : (
-										<td key={i}>{data[item.key]}</td>
+										<td key={i}>{data[item?.key]}</td>
 									)
 								)}
 							</tr>
@@ -30,6 +32,19 @@ export const Table = ({ header, data }) => {
 					</tbody>
 				)}
 			</table>
+
+			{!Boolean(data?.length) && (
+				<div className="w-full h-full flex flex-col items-center justify-center p-8">
+					<div>
+						<Image src={EmptyDataTable} />
+					</div>
+					{loading ? (
+						<div>Loading Data ...</div>
+					) : (
+						<div className="text-center mt-3 bolder">No available data</div>
+					)}
+				</div>
+			)}
 		</div>
 	);
 };

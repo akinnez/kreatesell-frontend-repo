@@ -135,3 +135,17 @@
 		text-transform: capitalize;
 	}
 }
+
+.label {
+	font-size: 0.875rem;
+	line-height: 10px;
+	color: $gray-200;
+	margin: 0;
+	padding: 0;
+	padding-right: 0.75rem;
+
+	@include screen("tablet") {
+		padding-right: 0 !important;
+		margin-right: 0 !important;
+	}
+}

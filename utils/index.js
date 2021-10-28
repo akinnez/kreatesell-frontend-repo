@@ -1,6 +1,16 @@
 import cogoToast from "cogo-toast";
+import jwt_decode from "jwt-decode";
 
 export const pathName = typeof window !== "undefined" && window;
+
+export const _clearData = ({ pushToLogin = true }) => {
+	pathName && localStorage.clear();
+	pathName && sessionStorage.clear();
+	if (pushToLogin) {
+		window.location.href = "/login";
+	}
+	return false;
+};
 
 export const isAnEmpytyObject = (obj) => {
 	for (var key in obj) {
@@ -18,7 +28,21 @@ export const generateActions = (action) => {
 	};
 };
 
-export const getToken = () => localStorage.getItem("token");
+// export const getToken = () => localStorage.getItem("token");
+
+export const getToken = () => {
+	const token = pathName.localStorage.getItem("token");
+
+	if (!token) return false;
+	if (token) {
+		const decodedToken = jwt_decode(token);
+		const tokenExpired = decodedToken.exp * 1000 === new Date().valueOf();
+		if (tokenExpired) {
+			_clearData({ pushToLogin: true });
+		}
+	}
+	return token;
+};
 
 export const getUser = () => {
 	const user = pathName.localStorage?.getItem("user");
@@ -27,7 +51,7 @@ export const getUser = () => {
 
 export const _isUserLoggedIn = () => {
 	const user = getUser();
-	if (!isAnEmpytyObject(user)) return true;
+	if (!isAnEmpytyObject(user) && getToken()) return true;
 	return false;
 };
 
