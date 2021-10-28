@@ -42,6 +42,8 @@ export const CreateProductForm = ({
 		(state) => state.product
 	);
 
+	console.log("product by ID --->", product);
+
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
 	console.log("files length -->", files);
@@ -103,10 +105,6 @@ export const CreateProductForm = ({
 			setProductTab(1);
 		});
 	};
-
-	// digitalDownload;
-	// oneTimeSubscription;
-	// membership;
 
 	const formik = useFormik({
 		initialValues,

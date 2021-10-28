@@ -4,19 +4,19 @@ import { Switch } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { CloudUpload } from "utils";
+import { CloudUpload, _debounce } from "utils";
 import Image from "next/image";
+import { useFormik } from "formik";
 import { Select } from "components/select/Select";
+import { useDebounce } from "use-debounce";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
-	// console.log("ctaBtnText -->", ctaBtnText);
-	// console.log("priceType -->", priceType);
 	/**
 	 * PriceType Values
-	 * FixedPrice: 0
-	 * Pay What You Want: 1
-	 * Installment Payment: 2
-	 * Make It Free: 3
+	 * FixedPrice: 1
+	 * Pay What You Want: 2
+	 * Installment Payment: 3
+	 * Make It Free: 4
 	 */
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
@@ -30,27 +30,31 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
 	const [sellingPrice, setSellingPrice] = useState([]);
 
+	const [couponVariance, setCouponVariance] = useState({
+		isPercentage: true,
+		is_fixed_amount: false,
+	});
+
 	const [priceData, setPriceData] = useState({
 		currency_name: "",
 		currency_value: 0,
 	});
 
-	const { currency_name, currency_value } = priceData;
+	const [value] = useDebounce(priceData, 500);
 
 	const handleSellingPriceChange = async ({
 		currency_name,
 		currency_value,
 	}) => {
 		setPriceData((data) => ({
-			...data,
 			currency_name,
 			currency_value,
 		}));
 	};
 
 	useEffect(() => {
-		setSellingPrice((e) => [...e, priceData]);
-	}, [currency_name, currency_value]);
+		setSellingPrice((e) => [...e, value]);
+	}, [value]);
 
 	const onDrop = () => {};
 
@@ -58,15 +62,76 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		onDrop,
 	});
 
+	const handleSubmit = () => {};
+
 	const initialValues = {
 		checkout: {
 			cta_button: "",
+			is_coupon: false,
+			coupon_code: "",
+		},
+		is_show_compare_price: false,
+		pricing_type_id: 1,
+		selling_price: [],
+		coupon_settings: {
+			start_date: "",
+			end_date: "",
+			fixed_amount_value: 0,
+			percentage_value: 0,
+			is_percentage: false,
+			is_fixed_amount: false,
+		},
+		product_settings: {
+			allow_affiliates: false,
+			affiliate_percentage_on_sales: 0,
+			is_limited_sales: false,
+			show_number_of_sales: false,
 		},
 	};
 
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmit,
+		// validationSchema: "",
+		validateOnChange: false,
+	});
+
+	const { errors, setFieldValue, values } = formik;
+
+	console.log("formik values --->", values);
+
+	useEffect(() => {
+		setFieldValue("pricing_type_id", priceType);
+		setFieldValue("checkout.cta_button", ctaBtnText);
+		setFieldValue("selling_price", sellingPrice);
+		setFieldValue("is_show_compare_price", compareToPrice);
+		setFieldValue("checkout.is_coupon", applyCoupon);
+		setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
+		setFieldValue(
+			"coupon_settings.is_fixed_amount",
+			couponVariance.is_fixed_amount
+		);
+		setFieldValue("product_settings.allow_affiliates", allowAffiliateMarket);
+		setFieldValue("product_settings.is_limited_sales", limitProductSale);
+		setFieldValue("product_settings.show_number_of_sales", showTotalSales);
+		setFieldValue("who_bear_fee", buyerPaysTransactionFee);
+	}, [
+		setFieldValue,
+		priceType,
+		ctaBtnText,
+		sellingPrice,
+		compareToPrice,
+		applyCoupon,
+		couponVariance,
+		allowAffiliateMarket,
+		limitProductSale,
+		showTotalSales,
+		buyerPaysTransactionFee,
+	]);
+
 	return (
-		<form>
-			{[0].includes(priceType) && (
+		<form onSubmit={formik.handleSubmit}>
+			{[1].includes(priceType) && (
 				<div>
 					<p className="text-base mb-2">Selling Price</p>
 					<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
@@ -93,12 +158,78 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								});
 							}}
 						/>
-						<ProductInput prefix="KES" name="KES" placeholder="0" />
-						<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-						<ProductInput prefix="USD" name="USD" placeholder="0" />
-						<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-						<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-						<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+
+						<ProductInput
+							prefix="KES"
+							name="KES"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "KES",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
+
+						<ProductInput
+							prefix="TZS"
+							name="TZS"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "TZS",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
+
+						<ProductInput
+							prefix="USD"
+							name="USD"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "USD",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
+
+						<ProductInput
+							prefix="GHS"
+							name="GHS"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "GHS",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
+
+						<ProductInput
+							prefix="ZAR"
+							name="ZAR"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "ZAR",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
+
+						<ProductInput
+							prefix="UGX"
+							name="UGX"
+							placeholder="0"
+							onChange={(e) => {
+								handleSellingPriceChange({
+									currency_name: "UGX",
+									currency_value: e.target.value,
+								});
+							}}
+						/>
 					</div>
 					<p className="text-base-gray-200 text-xs pt-2">
 						Set the equivalent price of your product in the currencies of the
@@ -108,7 +239,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 				</div>
 			)}
 
-			{priceType === 1 && (
+			{priceType === 2 && (
 				<div>
 					<div>
 						<p className="text-base mb-2">Minimum Amount</p>
@@ -140,7 +271,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 				</div>
 			)}
 
-			{priceType === 2 && (
+			{priceType === 3 && (
 				<div>
 					<div>
 						<p className="text-base mb-2">Selling Price</p>
@@ -217,7 +348,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			)}
 
 			<div>
-				{[0].includes(priceType) && (
+				{[1].includes(priceType) && (
 					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
 						<div className="text-black-100">
 							Show Compare-To Price (Optional)
@@ -226,7 +357,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							<Switch
 								onChange={(e) => {
 									setCompareToPrice((value) => !value);
-									// setFieldValue("upload_content", e);
 								}}
 							/>
 							<span className="pl-6 text-black-100">
@@ -252,14 +382,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					</div>
 				)}
 
-				{priceType !== 3 && (
+				{priceType !== 4 && (
 					<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
 						<div className="text-black-100">Apply Coupon Code</div>
 						<div className="flex">
 							<Switch
 								onChange={(e) => {
 									setApplyCoupon((value) => !value);
-									// setFieldValue("upload_content", e);
 								}}
 							/>
 							<span className="pl-6 text-black-100">
@@ -269,15 +398,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					</div>
 				)}
 
-				{priceType !== 3 && applyCoupon && (
+				{priceType !== 4 && applyCoupon && (
 					<div className="my-2">
 						<div className="w-full md:w-2/5">
 							<Input
-								// label="Checkout Call-To-Action Button"
 								placeholder="Enter coupon code"
 								className={styles.ctaBtn}
-								name="ctaBtnText"
-								onChange={(e) => setCtaBtnText(e.target.value)}
+								name="checkout.coupon_code"
+								onChange={formik.handleChange}
 							/>
 						</div>
 
@@ -287,16 +415,23 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 									value={couponType}
 									content={0}
 									label="Percentage(%)"
-									onChange={(e) => setCouponType(e)}
+									onChange={(e) => {
+										setCouponType(e);
+										setCouponVariance((value) => ({
+											...value,
+											isPercentage: !value.isPercentage,
+											is_fixed_amount: !value.is_fixed_amount,
+										}));
+									}}
 									labelStyle={styles.radioLabelStyle}
 								/>
 								<div className="w-full">
 									<Input
-										// label="Checkout Call-To-Action Button"
 										placeholder="0"
 										className={styles.ctaBtn}
 										name="ctaBtnText"
-										onChange={(e) => setCtaBtnText(e.target.value)}
+										name="coupon_settings.percentage_value"
+										onChange={formik.handleChange}
 									/>
 								</div>
 							</div>
@@ -306,16 +441,22 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 									value={couponType}
 									content={1}
 									label="Fixed Amount(NGN)"
-									onChange={(e) => setCouponType(e)}
+									onChange={(e) => {
+										setCouponType(e);
+										setCouponVariance((value) => ({
+											...value,
+											isPercentage: !value.isPercentage,
+											is_fixed_amount: !value.is_fixed_amount,
+										}));
+									}}
 									labelStyle={styles.radioLabelStyle}
 								/>
 								<div className="w-full">
 									<Input
-										// label="Checkout Call-To-Action Button"
 										placeholder="0"
 										className={styles.ctaBtn}
-										name="ctaBtnText"
-										onChange={(e) => setCtaBtnText(e.target.value)}
+										name="coupon_settings.fixed_amount_value"
+										onChange={formik.handleChange}
 									/>
 								</div>
 							</div>
@@ -327,6 +468,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								<Input
 									type="datetime-local"
 									className={styles.couponDateTimeLocaleContInput}
+									onChange={(e) => {
+										setFieldValue("coupon_settings.start_date", e.target.value);
+									}}
 								/>
 							</div>
 
@@ -335,6 +479,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								<Input
 									type="datetime-local"
 									className={styles.couponDateTimeLocaleContInput}
+									onChange={(e) => {
+										setFieldValue("coupon_settings.end_date", e.target.value);
+									}}
 								/>
 							</div>
 						</div>
@@ -400,7 +547,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							<Switch
 								onChange={(e) => {
 									setAllowAffiliateMarket((value) => !value);
-									// setFieldValue("upload_content", e);
 								}}
 							/>
 							<span className="pl-6 text-black-100">
@@ -412,7 +558,11 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					{allowAffiliateMarket && (
 						<>
 							<div className="w-3/5">
-								<Percentage border={true} />
+								<Percentage
+									border={true}
+									name="product_settings.affiliate_percentage_on_sales"
+									onChange={formik.handleChange}
+								/>
 							</div>
 
 							<div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
@@ -459,7 +609,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							<Switch
 								onChange={(e) => {
 									setLimitProductSale((value) => !value);
-									// setFieldValue("upload_content", e);
 								}}
 							/>
 							<span className="pl-6 text-black-100">
@@ -485,7 +634,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							<Switch
 								onChange={(e) => {
 									setShowTotalSales((value) => !value);
-									// setFieldValue("upload_content", e);
 								}}
 							/>
 							<span className="pl-6 text-black-100">
@@ -500,7 +648,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							<Switch
 								onChange={(e) => {
 									setBuyerPaysTransactionFee((value) => !value);
-									// setFieldValue("upload_content", e);
 								}}
 							/>
 							<span className="pl-6 text-black-100">

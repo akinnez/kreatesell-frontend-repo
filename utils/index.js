@@ -97,4 +97,14 @@ export const _copyToClipboard = (str, message) => {
 	showToast(message || "Copied", "info");
 };
 
+export const _debounce = ({ callback, limit }) => {
+	let timeout;
+	return () => {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			callback();
+		}, limit);
+	};
+};
+
 export * from "./assets";
