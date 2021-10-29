@@ -4,7 +4,7 @@ import { Switch } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { CloudUpload, _debounce } from "utils";
+import { CloudUpload } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
 import { Select } from "components/select/Select";
