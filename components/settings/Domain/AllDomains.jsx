@@ -6,6 +6,7 @@ import { EmptyDomain } from "./";
 import { ClockCircle, DeleteOutline, Lock, _formatURL } from "utils";
 import { useSelector } from "react-redux";
 import { GetDomains, SetDomainScreen, DeleteDomain } from "redux/actions";
+import Link from "next/link";
 
 export const AllDomains = () => {
 	const getDomains = GetDomains();
@@ -104,14 +105,16 @@ export const AllDomains = () => {
 									This process can take up to 48 hours. Next, we’ll process your
 									SSL to make sure your domain is secure.
 								</p>
-								<a
-									href=""
-									target="_blank"
-									rel="noopener norefferer"
-									className="text-primary-blue text-xs"
-								>
-									View Guide
-								</a>
+
+								<Link href="/account/kreator/settings/about-domain">
+									<a
+										target="_blank"
+										rel="noopener norefferer"
+										className="text-primary-blue text-xs"
+									>
+										View Guide
+									</a>
+								</Link>
 							</div>
 						</div>
 					)}
