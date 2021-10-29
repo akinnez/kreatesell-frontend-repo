@@ -4,7 +4,7 @@ import { Button, Input } from "components";
 import { useFormik } from "formik";
 import { CreateEditDomain, SetDomainScreen, GetDomains } from "redux/actions";
 import { CreateDomainSchema } from "validation";
-import { _prependHttp } from "utils";
+import { _prependKreateSell } from "utils";
 import styles from "../Domain.module.scss";
 
 export const CreateSubDomain = () => {
@@ -37,7 +37,7 @@ export const CreateSubDomain = () => {
 	const { errors, setFieldValue } = formik;
 
 	useEffect(() => {
-		setFieldValue("domain_name", _prependHttp({ url: domainName }));
+		setFieldValue("domain_name", _prependKreateSell({ url: domainName }));
 	}, [domainName]);
 
 	return (
@@ -63,7 +63,7 @@ export const CreateSubDomain = () => {
 				<div className="pt-3">
 					<p className="text-black-100">Subdomain</p>
 					<div className="bg-base-white-200 px-4 pt-2 flex items-center w-full lg:w-9/12">
-						<div className="pr-6 text-base-gray pb-2">https://</div>
+						<div className="pr-6 text-base-gray pb-2">Kreatesell.com/</div>
 						<div className="w-4/5">
 							<Input
 								height="small"
