@@ -11,6 +11,7 @@ const initialState = {
 	listingStatus: [],
 	productID: "",
 	productPagination: {},
+	billingInterval: [],
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -21,12 +22,11 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.GET_PRODUCT_BY_ID.REQUEST:
 		case types.GET_PRICING_TYPES.REQUEST:
 		case types.GET_LISTING_STATUS.REQUEST:
+		case types.GET_BILLING_INTERVAL.REQUEST:
 			return { ...state, loading: true };
 
-		// case types.GET_ALL_PRODUCTS.SUCCESS:
-		// 	return { ...state, loading: false, products: payload };
-
 		case types.GET_ALL_PRODUCTS.SUCCESS:
+		case types.GET_BILLING_INTERVAL.SUCCESS:
 			return { ...state, loading: false, ...payload };
 
 		case types.CREATE_PRODUCT.SUCCESS:
@@ -50,6 +50,7 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.GET_PRODUCT_BY_ID.FAILURE:
 		case types.GET_PRICING_TYPES.FAILURE:
 		case types.GET_LISTING_STATUS.FAILURE:
+		case types.GET_BILLING_INTERVAL.FAILURE:
 			return { ...state, loading: false, error: payload };
 
 		case types.SET_PRODUCT_TAB.REQUEST:

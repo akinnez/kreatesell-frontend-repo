@@ -98,7 +98,7 @@ const AllProducts = () => {
 					<MobileProductCard item={item} key={item?.id || i} />
 				))}
 
-				{productData?.length && (
+				{productData?.length > 0 && (
 					<div className="py-8 lg:pt-0">
 						<Pagination
 							defaultCurrent={1}

@@ -9,6 +9,8 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Select } from "components/select/Select";
 import { useDebounce } from "use-debounce";
+import { useSelector } from "react-redux";
+import { GetProductByID, GetBillingInterval } from "redux/actions";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	/**
@@ -18,6 +20,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	 * Installment Payment: 3
 	 * Make It Free: 4
 	 */
+	const getProductByID = GetProductByID();
+	const getBillingInterval = GetBillingInterval();
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
 	const [applyCoupon, setApplyCoupon] = useState(false);
@@ -40,7 +44,16 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		currency_value: 0,
 	});
 
+	const { productID, product, billingInterval } = useSelector(
+		(state) => state.product
+	);
+
 	const [value] = useDebounce(priceData, 500);
+
+	const mappedBillingInterval = billingInterval?.map((billing) => ({
+		label: billing.billing_types,
+		value: billing.billing_durations,
+	}));
 
 	const handleSellingPriceChange = async ({
 		currency_name,
@@ -51,6 +64,16 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			currency_value,
 		}));
 	};
+
+	useEffect(() => {
+		getBillingInterval();
+	}, []);
+
+	useEffect(() => {
+		if (productID) {
+			getProductByID(productID);
+		}
+	}, [productID]);
 
 	useEffect(() => {
 		setSellingPrice((e) => [...e, value]);
@@ -98,7 +121,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
 	const { errors, setFieldValue, values } = formik;
 
-	console.log("formik values --->", values);
+	// console.log("formik values --->", values);
 
 	useEffect(() => {
 		setFieldValue("pricing_type_id", priceType);
@@ -341,7 +364,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					<div className="mt-3 w-full">
 						<p className="text-base mb-2">Interval between each payment</p>
 						<div className="w-full lg:w-1/5">
-							<Select />
+							<Select options={mappedBillingInterval} />
 						</div>
 					</div>
 				</div>
