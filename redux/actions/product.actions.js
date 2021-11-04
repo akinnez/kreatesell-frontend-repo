@@ -58,20 +58,16 @@ export const GetProducts = () => {
 		dispatch({ type: types.GET_ALL_PRODUCTS.REQUEST }),
 		axios.request(
 			`get`,
-			// `v1/kreatesell/product/fetch/all`,
 			`v1/kreatesell/product/fetch/all?page=${page}`,
 			(res) => {
-				// console.log("all products -->", res);
 				const products = res?.data?.data;
 				const data = res?.data;
 
 				delete data?.data;
-				// console.log("array of data --->", products);
 				const payload = {
 					products,
 					productPagination: { ...data },
 				};
-				// dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload: res?.data });
 				dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload });
 				successCallback?.();
 			},
@@ -100,6 +96,32 @@ export const GetProductTypes = () => {
 			},
 			(err) => {
 				dispatch({ type: types.GET_PRODUCT_TYPES.FAILURE, payload: err });
+				errorCallback?.();
+			}
+		)
+	);
+};
+
+export const GetBillingInterval = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.GET_BILLING_INTERVAL.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/get-billing-interval`,
+			(res) => {
+				const payload = {
+					billingInterval: res?.data?.billing_interval,
+				};
+
+				dispatch({
+					type: types.GET_BILLING_INTERVAL.SUCCESS,
+					payload,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.GET_BILLING_INTERVAL.FAILURE, payload: err });
 				errorCallback?.();
 			}
 		)

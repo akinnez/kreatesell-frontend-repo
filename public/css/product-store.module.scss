@@ -1,0 +1,8 @@
+@import "./colors.scss";
+@import "./screens.scss";
+
+.container {
+	background-color: $white-200;
+	min-height: 100vh;
+	// padding: 1rem 10.31rem;
+}

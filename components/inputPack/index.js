@@ -710,7 +710,7 @@ export const Switch = ({ value, onChange = () => {}, label }) => {
 	);
 };
 
-export const Percentage = ({ value, onChange = () => {} }) => {
+export const Percentage = ({ value, onChange = () => {}, name }) => {
 	return (
 		<>
 			<div className="perc-wrapper">
@@ -721,6 +721,7 @@ export const Percentage = ({ value, onChange = () => {} }) => {
 						placeholder="0"
 						value={value}
 						onChange={(e) => onChange(e.target.value)}
+						name={name}
 					/>
 					<span>%</span>
 				</div>

@@ -10,6 +10,8 @@ export const PricingCard = ({
 	btnText,
 	priceType,
 	subPriceType = "",
+	btnOnClick,
+	currentPlan = false,
 }) => {
 	const Features = title === "basic" ? BasicFeatures : BusinessFeatures;
 
@@ -33,9 +35,16 @@ export const PricingCard = ({
 				)}
 			</h5>
 
-			<div className={styles.button}>
-				<Button className={styles.btn} text={btnText} bgColor="blue" />
-			</div>
+			{btnText && (
+				<div className={styles.button}>
+					<Button
+						className={styles.btn}
+						text={btnText}
+						bgColor="blue"
+						onClick={() => btnOnClick()}
+					/>
+				</div>
+			)}
 
 			<div className={styles.featuresCont}>
 				{Features?.map((features, i) => (
@@ -47,6 +56,12 @@ export const PricingCard = ({
 					</div>
 				))}
 			</div>
+
+			{currentPlan && (
+				<h3 className="text-primary-blue font-bold text-xl pb-8">
+					Current Plan
+				</h3>
+			)}
 		</div>
 	);
 };
@@ -70,7 +85,7 @@ const BasicFeatures = [
 const BusinessFeatures = [
 	"Everything on Free Plan",
 	"Unlimited Army of Affiliates",
-	"Highest Converting and beautiful Templates",
+	"Highest Converting beautiful Templates",
 	"Full Email Service Provider Integration",
 	"Webinar integration",
 	"Automated Abandoned Cart Emails",

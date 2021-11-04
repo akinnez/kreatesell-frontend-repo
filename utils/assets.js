@@ -72,6 +72,11 @@ import ClockCircle from "../public/images/ClockCircle.svg";
 import DeleteOutline from "../public/images/delete-outline.svg";
 import Lock from "../public/images/Lock.svg";
 import EmptyDataTable from "../public/images/empty-data.svg";
+import ActiveTick from "../public/images/upgrade-active-tick.svg";
+import InactiveMasterCard from "../public/images/inactive-mastercard.svg";
+import InactivePaypal from "../public/images/inactive-paypal.svg";
+import ActiveStripe from "../public/images/stripe.svg";
+import ArrowLeft from "../public/images/arrow-left.svg";
 
 export {
 	KreateSellBrand,
@@ -148,4 +153,9 @@ export {
 	DeleteOutline,
 	Lock,
 	EmptyDataTable,
+	ActiveTick,
+	InactiveMasterCard,
+	InactivePaypal,
+	ActiveStripe,
+	ArrowLeft,
 };

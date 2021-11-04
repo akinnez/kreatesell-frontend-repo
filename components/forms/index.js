@@ -8,3 +8,4 @@ export * from "./WelcomeForm";
 export * from "./2FAVerificationForm";
 export * from "./ResendVerificationEmail";
 export * from "./VerifyResetPasswordTokenForm";
+export * from "./UpgradeAccountForm";

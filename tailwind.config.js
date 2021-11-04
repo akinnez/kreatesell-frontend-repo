@@ -13,6 +13,11 @@ module.exports = {
 				"base-white-100": "#fafafa",
 				"base-white-200": "#f5f5f5",
 				"base-green-100": "#2dc071",
+				"base-green-200": "#00b140",
+			},
+			spacing: {
+				30: "30%",
+				70: "70%",
 			},
 		},
 	},

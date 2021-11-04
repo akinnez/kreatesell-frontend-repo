@@ -1,0 +1,23 @@
+@import "./screens.scss";
+@import "./colors.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+.card {
+	border-radius: 8px;
+	padding: 0 20px;
+
+	@include screen("tablet") {
+		padding: 0;
+		// background: rgb(245, 245, 245);
+		margin: 0 20px;
+	}
+}
+
+.number {
+	font-family: "Pacifico", cursive;
+	color: $green-200;
+	font-weight: normal;
+	font-size: 2rem;
+	padding-right: 1rem;
+}
