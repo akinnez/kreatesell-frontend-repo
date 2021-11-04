@@ -13,15 +13,10 @@ export const CheckoutProductTab = () => {
 		getPricingTypes();
 	}, []);
 
-	const filterPriceType = (id) =>
-		pricingTypes?.filter((item) => item.id === id);
+	// const filterPriceType = (id) =>
+	// 	pricingTypes?.filter((item) => item.pricing_type_id === id);
 
-	const fixedPrice = filterPriceType(1);
-	const payWhatYouWant = filterPriceType(2);
-	const installment = filterPriceType(3);
-	const freePrice = filterPriceType(4);
-
-	const [priceType, setPriceType] = useState(0);
+	const [priceType, setPriceType] = useState(1);
 	const [ctaBtnText, setCtaBtnText] = useState("");
 
 	return (
@@ -49,18 +44,8 @@ export const CheckoutProductTab = () => {
 				<div>
 					<Radio
 						value={priceType}
-						content={0}
-						label={fixedPrice[0]?.price_types}
-						onChange={(e) => setPriceType(e)}
-						labelStyle={styles.radioLabelStyle}
-					/>
-				</div>
-
-				<div>
-					<Radio
-						value={priceType}
 						content={1}
-						label={payWhatYouWant[0]?.price_types}
+						label="Fixed Price"
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.radioLabelStyle}
 					/>
@@ -70,7 +55,17 @@ export const CheckoutProductTab = () => {
 					<Radio
 						value={priceType}
 						content={2}
-						label={installment[0]?.price_types}
+						label="Pay What You Want"
+						onChange={(e) => setPriceType(e)}
+						labelStyle={styles.radioLabelStyle}
+					/>
+				</div>
+
+				<div>
+					<Radio
+						value={priceType}
+						content={3}
+						label="Installment Payment"
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.radioLabelStyle}
 					/>
@@ -79,8 +74,8 @@ export const CheckoutProductTab = () => {
 				<div className="flex items-center">
 					<Radio
 						value={priceType}
-						content={3}
-						label={freePrice[0]?.price_types}
+						content={4}
+						label="Make it Free"
 						onChange={(e) => setPriceType(e)}
 						labelStyle={styles.disabledRadio}
 					/>

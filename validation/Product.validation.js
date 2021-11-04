@@ -21,7 +21,6 @@ export const DigitalProductSchema = () => {
 			file_access_type: Yup.number(),
 		},
 		// upload_preview: true,
-		// product_visibility_status: 0,
 		// is_preview_only: true,
 		// redirect_buyer: true,
 		cover_image: Yup.string(),

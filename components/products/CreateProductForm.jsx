@@ -20,6 +20,7 @@ import {
 	GetListingStatus,
 	CreateProduct,
 	GetProductByID,
+	SetProductID,
 } from "redux/actions";
 import { useSelector } from "react-redux";
 import { useUpload } from "hooks";
@@ -33,6 +34,7 @@ export const CreateProductForm = ({
 	const getListingStatus = GetListingStatus();
 	const createProduct = CreateProduct();
 	const getProductByID = GetProductByID();
+	const setProductID = SetProductID();
 
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
@@ -41,6 +43,8 @@ export const CreateProductForm = ({
 	const { listingStatus, loading, productID, product } = useSelector(
 		(state) => state.product
 	);
+
+	console.log("product by ID --->", product);
 
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
@@ -100,13 +104,10 @@ export const CreateProductForm = ({
 			delete data?.upload_preview;
 		}
 		createProduct(data, () => {
+			setProductID(product?.product_details?.kreasell_product_id);
 			setProductTab(1);
 		});
 	};
-
-	// digitalDownload;
-	// oneTimeSubscription;
-	// membership;
 
 	const formik = useFormik({
 		initialValues,
@@ -146,6 +147,32 @@ export const CreateProductForm = ({
 			getProductByID(productID);
 		}
 	}, [productID]);
+
+	useEffect(() => {
+		setFieldValue("product_name", product?.product_details?.product_name);
+		setFieldValue(
+			"product_description",
+			product?.product_details?.product_description
+		);
+		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+		setFieldValue(
+			"preorder_details.preorder_release_date",
+			product?.product_details?.preoder_date
+		);
+		setFieldValue(
+			"preorder_details.is_preorder_downloadable",
+			product?.product_details?.is_preorder_downloadable
+		);
+		setFieldValue("upload_content", product?.product_details?.upload_content);
+		setFieldValue(
+			"product_visibility_status",
+			product?.product_details?.product_visibility
+		);
+		setFieldValue(
+			"cover_image",
+			product?.product_details?.product_cover_picture
+		);
+	}, [product]);
 
 	return (
 		<div className={styles.digitalDownload}>

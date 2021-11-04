@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reach/dialog": "^0.16.2",
     "@reduxjs/toolkit": "^1.6.1",
     "antd": "^4.16.11",
     "axios": "^0.21.1",
@@ -45,6 +46,7 @@
     "sass": "^1.35.1",
     "slick-carousel": "^1.8.1",
     "swr": "^1.0.0",
+    "use-debounce": "^7.0.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
