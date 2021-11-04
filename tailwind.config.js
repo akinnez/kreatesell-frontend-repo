@@ -15,6 +15,10 @@ module.exports = {
 				"base-green-100": "#2dc071",
 				"base-green-200": "#00b140",
 			},
+			spacing: {
+				30: "30%",
+				70: "70%",
+			},
 		},
 	},
 	variants: {

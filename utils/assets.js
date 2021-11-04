@@ -76,6 +76,7 @@ import ActiveTick from "../public/images/upgrade-active-tick.svg";
 import InactiveMasterCard from "../public/images/inactive-mastercard.svg";
 import InactivePaypal from "../public/images/inactive-paypal.svg";
 import ActiveStripe from "../public/images/stripe.svg";
+import ArrowLeft from "../public/images/arrow-left.svg";
 
 export {
 	KreateSellBrand,
@@ -156,4 +157,5 @@ export {
 	InactiveMasterCard,
 	InactivePaypal,
 	ActiveStripe,
+	ArrowLeft,
 };
