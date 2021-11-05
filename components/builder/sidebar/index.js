@@ -2,12 +2,12 @@ import React,{useState} from 'react'
 import styles from './Index.module.scss'
 import Menu from './menu'
 import Layout from '../toolbox/layers'
-import Section from '../toolbox/Sections'
-import Widget from '../toolbox/Widgets'
-import Settings from '../toolbox/Settings'
-import Checkout from '../toolbox/Checkout'
+import Sections from '../toolbox/sections'
+import Widget from '../toolbox/widgets'
+import Settings from '../toolbox/settings'
+import Checkout from '../toolbox/checkout'
 import Style from '../toolbox/styles'
-import { Layers as LayersIcon,Sections, Widgets, Styles, Checkout as CheckoutIcon,Settings as SettingsIcon } from '../icons'
+import { Layers as LayersIcon,Sections as SectionIcon, Widgets, Styles, Checkout as CheckoutIcon,Settings as SettingsIcon } from '../icons'
 
 
 const Index = ()=>{
@@ -25,12 +25,12 @@ const Index = ()=>{
                     active={open == 1} 
                     onClick={()=>setOpen(1)}
                     onClose={()=>setOpen(0)}/>
-                <Menu Icon={Sections} 
+                <Menu Icon={SectionIcon} 
                     title="Sections" key={2} 
                     active={open == 2}
                     onClick={()=>setOpen(2)}
                     onClose={()=>setOpen(0)}
-                    Container={Section}
+                    Container={Sections}
                     modalTitle="Page Section"/>
                 <Menu Icon={Widgets} 
                     title="Widgets" 
