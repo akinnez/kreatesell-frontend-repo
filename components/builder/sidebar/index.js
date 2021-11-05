@@ -4,8 +4,10 @@ import Menu from './menu'
 import Layout from '../toolbox/layers'
 import Section from '../toolbox/Sections'
 import Widget from '../toolbox/Widgets'
+import Settings from '../toolbox/Settings'
+import Checkout from '../toolbox/Checkout'
 import Style from '../toolbox/styles'
-import { Layers as LayersIcon,Sections, Widgets, Styles, Checkout,Settings } from '../icons'
+import { Layers as LayersIcon,Sections, Widgets, Styles, Checkout as CheckoutIcon,Settings as SettingsIcon } from '../icons'
 
 
 const Index = ()=>{
@@ -43,16 +45,18 @@ const Index = ()=>{
                     onClose={()=>setOpen(0)}
                     modalTitle="Styles"
                     Container={Style}/>
-                <Menu Icon={Checkout} 
+                <Menu Icon={CheckoutIcon} 
                     title="Checkout" key={5} 
                     active={open == 5} 
                     onClick={()=>setOpen(5)}
-                    onClose={()=>setOpen(0)}/>
-                <Menu Icon={Settings} 
+                    onClose={()=>setOpen(0)}
+                    Container={Checkout}/>
+                <Menu Icon={SettingsIcon} 
                     title="Settings" key={6} 
                     active={open == 6} 
                     onClick={()=>setOpen(6)}
-                    onClose={()=>setOpen(0)}/>
+                    onClose={()=>setOpen(0)}
+                    Container={Settings}/>
             </div>
         </aside>
        

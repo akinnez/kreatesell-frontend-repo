@@ -1,5 +1,7 @@
 import React from "react"
-import {Text,Image as ImageWidget, Spacer as SpacerWidget, Heading as HeadingWidget, Section,Column,Divider as DividerWidget, Button as ButtonWidget} from '../widgets'
+import {Text,Image as ImageWidget, Spacer as SpacerWidget, 
+    Heading as HeadingWidget, SingleColumnSection,TwoColumnSection,ThreeColumnSection,FourColumnSection, Divider as DividerWidget,
+    Button as ButtonWidget} from '../widgets'
 import { Element, useEditor } from "@craftjs/core";
 import styled from "styled-components";
 
@@ -137,52 +139,13 @@ const Col = styled.div`
     flex:1;
 `
 
-
-const SingleColumnSection = ()=>{
-    return(
-        <Section>
-            <Column />
-        </Section>
-    )
-}
-
-const TowColumnSection = ()=>{
-    return(
-        <Section>
-            <Column />
-            <Column />
-        </Section>
-    )
-}
-
-const ThreeColumnSection = ()=>{
-    return(
-        <Section>
-            <Column />
-            <Column />
-            <Column />
-        </Section>
-    )
-}
-
-const FourColumnSection = ()=>{
-    return(
-        <Section>
-            <Column />
-            <Column />
-            <Column />
-            <Column />
-        </Section>
-    )
-}
-
 export const SingleColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
         <div ref={ref=> connectors.create(ref, <SingleColumnSection />)}>
-        <Row>
-            <Col />
-        </Row>
+            <Row>
+                <Col />
+            </Row>
         </div>
     )
 }
@@ -190,24 +153,26 @@ export const SingleColumn = ()=>{
 export const DoubleColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <TowColumnSection />)}>
-        <Row>
-            <Col />
-            <Col />
-        </Row>
+        <div ref={ref=> connectors.create(ref, <TwoColumnSection />)}>
+            <Row>
+                <Col />
+                <Col />
+            </Row>
         </div>
     )
 }
+
+
 
 export const ThreeColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
         <div ref={ref=> connectors.create(ref, <ThreeColumnSection />)}>
-        <Row>
-            <Col />
-            <Col />
-            <Col />
-        </Row>
+            <Row>
+                <Col />
+                <Col />
+                <Col />
+            </Row>
         </div>
     )
 }
@@ -216,13 +181,12 @@ export const FourColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
         <div ref={ref=> connectors.create(ref, <FourColumnSection />)}>
-        <Row>
-            <Col />
-            <Col />
-            <Col />
-            <Col />
-        </Row>
+            <Row>
+                <Col />
+                <Col />
+                <Col />
+                <Col />
+            </Row>
         </div>
     )
 }
-

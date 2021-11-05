@@ -9,7 +9,7 @@ const Styles = ({open,onClose=()=>{},title})=>{
     const { selected } = useEditor((state) => {
         const currentNodeId = state.events.selected;
         let selected;
-    
+          
         if ( currentNodeId ) {
           selected = {
             id: currentNodeId,
@@ -23,7 +23,7 @@ const Styles = ({open,onClose=()=>{},title})=>{
         }
       });
 
-
+      console.log(selected)
     return(
         <Container open={open} onClose={()=>onClose()} title={title}>
             { 

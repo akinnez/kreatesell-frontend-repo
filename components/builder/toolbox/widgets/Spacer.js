@@ -1,20 +1,16 @@
 import React from 'react'
 import { useNode } from '@craftjs/core'
-import styled from "styled-components";
+import {MyInput} from '../../forms'
 
 
-const SpacerTag = styled.div`
-    height:5px;
-`
-
-const Spacer = ({text,fontSize,color,fontFamily,fontWeight})=>{
+const Spacer = ({height})=>{
 
     const {connectors:{connect,drag},actions:{setProp}} = useNode()
 
     return(
       <>
         <div ref={ref=>connect(drag(ref))}>
-           <SpacerTag />           
+           <div style={{height:height+'px'}}/>           
         </div>
         
         </>
@@ -22,3 +18,25 @@ const Spacer = ({text,fontSize,color,fontFamily,fontWeight})=>{
 }
 
 export default Spacer
+
+const SpaceSettings = ()=>{
+    const { actions: {setProp}, height } = useNode((node) => ({
+        height: node.data.props.height}));
+    return(
+        <MyInput label="Height" 
+            value={height} 
+            onChange={(e)=>setProp(props=>props.height = e)} 
+            style={{width:120}}/>
+    )
+}
+
+
+Spacer.craft = {
+    name:"Spacer",
+    props:{
+        height:10
+    },
+    related:{
+        settings:SpaceSettings
+    }
+}

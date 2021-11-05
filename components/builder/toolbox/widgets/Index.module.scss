@@ -3,7 +3,6 @@
     flex-wrap: wrap;
     gap:10px;
     margin-bottom: 10px;
-
     &:not(:first-child){
         margin-top:10px;
     }
@@ -30,4 +29,17 @@
         }
     }
    
+}
+
+
+.button{
+    background-color: #0072EF;
+    border-radius: 8px;
+    width:160px;
+    font-size: 14px;
+    outline:none;
+    border:none;
+    color:#ffffff;
+    padding:5px 0;
+    
 }
