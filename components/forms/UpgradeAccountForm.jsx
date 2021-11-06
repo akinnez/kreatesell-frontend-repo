@@ -5,7 +5,6 @@ import {
 	InactiveMasterCard,
 	InactivePaypal,
 	ActiveStripe,
-	// RightArrow,
 } from "utils";
 import { RightArrow } from "utils/icons/RightArrow";
 

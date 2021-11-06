@@ -58,6 +58,7 @@ import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
 import MailClipboard from "../public/images/mail-clipboard.svg";
 import { RightArrow } from "./icons/RightArrow";
+import { CloudDownload } from "./icons/CloudDownload";
 import { PlayIcon } from "./icons/PlayIcon";
 import DeactvateProduct from "../public/images/products/deactivate.svg";
 import DeleteProduct from "../public/images/products/delete.svg";
@@ -77,6 +78,11 @@ import InactiveMasterCard from "../public/images/inactive-mastercard.svg";
 import InactivePaypal from "../public/images/inactive-paypal.svg";
 import ActiveStripe from "../public/images/stripe.svg";
 import ArrowLeft from "../public/images/arrow-left.svg";
+import StoryTellingPNG from "../public/images/storytelling.png";
+import CheckoutPlaceholder from "../public/images/checkout-placeholder.png";
+import Crypto from "../public/images/crypto.png";
+import Paypal from "../public/images/paypal.png";
+import Stripe from "../public/images/stripe.png";
 
 export {
 	KreateSellBrand,
@@ -158,4 +164,10 @@ export {
 	InactivePaypal,
 	ActiveStripe,
 	ArrowLeft,
+	StoryTellingPNG,
+	CheckoutPlaceholder,
+	Crypto,
+	Paypal,
+	Stripe,
+	CloudDownload,
 };

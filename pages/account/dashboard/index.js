@@ -63,7 +63,7 @@ const Dashboard = () => {
 							content, products <br /> and services across borders.
 						</p>
 						<div className={styles.buttonContainer}>
-							{user?.completed !== 100 && (
+							{user?.percentage_completed !== 100 && (
 								<Button
 									text="Setup Store"
 									bgColor="white"
