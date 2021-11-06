@@ -48,7 +48,7 @@ export const CreateProductForm = ({
 
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
-	console.log("files length -->", files);
+	// console.log("files length -->", files);
 
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);

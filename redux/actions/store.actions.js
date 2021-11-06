@@ -31,7 +31,12 @@ export const GetStoreDetails = () => {
 			`get`,
 			`v1/kreatesell/store/me`,
 			(res) => {
-				dispatch({ type: types.GET_STORE_DETAILS.SUCCESS, payload: res });
+				const data = res?.data;
+				dispatch({ type: types.GET_STORE_DETAILS.SUCCESS, payload: data });
+				localStorage.setItem(
+					"store_details",
+					JSON.stringify(data?.store_details)
+				);
 				successCallback?.();
 			},
 			(err) => {
@@ -66,6 +71,99 @@ export const WelcomeStoreOnboarding = () => {
 				errorCallback?.();
 			},
 			data
+		)
+	);
+};
+
+export const UpdateStoreSettings = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.STORE_SETTINGS.REQUEST }),
+		axios.request(
+			`patch`,
+			`v1/kreatesell/store/settings`,
+			(res) => {
+				dispatch({
+					type: types.STORE_SETTINGS.SUCCESS,
+					payload: res,
+				});
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.STORE_SETTINGS.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message || err?.title, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const UpdateCTAButton = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.UPDATE_STORE_CTA_BUTTON.REQUEST }),
+		axios.request(
+			`patch`,
+			`v1/kreatesell/utils/cta-button`,
+			(res) => {
+				dispatch({
+					type: types.UPDATE_STORE_CTA_BUTTON.SUCCESS,
+					payload: res,
+				});
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.UPDATE_STORE_CTA_BUTTON.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message || err?.title, "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
+export const ListSingleStoreProduct = () => {
+	const dispatch = useDispatch();
+	return (storename, successCallback, errorCallback) => (
+		dispatch({ type: types.LIST_SINGLE_STORE_PRODUCT.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/store/store-detail?store=${storename}`,
+			(res) => {
+				const data = res?.data;
+				const singleStoreProducts = data?.products;
+
+				delete data?.products;
+
+				const payload = {
+					singleStoreDetails: { ...data },
+					singleStoreProducts,
+				};
+
+				dispatch({
+					type: types.LIST_SINGLE_STORE_PRODUCT.SUCCESS,
+					payload,
+				});
+				// showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.LIST_SINGLE_STORE_PRODUCT.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message || err?.title, "error");
+				errorCallback?.();
+			}
 		)
 	);
 };
