@@ -12,12 +12,12 @@ import { ListSingleStoreProduct } from "redux/actions";
 import { useEffect } from "react";
 
 const StorePage = () => {
+	const router = useRouter();
+	const listStoreProduct = ListSingleStoreProduct();
+
 	const {
 		query: { storename },
 	} = router;
-
-	const router = useRouter();
-	const listStoreProduct = ListSingleStoreProduct();
 
 	const { singleStoreDetails, singleStoreProducts } = useSelector(
 		(state) => state.store
@@ -104,17 +104,6 @@ const StorePage = () => {
 							key={productDetails?.id}
 						/>
 					))}
-					{/* <ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard /> */}
 				</div>
 			</div>
 		</div>
@@ -122,6 +111,8 @@ const StorePage = () => {
 };
 
 const ProductCard = ({ productDetails }) => {
+	const router = useRouter();
+
 	return (
 		<div className="bg-white w-full rounded-lg">
 			<div>
@@ -141,7 +132,11 @@ const ProductCard = ({ productDetails }) => {
 					<p className="text-base-gray pt-2 text-sm md:text-base">
 						#{productDetails?.minimum_price ?? "0.00"}
 					</p>
-					<Button text="Buy Now" className={styles.productCardBtn} />
+					<Button
+						text="Buy Now"
+						className={styles.productCardBtn}
+						onClick={() => router.push("/checkout")}
+					/>
 				</div>
 			</div>
 		</div>

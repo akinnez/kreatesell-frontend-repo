@@ -49,7 +49,6 @@ const Checkout = () => {
 							<Image
 								src={CheckoutPlaceholder}
 								className="rounded-lg"
-								// objectFit="fill"
 								width="600"
 							/>
 						</div>
