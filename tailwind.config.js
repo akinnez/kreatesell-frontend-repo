@@ -5,6 +5,8 @@ module.exports = {
 		extend: {
 			colors: {
 				"primary-blue": "#0072ef",
+				"secondary-blue-100": "#e6f7ff",
+				"secondary-blue-200": "#bae7ff",
 				"black-100": "#262626",
 				"black-200": "#252b42",
 				"black-300": "#171717",
@@ -18,6 +20,9 @@ module.exports = {
 			spacing: {
 				30: "30%",
 				70: "70%",
+			},
+			screens: {
+				xs: "375px",
 			},
 		},
 	},

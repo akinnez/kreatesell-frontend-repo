@@ -17,8 +17,6 @@ const Domain = () => {
 		(state) => state.domain
 	);
 
-	console.log("domains --->", domains);
-
 	useEffect(() => {
 		getDomains();
 	}, []);
@@ -34,8 +32,6 @@ const Domain = () => {
 			{domainScreen === 1 && <EmptyDomain />}
 			{domainScreen === 2 && <AllDomains />}
 			{domainScreen === 3 && <CustomDomain />}
-			{/* <AllDomains />
-			<CustomDomain /> */}
 		</div>
 	);
 };
