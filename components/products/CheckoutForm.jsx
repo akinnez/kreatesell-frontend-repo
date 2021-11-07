@@ -3,14 +3,13 @@ import { Input, Button, ProductInput } from "components";
 import { Switch } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
 import { CloudUpload } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
 import { Select } from "components/select/Select";
-import { useDebounce } from "use-debounce";
 import { useSelector } from "react-redux";
 import { GetProductByID, GetBillingInterval } from "redux/actions";
+import { useHandleProductInputDebounce, useUpload } from "hooks";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	/**
@@ -32,38 +31,34 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [showTotalSales, setShowTotalSales] = useState(false);
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
-	const [sellingPrice, setSellingPrice] = useState([]);
+	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
 
 	const [couponVariance, setCouponVariance] = useState({
 		isPercentage: true,
 		is_fixed_amount: false,
 	});
 
-	const [priceData, setPriceData] = useState({
-		currency_name: "",
-		currency_value: 0,
+	const { data: minimumPrice, handleDebounce: handleMinimumPrice } =
+		useHandleProductInputDebounce();
+	const { data: sellingPrice, handleDebounce: handleSellingPrice } =
+		useHandleProductInputDebounce();
+	const { data: originalPrice, handleDebounce: handleOriginalPrice } =
+		useHandleProductInputDebounce();
+	const { data: suggestedPrice, handleDebounce: handleSuggestedPrice } =
+		useHandleProductInputDebounce();
+
+	const { preview, getRootProps, getInputProps } = useUpload({
+		setFileChange: setPromotionalMaterial,
 	});
 
 	const { productID, product, billingInterval } = useSelector(
 		(state) => state.product
 	);
 
-	const [value] = useDebounce(priceData, 500);
-
 	const mappedBillingInterval = billingInterval?.map((billing) => ({
 		label: billing.billing_types,
 		value: billing.billing_durations,
 	}));
-
-	const handleSellingPriceChange = async ({
-		currency_name,
-		currency_value,
-	}) => {
-		setPriceData((data) => ({
-			currency_name,
-			currency_value,
-		}));
-	};
 
 	useEffect(() => {
 		getBillingInterval();
@@ -75,16 +70,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		}
 	}, [productID]);
 
-	useEffect(() => {
-		setSellingPrice((e) => [...e, value]);
-	}, [value]);
-
-	const onDrop = () => {};
-
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
-		onDrop,
-	});
-
 	const handleSubmit = () => {};
 
 	const initialValues = {
@@ -95,7 +80,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		},
 		is_show_compare_price: false,
 		pricing_type_id: 1,
-		selling_price: [],
+		selling_prices: [],
+		minimum_prices: [],
+		original_prices: [],
+		suggested_prices: [],
 		coupon_settings: {
 			start_date: "",
 			end_date: "",
@@ -110,6 +98,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			is_limited_sales: false,
 			show_number_of_sales: false,
 		},
+		promotional_items: {
+			allow_promotional_items: false,
+			promotional_files: [],
+		},
 	};
 
 	const formik = useFormik({
@@ -121,12 +113,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
 	const { errors, setFieldValue, values } = formik;
 
-	// console.log("formik values --->", values);
+	// console.log("formik values  -->", values);
 
 	useEffect(() => {
 		setFieldValue("pricing_type_id", priceType);
 		setFieldValue("checkout.cta_button", ctaBtnText);
-		setFieldValue("selling_price", sellingPrice);
+		setFieldValue("selling_prices", sellingPrice);
+		setFieldValue("minimum_prices", minimumPrice);
 		setFieldValue("is_show_compare_price", compareToPrice);
 		setFieldValue("checkout.is_coupon", applyCoupon);
 		setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
@@ -138,6 +131,18 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		setFieldValue("product_settings.is_limited_sales", limitProductSale);
 		setFieldValue("product_settings.show_number_of_sales", showTotalSales);
 		setFieldValue("who_bear_fee", buyerPaysTransactionFee);
+		setFieldValue("minimum_prices", minimumPrice);
+		setFieldValue("selling_prices", sellingPrice);
+		setFieldValue("original_prices", originalPrice);
+		setFieldValue("suggested_prices", suggestedPrice);
+		setFieldValue(
+			"promotional_items.allow_promotional_items",
+			uploadPromotionalMaterial
+		);
+		setFieldValue(
+			"promotional_items.promotional_files",
+			preview?.map((item) => item.url)
+		);
 	}, [
 		setFieldValue,
 		priceType,
@@ -150,11 +155,18 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		limitProductSale,
 		showTotalSales,
 		buyerPaysTransactionFee,
+		minimumPrice,
+		sellingPrice,
+		originalPrice,
+		suggestedPrice,
+		uploadPromotionalMaterial,
+		preview,
+		promotionalMaterial,
 	]);
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
-			{[1].includes(priceType) && (
+			{[1, 3].includes(priceType) && (
 				<div>
 					<p className="text-base mb-2">Selling Price</p>
 					<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
@@ -162,96 +174,56 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							prefix="NGN"
 							name="NGN"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "NGN",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="GBP"
 							name="GBP"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "GBP",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="KES"
 							name="KES"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "KES",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="TZS"
 							name="TZS"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "TZS",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="USD"
 							name="USD"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "USD",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="GHS"
 							name="GHS"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "GHS",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="ZAR"
 							name="ZAR"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "ZAR",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="UGX"
 							name="UGX"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "UGX",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 					</div>
 					<p className="text-base-gray-200 text-xs pt-2">
@@ -267,28 +239,108 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					<div>
 						<p className="text-base mb-2">Minimum Amount</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
 						</div>
 					</div>
 
 					<div className="pt-4">
 						<p className="text-base mb-2">Suggested Amount</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
 						</div>
 					</div>
 				</div>
@@ -296,19 +348,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
 			{priceType === 3 && (
 				<div>
-					<div>
-						<p className="text-base mb-2">Selling Price</p>
-						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-						</div>
-					</div>
 					<div className="pt-4">
 						<p className="text-base mb-2">Initial Payment at Checkout</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
@@ -381,6 +420,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setCompareToPrice((value) => !value);
 								}}
+								checked={compareToPrice}
 							/>
 							<span className="pl-6 text-black-100">
 								{compareToPrice ? "ON" : "OFF"}
@@ -393,14 +433,54 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					<div className="mt-4">
 						<p className="text-sm">Original price (NGN) </p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-1">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
 						</div>
 					</div>
 				)}
@@ -413,6 +493,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setApplyCoupon((value) => !value);
 								}}
+								checked={applyCoupon}
 							/>
 							<span className="pl-6 text-black-100">
 								{applyCoupon ? "ON" : "OFF"}
@@ -571,6 +652,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setAllowAffiliateMarket((value) => !value);
 								}}
+								checked={allowAffiliateMarket}
 							/>
 							<span className="pl-6 text-black-100">
 								{allowAffiliateMarket ? "ON" : "OFF"}
@@ -597,6 +679,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 										onChange={(e) => {
 											setUploadPromotionalMaterial((value) => !value);
 										}}
+										checked={uploadPromotionalMaterial}
 									/>
 									<span className="pl-6 text-black-100">
 										{uploadPromotionalMaterial ? "ON" : "OFF"}
@@ -611,7 +694,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 										files into single RAR or ZIP file. <br /> The maximum
 										allowed file size is 1GB.
 									</p>
-									<div className={styles.contentFileUpload} {...getRootProps()}>
+
+									<div
+										className={`${styles.contentFileUpload} ${
+											promotionalMaterial?.length > 0 && styles.activeUpload
+										}`}
+										{...getRootProps()}
+									>
 										<input {...getInputProps()} />
 										<Image src={CloudUpload} alt="upload image" />
 										<p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
@@ -633,6 +722,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setLimitProductSale((value) => !value);
 								}}
+								checked={limitProductSale}
 							/>
 							<span className="pl-6 text-black-100">
 								{limitProductSale ? "ON" : "OFF"}
@@ -658,6 +748,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setShowTotalSales((value) => !value);
 								}}
+								checked={showTotalSales}
 							/>
 							<span className="pl-6 text-black-100">
 								{showTotalSales ? "ON" : "OFF"}
@@ -672,6 +763,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setBuyerPaysTransactionFee((value) => !value);
 								}}
+								checked={buyerPaysTransactionFee}
 							/>
 							<span className="pl-6 text-black-100">
 								{buyerPaysTransactionFee ? "ON" : "OFF"}

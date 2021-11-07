@@ -6,7 +6,6 @@ import styles from "./CreateProduct.module.scss";
 import { DeleteIcon } from "components/IconPack";
 import { Radio } from "components/inputPack";
 import { Switch } from "antd";
-import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
 import {
 	DigitalProductSchema,
@@ -29,7 +28,7 @@ export const CreateProductForm = ({
 	productType = "digitalDownload",
 	productTypeId,
 }) => {
-	console.log("productType -->", productType);
+	// console.log("productType -->", productType);
 	const setProductTab = SetProductTab();
 	const getListingStatus = GetListingStatus();
 	const createProduct = CreateProduct();
@@ -44,7 +43,7 @@ export const CreateProductForm = ({
 		(state) => state.product
 	);
 
-	console.log("product by ID --->", product);
+	// console.log("product by ID --->", product);
 
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
@@ -92,7 +91,7 @@ export const CreateProductForm = ({
 			product_files: [""],
 			file_access_type: 1,
 		},
-		action: "c",
+		action: product ? "e" : "c",
 	};
 
 	const handleSubmit = (data) => {
@@ -155,6 +154,7 @@ export const CreateProductForm = ({
 			product?.product_details?.product_description
 		);
 		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+		setPreOrder(() => product?.product_details?.enable_preorder);
 		setFieldValue(
 			"preorder_details.preorder_release_date",
 			product?.product_details?.preoder_date
@@ -192,6 +192,7 @@ export const CreateProductForm = ({
 						name="product_name"
 						onChange={formik.handleChange}
 						errorMessage={errors.product_name}
+						value={values?.product_name}
 					/>
 				</div>
 
@@ -204,6 +205,7 @@ export const CreateProductForm = ({
 						labelStyle={styles.inputLabel}
 						onChange={formik.handleChange}
 						errorMessage={errors.product_description}
+						value={values?.product_description}
 					/>
 				</div>
 
@@ -293,6 +295,7 @@ export const CreateProductForm = ({
 										setPreOrder((value) => !value);
 										setFieldValue("enable_preorder", e);
 									}}
+									checked={preOrder}
 								/>
 								<span className="pl-6 text-black-100">
 									{preOrder ? "ON" : "OFF"}
@@ -313,6 +316,7 @@ export const CreateProductForm = ({
 										e.target.value
 									);
 								}}
+								value={values?.preorder_details.preorder_release_date}
 							/>
 						</div>
 					)}
