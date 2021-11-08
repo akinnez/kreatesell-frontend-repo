@@ -28,7 +28,6 @@ export const CreateProductForm = ({
 	productType = "digitalDownload",
 	productTypeId,
 }) => {
-	// console.log("productType -->", productType);
 	const setProductTab = SetProductTab();
 	const getListingStatus = GetListingStatus();
 	const createProduct = CreateProduct();
@@ -43,11 +42,8 @@ export const CreateProductForm = ({
 		(state) => state.product
 	);
 
-	// console.log("product by ID --->", product);
-
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
-	// console.log("files length -->", files);
 
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);
@@ -440,7 +436,7 @@ export const CreateProductForm = ({
 							bgColor="blue"
 							className={styles.digitalBtn}
 							loading={loading}
-							// onClick={() => setProductTab(1)}
+							onClick={() => setProductTab(1)}
 						/>
 					</div>
 				</div>

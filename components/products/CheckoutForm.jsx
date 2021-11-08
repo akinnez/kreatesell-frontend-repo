@@ -8,7 +8,12 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Select } from "components/select/Select";
 import { useSelector } from "react-redux";
-import { GetProductByID, GetBillingInterval } from "redux/actions";
+import {
+	GetProductByID,
+	GetBillingInterval,
+	CreateProduct,
+	SetProductTab,
+} from "redux/actions";
 import { useHandleProductInputDebounce, useUpload } from "hooks";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
@@ -21,6 +26,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	 */
 	const getProductByID = GetProductByID();
 	const getBillingInterval = GetBillingInterval();
+	const createProduct = CreateProduct();
+	const setProductTab = SetProductTab();
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
 	const [applyCoupon, setApplyCoupon] = useState(false);
@@ -32,6 +39,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const [showTotalSales, setShowTotalSales] = useState(false);
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
 	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
+	const [frequencyOptions, setFrequencyOptions] = useState([]);
+	const [numberOfInputs, setNumberOfInputs] = useState(1);
 
 	const [couponVariance, setCouponVariance] = useState({
 		isPercentage: true,
@@ -45,6 +54,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const { data: originalPrice, handleDebounce: handleOriginalPrice } =
 		useHandleProductInputDebounce();
 	const { data: suggestedPrice, handleDebounce: handleSuggestedPrice } =
+		useHandleProductInputDebounce();
+	const { data: initialPrice, handleDebounce: handleInitialPrice } =
+		useHandleProductInputDebounce();
+	const { data: installmentPrice, handleDebounce: handleInstallmentPrice } =
 		useHandleProductInputDebounce();
 
 	const { preview, getRootProps, getInputProps } = useUpload({
@@ -60,6 +73,19 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		value: billing.billing_durations,
 	}));
 
+	const paymentFrequencyOptions = async () => {
+		let opt = [];
+		for (let i = 1; i < 10; i++) {
+			opt.push(i);
+			const values = opt.map((item) => ({ label: item, value: item }));
+			setFrequencyOptions(values);
+		}
+	};
+
+	useEffect(() => {
+		paymentFrequencyOptions();
+	}, []);
+
 	useEffect(() => {
 		getBillingInterval();
 	}, []);
@@ -70,7 +96,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		}
 	}, [productID]);
 
-	const handleSubmit = () => {};
+	const handleSubmit = (data) => {
+		createProduct(data, () => setProductTab(2));
+	};
 
 	const initialValues = {
 		checkout: {
@@ -84,6 +112,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		minimum_prices: [],
 		original_prices: [],
 		suggested_prices: [],
+		initial_prices: [],
+		installment_prices: [],
 		coupon_settings: {
 			start_date: "",
 			end_date: "",
@@ -102,6 +132,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			allow_promotional_items: false,
 			promotional_files: [],
 		},
+		action: "e",
 	};
 
 	const formik = useFormik({
@@ -135,6 +166,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		setFieldValue("selling_prices", sellingPrice);
 		setFieldValue("original_prices", originalPrice);
 		setFieldValue("suggested_prices", suggestedPrice);
+		setFieldValue("initial_prices", initialPrice);
+		setFieldValue("installment_prices", installmentPrice);
 		setFieldValue(
 			"promotional_items.allow_promotional_items",
 			uploadPromotionalMaterial
@@ -162,7 +195,35 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		uploadPromotionalMaterial,
 		preview,
 		promotionalMaterial,
+		initialPrice,
+		installmentPrice,
 	]);
+
+	useEffect(() => {
+		setFieldValue("product_name", product?.product_details?.product_name);
+		setFieldValue(
+			"product_description",
+			product?.product_details?.product_description
+		);
+		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+		setFieldValue(
+			"preorder_details.preorder_release_date",
+			product?.product_details?.preoder_date
+		);
+		setFieldValue(
+			"preorder_details.is_preorder_downloadable",
+			product?.product_details?.is_preorder_downloadable
+		);
+		setFieldValue("upload_content", product?.product_details?.upload_content);
+		setFieldValue(
+			"product_visibility_status",
+			product?.product_details?.product_visibility
+		);
+		setFieldValue(
+			"cover_image",
+			product?.product_details?.product_cover_picture
+		);
+	}, [product]);
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
@@ -351,21 +412,64 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					<div className="pt-4">
 						<p className="text-base mb-2">Initial Payment at Checkout</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
 						</div>
 					</div>
 
 					<div className="mt-3 w-full">
 						<p className="text-base mb-2">Select Frequency of payments</p>
 						<div className="w-full lg:w-1/5">
-							<Select />
+							<Select
+								options={frequencyOptions}
+								onChange={(e) => setNumberOfInputs(e.value)}
+							/>
 						</div>
 					</div>
 
@@ -373,31 +477,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 						<p className="text-base mb-2">
 							Division of the remaining payment by the frequency
 						</p>
-						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-						</div>
 
-						<div className="py-2 lg:hidden">
-							<div className="divider"></div>
-						</div>
-
-						<div className="w-4/5 pt-2 lg:pt-4 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-						</div>
+						{[...Array(numberOfInputs)].map((item, i) => (
+							<BatchInput key={i} handleChange={handleInstallmentPrice} />
+						))}
 					</div>
 
 					<div className="mt-3 w-full">
@@ -795,5 +878,64 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 				</div>
 			</div>
 		</form>
+	);
+};
+
+const BatchInput = ({ handleChange }) => {
+	return (
+		<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 py-2">
+			<ProductInput
+				prefix="NGN"
+				name="NGN"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="GBP"
+				name="GBP"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="KES"
+				name="KES"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="TZS"
+				name="TZS"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="USD"
+				name="USD"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="GHS"
+				name="GHS"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="ZAR"
+				name="ZAR"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="UGX"
+				name="UGX"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+
+			<div className="pt-2 lg:hidden">
+				<div className="divider"></div>
+			</div>
+		</div>
 	);
 };
