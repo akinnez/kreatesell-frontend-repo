@@ -13,6 +13,7 @@ export const DigitalProductSchema = () => {
 		),
 		preorder_details: Yup.object().shape({
 			preorder_release_date: Yup.date(),
+			// preorder_release_date: Yup.date().nullable(),
 			is_preorder_downloadable: Yup.boolean(),
 		}),
 		product_type_id: Yup.number(),

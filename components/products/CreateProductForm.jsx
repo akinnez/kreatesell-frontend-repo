@@ -11,7 +11,7 @@ import {
 	DigitalProductSchema,
 	// oneTimeSubscriptionSchema,
 	oneTimeSubscriptionAndMembershipSchema,
-	membershipProductSchema,
+	// membershipProductSchema,
 } from "validation";
 import filesize from "filesize";
 import {
@@ -88,16 +88,33 @@ export const CreateProductForm = ({
 			file_access_type: 1,
 		},
 		action: product ? "e" : "c",
+		kreatesell_id: "",
+		product_type_id: 0,
+		product_listing_status_id: 0,
+		product_status: 0,
+		cta_button: "",
+		product_id: 0,
 	};
 
 	const handleSubmit = (data) => {
 		if (["oneTimeSubscription", "membership"].includes(productType)) {
 			delete data?.content_file_details;
-			delete data?.preorder_details;
-			delete data?.enable_preorder;
+			// delete data?.preorder_details;
+			// delete data?.enable_preorder;
 			delete data?.upload_content;
 			delete data?.upload_preview;
 		}
+		if (!data.enable_preorder) {
+			delete data.preorder_details;
+		}
+		if (preview.length < 1) {
+			delete data.cover_image;
+		}
+		if (productFilePreview.length < 1) {
+			// delete data.content_file_details.product_files;
+			delete data.content_file_details;
+		}
+
 		createProduct(data, () => {
 			setProductID(product?.product_details?.kreasell_product_id);
 			setProductTab(1);
@@ -150,23 +167,29 @@ export const CreateProductForm = ({
 			product?.product_details?.product_description
 		);
 		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
-		setPreOrder(() => product?.product_details?.enable_preorder);
+		setFieldValue("upload_content", product?.product_details?.upload_content);
+		setFieldValue(
+			"product_visibility_status",
+			product?.product_details?.product_visibility
+		);
+		setFieldValue("upload_preview", product?.product_details?.is_preview_only);
 		setFieldValue(
 			"preorder_details.preorder_release_date",
 			product?.product_details?.preoder_date
 		);
 		setFieldValue(
 			"preorder_details.is_preorder_downloadable",
-			product?.product_details?.is_preorder_downloadable
-		);
-		setFieldValue("upload_content", product?.product_details?.upload_content);
-		setFieldValue(
-			"product_visibility_status",
-			product?.product_details?.product_visibility
+			product?.product_details?.is_preoder_downloadable ?? false
 		);
 		setFieldValue(
-			"cover_image",
-			product?.product_details?.product_cover_picture
+			"kreatesell_id",
+			product?.product_details?.kreasell_product_id
+		);
+		setFieldValue("product_type_id", product?.product_details?.product_type_id);
+		setFieldValue("product_id", product?.product_details?.id);
+		setFieldValue(
+			"product_listing_status",
+			product?.product_details?.product_listing_status
 		);
 	}, [product]);
 
@@ -312,7 +335,7 @@ export const CreateProductForm = ({
 										e.target.value
 									);
 								}}
-								value={values?.preorder_details.preorder_release_date}
+								value={values?.preorder_details?.preorder_release_date}
 							/>
 						</div>
 					)}
@@ -436,7 +459,6 @@ export const CreateProductForm = ({
 							bgColor="blue"
 							className={styles.digitalBtn}
 							loading={loading}
-							onClick={() => setProductTab(1)}
 						/>
 					</div>
 				</div>

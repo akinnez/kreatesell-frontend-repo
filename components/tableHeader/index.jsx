@@ -306,7 +306,7 @@ export const AllProductsTableHeader = [
 					rel="noopener noreferrer"
 					className="productTooltip"
 				>
-					{item.slice(0, 30)}...
+					{item?.slice(0, 30)}...
 					<div className="tooltipText flex justify-between items-center">
 						<span className="text-black-100">Go to link: </span>
 						<span
