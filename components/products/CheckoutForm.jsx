@@ -64,7 +64,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		setFileChange: setPromotionalMaterial,
 	});
 
-	const { productID, product, billingInterval } = useSelector(
+	const { productID, product, billingInterval, loading } = useSelector(
 		(state) => state.product
 	);
 
@@ -97,6 +97,45 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	}, [productID]);
 
 	const handleSubmit = (data) => {
+		delete data?.cover_image;
+		delete data?.product_details?.product_cover_picture;
+		delete data?.product_details?.upload_content;
+
+		if (promotionalMaterial.length < 1) {
+			delete data?.promotional_items;
+		}
+		if (!data.cta_button) {
+			delete data.cta_button;
+		}
+		if (data?.selling_prices.length < 1) {
+			delete data.selling_prices;
+		}
+		if (data?.minimum_prices.length < 1) {
+			delete data.minimum_prices;
+		}
+		if (data?.original_prices.length < 1) {
+			delete data.original_prices;
+		}
+		if (data?.suggested_prices.length < 1) {
+			delete data.suggested_prices;
+		}
+		if (data?.initial_prices.length < 1) {
+			delete data.initial_prices;
+		}
+		if (data?.installment_prices.length < 1) {
+			delete data.installment_prices;
+		}
+		if (!data.checkout.is_coupon) {
+			delete data.coupon_settings;
+			delete data.checkout;
+		}
+		if (!data.product_settings.allow_affiliates) {
+			delete data.product_settings.affiliate_percentage_on_sales;
+		}
+		if (!data.is_show_compare_price) {
+			delete data.is_show_compare_price;
+		}
+
 		createProduct(data, () => setProductTab(2));
 	};
 
@@ -133,6 +172,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			promotional_files: [],
 		},
 		action: "e",
+		set_price: false,
 	};
 
 	const formik = useFormik({
@@ -144,7 +184,26 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
 	const { errors, setFieldValue, values } = formik;
 
-	// console.log("formik values  -->", values);
+	useEffect(() => {
+		if (!values.enable_preorder) {
+			delete values.preorder_details;
+		}
+	}, [values]);
+
+	useEffect(() => {
+		if (
+			(
+				values.selling_prices ||
+				values.minimum_prices ||
+				values.original_prices ||
+				values.suggested_prices ||
+				values.initial_prices ||
+				values.installment_prices
+			).length > 0
+		) {
+			setFieldValue("set_price", true);
+		}
+	}, [values, setFieldValue]);
 
 	useEffect(() => {
 		setFieldValue("pricing_type_id", priceType);
@@ -206,22 +265,29 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			product?.product_details?.product_description
 		);
 		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+		setFieldValue("upload_content", product?.product_details?.upload_content);
+		setFieldValue(
+			"product_visibility_status",
+			product?.product_details?.product_visibility
+		);
+		setFieldValue("upload_preview", product?.product_details?.is_preview_only);
 		setFieldValue(
 			"preorder_details.preorder_release_date",
 			product?.product_details?.preoder_date
 		);
 		setFieldValue(
 			"preorder_details.is_preorder_downloadable",
-			product?.product_details?.is_preorder_downloadable
-		);
-		setFieldValue("upload_content", product?.product_details?.upload_content);
-		setFieldValue(
-			"product_visibility_status",
-			product?.product_details?.product_visibility
+			product?.product_details?.is_preoder_downloadable ?? false
 		);
 		setFieldValue(
-			"cover_image",
-			product?.product_details?.product_cover_picture
+			"kreatesell_id",
+			product?.product_details?.kreasell_product_id
+		);
+		setFieldValue("product_type_id", product?.product_details?.product_type_id);
+		setFieldValue("product_id", product?.product_details?.id);
+		setFieldValue(
+			"product_listing_status",
+			product?.product_details?.product_listing_status
 		);
 	}, [product]);
 
@@ -873,6 +939,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							text="Save and continue"
 							bgColor="blue"
 							className={styles.digitalBtn}
+							loading={loading}
 						/>
 					</div>
 				</div>

@@ -11,14 +11,11 @@ export const CreateProduct = () => {
 			`post`,
 			`v1/kreatesell/product/create-edit`,
 			(res) => {
-				console.log("create edit response ===>", res);
 				dispatch({ type: types.CREATE_PRODUCT.SUCCESS, payload: res });
 				showToast(res?.message, "info");
 				successCallback?.();
 			},
 			(err) => {
-				console.log("create edit error ===>", err);
-
 				dispatch({ type: types.CREATE_PRODUCT.FAILURE, payload: err });
 				showToast(err?.message, "error");
 				errorCallback?.();
