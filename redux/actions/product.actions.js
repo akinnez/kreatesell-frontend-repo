@@ -11,14 +11,11 @@ export const CreateProduct = () => {
 			`post`,
 			`v1/kreatesell/product/create-edit`,
 			(res) => {
-				console.log("create edit response ===>", res);
 				dispatch({ type: types.CREATE_PRODUCT.SUCCESS, payload: res });
 				showToast(res?.message, "info");
 				successCallback?.();
 			},
 			(err) => {
-				console.log("create edit error ===>", err);
-
 				dispatch({ type: types.CREATE_PRODUCT.FAILURE, payload: err });
 				showToast(err?.message, "error");
 				errorCallback?.();
@@ -190,6 +187,42 @@ export const DuplicateProductAction = () => {
 			},
 			(err) => {
 				dispatch({ type: types.DUPLICATE_PRODUCT.FAILURE, payload: err });
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
+		)
+	);
+};
+
+export const FetchSingleStoreProduct = () => {
+	const dispatch = useDispatch();
+	return (storename, successCallback, errorCallback) => (
+		dispatch({ type: types.FETCH_SINGLE_STORE_PRODUCT.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/fetch/${storename}`,
+			(res) => {
+				const data = res?.data;
+				const singleStoreProducts = data?.products?.data;
+				delete data?.products?.data;
+
+				const payload = {
+					singleStoreDetails: data?.store_details,
+					singleStoreProducts,
+					singleStorePaginationDetails: { ...data?.products },
+				};
+
+				dispatch({
+					type: types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS,
+					payload,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.FETCH_SINGLE_STORE_PRODUCT.FAILURE,
+					payload: err,
+				});
 				showToast(err?.message, "error");
 				errorCallback?.();
 			}

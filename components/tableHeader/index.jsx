@@ -11,7 +11,7 @@ import {
 } from "utils";
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Modal } from "antd";
 import { Button } from "components";
 import { useRouter } from "next/router";
@@ -21,6 +21,7 @@ import {
 	GetProducts,
 	CreateProduct,
 	SetProductID,
+	SetProductTab,
 } from "redux/actions";
 
 export const MobileProductCard = ({ item }) => {
@@ -176,6 +177,8 @@ const ActionComponent = ({ item, showAction }) => {
 	const getProducts = GetProducts();
 	const createEditDeleteProduct = CreateProduct();
 	const setProductID = SetProductID();
+	const setProductTab = SetProductTab();
+
 	const id = item?.product_details?.id;
 	const kreasell_product_id = item?.product_details?.kreasell_product_id;
 
@@ -221,6 +224,7 @@ const ActionComponent = ({ item, showAction }) => {
 						onClick={() => {
 							setProductID(kreasell_product_id);
 							router.push("/account/kreator/products/create");
+							setProductTab(0);
 						}}
 					>
 						<span>
@@ -302,7 +306,7 @@ export const AllProductsTableHeader = [
 					rel="noopener noreferrer"
 					className="productTooltip"
 				>
-					{item.slice(0, 30)}...
+					{item?.slice(0, 30)}...
 					<div className="tooltipText flex justify-between items-center">
 						<span className="text-black-100">Go to link: </span>
 						<span

@@ -3,14 +3,18 @@ import { Input, Button, ProductInput } from "components";
 import { Switch } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
 import { CloudUpload } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
 import { Select } from "components/select/Select";
-import { useDebounce } from "use-debounce";
 import { useSelector } from "react-redux";
-import { GetProductByID, GetBillingInterval } from "redux/actions";
+import {
+	GetProductByID,
+	GetBillingInterval,
+	CreateProduct,
+	SetProductTab,
+} from "redux/actions";
+import { useHandleProductInputDebounce, useUpload } from "hooks";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	/**
@@ -22,6 +26,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	 */
 	const getProductByID = GetProductByID();
 	const getBillingInterval = GetBillingInterval();
+	const createProduct = CreateProduct();
+	const setProductTab = SetProductTab();
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
 	const [applyCoupon, setApplyCoupon] = useState(false);
@@ -32,38 +38,53 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [showTotalSales, setShowTotalSales] = useState(false);
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
-	const [sellingPrice, setSellingPrice] = useState([]);
+	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
+	const [frequencyOptions, setFrequencyOptions] = useState([]);
+	const [numberOfInputs, setNumberOfInputs] = useState(1);
 
 	const [couponVariance, setCouponVariance] = useState({
 		isPercentage: true,
 		is_fixed_amount: false,
 	});
 
-	const [priceData, setPriceData] = useState({
-		currency_name: "",
-		currency_value: 0,
+	const { data: minimumPrice, handleDebounce: handleMinimumPrice } =
+		useHandleProductInputDebounce();
+	const { data: sellingPrice, handleDebounce: handleSellingPrice } =
+		useHandleProductInputDebounce();
+	const { data: originalPrice, handleDebounce: handleOriginalPrice } =
+		useHandleProductInputDebounce();
+	const { data: suggestedPrice, handleDebounce: handleSuggestedPrice } =
+		useHandleProductInputDebounce();
+	const { data: initialPrice, handleDebounce: handleInitialPrice } =
+		useHandleProductInputDebounce();
+	const { data: installmentPrice, handleDebounce: handleInstallmentPrice } =
+		useHandleProductInputDebounce();
+
+	const { preview, getRootProps, getInputProps } = useUpload({
+		setFileChange: setPromotionalMaterial,
 	});
 
-	const { productID, product, billingInterval } = useSelector(
+	const { productID, product, billingInterval, loading } = useSelector(
 		(state) => state.product
 	);
-
-	const [value] = useDebounce(priceData, 500);
 
 	const mappedBillingInterval = billingInterval?.map((billing) => ({
 		label: billing.billing_types,
 		value: billing.billing_durations,
 	}));
 
-	const handleSellingPriceChange = async ({
-		currency_name,
-		currency_value,
-	}) => {
-		setPriceData((data) => ({
-			currency_name,
-			currency_value,
-		}));
+	const paymentFrequencyOptions = async () => {
+		let opt = [];
+		for (let i = 1; i < 10; i++) {
+			opt.push(i);
+			const values = opt.map((item) => ({ label: item, value: item }));
+			setFrequencyOptions(values);
+		}
 	};
+
+	useEffect(() => {
+		paymentFrequencyOptions();
+	}, []);
 
 	useEffect(() => {
 		getBillingInterval();
@@ -75,17 +96,50 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		}
 	}, [productID]);
 
-	useEffect(() => {
-		setSellingPrice((e) => [...e, value]);
-	}, [value]);
+	const handleSubmit = (data) => {
+		delete data?.cover_image;
+		delete data?.product_details?.product_cover_picture;
+		delete data?.upload_content || data?.product_details?.upload_content;
+		delete data?.upload_preview;
+		delete data?.product_listing_status;
 
-	const onDrop = () => {};
+		if (promotionalMaterial.length < 1) {
+			delete data?.promotional_items;
+		}
+		if (!data.cta_button) {
+			delete data.cta_button;
+		}
+		if (data?.selling_prices.length < 1) {
+			delete data.selling_prices;
+		}
+		if (data?.minimum_prices.length < 1) {
+			delete data.minimum_prices;
+		}
+		if (data?.original_prices.length < 1) {
+			delete data.original_prices;
+		}
+		if (data?.suggested_prices.length < 1) {
+			delete data.suggested_prices;
+		}
+		if (data?.initial_prices.length < 1) {
+			delete data.initial_prices;
+		}
+		if (data?.installment_prices.length < 1) {
+			delete data.installment_prices;
+		}
+		if (!data.checkout.is_coupon) {
+			delete data.coupon_settings;
+			delete data.checkout;
+		}
+		if (!data.product_settings.allow_affiliates) {
+			delete data.product_settings.affiliate_percentage_on_sales;
+		}
+		if (!data.is_show_compare_price) {
+			delete data.is_show_compare_price;
+		}
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
-		onDrop,
-	});
-
-	const handleSubmit = () => {};
+		createProduct(data, () => setProductTab(2));
+	};
 
 	const initialValues = {
 		checkout: {
@@ -95,7 +149,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		},
 		is_show_compare_price: false,
 		pricing_type_id: 1,
-		selling_price: [],
+		selling_prices: [],
+		minimum_prices: [],
+		original_prices: [],
+		suggested_prices: [],
+		initial_prices: [],
+		installment_prices: [],
 		coupon_settings: {
 			start_date: "",
 			end_date: "",
@@ -110,6 +169,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 			is_limited_sales: false,
 			show_number_of_sales: false,
 		},
+		promotional_items: {
+			allow_promotional_items: false,
+			promotional_files: [],
+		},
+		action: "e",
+		set_price: false,
 	};
 
 	const formik = useFormik({
@@ -121,12 +186,33 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
 	const { errors, setFieldValue, values } = formik;
 
-	// console.log("formik values --->", values);
+	useEffect(() => {
+		if (!values.enable_preorder) {
+			delete values.preorder_details;
+			delete values.enable_preorder;
+		}
+	}, [values]);
+
+	useEffect(() => {
+		if (
+			values[
+				"minimum_prices" ||
+					"suggested_prices" ||
+					"original_prices" ||
+					"suggested_prices" ||
+					"initial_prices" ||
+					"installment_prices"
+			]?.length > 0
+		) {
+			setFieldValue("set_price", true);
+		}
+	}, [values, setFieldValue]);
 
 	useEffect(() => {
 		setFieldValue("pricing_type_id", priceType);
 		setFieldValue("checkout.cta_button", ctaBtnText);
-		setFieldValue("selling_price", sellingPrice);
+		setFieldValue("selling_prices", sellingPrice);
+		setFieldValue("minimum_prices", minimumPrice);
 		setFieldValue("is_show_compare_price", compareToPrice);
 		setFieldValue("checkout.is_coupon", applyCoupon);
 		setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
@@ -138,6 +224,20 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		setFieldValue("product_settings.is_limited_sales", limitProductSale);
 		setFieldValue("product_settings.show_number_of_sales", showTotalSales);
 		setFieldValue("who_bear_fee", buyerPaysTransactionFee);
+		setFieldValue("minimum_prices", minimumPrice);
+		setFieldValue("selling_prices", sellingPrice);
+		setFieldValue("original_prices", originalPrice);
+		setFieldValue("suggested_prices", suggestedPrice);
+		setFieldValue("initial_prices", initialPrice);
+		setFieldValue("installment_prices", installmentPrice);
+		setFieldValue(
+			"promotional_items.allow_promotional_items",
+			uploadPromotionalMaterial
+		);
+		setFieldValue(
+			"promotional_items.promotional_files",
+			preview?.map((item) => item.url)
+		);
 	}, [
 		setFieldValue,
 		priceType,
@@ -150,11 +250,53 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		limitProductSale,
 		showTotalSales,
 		buyerPaysTransactionFee,
+		minimumPrice,
+		sellingPrice,
+		originalPrice,
+		suggestedPrice,
+		uploadPromotionalMaterial,
+		preview,
+		promotionalMaterial,
+		initialPrice,
+		installmentPrice,
 	]);
+
+	useEffect(() => {
+		setFieldValue("product_name", product?.product_details?.product_name);
+		setFieldValue(
+			"product_description",
+			product?.product_details?.product_description
+		);
+		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+		setFieldValue("upload_content", product?.product_details?.upload_content);
+		setFieldValue(
+			"product_visibility_status",
+			product?.product_details?.product_visibility
+		);
+		setFieldValue("upload_preview", product?.product_details?.is_preview_only);
+		setFieldValue(
+			"preorder_details.preorder_release_date",
+			product?.product_details?.preoder_date
+		);
+		setFieldValue(
+			"preorder_details.is_preorder_downloadable",
+			product?.product_details?.is_preoder_downloadable ?? false
+		);
+		setFieldValue(
+			"kreatesell_id",
+			product?.product_details?.kreasell_product_id
+		);
+		setFieldValue("product_type_id", product?.product_details?.product_type_id);
+		setFieldValue("product_id", product?.product_details?.id);
+		setFieldValue(
+			"product_listing_status_id",
+			product?.product_details?.product_listing_status
+		);
+	}, [product]);
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
-			{[1].includes(priceType) && (
+			{[1, 3].includes(priceType) && (
 				<div>
 					<p className="text-base mb-2">Selling Price</p>
 					<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
@@ -162,96 +304,56 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							prefix="NGN"
 							name="NGN"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "NGN",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="GBP"
 							name="GBP"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "GBP",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="KES"
 							name="KES"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "KES",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="TZS"
 							name="TZS"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "TZS",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="USD"
 							name="USD"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "USD",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="GHS"
 							name="GHS"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "GHS",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="ZAR"
 							name="ZAR"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "ZAR",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 
 						<ProductInput
 							prefix="UGX"
 							name="UGX"
 							placeholder="0"
-							onChange={(e) => {
-								handleSellingPriceChange({
-									currency_name: "UGX",
-									currency_value: e.target.value,
-								});
-							}}
+							onChange={(e) => handleSellingPrice(e)}
 						/>
 					</div>
 					<p className="text-base-gray-200 text-xs pt-2">
@@ -267,28 +369,108 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					<div>
 						<p className="text-base mb-2">Minimum Amount</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleMinimumPrice(e)}
+							/>
 						</div>
 					</div>
 
 					<div className="pt-4">
 						<p className="text-base mb-2">Suggested Amount</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleSuggestedPrice(e)}
+							/>
 						</div>
 					</div>
 				</div>
@@ -296,37 +478,67 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
 			{priceType === 3 && (
 				<div>
-					<div>
-						<p className="text-base mb-2">Selling Price</p>
-						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-						</div>
-					</div>
 					<div className="pt-4">
 						<p className="text-base mb-2">Initial Payment at Checkout</p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleInitialPrice(e)}
+							/>
 						</div>
 					</div>
 
 					<div className="mt-3 w-full">
 						<p className="text-base mb-2">Select Frequency of payments</p>
 						<div className="w-full lg:w-1/5">
-							<Select />
+							<Select
+								options={frequencyOptions}
+								onChange={(e) => setNumberOfInputs(e.value)}
+							/>
 						</div>
 					</div>
 
@@ -334,31 +546,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 						<p className="text-base mb-2">
 							Division of the remaining payment by the frequency
 						</p>
-						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-						</div>
 
-						<div className="py-2 lg:hidden">
-							<div className="divider"></div>
-						</div>
-
-						<div className="w-4/5 pt-2 lg:pt-4 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
-						</div>
+						{[...Array(numberOfInputs)].map((item, i) => (
+							<BatchInput key={i} handleChange={handleInstallmentPrice} />
+						))}
 					</div>
 
 					<div className="mt-3 w-full">
@@ -381,6 +572,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setCompareToPrice((value) => !value);
 								}}
+								checked={compareToPrice}
 							/>
 							<span className="pl-6 text-black-100">
 								{compareToPrice ? "ON" : "OFF"}
@@ -393,14 +585,54 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					<div className="mt-4">
 						<p className="text-sm">Original price (NGN) </p>
 						<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-1">
-							<ProductInput prefix="NGN" name="NGN" placeholder="0" />
-							<ProductInput prefix="GBP" name="GBP" placeholder="0" />
-							<ProductInput prefix="KES" name="KES" placeholder="0" />
-							<ProductInput prefix="TZS" name="TZS" placeholder="0" />
-							<ProductInput prefix="USD" name="USD" placeholder="0" />
-							<ProductInput prefix="GHS" name="GHS" placeholder="0" />
-							<ProductInput prefix="ZAR" name="ZAR" placeholder="0" />
-							<ProductInput prefix="UGX" name="UGX" placeholder="0" />
+							<ProductInput
+								prefix="NGN"
+								name="NGN"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="GBP"
+								name="GBP"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="KES"
+								name="KES"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="TZS"
+								name="TZS"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="USD"
+								name="USD"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="GHS"
+								name="GHS"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="ZAR"
+								name="ZAR"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
+							<ProductInput
+								prefix="UGX"
+								name="UGX"
+								placeholder="0"
+								onChange={(e) => handleOriginalPrice(e)}
+							/>
 						</div>
 					</div>
 				)}
@@ -413,6 +645,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setApplyCoupon((value) => !value);
 								}}
+								checked={applyCoupon}
 							/>
 							<span className="pl-6 text-black-100">
 								{applyCoupon ? "ON" : "OFF"}
@@ -571,6 +804,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setAllowAffiliateMarket((value) => !value);
 								}}
+								checked={allowAffiliateMarket}
 							/>
 							<span className="pl-6 text-black-100">
 								{allowAffiliateMarket ? "ON" : "OFF"}
@@ -597,6 +831,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 										onChange={(e) => {
 											setUploadPromotionalMaterial((value) => !value);
 										}}
+										checked={uploadPromotionalMaterial}
 									/>
 									<span className="pl-6 text-black-100">
 										{uploadPromotionalMaterial ? "ON" : "OFF"}
@@ -611,7 +846,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 										files into single RAR or ZIP file. <br /> The maximum
 										allowed file size is 1GB.
 									</p>
-									<div className={styles.contentFileUpload} {...getRootProps()}>
+
+									<div
+										className={`${styles.contentFileUpload} ${
+											promotionalMaterial?.length > 0 && styles.activeUpload
+										}`}
+										{...getRootProps()}
+									>
 										<input {...getInputProps()} />
 										<Image src={CloudUpload} alt="upload image" />
 										<p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
@@ -633,6 +874,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setLimitProductSale((value) => !value);
 								}}
+								checked={limitProductSale}
 							/>
 							<span className="pl-6 text-black-100">
 								{limitProductSale ? "ON" : "OFF"}
@@ -658,6 +900,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setShowTotalSales((value) => !value);
 								}}
+								checked={showTotalSales}
 							/>
 							<span className="pl-6 text-black-100">
 								{showTotalSales ? "ON" : "OFF"}
@@ -672,6 +915,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								onChange={(e) => {
 									setBuyerPaysTransactionFee((value) => !value);
 								}}
+								checked={buyerPaysTransactionFee}
 							/>
 							<span className="pl-6 text-black-100">
 								{buyerPaysTransactionFee ? "ON" : "OFF"}
@@ -698,10 +942,70 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							text="Save and continue"
 							bgColor="blue"
 							className={styles.digitalBtn}
+							loading={loading}
 						/>
 					</div>
 				</div>
 			</div>
 		</form>
+	);
+};
+
+const BatchInput = ({ handleChange }) => {
+	return (
+		<div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 py-2">
+			<ProductInput
+				prefix="NGN"
+				name="NGN"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="GBP"
+				name="GBP"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="KES"
+				name="KES"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="TZS"
+				name="TZS"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="USD"
+				name="USD"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="GHS"
+				name="GHS"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="ZAR"
+				name="ZAR"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+			<ProductInput
+				prefix="UGX"
+				name="UGX"
+				placeholder="0"
+				onChange={(e) => handleChange(e)}
+			/>
+
+			<div className="pt-2 lg:hidden">
+				<div className="divider"></div>
+			</div>
+		</div>
 	);
 };

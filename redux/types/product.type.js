@@ -10,3 +10,6 @@ export const GET_LISTING_STATUS = generateActions("GET_LISTING_STATUS");
 export const DUPLICATE_PRODUCT = generateActions("DUPLICATE_PRODUCT");
 export const SET_PRODUCT_ID = generateActions("SET_PRODUCT_ID");
 export const GET_BILLING_INTERVAL = generateActions("GET_BILLING_INTERVAL");
+export const FETCH_SINGLE_STORE_PRODUCT = generateActions(
+	"FETCH_SINGLE_STORE_PRODUCT"
+);
