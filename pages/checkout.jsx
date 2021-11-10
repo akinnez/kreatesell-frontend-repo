@@ -14,6 +14,8 @@ import {
 import styles from "../public/css/checkout.module.scss";
 import { Input, Button } from "components";
 import { Dialog, DialogOverlay, DialogContent } from "@reach/dialog";
+import { ConsumerSalesCheckoutSchema } from "validation";
+import { useFormik } from "formik";
 
 const Checkout = () => {
 	const [modal, setModal] = useState(true);
@@ -22,6 +24,30 @@ const Checkout = () => {
 
 	const openModal = () => setModal(true);
 	const closeModal = () => setModal(false);
+
+	const handleSubmit = () => {};
+
+	const initialValues = {
+		firstName: "",
+		lastName: "",
+		email: "",
+		phoneNo: "",
+		currency: "NGN",
+		couponCode: "",
+	};
+
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmit,
+		validationSchema: ConsumerSalesCheckoutSchema,
+		validateOnChange: false,
+	});
+
+	const { errors, setFieldValue } = formik;
+
+	useEffect(() => {
+		setFieldValue("currency", activeCard);
+	}, [activeCard]);
 
 	return (
 		<>
@@ -89,7 +115,11 @@ const Checkout = () => {
 					<div
 						className={`bg-white rounded-lg w-full md:w-1/2 p-4 lg:p-8 ${styles.boxShadow}`}
 					>
-						<form className="w-full">
+						<form
+							onSubmit={formik.handleSubmit}
+							autoComplete="off"
+							className="w-full"
+						>
 							<h3 className="text-primary-blue font-semibold text-lg">
 								Payment Details
 							</h3>
@@ -106,6 +136,8 @@ const Checkout = () => {
 								placeholder="Enter your Name"
 								label="First Name"
 								height="small"
+								onChange={formik.handleChange}
+								errorMessage={errors.firstName}
 							/>
 
 							<Input
@@ -113,6 +145,8 @@ const Checkout = () => {
 								placeholder="Enter your Name"
 								label="Last Name"
 								height="small"
+								onChange={formik.handleChange}
+								errorMessage={errors.lastName}
 							/>
 
 							<Input
@@ -120,13 +154,18 @@ const Checkout = () => {
 								placeholder="Enter your Email"
 								label="Email Address"
 								height="small"
+								onChange={formik.handleChange}
+								errorMessage={errors.email}
 							/>
 
 							<Input
-								name="phone"
+								name="phoneNo"
 								placeholder="Enter your Phone number "
 								label="Phone number"
 								height="small"
+								inputMode="numeric"
+								onChange={formik.handleChange}
+								errorMessage={errors.phoneNo}
 							/>
 
 							<div className="divider"></div>
@@ -300,7 +339,11 @@ const Checkout = () => {
 
 							<div className="w-full flex gap-4 items-center">
 								<div className="w-3/4 md:w-8/12 lg:w-10/12">
-									<Input placeholder="Coupon Code" />
+									<Input
+										placeholder="Coupon Code"
+										name="couponCode"
+										onChange={formik.handleChange}
+									/>
 								</div>
 								<div className="w-1/4 md:w-4/12 lg:w-1/6 pb-2">
 									<Button text="Apply Coupon" className={styles.couponBtn} />

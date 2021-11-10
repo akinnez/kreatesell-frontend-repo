@@ -83,6 +83,7 @@ import CheckoutPlaceholder from "../public/images/checkout-placeholder.png";
 import Crypto from "../public/images/crypto.png";
 import Paypal from "../public/images/paypal.png";
 import Stripe from "../public/images/stripe.png";
+import NotificationPlaceholder from "../public/images/notifications.svg";
 
 export {
 	KreateSellBrand,
@@ -170,4 +171,5 @@ export {
 	Paypal,
 	Stripe,
 	CloudDownload,
+	NotificationPlaceholder,
 };

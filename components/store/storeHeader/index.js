@@ -80,7 +80,7 @@ export const ProtectedStoreHeader = ({
 								</h3>
 								<p>
 									https://kreatesell.com/store/
-									{storeName || publicStoreInfo?.user_name}
+									{storeName || publicStoreInfo?.store_name}
 								</p>
 							</div>
 						</div>
@@ -116,13 +116,13 @@ export const ProtectedStoreHeader = ({
 							<div className="hidden md:flex items-center px-10 lg:px-20">
 								<div>Connect with me on</div>
 								<div className="flex items-center justify-center lg:justify-between gap-4 pl-3">
-									<a href={publicStoreInfo?.face_book ?? "#"}>
+									<a href={publicStoreInfo?.facebook ?? "#"}>
 										<Facebook />
 									</a>
-									<a href={publicStoreInfo?.instgram ?? "#"}>
+									<a href={publicStoreInfo?.instagram ?? "#"}>
 										<Instagram />
 									</a>
-									<a href={publicStoreInfo?.linked_in ?? "#"}>
+									<a href={publicStoreInfo?.linked_ln ?? "#"}>
 										<LinkedIn />
 									</a>
 									<a href={publicStoreInfo?.twitter ?? "#"}>
@@ -139,13 +139,13 @@ export const ProtectedStoreHeader = ({
 				<div className="flex md:hidden items-center px-6 justify-center mt-16">
 					<div>Connect with me on</div>
 					<div className="flex items-center justify-center lg:justify-between gap-4 pl-3">
-						<a href={publicStoreInfo?.face_book ?? "#"}>
+						<a href={publicStoreInfo?.facebook ?? "#"}>
 							<Facebook />
 						</a>
-						<a href={publicStoreInfo?.instgram ?? "#"}>
+						<a href={publicStoreInfo?.instagram ?? "#"}>
 							<Instagram />
 						</a>
-						<a href={publicStoreInfo?.linked_in ?? "#"}>
+						<a href={publicStoreInfo?.linked_ln ?? "#"}>
 							<LinkedIn />
 						</a>
 						<a href={publicStoreInfo?.twitter ?? "#"}>
