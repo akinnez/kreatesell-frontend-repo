@@ -140,7 +140,11 @@ export const ListSingleStoreProduct = () => {
 			`v1/kreatesell/store/store-detail?store=${storename}`,
 			(res) => {
 				const data = res?.data;
-				const singleStoreProducts = data?.products;
+				// const singleStoreProducts = data?.products;
+				// date_updated;
+				const singleStoreProducts = data?.products?.sort((a, b) =>
+					a?.date_updated < b?.date_updated ? 1 : -1
+				);
 
 				delete data?.products;
 

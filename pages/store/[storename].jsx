@@ -8,23 +8,36 @@ import { useRouter } from "next/router";
 import { currencyOptions } from "components/account-dashboard/partials";
 import { ProtectedStoreHeader } from "components/store/storeHeader";
 import { useSelector } from "react-redux";
-import { ListSingleStoreProduct } from "redux/actions";
+import { ListSingleStoreProduct, FetchSingleStoreProduct } from "redux/actions";
 import { useEffect } from "react";
 
 const StorePage = () => {
 	const router = useRouter();
 	const listStoreProduct = ListSingleStoreProduct();
+	const fetchSingleStoreProduct = FetchSingleStoreProduct();
 
 	const {
 		query: { storename },
 	} = router;
 
-	const { singleStoreDetails, singleStoreProducts } = useSelector(
-		(state) => state.store
-	);
+	// const { singleStoreDetails, singleStoreProducts } = useSelector(
+	// 	(state) => state.store
+	// );
+	const {
+		singleStoreDetails,
+		singleStoreProducts,
+		singleStorePaginationDetails,
+	} = useSelector((state) => state.product);
+
+	console.log("singleStoreDetails -->", singleStoreDetails);
+	console.log("singleStoreProducts -->", singleStoreProducts);
+	console.log("singleStorePaginationDetails -->", singleStorePaginationDetails);
 
 	useEffect(() => {
-		listStoreProduct(storename);
+		if (storename !== "undefined") {
+			listStoreProduct(storename);
+			fetchSingleStoreProduct(storename);
+		}
 	}, [storename]);
 
 	return (
@@ -117,7 +130,7 @@ const ProductCard = ({ productDetails }) => {
 		<div className="bg-white w-full rounded-lg">
 			<div>
 				<Image
-					src={productDetails?.product_cover_picture || StoryTellingPNG}
+					src={productDetails?.product_images?.[0]?.filename || StoryTellingPNG}
 					width="320"
 					height="300"
 					className="rounded-t-lg"
@@ -126,7 +139,7 @@ const ProductCard = ({ productDetails }) => {
 
 			<div className="w-full px-2 md:px-4">
 				<p className="pt-2 text-sm md:text-base">
-					{productDetails?.product_name}
+					{productDetails?.product_details?.product_name}
 				</p>
 				<div className="flex justify-between items-center pb-4">
 					<p className="text-base-gray pt-2 text-sm md:text-base">

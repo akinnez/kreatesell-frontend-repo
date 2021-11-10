@@ -194,6 +194,42 @@ export const DuplicateProductAction = () => {
 	);
 };
 
+export const FetchSingleStoreProduct = () => {
+	const dispatch = useDispatch();
+	return (storename, successCallback, errorCallback) => (
+		dispatch({ type: types.FETCH_SINGLE_STORE_PRODUCT.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/fetch/${storename}`,
+			(res) => {
+				const data = res?.data;
+				const singleStoreProducts = data?.products?.data;
+				delete data?.products?.data;
+
+				const payload = {
+					singleStoreDetails: data?.store_details,
+					singleStoreProducts,
+					singleStorePaginationDetails: { ...data?.products },
+				};
+
+				dispatch({
+					type: types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS,
+					payload,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.FETCH_SINGLE_STORE_PRODUCT.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
+		)
+	);
+};
+
 export const SetProductTab = () => {
 	const dispatch = useDispatch();
 	return (tab, successCallback, errorCallback) =>

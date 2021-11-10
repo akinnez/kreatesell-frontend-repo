@@ -115,8 +115,10 @@ export const CreateProductForm = ({
 			delete data.content_file_details;
 		}
 
-		createProduct(data, () => {
-			setProductID(product?.product_details?.kreasell_product_id);
+		createProduct(data, (data) => {
+			setProductID(
+				product?.product_details?.kreasell_product_id || data?.token
+			);
 			setProductTab(1);
 		});
 	};
@@ -166,7 +168,10 @@ export const CreateProductForm = ({
 			"product_description",
 			product?.product_details?.product_description
 		);
-		setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+		setFieldValue(
+			"enable_preorder",
+			product?.product_details?.enable_preorder ?? false
+		);
 		setFieldValue("upload_content", product?.product_details?.upload_content);
 		setFieldValue(
 			"product_visibility_status",
@@ -175,7 +180,7 @@ export const CreateProductForm = ({
 		setFieldValue("upload_preview", product?.product_details?.is_preview_only);
 		setFieldValue(
 			"preorder_details.preorder_release_date",
-			product?.product_details?.preoder_date
+			product?.product_details?.preoder_date ?? ""
 		);
 		setFieldValue(
 			"preorder_details.is_preorder_downloadable",

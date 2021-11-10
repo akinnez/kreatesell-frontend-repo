@@ -99,7 +99,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	const handleSubmit = (data) => {
 		delete data?.cover_image;
 		delete data?.product_details?.product_cover_picture;
-		delete data?.product_details?.upload_content;
+		delete data?.upload_content || data?.product_details?.upload_content;
+		delete data?.upload_preview;
+		delete data?.product_listing_status;
 
 		if (promotionalMaterial.length < 1) {
 			delete data?.promotional_items;
@@ -187,19 +189,20 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 	useEffect(() => {
 		if (!values.enable_preorder) {
 			delete values.preorder_details;
+			delete values.enable_preorder;
 		}
 	}, [values]);
 
 	useEffect(() => {
 		if (
-			(
-				values.selling_prices ||
-				values.minimum_prices ||
-				values.original_prices ||
-				values.suggested_prices ||
-				values.initial_prices ||
-				values.installment_prices
-			).length > 0
+			values[
+				"minimum_prices" ||
+					"suggested_prices" ||
+					"original_prices" ||
+					"suggested_prices" ||
+					"initial_prices" ||
+					"installment_prices"
+			]?.length > 0
 		) {
 			setFieldValue("set_price", true);
 		}
@@ -286,7 +289,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 		setFieldValue("product_type_id", product?.product_details?.product_type_id);
 		setFieldValue("product_id", product?.product_details?.id);
 		setFieldValue(
-			"product_listing_status",
+			"product_listing_status_id",
 			product?.product_details?.product_listing_status
 		);
 	}, [product]);

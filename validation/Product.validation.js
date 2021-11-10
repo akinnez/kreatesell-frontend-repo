@@ -49,3 +49,14 @@ export const CheckoutProductSchema = () => {
 		cta_button: Yup.string(),
 	});
 };
+
+export const ConsumerSalesCheckoutSchema = () => {
+	return Yup.object().shape({
+		firstName: Yup.string().required("First name is required"),
+		lastName: Yup.string().required("Last name is required"),
+		email: Yup.string().email().required("Please input a valid email address"),
+		phoneNo: Yup.string().required("Phone number is required"),
+		currency: Yup.string().required("Currency is required"),
+		couponCode: Yup.string(),
+	});
+};
