@@ -16,13 +16,13 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
-	const store = useStore(pageProps.initialReduxState);
+  const store = useStore(pageProps.initialReduxState);
 
-	return (
-		<Provider store={store}>
-			<Component {...pageProps} />
-		</Provider>
-	);
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
 export default MyApp;
