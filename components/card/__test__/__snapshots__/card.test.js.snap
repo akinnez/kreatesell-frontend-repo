@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of the Card component 1`] = `
+<div
+  className="jsx-3923066720 card"
+>
+  <div>
+    card mock Children
+  </div>
+</div>
+`;
