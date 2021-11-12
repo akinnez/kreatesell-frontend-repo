@@ -1,21 +1,12 @@
 import React from 'react'
 import Container from '../container'
 import { Element,useNode } from '@craftjs/core'
-
-const Column = ({children,...rest})=>{
-    const { connectors: {connect} } = useNode();
-
-    return(
-        <div ref={connect} {...rest}>
-            {children}
-        </div>
-    )
-
-}
+import Column from './Column'
 
 export const TripleColumn = ()=>{
     return(
-       <Container display="grid" gridTemplateColumn="33.33% 33.33% 33.33%">
+       <Container display="grid" gap="10"
+       gridTemplateColumn="33.33% 33.33% 33.33%">
            <Element id="col1" is={Column} style={{flex:1, minHeight:200}} canvas></Element>
            <Element id="col2" is={Column} style={{flex:1, minHeight:200}} canvas></Element>
            <Element id="col3" is={Column} style={{flex:1, minHeight:200}} canvas></Element>

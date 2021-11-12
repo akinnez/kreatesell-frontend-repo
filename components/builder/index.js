@@ -14,7 +14,10 @@ const Index = ()=>{
 
     return(
      
-        <Editor indicator="success"
+        <Editor indicator={{
+            'success': '#2d9d78', // green
+            'error': '#e34850' // red
+          }}
              resolver={{Text,Heading,Column,Container,Page,Divider,Spacer,Button,Image}}>
              <Topbar />
              

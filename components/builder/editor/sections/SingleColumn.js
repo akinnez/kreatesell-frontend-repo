@@ -1,23 +1,19 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Container from '../container'
 import { Element,useNode } from '@craftjs/core'
+import Column from './Column'
 
-const Column = ({children,...rest})=>{
-    const { connectors: {connect} } = useNode();
 
-    return(
-        <div ref={connect} {...rest}>
-            {children}
-        </div>
-    )
 
-}
 
 export const SingleColumn = ()=>{
     return(
-       <Container>
+        <>
+       <Container display="grid">
            <Element id="col1" is={Column} style={{flex:1, minHeight:200}} canvas></Element>
-       </Container>     
+       </Container> 
+        
+       </>   
     )
 }
 

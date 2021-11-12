@@ -7,7 +7,8 @@ import Divider from './Divider'
 import Spacer from './Spacer'
 import Button from './Button'
 import Image from './Image'
-import { Heading as HeadingWidget,Paragraph,Image as ImageWidget,Video,Spacer as SpacerWidget,Divider as DividerDragger,Countdown,Button as ButtonWidget } from '../draggables'
+import Video from './Video'
+import { Heading as HeadingWidget,Paragraph,Image as ImageWidget,Video as VideoWidget,Spacer as SpacerWidget,Divider as DividerDragger,Countdown,Button as ButtonWidget } from '../draggables'
 
 const Widget = ({open,onClose=()=>{},title})=>{
 
@@ -17,7 +18,7 @@ const Widget = ({open,onClose=()=>{},title})=>{
                 <HeadingWidget />
                 <Paragraph />
                 <ImageWidget />
-                <Video />
+                <VideoWidget />
                 <SpacerWidget />
                 <DividerDragger />
                 <Countdown />
@@ -36,5 +37,6 @@ export{
     Divider,
     Spacer,
     Button,
-    Image
+    Image,
+    Video
 }

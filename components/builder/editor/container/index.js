@@ -5,6 +5,7 @@ import QuickActions from '../../util/quickactions'
 
 const Container = ({
         children,
+        gap,
         fillSpace, 
         flexDirection,
         backgroundColor,
@@ -55,7 +56,8 @@ const Container = ({
                 backgroundImage:`url(${backgroundImage})`,
                 backgroundRepeat:'no-repeat',
                 backgroundPosition:"center",
-                backgroundSize:"cover"
+                backgroundSize:"cover",
+                gap:gap+'px'
             }}>               
             {children}
         </div>
@@ -88,7 +90,8 @@ Container.craft = {
         marginLeft:0,
         marginTop:0,
         marginBottom:0,
-        backgroundImage:''
+        backgroundImage:'',
+        gap:10
     },
     related:{
         settings:ContainerSettings
