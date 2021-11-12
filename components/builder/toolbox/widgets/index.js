@@ -2,7 +2,6 @@ import React from 'react'
 import style from './Index.module.scss'
 import MenuContainer from '../../sidebar/menu/Container'
 import Text from './Text'
-import {SingleColumnSection,TwoColumnSection,ThreeColumnSection,FourColumnSection} from './Section'
 import Heading from './Heading'
 import Divider from './Divider'
 import Spacer from './Spacer'
@@ -34,10 +33,6 @@ export default Widget
 export{
     Text,
     Heading,
-    SingleColumnSection,
-    TwoColumnSection,
-    ThreeColumnSection,
-    FourColumnSection,
     Divider,
     Spacer,
     Button,

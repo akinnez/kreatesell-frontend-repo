@@ -101,7 +101,6 @@ export const ColorPicker = ({label, value, onChange=()=>{},defaultColor})=>{
                 width:24px;
                 height:24px;
                 border-radius:8px;
-                background-color:red;
             }
 
             label span.txt{
@@ -194,11 +193,13 @@ export const BoxModel = ({
     onChangeTop=()=>{},
     onChangeRight=()=>{},
     onChangeBottom=()=>{},
-    onChangeLeft=()=>{}
+    onChangeLeft=()=>{},
+    label
 })=>{
 
     return(
         <>
+        <label>{label}</label>
         <Row>
             <Col sm={9}></Col>
             <Col sm={6} style={{textAlign:"center"}}>

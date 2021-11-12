@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build":"next build"
+    "build": "next build"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "antd": "^4.16.13",
     "next": "^11.1.2",
     "nextjs": "^0.0.3",
+    "re-resizable": "^6.9.1",
     "react": "^17.0.2",
     "react-color": "^2.19.3",
     "react-contenteditable": "^3.3.6",

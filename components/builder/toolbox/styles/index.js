@@ -23,9 +23,8 @@ const Styles = ({open,onClose=()=>{},title})=>{
         }
       });
 
-      console.log(selected)
     return(
-        <Container open={open} onClose={()=>onClose()} title={title}>
+        <Container open={open} onClose={()=>onClose()} title={selected?.name+ ' Styles'}>
             { 
             selected?.settings && React.createElement(selected?.settings)
             }

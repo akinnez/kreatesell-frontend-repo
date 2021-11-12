@@ -1,9 +1,11 @@
 import React from "react"
 import {Text,Image as ImageWidget, Spacer as SpacerWidget, 
-    Heading as HeadingWidget, SingleColumnSection,TwoColumnSection,ThreeColumnSection,FourColumnSection, Divider as DividerWidget,
+    Heading as HeadingWidget,TwoColumnSection,ThreeColumnSection,FourColumnSection, Divider as DividerWidget,
     Button as ButtonWidget} from '../widgets'
 import { Element, useEditor } from "@craftjs/core";
 import styled from "styled-components";
+import {SingleColumn as OneColumn,DoubleColumn as TwoColumn,
+    TripleColumn,QuadripleColumn} from '../../editor/sections'
 
 
 
@@ -142,7 +144,7 @@ const Col = styled.div`
 export const SingleColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <SingleColumnSection />)}>
+        <div ref={ref=> connectors.create(ref, <OneColumn />)}>
             <Row>
                 <Col />
             </Row>
@@ -153,7 +155,7 @@ export const SingleColumn = ()=>{
 export const DoubleColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <TwoColumnSection />)}>
+        <div ref={ref=> connectors.create(ref, <TwoColumn />)}>
             <Row>
                 <Col />
                 <Col />
@@ -167,7 +169,7 @@ export const DoubleColumn = ()=>{
 export const ThreeColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <ThreeColumnSection />)}>
+        <div ref={ref=> connectors.create(ref, <TripleColumn />)}>
             <Row>
                 <Col />
                 <Col />
@@ -180,7 +182,7 @@ export const ThreeColumn = ()=>{
 export const FourColumn = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <FourColumnSection />)}>
+        <div ref={ref=> connectors.create(ref, <QuadripleColumn />)}>
             <Row>
                 <Col />
                 <Col />

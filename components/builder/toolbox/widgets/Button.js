@@ -9,12 +9,8 @@ const Button = ({text = "Button",fontSize,color,fontFamily,fontWeight})=>{
     const {connectors:{connect,drag},actions:{setProp}} = useNode()
 
     return(
-      <>
-        <div ref={ref=>connect(drag(ref))}>
-           <button className={styles.button}><span>{text}</span></button>          
-        </div>
-        
-        </>
+           <button ref={ref=>connect(drag(ref))}
+            className={styles.button}><span>{text}</span></button>          
     )
 }
 

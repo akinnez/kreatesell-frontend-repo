@@ -1,4 +1,5 @@
 import TextFont from './TextFont'
+import Uploader from './uploader'
 import GroupFormat,{TextFormat,ColorPicker,BoxModel} from './FontFormat'
 import { Input } from 'antd'
 
@@ -17,5 +18,6 @@ export{
     TextFormat,
     ColorPicker,
     BoxModel,
-    MyInput
+    MyInput,
+    Uploader
 }

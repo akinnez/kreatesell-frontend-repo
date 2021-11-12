@@ -3,23 +3,40 @@ import Topbar from './topbar'
 import Sidebar from './sidebar'
 import styles from './Index.module.scss'
 import {Element, Editor, Frame} from "@craftjs/core"
-import { Text,Column,Heading,SingleColumnSection,TwoColumnSection,ThreeColumnSection,FourColumnSection,Divider,Spacer,Button,Image } from './toolbox/widgets'
+import { Text,Column,Heading,Divider,Spacer,Button,Image } from './toolbox/widgets'
+import ViewPort from './editor/viewport'
+import Page from './editor/container/PageContainer'
+import Container from './editor/container'
 
 
-const Index = ({children})=>{
+
+const Index = ()=>{
 
     return(
-        <Editor resolver={{Text,Heading,Column,SingleColumnSection,TwoColumnSection,ThreeColumnSection,FourColumnSection,Divider,Spacer,Button,Image}}>
+     
+        <Editor indicator="success"
+             resolver={{Text,Heading,Column,Container,Page,Divider,Spacer,Button,Image}}>
              <Topbar />
-            <main className={styles.main}>
-                <Frame>
-                    <Element id="drop" is="div" canvas style={{height:"100%",width:"100%",overflow:"auto"}}>
-                        {children}
-                    </Element>
-                </Frame>
-            </main>
+             
+                <div className={styles.craftjs_renderer}>
+                    <ViewPort>
+                    <Frame>
+                        <Element
+                            width="100%"
+                            custom={{displayName:"Page"}}
+                             is={Page}
+                             fillSpace="yes"
+                             flexDirection="column"
+                             canvas
+                             >
+                             
+                        </Element>
+                    </Frame>
+                    </ViewPort>
+                </div>
             <Sidebar />
             </Editor>
+          
     )
 }
 
