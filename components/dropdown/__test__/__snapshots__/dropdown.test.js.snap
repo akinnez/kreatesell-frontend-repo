@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <DropDown /> 1`] = `
+Array [
+  <span
+    className="jsx-3724250312"
+    onClick={[Function]}
+  >
+    Click here
+  </span>,
+  <div
+    className="jsx-3724250312 dropdown-wrapper"
+  />,
+]
+`;

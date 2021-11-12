@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of the Checkbox component 1`] = `
+<div
+  className="checkbox"
+>
+  <input
+    className="input undefined"
+    name="mockName"
+    onChange={[MockFunction]}
+    type="checkbox"
+  />
+</div>
+`;
