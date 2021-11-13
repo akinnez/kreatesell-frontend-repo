@@ -196,11 +196,11 @@ export const DuplicateProductAction = () => {
 
 export const FetchSingleStoreProduct = () => {
 	const dispatch = useDispatch();
-	return (storename, successCallback, errorCallback) => (
+	return (storename, page = 1, successCallback, errorCallback) => (
 		dispatch({ type: types.FETCH_SINGLE_STORE_PRODUCT.REQUEST }),
 		axios.request(
 			`get`,
-			`v1/kreatesell/product/fetch/${storename}`,
+			`v1/kreatesell/product/fetch/${storename}?page=${page}&limit=12`,
 			(res) => {
 				const data = res?.data;
 				const singleStoreProducts = data?.products?.data;
