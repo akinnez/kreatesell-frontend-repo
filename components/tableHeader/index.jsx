@@ -191,7 +191,6 @@ const ActionComponent = ({ item, showAction }) => {
 	const id = item?.product_details?.id;
 	const kreasell_product_id = item?.product_details?.kreasell_product_id;
 	const productName = item?.product_details?.product_name;
-	console.log("item -->", productName);
 
 	const [menu, setMenu] = useState(false);
 

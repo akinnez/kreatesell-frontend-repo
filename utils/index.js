@@ -136,4 +136,28 @@ export const _prependKreateSell = ({ url, https = true }) => {
 	return url.replace(/^(?!(?:\w+?:)?\/\/)/, "Kreatesell.com/");
 };
 
+export const _timeToMomentAgo = (timeValue) => {
+	const parseServerTime = Date.parse(timeValue);
+
+	const secs = (Date.now() - parseServerTime) / 1000;
+	const mins = Math.round(secs / 60);
+	const hrs = Math.round(mins / 60);
+	const days = Math.round(hrs / 24);
+	const weeks = Math.round(days / 7);
+	const months = Math.round(weeks / 4);
+	const years = Math.round(months / 12);
+
+	if (mins <= 59) return `(${mins} minutes ago)`;
+	if (hrs === 1) return "(An hour ago)";
+	if (hrs <= 24) return `(${hrs} hours ago)`;
+	if (days === 1) return "(A day ago)";
+	if (days <= 7) return `(${days} days ago)`;
+	if (weeks === 1) return "(A week ago)";
+	if (weeks <= 3) return `(${weeks} weeks ago)`;
+	if (months === 1) return "(A month ago)";
+	if (months <= 11) return `(A ${months} months ago)`;
+	if (years === 1) return "(A year ago)";
+	return `(${years} years ago)`;
+};
+
 export * from "./assets";

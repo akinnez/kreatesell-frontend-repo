@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
 import style from "./Header.module.scss";
 import { PageDot, ProfileIcon, Cog, Bell } from "../IconPack";
-import Router,{ useRouter } from "next/router";
-import { Logout } from "../../redux/actions";
+import Router, { useRouter } from "next/router";
+import { Logout, GetNotifications } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
 const Profile = ({ name }) => {
 	return (
@@ -61,7 +62,13 @@ const Nav = () => {
 	const [info, setInfo] = useState({});
 
 	const { pathname } = useRouter();
+
+	const { notifications } = useSelector((state) => state.notification);
+
+	const unreadNotification = notifications?.filter((item) => !item?.is_read);
+
 	const logout = Logout();
+	const getNotifications = GetNotifications();
 
 	const pageTitle = pathname?.split("/");
 	const title =
@@ -70,6 +77,7 @@ const Nav = () => {
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem("user"));
 		setInfo(user);
+		getNotifications();
 	}, []);
 
 	return (
@@ -82,9 +90,18 @@ const Nav = () => {
 				<div className={style.nav_right}>
 					<Menu mode="horizontal" style={{ backgroundColor: "transparent" }}>
 						<Menu.Item key="setting" icon={<Cog />} />
-						<Menu.Item key="notification" icon={<Bell />} />
+						<Menu.Item key="notification" icon={<Bell />}>
+							<div className="red bg-red-500 absolute rounded-full h-5 w-5 text-white text-xs flex items-center justify-center -top-2 right-3">
+								{unreadNotification && unreadNotification.length}
+							</div>
+						</Menu.Item>
 						<SubMenu key="SubMenu" icon={<Profile name={info?.full_name} />}>
-							<Menu.Item key="prof-1" onClick={()=>Router.push('/account/kreator/store/edit')}>Profile</Menu.Item>
+							<Menu.Item
+								key="prof-1"
+								onClick={() => Router.push("/account/kreator/store/edit")}
+							>
+								Profile
+							</Menu.Item>
 							<Menu.Item key="prof-2" onClick={() => logout()}>
 								Logout
 							</Menu.Item>

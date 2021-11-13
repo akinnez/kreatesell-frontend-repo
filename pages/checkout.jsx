@@ -52,13 +52,6 @@ const Checkout = () => {
 		// abandoned: "a"
 	};
 
-	const config = {
-		reference: new Date().getTime().toString(),
-		email,
-		amount: price * 100,
-		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
-	};
-
 	const onPaystackSuccess = (reference) => {
 		const status = paymentStatusList[reference?.status];
 
@@ -69,8 +62,6 @@ const Checkout = () => {
 	};
 
 	const onClose = () => {};
-
-	const initializePayment = usePaystackPayment(config);
 
 	const handleSubmit = () => {
 		if (activeCard === "NGN") {
@@ -135,6 +126,18 @@ const Checkout = () => {
 		};
 		return value;
 	};
+
+	const payStackConfig = {
+		reference: randomId,
+		email,
+		amount: price * 100,
+		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+		firstName: values.firstName,
+		lastname: values.lastName,
+		phone: values.phoneNo,
+	};
+
+	const initializePayment = usePaystackPayment(payStackConfig);
 
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
