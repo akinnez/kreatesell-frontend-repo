@@ -25,8 +25,9 @@ const Container = ({
         paddingRight})=>{
 
         
-        const {isHover,name, dom, connectors: {connect,drag} } = useNode((node)=>({
+        const {isHover,isSelected,name, dom, connectors: {connect,drag} } = useNode((node)=>({
                 isHover: node.events.hovered,
+                isSelected:node.events.selected,
                 dom: node.dom,
                 name: node.data.custom.displayName || node.data.displayName,
             }));
@@ -57,7 +58,8 @@ const Container = ({
                 backgroundRepeat:'no-repeat',
                 backgroundPosition:"center",
                 backgroundSize:"cover",
-                gap:gap+'px'
+                gap:gap+'px',
+                border: isSelected ? `1px solid #0072EF`:'none'
             }}>               
             {children}
         </div>

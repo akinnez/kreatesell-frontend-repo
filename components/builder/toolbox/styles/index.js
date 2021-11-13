@@ -13,7 +13,7 @@ const Styles = ({open,onClose=()=>{},title})=>{
         if ( currentNodeId ) {
           selected = {
             id: currentNodeId,
-            name: state.nodes[currentNodeId].data.name,
+            name: state.nodes[currentNodeId].data.displayName,
             settings: state.nodes[currentNodeId].related && state.nodes[currentNodeId].related.settings
           };
         }

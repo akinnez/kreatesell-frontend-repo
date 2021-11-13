@@ -26,7 +26,7 @@ const Divider = ({
         <div ref={ref=>connect(drag(ref))}>
            <div 
             style={{
-                width:width+'px',
+                width:width+'%',
                 borderTopWidth:borderWidth+'px',
                 borderTopColor:borderColor,
                 borderTopStyle:borderStyle,
@@ -112,7 +112,7 @@ const DividerSettings = ()=>{
 Divider.craft = {
     name:"Divider",
     props:{
-        width:1,
+        width:100,
         borderStyle:"solid",
         borderWidth:1,
         borderColor:"#000000",

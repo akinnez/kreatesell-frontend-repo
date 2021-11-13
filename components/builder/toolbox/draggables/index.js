@@ -1,7 +1,7 @@
 import React from "react"
 import {Text,Image as ImageWidget, Spacer as SpacerWidget, Video as VideoWidget,
     Heading as HeadingWidget,TwoColumnSection,ThreeColumnSection,FourColumnSection, Divider as DividerWidget,
-    Button as ButtonWidget} from '../widgets'
+    Button as ButtonWidget,CountdownTimer} from '../widgets'
 import { Element, useEditor } from "@craftjs/core";
 import styled from "styled-components";
 import {SingleColumn as OneColumn,DoubleColumn as TwoColumn,
@@ -97,7 +97,9 @@ export const Divider = ()=>{
 }
 
 export const Countdown = ()=>{
+    const { connectors, query } = useEditor();
     return(
+        <div ref={ref=> connectors.create(ref, <CountdownTimer />)}>
         <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="140" height="100" rx="8" fill="#F5F5F5"/>
 <g clip-path="url(#clip0)">
@@ -110,7 +112,7 @@ export const Countdown = ()=>{
 </clipPath>
 </defs>
 </svg>
-
+</div>
     )
 }
 

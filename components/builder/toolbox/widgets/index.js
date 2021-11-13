@@ -8,6 +8,7 @@ import Spacer from './Spacer'
 import Button from './Button'
 import Image from './Image'
 import Video from './Video'
+import CountdownTimer from './Countdown'
 import { Heading as HeadingWidget,Paragraph,Image as ImageWidget,Video as VideoWidget,Spacer as SpacerWidget,Divider as DividerDragger,Countdown,Button as ButtonWidget } from '../draggables'
 
 const Widget = ({open,onClose=()=>{},title})=>{
@@ -38,5 +39,6 @@ export{
     Spacer,
     Button,
     Image,
-    Video
+    Video,
+    CountdownTimer
 }
