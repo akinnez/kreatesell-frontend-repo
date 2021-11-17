@@ -13,3 +13,4 @@ export const GET_BILLING_INTERVAL = generateActions("GET_BILLING_INTERVAL");
 export const FETCH_SINGLE_STORE_PRODUCT = generateActions(
 	"FETCH_SINGLE_STORE_PRODUCT"
 );
+export const FETCH_PRODUCT_STATUS = generateActions("FETCH_PRODUCT_STATUS");

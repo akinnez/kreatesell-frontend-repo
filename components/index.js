@@ -17,3 +17,4 @@ export * from "./table/Table";
 export * from "./account-dashboard/index";
 export * from "./tableHeader/index";
 export * from "./products/index";
+export * from "./notification/Dropdown";

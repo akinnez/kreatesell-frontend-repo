@@ -1,0 +1,33 @@
+@import "../../public//css/colors.scss";
+@import "../../public//css/screens.scss";
+
+.container {
+	z-index: 1;
+	box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.3);
+	height: auto;
+	max-height: 70%;
+
+	::after {
+		content: "";
+		position: absolute;
+		bottom: 100%;
+		left: 40%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: transparent transparent white transparent;
+
+		@include screen("tablet") {
+			left: 50%;
+		}
+		@include screen("medium") {
+			left: 65%;
+		}
+		@include screen("small") {
+			left: 70%;
+		}
+		@include screen("x-small") {
+			left: 80%;
+		}
+	}
+}

@@ -84,6 +84,9 @@ import Crypto from "../public/images/crypto.png";
 import Paypal from "../public/images/paypal.png";
 import Stripe from "../public/images/stripe.png";
 import NotificationPlaceholder from "../public/images/notifications.svg";
+import ProductNotificationImage from "../public/images/product_image.png";
+import tick from "../public/images/tick.svg";
+import UserImage from "../public/images/user_image.png";
 
 export {
 	KreateSellBrand,
@@ -172,4 +175,7 @@ export {
 	Stripe,
 	CloudDownload,
 	NotificationPlaceholder,
+	ProductNotificationImage,
+	tick,
+	UserImage,
 };

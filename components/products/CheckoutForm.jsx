@@ -665,7 +665,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							/>
 						</div>
 
-						<div className="grid grid-cols-2 gap-4 lg:grid-cols-2 w-full md:w-3/5 lg:w-2/5 ">
+						<div className="grid grid-cols-2 gap-4 lg:grid-cols-2 w-full md:w-3/5 lg:w-3/5 xl:w-3/5 ">
 							<div>
 								<Radio
 									value={couponType}
@@ -718,9 +718,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							</div>
 						</div>
 
-						<div className="grid w-full lg:w-3/5 grid-cols-1 lg:grid-cols-2">
-							<div className="flex items-center w-1/2">
-								<p className="text-base-gray-200 pr-3">From</p>
+						<div className="grid gap-3 w-full lg:w-full xl:w-3/5 grid-cols-1 lg:grid-cols-2">
+							<div className="flex items-center gap-3">
+								<p className="text-base-gray-200">From</p>
 								<Input
 									type="datetime-local"
 									className={styles.couponDateTimeLocaleContInput}
@@ -730,8 +730,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								/>
 							</div>
 
-							<div className="flex items-center w-1/2">
-								<p className="text-base-gray-200 pr-8 lg:pr-3">to</p>
+							<div className="flex items-center gap-3">
+								<p className="text-base-gray-200 pr-5 lg:pr-0">to</p>
 								<Input
 									type="datetime-local"
 									className={styles.couponDateTimeLocaleContInput}
