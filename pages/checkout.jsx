@@ -113,7 +113,7 @@ const Checkout = () => {
 			reference_id: reference,
 			total: price,
 			status: statusValue,
-			card_type: "card",
+			card_type: "xxxx",
 			last_four: "",
 			currency: currency_name,
 			purchase_details: [
@@ -144,7 +144,9 @@ const Checkout = () => {
 		tx_ref: randomId,
 		amount: price,
 		currency: activeCard,
-		payment_options: "card,mobilemoney,ussd",
+		// payment_options: "card,mobilemoney,ussd", //mobile_money_ghana
+		payment_options:
+			activeCard === "GHS" ? "mobile_money_ghana" : "card,mobilemoney,ussd",
 		customer: {
 			email: values?.email,
 			phonenumber: values?.phoneNo,

@@ -14,8 +14,10 @@ import {
 import styles from "../../../public/css/notification.module.scss";
 import { GetNotifications, ReadNotifications } from "redux/actions";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const InAppNotification = () => {
+	const router = useRouter();
 	const store = _getMyStoreDetails();
 	const getNotifications = GetNotifications();
 	const readNotifications = ReadNotifications();
@@ -37,7 +39,7 @@ const InAppNotification = () => {
 	return (
 		<AuthLayout>
 			<div className="flex py-2 lg:py-6 items-center">
-				<div className="flex">
+				<div className="flex cursor-pointer" onClick={() => router.back()}>
 					<div>
 						<Image src={ArrowLeft} alt="go back" />{" "}
 					</div>
@@ -58,7 +60,7 @@ const InAppNotification = () => {
 				eget faucibus.
 			</div>
 
-			<div className="lg:bg-white rounded-lg p-0 lg:p-4 pt-6 mt-8 flex gap-4">
+			<div className="lg:bg-white rounded-lg p-0 lg:p-4 pt-6 mt-8 flex items-start gap-4">
 				<div className="w-full lg:w-3/5 rounded-lg pb-4 px-1 lg:px-6">
 					{notifications?.map((notification) => (
 						<SingleNotification
@@ -72,7 +74,7 @@ const InAppNotification = () => {
 				</div>
 
 				<div
-					className={`rounded-lg w-2/5 hidden lg:flex text-center flex-col py-8 ${styles.boxShadow}`}
+					className={`rounded-lg w-2/5 hidden lg:flex text-center flex-col px-4 py-20 ${styles.boxShadow}`}
 				>
 					<div className="m-auto">
 						<Image src={NotificationPlaceholder} />

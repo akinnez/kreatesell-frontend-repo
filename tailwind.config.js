@@ -28,6 +28,9 @@ module.exports = {
 			screens: {
 				xs: "375px",
 			},
+			inset: {
+				"2/5": "45%",
+			},
 		},
 	},
 	variants: {

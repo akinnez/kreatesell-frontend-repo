@@ -5,6 +5,8 @@ import { PageDot, ProfileIcon, Cog, Bell } from "../IconPack";
 import Router, { useRouter } from "next/router";
 import { Logout, GetNotifications } from "../../redux/actions";
 import { useSelector } from "react-redux";
+import { _getMyStoreDetails } from "utils";
+import { NotificationDropdown } from "components/notification/Dropdown";
 
 const Profile = ({ name }) => {
 	return (
@@ -60,8 +62,10 @@ const Nav = () => {
 	const { SubMenu } = Menu;
 
 	const [info, setInfo] = useState({});
+	const [showNotification, setShowNotification] = useState(false);
 
 	const { pathname } = useRouter();
+	const store = _getMyStoreDetails();
 
 	const { notifications } = useSelector((state) => state.notification);
 
@@ -77,7 +81,7 @@ const Nav = () => {
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem("user"));
 		setInfo(user);
-		getNotifications();
+		getNotifications(store?.user_id);
 	}, []);
 
 	return (
@@ -90,10 +94,17 @@ const Nav = () => {
 				<div className={style.nav_right}>
 					<Menu mode="horizontal" style={{ backgroundColor: "transparent" }}>
 						<Menu.Item key="setting" icon={<Cog />} />
-						<Menu.Item key="notification" icon={<Bell />}>
-							<div className="red bg-red-500 absolute rounded-full h-5 w-5 text-white text-xs flex items-center justify-center -top-2 right-3">
-								{unreadNotification && unreadNotification.length}
-							</div>
+						<Menu.Item
+							key="notification"
+							icon={<Bell />}
+							// onClick={() => console.log("clicked true --->")}
+							onClick={() => setShowNotification((value) => !value)}
+						>
+							{unreadNotification?.length > 0 && (
+								<div className="red bg-red-500 absolute rounded-full h-5 w-5 text-white text-xs flex items-center justify-center -top-2 right-3">
+									{unreadNotification.length}
+								</div>
+							)}
 						</Menu.Item>
 						<SubMenu key="SubMenu" icon={<Profile name={info?.full_name} />}>
 							<Menu.Item
@@ -109,6 +120,7 @@ const Nav = () => {
 					</Menu>
 				</div>
 			</Header>
+			{showNotification && <NotificationDropdown />}
 		</>
 	);
 };
