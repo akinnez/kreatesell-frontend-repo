@@ -1,5 +1,17 @@
 import renderer from "react-test-renderer";
-import { TextInput, TextArea, CustomSelect, Button } from "../index";
+import {
+  TextInput,
+  TextArea,
+  CustomSelect,
+  Button,
+  FileInput,
+  Uploader,
+  Checkbox,
+  Radio,
+  DatePicker,
+  Switch,
+  Percentage,
+} from "../index";
 
 const handleChange = jest.fn();
 const handleBlur = jest.fn();
@@ -9,6 +21,7 @@ const name = "mockName";
 const value = "mockValue";
 const label = "mockLabel";
 const labelExtra = "mockLabelExtra";
+
 const mockSelectOptions = [
   { value: "valOne", label: "labelOne" },
   { value: "valTwo", label: "labelTwo" },
@@ -198,5 +211,125 @@ describe("Button : ", () => {
       .create(<Button onClick={handleClick} disabled={true} loading={true} />)
       .toJSON();
     expect(btn).toMatchSnapshot();
+  });
+});
+
+describe("FileInput : ", () => {
+  it("renders a snapshot of <FileInput /> with default props", () => {
+    const fileInput = renderer.create(<FileInput />).toJSON();
+    expect(fileInput).toMatchSnapshot();
+  });
+  it("renders a snapshot of <FileInput /> with mock  props", () => {
+    const fileInput = renderer
+      .create(
+        <FileInput
+          onChange={handleChange}
+          value={value}
+          placeholder={placeholder}
+        />
+      )
+      .toJSON();
+    expect(fileInput).toMatchSnapshot();
+  });
+  it("renders a snapshot of <FileInput /> with mock  props and no value for the value prop", () => {
+    const fileInput = renderer
+      .create(
+        <FileInput onChange={handleChange} value="" placeholder={placeholder} />
+      )
+      .toJSON();
+    expect(fileInput).toMatchSnapshot();
+  });
+});
+
+describe("Uploader : ", () => {
+  it("renders a snapshot of <Uploader /> with mock props", () => {
+    const uploader = renderer
+      .create(
+        <Uploader
+          label={label}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          extralable="mockExtraLabel"
+        />
+      )
+      .toJSON();
+    expect(uploader).toMatchSnapshot();
+  });
+});
+
+describe("Checkbox : ", () => {
+  it("renders a snapshot of <Checkbox /> with mock props", () => {
+    const checkbox = renderer
+      .create(
+        <Checkbox
+          value={value}
+          onChange={handleChange}
+          label={label}
+          extralable="extraLable"
+        />
+      )
+      .toJSON();
+    expect(checkbox).toMatchSnapshot();
+  });
+});
+
+describe("Radio : ", () => {
+  it("renders a snapshot of <Radio /> with mock props AND value !== the content prop", () => {
+    const radioBtn = renderer
+      .create(
+        <Radio
+          value={value}
+          onChange={handleChange}
+          label={label}
+          extralable="ExtraLabel"
+        />
+      )
+      .toJSON();
+  });
+  it("renders a snapshot of <Radio /> with mock props AND value === the content prop", () => {
+    const radioBtn = renderer
+      .create(
+        <Radio
+          value={value}
+          onChange={handleChange}
+          content={value}
+          label={label}
+          extralable="ExtraLabel"
+        />
+      )
+      .toJSON();
+  });
+});
+
+describe("DatePicker : ", () => {
+  it("renders a snapshot of <DatePicker /> with mock props", () => {
+    const datePicker = renderer
+      .create(
+        <DatePicker
+          onChange={handleChange}
+          value="17/11/2021"
+          format="dd/mm/yyyy"
+        />
+      )
+      .toJSON();
+    expect(datePicker).toMatchSnapshot();
+  });
+});
+
+describe("Switch : ", () => {
+  it("renders a snapshot of <Switch /> with mock props", () => {
+    const _switch = renderer
+      .create(<Switch value={value} onChange={handleChange} label={label} />)
+      .toJSON();
+    expect(_switch).toMatchSnapshot;
+  });
+});
+
+describe("Percentage : ", () => {
+  it("renders a snapshot of <Percentage /> with mock props", () => {
+    const percentage = renderer
+      .create(<Percentage value={value} onChange={handleChange} name={name} />)
+      .toJSON();
+    expect(percentage).toMatchSnapshot();
   });
 });
