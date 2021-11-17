@@ -51,11 +51,24 @@ export const GetProductByID = () => {
 
 export const GetProducts = () => {
 	const dispatch = useDispatch();
-	return (page = 1, successCallback, errorCallback) => (
+	return (
+		page = 1,
+		product_Name = "",
+		StartDate,
+		endDate,
+		Status,
+		successCallback,
+		errorCallback
+	) => (
 		dispatch({ type: types.GET_ALL_PRODUCTS.REQUEST }),
 		axios.request(
 			`get`,
-			`v1/kreatesell/product/fetch/all?page=${page}`,
+			`v1/kreatesell/product/fetch/all?page=${page}
+			${product_Name && `&product_name=${product_Name}`}
+			${StartDate && `&StartDate=${StartDate}`}
+			${endDate && `&endDate=${endDate}`}
+			${Status && `&Status=${Status}`}
+			`,
 			(res) => {
 				const products = res?.data?.data;
 				const data = res?.data;
@@ -164,6 +177,28 @@ export const GetListingStatus = () => {
 			},
 			(err) => {
 				dispatch({ type: types.GET_LISTING_STATUS.FAILURE, payload: err });
+				errorCallback?.();
+			}
+		)
+	);
+};
+
+export const GetProductStatus = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.FETCH_PRODUCT_STATUS.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/get-product-status`,
+			(res) => {
+				dispatch({
+					type: types.FETCH_PRODUCT_STATUS.SUCCESS,
+					payload: res?.data?.product_status,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.FETCH_PRODUCT_STATUS.FAILURE, payload: err });
 				errorCallback?.();
 			}
 		)

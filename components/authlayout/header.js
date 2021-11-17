@@ -97,7 +97,6 @@ const Nav = () => {
 						<Menu.Item
 							key="notification"
 							icon={<Bell />}
-							// onClick={() => console.log("clicked true --->")}
 							onClick={() => setShowNotification((value) => !value)}
 						>
 							{unreadNotification?.length > 0 && (

@@ -11,7 +11,6 @@ export const SendPaymentCheckoutDetails = () => {
 			`post`,
 			`v1/kreatesell/payment/checkout`,
 			(res) => {
-				console.log("SendPaymentCheckoutDetails --->", res);
 				dispatch({
 					type: types.SEND_PAYMENT_CHECKOUT_DETAILS.SUCCESS,
 					// payload: res?.data?.listing_status,
