@@ -18,3 +18,12 @@ jest.mock("next/image", () => ({
 //   __esModule: true,
 //   useRouter: jest.fn(),
 // }));
+
+jest.mock("next/head", () => {
+  return {
+    __esModule: true,
+    default: ({ children }) => {
+      return <>{children}</>;
+    },
+  };
+});
