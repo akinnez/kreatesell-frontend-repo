@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal :  renders a snapshot of <Modal /> with mock props 1`] = `
+<div
+  className="
+			modal
+			hidden 
+			false 
+			undefined
+			"
+  onClick={[Function]}
+>
+  <div
+    className="container undefined"
+    onClick={[Function]}
+  />
+</div>
+`;
