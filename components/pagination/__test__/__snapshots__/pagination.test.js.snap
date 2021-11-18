@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination :  renders a snapshot of <Pagination /> with mock props 1`] = `
+<ul
+  className="paginationContainer undefined"
+  data-testid="pagination"
+>
+  <li
+    className="paginationItem false"
+    onClick={[Function]}
+  >
+    <div
+      className="arrow left"
+    />
+  </li>
+  <li
+    className="paginationItem false"
+    onClick={[Function]}
+  >
+    <div
+      className="arrow right"
+    />
+  </li>
+</ul>
+`;
+
+exports[`Pagination :  renders a snapshot of <Pagination /> with mock props and mock values 1`] = `
+<ul
+  className="paginationContainer undefined"
+  data-testid="pagination"
+>
+  <li
+    className="paginationItem disabled"
+    onClick={[Function]}
+  >
+    <div
+      className="arrow left"
+    />
+  </li>
+  <li
+    className="paginationItem false"
+    onClick={[Function]}
+  >
+    <div
+      className="arrow right"
+    />
+  </li>
+</ul>
+`;
