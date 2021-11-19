@@ -280,7 +280,7 @@ exports[`<ProductHeader renders correctly in snapshot 1`] = `
     <div>
       <input
         className="date"
-        defaultValue="2021-11-18"
+        defaultValue="2021-11-19"
         type="date"
       />
     </div>
@@ -296,7 +296,7 @@ exports[`<ProductHeader renders correctly in snapshot 1`] = `
     <div>
       <input
         className="date"
-        defaultValue="2021-11-18"
+        defaultValue="2021-11-19"
         type="date"
       />
     </div>
