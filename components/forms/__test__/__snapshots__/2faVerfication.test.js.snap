@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <TwoFAVerificationForm /> 1`] = `
+<div
+  className="body"
+>
+  <form
+    autoComplete="off"
+    className="container"
+    onSubmit={[Function]}
+  >
+    <div
+      className="enterCode"
+    >
+      Enter Verification Code
+    </div>
+    <div
+      className="twoFaContainer"
+    >
+      <input
+        className="twoFaInput"
+        maxLength={1}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onPaste={[Function]}
+        type="text"
+      />
+      <input
+        className="twoFaInput"
+        maxLength={1}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onPaste={[Function]}
+        type="text"
+      />
+      <input
+        className="twoFaInput"
+        maxLength={1}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onPaste={[Function]}
+        type="text"
+      />
+      <input
+        className="twoFaInput"
+        maxLength={1}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onPaste={[Function]}
+        type="text"
+      />
+      <input
+        className="twoFaInput"
+        maxLength={1}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onPaste={[Function]}
+        type="text"
+      />
+      <input
+        className="twoFaInput"
+        maxLength={1}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onPaste={[Function]}
+        type="text"
+      />
+    </div>
+    <button
+      className="
+			undefined
+			button
+			false 
+			false
+			primaryBlue
+			"
+      type="submit"
+    >
+      <div
+        className="buttonValue"
+      >
+        Verify Account
+      </div>
+    </button>
+  </form>
+  <div
+    className="footer"
+    onClick={[Function]}
+  >
+    Didn’t get OTP? 
+    <span>
+      Resend
+    </span>
+  </div>
+</div>
+`;
