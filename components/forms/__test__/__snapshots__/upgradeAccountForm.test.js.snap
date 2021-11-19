@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <UpgradeAccountForm /> 1`] = `
+<div
+  className="jsx-882199799 px-0 md:px-8"
+>
+  <div
+    className="jsx-882199799 text-center mb-4"
+  >
+    <h3
+      className="jsx-882199799 text-black-100 font-bold text-xl"
+    >
+      Upgrade Your Account
+    </h3>
+    <h4
+      className="jsx-882199799 text-black-100 pt-2"
+    >
+      BUSINESS
+    </h4>
+    <div
+      className="jsx-882199799 divider"
+    />
+    <div
+      className="jsx-882199799 text-base-green-200 font-bold text-2xl"
+    >
+      <sup
+        className="jsx-882199799 font-normal text-xs text-black-100"
+      >
+        NGN
+      </sup>
+       4,167
+      <sub
+        className="jsx-882199799 font-normal text-xs text-black-100"
+      >
+        / Month
+      </sub>
+    </div>
+  </div>
+  <form
+    className="jsx-882199799 px-2 md:px-8 pt-4"
+  >
+    <div
+      className="jsx-882199799 text-primary-blue font-medium text-lg"
+    >
+      Payment Details
+    </div>
+    <div
+      className="jsx-882199799 divider"
+    />
+    <div
+      className="jsx-882199799"
+    >
+      <div
+        className="jsx-882199799"
+      >
+        Select Currency
+      </div>
+      <p
+        className="jsx-882199799 text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm"
+      >
+        Select your preferred currency and get price equivalent
+      </p>
+    </div>
+    <div
+      className="jsx-882199799 grid gap-4 grid-cols-3 md:grid-cols-6 pt-3"
+    >
+      <div
+        className="jsx-882199799 activeCard px-2 flex items-center justify-between"
+      >
+        <p
+          className="jsx-882199799 pt-2"
+        >
+          NGN
+        </p>
+        <div
+          className="jsx-882199799"
+        >
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </div>
+      </div>
+      <div
+        className="jsx-882199799 card p-2 flex items-center"
+      >
+        USD
+      </div>
+      <div
+        className="jsx-882199799 card p-2 flex items-center"
+      >
+        GBP
+      </div>
+      <div
+        className="jsx-882199799 card p-2 flex items-center"
+      >
+        KES
+      </div>
+      <div
+        className="jsx-882199799 card p-2 flex items-center"
+      >
+        ZAR
+      </div>
+      <div
+        className="jsx-882199799 card p-2 flex items-center"
+      >
+        GHS
+      </div>
+    </div>
+    <div
+      className="jsx-882199799 pt-6"
+    >
+      <div
+        className="jsx-882199799"
+      >
+        Payment Method
+      </div>
+      <p
+        className="jsx-882199799 text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm"
+      >
+        Select your preferred payment method
+      </p>
+    </div>
+    <div
+      className="jsx-882199799 grid gap-4 grid-cols-3 pt-3"
+    >
+      <div
+        className="jsx-882199799 activeCard p-2 flex justify-between items-center"
+      >
+        <div
+          className="jsx-882199799"
+        >
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </div>
+        <div
+          className="jsx-882199799"
+        >
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </div>
+      </div>
+      <div
+        className="jsx-882199799 flex justify-center card p-2"
+      >
+        <img
+          src="[jest.find('../utils')]"
+        />
+      </div>
+      <div
+        className="jsx-882199799 flex justify-center card p-2"
+      >
+        <img
+          src="[jest.find('../utils')]"
+        />
+      </div>
+    </div>
+    <div
+      className="jsx-882199799 priceMenu my-6 py-3 px-8"
+    >
+      <div
+        className="jsx-882199799 flex justify-between pt-2"
+      >
+        <p
+          className="jsx-882199799"
+        >
+          SubTotal
+        </p>
+        <p
+          className="jsx-882199799"
+        >
+          NGN 4,167
+        </p>
+      </div>
+      <div
+        className="jsx-882199799 divider"
+      >
+         
+      </div>
+      <div
+        className="jsx-882199799 flex justify-between"
+      >
+        <p
+          className="jsx-882199799"
+        >
+          Total
+        </p>
+        <p
+          className="jsx-882199799 text-primary-blue font-medium"
+        >
+          NGN 4,167
+        </p>
+      </div>
+    </div>
+    <div
+      className="jsx-882199799 w-full"
+    >
+      <button
+        className="
+			undefined
+			button
+			false 
+			btnBlue
+			false
+			"
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Pay NGN 4,167
+          <div
+            className="buttonIcon"
+          >
+            <svg
+              fill="none"
+              height="10"
+              viewBox="0 0 13 10"
+              width="13"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M0.97144 4.45143C0.705203 4.48809 0.5 4.71969 0.5 4.99993C0.5 5.30564 0.744208 5.55347 1.04545 5.55347L10.6333 5.55347L7.16979 9.05423L7.11685 9.1162C6.95797 9.33257 6.97495 9.64013 7.1682 9.83706C7.38077 10.0537 7.72613 10.0544 7.93958 9.83868L12.3317 5.3998C12.3586 5.37364 12.3829 5.34471 12.4041 5.31346C12.5509 5.09748 12.5294 4.7992 12.3396 4.60737L7.93955 0.161287L7.87826 0.107824C7.66438 -0.0524988 7.36139 -0.0339699 7.16816 0.162973C6.95561 0.379612 6.95635 0.730097 7.16982 0.945805L10.6341 4.44638L1.04545 4.44638L0.97144 4.45143Z"
+                fill="white"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>
+`;
