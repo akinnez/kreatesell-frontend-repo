@@ -5,8 +5,12 @@ module.exports = {
       "identity-obj-proxy",
     "^@/components(.*)$": "<rootDir>/components$1",
     "^utils(.*)$": "<rootDir>/utils$1",
-    "^redux(.*)$": "<rootDir>/redux$1",
-    // "^@redux-mock-store": "<rootDir>/node_modules",
+    "^redux/actions": "<rootDir>/redux/actions",
+    "^'redux-devtools-extension'": "<rootDir>/node_modules$1",
+    "^'react-redux'": "<rootDir>/node_modules$1",
+    "^'redux-thunk'": "<rootDir>/node_modules$1",
+    "^'redux'": "<rootDir>/node_modules$1",
+    // "^redux(.*)$": "<rootDir>/redux$1",
     "^validation(.*)$": "<rootDir>/validation$1",
     "^hooks(.*)$": "<rootDir>/hooks$1",
     "^networking(.*)$": "<rootDir>/networking$1",
@@ -15,7 +19,7 @@ module.exports = {
     "^component(.*)$": "<rootDir>/component$1",
 
     // handle image imports
-    "^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$": "<rootDir>/<rootDir>/utils$1",
+    "^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$": "<rootDir>/utils$1",
   },
   clearMocks: true,
   moduleDirectories: ["node_modules", "components", "pages", "utils"],
