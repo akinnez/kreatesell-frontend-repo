@@ -7,8 +7,9 @@ import { initializeStore } from "../../../redux/store";
 
 nextRouter.useRouter = jest.fn();
 nextRouter.useRouter.mockImplementation(() => ({ route: "/" }));
-// const MockChildren = () => <div>mock Child</div>;
+
 const mockState = { auth: "", domain: "", store: "", utils: "", product: "" };
+
 describe("GeneralLayout : ", () => {
   it("renders a snapshot of <GeneralLayout /> using <ForgotPasswordForm /> as a test case", () => {
     const generalLayout = renderer
