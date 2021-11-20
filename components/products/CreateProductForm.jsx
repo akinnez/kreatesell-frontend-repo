@@ -6,13 +6,12 @@ import styles from "./CreateProduct.module.scss";
 import { DeleteIcon } from "components/IconPack";
 import { Radio } from "components/inputPack";
 import { Switch } from "antd";
-import { useDropzone } from "react-dropzone";
 import { useFormik } from "formik";
 import {
 	DigitalProductSchema,
 	// oneTimeSubscriptionSchema,
 	oneTimeSubscriptionAndMembershipSchema,
-	membershipProductSchema,
+	// membershipProductSchema,
 } from "validation";
 import filesize from "filesize";
 import {
@@ -20,6 +19,7 @@ import {
 	GetListingStatus,
 	CreateProduct,
 	GetProductByID,
+	SetProductID,
 } from "redux/actions";
 import { useSelector } from "react-redux";
 import { useUpload } from "hooks";
@@ -28,11 +28,11 @@ export const CreateProductForm = ({
 	productType = "digitalDownload",
 	productTypeId,
 }) => {
-	console.log("productType -->", productType);
 	const setProductTab = SetProductTab();
 	const getListingStatus = GetListingStatus();
 	const createProduct = CreateProduct();
 	const getProductByID = GetProductByID();
+	const setProductID = SetProductID();
 
 	const [preOrder, setPreOrder] = useState(false);
 	const [contentFiles, setContentFiles] = useState(false);
@@ -44,7 +44,6 @@ export const CreateProductForm = ({
 
 	const [files, setFiles] = useState([]);
 	const [productFile, setProductFile] = useState([]);
-	console.log("files length -->", files);
 
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);
@@ -88,25 +87,41 @@ export const CreateProductForm = ({
 			product_files: [""],
 			file_access_type: 1,
 		},
-		action: "c",
+		action: product ? "e" : "c",
+		kreatesell_id: "",
+		product_type_id: 0,
+		product_listing_status_id: 0,
+		product_status: 0,
+		cta_button: "",
+		product_id: 0,
 	};
 
 	const handleSubmit = (data) => {
 		if (["oneTimeSubscription", "membership"].includes(productType)) {
 			delete data?.content_file_details;
-			delete data?.preorder_details;
-			delete data?.enable_preorder;
+			// delete data?.preorder_details;
+			// delete data?.enable_preorder;
 			delete data?.upload_content;
 			delete data?.upload_preview;
 		}
-		createProduct(data, () => {
+		if (!data.enable_preorder) {
+			delete data.preorder_details;
+		}
+		if (preview.length < 1) {
+			delete data.cover_image;
+		}
+		if (productFilePreview.length < 1) {
+			// delete data.content_file_details.product_files;
+			delete data.content_file_details;
+		}
+
+		createProduct(data, (data) => {
+			setProductID(
+				product?.product_details?.kreasell_product_id || data?.token
+			);
 			setProductTab(1);
 		});
 	};
-
-	// digitalDownload;
-	// oneTimeSubscription;
-	// membership;
 
 	const formik = useFormik({
 		initialValues,
@@ -147,6 +162,42 @@ export const CreateProductForm = ({
 		}
 	}, [productID]);
 
+	useEffect(() => {
+		setFieldValue("product_name", product?.product_details?.product_name);
+		setFieldValue(
+			"product_description",
+			product?.product_details?.product_description
+		);
+		setFieldValue(
+			"enable_preorder",
+			product?.product_details?.enable_preorder ?? false
+		);
+		setFieldValue("upload_content", product?.product_details?.upload_content);
+		setFieldValue(
+			"product_visibility_status",
+			product?.product_details?.product_visibility
+		);
+		setFieldValue("upload_preview", product?.product_details?.is_preview_only);
+		setFieldValue(
+			"preorder_details.preorder_release_date",
+			product?.product_details?.preoder_date ?? ""
+		);
+		setFieldValue(
+			"preorder_details.is_preorder_downloadable",
+			product?.product_details?.is_preoder_downloadable ?? false
+		);
+		setFieldValue(
+			"kreatesell_id",
+			product?.product_details?.kreasell_product_id
+		);
+		setFieldValue("product_type_id", product?.product_details?.product_type_id);
+		setFieldValue("product_id", product?.product_details?.id);
+		setFieldValue(
+			"product_listing_status",
+			product?.product_details?.product_listing_status
+		);
+	}, [product]);
+
 	return (
 		<div className={styles.digitalDownload}>
 			<h5 className="text-primary-blue font-medium text-2xl">
@@ -165,6 +216,7 @@ export const CreateProductForm = ({
 						name="product_name"
 						onChange={formik.handleChange}
 						errorMessage={errors.product_name}
+						value={values?.product_name}
 					/>
 				</div>
 
@@ -177,6 +229,7 @@ export const CreateProductForm = ({
 						labelStyle={styles.inputLabel}
 						onChange={formik.handleChange}
 						errorMessage={errors.product_description}
+						value={values?.product_description}
 					/>
 				</div>
 
@@ -266,6 +319,7 @@ export const CreateProductForm = ({
 										setPreOrder((value) => !value);
 										setFieldValue("enable_preorder", e);
 									}}
+									checked={preOrder}
 								/>
 								<span className="pl-6 text-black-100">
 									{preOrder ? "ON" : "OFF"}
@@ -286,6 +340,7 @@ export const CreateProductForm = ({
 										e.target.value
 									);
 								}}
+								value={values?.preorder_details?.preorder_release_date}
 							/>
 						</div>
 					)}
@@ -409,7 +464,6 @@ export const CreateProductForm = ({
 							bgColor="blue"
 							className={styles.digitalBtn}
 							loading={loading}
-							// onClick={() => setProductTab(1)}
 						/>
 					</div>
 				</div>

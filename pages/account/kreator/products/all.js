@@ -13,20 +13,30 @@ import Image from "next/image";
 import { Pagination } from "antd";
 import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
-import { GetProducts } from "redux/actions";
+import { GetProducts, GetProductStatus } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 const AllProducts = () => {
 	const router = useRouter();
 	const getProducts = GetProducts();
-	const { products, loading, productPagination } = useSelector(
+	const getProductStatus = GetProductStatus();
+	const { products, loading, productPagination, productStatus } = useSelector(
 		(state) => state.product
 	);
 
 	const { page, total_records } = productPagination;
 
 	const [productData, setProductData] = useState([]);
+	const [productName, setProductName] = useState("");
+	const [startDate, setStartDate] = useState("");
+	const [productStatusId, setProductStatusId] = useState("");
+	const [endDate, setEndDate] = useState("");
+
+	const productStatusOptions = productStatus?.map((item) => ({
+		value: item.id,
+		label: item.status_name,
+	}));
 
 	const memoisedProductData = useMemo(
 		() =>
@@ -53,12 +63,15 @@ const AllProducts = () => {
 
 	useEffect(() => {
 		getProducts();
+		getProductStatus();
 	}, []);
 
 	useEffect(() => {
 		setProductData(products);
 	}, [products]);
 
+	const handleSearchSubmit = () =>
+		getProducts(1, productName, startDate, endDate, productStatusId);
 	const handlePaginationChange = (page) => getProducts(page);
 
 	return (
@@ -77,7 +90,14 @@ const AllProducts = () => {
 				</div>
 
 				{/* <DateHeader showSelect={false} /> */}
-				<ProductHeader />
+				<ProductHeader
+					handleSearchInput={(e) => setProductName(e.target.value)}
+					handleSearchSubmit={() => handleSearchSubmit()}
+					handleStartDate={(e) => setStartDate(e.target.value)}
+					handleEndDate={(e) => setEndDate(e.target.value)}
+					productStatusOptions={productStatusOptions}
+					handleProductStatus={(e) => setProductStatusId(e)}
+				/>
 
 				<div className="flex justify-end pt-3">
 					<div className="text-primary-blue  font-semibold text-xs pr-2">
@@ -98,7 +118,7 @@ const AllProducts = () => {
 					<MobileProductCard item={item} key={item?.id || i} />
 				))}
 
-				{productData?.length && (
+				{productData?.length > 0 && (
 					<div className="py-8 lg:pt-0">
 						<Pagination
 							defaultCurrent={1}

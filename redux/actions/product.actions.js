@@ -11,14 +11,11 @@ export const CreateProduct = () => {
 			`post`,
 			`v1/kreatesell/product/create-edit`,
 			(res) => {
-				console.log("create edit response ===>", res);
 				dispatch({ type: types.CREATE_PRODUCT.SUCCESS, payload: res });
 				showToast(res?.message, "info");
 				successCallback?.();
 			},
 			(err) => {
-				console.log("create edit error ===>", err);
-
 				dispatch({ type: types.CREATE_PRODUCT.FAILURE, payload: err });
 				showToast(err?.message, "error");
 				errorCallback?.();
@@ -54,24 +51,33 @@ export const GetProductByID = () => {
 
 export const GetProducts = () => {
 	const dispatch = useDispatch();
-	return (page = 1, successCallback, errorCallback) => (
+	return (
+		page = 1,
+		product_Name = "",
+		StartDate,
+		endDate,
+		Status,
+		successCallback,
+		errorCallback
+	) => (
 		dispatch({ type: types.GET_ALL_PRODUCTS.REQUEST }),
 		axios.request(
 			`get`,
-			// `v1/kreatesell/product/fetch/all`,
-			`v1/kreatesell/product/fetch/all?page=${page}`,
+			`v1/kreatesell/product/fetch/all?page=${page}
+			${product_Name && `&product_name=${product_Name}`}
+			${StartDate && `&StartDate=${StartDate}`}
+			${endDate && `&endDate=${endDate}`}
+			${Status && `&Status=${Status}`}
+			`,
 			(res) => {
-				// console.log("all products -->", res);
 				const products = res?.data?.data;
 				const data = res?.data;
 
 				delete data?.data;
-				// console.log("array of data --->", products);
 				const payload = {
 					products,
 					productPagination: { ...data },
 				};
-				// dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload: res?.data });
 				dispatch({ type: types.GET_ALL_PRODUCTS.SUCCESS, payload });
 				successCallback?.();
 			},
@@ -100,6 +106,32 @@ export const GetProductTypes = () => {
 			},
 			(err) => {
 				dispatch({ type: types.GET_PRODUCT_TYPES.FAILURE, payload: err });
+				errorCallback?.();
+			}
+		)
+	);
+};
+
+export const GetBillingInterval = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.GET_BILLING_INTERVAL.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/get-billing-interval`,
+			(res) => {
+				const payload = {
+					billingInterval: res?.data?.billing_interval,
+				};
+
+				dispatch({
+					type: types.GET_BILLING_INTERVAL.SUCCESS,
+					payload,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.GET_BILLING_INTERVAL.FAILURE, payload: err });
 				errorCallback?.();
 			}
 		)
@@ -151,6 +183,28 @@ export const GetListingStatus = () => {
 	);
 };
 
+export const GetProductStatus = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.FETCH_PRODUCT_STATUS.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/get-product-status`,
+			(res) => {
+				dispatch({
+					type: types.FETCH_PRODUCT_STATUS.SUCCESS,
+					payload: res?.data?.product_status,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.FETCH_PRODUCT_STATUS.FAILURE, payload: err });
+				errorCallback?.();
+			}
+		)
+	);
+};
+
 export const DuplicateProductAction = () => {
 	const dispatch = useDispatch();
 	return (productId, successCallback, errorCallback) => (
@@ -168,6 +222,42 @@ export const DuplicateProductAction = () => {
 			},
 			(err) => {
 				dispatch({ type: types.DUPLICATE_PRODUCT.FAILURE, payload: err });
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
+		)
+	);
+};
+
+export const FetchSingleStoreProduct = () => {
+	const dispatch = useDispatch();
+	return (storename, page = 1, successCallback, errorCallback) => (
+		dispatch({ type: types.FETCH_SINGLE_STORE_PRODUCT.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/fetch/${storename}?page=${page}&limit=12`,
+			(res) => {
+				const data = res?.data;
+				const singleStoreProducts = data?.products?.data;
+				delete data?.products?.data;
+
+				const payload = {
+					singleStoreDetails: data?.store_details,
+					singleStoreProducts,
+					singleStorePaginationDetails: { ...data?.products },
+				};
+
+				dispatch({
+					type: types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS,
+					payload,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.FETCH_SINGLE_STORE_PRODUCT.FAILURE,
+					payload: err,
+				});
 				showToast(err?.message, "error");
 				errorCallback?.();
 			}

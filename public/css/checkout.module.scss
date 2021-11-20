@@ -1,0 +1,54 @@
+@import "./screens.scss";
+
+.btnCont {
+	width: 100% !important;
+	height: 3.5rem;
+}
+
+.container {
+	background-image: url("../images//checkout-bg.png");
+
+	@include screen("medium") {
+		background-image: none;
+	}
+	.boxShadow {
+		box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+	}
+
+	.couponBtn {
+		height: 3.375rem;
+	}
+
+	.card {
+		border-radius: 0.5rem;
+		border: 1px solid #f0f0f0;
+		cursor: pointer;
+		color: #8c8c8c;
+		font-size: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 0.7rem;
+	}
+
+	.activeCard {
+		@extend .card;
+		border: 1px solid #2dc071;
+		justify-content: space-between !important;
+	}
+
+	.activePayment {
+		@extend .card;
+		border: 1px solid #2dc071;
+		justify-content: center;
+	}
+}
+
+.modal {
+	border-radius: 0.5rem;
+	width: 40%;
+
+	@include screen("tablet") {
+		width: 90%;
+	}
+}

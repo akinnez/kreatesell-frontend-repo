@@ -3,13 +3,14 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "../../validation";
 import { isAnEmpytyObject } from "../../utils";
-import { Login } from "../../redux/actions";
+import { Login, GetStoreDetails } from "../../redux/actions";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import styles from "../../public/css/Login.module.scss";
 
 export const LoginForm = () => {
 	const login = Login();
+	const getStoreDetails = GetStoreDetails();
 	const router = useRouter();
 
 	const { loading } = useSelector((state) => state.auth);
@@ -40,6 +41,7 @@ export const LoginForm = () => {
 				if (!res?.user?.business_name || !res?.user?.shop_name) {
 					return router.push("/welcome");
 				}
+				getStoreDetails();
 				return router.push("/account/dashboard");
 			},
 			(err) => {

@@ -1,7 +1,10 @@
 import { Button } from "components";
+import { CreateEditDomain, SetDomainScreen, GetDomains } from "redux/actions";
 import styles from "./Domain.module.scss";
 
 export const EmptyDomain = ({ showHeader = true }) => {
+	const setDomainScreen = SetDomainScreen();
+
 	return (
 		<div>
 			{showHeader && (
@@ -12,6 +15,7 @@ export const EmptyDomain = ({ showHeader = true }) => {
 							text="Connect a domain"
 							bgColor="blue"
 							className={styles.btnStyle}
+							onClick={() => setDomainScreen(3)}
 						/>
 					</div>
 				</div>
@@ -29,6 +33,7 @@ export const EmptyDomain = ({ showHeader = true }) => {
 						text="Connect a domain"
 						bgColor="blue"
 						className={styles.btnStyle}
+						onClick={() => setDomainScreen(3)}
 					/>
 				</div>
 			</div>

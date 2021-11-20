@@ -11,17 +11,17 @@ export const DigitalProductSchema = () => {
 		product_visibility_status: Yup.number().required(
 			"Product Visibility status is required"
 		),
-		preorder_details: {
+		preorder_details: Yup.object().shape({
 			preorder_release_date: Yup.date(),
+			// preorder_release_date: Yup.date().nullable(),
 			is_preorder_downloadable: Yup.boolean(),
-		},
+		}),
 		product_type_id: Yup.number(),
-		content_file_details: {
-			product_files: Yup.string(),
+		content_file_details: Yup.object().shape({
+			product_files: Yup.array(),
 			file_access_type: Yup.number(),
-		},
+		}),
 		// upload_preview: true,
-		// product_visibility_status: 0,
 		// is_preview_only: true,
 		// redirect_buyer: true,
 		cover_image: Yup.string(),
@@ -47,5 +47,16 @@ export const membershipProductSchema = () => {};
 export const CheckoutProductSchema = () => {
 	return Yup.object().shape({
 		cta_button: Yup.string(),
+	});
+};
+
+export const ConsumerSalesCheckoutSchema = () => {
+	return Yup.object().shape({
+		firstName: Yup.string().required("First name is required"),
+		lastName: Yup.string().required("Last name is required"),
+		email: Yup.string().email().required("Please input a valid email address"),
+		phoneNo: Yup.string().required("Phone number is required"),
+		currency: Yup.string().required("Currency is required"),
+		couponCode: Yup.string(),
 	});
 };

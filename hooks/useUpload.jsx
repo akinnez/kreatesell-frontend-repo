@@ -15,7 +15,6 @@ export const useUpload = ({ setFileChange }) => {
 	};
 
 	const onDrop = async (acceptedFiles) => {
-		console.log("accepted file -->", acceptedFiles);
 		setFiles([...files, ...acceptedFiles]);
 		setFileChange([...files, ...acceptedFiles]);
 		let b64arr = [];

@@ -11,7 +11,7 @@ import {
 } from "utils";
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Modal } from "antd";
 import { Button } from "components";
 import { useRouter } from "next/router";
@@ -21,7 +21,9 @@ import {
 	GetProducts,
 	CreateProduct,
 	SetProductID,
+	SetProductTab,
 } from "redux/actions";
+import { useSelector } from "react-redux";
 
 export const MobileProductCard = ({ item }) => {
 	const [showAction, setShowAction] = useState(false);
@@ -117,12 +119,14 @@ export const MobileProductCard = ({ item }) => {
 	);
 };
 
-const ModalPrompt = ({ handleCancel, onOk, modalText }) => {
+const ModalPrompt = ({ handleCancel, onOk, modalText, productName }) => {
+	const { loading } = useSelector((state) => state.product);
+
 	return (
 		<div className={`py-4 ${styles.modalPrompt}`}>
 			<div className="text-base-gray text-sm">
 				Are you sure you want to {modalText} <br />{" "}
-				<span className="font-normal text-base text-black">LAND OF HOPE?</span>
+				<span className="font-normal text-base text-black">{productName}?</span>
 			</div>
 			<p className="text-base-gray-200 text-sm py-4">
 				You can not undo this action
@@ -134,7 +138,13 @@ const ModalPrompt = ({ handleCancel, onOk, modalText }) => {
 					className={styles.cancelBtn}
 					onClick={handleCancel}
 				/>
-				<Button text={modalText} className={styles.deleteBtn} onClick={onOk} />
+
+				<Button
+					text={modalText}
+					className={styles.deleteBtn}
+					onClick={onOk}
+					loading={loading}
+				/>
 			</div>
 		</div>
 	);
@@ -176,8 +186,11 @@ const ActionComponent = ({ item, showAction }) => {
 	const getProducts = GetProducts();
 	const createEditDeleteProduct = CreateProduct();
 	const setProductID = SetProductID();
+	const setProductTab = SetProductTab();
+
 	const id = item?.product_details?.id;
 	const kreasell_product_id = item?.product_details?.kreasell_product_id;
+	const productName = item?.product_details?.product_name;
 
 	const [menu, setMenu] = useState(false);
 
@@ -221,6 +234,7 @@ const ActionComponent = ({ item, showAction }) => {
 						onClick={() => {
 							setProductID(kreasell_product_id);
 							router.push("/account/kreator/products/create");
+							setProductTab(0);
 						}}
 					>
 						<span>
@@ -280,6 +294,7 @@ const ActionComponent = ({ item, showAction }) => {
 					handleCancel={handleCancel}
 					onOk={handleModalOk}
 					modalText={modalText}
+					productName={productName}
 				/>
 			</Modal>
 		</div>
@@ -302,7 +317,7 @@ export const AllProductsTableHeader = [
 					rel="noopener noreferrer"
 					className="productTooltip"
 				>
-					{item.slice(0, 30)}...
+					{item?.slice(0, 30)}...
 					<div className="tooltipText flex justify-between items-center">
 						<span className="text-black-100">Go to link: </span>
 						<span
