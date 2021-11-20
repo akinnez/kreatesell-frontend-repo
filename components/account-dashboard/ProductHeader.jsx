@@ -51,7 +51,7 @@ export const ProductHeader = ({
 					options={productStatusOptions}
 					placeholder="All"
 					placeHolderColor="#8c8c8c"
-					label="Product Type"
+					label="Product Status"
 					height="44px"
 					className="h-11"
 					onChange={(e) => handleProductStatus(e.value)}

@@ -1,16 +1,16 @@
 import {
 	// DateHeader,
 	Button,
-	Table,
 	AllProductsTableHeader,
 	ProductHeader,
 } from "components";
+
 import { DownloadIcon } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 // import { ProductsTableData } from "components/tableHeader/dummyTableData";
-import { Pagination } from "antd";
+import { Table } from "antd";
 import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
 import { GetProducts, GetProductStatus } from "redux/actions";
@@ -108,27 +108,24 @@ const AllProducts = () => {
 
 				<div className="hidden lg:block mb-16 mt-8">
 					<Table
-						header={AllProductsTableHeader}
-						data={memoisedProductData}
+						columns={AllProductsTableHeader}
+						dataSource={memoisedProductData}
 						loading={loading}
+						pagination={{
+							position: ["bottomLeft"],
+							total: total_records,
+							defaultCurrent: 1,
+							onChange: handlePaginationChange,
+							current: page,
+							defaultPageSize: 10,
+						}}
+						size="large"
 					/>
 				</div>
 
 				{memoisedProductData?.map((item, i) => (
 					<MobileProductCard item={item} key={item?.id || i} />
 				))}
-
-				{productData?.length > 0 && (
-					<div className="py-8 lg:pt-0">
-						<Pagination
-							defaultCurrent={1}
-							onChange={handlePaginationChange}
-							current={page}
-							total={total_records}
-							defaultPageSize={10}
-						/>
-					</div>
-				)}
 			</div>
 		</AuthLayout>
 	);
