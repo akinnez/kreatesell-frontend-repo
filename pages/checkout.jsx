@@ -64,11 +64,11 @@ const Checkout = () => {
 	const onClose = () => {};
 
 	const handleSubmit = () => {
-		if (activeCard === "NGN") {
+		if (["GHS", "NGN"].includes(activeCard)) {
 			return initializePayment(onPaystackSuccess, onClose);
 		}
 
-		if (["GHS", "KES", "ZAR", "UGX"].includes(activeCard)) {
+		if (["KES", "ZAR", "UGX"].includes(activeCard)) {
 			handleFlutterPayment({
 				callback: async (response) => {
 					await sendPaymentCheckoutDetails(
@@ -131,10 +131,15 @@ const Checkout = () => {
 		reference: randomId,
 		email,
 		amount: price * 100,
-		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+		publicKey:
+			activeCard === "GHS"
+				? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
+				: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
 		firstName: values.firstName,
 		lastname: values.lastName,
 		phone: values.phoneNo,
+		currency: activeCard,
+		channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"],
 	};
 
 	const initializePayment = usePaystackPayment(payStackConfig);
