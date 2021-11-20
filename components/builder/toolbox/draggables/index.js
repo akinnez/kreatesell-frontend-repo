@@ -1,11 +1,10 @@
 import React from "react"
 import {Text,Image as ImageWidget, Spacer as SpacerWidget, Video as VideoWidget,
-    Heading as HeadingWidget,TwoColumnSection,ThreeColumnSection,FourColumnSection, Divider as DividerWidget,
+    Heading as HeadingWidget,Divider as DividerWidget,
     Button as ButtonWidget,CountdownTimer} from '../widgets'
-import { Element, useEditor } from "@craftjs/core";
+import { useEditor } from "@craftjs/core";
 import styled from "styled-components";
-import {SingleColumn as OneColumn,DoubleColumn as TwoColumn,
-    TripleColumn,QuadripleColumn} from '../../editor/sections'
+import { SingleColumn,DoubleColumn,TrippleColumn,QuadrupleColumn } from "../../layout";
 
 
 
@@ -146,10 +145,10 @@ const Col = styled.div`
     flex:1;
 `
 
-export const SingleColumn = ()=>{
+export const SingleColumnDragger = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <OneColumn />)}>
+        <div ref={ref=> connectors.create(ref, <SingleColumn />)}>
             <Row>
                 <Col />
             </Row>
@@ -157,10 +156,10 @@ export const SingleColumn = ()=>{
     )
 }
 
-export const DoubleColumn = ()=>{
+export const DoubleColumnDragger = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <TwoColumn />)}>
+        <div ref={ref=> connectors.create(ref, <DoubleColumn />)}>
             <Row>
                 <Col />
                 <Col />
@@ -171,10 +170,10 @@ export const DoubleColumn = ()=>{
 
 
 
-export const ThreeColumn = ()=>{
+export const ThreeColumnDragger = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <TripleColumn />)}>
+        <div ref={ref=> connectors.create(ref, <TrippleColumn />)}>
             <Row>
                 <Col />
                 <Col />
@@ -184,10 +183,10 @@ export const ThreeColumn = ()=>{
     )
 }
 
-export const FourColumn = ()=>{
+export const FourColumnDragger = ()=>{
     const { connectors, query } = useEditor();
     return(
-        <div ref={ref=> connectors.create(ref, <QuadripleColumn />)}>
+        <div ref={ref=> connectors.create(ref, <QuadrupleColumn />)}>
             <Row>
                 <Col />
                 <Col />
