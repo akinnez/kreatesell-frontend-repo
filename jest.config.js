@@ -1,5 +1,4 @@
 module.exports = {
-  // setupFilesAfterEnv: ["./jest.setup.js"],
   moduleNameMapper: {
     "^.+.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
       "identity-obj-proxy",
@@ -10,7 +9,6 @@ module.exports = {
     "^'react-redux'": "<rootDir>/node_modules$1",
     "^'redux-thunk'": "<rootDir>/node_modules$1",
     "^'redux'": "<rootDir>/node_modules$1",
-    // "^redux(.*)$": "<rootDir>/redux$1",
     "^validation(.*)$": "<rootDir>/validation$1",
     "^hooks(.*)$": "<rootDir>/hooks$1",
     "^networking(.*)$": "<rootDir>/networking$1",

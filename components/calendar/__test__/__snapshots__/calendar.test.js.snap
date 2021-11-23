@@ -312,7 +312,7 @@ exports[`renders a snapshot of <Calendar /> 1`] = `
           </span>
         </div>
         <div
-          className="jsx-2734322231 active-date"
+          className="jsx-2734322231 "
         >
           <span
             className="jsx-2734322231"
@@ -352,7 +352,7 @@ exports[`renders a snapshot of <Calendar /> 1`] = `
           </span>
         </div>
         <div
-          className="jsx-2734322231 "
+          className="jsx-2734322231 active-date"
         >
           <span
             className="jsx-2734322231"

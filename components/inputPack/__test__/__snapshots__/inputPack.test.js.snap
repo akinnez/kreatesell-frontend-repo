@@ -532,7 +532,7 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
           </span>
         </div>
         <div
-          className="jsx-2734322231 active-date"
+          className="jsx-2734322231 "
         >
           <span
             className="jsx-2734322231"
@@ -572,7 +572,7 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
           </span>
         </div>
         <div
-          className="jsx-2734322231 "
+          className="jsx-2734322231 active-date"
         >
           <span
             className="jsx-2734322231"
