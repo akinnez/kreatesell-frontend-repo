@@ -209,6 +209,7 @@ const ActionComponent = ({ item, showAction }) => {
 	/**Used to delete and deactivate product */
 	const handleModalOk = () => {
 		createEditDeleteProduct({ product_id: id, action: "d" }, () => {
+			setVisible(false);
 			getProducts();
 		});
 	};
@@ -369,6 +370,6 @@ export const AllProductsTableHeader = [
 	{
 		title: "Actions",
 		dataIndex: "actions",
-		render: ActionComponent,
+		render: (item) => ActionComponent({ item }),
 	},
 ];
