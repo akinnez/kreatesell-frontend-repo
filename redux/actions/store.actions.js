@@ -131,42 +131,46 @@ export const UpdateCTAButton = () => {
 	);
 };
 
-export const ListSingleStoreProduct = () => {
-	const dispatch = useDispatch();
-	return (storename, successCallback, errorCallback) => (
-		dispatch({ type: types.LIST_SINGLE_STORE_PRODUCT.REQUEST }),
-		axios.request(
-			`get`,
-			`v1/kreatesell/store/store-detail?store=${storename}`,
-			(res) => {
-				const data = res?.data;
-				const singleStoreProducts = data?.products;
+// export const ListSingleStoreProduct = () => {
+// 	const dispatch = useDispatch();
+// 	return (storename, successCallback, errorCallback) => (
+// 		dispatch({ type: types.LIST_SINGLE_STORE_PRODUCT.REQUEST }),
+// 		axios.request(
+// 			`get`,
+// 			`v1/kreatesell/store/store-detail?store=${storename}`,
+// 			(res) => {
+// 				const data = res?.data;
+// 				// const singleStoreProducts = data?.products;
+// 				// date_updated;
+// 				const singleStoreProducts = data?.products?.sort((a, b) =>
+// 					a?.date_updated < b?.date_updated ? 1 : -1
+// 				);
 
-				delete data?.products;
+// 				delete data?.products;
 
-				const payload = {
-					singleStoreDetails: { ...data },
-					singleStoreProducts,
-				};
+// 				const payload = {
+// 					singleStoreDetails: { ...data },
+// 					singleStoreProducts,
+// 				};
 
-				dispatch({
-					type: types.LIST_SINGLE_STORE_PRODUCT.SUCCESS,
-					payload,
-				});
-				// showToast(res?.message, "info");
-				successCallback?.();
-			},
-			(err) => {
-				dispatch({
-					type: types.LIST_SINGLE_STORE_PRODUCT.FAILURE,
-					payload: err,
-				});
-				showToast(err?.message || err?.title, "error");
-				errorCallback?.();
-			}
-		)
-	);
-};
+// 				dispatch({
+// 					type: types.LIST_SINGLE_STORE_PRODUCT.SUCCESS,
+// 					payload,
+// 				});
+// 				// showToast(res?.message, "info");
+// 				successCallback?.();
+// 			},
+// 			(err) => {
+// 				dispatch({
+// 					type: types.LIST_SINGLE_STORE_PRODUCT.FAILURE,
+// 					payload: err,
+// 				});
+// 				showToast(err?.message || err?.title, "error");
+// 				errorCallback?.();
+// 			}
+// 		)
+// 	);
+// };
 
 export const getStore = (info) => {
 	return {

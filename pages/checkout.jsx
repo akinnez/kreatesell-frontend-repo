@@ -10,18 +10,179 @@ import {
 	Paypal,
 	Stripe,
 	CloudDownload,
+	isAnEmpytyObject,
+	showToast,
 } from "utils";
 import styles from "../public/css/checkout.module.scss";
 import { Input, Button } from "components";
-import { Dialog, DialogOverlay, DialogContent } from "@reach/dialog";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
+import { ConsumerSalesCheckoutSchema } from "validation";
+import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { usePaystackPayment } from "react-paystack";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { SendPaymentCheckoutDetails } from "redux/actions";
+import crypto from "crypto";
 
 const Checkout = () => {
-	const [modal, setModal] = useState(true);
+	const [modal, setModal] = useState(false);
 	const [activeCard, setActiveCard] = useState("NGN");
 	const [paymentMethod, setPaymentMethod] = useState("Stripe");
+	const [email, setEmail] = useState("");
+	const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
 
+	const { checkoutDetails } = useSelector((state) => state.checkout);
+
+	const checkout = checkoutDetails?.check_out_details?.filter(
+		(item) => item?.currency_name === activeCard
+	);
+
+	const currency_name = checkout?.[0]?.currency_name;
+	const price = checkout?.[0]?.price;
+
+	const router = useRouter();
+	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
 	const openModal = () => setModal(true);
 	const closeModal = () => setModal(false);
+
+	const paymentStatusList = {
+		success: "s",
+		failed: "f",
+		// abandoned: "a"
+	};
+
+	const onPaystackSuccess = (reference) => {
+		const status = paymentStatusList[reference?.status];
+
+		openModal();
+		sendPaymentCheckoutDetails(
+			paymentDetails({ reference: reference?.reference, status })
+		);
+	};
+
+	const onClose = () => {};
+
+	const handleSubmit = () => {
+		if (activeCard === "NGN") {
+			return initializePayment(onPaystackSuccess, onClose);
+		}
+
+		if (["GHS", "KES", "ZAR", "UGX"].includes(activeCard)) {
+			handleFlutterPayment({
+				callback: async (response) => {
+					await sendPaymentCheckoutDetails(
+						paymentDetails({
+							reference: response?.tx_ref,
+							status: response?.status,
+						})
+					);
+					closePaymentModal();
+					openModal();
+				},
+				onClose: () => {},
+			});
+		}
+	};
+
+	const initialValues = {
+		firstName: "",
+		lastName: "",
+		email: "",
+		phoneNo: "",
+		currency: "NGN",
+		couponCode: "",
+	};
+
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmit,
+		validationSchema: ConsumerSalesCheckoutSchema,
+		validateOnChange: false,
+	});
+
+	const { errors, setFieldValue, values } = formik;
+
+	const paymentDetails = ({ reference = "", status = "" }) => {
+		const statusValue = paymentStatusList[status];
+		const value = {
+			fullname: `${values?.lastName} ${values?.firstName}`,
+			datetime: new Date().toISOString(),
+			email_address: values?.email,
+			mobile_number: values?.phoneNo,
+			reference_id: reference,
+			total: price,
+			status: statusValue,
+			card_type: "xxxx",
+			last_four: "",
+			currency: currency_name,
+			purchase_details: [
+				{
+					product_id: checkoutDetails?.product_details?.id,
+					quantity: 1,
+					amount: price,
+				},
+			],
+		};
+		return value;
+	};
+
+	const payStackConfig = {
+		reference: randomId,
+		email,
+		amount: price * 100,
+		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+		firstName: values.firstName,
+		lastname: values.lastName,
+		phone: values.phoneNo,
+	};
+
+	const initializePayment = usePaystackPayment(payStackConfig);
+
+	const flutterConfig = {
+		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
+		tx_ref: randomId,
+		amount: price,
+		currency: activeCard,
+		// payment_options: "card,mobilemoney,ussd", //mobile_money_ghana
+		payment_options:
+			activeCard === "GHS" ? "mobile_money_ghana" : "card,mobilemoney,ussd",
+		customer: {
+			email: values?.email,
+			phonenumber: values?.phoneNo,
+			name: `${values?.lastName} ${values?.firstName}`,
+		},
+		customizations: {
+			title: checkoutDetails?.product_details?.product_name,
+			description: checkoutDetails?.product_details?.product_description,
+			logo: "https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png",
+		},
+	};
+
+	const handleFlutterPayment = useFlutterwave(flutterConfig);
+
+	useEffect(() => {
+		setFieldValue("currency", activeCard);
+	}, [activeCard]);
+
+	useEffect(() => {
+		setEmail(values.email);
+	}, [values]);
+
+	useEffect(() => {
+		if (isAnEmpytyObject(checkoutDetails)) {
+			showToast("No item in cart, kindly add item to purchase", "info");
+			return router.push("/");
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!currency_name || !price)
+			showToast(
+				"Values doesn't exist for selected option, select another currency ",
+				"info"
+			);
+	}, [currency_name, price]);
 
 	return (
 		<>
@@ -31,7 +192,7 @@ const Checkout = () => {
 
 			<div className={`px-4 md:px-6 lg:px-12 pb-12 ${styles.container}`}>
 				<div className="flex py-6 items-center">
-					<div className="flex">
+					<div className="flex cursor-pointer" onClick={() => router.back()}>
 						<div>
 							<Image src={ArrowLeft} alt="go back" />{" "}
 						</div>
@@ -47,18 +208,22 @@ const Checkout = () => {
 					<div className="bg-secondary-blue-200 rounded-lg w-full md:w-1/2 p-4 lg:p-8">
 						<div>
 							<Image
-								src={CheckoutPlaceholder}
+								src={
+									checkoutDetails?.product_images?.[0]?.filename ??
+									CheckoutPlaceholder
+								}
 								className="rounded-lg"
 								width="600"
+								height="749"
 							/>
 						</div>
 
 						<div className="flex justify-between items-center pt-4">
 							<h3 className="text-primary-blue font-semibold text-lg">
-								Man’s Search For Meaning
+								{checkoutDetails?.product_details?.product_name}
 							</h3>
 							<h3 className="text-base-green-100 font-semibold text-lg">
-								NGN 5,000
+								{currency_name} {price}
 							</h3>
 						</div>
 
@@ -66,6 +231,9 @@ const Checkout = () => {
 
 						<div className="pt-4">
 							<p className="text-base-gray-200 ">
+								{checkoutDetails?.product_details?.product_description}
+							</p>
+							{/* <p className="text-base-gray-200 ">
 								This book is about dolor sit amet, consectetur adipiscing elit.
 								Egestas duis diam adipiscing aenean. Ultrices tortor eget
 								integer volutpat posuere mauris vel com. Faucibus ultrices
@@ -76,20 +244,18 @@ const Checkout = () => {
 								Egestas duis diam adipiscing aenean. Ultrices tortor eget
 								integer volutpat posuere mauris vel com. Faucibus ultrices
 								elementum, cursus scelerisque mattis morbi quam.
-							</p>
-							<p className="text-base-gray-200 ">
-								This book is about dolor sit amet, consectetur adipiscing elit.
-								Egestas duis diam adipiscing aenean. Ultrices tortor eget
-								integer volutpat posuere mauris vel com. Faucibus ultrices
-								elementum, cursus scelerisque mattis morbi quam.
-							</p>
+							</p> */}
 						</div>
 					</div>
 
 					<div
 						className={`bg-white rounded-lg w-full md:w-1/2 p-4 lg:p-8 ${styles.boxShadow}`}
 					>
-						<form className="w-full">
+						<form
+							onSubmit={formik.handleSubmit}
+							autoComplete="off"
+							className="w-full"
+						>
 							<h3 className="text-primary-blue font-semibold text-lg">
 								Payment Details
 							</h3>
@@ -106,6 +272,8 @@ const Checkout = () => {
 								placeholder="Enter your Name"
 								label="First Name"
 								height="small"
+								onChange={formik.handleChange}
+								errorMessage={errors.firstName}
 							/>
 
 							<Input
@@ -113,6 +281,8 @@ const Checkout = () => {
 								placeholder="Enter your Name"
 								label="Last Name"
 								height="small"
+								onChange={formik.handleChange}
+								errorMessage={errors.lastName}
 							/>
 
 							<Input
@@ -120,13 +290,18 @@ const Checkout = () => {
 								placeholder="Enter your Email"
 								label="Email Address"
 								height="small"
+								onChange={formik.handleChange}
+								errorMessage={errors.email}
 							/>
 
 							<Input
-								name="phone"
+								name="phoneNo"
 								placeholder="Enter your Phone number "
 								label="Phone number"
 								height="small"
+								inputMode="numeric"
+								onChange={formik.handleChange}
+								errorMessage={errors.phoneNo}
 							/>
 
 							<div className="divider"></div>
@@ -251,6 +426,25 @@ const Checkout = () => {
 											</div>
 										)}
 									</div>
+
+									<div
+										className={
+											activeCard === "UGX" ? styles.activeCard : styles.card
+										}
+										onClick={() => setActiveCard("UGX")}
+									>
+										<div>UGX</div>
+										{activeCard === "UGX" && (
+											<div className="pl-4 pt-1">
+												<Image
+													src={ActiveTick}
+													alt="active"
+													width="16"
+													height="16"
+												/>
+											</div>
+										)}
+									</div>
 								</div>
 							</div>
 
@@ -300,7 +494,11 @@ const Checkout = () => {
 
 							<div className="w-full flex gap-4 items-center">
 								<div className="w-3/4 md:w-8/12 lg:w-10/12">
-									<Input placeholder="Coupon Code" />
+									<Input
+										placeholder="Coupon Code"
+										name="couponCode"
+										onChange={formik.handleChange}
+									/>
 								</div>
 								<div className="w-1/4 md:w-4/12 lg:w-1/6 pb-2">
 									<Button text="Apply Coupon" className={styles.couponBtn} />
@@ -311,15 +509,24 @@ const Checkout = () => {
 								<div className="flex justify-between">
 									<p>SubTotal</p>
 									<div className="flex gap-4">
-										<s className="text-base-gray-200">NGN 10000</s>
-										<p>NGN 5000</p>
+										{checkoutDetails?.product_details
+											?.is_strike_original_price && (
+											<s className="text-base-gray-200">
+												{currency_name} 10000
+											</s>
+										)}
+										<p>
+											{currency_name} {checkoutDetails?.default_price}
+										</p>
 									</div>
 								</div>
 
-								<div className="flex justify-between">
-									<p>Coupon</p>
-									<p>NGN 200</p>
-								</div>
+								{checkoutDetails?.product_details?.coupon_settings && (
+									<div className="flex justify-between">
+										<p>Coupon</p>
+										<p>NGN 200</p>
+									</div>
+								)}
 
 								<div className="flex justify-between">
 									<p>Transaction Fee</p>
@@ -335,7 +542,12 @@ const Checkout = () => {
 
 								<div className="flex justify-between">
 									<p>Total</p>
-									<p className="text-primary-blue font-medium">NGN 4,800</p>
+									<p className="text-primary-blue font-medium">
+										{currency_name}{" "}
+										{new Intl.NumberFormat().format(
+											checkoutDetails?.default_price
+										)}
+									</p>
 								</div>
 							</div>
 
@@ -346,7 +558,9 @@ const Checkout = () => {
 
 							<div className="">
 								<Button
-									text="Pay NGN 4,800"
+									text={`Pay ${currency_name} ${new Intl.NumberFormat().format(
+										checkoutDetails?.default_price
+									)}`}
 									bgColor="blue"
 									className={styles.btnCont}
 									icon={<RightArrow />}
@@ -359,14 +573,18 @@ const Checkout = () => {
 
 			<DialogOverlay isOpen={modal} onDismiss={closeModal} className="pt-12 ">
 				<DialogContent className={styles.modal} aria-label="modal">
-					<SuccessfulCheckoutModal />
+					<SuccessfulCheckoutModal
+						productDetails={checkoutDetails}
+						price={price}
+						currency={currency_name}
+					/>
 				</DialogContent>
 			</DialogOverlay>
 		</>
 	);
 };
 
-const SuccessfulCheckoutModal = () => {
+const SuccessfulCheckoutModal = ({ productDetails, price, currency }) => {
 	return (
 		<div className="p-0 md:p-6 lg:p-12 text-center">
 			<Image src={ActiveTick} width="45" height="45" />
@@ -381,13 +599,13 @@ const SuccessfulCheckoutModal = () => {
 				<p className="text-base-gray">Purchase Summary</p>
 				<div className="flex justify-between">
 					<div className="text-primary-blue font-medium text-base">
-						Man’s Search For Meaning
+						{productDetails?.product_details?.product_name}
 					</div>
 					<div className="text-base-green-100 font-medium text-base">
-						NGN 5,000
+						{currency} {new Intl.NumberFormat().format(price)}
 					</div>
 				</div>
-				<p className="text-xs text-base-gray">by Viktor Franklyn</p>
+				{/* <p className="text-xs text-base-gray">by Viktor Franklyn</p> */}
 			</div>
 
 			<div className="w-full">

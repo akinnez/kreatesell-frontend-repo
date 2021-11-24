@@ -8,23 +8,32 @@ import { useRouter } from "next/router";
 import { currencyOptions } from "components/account-dashboard/partials";
 import { ProtectedStoreHeader } from "components/store/storeHeader";
 import { useSelector } from "react-redux";
-import { ListSingleStoreProduct } from "redux/actions";
+import { FetchSingleStoreProduct, SetCheckoutDetails } from "redux/actions";
 import { useEffect } from "react";
+import { Pagination } from "antd";
 
 const StorePage = () => {
 	const router = useRouter();
-	const listStoreProduct = ListSingleStoreProduct();
+	const fetchSingleStoreProduct = FetchSingleStoreProduct();
 
 	const {
 		query: { storename },
 	} = router;
 
-	const { singleStoreDetails, singleStoreProducts } = useSelector(
-		(state) => state.store
-	);
+	const {
+		singleStoreDetails,
+		singleStoreProducts,
+		singleStorePaginationDetails: pagination,
+	} = useSelector((state) => state.product);
+
+	const handlePaginationChange = (page) => {
+		fetchSingleStoreProduct(storename, page);
+	};
 
 	useEffect(() => {
-		listStoreProduct(storename);
+		if (storename !== "undefined") {
+			return fetchSingleStoreProduct(storename);
+		}
 	}, [storename]);
 
 	return (
@@ -81,9 +90,11 @@ const StorePage = () => {
 			</nav>
 
 			<div className="px-4 lg:px-40">
-				<div className="cursor-pointer flex items-center py-10">
-					<Image src={ArrowLeft} alt="go back" />{" "}
-					<span className="pl-2 font-semibold text-primary-blue">BACK</span>
+				<div className="flex items-center py-10">
+					<div className="mr-auto cursor-pointer" onClick={() => router.back()}>
+						<Image src={ArrowLeft} alt="go back" />{" "}
+						<span className="pl-2 font-semibold text-primary-blue">BACK</span>
+					</div>
 				</div>
 
 				<div>
@@ -105,6 +116,18 @@ const StorePage = () => {
 						/>
 					))}
 				</div>
+
+				{pagination?.total_records > 12 && (
+					<div className="py-8 lg:pt-0">
+						<Pagination
+							defaultCurrent={1}
+							onChange={handlePaginationChange}
+							current={pagination?.current_page_number}
+							total={pagination?.total_records}
+							defaultPageSize={12}
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	);
@@ -112,12 +135,13 @@ const StorePage = () => {
 
 const ProductCard = ({ productDetails }) => {
 	const router = useRouter();
+	const setCheckoutDetails = SetCheckoutDetails();
 
 	return (
 		<div className="bg-white w-full rounded-lg">
 			<div>
 				<Image
-					src={productDetails?.product_cover_picture || StoryTellingPNG}
+					src={productDetails?.product_images?.[0]?.filename || StoryTellingPNG}
 					width="320"
 					height="300"
 					className="rounded-t-lg"
@@ -126,16 +150,21 @@ const ProductCard = ({ productDetails }) => {
 
 			<div className="w-full px-2 md:px-4">
 				<p className="pt-2 text-sm md:text-base">
-					{productDetails?.product_name}
+					{productDetails?.product_details?.product_name}
 				</p>
 				<div className="flex justify-between items-center pb-4">
 					<p className="text-base-gray pt-2 text-sm md:text-base">
-						#{productDetails?.minimum_price ?? "0.00"}
+						{productDetails?.default_currency}
+						{new Intl.NumberFormat().format(productDetails?.default_price) ??
+							"0.00"}
 					</p>
 					<Button
-						text="Buy Now"
+						text={productDetails?.product_details?.product_details ?? "Buy Now"}
 						className={styles.productCardBtn}
-						onClick={() => router.push("/checkout")}
+						onClick={() => {
+							router.push("/checkout");
+							setCheckoutDetails(productDetails);
+						}}
 					/>
 				</div>
 			</div>
