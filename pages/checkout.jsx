@@ -515,15 +515,29 @@ const Checkout = () => {
 							)} */}
 
 							{/**Apply coupon feature is yet to be implemented */}
-							<div className="w-full flex gap-4 items-center">
-								<div className="w-3/4 md:w-8/12 lg:w-10/12">
+
+							<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+								<div className="w-3/5 xs:w-3/4 md:w-4/5">
 									<Input
 										placeholder="Coupon Code"
 										name="couponCode"
 										onChange={formik.handleChange}
 									/>
 								</div>
-								<div className="w-1/4 md:w-4/12 lg:w-1/6 pb-2">
+								<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+									<Button text="Apply Coupon" className={styles.couponBtn} />
+								</div>
+							</div>
+
+							<div className="w-full hidden lg:flex gap-4 items-center">
+								<div className="w-4/5">
+									<Input
+										placeholder="Coupon Code"
+										name="couponCode"
+										onChange={formik.handleChange}
+									/>
+								</div>
+								<div className="w-1/5 pb-2">
 									<Button text="Apply Coupon" className={styles.couponBtn} />
 								</div>
 							</div>
