@@ -20,6 +20,7 @@
     "filesize": "^8.0.3",
     "flutterwave-react-v3": "^1.1.0",
     "formik": "^2.2.9",
+    "framer-motion": "^5.3.3",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "next": "11.0.1",
