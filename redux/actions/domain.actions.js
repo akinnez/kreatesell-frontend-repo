@@ -34,6 +34,7 @@ export const CreateEditDomain = () => {
 			`post`,
 			`v1/kreatesell/store/update-domain-link`,
 			(res) => {
+				console.log("create domain res --->", res);
 				showToast(res?.message, "info");
 				dispatch({
 					type: types.CREATE_DOMAIN.SUCCESS,
@@ -59,6 +60,7 @@ export const DeleteDomain = () => {
 			`delete`,
 			`v1/kreatesell/store/delete-domain-details/${id}`,
 			(res) => {
+				console.log("delete domain res --->", res);
 				showToast(res?.message, "info");
 				dispatch({
 					type: types.DELETE_DOMAIN.SUCCESS,

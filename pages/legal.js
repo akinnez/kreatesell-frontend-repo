@@ -1,11 +1,7 @@
-import { Layout } from "../components";
+import React from "react";
 
 const Legal = () => {
-  return (
-    <Layout subFooter={true} defaultMarginTop={true}>
-      <div>legal page</div>
-    </Layout>
-  );
+  return <div>legal page</div>;
 };
 
 export default Legal;
