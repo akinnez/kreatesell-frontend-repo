@@ -1,0 +1,5 @@
+export const COOKIES_POLICY = "COOKIES_POLICY";
+export const PRIVACY_POLICY = "PRIVACY_POLICY";
+export const TERMS_OF_SERVICE = "TERMS_OF_SERVICE";
+export const AFFILIATE_TERMS = "AFFILIATE_TERMS";
+export const TAB_CLICK = "TAB_CLICK";

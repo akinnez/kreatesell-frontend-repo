@@ -5,8 +5,8 @@ import styles from "./Navbar.module.scss";
 import Logo, { MobileLogo } from "../authlayout/logo";
 import Link from "next/link";
 import ResourcesDrop from "./ResourcesDrop";
-// import { useSelector } from "react-redux";
-// import { toggleNavDropView } from "../../redux/actions";
+import Image from "next/image";
+// import { ArrowDown } from "../../utils/assets";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -81,7 +81,10 @@ export const Navbar = () => {
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
-            <li onClick={(e) => clickHandler(e)}>Resources</li>
+            <li onClick={(e) => clickHandler(e)}>
+              Resources
+              {/* <Image src={ArrowDown} width={50} height={50} /> */}
+            </li>
             <li>
               <NavLink href="features" title="Features" />
             </li>
