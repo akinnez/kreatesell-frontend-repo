@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
+
 const ResourceDrop = ({ leftOffset, handleMouseLeave }) => {
   return (
     <section

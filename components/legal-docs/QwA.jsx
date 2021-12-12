@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Item } from "./Item";
 
 export const QwA = ({ data }) => {
@@ -11,6 +11,6 @@ export const QwA = ({ data }) => {
 	);
 };
 
-QwA.propTypes = {
-	data: PropTypes.array,
-};
+// QwA.propTypes = {
+// 	data: PropTypes.array,
+// };

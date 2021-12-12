@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import styles from "../../public/css/legal.module.scss";
 
 export const Item = ({ question, answer, withMargin, isSubHeading }) => {
@@ -27,9 +27,9 @@ export const Item = ({ question, answer, withMargin, isSubHeading }) => {
   );
 };
 
-Item.propTypes = {
-  question: PropTypes.string,
-  answer: PropTypes.array,
-  withMargin: PropTypes.bool,
-  isSubHeading: PropTypes.bool,
-};
+// Item.propTypes = {
+//   question: PropTypes.string,
+//   answer: PropTypes.array,
+//   withMargin: PropTypes.bool,
+//   isSubHeading: PropTypes.bool,
+// };

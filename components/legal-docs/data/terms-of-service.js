@@ -1,4 +1,4 @@
-export const terms = {
+export const termsOfService = {
 	mainTitle: "Terms & Conditions  of Use (Kreators, Buyers and Affiliates)",
 	data: [
 		{
