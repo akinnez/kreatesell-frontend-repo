@@ -12,7 +12,7 @@ export const CookiePolicy = () => {
         <h3 className={styles.question}>6.0 Contact Us</h3>
         <p className={styles.answer}>
           If you have any questions about this Cookies Policy, You can contact
-          us at{" "}
+          us at
           <a href="mailto:support@kreatesell.com">support@kreatesell.com</a>
         </p>
       </div>

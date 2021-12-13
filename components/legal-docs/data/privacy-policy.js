@@ -59,6 +59,7 @@ export const privacyData = {
     },
     {
       question: "2.1. Personal Information collected from users (customers)",
+      isSubHeading: true,
       answer: [
         `2.1.1 Kreatesell has the tools in place to collect details from the users who give consent 
 						to the privacy policy that complies with the laws applicable to our platform, Kreators are also 
@@ -70,6 +71,7 @@ export const privacyData = {
     },
     {
       question: "2.2. Information We Collected Automatically from Our Users",
+      isSubHeading: true,
       answer: [
         `Our service provider uses the platform's tools and third-party tools to collect
 								the information of the users during the visit of our Service automatically.`,
@@ -85,6 +87,7 @@ export const privacyData = {
     },
     {
       question: "2.3. Information from Kreatesell website visitors",
+      isSubHeading: true,
       answer: [
         `2.3.1. We collect information from people who visit Our website including your IP 
 					address and how you interact with our website. We also collect information such as: time you visited,
@@ -107,6 +110,7 @@ export const privacyData = {
     },
     {
       question: "2.4. Information from Affiliates Link Promoters",
+      isSubHeading: true,
       answer: [
         `Individuals who qualify as affiliate promoters are individuals that have agreed
 						 on specific terms to work with Kreatesell in promoting the Service by `,
@@ -140,6 +144,7 @@ export const privacyData = {
     },
     {
       question: "3.1. With Your Product Seller (Kreator):",
+      isSubHeading: true,
       answer: [
         `We share data that we have about you (including your email address) with the kreator
 			 of the product you bought or the product you accessed or requested information about, so they can
@@ -151,6 +156,7 @@ export const privacyData = {
     },
     {
       question: "3.2. With Other Users and Kreators:",
+      isSubHeading: true,
       answer: [
         ` Depending on your settings, your shared content and profile data may be publicly accessible, 
 						  including to other users and kreators. If you visit a content creator or Kreators product listing page,
@@ -159,6 +165,7 @@ export const privacyData = {
     },
     {
       question: "3.3. With Kreatesell Affiliate Promoters: ",
+      isSubHeading: true,
       answer: [
         `We may share your (Kreator) data with our platform promoters to help
 				 us in promoting or support us in providing the Services.
@@ -167,6 +174,7 @@ export const privacyData = {
     },
     {
       question: "3.4. With Business Partners: ",
+      isSubHeading: true,
       answer: [
         `We have agreements with other websites and platforms to distribute our Services and drive traffic to Kreatesell. 
 				 Depending on your country of location, we may share your data with these partners.`,
@@ -174,6 +182,7 @@ export const privacyData = {
     },
     {
       question: "3.5. With Analytics and Data Enrichment Services:",
+      isSubHeading: true,
       answer: [
         `
 				As part of our use of third-party analytics tools like Google Analytics, we share certain contact information,
@@ -186,6 +195,7 @@ export const privacyData = {
     },
     {
       question: "3.6. To Power Social Media Features:",
+      isSubHeading: true,
       answer: [
         `The social media features in the Services (like the Facebook Like button) may
 			 allow the third-party social media provider to extract information like your IP address 
@@ -195,6 +205,7 @@ export const privacyData = {
     },
     {
       question: "3.7. To Administer Promotions:",
+      isSubHeading: true,
       answer: [
         `We may share your data as appropriate  departments to administer, market, and
 				 sponsor promotions you choose to participate in, as required by applicable law, or
@@ -203,6 +214,7 @@ export const privacyData = {
     },
     {
       question: "3.8. For Advertising: ",
+      isSubHeading: true,
       answer: [
         `	If we decide to use an advertising-supported revenue entity in the future, 
 				we may use and share certain System Data and Usage Data with third-party advertisers 
@@ -215,6 +227,7 @@ export const privacyData = {
     },
     {
       question: "3.9. For Security and Legal Compliance: ",
+      isSubHeading: true,
       answer: [
         `We may disclose your data to third parties if we (in our sole discretion) have a good faith belief 
 						that the disclosure is:`,
@@ -237,6 +250,7 @@ export const privacyData = {
     },
     {
       question: "3.10. Third Party Apps:",
+      isSubHeading: true,
       answer: [
         `You, your administrator or other Service users may choose to add new functionality or 
 						change the behaviour of the Services by installing third party apps within the Services. 
@@ -253,6 +267,7 @@ export const privacyData = {
     },
     {
       question: "3.11. Links to Third Party Sites:",
+      isSubHeading: true,
       answer: [
         `
 					The Services may include links that direct you to other websites or services whose privacy
@@ -266,6 +281,7 @@ export const privacyData = {
     },
     {
       question: "3.12. Social Media Widgets:",
+      isSubHeading: true,
       answer: [
         `
 				The Services may include social media features, such as the Twitter "tweet" button,
@@ -279,6 +295,7 @@ export const privacyData = {
     },
     {
       question: "3.13. Third-Party Widgets:",
+      isSubHeading: true,
       answer: [
         `	Some of our Services contain other widgets. These widgets and features collect your IP address, 
 					which page you are visiting on the Services, and may set a cookie to enable the feature to function properly. 
@@ -289,7 +306,7 @@ export const privacyData = {
     },
     {
       question: "3.14. Behavioral Advertising:",
-
+      isSubHeading: true,
       answer: [
         `As described above, we use your Personal Information to provide you with targeted 
 				 advertisements or marketing communications we believe may be of interest to you.`,

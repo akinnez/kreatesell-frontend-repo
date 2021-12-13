@@ -10,6 +10,8 @@ import chat from "../public/images/chat.svg";
 import scrollUp from "../public/images/scroll-up.svg";
 import { CookiePolicy } from "../components/legal-docs/CookiePolicy";
 import { Privacy } from "../components/legal-docs/Privacy";
+import { TermsOfService } from "../components/legal-docs/TermsOfService";
+import { AffiliateTerms } from "../components/legal-docs/AffiliateTerms";
 
 const Legal = () => {
   const { TabPane } = Tabs;
@@ -77,11 +79,3 @@ const Legal = () => {
 };
 
 export default Legal;
-
-const TermsOfService = () => {
-  return <section className={styles.tabs}>Terms of Service</section>;
-};
-
-const AffiliateTerms = () => {
-  return <section className={styles.tabs}>Affiliate Terms</section>;
-};

@@ -11,6 +11,7 @@ export const cookieData = {
     },
     {
       question: "1.1. Cookies or Browser Cookies:",
+      isSubHeading: true,
       answer: [
         `A cookie is a small piece of data (text file) that a website - when visited by a user – asks your browser 
             to store on your device. These cookies will help our Service, or other websites affiliated to us, 
@@ -21,6 +22,7 @@ export const cookieData = {
     },
     {
       question: "1.2. Analytics:",
+      isSubHeading: true,
       answer: [
         `We may use third-party service providers to monitor and analyze the use of our Web Sites.`,
         ` Google Analytics is a web analytics service offered by Google that tracks and reports website traffic. 
@@ -34,6 +36,7 @@ export const cookieData = {
     },
     {
       question: "1.3. Flash Cookies: ",
+      isSubHeading: true,
       answer: [
         `Certain features of our Service may use local stored objects (or Flash Cookies) to collect and store
              information about Your preferences or Your activity on our Service. Flash Cookies are not managed by the same browser 
@@ -44,6 +47,7 @@ export const cookieData = {
     },
     {
       question: "1.4. Web Beacons:",
+      isSubHeading: true,
       withMargin: true,
       answer: [
         `Pages of our Websites or our emails may contain small electronic files known as web beacons 
@@ -83,6 +87,7 @@ export const cookieData = {
 
     {
       question: "2.1. Google Analytics (Google Inc.)",
+      isSubHeading: true,
       answer: [
         `
         Analytics is a web analysis service provided by Google Inc. (“Google”).
@@ -95,6 +100,7 @@ export const cookieData = {
     },
     {
       question: "2.2. Google Website Optimizer (Google Inc.)",
+      isSubHeading: true,
       answer: [
         ` The Website Optimizer from Google is an A/B testing service provided by Google Inc.
       Google may use Personal Data to contextualize and personalize the ads of its own advertising network.`,
@@ -103,6 +109,7 @@ export const cookieData = {
     },
     {
       question: "2.3. YouTube video widget (Google Inc.)",
+      isSubHeading: true,
       answer: [
         `YouTube is a video content visualization service provided by Google Inc. 
       that allows this Website to incorporate content of this kind on its pages.
@@ -126,6 +133,7 @@ export const cookieData = {
     },
     {
       question: "3.1. Necessary / Essential Cookies",
+      isSubHeading: true,
       answer: [
         `These cookies are necessary for the website to function and cannot be switched off in our systems. 
       They are usually only set in response to actions made by you which amount to a request for services, 
@@ -145,6 +153,7 @@ export const cookieData = {
 
     {
       question: "3.2. Cookies Policy / Notice Acceptance Cookies",
+      isSubHeading: true,
       answer: [
         `Type: Persistent Cookies`,
         `Administered by: Us`,
@@ -153,6 +162,7 @@ export const cookieData = {
     },
     {
       question: "3.3. Functionality Cookies",
+      isSubHeading: true,
       answer: [
         `Type: Persistent Cookies`,
         `Administered by: Us`,
