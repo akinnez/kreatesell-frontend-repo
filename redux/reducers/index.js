@@ -4,15 +4,13 @@ import domain from "./domain.reducer";
 import store from "./store.reducer";
 import utils from "./utils.reducer";
 import product from "./product.reducer";
-import legal from './legalSection.reducer'
 
 const rootReducer = combineReducers({
-	auth,
-	domain,
-	store,
-	utils,
-	product,
-	legal,
+  auth,
+  domain,
+  store,
+  utils,
+  product,
 });
 
 export default rootReducer;

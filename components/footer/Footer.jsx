@@ -13,17 +13,10 @@ import {
   WhatsappIcon,
 } from "../../utils";
 import styles from "./Footer.module.scss";
-import {
-  showAffiliateTermsTab,
-  showTermsOfServiceTab,
-  showPrivacyPolicyTab,
-  showCookiesPolicyTab,
-} from "../../redux/actions";
-import { useDispatch } from "react-redux";
 
 export const Footer = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerCont}>
@@ -126,9 +119,9 @@ export const Footer = () => {
             <Link href="/how-it-works">
               <a>Tutorials</a>
             </Link>
-            <Link href="#">
-              <a>Contact Support</a>
-            </Link>
+            {/* <Link href="#"> */}
+            <a href="https://wa.me/+2349016324945">Contact Support</a>
+            {/* </Link> */}
             <Link href="/faq">
               <a>FAQ</a>
             </Link>
@@ -138,25 +131,17 @@ export const Footer = () => {
         <div>
           <div className={styles.categoryTitle}>Legal</div>
           <div className={styles.categoryLink}>
-            <Link href="/legal">
-              <a onClick={() => dispatch(showCookiesPolicyTab())}>
-                Cookies Policy
-              </a>
+            <Link href="/legal/cookie-policy">
+              <a>Cookies Policy</a>
             </Link>
-            <Link href="/legal">
-              <a onClick={() => dispatch(showPrivacyPolicyTab())}>
-                Privacy Policy
-              </a>
+            <Link href="/legal/privacy-policy">
+              <a>Privacy Policy</a>
             </Link>
-            <Link href="/legal">
-              <a onClick={() => dispatch(showAffiliateTermsTab())}>
-                Affiliate Policy
-              </a>
+            <Link href="/legal/affiliate-policy">
+              <a>Affiliate Policy</a>
             </Link>
-            <Link href="/legal">
-              <a onClick={() => dispatch(showTermsOfServiceTab())}>
-                Terms of Service
-              </a>
+            <Link href="/legal/terms-of-service">
+              <a>Terms of Service</a>
             </Link>
           </div>
         </div>
@@ -235,9 +220,9 @@ export const Footer = () => {
               <Link href="#">
                 <a>Tutorials</a>
               </Link>
-              <Link href="#">
-                <a>Contact Support</a>
-              </Link>
+              {/* <Link href="#"> */}
+              <a href="https://wa.me/+2349016324945">Contact Support</a>
+              {/* </Link> */}
               <Link href="#">
                 <a>FAQ</a>
               </Link>
@@ -247,25 +232,17 @@ export const Footer = () => {
           <div className={styles.firstRowB}>
             <div className={styles.categoryTitle}>Legal</div>
             <div className={styles.categoryLink}>
-              <Link href="/legal">
-                <a onClick={() => dispatch(showCookiesPolicyTab())}>
-                  Cookies Policy
-                </a>
+              <Link href="/legal/cookie-policy">
+                <a>Cookies Policy</a>
               </Link>
-              <Link href="/legal">
-                <a onClick={() => dispatch(showPrivacyPolicyTab())}>
-                  Privacy Policy
-                </a>
+              <Link href="/legal/privacy-policy">
+                <a>Privacy Policy</a>
               </Link>
-              <Link href="/legal">
-                <a onClick={() => dispatch(showAffiliateTermsTab())}>
-                  Affiliate Policy
-                </a>
+              <Link href="/legal/affiliate-policy">
+                <a>Affiliate Policy</a>
               </Link>
-              <Link href="/legal">
-                <a onClick={() => dispatch(showTermsOfServiceTab())}>
-                  Terms of Service
-                </a>
+              <Link href="/legal/terms-of-service">
+                <a>Terms of Service</a>
               </Link>
             </div>
           </div>
