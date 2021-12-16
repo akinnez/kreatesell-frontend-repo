@@ -205,6 +205,18 @@
     .navLinks {
       .categoryLinks {
         display: none;
+        .drop {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          & > .navLinkDrop {
+            margin-right: 0.5rem;
+          }
+          .navLinkDrop + div {
+            color: $black-100 !important;
+            margin-left: 0.6rem !important;
+          }
+        }
       }
     }
 
