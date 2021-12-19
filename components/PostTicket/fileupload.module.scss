@@ -1,0 +1,84 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.fileUploadWrapper {
+  @include flex(row, space-between, center);
+  .fileUploadContainer {
+    width: calc(100% - 160px);
+    border-width: 1.3px;
+    border-radius: 5px;
+    border-style: dashed;
+    border-color: $base-blue;
+    cursor: pointer;
+
+    @include screen("tablet") {
+      width: 70%;
+    }
+    @include screen("medium") {
+      width: 100%;
+    }
+    .fileUploadDiv {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .uploadIcon {
+        color: $base-blue;
+        font-size: 24px;
+        margin-right: 15px;
+      }
+      .dragText {
+        color: $base-blue;
+        margin-top: 8px;
+      }
+    }
+  }
+  .addFileBtn {
+    background-color: rgb(193, 239, 255);
+    color: $base-blue;
+    border: none;
+    width: 130px;
+    padding: 4px 9px;
+  }
+}
+
+.thumbsContainer {
+  @include flex(row, center, flex-start);
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.thumb {
+  display: inline-flex;
+  border-radius: 2;
+  border: 1px solid #eaeaea;
+  margin-bottom: 8;
+  margin-right: 8;
+  width: 100px;
+  height: 100px;
+  padding: 4px;
+  position: relative;
+
+  .deleteIcon {
+    font-size: 22px;
+    color: $notification-bg;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 6;
+    cursor: pointer;
+  }
+  .thumbInner {
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+
+    .img {
+      display: block;
+      width: auto;
+      height: 100%;
+    }
+  }
+}

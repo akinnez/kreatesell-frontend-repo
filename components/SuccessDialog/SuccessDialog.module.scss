@@ -1,0 +1,41 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.successDialogInner {
+  // width: 100%;
+  // height: 100vh;
+  // padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .iconContainer {
+    background: $green-100;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .goodIcon {
+      color: #ffffff;
+      font-size: 2.2rem;
+    }
+  }
+  .congratulations {
+    text-align: center;
+    font-size: 1.9rem;
+  }
+  .content {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .lodingText {
+    margin: 4px auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+  }
+}

@@ -1,0 +1,111 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.tableContainer {
+  overflow-x: scroll;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    @include screen("medium") {
+      width: 100%;
+    }
+
+    tbody {
+      background-color: $base-white;
+
+      tr {
+        height: 4.5rem;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 24px;
+        color: $base-gray;
+        border: 1px solid $gray-border;
+        border-left: none;
+        border-right: none;
+
+        &:first-child {
+          border-top: none;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+        &:hover {
+          // cursor: pointer;
+        }
+        td {
+          width: auto;
+        }
+      }
+    }
+
+    thead {
+      tr {
+        height: 4rem;
+        th {
+          font-size: 0.9rem;
+          line-height: 1.2rem;
+          background: transparent;
+          font-weight: 600;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          color: $black-100;
+
+          &:last-child {
+            padding-right: 1.5rem;
+          }
+        }
+      }
+    }
+
+    th {
+      text-align: left;
+      padding-left: 2.81rem;
+    }
+    td {
+      padding-left: 2.81rem;
+    }
+    @include screen("medium") {
+      th {
+        padding: 0.937rem;
+        white-space: nowrap;
+      }
+      td {
+        padding: 0.9375rem;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.horizButton {
+  font-size: 20px;
+  cursor: pointer;
+}
+.successDiv {
+  background: "#4bf71625";
+  border-radius: "5px";
+  width: "50px";
+  text-align: "center";
+}
+
+.popoverUl {
+  border: none;
+  outline: none;
+  .popoverLi {
+    display: flex;
+    padding: 2px 1.3px;
+    .popoverIcon {
+      font-size: 18px;
+      margin-right: 5px;
+    }
+
+    p {
+      font-size: 13px;
+      text-decoration: none;
+    }
+  }
+}
