@@ -1,0 +1,188 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+.container {
+	box-sizing: border-box;
+	padding: 0rem 10.31rem;
+
+	@include screen("tablet") {
+		padding: 0 1rem;
+	}
+	@include screen("medium") {
+		background-image: url("/images/mobile-general-bg.svg");
+		background-repeat: no-repeat;
+	}
+
+	.hero {
+		width: 100%;
+		display: flex;
+		padding-bottom: 4rem;
+
+		.heroText {
+			width: 70%;
+			h3 {
+				font-weight: 700;
+				font-size: 2.5rem;
+				line-height: 3.375rem;
+				color: $black-100;
+			}
+			p {
+				font-weight: normal;
+				font-size: 1rem;
+				line-height: 2rem;
+				color: $base-gray;
+				padding-top: 0.7rem;
+
+				a {
+					color: $base-blue;
+					text-decoration: none;
+				}
+			}
+		}
+		.heroImage {
+			width: 30%;
+		}
+
+		@include screen("tablet") {
+			flex-direction: column;
+			text-align: center;
+			.heroText {
+				width: 100%;
+				h3 {
+					font-weight: 600;
+					font-size: 2rem;
+				}
+				p {
+					opacity: 0.8;
+				}
+			}
+			.heroImage {
+				width: 100%;
+			}
+		}
+	}
+
+	.backToTop {
+		display: none;
+
+		@include screen("tablet") {
+			display: block;
+		}
+	}
+
+	.body {
+		display: flex;
+		width: 100%;
+		padding-bottom: 5rem;
+
+		.faq {
+			width: 33%;
+			background-color: $white-200;
+			margin-right: 5rem;
+			padding: 1.125rem 0 1.125rem 1.5rem;
+			border-radius: 0.5rem;
+			@include screen("tablet") {
+				display: none;
+			}
+
+			h3 {
+				font-weight: 600;
+				font-size: 1.562rem;
+				line-height: 3.375rem;
+				color: $base-black;
+			}
+
+			.groupQuestions {
+				.dropDown {
+					display: flex;
+					flex-direction: column;
+
+					.headerArrow {
+						display: flex;
+						align-items: center;
+						padding-top: 1.5rem;
+						cursor: pointer;
+
+						.arrowStyle {
+							margin-right: 1.219rem;
+							transition: all 0.5s cubic-bezier(0.93, -0.01, 0.36, 0.99);
+						}
+
+						.arrow {
+							@extend .arrowStyle;
+						}
+						.open {
+							@extend .arrowStyle;
+							transform: rotate(270deg);
+						}
+
+						.title {
+							font-weight: 400;
+							font-size: 1.125rem;
+							line-height: 1.875rem;
+							color: $base-blue;
+						}
+					}
+					.questionsContainer {
+						padding-top: 1rem;
+						.questions {
+							font-weight: normal;
+							font-size: 0.812rem;
+							line-height: 1.5rem;
+							color: $black-100;
+							margin-bottom: 0.75rem;
+							padding-right: 0.5rem;
+							cursor: pointer;
+						}
+					}
+				}
+			}
+		}
+
+		.faqQuestionsCont {
+			width: 67%;
+
+			h1 {
+				font-weight: 600;
+				font-size: 3.75rem;
+				line-height: 3rem;
+				padding-top: 3rem;
+				color: $white-200;
+			}
+
+			.answerCont {
+				padding-top: 1.5rem;
+				.questionHead {
+					font-weight: 500;
+					font-size: 1.375rem;
+					line-height: 2rem;
+					color: $black-100;
+				}
+				.answer {
+					font-weight: 400;
+					font-size: 0.875rem;
+					line-height: 1.25rem;
+					color: $base-gray;
+					padding-top: 1rem;
+					opacity: 0.8;
+
+					.link {
+						cursor: pointer;
+						color: $base-blue;
+						text-decoration: none;
+					}
+				}
+			}
+
+			@include screen("tablet") {
+				width: 100%;
+
+				h1 {
+					color: $gray-100;
+					font-size: 50px;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,154 @@
+@import "../../public//css/colors.scss";
+@import "../../public//css/mixins.scss";
+@import "../../public//css/screens.scss";
+
+.card {
+	@include screen("tablet") {
+		padding: 0.3125rem;
+	}
+}
+
+.label {
+	font-weight: 450;
+	font-size: 0.875rem;
+	line-height: 1.625rem;
+	color: $black-100;
+}
+
+.container {
+	.productTypeTab {
+		border: 1px solid $gray-100;
+		border-radius: 0.5rem;
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 1.625rem;
+		color: $black-100;
+		padding: 0.7rem 1.5rem;
+		margin-bottom: 1.2rem;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+
+		span {
+			color: $gray-200;
+			font-weight: 400;
+			padding-right: 0.75rem;
+			font-size: 0.875rem;
+		}
+
+		@include screen("inbetween") {
+			font-size: 0.8rem;
+			padding: 0;
+			min-height: 8vh;
+
+			span {
+				padding-left: 1rem;
+				font-size: 0.8rem;
+			}
+
+			.mobileSubTitle {
+				padding-left: 0.2rem;
+			}
+		}
+
+		&.active,
+		&:hover {
+			border: 1px solid $base-blue;
+			color: $base-blue;
+
+			span {
+				color: $base-blue;
+				font-weight: 400;
+			}
+		}
+
+		&:hover {
+			border: 1px solid $base-blue;
+		}
+	}
+}
+
+.digitalDownload {
+	.inputLabel {
+		@extend .label;
+	}
+
+	.inputCont {
+		.input {
+			height: 2.5rem;
+			border: 1px solid $gray-100;
+		}
+	}
+
+	.upload {
+		border: 1px dotted $base-blue;
+		width: 100%;
+		border-radius: 0.5rem;
+		cursor: pointer;
+
+		&.activeUpload {
+			border-top: 8px solid #00b140;
+		}
+	}
+
+	.uploadCont {
+		flex-direction: column;
+		padding: 1.5rem 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		@include screen("medium") {
+			padding: 0.1rem 0;
+		}
+	}
+
+	.contentFileUpload {
+		@extend .upload;
+		// display: flex;
+		// align-items: center;
+		// justify-content: center;
+	}
+
+	.noImage {
+		border: 1px solid $gray-100;
+		border-radius: 0.5rem;
+
+		@include screen("laptop") {
+			min-height: 20vh;
+		}
+	}
+
+	.radioLabel {
+		font-weight: 400 !important;
+		color: $black-100 !important;
+		font-size: 0.9rem !important;
+	}
+
+	.extralableStyle {
+		font-weight: 400 !important;
+		@include screen("medium") {
+			font-size: 0.875rem !important;
+		}
+	}
+
+	.enablePreOrderCont {
+		// width: 28%;
+		width: 35%;
+		padding-top: 0.5rem;
+		.inputHeight {
+			height: 2.5rem;
+			border: 1px solid $gray-100;
+		}
+
+		@include screen("tablet") {
+			width: 100%;
+		}
+	}
+
+	.digitalBtn {
+		width: 15rem;
+		height: 3.3rem;
+		font-size: 1rem;
+	}
+}

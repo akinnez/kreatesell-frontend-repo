@@ -1,0 +1,30 @@
+.label{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #262626;
+
+    span{
+        color:#8C8C8C;
+    }
+}
+
+.input{
+    border-radius: 10px;
+}
+
+.dragger_wrapper{
+    text-align: left;
+    margin:20px 0;
+}
+
+.btn{
+    height: 36px;
+    border-radius: 8px;
+    min-width:100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+}
+

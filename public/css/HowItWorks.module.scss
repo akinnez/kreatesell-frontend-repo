@@ -1,0 +1,399 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+@import url("https://db.onlinewebfonts.com/c/25a7a213c7215b479c86172604a49723?family=Beat+Word+demo");
+
+.container {
+	padding: 0rem 10.31rem;
+	background-image: url("/images/partial-general-bg.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+
+	.hero {
+		text-align: center;
+
+		.main {
+			margin: 0;
+			margin-bottom: 1rem;
+			font-weight: 700;
+			font-size: 3rem;
+			line-height: 4rem;
+			color: $black-100;
+		}
+
+		.mobileHeader {
+			@extend .main;
+			display: none;
+		}
+
+		.subtitle {
+			color: $base-gray;
+			margin-bottom: 2rem;
+			font-weight: 400;
+			font-size: 1.125rem;
+			line-height: 2rem;
+		}
+
+		.mobileSubtitle {
+			@extend .subtitle;
+			display: none;
+		}
+
+		.input {
+			margin: 0;
+			padding: 0;
+		}
+
+		.benefits {
+			display: flex;
+			justify-content: center;
+			margin-top: 0.6rem;
+			font-weight: 400;
+			font-size: 0.75rem;
+			line-height: 0.9375rem;
+			color: $base-gray;
+
+			span {
+				padding: 0 0.4rem;
+			}
+		}
+	}
+
+	.bestOption {
+		margin-top: 5.5rem;
+		display: flex;
+		justify-content: space-between;
+		.content {
+			padding-top: 1rem;
+
+			h3 {
+				font-weight: 600;
+				font-size: 2.5rem;
+				line-height: 4rem;
+				color: $gray-300;
+			}
+			.pillContainer {
+				display: flex;
+				flex-direction: column;
+				padding-top: 1.5rem;
+				.pills {
+					display: flex;
+					padding-bottom: 0.7rem;
+
+					.pill {
+						background: $base-white;
+						margin-right: 1rem;
+						border: 0.658064px solid $gray-200;
+						padding: 0.5rem;
+						box-sizing: border-box;
+						border-radius: 3.29rem;
+						font-size: 0.75rem;
+						line-height: 1.125rem;
+						color: $base-gray;
+						cursor: pointer;
+					}
+				}
+			}
+			.pillContentStyle {
+				font-size: 0.937rem;
+				line-height: 2rem;
+				color: $base-gray;
+			}
+
+			.pillContent {
+				@extend .pillContentStyle;
+			}
+
+			.mobilePillContent {
+				@extend .pillContentStyle;
+				display: none;
+			}
+		}
+		.image {
+		}
+	}
+
+	.subCaption {
+		text-align: center;
+		h3 {
+			font-weight: 600;
+			font-size: 2.5rem;
+			line-height: 3.375rem;
+			color: $black-100;
+		}
+		p {
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 1.75rem;
+			text-align: center;
+			color: $base-gray;
+		}
+	}
+
+	.rowOne {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 1rem;
+		width: 100%;
+		.image {
+			width: 40%;
+		}
+
+		.rowContent {
+			width: 60%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.rowNumber {
+				font-family: "Beat Word demo";
+				font-weight: 700;
+				font-style: normal;
+				font-weight: bold;
+				font-size: 6rem;
+				line-height: 6.25rem;
+				color: $green-200;
+			}
+
+			.content {
+				padding-left: 2rem;
+
+				.contentTitle {
+					margin: 0;
+					font-weight: 500;
+					font-size: 1.2rem;
+					padding-bottom: 0.5rem;
+					line-height: 2rem;
+					color: $base-blue;
+				}
+
+				.webTitle {
+					@extend .contentTitle;
+					@include screen("medium") {
+						display: none;
+					}
+				}
+				.mobileTitle {
+					display: none;
+					@extend .contentTitle;
+					@include screen("medium") {
+						display: block;
+						color: #262626;
+						line-height: 1.5rem;
+						font-size: 1.3rem;
+					}
+				}
+
+				.statement {
+					font-weight: 400;
+					font-size: 1rem;
+					color: $base-gray;
+				}
+
+				.mobileStatement {
+					@extend .statement;
+					display: none;
+				}
+
+				@include screen("tablet") {
+					.statement {
+						display: none;
+					}
+					.mobileStatement {
+						display: block;
+						font-size: 0.9rem;
+						line-height: 1.5rem;
+					}
+				}
+			}
+		}
+	}
+
+	.rowThree {
+		margin-bottom: 5rem;
+	}
+
+	.spiral {
+		display: flex;
+		justify-content: center;
+		margin-top: -3.25rem;
+
+		.img {
+		}
+
+		@include screen("medium") {
+			display: none;
+		}
+	}
+
+	.subFooter {
+		text-align: center;
+		margin-bottom: 3.3rem;
+		.footerTitleStyle {
+			font-weight: 700;
+			font-size: 2.5rem;
+			line-height: 3.125rem;
+			color: $black-100;
+		}
+		.subFooterTitle {
+			@extend .footerTitleStyle;
+		}
+		.mobileSubFooterTitle {
+			@extend .footerTitleStyle;
+			display: none;
+		}
+		p {
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 1.75rem;
+			color: $base-gray;
+			padding-top: 0.8rem;
+			padding-bottom: 1.5rem;
+		}
+		.btn {
+			width: 10rem;
+			height: 3.25rem;
+		}
+
+		@include screen("tablet") {
+			.subFooterTitle {
+				font-size: 2.1rem;
+				line-height: 2.5rem;
+			}
+			.btn {
+				width: 50%;
+			}
+		}
+
+		@include screen("medium") {
+			margin-bottom: 0;
+			padding: 5rem 2rem 4rem 2rem;
+
+			.subFooterTitle {
+				display: none;
+			}
+			.mobileSubFooterTitle {
+				display: block;
+				font-size: 1.7rem;
+				line-height: 2.1875rem;
+			}
+			.btn {
+				width: 75%;
+			}
+		}
+	}
+
+	@include screen("tablet") {
+		padding: 0 0.8rem;
+
+		.hero {
+			.main {
+				display: none;
+				font-weight: 700;
+				font-size: 2rem;
+			}
+
+			.mobileHeader {
+				display: block;
+				line-height: 2.5rem;
+			}
+		}
+
+		.bestOption {
+			flex-direction: column-reverse;
+			align-items: center;
+			padding: 0 2rem;
+			.content {
+				.pillContent {
+					display: none;
+				}
+				.mobilePillContent {
+					display: block;
+				}
+			}
+		}
+
+		.subCaption {
+			padding-top: 3rem;
+		}
+
+		.rowOne {
+			padding: 0 2rem;
+		}
+	}
+
+	@include screen("medium") {
+		background-image: url("/images/mobile-general-bg.svg");
+		padding: 0;
+
+		.hero {
+			padding: 0 0.8rem;
+
+			.subtitle {
+				display: none;
+			}
+
+			.mobileSubtitle {
+				display: block;
+				font-size: 1rem;
+			}
+		}
+
+		.bestOption {
+			flex-direction: column-reverse;
+			padding: 0 2rem;
+			padding-bottom: 5rem;
+			.content {
+				h3 {
+					font-size: 2rem;
+				}
+				.mobilePillContent {
+					line-height: 1.5rem;
+				}
+			}
+		}
+
+		.subCaption {
+			padding: 0 2rem;
+			h3 {
+				font-size: 1.5rem;
+				line-height: 2rem;
+			}
+			p {
+				padding-top: 1rem;
+				font-size: 0.9rem;
+				font-weight: 300;
+				line-height: 1.5rem;
+			}
+		}
+
+		.rowOne {
+			flex-direction: column;
+			padding: 0 2rem;
+
+			&.evenRow {
+				flex-direction: column-reverse;
+			}
+
+			.image {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+			}
+
+			.rowContent {
+				width: 100%;
+
+				.rowNumber {
+					display: none;
+				}
+				.content {
+					padding: 0;
+					text-align: center;
+					padding: 0 2.5rem;
+				}
+			}
+		}
+	}
+}

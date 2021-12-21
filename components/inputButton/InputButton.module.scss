@@ -1,0 +1,79 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.container {
+	@include flex(row, center, center);
+	input {
+		height: 3.25rem;
+		width: 21.25rem;
+		border: 1px solid $gray-100;
+		box-sizing: border-box;
+		border-top-left-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		padding: 1rem;
+		color: $gray-200;
+		font-size: 0.875rem;
+		font-weight: 400;
+		outline: none;
+
+		&::placeholder {
+			color: $gray-200;
+		}
+	}
+
+	button {
+		@include flex(row, center, center);
+		height: 3.25rem;
+		background-color: $base-blue;
+		color: $base-white;
+		border-top-right-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+		cursor: pointer;
+		border: none;
+		padding: 0 1rem;
+		outline: none;
+
+		&:disabled {
+			opacity: 0.7;
+		}
+
+		.btnText {
+			font-weight: bold;
+			font-size: 0.875rem;
+			padding-top: 10%;
+		}
+
+		.btnIcon {
+			padding-left: 0.8rem;
+		}
+	}
+
+	@include screen("medium") {
+		width: 100%;
+		input {
+			width: 60%;
+		}
+		button {
+			width: 40%;
+
+			.btnText {
+				font-size: 0.7rem;
+			}
+
+			.btnIcon {
+				display: none;
+			}
+		}
+	}
+
+	@include screen("small") {
+		button {
+			.btnText {
+				font-size: 0.6rem;
+			}
+		}
+	}
+}

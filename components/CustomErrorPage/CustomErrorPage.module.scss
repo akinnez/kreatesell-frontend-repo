@@ -1,0 +1,20 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.errorContainer {
+  margin: 7px 0px;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .errorText {
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    @include screen("tablet") {
+      font-size: 22px;
+    }
+  }
+}

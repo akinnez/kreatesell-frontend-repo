@@ -1,0 +1,17 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+
+.container {
+	.prefix {
+		background-color: #e6f7ff;
+		border: 1px solid #d9d9d9;
+		border-radius: 0.5rem 0 0 0.5rem;
+		min-width: 2.5rem;
+	}
+	.input {
+		outline: none;
+		border: 1px solid #d9d9d9;
+		border-radius: 0 0.5rem 0.5rem 0;
+		border-left: none;
+	}
+}

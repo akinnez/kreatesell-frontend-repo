@@ -1,0 +1,55 @@
+@import '../../public/css/colors.scss';
+
+.nav{
+    height:90px;
+    display:flex;
+    justify-content:space-between;
+    padding-right:20px;
+    align-items:center;
+    margin-bottom:20px;
+
+    .top_left{
+        height:inherit;
+        display:flex;
+        align-items:center;
+
+        span{
+            margin-left:15px;
+            color: $base-blue;
+            font-weight:700;
+            font-size: 1.2rem;
+        }
+    }
+
+    .right_nav_hor_menu{
+        list-style-type:none;
+        padding:0;
+        display:flex;
+        gap:30px;
+        height:inherit;
+        align-items:center;
+        justify-content:flex-end;
+
+        li{
+            .notification_wrapper{
+                position:relative;
+
+                .notification_label{
+                    position:absolute;
+                    top:-10px;
+                    right:-10px;
+                    width:20px;
+                    height:20px;
+                    background:$notification-bg;
+                    border-radius:50%;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    font-size:12px;
+                    color:$base-white;
+                }
+            }
+        }
+    }
+}
+

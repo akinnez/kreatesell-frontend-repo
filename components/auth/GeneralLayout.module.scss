@@ -1,0 +1,131 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.signup {
+	@include flex(row, center, null);
+	background-image: url("/images/auth-bg.svg");
+	background-size: initial;
+	background-repeat: no-repeat;
+	padding: 5rem;
+	min-height: 100vh;
+	@include screen("medium") {
+		background-image: url("/images/mobile-auth-bg.svg");
+		background-position: 100% 23%;
+	}
+}
+
+.formContainer {
+	width: 30rem;
+	height: auto;
+	margin-top: 5rem;
+	margin-bottom: 1rem;
+	background: $base-white;
+	box-shadow: 0px 10px 30px $form-shadow;
+	border-radius: 0.5rem;
+	@include screen("tablet") {
+		width: 90vw;
+		box-shadow: 0px 7.95739px 23.8722px $form-shadow;
+	}
+
+	@include screen("medium") {
+		min-width: 90vw;
+	}
+}
+
+.form {
+	margin: 3rem;
+}
+
+.formTitle {
+	margin: 0;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+	text-align: center;
+	color: $black-100;
+	@include screen("tablet") {
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+}
+
+.continue {
+	font-style: normal;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	line-height: 1.625rem;
+	color: $base-gray;
+	@include screen("tablet") {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
+}
+
+.opacity {
+	@extend .continue;
+	opacity: 0.6;
+}
+
+.socialBtn {
+	@include flex(row, space-between, center);
+
+	.google {
+		cursor: pointer;
+		margin-right: 1rem;
+	}
+}
+
+.midline {
+	@include flex(row, null, center);
+
+	span {
+		border: 1px solid $gray-100;
+		width: 11rem;
+		height: 0px;
+		@include minScreen("tablet") {
+			width: 50%;
+		}
+	}
+
+	.text {
+		padding: 0 1rem;
+		padding-top: 0.8rem;
+	}
+
+	p {
+		font-family: Inter;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 1rem;
+		line-height: 26px;
+		color: $base-gray;
+	}
+}
+
+.footer {
+	font-size: 0.8rem;
+	line-height: 26px;
+	color: $base-gray;
+	margin-top: 1.25rem;
+	a {
+		text-decoration: none;
+		color: $base-blue;
+		font-weight: 400;
+	}
+}
+
+.terms {
+	@include flex(row, null, center);
+
+	p {
+		padding-left: 0.5rem;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.8rem;
+		line-height: 1.625rem;
+		color: $gray-200;
+	}
+}

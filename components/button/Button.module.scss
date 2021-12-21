@@ -1,0 +1,54 @@
+@import "../../public/css/colors.scss";
+
+.button {
+	width: 6.25rem;
+	height: 2.5rem;
+	background-color: transparent;
+	border-radius: 0.5rem;
+	cursor: pointer;
+
+	.buttonValue {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.buttonIcon {
+			padding: 0 0.5rem;
+		}
+	}
+
+	&:disabled {
+		opacity: 0.7;
+		cursor: progress;
+	}
+}
+
+@mixin customBtn($bg-color, $color, $border-color) {
+	background-color: $bg-color;
+	color: $color;
+	border: 1.5px solid $border-color;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+.btnWhite {
+	@include customBtn($base-white, $base-blue, $base-blue);
+}
+
+.btnBlue {
+	@include customBtn($base-blue, $base-white, $base-blue);
+}
+
+.primaryBlue {
+	width: 100%;
+	background-color: $base-blue;
+	color: $base-white;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+	border: none;
+	height: 3.375rem;
+}
