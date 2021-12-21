@@ -44,6 +44,9 @@ const Legal = ({ defaultActiveKey }) => {
           </div>
         </section>
         {/* Tabs View on Mobile based on route */}
+        {/* Tabs View on Mobile based on route */}
+        {/* Tabs View on Mobile based on route */}
+        {/* Tabs View on Mobile based on route */}
         <section className={styles.mobile}>
           {/* <Image src={scrollUp} width="68" height="65" /> */}
           <div className={styles.container}>
