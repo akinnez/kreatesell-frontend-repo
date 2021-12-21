@@ -209,6 +209,7 @@ const ActionComponent = ({ item, showAction }) => {
 	/**Used to delete and deactivate product */
 	const handleModalOk = () => {
 		createEditDeleteProduct({ product_id: id, action: "d" }, () => {
+			setVisible(false);
 			getProducts();
 		});
 	};
@@ -304,12 +305,12 @@ const ActionComponent = ({ item, showAction }) => {
 export const AllProductsTableHeader = [
 	{
 		title: "Product",
-		key: "product_name",
+		dataIndex: "product_name",
 	},
 	{
 		title: "Product Link",
-		key: "product_link",
-		component: ({ item }) => (
+		dataIndex: "product_link",
+		render: (item) => (
 			<div className="">
 				<a
 					href={item}
@@ -341,12 +342,12 @@ export const AllProductsTableHeader = [
 	},
 	{
 		title: "Product Type",
-		key: "product_type",
+		dataIndex: "product_type",
 	},
 	{
 		title: "Price",
-		key: "price",
-		component: ({ item }) => (
+		dataIndex: "price",
+		render: (item) => (
 			<div>
 				{item?.currency} {item?.productPrice || "0.00"}
 			</div>
@@ -354,8 +355,8 @@ export const AllProductsTableHeader = [
 	},
 	{
 		title: "Date Added",
-		key: "date_created",
-		component: ({ item }) => {
+		dataIndex: "date_created",
+		render: (item) => {
 			const time = parseISO(item);
 			const formatTime = format(time, "PPpp");
 			return <div>{formatTime}</div>;
@@ -363,12 +364,12 @@ export const AllProductsTableHeader = [
 	},
 	{
 		title: "Status",
-		key: "status",
-		component: StatusComponent,
+		dataIndex: "status",
+		render: (item) => StatusComponent({ item }),
 	},
 	{
 		title: "Actions",
-		key: "actions",
-		component: ActionComponent,
+		dataIndex: "actions",
+		render: (item) => ActionComponent({ item }),
 	},
 ];

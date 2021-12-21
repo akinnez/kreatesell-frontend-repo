@@ -64,10 +64,10 @@ export const GetProducts = () => {
 		axios.request(
 			`get`,
 			`v1/kreatesell/product/fetch/all?page=${page}
-			${product_Name && `&product_name=${product_Name}`}
-			${StartDate && `&StartDate=${StartDate}`}
-			${endDate && `&endDate=${endDate}`}
-			${Status && `&Status=${Status}`}
+			${product_Name ? `&product_name=${product_Name}` : ""}
+			${StartDate ? `&StartDate=${StartDate}` : ""}
+			${endDate ? `&endDate=${endDate}` : ""}
+			${Status ? `&Status=${Status}` : ""}
 			`,
 			(res) => {
 				const products = res?.data?.data;
