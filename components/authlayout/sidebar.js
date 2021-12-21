@@ -20,7 +20,7 @@ const menuItemStyle = {
 
 const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
   const { pathname } = useRouter();
-  const isPath = target?.split("/")[3] == pathname?.split("/")[3];
+  const isPath = target.split("/")[3] == pathname.split("/")[3];
 
   return (
     <Menu.Item
@@ -41,7 +41,7 @@ const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
   const { pathname } = useRouter();
   const logout = LogoutAction();
-  const isPath = target?.split("/")[3] == pathname?.split("/")[3];
+  const isPath = target.split("/")[3] == pathname.split("/")[3];
 
   return (
     <Menu.Item
@@ -109,7 +109,6 @@ const Sidebar = () => {
             Old Product
           </Menu.Item>
         </SubMenu>
-
         <MenuItem
           key={4}
           Icon={Wallet}
@@ -121,14 +120,20 @@ const Sidebar = () => {
           Icon={Ticket}
           title="Integrations"
           target="/account/kreator/integrations"
-        />
+        />{" "}
         <MenuItem
           key={6}
+          Icon={Ticket}
+          title="Help"
+          target="/account/kreator/help"
+        />
+        <MenuItem
+          key={7}
           Icon={Setting}
           title="Settings"
           target="/account/kreator/settings"
         />
-        <LogoutItem key={7} Icon={Logout} title="Logout" />
+        <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
     </>
   );

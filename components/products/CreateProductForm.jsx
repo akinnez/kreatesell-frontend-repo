@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button, Input, TextArea } from "components";
-import { CloudUpload } from "utils";
+import { CloudUpload, isAnEmpytyObject } from "utils";
 import styles from "./CreateProduct.module.scss";
 import { DeleteIcon } from "components/IconPack";
 import { Radio } from "components/inputPack";
@@ -87,7 +87,7 @@ export const CreateProductForm = ({
       product_files: [""],
       file_access_type: 1,
     },
-    action: product ? "e" : "c",
+    action: !isAnEmpytyObject(product) ? "e" : "c",
     kreatesell_id: "",
     product_type_id: 0,
     product_listing_status_id: 0,

@@ -16,7 +16,7 @@ export const ProductHeader = ({
 	handleSearchSubmit,
 	productStatusOptions,
 }) => {
-	const fmtDt = format(Date.now(), "yyyy-MM-dd");
+	// const fmtDt = format(Date.now(), "yyyy-MM-dd");
 
 	// useEffect(() => {}, [handleSearchInput]);
 
@@ -51,7 +51,7 @@ export const ProductHeader = ({
 					options={productStatusOptions}
 					placeholder="All"
 					placeHolderColor="#8c8c8c"
-					label="Product Type"
+					label="Product Status"
 					height="44px"
 					className="h-11"
 					onChange={(e) => handleProductStatus(e.value)}
@@ -64,7 +64,7 @@ export const ProductHeader = ({
 					<input
 						type="date"
 						className={styles.date}
-						defaultValue={fmtDt}
+						// defaultValue={fmtDt}
 						onChange={handleStartDate}
 					/>
 				</div>
@@ -76,7 +76,7 @@ export const ProductHeader = ({
 					<input
 						type="date"
 						className={styles.date}
-						defaultValue={fmtDt}
+						// defaultValue={fmtDt}
 						onChange={handleEndDate}
 					/>
 				</div>

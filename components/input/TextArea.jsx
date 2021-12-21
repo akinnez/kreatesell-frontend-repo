@@ -31,7 +31,7 @@ export const TextArea = ({
 			</div>
 
 			{errorMessage && (
-				<p className="text-xs py-2 text-red-700">{errorMessage}</p>
+				<p className="text-sm py-2 text-red-700">{errorMessage}</p>
 			)}
 		</div>
 	);

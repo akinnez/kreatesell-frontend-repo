@@ -28,7 +28,9 @@ import crypto from "crypto";
 const Checkout = () => {
 	const [modal, setModal] = useState(false);
 	const [activeCard, setActiveCard] = useState("NGN");
-	const [paymentMethod, setPaymentMethod] = useState("Stripe");
+
+	//Payment methods for GBP and USD are ["Card","Stripe","Paypal","Crypto"]
+	const [paymentMethod, setPaymentMethod] = useState("Card");
 	const [email, setEmail] = useState("");
 	const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
 
@@ -64,11 +66,13 @@ const Checkout = () => {
 	const onClose = () => {};
 
 	const handleSubmit = () => {
-		if (activeCard === "NGN") {
+		/** Currencies using PayStack are listed here */
+		if (["GHS", "NGN"].includes(activeCard)) {
 			return initializePayment(onPaystackSuccess, onClose);
 		}
 
-		if (["GHS", "KES", "ZAR", "UGX"].includes(activeCard)) {
+		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
+		if (["KES", "ZAR", "UGX", "GBP", "USD"].includes(activeCard)) {
 			handleFlutterPayment({
 				callback: async (response) => {
 					await sendPaymentCheckoutDetails(
@@ -131,10 +135,15 @@ const Checkout = () => {
 		reference: randomId,
 		email,
 		amount: price * 100,
-		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+		publicKey:
+			activeCard === "GHS"
+				? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
+				: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
 		firstName: values.firstName,
 		lastname: values.lastName,
 		phone: values.phoneNo,
+		currency: activeCard,
+		channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"],
 	};
 
 	const initializePayment = usePaystackPayment(payStackConfig);
@@ -152,6 +161,7 @@ const Checkout = () => {
 			phonenumber: values?.phoneNo,
 			name: `${values?.lastName} ${values?.firstName}`,
 		},
+		type: activeCard === "GBP" ? "debit_uk_account" : "",
 		customizations: {
 			title: checkoutDetails?.product_details?.product_name,
 			description: checkoutDetails?.product_details?.product_description,
@@ -448,7 +458,8 @@ const Checkout = () => {
 								</div>
 							</div>
 
-							{["GBP", "USD"].includes(activeCard) && (
+							{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
+							{/* {["GBP", "USD"].includes(activeCard) && (
 								<div className="pb-6">
 									<div className="text-black-100">Payment Method</div>
 									<p className="text-base-gray-200">
@@ -456,6 +467,17 @@ const Checkout = () => {
 									</p>
 
 									<div className="grid gap-4 grid-cols-3">
+										<div
+											className={
+												paymentMethod === "Card"
+													? styles.activePayment
+													: styles.card
+											}
+											onClick={() => setPaymentMethod("Card")}
+										>
+											Card Option
+										</div>
+
 										<div
 											className={
 												paymentMethod === "Stripe"
@@ -490,17 +512,32 @@ const Checkout = () => {
 										</div>
 									</div>
 								</div>
-							)}
+							)} */}
 
-							<div className="w-full flex gap-4 items-center">
-								<div className="w-3/4 md:w-8/12 lg:w-10/12">
+							{/**Apply coupon feature is yet to be implemented */}
+
+							<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+								<div className="w-3/5 xs:w-3/4 md:w-4/5">
 									<Input
 										placeholder="Coupon Code"
 										name="couponCode"
 										onChange={formik.handleChange}
 									/>
 								</div>
-								<div className="w-1/4 md:w-4/12 lg:w-1/6 pb-2">
+								<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+									<Button text="Apply Coupon" className={styles.couponBtn} />
+								</div>
+							</div>
+
+							<div className="w-full hidden lg:flex gap-4 items-center">
+								<div className="w-4/5">
+									<Input
+										placeholder="Coupon Code"
+										name="couponCode"
+										onChange={formik.handleChange}
+									/>
+								</div>
+								<div className="w-1/5 pb-2">
 									<Button text="Apply Coupon" className={styles.couponBtn} />
 								</div>
 							</div>
@@ -516,7 +553,7 @@ const Checkout = () => {
 											</s>
 										)}
 										<p>
-											{currency_name} {checkoutDetails?.default_price}
+											{currency_name} {price ?? checkoutDetails?.default_price}
 										</p>
 									</div>
 								</div>
@@ -545,7 +582,7 @@ const Checkout = () => {
 									<p className="text-primary-blue font-medium">
 										{currency_name}{" "}
 										{new Intl.NumberFormat().format(
-											checkoutDetails?.default_price
+											price ?? checkoutDetails?.default_price
 										)}
 									</p>
 								</div>
@@ -575,7 +612,7 @@ const Checkout = () => {
 				<DialogContent className={styles.modal} aria-label="modal">
 					<SuccessfulCheckoutModal
 						productDetails={checkoutDetails}
-						price={price}
+						price={price ?? checkoutDetails?.default_price}
 						currency={currency_name}
 					/>
 				</DialogContent>

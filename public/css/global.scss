@@ -226,3 +226,16 @@ input[type="date"] {
 		padding: 10px 0 !important;
 	}
 }
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td,
+.ant-table tfoot > tr > th,
+.ant-table tfoot > tr > td {
+	position: relative;
+	padding: 1.5rem !important;
+	overflow-wrap: break-word;
+
+	font-size: 0.875rem;
+	line-height: 24px;
+	color: $base-gray;
+}
