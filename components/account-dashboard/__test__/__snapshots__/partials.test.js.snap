@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get data from partial affiliateOptions data snapshots 1`] = `
+Array [
+  Object {
+    "label": "Affiliate Dashboard",
+    "value": "/account/dashboard/affiliate",
+  },
+  Object {
+    "label": "Quick Stats",
+    "value": "Quick Stats",
+  },
+  Object {
+    "label": "Find Products",
+    "value": "Find Products",
+  },
+]
+`;
+
+exports[`Get data from partial currencyOptions data snapshots 1`] = `
+Array [
+  Object {
+    "label": "NGN",
+    "value": "Nigeria",
+  },
+  Object {
+    "label": "USD",
+    "value": "USA",
+  },
+  Object {
+    "label": "GBP",
+    "value": "Spain",
+  },
+  Object {
+    "label": "KES",
+    "value": "Spain",
+  },
+  Object {
+    "label": "ZAR",
+    "value": "Spain",
+  },
+  Object {
+    "label": "TZX",
+    "value": "Spain",
+  },
+  Object {
+    "label": "UGX",
+    "value": "Spain",
+  },
+]
+`;
+
+exports[`Get data from partial dayOptions data snapshots  1`] = `
+Array [
+  Object {
+    "label": "Custom",
+    "value": "Custom",
+  },
+  Object {
+    "label": "Today",
+    "value": "Today",
+  },
+  Object {
+    "label": "Yesterday",
+    "value": "Yesterday",
+  },
+  Object {
+    "label": "Last 7 days",
+    "value": "Last 7 days",
+  },
+  Object {
+    "label": "Last 30 days",
+    "value": "Last 30 days",
+  },
+  Object {
+    "label": "This year",
+    "value": "This year",
+  },
+  Object {
+    "label": "All time",
+    "value": "All time",
+  },
+]
+`;
+
+exports[`Get data from partial kreatorsOptions data snapshots 1`] = `
+Array [
+  Object {
+    "label": "Kreator’s Dashboard",
+    "value": "Kreator’s Dashboard",
+  },
+  Object {
+    "label": "Quick Stats",
+    "value": "Quick Stats",
+  },
+  Object {
+    "label": "Add Product",
+    "value": "Add Product",
+  },
+  Object {
+    "label": "Coupons",
+    "value": "Coupons",
+  },
+  Object {
+    "label": "Affiliate Options",
+    "value": "Affiliate Options",
+  },
+  Object {
+    "label": "Reports",
+    "value": "Reports",
+  },
+]
+`;

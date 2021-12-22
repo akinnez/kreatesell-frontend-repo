@@ -1,0 +1,671 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Billing /> 1`] = `
+<div>
+  <div
+    className="md:text-center pt-4 pb-4"
+  >
+    <h3
+      className="text-black-100 font-bold text-xl"
+    >
+      Upgrade Your Account
+    </h3>
+    <p
+      className="text-base-gray-200"
+    >
+      Upgrade your account to a premium account to enjoy more benefits.
+    </p>
+  </div>
+  <div
+    className="flex flex-col md:flex-row justify-center mb-12"
+  >
+    <div
+      className="md:pr-4"
+    >
+      <div
+        className="priceCard"
+      >
+        <div
+          className="header"
+        >
+          <h3
+            className="title"
+          >
+            basic
+          </h3>
+          <h5
+            className="subTitle"
+          >
+            All of the features you need to start selling your contents
+          </h5>
+          <hr />
+        </div>
+        <div
+          className="price"
+        >
+          <sup
+            className="currency"
+          >
+            NGN
+          </sup>
+           
+          0
+           
+          <sub
+            className="month"
+          >
+            / Month
+          </sub>
+        </div>
+        <h5
+          className="priceType"
+        >
+          100% Free
+           
+          
+        </h5>
+        
+        <div
+          className="featuresCont"
+        >
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Unlimited Products
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Robust dashboard analytics.
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Drag and Drop Sales Page Builder
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Multi-currency store - six currencies
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Cryptocurrency payment Method
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Landing Page watermark
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Tracking and Pixel
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Instant Sale Notification 
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Affiliate Instant Commission
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Storage 500MB
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Limit downloads
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Custom Checkout Button (CTA)
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Branded Profile
+            </h6>
+          </div>
+        </div>
+        <h3
+          className="text-primary-blue font-bold text-xl pb-8"
+        >
+          Current Plan
+        </h3>
+      </div>
+    </div>
+    <div
+      className="pt-4 md:pt-0 md:pl-4"
+    >
+      <div
+        className="priceCard"
+      >
+        <div
+          className="header"
+        >
+          <h3
+            className="title"
+          >
+            business
+          </h3>
+          <h5
+            className="subTitle"
+          >
+            The combination of core tools, custom options, and automated events for professional course creators looking for the growing of their businesses.
+          </h5>
+          <hr />
+        </div>
+        <div
+          className="price"
+        >
+          <sup
+            className="currency"
+          >
+            NGN
+          </sup>
+           
+          4,999
+           
+          <sub
+            className="month"
+          >
+            / Month
+          </sub>
+        </div>
+        <h5
+          className="priceType"
+        >
+          Billed Annually
+           
+          <span
+            className="subPriceType"
+          >
+            - Save 
+            NGN 9989
+          </span>
+        </h5>
+        <div
+          className="button"
+        >
+          <button
+            className="
+			btn
+			button
+			false 
+			btnBlue
+			false
+			"
+            onClick={[Function]}
+            type="submit"
+          >
+            <div
+              className="buttonValue"
+            >
+              Select This Plan
+            </div>
+          </button>
+        </div>
+        <div
+          className="featuresCont"
+        >
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Everything on Free Plan
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Unlimited Army of Affiliates
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Highest Converting beautiful Templates
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Full Email Service Provider Integration
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Webinar integration
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Automated Abandoned Cart Emails
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Installmental Payment
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Membership Course Creation
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Zapier Integration
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Paypal + Stripe for verified merchants
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Webinar replays (Stream online only)
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Social Proof 
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Exit intent Pop up on sales Page 
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Use your own Domain
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Pre order
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Offer coupons
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Remove default Watermark
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              15GB Storage
+            </h6>
+          </div>
+          <div
+            className="features"
+          >
+            <div
+              className="featuresIcons"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <h6
+              className="featuresContent"
+            >
+              Advanced reports
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span />
+</div>
+`;

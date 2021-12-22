@@ -1,0 +1,303 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Nav /> 1`] = `
+<header
+  className="ant-layout-header header"
+>
+  <div
+    className="nav_left"
+  >
+    <svg
+      fill="none"
+      height="32"
+      viewBox="0 0 32 32"
+      width="32"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="15.8012"
+        cy="15.8013"
+        fill="#FBFBFB"
+        r="15.5"
+        transform="rotate(-1.1244 15.8012 15.8013)"
+      />
+      <ellipse
+        cx="15.8016"
+        cy="15.846"
+        fill="#0072EF"
+        rx="1.13415"
+        ry="1.17906"
+        transform="rotate(-1.1244 15.8016 15.846)"
+      />
+      <ellipse
+        cx="15.6825"
+        cy="9.79818"
+        fill="#0072EF"
+        rx="1.13415"
+        ry="1.17906"
+        transform="rotate(-1.1244 15.6825 9.79818)"
+      />
+      <ellipse
+        cx="15.9188"
+        cy="21.804"
+        fill="#0072EF"
+        rx="1.13415"
+        ry="1.17906"
+        transform="rotate(-1.1244 15.9188 21.804)"
+      />
+    </svg>
+    <h2>
+      Home
+    </h2>
+  </div>
+  <div
+    className="nav_right"
+  >
+    <ul
+      className="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-light"
+      data-menu-list={true}
+      onKeyDown={[Function]}
+      role="menu"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+      tabIndex={0}
+    >
+      <li
+        className="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child"
+        data-menu-id={null}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="menuitem"
+        style={
+          Object {
+            "height": undefined,
+            "opacity": 1,
+            "order": 0,
+            "overflowY": undefined,
+            "pointerEvents": undefined,
+            "position": undefined,
+          }
+        }
+        tabIndex={-1}
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M14.2338 1.75641C13.6653 -0.585469 10.3347 -0.585469 9.76617 1.75641C9.39891 3.26923 7.66567 3.98716 6.33624 3.17713C4.27827 1.92318 1.92318 4.27827 3.17713 6.33624C3.98716 7.66567 3.26923 9.39889 1.75641 9.76617C-0.585469 10.3347 -0.585469 13.6653 1.75641 14.2338C3.26923 14.6011 3.98716 16.3344 3.17713 17.6637C1.92318 19.7217 4.27827 22.0769 6.33625 20.8228C7.66567 20.0128 9.39891 20.7307 9.76617 22.2436C10.3347 24.5854 13.6653 24.5854 14.2338 22.2436C14.6011 20.7307 16.3344 20.0128 17.6637 20.8228C19.7217 22.0769 22.0769 19.7217 20.8228 17.6637C20.0128 16.3344 20.7307 14.6011 22.2436 14.2338C24.5854 13.6653 24.5854 10.3347 22.2436 9.76617C20.7307 9.39889 20.0128 7.66567 20.8228 6.33624C22.0769 4.27827 19.7217 1.92318 17.6637 3.17713C16.3344 3.98716 14.6011 3.26923 14.2338 1.75641ZM12 16.5C14.4854 16.5 16.5 14.4854 16.5 12C16.5 9.51473 14.4854 7.5 12 7.5C9.51473 7.5 7.5 9.51473 7.5 12C7.5 14.4854 9.51473 16.5 12 16.5Z"
+            fill="#BFBFBF"
+            fillRule="evenodd"
+          />
+        </svg>
+        <span
+          className="ant-menu-title-content"
+        />
+      </li>
+      <li
+        className="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child"
+        data-menu-id={null}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="menuitem"
+        style={
+          Object {
+            "height": undefined,
+            "opacity": 1,
+            "order": 1,
+            "overflowY": undefined,
+            "pointerEvents": undefined,
+            "position": undefined,
+          }
+        }
+        tabIndex={-1}
+      >
+        <svg
+          fill="none"
+          height="23"
+          viewBox="0 0 19 23"
+          width="19"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.47369 0.90918C4.98901 0.90918 1.35343 4.54476 1.35343 9.02949V13.8825L0.396434 14.8394C0.00936597 15.2265 -0.106416 15.8086 0.103061 16.3143C0.312538 16.8201 0.806036 17.1498 1.35343 17.1498H17.594C18.1414 17.1498 18.6349 16.8201 18.8444 16.3143C19.0539 15.8086 18.938 15.2265 18.551 14.8394L17.594 13.8825V9.02949C17.594 4.54476 13.9584 0.90918 9.47369 0.90918Z"
+            fill="#BFBFBF"
+          />
+          <path
+            d="M9.47226 22.5641C7.22991 22.5641 5.41211 20.7463 5.41211 18.5039H13.5324C13.5324 20.7463 11.7147 22.5641 9.47226 22.5641Z"
+            fill="#BFBFBF"
+          />
+        </svg>
+        <span
+          className="ant-menu-title-content"
+        />
+      </li>
+      <li
+        className="ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="none"
+        style={
+          Object {
+            "height": undefined,
+            "opacity": 1,
+            "order": 2,
+            "overflowY": undefined,
+            "pointerEvents": undefined,
+            "position": undefined,
+          }
+        }
+      >
+        <div
+          aria-controls={null}
+          aria-expanded={false}
+          aria-haspopup={true}
+          className="ant-menu-submenu-title"
+          data-menu-id={null}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="menuitem"
+          style={null}
+          tabIndex={-1}
+          title={null}
+        >
+          <div
+            className="jsx-3418211220 profile-wrapper"
+          >
+            <div
+              className="jsx-3418211220"
+              id="profile-content"
+            >
+              <h4
+                className="jsx-3418211220"
+              >
+                Undefined
+              </h4>
+              <p
+                className="jsx-3418211220"
+              >
+                Account
+              </p>
+            </div>
+            <div
+              className="jsx-3418211220 profile"
+            >
+              <svg
+                fill="none"
+                height="24"
+                viewBox="0 0 25 24"
+                width="25"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clipRule="evenodd"
+                  d="M12.5874 15.3457C8.71979 15.3457 5.41693 15.9305 5.41693 18.2724C5.41693 20.6143 8.69884 21.22 12.5874 21.22C16.455 21.22 19.7569 20.6343 19.7569 18.2933C19.7569 15.9524 16.476 15.3457 12.5874 15.3457Z"
+                  fillRule="evenodd"
+                  stroke="#130F26"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                />
+                <path
+                  clipRule="evenodd"
+                  d="M12.5874 12.0059C15.1255 12.0059 17.1827 9.94779 17.1827 7.40969C17.1827 4.8716 15.1255 2.81445 12.5874 2.81445C10.0493 2.81445 7.99124 4.8716 7.99124 7.40969C7.98267 9.93922 10.0265 11.9973 12.555 12.0059H12.5874Z"
+                  fillRule="evenodd"
+                  stroke="#130F26"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.42857"
+                />
+              </svg>
+            </div>
+          </div>
+          <span
+            className="ant-menu-title-content"
+          />
+          <i
+            className="ant-menu-submenu-arrow"
+          />
+        </div>
+      </li>
+      <li
+        aria-hidden={true}
+        className="ant-menu-overflow-item ant-menu-overflow-item-rest ant-menu-submenu ant-menu-submenu-horizontal"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="none"
+        style={
+          Object {
+            "height": 0,
+            "opacity": 0,
+            "order": 9007199254740991,
+            "overflowY": "hidden",
+            "pointerEvents": "none",
+            "position": "absolute",
+          }
+        }
+      >
+        <div
+          aria-controls={null}
+          aria-expanded={false}
+          aria-haspopup={true}
+          className="ant-menu-submenu-title"
+          data-menu-id={null}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="menuitem"
+          style={null}
+          tabIndex={-1}
+          title={null}
+        >
+          <span
+            aria-label="ellipsis"
+            className="anticon anticon-ellipsis"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="ellipsis"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+              />
+            </svg>
+          </span>
+          <i
+            className="ant-menu-submenu-arrow"
+          />
+        </div>
+      </li>
+    </ul>
+    <div
+      aria-hidden={true}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    />
+  </div>
+</header>
+`;

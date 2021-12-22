@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductInput :  renders a snapshot of <ProductInput /> with mock props and a mock errorMessage 1`] = `
+Array [
+  <div
+    className="w-full flex container"
+  >
+    <div
+      className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+    >
+      mockPrefix
+    </div>
+    <input
+      className="p-1 w-full h-10 input"
+      name="mockName"
+      placeholder="mockPlaceholder"
+      type="text"
+    />
+  </div>,
+  <p
+    className="text-red-600 text-sm pt-2"
+  >
+    mockErrorMessage
+  </p>,
+]
+`;
+
+exports[`ProductInput :  renders a snapshot of <ProductInput /> with mock props and no errorMessage 1`] = `
+Array [
+  <div
+    className="w-full flex container"
+  >
+    <div
+      className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+    >
+      mockPrefix
+    </div>
+    <input
+      className="p-1 w-full h-10 input"
+      name="mockName"
+      placeholder="mockPlaceholder"
+      type="text"
+    />
+  </div>,
+  "",
+]
+`;

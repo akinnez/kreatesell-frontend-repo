@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders a snapshot of <Alert /> 1`] = `
+<div
+  className="jsx-3139552907 alert-wrapper"
+>
+  <h5
+    className="jsx-3139552907"
+  >
+    Please read carefully
+  </h5>
+  <p
+    className="jsx-3139552907"
+  >
+    Make sure your account details are correct before proceeding. We will not be held liable for failed transactions resulting from incorrect bank details.
+  </p>
+</div>
+`;

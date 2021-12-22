@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icons renders a snapshot of the NextIcon svg 1`] = `
+<svg
+  fill="none"
+  height="18"
+  viewBox="0 0 18 18"
+  width="18"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M9.24143 1.58567L16.3125 8.65674L9.24143 15.7278"
+    stroke="#2C2A67"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+  />
+</svg>
+`;
+
+exports[`Icons renders a snapshot of the PreviousIcon svg 1`] = `
+<svg
+  fill="none"
+  height="18"
+  viewBox="0 0 18 18"
+  width="18"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M8.75661 1.58567L1.68555 8.65674L8.75661 15.7278"
+    stroke="#2C2A67"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+  />
+</svg>
+`;
