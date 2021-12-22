@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <EmailSetting /> 1`] = `
+<div
+  className="wrapper"
+>
+  <h3>
+    Account Settings
+  </h3>
+  <p>
+    Edit your login details here.
+  </p>
+  <div
+    className="bordered"
+  >
+    <h4>
+      Email
+    </h4>
+    <form
+      className="ant-form ant-form-vertical"
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div
+        className="ant-row ant-form-item"
+        style={
+          Object {
+            "width": "600px",
+          }
+        }
+      >
+        <div
+          className="ant-col ant-form-item-label"
+          style={Object {}}
+        >
+          <label
+            className=""
+            title=""
+          >
+            <label
+              className="label"
+            >
+               
+              <span>
+                Change your email
+              </span>
+            </label>
+          </label>
+        </div>
+        <div
+          className="ant-col ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <input
+                className="ant-input ant-input-lg input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                placeholder="adeddada@gmail.com"
+                type="email"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        className="ant-btn ant-btn-primary btn"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Save Changes
+        </span>
+      </button>
+    </form>
+  </div>
+</div>
+`;

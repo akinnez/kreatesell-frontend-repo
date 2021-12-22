@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllProductsTableHeader :  renders a snapshot of the data in AllProductsTableHeader  1`] = `
+Array [
+  Object {
+    "key": "product_name",
+    "title": "Product",
+  },
+  Object {
+    "component": [Function],
+    "key": "product_link",
+    "title": "Product Link",
+  },
+  Object {
+    "key": "product_type",
+    "title": "Product Type",
+  },
+  Object {
+    "component": [Function],
+    "key": "price",
+    "title": "Price",
+  },
+  Object {
+    "component": [Function],
+    "key": "date_created",
+    "title": "Date Added",
+  },
+  Object {
+    "component": [Function],
+    "key": "status",
+    "title": "Status",
+  },
+  Object {
+    "component": [Function],
+    "key": "actions",
+    "title": "Actions",
+  },
+]
+`;

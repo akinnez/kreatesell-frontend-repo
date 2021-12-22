@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <AdminResetPasswordSuccesModal/> 1`] = `
+<div
+  className="resetPasswordModal"
+>
+  <div
+    className="image"
+  >
+    <img
+      src="[jest.find('../utils')]"
+    />
+  </div>
+  <h5>
+    Password Successfully Reset
+  </h5>
+  <p
+    className="webParagraph"
+  >
+    You have successfully changed your password. You can now use 
+    <br />
+     your new set password to login into your account. 🙌
+  </p>
+  <p
+    className="mobileParagraph"
+  >
+    You have successfully changed your password. You can now use your new set password to login into your account. 🙌
+  </p>
+  <button
+    className="
+			button
+			button
+			false 
+			false
+			primaryBlue
+			"
+    onClick={[Function]}
+    type="submit"
+  >
+    <div
+      className="buttonValue"
+    >
+      Login
+    </div>
+  </button>
+</div>
+`;

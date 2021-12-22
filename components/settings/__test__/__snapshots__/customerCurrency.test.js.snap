@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomerCurrency :  renders a snapshot of <CustomerCurrency /> 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="bordered"
+  >
+    <h4>
+      Customer's Currency Options
+    </h4>
+    <p>
+       These are the currencies that your customers get to see and select when they want to buy a product. Although your payouts can only be in your local currency, your store currency can be any that are listed here. Customers can pay in their local currency.
+    </p>
+    <div
+      className="ant-checkbox-group"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        className="ant-row"
+        style={Object {}}
+      />
+    </div>
+    <button
+      className="ant-btn ant-btn-primary btn"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginTop": "20px",
+        }
+      }
+      type="button"
+    >
+      <span>
+        Update Details
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`CustomerCurrency :  renders a snapshot of <CustomerCurrency /> with mock props 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="bordered"
+  >
+    <h4>
+      Customer's Currency Options
+    </h4>
+    <p>
+       These are the currencies that your customers get to see and select when they want to buy a product. Although your payouts can only be in your local currency, your store currency can be any that are listed here. Customers can pay in their local currency.
+    </p>
+    <div
+      className="ant-checkbox-group"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        className="ant-row"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-col-sm-8 ant-col-md-8"
+          style={Object {}}
+        >
+          <label
+            className="ant-checkbox-wrapper"
+          >
+            <span
+              className="ant-checkbox"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-checkbox-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyPress={[Function]}
+                onKeyUp={[Function]}
+                type="checkbox"
+                value={1}
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              mockLabel1
+            </span>
+          </label>
+        </div>
+        <div
+          className="ant-col ant-col-sm-8 ant-col-md-8"
+          style={Object {}}
+        >
+          <label
+            className="ant-checkbox-wrapper"
+          >
+            <span
+              className="ant-checkbox"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-checkbox-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyPress={[Function]}
+                onKeyUp={[Function]}
+                type="checkbox"
+                value={2}
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              mockLabel2
+            </span>
+          </label>
+        </div>
+        <div
+          className="ant-col ant-col-sm-8 ant-col-md-8"
+          style={Object {}}
+        >
+          <label
+            className="ant-checkbox-wrapper"
+          >
+            <span
+              className="ant-checkbox"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-checkbox-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyPress={[Function]}
+                onKeyUp={[Function]}
+                type="checkbox"
+                value={3}
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              mockLabel3
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <button
+      className="ant-btn ant-btn-primary btn"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginTop": "20px",
+        }
+      }
+      type="button"
+    >
+      <span>
+        Update Details
+      </span>
+    </button>
+  </div>
+</div>
+`;

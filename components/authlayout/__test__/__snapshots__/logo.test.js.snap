@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo : renders a snapshot of <Logo /> 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "justifyContent": "center",
+      "marginBottom": "10px",
+      "padding": "20px 0 10px 0",
+    }
+  }
+>
+  <div
+    className="ant-image"
+    style={
+      Object {
+        "height": undefined,
+        "width": 170,
+      }
+    }
+  >
+    <img
+      className="ant-image-img"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="/images/logo.svg"
+      style={
+        Object {
+          "height": undefined,
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`MobileLogo : renders a snapshot of <MobileLogo /> 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "justifyContent": "center",
+      "marginBottom": "10px",
+      "padding": "20px 0 10px 0.5rem",
+    }
+  }
+>
+  <div
+    className="ant-image"
+    style={
+      Object {
+        "height": undefined,
+        "width": 130,
+      }
+    }
+  >
+    <img
+      className="ant-image-img"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="/images/logo.svg"
+      style={
+        Object {
+          "height": undefined,
+        }
+      }
+    />
+  </div>
+</div>
+`;

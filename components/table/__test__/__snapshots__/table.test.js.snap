@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table :  renders a snapshot of <Table /> 1`] = `
+<div
+  className="tableContainer"
+>
+  <table
+    className="table"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th />
+        <th />
+      </tr>
+    </thead>
+    <tbody
+      className="t-body"
+    >
+      <tr>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td />
+        <td />
+        <td />
+      </tr>
+      <tr>
+        <td />
+        <td />
+        <td />
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Table :  renders a snapshot of <Table /> with no props 1`] = `
+<div
+  className="tableContainer"
+>
+  <table
+    className="table"
+  >
+    <thead>
+      <tr />
+    </thead>
+  </table>
+  <div
+    className="w-full h-full flex flex-col items-center justify-center p-8"
+  >
+    <div>
+      <img
+        src="[jest.find('../utils')]"
+      />
+    </div>
+    <div
+      className="text-center mt-3 bolder"
+    >
+      No available data
+    </div>
+  </div>
+</div>
+`;
