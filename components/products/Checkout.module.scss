@@ -1,0 +1,59 @@
+@import "../../public//css/colors.scss";
+@import "../../public//css/mixins.scss";
+@import "../../public//css/screens.scss";
+
+.container {
+	.ctaBtn {
+		height: 2.5rem;
+	}
+	.radioLabelStyle {
+		color: $black-100 !important;
+		font-weight: 400 !important;
+
+		@include screen("medium") {
+			font-size: 13px !important;
+		}
+	}
+
+	.disabledRadio {
+		color: #bfbfbf !important;
+		font-weight: 400 !important;
+
+		@include screen("medium") {
+			font-size: 14px !important;
+		}
+	}
+
+	.digitalBtn {
+		width: 15rem;
+		height: 3.3rem;
+		font-size: 1rem;
+	}
+
+	.couponDateTimeLocaleContInput {
+		height: 2.5rem;
+	}
+
+	.limitProductInput {
+		height: 2rem;
+		width: 40%;
+	}
+
+	.upload {
+		border: 1px dotted $base-blue;
+		width: 100%;
+		border-radius: 0.5rem;
+		cursor: pointer;
+
+		&.activeUpload {
+			border-top: 8px solid #00b140;
+		}
+	}
+
+	.contentFileUpload {
+		@extend .upload;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}

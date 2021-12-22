@@ -1,0 +1,84 @@
+.menu {
+	border: none;
+	padding: 20px 10px;
+	font-size: 14px;
+	line-height: 24px;
+	border-top: 1px solid #f5f5f5;
+	color: rgba(140, 140, 140, 1);
+
+	.subMenu {
+		border-radius: 8px;
+		margin-top: 15px;
+
+		.icon {
+			margin-right: 0.6rem;
+		}
+
+		&:hover {
+			box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+			color: rgba(0, 114, 239, 1);
+			transition: all 0.3s linear;
+			.icon {
+				background-color: #0072ef;
+				transition: all 0.3s linear;
+				padding: 0.5rem 0;
+				margin-right: 0.6rem;
+			}
+			svg {
+				path {
+					fill: white;
+				}
+			}
+		}
+	}
+
+	.menuitem {
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		height: 58px;
+		padding-left: 30px;
+
+		&:not(:first-child) {
+			margin-top: 15px;
+		}
+		&:hover {
+			box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+			color: rgba(0, 114, 239, 1);
+			transition: all 0.3s linear;
+			.icon {
+				background-color: #0072ef;
+				transition: all 0.3s linear;
+			}
+			svg {
+				path {
+					fill: white;
+				}
+			}
+		}
+	}
+
+	.active {
+		box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+		color: rgba(0, 114, 239, 1);
+		transition: all 0.3s linear;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		height: 58px;
+		padding-left: 30px;
+	}
+
+	li:not(.menuitem) {
+		div {
+			svg,
+			span,
+			i {
+				vertical-align: middle;
+				color: #a6b0cf;
+			}
+		}
+	}
+}

@@ -1,0 +1,49 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+
+.footer {
+	font-size: 0.8rem;
+	line-height: 26px;
+	color: $base-gray;
+	margin-top: 1.25rem;
+	a {
+		text-decoration: none;
+		color: $base-blue;
+		font-weight: 400;
+	}
+}
+
+.password {
+	margin-bottom: 0 !important;
+}
+
+.terms {
+	@include flex(row, space-between, center);
+
+	margin-bottom: 1rem;
+	margin-top: 0 !important;
+
+	.checkbox {
+		@include flex(row, space-between, center);
+
+		p {
+			font-style: normal;
+			font-weight: normal;
+			padding-left: 0.5rem;
+			padding-top: 0.6rem;
+			font-size: 0.8rem;
+			line-height: 1.5rem;
+			color: $gray-200;
+		}
+	}
+
+	a {
+		padding-left: 0.5rem;
+		font-weight: 400;
+		font-style: italic;
+		font-size: 0.8rem;
+		line-height: 1.625rem;
+		color: $base-blue;
+		text-decoration: none;
+	}
+}

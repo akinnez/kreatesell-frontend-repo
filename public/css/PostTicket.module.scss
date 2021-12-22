@@ -1,0 +1,125 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.cardHeaderDiv {
+  width: 100%;
+  padding: 8px 2px 5px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .statusDiv {
+    .greenStatus {
+      padding: 1px 18px;
+      border-radius: 4px;
+      background: rgba(128, 255, 0, 0.2);
+      color: rgb(0, 107, 0);
+    }
+
+    .redStatus {
+      padding: 1px 18px;
+      border-radius: 4px;
+      background: rgba(255, 128, 55, 0.185);
+      color: rgb(252, 0, 0);
+    }
+  }
+  div {
+    .ticketNumber {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .topText {
+      font-size: 11px;
+      margin-bottom: -5px;
+    }
+
+    .subTitle {
+      font-size: 15px;
+      font-weight: 600;
+    }
+  }
+}
+
+.cardBodyDiv {
+  width: 100%;
+  padding: 5px 2px 5px 2px;
+
+  .userDiv {
+    display: flex;
+    align-items: center;
+
+    .userImageDiv {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin-right: 12px;
+      position: relative;
+
+      .userImage {
+        border-radius: 50%;
+        // width: 100%;
+        // height: 100%;
+        object-fit: cover;
+      }
+
+      .checkedImage {
+        position: absolute;
+        z-index: 10;
+        right: -3px;
+        top: 12px;
+        transform: translateX(19);
+      }
+    }
+
+    .userInfoDiv {
+      .userName {
+        font-weight: 500;
+      }
+      .userRole {
+        color: $base-gray;
+        font-size: 13px;
+      }
+    }
+  }
+  .ticketDetailsDiv {
+    margin-top: 15px;
+    .ticketTitle {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .ticketDetails {
+      font-size: 14px;
+    }
+  }
+}
+
+.cardFooterDiv {
+  margin: 5px 0px;
+}
+
+.cardResponsDiv {
+  margin: 15px 0px 10px 0px;
+}
+.error {
+  color: $notification-bg;
+  border-color: $notification-bg;
+}
+.iconSize {
+  font-size: 16px;
+}
+.cancelSubmit {
+  color: $base-blue;
+  border-color: $base-blue;
+}
+.container {
+  width: 100%;
+  background: $white-100;
+  margin: 5px 0px;
+  padding: 15px;
+  @include screen("medium") {
+    padding: 7px;
+  }
+}

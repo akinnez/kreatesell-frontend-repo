@@ -1,0 +1,169 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.base-link {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.775rem;
+	line-height: 1.5rem;
+	color: $text-gray;
+	text-decoration: none;
+
+	&:hover {
+		color: $base-white;
+	}
+}
+
+.footer {
+	font-family: "Manrope", sans-serif;
+	background-color: $dark-blue;
+	padding: 6rem 10.31rem;
+
+	.footerCont {
+		@include flex(row, space-between, null);
+		@include screen("tablet") {
+			display: none;
+		}
+	}
+}
+
+.brand {
+	@include flex(column, null, null);
+}
+
+.brandTitle {
+	cursor: pointer;
+}
+
+.brandContact {
+	@include flex(row, null, center);
+	padding: 0.6rem 0;
+
+	a {
+		@extend .base-link;
+	}
+}
+
+.brandContactIcon {
+	padding-right: 0.5rem;
+	cursor: pointer;
+}
+
+.categoryTitle {
+	color: $base-white;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.75rem;
+	margin-bottom: 0.5rem;
+}
+
+.categoryLink {
+	@include flex(column, null, null);
+
+	a {
+		@extend .base-link;
+		padding-bottom: 0.5rem;
+	}
+}
+
+.subFooter {
+	background-color: $blue-100;
+	text-align: center;
+	padding: 3rem 0;
+
+	h3 {
+		margin: 0;
+		font-weight: 700;
+		font-size: 2.5rem;
+		line-height: 3.375rem;
+		margin-bottom: 2.5rem;
+		text-align: center;
+		color: $base-blue;
+	}
+
+	@include screen("medium") {
+		display: none;
+	}
+}
+
+.mobileFooter {
+	display: none;
+	padding: 0;
+}
+
+@include screen("tablet") {
+	.footer {
+		padding: 0 1.5rem;
+		padding-top: 3.1875rem;
+		width: 100%;
+
+		.mobileFooter {
+			padding-bottom: 4rem;
+			display: block;
+
+			.firstRowA {
+				width: 50%;
+			}
+			.firstRowB {
+				width: 50%;
+			}
+
+			.firstRow {
+				display: flex;
+			}
+			.secondRow {
+				display: flex;
+				padding-top: 3.75rem;
+			}
+
+			.thinLine {
+				margin: 0 5%;
+				margin-top: 2rem;
+				border: 1px solid $gray-100;
+				height: 0px;
+				display: flex;
+			}
+			.brandMobile {
+				text-align: center;
+				box-sizing: border-box;
+				margin-top: 2rem;
+				display: flex;
+				flex-direction: column;
+
+				.mobileFooterText {
+					font-weight: 500;
+					font-size: 0.875rem;
+					line-height: 1.625rem;
+					color: $text-gray;
+				}
+
+				.mobileFooterEmail {
+					@extend .mobileFooterText;
+					text-decoration: none;
+					padding-top: 1.5rem;
+				}
+
+				.engageUs {
+					@extend .mobileFooterText;
+					padding-top: 1rem;
+				}
+
+				.mobileSocialLinks {
+					margin: 1rem 5rem 1.25rem 4rem;
+					display: flex;
+					justify-content: space-between;
+				}
+				.mobileAddress {
+					@extend .mobileFooterText;
+				}
+				.mobileCopyright {
+					font-size: 0.75rem;
+					line-height: 1.5rem;
+					color: $text-gray;
+				}
+			}
+		}
+	}
+}

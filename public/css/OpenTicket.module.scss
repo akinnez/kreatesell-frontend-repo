@@ -1,0 +1,73 @@
+@import "../css//mixins.scss";
+@import "../css//colors.scss";
+@import "../css//screens.scss";
+
+.openTicketTop {
+  margin: 7px 0px;
+  .header {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  p {
+    font-size: 15px;
+  }
+}
+
+.card {
+  .title {
+    text-align: center;
+    font-size: 19px;
+    font-weight: 500;
+  }
+  .openTicketBtn {
+    display: block;
+    width: 150px;
+    margin: 2px auto;
+    @include screen("medium") {
+      width: 200px;
+    }
+  }
+}
+
+.iconStyle {
+  font-size: 16px;
+}
+.modalContainer {
+  width: 312px;
+  border-radius: 0.5rem;
+}
+
+.modalPrompt {
+  color: red;
+  text-align: center;
+
+  .cancelBtn {
+    border: 1px solid $gray-200;
+    color: $base-gray;
+    margin-right: 1rem;
+    font-weight: 500;
+  }
+
+  .deleteBtn {
+    color: $base-white;
+    font-weight: 500;
+    border: none;
+    background: #ff7875;
+    text-transform: capitalize;
+  }
+}
+
+.label {
+  font-size: 0.875rem;
+  line-height: 10px;
+  color: $gray-200;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.75rem;
+
+  @include screen("tablet") {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+}

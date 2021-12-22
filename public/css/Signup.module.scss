@@ -1,0 +1,36 @@
+@import "./colors.scss";
+@import "./screens.scss";
+
+.layoutMargin {
+	margin-top: 10rem;
+	@include screen("tablet") {
+		margin-top: 7rem;
+	}
+}
+
+.footer {
+	font-size: 0.8rem;
+	line-height: 26px;
+	color: $base-gray;
+	margin-top: 1.25rem;
+	a {
+		text-decoration: none;
+		color: $base-blue;
+		font-weight: 400;
+	}
+}
+
+.terms {
+	display: flex;
+	align-items: center;
+
+	p {
+		padding-left: 0.5rem;
+		padding-top: 0.6rem;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.8rem;
+		line-height: 1.625rem;
+		color: $gray-200;
+	}
+}

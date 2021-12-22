@@ -1,0 +1,78 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+
+.inputContainer {
+	@include flex(column, null, null);
+	margin-bottom: 1rem;
+
+	input[type="search"]::-webkit-search-decoration,
+	input[type="search"]::-webkit-search-cancel-button,
+	input[type="search"]::-webkit-search-results-button,
+	input[type="search"]::-webkit-search-results-decoration {
+		display: none;
+	}
+
+	input[type="date"] {
+		color: $gray-200;
+		background: white;
+	}
+	input[type="datetime-local"] {
+		color: $gray-200;
+		background: white;
+	}
+}
+
+.label {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.8rem;
+	line-height: 1rem;
+	color: $base-gray;
+	margin-bottom: 0.5rem;
+}
+
+.input {
+	height: 3.375rem;
+	border: 1px solid $gray-100;
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	color: $base-black;
+	font-size: 0.8rem;
+	font-weight: 400;
+
+	&:focus {
+		border-color: #40a9ff;
+		border-right-width: 1px !important;
+		outline: 0;
+		box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+	}
+	&:hover {
+		border-color: #40a9ff;
+	}
+
+	&::placeholder {
+		color: $gray-200;
+	}
+}
+
+.smallHeight {
+	height: 2.5rem;
+}
+
+.search {
+	width: 16.625rem;
+	height: 2.75rem;
+	color: $gray-500;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+	outline: none;
+	background-image: url("../../public//images/search-icon.svg");
+	background-position: 90%;
+	background-repeat: no-repeat;
+	padding-left: 40px;
+
+	&::placeholder {
+		color: $gray-500;
+	}
+}
