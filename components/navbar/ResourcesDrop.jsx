@@ -15,6 +15,7 @@ const ResourceDrop = ({ leftOffset, handleMouseLeave }) => {
           How it works
         </div>
       </Link>
+      {/* break */}
       <Link href="/">
         <div className={styles.resourceItem} onClick={handleMouseLeave}>
           Payments
