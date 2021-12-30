@@ -13,7 +13,9 @@ export const CookiePolicy = () => {
         <p className={styles.answer}>
           If you have any questions about this Cookies Policy, You can contact
           us at
-          <a href="mailto:support@kreatesell.com">support@kreatesell.com</a>
+          <a href="mailto:support@kreatesell.com" style={{ marginLeft: "3px" }}>
+            support@kreatesell.com
+          </a>
         </p>
       </div>
     </section>
