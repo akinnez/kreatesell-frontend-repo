@@ -9,7 +9,7 @@ export const CookiePolicy = () => {
       <div className={styles.item}>
         <h2 className={styles.heading}>{mainTitle}</h2>
         <QwA data={data} />
-        <h3 className={styles.question}>6.0 Contact Us</h3>
+        <h3 className={styles.question}>6. Contact Us</h3>
         <p className={styles.answer}>
           If you have any questions about this Cookies Policy, You can contact
           us at
