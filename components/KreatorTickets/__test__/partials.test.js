@@ -1,5 +1,5 @@
 import { dayOptions, ticketsOptions } from "../partials";
-import renderer from "react-test-renderer";
+
 
 describe("Partials data: ", () => {
   it("renders a snapshot of dayOptions data", () => {
