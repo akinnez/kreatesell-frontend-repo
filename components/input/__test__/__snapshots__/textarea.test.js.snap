@@ -20,7 +20,7 @@ exports[`TextArea :   renders a snapshot of <TextArea /> with mock props and a m
     />
   </div>
   <p
-    className="text-xs py-2 text-red-700"
+    className="text-sm py-2 text-red-700"
   >
     mockErrorMessage
   </p>

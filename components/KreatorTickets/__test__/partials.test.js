@@ -1,0 +1,11 @@
+import { dayOptions, ticketsOptions } from "../partials";
+import renderer from "react-test-renderer";
+
+describe("Partials data: ", () => {
+  it("renders a snapshot of dayOptions data", () => {
+    expect(dayOptions).toMatchSnapshot();
+  });
+  it("renders a snapshot of ticketsOptions data", () => {
+    expect(ticketOptions).toMatchSnapshot();
+  });
+});

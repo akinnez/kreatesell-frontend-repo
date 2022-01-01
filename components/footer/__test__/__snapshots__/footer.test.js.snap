@@ -192,9 +192,7 @@ exports[`renders a snapshot of <Footer /> 1`] = `
           Tutorials
         </a>
         <a
-          href="/#"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
+          href="https://wa.me/+2349016324945"
         >
           Contact Support
         </a>
@@ -217,21 +215,28 @@ exports[`renders a snapshot of <Footer /> 1`] = `
         className="categoryLink"
       >
         <a
-          href="/#"
+          href="/legal/cookie-policy"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           Cookies Policy
         </a>
         <a
-          href="/#"
+          href="/legal/privacy-policy"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
           Privacy Policy
         </a>
         <a
-          href="/#"
+          href="/legal/affiliate-policy"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Affiliate Policy
+        </a>
+        <a
+          href="/legal/terms-of-service"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -411,9 +416,7 @@ exports[`renders a snapshot of <Footer /> 1`] = `
             Tutorials
           </a>
           <a
-            href="/#"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
+            href="https://wa.me/+2349016324945"
           >
             Contact Support
           </a>
@@ -438,21 +441,28 @@ exports[`renders a snapshot of <Footer /> 1`] = `
           className="categoryLink"
         >
           <a
-            href="/#"
+            href="/legal/cookie-policy"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             Cookies Policy
           </a>
           <a
-            href="/#"
+            href="/legal/privacy-policy"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             Privacy Policy
           </a>
           <a
-            href="/#"
+            href="/legal/affiliate-policy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Affiliate Policy
+          </a>
+          <a
+            href="/legal/terms-of-service"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -511,7 +521,7 @@ exports[`renders a snapshot of <Footer /> 1`] = `
         className="mobileCopyright"
       >
         Copyright © 
-        2021
+        2022
          Kreatesell. All Rights Reserved
       </div>
     </div>

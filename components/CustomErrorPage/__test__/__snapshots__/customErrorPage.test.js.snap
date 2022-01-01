@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of the <CustomErrorPage /> 1`] = `
+<div
+  className="errorContainer"
+>
+  <h1
+    className="errorText"
+  >
+    Oops, Sorry an unexepected error just occured
+  </h1>
+</div>
+`;

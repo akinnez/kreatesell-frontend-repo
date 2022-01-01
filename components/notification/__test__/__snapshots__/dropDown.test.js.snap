@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders a snapshot of <NotificationDropdown /> 1`] = `
-<div
-  className="absolute w-11/12 left-4 top-24 md:w-1/2 md:left-2/5 lg:w-1/5 lg:top-24 lg:left-3/4 bg-white rounded-lg p-4 container"
-/>
-`;
