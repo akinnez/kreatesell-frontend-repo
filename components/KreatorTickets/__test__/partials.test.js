@@ -6,6 +6,6 @@ describe("Partials data: ", () => {
     expect(dayOptions).toMatchSnapshot();
   });
   it("renders a snapshot of ticketsOptions data", () => {
-    expect(ticketOptions).toMatchSnapshot();
+    expect(ticketsOptions).toMatchSnapshot();
   });
 });

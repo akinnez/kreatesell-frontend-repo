@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <QwA /> 1`] = `
+Array [
+  <h4
+    className="qLower"
+  >
+    MockHeading
+  </h4>,
+  <div
+    className="answer"
+  >
+    <p
+      className="answer"
+    >
+      Mock subheading or response
+    </p>
+  </div>,
+  <h4
+    className="qLower"
+  >
+    MockHeading 2
+  </h4>,
+  <div
+    className="answer"
+  >
+    <p
+      className="packed"
+    >
+      Mock subheading or response
+    </p>
+  </div>,
+  <h3
+    className="question"
+  >
+    MockHeading 3
+  </h3>,
+  <div
+    className="answer"
+  >
+    <p
+      className="answer"
+    >
+      Mock subheading or response
+    </p>
+    <p
+      className="answer"
+    >
+      second instance
+    </p>
+  </div>,
+]
+`;

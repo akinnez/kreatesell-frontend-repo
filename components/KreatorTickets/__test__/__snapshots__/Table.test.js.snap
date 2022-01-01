@@ -37,7 +37,7 @@ exports[`renders as snapshot of <Table /> using MOCK data 1`] = `
           mockHeading1
         </td>
         <td>
-          2022-01-01 13:14:52
+          2022-01-01 13:15:00
         </td>
         <td>
           technical
@@ -73,7 +73,7 @@ exports[`renders as snapshot of <Table /> using MOCK data 1`] = `
           mockHeading2
         </td>
         <td>
-          2022-01-01 13:14:52
+          2022-01-01 13:15:00
         </td>
         <td>
           general
@@ -109,7 +109,7 @@ exports[`renders as snapshot of <Table /> using MOCK data 1`] = `
           mockHeading3
         </td>
         <td>
-          2022-01-01 13:14:52
+          2022-01-01 13:15:00
         </td>
         <td>
           billing

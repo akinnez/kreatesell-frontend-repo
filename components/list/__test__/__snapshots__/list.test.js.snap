@@ -2,10 +2,10 @@
 
 exports[`renders a snapshot of <List /> 1`] = `
 <ul
-  className="jsx-255388887"
+  className="jsx-3786135285"
 >
   <li
-    className="jsx-255388887"
+    className="jsx-3786135285"
   >
     <svg
       fill="none"
@@ -21,7 +21,7 @@ exports[`renders a snapshot of <List /> 1`] = `
     </svg>
      
     <span
-      className="jsx-255388887"
+      className="jsx-3786135285"
       style={
         Object {
           "color": "#0072EF",
@@ -32,7 +32,7 @@ exports[`renders a snapshot of <List /> 1`] = `
     </span>
   </li>
   <li
-    className="jsx-255388887"
+    className="jsx-3786135285"
   >
     <svg
       fill="none"
@@ -48,7 +48,7 @@ exports[`renders a snapshot of <List /> 1`] = `
     </svg>
      
     <span
-      className="jsx-255388887"
+      className="jsx-3786135285"
       style={
         Object {
           "color": "#0072EF",
@@ -59,7 +59,7 @@ exports[`renders a snapshot of <List /> 1`] = `
     </span>
   </li>
   <li
-    className="jsx-255388887"
+    className="jsx-3786135285"
   >
     <svg
       fill="none"
@@ -75,7 +75,7 @@ exports[`renders a snapshot of <List /> 1`] = `
     </svg>
      
     <span
-      className="jsx-255388887"
+      className="jsx-3786135285"
       style={
         Object {
           "color": "#595959",
