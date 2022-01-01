@@ -1,5 +1,5 @@
 import renderer from "react-test-renderer";
-import Legal from "..";
+import Legal from "../index";
 import * as nextRouter from "next/router";
 
 nextRouter.useRouter = jest.fn();

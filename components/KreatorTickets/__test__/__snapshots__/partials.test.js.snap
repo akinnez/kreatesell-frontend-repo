@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Partials data:  renders a snapshot of dayOptions data 1`] = `
+Array [
+  Object {
+    "label": "Today",
+    "value": "Today",
+  },
+  Object {
+    "label": "Yesterday",
+    "unit": 1,
+    "value": "Yesterday",
+  },
+  Object {
+    "label": "Last 7 days",
+    "unit": 7,
+    "value": "Last 7 days",
+  },
+  Object {
+    "label": "Last 30 days",
+    "unit": 30,
+    "value": "Last 30 days",
+  },
+  Object {
+    "label": "This year",
+    "unit": 365,
+    "value": "This year",
+  },
+]
+`;
+
+exports[`Partials data:  renders a snapshot of ticketsOptions data 1`] = `
+Array [
+  Object {
+    "label": "All Tickets",
+    "value": "All Tickets",
+  },
+  Object {
+    "label": "Open Tickets",
+    "value": "Opened Tickets",
+  },
+  Object {
+    "label": "Closed Tickets",
+    "value": "Closed Tickets",
+  },
+]
+`;

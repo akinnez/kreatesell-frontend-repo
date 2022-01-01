@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Item /> with mock props 1`] = `
+Array [
+  <h4
+    className="qLower"
+  >
+    MockHeading
+  </h4>,
+  <div
+    className="answer"
+  >
+    <p
+      className="answer"
+    >
+      Mock subheading or response
+    </p>
+  </div>,
+]
+`;
