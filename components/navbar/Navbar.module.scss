@@ -363,10 +363,12 @@
     .categoryLinks {
       li {
         margin-right: 0.5rem;
+        &:first-child {
+          margin-left: 0.8rem;
+        }
       }
       .drop {
         min-width: 90px;
-        border: 1px solid red;
       }
     }
   }
@@ -375,5 +377,15 @@
 @include minScreen("laptop") {
   .navLinks {
     margin-right: unset;
+    .categoryLinks {
+      li {
+        &:first-child {
+          margin-left: unset;
+        }
+      }
+      .drop {
+        min-width: 90px;
+      }
+    }
   }
 }
