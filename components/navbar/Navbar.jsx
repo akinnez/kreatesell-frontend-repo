@@ -147,7 +147,7 @@ export const Navbar = () => {
               </li>
             </ul>
             <div className={styles.mobileInput}>
-              <Input type="" placeholder="Enter your email..." />
+              <Input type="" placeholder="Enter your email...." />
             </div>
             <div className={styles.mobileButton}>
               <Button
