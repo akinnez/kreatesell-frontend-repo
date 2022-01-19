@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button based on background-color passed renders a correct snapshot of <Button  /> with bgColor='blue' and  defaults of text ,type props used in the render 1`] = `
+<button
+  className="
+			undefined
+			button
+			false 
+			btnBlue
+			false
+			"
+  type="submit"
+>
+  <div
+    className="buttonValue"
+  >
+    Submit
+  </div>
+</button>
+`;
+
+exports[`Button based on background-color passed renders a correct snapshot of <Button  /> with bgColor='primaryBlue' and  defaults of text ,type props used in the render 1`] = `
+<button
+  className="
+			undefined
+			button
+			false 
+			false
+			primaryBlue
+			"
+  type="submit"
+>
+  <div
+    className="buttonValue"
+  >
+    Submit
+  </div>
+</button>
+`;
+
+exports[`Button based on background-color passed renders a correct snapshot of <Button  /> with no Icons and defaults of text, bgColor and type props used in the render 1`] = `
+<button
+  className="
+			undefined
+			button
+			btnWhite 
+			false
+			false
+			"
+  type="submit"
+>
+  <div
+    className="buttonValue"
+  >
+    Submit
+  </div>
+</button>
+`;
+
+exports[`Button renders a snapshot of Button when passed both icon props and default props 1`] = `
+<button
+  className="
+			undefined
+			button
+			btnWhite 
+			false
+			false
+			"
+  type="submit"
+>
+  <div
+    className="buttonValue"
+  >
+    <div
+      className="buttonIcon"
+    />
+    Submit
+    <div
+      className="buttonIcon"
+    />
+  </div>
+</button>
+`;
+
+exports[`Button snapshot when passed icons and a backgroundColor renders a snapshot of <Button /> when passed in only the icon prop and other default props 1`] = `
+<button
+  className="
+			undefined
+			button
+			btnWhite 
+			false
+			false
+			"
+  type="submit"
+>
+  <div
+    className="buttonValue"
+  >
+    Submit
+    <div
+      className="buttonIcon"
+    />
+  </div>
+</button>
+`;
+
+exports[`Button snapshot when passed icons and a backgroundColor renders a snapshot of <Button /> when passed in only the leftIcon prop and other default props 1`] = `
+<button
+  className="
+			undefined
+			button
+			btnWhite 
+			false
+			false
+			"
+  type="submit"
+>
+  <div
+    className="buttonValue"
+  >
+    <div
+      className="buttonIcon"
+    />
+    Submit
+  </div>
+</button>
+`;

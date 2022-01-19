@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BankSettings :  renders a snapshot of <BankSettings /> 1`] = `
+Array [
+  <div
+    className="header_container"
+  >
+    <h3>
+      Payout/Bank settings
+    </h3>
+  </div>,
+  <div
+    className="ant-row"
+    style={
+      Object {
+        "marginLeft": -25,
+        "marginRight": -25,
+      }
+    }
+  >
+    <div
+      className="ant-col ant-col-12"
+      style={
+        Object {
+          "paddingLeft": 25,
+          "paddingRight": 25,
+        }
+      }
+    >
+      <div
+        className="ant-card ant-card-bordered bank_card"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <p
+            className="title"
+          >
+            Payout Schdule
+          </p>
+          <p
+            className="subtitle"
+          >
+            How do you want to be receiving your payment?
+          </p>
+          <form
+            className="ant-form ant-form-horizontal"
+            onReset={[Function]}
+            onSubmit={[Function]}
+          >
+            <div
+              className="ant-space ant-space-vertical"
+              style={Object {}}
+            >
+              <div
+                className="ant-space-item"
+                style={
+                  Object {
+                    "marginBottom": 8,
+                  }
+                }
+              >
+                <label
+                  className="ant-radio-wrapper ant-radio-wrapper-checked"
+                >
+                  <span
+                    className="ant-radio ant-radio-checked"
+                    style={Object {}}
+                  >
+                    <input
+                      checked={true}
+                      className="ant-radio-input"
+                      name="name"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyPress={[Function]}
+                      onKeyUp={[Function]}
+                      type="radio"
+                      value={1}
+                    />
+                    <span
+                      className="ant-radio-inner"
+                    />
+                  </span>
+                  <span>
+                    <b>
+                      Automatic
+                    </b>
+                  </span>
+                </label>
+              </div>
+              <div
+                className="ant-space-item"
+                style={
+                  Object {
+                    "marginBottom": 8,
+                  }
+                }
+              >
+                <p
+                  className="sch_desc"
+                >
+                  Your funds will be automatically withdrawn into the provided bank account.
+                </p>
+              </div>
+              <div
+                className="ant-space-item"
+                style={
+                  Object {
+                    "marginBottom": 8,
+                  }
+                }
+              >
+                <label
+                  className="ant-radio-wrapper ant-radio-wrapper-disabled"
+                >
+                  <span
+                    className="ant-radio ant-radio-disabled"
+                    style={Object {}}
+                  >
+                    <input
+                      checked={false}
+                      className="ant-radio-input"
+                      disabled={true}
+                      name="name"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyPress={[Function]}
+                      onKeyUp={[Function]}
+                      type="radio"
+                      value={2}
+                    />
+                    <span
+                      className="ant-radio-inner"
+                    />
+                  </span>
+                  <span>
+                    <b>
+                      Manual
+                    </b>
+                  </span>
+                </label>
+              </div>
+              <div
+                className="ant-space-item"
+                style={
+                  Object {
+                    "marginBottom": 8,
+                  }
+                }
+              >
+                <p
+                  className="sch_desc"
+                >
+                  By choosing this option, you'll have to be manually withdrawing your funds to the provided bank account.
+                </p>
+              </div>
+              <div
+                className="ant-space-item"
+                style={Object {}}
+              >
+                <button
+                  className="ant-btn ant-btn-primary btn"
+                  disabled={true}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "width": "200px",
+                    }
+                  }
+                  type="button"
+                >
+                  <span>
+                    Update Settings
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-col ant-col-12"
+      style={
+        Object {
+          "paddingLeft": 25,
+          "paddingRight": 25,
+        }
+      }
+    >
+      <div
+        className="ant-card ant-card-bordered bank_card"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <p
+            className="title"
+          >
+            We pay your funds to this account
+          </p>
+          <div
+            className="bank_list"
+          >
+            <div>
+              Currency
+            </div>
+            <div>
+              NGN
+            </div>
+          </div>
+          <div
+            className="bank_list"
+          >
+            <div>
+              Bank Name
+            </div>
+            <div />
+          </div>
+          <div
+            className="bank_list"
+          >
+            <div>
+              Account Number
+            </div>
+            <div />
+          </div>
+          <div
+            className="bank_list"
+          >
+            <div>
+              Account Name
+            </div>
+            <div />
+          </div>
+          <button
+            className="ant-btn ant-btn-primary btn"
+            onClick={[Function]}
+            type="button"
+          >
+            <span>
+              Change payout account settings
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

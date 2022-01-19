@@ -1,0 +1,41 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.styleDisplay {
+	@include flex(column, center, center);
+}
+
+.modal {
+	z-index: 1500;
+	position: fixed;
+	background: $modal-bg;
+	inset: 0;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	height: 100vh;
+	width: 100vw;
+}
+
+.closeIcon {
+	float: right;
+	padding-top: 1rem;
+	padding-right: 1rem;
+	cursor: pointer;
+}
+
+.container {
+	border-radius: 0.5rem;
+	background-color: $base-white;
+	min-height: 40%;
+	min-width: 60%;
+	overflow-y: auto;
+	box-shadow: 0px 10px 30px $form-shadow;
+	@include screen("tablet") {
+		width: 90vw;
+	}
+}
+
+.modalContent {
+	padding: 2.875rem;
+}

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <TwoFactor /> 1`] = `
+<div
+  className="ant-row"
+  style={
+    Object {
+      "marginTop": "50px",
+    }
+  }
+>
+  <div
+    className="ant-col ant-col-sm-24 ant-col-md-18"
+    style={Object {}}
+  >
+    <h2>
+      Enable Two-Factor Authentication using email
+    </h2>
+    <p
+      style={
+        Object {
+          "color": "#8C8C8C",
+        }
+      }
+    >
+      Two-factor Authentication is an additional security layer to secure your account.
+    </p>
+  </div>
+  <div
+    className="ant-col ant-col-sm-24 ant-col-md-6"
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <button
+      aria-checked={true}
+      className="ant-switch ant-switch-checked"
+      disabled={false}
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="switch"
+      type="button"
+    >
+      <div
+        className="ant-switch-handle"
+      />
+      <span
+        className="ant-switch-inner"
+      />
+    </button>
+  </div>
+</div>
+`;

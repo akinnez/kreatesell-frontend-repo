@@ -1,0 +1,315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Account /> 1`] = `
+Array [
+  <div
+    className="wrapper"
+  >
+    <h3>
+      Account Settings
+    </h3>
+    <p>
+      Edit your login details here.
+    </p>
+    <div
+      className="bordered"
+    >
+      <h4>
+        Email
+      </h4>
+      <form
+        className="ant-form ant-form-vertical"
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="ant-row ant-form-item"
+          style={
+            Object {
+              "width": "600px",
+            }
+          }
+        >
+          <div
+            className="ant-col ant-form-item-label"
+            style={Object {}}
+          >
+            <label
+              className=""
+              title=""
+            >
+              <label
+                className="label"
+              >
+                 
+                <span>
+                  Change your email
+                </span>
+              </label>
+            </label>
+          </div>
+          <div
+            className="ant-col ant-form-item-control"
+            style={Object {}}
+          >
+            <div
+              className="ant-form-item-control-input"
+            >
+              <div
+                className="ant-form-item-control-input-content"
+              >
+                <input
+                  className="ant-input ant-input-lg input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="adeddada@gmail.com"
+                  type="email"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          className="ant-btn ant-btn-primary btn"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Save Changes
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>,
+  <div
+    className="ant-row"
+    style={
+      Object {
+        "marginTop": "50px",
+      }
+    }
+  >
+    <div
+      className="ant-col ant-col-sm-24 ant-col-md-18"
+      style={Object {}}
+    >
+      <h2>
+        Enable Two-Factor Authentication using email
+      </h2>
+      <p
+        style={
+          Object {
+            "color": "#8C8C8C",
+          }
+        }
+      >
+        Two-factor Authentication is an additional security layer to secure your account.
+      </p>
+    </div>
+    <div
+      className="ant-col ant-col-sm-24 ant-col-md-6"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <button
+        aria-checked={true}
+        className="ant-switch ant-switch-checked"
+        disabled={false}
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="switch"
+        type="button"
+      >
+        <div
+          className="ant-switch-handle"
+        />
+        <span
+          className="ant-switch-inner"
+        />
+      </button>
+    </div>
+  </div>,
+  <div
+    className="wrapper"
+  >
+    <div
+      className="bordered"
+    >
+      <h4>
+        Password
+      </h4>
+      <form
+        className="ant-form ant-form-vertical"
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="ant-row ant-form-item"
+          style={
+            Object {
+              "width": "600px",
+            }
+          }
+        >
+          <div
+            className="ant-col ant-form-item-label"
+            style={Object {}}
+          >
+            <label
+              className=""
+              title=""
+            >
+              <label
+                className="label"
+              >
+                Current Password
+                 
+                <span>
+                  - Enter current password to set a new password
+                </span>
+              </label>
+            </label>
+          </div>
+          <div
+            className="ant-col ant-form-item-control"
+            style={Object {}}
+          >
+            <div
+              className="ant-form-item-control-input"
+            >
+              <div
+                className="ant-form-item-control-input-content"
+              >
+                <input
+                  className="ant-input ant-input-lg input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="******"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ant-row ant-form-item"
+          style={
+            Object {
+              "width": "600px",
+            }
+          }
+        >
+          <div
+            className="ant-col ant-form-item-label"
+            style={Object {}}
+          >
+            <label
+              className=""
+              title=""
+            >
+              <label
+                className="label"
+              >
+                New Password
+                 
+                <span />
+              </label>
+            </label>
+          </div>
+          <div
+            className="ant-col ant-form-item-control"
+            style={Object {}}
+          >
+            <div
+              className="ant-form-item-control-input"
+            >
+              <div
+                className="ant-form-item-control-input-content"
+              >
+                <input
+                  className="ant-input ant-input-lg input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Choose new password"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ant-row ant-form-item"
+          style={
+            Object {
+              "width": "600px",
+            }
+          }
+        >
+          <div
+            className="ant-col ant-form-item-label"
+            style={Object {}}
+          >
+            <label
+              className=""
+              title=""
+            >
+              <label
+                className="label"
+              >
+                Repeat Password
+                 
+                <span />
+              </label>
+            </label>
+          </div>
+          <div
+            className="ant-col ant-form-item-control"
+            style={Object {}}
+          >
+            <div
+              className="ant-form-item-control-input"
+            >
+              <div
+                className="ant-form-item-control-input-content"
+              >
+                <input
+                  className="ant-input ant-input-lg input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Re-enter password"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          className="ant-btn ant-btn-primary btn"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Save Changes
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>,
+]
+`;

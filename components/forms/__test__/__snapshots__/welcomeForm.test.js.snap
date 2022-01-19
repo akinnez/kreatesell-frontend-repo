@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <WelcomeForm/> 1`] = `
+<form
+  autoComplete="off"
+  className="welcome"
+  onSubmit={[Function]}
+>
+  <h5
+    className="mobileTitle"
+  >
+    Tell us a little about &lt;br /&gt; yourself
+  </h5>
+  <h5
+    className="webTitle"
+  >
+    Tell us a little about yourself
+  </h5>
+  <p
+    className="subTitle"
+  >
+    Now that you're all signed up, let's personalize your store.
+  </p>
+  <p
+    className="label"
+  >
+    1. Your Business Name - will be displayed on your store
+  </p>
+  <div
+    className="undefined inputContainer"
+  >
+    <label
+      className="label undefined"
+      htmlFor="Brand_Name"
+    />
+    <input
+      className="input false false input"
+      name="Brand_Name"
+      onChange={[Function]}
+      placeholder="Enter name here ... "
+    />
+  </div>
+  <button
+    className="
+			button
+			button
+			false 
+			false
+			primaryBlue
+			"
+    type="click"
+  >
+    <div
+      className="buttonValue"
+    >
+      Continue
+    </div>
+  </button>
+</form>
+`;

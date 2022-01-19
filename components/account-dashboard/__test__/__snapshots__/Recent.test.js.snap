@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders snapshot of <Recent /> correctly 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="download"
+  >
+    <p>
+      Download CSV
+    </p>
+    <div
+      className="downloadIcon"
+    >
+      <img
+        src="[jest.find('../utils')]"
+      />
+    </div>
+  </div>
+  <div
+    className="analytics"
+  >
+    <div
+      className="recentSales"
+    >
+      <div
+        className="graphTitle"
+      >
+        <div
+          className="recentTitle"
+        >
+          Recent Sales
+        </div>
+        <div
+          className="graphLegend"
+        >
+          <div
+            className="roundIcon"
+          />
+          <p>
+            Last 12 months
+          </p>
+        </div>
+      </div>
+      <canvas
+        data-testid="canvas"
+        height={150}
+        onClick={[Function]}
+        role="img"
+        width={300}
+      />
+    </div>
+    <div
+      className="recentSection"
+    >
+      <div
+        className="customers"
+      >
+        <div
+          className="customerTitle"
+        >
+          Recent Customers
+        </div>
+        <div
+          className="customerSubTitle"
+        >
+          <ul
+            className="titleList"
+          >
+            <li>
+              Customer name
+            </li>
+            <li>
+              Transaction ID
+            </li>
+            <li>
+              Date
+            </li>
+          </ul>
+          <ul
+            className="contentList"
+          >
+            <li>
+              Kathryn Murphy
+            </li>
+            <li>
+              3455323324
+            </li>
+            <li>
+              20/03/2021
+            </li>
+          </ul>
+          <ul
+            className="contentList"
+          >
+            <li>
+              Kathryn Murphy
+            </li>
+            <li>
+              3455323324
+            </li>
+            <li>
+              20/03/2021
+            </li>
+          </ul>
+          <ul
+            className="contentList"
+          >
+            <li>
+              Kathryn Murphy
+            </li>
+            <li>
+              3455323324
+            </li>
+            <li>
+              20/03/2021
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="revenue"
+      >
+        <div
+          className="revenueTitle"
+        >
+          Total Revenue
+        </div>
+        <div
+          className="revenueAmount"
+        >
+          <sup
+            className="currency"
+          >
+            #
+          </sup>
+          0
+        </div>
+        <div
+          className="duration"
+        >
+          <div
+            className="selectCont"
+          >
+            <div
+              className="select"
+            >
+              <label
+                className="label"
+              />
+              <div
+                className="selectOptions undefined css-2b097c-container"
+                onKeyDown={[Function]}
+              >
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  className="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  className=" css-17xcoxp-control"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <div
+                    className=" css-14100a9-ValueContainer"
+                  >
+                    <div
+                      className=" css-1eoeshf-placeholder"
+                    >
+                      Sales this Week
+                    </div>
+                    <div
+                      className="css-b8ldur-Input"
+                    >
+                      <div
+                        className=""
+                        style={
+                          Object {
+                            "display": "inline-block",
+                          }
+                        }
+                      >
+                        <input
+                          aria-autocomplete="list"
+                          autoCapitalize="none"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          disabled={false}
+                          id="react-select-2-input"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          spellCheck="false"
+                          style={
+                            Object {
+                              "background": 0,
+                              "border": 0,
+                              "boxSizing": "content-box",
+                              "color": "inherit",
+                              "fontSize": "inherit",
+                              "label": "input",
+                              "opacity": 1,
+                              "outline": 0,
+                              "padding": 0,
+                              "width": "1px",
+                            }
+                          }
+                          tabIndex="0"
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          style={
+                            Object {
+                              "height": 0,
+                              "left": 0,
+                              "overflow": "scroll",
+                              "position": "absolute",
+                              "top": 0,
+                              "visibility": "hidden",
+                              "whiteSpace": "pre",
+                            }
+                          }
+                        >
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      className=" css-43ykx9-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className=" css-132wh94-indicatorContainer"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="css-tj5bde-Svg"
+                        focusable="false"
+                        height={20}
+                        viewBox="0 0 20 20"
+                        width={20}
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

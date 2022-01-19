@@ -1,0 +1,335 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+.container {
+	box-sizing: border-box;
+	padding: 0rem 10.31rem;
+	background-image: url("/images/partial-general-bg.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+
+	@include screen("tablet") {
+		padding: 0rem 2rem;
+		padding-top: 2rem;
+	}
+
+	@include screen("medium") {
+		padding: 0rem 1rem;
+		background-image: url("/images/mobile-general-bg.svg");
+		width: 100%;
+	}
+
+	.hero {
+		text-align: center;
+
+		.main {
+			margin: 0;
+			margin-bottom: 1rem;
+			font-weight: 700;
+			font-size: 3rem;
+			line-height: 4rem;
+			color: $black-100;
+		}
+
+		.webTitle {
+			@extend .main;
+		}
+		.mobileTitle {
+			display: none;
+			@extend .main;
+		}
+
+		.subtitleStyle {
+			color: $base-gray;
+			margin-bottom: 2rem;
+			font-weight: 400;
+			font-size: 1.125rem;
+			line-height: 2rem;
+		}
+
+		.webSubtitle {
+			@extend .subtitleStyle;
+		}
+		.mobileSubtitle {
+			display: none;
+			@extend .subtitleStyle;
+			font-weight: 300;
+			line-height: 1.5rem;
+		}
+
+		.input {
+			margin: 0;
+			padding: 0;
+		}
+
+		.benefits {
+			display: flex;
+			justify-content: center;
+			margin-top: 0.6rem;
+			font-weight: 400;
+			font-size: 0.75rem;
+			line-height: 0.9375rem;
+			color: $base-gray;
+
+			span {
+				padding: 0 0.4rem;
+			}
+		}
+
+		.features {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			margin-top: 3rem;
+
+			.featuresWrapper {
+				display: flex;
+				width: 45%;
+				justify-content: space-between;
+				@include screen("medium") {
+					width: 100%;
+				}
+
+				ul {
+					text-align: start;
+					font-weight: 400;
+					font-size: 1rem;
+					line-height: 1.875rem;
+					color: $base-gray;
+
+					li {
+						cursor: pointer;
+						color: $base-gray !important;
+						:hover {
+							color: $blue-600 !important;
+						}
+						.Link {
+							color: $base-gray;
+						}
+					}
+				}
+
+				.hrDivider {
+					width: 1px;
+					background: #bfbfbf;
+					margin: 0.6rem 0 1.5rem 0;
+				}
+			}
+		}
+
+		@include screen("tablet") {
+			.webTitle {
+				display: block;
+				text-align: center;
+			}
+			.mobileTitle {
+				display: none;
+			}
+		}
+
+		@include screen("medium") {
+			.webTitle {
+				display: none;
+			}
+			.mobileTitle {
+				display: block;
+				font-size: 1.5rem;
+				line-height: 2rem;
+			}
+			.webSubtitle {
+				display: none;
+			}
+			.mobileSubtitle {
+				display: block;
+			}
+		}
+	}
+
+	.majorFeatures {
+		width: 100%;
+		display: flex;
+
+		@include screen("tablet") {
+			flex-direction: column;
+		}
+
+		&.alte {
+			@include screen("tablet") {
+				flex-direction: column-reverse;
+			}
+		}
+
+		.imageCont {
+			width: 50%;
+			margin-right: 3rem;
+
+			&.alternate {
+				margin-right: 0;
+				margin-left: 5rem;
+			}
+
+			&.centred {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+
+			.featureTitleIcon {
+			}
+			.featureTitle {
+				font-weight: 800;
+				font-size: 3rem;
+				line-height: 4rem;
+				color: $black-100;
+
+				@include screen("medium") {
+					font-weight: 700;
+					font-size: 1.75rem;
+					line-height: 2.5rem;
+				}
+			}
+			.featureExcerpt {
+				font-weight: 400;
+				font-size: 1.125rem;
+				line-height: 1.875rem;
+				color: $base-gray;
+				width: 60%;
+
+				@include screen("medium") {
+					font-weight: 400;
+					font-size: 1rem;
+					line-height: 1.5625rem;
+				}
+			}
+			.featureIcon {
+			}
+
+			@include screen("tablet") {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				&.alternate {
+					margin-right: 0;
+					margin-left: 0rem;
+				}
+
+				.featureExcerpt {
+					width: 100%;
+					text-align: center;
+				}
+				.featureIcon {
+					display: none;
+				}
+			}
+		}
+		.cardCont {
+			width: 50%;
+			display: flex;
+			// background-image: url("../images//feature-bg.svg");
+			// background-repeat: no-repeat;
+
+			.firstRow {
+				margin-right: 1.5rem;
+
+				&.alternateFirstRow {
+					display: flex;
+					justify-content: center;
+					flex-direction: column;
+				}
+			}
+			.secondRow {
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				&.alternateSecondRow {
+				}
+			}
+
+			@include screen("tablet") {
+				width: 100%;
+				justify-content: center;
+			}
+		}
+
+		.mobileFeatureIcon {
+			display: none;
+			@include screen("tablet") {
+				display: flex;
+				justify-content: center;
+			}
+		}
+
+		&.reassign {
+			display: flex;
+			@include screen("tablet") {
+				display: flex;
+				.imageCont {
+					order: 1;
+				}
+				.cardCont {
+					order: 2;
+				}
+				.mobileFeatureIcon {
+					order: 3;
+				}
+			}
+		}
+	}
+
+	.sellFeatures {
+		@extend .majorFeatures;
+		margin: 4rem 0;
+	}
+
+	.manageFeatures {
+		@extend .majorFeatures;
+	}
+	.marketFeatures {
+		@extend .majorFeatures;
+		margin-bottom: 5rem;
+	}
+
+	.supportFeatures {
+		@extend .majorFeatures;
+		margin: 5rem 0;
+	}
+
+	.deliverFeatures,
+	.customizeFeatures,
+	.secureFeatures {
+		@extend .majorFeatures;
+		margin: 5rem 0;
+	}
+}
+
+.featureCard {
+	width: 15.875rem;
+	background: $base-white;
+	box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
+	border-radius: 0.5rem;
+	padding: 1.5rem 1rem;
+	margin-bottom: 1.5rem;
+
+	@include screen("medium") {
+		width: 11.25rem;
+	}
+	@include screen("small") {
+		width: 100%;
+	}
+	.cardTitle {
+		font-weight: 650;
+		font-size: 1rem;
+		line-height: 1.75rem;
+		color: $base-black;
+	}
+	.cardContent {
+		font-weight: 400;
+		font-size: 0.875rem;
+		line-height: 1.625rem;
+		color: $base-gray;
+	}
+}

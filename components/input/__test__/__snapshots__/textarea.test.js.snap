@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextArea :   renders a snapshot of <TextArea /> with mock props and a mock value for the errorMessage prop 1`] = `
+<div
+  className="flex flex-col my-2 textareaContainer"
+>
+  <label
+    className="text-xs pb-2 text-base-gray-100 font-semi-medium capitalize undefined"
+    htmlFor="mockName"
+  >
+    mockLabel
+  </label>
+  <div>
+    <textarea
+      cols={36}
+      id=""
+      name="mockName"
+      placeholder="mockPlaceholder"
+      rows={2}
+    />
+  </div>
+  <p
+    className="text-sm py-2 text-red-700"
+  >
+    mockErrorMessage
+  </p>
+</div>
+`;
+
+exports[`TextArea :   renders a snapshot of <TextArea /> with mock props and no value for errorMessage 1`] = `
+<div
+  className="flex flex-col my-2 textareaContainer"
+>
+  <label
+    className="text-xs pb-2 text-base-gray-100 font-semi-medium capitalize undefined"
+    htmlFor="mockName"
+  >
+    mockLabel
+  </label>
+  <div>
+    <textarea
+      cols={36}
+      id=""
+      name="mockName"
+      placeholder="mockPlaceholder"
+      rows={2}
+    />
+  </div>
+  
+</div>
+`;

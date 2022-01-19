@@ -1,0 +1,546 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <CheckoutProductTab /> 1`] = `
+<div
+  className="px-0 lg:px-8 container"
+>
+  <h3
+    className="text-black-100 font-medium text-2xl"
+  >
+    Checkout details
+  </h3>
+  <div>
+    <div
+      className="w-full md:w-2/5"
+    >
+      <div
+        className="undefined inputContainer"
+      >
+        <label
+          className="label undefined"
+          htmlFor="ctaBtnText"
+        >
+          Checkout Call-To-Action Button
+        </label>
+        <input
+          className="ctaBtn false false input"
+          name="ctaBtnText"
+          onChange={[Function]}
+          placeholder="Buy now"
+        />
+      </div>
+    </div>
+    <p
+      className="text-xs text-base-gray-200"
+    >
+      Leave blank if you want the default
+       
+      <span
+        className="text-black"
+      >
+        BUY NOW
+      </span>
+      , else, change it to best action request of your taste.
+    </p>
+  </div>
+  <div
+    className="lg:w-11/12 grid grid-cols-2 lg:grid-cols-4"
+  >
+    <div>
+      <div
+        className="jsx-2754274567 radio-wrapper"
+      >
+        <div
+          className="jsx-2754274567 radio checked"
+          onClick={[Function]}
+        >
+          <div
+            className="jsx-2754274567 indicator"
+          />
+        </div>
+        <span
+          className="jsx-2754274567 label radioLabelStyle"
+        >
+          Fixed Price
+           
+          <span
+            className="jsx-2754274567 extra undefined"
+          />
+        </span>
+      </div>
+    </div>
+    <div>
+      <div
+        className="jsx-2754274567 radio-wrapper"
+      >
+        <div
+          className="jsx-2754274567 radio "
+          onClick={[Function]}
+        />
+        <span
+          className="jsx-2754274567 label radioLabelStyle"
+        >
+          Pay What You Want
+           
+          <span
+            className="jsx-2754274567 extra undefined"
+          />
+        </span>
+      </div>
+    </div>
+    <div>
+      <div
+        className="jsx-2754274567 radio-wrapper"
+      >
+        <div
+          className="jsx-2754274567 radio "
+          onClick={[Function]}
+        />
+        <span
+          className="jsx-2754274567 label radioLabelStyle"
+        >
+          Installment Payment
+           
+          <span
+            className="jsx-2754274567 extra undefined"
+          />
+        </span>
+      </div>
+    </div>
+    <div
+      className="flex items-center"
+    >
+      <div
+        className="jsx-2754274567 radio-wrapper"
+      >
+        <div
+          className="jsx-2754274567 radio "
+          onClick={[Function]}
+        />
+        <span
+          className="jsx-2754274567 label disabledRadio"
+        >
+          Make it Free
+           
+          <span
+            className="jsx-2754274567 extra undefined"
+          />
+        </span>
+      </div>
+      <div
+        className="bg-base-green-100 ml-2 p-1 text-base-white-100 font-semibold"
+      >
+        BUSINESS
+      </div>
+    </div>
+  </div>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      <p
+        className="text-base mb-2"
+      >
+        Selling Price
+      </p>
+      <div
+        className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8"
+      >
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            NGN
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="NGN"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            GBP
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="GBP"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            KES
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="KES"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            TZS
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="TZS"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            USD
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="USD"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            GHS
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="GHS"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            ZAR
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="ZAR"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+        <div
+          className="w-full flex container"
+        >
+          <div
+            className="pt-1 flex justify-center items-center h-10 text-xs text-base-gray-200 prefix"
+          >
+            UGX
+          </div>
+          <input
+            className="p-1 w-full h-10 input"
+            name="UGX"
+            onChange={[Function]}
+            placeholder="0"
+            type="text"
+          />
+        </div>
+      </div>
+      <p
+        className="text-base-gray-200 text-xs pt-2"
+      >
+        Set the equivalent price of your product in the currencies of the country you accept. You can always enable or disable any currency in your currency settings page.
+      </p>
+    </div>
+    <div>
+      <div
+        className="flex justify-between items-center w-full lg:w-2/4 pt-4"
+      >
+        <div
+          className="text-black-100"
+        >
+          Show Compare-To Price (Optional)
+        </div>
+        <div
+          className="flex"
+        >
+          <button
+            aria-checked={false}
+            className="ant-switch"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="switch"
+            type="button"
+          >
+            <div
+              className="ant-switch-handle"
+            />
+            <span
+              className="ant-switch-inner"
+            />
+          </button>
+          <span
+            className="pl-6 text-black-100"
+          >
+            OFF
+          </span>
+        </div>
+      </div>
+      <div
+        className="flex justify-between items-center w-full lg:w-2/4 pt-4"
+      >
+        <div
+          className="text-black-100"
+        >
+          Apply Coupon Code
+        </div>
+        <div
+          className="flex"
+        >
+          <button
+            aria-checked={false}
+            className="ant-switch"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="switch"
+            type="button"
+          >
+            <div
+              className="ant-switch-handle"
+            />
+            <span
+              className="ant-switch-inner"
+            />
+          </button>
+          <span
+            className="pl-6 text-black-100"
+          >
+            OFF
+          </span>
+        </div>
+      </div>
+      <div />
+      <p
+        className="mt-4"
+      >
+        Settings
+      </p>
+      <div
+        className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 w-11/12"
+      >
+        <div
+          className="flex justify-between items-center w-full lg:w-2/4 pt-4"
+        >
+          <div
+            className="text-black-100"
+          >
+            Allow Affiliates to Market Product
+          </div>
+          <div
+            className="flex"
+          >
+            <button
+              aria-checked={false}
+              className="ant-switch"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="switch"
+              type="button"
+            >
+              <div
+                className="ant-switch-handle"
+              />
+              <span
+                className="ant-switch-inner"
+              />
+            </button>
+            <span
+              className="pl-6 text-black-100"
+            >
+              OFF
+            </span>
+          </div>
+        </div>
+        <div
+          className="flex justify-between items-center w-full lg:w-2/4 pt-4"
+        >
+          <div
+            className="text-black-100"
+          >
+            Limit Product Sales
+          </div>
+          <div
+            className="flex"
+          >
+            <button
+              aria-checked={false}
+              className="ant-switch"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="switch"
+              type="button"
+            >
+              <div
+                className="ant-switch-handle"
+              />
+              <span
+                className="ant-switch-inner"
+              />
+            </button>
+            <span
+              className="pl-6 text-black-100"
+            >
+              OFF
+            </span>
+          </div>
+        </div>
+        <div
+          className="flex justify-between items-center w-full lg:w-2/4 pt-4"
+        >
+          <div
+            className="text-black-100"
+          >
+            Publicly Show Total Sales on Store Page
+          </div>
+          <div
+            className="flex"
+          >
+            <button
+              aria-checked={false}
+              className="ant-switch"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="switch"
+              type="button"
+            >
+              <div
+                className="ant-switch-handle"
+              />
+              <span
+                className="ant-switch-inner"
+              />
+            </button>
+            <span
+              className="pl-6 text-black-100"
+            >
+              OFF
+            </span>
+          </div>
+        </div>
+        <div
+          className="flex justify-between items-center w-full lg:w-2/4 pt-4"
+        >
+          <div
+            className="text-black-100"
+          >
+            Buyer Pays for Transaction Fee
+          </div>
+          <div
+            className="flex"
+          >
+            <button
+              aria-checked={false}
+              className="ant-switch"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="switch"
+              type="button"
+            >
+              <div
+                className="ant-switch-handle"
+              />
+              <span
+                className="ant-switch-inner"
+              />
+            </button>
+            <span
+              className="pl-6 text-black-100"
+            >
+              OFF
+            </span>
+          </div>
+        </div>
+      </div>
+      <p
+        className="text-center text-sm text-base-gray pt-4 md:text-base"
+      >
+        Almost there, now click the button to proceed to create product from template
+      </p>
+      <div
+        className="flex flex-col-reverse lg:flex-row justify-center items-center pb-4"
+      >
+        <div
+          className=""
+        >
+          <button
+            className="
+			digitalBtn
+			button
+			btnWhite 
+			false
+			false
+			"
+            onClick={[Function]}
+            type="submit"
+          >
+            <div
+              className="buttonValue"
+            >
+              Previous
+            </div>
+          </button>
+        </div>
+        <div
+          className="pl-0 mb-4 lg:pl-4 lg:mb-0"
+        >
+          <button
+            className="
+			digitalBtn
+			button
+			false 
+			btnBlue
+			false
+			"
+            type="submit"
+          >
+            <div
+              className="buttonValue"
+            >
+              Save and continue
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

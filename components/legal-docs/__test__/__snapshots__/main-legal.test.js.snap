@@ -1,0 +1,1684 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Legal /> 1`] = `
+Array [
+  <meta
+    data-charset="UTF-8"
+  />,
+  <meta
+    content="width=device-width, initial-scale=1.0"
+    name="viewport"
+  />,
+  <meta
+    content="KreateSell"
+    name="title"
+  />,
+  <meta
+    content="KreateSell"
+    name="author"
+  />,
+  <meta
+    content="#b8c1ec"
+    name="theme-color"
+  />,
+  <meta
+    content=""
+    name="pagename"
+  />,
+  <meta
+    content="https://kreatesell.com"
+    name="url"
+  />,
+  <meta
+    content="KreateSell"
+    itemProp="name"
+  />,
+  <meta
+    content="KreateSell"
+    property="og:site_name"
+  />,
+  <meta
+    content="website"
+    property="og:type"
+  />,
+  <meta
+    content="https://kreatesell.com"
+    property="og:url"
+  />,
+  <meta
+    content="KreateSell"
+    property="og:title"
+  />,
+  <meta
+    content=""
+    property="og:description"
+  />,
+  <meta
+    content="summary"
+    property="twitter:card"
+  />,
+  <meta
+    content="https://kreatesell.com"
+    property="twitter:url"
+  />,
+  <meta
+    content="KreateSell"
+    property="twitter:title"
+  />,
+  <meta
+    content="@KreateSell"
+    name="twitter:site"
+  />,
+  <meta
+    content="@KreateSell"
+    name="twitter:creator"
+  />,
+  <meta
+    content="A picture of KreateSell"
+    property="twitter:image:alt"
+  />,
+  <meta
+    content="e-commerce"
+    name="keywords"
+  />,
+  <meta
+    content="KreateSell , Sell more, Do less"
+    name="description"
+  />,
+  <link
+    href="/favicon.ico"
+    rel="icon"
+  />,
+  <title>
+    KreateSell
+  </title>,
+  <nav
+    className="navContainer false"
+  >
+    <div
+      className="mobileMenuCont false"
+      onClick={[Function]}
+    >
+      <div
+        className="hamburger"
+      />
+    </div>
+    <a
+      className="imgCont"
+      href="/"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "center",
+            "marginBottom": "10px",
+            "padding": "20px 0 10px 0",
+          }
+        }
+      >
+        <div
+          className="ant-image"
+          style={
+            Object {
+              "height": undefined,
+              "width": 170,
+            }
+          }
+        >
+          <img
+            className="ant-image-img"
+            onError={[Function]}
+            onLoad={[Function]}
+            src="/images/logo.svg"
+            style={
+              Object {
+                "height": undefined,
+              }
+            }
+          />
+        </div>
+      </div>
+    </a>
+    <div
+      className="MobileLogo"
+      onClick={[Function]}
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "center",
+            "marginBottom": "10px",
+            "padding": "20px 0 10px 0.5rem",
+          }
+        }
+      >
+        <div
+          className="ant-image"
+          style={
+            Object {
+              "height": undefined,
+              "width": 130,
+            }
+          }
+        >
+          <img
+            className="ant-image-img"
+            onError={[Function]}
+            onLoad={[Function]}
+            src="/images/logo.svg"
+            style={
+              Object {
+                "height": undefined,
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="navLinks"
+    >
+      <ul
+        className="categoryLinks"
+      >
+        <li
+          className="drop"
+          onClick={[Function]}
+        >
+          <span
+            className="navLinkDrop"
+          >
+            Resources
+          </span>
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </li>
+        <li>
+          <a
+            className=""
+            href="/features"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Features
+          </a>
+        </li>
+        <li>
+          <a
+            className=""
+            href="/pricing"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Pricing
+          </a>
+        </li>
+        <li>
+          <a
+            className=""
+            href="/blog"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Blog
+          </a>
+        </li>
+        <li>
+          <a
+            className=""
+            href="/faq"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            FAQS
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="hidden"
+    >
+      <ul
+        className="mobileCategoryLinks"
+      >
+        <li
+          onClick={[Function]}
+        >
+          How it works
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          Features
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          Pricing
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          Blog
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          FAQs
+        </li>
+      </ul>
+      <div
+        className="mobileInput"
+      >
+        <div
+          className="undefined inputContainer"
+        >
+          <label
+            className="label undefined"
+          />
+          <input
+            className="undefined false false input"
+            placeholder="Enter your email..."
+            type=""
+          />
+        </div>
+      </div>
+      <div
+        className="mobileButton"
+      >
+        <button
+          className="
+			freeBtn
+			button
+			false 
+			btnBlue
+			false
+			"
+          type="submit"
+        >
+          <div
+            className="buttonValue"
+          >
+            Get Started Free
+          </div>
+        </button>
+      </div>
+      <div
+        className="benefits"
+      >
+        <span
+          className="benefitSpan"
+        >
+          Signup for free
+        </span>
+        <span
+          className="benefitSpan"
+        >
+          • Easy setup
+        </span>
+        <span
+          className="benefitSpan"
+        >
+          • Fast payout
+        </span>
+      </div>
+    </div>
+    <div
+      className="btnLinks"
+    >
+      <div
+        className="loginBtn"
+        onClick={[Function]}
+      >
+        <button
+          className="
+			loginBtnStyle
+			button
+			btnWhite 
+			false
+			false
+			"
+          type="submit"
+        >
+          <div
+            className="buttonValue"
+          >
+            Login
+          </div>
+        </button>
+      </div>
+      <div
+        className="signUpBtn"
+        onClick={[Function]}
+      >
+        <button
+          className="
+			signUpBtnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+          type="submit"
+        >
+          <div
+            className="buttonValue"
+          >
+            Signup
+          </div>
+        </button>
+      </div>
+    </div>
+    <div
+      className="mobileBtnLinks"
+    >
+      <div
+        className="loginBtn"
+        onClick={[Function]}
+      >
+        <button
+          className="
+			loginBtnStyle
+			button
+			btnWhite 
+			false
+			false
+			"
+          type="submit"
+        >
+          <div
+            className="buttonValue"
+          >
+            Login
+          </div>
+        </button>
+      </div>
+      <div
+        className="signUpBtn"
+        onClick={[Function]}
+      >
+        <button
+          className="
+			signUpBtnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+          type="submit"
+        >
+          <div
+            className="buttonValue"
+          >
+            Signup Free
+          </div>
+        </button>
+      </div>
+    </div>
+  </nav>,
+  <main
+    className="layoutMargin"
+  >
+    <div
+      className="main"
+    >
+      <section
+        className="banner"
+      >
+        <div
+          className="header"
+        >
+          <h1
+            className="title"
+          >
+            Legal
+          </h1>
+          <p
+            className="sub"
+          >
+            Effective Date: October 16, 2021
+          </p>
+        </div>
+        <div
+          className="img"
+        >
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </div>
+      </section>
+      <section
+        className="mobile"
+      >
+        <div
+          className="container"
+        />
+      </section>
+      <section
+        className="lg"
+      >
+        <div
+          className="container"
+        >
+          <div
+            className="ant-card"
+          >
+            <div
+              className="ant-card-body"
+              style={Object {}}
+            >
+              <div
+                className="ant-tabs ant-tabs-top ant-tabs-large ant-tabs-centered"
+              >
+                <div
+                  className="ant-tabs-nav"
+                  onKeyDown={[Function]}
+                  role="tablist"
+                >
+                  <div
+                    className="ant-tabs-nav-wrap"
+                  >
+                    <div
+                      className="ant-tabs-nav-list"
+                      style={
+                        Object {
+                          "transform": "translate(0px, 0px)",
+                          "transition": undefined,
+                        }
+                      }
+                    >
+                      <div
+                        className="ant-tabs-tab ant-tabs-tab-active"
+                        onClick={[Function]}
+                      >
+                        <div
+                          aria-controls={null}
+                          aria-selected={true}
+                          className="ant-tabs-tab-btn"
+                          id={null}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                          tabIndex={0}
+                        >
+                          Cookies Policy
+                        </div>
+                      </div>
+                      <div
+                        className="ant-tabs-tab"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "marginLeft": undefined,
+                          }
+                        }
+                      >
+                        <div
+                          aria-controls={null}
+                          aria-selected={false}
+                          className="ant-tabs-tab-btn"
+                          id={null}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                          tabIndex={0}
+                        >
+                          Privacy Policy
+                        </div>
+                      </div>
+                      <div
+                        className="ant-tabs-tab"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "marginLeft": undefined,
+                          }
+                        }
+                      >
+                        <div
+                          aria-controls={null}
+                          aria-selected={false}
+                          className="ant-tabs-tab-btn"
+                          id={null}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                          tabIndex={0}
+                        >
+                          Terms of Service
+                        </div>
+                      </div>
+                      <div
+                        className="ant-tabs-tab"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "marginLeft": undefined,
+                          }
+                        }
+                      >
+                        <div
+                          aria-controls={null}
+                          aria-selected={false}
+                          className="ant-tabs-tab-btn"
+                          id={null}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          role="tab"
+                          tabIndex={0}
+                        >
+                          Affiliate Terms
+                        </div>
+                      </div>
+                      <div
+                        className="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
+                  >
+                    <button
+                      aria-controls="null-more-popup"
+                      aria-expanded={false}
+                      aria-haspopup="listbox"
+                      aria-hidden="true"
+                      className="ant-tabs-nav-more"
+                      id="null-more"
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": undefined,
+                          "order": 1,
+                          "visibility": "hidden",
+                        }
+                      }
+                      tabIndex={-1}
+                      type="button"
+                    >
+                      <span
+                        aria-label="ellipsis"
+                        className="anticon anticon-ellipsis"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="ellipsis"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="ant-tabs-content-holder"
+                >
+                  <div
+                    className="ant-tabs-content ant-tabs-content-top"
+                    style={null}
+                  >
+                    <div
+                      aria-hidden={false}
+                      aria-labelledby={null}
+                      className="ant-tabs-tabpane ant-tabs-tabpane-active"
+                      id={null}
+                      role="tabpanel"
+                      style={Object {}}
+                      tabIndex={0}
+                    >
+                      <section
+                        className="tabs"
+                      >
+                        <div
+                          className="item"
+                        >
+                          <h2
+                            className="heading"
+                          >
+                            Cookies and Tracking Technologies
+                          </h2>
+                          <h3
+                            className="question"
+                          >
+                            1. What is Cookie?
+                          </h3>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              We use Cookies and similar tracking technologies to track the activity on Our Service 
+            and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track 
+            information and to improve and analyze Our Service. The technologies We use may include:
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            1.1. Cookies or Browser Cookies:
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              A cookie is a small piece of data (text file) that a website - when visited by a user – asks your browser 
+            to store on your device. These cookies will help our Service, or other websites affiliated to us, 
+            to recognise your device the next time you visit and help optimise the functionality of our Service 
+            and/or any of our application(s). We use the term "cookies" in this policy to refer to all files that
+            collect information in this way.
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            1.2. Analytics:
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              We may use third-party service providers to monitor and analyze the use of our Web Sites.
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                               Google Analytics is a web analytics service offered by Google that tracks and reports website traffic. 
+            Google uses the data collected to track and monitor the use of our Web Sites. This data is shared with other Google services.
+             Google may use the collected data to contextualize and personalize the ads of its own advertising network.
+            You can opt-out of having made your activity on the Web Sites available to Google Analytics by installing 
+            the Google Analytics opt-out browser add-on. The add-on prevents the Google Analytics JavaScript (ga.js, analytics.js, and dc.js) 
+            from sharing information with Google Analytics about visits activity. For more information on the privacy practices of Google,
+           please visit the Google Privacy & Terms web page: https://policies.google.com/privacy?hl=en
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            1.3. Flash Cookies: 
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              Certain features of our Service may use local stored objects (or Flash Cookies) to collect and store
+             information about Your preferences or Your activity on our Service. Flash Cookies are not managed by the same browser 
+             settings as those used for Browser Cookies. For more information on how You can delete Flash Cookies, please read “Where
+            can I change the settings for disabling, or deleting local shared objects?”
+      
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            1.4. Web Beacons:
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="answer"
+                            >
+                              Pages of our Websites or our emails may contain small electronic files known as web beacons 
+        (also referred to as clear gifs, pixel tags and single-pixel gifs) that permit us, for example, 
+        to count users who have visited those pages or opened an e-mail and for other related website statistics 
+        (for example, recording the popularity of certain website content and verifying system and server integrity). 
+        You are always free to block, delete, or disable these technologies if your browser, installed application, or device so permits.
+         However, if you decline cookies or other similar technologies, you may not be able to take advantage of certain site features, 
+         services, applications, or tools. You may also be required to re-enter your password more frequently during your browsing session.
+          For more information on how you ice settings.can block, delete, or disable these technologies, please review your browser or dev
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              Other cookies are used in the process of showing you advertisements as our main revenue stream comes from advertisers.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              Some of the cookies used on our Service may contain personal information in the form of a hashed value of your login information.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                               When you visit our Website, cookies are stored on your device.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              The information collected by a cookie is sent back to the server of the user of that cookie each time the browser requests a page from our Service. This enables our Service to identify and track your device and the web browser you use.
+      
+                            </p>
+                          </div>
+                          <h3
+                            className="question"
+                          >
+                             2. Other types of Cookies or third parties that install Cookies 
+                          </h3>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="answer"
+                            >
+                              Some of the services listed below collect statistics in an anonymized and aggregated for
+        m. They may not require the consent of the User or may be managed directly by the Owner – depending on how they are described –
+         without the help of third parties.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              If any third party operated services are listed among the tools below,
+     these may be used to track Users’ browsing habits. In other words in addition to the information specified herein
+      and without the Owner’s knowledge. Please refer to the privacy policy of the listed services for detailed information.
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            2.1. Google Analytics (Google Inc.)
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              
+        Analytics is a web analysis service provided by Google Inc. (“Google”).
+         Google utilizes the Data collected to track and examine the use of this Website, 
+         to prepare reports on its activities and share them with other Google services.
+          It may use the Data collected to contextualize and personalize the ads of its own advertising network.
+        
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Personal Data collected: Cookies and Usage Data.
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            2.2. Google Website Optimizer (Google Inc.)
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                               The Website Optimizer from Google is an A/B testing service provided by Google Inc.
+      Google may use Personal Data to contextualize and personalize the ads of its own advertising network.
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                               Personal Data collected: Cookies and Usage Data.
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            2.3. YouTube video widget (Google Inc.)
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              YouTube is a video content visualization service provided by Google Inc. 
+      that allows this Website to incorporate content of this kind on its pages.
+
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Personal Data collected: Cookies and Usage Data.
+                            </p>
+                          </div>
+                          <h3
+                            className="question"
+                          >
+                            3. Cookie preferences
+                          </h3>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="answer"
+                            >
+                              You can change your cookie settings at any time by following the instructions at the bottom of the page
+       in the “Manage your cookies” section.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              Cookies can be “Persistent” or “Session” Cookies.
+         Persistent Cookies remain on Your personal computer or mobile device when You go offline, 
+         while Session Cookies are deleted as soon as You close Your web browser.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              We use both Session and Persistent Cookies for the purposes set out below:
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            3.1. Necessary / Essential Cookies
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              These cookies are necessary for the website to function and cannot be switched off in our systems. 
+      They are usually only set in response to actions made by you which amount to a request for services, 
+      such as setting your privacy preferences, logging in or filling in forms. 
+      You can set your browser to block or alert you about these cookies, 
+      but some parts of the site will not then work. These cookies do not store any personally identifiable information.
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Type: Session Cookies
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Administered by: Us
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Purpose: These Cookies are essential to provide You with services available through the
+       Website and to enable You to use some of its features.
+       They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the 
+        services that You have asked for cannot be provided,
+       and We only use these Cookies to provide You with those services.
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            3.2. Cookies Policy / Notice Acceptance Cookies
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              Type: Persistent Cookies
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Administered by: Us
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Purpose: These Cookies identify if users have accepted the use of cookies on the Website.
+                            </p>
+                          </div>
+                          <h4
+                            className="qLower"
+                          >
+                            3.3. Functionality Cookies
+                          </h4>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="packed"
+                            >
+                              Type: Persistent Cookies
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Administered by: Us
+                            </p>
+                            <p
+                              className="packed"
+                            >
+                              Purpose: These Cookies allow us to remember choices You make when You use the Website, such as
+        remembering your login details or language preference.The purpose of these Cookies is to provide 
+        You with a more personal experience and to avoid You having to re- enter your preferences every time You use the Website.
+                            </p>
+                          </div>
+                          <h3
+                            className="question"
+                          >
+                            4. Your Choices Regarding Cookies
+                          </h3>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="answer"
+                            >
+                              As we have explained above, cookies and similar tools help you to get the most out of our Websites.
+       However, if you do wish to disable our cookies then please follow the instructions within the browser(s) that you use.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              Please remember that if you do choose to disable cookies, you may find that certain sections of 
+        our Website and other Applications will not work properly.
+                            </p>
+                          </div>
+                          <h3
+                            className="question"
+                          >
+                            5. Why do we use cookies
+                          </h3>
+                          <div
+                            className="answer"
+                          >
+                            <p
+                              className="answer"
+                            >
+                              We use cookies for a number of reasons.We use them to monitor what type of devices visit our Website,
+        where they are coming from, what browser and version of browser is used, and for how long the device stays on our Website.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              This information is used by us to improve our services and usability on our Website, however, we
+        also use it to personalise your user experience and to investigate how our Website is explored and used.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              There may also be third party cookies on our Website collecting data from your device that enables us to 
+        show you customized advertisements.So - called behavioural advertising or retargeting.See more below.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              We may also use advertising cookies to track a referral for which we receive payment.
+                            </p>
+                            <p
+                              className="answer"
+                            >
+                              Below you can find a more detailed list of the type of cookies to be found on our Website from time to time. 
+        We may update the list without notice on a regular basis so please remember to revisit this page from time to time.
+                            </p>
+                          </div>
+                          <h3
+                            className="question"
+                          >
+                            6. Contact Us
+                          </h3>
+                          <p
+                            className="answer"
+                          >
+                            If you have any questions about this Cookies Policy, You can contact us at
+                            <a
+                              href="mailto:support@kreatesell.com"
+                              style={
+                                Object {
+                                  "marginLeft": "3px",
+                                }
+                              }
+                            >
+                              support@kreatesell.com
+                            </a>
+                          </p>
+                        </div>
+                      </section>
+                    </div>
+                    <div
+                      aria-hidden={true}
+                      aria-labelledby={null}
+                      className="ant-tabs-tabpane"
+                      id={null}
+                      role="tabpanel"
+                      style={
+                        Object {
+                          "display": "none",
+                        }
+                      }
+                      tabIndex={-1}
+                    />
+                    <div
+                      aria-hidden={true}
+                      aria-labelledby={null}
+                      className="ant-tabs-tabpane"
+                      id={null}
+                      role="tabpanel"
+                      style={
+                        Object {
+                          "display": "none",
+                        }
+                      }
+                      tabIndex={-1}
+                    />
+                    <div
+                      aria-hidden={true}
+                      aria-labelledby={null}
+                      className="ant-tabs-tabpane"
+                      id={null}
+                      role="tabpanel"
+                      style={
+                        Object {
+                          "display": "none",
+                        }
+                      }
+                      tabIndex={-1}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>,
+  <div
+    className="subFooter"
+  >
+    <h3>
+      Start making money 
+      <br />
+       with your content
+    </h3>
+    <div>
+      <div>
+        <form
+          className="container"
+        >
+          <input
+            name="email"
+            placeholder="Enter your email..."
+            type="text"
+          />
+          <button>
+            <p
+              className="btnText"
+            >
+              Get Started Free
+            </p>
+            <div
+              className="btnIcon"
+            >
+              <svg
+                fill="none"
+                height="10"
+                viewBox="0 0 13 10"
+                width="13"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clipRule="evenodd"
+                  d="M0.97144 4.45143C0.705203 4.48809 0.5 4.71969 0.5 4.99993C0.5 5.30564 0.744208 5.55347 1.04545 5.55347L10.6333 5.55347L7.16979 9.05423L7.11685 9.1162C6.95797 9.33257 6.97495 9.64013 7.1682 9.83706C7.38077 10.0537 7.72613 10.0544 7.93958 9.83868L12.3317 5.3998C12.3586 5.37364 12.3829 5.34471 12.4041 5.31346C12.5509 5.09748 12.5294 4.7992 12.3396 4.60737L7.93955 0.161287L7.87826 0.107824C7.66438 -0.0524988 7.36139 -0.0339699 7.16816 0.162973C6.95561 0.379612 6.95635 0.730097 7.16982 0.945805L10.6341 4.44638L1.04545 4.44638L0.97144 4.45143Z"
+                  fill="white"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>,
+  <footer
+    className="footer"
+  >
+    <div
+      className="footerCont"
+    >
+      <div
+        className="brand"
+      >
+        <div
+          className="brandTitle"
+          onClick={[Function]}
+        >
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </div>
+        <div
+          className="brandContact"
+        >
+          <div
+            className="brandContactIcon"
+          >
+            <img
+              src="[jest.find('../utils')]"
+            />
+          </div>
+          <a
+            className="text"
+            href="mailto:info@kreatesell.com"
+            rel="noopener noreferrer"
+            target="blank"
+          >
+            info@kreatesell.com
+          </a>
+        </div>
+        <div
+          className="brandContact"
+        >
+          <div
+            className="brandContactIcon"
+          >
+            <img
+              src="[jest.find('../utils')]"
+            />
+          </div>
+          <a
+            className="text"
+            href="tel:+2347019875432"
+            rel="noopener noreferrer"
+            target="blank"
+          >
+            +2347019875432
+          </a>
+        </div>
+        <div
+          className="brandContact"
+        >
+          <div
+            className="brandContactIcon"
+          >
+            <img
+              src="[jest.find('../utils')]"
+            />
+          </div>
+          <a
+            className="text"
+            href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
+            rel="noopener noreferrer"
+            target="blank"
+          >
+            Cocoa house Dugbe, Ibadan
+          </a>
+        </div>
+      </div>
+      <div>
+        <div
+          className="categoryTitle"
+        >
+          Product
+        </div>
+        <div
+          className="categoryLink"
+        >
+          <a
+            href="/"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Home
+          </a>
+          <a
+            href="/pricing"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Pricing
+          </a>
+          <a
+            href="/features"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Features
+          </a>
+          <a
+            href="/how-it-works"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Tutorials
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Affiliates
+          </a>
+        </div>
+      </div>
+      <div>
+        <div
+          className="categoryTitle"
+        >
+          Company
+        </div>
+        <div
+          className="categoryLink"
+        >
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            About
+          </a>
+          <a
+            href="/blog"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Blog
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Press
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Careers
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Integration
+          </a>
+        </div>
+      </div>
+      <div>
+        <div
+          className="categoryTitle"
+        >
+          Support
+        </div>
+        <div
+          className="categoryLink"
+        >
+          <a
+            href="/how-it-works"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Getting Started
+          </a>
+          <a
+            href="/how-it-works"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Tutorials
+          </a>
+          <a
+            href="https://wa.me/+2349016324945"
+          >
+            Contact Support
+          </a>
+          <a
+            href="/faq"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            FAQ
+          </a>
+        </div>
+      </div>
+      <div>
+        <div
+          className="categoryTitle"
+        >
+          Legal
+        </div>
+        <div
+          className="categoryLink"
+        >
+          <a
+            href="/legal/cookie-policy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Cookies Policy
+          </a>
+          <a
+            href="/legal/privacy-policy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Privacy Policy
+          </a>
+          <a
+            href="/legal/affiliate-policy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Affiliate Policy
+          </a>
+          <a
+            href="/legal/terms-of-service"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Terms of Service
+          </a>
+        </div>
+      </div>
+      <div>
+        <div
+          className="categoryTitle"
+        >
+          Follow us
+        </div>
+        <div
+          className="categoryLink"
+        >
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Facebook
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Twitter
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Instagram
+          </a>
+          <a
+            href="/undefined#"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Linkedin
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="mobileFooter"
+    >
+      <div
+        className="firstRow"
+      >
+        <div
+          className="firstRowA"
+        >
+          <div
+            className="categoryTitle"
+          >
+            Product
+          </div>
+          <div
+            className="categoryLink"
+          >
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Home
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Pricing
+            </a>
+            <a
+              href="/features"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Features
+            </a>
+            <a
+              href="/how-it-works"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Affiliates
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Releases
+            </a>
+          </div>
+        </div>
+        <div
+          className="firstRowB"
+        >
+          <div
+            className="categoryTitle"
+          >
+            Company
+          </div>
+          <div
+            className="categoryLink"
+          >
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              About
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Blog
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Press
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Careers
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Integration
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="secondRow"
+      >
+        <div
+          className="firstRowA"
+        >
+          <div
+            className="categoryTitle"
+          >
+            Support
+          </div>
+          <div
+            className="categoryLink"
+          >
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Getting Started
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Tutorials
+            </a>
+            <a
+              href="https://wa.me/+2349016324945"
+            >
+              Contact Support
+            </a>
+            <a
+              href="/undefined#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              FAQ
+            </a>
+          </div>
+        </div>
+        <div
+          className="firstRowB"
+        >
+          <div
+            className="categoryTitle"
+          >
+            Legal
+          </div>
+          <div
+            className="categoryLink"
+          >
+            <a
+              href="/legal/cookie-policy"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Cookies Policy
+            </a>
+            <a
+              href="/legal/privacy-policy"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/legal/affiliate-policy"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Affiliate Policy
+            </a>
+            <a
+              href="/legal/terms-of-service"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Terms of Service
+            </a>
+          </div>
+        </div>
+      </div>
+      <span
+        className="thinLine"
+      />
+      <div
+        className="brandMobile"
+      >
+        <img
+          src="[jest.find('../utils')]"
+        />
+        <a
+          className="mobileFooterEmail"
+          href="mailto:info@kreatesell.com"
+          rel="noopener noreferrer"
+          target="blank"
+        >
+          info@kreatesell.com
+        </a>
+        <div
+          className="engageUs"
+        >
+          Engage with us
+        </div>
+        <div
+          className="mobileSocialLinks"
+        >
+          <img
+            src="[jest.find('../utils')]"
+          />
+          <img
+            src="[jest.find('../utils')]"
+          />
+          <img
+            src="[jest.find('../utils')]"
+          />
+          <img
+            src="[jest.find('../utils')]"
+          />
+          <img
+            src="[jest.find('../utils')]"
+          />
+        </div>
+        <div
+          className="mobileAddress"
+        >
+          Cocoa house Dugbe, Ibadan
+        </div>
+        <div
+          className="mobileCopyright"
+        >
+          Copyright © 
+          2022
+           Kreatesell. All Rights Reserved
+        </div>
+      </div>
+    </div>
+  </footer>,
+]
+`;

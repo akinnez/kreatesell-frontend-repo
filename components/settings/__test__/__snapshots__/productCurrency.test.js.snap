@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductCurrency :  renders a snapshot of <ProductCurrency /> with mock list 1`] = `
+<div
+  className="wrapper"
+>
+  <h3>
+    Store Currency Settings
+  </h3>
+  <div
+    className="bordered"
+  >
+    <h4>
+      Custom Product Currency - Customize your product currency
+    </h4>
+    <p>
+      Your(Creators) country currency is selected by default but you can decide to turn it off if you prefer to. You can select other options if you prefer to set the amount when adding a product on the add product section. Anyone you do not select here will be converted to automatically if allowed and selected by your customer.
+    </p>
+    <h4>
+      Customize the amount you can set when adding a product
+    </h4>
+    <div
+      className="ant-checkbox-group"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        className="ant-row"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-col-sm-8 ant-col-md-8"
+          style={Object {}}
+        >
+          <label
+            className="ant-checkbox-wrapper"
+          >
+            <span
+              className="ant-checkbox"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-checkbox-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyPress={[Function]}
+                onKeyUp={[Function]}
+                type="checkbox"
+                value={1}
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              mockLabel1
+            </span>
+          </label>
+        </div>
+        <div
+          className="ant-col ant-col-sm-8 ant-col-md-8"
+          style={Object {}}
+        >
+          <label
+            className="ant-checkbox-wrapper"
+          >
+            <span
+              className="ant-checkbox"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-checkbox-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyPress={[Function]}
+                onKeyUp={[Function]}
+                type="checkbox"
+                value={2}
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              mockLabel2
+            </span>
+          </label>
+        </div>
+        <div
+          className="ant-col ant-col-sm-8 ant-col-md-8"
+          style={Object {}}
+        >
+          <label
+            className="ant-checkbox-wrapper"
+          >
+            <span
+              className="ant-checkbox"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-checkbox-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyPress={[Function]}
+                onKeyUp={[Function]}
+                type="checkbox"
+                value={3}
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              mockLabel3
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <button
+      className="ant-btn ant-btn-primary btn"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginTop": "20px",
+        }
+      }
+      type="button"
+    >
+      <span>
+        Update Details
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ProductCurrency :  renders a snapshot of <ProductCurrency /> with no props 1`] = `
+<div
+  className="wrapper"
+>
+  <h3>
+    Store Currency Settings
+  </h3>
+  <div
+    className="bordered"
+  >
+    <h4>
+      Custom Product Currency - Customize your product currency
+    </h4>
+    <p>
+      Your(Creators) country currency is selected by default but you can decide to turn it off if you prefer to. You can select other options if you prefer to set the amount when adding a product on the add product section. Anyone you do not select here will be converted to automatically if allowed and selected by your customer.
+    </p>
+    <h4>
+      Customize the amount you can set when adding a product
+    </h4>
+    <div
+      className="ant-checkbox-group"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        className="ant-row"
+        style={Object {}}
+      />
+    </div>
+    <button
+      className="ant-btn ant-btn-primary btn"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginTop": "20px",
+        }
+      }
+      type="button"
+    >
+      <span>
+        Update Details
+      </span>
+    </button>
+  </div>
+</div>
+`;

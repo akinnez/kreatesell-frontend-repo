@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyDomain :  renders a snapshot of <EmptyDomain /> WITH showHeader at false 1`] = `
+<div>
+  <div
+    className="productBorder mt-4 flex items-center flex-col bg-white rounded-lg"
+  >
+    <div
+      className="text-base text-black-100 font-medium"
+    >
+      Connect an existing domain
+    </div>
+    <p
+      className="text-xs text-base-gray-200 pt-2"
+    >
+      Have a domain? Connect it here.
+    </p>
+    <div
+      className="mt-4"
+    >
+      <button
+        className="
+			btnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+        onClick={[Function]}
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Connect a domain
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EmptyDomain :  renders a snapshot of <EmptyDomain /> WITH showHeader at true 1`] = `
+<div>
+  <div
+    className="flex justify-between items-center pt-2"
+  >
+    <h3
+      className="text-black-100 font-medium text-2xl"
+    >
+      Domains
+    </h3>
+    <div>
+      <button
+        className="
+			btnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+        onClick={[Function]}
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Connect a domain
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="productBorder mt-4 flex items-center flex-col bg-white rounded-lg"
+  >
+    <div
+      className="text-base text-black-100 font-medium"
+    >
+      Connect an existing domain
+    </div>
+    <p
+      className="text-xs text-base-gray-200 pt-2"
+    >
+      Have a domain? Connect it here.
+    </p>
+    <div
+      className="mt-4"
+    >
+      <button
+        className="
+			btnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+        onClick={[Function]}
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Connect a domain
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,463 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Calendar /> 1`] = `
+<div
+  className="jsx-2734322231"
+  style={
+    Object {
+      "width": "undefined%",
+    }
+  }
+>
+  <input
+    className="jsx-2734322231 "
+    inputstyle={Object {}}
+    onChange={[Function]}
+    onClick={[Function]}
+  />
+  <div
+    className="jsx-2734322231 calendar-wrapper"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <div
+      className="jsx-2734322231 calendar-container"
+    >
+      <div
+        className="jsx-2734322231 calender-top"
+      >
+        <div
+          className="jsx-2734322231 month"
+        >
+          <span
+            className="jsx-2734322231 month-name"
+          >
+            January
+          </span>
+          <input
+            className="jsx-2734322231 year"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            onKeyPress={[Function]}
+            type="number"
+            value={2022}
+          />
+        </div>
+        <div
+          className="jsx-2734322231 calendar-cta"
+        >
+          <svg
+            className="previous"
+            fill="none"
+            height="18"
+            onClick={[Function]}
+            viewBox="0 0 18 18"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.75661 1.58567L1.68555 8.65674L8.75661 15.7278"
+              stroke="#2C2A67"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+          <svg
+            className="next"
+            fill="none"
+            height="18"
+            onClick={[Function]}
+            viewBox="0 0 18 18"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.24143 1.58567L16.3125 8.65674L9.24143 15.7278"
+              stroke="#2C2A67"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        className="jsx-2734322231 days-wrapper"
+      >
+        <div
+          className="jsx-2734322231"
+        >
+          Su
+        </div>
+        <div
+          className="jsx-2734322231"
+        >
+          Mo
+        </div>
+        <div
+          className="jsx-2734322231"
+        >
+          Tu
+        </div>
+        <div
+          className="jsx-2734322231"
+        >
+          We
+        </div>
+        <div
+          className="jsx-2734322231"
+        >
+          Th
+        </div>
+        <div
+          className="jsx-2734322231"
+        >
+          Fr
+        </div>
+        <div
+          className="jsx-2734322231"
+        >
+          Sa
+        </div>
+      </div>
+      <div
+        className="jsx-2734322231 date-wrapper"
+      >
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 active-date"
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            1
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            2
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            3
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            4
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            5
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            6
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            7
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            8
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            9
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            10
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            11
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            12
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            13
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            14
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            15
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            16
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            17
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            18
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            19
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            20
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            21
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            22
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            23
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            24
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            25
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            26
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            27
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            28
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            29
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            30
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            31
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

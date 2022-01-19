@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputButton :  renders a snapshot of <InputButton /> with mock Props and the disabled prop set at false 1`] = `
+<div>
+  <form
+    className="container"
+    onSubmit={[MockFunction]}
+  >
+    <input
+      name="mockName"
+      onChange={[MockFunction]}
+      placeholder="mockPlaceholder"
+      type="text"
+    />
+    <button
+      disabled={false}
+    >
+      <p
+        className="btnText"
+      >
+        mockBtnText
+      </p>
+      <div
+        className="btnIcon"
+      />
+    </button>
+  </form>
+</div>
+`;
+
+exports[`InputButton :  renders a snapshot of <InputButton /> with mock Props and the disabled prop set at true 1`] = `
+<div>
+  <form
+    className="container"
+    onSubmit={[MockFunction]}
+  >
+    <input
+      name="mockName"
+      onChange={[MockFunction]}
+      placeholder="mockPlaceholder"
+      type="text"
+    />
+    <button
+      disabled={true}
+    >
+      <p
+        className="btnText"
+      >
+        mockBtnText
+      </p>
+      <div
+        className="btnIcon"
+      />
+    </button>
+  </form>
+</div>
+`;

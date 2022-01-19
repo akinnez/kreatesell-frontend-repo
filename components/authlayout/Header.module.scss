@@ -1,0 +1,24 @@
+.header{
+    background-color: rgba(245, 245, 245, 1);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 25px;
+    padding-left:25px;
+    padding-right:20px;
+  
+    .nav_left,.nav_right{
+        height:100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        h2{
+            color:rgba(0, 114, 239, 1);
+            margin-top: 10px;
+        }
+
+        ul{
+            margin-top:10px;
+        }
+    }
+}

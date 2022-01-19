@@ -1,0 +1,155 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.priceCard {
+	width: 23rem;
+	height: 100%;
+	background: $base-white;
+	border: 0.5px solid $border-gray-100;
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	text-align: center;
+
+	@include screen("medium") {
+		width: 100%;
+		box-shadow: 0px 10px 30px $form-shadow;
+		border-radius: 0.5rem;
+	}
+
+	.header {
+		.title {
+			text-transform: uppercase;
+			padding-top: 2.5rem;
+			font-weight: 500;
+			font-size: 1.375rem;
+			line-height: 2rem;
+			color: $black-100;
+		}
+		.subTitle {
+			padding-top: 0.437rem;
+			font-weight: 400;
+			font-size: 0.9rem;
+			line-height: 1.3rem;
+			color: $gray-200;
+			min-height: 4.5rem;
+		}
+		hr {
+			border: 0;
+			height: 1px;
+			background: $border-gray-100;
+			margin: 0 1rem;
+			margin-top: 1rem;
+		}
+
+		@include screen("tablet") {
+			.title {
+				font-weight: 630;
+				font-size: 1.5rem;
+				line-height: 2.5rem;
+			}
+			.subTitle {
+				padding-left: 2rem;
+				padding-right: 2rem;
+				height: 4rem;
+			}
+		}
+	}
+
+	.price {
+		padding-top: 2.5rem;
+		font-weight: 800;
+		font-size: 3rem;
+		line-height: 4rem;
+		color: $black-100;
+
+		@include screen("medium") {
+			font-size: 2rem;
+			line-height: 3.375rem;
+		}
+
+		.currency {
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 1.625rem;
+		}
+
+		.month {
+			font-weight: 500;
+			font-size: 0.875rem;
+			line-height: 1.5rem;
+		}
+	}
+
+	.priceType {
+		padding-top: 1rem;
+		font-weight: 800;
+		font-size: 1.75rem;
+		line-height: 2.5rem;
+		color: $green-100;
+
+		.subPriceType {
+			color: $gray-200;
+			font-size: 1rem;
+			font-weight: 400;
+		}
+		@include screen("medium") {
+			font-weight: 600;
+			font-size: 1.375rem;
+			line-height: 2rem;
+		}
+	}
+
+	.featuresCont {
+		padding: 2rem 1.9rem 5rem 1.9rem;
+		@include flex(column, null, center);
+
+		.features {
+			width: 85%;
+			display: flex;
+			padding-bottom: 0.5rem;
+
+			.featuresContent {
+				padding-left: 0.625rem;
+				font-weight: 500;
+				font-size: 0.75rem;
+				line-height: 1.5rem;
+				color: $black-200;
+			}
+		}
+	}
+
+	.button {
+		padding-top: 2.75rem;
+		padding-bottom: 1rem;
+		.btn {
+			width: 80%;
+			height: 3.75rem;
+			font-weight: bold;
+			font-size: 1rem;
+			line-height: 1.875rem;
+		}
+		@include screen("medium") {
+			padding: 1rem 0;
+			.btn {
+				width: 90%;
+				height: 3rem;
+			}
+		}
+	}
+
+	&:hover {
+		border: none;
+		box-shadow: 0px 10px 30px $form-shadow;
+		cursor: pointer;
+		position: relative;
+		top: -2rem;
+
+		.button {
+			.btn {
+				background-color: $green-100;
+				border: none;
+			}
+		}
+	}
+}

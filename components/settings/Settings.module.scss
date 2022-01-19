@@ -1,0 +1,17 @@
+@import "../../public//css//colors.scss";
+@import "../../public//css//screens.scss";
+
+.btnStyle {
+	width: 100%;
+	font-size: 12px;
+	height: 2.3rem;
+}
+
+.modal {
+	border-radius: 0.5rem;
+	width: 50%;
+
+	@include screen("tablet") {
+		width: 90%;
+	}
+}

@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Navbar /> 1`] = `
+<nav
+  className="navContainer false"
+>
+  <div
+    className="mobileMenuCont false"
+    onClick={[Function]}
+  >
+    <div
+      className="hamburger"
+    />
+  </div>
+  <a
+    className="imgCont"
+    href="/"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "marginBottom": "10px",
+          "padding": "20px 0 10px 0",
+        }
+      }
+    >
+      <div
+        className="ant-image"
+        style={
+          Object {
+            "height": undefined,
+            "width": 170,
+          }
+        }
+      >
+        <img
+          className="ant-image-img"
+          onError={[Function]}
+          onLoad={[Function]}
+          src="/images/logo.svg"
+          style={
+            Object {
+              "height": undefined,
+            }
+          }
+        />
+      </div>
+    </div>
+  </a>
+  <div
+    className="MobileLogo"
+    onClick={[Function]}
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "marginBottom": "10px",
+          "padding": "20px 0 10px 0.5rem",
+        }
+      }
+    >
+      <div
+        className="ant-image"
+        style={
+          Object {
+            "height": undefined,
+            "width": 130,
+          }
+        }
+      >
+        <img
+          className="ant-image-img"
+          onError={[Function]}
+          onLoad={[Function]}
+          src="/images/logo.svg"
+          style={
+            Object {
+              "height": undefined,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="navLinks"
+  >
+    <ul
+      className="categoryLinks"
+    >
+      <li
+        className="drop"
+        onClick={[Function]}
+      >
+        <span
+          className="navLinkDrop"
+        >
+          Resources
+        </span>
+        <img
+          src="[jest.find('../utils')]"
+        />
+      </li>
+      <li>
+        <a
+          className=""
+          href="/features"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Features
+        </a>
+      </li>
+      <li>
+        <a
+          className=""
+          href="/pricing"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Pricing
+        </a>
+      </li>
+      <li>
+        <a
+          className=""
+          href="/blog"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Blog
+        </a>
+      </li>
+      <li>
+        <a
+          className=""
+          href="/faq"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          FAQS
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="hidden"
+  >
+    <ul
+      className="mobileCategoryLinks"
+    >
+      <li
+        onClick={[Function]}
+      >
+        How it works
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        Features
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        Pricing
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        Blog
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        FAQs
+      </li>
+    </ul>
+    <div
+      className="mobileInput"
+    >
+      <div
+        className="undefined inputContainer"
+      >
+        <label
+          className="label undefined"
+        />
+        <input
+          className="undefined false false input"
+          placeholder="Enter your email..."
+          type=""
+        />
+      </div>
+    </div>
+    <div
+      className="mobileButton"
+    >
+      <button
+        className="
+			freeBtn
+			button
+			false 
+			btnBlue
+			false
+			"
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Get Started Free
+        </div>
+      </button>
+    </div>
+    <div
+      className="benefits"
+    >
+      <span
+        className="benefitSpan"
+      >
+        Signup for free
+      </span>
+      <span
+        className="benefitSpan"
+      >
+        • Easy setup
+      </span>
+      <span
+        className="benefitSpan"
+      >
+        • Fast payout
+      </span>
+    </div>
+  </div>
+  <div
+    className="btnLinks"
+  >
+    <div
+      className="loginBtn"
+      onClick={[Function]}
+    >
+      <button
+        className="
+			loginBtnStyle
+			button
+			btnWhite 
+			false
+			false
+			"
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Login
+        </div>
+      </button>
+    </div>
+    <div
+      className="signUpBtn"
+      onClick={[Function]}
+    >
+      <button
+        className="
+			signUpBtnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Signup
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="mobileBtnLinks"
+  >
+    <div
+      className="loginBtn"
+      onClick={[Function]}
+    >
+      <button
+        className="
+			loginBtnStyle
+			button
+			btnWhite 
+			false
+			false
+			"
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Login
+        </div>
+      </button>
+    </div>
+    <div
+      className="signUpBtn"
+      onClick={[Function]}
+    >
+      <button
+        className="
+			signUpBtnStyle
+			button
+			false 
+			btnBlue
+			false
+			"
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Signup Free
+        </div>
+      </button>
+    </div>
+  </div>
+</nav>
+`;

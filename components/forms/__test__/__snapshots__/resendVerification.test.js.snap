@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <ResendVerificationEmailForm /> 1`] = `
+Array [
+  <form
+    autoComplete="off"
+    onSubmit={[Function]}
+  >
+    <div
+      className="undefined inputContainer"
+    >
+      <label
+        className="label undefined"
+        htmlFor="email"
+      >
+        Email
+      </label>
+      <input
+        className="undefined false false input"
+        name="email"
+        onChange={[Function]}
+        placeholder="Enter your Email"
+      />
+    </div>
+    <div
+      className="terms"
+    >
+      <a
+        href="/forgot-password"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Forgot Password?
+      </a>
+    </div>
+    <button
+      className="
+			undefined
+			button
+			false 
+			false
+			primaryBlue
+			"
+      type="submit"
+    >
+      <div
+        className="buttonValue"
+      >
+        Submit
+      </div>
+    </button>
+  </form>,
+  <div
+    className="footer"
+  >
+    Don’t have an account?
+     
+    <a
+      href="/signup"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      Get Started
+    </a>
+     
+  </div>,
+]
+`;

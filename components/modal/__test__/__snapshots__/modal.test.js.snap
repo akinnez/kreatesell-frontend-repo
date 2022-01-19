@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal :  renders a snapshot of <Modal /> with mock props 1`] = `
+<div
+  className="
+			modal
+			hidden 
+			false 
+			undefined
+			"
+  onClick={[Function]}
+>
+  <div
+    className="container undefined"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`Modal :  renders a snapshot of <Modal /> with mock props and closeButton and cancelPropagation both at true and visible set at false 1`] = `
+<div
+  className="
+			modal
+			hidden 
+			false 
+			undefined
+			"
+  onClick={[Function]}
+>
+  <div
+    className="container undefined"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`Modal :  renders a snapshot of <Modal /> with mock props and closeButton set at false and cancelPropagation at false,  visible set at false 1`] = `
+<div
+  className="
+			modal
+			hidden 
+			false 
+			undefined
+			"
+  onClick={[Function]}
+>
+  <div
+    className="container undefined"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`Modal :  renders a snapshot of <Modal /> with mock props and closeButton set at false and cancelPropagation at false,  visible set at true 1`] = `
+<div
+  className="
+			modal
+			hidden 
+			false 
+			undefined
+			"
+  onClick={[Function]}
+>
+  <div
+    className="container undefined"
+    onClick={[Function]}
+  >
+    <div
+      className="modalContent"
+    />
+  </div>
+</div>
+`;
+
+exports[`Modal :  renders a snapshot of <Modal /> with mock props and closeButton set at false and cancelPropagation at true,  visible set at true 1`] = `
+<div
+  className="
+			modal
+			false 
+			styleDisplay 
+			undefined
+			"
+  onClick={[Function]}
+>
+  <div
+    className="container undefined"
+    onClick={[Function]}
+  >
+    <div
+      className="modalContent"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Meta /> 1`] = `
+Array [
+  <meta
+    data-charset="UTF-8"
+  />,
+  <meta
+    content="width=device-width, initial-scale=1.0"
+    name="viewport"
+  />,
+  <meta
+    content="KreateSell"
+    name="title"
+  />,
+  <meta
+    content="KreateSell"
+    name="author"
+  />,
+  <meta
+    content="#b8c1ec"
+    name="theme-color"
+  />,
+  <meta
+    content=""
+    name="pagename"
+  />,
+  <meta
+    content="https://kreatesell.com"
+    name="url"
+  />,
+  <meta
+    content="KreateSell"
+    itemProp="name"
+  />,
+  <meta
+    content="KreateSell"
+    property="og:site_name"
+  />,
+  <meta
+    content="website"
+    property="og:type"
+  />,
+  <meta
+    content="https://kreatesell.com"
+    property="og:url"
+  />,
+  <meta
+    content="KreateSell"
+    property="og:title"
+  />,
+  <meta
+    content=""
+    property="og:description"
+  />,
+  <meta
+    content="summary"
+    property="twitter:card"
+  />,
+  <meta
+    content="https://kreatesell.com"
+    property="twitter:url"
+  />,
+  <meta
+    content="KreateSell"
+    property="twitter:title"
+  />,
+  <meta
+    content="@KreateSell"
+    name="twitter:site"
+  />,
+  <meta
+    content="@KreateSell"
+    name="twitter:creator"
+  />,
+  <meta
+    content="A picture of KreateSell"
+    property="twitter:image:alt"
+  />,
+  <meta
+    content="mockKeyword"
+    name="keywords"
+  />,
+  <meta
+    content="This is  a mock description"
+    name="description"
+  />,
+  <link
+    href="/favicon.ico"
+    rel="icon"
+  />,
+  <title>
+    mockTitle
+  </title>,
+]
+`;
