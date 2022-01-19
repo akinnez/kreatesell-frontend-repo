@@ -9,17 +9,9 @@ pipelines:
   default:
     - parallel:
         - step:
-<<<<<<< HEAD
-            name: Build and Test
-=======
             name: Push to Heroku
->>>>>>> 1b1671bd526a311fd871e7af949101c4a3674f34
             caches:
               - node
             script:
               - npm install
-<<<<<<< HEAD
-              - npm run build
-=======
->>>>>>> 1b1671bd526a311fd871e7af949101c4a3674f34
               - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/kreatesell.git HEAD
