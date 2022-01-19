@@ -74,10 +74,6 @@ Array [
     name="twitter:creator"
   />,
   <meta
-    content="Rocket Global"
-    property="twitter:description"
-  />,
-  <meta
     content="A picture of KreateSell"
     property="twitter:image:alt"
   />,

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <ResourceDrop /> with mockValues 1`] = `
+<section
+  className="navResourceContainer"
+  onMouseLeave={[MockFunction]}
+  style={
+    Object {
+      "left": "200",
+    }
+  }
+>
+  <div
+    className="resourceItem"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    How it works
+  </div>
+  <div
+    className="resourceItem"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    Payments
+  </div>
+</section>
+`;

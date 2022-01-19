@@ -12,6 +12,14 @@
   background-color: $base-white;
   z-index: 1;
   margin-bottom: 10rem !important;
+  transition: padding 0.2s;
+  @media screen and (min-width: 769px) {
+    padding: 1rem 10.31rem 1rem 2rem;
+  }
+
+  @include minScreen("laptop") {
+    padding: 1rem 10.31rem;
+  }
 }
 
 .mobileMenuCont {
@@ -58,7 +66,8 @@
     line-height: 1.625rem;
     color: $base-gray;
     flex-wrap: nowrap;
-
+    font-weight: 600;
+    transition: color 0.2s;
     :hover {
       font-weight: 600;
       color: $base-blue;
@@ -209,8 +218,10 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          & > .navLinkDrop {
+
+          & > span {
             margin-right: 0.5rem;
+            display: none !important;
           }
           .navLinkDrop + div {
             color: $black-100 !important;
@@ -231,6 +242,10 @@
       padding: 5rem 1rem;
       overflow-y: scroll;
 
+      .inner {
+        overflow-y: scroll;
+        height: 100%;
+      }
       .mobileCategoryLinks {
         list-style: none;
         font-weight: 800;
@@ -338,6 +353,39 @@
 
     &:hover {
       background-color: #f5f5f5;
+    }
+  }
+}
+
+@include minScreen("tablet") {
+  .navLinks {
+    margin-right: 2.5rem;
+    .categoryLinks {
+      li {
+        margin-right: 0.5rem;
+        &:first-child {
+          margin-left: 0.8rem;
+        }
+      }
+      .drop {
+        min-width: 90px;
+      }
+    }
+  }
+}
+
+@include minScreen("laptop") {
+  .navLinks {
+    margin-right: unset;
+    .categoryLinks {
+      li {
+        &:first-child {
+          margin-left: unset;
+        }
+      }
+      .drop {
+        min-width: 90px;
+      }
     }
   }
 }

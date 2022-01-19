@@ -256,7 +256,7 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
           <span
             className="jsx-2734322231 month-name"
           >
-            November
+            January
           </span>
           <input
             className="jsx-2734322231 year"
@@ -264,7 +264,7 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
             onKeyDown={[Function]}
             onKeyPress={[Function]}
             type="number"
-            value={2021}
+            value={2022}
           />
         </div>
         <div
@@ -353,6 +353,21 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
         />
         <div
           className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 "
+        />
+        <div
+          className="jsx-2734322231 active-date"
         >
           <span
             className="jsx-2734322231"
@@ -582,7 +597,7 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
           </span>
         </div>
         <div
-          className="jsx-2734322231 active-date"
+          className="jsx-2734322231 "
         >
           <span
             className="jsx-2734322231"
@@ -649,6 +664,16 @@ exports[`DatePicker :  renders a snapshot of <DatePicker /> with mock props 1`] 
             onClick={[Function]}
           >
             30
+          </span>
+        </div>
+        <div
+          className="jsx-2734322231 "
+        >
+          <span
+            className="jsx-2734322231"
+            onClick={[Function]}
+          >
+            31
           </span>
         </div>
       </div>

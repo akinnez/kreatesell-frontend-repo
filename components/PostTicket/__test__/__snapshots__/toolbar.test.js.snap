@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Editor data :  renders a snapshot of formats data 1`] = `
+Array [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "script",
+  "blockquote",
+  "list",
+  "bullet",
+]
+`;
+
+exports[`Editor data :  renders a snapshot of modules data 1`] = `
+Object {
+  "history": Object {
+    "delay": 500,
+    "maxStack": 100,
+    "userOnly": true,
+  },
+  "toolbar": Object {
+    "container": "#toolbar",
+  },
+}
+`;
+
+exports[`QuillToolbar :  renders a snapshot of <QuillToolbar /> 1`] = `
+<div
+  id="toolbar"
+>
+  <span
+    className="ql-formats"
+  >
+    <select
+      className="ql-header"
+      defaultValue="3"
+    >
+      <option
+        value="1"
+      >
+        Heading
+      </option>
+      <option
+        value="2"
+      >
+        Subheading
+      </option>
+      <option
+        value="3"
+      >
+        Normal
+      </option>
+    </select>
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-bold"
+    />
+    <button
+      className="ql-italic"
+    />
+    <button
+      className="ql-underline"
+    />
+    <button
+      className="ql-strike"
+    />
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-list"
+      value="ordered"
+    />
+    <button
+      className="ql-list"
+      value="bullet"
+    />
+    <button
+      className="ql-indent"
+      value="-1"
+    />
+    <button
+      className="ql-indent"
+      value="+1"
+    />
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-script"
+      value="super"
+    />
+    <button
+      className="ql-script"
+      value="sub"
+    />
+    <button
+      className="ql-blockquote"
+    />
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <select
+      className="ql-color"
+    />
+    <select
+      className="ql-background"
+    />
+  </span>
+</div>
+`;

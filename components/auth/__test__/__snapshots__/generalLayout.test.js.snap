@@ -74,10 +74,6 @@ Array [
     name="twitter:creator"
   />,
   <meta
-    content="Rocket Global"
-    property="twitter:description"
-  />,
-  <meta
     content="A picture of KreateSell"
     property="twitter:image:alt"
   />,
@@ -189,15 +185,18 @@ Array [
       <ul
         className="categoryLinks"
       >
-        <li>
-          <a
-            className=""
-            href="/how-it-works"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
+        <li
+          className="drop"
+          onClick={[Function]}
+        >
+          <span
+            className="navLinkDrop"
           >
-            How it works
-          </a>
+            Resources
+          </span>
+          <img
+            src="[jest.find('../utils')]"
+          />
         </li>
         <li>
           <a
@@ -693,9 +692,7 @@ Array [
             Tutorials
           </a>
           <a
-            href="/undefined#"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
+            href="https://wa.me/+2349016324945"
           >
             Contact Support
           </a>
@@ -718,21 +715,28 @@ Array [
           className="categoryLink"
         >
           <a
-            href="/undefined#"
+            href="/legal/cookie-policy"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             Cookies Policy
           </a>
           <a
-            href="/undefined#"
+            href="/legal/privacy-policy"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
             Privacy Policy
           </a>
           <a
-            href="/undefined#"
+            href="/legal/affiliate-policy"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Affiliate Policy
+          </a>
+          <a
+            href="/legal/terms-of-service"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -912,9 +916,7 @@ Array [
               Tutorials
             </a>
             <a
-              href="/undefined#"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
+              href="https://wa.me/+2349016324945"
             >
               Contact Support
             </a>
@@ -939,21 +941,28 @@ Array [
             className="categoryLink"
           >
             <a
-              href="/undefined#"
+              href="/legal/cookie-policy"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
               Cookies Policy
             </a>
             <a
-              href="/undefined#"
+              href="/legal/privacy-policy"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
               Privacy Policy
             </a>
             <a
-              href="/undefined#"
+              href="/legal/affiliate-policy"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              Affiliate Policy
+            </a>
+            <a
+              href="/legal/terms-of-service"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -1012,7 +1021,7 @@ Array [
           className="mobileCopyright"
         >
           Copyright © 
-          2021
+          2022
            Kreatesell. All Rights Reserved
         </div>
       </div>

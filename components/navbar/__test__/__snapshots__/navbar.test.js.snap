@@ -94,15 +94,18 @@ exports[`renders a snapshot of <Navbar /> 1`] = `
     <ul
       className="categoryLinks"
     >
-      <li>
-        <a
-          className=""
-          href="/how-it-works"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
+      <li
+        className="drop"
+        onClick={[Function]}
+      >
+        <span
+          className="navLinkDrop"
         >
-          How it works
-        </a>
+          Resources
+        </span>
+        <img
+          src="[jest.find('../utils')]"
+        />
       </li>
       <li>
         <a

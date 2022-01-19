@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ProductHeader renders correctly in snapshot 1`] = `
+exports[`renders a snapshot of <TicketsHeader /> 1`] = `
 <div
   className="w-full productHeader"
 >
@@ -156,7 +156,7 @@ exports[`<ProductHeader renders correctly in snapshot 1`] = `
       <label
         className="label"
       >
-        Product Status
+        Product Type
       </label>
       <div
         className="selectOptions h-11 css-2b097c-container"
@@ -280,6 +280,8 @@ exports[`<ProductHeader renders correctly in snapshot 1`] = `
     <div>
       <input
         className="date"
+        defaultValue="2022-01-01"
+        onChange={[MockFunction]}
         type="date"
       />
     </div>
@@ -295,12 +297,15 @@ exports[`<ProductHeader renders correctly in snapshot 1`] = `
     <div>
       <input
         className="date"
+        defaultValue="2022-01-01"
+        onChange={[MockFunction]}
         type="date"
       />
     </div>
   </div>
   <div
     className="h-16 py-5 w-full cursor-pointer filterCont"
+    onClick={[MockFunction]}
   >
     <img
       src="[jest.find('../utils')]"
