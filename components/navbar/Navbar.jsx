@@ -16,6 +16,7 @@ export const Navbar = () => {
   // const navDropIsInView = useSelector((state) => state.)
 
   // state for navDrop
+  // .
   const [navDrop, setNavDrop] = useState({
     isVisible: false,
     leftOffset: 0,
@@ -147,7 +148,7 @@ export const Navbar = () => {
               </li>
             </ul>
             <div className={styles.mobileInput}>
-              <Input type="" placeholder="Enter your email...." />
+              <Input type="" placeholder="Enter your email..." />
             </div>
             <div className={styles.mobileButton}>
               <Button
