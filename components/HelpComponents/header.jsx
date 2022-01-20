@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 import style from "./Header.module.scss";
-import { DatePicker, Space, Form, Input as AntInput } from "antd";
-import { Button, Select } from "../form-input";
+import { DatePicker, Select, Space, Form, Input as AntInput } from "antd";
+import { Button } from "../form-input";
 import { FilterIcon } from "../IconPack";
 import { useRouter } from "next/router";
-const HelpHeader = () => {
+import axios from "axios";
+import useSWR from "swr";
+
+const HelpHeader = ({ department }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  const fetcher = () =>
+    axios
+      .get(`${process.env.BASE_URL}admin/DepartmentList`)
+      .then((res) => res?.data?.data)
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
+
+  const { data: departments, error } = useSWR(
+    `${process.env.BASE_URL}admin/DepartmentList`,
+    fetcher
+  );
 
   return (
     <>
@@ -37,20 +53,23 @@ const HelpHeader = () => {
           <Select
             placeholder="Department"
             label="Department"
-            defaultValue=""
-            style={{ width: "180px" }}
+            defaultValue="Department"
+            style={{ width: "180px", color: "#8c8c8c" }}
             size="large"
           >
-            <Select.Option value="Billing">Billing</Select.Option>
-            <Select.Option value="Technical">Technical</Select.Option>
-            <Select.Option value="Service">Service</Select.Option>
-            <Select.Option value="Account">Account</Select.Option>
+            {departments &&
+              departments?.length > 0 &&
+              departments?.map((dept) => (
+                <Select.Option key={dept.id} value={dept.name}>
+                  {dept.name}
+                </Select.Option>
+              ))}
           </Select>
           <Select
             placeholder="All Ticket"
             label="All Ticket"
             defaultValue=""
-            style={{ width: "180px" }}
+            style={{ width: "180px", color: "#8c8c8c" }}
             size="large"
           >
             <Select.Option value="">All Tickets</Select.Option>
@@ -58,7 +77,7 @@ const HelpHeader = () => {
             <Select.Option value="Closed Tickets">Closed Tickets</Select.Option>
           </Select>
 
-          <Form.Item label="Show from">
+          <Form.Item label="Show From">
             <DatePicker size="large" className={style.input} />
           </Form.Item>
           <Form.Item label="To">

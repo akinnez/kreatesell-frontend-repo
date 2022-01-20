@@ -8,21 +8,31 @@ import styles from "./fileupload.module.scss";
 import { AiFillDelete } from "react-icons/ai";
 
 function FileUpload({ files, setFiles }) {
-  const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
+  const {
+    getRootProps,
+    acceptedFiles,
+    fileRejections,
+    getInputProps,
+    open,
+    isDragActive,
+  } = useDropzone({
     accept: "image/*",
-    maxFiles: 3,
+    maxFiles: 5,
+    noClick: files?.length >= 5,
     multiple: true,
     onDrop: (acceptedFiles) => {
-      setFiles((prevState) => {
-        return [
-          ...prevState,
-          ...acceptedFiles.map((file) =>
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
-            })
-          ),
-        ];
-      });
+      if (files?.length < 5) {
+        setFiles((prevState) => {
+          return [
+            ...prevState,
+            ...acceptedFiles.map((file) =>
+              Object.assign(file, {
+                preview: URL.createObjectURL(file),
+              })
+            ),
+          ];
+        });
+      }
     },
   });
 
@@ -52,7 +62,11 @@ function FileUpload({ files, setFiles }) {
   return (
     <section>
       <div className={styles.fileUploadWrapper}>
-        <div {...getRootProps()} className={styles.fileUploadContainer}>
+        <div
+          {...getRootProps()}
+          className={styles.fileUploadContainer}
+          style={{ cursor: files?.length >= 5 && "not-allowed" }}
+        >
           <input {...getInputProps()} />
           {isDragActive ? (
             <div className={styles.fileUploadDiv}>
@@ -63,16 +77,19 @@ function FileUpload({ files, setFiles }) {
             <div className={styles.fileUploadDiv}>
               <IoCloudUploadOutline className={styles.uploadIcon} />
               <p className={styles.dragText}>
-                Drag and drop or click to upload files
+                Drag and drop or click to upload files, maximum number of files
+                (5) five
               </p>
             </div>
           )}
         </div>
         <Button
+          style={{ cursor: files?.length >= 5 && "not-allowed" }}
           text="Add more"
           className={styles.addFileBtn}
           leftIcon={<FaPlus className={styles.iconSize} />}
           onClick={open}
+          disabled={files?.length >= 5}
         />
       </div>
       <div className={styles.thumbsContainer}>

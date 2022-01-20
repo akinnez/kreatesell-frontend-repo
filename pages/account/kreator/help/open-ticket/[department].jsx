@@ -59,6 +59,7 @@ const CardBody = (props) => {
     handleChangeSubject,
     handleChangeMessage,
     handleSubmit,
+    submitting,
   } = props;
 
   return (
@@ -92,12 +93,18 @@ const CardBody = (props) => {
         <FileUpload files={files} setFiles={setFiles} />
         <br />
         <div style={{ marginTop: "6px" }}>
-          <Button bgColor="blue" text="Submit" onClick={() => handleSubmit()} />
+          <Button
+            disabled={submitting}
+            bgColor="blue"
+            text="Submit"
+            onClick={() => handleSubmit()}
+          />
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           <Button
+            disabled={submitting}
             text="Cancel"
             className={styles.cancelSubmit}
-            onClick={() => handleCloseEditor()}
+            onClick={() => null}
           />
         </div>
       </div>
@@ -111,30 +118,39 @@ const Department = () => {
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChangeSubject = (e) => setSubject(e.target.value);
   const handleChangeMessage = (e) => setMessage(e);
-  const handleSubmit = () => {
-    const data = {
-      subject,
-      message,
-      department: router?.query?.department,
-    };
-    if (!subject || !message) {
-      showToast("All fields are required", "error");
-    }
 
-    console.log(data);
+  const handleSubmit = () => {
+    console.log("ddddddddd", files);
+    setSubmitting(true);
+    if (!subject || subject === "" || !message || message === "") {
+      return showToast("All fields are required", "error");
+    }
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append("ImagePaths", files[i]);
+    }
+    formData.append("Subject", subject);
+    formData.append("Message", message);
+    formData.append("Department", router?.query?.department);
+
     axios
-      .post(`${process.env.BASE_URL}tickets/Create`, data)
+      .post(`${process.env.BASE_URL}tickets/Create`, formData)
       .then((res) => {
         setSubject("");
         setMessage("");
+        setFiles([]);
         showToast("Ticket have been opend successfully", "success");
+        setSubmitting(false);
       })
       .catch((err) => {
         console.log("sssssss", err);
         showToast(`${err.message}`, "error");
+        setSubmitting(false);
       });
   };
   return (
@@ -151,6 +167,7 @@ const Department = () => {
           files={files}
           setFiles={setFiles}
           handleSubmit={handleSubmit}
+          submitting={submitting}
         />
       </div>
     </AuthLayout>
