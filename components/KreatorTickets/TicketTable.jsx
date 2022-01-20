@@ -1,5 +1,4 @@
 import { Table } from "./Table";
-import { AllTicketsHeader } from "./TableHeader";
 import { DownloadIcon, RightArrow } from "utils";
 import styles from "./TicketsTable.module.scss";
 import Image from "next/image";
