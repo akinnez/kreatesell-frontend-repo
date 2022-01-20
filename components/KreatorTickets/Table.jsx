@@ -41,13 +41,14 @@ const PendingDiv = ({ text }) => {
   return (
     <div
       style={{
-        background: "#1455e042",
+        background: "#f8cb0028",
+        color: "#e9be00",
         borderRadius: "5px",
         width: "80px",
         textAlign: "center",
       }}
     >
-      <p style={{ color: "#002d8f" }}>{text}</p>
+      <p style={{ color: "#e9be00" }}>{text}</p>
     </div>
   );
 };

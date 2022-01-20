@@ -8,9 +8,10 @@ export const dayOptions = [
 ];
 
 export const ticketsOptions = [
-  { value: "All Tickets", label: "All Tickets" },
-  { value: "Opened Tickets", label: "Open Tickets" },
-  { value: "Closed Tickets", label: "Closed Tickets" },
+  { value: "", label: "All Tickets" },
+  { value: "opened", label: "Open Tickets" },
+  { value: "closed", label: "Closed Tickets" },
+  { value: "pending", label: "Pending Tickets" },
 ];
 
 // export const affiliateOptions = [
