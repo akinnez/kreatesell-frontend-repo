@@ -16,6 +16,7 @@ export const Navbar = () => {
   // const navDropIsInView = useSelector((state) => state.)
 
   // state for navDrop
+  // .
   const [navDrop, setNavDrop] = useState({
     isVisible: false,
     leftOffset: 0,

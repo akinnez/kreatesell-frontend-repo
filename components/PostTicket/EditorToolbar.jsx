@@ -29,6 +29,8 @@ export const formats = [
   "blockquote",
   "list",
   "bullet",
+  "color",
+  "background",
 ];
 
 // Quill Toolbar component
