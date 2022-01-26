@@ -34,6 +34,7 @@ import {
   LinkedinIcon,
   WhatsappIcon,
 } from "react-share";
+import { DiscussionEmbed } from "disqus-react";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
   const router = useRouter();
@@ -43,6 +44,12 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
   const handleCopyLink = () => {
     navigator.clipboard.writeText(genUrl);
     showToast("Link Copied", "success");
+  };
+
+  const disqusConfig = {
+    url: genUrl,
+    identifier: blog.id,
+    title: blog.title,
   };
 
   const bgStyle = { fill: "#000000" };
@@ -243,6 +250,11 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                 </div>
               </section>
             </div>
+            {/* Disqus Section */}
+            <DiscussionEmbed
+              shortname={process.env.DISQUS_SHORTNAME}
+              config={disqusConfig}
+            />
           </section>
           <aside className={styles.aside}>
             <h3 className={styles.heading}>Latest Posts</h3>
@@ -312,7 +324,7 @@ export async function getStaticPaths(context) {
     console.log(error);
   }
   const paths = result?.data?.data?.map((item, index) => ({
-    params: { title: item?.category || null, id: item?.id },
+    params: { title: item?.category || null, id: item?.id || null },
   }));
 
   return {

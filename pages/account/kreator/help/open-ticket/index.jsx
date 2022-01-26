@@ -75,7 +75,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      department: result?.data?.data,
+      department: result?.data?.data ? result?.data?.data : [],
     },
   };
 }
