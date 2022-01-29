@@ -3,7 +3,7 @@ import { ChargeBackTable } from "components/ChargebackComponents/ChargeBackTable
 import { ChargeBackHeader } from "components/ChargebackComponents/ChargeBackHeader";
 import AcceptChargebackDialog from "components/ChargebackComponents/AcceptChargebackDialog";
 import { checkExpiredUserToken, getUserToken, showToast } from "utils";
-import AuthLayout from "components/authLayout";
+import AuthLayout from "components/authlayout";
 import styles from "public/css/Chargebacks.module.scss";
 import { Pagination } from "antd";
 import { useState, useEffect } from "react";
