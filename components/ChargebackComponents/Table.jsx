@@ -37,51 +37,8 @@ const ErrorDiv = ({ text }) => {
     </div>
   );
 };
-const PendingDiv = ({ text }) => {
-  return (
-    <div
-      style={{
-        background: "#f8cb0028",
-        color: "#e9be00",
-        borderRadius: "5px",
-        width: "80px",
-        textAlign: "center",
-      }}
-    >
-      <p style={{ color: "#e9be00" }}>{text}</p>
-    </div>
-  );
-};
 
-const header = [
-  {
-    title: "Ticket ID",
-    key: "ticket_id",
-  },
-
-  {
-    title: "Subject",
-    key: "subject",
-  },
-  {
-    title: "Date",
-    key: "date_created",
-  },
-  {
-    title: "Department",
-    key: "department",
-  },
-
-  {
-    title: "Status",
-    key: "status",
-  },
-  // {
-  //   title: "Actions",
-  //   key: "actions",
-  // },
-];
-export const Table = ({ data }) => {
+export const Table = ({ header, data, loading }) => {
   const [openPopOver, setOpenPopOver] = useState(false);
   return (
     <div className={styles.tableContainer}>
@@ -99,27 +56,23 @@ export const Table = ({ data }) => {
             {data?.map((item, i) => (
               <tr key={item?.id || i}>
                 <td>{item.id}</td>
-                <td>{item.heading}</td>
-                <td>{moment(item.date).format("YYYY-MM-DD HH:mm:ss")}</td>
+                <td>{item.name}</td>
+                <td>{item.desc}</td>
                 <td>{item.department}</td>
-
+                <td>{moment(item.date).format("YYYY-MM-DD HH:mm:ss")}</td>
                 <td>
-                  {item.status?.toLowerCase() === "closed" ? (
-                    <SuccessDiv text="Closed" /> ? (
-                      item.status?.toLowerCase() === "answered"
-                    ) : (
-                      <SuccessDiv text="Answered" />
-                    )
+                  {item.status ? (
+                    <ErrorDiv text="Open" />
                   ) : (
-                    <PendingDiv text={"Pending"} />
+                    <SuccessDiv text="Closed" />
                   )}
                 </td>
-                {/* <td>
+                <td>
                   <Popover
                     placement="bottomRight"
                     title={null}
                     content={
-                      <ul className={styles.popoverUl}>
+                      <u className={styles.popoverUl}>
                         <li className={styles.popoverLi}>
                           <AiOutlineEye className={styles.popoverIcon} />
                           <p>View Ticket</p>
@@ -132,13 +85,13 @@ export const Table = ({ data }) => {
                           <AiOutlineClose className={styles.popoverIcon} />
                           <p>Close</p>
                         </li>
-                      </ul>
+                      </u>
                     }
                     trigger="click"
                   >
                     {<IoEllipsisHorizontal className={styles.horizButton} />}
                   </Popover>
-                </td> */}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -148,8 +101,13 @@ export const Table = ({ data }) => {
       {!Boolean(data?.length) && (
         <div className="w-full h-full flex flex-col items-center justify-center p-8">
           <div>
-            <Image src={EmptyDataTable} />
+            <Image src={EmptyDataTable} alt="empty table" />
           </div>
+          {loading ? (
+            <div>Loading Data ...</div>
+          ) : (
+            <div className="text-center mt-3 bolder">No available data</div>
+          )}
         </div>
       )}
     </div>

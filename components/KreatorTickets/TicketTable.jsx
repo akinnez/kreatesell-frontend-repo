@@ -24,12 +24,14 @@ const TicketTable = ({ tickets, handlePaginationChange, page }) => {
           </div>
           {/* <RightArrow color="#0072EF" /> */}
         </div>
-        <div className={styles.ticketsTopSectionInner}>
-          <div className="text-primary-blue  font-semibold text-xs pr-2">
-            Export Data in CSV
+        {tickets?.length && (
+          <div className={styles.ticketsTopSectionInner}>
+            <div className="text-primary-blue  font-semibold text-xs pr-2">
+              Export Data in CSV
+            </div>
+            <Image src={DownloadIcon} />
           </div>
-          <Image src={DownloadIcon} />
-        </div>
+        )}
       </div>
 
       <div>

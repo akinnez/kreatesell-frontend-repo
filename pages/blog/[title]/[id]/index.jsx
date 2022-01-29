@@ -7,7 +7,7 @@ import {
   BlogHero,
   showToast,
 } from "utils";
-import styles from "../../../../public/css/SingleBlog.module.scss";
+import styles from "public/css/SingleBlog.module.scss";
 import axios from "axios";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { IoFolderOpenSharp } from "react-icons/io5";
@@ -250,11 +250,15 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                 </div>
               </section>
             </div>
+            <br />
+            <br />
             {/* Disqus Section */}
-            <DiscussionEmbed
-              shortname={process.env.DISQUS_SHORTNAME}
-              config={disqusConfig}
-            />
+            <div className={styles.disqusSection}>
+              <DiscussionEmbed
+                shortname={process.env.DISQUS_SHORTNAME}
+                config={disqusConfig}
+              />
+            </div>
           </section>
           <aside className={styles.aside}>
             <h3 className={styles.heading}>Latest Posts</h3>
