@@ -30,8 +30,17 @@
         font-size: 24px;
         margin-right: 15px;
       }
+      .uploadIconRed {
+        color: $notification-bg;
+        font-size: 24px;
+        margin-right: 15px;
+      }
       .dragText {
         color: $base-blue;
+        margin-top: 8px;
+      }
+      .dragTextRed {
+        color: $notification-bg;
         margin-top: 8px;
       }
     }

@@ -15,7 +15,7 @@ import { MdReply, MdClose } from "react-icons/md";
 import FileUpload from "components/PostTicket/FileUpload";
 import styles from "../../../../../public/css/PostTicket.module.scss";
 import { Input } from "components/input/Input";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import axios from "axios";
 import { showToast } from "utils";
 
@@ -60,8 +60,11 @@ const CardBody = (props) => {
     handleChangeMessage,
     handleSubmit,
     submitting,
+    uploadingFiles,
+    setUploadingFiles,
   } = props;
 
+  const router = useRouter();
   return (
     <div>
       <div className={styles.cardResponsDiv}>
@@ -90,11 +93,16 @@ const CardBody = (props) => {
 
         <br />
         <h6>Attachment</h6>
-        <FileUpload files={files} setFiles={setFiles} />
+        <FileUpload
+          files={files}
+          setFiles={setFiles}
+          uploadingFiles={uploadingFiles}
+          setUploadingFiles={setUploadingFiles}
+        />
         <br />
         <div style={{ marginTop: "6px" }}>
           <Button
-            disabled={submitting}
+            disabled={submitting || files?.length > 5}
             bgColor="blue"
             text="Submit"
             onClick={() => handleSubmit()}
@@ -104,7 +112,7 @@ const CardBody = (props) => {
             disabled={submitting}
             text="Cancel"
             className={styles.cancelSubmit}
-            onClick={() => null}
+            onClick={() => router.back()}
           />
         </div>
       </div>
@@ -116,6 +124,7 @@ const Department = () => {
   const router = useRouter();
 
   const [files, setFiles] = useState([]);
+  const [uploadingFiles, setUploadingFiles] = useState([]);
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -124,15 +133,17 @@ const Department = () => {
   const handleChangeMessage = (e) => setMessage(e);
 
   const handleSubmit = () => {
-    console.log("ddddddddd", files);
+    //   console.log("aaaaaaaaa", files);
+    // console.log("ddddddddd", uploadingFiles);
     setSubmitting(true);
     if (!subject || subject === "" || !message || message === "") {
+      setSubmitting(false);
       return showToast("All fields are required", "error");
     }
     const formData = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-      formData.append("ImagePaths", files[i]);
+    for (let i = 0; i < uploadingFiles.length; i++) {
+      formData.append("ImagePaths", uploadingFiles[i]);
     }
     formData.append("Subject", subject);
     formData.append("Message", message);
@@ -148,7 +159,7 @@ const Department = () => {
         setSubmitting(false);
       })
       .catch((err) => {
-        console.log("sssssss", err);
+        // console.log("sssssss", err);
         showToast(`${err.message}`, "error");
         setSubmitting(false);
       });
@@ -168,6 +179,8 @@ const Department = () => {
           setFiles={setFiles}
           handleSubmit={handleSubmit}
           submitting={submitting}
+          uploadingFiles={uploadingFiles}
+          setUploadingFiles={setUploadingFiles}
         />
       </div>
     </AuthLayout>

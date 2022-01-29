@@ -7,7 +7,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import styles from "./fileupload.module.scss";
 import { AiFillDelete } from "react-icons/ai";
 
-function FileUpload({ files, setFiles }) {
+function FileUpload({ files, setFiles, uploadingFiles, setUploadingFiles }) {
   const {
     getRootProps,
     acceptedFiles,
@@ -30,8 +30,11 @@ function FileUpload({ files, setFiles }) {
                 preview: URL.createObjectURL(file),
               })
             ),
-          ];
+          ].slice(0, 5);
         });
+        setUploadingFiles([...uploadingFiles, ...acceptedFiles]);
+      } else {
+        return null;
       }
     },
   });
@@ -41,8 +44,8 @@ function FileUpload({ files, setFiles }) {
     newFiles = newFiles.filter((item) => file.name !== item.name);
     setFiles(newFiles);
   };
-  const thumbs = files.map((file) => (
-    <div className={styles.thumb} key={file.name}>
+  const thumbs = files?.map((file, index) => (
+    <div className={styles.thumb} key={index}>
       <AiFillDelete
         className={styles.deleteIcon}
         onClick={() => removeFile(file)}
@@ -59,6 +62,7 @@ function FileUpload({ files, setFiles }) {
   //     },
   //     [files]
   //   );
+
   return (
     <section>
       <div className={styles.fileUploadWrapper}>
@@ -75,11 +79,21 @@ function FileUpload({ files, setFiles }) {
             </div>
           ) : (
             <div className={styles.fileUploadDiv}>
-              <IoCloudUploadOutline className={styles.uploadIcon} />
-              <p className={styles.dragText}>
-                Drag and drop or click to upload files, maximum number of files
-                (5) five
-              </p>
+              {files?.length > 5 ? (
+                <IoCloudUploadOutline className={styles.uploadIconRed} />
+              ) : (
+                <IoCloudUploadOutline className={styles.uploadIcon} />
+              )}
+              {files?.length > 5 ? (
+                <p className={styles.dragTextRed}>
+                  You have excedded themaximum number of files to be uploaded
+                </p>
+              ) : (
+                <p className={styles.dragText}>
+                  Drag and drop or click to upload files, maximum number of
+                  files (5) five
+                </p>
+              )}
             </div>
           )}
         </div>

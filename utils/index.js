@@ -172,12 +172,20 @@ export const getUserToken = () => {
 };
 
 export const checkExpiredUserToken = () => {
-  const decodedToken = jwt_decode(getUserToken());
+  try {
+    const decodedToken = jwt_decode(getUserToken());
 
-  const tokenExpired = decodedToken.exp < new Date().getTime() / 1000;
-  if (tokenExpired) {
-    showToast("Login required to view page", "info");
-    _clearData({ pushToLogin: true });
+    if (process.browser) {
+      const tokenExpired = decodedToken.exp < new Date().getTime() / 1000;
+
+      if (tokenExpired) {
+        showToast("Your Login Session Have Expired", "info");
+        _clearData({ pushToLogin: true });
+        localStorage.removeItem("token");
+      }
+    }
+  } catch (error) {
+    console.log("err", error);
   }
 };
 
@@ -194,5 +202,32 @@ export const setAuthorizationHeader = () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
     delete axios.defaults.headers.common["Authorization"];
+  }
+};
+
+export const downloadFile = (url) => {
+  const name1 = new Date().toISOString();
+  const name2 = Math.random().toString(35);
+  axios({
+    url: url,
+    method: "GET",
+    responseType: "blob", // important
+  })
+    .then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${name1}w${name2}.jpg`);
+      document.body.appendChild(link);
+      link.click();
+    })
+    .catch((err) => console.log(err));
+};
+export const downloadMultiFiles = (files) => {
+  // files must be an array of images
+  for (let i of files) {
+    if (typeof window !== "undefined") {
+      downloadFile(i);
+    }
   }
 };

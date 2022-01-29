@@ -1,0 +1,19 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
+.tabContainer {
+  @include flex(row, flex-start, null);
+  width: 100%;
+  padding: auto;
+
+  .tabInner {
+    margin-right: 10px;
+
+    .tabButton {
+      border: none;
+      border-radius: 9px;
+      padding: 5px 9px;
+    }
+  }
+}
