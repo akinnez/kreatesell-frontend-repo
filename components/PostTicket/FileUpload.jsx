@@ -32,7 +32,7 @@ function FileUpload({ files, setFiles, uploadingFiles, setUploadingFiles }) {
             ),
           ].slice(0, 5);
         });
-        setUploadingFiles([...uploadingFiles, ...acceptedFiles]);
+        setUploadingFiles([...uploadingFiles, ...acceptedFiles].slice(0, 5));
       } else {
         return null;
       }
@@ -41,8 +41,13 @@ function FileUpload({ files, setFiles, uploadingFiles, setUploadingFiles }) {
 
   const removeFile = (file) => {
     let newFiles = [...files];
-    newFiles = newFiles.filter((item) => file.name !== item.name);
+    let newUploadingFiles = [...uploadingFiles];
+    newFiles = newFiles.filter((item) => file.preview !== item.preview);
+    newUploadingFiles = newUploadingFiles.filter(
+      (item) => file.preview !== item.preview
+    );
     setFiles(newFiles);
+    setUploadingFiles(newUploadingFiles);
   };
   const thumbs = files?.map((file, index) => (
     <div className={styles.thumb} key={index}>

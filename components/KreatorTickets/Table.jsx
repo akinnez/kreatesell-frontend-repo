@@ -14,7 +14,7 @@ const SuccessDiv = ({ text }) => {
       style={{
         background: "#4bf71625",
         borderRadius: "5px",
-        width: "50px",
+        width: "80px",
         textAlign: "center",
       }}
     >
@@ -29,7 +29,7 @@ const ErrorDiv = ({ text }) => {
       style={{
         background: "#f7211622",
         borderRadius: "5px",
-        width: "50px",
+        width: "80px",
         textAlign: "center",
       }}
     >
@@ -83,6 +83,20 @@ const header = [
 ];
 export const Table = ({ data }) => {
   const [openPopOver, setOpenPopOver] = useState(false);
+
+  const switchStatus = (value) => {
+    if (value?.toLowerCase() === "pending") {
+      return <PendingDiv text="Pending" />;
+    }
+    if (value?.toLowerCase() === "answered") {
+      return <SuccessDiv text="Answered" />;
+    }
+    if (value?.toLowerCase() === "closed") {
+      return <SuccessDiv text="Closed" />;
+    }
+
+    return <ErrorDiv text="Error" />;
+  };
   return (
     <div className={styles.tableContainer}>
       <table className={styles.table}>
@@ -103,17 +117,7 @@ export const Table = ({ data }) => {
                 <td>{moment(item.date).format("YYYY-MM-DD HH:mm:ss")}</td>
                 <td>{item.department}</td>
 
-                <td>
-                  {item.status?.toLowerCase() === "closed" ? (
-                    <SuccessDiv text="Closed" /> ? (
-                      item.status?.toLowerCase() === "answered"
-                    ) : (
-                      <SuccessDiv text="Answered" />
-                    )
-                  ) : (
-                    <PendingDiv text={"Pending"} />
-                  )}
-                </td>
+                <td>{switchStatus(item?.status)}</td>
                 {/* <td>
                   <Popover
                     placement="bottomRight"
