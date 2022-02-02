@@ -17,7 +17,7 @@ import styles from "../../../../../public/css/PostTicket.module.scss";
 import { Input } from "components/input/Input";
 import router, { useRouter } from "next/router";
 import axios from "axios";
-import { showToast, checkExpiredUserToken, getToken } from "utils";
+import { showToast, checkExpiredUserToken, getUserToken } from "utils";
 
 const CardProfile = () => {
   return (
