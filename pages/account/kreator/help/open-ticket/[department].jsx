@@ -153,7 +153,7 @@ const Department = () => {
     formData.append("Message", message);
     formData.append("Department", router?.query?.department);
 
-    axios
+    return axios
       .post(`${process.env.BASE_URL}tickets/Create`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
