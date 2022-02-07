@@ -17,7 +17,7 @@ import styles from "../../../../../public/css/PostTicket.module.scss";
 import { Input } from "components/input/Input";
 import router, { useRouter } from "next/router";
 import axios from "axios";
-import { showToast } from "utils";
+import { showToast, checkExpiredUserToken, getUserToken } from "utils";
 
 const CardProfile = () => {
   return (
@@ -135,6 +135,10 @@ const Department = () => {
   const handleSubmit = () => {
     //   console.log("aaaaaaaaa", files);
     // console.log("ddddddddd", uploadingFiles);
+
+    checkExpiredUserToken();
+    const token = getUserToken();
+
     setSubmitting(true);
     if (!subject || subject === "" || !message || message === "") {
       setSubmitting(false);
@@ -149,8 +153,12 @@ const Department = () => {
     formData.append("Message", message);
     formData.append("Department", router?.query?.department);
 
-    axios
-      .post(`${process.env.BASE_URL}tickets/Create`, formData)
+    return axios
+      .post(`${process.env.BASE_URL}tickets/Create`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setSubject("");
         setMessage("");

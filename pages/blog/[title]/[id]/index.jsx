@@ -322,14 +322,15 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
 
 export async function getStaticPaths(context) {
   let result = {};
+  let paths = [];
   try {
-    result = await axios.get(`${process.env.BASE_URL}blogs/posts`);
+    result = await axios.get(`${process.env.BASE_URL}blogs/posts/active`);
+    paths = result?.data?.data?.map((item, index) => ({
+      params: { title: item?.category || null, id: item?.id || null },
+    }));
   } catch (error) {
     console.log(error);
   }
-  const paths = result?.data?.data?.map((item, index) => ({
-    params: { title: item?.category || null, id: item?.id || null },
-  }));
 
   return {
     paths,
