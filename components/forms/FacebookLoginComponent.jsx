@@ -13,7 +13,6 @@ const FacebookLoginComponent = () => {
   const router = useRouter();
 
   const responseFacebook = (response) => {
-    console.log("fb-response", response);
     // Login failed
     if (response.status === "unknown") {
       return false;
@@ -25,13 +24,13 @@ const FacebookLoginComponent = () => {
           {}
         )
         .then((res) => {
-          console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", res?.data);
+          // console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", res?.data);
           localStorage.setItem("token", res?.data?.data?.token);
           localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
           router.push("/account/dashboard");
         })
         .catch((err) => {
-          showToast(err.message, "error");
+          // showToast(err.message, "error");
           console.log(err);
         });
     }
@@ -40,9 +39,7 @@ const FacebookLoginComponent = () => {
   return (
     <FacebookLogin
       appId={process.env.FB_APP_ID}
-      autoLoad
       callback={responseFacebook}
-      // fields="name, email, picture"
       render={(renderProps) => (
         <button onClick={() => renderProps.onClick()}>
           <Image src={FacebookBtn} alt="sign up with facebook" />
