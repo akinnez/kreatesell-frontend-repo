@@ -21,7 +21,7 @@ const FacebookLoginComponent = () => {
     if (response.accessToken) {
       axios
         .post(
-          `${process.env.BASE_URL}/auth/facebookSignUp?accessToken=${response.accessToken}`,
+          `${process.env.BASE_URL}auth/facebookSignUp?accessToken=${response.accessToken}`,
           {}
         )
         .then((res) => {
@@ -45,12 +45,8 @@ const FacebookLoginComponent = () => {
       callback={responseFacebook}
       // fields="name, email, picture"
       render={(renderProps) => (
-        <button>
-          <Image
-            onClick={renderProps.onClick}
-            src={FacebookBtn}
-            alt="sign up with facebook"
-          />
+        <button onClick={() => renderProps.onClick}>
+          <Image src={FacebookBtn} alt="sign up with facebook" />
         </button>
       )}
     />
