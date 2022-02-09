@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Menu } from "antd";
 import style from "./sidebar.module.scss";
 import Router, { useRouter } from "next/router";
@@ -31,9 +32,10 @@ const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
       }
       title={title}
       className={isPath ? style.active : style.menuitem}
-      onClick={() => Router.push(target)}
     >
-      {title}
+      <Link href={target}>
+        <a>{title}</a>
+      </Link>
     </Menu.Item>
   );
 };
@@ -90,23 +92,20 @@ const Sidebar = () => {
           className={style.subMenu}
           expandIcon={<CloseSubMenu />}
         >
-          <Menu.Item
-            key={35}
-            onClick={() => router.push("/account/kreator/products/all")}
-          >
-            All Products
+          <Menu.Item key={35}>
+            <Link href="/account/kreator/products/all">
+              <a>All Products</a>
+            </Link>
           </Menu.Item>
-          <Menu.Item
-            key={36}
-            onClick={() => router.push("/account/kreator/products/create")}
-          >
-            Create Product
+          <Menu.Item key={36}>
+            <Link href="/account/kreator/products/create">
+              <a>Create Product</a>
+            </Link>
           </Menu.Item>
-          <Menu.Item
-            key={37}
-            onClick={() => router.push("/account/kreator/products")}
-          >
-            Old Product
+          <Menu.Item key={37}>
+            <Link href="/account/kreator/products/coupons">
+              <a>Coupon Codes</a>
+            </Link>
           </Menu.Item>
         </SubMenu>
         <MenuItem

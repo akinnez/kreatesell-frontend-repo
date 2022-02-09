@@ -1,24 +1,77 @@
-.header{
-    background-color: rgba(245, 245, 245, 1);
-    display: flex;
-    justify-content: space-between;
-    padding-top: 25px;
-    padding-left:25px;
-    padding-right:20px;
-  
-    .nav_left,.nav_right{
-        height:100%;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+@use "public/css/mixins";
+@use "public/css/screens";
 
-        h2{
-            color:rgba(0, 114, 239, 1);
-            margin-top: 10px;
-        }
+.header {
+  @include mixins.flex(row, space-between, center);
+  background-color: #fff;
+  padding: 25px 10px;
+  height: auto;
+}
 
-        ul{
-            margin-top:10px;
-        }
+.nav_left {
+  @include mixins.flex(row, flex-start, center);
+}
+
+.mobileMenu {
+  @include mixins.flex(row, flex-start, center);
+
+  button {
+    margin-right: 10px;
+
+    svg {
+      font-size: 30px;
     }
+  }
+}
+
+.pageDot {
+  display: none;
+}
+
+.nav_right {
+  @include mixins.flex(row, flex-end, center);
+  width: 35%;
+  max-width: 350px;
+
+  button {
+    justify-content: center;
+    height: auto;
+
+    &:first-of-type {
+      display: none !important;
+    }
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .header {
+    padding: 25px;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+
+  .pageDot {
+    @include mixins.flex(row, space-between, center);
+    gap: 10px;
+
+    h1 {
+      color: rgba(0, 114, 239, 1);
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1;
+    }
+  }
+
+  .nav_right button {
+    &:first-of-type {
+      display: flex !important;
+    }
+
+    &:nth-child(2) {
+      margin: 0 10px 0 20px;
+    }
+  }
 }
