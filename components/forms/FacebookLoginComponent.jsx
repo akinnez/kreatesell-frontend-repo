@@ -45,7 +45,7 @@ const FacebookLoginComponent = () => {
       callback={responseFacebook}
       // fields="name, email, picture"
       render={(renderProps) => (
-        <button onClick={() => renderProps.onClick}>
+        <button onClick={() => renderProps.onClick()}>
           <Image src={FacebookBtn} alt="sign up with facebook" />
         </button>
       )}
