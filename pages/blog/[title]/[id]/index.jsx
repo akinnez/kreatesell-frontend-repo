@@ -38,12 +38,42 @@ import { DiscussionEmbed } from "disqus-react";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
   const router = useRouter();
-  console.log(router);
-  const genUrl = `https://kreatesell.com${router.asPath}`;
+
+  const genUrl =
+    process.env.NODE_ENV === "production"
+      ? `https://kreatesell.com${router.asPath}`
+      : `http://localhost:3000${router.asPath}`;
+  // const genUrl = `https://kreatesell.com${router.asPath}`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(genUrl);
     showToast("Link Copied", "success");
+  };
+
+  const getCookies = () => {
+    console.log("hhhhhhhhhhhhhhh", document.cookie);
+    let pairs = document.cookie.split(";");
+    console.log("ssssssssss", pairs);
+    let cookies = {};
+    // for (let i=0; i<pairs.length; i++){
+    //   let pair = pairs[i].split("=");
+    //   cookies[(pair[0]+'').trim()] = unescape(pair.slice(1).join('='));
+    // }
+    // return cookies;
+  };
+
+  const handleLikePost = () => {
+    axios
+      .post(
+        `https://disqus.com/api/oauth/2.0/authorize/?client_id=6lSQoKFGTpA9fercSGt0klM60BCv7vgF2PMnPb1NqNhpo6HTmwRpkRfAs4VVMLFp&scope=read,write&response_type=code&redirect_uri=${genUrl}`
+      )
+      .then((res) => {
+        console.log("first", res);
+      })
+      .catch((err) => {
+        console.log("disqusssss", err);
+      });
+    // getCookies();
   };
 
   const disqusConfig = {
@@ -196,7 +226,10 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
               </div>
               <section className={styles.socialsSection}>
                 <div className={styles.socialsDiv}>
-                  <div className={styles.likeButtonDiv}>
+                  <div
+                    className={styles.likeButtonDiv}
+                    onClick={() => handleLikePost()}
+                  >
                     <AiFillLike className={styles.likeIcon} /> Like
                   </div>
                 </div>
