@@ -25,10 +25,9 @@ const FacebookLoginComponent = () => {
           {}
         )
         .then((res) => {
-          console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", res);
-          const { token, user } = res;
-          localStorage.setItem("token", token);
-          localStorage.setItem("user", JSON.stringify(user));
+          console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", res?.data);
+          localStorage.setItem("token", res?.data?.data?.token);
+          localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
           router.push("/account/dashboard");
         })
         .catch((err) => {
