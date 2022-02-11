@@ -1,0 +1,22 @@
+@use "public/css/mixins";
+@use "public/css/colors";
+
+.spinnerWrapper {
+  height: 100%;
+  @include mixins.flex(row, center, center);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid colors.$blue-700;
+  border-bottom-color: colors.$base-blue;
+  border-radius: 50%;
+  animation: roll 1s linear infinite;
+}
+
+@keyframes roll {
+  to {
+    transform: rotate(360deg);
+  }
+}
