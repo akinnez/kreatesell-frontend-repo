@@ -11,6 +11,7 @@ import {
   Setting,
   Logout,
   CloseSubMenu,
+  AffiliatesIcon,
 } from "../IconPack";
 import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
 
@@ -105,6 +106,26 @@ const Sidebar = () => {
           <Menu.Item key={37}>
             <Link href="/account/kreator/products/coupons">
               <a>Coupon Codes</a>
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="affiliates-menu"
+          icon={
+            <AffiliatesIcon className={style.icon} height={20} width={20} />
+          }
+          title="Affiliates"
+          className={style.subMenu}
+          expandIcon={<CloseSubMenu />}
+        >
+          <Menu.Item key={38}>
+            <Link href="/account/affiliate/products">
+              <a>Find Products</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key={39}>
+            <Link href="/account/affiliate/requests">
+              <a>Requests</a>
             </Link>
           </Menu.Item>
         </SubMenu>
