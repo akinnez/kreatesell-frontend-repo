@@ -6,18 +6,21 @@ import Logo from "./logo";
 import Nav from "./header";
 import { Spin } from "antd";
 import { ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCountries } from "../../redux/actions/utilityActions";
 import { getStore } from "../../redux/actions/store.actions";
 import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
 import {
   checkExpiredUserToken,
+  getUser,
   getUserToken,
   showToast,
   _isUserLoggedIn,
+  isAnEmpytyObject,
 } from "utils";
 import { useRouter } from "next/router";
+import { USER } from "redux/types/auth.types";
 
 const Loader = () => {
   return (
@@ -53,6 +56,22 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
       return router.push("/login");
     }
   }, []);
+
+  const user = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const userIsEmpty = isAnEmpytyObject(user.user);
+
+  useEffect(() => {
+    if (userIsEmpty) {
+      dispatch({ type: USER.REQUEST });
+
+      const userStorage = getUser();
+
+      if (userStorage) {
+        dispatch({ type: USER.SUCCESS, payload: userStorage });
+      }
+    }
+  }, [dispatch, userIsEmpty]);
 
   return (
     <>
