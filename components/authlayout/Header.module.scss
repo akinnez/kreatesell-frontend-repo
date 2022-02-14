@@ -3,7 +3,7 @@
 
 .header {
   @include mixins.flex(row, space-between, center);
-  background-color: #fff;
+  background-color: transparent;
   padding: 25px 10px;
   height: auto;
 }
