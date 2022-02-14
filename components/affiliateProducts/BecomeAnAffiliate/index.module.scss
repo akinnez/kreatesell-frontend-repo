@@ -1,0 +1,51 @@
+@use "public/css/screens";
+
+.affiliate__modal span[class^="anticon"] > svg {
+  font-size: 25px;
+}
+
+.modal__content {
+  text-align: center;
+}
+
+.header {
+  margin: 65px 0 15px;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.btn {
+  margin-bottom: 10px;
+
+  button[class^="ant-btn"] {
+    height: auto;
+    padding: 16px;
+    width: 100%;
+    justify-content: center;
+    font-weight: bold;
+    border: none;
+
+    &[disabled] {
+      color: #fff;
+      background-color: #bfbfbf;
+    }
+  }
+}
+
+.account__link svg {
+  display: inline;
+}
+
+@include screens.minScreen("medium-large") {
+  .affiliate__modal div[class="ant-modal-body"] {
+    padding: 50px 75px 65px;
+  }
+
+  .header {
+    margin-top: 30px;
+  }
+}
