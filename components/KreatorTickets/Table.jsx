@@ -152,7 +152,7 @@ export const Table = ({ data }) => {
       {!Boolean(data?.length) && (
         <div className="w-full h-full flex flex-col items-center justify-center p-8">
           <div>
-            <Image src={EmptyDataTable} />
+            <Image src={EmptyDataTable} alt="empty data" />
           </div>
         </div>
       )}

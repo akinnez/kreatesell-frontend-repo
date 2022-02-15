@@ -250,7 +250,7 @@ export const Footer = () => {
         <span className={styles.thinLine}></span>
 
         <div className={styles.brandMobile}>
-          <Image src={FooterBrand} />
+          <Image src={FooterBrand} alt="footer brand" />
           <a
             rel="noopener noreferrer"
             className={styles.mobileFooterEmail}

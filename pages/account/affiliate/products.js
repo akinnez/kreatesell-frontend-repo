@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useSelector } from "react-redux";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/BecomeAnAffiliate";
@@ -20,6 +21,9 @@ const AffiliateProducts = () => {
 
   return (
     <AuthLayout>
+      <Head>
+        <title>KreateSell | Affiliate Products</title>
+      </Head>
       {!user.is_affiliate ? (
         <BecomeAnAffiliate />
       ) : (

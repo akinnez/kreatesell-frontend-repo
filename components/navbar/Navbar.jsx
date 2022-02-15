@@ -84,7 +84,7 @@ export const Navbar = () => {
           <ul className={styles.categoryLinks}>
             <li onClick={(e) => clickHandler(e)} className={styles.drop}>
               <span className={styles.navLinkDrop}>Resources</span>
-              <Image src={ArrowDown} width="10" height="10" />
+              <Image src={ArrowDown} width="10" height="10" alt="arrow icon" />
             </li>
             <li>
               <NavLink href="features" title="Features" />
@@ -117,7 +117,7 @@ export const Navbar = () => {
                   handleNavbar();
                   router.push("/features");
                 }}
-              > 
+              >
                 Features
               </li>
               <li

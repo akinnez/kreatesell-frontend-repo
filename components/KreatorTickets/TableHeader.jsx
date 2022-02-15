@@ -144,42 +144,42 @@ const ActionComponent = ({ item, showAction }) => {
             }}
           >
             <span>
-              <Image src={EditProduct} />
+              <Image src={EditProduct} alt="" />
             </span>
             <p>Edit</p>
           </li>
 
           <li>
             <span>
-              <Image src={ManageProduct} />
+              <Image src={ManageProduct} alt="" />
             </span>
             <p>Manage Product</p>
           </li>
 
           <li>
             <span>
-              <Image src={ViewSales} />
+              <Image src={ViewSales} alt="" />
             </span>
             <p>View Sales</p>
           </li>
 
           <li onClick={() => duplicateProduct(id, () => getProducts())}>
             <span>
-              <Image src={DuplicateProduct} />
+              <Image src={DuplicateProduct} alt="" />
             </span>
             <p>Duplicate</p>
           </li>
 
           <li onClick={() => showModal("deactivate")}>
             <span>
-              <Image src={DeactvateProduct} />
+              <Image src={DeactvateProduct} alt="" />
             </span>
             <p>Deactivate (Unpublish)</p>
           </li>
 
           <li onClick={() => showModal("delete")}>
             <span>
-              <Image src={DeleteProduct} />
+              <Image src={DeleteProduct} alt="" />
             </span>
             <p>Delete</p>
           </li>
@@ -234,7 +234,7 @@ export const AllProductsTableHeader = [
               className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
               onClick={() => _copyToClipboard(item, "Product Link Copied")}
             >
-              <Image src={MailClipboard} />
+              <Image src={MailClipboard} alt="" />
             </span>
           </div>
         </a>

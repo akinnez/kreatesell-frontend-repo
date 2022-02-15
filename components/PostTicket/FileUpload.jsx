@@ -1,5 +1,5 @@
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { Button } from "components/button/Button";
 import { FaPlus } from "react-icons/fa";
@@ -56,7 +56,8 @@ function FileUpload({ files, setFiles, uploadingFiles, setUploadingFiles }) {
         onClick={() => removeFile(file)}
       />
       <div className={styles.thumbInner}>
-        <img src={file.preview} layout="fill" className={styles.img} />
+        <Image src={file.preview} layout="fill" className={styles.img} alt="" />
+        {/* <img src={file.preview} layout="fill" className={styles.img} /> */}
       </div>
     </div>
   ));

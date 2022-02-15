@@ -29,7 +29,7 @@ const TicketTable = ({ tickets, handlePaginationChange, page }) => {
             <div className="text-primary-blue  font-semibold text-xs pr-2">
               Export Data in CSV
             </div>
-            <Image src={DownloadIcon} />
+            <Image src={DownloadIcon} alt="" />
           </div>
         )}
       </div>
