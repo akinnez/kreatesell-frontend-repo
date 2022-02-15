@@ -1,28 +1,23 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Button, DatePicker, Input, Select, Skeleton } from "antd";
+import { useSelector } from "react-redux";
+import { Button, DatePicker, Input, Select } from "antd";
 import { MdOutlineCancel } from "react-icons/md";
 import moment from "moment";
 import styles from "./index.module.scss";
 
-const sortByOptions = [
-  { label: "Launch Date", value: "launchDate" },
-  { label: "Sales", value: "sales" },
-];
+// const sortByOptions = [
+//   { label: "Launch Date", value: "launchDate" },
+//   { label: "Sales", value: "sales" },
+// ];
 
-const cb = (arr, from, to) => {
-  const fromDate = Date.parse(from);
-  const toDate = Date.parse(to);
+const cbOne = (arr, key, query) => {
+  arr.filter(item => item[key].toLowerCase().includes(query.toLowerCase()));
+};
 
-  return arr.filter(item => {
-    const dateToMs = Date.parse(item.date_created);
-
-    if (fromDate > toDate) {
-      return dateToMs <= fromDate && dateToMs >= toDate;
-    }
-
-    return dateToMs >= fromDate && dateToMs <= toDate;
-  });
+const cbTwo = (arr, dateListed) => {
+  const listedDate = Date.parse(dateListed);
+  return arr.filter(item => Date.parse(item.date_created) === listedDate);
 };
 
 const ResetBtn = ({ resetFilters }) => (
@@ -33,14 +28,16 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const AffiliateProductsFilters = ({ data, setFiltered, searchQuery }) => {
+const AffiliateProductsFilters = ({ data, setFiltered }) => {
   const [productName, setProductName] = useState("");
   const [kreatorName, setKreatorName] = useState("");
-  const [sortBy, setSortBy] = useState("");
+  // const [sortBy, setSortBy] = useState("");
   const [productType, setProductType] = useState("");
   const [dateListed, setDateListed] = useState("");
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+
+  const { productTypes } = useSelector(state => state.product);
 
   const handleProductName = e => {
     setProductName(e.target.value);
@@ -50,9 +47,9 @@ const AffiliateProductsFilters = ({ data, setFiltered, searchQuery }) => {
     setKreatorName(e.target.value);
   };
 
-  const handleSortBy = value => {
-    setSortBy(value);
-  };
+  // const handleSortBy = value => {
+  //   setSortBy(value);
+  // };
 
   const handleProductType = value => {
     setProductType(value);
@@ -63,32 +60,32 @@ const AffiliateProductsFilters = ({ data, setFiltered, searchQuery }) => {
   };
 
   const handleSubmitFilter = () => {
-    if (!search && !currency && !from && !to) {
+    if (!productName && !kreatorName && !productType && !dateListed) {
       return;
     }
 
     let tempArr;
 
-    if (search) {
-      tempArr = data.filter(item => {
-        if (item[searchQuery]) {
-          return item[searchQuery].toLowerCase().includes(search.toLowerCase());
-        }
-
-        return null;
-      });
+    if (productName) {
+      tempArr = cbOne(data, "product_name", productName);
     }
 
-    if (currency && tempArr) {
-      tempArr = tempArr.filter(item => item.currency === currency);
-    } else if (currency && !tempArr) {
-      tempArr = data.filter(item => item.currency === currency);
+    if (kreatorName && tempArr) {
+      tempArr = cbOne(tempArr, "kreator_name", kreatorName);
+    } else if (kreatorName && !tempArr) {
+      tempArr = cbOne(data, "kreator_name", kreatorName);
     }
 
-    if (from && to && tempArr) {
-      tempArr = cb(tempArr, from, to);
-    } else if (from && to && !tempArr) {
-      tempArr = cb(data, from, to);
+    if (productType && tempArr) {
+      tempArr = tempArr.filter(item => item.product_type === productType);
+    } else if (productType && !tempArr) {
+      tempArr = data.filter(item => item.product_type === productType);
+    }
+
+    if (dateListed && tempArr) {
+      tempArr = cbTwo(tempArr, dateListed);
+    } else if (dateListed && !tempArr) {
+      tempArr = cbTwo(data, dateListed);
     }
 
     if (tempArr) {
@@ -103,7 +100,7 @@ const AffiliateProductsFilters = ({ data, setFiltered, searchQuery }) => {
     setIsFiltered(false);
     setProductName("");
     setKreatorName("");
-    setSortBy("");
+    // setSortBy("");
     setProductType("");
     setDateListed("");
   };
@@ -186,7 +183,13 @@ const AffiliateProductsFilters = ({ data, setFiltered, searchQuery }) => {
                 placeholder="All"
                 size="large"
                 onChange={handleProductType}
-              />
+              >
+                {productTypes.map(({ id, product_type_name }) => (
+                  <Select.Option key={id} value={id}>
+                    {product_type_name}
+                  </Select.Option>
+                ))}
+              </Select>
             </div>
             <div className={styles.filterWrapper}>
               <span>Date Listed</span>
