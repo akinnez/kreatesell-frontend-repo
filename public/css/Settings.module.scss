@@ -1,0 +1,12 @@
+@import "./screens.scss";
+@import "./colors.scss";
+
+.card {
+	border-radius: 12px;
+	padding: 0 20px;
+
+	@include screen("tablet") {
+		padding: 0;
+		background: rgb(245, 245, 245);
+	}
+}

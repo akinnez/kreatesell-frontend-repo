@@ -1,0 +1,43 @@
+@import "./colors.scss";
+@import "./screens.scss";
+
+.container {
+	background-color: $white-200;
+	min-height: 100vh;
+	// padding: 1rem 10.31rem;
+
+	.login {
+		width: 100%;
+		padding: 0 1rem;
+
+		&.loginBtnStyle {
+			border: none;
+			color: #8c8c8c;
+		}
+	}
+
+	.select {
+		width: 15%;
+		@include screen("medium") {
+			width: 30%;
+		}
+	}
+}
+
+.productCardBtn {
+	height: 2rem;
+
+	@include screen("small") {
+		height: 1.5rem;
+		width: 60%;
+	}
+
+	@include screen("x-small") {
+		height: 1.5rem;
+		width: 55%;
+	}
+}
+
+.productImg {
+	border-radius: 0.5rem;
+}
