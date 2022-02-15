@@ -93,7 +93,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     return (
       <div className={styles.asideContainer}>
         <div className={styles.image}>
-          <img src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
+          <Image src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
         </div>
         <div className={styles.content}>
           <p className={styles.date}>
@@ -117,7 +117,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     return (
       <div className={styles.singlePost}>
         <div className={styles.singleImage}>
-          <img
+          <Image
             src={thumbnail}
             width="345"
             height="220"
@@ -200,7 +200,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                 </div>
               </div>
               <div className={styles.author}>
-                <img
+                <Image
                   src="/images/placeholder-2.jpg"
                   alt="admin"
                   className={styles.adminImage}
@@ -211,7 +211,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                 </div>
               </div>
               <div className={styles.thumbnailDiv}>
-                <img
+                <Image
                   src={blog?.thumbnail}
                   className={styles.thumbnailImage}
                   alt={blog?.thumbnail_alt}

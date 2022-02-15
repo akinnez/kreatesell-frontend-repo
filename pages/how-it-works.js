@@ -40,8 +40,8 @@ const HowItWorks = () => {
               placeholder="Enter your email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
-              onChange={e => setEmail(e.target.value)}
-              onSubmit={e => {
+              onChange={(e) => setEmail(e.target.value)}
+              onSubmit={(e) => {
                 e.preventDefault();
                 router.push({
                   pathname: "/signup",
@@ -93,7 +93,12 @@ const HowItWorks = () => {
             </p>
           </div>
           <div className={styles.image}>
-            <Image src={HowItWorksHero} width="445" height="457" />
+            <Image
+              src={HowItWorksHero}
+              width="445"
+              height="457"
+              alt="how it works"
+            />
           </div>
         </div>
 
@@ -152,6 +157,7 @@ const HowItWorks = () => {
             src={RightSpiral}
             height="150"
             width="500"
+            alt="right spiral"
             className={styles.img}
           />
         </div>
@@ -194,6 +200,7 @@ const HowItWorks = () => {
             src={LeftSpiral}
             height="150"
             width="500"
+            alt="left spiral"
             className={styles.img}
           />
         </div>
@@ -239,6 +246,7 @@ const HowItWorks = () => {
             src={RightSpiral}
             height="150"
             width="500"
+            alt="right spiral"
             className={styles.img}
           />
         </div>

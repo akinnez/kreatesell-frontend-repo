@@ -129,7 +129,7 @@ const Pricing = () => {
               Questions
             </h3>
             <div className={styles.faqImage}>
-              <Image src={Faq} width={332} height={234} />
+              <Image src={Faq} width={332} height={234} alt="faq" />
             </div>
           </div>
 

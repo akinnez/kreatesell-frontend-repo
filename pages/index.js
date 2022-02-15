@@ -99,8 +99,8 @@ export default function Home() {
                 placeholder="Enter your email..."
                 buttonText="Get Started Free"
                 buttonIcon={<RightArrow />}
-                onChange={e => setEmail(e.target.value)}
-                onSubmit={e => {
+                onChange={(e) => setEmail(e.target.value)}
+                onSubmit={(e) => {
                   e.preventDefault();
                   router.push({
                     pathname: "/signup",
@@ -128,22 +128,22 @@ export default function Home() {
             <h5 className={styles.title}>As featured in</h5>
             <div className={styles.featuredImages}>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} />
+                <Image src={AirBnBLogo} alt="airBnB" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} />
+                <Image src={MicrosoftLogo} alt="microsoft logo" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} />
+                <Image src={AirBnBLogo} alt="airBnB" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} />
+                <Image src={MicrosoftLogo} alt="microsoft logo" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} />
+                <Image src={AirBnBLogo} alt="airbnb logo" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} />
+                <Image src={MicrosoftLogo} alt="microsoft logo" />
               </div>
             </div>
 
@@ -152,16 +152,16 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
               </div>
 
@@ -169,16 +169,16 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} />
+                  <Image src={AirBnBLogo} alt="airbnb logo" />
                 </div>
               </div>
             </div>
@@ -195,7 +195,12 @@ export default function Home() {
 
           <div className={styles.howItWorksImgCont}>
             <div className={styles.howItWorksImgSingle}>
-              <Image src={CreateStore} width="194" height="150" />
+              <Image
+                src={CreateStore}
+                width="194"
+                height="150"
+                alt="create store"
+              />
               <h5 className={styles.howItWorksImgTitle}>Kreate your Store</h5>
               <p className={styles.howItWorksImgSubTitle}>
                 Kreate an account to get started.
@@ -203,7 +208,12 @@ export default function Home() {
             </div>
 
             <div className={styles.howItWorksImgSingle}>
-              <Image src={AddProduct} width="194" height="150" />
+              <Image
+                src={AddProduct}
+                width="194"
+                height="150"
+                alt="add product"
+              />
               <h5 className={styles.howItWorksImgTitle}>Add Product</h5>
               <p className={styles.howItWorksImgSubTitle}>
                 Add products and setup your store.
@@ -211,7 +221,7 @@ export default function Home() {
             </div>
 
             <div className={styles.howItWorksImgSingle}>
-              <Image src={Publish} width="194" height="150" />
+              <Image src={Publish} width="194" height="150" alt="publish" />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
               <p className={styles.howItWorksImgSubTitle}>
                 Now publish to make your store live!
@@ -239,7 +249,12 @@ export default function Home() {
 
           <div className={styles.automation}>
             <div className={styles.image}>
-              <Image src={AutomationIcon} height="420" width="417" />
+              <Image
+                src={AutomationIcon}
+                height="420"
+                width="417"
+                alt="automation icon"
+              />
             </div>
             <div className={styles.automationText}>
               <h3 className={styles.automationTitle}>
@@ -272,7 +287,12 @@ export default function Home() {
           </div>
 
           <div className={styles.spiral}>
-            <Image src={RightSpiral} height="150" width="500" />
+            <Image
+              src={RightSpiral}
+              height="150"
+              width="500"
+              alt="right spiral"
+            />
           </div>
 
           <div className={`${styles.automation} ${styles.automationAlte}`}>
@@ -307,7 +327,12 @@ export default function Home() {
               </div>
             </div>
             <div className={styles.image}>
-              <Image src={PayoutMethod} height="513" width="635" />
+              <Image
+                src={PayoutMethod}
+                height="513"
+                width="635"
+                alt="payout method"
+              />
             </div>
           </div>
 
@@ -317,12 +342,18 @@ export default function Home() {
               height="150"
               width="500"
               className={styles.img}
+              alt="left spiral"
             />
           </div>
 
           <div className={styles.automation}>
             <div className={styles.image}>
-              <Image src={InstantPayout} height="420" width="417" />
+              <Image
+                src={InstantPayout}
+                height="420"
+                width="417"
+                alt="instant payout"
+              />
             </div>
             <div className={styles.automationText}>
               <h3 className={styles.automationTitle}>Automation</h3>
@@ -373,10 +404,10 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.midSectionImage}>
-            <Image src={ElipseImage} />
+            <Image src={ElipseImage} alt="" />
           </div>
           <div className={styles.mobileMidSectionImage}>
-            <Image src={MobileElipse} />
+            <Image src={MobileElipse} alt="" />
           </div>
         </div>
 
@@ -397,7 +428,7 @@ export default function Home() {
             <div className={styles.firstRow}>
               <div className={styles.primaryNews}>
                 <div className={styles.primaryNewsImage}>
-                  <Image src={PrimaryNews} width="352" />
+                  <Image src={PrimaryNews} width="352" alt="primary news" />
                 </div>
                 <div className={styles.primaryNewsCont}>
                   <div className={styles.primaryTitle}>
@@ -411,7 +442,10 @@ export default function Home() {
 
                   <div className={styles.primaryFooterCont}>
                     <div className={styles.primaryFooterImage}>
-                      <Image src={PrimaryNewsFooterImg} />
+                      <Image
+                        src={PrimaryNewsFooterImg}
+                        alt="primary news footer"
+                      />
                     </div>
                     <div className={styles.primaryFooterPosition}>
                       <div className={styles.primaryName}>Sundar pichai</div>
@@ -434,7 +468,7 @@ export default function Home() {
             <div className={styles.mobileNews}>
               <div className={styles.primaryNews}>
                 <div className={styles.primaryNewsImage}>
-                  <Image src={PrimaryNews} width="352" />
+                  <Image src={PrimaryNews} width="352" alt="primary news" />
                 </div>
                 <div className={styles.primaryNewsCont}>
                   <div className={styles.primaryTitle}>
@@ -448,7 +482,7 @@ export default function Home() {
 
                   <div className={styles.primaryFooterCont}>
                     <div className={styles.primaryFooterImage}>
-                      <Image src={PrimaryNewsFooterImg} width="32" />
+                      <Image src={PrimaryNewsFooterImg} width="32" alt="" />
                     </div>
                     <div className={styles.primaryFooterPosition}>
                       <div className={styles.primaryName}>Sundar pichai</div>
@@ -534,8 +568,8 @@ export default function Home() {
               placeholder="Enter your email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
-              onChange={e => setEmail(e.target.value)}
-              onSubmit={e => {
+              onChange={(e) => setEmail(e.target.value)}
+              onSubmit={(e) => {
                 e.preventDefault();
                 router.push({
                   pathname: "/signup",
@@ -570,7 +604,7 @@ const NewsCard = () => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
-        <Image src={SecondaryNews} width="352" />
+        <Image src={SecondaryNews} width="352" alt="secondary news" />
       </div>
       <div className={styles.newsTextCont}>
         <div className={styles.newsTitle}>
@@ -618,7 +652,7 @@ const MobileTestimonialVideoCard = () => {
 };
 
 const OnboardingModal = () => {
-  const { loading } = useSelector(state => state.utils);
+  const { loading } = useSelector((state) => state.utils);
 
   const guestSubscription = GuestSubscription();
   const initialValues = {
@@ -626,7 +660,7 @@ const OnboardingModal = () => {
     customer_name: "",
   };
 
-  const handleSubmit = data => {
+  const handleSubmit = (data) => {
     guestSubscription(data, () => {
       window.location.href = "https://t.me/kreatesell";
     });

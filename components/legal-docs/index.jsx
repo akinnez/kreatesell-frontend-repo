@@ -40,7 +40,7 @@ const Legal = ({ defaultActiveKey }) => {
             <p className={styles.sub}>Effective Date: October 16, 2021</p>
           </div>
           <div className={styles.img}>
-            <Image src={legalBannerImg} width="161" height="242" />
+            <Image src={legalBannerImg} width="161" height="242" alt="" />
           </div>
         </section>
         {/* Tabs View on Mobile based on route */}
@@ -48,19 +48,19 @@ const Legal = ({ defaultActiveKey }) => {
         {/* Tabs View on Mobile based on route */}
         {/* Tabs View on Mobile based on route */}
         <section className={styles.mobile}>
-          {/* <Image src={scrollUp} width="68" height="65" /> */}
+          {/* <Image src={scrollUp} width="68" height="65" alt="" /> */}
           <div className={styles.container}>
             {matchPath("/legal/cookie-policy") && <CookiePolicy />}
             {matchPath("/legal/privacy-policy") && <Privacy />}
             {matchPath("/legal/terms-of-service") && <TermsOfService />}
             {matchPath("/legal/affiliate-policy") && <AffiliateTerms />}
           </div>
-          {/* <Image src={whatsAppSupport} width="68" height="65" /> */}
+          {/* <Image src={whatsAppSupport} alt="" width="68" height="65" /> */}
         </section>
 
         {/* TABS view on desktop and larger screens */}
         <section className={styles.lg}>
-          {/* <Image src={whatsAppSupport} width="68" height="65" /> */}
+          {/* <Image src={whatsAppSupport} width="68" alt="" height="65" /> */}
           <div className={styles.container}>
             <Card bordered={false}>
               <Tabs
@@ -85,7 +85,7 @@ const Legal = ({ defaultActiveKey }) => {
               </Tabs>
             </Card>
           </div>
-          {/* <Image src={chat} width="68" height="65" /> */}
+          {/* <Image src={chat} width="68"  alt="" height="65" /> */}
         </section>
       </div>
     </Layout>
