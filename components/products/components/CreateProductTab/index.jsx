@@ -20,21 +20,16 @@ const iconMapper = {
 
 const CreateProductTab = () => {
   const { productTypes } = useSelector(state => state.product);
+  const [productType, setProductType] = useState({
+    id: 1,
+    name: "Digital Download",
+  });
 
   const getProductTypes = GetProductTypes();
 
   useEffect(() => {
     getProductTypes();
   }, []);
-
-  if (productTypes.length === 0) {
-    return <Spinner />;
-  }
-
-  const [productType, setProductType] = useState({
-    id: 1,
-    name: "Digital Download",
-  });
 
   const handleSubmit = () => {};
 
@@ -54,6 +49,10 @@ const CreateProductTab = () => {
   const handleProductTypeChange = type => {
     setProductType(type);
   };
+
+  if (productTypes.length === 0) {
+    return <Spinner />;
+  }
 
   const productTypeMapper = (
     <>
