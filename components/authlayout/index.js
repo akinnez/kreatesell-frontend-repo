@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { Layout } from "antd";
 import Sidebar from "./sidebar";
@@ -21,6 +21,7 @@ import {
 } from "utils";
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
+import { GetProductTypes } from "redux/actions/product.actions";
 
 const Loader = () => {
   return (
@@ -60,6 +61,7 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
   const user = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
+  const productTypes = GetProductTypes();
 
   useEffect(() => {
     if (userIsEmpty) {
@@ -72,6 +74,10 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
       }
     }
   }, [dispatch, userIsEmpty]);
+
+  useEffect(() => {
+    productTypes();
+  }, []);
 
   return (
     <>

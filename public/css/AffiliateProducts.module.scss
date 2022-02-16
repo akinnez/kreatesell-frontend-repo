@@ -1,2 +1,7 @@
-@use "public/css/mixins";
-@use "public/css/screens";
+.header {
+  margin-bottom: 20px;
+}
+
+.tableWrapper [class="ant-table-content"] {
+  overflow-x: auto;
+}
