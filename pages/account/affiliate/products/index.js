@@ -1,42 +1,47 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Head from "next/head";
+import useSWR from "swr";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography } from "antd";
+import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/BecomeAnAffiliate";
 import AffiliateProductsFilters from "components/affiliateProducts/AffiliateProductsFilters";
 import Spinner from "components/Spinner";
-import { isAnEmpytyObject, showToast } from "utils";
+import productsColumns from "components/affiliateProducts/productsColumns";
 import {
   affiliateProductsFailure,
   affiliateProductsRequest,
   affiliateProductsSuccess,
 } from "redux/actions/affiliate.actions";
+import { showToast, isAnEmpytyObject } from "utils";
 import axiosApi from "utils/axios";
+import normalize from "utils/normalize";
 import styles from "public/css/AffiliateProducts.module.scss";
 
 const { Text } = Typography;
+const rowKey = record => record.id;
 
 const AffiliateProducts = () => {
   const [filtered, setFiltered] = useState(null);
-  const { user, loading: userLoading } = useSelector(state => state.auth);
-  const { products, loading: productsLoading } = useSelector(
-    state => state.affiliate
-  );
   const dispatch = useDispatch();
-  const firstRender = useRef(true);
+  const { user, loading: userLoading } = useSelector(state => state.auth);
+  const { productTypes } = useSelector(state => state.product);
+  const { products } = useSelector(state => state.affiliate);
 
-  const userIsEmpty = isAnEmpytyObject(user);
-
-  useEffect(() => {
-    if (user.is_affiliate) {
+  const { data } = useSWR(
+    () => {
+      return user.is_affiliate
+        ? `${process.env.BASE_URL}affiliate/get-products`
+        : null;
+    },
+    url => {
       dispatch(affiliateProductsRequest());
-
-      axiosApi.request(
+      return axiosApi.request(
         "get",
-        `${process.env.BASE_URL}affiliate/get-products`,
+        url,
         res => {
           dispatch(affiliateProductsSuccess(res.data));
+          return res;
         },
         err => {
           showToast(err, "error");
@@ -44,7 +49,13 @@ const AffiliateProducts = () => {
         }
       );
     }
-  }, [dispatch, user.is_affiliate]);
+  );
+
+  console.log(data);
+
+  const userIsEmpty = isAnEmpytyObject(user);
+  const types = normalize(productTypes, "id");
+  const columns = productsColumns(types);
 
   if (userLoading || userIsEmpty) {
     return (
@@ -64,9 +75,25 @@ const AffiliateProducts = () => {
       ) : (
         <>
           <header className={styles.header}>
-            <Text>Market Place</Text>
+            <Text type="secondary" strong>
+              Market Place
+            </Text>
           </header>
           <AffiliateProductsFilters data={products} setFiltered={setFiltered} />
+          <section className={styles.tableWrapper}>
+            <Table
+              dataSource={filtered || products}
+              columns={columns}
+              pagination={{
+                position: ["bottomLeft"],
+                pageSize: 5,
+                responsive: true,
+                showQuickJumper: true,
+              }}
+              rowKey={rowKey}
+              loading={!data}
+            />
+          </section>
         </>
       )}
     </AuthLayout>

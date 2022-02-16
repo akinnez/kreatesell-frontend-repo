@@ -1,0 +1,25 @@
+@use "public/css/mixins";
+
+.sold {
+  font-weight: bold;
+  color: #0072ef;
+}
+
+.visit {
+  font-weight: bold;
+  color: #00b140;
+}
+
+.request__link > a {
+  font-size: 12px;
+  font-weight: bold;
+  color: #0072ef;
+  // border-radius: 8px;
+  // border: 1px solid #0072ef;
+  // padding: 10px 16px;
+
+  svg {
+    display: inline;
+    font-size: 14px;
+  }
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Checkbox, Modal, Typography } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineCloseCircle, AiOutlineArrowRight } from "react-icons/ai";
 import { UPDATE_USER_AFFILIATE_STATUS } from "redux/types/auth.types";
 import axiosApi from "utils/axios";
@@ -24,6 +24,7 @@ const BecomeAnAffiliate = () => {
   const [loading, setLoading] = useState(false);
   const { back } = useRouter();
   const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
 
   const handleChecked = e => {
     setIsChecked(e.target.checked);
@@ -36,6 +37,9 @@ const BecomeAnAffiliate = () => {
       "get",
       `${process.env.BASE_URL}admin/UpgradetoAffiliate`,
       res => {
+        const newUser = { ...user, is_affiliate: true };
+
+        localStorage.setItem("user", JSON.stringify(newUser));
         dispatch({ type: UPDATE_USER_AFFILIATE_STATUS });
         showToast(res.data.data, "success");
       },

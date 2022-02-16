@@ -12,7 +12,9 @@ import styles from "./index.module.scss";
 // ];
 
 const cbOne = (arr, key, query) => {
-  arr.filter(item => item[key].toLowerCase().includes(query.toLowerCase()));
+  return arr.filter(item => {
+    return item[key].toLowerCase().includes(query.toLowerCase());
+  });
 };
 
 const cbTwo = (arr, dateListed) => {
@@ -77,9 +79,9 @@ const AffiliateProductsFilters = ({ data, setFiltered }) => {
     }
 
     if (productType && tempArr) {
-      tempArr = tempArr.filter(item => item.product_type === productType);
+      tempArr = tempArr.filter(item => +item.product_type_id === productType);
     } else if (productType && !tempArr) {
-      tempArr = data.filter(item => item.product_type === productType);
+      tempArr = data.filter(item => +item.product_type_id === productType);
     }
 
     if (dateListed && tempArr) {
