@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import { Button, DatePicker, Input, Select } from "antd";
+import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
 import { MdOutlineCancel } from "react-icons/md";
 import moment from "moment";
 import styles from "./index.module.scss";
@@ -41,6 +41,11 @@ const AffiliateProductsFilters = ({ data, setFiltered }) => {
 
   const { productTypes } = useSelector(state => state.product);
 
+  const types = useMemo(() => {
+    if (productTypes.length === 0) return [];
+    return [{ id: "all", product_type_name: "All" }, ...productTypes];
+  }, [productTypes]);
+
   const handleProductName = e => {
     setProductName(e.target.value);
   };
@@ -54,7 +59,7 @@ const AffiliateProductsFilters = ({ data, setFiltered }) => {
   // };
 
   const handleProductType = value => {
-    setProductType(value);
+    setProductType(`${value}`);
   };
 
   const handleDateListed = (_, dateStr) => {
@@ -79,9 +84,17 @@ const AffiliateProductsFilters = ({ data, setFiltered }) => {
     }
 
     if (productType && tempArr) {
-      tempArr = tempArr.filter(item => +item.product_type_id === productType);
+      if (productType === "all") {
+        tempArr = tempArr;
+      } else {
+        tempArr = tempArr.filter(item => item.product_type_id === productType);
+      }
     } else if (productType && !tempArr) {
-      tempArr = data.filter(item => +item.product_type_id === productType);
+      if (productType === "all") {
+        tempArr = data;
+      } else {
+        tempArr = data.filter(item => item.product_type_id === productType);
+      }
     }
 
     if (dateListed && tempArr) {
@@ -137,85 +150,111 @@ const AffiliateProductsFilters = ({ data, setFiltered }) => {
           onClick={handleHideFilter}
           className={styles.closeFilter}
         />
-        {/* {data.length === 0 ? (
-          <div className={styles.skeletonContainer}>
-            <Skeleton.Input active size="large" />
-            <Skeleton.Input active size="large" />
-            <Skeleton.Input active size="large" />
-            <Skeleton.Input active size="large" />
-            <Skeleton.Input active size="large" />
-          </div>
-        ) : ( */}
-        <div
-          className={`${styles.allFiltersWrapper} ${
-            isFiltered ? styles.mdMargin : styles.lgMargin
-          }`}
-        >
-          <div className={styles.filterInputs}>
-            <div className={styles.filterWrapper}>
-              <span>Product Name</span>
-              <Input
-                placeholder="Search by product name"
-                size="large"
-                onChange={handleProductName}
-                value={productName}
-              />
-            </div>
-            <div className={styles.filterWrapper}>
-              <span>Kreator Name</span>
-              <Input
-                placeholder="Search by kreator name"
-                size="large"
-                onChange={handleKreatorName}
-                value={kreatorName}
-              />
-            </div>
-            {/* <div className={styles.filterWrapper}>
-              <span>Sort By</span>
-              <Select
-                options={sortByOptions}
-                placeholder="Launch Date"
-                size="large"
-                onChange={handleSortBy}
-              />
-            </div> */}
-            <div className={styles.filterWrapper}>
-              <span>Product Type</span>
-              <Select
-                placeholder="All"
-                size="large"
-                onChange={handleProductType}
+        <div className={isFiltered ? styles.mdMargin : styles.lgMargin}>
+          <Form
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+            onFinish={handleSubmitFilter}
+            size="large"
+          >
+            <Row gutter={20} align="bottom" justify="space-between">
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 5 }}
+                className={styles.input__wrapper}
               >
-                {productTypes.map(({ id, product_type_name }) => (
-                  <Select.Option key={id} value={id}>
-                    {product_type_name}
-                  </Select.Option>
-                ))}
-              </Select>
-            </div>
-            <div className={styles.filterWrapper}>
-              <span>Date Listed</span>
-              <DatePicker
-                placeholder="2021-07-22"
-                size="large"
-                onChange={handleDateListed}
-                value={dateListed ? moment(dateListed, "YYYY-MM-DD") : ""}
-              />
-            </div>
-          </div>
-          <div className={styles.filterButton}>
-            <Button size="large" type="primary" onClick={handleSubmitFilter}>
-              <Image
-                src="/images/FilterIcon.png"
-                alt="Filter icon"
-                width={19}
-                height={16}
-              />
-              &nbsp; Filter
-            </Button>
-          </div>
+                <Form.Item label="Product Name" name="productName">
+                  <Input
+                    placeholder="Search by product name"
+                    onChange={handleProductName}
+                    value={productName}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 5 }}
+                className={styles.input__wrapper}
+              >
+                <Form.Item label="Kreator Name" name="kreator_name">
+                  <Input
+                    placeholder="Search by kreator name"
+                    onChange={handleKreatorName}
+                    value={kreatorName}
+                  />
+                </Form.Item>
+              </Col>
+              {/* <Col
+                xs={{ span: 24 }}
+                lg={{ span: 5 }}
+                className={styles.input__wrapper}
+              >
+                <Form.Item label="Launch Date" name="sort_by">
+                  <Select
+                    options={sortByOptions}
+                    placeholder="Launch Date"
+                    size="large"
+                    onChange={handleSortBy}
+                  />
+                </Form.Item>
+              </Col> */}
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 5 }}
+                className={styles.input__wrapper}
+              >
+                <Form.Item label="Product Type" name="product_type">
+                  <Select
+                    placeholder="All"
+                    onChange={handleProductType}
+                    value={productType}
+                    allowClear
+                  >
+                    {types.map(({ id, product_type_name }) => (
+                      <Select.Option key={id} value={id}>
+                        {product_type_name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 5 }}
+                className={styles.input__wrapper}
+              >
+                <Form.Item label="Date Listed" name="date_listed">
+                  <DatePicker
+                    placeholder="2021-07-22"
+                    onChange={handleDateListed}
+                    value={dateListed ? moment(dateListed, "YYYY-MM-DD") : ""}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 3 }}
+                className={styles.filter__btn}
+              >
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={handleSubmitFilter}
+                  >
+                    <Image
+                      src="/images/FilterIcon.png"
+                      alt="Filter icon"
+                      width={19}
+                      height={16}
+                    />
+                    &nbsp; Filter
+                  </Button>
+                </Form.Item>
+              </Col>
+            </Row>
+          </Form>
         </div>
-        {/* )} */}
       </div>
       {isFiltered && <ResetBtn resetFilters={resetFilters} />}
     </>

@@ -38,54 +38,28 @@
   }
 }
 
-.skeletonContainer {
-  height: 100%;
-  @include mixins.flex(column, space-between, flex-start);
-
-  div[class="ant-skeleton ant-skeleton-element ant-skeleton-active"] {
-    width: 100%;
-
-    &:last-of-type {
-      width: 100px;
-    }
-
-    span[class="ant-skeleton-input ant-skeleton-input-lg"] {
-      margin-bottom: 0;
-      border-radius: 8px;
-    }
-  }
-}
-
-.allFiltersWrapper {
-  @include mixins.flex(column, space-between, flex-start);
-  height: 100%;
-}
-
-.filterInputs {
-  width: 100%;
-  height: calc(100% - 100px);
-  @include mixins.flex(column, space-between, flex-start);
-}
-
-.filterWrapper {
-  @include mixins.flex(column, center, flex-start);
-
-  width: 100%;
-  margin-bottom: 20px;
-
-  & > span:first-child {
-    display: inline-block;
-    margin-bottom: 5px;
-    cursor: default;
-    font-size: 16px;
+.input__wrapper {
+  div[class$="ant-form-item-label"] {
+    padding: 0;
   }
 
-  & > :last-child {
+  label[for] {
+    font-weight: 500;
+    color: #8c8c8c;
+  }
+
+  &:nth-last-child(2) div[class^="ant-picker"] {
     width: 100%;
   }
 }
 
-.filterButton {
+.filter__btn {
+  margin-top: 30px;
+
+  div[class~="ant-form-item"] {
+    margin-bottom: 0;
+  }
+
   button {
     border-radius: 8px;
   }
@@ -123,16 +97,6 @@
     display: none !important;
   }
 
-  .skeletonContainer {
-    @include mixins.flex(row, space-between, center);
-    margin-bottom: 40px;
-    padding-top: 30px;
-
-    div[class="ant-skeleton ant-skeleton-element ant-skeleton-active"] {
-      width: 20%;
-    }
-  }
-
   .mdMargin {
     margin-bottom: 10px;
   }
@@ -141,34 +105,9 @@
     margin-bottom: 40px;
   }
 
-  .allFiltersWrapper {
-    @include mixins.flex(row, space-between, flex-end);
-  }
-
-  .filterInputs {
-    height: auto;
-    @include mixins.flex(row, space-between, center);
-    flex-basis: calc(100% - 124px);
-  }
-
-  .filterWrapper {
-    padding-left: 12px;
-    padding-right: 12px;
-    flex-basis: 25%;
-    width: 100%;
+  .input__wrapper div[class~="ant-form-item"],
+  .filter__btn {
     margin-bottom: 0;
-
-    &:first-of-type {
-      padding-left: 0;
-    }
-
-    &:last-of-type {
-      padding-right: 0;
-    }
-  }
-
-  .filterButton {
-    padding-left: 24px;
   }
 
   .filtersContainer + .resetFilters {

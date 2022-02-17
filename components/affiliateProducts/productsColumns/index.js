@@ -44,7 +44,7 @@ const productsColumns = types => [
     ),
   },
   {
-    title: "Percentage",
+    title: "Commission",
     dataIndex: "affiliate_percentage_on_sales",
     render: percent => `${percent || 0}%`,
   },

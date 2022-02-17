@@ -51,8 +51,6 @@ const AffiliateProducts = () => {
     }
   );
 
-  console.log(data);
-
   const userIsEmpty = isAnEmpytyObject(user);
   const types = normalize(productTypes, "id");
   const columns = productsColumns(types);
@@ -86,9 +84,10 @@ const AffiliateProducts = () => {
               columns={columns}
               pagination={{
                 position: ["bottomLeft"],
-                pageSize: 5,
+                defaultPageSize: 5,
                 responsive: true,
                 showQuickJumper: true,
+                pageSizeOptions: [5, 10, 20, 30, 40, 50, 100],
               }}
               rowKey={rowKey}
               loading={!data}
