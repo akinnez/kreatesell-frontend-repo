@@ -36,7 +36,12 @@ const OpenTicket = ({ department }) => {
                 >
                   <Card bordered={false} className={style.card}>
                     <h4 className={style.title}>{dept.name}</h4>
-                    <Image src="/images/testimg.png" width={250} height={290} />
+                    <Image
+                      src="/images/testimg.png"
+                      alt="departments"
+                      width={250}
+                      height={290}
+                    />
                     <br />
                     <Button
                       className={style.openTicketBtn}
