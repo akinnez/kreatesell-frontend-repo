@@ -364,6 +364,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                     thumbnail_alt={item?.thumbnail_alt}
                     created_at={item?.created_at}
                     category={item?.category}
+                    id={item?.id}
                   />
                 ))}
           </div>
