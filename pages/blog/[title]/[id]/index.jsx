@@ -89,6 +89,8 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     thumbnail,
     thumbnail_alt,
     created_at,
+    category,
+    id,
   }) => {
     return (
       <div className={styles.asideContainer}>
@@ -99,7 +101,12 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
           <p className={styles.date}>
             {moment(created_at).format("MMM DD YYYY")}
           </p>
-          <h4 className={styles.title}>{title}</h4>
+          <Link href={`/blog/${category}/${id}`}>
+            <h4 style={{ cursor: "pointer" }} className={styles.title}>
+              {title}
+            </h4>
+          </Link>
+
           <div className={styles.excerpt}>{excerpt}</div>
         </div>
       </div>
@@ -113,6 +120,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     created_at,
     thumbnail,
     thumbnail_alt = "kreatesell blog",
+    category,
   }) => {
     return (
       <div className={styles.singlePost}>
@@ -136,7 +144,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
             { addSuffix: true }
           )} */}
         </div>
-        <Link href={`/blog/${title}/${id}`}>
+        <Link href={`/blog/${category}/${id}`}>
           <h4 className={styles.singleTitle}>{title}</h4>
         </Link>
         <div className={styles.excerptDiv}>
@@ -204,6 +212,13 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                   src="/images/placeholder-2.jpg"
                   alt="admin"
                   className={styles.adminImage}
+                  layout="fixed"
+                  width={40}
+                  height={40}
+                  style={{
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                  }}
                 />
                 <div className={styles.adminNameDiv}>
                   <h6 className={styles.adminName}>By FARAI MUTSAKA</h6>
@@ -215,6 +230,8 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                   src={blog?.thumbnail}
                   className={styles.thumbnailImage}
                   alt={blog?.thumbnail_alt}
+                  width={815}
+                  height={365}
                 />
               </div>
             </div>
@@ -309,6 +326,8 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                       thumbnail={item?.thumbnail}
                       thumbnail_alt={item?.thumbnail_alt}
                       created_at={item?.created_at}
+                      category={item?.category}
+                      id={item?.id}
                     />
                   ))}
             </div>
@@ -344,6 +363,8 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                     thumbnail={item?.thumbnail}
                     thumbnail_alt={item?.thumbnail_alt}
                     created_at={item?.created_at}
+                    category={item?.category}
+                    id={item?.id}
                   />
                 ))}
           </div>
@@ -379,6 +400,7 @@ export async function getStaticProps(context) {
     result = await axios.get(
       `${process.env.BASE_URL}blogs/posts/${context.params.id}`
     );
+
     resultTwo = await axios.get(
       `${process.env.BASE_URL}blogs/posts/active?page=${1}`
     );
