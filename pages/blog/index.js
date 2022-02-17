@@ -64,7 +64,12 @@ const Blog = ({ blogs, error, router, mostRecentBlog }) => {
             <div className={styles.date}>
               {moment(mostRecentBlog[0]?.created_at).format("MMMM, DD YYYY")}
             </div>
-            <h2 className={styles.title}>{mostRecentBlog[0]?.title} </h2>
+            <Link
+              href={`/blog/${mostRecentBlog[0]?.category}/${mostRecentBlog[0]?.id}`}
+            >
+              <h2 className={styles.title}>{mostRecentBlog[0]?.title} </h2>
+            </Link>
+
             <p className={styles.excerpt}>{mostRecentBlog[0]?.excerpt}</p>
           </div>
         </div>
@@ -89,13 +94,6 @@ const Blog = ({ blogs, error, router, mostRecentBlog }) => {
 
         {/* Pagination */}
         <div className={styles.pagination}>
-          {/* <Pagination
-            onPageChange={paginationHandler}
-            totalCount={blogs?.total_records}
-            currentPage={1}
-            pageSize={10}
-            className="pagination-bar"
-                    /> */}
           <Pagination
             defaultCurrent={1}
             onChange={paginationHandler}
