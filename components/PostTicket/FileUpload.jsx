@@ -56,8 +56,8 @@ function FileUpload({ files, setFiles, uploadingFiles, setUploadingFiles }) {
         onClick={() => removeFile(file)}
       />
       <div className={styles.thumbInner}>
-        <Image src={file.preview} layout="fill" className={styles.img} alt="" />
-        {/* <img src={file.preview} layout="fill" className={styles.img} /> */}
+        {/* <Image src={file.preview} layout="fill" className={styles.img} alt="" /> */}
+        <img src={file.preview} layout="fill" alt="" className={styles.img} />
       </div>
     </div>
   ));
