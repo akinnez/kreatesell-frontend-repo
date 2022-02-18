@@ -1,6 +1,5 @@
 import { GeneralLayout } from "../GeneralLayout";
 import renderer from "react-test-renderer";
-// import { ForgotPasswordForm } from "../../forms/ForgotPasswordForm";
 import { ForgotPasswordForm, ResetPasswordForm } from "../../forms";
 import * as nextRouter from "next/router";
 import { Provider } from "react-redux";
