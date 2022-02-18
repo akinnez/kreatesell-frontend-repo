@@ -177,7 +177,7 @@ export const Navbar = () => {
             onClick={() => router.push("/signup")}
           >
             <Button
-              text="Signup"
+              text="Signup Free"
               bgColor="blue"
               className={styles.signUpBtnStyle}
             />
