@@ -23,11 +23,15 @@ const productsColumns = types => [
     title: "Launch Date",
     dataIndex: "date_created",
     render: dateStr => dateString(dateStr),
+    sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
+    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "No of Sales",
     dataIndex: "number_of_sales",
     render: sales => formatNumber(sales || 10),
+    sorter: (a, b) => a.number_of_sales - b.number_of_sales,
+    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "Performance",
