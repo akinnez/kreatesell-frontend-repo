@@ -1,6 +1,6 @@
 import { GeneralLayout } from "../GeneralLayout";
 import renderer from "react-test-renderer";
-import { ForgotPasswordForm } from "../../forms/ForgotPasswordForm";
+import { ForgotPasswordForm, ResetPasswordForm } from "../../forms";
 import * as nextRouter from "next/router";
 import { Provider } from "react-redux";
 import { initializeStore } from "../../../redux/store";
@@ -22,6 +22,22 @@ describe("GeneralLayout : ", () => {
             subTitle="Enter your email and a reset token will be sent to you"
             socialBtn={false}
             subTitleOpacity={true}
+          />
+        </Provider>
+      )
+      .toJSON();
+    expect(generalLayout).toMatchSnapshot();
+  });
+  it("renders a snapshot of <GeneralLayout /> using <ResetPasswordForm /> as a test case", () => {
+    const generalLayout = renderer
+      .create(
+        <Provider store={initializeStore(mockState)}>
+          <GeneralLayout
+            Form={ResetPasswordForm}
+            formTitle="Forgot Password"
+            title="KreateSell | Forgot Password"
+            subTitle="Set up a new password"
+            socialBtn={false}
           />
         </Provider>
       )
