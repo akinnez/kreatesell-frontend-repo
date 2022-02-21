@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/BecomeAnAffiliate";
-import AffiliateProductsFilters from "components/affiliateProducts/AffiliateProductsFilters";
+import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import Spinner from "components/Spinner";
 import productsColumns from "components/affiliateProducts/productsColumns";
 import {
@@ -77,7 +77,7 @@ const AffiliateProducts = () => {
               Market Place
             </Text>
           </header>
-          <AffiliateProductsFilters data={products} setFiltered={setFiltered} />
+          <AffiliateFilters data={products} setFiltered={setFiltered} />
           <section className={styles.tableWrapper}>
             <Table
               dataSource={filtered || products}

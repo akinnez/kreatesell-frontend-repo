@@ -3,8 +3,8 @@ import { Button, Tabs, Typography, Card } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
-import Request from "components/affiliateProductRequest/components/Request";
-import Overview from "components/affiliateProductRequest/components/Overview";
+import Request from "components/affiliateProductRequest/Request";
+import Overview from "components/affiliateProductRequest/Overview";
 import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { Text, Title } = Typography;
@@ -28,7 +28,7 @@ const AffiliateProductRequest = () => {
         </Title>
       </div>
       <Card className={styles.card__container}>
-        <Tabs className={styles.tabs} defaultActiveKey="1" centered animated>
+        <Tabs className={styles.tabs} defaultActiveKey="1" centered>
           <TabPane tab="Request" key="1">
             <Request />
           </TabPane>

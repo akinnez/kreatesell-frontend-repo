@@ -5,7 +5,7 @@ import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
 import { MdOutlineCancel } from "react-icons/md";
 import moment from "moment";
 import normalize from "utils/normalize";
-import { cbOne, cbTwo } from "../utils";
+import { cbOne, cbTwo } from "../callbacks";
 import styles from "./index.module.scss";
 
 const ResetBtn = ({ resetFilters }) => (
@@ -16,7 +16,7 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const AffiliateProductsFilters = ({ data, setFiltered }) => {
+const AffiliateFilters = ({ data, setFiltered }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
@@ -226,4 +226,4 @@ const AffiliateProductsFilters = ({ data, setFiltered }) => {
   );
 };
 
-export default AffiliateProductsFilters;
+export default AffiliateFilters;

@@ -1,18 +1,18 @@
 @use "public/css/colors";
 
-.request__link > a {
+.link {
   font-size: 12px;
   font-weight: bold;
-  color: colors.$base-blue;
-  width: 134px;
+  color: colors.$green-100;
+  width: 104px;
   display: inline-flex;
   align-items: center;
-  padding: 10px;
+  padding: 5px 15px;
   border-radius: 8px;
-  border: 1px solid colors.$base-blue;
+  border: 1px solid colors.$green-100;
 
   svg {
     display: inline;
-    font-size: 14px;
+    font-size: 20px;
   }
 }

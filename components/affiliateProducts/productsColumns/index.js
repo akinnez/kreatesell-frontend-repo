@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import Performance from "components/affiliates/Performance";
 import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
 import styles from "./index.module.scss";
@@ -37,14 +38,7 @@ const productsColumns = types => [
     title: "Performance",
     dataIndex: "",
     render: (_, record) => (
-      <>
-        <div>
-          <span className={styles.sold}>Sold:</span> {record.sold || 200}
-        </div>
-        <div>
-          <span className={styles.visit}>Visit:</span> {record.visit || 50}
-        </div>
-      </>
+      <Performance sold={record.sold} visit={record.visit} />
     ),
   },
   {
