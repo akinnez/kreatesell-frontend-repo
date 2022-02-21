@@ -1,0 +1,77 @@
+@use "mixins";
+@use "colors";
+@use "screens";
+
+.header {
+  @include mixins.flex(row, space-between, center);
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.header__btn {
+  height: auto;
+  padding: 10px 20px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid colors.$base-blue;
+  color: colors.$base-blue;
+  font-size: 12px;
+  font-weight: bold;
+
+  svg {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+}
+
+.product__name {
+  margin-bottom: 40px;
+
+  h1 {
+    text-align: center;
+    font-size: 25px;
+  }
+}
+
+.card__container {
+  border-radius: 8px;
+  max-width: 1100px;
+  margin: 0 auto 85px;
+
+  div[class="ant-card-body"] {
+    padding-top: 80px;
+    padding-bottom: 140px;
+  }
+}
+
+.tabs {
+  div[class="ant-tabs-nav"] {
+    margin-bottom: 40px;
+  }
+
+  div[class="ant-tabs-tab-btn"] {
+    font-size: 16px;
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .card__container div[class="ant-card-body"] {
+    padding-left: 62px;
+    padding-right: 62px;
+  }
+}
+
+@include screens.screen("medium-large") {
+  .card__container {
+    background-color: transparent;
+    border: none;
+
+    div[class="ant-card-body"] {
+      padding: 0;
+    }
+  }
+
+  .tabs > div[class="ant-tabs-nav"]::before {
+    border-bottom-color: #bfbfbf;
+  }
+}

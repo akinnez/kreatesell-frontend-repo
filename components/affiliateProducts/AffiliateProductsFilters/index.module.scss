@@ -43,12 +43,16 @@
     padding: 0;
   }
 
+  &:nth-child(3) div[class="ant-select-selector"] {
+    border-radius: 8px;
+  }
+
   label[for] {
     font-weight: 500;
     color: #8c8c8c;
   }
 
-  &:nth-last-child(2) div[class^="ant-picker"] {
+  & div[class^="ant-picker"] {
     width: 100%;
   }
 }

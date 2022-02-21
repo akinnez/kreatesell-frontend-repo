@@ -1,10 +1,18 @@
 import { useEffect } from "react";
-import { Layout } from "antd";
-import Nav from "./Header";
-import { Spin } from "antd";
-import { ToastContainer } from "react-toastify";
-import { checkExpiredAdminToken, showToast, _isUserLoggedIn } from "utils";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { Spin, Layout } from "antd";
+import { ToastContainer } from "react-toastify";
+import Nav from "./header";
+import {
+  checkExpiredUserToken,
+  getUser,
+  showToast,
+  _isUserLoggedIn,
+  isAnEmpytyObject,
+} from "utils";
+import { USER } from "redux/types/auth.types";
+import { GetProductTypes } from "redux/actions/product.actions";
 import styles from "./index.module.scss";
 
 const Loader = () => {
@@ -38,15 +46,35 @@ const ProfileLayout = ({
   const router = useRouter();
 
   useEffect(() => {
-    checkExpiredAdminToken();
-  }, [router]);
-
+    checkExpiredUserToken();
+  }, []);
   useEffect(() => {
     if (!_isUserLoggedIn()) {
       showToast("Login required to view page", "info");
       return router.push("/login");
     }
-  }, [router]);
+  }, []);
+
+  const user = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const userIsEmpty = isAnEmpytyObject(user.user);
+  const productTypes = GetProductTypes();
+
+  useEffect(() => {
+    if (userIsEmpty) {
+      dispatch({ type: USER.REQUEST });
+
+      const userStorage = getUser();
+
+      if (userStorage) {
+        dispatch({ type: USER.SUCCESS, payload: userStorage });
+      }
+    }
+  }, [dispatch, userIsEmpty]);
+
+  useEffect(() => {
+    productTypes();
+  }, []);
 
   return (
     <>

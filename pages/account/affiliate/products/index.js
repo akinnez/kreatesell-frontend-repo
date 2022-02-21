@@ -83,7 +83,8 @@ const AffiliateProducts = () => {
               dataSource={filtered || products}
               columns={columns}
               pagination={{
-                position: ["bottomLeft"],
+                position: ["bottomLeft", "topRight"],
+                showSizeChanger: true,
                 defaultPageSize: 5,
                 responsive: true,
                 showQuickJumper: true,
