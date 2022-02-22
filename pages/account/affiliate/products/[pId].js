@@ -1,13 +1,13 @@
 import Head from "next/head";
-import { Button, Tabs, Typography, Card } from "antd";
+import { Button, Tabs } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
-import Request from "components/affiliateProductRequest/Request";
-import Overview from "components/affiliateProductRequest/Overview";
+import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
+import Request from "components/affiliateProducts/components/Request";
+import Overview from "components/affiliates/Overview";
 import styles from "public/css/AffiliateProductRequest.module.scss";
 
-const { Text, Title } = Typography;
 const { TabPane } = Tabs;
 
 const AffiliateProductRequest = () => {
@@ -22,24 +22,14 @@ const AffiliateProductRequest = () => {
           View Sales Page
         </Button>
       </header>
-      <div className={styles.product__name}>
-        <Title>
-          The Land Of Hope - <Text type="secondary">DIGITAL DOWNLOAD</Text>
-        </Title>
-      </div>
-      <Card className={styles.card__container}>
-        <Tabs className={styles.tabs} defaultActiveKey="1" centered>
-          <TabPane tab="Request" key="1">
-            <Request />
-          </TabPane>
-          <TabPane tab="Overview" key="2">
-            <Overview />
-          </TabPane>
-          {/* <TabPane tab="Promotional Materials/Bonus" key="3">
-            Promotional Material/Bonus
-          </TabPane> */}
-        </Tabs>
-      </Card>
+      <AffiliateRequestContainer>
+        <TabPane tab="Request" key="1">
+          <Request />
+        </TabPane>
+        <TabPane tab="Overview" key="2">
+          <Overview />
+        </TabPane>
+      </AffiliateRequestContainer>
     </ProfileLayout>
   );
 };

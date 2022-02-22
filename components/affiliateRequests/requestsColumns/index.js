@@ -62,11 +62,19 @@ const requestsColumns = types => [
   {
     title: "Actions",
     render: (_, record) => (
-      <Link href={`/account/affiliate/products/${record.id}`}>
-        <a className={styles.link}>
-          Get Link&nbsp; <MdOutlineLink />
-        </a>
-      </Link>
+      <>
+        {record.status === "Approved" ? (
+          <Link href={`/account/affiliate/requests/${record.id}`}>
+            <a className={styles.link}>
+              Get Link&nbsp; <MdOutlineLink />
+            </a>
+          </Link>
+        ) : (
+          <a className={styles.link} disabled>
+            Get Link&nbsp; <MdOutlineLink />
+          </a>
+        )}
+      </>
     ),
   },
 ];

@@ -11,6 +11,11 @@
   border-radius: 8px;
   border: 1px solid colors.$green-100;
 
+  &[disabled] {
+    color: #bfbfbf;
+    border-color: #bfbfbf;
+  }
+
   svg {
     display: inline;
     font-size: 20px;

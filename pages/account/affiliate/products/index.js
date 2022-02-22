@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
-import BecomeAnAffiliate from "components/affiliateProducts/BecomeAnAffiliate";
+import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import Spinner from "components/Spinner";
 import productsColumns from "components/affiliateProducts/productsColumns";

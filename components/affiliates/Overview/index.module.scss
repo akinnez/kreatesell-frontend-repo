@@ -69,7 +69,12 @@
 }
 
 .product__overview__stats {
-  @include mixins.flex(row, space-between, center);
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+
+  > div {
+    margin: 10px;
+  }
 
   p {
     font-size: 24px;
