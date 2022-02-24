@@ -1,0 +1,39 @@
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.header {
+  @include mixins.flex(row, space-between, center);
+  background-color: #fff;
+  padding: 25px 10px;
+  height: auto;
+}
+
+.nav_right {
+  @include mixins.flex(row, flex-end, center);
+  width: 35%;
+  max-width: 350px;
+
+  button {
+    justify-content: center;
+    height: auto;
+
+    &:not(:last-of-type) {
+      display: none !important;
+    }
+
+    &:nth-of-type(2) {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+  }
+}
+
+@include screens.minScreen("tablet") {
+  .header {
+    padding: 25px;
+  }
+
+  .nav_right > button:not(:last-of-type) {
+    display: flex !important;
+  }
+}

@@ -4,8 +4,8 @@ import useSWR from "swr";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
-import BecomeAnAffiliate from "components/affiliateProducts/BecomeAnAffiliate";
-import AffiliateProductsFilters from "components/affiliateProducts/AffiliateProductsFilters";
+import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
+import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import Spinner from "components/Spinner";
 import productsColumns from "components/affiliateProducts/productsColumns";
 import {
@@ -51,8 +51,6 @@ const AffiliateProducts = () => {
     }
   );
 
-  console.log(data);
-
   const userIsEmpty = isAnEmpytyObject(user);
   const types = normalize(productTypes, "id");
   const columns = productsColumns(types);
@@ -79,16 +77,18 @@ const AffiliateProducts = () => {
               Market Place
             </Text>
           </header>
-          <AffiliateProductsFilters data={products} setFiltered={setFiltered} />
+          <AffiliateFilters data={products} setFiltered={setFiltered} />
           <section className={styles.tableWrapper}>
             <Table
               dataSource={filtered || products}
               columns={columns}
               pagination={{
-                position: ["bottomLeft"],
-                pageSize: 5,
+                position: ["bottomLeft", "topRight"],
+                showSizeChanger: true,
+                defaultPageSize: 5,
                 responsive: true,
                 showQuickJumper: true,
+                pageSizeOptions: [5, 10, 20, 30, 40, 50, 100],
               }}
               rowKey={rowKey}
               loading={!data}

@@ -1,0 +1,128 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.kreator__overview {
+  border: 1px solid colors.$gray-100;
+  border-radius: 8px;
+  padding: 20px 50px;
+}
+
+.kreator__overview__title {
+  text-align: center;
+  background-color: colors.$base-green-300;
+  margin-bottom: 20px;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.kreator__overview__image {
+  max-width: 100%;
+  margin: 0 auto 20px;
+}
+
+.kreator__overview__info {
+  margin-bottom: 20px;
+
+  h3 {
+    color: colors.$base-gray;
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  a {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4px;
+    background-color: colors.$base-green-300;
+    color: colors.$base-blue;
+    font-size: 16px;
+  }
+
+  svg {
+    display: inline;
+    font-size: 16px;
+  }
+}
+
+.product__overview {
+  border: 1px solid colors.$gray-100;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.product__overview__img {
+  margin-bottom: 25px;
+
+  + h2 {
+    margin-bottom: 25px;
+    color: colors.$black-100;
+  }
+
+  ~ p {
+    margin-bottom: 40px;
+  }
+}
+
+.product__overview__stats {
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+
+  > div {
+    margin: 10px;
+  }
+
+  p {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+
+  p:last-child {
+    font-size: 20px;
+  }
+}
+
+.image {
+  border-radius: 8px;
+}
+
+.kreator__overview__text > p,
+.product__overview__img ~ p {
+  color: colors.$base-gray;
+}
+
+@include screens.minScreen("medium-large") {
+  .kreator__overview {
+    margin-bottom: 50px;
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .overview__container {
+    display: grid;
+    grid-template-areas: "product product kreator";
+    column-gap: 50px;
+  }
+
+  .kreator__overview {
+    grid-area: kreator;
+    margin-bottom: 0;
+  }
+
+  .product__overview {
+    grid-area: product;
+  }
+}
+
+@include screens.screen("medium-large") {
+  .kreator__overview {
+    background-color: #fff;
+    padding: 20px 40px;
+    width: 90%;
+    margin: 0 auto 50px;
+  }
+}

@@ -4,17 +4,18 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
-import Request from "components/affiliateProducts/components/Request";
+import AffiliateLink from "components/affiliateRequests/components/AffiliateLink";
 import Overview from "components/affiliates/Overview";
-import styles from "public/css/AffiliateProductRequest.module.scss";
+import styles from "public/css/AffiliateRequestLink.module.scss";
+import PromotionalMaterials from "components/affiliateRequests/components/PromotionalMaterials";
 
 const { TabPane } = Tabs;
 
-const AffiliateProductRequest = () => {
+const AffiliateRequestLinK = () => {
   return (
     <ProfileLayout>
       <Head>
-        <title>KreateSell | Affiliate Product Request</title>
+        <title>KreateSell | Affiliate Request Link</title>
       </Head>
       <header className={styles.header}>
         <BackButton />
@@ -23,15 +24,18 @@ const AffiliateProductRequest = () => {
         </Button>
       </header>
       <AffiliateRequestContainer>
-        <TabPane tab="Request" key="1">
-          <Request />
+        <TabPane tab="Affiliate Link" key="1">
+          <AffiliateLink />
         </TabPane>
         <TabPane tab="Overview" key="2">
           <Overview />
+        </TabPane>
+        <TabPane tab="Promotional Materials/Bonus" key="3">
+          <PromotionalMaterials />
         </TabPane>
       </AffiliateRequestContainer>
     </ProfileLayout>
   );
 };
 
-export default AffiliateProductRequest;
+export default AffiliateRequestLinK;

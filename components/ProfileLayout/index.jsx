@@ -1,27 +1,19 @@
-import React, { useEffect } from "react";
-import jwtDecode from "jwt-decode";
-import { Layout } from "antd";
-import Sidebar from "./sidebar";
-import Logo from "./logo";
-import Nav from "./header";
-import { Spin } from "antd";
-import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../../redux/actions/utilityActions";
-import { getStore } from "../../redux/actions/store.actions";
-import ApiService from "../../utils/axios";
-import * as types from "../../redux/types";
+import { Spin, Layout } from "antd";
+import { ToastContainer } from "react-toastify";
+import Nav from "./Header";
 import {
   checkExpiredUserToken,
   getUser,
-  getUserToken,
   showToast,
   _isUserLoggedIn,
   isAnEmpytyObject,
 } from "utils";
-import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
+import styles from "./index.module.scss";
 
 const Loader = () => {
   return (
@@ -44,8 +36,13 @@ const Loader = () => {
   );
 };
 
-const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
-  const { Header, Footer, Sider, Content } = Layout;
+const ProfileLayout = ({
+  loading,
+  children,
+  contentStyle,
+  mobilePadding = false,
+}) => {
+  const { Content } = Layout;
   const router = useRouter();
 
   useEffect(() => {
@@ -82,24 +79,6 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
   return (
     <>
       <Layout>
-        <Sider
-          width={300}
-          theme="light"
-          style={{
-            height: "100vh",
-            position: "sticky",
-            top: 0,
-            left: 0,
-          }}
-          trigger={null}
-          breakpoint="lg"
-          collapsedWidth={0}
-        >
-          <div style={{ padding: "0 15px" }}>
-            <Logo />
-            <Sidebar />
-          </div>
-        </Sider>
         <Layout>
           <Nav />
           <Content
@@ -124,7 +103,11 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
               draggable
               pauseOnHover
             />
-            {loading ? <Loader /> : children}
+            {loading ? (
+              <Loader />
+            ) : (
+              <div className={styles.container}>{children}</div>
+            )}
           </Content>
           {/* <Footer>Footer</Footer> */}
         </Layout>
@@ -133,11 +116,11 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
       <style jsx>{`
         .content {
           background-color: rgba(245, 245, 245, 1);
-          padding: 50px 25px 10px 25px;
+          padding: 50px 20px 10px 20px;
         }
       `}</style>
     </>
   );
 };
 
-export default Index;
+export default ProfileLayout;

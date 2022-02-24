@@ -1,0 +1,22 @@
+@use "public/css/mixins";
+
+.success__modal span[class^="anticon"] > svg {
+  font-size: 25px;
+}
+
+.header {
+  margin: 20px 0 40px;
+
+  > div {
+    width: 80px;
+    margin: 0 auto;
+  }
+}
+
+.content {
+  text-align: center;
+
+  p {
+    margin-bottom: 0;
+  }
+}

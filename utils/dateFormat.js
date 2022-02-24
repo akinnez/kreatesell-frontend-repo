@@ -13,6 +13,21 @@ const months = [
   "Dec",
 ];
 
+const fullMonths = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const appendZero = t => (t < 10 ? `0${t}` : `${t}`);
 
 export const localeDateString = dateStr => {
@@ -33,6 +48,16 @@ export const dateString = dateStr => {
   const year = d.getFullYear();
 
   return `${year}-${appendZero(month)}-${appendZero(day)} `;
+};
+
+export const formatDateString = dateStr => {
+  const d = new Date(dateStr);
+
+  const month = fullMonths[d.getMonth()];
+  const day = d.getDate();
+  const year = d.getFullYear();
+
+  return `${appendZero(day)} ${month}, ${year}`;
 };
 
 const dateFormat = dateStr => {

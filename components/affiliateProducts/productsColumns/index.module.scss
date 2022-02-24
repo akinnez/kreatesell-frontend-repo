@@ -1,22 +1,15 @@
-@use "public/css/mixins";
-
-.sold {
-  font-weight: bold;
-  color: #0072ef;
-}
-
-.visit {
-  font-weight: bold;
-  color: #00b140;
-}
+@use "public/css/colors";
 
 .request__link > a {
   font-size: 12px;
   font-weight: bold;
-  color: #0072ef;
-  // border-radius: 8px;
-  // border: 1px solid #0072ef;
-  // padding: 10px 16px;
+  color: colors.$base-blue;
+  width: 134px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid colors.$base-blue;
 
   svg {
     display: inline;
