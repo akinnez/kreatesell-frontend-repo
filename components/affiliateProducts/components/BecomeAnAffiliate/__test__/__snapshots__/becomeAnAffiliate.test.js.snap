@@ -1,0 +1,1245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <BecomeAnAffiliate /> 1`] = `
+<Provider
+  store={
+    Object {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BecomeAnAffiliate>
+    <Modal
+      className="affiliate__modal"
+      closeIcon={<CloseIcon />}
+      confirmLoading={false}
+      footer={null}
+      okType="primary"
+      onCancel={[Function]}
+      title={null}
+      visible={true}
+      width={520}
+    >
+      <Dialog
+        className="affiliate__modal"
+        closeIcon={
+          <span
+            className="ant-modal-close-x"
+          >
+            <CloseIcon />
+          </span>
+        }
+        confirmLoading={false}
+        focusTriggerAfterClose={true}
+        footer={null}
+        maskTransitionName="ant-fade"
+        okType="primary"
+        onCancel={[Function]}
+        onClose={[Function]}
+        prefixCls="ant-modal"
+        title={null}
+        transitionName="ant-zoom"
+        visible={true}
+        width={520}
+        wrapClassName=""
+      >
+        <PortalWrapper
+          visible={true}
+        >
+          <ForwardRef
+            getContainer={[Function]}
+          >
+            <Portal
+              containerInfo={
+                <div>
+                  <div
+                    class="ant-modal-root"
+                  >
+                    <div
+                      class="ant-modal-mask"
+                    />
+                    <div
+                      class="ant-modal-wrap"
+                      role="dialog"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="ant-modal affiliate__modal"
+                        role="document"
+                        style="width: 520px;"
+                      >
+                        <div
+                          aria-hidden="true"
+                          style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                          tabindex="0"
+                        />
+                        <div
+                          class="ant-modal-content"
+                        >
+                          <button
+                            aria-label="Close"
+                            class="ant-modal-close"
+                            type="button"
+                          >
+                            <span
+                              class="ant-modal-close-x"
+                            >
+                              <span
+                                aria-label="close"
+                                class="anticon anticon-close ant-modal-close-icon"
+                                role="img"
+                              >
+                                <svg
+                                  fill="currentColor"
+                                  height="1em"
+                                  stroke="currentColor"
+                                  stroke-width="0"
+                                  viewBox="0 0 1024 1024"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                  />
+                                  <path
+                                    d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </button>
+                          <div
+                            class="ant-modal-body"
+                          >
+                            <div
+                              class="modal__content"
+                            >
+                              <header
+                                class="header"
+                              >
+                                <span
+                                  class="ant-typography"
+                                >
+                                  <strong>
+                                    To access the products in the marketplace, you have to click the button below to become an affiliate.
+                                  </strong>
+                                </span>
+                              </header>
+                              <section
+                                class="content"
+                              >
+                                <p>
+                                  <span
+                                    class="ant-typography"
+                                  >
+                                    Ensure that you have read and agree to the terms and conditions of becoming an affiliate before proceeding.
+                                  </span>
+                                </p>
+                                <div>
+                                  <label
+                                    class="ant-checkbox-wrapper"
+                                  >
+                                    <span
+                                      class="ant-checkbox"
+                                    >
+                                      <input
+                                        class="ant-checkbox-input"
+                                        type="checkbox"
+                                        value=""
+                                      />
+                                      <span
+                                        class="ant-checkbox-inner"
+                                      />
+                                    </span>
+                                    <span>
+                                      I have read the affiliate
+                                    </span>
+                                  </label>
+                                  <a
+                                    class="ant-typography"
+                                  >
+                                    terms and conditions
+                                  </a>
+                                  <span
+                                    class="ant-typography"
+                                  >
+                                    .
+                                  </span>
+                                </div>
+                              </section>
+                              <footer>
+                                <div
+                                  class="btn"
+                                >
+                                  <button
+                                    class="ant-btn"
+                                    disabled=""
+                                    type="button"
+                                  >
+                                    <span>
+                                      Become An Affiliate
+                                    </span>
+                                  </button>
+                                </div>
+                                <div
+                                  class="account__link"
+                                >
+                                  <a
+                                    class="ant-typography"
+                                  >
+                                    Set up an account for your commissions 
+                                    <svg
+                                      fill="currentColor"
+                                      height="1em"
+                                      stroke="currentColor"
+                                      stroke-width="0"
+                                      viewBox="0 0 1024 1024"
+                                      width="1em"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"
+                                      />
+                                    </svg>
+                                  </a>
+                                </div>
+                              </footer>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                          tabindex="0"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            >
+              <Dialog
+                afterClose={[Function]}
+                className="affiliate__modal"
+                closeIcon={
+                  <span
+                    className="ant-modal-close-x"
+                  >
+                    <CloseIcon />
+                  </span>
+                }
+                confirmLoading={false}
+                destroyOnClose={false}
+                focusTriggerAfterClose={true}
+                footer={null}
+                getContainer={[Function]}
+                getOpenCount={[Function]}
+                maskTransitionName="ant-fade"
+                okType="primary"
+                onCancel={[Function]}
+                onClose={[Function]}
+                prefixCls="ant-modal"
+                scrollLocker={
+                  ScrollLocker {
+                    "getContainer": [Function],
+                    "lock": [Function],
+                    "lockTarget": 0,
+                    "options": Object {
+                      "container": <body
+                        class="ant-scrolling-effect"
+                        style="overflow: hidden; overflow-x: hidden; overflow-y: hidden;"
+                      >
+                        <div>
+                          <div
+                            class="ant-modal-root"
+                          >
+                            <div
+                              class="ant-modal-mask"
+                            />
+                            <div
+                              class="ant-modal-wrap"
+                              role="dialog"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ant-modal affiliate__modal"
+                                role="document"
+                                style="width: 520px;"
+                              >
+                                <div
+                                  aria-hidden="true"
+                                  style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                  tabindex="0"
+                                />
+                                <div
+                                  class="ant-modal-content"
+                                >
+                                  <button
+                                    aria-label="Close"
+                                    class="ant-modal-close"
+                                    type="button"
+                                  >
+                                    <span
+                                      class="ant-modal-close-x"
+                                    >
+                                      <span
+                                        aria-label="close"
+                                        class="anticon anticon-close ant-modal-close-icon"
+                                        role="img"
+                                      >
+                                        <svg
+                                          fill="currentColor"
+                                          height="1em"
+                                          stroke="currentColor"
+                                          stroke-width="0"
+                                          viewBox="0 0 1024 1024"
+                                          width="1em"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                          />
+                                          <path
+                                            d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </button>
+                                  <div
+                                    class="ant-modal-body"
+                                  >
+                                    <div
+                                      class="modal__content"
+                                    >
+                                      <header
+                                        class="header"
+                                      >
+                                        <span
+                                          class="ant-typography"
+                                        >
+                                          <strong>
+                                            To access the products in the marketplace, you have to click the button below to become an affiliate.
+                                          </strong>
+                                        </span>
+                                      </header>
+                                      <section
+                                        class="content"
+                                      >
+                                        <p>
+                                          <span
+                                            class="ant-typography"
+                                          >
+                                            Ensure that you have read and agree to the terms and conditions of becoming an affiliate before proceeding.
+                                          </span>
+                                        </p>
+                                        <div>
+                                          <label
+                                            class="ant-checkbox-wrapper"
+                                          >
+                                            <span
+                                              class="ant-checkbox"
+                                            >
+                                              <input
+                                                class="ant-checkbox-input"
+                                                type="checkbox"
+                                                value=""
+                                              />
+                                              <span
+                                                class="ant-checkbox-inner"
+                                              />
+                                            </span>
+                                            <span>
+                                              I have read the affiliate
+                                            </span>
+                                          </label>
+                                          <a
+                                            class="ant-typography"
+                                          >
+                                            terms and conditions
+                                          </a>
+                                          <span
+                                            class="ant-typography"
+                                          >
+                                            .
+                                          </span>
+                                        </div>
+                                      </section>
+                                      <footer>
+                                        <div
+                                          class="btn"
+                                        >
+                                          <button
+                                            class="ant-btn"
+                                            disabled=""
+                                            type="button"
+                                          >
+                                            <span>
+                                              Become An Affiliate
+                                            </span>
+                                          </button>
+                                        </div>
+                                        <div
+                                          class="account__link"
+                                        >
+                                          <a
+                                            class="ant-typography"
+                                          >
+                                            Set up an account for your commissions 
+                                            <svg
+                                              fill="currentColor"
+                                              height="1em"
+                                              stroke="currentColor"
+                                              stroke-width="0"
+                                              viewBox="0 0 1024 1024"
+                                              width="1em"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"
+                                              />
+                                            </svg>
+                                          </a>
+                                        </div>
+                                      </footer>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  aria-hidden="true"
+                                  style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                  tabindex="0"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </body>,
+                    },
+                    "reLock": [Function],
+                    "unLock": [Function],
+                  }
+                }
+                switchScrollingEffect={[Function]}
+                title={null}
+                transitionName="ant-zoom"
+                visible={true}
+                width={520}
+                wrapClassName=""
+              >
+                <div
+                  className="ant-modal-root"
+                >
+                  <Mask
+                    motionName="ant-fade"
+                    prefixCls="ant-modal"
+                    style={
+                      Object {
+                        "zIndex": undefined,
+                      }
+                    }
+                    visible={true}
+                  >
+                    <CSSMotion
+                      key="mask"
+                      leavedClassName="ant-modal-mask-hidden"
+                      motionName="ant-fade"
+                      visible={true}
+                    >
+                      <DomWrapper>
+                        <div
+                          className="ant-modal-mask"
+                          style={
+                            Object {
+                              "zIndex": undefined,
+                            }
+                          }
+                        />
+                      </DomWrapper>
+                    </CSSMotion>
+                  </Mask>
+                  <div
+                    aria-labelledby={null}
+                    className="ant-modal-wrap"
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="dialog"
+                    style={
+                      Object {
+                        "display": null,
+                        "zIndex": undefined,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    <Content
+                      afterClose={[Function]}
+                      ariaId="rcDialogTitle0"
+                      className="affiliate__modal"
+                      closable={true}
+                      closeIcon={
+                        <span
+                          className="ant-modal-close-x"
+                        >
+                          <CloseIcon />
+                        </span>
+                      }
+                      confirmLoading={false}
+                      destroyOnClose={false}
+                      focusTriggerAfterClose={true}
+                      footer={null}
+                      getContainer={[Function]}
+                      getOpenCount={[Function]}
+                      maskTransitionName="ant-fade"
+                      motionName="ant-zoom"
+                      okType="primary"
+                      onCancel={[Function]}
+                      onClose={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseUp={[Function]}
+                      onVisibleChanged={[Function]}
+                      prefixCls="ant-modal"
+                      scrollLocker={
+                        ScrollLocker {
+                          "getContainer": [Function],
+                          "lock": [Function],
+                          "lockTarget": 0,
+                          "options": Object {
+                            "container": <body
+                              class="ant-scrolling-effect"
+                              style="overflow: hidden; overflow-x: hidden; overflow-y: hidden;"
+                            >
+                              <div>
+                                <div
+                                  class="ant-modal-root"
+                                >
+                                  <div
+                                    class="ant-modal-mask"
+                                  />
+                                  <div
+                                    class="ant-modal-wrap"
+                                    role="dialog"
+                                    tabindex="-1"
+                                  >
+                                    <div
+                                      class="ant-modal affiliate__modal"
+                                      role="document"
+                                      style="width: 520px;"
+                                    >
+                                      <div
+                                        aria-hidden="true"
+                                        style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                        tabindex="0"
+                                      />
+                                      <div
+                                        class="ant-modal-content"
+                                      >
+                                        <button
+                                          aria-label="Close"
+                                          class="ant-modal-close"
+                                          type="button"
+                                        >
+                                          <span
+                                            class="ant-modal-close-x"
+                                          >
+                                            <span
+                                              aria-label="close"
+                                              class="anticon anticon-close ant-modal-close-icon"
+                                              role="img"
+                                            >
+                                              <svg
+                                                fill="currentColor"
+                                                height="1em"
+                                                stroke="currentColor"
+                                                stroke-width="0"
+                                                viewBox="0 0 1024 1024"
+                                                width="1em"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                                />
+                                                <path
+                                                  d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </span>
+                                        </button>
+                                        <div
+                                          class="ant-modal-body"
+                                        >
+                                          <div
+                                            class="modal__content"
+                                          >
+                                            <header
+                                              class="header"
+                                            >
+                                              <span
+                                                class="ant-typography"
+                                              >
+                                                <strong>
+                                                  To access the products in the marketplace, you have to click the button below to become an affiliate.
+                                                </strong>
+                                              </span>
+                                            </header>
+                                            <section
+                                              class="content"
+                                            >
+                                              <p>
+                                                <span
+                                                  class="ant-typography"
+                                                >
+                                                  Ensure that you have read and agree to the terms and conditions of becoming an affiliate before proceeding.
+                                                </span>
+                                              </p>
+                                              <div>
+                                                <label
+                                                  class="ant-checkbox-wrapper"
+                                                >
+                                                  <span
+                                                    class="ant-checkbox"
+                                                  >
+                                                    <input
+                                                      class="ant-checkbox-input"
+                                                      type="checkbox"
+                                                      value=""
+                                                    />
+                                                    <span
+                                                      class="ant-checkbox-inner"
+                                                    />
+                                                  </span>
+                                                  <span>
+                                                    I have read the affiliate
+                                                  </span>
+                                                </label>
+                                                <a
+                                                  class="ant-typography"
+                                                >
+                                                  terms and conditions
+                                                </a>
+                                                <span
+                                                  class="ant-typography"
+                                                >
+                                                  .
+                                                </span>
+                                              </div>
+                                            </section>
+                                            <footer>
+                                              <div
+                                                class="btn"
+                                              >
+                                                <button
+                                                  class="ant-btn"
+                                                  disabled=""
+                                                  type="button"
+                                                >
+                                                  <span>
+                                                    Become An Affiliate
+                                                  </span>
+                                                </button>
+                                              </div>
+                                              <div
+                                                class="account__link"
+                                              >
+                                                <a
+                                                  class="ant-typography"
+                                                >
+                                                  Set up an account for your commissions 
+                                                  <svg
+                                                    fill="currentColor"
+                                                    height="1em"
+                                                    stroke="currentColor"
+                                                    stroke-width="0"
+                                                    viewBox="0 0 1024 1024"
+                                                    width="1em"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                  >
+                                                    <path
+                                                      d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"
+                                                    />
+                                                  </svg>
+                                                </a>
+                                              </div>
+                                            </footer>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div
+                                        aria-hidden="true"
+                                        style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                        tabindex="0"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </body>,
+                          },
+                          "reLock": [Function],
+                          "unLock": [Function],
+                        }
+                      }
+                      switchScrollingEffect={[Function]}
+                      title={null}
+                      transitionName="ant-zoom"
+                      visible={true}
+                      width={520}
+                      wrapClassName=""
+                    >
+                      <CSSMotion
+                        motionName="ant-zoom"
+                        onAppearPrepare={[Function]}
+                        onEnterPrepare={[Function]}
+                        onVisibleChanged={[Function]}
+                        removeOnLeave={false}
+                        visible={true}
+                      >
+                        <DomWrapper>
+                          <div
+                            className="ant-modal affiliate__modal"
+                            key="dialog-element"
+                            onMouseDown={[Function]}
+                            onMouseUp={[Function]}
+                            role="document"
+                            style={
+                              Object {
+                                "width": 520,
+                              }
+                            }
+                          >
+                            <div
+                              aria-hidden="true"
+                              style={
+                                Object {
+                                  "height": 0,
+                                  "outline": "none",
+                                  "overflow": "hidden",
+                                  "width": 0,
+                                }
+                              }
+                              tabIndex={0}
+                            />
+                            <Component
+                              shouldUpdate={true}
+                            >
+                              <div
+                                className="ant-modal-content"
+                              >
+                                <button
+                                  aria-label="Close"
+                                  className="ant-modal-close"
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  <span
+                                    className="ant-modal-close-x"
+                                  >
+                                    <CloseIcon>
+                                      <span
+                                        aria-label="close"
+                                        className="anticon anticon-close ant-modal-close-icon"
+                                        role="img"
+                                      >
+                                        <AiOutlineCloseCircle>
+                                          <IconBase
+                                            attr={
+                                              Object {
+                                                "viewBox": "0 0 1024 1024",
+                                              }
+                                            }
+                                          >
+                                            <svg
+                                              fill="currentColor"
+                                              height="1em"
+                                              stroke="currentColor"
+                                              strokeWidth="0"
+                                              style={
+                                                Object {
+                                                  "color": undefined,
+                                                }
+                                              }
+                                              viewBox="0 0 1024 1024"
+                                              width="1em"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                                key="0"
+                                              />
+                                              <path
+                                                d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                                key="1"
+                                              />
+                                            </svg>
+                                          </IconBase>
+                                        </AiOutlineCloseCircle>
+                                      </span>
+                                    </CloseIcon>
+                                  </span>
+                                </button>
+                                <div
+                                  className="ant-modal-body"
+                                >
+                                  <div
+                                    className="modal__content"
+                                  >
+                                    <header
+                                      className="header"
+                                    >
+                                      <Text
+                                        strong={true}
+                                      >
+                                        <ForwardRef
+                                          component="span"
+                                          strong={true}
+                                        >
+                                          <ResizeObserver
+                                            disabled={true}
+                                            onResize={[Function]}
+                                          >
+                                            <SingleObserver
+                                              disabled={true}
+                                              key="rc-observer-key-0"
+                                              onResize={[Function]}
+                                            >
+                                              <DomWrapper>
+                                                <EllipsisTooltip
+                                                  enabledEllipsis={false}
+                                                  isEllipsis={false}
+                                                >
+                                                  <Typography
+                                                    className=""
+                                                    component="span"
+                                                    onClick={null}
+                                                    style={
+                                                      Object {
+                                                        "WebkitLineClamp": undefined,
+                                                      }
+                                                    }
+                                                  >
+                                                    <span
+                                                      className="ant-typography"
+                                                      onClick={null}
+                                                      style={
+                                                        Object {
+                                                          "WebkitLineClamp": undefined,
+                                                        }
+                                                      }
+                                                    >
+                                                      <Ellipsis
+                                                        enabledMeasure={false}
+                                                        onEllipsis={[Function]}
+                                                        rows={1}
+                                                        text="To access the products in the marketplace, you have to click the button below to become an affiliate."
+                                                        width={0}
+                                                      >
+                                                        <strong>
+                                                          To access the products in the marketplace, you have to click the button below to become an affiliate.
+                                                        </strong>
+                                                      </Ellipsis>
+                                                    </span>
+                                                  </Typography>
+                                                </EllipsisTooltip>
+                                              </DomWrapper>
+                                            </SingleObserver>
+                                          </ResizeObserver>
+                                        </ForwardRef>
+                                      </Text>
+                                    </header>
+                                    <section
+                                      className="content"
+                                    >
+                                      <p>
+                                        <Text>
+                                          <ForwardRef
+                                            component="span"
+                                          >
+                                            <ResizeObserver
+                                              disabled={true}
+                                              onResize={[Function]}
+                                            >
+                                              <SingleObserver
+                                                disabled={true}
+                                                key="rc-observer-key-0"
+                                                onResize={[Function]}
+                                              >
+                                                <DomWrapper>
+                                                  <EllipsisTooltip
+                                                    enabledEllipsis={false}
+                                                    isEllipsis={false}
+                                                  >
+                                                    <Typography
+                                                      className=""
+                                                      component="span"
+                                                      onClick={null}
+                                                      style={
+                                                        Object {
+                                                          "WebkitLineClamp": undefined,
+                                                        }
+                                                      }
+                                                    >
+                                                      <span
+                                                        className="ant-typography"
+                                                        onClick={null}
+                                                        style={
+                                                          Object {
+                                                            "WebkitLineClamp": undefined,
+                                                          }
+                                                        }
+                                                      >
+                                                        <Ellipsis
+                                                          enabledMeasure={false}
+                                                          onEllipsis={[Function]}
+                                                          rows={1}
+                                                          text="Ensure that you have read and agree to the terms and conditions of becoming an affiliate before proceeding."
+                                                          width={0}
+                                                        >
+                                                          Ensure that you have read and agree to the terms and conditions of becoming an affiliate before proceeding.
+                                                        </Ellipsis>
+                                                      </span>
+                                                    </Typography>
+                                                  </EllipsisTooltip>
+                                                </DomWrapper>
+                                              </SingleObserver>
+                                            </ResizeObserver>
+                                          </ForwardRef>
+                                        </Text>
+                                      </p>
+                                      <div>
+                                        <Checkbox
+                                          checked={false}
+                                          disabled={false}
+                                          onChange={[Function]}
+                                        >
+                                          <label
+                                            className="ant-checkbox-wrapper"
+                                          >
+                                            <Checkbox
+                                              checked={false}
+                                              className=""
+                                              defaultChecked={false}
+                                              disabled={false}
+                                              onBlur={[Function]}
+                                              onChange={[Function]}
+                                              onFocus={[Function]}
+                                              onKeyDown={[Function]}
+                                              onKeyPress={[Function]}
+                                              onKeyUp={[Function]}
+                                              prefixCls="ant-checkbox"
+                                              style={Object {}}
+                                              type="checkbox"
+                                            >
+                                              <span
+                                                className="ant-checkbox"
+                                                style={Object {}}
+                                              >
+                                                <input
+                                                  checked={false}
+                                                  className="ant-checkbox-input"
+                                                  disabled={false}
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  onKeyDown={[Function]}
+                                                  onKeyPress={[Function]}
+                                                  onKeyUp={[Function]}
+                                                  type="checkbox"
+                                                />
+                                                <span
+                                                  className="ant-checkbox-inner"
+                                                />
+                                              </span>
+                                            </Checkbox>
+                                            <span>
+                                              I have read the affiliate
+                                            </span>
+                                          </label>
+                                        </Checkbox>
+                                        <ForwardRef(Link)>
+                                          <ForwardRef
+                                            component="a"
+                                            ellipsis={false}
+                                          >
+                                            <ResizeObserver
+                                              disabled={true}
+                                              onResize={[Function]}
+                                            >
+                                              <SingleObserver
+                                                disabled={true}
+                                                key="rc-observer-key-0"
+                                                onResize={[Function]}
+                                              >
+                                                <DomWrapper>
+                                                  <EllipsisTooltip
+                                                    enabledEllipsis={false}
+                                                    isEllipsis={false}
+                                                  >
+                                                    <Typography
+                                                      className=""
+                                                      component="a"
+                                                      onClick={null}
+                                                      style={
+                                                        Object {
+                                                          "WebkitLineClamp": undefined,
+                                                        }
+                                                      }
+                                                    >
+                                                      <a
+                                                        className="ant-typography"
+                                                        onClick={null}
+                                                        style={
+                                                          Object {
+                                                            "WebkitLineClamp": undefined,
+                                                          }
+                                                        }
+                                                      >
+                                                        <Ellipsis
+                                                          enabledMeasure={false}
+                                                          onEllipsis={[Function]}
+                                                          rows={1}
+                                                          text="terms and conditions"
+                                                          width={0}
+                                                        >
+                                                          terms and conditions
+                                                        </Ellipsis>
+                                                      </a>
+                                                    </Typography>
+                                                  </EllipsisTooltip>
+                                                </DomWrapper>
+                                              </SingleObserver>
+                                            </ResizeObserver>
+                                          </ForwardRef>
+                                        </ForwardRef(Link)>
+                                        <Text>
+                                          <ForwardRef
+                                            component="span"
+                                          >
+                                            <ResizeObserver
+                                              disabled={true}
+                                              onResize={[Function]}
+                                            >
+                                              <SingleObserver
+                                                disabled={true}
+                                                key="rc-observer-key-0"
+                                                onResize={[Function]}
+                                              >
+                                                <DomWrapper>
+                                                  <EllipsisTooltip
+                                                    enabledEllipsis={false}
+                                                    isEllipsis={false}
+                                                  >
+                                                    <Typography
+                                                      className=""
+                                                      component="span"
+                                                      onClick={null}
+                                                      style={
+                                                        Object {
+                                                          "WebkitLineClamp": undefined,
+                                                        }
+                                                      }
+                                                    >
+                                                      <span
+                                                        className="ant-typography"
+                                                        onClick={null}
+                                                        style={
+                                                          Object {
+                                                            "WebkitLineClamp": undefined,
+                                                          }
+                                                        }
+                                                      >
+                                                        <Ellipsis
+                                                          enabledMeasure={false}
+                                                          onEllipsis={[Function]}
+                                                          rows={1}
+                                                          text="."
+                                                          width={0}
+                                                        >
+                                                          .
+                                                        </Ellipsis>
+                                                      </span>
+                                                    </Typography>
+                                                  </EllipsisTooltip>
+                                                </DomWrapper>
+                                              </SingleObserver>
+                                            </ResizeObserver>
+                                          </ForwardRef>
+                                        </Text>
+                                      </div>
+                                    </section>
+                                    <footer>
+                                      <div
+                                        className="btn"
+                                      >
+                                        <Button
+                                          disabled={true}
+                                          loading={false}
+                                          onClick={[Function]}
+                                          type="default"
+                                        >
+                                          <Wave
+                                            disabled={false}
+                                          >
+                                            <button
+                                              className="ant-btn"
+                                              disabled={true}
+                                              onClick={[Function]}
+                                              type="button"
+                                            >
+                                              <LoadingIcon
+                                                existIcon={false}
+                                                loading={false}
+                                                prefixCls="ant-btn"
+                                              >
+                                                <CSSMotion
+                                                  motionName="ant-btn-loading-icon-motion"
+                                                  onAppearActive={[Function]}
+                                                  onAppearStart={[Function]}
+                                                  onEnterActive={[Function]}
+                                                  onEnterStart={[Function]}
+                                                  onLeaveActive={[Function]}
+                                                  onLeaveStart={[Function]}
+                                                  removeOnLeave={true}
+                                                  visible={false}
+                                                >
+                                                  <DomWrapper />
+                                                </CSSMotion>
+                                              </LoadingIcon>
+                                              <span
+                                                key=".0"
+                                              >
+                                                Become An Affiliate
+                                              </span>
+                                            </button>
+                                          </Wave>
+                                        </Button>
+                                      </div>
+                                      <div
+                                        className="account__link"
+                                      >
+                                        <ForwardRef(Link)>
+                                          <ForwardRef
+                                            component="a"
+                                            ellipsis={false}
+                                          >
+                                            <ResizeObserver
+                                              disabled={true}
+                                              onResize={[Function]}
+                                            >
+                                              <SingleObserver
+                                                disabled={true}
+                                                key="rc-observer-key-0"
+                                                onResize={[Function]}
+                                              >
+                                                <DomWrapper>
+                                                  <EllipsisTooltip
+                                                    enabledEllipsis={false}
+                                                    isEllipsis={false}
+                                                  >
+                                                    <Typography
+                                                      className=""
+                                                      component="a"
+                                                      onClick={null}
+                                                      style={
+                                                        Object {
+                                                          "WebkitLineClamp": undefined,
+                                                        }
+                                                      }
+                                                    >
+                                                      <a
+                                                        className="ant-typography"
+                                                        onClick={null}
+                                                        style={
+                                                          Object {
+                                                            "WebkitLineClamp": undefined,
+                                                          }
+                                                        }
+                                                      >
+                                                        <Ellipsis
+                                                          enabledMeasure={false}
+                                                          onEllipsis={[Function]}
+                                                          rows={1}
+                                                          text={
+                                                            Array [
+                                                              "Set up an account for your commissions ",
+                                                              <AiOutlineArrowRight />,
+                                                            ]
+                                                          }
+                                                          width={0}
+                                                        >
+                                                          Set up an account for your commissions 
+                                                          <AiOutlineArrowRight>
+                                                            <IconBase
+                                                              attr={
+                                                                Object {
+                                                                  "viewBox": "0 0 1024 1024",
+                                                                }
+                                                              }
+                                                            >
+                                                              <svg
+                                                                fill="currentColor"
+                                                                height="1em"
+                                                                stroke="currentColor"
+                                                                strokeWidth="0"
+                                                                style={
+                                                                  Object {
+                                                                    "color": undefined,
+                                                                  }
+                                                                }
+                                                                viewBox="0 0 1024 1024"
+                                                                width="1em"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                              >
+                                                                <path
+                                                                  d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"
+                                                                  key="0"
+                                                                />
+                                                              </svg>
+                                                            </IconBase>
+                                                          </AiOutlineArrowRight>
+                                                        </Ellipsis>
+                                                      </a>
+                                                    </Typography>
+                                                  </EllipsisTooltip>
+                                                </DomWrapper>
+                                              </SingleObserver>
+                                            </ResizeObserver>
+                                          </ForwardRef>
+                                        </ForwardRef(Link)>
+                                      </div>
+                                    </footer>
+                                  </div>
+                                </div>
+                              </div>
+                            </Component>
+                            <div
+                              aria-hidden="true"
+                              style={
+                                Object {
+                                  "height": 0,
+                                  "outline": "none",
+                                  "overflow": "hidden",
+                                  "width": 0,
+                                }
+                              }
+                              tabIndex={0}
+                            />
+                          </div>
+                        </DomWrapper>
+                      </CSSMotion>
+                    </Content>
+                  </div>
+                </div>
+              </Dialog>
+            </Portal>
+          </ForwardRef>
+        </PortalWrapper>
+      </Dialog>
+    </Modal>
+  </BecomeAnAffiliate>
+</Provider>
+`;
