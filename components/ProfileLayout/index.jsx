@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { Spin, Layout } from "antd";
 import { ToastContainer } from "react-toastify";
-import Nav from "./header";
+import Nav from "./Header";
 import {
   checkExpiredUserToken,
   getUser,

@@ -72,8 +72,8 @@ const menu = logout => (
   </Menu>
 );
 
-const Nav = () => {
-  const { Header } = Layout;
+const Header = () => {
+  const { Header: AntHeader } = Layout;
 
   const [info, setInfo] = useState({});
   const [showNotification, setShowNotification] = useState(false);
@@ -91,7 +91,7 @@ const Nav = () => {
 
   return (
     <>
-      <Header className={style.header}>
+      <AntHeader className={style.header}>
         <Logo />
         <div className={style.nav_right}>
           <Button type="text" shape="circle" icon={<Cog />} />
@@ -113,10 +113,10 @@ const Nav = () => {
             </Button>
           </Dropdown>
         </div>
-      </Header>
+      </AntHeader>
       {showNotification && <NotificationDropdown />}
     </>
   );
 };
 
-export default Nav;
+export default Header;
