@@ -5,6 +5,8 @@ module.exports = {
     "^@/components(.*)$": "<rootDir>/components$1",
     "^utils(.*)$": "<rootDir>/utils$1",
     "^redux/actions": "<rootDir>/redux/actions",
+    "^redux/types": "<rootDir>/redux/types",
+    "^redux/store": "<rootDir>/redux/store",
     "^'redux-devtools-extension'": "<rootDir>/node_modules$1",
     "^'react-redux'": "<rootDir>/node_modules$1",
     "^'redux-thunk'": "<rootDir>/node_modules$1",
