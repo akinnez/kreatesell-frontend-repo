@@ -18,9 +18,7 @@ const AbandonedCarts = () => {
           <Text>Send Mail</Text>
         </p>
         <p>
-          <Text>
-            Create your own post by creating your own words and content.
-          </Text>
+          <Text>Use your own words and content to reach your audience.</Text>
         </p>
       </header>
       <section>

@@ -58,6 +58,9 @@ const AffiliateProducts = () => {
   if (userLoading || userIsEmpty) {
     return (
       <AuthLayout>
+        <Head>
+          <title>KreateSell | Affiliate Products</title>
+        </Head>
         <Spinner />
       </AuthLayout>
     );

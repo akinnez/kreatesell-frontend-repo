@@ -1,5 +1,6 @@
 @use "public/css/colors";
 @use "public/css/mixins";
+@use "public/css/screens";
 
 .header {
   margin-bottom: 30px;
@@ -86,5 +87,11 @@
     &:last-child {
       color: colors.$green-100;
     }
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .mail__wrapper {
+    padding: 40px;
   }
 }

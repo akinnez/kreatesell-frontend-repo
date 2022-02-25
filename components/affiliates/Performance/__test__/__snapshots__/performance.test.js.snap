@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Performance:  renders a snapshot of <Performance /> with no props passed 1`] = `
+Array [
+  <div>
+    <span
+      className="sold"
+    >
+      Sold:
+    </span>
+     
+    200
+  </div>,
+  <div>
+    <span
+      className="visit"
+    >
+      Visit:
+    </span>
+     
+    50
+  </div>,
+]
+`;
+
+exports[`Performance:  renders a snapshot of <Performance /> with the both props passed using mocks 1`] = `
+Array [
+  <div>
+    <span
+      className="sold"
+    >
+      Sold:
+    </span>
+     
+    300
+  </div>,
+  <div>
+    <span
+      className="visit"
+    >
+      Visit:
+    </span>
+     
+    20
+  </div>,
+]
+`;
+
+exports[`Performance:  renders a snapshot of <Performance /> with the sold props passed ONLY as a mock 1`] = `
+Array [
+  <div>
+    <span
+      className="sold"
+    >
+      Sold:
+    </span>
+     
+    400
+  </div>,
+  <div>
+    <span
+      className="visit"
+    >
+      Visit:
+    </span>
+     
+    50
+  </div>,
+]
+`;
+
+exports[`Performance:  renders a snapshot of <Performance /> with the visit props passed ONLY as a mock 1`] = `
+Array [
+  <div>
+    <span
+      className="sold"
+    >
+      Sold:
+    </span>
+     
+    200
+  </div>,
+  <div>
+    <span
+      className="visit"
+    >
+      Visit:
+    </span>
+     
+    20
+  </div>,
+]
+`;

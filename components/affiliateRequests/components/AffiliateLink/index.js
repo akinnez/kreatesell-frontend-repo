@@ -9,13 +9,17 @@ const AffiliateLink = () => {
   const linkElement = useRef();
 
   const handleCopy = async () => {
-    const link = linkElement.current.textContent;
+    try {
+      const link = linkElement.current.textContent;
 
-    if ("clipboard" in navigator) {
-      await navigator.clipboard.writeText(link);
-      showToast("Affiliate link copied", "success");
-    } else {
-      showToast("Unable to copy affiliate link in this browser", "info");
+      if ("clipboard" in navigator) {
+        await navigator.clipboard.writeText(link);
+        showToast("Affiliate link copied", "success");
+      } else {
+        showToast("Unable to copy affiliate link in this browser", "info");
+      }
+    } catch (err) {
+      showToast("Something went wrong. Can not copy link at this time", "warn");
     }
   };
 

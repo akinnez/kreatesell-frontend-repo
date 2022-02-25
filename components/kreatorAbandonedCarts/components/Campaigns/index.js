@@ -11,7 +11,7 @@ const Campaigns = () => {
   return (
     <>
       <header className={styles.header}>
-        <Title>Manage All Of Your Pro Campaign Email From This Page</Title>
+        <Title>Manage All Your Email Campaigns Here.</Title>
         <div>
           <Link href="/account/kreator/abandoned-carts/add">
             <a>

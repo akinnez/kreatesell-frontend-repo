@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <CheckoutProductTab /> 1`] = `
+<div>
+  <h1>
+    Checkout Product
+  </h1>
+</div>
+`;

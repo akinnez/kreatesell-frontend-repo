@@ -44,7 +44,6 @@ exports[`renders snapshot of <Recent /> correctly 1`] = `
         </div>
       </div>
       <canvas
-        data-testid="canvas"
         height={150}
         onClick={[Function]}
         role="img"
