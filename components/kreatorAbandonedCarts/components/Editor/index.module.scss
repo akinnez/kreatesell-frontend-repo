@@ -1,0 +1,89 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.editorWrapper {
+  margin-top: 35px;
+  margin-bottom: 35px;
+
+  & > div:first-child {
+    @include mixins.flex(row, space-between, center);
+    margin-bottom: 10px;
+
+    label {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$black-100;
+    }
+
+    a {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$base-blue;
+    }
+  }
+}
+
+.editorContainer {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s;
+
+  &:focus-within {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+
+  > div[id="toolbar"] {
+    outline: none;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+    @include mixins.flex(row, flex-start, center);
+    flex-wrap: wrap;
+  }
+
+  div[class^="ql-container"] {
+    border-radius: 0 0 8px 8px;
+    border: none;
+    outline: none;
+
+    > [class^="ql-editor"] {
+      min-height: 355px;
+      padding: 6.5px 11px;
+      outline: none;
+      font-size: 16px;
+
+      &::before {
+        font-style: normal;
+        color: #d9d9d9;
+        left: 11px;
+      }
+    }
+  }
+}
+
+// .editorContainerError {
+//   border: 1px solid #ff4d4f;
+
+//   &:focus-within {
+//     border-color: #ff7875;
+//     box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+//   }
+// }
+
+.labelHover {
+  border-color: #40a9ff;
+}
+
+// .editorErrorMsg {
+//   color: #ff4d4f;
+//   font-weight: bold;
+//   height: 0;
+//   margin-bottom: 25px;
+//   transition: height 0.3s linear;
+// }
+
+// .editorErrorMsg {
+//   height: 22px;
+// }

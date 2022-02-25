@@ -146,6 +146,9 @@ const AffiliateFilters = ({ data, setFiltered }) => {
             size="large"
             form={form}
             name="filter_form"
+            initialValues={{
+              product_type: "",
+            }}
           >
             <Row gutter={20} align="bottom" justify="space-between">
               <Col
