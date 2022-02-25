@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <AffiliateRequestContainer /> 1`] = `
+Array [
+  <div
+    className="product__name"
+  >
+    <h1
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      The Land Of Hope - 
+      <span
+        className="ant-typography ant-typography-secondary"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        DIGITAL DOWNLOAD
+      </span>
+    </h1>
+  </div>,
+  <div
+    className="ant-card ant-card-bordered card__container"
+  >
+    <div
+      className="ant-card-body"
+      style={Object {}}
+    >
+      <div
+        className="ant-tabs ant-tabs-top ant-tabs-centered tabs"
+      >
+        <div
+          className="ant-tabs-nav"
+          onKeyDown={[Function]}
+          role="tablist"
+        >
+          <div
+            className="ant-tabs-nav-wrap"
+          >
+            <div
+              className="ant-tabs-nav-list"
+              style={
+                Object {
+                  "transform": "translate(0px, 0px)",
+                  "transition": undefined,
+                }
+              }
+            >
+              <div
+                className="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+              />
+            </div>
+          </div>
+          <div
+            className="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
+          >
+            <button
+              aria-controls="null-more-popup"
+              aria-expanded={false}
+              aria-haspopup="listbox"
+              aria-hidden="true"
+              className="ant-tabs-nav-more"
+              id="null-more"
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "marginLeft": undefined,
+                  "order": 1,
+                  "visibility": "hidden",
+                }
+              }
+              tabIndex={-1}
+              type="button"
+            >
+              <span
+                aria-label="ellipsis"
+                className="anticon anticon-ellipsis"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="ellipsis"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          className="ant-tabs-content-holder"
+        >
+          <div
+            className="ant-tabs-content ant-tabs-content-top"
+            style={null}
+          />
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
