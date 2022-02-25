@@ -18,8 +18,7 @@ const Add = () => (
     <header className={styles.header}>
       <Title>Campaigns</Title>
       <Text>
-        Faucibus justo et in sit at eget faucibus. Faucibus justo et in sit at
-        eget faucibus.
+        Create valuable, personal touches at scale with your email campaigns.
       </Text>
     </header>
     <section>
@@ -27,7 +26,7 @@ const Add = () => (
         <div className={styles.container}>
           <div className={styles.title}>
             <Title level={2}>Add Email</Title>
-            <Text>add email add email add email</Text>
+            <Text>Create your custom email</Text>
           </div>
           <div>
             <AbandonedCartsForm />

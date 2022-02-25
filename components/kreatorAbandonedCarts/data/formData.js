@@ -2,37 +2,37 @@ export const emailTags = [
   {
     id: 1,
     tag: "First_Name",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Curates the first names of your email list.",
   },
   {
     id: 2,
     tag: "Last_Name",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Curates the last names of your email list.",
   },
   {
     id: 3,
     tag: "Product_Name",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Choose the curated names of your digital products.",
   },
   {
     id: 4,
     tag: "Product_Price",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Shows the price of your chosen digital product.",
   },
   {
     id: 5,
     tag: "Product_Button",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Links the recipient to the digital product page.",
   },
   {
     id: 6,
     tag: "Checkout_Button",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Links the recipient to the checkout page of the digital product.",
   },
   {
     id: 7,
     tag: "Checkout_Url",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Show the link to the checkout page for the digital product.",
   },
 ];
 
