@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Logo /> 1`] = `
+<div
+  className="logoContainer"
+>
+  <img
+    src="[jest.find('../utils')]"
+  />
+</div>
+`;

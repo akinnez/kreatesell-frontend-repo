@@ -280,7 +280,7 @@ exports[`renders a snapshot of <TicketsHeader /> 1`] = `
     <div>
       <input
         className="date"
-        defaultValue="2022-01-01"
+        defaultValue="2022-02-25"
         onChange={[MockFunction]}
         type="date"
       />
@@ -297,7 +297,7 @@ exports[`renders a snapshot of <TicketsHeader /> 1`] = `
     <div>
       <input
         className="date"
-        defaultValue="2022-01-01"
+        defaultValue="2022-02-25"
         onChange={[MockFunction]}
         type="date"
       />

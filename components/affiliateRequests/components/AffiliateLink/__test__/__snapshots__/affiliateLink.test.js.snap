@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <AffiliateLink /> 1`] = `
+<section
+  className="link__container"
+>
+  <div
+    className="label"
+  >
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      Affiliate Link
+    </span>
+  </div>
+  <div
+    className="link"
+  >
+    <span>
+      23dghy5668jjkkloo//pred892gykk//ujjikhs7778
+    </span>
+  </div>
+  <button
+    className="ant-btn link__btn"
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      Copy Link
+    </span>
+  </button>
+</section>
+`;
