@@ -65,10 +65,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
   });
 
   const { productID, product, billingInterval, loading } = useSelector(
-    state => state.product
+    (state) => state.product
   );
 
-  const mappedBillingInterval = billingInterval?.map(billing => ({
+  const mappedBillingInterval = billingInterval?.map((billing) => ({
     label: billing.billing_types,
     value: billing.billing_durations,
   }));
@@ -77,7 +77,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     let opt = [];
     for (let i = 1; i < 10; i++) {
       opt.push(i);
-      const values = opt.map(item => ({ label: item, value: item }));
+      const values = opt.map((item) => ({ label: item, value: item }));
       setFrequencyOptions(values);
     }
   };
@@ -96,7 +96,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     }
   }, [productID]);
 
-  const handleSubmit = data => {
+  const handleSubmit = (data) => {
     delete data?.cover_image;
     delete data?.product_details?.product_cover_picture;
     delete data?.upload_content || data?.product_details?.upload_content;
@@ -236,7 +236,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     );
     setFieldValue(
       "promotional_items.promotional_files",
-      preview?.map(item => item.url)
+      preview?.map((item) => item.url)
     );
   }, [
     setFieldValue,
@@ -251,7 +251,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     showTotalSales,
     buyerPaysTransactionFee,
     minimumPrice,
-    sellingPrice,
     originalPrice,
     suggestedPrice,
     uploadPromotionalMaterial,
@@ -304,56 +303,56 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
               prefix="NGN"
               name="NGN"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="GBP"
               name="GBP"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="KES"
               name="KES"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="TZS"
               name="TZS"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="USD"
               name="USD"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="GHS"
               name="GHS"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="ZAR"
               name="ZAR"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
 
             <ProductInput
               prefix="UGX"
               name="UGX"
               placeholder="0"
-              onChange={e => handleSellingPrice(e)}
+              onChange={(e) => handleSellingPrice(e)}
             />
           </div>
           <p className="text-base-gray-200 text-xs pt-2">
@@ -373,49 +372,49 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 prefix="NGN"
                 name="NGN"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="GBP"
                 name="GBP"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="KES"
                 name="KES"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="TZS"
                 name="TZS"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="USD"
                 name="USD"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="GHS"
                 name="GHS"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="ZAR"
                 name="ZAR"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
               <ProductInput
                 prefix="UGX"
                 name="UGX"
                 placeholder="0"
-                onChange={e => handleMinimumPrice(e)}
+                onChange={(e) => handleMinimumPrice(e)}
               />
             </div>
           </div>
@@ -427,49 +426,49 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 prefix="NGN"
                 name="NGN"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="GBP"
                 name="GBP"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="KES"
                 name="KES"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="TZS"
                 name="TZS"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="USD"
                 name="USD"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="GHS"
                 name="GHS"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="ZAR"
                 name="ZAR"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
               <ProductInput
                 prefix="UGX"
                 name="UGX"
                 placeholder="0"
-                onChange={e => handleSuggestedPrice(e)}
+                onChange={(e) => handleSuggestedPrice(e)}
               />
             </div>
           </div>
@@ -485,49 +484,49 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 prefix="NGN"
                 name="NGN"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="GBP"
                 name="GBP"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="KES"
                 name="KES"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="TZS"
                 name="TZS"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="USD"
                 name="USD"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="GHS"
                 name="GHS"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="ZAR"
                 name="ZAR"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
               <ProductInput
                 prefix="UGX"
                 name="UGX"
                 placeholder="0"
-                onChange={e => handleInitialPrice(e)}
+                onChange={(e) => handleInitialPrice(e)}
               />
             </div>
           </div>
@@ -537,7 +536,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             <div className="w-full lg:w-1/5">
               <Select
                 options={frequencyOptions}
-                onChange={e => setNumberOfInputs(e.value)}
+                onChange={(e) => setNumberOfInputs(e.value)}
               />
             </div>
           </div>
@@ -569,8 +568,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             </div>
             <div className="flex">
               <Switch
-                onChange={e => {
-                  setCompareToPrice(value => !value);
+                onChange={(e) => {
+                  setCompareToPrice((value) => !value);
                 }}
                 checked={compareToPrice}
               />
@@ -589,49 +588,49 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 prefix="NGN"
                 name="NGN"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="GBP"
                 name="GBP"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="KES"
                 name="KES"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="TZS"
                 name="TZS"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="USD"
                 name="USD"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="GHS"
                 name="GHS"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="ZAR"
                 name="ZAR"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
               <ProductInput
                 prefix="UGX"
                 name="UGX"
                 placeholder="0"
-                onChange={e => handleOriginalPrice(e)}
+                onChange={(e) => handleOriginalPrice(e)}
               />
             </div>
           </div>
@@ -642,8 +641,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             <div className="text-black-100">Apply Coupon Code</div>
             <div className="flex">
               <Switch
-                onChange={e => {
-                  setApplyCoupon(value => !value);
+                onChange={(e) => {
+                  setApplyCoupon((value) => !value);
                 }}
                 checked={applyCoupon}
               />
@@ -671,9 +670,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                   value={couponType}
                   content={0}
                   label="Percentage(%)"
-                  onChange={e => {
+                  onChange={(e) => {
                     setCouponType(e);
-                    setCouponVariance(value => ({
+                    setCouponVariance((value) => ({
                       ...value,
                       isPercentage: !value.isPercentage,
                       is_fixed_amount: !value.is_fixed_amount,
@@ -697,9 +696,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                   value={couponType}
                   content={1}
                   label="Fixed Amount(NGN)"
-                  onChange={e => {
+                  onChange={(e) => {
                     setCouponType(e);
-                    setCouponVariance(value => ({
+                    setCouponVariance((value) => ({
                       ...value,
                       isPercentage: !value.isPercentage,
                       is_fixed_amount: !value.is_fixed_amount,
@@ -724,7 +723,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
-                  onChange={e => {
+                  onChange={(e) => {
                     setFieldValue("coupon_settings.start_date", e.target.value);
                   }}
                 />
@@ -735,7 +734,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
-                  onChange={e => {
+                  onChange={(e) => {
                     setFieldValue("coupon_settings.end_date", e.target.value);
                   }}
                 />
@@ -801,8 +800,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             </div>
             <div className="flex">
               <Switch
-                onChange={e => {
-                  setAllowAffiliateMarket(value => !value);
+                onChange={(e) => {
+                  setAllowAffiliateMarket((value) => !value);
                 }}
                 checked={allowAffiliateMarket}
               />
@@ -828,8 +827,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 </div>
                 <div className="flex">
                   <Switch
-                    onChange={e => {
-                      setUploadPromotionalMaterial(value => !value);
+                    onChange={(e) => {
+                      setUploadPromotionalMaterial((value) => !value);
                     }}
                     checked={uploadPromotionalMaterial}
                   />
@@ -871,8 +870,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             <div className="text-black-100">Limit Product Sales</div>
             <div className="flex">
               <Switch
-                onChange={e => {
-                  setLimitProductSale(value => !value);
+                onChange={(e) => {
+                  setLimitProductSale((value) => !value);
                 }}
                 checked={limitProductSale}
               />
@@ -897,8 +896,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             </div>
             <div className="flex">
               <Switch
-                onChange={e => {
-                  setShowTotalSales(value => !value);
+                onChange={(e) => {
+                  setShowTotalSales((value) => !value);
                 }}
                 checked={showTotalSales}
               />
@@ -912,8 +911,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             <div className="text-black-100">Buyer Pays for Transaction Fee</div>
             <div className="flex">
               <Switch
-                onChange={e => {
-                  setBuyerPaysTransactionFee(value => !value);
+                onChange={(e) => {
+                  setBuyerPaysTransactionFee((value) => !value);
                 }}
                 checked={buyerPaysTransactionFee}
               />
@@ -958,49 +957,49 @@ const BatchInput = ({ handleChange }) => {
         prefix="NGN"
         name="NGN"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="GBP"
         name="GBP"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="KES"
         name="KES"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="TZS"
         name="TZS"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="USD"
         name="USD"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="GHS"
         name="GHS"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="ZAR"
         name="ZAR"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
       <ProductInput
         prefix="UGX"
         name="UGX"
         placeholder="0"
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
       />
 
       <div className="pt-2 lg:hidden">
