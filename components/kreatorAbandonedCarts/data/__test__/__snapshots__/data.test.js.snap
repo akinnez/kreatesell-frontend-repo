@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of the abandonedCartsMails data 1`] = `
+Array [
+  Object {
+    "date_created": "01/13/2022 8:25:21 PM",
+    "elapsedTime": "10 Mins",
+    "id": 1,
+    "title": "Please Complete Your Purchase",
+  },
+  Object {
+    "date_created": "05/11/2021 8:25:21 PM",
+    "elapsedTime": "20 Days",
+    "id": 2,
+    "title": "Untitled",
+  },
+  Object {
+    "date_created": "07/15/2020 8:25:21 PM",
+    "elapsedTime": "11 Hours",
+    "id": 3,
+    "title": "Please Complete Your Purchase",
+  },
+  Object {
+    "date_created": "02/02/2022 8:25:21 PM",
+    "elapsedTime": "16 Days",
+    "id": 4,
+    "title": "Please Complete Your Purchase",
+  },
+  Object {
+    "date_created": "11/31/2021 8:25:21 PM",
+    "elapsedTime": "2 Hours",
+    "id": 5,
+    "title": "Please Complete Your Purchase",
+  },
+  Object {
+    "date_created": "12/25/2020 8:25:21 PM",
+    "elapsedTime": "22 Mins",
+    "id": 6,
+    "title": "Please Complete Your Purchase",
+  },
+  Object {
+    "date_created": "10/01/2021 8:25:21 PM",
+    "elapsedTime": "25 Days",
+    "id": 7,
+    "title": "Please Complete Your Purchase",
+  },
+]
+`;

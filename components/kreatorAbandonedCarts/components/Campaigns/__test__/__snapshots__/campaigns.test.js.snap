@@ -1,0 +1,431 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Campaigns /> 1`] = `
+Array [
+  <header
+    className="header"
+  >
+    <h1
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      Manage All Of Your Pro Campaign Email From This Page
+    </h1>
+    <div>
+      <a
+        href="/account/kreator/abandoned-carts/add"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 16 16"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"
+          />
+        </svg>
+          Add Email
+      </a>
+    </div>
+  </header>,
+  <article
+    className="mail__wrapper"
+  >
+    <div
+      className="mails__container"
+    >
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Please Complete Your Purchase
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            13 January, 2022
+             | 
+            10 Mins
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Untitled
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            11 May, 2021
+             | 
+            20 Days
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Please Complete Your Purchase
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            15 July, 2020
+             | 
+            11 Hours
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Please Complete Your Purchase
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            02 February, 2022
+             | 
+            16 Days
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Please Complete Your Purchase
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            01 December, 2021
+             | 
+            2 Hours
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Please Complete Your Purchase
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            25 December, 2020
+             | 
+            22 Mins
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+      <div
+        className="mail"
+      >
+        <p>
+          <span
+            className="ant-typography"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            Please Complete Your Purchase
+          </span>
+        </p>
+        <p>
+          <span
+            className="ant-typography ant-typography-secondary"
+            onClick={null}
+            style={
+              Object {
+                "WebkitLineClamp": undefined,
+              }
+            }
+          >
+            01 October, 2021
+             | 
+            25 Days
+          </span>
+        </p>
+        <div
+          className="actions"
+        >
+          <a
+            href="/account/kreator/abandoned-carts/edit"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Edit
+          </a>
+          <a
+            href="/account/kreator/abandoned-carts/preview"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Preview Email
+          </a>
+        </div>
+      </div>
+    </div>
+    <a
+      href="/account/kreator/abandoned-carts/add"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 16 16"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"
+        />
+      </svg>
+        Add Email
+    </a>
+  </article>,
+]
+`;
