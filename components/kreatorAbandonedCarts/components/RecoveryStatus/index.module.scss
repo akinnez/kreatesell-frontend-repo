@@ -1,0 +1,110 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.container {
+  max-width: 990px;
+  margin: 0 auto;
+
+  header,
+  section:not(:last-child) {
+    margin-bottom: 40px;
+  }
+
+  section:last-child {
+    margin-bottom: 60px;
+  }
+}
+
+.header__banner {
+  background-color: colors.$base-blue;
+  box-shadow: 0px 15px 50px rgba(160, 163, 189, 0.1);
+  border-radius: 8px;
+  padding: 20px 15px;
+}
+
+.header__img {
+  max-width: 250px;
+  margin: 0 auto 60px;
+}
+
+.header__stats {
+  > p {
+    margin-bottom: 16px;
+    font-weight: bold;
+    text-align: center;
+
+    &:first-child {
+      font-size: 12px;
+    }
+
+    &:last-of-type {
+      font-size: 48px;
+    }
+
+    & > span[class="ant-typography"] {
+      color: colors.$base-white;
+    }
+  }
+
+  > div {
+    width: 160px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    background-color: colors.$blue-100;
+    border: 0.5px solid colors.$blue-700;
+    border-radius: 8px;
+
+    > span[class="ant-typography"] {
+      color: colors.$base-blue;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    > div[class^="ant-select"] {
+      > div[class="ant-select-selector"] {
+        border: 1px solid colors.$base-blue;
+        border-radius: 8px;
+
+        > span[class="ant-select-selection-item"] {
+          color: colors.$base-blue;
+          font-weight: bold;
+          font-size: 12px;
+        }
+      }
+
+      svg {
+        color: colors.$base-blue;
+      }
+    }
+  }
+}
+
+.csv__btn > button[class^="ant-btn"] {
+  color: colors.$base-blue;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+@include screens.minScreen("tablet") {
+  .header__banner {
+    @include mixins.flex(row, center, center);
+  }
+
+  .header__img {
+    order: 2;
+    margin: 0;
+  }
+
+  .header__stats {
+    order: 1;
+    margin-right: 40px;
+  }
+}
+
+@include screens.minScreen("xx-large") {
+  .header__stats {
+    margin-right: 99px;
+  }
+}

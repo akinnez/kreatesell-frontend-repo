@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Typography, Card, Tabs } from "antd";
 import AuthLayout from "components/authlayout";
 import Campaigns from "components/kreatorAbandonedCarts/components/Campaigns";
+import RecoveryStatus from "components/kreatorAbandonedCarts/components/RecoveryStatus";
 import styles from "public/css/AbandonedCarts.module.scss";
 
 const { Text } = Typography;
@@ -28,7 +29,7 @@ const AbandonedCarts = () => {
               <Campaigns />
             </TabPane>
             <TabPane tab="Recovery Status" key="2">
-              Recovery Status
+              <RecoveryStatus />
             </TabPane>
           </Tabs>
         </Card>
