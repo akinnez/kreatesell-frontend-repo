@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Editor /> 1`] = `
+<div
+  className="editorWrapper"
+>
+  <div>
+    <label
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      Email Content
+    </label>
+    <a
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      Add Media
+    </a>
+  </div>
+  <div
+    className="editorContainer"
+  >
+    <div
+      id="toolbar"
+    >
+      <select
+        className="ql-header"
+        defaultValue=""
+        onChange={[Function]}
+      >
+        <option
+          value="1"
+        />
+        <option
+          value="2"
+        />
+        <option
+          value="3"
+        />
+        <option
+          value=""
+        />
+      </select>
+      <button
+        className="ql-bold"
+      />
+      <button
+        className="ql-italic"
+      />
+      <button
+        className="ql-underline"
+      />
+      <button
+        className="ql-strike"
+      />
+      <select
+        className="ql-align"
+        defaultValue=""
+        onChange={[Function]}
+      >
+        <option
+          value=""
+        />
+        <option
+          value="center"
+        />
+        <option
+          value="right"
+        />
+      </select>
+      <button
+        className="ql-list"
+        value="bullet"
+      />
+      <button
+        className="ql-list"
+        value="ordered"
+      />
+      <select
+        className="ql-color"
+        onChange={[Function]}
+      />
+      <button
+        className="ql-link"
+      />
+      <button
+        className="ql-image"
+      />
+      <button
+        className="ql-video"
+      />
+    </div>
+  </div>
+</div>
+`;
