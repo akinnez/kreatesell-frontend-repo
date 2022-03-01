@@ -69,17 +69,12 @@ const AffiliateProducts = () => {
   return (
     <AuthLayout>
       <Head>
-        <title>KreateSell | Affiliate Products</title>
+        <title>KreateSell | Affiliate Market Place</title>
       </Head>
       {!user.is_affiliate ? (
         <BecomeAnAffiliate />
       ) : (
         <>
-          <header className={styles.header}>
-            <Text type="secondary" strong>
-              Market Place
-            </Text>
-          </header>
           <AffiliateFilters data={products} setFiltered={setFiltered} />
           <section className={styles.tableWrapper}>
             <Table

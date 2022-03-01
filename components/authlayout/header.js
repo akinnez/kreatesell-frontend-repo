@@ -93,7 +93,9 @@ const Nav = () => {
 
   const pageTitle = pathname?.split("/");
   const title =
-    pageTitle.length >= 4 ? pageTitle[3].toLocaleUpperCase() : "Home";
+    pageTitle.length >= 4
+      ? pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, " ")
+      : "Home";
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));

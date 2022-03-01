@@ -35,6 +35,10 @@
 .tabs {
   div[class="ant-tabs-nav"] {
     margin-bottom: 45px;
+
+    div[class^="ant-tabs-ink-bar"] {
+      height: 4px;
+    }
   }
 
   div[class="ant-tabs-tab-btn"] {

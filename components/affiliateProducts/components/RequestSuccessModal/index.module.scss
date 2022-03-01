@@ -1,3 +1,4 @@
+@use "public/css/colors";
 @use "public/css/mixins";
 
 .success__modal span[class^="anticon"] > svg {
@@ -18,5 +19,16 @@
 
   p {
     margin-bottom: 0;
+
+    &:first-child > span[class="ant-typography"] {
+      font-size: 24px;
+      font-weight: bold;
+      color: colors.$black-100;
+    }
+
+    &:last-child > span[class="ant-typography"] {
+      font-size: 14px;
+      color: colors.$gray-200;
+    }
   }
 }
