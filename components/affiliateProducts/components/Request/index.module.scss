@@ -1,16 +1,31 @@
+@use "public/css/colors";
 @use "public/css/mixins";
 @use "public/css/screens";
 
 .form__wrapper {
   max-width: 645px;
 
-  div[class~="ant-form-item-label"] {
-    padding-bottom: 0;
+  div[class$="ant-form-item-label"] {
+    padding: 0;
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$black-100;
   }
 }
 
 .text {
+  margin-top: 25px;
   margin-bottom: 20px;
+
+  p {
+    margin-bottom: 0;
+
+    & > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$base-gray;
+    }
+  }
 }
 
 .submit__btn {

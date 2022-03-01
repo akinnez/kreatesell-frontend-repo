@@ -51,7 +51,7 @@ const productsColumns = types => [
     dataIndex: "",
     render: (_, record) => (
       <div className={styles.request__link}>
-        <Link href={`/account/affiliate/products/${record.id}`}>
+        <Link href={`/account/affiliate/market-place/${record.id}`}>
           <a>
             Request Access&nbsp;
             <AiOutlineArrowRight />
@@ -59,6 +59,7 @@ const productsColumns = types => [
         </Link>
       </div>
     ),
+    width: "130px",
   },
 ];
 

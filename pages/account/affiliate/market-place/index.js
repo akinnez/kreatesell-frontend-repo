@@ -75,11 +75,6 @@ const AffiliateProducts = () => {
         <BecomeAnAffiliate />
       ) : (
         <>
-          <header className={styles.header}>
-            <Text type="secondary" strong>
-              Market Place
-            </Text>
-          </header>
           <AffiliateFilters data={products} setFiltered={setFiltered} />
           <section className={styles.tableWrapper}>
             <Table

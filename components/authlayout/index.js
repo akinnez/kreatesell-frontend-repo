@@ -135,7 +135,7 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
       <style jsx>{`
         .content {
           background-color: rgba(245, 245, 245, 1);
-          padding: 50px 25px 10px 25px;
+          padding: 50px 30px 10px 30px;
         }
       `}</style>
     </>

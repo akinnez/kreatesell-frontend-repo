@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Tag } from "antd";
 import { MdOutlineLink } from "react-icons/md";
+import Tags from "components/Tags";
 import Performance from "components/affiliates/Performance";
 import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
@@ -48,13 +48,13 @@ const requestsColumns = types => [
     render: status => (
       <>
         {status === "Approved" ? (
-          <Tag color="green">{status}</Tag>
+          <Tags color="green">{status}</Tags>
         ) : status === "Declined" ? (
-          <Tag color="red">{status}</Tag>
+          <Tags color="red">{status}</Tags>
         ) : status === "Pending" ? (
-          <Tag color="orange">{status}</Tag>
+          <Tags color="orange">{status}</Tags>
         ) : (
-          <Tag>{status}</Tag>
+          <Tags>{status}</Tags>
         )}
       </>
     ),
@@ -76,6 +76,7 @@ const requestsColumns = types => [
         )}
       </>
     ),
+    width: "97px",
   },
 ];
 
