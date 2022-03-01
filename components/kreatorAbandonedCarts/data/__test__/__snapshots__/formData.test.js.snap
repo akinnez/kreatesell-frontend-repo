@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of emailTags data 1`] = `
+Array [
+  Object {
+    "content": "Curates the first names of your email list.",
+    "id": 1,
+    "tag": "First_Name",
+  },
+  Object {
+    "content": "Curates the last names of your email list.",
+    "id": 2,
+    "tag": "Last_Name",
+  },
+  Object {
+    "content": "Choose the curated names of your digital products.",
+    "id": 3,
+    "tag": "Product_Name",
+  },
+  Object {
+    "content": "Shows the price of your chosen digital product.",
+    "id": 4,
+    "tag": "Product_Price",
+  },
+  Object {
+    "content": "Links the recipient to the digital product page.",
+    "id": 5,
+    "tag": "Product_Button",
+  },
+  Object {
+    "content": "Links the recipient to the checkout page of the digital product.",
+    "id": 6,
+    "tag": "Checkout_Button",
+  },
+  Object {
+    "content": "Show the link to the checkout page for the digital product.",
+    "id": 7,
+    "tag": "Checkout_Url",
+  },
+]
+`;
