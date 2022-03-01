@@ -8,6 +8,8 @@ import CloseIcon from "components/affiliates/CloseIcon";
 import Spinner from "components/Spinner";
 import { AffiliatePayoutAccount } from "validation/AffiliatePayoutAccount.validation";
 import { bankSuccess } from "redux/actions";
+import { showToast } from "utils";
+import axiosApi from "utils/axios";
 import styles from "./index.module.scss";
 
 const { Text, Title } = Typography;
@@ -16,6 +18,7 @@ const { Option } = Select;
 const AccountModal = ({ accountModal, hideAccountModal }) => {
   const [banks, setBanks] = useState([]);
   const [banksLoading, setBanksLoading] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
 
   const dispatch = useDispatch();
   const { countries, loading, normalizedBanks } = useSelector(
@@ -23,7 +26,29 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
   );
 
   const submitHandler = values => {
-    console.log("submitted - ", values);
+    const data = {
+      country_id: values.country,
+      bank_id: values.bank,
+      account_number: values.account_number.trim(),
+      account_name: values.account_name.trim(),
+      password: values.password,
+    };
+
+    setFormLoading(true);
+
+    axiosApi.request(
+      "post",
+      `${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
+      res => {
+        showToast(res.message, "success");
+        hideAccountModal();
+      },
+      err => {
+        showToast(err.message, "error");
+        hideAccountModal();
+      },
+      data
+    );
   };
 
   const countryHandler = async (value, formik) => {
@@ -221,7 +246,11 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
                   <Text>Finished adding your account details?</Text>
                 </div>
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={formLoading}
+                  >
                     Save Bank Info
                   </Button>
                 </Form.Item>

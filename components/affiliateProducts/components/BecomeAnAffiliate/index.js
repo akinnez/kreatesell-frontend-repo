@@ -59,6 +59,7 @@ const BecomeAnAffiliate = () => {
         footer={null}
         visible
         onCancel={() => back()}
+        maskClosable={false}
         closeIcon={<CloseIcon />}
         className={styles.affiliate__modal}
       >
