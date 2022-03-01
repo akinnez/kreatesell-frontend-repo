@@ -69,7 +69,7 @@ const AffiliateProducts = () => {
   return (
     <AuthLayout>
       <Head>
-        <title>KreateSell | Affiliate Products</title>
+        <title>KreateSell | Affiliate Market Place</title>
       </Head>
       {!user.is_affiliate ? (
         <BecomeAnAffiliate />

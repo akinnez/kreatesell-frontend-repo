@@ -133,7 +133,7 @@ const Sidebar = () => {
           expandIcon={<CloseSubMenu />}
         >
           <Menu.Item key={38}>
-            <Link href="/account/affiliate/products">
+            <Link href="/account/affiliate/market-place">
               <a>Find Products</a>
             </Link>
           </Menu.Item>

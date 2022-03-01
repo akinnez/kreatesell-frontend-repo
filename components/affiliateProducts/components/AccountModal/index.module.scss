@@ -1,0 +1,121 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.account__modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
+  font-size: 25px;
+}
+
+.header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 35px;
+
+  > h2 {
+    font-size: 24px;
+    color: colors.$black-100;
+  }
+
+  > p {
+    margin-bottom: 0;
+
+    > span[class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$gray-200;
+    }
+  }
+}
+
+.form__section {
+  position: relative;
+}
+
+.spinner__mask {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.form {
+  div[class$="ant-form-item-label"] {
+    padding: 0;
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$black-100;
+  }
+
+  div[class^="ant-select"] > div[class="ant-select-selector"] {
+    border-radius: 8px;
+  }
+
+  div[class~="ant-form-item"]:first-child
+    div[class^="ant-select"]
+    span[class="ant-select-selection-item"] {
+    @include mixins.flex(row, flex-start, center);
+  }
+
+  div[class$="ant-form-item"]:last-child
+    div[class="ant-form-item-control-input-content"] {
+    @include mixins.flex(row, center, center);
+
+    > button {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+}
+
+.countries__options > div[class="ant-select-item-option-content"] {
+  @include mixins.flex(row, flex-start, center);
+}
+
+.option__icon {
+  border-radius: 8px;
+}
+
+.form__warning {
+  background-color: #fffdd0;
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 25px;
+
+  > p {
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    > span[class="ant-typography"] {
+      color: #ff5c00;
+      font-size: 12px;
+    }
+
+    &:first-child {
+      margin-bottom: 10px;
+
+      > span[class="ant-typography"] {
+        font-weight: 500;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.text {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  > span[class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$base-gray;
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .account__modal div[class="ant-modal-body"] {
+    padding: 45px;
+  }
+}

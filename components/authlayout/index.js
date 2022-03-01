@@ -7,7 +7,6 @@ import Nav from "./header";
 import { Spin } from "antd";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../../redux/actions/utilityActions";
 import { getStore } from "../../redux/actions/store.actions";
 import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
@@ -22,6 +21,7 @@ import {
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
+import useFetchUtilities from "hooks/useFetchUtilities";
 
 const Loader = () => {
   return (
@@ -78,6 +78,8 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
   useEffect(() => {
     productTypes();
   }, []);
+
+  useFetchUtilities();
 
   return (
     <>
