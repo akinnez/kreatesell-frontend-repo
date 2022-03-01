@@ -25,6 +25,7 @@ const RequestSuccessModal = ({ showModal, handleHideModal }) => {
       visible={showModal}
       closeIcon={<CloseIcon />}
       className={styles.success__modal}
+      width={600}
     >
       <header className={styles.header}>
         <div>
@@ -36,7 +37,7 @@ const RequestSuccessModal = ({ showModal, handleHideModal }) => {
           <Text strong>Your request has been sent to the Kreator</Text>
         </p>
         <p>
-          <Text type="secondary">
+          <Text>
             You will be notified when the Kreator accepts or rejects your
             request
           </Text>

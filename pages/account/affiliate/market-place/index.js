@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import useSWR from "swr";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography, Table } from "antd";
+import { Table } from "antd";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
@@ -18,7 +18,6 @@ import axiosApi from "utils/axios";
 import normalize from "utils/normalize";
 import styles from "public/css/AffiliateProducts.module.scss";
 
-const { Text } = Typography;
 const rowKey = record => record.id;
 
 const AffiliateProducts = () => {
@@ -69,17 +68,12 @@ const AffiliateProducts = () => {
   return (
     <AuthLayout>
       <Head>
-        <title>KreateSell | Affiliate Products</title>
+        <title>KreateSell | Affiliate Market Place</title>
       </Head>
       {!user.is_affiliate ? (
         <BecomeAnAffiliate />
       ) : (
         <>
-          <header className={styles.header}>
-            <Text type="secondary" strong>
-              Market Place
-            </Text>
-          </header>
           <AffiliateFilters data={products} setFiltered={setFiltered} />
           <section className={styles.tableWrapper}>
             <Table

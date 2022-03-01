@@ -1,3 +1,4 @@
+@use "public/css/colors";
 @use "public/css/screens";
 
 .affiliate__modal span[class^="anticon"] > svg {
@@ -36,8 +37,14 @@
   }
 }
 
-.account__link svg {
-  display: inline;
+.account__link > button[class$="ant-btn-link"] {
+  color: colors.$base-blue;
+  font-weight: bold;
+  font-size: 14px;
+
+  svg {
+    font-size: 16px;
+  }
 }
 
 @include screens.minScreen("medium-large") {

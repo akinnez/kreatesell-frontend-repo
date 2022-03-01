@@ -108,7 +108,7 @@
 }
 
 .email__tag {
-  @include mixins.flex(column, space-between, flex-start);
+  @include mixins.flex(column, flex-start, flex-start);
 
   &:not(:last-child) {
     margin-bottom: 20px;
@@ -151,6 +151,8 @@
 
     & > span[class="ant-typography"]:first-child {
       margin-bottom: 0;
+      margin-right: 40px;
+      width: 165px;
     }
   }
 }
