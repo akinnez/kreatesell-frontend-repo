@@ -22,10 +22,10 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
 
   const dispatch = useDispatch();
   const { countries, loading, normalizedBanks } = useSelector(
-    state => state.utils
+    (state) => state.utils
   );
 
-  const submitHandler = values => {
+  const submitHandler = (values) => {
     const data = {
       country_id: values.country,
       bank_id: values.bank,
@@ -39,11 +39,11 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
     axiosApi.request(
       "post",
       `${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
-      res => {
+      (res) => {
         showToast(res.message, "success");
         hideAccountModal();
       },
-      err => {
+      (err) => {
         showToast(err.message, "error");
         hideAccountModal();
       },
@@ -111,7 +111,7 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
             validationSchema={AffiliatePayoutAccount}
             onSubmit={submitHandler}
           >
-            {formik => (
+            {(formik) => (
               <Form
                 className={styles.form}
                 name="account_form"
@@ -129,11 +129,11 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
                 >
                   <Select
                     placeholder="Nigeria"
-                    onChange={value => countryHandler(value, formik)}
+                    onChange={(value) => countryHandler(value, formik)}
                     onBlur={formik.handleBlur}
                     value={formik.values.country}
                   >
-                    {countries.map(country => (
+                    {countries.map((country) => (
                       <Option
                         key={country.id}
                         value={country.id}
@@ -165,11 +165,11 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
                 >
                   <Select
                     placeholder="Choose bank"
-                    onChange={value => bankHandler(value, formik)}
+                    onChange={(value) => bankHandler(value, formik)}
                     onBlur={formik.handleBlur}
                     value={formik.values.bank}
                   >
-                    {banks.map(bank => (
+                    {banks.map((bank) => (
                       <Option key={bank.id} value={bank.id}>
                         {bank.name}
                       </Option>
