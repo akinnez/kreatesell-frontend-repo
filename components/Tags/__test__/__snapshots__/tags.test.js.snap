@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tags :  renders a snapshot of <Tags /> with mock props with color as  1`] = `
+<span
+  className="tag orange"
+>
+  mock Child
+</span>
+`;
+
+exports[`Tags :  renders a snapshot of <Tags /> with mock props with color as green 1`] = `
+<span
+  className="tag green"
+>
+  mock Child
+</span>
+`;
+
+exports[`Tags :  renders a snapshot of <Tags /> with mock props with color as red 1`] = `
+<span
+  className="tag red"
+>
+  mock Child
+</span>
+`;
+
+exports[`Tags :  renders a snapshot of <Tags /> with mock props with default color 1`] = `
+<span
+  className="tag default"
+>
+  mock Child
+</span>
+`;
