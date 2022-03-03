@@ -12,7 +12,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## PROJECT DEVELOPMENT CONVENTIONS
+## DEVELOPMENT CONVENTIONS
 
 - Use of `ES6` for JavaScript.
 - Use of `Ant-design component` library.
@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Ensure functions are memoised and cached.
 - Ensure `alt, height, width` and every other prop needed by the next `<Image />` component are supplied.
 
-## FLOW FOR PULLING FROM THE REPO AND PUSHING TO IT.
+## REPO INTERACTION (push and pull).
 
 - When you pull from the `dev` branch, checkout a branch from dev where you can do your work locally, when done with your work, push the changes to remote origin `whose name is the same as your local branch first and check how the builds are faring`.
 - When the said builds have been determined to be `successful`, merge the branch into dev, `then and only then`, should you push to the `dev` branch.
