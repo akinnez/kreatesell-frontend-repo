@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     setAuthorizationHeader();
   }, []);
+
   return (
     <Provider store={store}>
       <Script
@@ -29,6 +30,8 @@ function MyApp({ Component, pageProps }) {
         src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
         async
       />
+      {/* <Script src="/public/chat.js" type="text/javascript" /> */}
+
       <Component {...pageProps} />
     </Provider>
   );
