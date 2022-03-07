@@ -13,6 +13,7 @@ import {
   CloseSubMenu,
   AffiliatesIcon,
   KreatorsIcon,
+  SalesIcon,
 } from "../IconPack";
 import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
 
@@ -143,12 +144,29 @@ const Sidebar = () => {
             </Link>
           </Menu.Item>
         </SubMenu>
-        <MenuItem
-          key={4}
-          Icon={Wallet}
-          title="Payouts"
-          target="/account/kreator/payouts"
-        />
+        <SubMenu
+          key="sales-menu"
+          icon={<SalesIcon className={style.icon} height={20} width={20} />}
+          title="Sales"
+          className={style.subMenu}
+          expandIcon={<CloseSubMenu />}
+        >
+          <Menu.Item key="sales-payouts">
+            <Link href="/account/sales/payouts">
+              <a>Payouts</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="sales-transactions">
+            <Link href="/account/sales/transactions">
+              <a>Transactions</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="sales-revenue">
+            <Link href="/account/sales/revenue">
+              <a>Revenue</a>
+            </Link>
+          </Menu.Item>
+        </SubMenu>
         <MenuItem
           key={5}
           Icon={Ticket}

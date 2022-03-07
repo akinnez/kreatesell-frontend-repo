@@ -4,7 +4,7 @@ import { Button, Checkbox, Modal, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import CloseIcon from "components/affiliates/CloseIcon";
-import AccountModal from "../AccountModal";
+import PayoutsForm from "components/Payouts/components/PayoutsForm";
 import { UPDATE_USER_AFFILIATE_STATUS } from "redux/types/auth.types";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
@@ -110,10 +110,7 @@ const BecomeAnAffiliate = () => {
         </div>
       </Modal>
       {accountModal && (
-        <AccountModal
-          accountModal={accountModal}
-          hideAccountModal={hideAccountModal}
-        />
+        <PayoutsForm show={accountModal} hide={hideAccountModal} />
       )}
     </>
   );

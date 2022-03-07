@@ -36,10 +36,6 @@ const Request = () => {
     );
   };
 
-  const handleChange = e => {
-    setPermission(e.target.value);
-  };
-
   const handleHideModal = () => {
     setShowModal(false);
   };

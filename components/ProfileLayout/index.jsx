@@ -13,6 +13,7 @@ import {
 } from "utils";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
+import useFetchUtilities from "hooks/useFetchUtilities";
 import styles from "./index.module.scss";
 
 const Loader = () => {
@@ -75,6 +76,8 @@ const ProfileLayout = ({
   useEffect(() => {
     productTypes();
   }, []);
+
+  useFetchUtilities();
 
   return (
     <>

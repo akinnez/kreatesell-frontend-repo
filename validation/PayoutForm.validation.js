@@ -6,7 +6,7 @@ const validator = (country, schema, msg) => {
     : schema;
 };
 
-export const AffiliatePayoutAccount = yup.object({
+export const PayoutFormValidator = yup.object({
   country: yup.number().required("Select your country"),
 
   paypal_email: yup.string().when("country", (country, schema) => {

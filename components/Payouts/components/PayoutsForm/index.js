@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import axios from "axios";
 import CloseIcon from "components/affiliates/CloseIcon";
 import Spinner from "components/Spinner";
-import { AffiliatePayoutAccount } from "validation/AffiliatePayoutAccount.validation";
+import { PayoutFormValidator } from "validation/PayoutForm.validation";
 import { bankSuccess } from "redux/actions";
 import { showToast } from "utils";
 import axiosApi from "utils/axios";
@@ -15,7 +15,7 @@ import styles from "./index.module.scss";
 const { Text, Title } = Typography;
 const { Option } = Select;
 
-const AccountModal = ({ accountModal, hideAccountModal }) => {
+const PayoutsForm = ({ show, hide }) => {
   const [banks, setBanks] = useState([]);
   const [banksLoading, setBanksLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -43,11 +43,11 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
       `${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
       res => {
         showToast(res.message, "success");
-        hideAccountModal();
+        hide();
       },
       err => {
         showToast(err.message, "error");
-        hideAccountModal();
+        hide();
       },
       data
     );
@@ -87,16 +87,16 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
     <Modal
       title={null}
       footer={null}
-      visible={accountModal}
-      onCancel={hideAccountModal}
+      visible={show}
+      onCancel={hide}
       closeIcon={<CloseIcon />}
-      className={styles.account__modal}
+      className={styles.payouts__form__modal}
       width={765}
     >
       <header className={styles.header}>
         <Title level={2}>Provide your Bank details</Title>
         <p>
-          <Text>We pay your funds to this account</Text>
+          <Text>We pay your money into this account</Text>
         </p>
       </header>
       <section className={styles.form__section}>
@@ -117,7 +117,7 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
               account_name: "",
               password: "",
             }}
-            validationSchema={AffiliatePayoutAccount}
+            validationSchema={PayoutFormValidator}
             onSubmit={submitHandler}
           >
             {formik => (
@@ -296,4 +296,4 @@ const AccountModal = ({ accountModal, hideAccountModal }) => {
   );
 };
 
-export default AccountModal;
+export default PayoutsForm;

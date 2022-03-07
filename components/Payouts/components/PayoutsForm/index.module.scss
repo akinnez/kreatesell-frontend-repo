@@ -2,7 +2,10 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.account__modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
+.payouts__form__modal
+  span[class="ant-modal-close-x"]
+  > span[class^="anticon"]
+  > svg {
   font-size: 25px;
 }
 
@@ -119,7 +122,7 @@
 }
 
 @include screens.minScreen("medium-large") {
-  .account__modal div[class="ant-modal-body"] {
+  .payouts__form__modal div[class="ant-modal-body"] {
     padding: 45px;
   }
 }

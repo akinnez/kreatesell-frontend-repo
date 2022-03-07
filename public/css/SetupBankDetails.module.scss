@@ -1,0 +1,110 @@
+@use "colors";
+@use "mixins";
+@use "screens";
+
+%typography {
+  font-weight: 500;
+  font-size: 20px;
+  color: colors.$base-gray;
+}
+
+.header {
+  text-align: center;
+  margin-top: 35px;
+  margin-bottom: 35px;
+
+  h1 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: colors.$black-100;
+  }
+
+  p > [class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$gray-200;
+  }
+}
+
+.card__wrapper {
+  margin: 0 auto 80px;
+  min-width: 280px;
+  max-width: 380px;
+  border-radius: 8px;
+}
+
+.icons__header {
+  margin-bottom: 40px;
+}
+
+.image_bg {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 10px;
+  @include mixins.flex(row, center, center);
+  background-color: colors.$base-green-300;
+  border-radius: 50%;
+
+  + p {
+    text-align: center;
+    margin-bottom: 0;
+
+    [class="ant-typography"] {
+      @extend %typography;
+    }
+  }
+}
+
+.image {
+  width: 35px;
+
+  & > div {
+    display: block !important;
+  }
+}
+
+.affiliate__image {
+  width: 30px;
+}
+
+.divider > [class="ant-typography"] {
+  @extend %typography;
+}
+
+.content {
+  margin-bottom: 35px;
+
+  > p {
+    margin-bottom: 0;
+    text-align: center;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$gray-200;
+    }
+  }
+}
+
+.btn__wrapper {
+  text-align: center;
+
+  > button {
+    font-weight: bold;
+    font-size: 14px;
+    color: colors.$base-blue;
+    border: 1px solid colors.$base-blue;
+    border-radius: 8px;
+
+    &:hover {
+      color: colors.$base-blue;
+      border-color: colors.$base-blue;
+    }
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .card__wrapper > div[class="ant-card-body"] {
+    padding: 60px;
+  }
+}
