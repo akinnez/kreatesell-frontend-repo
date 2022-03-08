@@ -5,6 +5,7 @@ import { Typography, Card, Button, Row, Col } from "antd";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import PayoutsForm from "components/Payouts/components/PayoutsForm";
+import PayoutsFormSuccess from "components/Payouts/components/PayoutsFormSuccess";
 import AffiliateImg from "public/images/payouts-affiliate-icon.png";
 import KreatorImg from "public/images/payouts-kreator-icon.png";
 import styles from "public/css/SetupBankDetails.module.scss";
@@ -12,7 +13,8 @@ import styles from "public/css/SetupBankDetails.module.scss";
 const { Title, Text } = Typography;
 
 const SetupBankDetails = () => {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
 
   const hideModal = () => {
     setModal(false);
@@ -21,6 +23,11 @@ const SetupBankDetails = () => {
   const showModal = () => {
     setModal(true);
   };
+
+  const showSuccessModal = () => {
+    setSuccessModal(true);
+  };
+
   return (
     <ProfileLayout>
       <Head>
@@ -85,7 +92,10 @@ const SetupBankDetails = () => {
           </div>
         </Card>
       </section>
-      {modal && <PayoutsForm show={modal} hide={hideModal} />}
+      {modal && (
+        <PayoutsForm show={modal} hide={hideModal} success={showSuccessModal} />
+      )}
+      {successModal && <PayoutsFormSuccess successModal={successModal} />}
     </ProfileLayout>
   );
 };

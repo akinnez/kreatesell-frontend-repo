@@ -15,7 +15,7 @@ import styles from "./index.module.scss";
 const { Text, Title } = Typography;
 const { Option } = Select;
 
-const PayoutsForm = ({ show, hide }) => {
+const PayoutsForm = ({ show, hide, success }) => {
   const [banks, setBanks] = useState([]);
   const [banksLoading, setBanksLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -42,8 +42,8 @@ const PayoutsForm = ({ show, hide }) => {
       "post",
       `${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
       res => {
-        showToast(res.message, "success");
         hide();
+        success ? success() : showToast(res.message, "success");
       },
       err => {
         showToast(err.message, "error");
@@ -105,8 +105,12 @@ const PayoutsForm = ({ show, hide }) => {
             <Spinner />
           </div>
         )}
-        {countries.length === 0 || loading ? (
+        {loading ? (
           <Spinner />
+        ) : countries.length === 0 ? (
+          <div>
+            <Text>Something has gone wrong. Please Try again later</Text>
+          </div>
         ) : (
           <Formik
             initialValues={{
