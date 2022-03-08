@@ -8,10 +8,50 @@
   color: colors.$base-gray;
 }
 
+.back__btn {
+  margin-bottom: 40px;
+
+  + section {
+    margin-bottom: 150px;
+  }
+}
+
+.illustration {
+  p {
+    margin-bottom: 40px;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 20px;
+      color: colors.$black-100;
+    }
+  }
+}
+
+.kreator__illustration {
+  max-width: 236px;
+}
+
+.affiliate__illustration {
+  max-width: 240px;
+}
+
+.divider[class^="ant-divider"] {
+  margin-bottom: 40px;
+}
+
+.card__wrapper {
+  border-radius: 8px;
+
+  > [class="ant-card-body"] {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
 .header {
   text-align: center;
-  margin-top: 35px;
-  margin-bottom: 35px;
+  margin-bottom: 60px;
 
   h1 {
     margin-bottom: 15px;
@@ -26,15 +66,14 @@
   }
 }
 
-.card__wrapper {
-  margin: 0 auto 80px;
-  min-width: 280px;
-  max-width: 380px;
-  border-radius: 8px;
-}
+.icons__wrapper {
+  margin-bottom: 60px;
+  @include mixins.flex(row, center, center);
+  column-gap: 25px;
 
-.icons__header {
-  margin-bottom: 40px;
+  > div:nth-child(2) > [class="ant-typography"] {
+    @extend %typography;
+  }
 }
 
 .image_bg {
@@ -67,12 +106,8 @@
   width: 30px;
 }
 
-.divider > [class="ant-typography"] {
-  @extend %typography;
-}
-
 .content {
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 
   > p {
     margin-bottom: 0;

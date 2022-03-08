@@ -83,6 +83,43 @@ const PayoutsForm = ({ show, hide, success }) => {
     formik.setFieldValue("bank", value);
   };
 
+  const accountNumberHandler = (e, formik) => {
+    const accountNum = e.target.value.trim();
+
+    if (!accountNum) {
+      formik.setFieldTouched("account_number", true, true);
+      formik.setFieldError("account_number", "Enter your bank account number");
+    }
+
+    const bankId = formik.values.bank;
+
+    if (!bankId) {
+      console.log("say yes");
+      formik.setFieldTouched("account_number", true, false);
+      formik.setFieldError("account_number", "Unable to verify bank account");
+      return;
+    }
+
+    const bank = banks.find(bank => bank.id === bankId);
+
+    axiosApi.request(
+      "post",
+      `${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
+      res => {
+        if (res.status === "error") {
+          formik.setFieldError("account_number", res.message);
+        }
+      },
+      () => {
+        formik.setFieldError("account_number", "Unable to verify bank account");
+      },
+      {
+        account_number: accountNum,
+        account_bank: bank.bank_code,
+      }
+    );
+  };
+
   return (
     <Modal
       title={null}
@@ -100,11 +137,6 @@ const PayoutsForm = ({ show, hide, success }) => {
         </p>
       </header>
       <section className={styles.form__section}>
-        {banksLoading && (
-          <div className={styles.spinner__mask}>
-            <Spinner />
-          </div>
-        )}
         {loading ? (
           <Spinner />
         ) : countries.length === 0 ? (
@@ -127,7 +159,6 @@ const PayoutsForm = ({ show, hide, success }) => {
             {formik => (
               <Form
                 className={styles.form}
-                name="account_form"
                 layout="vertical"
                 size="large"
                 onFinish={formik.handleSubmit}
@@ -201,6 +232,8 @@ const PayoutsForm = ({ show, hide, success }) => {
                         onChange={value => bankHandler(value, formik)}
                         onBlur={formik.handleBlur}
                         value={formik.values.bank}
+                        loading={banksLoading}
+                        disabled={banksLoading}
                       >
                         {banks.map(bank => (
                           <Option key={bank.id} value={bank.id}>
@@ -224,7 +257,9 @@ const PayoutsForm = ({ show, hide, success }) => {
                     >
                       <Input
                         placeholder="Enter account number"
-                        {...formik.getFieldProps("account_number")}
+                        onChange={formik.handleChange}
+                        onBlur={e => accountNumberHandler(e, formik)}
+                        value={formik.values.account_number}
                       />
                     </Form.Item>
                     <Form.Item
@@ -241,6 +276,7 @@ const PayoutsForm = ({ show, hide, success }) => {
                       }
                     >
                       <Input
+                        autoComplete="name"
                         placeholder="Enter account name"
                         {...formik.getFieldProps("account_name")}
                       />

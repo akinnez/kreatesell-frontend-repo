@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
 import useFetchUtilities from "hooks/useFetchUtilities";
+import useFetchStore from "hooks/useFetchStore";
 
 const Loader = () => {
   return (
@@ -80,6 +81,7 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
   }, []);
 
   useFetchUtilities();
+  useFetchStore();
 
   return (
     <>

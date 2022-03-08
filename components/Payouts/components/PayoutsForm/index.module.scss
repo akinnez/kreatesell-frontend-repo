@@ -34,13 +34,6 @@
   position: relative;
 }
 
-.spinner__mask {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
 .form {
   div[class$="ant-form-item-label"] {
     padding: 0;

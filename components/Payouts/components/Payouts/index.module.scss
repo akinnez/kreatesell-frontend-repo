@@ -16,6 +16,20 @@
   }
 }
 
+.download {
+  margin-bottom: 5px;
+}
+
+.csv__btn {
+  text-align: right;
+
+  > button[class^="ant-btn"] {
+    color: colors.$base-blue;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
 .table__section {
   + section {
     text-align: center;

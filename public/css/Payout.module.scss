@@ -1,0 +1,17 @@
+@use "colors";
+
+.tabs {
+  div[class="ant-tabs-nav"] {
+    margin-bottom: 40px;
+    border-radius: 8px;
+    background-color: colors.$base-white;
+
+    div[class^="ant-tabs-ink-bar"] {
+      height: 4px;
+    }
+  }
+
+  div[class="ant-tabs-tab-btn"] {
+    font-size: 16px;
+  }
+}

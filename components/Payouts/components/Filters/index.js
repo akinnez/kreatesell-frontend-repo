@@ -6,24 +6,6 @@ import moment from "moment";
 import { currencyOptions } from "utils";
 import styles from "./index.module.scss";
 
-const cb = (arr, from, to) => {
-  const fromDate = new Date(from).toLocaleDateString();
-  const parsedFromDate = Date.parse(fromDate);
-  const toDate = new Date(to).toLocaleDateString();
-  const parsedToDate = Date.parse(toDate);
-
-  return arr.filter(item => {
-    const newDate = new Date(item.date_created).toLocaleDateString();
-    const parsedDate = Date.parse(newDate);
-
-    if (parsedFromDate > parsedToDate) {
-      return parsedDate <= parsedFromDate && parsedDate >= parsedToDate;
-    }
-
-    return parsedDate >= parsedFromDate && parsedDate <= parsedToDate;
-  });
-};
-
 const ResetBtn = ({ resetFilters }) => (
   <div className={styles.resetFilters}>
     <Button shape="round" icon={<MdOutlineCancel />} onClick={resetFilters}>
@@ -32,7 +14,7 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const Filters = ({ data, setFiltered, searchQuery }) => {
+const Filters = ({ setStartDate, setEndDate, setProductName }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [form] = Form.useForm();
@@ -64,39 +46,17 @@ const Filters = ({ data, setFiltered, searchQuery }) => {
       return;
     }
 
-    let tempArr;
-
-    if (search) {
-      tempArr = data.filter(item => {
-        if (item[searchQuery]) {
-          return item[searchQuery].toLowerCase().includes(search.toLowerCase());
-        }
-
-        return null;
-      });
-    }
-
-    if (currency && tempArr) {
-      tempArr = tempArr.filter(item => item.currency === currency);
-    } else if (currency && !tempArr) {
-      tempArr = data.filter(item => item.currency === currency);
-    }
-
-    if (from && to && tempArr) {
-      tempArr = cb(tempArr, from._i, to._i);
-    } else if (from && to && !tempArr) {
-      tempArr = cb(data, from._i, to._i);
-    }
-
-    if (tempArr) {
-      setFiltered(tempArr);
-      setIsFiltered(true);
-      setShowFilter(false);
-    }
+    setStartDate(from ? from._i : "");
+    setEndDate(to ? to._i : "");
+    setProductName(search || "");
+    setIsFiltered(true);
+    setShowFilter(false);
   };
 
   const resetFilters = () => {
-    setFiltered(null);
+    setStartDate("");
+    setEndDate("");
+    setProductName("");
     setIsFiltered(false);
     form.resetFields();
   };
