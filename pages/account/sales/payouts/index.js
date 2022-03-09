@@ -5,7 +5,7 @@ import AuthLayout from "components/authlayout";
 import Spinner from "components/Spinner";
 import Payouts from "components/Payouts/components/Payouts";
 import BankSettings from "components/Payouts/bank-settings";
-import style from "public/css/Payout.module.scss";
+import styles from "public/css/PayoutsPage.module.scss";
 
 const { TabPane } = Tabs;
 
@@ -21,7 +21,7 @@ const PayoutsPage = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <Tabs defaultActiveKey="1" centered className={style.tabs}>
+        <Tabs defaultActiveKey="1" centered className={styles.tabs}>
           <TabPane tab="Payouts" key="1">
             <Payouts bankDetails={bankDetails} />
           </TabPane>

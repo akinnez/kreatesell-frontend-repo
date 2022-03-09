@@ -7,7 +7,6 @@ import Nav from "./header";
 import { Spin } from "antd";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { getStore } from "../../redux/actions/store.actions";
 import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
 import {
