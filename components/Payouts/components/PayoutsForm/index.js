@@ -6,9 +6,9 @@ import { Formik } from "formik";
 import axios from "axios";
 import CloseIcon from "components/affiliates/CloseIcon";
 import Spinner from "components/Spinner";
+import createAccount from "components/Payouts/utils/createAccount";
 import { PayoutFormValidator } from "validation/PayoutForm.validation";
 import { bankSuccess } from "redux/actions";
-import { showToast } from "utils";
 import axiosApi from "utils/axios";
 import styles from "./index.module.scss";
 
@@ -18,7 +18,6 @@ const { Option } = Select;
 const PayoutsForm = ({ show, hide, success }) => {
   const [banks, setBanks] = useState([]);
   const [banksLoading, setBanksLoading] = useState(false);
-  const [formLoading, setFormLoading] = useState(false);
   const [paypal, setPaypal] = useState(false);
 
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const PayoutsForm = ({ show, hide, success }) => {
     state => state.utils
   );
 
-  const submitHandler = values => {
+  const submitHandler = (values, actions) => {
     const data = {
       country_id: values.country,
       paypal_email: values.paypal_email.trim(),
@@ -36,21 +35,43 @@ const PayoutsForm = ({ show, hide, success }) => {
       password: values.password,
     };
 
-    setFormLoading(true);
+    if (data.country_id === 1 || data.country_id === 72) {
+      const bank = banks.find(bank => bank.id === data.bank_id);
+      delete data.paypal_email;
 
-    axiosApi.request(
-      "post",
-      `${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
-      res => {
-        hide();
-        success ? success() : showToast(res.message, "success");
-      },
-      err => {
-        showToast(err.message, "error");
-        hide();
-      },
-      data
-    );
+      axiosApi.request(
+        "post",
+        `${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
+        res => {
+          if (res.status === "error") {
+            actions.setFieldError("account_number", res.message);
+            actions.setFieldTouched("account_number", true, false);
+            actions.setSubmitting(false);
+          } else {
+            createAccount(data, hide, success);
+          }
+        },
+        () => {
+          actions.setFieldError(
+            "account_number",
+            "Unable to verify bank account number"
+          );
+          actions.setFieldTouched("account_number", true, false);
+          actions.setSubmitting(false);
+        },
+        {
+          account_number: data.account_number,
+          account_bank: bank.bank_code,
+        }
+      );
+
+      return;
+    }
+
+    delete data.bank_id;
+    delete data.account_number;
+    delete data.account_name;
+    createAccount(data, hide, success);
   };
 
   const countryHandler = async (value, formik) => {
@@ -81,43 +102,6 @@ const PayoutsForm = ({ show, hide, success }) => {
 
   const bankHandler = (value, formik) => {
     formik.setFieldValue("bank", value);
-  };
-
-  const accountNumberHandler = (e, formik) => {
-    const accountNum = e.target.value.trim();
-
-    if (!accountNum) {
-      formik.setFieldTouched("account_number", true, true);
-      formik.setFieldError("account_number", "Enter your bank account number");
-    }
-
-    const bankId = formik.values.bank;
-
-    if (!bankId) {
-      console.log("say yes");
-      formik.setFieldTouched("account_number", true, false);
-      formik.setFieldError("account_number", "Unable to verify bank account");
-      return;
-    }
-
-    const bank = banks.find(bank => bank.id === bankId);
-
-    axiosApi.request(
-      "post",
-      `${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
-      res => {
-        if (res.status === "error") {
-          formik.setFieldError("account_number", res.message);
-        }
-      },
-      () => {
-        formik.setFieldError("account_number", "Unable to verify bank account");
-      },
-      {
-        account_number: accountNum,
-        account_bank: bank.bank_code,
-      }
-    );
   };
 
   return (
@@ -257,9 +241,7 @@ const PayoutsForm = ({ show, hide, success }) => {
                     >
                       <Input
                         placeholder="Enter account number"
-                        onChange={formik.handleChange}
-                        onBlur={e => accountNumberHandler(e, formik)}
-                        value={formik.values.account_number}
+                        {...formik.getFieldProps("account_number")}
                       />
                     </Form.Item>
                     <Form.Item
@@ -322,7 +304,7 @@ const PayoutsForm = ({ show, hide, success }) => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    loading={formLoading}
+                    loading={formik.isSubmitting}
                   >
                     Save Bank Info
                   </Button>

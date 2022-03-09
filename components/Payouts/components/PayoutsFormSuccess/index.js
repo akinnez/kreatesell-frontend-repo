@@ -18,10 +18,11 @@ const PayoutsFormSuccess = ({ successModal }) => {
     <Modal
       title={null}
       footer={null}
-      onClose={goBack}
+      onCancel={goBack}
       visible={successModal}
       closeIcon={<CloseIcon />}
       className={styles.success__modal}
+      maskClosable={false}
       width={700}
     >
       <header className={styles.header}>

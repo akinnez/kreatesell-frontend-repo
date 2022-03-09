@@ -101,19 +101,19 @@ const Payouts = ({ bankDetails }) => {
           loading={loading}
         />
       </section>
-      {/* {!bankDetails && ( */}
-      <section>
-        <p>
-          <Text>
-            To start receiving money from your sales ensure you setup your bank
-            details
-          </Text>
-        </p>
-        <Link href="/account/sales/payouts/set-up-bank-details">
-          <a>Set Up Bank Details</a>
-        </Link>
-      </section>
-      {/* )} */}
+      {!bankDetails && (
+        <section>
+          <p>
+            <Text>
+              To start receiving money from your sales ensure you setup your
+              bank details
+            </Text>
+          </p>
+          <Link href="/account/sales/payouts/set-up-bank-details">
+            <a>Set Up Bank Details</a>
+          </Link>
+        </section>
+      )}
     </>
   );
 };
