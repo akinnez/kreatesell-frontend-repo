@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import style from "./Index.module.scss";
 import { Card, Row, Col, Form, Radio, Space } from "antd";
-import { Button } from "../form-input";
-import fetcher from "../../utils/fetcher";
+import { Button } from "components/form-input";
+import fetcher from "utils/fetcher";
 import useSWR from "swr";
-import ApiService from "../../utils/axios";
+import ApiService from "utils/axios";
 import BankModal from "./account-info-form";
 
 const BankSettings = () => {
