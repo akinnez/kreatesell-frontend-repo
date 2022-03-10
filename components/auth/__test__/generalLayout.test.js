@@ -1,6 +1,10 @@
 import { GeneralLayout } from "../GeneralLayout";
 import renderer from "react-test-renderer";
-import { ForgotPasswordForm, ResetPasswordForm } from "../../forms";
+import {
+  ForgotPasswordForm,
+  ResetPasswordForm,
+  UpgradeAccountForm,
+} from "../../forms";
 import * as nextRouter from "next/router";
 import { Provider } from "react-redux";
 import { initializeStore } from "../../../redux/store";
@@ -28,20 +32,36 @@ describe("GeneralLayout : ", () => {
       .toJSON();
     expect(generalLayout).toMatchSnapshot();
   });
-  // it("renders a snapshot of <GeneralLayout /> using <ResetPasswordForm /> as a test case", () => {
-  //   const generalLayout = renderer
-  //     .create(
-  //       <Provider store={initializeStore(mockState)}>
-  //         <GeneralLayout
-  //           Form={ResetPasswordForm}
-  //           formTitle="Forgot Password"
-  //           title="KreateSell | Forgot Password"
-  //           subTitle="Set up a new password"
-  //           socialBtn={false}
-  //         />
-  //       </Provider>
-  //     )
-  //     .toJSON();
-  //   expect(generalLayout).toMatchSnapshot();
-  // });
+  it("renders a snapshot of <GeneralLayout /> using <ResetPasswordForm /> as a test case", () => {
+    const generalLayout = renderer
+      .create(
+        <Provider store={initializeStore(mockState)}>
+          <GeneralLayout
+            Form={ResetPasswordForm}
+            formTitle="Forgot Password"
+            title="KreateSell | Forgot Password"
+            subTitle="Set up a new password"
+            socialBtn={false}
+          />
+        </Provider>
+      )
+      .toJSON();
+    expect(generalLayout).toMatchSnapshot();
+  });
+  it("renders a snapshot of <GeneralLayout /> using <UpgradeAccountForm /> as a test case", () => {
+    const generalLayout = renderer
+      .create(
+        <Provider store={initializeStore(mockState)}>
+          <GeneralLayout
+            Form={UpgradeAccountForm}
+            formTitle="Forgot Password"
+            title="KreateSell | Forgot Password"
+            subTitle="Set up a new password"
+            socialBtn={false}
+          />
+        </Provider>
+      )
+      .toJSON();
+    expect(generalLayout).toMatchSnapshot();
+  });
 });
