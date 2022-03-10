@@ -7,7 +7,7 @@ import { Typography, Card, Button, Row, Col, Divider } from "antd";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import Spinner from "components/Spinner";
-import PayoutsFormSuccess from "components/Payouts/components/PayoutsFormSuccess";
+import CreateDetailsSuccess from "components/Payouts/components/CreateDetailsSuccess";
 import CreateBankDetails from "components/Payouts/components/CreateBankDetails";
 import AffiliateImg from "public/images/payouts-affiliate-icon.png";
 import KreatorImg from "public/images/payouts-kreator-icon.png";
@@ -155,9 +155,7 @@ const SetupBankDetails = () => {
           showSuccessModal={showSuccessModal}
         />
       )}
-      {successModal && (
-        <PayoutsFormSuccess successModal={successModal} title="Added" />
-      )}
+      {successModal && <CreateDetailsSuccess successModal={successModal} />}
     </ProfileLayout>
   );
 };

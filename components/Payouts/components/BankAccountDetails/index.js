@@ -2,11 +2,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, Button, Typography } from "antd";
+import EditDetailsSuccess from "../EditDetailsSuccess";
 import EditBankDetails from "../EditBankDetails";
 import BankInformation from "../BankInformation";
 import ClipboardImg from "public/images/clipboards.png";
 import styles from "./index.module.scss";
-import PayoutsFormSuccess from "../PayoutsFormSuccess";
 
 const { Title, Text } = Typography;
 
@@ -24,6 +24,10 @@ const BankAccountDetails = ({ bankDetails }) => {
 
   const showSuccessModal = () => {
     setSuccessModal(true);
+  };
+
+  const hideSuccessModal = () => {
+    setSuccessModal(false);
   };
 
   return (
@@ -53,9 +57,9 @@ const BankAccountDetails = ({ bankDetails }) => {
                 />
               )}
               {successModal && (
-                <PayoutsFormSuccess
+                <EditDetailsSuccess
                   successModal={successModal}
-                  title="Updated"
+                  hideSuccessModal={hideSuccessModal}
                 />
               )}
             </div>

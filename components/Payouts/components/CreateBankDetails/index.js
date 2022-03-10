@@ -15,6 +15,7 @@ const CreateBankDetails = ({
   const { countries, banksByCountryId, loading } = useSelector(
     state => state.utils
   );
+
   return (
     <Modal
       title={null}

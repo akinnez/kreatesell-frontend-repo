@@ -26,7 +26,7 @@ const PayoutsPage = () => {
 
   useEffect(() => {
     if (router.query.redirect) {
-      showToast("You have already set up payout bank account", "info");
+      showToast("You have already set up your payout bank account", "info");
     }
   }, [router]);
 
