@@ -4,7 +4,7 @@ const initialState = {
   user: {},
   countries: [],
   banks: [],
-  normalizedBanks: {},
+  banksByCountryId: {},
   loading: false,
   error: "",
 };
@@ -29,7 +29,7 @@ const UtilsReducer = (state = initialState, { type, payload }) => {
     case types.GET_BANKS_SUCCESS:
       return {
         ...state,
-        normalizedBanks: { ...state.normalizedBanks, ...payload },
+        banksByCountryId: { ...state.banksByCountryId, ...payload },
       };
 
     case types.GET_STORE_DETAILS.FAILURE:

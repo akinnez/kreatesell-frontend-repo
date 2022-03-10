@@ -44,6 +44,9 @@ const StoreReducer = (state = initialState, { type, payload }) => {
     case types.GET_STORE_DETAILS.FAILURE:
       return { ...state, loading: false };
 
+    case types.UPDATE_STORE_DETAILS:
+      return { ...state, store: { ...state.store, bank_details: payload } };
+
     default:
       return state;
   }

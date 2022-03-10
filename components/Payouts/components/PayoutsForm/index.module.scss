@@ -2,64 +2,46 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.payouts__form__modal
-  span[class="ant-modal-close-x"]
-  > span[class^="anticon"]
-  > svg {
-  font-size: 25px;
-}
+.form {
+  div[class~="ant-form-item"] {
+    margin-bottom: 15px;
 
-.header {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 35px;
+    &:first-child
+      div[class^="ant-select"]
+      span[class="ant-select-selection-item"] {
+      @include mixins.flex(row, flex-start, center);
+    }
 
-  > h2 {
-    font-size: 24px;
-    color: colors.$black-100;
-  }
+    &:last-child div[class="ant-form-item-control-input-content"] {
+      text-align: center;
 
-  > p {
-    margin-bottom: 0;
-
-    > span[class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$gray-200;
+      > button {
+        font-weight: bold;
+        font-size: 14px;
+      }
     }
   }
-}
 
-.form__section {
-  position: relative;
-}
+  div[class$="ant-form-item-has-error"] {
+    margin-bottom: 12px;
 
-.form {
-  div[class$="ant-form-item-label"] {
-    padding: 0;
+    div[class$="ant-form-item-explain-connected"] {
+      line-height: 1;
+      min-height: inherit;
+      margin-top: 4px;
+    }
+  }
+
+  div[class$="ant-form-item-label"] > label[for] {
+    height: auto;
     font-weight: 500;
     font-size: 16px;
     color: colors.$black-100;
+    line-height: 1;
   }
 
   div[class^="ant-select"] > div[class="ant-select-selector"] {
     border-radius: 8px;
-  }
-
-  div[class~="ant-form-item"]:first-child
-    div[class^="ant-select"]
-    span[class="ant-select-selection-item"] {
-    @include mixins.flex(row, flex-start, center);
-  }
-
-  div[class$="ant-form-item"]:last-child
-    div[class="ant-form-item-control-input-content"] {
-    @include mixins.flex(row, center, center);
-
-    > button {
-      font-weight: bold;
-      font-size: 14px;
-    }
   }
 }
 
@@ -73,9 +55,8 @@
 
 .form__warning {
   background-color: #fffdd0;
-  padding: 15px;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
 
   > p {
     &:not(:last-child) {
@@ -83,7 +64,7 @@
     }
 
     &:first-child {
-      margin-bottom: 13px;
+      margin-bottom: 8px;
 
       > span[class="ant-typography"] {
         font-weight: 500;

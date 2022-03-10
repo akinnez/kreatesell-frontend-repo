@@ -9,13 +9,14 @@ import { UPDATE_USER_AFFILIATE_STATUS } from "redux/types/auth.types";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
 import styles from "./index.module.scss";
+import CreateBankDetails from "components/Payouts/components/CreateBankDetails";
 
 const { Text, Link } = Typography;
 
 const BecomeAnAffiliate = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [accountModal, setAccountModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const { back } = useRouter();
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
@@ -44,12 +45,12 @@ const BecomeAnAffiliate = () => {
     );
   };
 
-  const showAccountModal = () => {
-    setAccountModal(true);
+  const showModal = () => {
+    setModal(true);
   };
 
-  const hideAccountModal = () => {
-    setAccountModal(false);
+  const hideModal = () => {
+    setModal(false);
   };
 
   return (
@@ -101,7 +102,7 @@ const BecomeAnAffiliate = () => {
               </Button>
             </div>
             <div className={styles.account__link}>
-              <Button type="link" onClick={showAccountModal}>
+              <Button type="link" onClick={showModal}>
                 Set up an account for your commissions&nbsp;
                 <AiOutlineArrowRight />
               </Button>
@@ -109,8 +110,8 @@ const BecomeAnAffiliate = () => {
           </footer>
         </div>
       </Modal>
-      {accountModal && (
-        <PayoutsForm show={accountModal} hide={hideAccountModal} />
+      {modal && (
+        <CreateBankDetails createModal={modal} hideCreateModal={hideModal} />
       )}
     </>
   );

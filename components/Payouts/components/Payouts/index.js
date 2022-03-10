@@ -11,7 +11,7 @@ import styles from "./index.module.scss";
 const { Title, Text } = Typography;
 const rowKey = record => record.id;
 
-const Payouts = ({ bankDetails }) => {
+const Payouts = ({ bankDetails, handleClick }) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
@@ -36,7 +36,7 @@ const Payouts = ({ bankDetails }) => {
   }
 
   useEffect(() => {
-    if (bankDetails?.account_number && bankDetails?.bank_id) {
+    if (bankDetails) {
       setLoading(true);
 
       axiosApi.request(
@@ -56,7 +56,7 @@ const Payouts = ({ bankDetails }) => {
         }
       );
     }
-  }, [bankDetails?.account_number, bankDetails?.bank_id, url]);
+  }, [bankDetails, url]);
 
   const handlePageChange = newPage => {
     setPage(newPage);
@@ -66,7 +66,7 @@ const Payouts = ({ bankDetails }) => {
     <>
       <header className={styles.header}>
         <Title level={2}>Payouts</Title>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={() => handleClick("2")}>
           Payout Setting
         </Button>
       </header>

@@ -183,6 +183,11 @@ export const getStore = info => {
   };
 };
 
+export const updateStore = data => ({
+  type: types.UPDATE_STORE_DETAILS,
+  payload: data,
+});
+
 export const getStoreFailure = () => ({
   type: types.GET_STORE_DETAILS.FAILURE,
 });

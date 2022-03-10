@@ -7,7 +7,7 @@ import styles from "./index.module.scss";
 
 const { Text } = Typography;
 
-const PayoutsFormSuccess = ({ successModal }) => {
+const PayoutsFormSuccess = ({ successModal, title }) => {
   const { back } = useRouter();
 
   const goBack = () => {
@@ -32,7 +32,7 @@ const PayoutsFormSuccess = ({ successModal }) => {
       </header>
       <section className={styles.content}>
         <p>
-          <Text>Account Details Successfully Added</Text>
+          <Text>Account Details Successfully {title}</Text>
         </p>
         <p>
           <Text>
