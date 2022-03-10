@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     setAuthorizationHeader();
   }, []);
+
   return (
     <Provider store={store}>
       <Script
