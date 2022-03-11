@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AuthLayout from "components/authlayout";
 import { Card, Tabs } from "antd";
-import style from "public/css/payout.module.scss";
+import style from "public/css/card.module.scss";
 import HelpHeader from "components/HelpComponents/header";
 import useSWR from "swr";
 import axios from "axios";
