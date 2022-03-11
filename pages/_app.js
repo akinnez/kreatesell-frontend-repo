@@ -13,6 +13,8 @@ import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
 import "@reach/dialog/styles.css";
 import { setAuthorizationHeader } from "../utils/index";
+import ChatScript from "../components/ChatWidgetScript";
+
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
@@ -30,6 +32,7 @@ function MyApp({ Component, pageProps }) {
         src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
         async
       />
+      <ChatScript />
       <Component {...pageProps} />
     </Provider>
   );
