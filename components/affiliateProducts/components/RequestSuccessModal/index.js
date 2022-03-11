@@ -21,7 +21,7 @@ const RequestSuccessModal = ({ showModal, handleHideModal }) => {
     <Modal
       title={null}
       footer={null}
-      onClose={handleHideModal}
+      onCancel={handleHideModal}
       visible={showModal}
       closeIcon={<CloseIcon />}
       className={styles.success__modal}

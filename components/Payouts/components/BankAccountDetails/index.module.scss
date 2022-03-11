@@ -1,0 +1,92 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.card__wrapper > [class="ant-card-body"] {
+  padding-top: 50px;
+  padding-bottom: 200px;
+}
+
+.header {
+  margin-bottom: 40px;
+
+  h2 {
+    margin-bottom: 0;
+    color: colors.$black-100;
+    font-size: 24px;
+  }
+}
+
+.bank__details {
+  > p {
+    margin-bottom: 35px;
+    max-width: 350px;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 20px;
+      color: colors.$base-gray;
+    }
+  }
+
+  > button {
+    margin-top: 40px;
+    border-radius: 8px;
+  }
+}
+
+.no__bank__details {
+  text-align: center;
+
+  > p {
+    margin-bottom: 20px;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$base-gray;
+    }
+  }
+
+  > a {
+    display: inline-block;
+    height: auto;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background-color: colors.$base-blue;
+    color: colors.$base-white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+.image__container {
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto 50px;
+
+  > p {
+    margin-top: 25px;
+    margin-bottom: 0;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 20px;
+      color: colors.$base-gray;
+    }
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .card__wrapper > [class="ant-card-body"] {
+    padding: 50px 50px 200px;
+  }
+}
+
+@include screens.minScreen("tablet") {
+  .bank__details {
+    border: 1px solid colors.$gray-100;
+    border-radius: 8px;
+    padding: 32px 60px;
+  }
+}

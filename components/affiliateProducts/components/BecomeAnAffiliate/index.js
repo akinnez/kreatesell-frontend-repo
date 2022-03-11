@@ -1,24 +1,30 @@
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, Checkbox, Modal, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import CloseIcon from "components/affiliates/CloseIcon";
-import AccountModal from "../AccountModal";
+import CreateBankDetails from "components/Payouts/components/CreateBankDetails";
 import { UPDATE_USER_AFFILIATE_STATUS } from "redux/types/auth.types";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
 import styles from "./index.module.scss";
 
-const { Text, Link } = Typography;
+const { Text, Link: AntLink } = Typography;
 
 const BecomeAnAffiliate = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [accountModal, setAccountModal] = useState(false);
+  const [modal, setModal] = useState(false);
+
   const { back } = useRouter();
+
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.auth);
+  const { auth, store } = useSelector(state => state);
+
+  const { user } = auth;
+  const { bank_details: bankDetails } = store.store;
 
   const handleChecked = e => {
     setIsChecked(e.target.checked);
@@ -44,12 +50,12 @@ const BecomeAnAffiliate = () => {
     );
   };
 
-  const showAccountModal = () => {
-    setAccountModal(true);
+  const showModal = () => {
+    setModal(true);
   };
 
-  const hideAccountModal = () => {
-    setAccountModal(false);
+  const hideModal = () => {
+    setModal(false);
   };
 
   return (
@@ -85,7 +91,7 @@ const BecomeAnAffiliate = () => {
               >
                 I have read the affiliate
               </Checkbox>
-              <Link>terms and conditions</Link>
+              <AntLink>terms and conditions</AntLink>
               <Text>.</Text>
             </div>
           </section>
@@ -101,19 +107,25 @@ const BecomeAnAffiliate = () => {
               </Button>
             </div>
             <div className={styles.account__link}>
-              <Button type="link" onClick={showAccountModal}>
-                Set up an account for your commissions&nbsp;
-                <AiOutlineArrowRight />
-              </Button>
+              {bankDetails ? (
+                <Link href="/account/sales/payouts?redirect=true">
+                  <a>
+                    Set up an account for your commissions&nbsp;
+                    <AiOutlineArrowRight />
+                  </a>
+                </Link>
+              ) : (
+                <Button type="link" onClick={showModal}>
+                  Set up an account for your commissions&nbsp;
+                  <AiOutlineArrowRight />
+                </Button>
+              )}
             </div>
           </footer>
         </div>
       </Modal>
-      {accountModal && (
-        <AccountModal
-          accountModal={accountModal}
-          hideAccountModal={hideAccountModal}
-        />
+      {modal && (
+        <CreateBankDetails createModal={modal} hideCreateModal={hideModal} />
       )}
     </>
   );

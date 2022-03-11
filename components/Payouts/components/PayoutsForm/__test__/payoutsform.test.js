@@ -1,4 +1,4 @@
-import AccountModal from "..";
+import PayoutsForm from "..";
 import { Provider } from "react-redux";
 import { initializeStore } from "redux/store";
 import EnzymeToJson from "enzyme-to-json";
@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation((query) => ({
+  value: jest.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
@@ -21,7 +21,7 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
-const hideAccountModal = jest.fn();
+const hideModal = jest.fn();
 
 const mockState = {
   auth: "",
@@ -31,22 +31,19 @@ const mockState = {
   product: "",
 };
 
-describe("AccountModal : ", () => {
-  it("renders a snapshot of <AccountModal /> when accountModal is false", () => {
+describe("PayoutsForm : ", () => {
+  it("renders a snapshot of <PayoutsForm /> when show is false", () => {
     const el = mount(
       <Provider store={initializeStore(mockState)}>
-        <AccountModal
-          hideAccountModal={hideAccountModal}
-          accountModal={false}
-        />
+        <PayoutsForm hide={hideModal} show={false} />
       </Provider>
     );
     expect(EnzymeToJson(el)).toMatchSnapshot();
   });
-  it("renders a snapshot of <AccountModal /> when accountModal is true", () => {
+  it("renders a snapshot of <PayoutsForm /> when show is true", () => {
     const el = mount(
       <Provider store={initializeStore(mockState)}>
-        <AccountModal hideAccountModal={hideAccountModal} accountModal={true} />
+        <PayoutsForm hide={hideModal} show={true} />
       </Provider>
     );
     expect(EnzymeToJson(el)).toMatchSnapshot();

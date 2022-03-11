@@ -1,0 +1,145 @@
+@use "colors";
+@use "mixins";
+@use "screens";
+
+%typography {
+  font-weight: 500;
+  font-size: 20px;
+  color: colors.$base-gray;
+}
+
+.back__btn {
+  margin-bottom: 40px;
+
+  + section {
+    margin-bottom: 150px;
+  }
+}
+
+.illustration {
+  p {
+    margin-bottom: 40px;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 20px;
+      color: colors.$black-100;
+    }
+  }
+}
+
+.kreator__illustration {
+  max-width: 236px;
+}
+
+.affiliate__illustration {
+  max-width: 240px;
+}
+
+.divider[class^="ant-divider"] {
+  margin-bottom: 40px;
+}
+
+.card__wrapper {
+  border-radius: 8px;
+
+  > [class="ant-card-body"] {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+
+  h1 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: colors.$black-100;
+  }
+
+  p > [class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$gray-200;
+  }
+}
+
+.icons__wrapper {
+  margin-bottom: 60px;
+  @include mixins.flex(row, center, center);
+  column-gap: 25px;
+
+  > div:nth-child(2) > [class="ant-typography"] {
+    @extend %typography;
+  }
+}
+
+.image_bg {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 10px;
+  @include mixins.flex(row, center, center);
+  background-color: colors.$base-green-300;
+  border-radius: 50%;
+
+  + p {
+    text-align: center;
+    margin-bottom: 0;
+
+    [class="ant-typography"] {
+      @extend %typography;
+    }
+  }
+}
+
+.image {
+  width: 35px;
+
+  & > div {
+    display: block !important;
+  }
+}
+
+.affiliate__image {
+  width: 30px;
+}
+
+.content {
+  margin-bottom: 20px;
+
+  > p {
+    margin-bottom: 0;
+    text-align: center;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$gray-200;
+    }
+  }
+}
+
+.btn__wrapper {
+  text-align: center;
+
+  > button {
+    font-weight: bold;
+    font-size: 14px;
+    color: colors.$base-blue;
+    border: 1px solid colors.$base-blue;
+    border-radius: 8px;
+
+    &:hover {
+      color: colors.$base-blue;
+      border-color: colors.$base-blue;
+    }
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .card__wrapper > div[class="ant-card-body"] {
+    padding: 60px;
+  }
+}

@@ -22,10 +22,13 @@ const rowKey = record => record.id;
 
 const AffiliateProducts = () => {
   const [filtered, setFiltered] = useState(null);
+
   const dispatch = useDispatch();
+
   const { user, loading: userLoading } = useSelector(state => state.auth);
   const { productTypes } = useSelector(state => state.product);
   const { products } = useSelector(state => state.affiliate);
+  const { loading: storeLoading } = useSelector(state => state.store);
 
   const { data } = useSWR(
     () => {
@@ -54,7 +57,7 @@ const AffiliateProducts = () => {
   const types = normalize(productTypes, "id");
   const columns = productsColumns(types);
 
-  if (userLoading || userIsEmpty) {
+  if (storeLoading || userLoading || userIsEmpty) {
     return (
       <AuthLayout>
         <Head>
@@ -81,11 +84,9 @@ const AffiliateProducts = () => {
               columns={columns}
               pagination={{
                 position: ["bottomLeft", "topRight"],
-                showSizeChanger: true,
+                showSizeChanger: false,
                 defaultPageSize: 5,
                 responsive: true,
-                showQuickJumper: true,
-                pageSizeOptions: [5, 10, 20, 30, 40, 50, 100],
               }}
               rowKey={rowKey}
               loading={!data}
