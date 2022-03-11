@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Typography, Button, Table } from "antd";
 import { BsDownload } from "react-icons/bs";
-import Filters from "../Filters";
+import PayoutsFilters from "../Filters/PayoutsFilters";
 import { payoutsColumns } from "../../columns/payoutsColumns";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
@@ -71,7 +71,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
         </Button>
       </header>
       <section>
-        <Filters
+        <PayoutsFilters
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           setProductName={setProductName}
