@@ -1,15 +1,13 @@
 import Image from "next/image";
-import { Typography, Modal, Button } from "antd";
+import { Modal, Button } from "antd";
 import Img from "public/images/CheckMark.png";
 import styles from "./index.module.scss";
 
-const { Text } = Typography;
-
-const WithdrawSuccess = ({ successModal, hideModal }) => (
+const SuccessModal = ({ successModal, hideModal, children, closable }) => (
   <Modal
     title={null}
     footer={null}
-    closable={false}
+    closable={closable}
     onCancel={hideModal}
     visible={successModal}
     className={styles.success__modal}
@@ -21,17 +19,7 @@ const WithdrawSuccess = ({ successModal, hideModal }) => (
         <Image src={Img} alt="success icon" />
       </div>
     </header>
-    <section className={styles.content}>
-      <p>
-        <Text>Money is being processed</Text>
-      </p>
-      <p>
-        <Text>
-          Kindly exercise patience while we process your funds. Processing takes
-          about 24 hours before reflecting in your account
-        </Text>
-      </p>
-    </section>
+    <section className={styles.content}>{children}</section>
     <footer className={styles.footer}>
       <Button size="large" type="primary" onClick={hideModal}>
         Go Back
@@ -40,4 +28,4 @@ const WithdrawSuccess = ({ successModal, hideModal }) => (
   </Modal>
 );
 
-export default WithdrawSuccess;
+export default SuccessModal;

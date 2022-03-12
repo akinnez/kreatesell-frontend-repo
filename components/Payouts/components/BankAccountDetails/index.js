@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, Button, Typography } from "antd";
-import EditDetailsSuccess from "../EditDetailsSuccess";
+import SuccessModal from "../SuccessModal";
 import EditBankDetails from "../EditBankDetails";
 import BankInformation from "../BankInformation";
 import ClipboardImg from "public/images/clipboards.png";
@@ -14,20 +14,8 @@ const BankAccountDetails = ({ bankDetails }) => {
   const [editModal, setEditModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
 
-  const showEditModal = () => {
-    setEditModal(true);
-  };
-
-  const hideEditModal = () => {
-    setEditModal(false);
-  };
-
-  const showSuccessModal = () => {
-    setSuccessModal(true);
-  };
-
-  const hideSuccessModal = () => {
-    setSuccessModal(false);
+  const handleClicks = (setter, value) => () => {
+    setter(value);
   };
 
   return (
@@ -45,22 +33,37 @@ const BankAccountDetails = ({ bankDetails }) => {
                 </Text>
               </p>
               <BankInformation bankDetails={bankDetails} />
-              <Button type="primary" size="large" onClick={showEditModal}>
+              <Button
+                type="primary"
+                size="large"
+                onClick={handleClicks(setEditModal, true)}
+              >
                 Change Payout Account Settings
               </Button>
               {editModal && (
                 <EditBankDetails
                   editModal={editModal}
-                  hideEditModal={hideEditModal}
+                  hideEditModal={handleClicks(setEditModal, false)}
                   bankDetails={bankDetails}
-                  showSuccessModal={showSuccessModal}
+                  showSuccessModal={handleClicks(setSuccessModal, true)}
                 />
               )}
               {successModal && (
-                <EditDetailsSuccess
+                <SuccessModal
                   successModal={successModal}
-                  hideSuccessModal={hideSuccessModal}
-                />
+                  hideModal={handleClicks(setSuccessModal, false)}
+                  closable
+                >
+                  <p>
+                    <Text>Account Details Successfully Updated</Text>
+                  </p>
+                  <p>
+                    <Text>
+                      Congratulations! You can now start seamlessly receiving
+                      your settlement as at when due.
+                    </Text>
+                  </p>
+                </SuccessModal>
               )}
             </div>
           ) : (
