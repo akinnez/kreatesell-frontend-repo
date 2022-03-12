@@ -7,7 +7,10 @@ export const PayoutFormValidator = yup.object({
 
   paypal_email: yup.string().when("country", (country, schema) => {
     return country && country !== 1 && country !== 72
-      ? validator(schema, "Enter paypal email")
+      ? validator(schema, "Enter paypal email").matches(
+          /@paypal.com$/i,
+          "Enter a valid paypal email"
+        )
       : schema;
   }),
 

@@ -50,12 +50,8 @@ const BecomeAnAffiliate = () => {
     );
   };
 
-  const showModal = () => {
-    setModal(true);
-  };
-
-  const hideModal = () => {
-    setModal(false);
+  const handleModal = value => () => {
+    setModal(value);
   };
 
   return (
@@ -115,7 +111,7 @@ const BecomeAnAffiliate = () => {
                   </a>
                 </Link>
               ) : (
-                <Button type="link" onClick={showModal}>
+                <Button type="link" onClick={handleModal(true)}>
                   Set up an account for your commissions&nbsp;
                   <AiOutlineArrowRight />
                 </Button>
@@ -125,7 +121,10 @@ const BecomeAnAffiliate = () => {
         </div>
       </Modal>
       {modal && (
-        <CreateBankDetails createModal={modal} hideCreateModal={hideModal} />
+        <CreateBankDetails
+          createModal={modal}
+          hideCreateModal={handleModal(false)}
+        />
       )}
     </>
   );

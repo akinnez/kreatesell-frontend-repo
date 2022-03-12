@@ -4,16 +4,9 @@ import styles from "./index.module.scss";
 const { Text } = Typography;
 
 const BankInformation = ({ bankDetails }) => (
-  <div className={styles.bank__info__details}>
-    {bankDetails.paypal_email ? (
-      <>
-        <p>
-          <Text>PayPal Email:</Text>
-          <Text>&nbsp; {bankDetails.paypal_email}</Text>
-        </p>
-      </>
-    ) : (
-      <>
+  <>
+    {bankDetails.country_id === "1" || bankDetails.country_id === "72" ? (
+      <div className={`${styles.bank__info__details} ${styles.bank__info}`}>
         <p>
           <Text>Currency:</Text>
           <Text>&nbsp; {bankDetails.currency || "NGN"}</Text>
@@ -30,9 +23,16 @@ const BankInformation = ({ bankDetails }) => (
           <Text>Account Name:</Text>
           <Text>&nbsp; {bankDetails.account_name}</Text>
         </p>
-      </>
+      </div>
+    ) : (
+      <div className={`${styles.bank__info__details} ${styles.paypal__info}`}>
+        <p>
+          <Text>PayPal Email:</Text>
+          <Text>&nbsp; {bankDetails.account_name}</Text>
+        </p>
+      </div>
     )}
-  </div>
+  </>
 );
 
 export default BankInformation;

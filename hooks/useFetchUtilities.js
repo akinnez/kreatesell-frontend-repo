@@ -57,7 +57,10 @@ const useFetchUtilities = () => {
   }, [dispatch, countriesIsEmpty]);
 
   useEffect(() => {
-    if (hasBankDetails) {
+    if (
+      hasBankDetails &&
+      (bankDetails?.country_id === "1" || bankDetails?.country_id === "72")
+    ) {
       const id = bankDetails.country_id;
 
       axios
@@ -67,7 +70,7 @@ const useFetchUtilities = () => {
           dispatch(bankSuccess({ id, banks: banksData }));
         });
     }
-  }, [bankDetails, dispatch, hasBankDetails]);
+  }, [bankDetails?.country_id, dispatch, hasBankDetails]);
 };
 
 export default useFetchUtilities;

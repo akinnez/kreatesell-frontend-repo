@@ -51,16 +51,31 @@ const WithdrawModal = ({
             </p>
           </div>
           <div className={styles.bank__info}>
-            <p>
-              <Text>Account Number:</Text>
-              &nbsp;
-              <span className={styles.value}>{bankDetails.account_number}</span>
-            </p>
-            <p>
-              <Text>Account Name:</Text>
-              &nbsp;
-              <span className={styles.value}>{bankDetails.account_name}</span>
-            </p>
+            {bankDetails.country_id === "1" ||
+            bankDetails.country_id === "72" ? (
+              <>
+                <p>
+                  <Text>Account Number:</Text>
+                  &nbsp;
+                  <span className={styles.value}>
+                    {bankDetails.account_number}
+                  </span>
+                </p>
+                <p>
+                  <Text>Account Name:</Text>
+                  &nbsp;
+                  <span className={styles.value}>
+                    {bankDetails.account_name}
+                  </span>
+                </p>
+              </>
+            ) : (
+              <p>
+                <Text>PayPal Email:</Text>
+                &nbsp;
+                <span className={styles.value}>{bankDetails.account_name}</span>
+              </p>
+            )}
           </div>
           <p>
             <Text>Transaction Fee: $2</Text>

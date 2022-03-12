@@ -19,7 +19,7 @@ const createAccount = ({
     },
     err => {
       showToast(err.message, "error");
-      hide();
+      hideModal();
     },
     data
   );
