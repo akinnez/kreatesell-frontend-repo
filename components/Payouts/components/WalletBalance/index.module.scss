@@ -1,0 +1,120 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.header {
+  margin-bottom: 32px;
+
+  > [class^="ant-card"] {
+    border-radius: 8px;
+
+    > [class="ant-card-body"] {
+      padding-top: 34px;
+      padding-bottom: 34px;
+    }
+  }
+}
+
+.box {
+  height: 100%;
+  max-width: 460px;
+  padding: 30px 20px;
+  background-color: #096dd9;
+  border-radius: 8px;
+
+  > p {
+    margin-bottom: 16px;
+    text-align: center;
+
+    > [class="ant-typography"] {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.2;
+      color: colors.$blue-200;
+    }
+  }
+}
+
+.kreator__box {
+  margin-left: auto;
+}
+
+.affiliate__box {
+  margin-right: auto;
+}
+
+.title {
+  margin-bottom: 16px;
+  @include mixins.flex(row, space-between, center);
+  column-gap: 10px;
+
+  p {
+    margin-bottom: 0;
+
+    > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$base-white;
+    }
+  }
+
+  button {
+    color: colors.$base-white;
+    font-size: 25px;
+
+    &:hover,
+    &:active,
+    svg {
+      color: colors.$base-white;
+    }
+  }
+}
+
+.withdraw__btn {
+  text-align: center;
+
+  > button {
+    background-color: colors.$base-white;
+    border-radius: 8px;
+    color: colors.$base-blue;
+    font-weight: 700;
+    font-size: 14px;
+
+    &:hover {
+      color: colors.$base-blue;
+    }
+  }
+}
+
+.affiliate__info {
+  @include mixins.flex(row, flex-start, center);
+  column-gap: 25px;
+
+  > span:first-child {
+    color: colors.$base-white;
+    font-size: 25px;
+  }
+
+  > span[class="ant-typography"] {
+    color: colors.$base-white;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .header > [class^="ant-card"] > [class="ant-card-body"] {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .box {
+    padding: 30px 48px;
+  }
+
+  .withdraw__btn > button {
+    padding-right: 70px;
+    padding-left: 70px;
+  }
+}

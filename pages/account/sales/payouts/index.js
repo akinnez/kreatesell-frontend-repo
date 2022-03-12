@@ -7,6 +7,7 @@ import AuthLayout from "components/authlayout";
 import Spinner from "components/Spinner";
 import Payouts from "components/Payouts/components/Payouts";
 import BankAccountDetails from "components/Payouts/components/BankAccountDetails";
+import Wallet from "components/Payouts/components/Wallet";
 import { showToast } from "utils";
 import styles from "public/css/PayoutsPage.module.scss";
 
@@ -51,7 +52,7 @@ const PayoutsPage = () => {
             <BankAccountDetails bankDetails={bankDetails} />
           </TabPane>
           <TabPane tab="Wallet" key="3">
-            Content of Tab Pane 3
+            <Wallet bankDetails={bankDetails} />
           </TabPane>
         </Tabs>
       )}

@@ -7,7 +7,7 @@ import { Typography, Card, Button, Row, Col, Divider } from "antd";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import Spinner from "components/Spinner";
-import CreateDetailsSuccess from "components/Payouts/components/CreateDetailsSuccess";
+import SuccessModal from "components/Payouts/components/SuccessModal";
 import CreateBankDetails from "components/Payouts/components/CreateBankDetails";
 import AffiliateImg from "public/images/payouts-affiliate-icon.png";
 import KreatorImg from "public/images/payouts-kreator-icon.png";
@@ -37,16 +37,12 @@ const SetupBankDetails = () => {
     }
   }, [bankDetails, router]);
 
-  const hideCreateModal = () => {
-    setCreateModal(false);
+  const handleClicks = (setter, value) => () => {
+    setter(value);
   };
 
-  const showCreateModal = () => {
-    setCreateModal(true);
-  };
-
-  const showSuccessModal = () => {
-    setSuccessModal(true);
+  const goBack = () => {
+    router.back();
   };
 
   if (loading || bankDetails) {
@@ -140,7 +136,10 @@ const SetupBankDetails = () => {
                 </p>
               </div>
               <div className={styles.btn__wrapper}>
-                <Button size="large" onClick={showCreateModal}>
+                <Button
+                  size="large"
+                  onClick={handleClicks(setCreateModal, true)}
+                >
                   Connect Account
                 </Button>
               </div>
@@ -151,11 +150,23 @@ const SetupBankDetails = () => {
       {createModal && (
         <CreateBankDetails
           createModal={createModal}
-          hideCreateModal={hideCreateModal}
-          showSuccessModal={showSuccessModal}
+          hideCreateModal={handleClicks(setCreateModal, false)}
+          showSuccessModal={handleClicks(setSuccessModal, true)}
         />
       )}
-      {successModal && <CreateDetailsSuccess successModal={successModal} />}
+      {successModal && (
+        <SuccessModal successModal={successModal} hideModal={goBack} closable>
+          <p>
+            <Text>Account Details Successfully Added</Text>
+          </p>
+          <p>
+            <Text>
+              Congratulations! You can now start seamlessly receiving your
+              settlement as at when due.
+            </Text>
+          </p>
+        </SuccessModal>
+      )}
     </ProfileLayout>
   );
 };

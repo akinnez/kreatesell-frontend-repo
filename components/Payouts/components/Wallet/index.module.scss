@@ -1,0 +1,19 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.filter__section {
+  h2 {
+    font-weight: 600;
+    font-size: 24px;
+    color: colors.$black-100;
+    margin-bottom: 30px;
+  }
+}
+
+.table__section {
+  margin-bottom: 30px;
+
+  [class="ant-table-content"] {
+    overflow-x: auto;
+  }
+}

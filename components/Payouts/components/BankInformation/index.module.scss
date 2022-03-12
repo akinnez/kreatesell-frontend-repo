@@ -16,11 +16,18 @@
 
     &:first-child {
       color: colors.$gray-200;
-      width: 170px;
     }
 
     &:last-child {
       color: colors.$black-100;
     }
   }
+}
+
+.bank__info > p > [class="ant-typography"]:first-child {
+  width: 170px;
+}
+
+.paypal__info > p > [class="ant-typography"]:first-child {
+  width: 130px;
 }

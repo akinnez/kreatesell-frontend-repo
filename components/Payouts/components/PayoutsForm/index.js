@@ -6,10 +6,15 @@ import { Formik } from "formik";
 import axios from "axios";
 import createAccount from "components/Payouts/utils/createAccount";
 import { PayoutFormValidator } from "validation/PayoutForm.validation";
+import {
+  banksCB,
+  paypalCB,
+  getBank,
+  getCountry,
+} from "components/Payouts/utils/stateCBs";
 import { bankSuccess } from "redux/actions";
 import axiosApi from "utils/axios";
 import styles from "./index.module.scss";
-import { isAnEmpytyObject } from "utils";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -22,42 +27,31 @@ const PayoutsForm = ({
   bankDetails,
 }) => {
   const [banksLoading, setBanksLoading] = useState(false);
-  const [paypal, setPaypal] = useState(false);
+  const [paypal, setPaypal] = useState(() => paypalCB(bankDetails));
   const [banks, setBanks] = useState(() => {
-    if (bankDetails && !isAnEmpytyObject(banksByCountryId)) {
-      return banksByCountryId[bankDetails.country_id];
-    }
-
-    return [];
+    return banksCB(bankDetails, banksByCountryId);
   });
 
   const dispatch = useDispatch();
 
-  const getBank = id => banks.find(bank => bank.id === id);
-  const getCountry = id => countries.find(country => country.id === id);
-
   const submitHandler = (values, actions) => {
-    const data = {
-      country_id: values.country,
-      paypal_email: values.paypal_email.trim(),
-      bank_id: values.bank,
-      account_number: values.account_number.trim(),
-      account_name: values.account_name.trim(),
-      password: values.password,
-    };
+    if (values.country === 1 || values.country === 72) {
+      const bank = getBank(banks, values.bank);
 
-    if (data.country_id === 1 || data.country_id === 72) {
-      const bank = getBank(data.bank_id);
+      const data = {
+        country_id: values.country,
+        bank_id: values.bank,
+        account_number: values.account_number.trim(),
+        account_name: values.account_name.trim(),
+        password: values.password,
+      };
+
       const dispatchObj = {
         bank_name: bank.name,
         bank_id: `${values.bank}`,
         country_id: `${values.country}`,
-        country_name: getCountry(values.country).name,
-        account_name: "",
-        account_number: "",
+        country_name: getCountry(countries, values.country).name,
       };
-
-      delete data.paypal_email;
 
       axiosApi.request(
         "post",
@@ -68,7 +62,9 @@ const PayoutsForm = ({
             actions.setFieldTouched("account_number", true, false);
             actions.setSubmitting(false);
           } else {
-            data.account_name = res.data.account_name.trim();
+            if (res.data?.account_name) {
+              data.account_name = res.data.account_name.trim();
+            }
             dispatchObj.account_number = res.data.account_number.trim();
             dispatchObj.account_name = res.data.account_name.trim();
 
@@ -90,7 +86,7 @@ const PayoutsForm = ({
           actions.setSubmitting(false);
         },
         {
-          account_number: data.account_number,
+          account_number: values.account_number,
           account_bank: bank.bank_code,
         }
       );
@@ -98,15 +94,22 @@ const PayoutsForm = ({
       return;
     }
 
-    const dispatchObj = {
-      country_id: `${values.country}`,
-      country_name: getCountryName(values.country),
-      paypal_email: values.paypal_email,
+    const data = {
+      country_id: values.country,
+      account_number: values.paypal_email.trim(),
+      account_name: values.paypal_email.trim(),
+      password: values.password,
     };
 
-    delete data.bank_id;
-    delete data.account_number;
-    delete data.account_name;
+    const dispatchObj = {
+      bank_name: "Paypal",
+      bank_id: "194",
+      country_id: `${values.country}`,
+      country_name: getCountry(countries, values.country).name,
+      account_name: values.paypal_email.trim(),
+      account_number: values.paypal_email.trim(),
+    };
+
     createAccount({ data, hideModal, showSuccessModal, dispatchObj, dispatch });
   };
 
@@ -144,7 +147,7 @@ const PayoutsForm = ({
     <Formik
       initialValues={{
         country: bankDetails ? +bankDetails.country_id : "",
-        paypal_email: bankDetails?.paypal_email || "",
+        paypal_email: bankDetails?.account_name || "",
         bank: bankDetails ? +bankDetails.bank_id : "",
         account_number: bankDetails?.account_number || "",
         account_name: bankDetails?.account_name || "",
@@ -216,6 +219,8 @@ const PayoutsForm = ({
               help={formik.touched.paypal_email && formik.errors.paypal_email}
             >
               <Input
+                autoComplete="email"
+                type="email"
                 placeholder="Enter PayPal email"
                 {...formik.getFieldProps("paypal_email")}
               />

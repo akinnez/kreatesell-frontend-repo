@@ -1,10 +1,6 @@
 @use "public/css/colors";
 @use "public/css/screens";
 
-.success__modal span[class^="anticon"] > svg {
-  font-size: 25px;
-}
-
 .header {
   margin: 20px 0 20px;
 
@@ -28,7 +24,7 @@
     }
 
     &:last-child [class="ant-typography"] {
-      font-weight: normal;
+      font-weight: 500;
       font-size: 16px;
       color: colors.$gray-200;
     }
@@ -49,6 +45,6 @@
 
 @include screens.minScreen("medium-large") {
   .success__modal div[class="ant-modal-body"] {
-    padding: 60px;
+    padding: 90px;
   }
 }
