@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Typography, Button, Table } from "antd";
-import { BsDownload } from "react-icons/bs";
+import AsyncDataToCSV from "components/DataToCSV/AsyncDataToCSV";
 import PayoutsFilters from "../Filters/PayoutsFilters";
 import { payoutsColumns } from "../../columns/payoutsColumns";
+import { payoutsHeaders } from "components/Payouts/utils/payoutsHeaders";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
 import styles from "./index.module.scss";
@@ -78,12 +79,11 @@ const Payouts = ({ bankDetails, handleClick }) => {
         />
       </section>
       <section className={styles.download}>
-        <div className={styles.csv__btn}>
-          <Button type="link">
-            Download CSV &nbsp;
-            <BsDownload />
-          </Button>
-        </div>
+        <AsyncDataToCSV
+          url={`${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=1&Limit=0`}
+          headers={payoutsHeaders}
+          filename="payouts"
+        />
       </section>
       <section className={styles.table__section}>
         <Table
