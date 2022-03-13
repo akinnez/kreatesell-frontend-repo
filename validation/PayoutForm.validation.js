@@ -23,10 +23,8 @@ export const PayoutFormValidator = yup.object({
   account_number: yup.string().when("country", (country, schema) => {
     return !country || country === 1 || country === 72
       ? validator(schema, "Enter your bank account number")
-          .length(
-            10,
-            "Account number cannot be more or less than 10 characters"
-          )
+          .min(10, "Account number cannot be less than 10 digits")
+          .max(10, "Account number cannot be more than 10 digits")
           .matches(/^\d+$/, "Account number should only contain numbers")
       : schema;
   }),
