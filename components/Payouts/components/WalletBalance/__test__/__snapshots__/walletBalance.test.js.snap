@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <WalletBalance /> when WalletBalance is false 1`] = `
+<WalletBalance
+  bankDetails={
+    Object {
+      "account_name": "Salvo Agency Intl",
+      "account_number": "02772727272",
+      "bank_name": "salvo Bank",
+      "country_id": "1",
+      "currency": "NGN",
+    }
+  }
+>
+  <header
+    className="header"
+  >
+    <ForwardRef>
+      <div
+        className="ant-card ant-card-bordered"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <Spinner>
+            <div
+              className="spinnerWrapper"
+            >
+              <div
+                className="spinner"
+              />
+            </div>
+          </Spinner>
+        </div>
+      </div>
+    </ForwardRef>
+  </header>
+</WalletBalance>
+`;
