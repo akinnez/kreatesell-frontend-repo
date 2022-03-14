@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of payoutsHeaders data 1`] = `
+Array [
+  Object {
+    "key": "product_name",
+    "label": "Product",
+  },
+  Object {
+    "key": "customer_name",
+    "label": "Customer Name",
+  },
+  Object {
+    "key": "customer_email",
+    "label": "Customer Email",
+  },
+  Object {
+    "key": "amount",
+    "label": "Amount",
+  },
+  Object {
+    "key": "transaction_date",
+    "label": "Transaction Date",
+  },
+  Object {
+    "key": "settlement_date",
+    "label": "Settlement Date",
+  },
+]
+`;

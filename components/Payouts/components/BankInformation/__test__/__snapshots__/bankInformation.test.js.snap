@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BankInformation:  renders a snapshot of <BankInformation /> when the country_id is 1  1`] = `
+<div
+  className="bank__info__details paypal__info"
+>
+  <p>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      PayPal Email:
+    </span>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+        
+      Salvo Agency Intl
+    </span>
+  </p>
+</div>
+`;
+
+exports[`BankInformation:  renders a snapshot of <BankInformation /> when the country_id is 72  1`] = `
+<div
+  className="bank__info__details paypal__info"
+>
+  <p>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      PayPal Email:
+    </span>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+        
+      Salvo Agency Intl
+    </span>
+  </p>
+</div>
+`;
+
+exports[`BankInformation:  renders a snapshot of <BankInformation /> when the country_id is neither 1 nor 72 1`] = `
+<div
+  className="bank__info__details paypal__info"
+>
+  <p>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      PayPal Email:
+    </span>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+        
+      Salvo Agency Intl
+    </span>
+  </p>
+</div>
+`;
