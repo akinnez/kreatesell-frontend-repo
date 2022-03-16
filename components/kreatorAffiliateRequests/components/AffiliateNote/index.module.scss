@@ -1,0 +1,5 @@
+@use "public/css/colors";
+
+.modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
+  font-size: 25px;
+}
