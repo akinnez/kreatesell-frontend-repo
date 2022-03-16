@@ -20,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Use `double quotes` for imports
 - Ensure that `packages` being used are `secured` and `not subject to vulnerabilities`
 - In cases where a suitable package cannot be found, there will be a need to re-engineer the process needed to achieve the task.
-- Ensure that code(functions and co) written are optimized
+- Ensure that code(functions and co) written are optimized.
 - Ensure `images` to be used are `hosted on CDNs`
 - The Next `<Image />` component should be used and not the conventional `<img />` tag.
 - Ensure functions are memoised and cached.
