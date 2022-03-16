@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { Modal, Typography, Button, Input, Form } from "antd";
 import { Formik } from "formik";
 import CloseIcon from "components/affiliates/CloseIcon";
 import { KreatorReportSchema } from "validation/KreatorReportSchema.validation";
-import styles from "./index,module.scss";
+import styles from "./index.module.scss";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
+  const [loading, setLoading] = useState(false);
   const submitHandler = () => {};
 
   return (
@@ -20,7 +22,6 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
       className={styles.modal}
       width={765}
     >
-      <header className={styles.header}>ReportAffiliate</header>
       <Formik
         initialValues={{
           report_note: "",
@@ -29,10 +30,15 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
         onSubmit={submitHandler}
       >
         {formik => (
-          <Form layout="vertical" onFinish={formik.handleSubmit} size="large">
+          <Form
+            layout="vertical"
+            onFinish={formik.handleSubmit}
+            size="large"
+            className={styles.form}
+          >
             <Form.Item
               name="report_note"
-              // label=""
+              label="Report Note"
               validateStatus={
                 formik.touched.report_note &&
                 formik.errors.report_note &&
@@ -55,12 +61,7 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
                 </p>
               </div>
               <div className={styles.submit__btn}>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  loading={loading}
-                  className={styles.submit__btn}
-                >
+                <Button htmlType="submit" loading={loading}>
                   Send
                 </Button>
               </div>

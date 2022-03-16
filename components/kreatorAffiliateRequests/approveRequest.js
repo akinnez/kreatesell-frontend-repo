@@ -13,7 +13,7 @@ const approveRequest = (record, updateRequest) => {
 
   Modal.confirm({
     title: `Approve ${record.affiliate}`,
-    content: `Are you sure you want to approve ${record.affiliate} to market ${record.product}?`,
+    content: `Are you sure you want to approve ${record.affiliate_name} to market ${record.product_name}?`,
     okText: "Approve",
     okType: "primary",
     onOk: () => {

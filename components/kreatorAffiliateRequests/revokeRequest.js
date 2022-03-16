@@ -13,11 +13,11 @@ const revokeRequest = (record, updateRequest) => {
 
   Modal.confirm({
     title: `Revoke ${record.affiliate}`,
-    content: `Are you sure you want to revoke ${record.affiliate}?`,
+    content: `Are you sure you want to revoke ${record.affiliate_name}?`,
     okText: "Revoke",
-    okType: "danger",
+    okType: "primary",
     okButtonProps: {
-      type: primary,
+      type: "danger",
     },
     onOk: () => {
       return axiosAPI.request(

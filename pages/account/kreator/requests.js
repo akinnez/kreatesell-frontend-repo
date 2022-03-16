@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import { Typography, Button, Table } from "antd";
@@ -31,10 +31,12 @@ const AffiliateRequests = () => {
   const [affiliateName, setAffiliateName] = useState("");
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
-  const [status, setStatus] = "All";
+  const [status, setStatus] = useState("All");
   const [affiliateId, setAffiliateId] = useState(null);
+  const [affiliateNote, setAffiliateNote] = useState(null);
 
   const { productTypes } = useSelector(state => state.product);
+  const types = useMemo(() => normalize(productTypes, "id"), [productTypes]);
 
   let uri = `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${page}&Limit=${limit}&Status=${status}`;
 
@@ -55,12 +57,13 @@ const AffiliateRequests = () => {
   }
 
   const { data: res } = useSWR(uri, url => {
-    return axiosAPI(
+    return axiosAPI.request(
       "get",
       url,
       res => {
         setRequests(res.data.data);
         setTotalRequests(res.data.total_records);
+        return res;
       },
       err => {
         showToast(err.message, "error");
@@ -69,7 +72,7 @@ const AffiliateRequests = () => {
   });
 
   const handleClicks = (setter, value) => param => {
-    setter(value ? value : param);
+    setter(value || value === false ? value : param);
   };
 
   const showReportModal = id => {
@@ -77,7 +80,10 @@ const AffiliateRequests = () => {
     setAffiliateId(id);
   };
 
-  const types = normalize(productTypes, "id");
+  const showNotesModal = note => {
+    setNotes(true);
+    setAffiliateNote(note);
+  };
 
   const updateRequest = (id, status) => {
     const newRequests = requests.map(request => {
@@ -94,7 +100,7 @@ const AffiliateRequests = () => {
 
   const columns = tableColumns({
     types,
-    showNotes: handleClicks(setNotes, true),
+    showNotesModal,
     updateRequest,
     showReportModal,
   });
@@ -107,7 +113,7 @@ const AffiliateRequests = () => {
       <header className={styles.header}>
         <Title>Affiliate Offers</Title>
       </header>
-      <section className={styles.filter__section}>
+      <section>
         <Filters
           setProductName={setProductName}
           setAffiliateName={setAffiliateName}
@@ -120,7 +126,7 @@ const AffiliateRequests = () => {
           {statusArr.map(({ type, label }) => (
             <div className={styles.status__btn} key={label}>
               <Button
-                onClick={() => handleClicks(setStatus, type)}
+                onClick={handleClicks(setStatus, type)}
                 type={status === type && "primary"}
               >
                 {label}
@@ -149,6 +155,7 @@ const AffiliateRequests = () => {
         <AffiliateNote
           notes={notes}
           hideNotes={handleClicks(setNotes, false)}
+          affiliateNote={affiliateNote}
         />
       )}
       {report && (

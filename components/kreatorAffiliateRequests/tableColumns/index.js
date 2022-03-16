@@ -9,10 +9,15 @@ import ReadImg from "public/images/note_read.png";
 import UnreadImg from "public/images/note_unread.png";
 import styles from "./index.module.scss";
 
-const tableColumns = ({ types, showNotes, updateRequest, showReportModal }) => [
+const tableColumns = ({
+  types,
+  showNotesModal,
+  updateRequest,
+  showReportModal,
+}) => [
   {
     title: "Affiliate",
-    dataIndex: "affiliate",
+    dataIndex: "affiliate_name",
     render: (_, record) => (
       <PopOver record={record} showReportModal={showReportModal} />
     ),
@@ -44,9 +49,13 @@ const tableColumns = ({ types, showNotes, updateRequest, showReportModal }) => [
     title: "Notes",
     dataIndex: "notes",
     render: (_, record) => (
-      <Button onClick={showNotes} shape="circle" className={styles.Notes__btn}>
+      <Button
+        onClick={() => showNotesModal(record.notes)}
+        shape="circle"
+        className={styles.notes__btn}
+      >
         {record.notes_read ? (
-          <Image sr={ReadImg} alt="Read Image" />
+          <Image src={ReadImg} alt="Read Image" />
         ) : (
           <Image src={UnreadImg} alt="Unread Image" />
         )}
@@ -62,7 +71,7 @@ const tableColumns = ({ types, showNotes, updateRequest, showReportModal }) => [
           <Tags color="green">{status}</Tags>
         ) : status === "Pending" ? (
           <Tags color="orange">{status}</Tags>
-        ) : status === "Denied" ? (
+        ) : status === "Declined" ? (
           <Tags color="red">{status}</Tags>
         ) : (
           <Tags>{status}</Tags>
@@ -76,6 +85,7 @@ const tableColumns = ({ types, showNotes, updateRequest, showReportModal }) => [
     render: (_, record) => (
       <DropDown record={record} updateRequest={updateRequest} />
     ),
+    width: "140px",
   },
 ];
 

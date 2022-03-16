@@ -1,5 +1,72 @@
 @use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
 
 .modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
   font-size: 25px;
+  color: colors.$black-100;
+}
+
+.form {
+  margin-top: 20px;
+
+  div[class$="ant-form-item-label"] > label[for] {
+    font-weight: 600;
+    font-size: 24px;
+    color: colors.$black-100;
+  }
+}
+
+.actions {
+  @include mixins.flex(column, space-between, center);
+  margin-top: 20px;
+  gap: 15px 20px;
+
+  > div:first-child {
+    width: 100%;
+    @include mixins.flex(row, center, center);
+    gap: 10px;
+    flex-wrap: wrap;
+
+    > p {
+      text-align: center;
+      flex-basis: 100%;
+      margin-bottom: 0;
+
+      > [class="ant-typography"] {
+        font-weight: 400;
+        font-size: 12px;
+        color: colors.$base-gray;
+      }
+    }
+  }
+}
+
+.submit__btn > button {
+  padding-left: 25px;
+  padding-right: 25px;
+  border: 1px solid colors.$base-blue;
+  border-radius: 8px;
+  color: colors.$base-blue;
+  font-weight: 700;
+  font-size: 12px;
+
+  &:hover {
+    color: colors.$base-blue;
+    border-color: colors.$base-blue;
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .actions {
+    flex-direction: row;
+
+    > div:first-child {
+      justify-content: flex-start;
+
+      > p {
+        flex-basis: auto;
+      }
+    }
+  }
 }

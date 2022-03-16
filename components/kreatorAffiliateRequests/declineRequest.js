@@ -13,11 +13,11 @@ const declineRequest = (record, updateRequest) => {
 
   Modal.confirm({
     title: `Decline ${record.affiliate}`,
-    content: `Are you sure you want to decline ${record.affiliate} from marketing ${record.product}?`,
+    content: `Are you sure you want to decline ${record.affiliate_name} from marketing ${record.product_name}?`,
     okText: "Decline",
-    okType: "danger",
+    okType: "primary",
     okButtonProps: {
-      type: primary,
+      type: "danger",
     },
     onOk: () => {
       return axiosAPI.request(

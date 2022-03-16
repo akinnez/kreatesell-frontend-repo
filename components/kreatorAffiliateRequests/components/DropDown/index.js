@@ -23,27 +23,36 @@ const menu = (record, updateRequest) => {
   };
 
   return (
-    <Menu>
+    <Menu className={styles.menu}>
       <Menu.Item
+        key={1}
         onClick={handleApprove}
         disabled={record.status === "Approved" || record.status === "Revoked"}
       >
-        <span>
-          <Image src={ApproveImg} alt="" /> Approve
+        <span className={styles.image__wrapper}>
+          <Image src={ApproveImg} alt="" />
         </span>
+        Approve
       </Menu.Item>
       <Menu.Item
+        key={2}
         onClick={handleDecline}
         disabled={record.status === "Declined" || record.status === "Revoked"}
       >
-        <span>
-          <Image src={DeclineImg} alt="" /> Decline
+        <span className={styles.image__wrapper}>
+          <Image src={DeclineImg} alt="" />
         </span>
+        Decline
       </Menu.Item>
-      <Menu.Item onClick={handleRevoke} disabled={record.status === "Revoked"}>
-        <span>
-          <Image src={RevokeImg} alt="" /> Revoke
+      <Menu.Item
+        key={3}
+        onClick={handleRevoke}
+        disabled={record.status === "Revoked"}
+      >
+        <span className={styles.image__wrapper}>
+          <Image src={RevokeImg} alt="" />
         </span>
+        Revoke
       </Menu.Item>
     </Menu>
   );
