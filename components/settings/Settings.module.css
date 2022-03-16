@@ -1,0 +1,17 @@
+.btnStyle {
+  width: 100%;
+  font-size: 12px;
+  height: 2.3rem;
+}
+
+.modal {
+  border-radius: 0.5rem;
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 90%;
+  }
+}
+/*# sourceMappingURL=Settings.module.css.map */

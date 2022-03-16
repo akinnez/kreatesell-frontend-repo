@@ -1,0 +1,12 @@
+.card {
+  border-radius: 12px;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    padding: 0;
+    background: whitesmoke;
+  }
+}
+/*# sourceMappingURL=Settings.module.css.map */

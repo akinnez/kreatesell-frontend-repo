@@ -1,0 +1,32 @@
+.tableHeading {
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+}
+
+.table .tableHead {
+  text-align: left;
+}
+
+.table .tableHead .tableRow {
+  font-size: 12px;
+  color: #595959;
+}
+
+.table .tbody {
+  font-size: 14px;
+}
+
+.table .trow {
+  margin-bottom: 3px;
+}
+
+.table .trow .td {
+  width: 157px;
+  padding-right: 4px;
+  text-overflow: break-word;
+  word-break: break-all;
+}
+/*# sourceMappingURL=RecentChargeBack.module.css.map */

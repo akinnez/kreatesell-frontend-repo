@@ -1,0 +1,138 @@
+.fileUploadWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.fileUploadWrapper .fileUploadContainer {
+  width: calc(100% - 160px);
+  border-width: 1.3px;
+  border-radius: 5px;
+  border-style: dashed;
+  border-color: #0072ef;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .fileUploadWrapper .fileUploadContainer {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .fileUploadWrapper .fileUploadContainer {
+    width: 100%;
+  }
+}
+
+.fileUploadWrapper .fileUploadContainer .fileUploadDiv {
+  width: 100%;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.fileUploadWrapper .fileUploadContainer .fileUploadDiv .uploadIcon {
+  color: #0072ef;
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+.fileUploadWrapper .fileUploadContainer .fileUploadDiv .uploadIconRed {
+  color: #f5222d;
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+.fileUploadWrapper .fileUploadContainer .fileUploadDiv .dragText {
+  color: #0072ef;
+  margin-top: 8px;
+}
+
+.fileUploadWrapper .fileUploadContainer .fileUploadDiv .dragTextRed {
+  color: #f5222d;
+  margin-top: 8px;
+}
+
+.fileUploadWrapper .addFileBtn {
+  background-color: #c1efff;
+  color: #0072ef;
+  border: none;
+  width: 130px;
+  padding: 4px 9px;
+}
+
+.thumbsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.thumb {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border-radius: 2;
+  border: 1px solid #eaeaea;
+  margin-bottom: 8;
+  margin-right: 8;
+  width: 100px;
+  height: 100px;
+  padding: 4px;
+  position: relative;
+}
+
+.thumb .deleteIcon {
+  font-size: 22px;
+  color: #f5222d;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 6;
+  cursor: pointer;
+}
+
+.thumb .thumbInner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.thumb .thumbInner .img {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+/*# sourceMappingURL=fileupload.module.css.map */

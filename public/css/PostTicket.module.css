@@ -1,0 +1,137 @@
+.cardHeaderDiv {
+  width: 100%;
+  padding: 8px 2px 5px 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.cardHeaderDiv .statusDiv .greenStatus {
+  padding: 1px 18px;
+  border-radius: 4px;
+  background: rgba(128, 255, 0, 0.2);
+  color: #006b00;
+}
+
+.cardHeaderDiv .statusDiv .redStatus {
+  padding: 1px 18px;
+  border-radius: 4px;
+  background: rgba(255, 128, 55, 0.185);
+  color: #fc0000;
+}
+
+.cardHeaderDiv div .ticketNumber {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cardHeaderDiv div .topText {
+  font-size: 11px;
+  margin-bottom: -5px;
+}
+
+.cardHeaderDiv div .subTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cardBodyDiv {
+  width: 100%;
+  padding: 5px 2px 5px 2px;
+}
+
+.cardBodyDiv .userDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cardBodyDiv .userDiv .userImageDiv {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 12px;
+  position: relative;
+}
+
+.cardBodyDiv .userDiv .userImageDiv .userImage {
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.cardBodyDiv .userDiv .userImageDiv .checkedImage {
+  position: absolute;
+  z-index: 10;
+  right: -3px;
+  top: 12px;
+  -webkit-transform: translateX(19);
+          transform: translateX(19);
+}
+
+.cardBodyDiv .userDiv .userInfoDiv .userName {
+  font-weight: 500;
+}
+
+.cardBodyDiv .userDiv .userInfoDiv .userRole {
+  color: #595959;
+  font-size: 13px;
+}
+
+.cardBodyDiv .ticketDetailsDiv {
+  margin-top: 15px;
+}
+
+.cardBodyDiv .ticketDetailsDiv .ticketTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cardBodyDiv .ticketDetailsDiv .ticketDetails {
+  font-size: 14px;
+}
+
+.cardFooterDiv {
+  margin: 5px 0px;
+}
+
+.cardResponsDiv {
+  margin: 15px 0px 10px 0px;
+}
+
+.error {
+  color: #f5222d;
+  border-color: #f5222d;
+}
+
+.iconSize {
+  font-size: 16px;
+}
+
+.cancelSubmit {
+  color: #0072ef;
+  border-color: #0072ef;
+}
+
+.container {
+  width: 100%;
+  background: #fafafa;
+  margin: 5px 0px;
+  padding: 15px;
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    padding: 7px;
+  }
+}
+/*# sourceMappingURL=PostTicket.module.css.map */

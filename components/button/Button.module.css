@@ -1,0 +1,61 @@
+.button {
+  width: 6.25rem;
+  height: 2.5rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.button .buttonValue {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.button .buttonValue .buttonIcon {
+  padding: 0 0.5rem;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.btnWhite {
+  background-color: #ffffff;
+  color: #0072ef;
+  border: 1.5px solid #0072ef;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.btnBlue {
+  background-color: #0072ef;
+  color: #ffffff;
+  border: 1.5px solid #0072ef;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.primaryBlue {
+  width: 100%;
+  background-color: #0072ef;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  border: none;
+  height: 3.375rem;
+}
+/*# sourceMappingURL=Button.module.css.map */

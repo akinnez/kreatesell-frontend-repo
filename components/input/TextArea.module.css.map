@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AACC,kBADiB,CACjB,QAAQ,CAAC;EACR,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,GAAG,CAAC,KAAK,CCMR,OAAO;EDLhB,aAAa,EAAE,MAAM;EACrB,OAAO,EAAE,aAAa;EACtB,KAAK,ECEM,OAAO;EDDlB,SAAS,EAAE,MAAM;CASjB;;AAhBF,AASE,kBATgB,CACjB,QAAQ,AAQN,MAAM,CAAC;EACP,OAAO,EAAE,IAAI;CACb;;AAXH,AAaE,kBAbgB,CACjB,QAAQ,AAYN,aAAa,CAAC;EACd,KAAK,ECJG,OAAO;CDKf",
+    "sources": [
+        "TextArea.module.scss",
+        "../../public/css/colors.scss",
+        "../../public/css/mixins.scss",
+        "../../public/css/screens.scss"
+    ],
+    "names": [],
+    "file": "TextArea.module.css"
+}

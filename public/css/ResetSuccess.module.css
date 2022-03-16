@@ -1,0 +1,89 @@
+.resetPasswordModal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 12rem;
+}
+
+@media screen and (max-width: 768px) {
+  .resetPasswordModal {
+    padding: 0;
+  }
+}
+
+.resetPasswordModal .image {
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 425px) {
+  .resetPasswordModal .image {
+    display: none;
+  }
+}
+
+.resetPasswordModal h5 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: #262626;
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .resetPasswordModal h5 {
+    font-weight: 600;
+  }
+}
+
+.resetPasswordModal .modalParagraph, .resetPasswordModal .webParagraph, .resetPasswordModal .mobileParagraph {
+  margin: 0;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 1.625rem;
+  color: #595959;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 425px) {
+  .resetPasswordModal .webParagraph {
+    display: none;
+  }
+}
+
+.resetPasswordModal .mobileParagraph {
+  display: none;
+}
+
+@media screen and (max-width: 425px) {
+  .resetPasswordModal .mobileParagraph {
+    display: block;
+  }
+}
+
+.resetPasswordModal .button {
+  margin-left: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .resetPasswordModal .button {
+    margin: 0;
+  }
+}
+/*# sourceMappingURL=ResetSuccess.module.css.map */

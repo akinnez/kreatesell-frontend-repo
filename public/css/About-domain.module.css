@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+.card {
+  border-radius: 8px;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    padding: 0;
+    margin: 0 20px;
+  }
+}
+
+.number {
+  font-family: "Pacifico", cursive;
+  color: #80d89f;
+  font-weight: normal;
+  font-size: 2rem;
+  padding-right: 1rem;
+}
+/*# sourceMappingURL=About-domain.module.css.map */

@@ -1,0 +1,155 @@
+@media screen and (max-width: 768px) {
+  .card {
+    padding: 0.3125rem;
+  }
+}
+
+.label, .digitalDownload .inputLabel {
+  font-weight: 450;
+  font-size: 0.875rem;
+  line-height: 1.625rem;
+  color: #262626;
+}
+
+.container .productTypeTab {
+  border: 1px solid #d9d9d9;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: #262626;
+  padding: 0.7rem 1.5rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .productTypeTab span {
+  color: #8c8c8c;
+  font-weight: 400;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+}
+
+@media screen and (max-width: 767.99px) {
+  .container .productTypeTab {
+    font-size: 0.8rem;
+    padding: 0;
+    min-height: 8vh;
+  }
+  .container .productTypeTab span {
+    padding-left: 1rem;
+    font-size: 0.8rem;
+  }
+  .container .productTypeTab .mobileSubTitle {
+    padding-left: 0.2rem;
+  }
+}
+
+.container .productTypeTab.active, .container .productTypeTab:hover {
+  border: 1px solid #0072ef;
+  color: #0072ef;
+}
+
+.container .productTypeTab.active span, .container .productTypeTab:hover span {
+  color: #0072ef;
+  font-weight: 400;
+}
+
+.container .productTypeTab:hover {
+  border: 1px solid #0072ef;
+}
+
+.digitalDownload .inputCont .input {
+  height: 2.5rem;
+  border: 1px solid #d9d9d9;
+}
+
+.digitalDownload .upload, .digitalDownload .contentFileUpload {
+  border: 1px dotted #0072ef;
+  width: 100%;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.digitalDownload .upload.activeUpload, .digitalDownload .activeUpload.contentFileUpload {
+  border-top: 8px solid #00b140;
+}
+
+.digitalDownload .uploadCont {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1.5rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 425px) {
+  .digitalDownload .uploadCont {
+    padding: 0.1rem 0;
+  }
+}
+
+.digitalDownload .noImage {
+  border: 1px solid #d9d9d9;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .digitalDownload .noImage {
+    min-height: 20vh;
+  }
+}
+
+.digitalDownload .radioLabel {
+  font-weight: 400 !important;
+  color: #262626 !important;
+  font-size: 0.9rem !important;
+}
+
+.digitalDownload .extralableStyle {
+  font-weight: 400 !important;
+}
+
+@media screen and (max-width: 425px) {
+  .digitalDownload .extralableStyle {
+    font-size: 0.875rem !important;
+  }
+}
+
+.digitalDownload .enablePreOrderCont {
+  width: 35%;
+  padding-top: 0.5rem;
+}
+
+.digitalDownload .enablePreOrderCont .inputHeight {
+  height: 2.5rem;
+  border: 1px solid #d9d9d9;
+}
+
+@media screen and (max-width: 768px) {
+  .digitalDownload .enablePreOrderCont {
+    width: 100%;
+  }
+}
+
+.digitalDownload .digitalBtn {
+  width: 15rem;
+  height: 3.3rem;
+  font-size: 1rem;
+}
+/*# sourceMappingURL=CreateProduct.module.css.map */

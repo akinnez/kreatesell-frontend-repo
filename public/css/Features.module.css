@@ -1,0 +1,422 @@
+.container {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0rem 10.31rem;
+  background-image: url("/images/partial-general-bg.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0rem 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    padding: 0rem 1rem;
+    background-image: url("/images/mobile-general-bg.svg");
+    width: 100%;
+  }
+}
+
+.container .hero {
+  text-align: center;
+}
+
+.container .hero .main, .container .hero .webTitle, .container .hero .mobileTitle {
+  margin: 0;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 4rem;
+  color: #262626;
+}
+
+.container .hero .mobileTitle {
+  display: none;
+}
+
+.container .hero .subtitleStyle, .container .hero .webSubtitle, .container .hero .mobileSubtitle {
+  color: #595959;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 2rem;
+}
+
+.container .hero .mobileSubtitle {
+  display: none;
+  font-weight: 300;
+  line-height: 1.5rem;
+}
+
+.container .hero .input {
+  margin: 0;
+  padding: 0;
+}
+
+.container .hero .benefits {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 0.6rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  color: #595959;
+}
+
+.container .hero .benefits span {
+  padding: 0 0.4rem;
+}
+
+.container .hero .features {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 3rem;
+}
+
+.container .hero .features .featuresWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 45%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media screen and (max-width: 425px) {
+  .container .hero .features .featuresWrapper {
+    width: 100%;
+  }
+}
+
+.container .hero .features .featuresWrapper ul {
+  text-align: start;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.875rem;
+  color: #595959;
+}
+
+.container .hero .features .featuresWrapper ul li {
+  cursor: pointer;
+  color: #595959 !important;
+}
+
+.container .hero .features .featuresWrapper ul li :hover {
+  color: #40a9ff !important;
+}
+
+.container .hero .features .featuresWrapper ul li .Link {
+  color: #595959;
+}
+
+.container .hero .features .featuresWrapper .hrDivider {
+  width: 1px;
+  background: #bfbfbf;
+  margin: 0.6rem 0 1.5rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .container .hero .webTitle {
+    display: block;
+    text-align: center;
+  }
+  .container .hero .mobileTitle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .hero .webTitle {
+    display: none;
+  }
+  .container .hero .mobileTitle {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .container .hero .webSubtitle {
+    display: none;
+  }
+  .container .hero .mobileSubtitle {
+    display: block;
+  }
+}
+
+.container .majorFeatures, .container .sellFeatures, .container .manageFeatures, .container .marketFeatures, .container .supportFeatures, .container .deliverFeatures,
+.container .customizeFeatures,
+.container .secureFeatures {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .container .majorFeatures, .container .sellFeatures, .container .manageFeatures, .container .marketFeatures, .container .supportFeatures, .container .deliverFeatures,
+  .container .customizeFeatures,
+  .container .secureFeatures {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container .majorFeatures.alte, .container .alte.sellFeatures, .container .alte.manageFeatures, .container .alte.marketFeatures, .container .alte.supportFeatures, .container .alte.deliverFeatures,
+  .container .alte.customizeFeatures,
+  .container .alte.secureFeatures {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+}
+
+.container .majorFeatures .imageCont, .container .sellFeatures .imageCont, .container .manageFeatures .imageCont, .container .marketFeatures .imageCont, .container .supportFeatures .imageCont, .container .deliverFeatures .imageCont, .container .customizeFeatures .imageCont, .container .secureFeatures .imageCont {
+  width: 50%;
+  margin-right: 3rem;
+}
+
+.container .majorFeatures .imageCont.alternate, .container .sellFeatures .imageCont.alternate, .container .manageFeatures .imageCont.alternate, .container .marketFeatures .imageCont.alternate, .container .supportFeatures .imageCont.alternate, .container .deliverFeatures .imageCont.alternate, .container .customizeFeatures .imageCont.alternate, .container .secureFeatures .imageCont.alternate {
+  margin-right: 0;
+  margin-left: 5rem;
+}
+
+.container .majorFeatures .imageCont.centred, .container .sellFeatures .imageCont.centred, .container .manageFeatures .imageCont.centred, .container .marketFeatures .imageCont.centred, .container .supportFeatures .imageCont.centred, .container .deliverFeatures .imageCont.centred, .container .customizeFeatures .imageCont.centred, .container .secureFeatures .imageCont.centred {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .majorFeatures .imageCont .featureTitle, .container .sellFeatures .imageCont .featureTitle, .container .manageFeatures .imageCont .featureTitle, .container .marketFeatures .imageCont .featureTitle, .container .supportFeatures .imageCont .featureTitle, .container .deliverFeatures .imageCont .featureTitle, .container .customizeFeatures .imageCont .featureTitle, .container .secureFeatures .imageCont .featureTitle {
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 4rem;
+  color: #262626;
+}
+
+@media screen and (max-width: 425px) {
+  .container .majorFeatures .imageCont .featureTitle, .container .sellFeatures .imageCont .featureTitle, .container .manageFeatures .imageCont .featureTitle, .container .marketFeatures .imageCont .featureTitle, .container .supportFeatures .imageCont .featureTitle, .container .deliverFeatures .imageCont .featureTitle, .container .customizeFeatures .imageCont .featureTitle, .container .secureFeatures .imageCont .featureTitle {
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+  }
+}
+
+.container .majorFeatures .imageCont .featureExcerpt, .container .sellFeatures .imageCont .featureExcerpt, .container .manageFeatures .imageCont .featureExcerpt, .container .marketFeatures .imageCont .featureExcerpt, .container .supportFeatures .imageCont .featureExcerpt, .container .deliverFeatures .imageCont .featureExcerpt, .container .customizeFeatures .imageCont .featureExcerpt, .container .secureFeatures .imageCont .featureExcerpt {
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  color: #595959;
+  width: 60%;
+}
+
+@media screen and (max-width: 425px) {
+  .container .majorFeatures .imageCont .featureExcerpt, .container .sellFeatures .imageCont .featureExcerpt, .container .manageFeatures .imageCont .featureExcerpt, .container .marketFeatures .imageCont .featureExcerpt, .container .supportFeatures .imageCont .featureExcerpt, .container .deliverFeatures .imageCont .featureExcerpt, .container .customizeFeatures .imageCont .featureExcerpt, .container .secureFeatures .imageCont .featureExcerpt {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5625rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container .majorFeatures .imageCont, .container .sellFeatures .imageCont, .container .manageFeatures .imageCont, .container .marketFeatures .imageCont, .container .supportFeatures .imageCont, .container .deliverFeatures .imageCont, .container .customizeFeatures .imageCont, .container .secureFeatures .imageCont {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .container .majorFeatures .imageCont.alternate, .container .sellFeatures .imageCont.alternate, .container .manageFeatures .imageCont.alternate, .container .marketFeatures .imageCont.alternate, .container .supportFeatures .imageCont.alternate, .container .deliverFeatures .imageCont.alternate, .container .customizeFeatures .imageCont.alternate, .container .secureFeatures .imageCont.alternate {
+    margin-right: 0;
+    margin-left: 0rem;
+  }
+  .container .majorFeatures .imageCont .featureExcerpt, .container .sellFeatures .imageCont .featureExcerpt, .container .manageFeatures .imageCont .featureExcerpt, .container .marketFeatures .imageCont .featureExcerpt, .container .supportFeatures .imageCont .featureExcerpt, .container .deliverFeatures .imageCont .featureExcerpt, .container .customizeFeatures .imageCont .featureExcerpt, .container .secureFeatures .imageCont .featureExcerpt {
+    width: 100%;
+    text-align: center;
+  }
+  .container .majorFeatures .imageCont .featureIcon, .container .sellFeatures .imageCont .featureIcon, .container .manageFeatures .imageCont .featureIcon, .container .marketFeatures .imageCont .featureIcon, .container .supportFeatures .imageCont .featureIcon, .container .deliverFeatures .imageCont .featureIcon, .container .customizeFeatures .imageCont .featureIcon, .container .secureFeatures .imageCont .featureIcon {
+    display: none;
+  }
+}
+
+.container .majorFeatures .cardCont, .container .sellFeatures .cardCont, .container .manageFeatures .cardCont, .container .marketFeatures .cardCont, .container .supportFeatures .cardCont, .container .deliverFeatures .cardCont, .container .customizeFeatures .cardCont, .container .secureFeatures .cardCont {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.container .majorFeatures .cardCont .firstRow, .container .sellFeatures .cardCont .firstRow, .container .manageFeatures .cardCont .firstRow, .container .marketFeatures .cardCont .firstRow, .container .supportFeatures .cardCont .firstRow, .container .deliverFeatures .cardCont .firstRow, .container .customizeFeatures .cardCont .firstRow, .container .secureFeatures .cardCont .firstRow {
+  margin-right: 1.5rem;
+}
+
+.container .majorFeatures .cardCont .firstRow.alternateFirstRow, .container .sellFeatures .cardCont .firstRow.alternateFirstRow, .container .manageFeatures .cardCont .firstRow.alternateFirstRow, .container .marketFeatures .cardCont .firstRow.alternateFirstRow, .container .supportFeatures .cardCont .firstRow.alternateFirstRow, .container .deliverFeatures .cardCont .firstRow.alternateFirstRow, .container .customizeFeatures .cardCont .firstRow.alternateFirstRow, .container .secureFeatures .cardCont .firstRow.alternateFirstRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container .majorFeatures .cardCont .secondRow, .container .sellFeatures .cardCont .secondRow, .container .manageFeatures .cardCont .secondRow, .container .marketFeatures .cardCont .secondRow, .container .supportFeatures .cardCont .secondRow, .container .deliverFeatures .cardCont .secondRow, .container .customizeFeatures .cardCont .secondRow, .container .secureFeatures .cardCont .secondRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .container .majorFeatures .cardCont, .container .sellFeatures .cardCont, .container .manageFeatures .cardCont, .container .marketFeatures .cardCont, .container .supportFeatures .cardCont, .container .deliverFeatures .cardCont, .container .customizeFeatures .cardCont, .container .secureFeatures .cardCont {
+    width: 100%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+.container .majorFeatures .mobileFeatureIcon, .container .sellFeatures .mobileFeatureIcon, .container .manageFeatures .mobileFeatureIcon, .container .marketFeatures .mobileFeatureIcon, .container .supportFeatures .mobileFeatureIcon, .container .deliverFeatures .mobileFeatureIcon, .container .customizeFeatures .mobileFeatureIcon, .container .secureFeatures .mobileFeatureIcon {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .majorFeatures .mobileFeatureIcon, .container .sellFeatures .mobileFeatureIcon, .container .manageFeatures .mobileFeatureIcon, .container .marketFeatures .mobileFeatureIcon, .container .supportFeatures .mobileFeatureIcon, .container .deliverFeatures .mobileFeatureIcon, .container .customizeFeatures .mobileFeatureIcon, .container .secureFeatures .mobileFeatureIcon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+.container .majorFeatures.reassign, .container .reassign.sellFeatures, .container .reassign.manageFeatures, .container .reassign.marketFeatures, .container .reassign.supportFeatures, .container .reassign.deliverFeatures,
+.container .reassign.customizeFeatures,
+.container .reassign.secureFeatures {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .container .majorFeatures.reassign, .container .reassign.sellFeatures, .container .reassign.manageFeatures, .container .reassign.marketFeatures, .container .reassign.supportFeatures, .container .reassign.deliverFeatures,
+  .container .reassign.customizeFeatures,
+  .container .reassign.secureFeatures {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .container .majorFeatures.reassign .imageCont, .container .reassign.sellFeatures .imageCont, .container .reassign.manageFeatures .imageCont, .container .reassign.marketFeatures .imageCont, .container .reassign.supportFeatures .imageCont, .container .reassign.deliverFeatures .imageCont, .container .reassign.customizeFeatures .imageCont, .container .reassign.secureFeatures .imageCont {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+  .container .majorFeatures.reassign .cardCont, .container .reassign.sellFeatures .cardCont, .container .reassign.manageFeatures .cardCont, .container .reassign.marketFeatures .cardCont, .container .reassign.supportFeatures .cardCont, .container .reassign.deliverFeatures .cardCont, .container .reassign.customizeFeatures .cardCont, .container .reassign.secureFeatures .cardCont {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  .container .majorFeatures.reassign .mobileFeatureIcon, .container .reassign.sellFeatures .mobileFeatureIcon, .container .reassign.manageFeatures .mobileFeatureIcon, .container .reassign.marketFeatures .mobileFeatureIcon, .container .reassign.supportFeatures .mobileFeatureIcon, .container .reassign.deliverFeatures .mobileFeatureIcon, .container .reassign.customizeFeatures .mobileFeatureIcon, .container .reassign.secureFeatures .mobileFeatureIcon {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+}
+
+.container .sellFeatures {
+  margin: 4rem 0;
+}
+
+.container .marketFeatures {
+  margin-bottom: 5rem;
+}
+
+.container .supportFeatures {
+  margin: 5rem 0;
+}
+
+.container .deliverFeatures,
+.container .customizeFeatures,
+.container .secureFeatures {
+  margin: 5rem 0;
+}
+
+.featureCard {
+  width: 15.875rem;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
+          box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
+  border-radius: 0.5rem;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 425px) {
+  .featureCard {
+    width: 11.25rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .featureCard {
+    width: 100%;
+  }
+}
+
+.featureCard .cardTitle {
+  font-weight: 650;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #000000;
+}
+
+.featureCard .cardContent {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.625rem;
+  color: #595959;
+}
+/*# sourceMappingURL=Features.module.css.map */

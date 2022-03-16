@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AACC,SADQ,CACR,MAAM,CAAC;EACN,MAAM,EAAE,GAAG,CAAC,KAAK,CCQR,OAAO;CDPhB",
+    "sources": [
+        "Checkbox.module.scss",
+        "../../public/css/colors.scss"
+    ],
+    "names": [],
+    "file": "Checkbox.module.css"
+}

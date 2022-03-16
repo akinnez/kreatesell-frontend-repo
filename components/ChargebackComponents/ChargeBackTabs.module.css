@@ -1,0 +1,25 @@
+.tabContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  padding: auto;
+}
+
+.tabContainer .tabInner {
+  margin-right: 10px;
+}
+
+.tabContainer .tabInner .tabButton {
+  border: none;
+  border-radius: 9px;
+  padding: 5px 9px;
+}
+/*# sourceMappingURL=ChargeBackTabs.module.css.map */

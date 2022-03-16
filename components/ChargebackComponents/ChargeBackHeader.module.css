@@ -1,0 +1,77 @@
+.chargeBackHeader {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1;
+      grid-template-rows: 1;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 7px;
+}
+
+@media screen and (max-width: 1440px) {
+  .chargeBackHeader {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 3;
+        grid-template-rows: 3;
+    -ms-grid-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .chargeBackHeader {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 3;
+        grid-template-rows: 3;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.chargeBackHeader .searchInput {
+  margin-bottom: -15px;
+}
+
+.chargeBackHeader .searchInput .searchLabel {
+  margin-bottom: -5px;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.chargeBackHeader .searchInput .search {
+  height: 48px;
+  width: 100%;
+}
+
+.chargeBackHeader .selectDivStyle {
+  width: 100%;
+}
+
+.chargeBackHeader .selectDivStyle .selectStyle {
+  height: 50px;
+  width: 100%;
+}
+
+.chargeBackHeader .fromDate .dateLabel {
+  margin-bottom: -5px;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.chargeBackHeader .fromDate .date {
+  height: 50px;
+  width: 100%;
+}
+
+.filterCont {
+  cursor: pointer;
+  width: 85px;
+  -webkit-transform: translateY(20px);
+          transform: translateY(20px);
+}
+/*# sourceMappingURL=ChargeBackHeader.module.css.map */

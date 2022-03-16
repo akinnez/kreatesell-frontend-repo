@@ -1,0 +1,13 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,aAAa,CAAC;EEDb,OAAO,EAAE,IAAI;EACb,cAAc,EFCC,GAAG;EEAlB,eAAe,EFAK,UAAU;EAC7B,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;CAWd;;AAdD,AAKE,aALW,CAKX,SAAS,CAAC;EACR,YAAY,EAAE,IAAI;CAOnB;;AAbH,AAQI,aARS,CAKX,SAAS,CAGP,UAAU,CAAC;EACT,MAAM,EAAE,IAAI;EACZ,aAAa,EAAE,GAAG;EAClB,OAAO,EAAE,OAAO;CACjB",
+    "sources": [
+        "ChargeBackTabs.module.scss",
+        "../../public/css/colors.scss",
+        "../../public/css/mixins.scss",
+        "../../public/css/screens.scss",
+        "../../public/css/screens.scss"
+    ],
+    "names": [],
+    "file": "ChargeBackTabs.module.css"
+}

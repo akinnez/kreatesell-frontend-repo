@@ -1,0 +1,42 @@
+.layoutMargin {
+  margin-top: 10rem;
+}
+
+@media screen and (max-width: 768px) {
+  .layoutMargin {
+    margin-top: 7rem;
+  }
+}
+
+.footer {
+  font-size: 0.8rem;
+  line-height: 26px;
+  color: #595959;
+  margin-top: 1.25rem;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #0072ef;
+  font-weight: 400;
+}
+
+.terms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.terms p {
+  padding-left: 0.5rem;
+  padding-top: 0.6rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.625rem;
+  color: #8c8c8c;
+}
+/*# sourceMappingURL=Signup.module.css.map */

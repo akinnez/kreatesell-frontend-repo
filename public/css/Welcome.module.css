@@ -1,0 +1,111 @@
+.formStyle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+  height: 21.5rem;
+}
+
+@media screen and (max-width: 425px) {
+  .formStyle {
+    min-height: 24rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .formStyle {
+    min-height: 25rem;
+    width: 100%;
+  }
+}
+
+.welcome {
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .welcome {
+    width: 75vw;
+    padding-bottom: 2rem;
+  }
+}
+
+.welcome .title, .welcome .mobileTitle, .welcome .webTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: #262626;
+}
+
+.welcome .mobileTitle {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .welcome .mobileTitle {
+    display: block;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .welcome .webTitle {
+    display: none;
+  }
+}
+
+.welcome .base, .welcome .subTitle, .welcome .label {
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.625rem;
+}
+
+.welcome .subTitle {
+  margin-top: 0.5rem;
+  color: #595959;
+}
+
+.welcome .label {
+  margin-top: 1.8rem;
+  text-align: start;
+  color: #262626;
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+.welcome .selectCont {
+  padding-bottom: 1rem;
+}
+
+.welcome .storePreviewLink {
+  float: left;
+  font-style: italic;
+  color: #262626;
+  opacity: 0.6;
+  font-size: 12px;
+}
+
+.button {
+  width: 100%;
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=Welcome.module.css.map */

@@ -1,0 +1,64 @@
+.container .ctaBtn {
+  height: 2.5rem;
+}
+
+.container .radioLabelStyle {
+  color: #262626 !important;
+  font-weight: 400 !important;
+}
+
+@media screen and (max-width: 425px) {
+  .container .radioLabelStyle {
+    font-size: 13px !important;
+  }
+}
+
+.container .disabledRadio {
+  color: #bfbfbf !important;
+  font-weight: 400 !important;
+}
+
+@media screen and (max-width: 425px) {
+  .container .disabledRadio {
+    font-size: 14px !important;
+  }
+}
+
+.container .digitalBtn {
+  width: 15rem;
+  height: 3.3rem;
+  font-size: 1rem;
+}
+
+.container .couponDateTimeLocaleContInput {
+  height: 2.5rem;
+}
+
+.container .limitProductInput {
+  height: 2rem;
+  width: 40%;
+}
+
+.container .upload, .container .contentFileUpload {
+  border: 1px dotted #0072ef;
+  width: 100%;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.container .upload.activeUpload, .container .activeUpload.contentFileUpload {
+  border-top: 8px solid #00b140;
+}
+
+.container .contentFileUpload {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=Checkout.module.css.map */

@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,UAAU,CAAC;EACV,UAAU,EAAE,GAAG,CAAC,IAAI,CAAC,KAAK,CAAC,qBAAqB;CAChD",
+    "sources": [
+        "notification.module.scss",
+        "screens.scss"
+    ],
+    "names": [],
+    "file": "notification.module.css"
+}

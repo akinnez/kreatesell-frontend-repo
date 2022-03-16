@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,EAAC,AAAA,KAAC,CAAM,mBAAmB,AAAzB,EAA2B;EACxC,UAAU,EAAE,IAAI;CACjB",
+    "sources": [
+        "AffiliateProducts.module.scss"
+    ],
+    "names": [],
+    "file": "AffiliateProducts.module.css"
+}

@@ -1,0 +1,112 @@
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container input {
+  height: 3.25rem;
+  width: 21.25rem;
+  border: 1px solid #d9d9d9;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 1rem;
+  color: #8c8c8c;
+  font-size: 0.875rem;
+  font-weight: 400;
+  outline: none;
+}
+
+.container input::-webkit-input-placeholder {
+  color: #8c8c8c;
+}
+
+.container input:-ms-input-placeholder {
+  color: #8c8c8c;
+}
+
+.container input::-ms-input-placeholder {
+  color: #8c8c8c;
+}
+
+.container input::placeholder {
+  color: #8c8c8c;
+}
+
+.container button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 3.25rem;
+  background-color: #0072ef;
+  color: #ffffff;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  padding: 0 1rem;
+  outline: none;
+}
+
+.container button:disabled {
+  opacity: 0.7;
+}
+
+.container button .btnText {
+  font-weight: bold;
+  font-size: 0.875rem;
+  padding-top: 10%;
+}
+
+.container button .btnIcon {
+  padding-left: 0.8rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    width: 100%;
+  }
+  .container input {
+    width: 60%;
+  }
+  .container button {
+    width: 40%;
+  }
+  .container button .btnText {
+    font-size: 0.7rem;
+  }
+  .container button .btnIcon {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container button .btnText {
+    font-size: 0.6rem;
+  }
+}
+/*# sourceMappingURL=InputButton.module.css.map */

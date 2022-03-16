@@ -80,7 +80,7 @@ export const Navbar = () => {
           <MobileLogo />
         </div>
 
-        <div className={styles.navLinks}>
+        {/* <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
             <li onClick={(e) => clickHandler(e)} className={styles.drop}>
               <span className={styles.navLinkDrop}>Resources</span>
@@ -207,7 +207,7 @@ export const Navbar = () => {
             leftOffset={navDrop.leftOffset}
             handleMouseLeave={handleMouseLeave}
           />
-        )}
+        )} */}
       </nav>
     </>
   );

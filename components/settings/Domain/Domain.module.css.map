@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,SAAS,CAAC;EACT,KAAK,EAAE,IAAI;EACX,SAAS,EAAE,IAAI;EACf,MAAM,EAAE,MAAM;EACd,OAAO,EAAE,MAAM;CACf",
+    "sources": [
+        "Domain.module.scss",
+        "../../../public/css/colors.scss",
+        "../../../public/css/screens.scss"
+    ],
+    "names": [],
+    "file": "Domain.module.css"
+}

@@ -1,0 +1,233 @@
+.chargeBackCarouselContainer {
+  position: relative;
+}
+
+.chargeBackCarouselContainer .leftIconDiv {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  -webkit-box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
+          box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 50%;
+  -webkit-transform: translateX(-40px);
+          transform: translateX(-40px);
+  cursor: pointer;
+}
+
+.chargeBackCarouselContainer .leftIconDiv .leftIcon {
+  font-size: 22px;
+  color: #0072ef;
+}
+
+.chargeBackCarouselContainer .rightIconDiv {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #0072ef;
+  -webkit-box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
+          box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 50%;
+  right: 0px;
+  -webkit-transform: translateX(47px);
+          transform: translateX(47px);
+  cursor: pointer;
+}
+
+.chargeBackCarouselContainer .rightIconDiv .rightIcon {
+  font-size: 22px;
+  color: #ffffff;
+}
+
+.chargeBackWrapper {
+  padding: 10px 5px;
+}
+
+.cashbackTopSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-bottom: 7px;
+}
+
+.cashbackTopSection .chargeBackHeading {
+  font-weight: 600;
+}
+
+.cashbackReasonSection {
+  padding: 5px 3px;
+  background: #f0efef;
+  border-radius: 3px;
+}
+
+.logDateSection {
+  margin: 15px 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .logDateSection {
+    margin: 5px 0px;
+  }
+}
+
+.logDateDiv {
+  text-overflow: wrap;
+  overflow-wrap: break-word;
+}
+
+.logDateDiv p {
+  font-size: 13.3px;
+  color: #595959;
+  margin-bottom: -1px;
+}
+
+.logDateDiv h4 {
+  font-weight: 600;
+  text-overflow: wrap;
+}
+
+.chargebackAmonunt {
+  color: #0072ef;
+  font-weight: 600;
+}
+
+.warning {
+  color: #f5222d;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.buttonSection {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.buttonSection .aceptBtn {
+  width: 140px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+.buttonSection .accessBtn {
+  background: #f5222d;
+  color: #ffffff;
+  border-color: #f5222d;
+  width: 140px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+.buttonSection .viewKreatorBtn {
+  color: #595959;
+  width: 130px;
+  border-color: #595959;
+  margin-bottom: 5px;
+}
+
+.buttonSection .viewKreatorBtn .viewIcon {
+  font-size: 18px;
+}
+
+.successDiv {
+  background: #4bf71625;
+  color: #003809;
+  border-radius: 8px;
+  width: 70px;
+  padding: 2px 5px;
+  margin: 2px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.errorDiv {
+  background: #e0030325;
+  color: #f5222d;
+  border-radius: 8px;
+  font-size: 12px;
+  width: 70px;
+  margin: 2px 0px;
+  padding: 2px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pendingDiv {
+  background: #f8cb002a;
+  color: #e9be00;
+  border-radius: 8px;
+  font-size: 12px;
+  width: 70px;
+  padding: 2px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.chargePendingDiv {
+  background: #ebc0002a;
+  color: #e9be00;
+  border-radius: 8px;
+  font-size: 13.5px;
+  width: 70px;
+  padding: 3px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=ChargeBackCenter.module.css.map */

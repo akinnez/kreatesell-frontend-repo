@@ -1,0 +1,47 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.container .login {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.container .login.loginBtnStyle {
+  border: none;
+  color: #8c8c8c;
+}
+
+.container .select {
+  width: 15%;
+}
+
+@media screen and (max-width: 425px) {
+  .container .select {
+    width: 30%;
+  }
+}
+
+.productCardBtn {
+  height: 2rem;
+}
+
+@media screen and (max-width: 375px) {
+  .productCardBtn {
+    height: 1.5rem;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .productCardBtn {
+    height: 1.5rem;
+    width: 55%;
+  }
+}
+
+.productImg {
+  border-radius: 0.5rem;
+}
+/*# sourceMappingURL=product-store.module.css.map */

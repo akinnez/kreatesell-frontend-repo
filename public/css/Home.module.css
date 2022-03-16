@@ -1,0 +1,1202 @@
+.container {
+  min-height: 60vh;
+}
+
+.container .body {
+  background-repeat: no-repeat;
+  background-image: url("/images/partial-general-bg.svg");
+  background-size: contain;
+  padding: 0rem 10.31rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body {
+    padding: 0rem 1rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .body {
+    background-image: url("/images/mobile-general-bg.svg");
+  }
+}
+
+.container .body .header {
+  text-align: center;
+}
+
+.container .body .header h1 {
+  font-weight: 700;
+  font-size: 2.7rem;
+  line-height: 3.2rem;
+  color: #262626;
+}
+
+.container .body .header h1 .digital {
+  color: #0072ef;
+}
+
+.container .body .header .subHeader {
+  padding-top: 1rem;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #595959;
+}
+
+.container .body .header .mobileSubHeader {
+  display: none;
+}
+
+.container .body .header .inputContainer {
+  margin-top: 2rem;
+}
+
+.container .body .header .benefits {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 0.6rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  color: #595959;
+}
+
+.container .body .header .benefits .benefitSpan {
+  padding: 0 0.4rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .header h1 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.9rem;
+  }
+  .container .body .header .subHeader {
+    display: none;
+  }
+  .container .body .header .mobileSubHeader {
+    display: block;
+    text-align: center;
+    font-size: 0.9375rem;
+    line-height: 1.4rem;
+    opacity: 0.8;
+    color: #595959;
+  }
+}
+
+.container .body .heroImage {
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.container .body .featured {
+  margin-top: 3.125rem;
+  margin-bottom: 2.53rem;
+  text-align: center;
+}
+
+.container .body .featured .title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: #262626;
+  padding-bottom: 2rem;
+}
+
+.container .body .featured .featuredImages {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 2rem 0;
+}
+
+.container .body .featured .featuredImages .imageStyle {
+  cursor: pointer;
+}
+
+.container .body .featured .mobileFeaturedImages {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body .featured {
+    margin-top: 1.5rem;
+  }
+  .container .body .featured .title {
+    padding-bottom: 1rem;
+  }
+  .container .body .featured .featuredImages {
+    display: none;
+  }
+  .container .body .featured .mobileFeaturedImages {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+  .container .body .featured .mobileFeaturedImages .mobileFeaturedStyle, .container .body .featured .mobileFeaturedImages .firstRow, .container .body .featured .mobileFeaturedImages .secondRow {
+    padding-top: 1rem;
+    cursor: pointer;
+  }
+  .container .body .featured .mobileFeaturedImages .firstChild {
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .featured {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .container .body .featured .title {
+    font-size: 1.4rem;
+    line-height: 0rem;
+  }
+}
+
+.container .howItWorks {
+  background: #fafafa;
+  padding: 4rem 10.31rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .howItWorks {
+    padding: 2rem 1rem;
+  }
+}
+
+.container .howItWorks .howItWorkstitleCont {
+  text-align: center;
+}
+
+.container .howItWorks .howItWorkstitleCont .howItWorksTitle {
+  font-weight: 700;
+  font-size: 2.3rem;
+  line-height: 3.375rem;
+  color: #262626;
+}
+
+.container .howItWorks .howItWorkstitleCont .howItWorksSubTitle {
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+@media screen and (max-width: 425px) {
+  .container .howItWorks .howItWorkstitleCont .howItWorksSubTitle {
+    padding: 0 10%;
+    line-height: 1.4rem;
+  }
+}
+
+.container .howItWorks .howItWorksImgCont {
+  padding-top: 5.25rem;
+  padding-bottom: 4.06rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.container .howItWorks .howItWorksImgCont .howItWorksImgSingle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container .howItWorks .howItWorksImgCont .howItWorksImgSingle .howItWorksImgTitle {
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  color: #262626;
+  text-align: center;
+}
+
+.container .howItWorks .howItWorksImgCont .howItWorksImgSingle .howItWorksImgSubTitle {
+  font-size: 1rem;
+  line-height: 1.2rem;
+  color: #595959;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container .howItWorks .howItWorksImgCont {
+    padding-top: 2rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .container .howItWorks .howItWorksImgCont .howItWorksImgSingle {
+    padding-bottom: 1rem;
+  }
+  .container .howItWorks .howItWorksImgCont .howItWorksImgSingle .howItWorksImgTitle {
+    padding-top: 1.2rem;
+    line-height: 0.1rem;
+  }
+}
+
+.container .howItWorks .howItWorksBtnCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .howItWorks .howItWorksBtnCont .howItWorksBtn {
+  width: 10rem;
+  height: 3.125rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .howItWorks .howItWorksBtnCont .howItWorksBtn {
+    width: 50%;
+    font-size: 0.9375rem;
+    line-height: 1.875rem;
+  }
+}
+
+.container .featuresSection {
+  padding: 4rem 10.31rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .featuresSection {
+    padding: 0rem 1rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.container .featuresSection .subHero {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.container .featuresSection .subHero h3 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 2rem;
+  color: #262626;
+}
+
+.container .featuresSection .subHero p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+@media screen and (max-width: 768px) {
+  .container .featuresSection .subHero h3 {
+    font-size: 1.7rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+  }
+}
+
+.container .featuresSection .automation {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.container .featuresSection .automation .image {
+  margin-top: 4rem;
+  width: 50%;
+}
+
+.container .featuresSection .automation .automationText {
+  width: 50%;
+  padding-left: 7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .featuresSection .automation .automationText h3,
+.container .featuresSection .automation .automationText p {
+  margin: 0;
+}
+
+.container .featuresSection .automation .automationText .automationTitle {
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 3.375rem;
+  color: #262626;
+}
+
+.container .featuresSection .automation .automationText .mobileAutomationTitle {
+  display: none;
+}
+
+.container .featuresSection .automation .automationText .automationSubTitle {
+  margin-top: 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+.container .featuresSection .automation .automationText .mobileAutomationSubTitle {
+  display: none;
+}
+
+.container .featuresSection .automation .automationText .linkText {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 1.25rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  color: #0072ef;
+  cursor: pointer;
+}
+
+.container .featuresSection .automation .automationText .linkText span {
+  padding-left: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .featuresSection .automation {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .container .featuresSection .automation.automationAlte {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+  .container .featuresSection .automation .image {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .container .featuresSection .automation .automationText {
+    width: 100%;
+    padding-left: 0;
+    text-align: center;
+  }
+  .container .featuresSection .automation .automationText .automationTitle {
+    display: none;
+  }
+  .container .featuresSection .automation .automationText .mobileAutomationTitle {
+    display: block;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .container .featuresSection .automation .automationText .automationSubTitle {
+    display: none;
+  }
+  .container .featuresSection .automation .automationText .mobileAutomationSubTitle {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+    padding: 0 3rem;
+    color: #595959;
+    text-align: center;
+  }
+  .container .featuresSection .automation .automationText .linkText {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5625rem;
+  }
+}
+
+.container .featuresSection .spiral {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: -3.25rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .featuresSection .spiral {
+    display: none;
+  }
+}
+
+.container .midSection {
+  background: #0072ef;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container .midSection {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.container .midSection .midSectionText {
+  padding: 0 10.31rem;
+  width: 58%;
+  color: #ffffff;
+}
+
+.container .midSection .midSectionText .midSectionTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.375rem;
+}
+
+.container .midSection .midSectionText .midSectionMobileTitle {
+  display: none;
+}
+
+.container .midSection .midSectionText .midSectionMobileSubTitle {
+  display: none;
+}
+
+.container .midSection .midSectionText .midSectionSubTitle {
+  padding-top: 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.75rem;
+}
+
+.container .midSection .midSectionText .midSectionInputBtn {
+  margin-top: 1.875rem;
+  width: 10rem;
+  height: 3rem;
+}
+
+.container .midSection .midSectionText .midSectionInputBtn .btn {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .midSection .midSectionText {
+    padding: 0rem 1rem;
+    padding-top: 3rem;
+    width: 100%;
+  }
+  .container .midSection .midSectionText .midSectionTitle {
+    display: none;
+  }
+  .container .midSection .midSectionText .midSectionSubTitle {
+    display: none;
+  }
+  .container .midSection .midSectionText .midSectionMobileTitle {
+    display: block;
+    font-weight: 600;
+    font-size: 1.4375rem;
+    line-height: 1.875rem;
+    text-align: center;
+  }
+  .container .midSection .midSectionText .midSectionMobileSubTitle {
+    display: block;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    opacity: 0.8;
+    padding: 0 3rem;
+    padding-top: 0.5rem;
+  }
+  .container .midSection .midSectionText .midSectionInputBtn {
+    margin: 3rem auto;
+  }
+}
+
+.container .midSection .midSectionImage {
+  width: 42%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container .midSection .midSectionImage {
+    display: none;
+    width: 100%;
+  }
+}
+
+.container .midSection .mobileMidSectionImage {
+  display: none;
+}
+
+@media screen and (max-width: 425px) {
+  .container .midSection .mobileMidSectionImage {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+  }
+}
+
+.container .newsAndEvents {
+  padding: 5rem 10.31rem;
+  background: #f8f8f8;
+}
+
+@media screen and (max-width: 768px) {
+  .container .newsAndEvents {
+    padding: 3rem 1rem 1.5rem 1rem;
+    background: #ffffff;
+  }
+}
+
+.container .newsAndEvents .newsAndEventsHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 2rem;
+}
+
+.container .newsAndEvents .newsAndEventsHeader .newsAndEventTitle {
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.375rem;
+  color: #262626;
+}
+
+.container .newsAndEvents .newsAndEventsHeader .newsAndEventSubTitle {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #0072ef;
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.875rem;
+}
+
+.container .newsAndEvents .newsAndEventsHeader .newsAndEventSubTitle p {
+  padding-right: 0.5rem;
+  padding-top: 0.7rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .newsAndEvents .newsAndEventsHeader {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .container .newsAndEvents .newsAndEventsHeader .newsAndEventTitle {
+    text-align: center;
+    font-weight: 650;
+    font-size: 1.5625rem;
+    line-height: 1.875rem;
+    text-align: center;
+    color: #262626;
+    padding: 0 2rem;
+  }
+  .container .newsAndEvents .newsAndEventsHeader .newsAndEventSubTitle {
+    display: none;
+  }
+}
+
+.container .newsAndEvents .newsAndEventsCardCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 65.8%;
+  background: #ffffff;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsImage {
+  width: 50%;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont {
+  padding: 1rem;
+  width: 50%;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont .primaryTitle {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  color: #262626;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont .primaryContent {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: #8c8c8c;
+  padding-top: 2rem;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont .primaryFooterCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 3rem;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont .primaryFooterCont .primaryFooterImage {
+  padding-right: 1rem;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont .primaryFooterCont .primaryFooterPosition .primaryName {
+  font-weight: bold;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .firstRow .primaryNews .primaryNewsCont .primaryFooterCont .primaryFooterPosition .primaryPosition {
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.625rem;
+  color: #8c8c8c;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .newsCard {
+  background: #ffffff;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .newsCard .newsTextCont {
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .newsCard .newsTextCont .newsTitle {
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  color: #262626;
+  cursor: pointer;
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .newsCard .newsTextCont .newsAuthor {
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.625rem;
+  color: #8c8c8c;
+}
+
+@media screen and (max-width: 768px) {
+  .container .newsAndEvents .newsAndEventsCardCont .newsCard .newsTextCont .newsTitle {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.25rem;
+  }
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .secondRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .newsAndEvents .newsAndEventsCardCont .secondRow {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.container .newsAndEvents .newsAndEventsCardCont .mobileNews,
+.container .newsAndEvents .newsAndEventsCardCont .newsAndEventSeeMore {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .newsAndEvents .newsAndEventsCardCont .firstRow,
+  .container .newsAndEvents .newsAndEventsCardCont .secondRow {
+    display: none;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews {
+    display: none;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .mobileSecondaryNews {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 1rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .mobileSecondaryNews .firstChild {
+    margin-right: 0.5rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .newsAndEventSeeMore {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    cursor: pointer;
+    color: #0072ef;
+    font-weight: 550;
+    font-size: 1rem;
+    line-height: 1.875rem;
+    padding-top: 2rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .newsAndEventSeeMore p {
+    padding-right: 0.5rem;
+    padding-top: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .newsAndEvents .newsAndEventsCardCont .firstRow,
+  .container .newsAndEvents .newsAndEventsCardCont .secondRow {
+    display: none;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsImage {
+    width: 50%;
+    padding-right: 0.5rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont {
+    width: 50%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont .primaryTitle {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: #262626;
+    padding-top: 0.5rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont .primaryContent {
+    font-weight: normal;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #8c8c8c;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    padding: 0.5rem 0;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont .primaryFooterCont {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont .primaryFooterCont .primaryFooterPosition {
+    padding-left: 0.7rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont .primaryFooterCont .primaryFooterPosition .primaryName {
+    font-weight: bold;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #595959;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .primaryNews .primaryNewsCont .primaryFooterCont .primaryFooterPosition .primaryPosition {
+    font-size: 0.625rem;
+    line-height: 140%;
+    letter-spacing: -0.3px;
+    color: #8c8c8c;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .mobileSecondaryNews {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 1rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .mobileSecondaryNews .firstChild {
+    margin-right: 0.5rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .newsAndEventSeeMore {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    cursor: pointer;
+    color: #0072ef;
+    font-weight: 550;
+    font-size: 1rem;
+    line-height: 1.875rem;
+    padding-top: 2rem;
+  }
+  .container .newsAndEvents .newsAndEventsCardCont .mobileNews .newsAndEventSeeMore p {
+    padding-right: 0.5rem;
+    padding-top: 0.7rem;
+  }
+}
+
+.container .testimonial {
+  background: #e6f7ff;
+  width: 100%;
+}
+
+.container .testimonial .testimonialContainer {
+  background: #e6f7ff;
+  background-repeat: no-repeat;
+  background-image: url("/images/quote.svg");
+  background-position: right 40%;
+  padding: 5rem 0;
+  margin-right: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .testimonial .testimonialContainer {
+    background-image: none;
+    padding: 1rem 0 3rem;
+  }
+}
+
+.container .testimonial .testimonialContainer .testimonialCont {
+  min-height: 60vh;
+  padding: 0 10.13rem;
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .testimonialTitle {
+  font-weight: 700;
+  font-size: 2.1875rem;
+  line-height: 3.375rem;
+  color: #262626;
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .testimonialSubTitle {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+@media screen and (max-width: 768px) {
+  .container .testimonial .testimonialContainer .testimonialCont {
+    padding: 1rem;
+  }
+  .container .testimonial .testimonialContainer .testimonialCont .testimonialTitle {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 2.6rem;
+  }
+  .container .testimonial .testimonialContainer .testimonialCont .testimonialSubTitle {
+    text-align: center;
+    font-size: 0.9375rem;
+    line-height: 1.5625rem;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .mobileVideoContainer {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .testimonial .testimonialContainer .testimonialCont .mobileVideoContainer {
+    display: block;
+  }
+  .container .testimonial .testimonialContainer .testimonialCont .mobileVideoContainer .cardSetting .singleMobileVideoContainer {
+    margin: 0 0.5rem;
+    cursor: pointer;
+  }
+  .container .testimonial .testimonialContainer .testimonialCont .mobileVideoContainer .cardSetting .singleMobileVideoContainer .mobileAuthor {
+    font-weight: 550;
+    font-size: 1.1875rem;
+    line-height: 2rem;
+    color: #262626;
+  }
+  .container .testimonial .testimonialContainer .testimonialCont .mobileVideoContainer .cardSetting .singleMobileVideoContainer .mobileExcerpt {
+    font-size: 0.9375rem;
+    line-height: 1.5625rem;
+    color: #595959;
+  }
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .videoContainer {
+  margin-top: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .testimonial .testimonialContainer .testimonialCont .videoContainer {
+    display: none;
+  }
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .videoContainer .singleVideoContainer {
+  min-width: 33.3%;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .videoContainer .singleVideoContainer:last-child {
+  margin-right: 0;
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .videoContainer .singleVideoContainer .videoAuthor {
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  padding-top: 0.8rem;
+  color: #262626;
+}
+
+.container .testimonial .testimonialContainer .testimonialCont .videoContainer .singleVideoContainer .videoExcerpt {
+  font-style: normal;
+  font-weight: 450;
+  font-size: 0.9rem;
+  line-height: 1.625rem;
+  color: #595959;
+}
+
+.container .subFooter {
+  background: #ffffff;
+  padding: 0rem 10.31rem;
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
+
+.container .subFooter .subFooterStyle, .container .subFooter .subFooterTitle, .container .subFooter .subMobileFooterTitle {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.375rem;
+  color: #0072ef;
+  padding-bottom: 2.5rem;
+}
+
+.container .subFooter .subFooterStyle span, .container .subFooter .subFooterTitle span, .container .subFooter .subMobileFooterTitle span {
+  color: #00b140;
+}
+
+.container .subFooter .subMobileFooterTitle {
+  display: none;
+}
+
+.container .subFooter .benefits {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .subFooter {
+    padding: 2rem 1rem;
+  }
+  .container .subFooter .subFooterTitle {
+    display: none;
+  }
+  .container .subFooter .subMobileFooterTitle {
+    display: block;
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    padding-bottom: 1rem;
+  }
+  .container .subFooter .benefits {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-top: 0.6rem;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: #595959;
+  }
+  .container .subFooter .benefits span {
+    padding: 0 0.4rem;
+  }
+}
+
+.container .modalContainer {
+  min-width: 20%;
+  width: 35%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .modalContainer {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .modalContainer {
+    width: 95%;
+  }
+}
+
+.container .modalContainer .OnboardingModal .modalTitle {
+  font-weight: 600;
+  font-size: 1.4375rem;
+  line-height: 2rem;
+  text-align: center;
+  color: #262626;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.container .modalContainer .OnboardingModal .context {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  text-align: center;
+  color: #595959;
+  opacity: 0.8;
+  padding-bottom: 1rem;
+}
+
+.container .modalContainer .OnboardingModal .btnCont {
+  width: 100%;
+  height: 3.375rem;
+}
+/*# sourceMappingURL=Home.module.css.map */

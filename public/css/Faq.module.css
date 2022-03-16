@@ -1,0 +1,218 @@
+.container {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0rem 10.31rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    background-image: url("/images/mobile-general-bg.svg");
+    background-repeat: no-repeat;
+  }
+}
+
+.container .hero {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 4rem;
+}
+
+.container .hero .heroText {
+  width: 70%;
+}
+
+.container .hero .heroText h3 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.375rem;
+  color: #262626;
+}
+
+.container .hero .heroText p {
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 2rem;
+  color: #595959;
+  padding-top: 0.7rem;
+}
+
+.container .hero .heroText p a {
+  color: #0072ef;
+  text-decoration: none;
+}
+
+.container .hero .heroImage {
+  width: 30%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .hero {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+  }
+  .container .hero .heroText {
+    width: 100%;
+  }
+  .container .hero .heroText h3 {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+  .container .hero .heroText p {
+    opacity: 0.8;
+  }
+  .container .hero .heroImage {
+    width: 100%;
+  }
+}
+
+.container .backToTop {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .backToTop {
+    display: block;
+  }
+}
+
+.container .body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding-bottom: 5rem;
+}
+
+.container .body .faq {
+  width: 33%;
+  background-color: #f5f5f5;
+  margin-right: 5rem;
+  padding: 1.125rem 0 1.125rem 1.5rem;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body .faq {
+    display: none;
+  }
+}
+
+.container .body .faq h3 {
+  font-weight: 600;
+  font-size: 1.562rem;
+  line-height: 3.375rem;
+  color: #000000;
+}
+
+.container .body .faq .groupQuestions .dropDown {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container .body .faq .groupQuestions .dropDown .headerArrow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 1.5rem;
+  cursor: pointer;
+}
+
+.container .body .faq .groupQuestions .dropDown .headerArrow .arrowStyle, .container .body .faq .groupQuestions .dropDown .headerArrow .arrow, .container .body .faq .groupQuestions .dropDown .headerArrow .open {
+  margin-right: 1.219rem;
+  -webkit-transition: all 0.5s cubic-bezier(0.93, -0.01, 0.36, 0.99);
+  transition: all 0.5s cubic-bezier(0.93, -0.01, 0.36, 0.99);
+}
+
+.container .body .faq .groupQuestions .dropDown .headerArrow .open {
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+.container .body .faq .groupQuestions .dropDown .headerArrow .title {
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  color: #0072ef;
+}
+
+.container .body .faq .groupQuestions .dropDown .questionsContainer {
+  padding-top: 1rem;
+}
+
+.container .body .faq .groupQuestions .dropDown .questionsContainer .questions {
+  font-weight: normal;
+  font-size: 0.812rem;
+  line-height: 1.5rem;
+  color: #262626;
+  margin-bottom: 0.75rem;
+  padding-right: 0.5rem;
+  cursor: pointer;
+}
+
+.container .body .faqQuestionsCont {
+  width: 67%;
+}
+
+.container .body .faqQuestionsCont h1 {
+  font-weight: 600;
+  font-size: 3.75rem;
+  line-height: 3rem;
+  padding-top: 3rem;
+  color: #f5f5f5;
+}
+
+.container .body .faqQuestionsCont .answerCont {
+  padding-top: 1.5rem;
+}
+
+.container .body .faqQuestionsCont .answerCont .questionHead {
+  font-weight: 500;
+  font-size: 1.375rem;
+  line-height: 2rem;
+  color: #262626;
+}
+
+.container .body .faqQuestionsCont .answerCont .answer {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #595959;
+  padding-top: 1rem;
+  opacity: 0.8;
+}
+
+.container .body .faqQuestionsCont .answerCont .answer .link {
+  cursor: pointer;
+  color: #0072ef;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body .faqQuestionsCont {
+    width: 100%;
+  }
+  .container .body .faqQuestionsCont h1 {
+    color: #d9d9d9;
+    font-size: 50px;
+  }
+}
+/*# sourceMappingURL=Faq.module.css.map */

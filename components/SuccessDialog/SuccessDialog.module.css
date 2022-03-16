@@ -1,0 +1,54 @@
+.successDialogInner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.successDialogInner .iconContainer {
+  background: #00b140;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.successDialogInner .iconContainer .goodIcon {
+  color: #ffffff;
+  font-size: 2.2rem;
+}
+
+.successDialogInner .congratulations {
+  text-align: center;
+  font-size: 1.9rem;
+}
+
+.successDialogInner .content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.successDialogInner .lodingText {
+  margin: 4px auto;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+/*# sourceMappingURL=SuccessDialog.module.css.map */

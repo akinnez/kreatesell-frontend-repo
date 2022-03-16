@@ -1,0 +1,36 @@
+.label {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: #262626;
+}
+
+.label span {
+  color: #8C8C8C;
+}
+
+.input {
+  border-radius: 10px;
+}
+
+.dragger_wrapper {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.btn {
+  height: 36px;
+  border-radius: 8px;
+  min-width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+}
+/*# sourceMappingURL=Index.module.css.map */

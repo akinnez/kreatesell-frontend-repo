@@ -1,0 +1,25 @@
+.error404 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+}
+
+.error404 .btnCont {
+  margin: auto;
+  width: 60%;
+  padding-top: 1rem;
+}
+
+@media screen and (max-width: 425px) {
+  .error404 .btnCont {
+    width: 100%;
+  }
+}
+
+.error404 .btnCont .btn {
+  font-size: 1rem;
+}
+/*# sourceMappingURL=error-404.module.css.map */

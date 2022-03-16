@@ -1,0 +1,377 @@
+.container {
+  background-repeat: no-repeat;
+  background-image: url("/images/partial-general-bg.svg");
+  background-size: contain;
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    background-image: url("/images/mobile-general-bg.svg");
+  }
+}
+
+.container .body {
+  padding: 0rem 10.31rem 0 10.31rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body {
+    padding: 0rem 1rem;
+  }
+}
+
+.container .body .header {
+  text-align: center;
+}
+
+.container .body .header h2 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 4rem;
+  letter-spacing: 0.2px;
+  color: #262626;
+}
+
+.container .body .header p {
+  padding-top: 1rem;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #595959;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body .header h2 {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .header h2 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .container .body .header p {
+    padding-top: 0.5rem;
+  }
+}
+
+.container .body .tabContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .body .tabSelect {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 3.187rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .tabSelect {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.container .body .tabSelect .tab button {
+  width: 9rem;
+  height: 2.5rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: 0.5px solid #40a9ff;
+  color: #8c8c8c;
+  font-size: 0.8rem;
+  line-height: 1.625rem;
+}
+
+.container .body .tabSelect .tab .activeBtn {
+  background-color: #0072ef;
+  color: #ffffff;
+}
+
+.container .body .tabSelect .tab .btn1 {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.container .body .tabSelect .tab .btn2 {
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.container .body .tabSelect .select {
+  margin-left: 3.75rem;
+  width: 5rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .tabSelect .select {
+    padding-top: 1.5rem;
+    margin: auto;
+  }
+}
+
+.container .body .priceCards {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body .priceCards {
+    padding-top: 0;
+    margin: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .priceCards {
+    padding-top: 0;
+  }
+}
+
+.container .body .priceCards .pricingCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .body .priceCards .pricingCont .free {
+  padding-top: 2.3rem;
+}
+
+.container .body .priceCards .pricingCont .free:first-child {
+  margin-right: 1.5rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .priceCards .pricingCont .free:first-child {
+    margin-right: 0;
+  }
+}
+
+.container .body .priceCards .pricingCont .standard {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .body .priceCards .pricingCont {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .container .body .priceCards .pricingCont .free {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .container .body .priceCards .pricingCont .free:first-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .body .priceCards .pricingCont {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.container .midSection {
+  padding: 3.6875rem 0;
+  background-color: #0072ef;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+}
+
+.container .midSection h3 {
+  font-weight: 700;
+  font-size: 2.375rem;
+  line-height: 3.375rem;
+  color: #ffffff;
+}
+
+.container .midSection p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8rem;
+  padding-top: 1rem;
+}
+
+.container .midSection p a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.container .midSection .buttonCont {
+  padding-top: 1.25rem;
+}
+
+.container .midSection .buttonCont .btn {
+  width: 10rem;
+  height: 3.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container .midSection {
+    padding: 1rem 0.8rem;
+  }
+  .container .midSection h3 {
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+  }
+  .container .midSection p {
+    font-size: 0.9rem;
+    line-height: 1.75rem;
+    color: #ffffff;
+    opacity: 0.9;
+  }
+  .container .midSection .buttonCont {
+    padding-bottom: 1rem;
+  }
+}
+
+.container .faqContainer {
+  padding: 6.8125rem 10.31rem 5rem 10.31rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .faqContainer {
+    padding: 2rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin-top: 3rem;
+  }
+}
+
+.container .faqContainer .faqHeader {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container .faqContainer .faqHeader .title {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.375rem;
+  color: #000000;
+}
+
+.container .faqContainer .faqHeader .mobileFaqTitle {
+  display: none;
+}
+
+.container .faqContainer .faqHeader .faqImage {
+  padding-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .faqContainer .faqHeader {
+    width: 100%;
+  }
+  .container .faqContainer .faqHeader .title {
+    display: none;
+  }
+  .container .faqContainer .faqHeader .mobileFaqTitle {
+    display: block;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .container .faqContainer .faqHeader .faqImage {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+.container .faqContainer .contentWrapper {
+  width: 70%;
+  margin-left: 4rem;
+}
+
+.container .faqContainer .contentWrapper .content {
+  padding-top: 1.5rem;
+}
+
+.container .faqContainer .contentWrapper .content .question {
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: #262626;
+}
+
+.container .faqContainer .contentWrapper .content .answer {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  padding-top: 1rem;
+  color: #595959;
+  opacity: 0.8;
+}
+
+.container .faqContainer .contentWrapper .content .answer br {
+  padding-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .faqContainer .contentWrapper {
+    margin: 0;
+    width: 100%;
+  }
+  .container .faqContainer .contentWrapper .content .question {
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+  }
+  .container .faqContainer .contentWrapper .content .answer {
+    font-size: 0.75rem;
+  }
+}
+/*# sourceMappingURL=Pricing.module.css.map */

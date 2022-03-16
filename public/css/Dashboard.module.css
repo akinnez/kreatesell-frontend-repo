@@ -1,0 +1,420 @@
+.container {
+  width: 100%;
+}
+
+.container .selector {
+  background: #fafafa;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  margin-bottom: 1.3125rem;
+}
+
+.container .selector .kreatorSelect {
+  width: 10%;
+  margin-right: 0.00625rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .selector .kreatorSelect {
+    width: 15%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .selector .kreatorSelect {
+    width: 30%;
+  }
+}
+
+.container .selector .affiliateSelect {
+  width: 10%;
+}
+
+@media screen and (max-width: 768px) {
+  .container .selector .affiliateSelect {
+    width: 15%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container .selector .affiliateSelect {
+    width: 30%;
+  }
+}
+
+.container .dateHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container .dateHeader {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 3;
+        grid-template-rows: 3;
+    -ms-grid-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.container .dateHeader .searchCont {
+  padding-top: 0.5rem;
+}
+
+.container .dateHeader .searchCont .searchStyles {
+  height: 44px;
+}
+
+@media screen and (max-width: 768px) {
+  .container .dateHeader .searchCont .searchStyles {
+    width: 100%;
+  }
+}
+
+.container .dateHeader .searchCont .label {
+  font-size: 0.875rem;
+  line-height: 10px;
+  color: #8c8c8c;
+  padding-right: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .dateHeader .searchCont {
+    -ms-grid-column: 1;
+        grid-column-start: 1;
+    grid-column-end: 4;
+  }
+}
+
+.container .dateHeader .selectCont, .container .dateHeader .today, .container .dateHeader .currency {
+  width: 15%;
+}
+
+.container .dateHeader .selectCont .select, .container .dateHeader .today .select, .container .dateHeader .currency .select {
+  height: 50px;
+  padding-bottom: 0.4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container .dateHeader .selectCont .select, .container .dateHeader .today .select, .container .dateHeader .currency .select {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container .dateHeader .today {
+    width: 100%;
+    -ms-grid-column: 1;
+        grid-column-start: 1;
+    grid-column-end: 2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container .dateHeader .currency {
+    width: 100%;
+    -ms-grid-column: 2;
+        grid-column-start: 2;
+    grid-column-end: 4;
+  }
+}
+
+.container .dateHeader .dateCont {
+  padding-top: 1rem;
+}
+
+.container .dateHeader .dateCont .label {
+  font-size: 0.875rem;
+  line-height: 10px;
+  color: #8c8c8c;
+  padding-right: 0.75rem;
+}
+
+.container .dateHeader .dateCont .selectDate .date {
+  width: 10rem;
+  height: 44px;
+  margin: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .container .dateHeader .dateCont .selectDate .date {
+    width: 8.5rem;
+    padding: 0.4rem;
+  }
+}
+
+.container .dateHeader .filterCont {
+  padding-top: 1.5rem;
+}
+
+.container .midSection .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.container .midSection .title .userType {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: #8c8c8c;
+}
+
+.container .midSection .title .userTypeLink {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .midSection .title .userTypeLink p {
+  font-weight: 550;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #0072ef;
+  cursor: pointer;
+  padding-right: 0.5rem;
+}
+
+.container .midSection .title .userTypeLink .arrowIcon {
+  padding-bottom: 0.7rem;
+}
+
+.container .midSection .cardContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media screen and (max-width: 425px) {
+  .container .midSection .cardContainer {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.container .midSection .cardContainer .m0 {
+  margin: 0;
+}
+
+.container .midSection .cardContainer .cardStyle, .container .midSection .cardContainer .card, .container .midSection .cardContainer .firstCard {
+  width: 17rem;
+  height: 7.5rem;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 425px) {
+  .container .midSection .cardContainer .cardStyle, .container .midSection .cardContainer .card, .container .midSection .cardContainer .firstCard {
+    width: 100%;
+    height: 5rem;
+  }
+}
+
+.container .midSection .cardContainer .cardStyle .iconCont, .container .midSection .cardContainer .card .iconCont, .container .midSection .cardContainer .firstCard .iconCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: auto;
+}
+
+.container .midSection .cardContainer .cardStyle .iconCont .icon, .container .midSection .cardContainer .card .iconCont .icon, .container .midSection .cardContainer .firstCard .iconCont .icon {
+  padding-right: 1.5rem;
+}
+
+.container .midSection .cardContainer .cardStyle .iconCont .countCont .value, .container .midSection .cardContainer .card .iconCont .countCont .value, .container .midSection .cardContainer .firstCard .iconCont .countCont .value {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.375rem;
+  color: #171717;
+}
+
+.container .midSection .cardContainer .cardStyle .iconCont .countCont .valueText, .container .midSection .cardContainer .card .iconCont .countCont .valueText, .container .midSection .cardContainer .firstCard .iconCont .countCont .valueText {
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.0625rem;
+  color: #b9b9b9;
+}
+
+@media screen and (max-width: 768px) {
+  .container .midSection .cardContainer .cardStyle .iconCont .countCont .value, .container .midSection .cardContainer .card .iconCont .countCont .value, .container .midSection .cardContainer .firstCard .iconCont .countCont .value {
+    font-size: 0.75rem;
+  }
+  .container .midSection .cardContainer .cardStyle .iconCont .countCont .valueText, .container .midSection .cardContainer .card .iconCont .countCont .valueText, .container .midSection .cardContainer .firstCard .iconCont .countCont .valueText {
+    font-size: 0.75rem;
+  }
+}
+
+.container .midSection .cardContainer .card {
+  margin-left: 1rem;
+}
+
+@media screen and (max-width: 425px) {
+  .container .midSection .cardContainer .card {
+    margin-left: 0;
+  }
+}
+
+.container .midSection .cardContainer .firstCard {
+  margin: 0;
+}
+
+.container .modal {
+  width: 80%;
+  margin-left: auto;
+}
+
+.container .modal .dashboardModal {
+  text-align: center;
+}
+
+.container .modal .dashboardModal .modalTitle {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+.container .modal .dashboardModal .content {
+  padding-top: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #595959;
+}
+
+.container .modal .dashboardModal .buttonContainer {
+  padding-top: 3.0625rem;
+}
+
+.container .modal .dashboardModal .buttonContainer .btn, .container .modal .dashboardModal .buttonContainer .tipBtn, .container .modal .dashboardModal .buttonContainer .proceedBtn {
+  width: 36%;
+}
+
+.container .modal .dashboardModal .buttonContainer .tipBtn {
+  margin-right: 2.5rem;
+}
+
+.productHeader {
+  display: -ms-grid;
+  display: grid;
+  gap: 1rem;
+  -ms-grid-columns: (minmax(0, 1fr))[6];
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .productHeader {
+    -ms-grid-columns: (minmax(0, 1fr))[2];
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .productHeader .selectToday {
+    -ms-grid-column: 3;
+        grid-column-start: 3;
+    grid-column-end: 5;
+  }
+  .productHeader .fromDate {
+    -ms-grid-column: 1;
+        grid-column-start: 1;
+    grid-column-end: 2;
+  }
+  .productHeader .toDate {
+    -ms-grid-column: 2;
+        grid-column-start: 2;
+    grid-column-end: 3;
+  }
+  .productHeader .filterCont {
+    -ms-grid-column: 3;
+        grid-column-start: 3;
+    grid-column-end: 4;
+  }
+}
+
+.productHeader .search {
+  height: 2.75rem;
+}
+
+.productHeader .label {
+  font-size: 0.875rem;
+  line-height: 10px;
+  color: #8c8c8c;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.75rem;
+}
+
+@media screen and (max-width: 768px) {
+  .productHeader .label {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+/*# sourceMappingURL=Dashboard.module.css.map */

@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,OAAO,CAAC,qEAAI;AAEZ,AAAA,KAAK,CAAC;EACL,aAAa,EAAE,GAAG;EAClB,OAAO,EAAE,MAAM;CAOf;;ACwBG,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EDjCvC,AAAA,KAAK,CAAC;IAKJ,OAAO,EAAE,CAAC;IAEV,MAAM,EAAE,MAAM;GAEf;;;AAED,AAAA,OAAO,CAAC;EACP,WAAW,EAAE,mBAAmB;EAChC,KAAK,EEWM,OAAO;EFVlB,WAAW,EAAE,MAAM;EACnB,SAAS,EAAE,IAAI;EACf,aAAa,EAAE,IAAI;CACnB",
+    "sources": [
+        "About-domain.module.scss",
+        "screens.scss",
+        "colors.scss"
+    ],
+    "names": [],
+    "file": "About-domain.module.css"
+}

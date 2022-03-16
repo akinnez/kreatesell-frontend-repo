@@ -1,0 +1,67 @@
+.btnCont {
+  width: 100% !important;
+  height: 3.5rem;
+}
+
+.container {
+  background-image: url("../images//checkout-bg.png");
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    background-image: none;
+  }
+}
+
+.container .boxShadow {
+  -webkit-box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+          box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+}
+
+.container .couponBtn {
+  height: 3.375rem;
+}
+
+.container .card, .container .activeCard, .container .activePayment {
+  border-radius: 0.5rem;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #8c8c8c;
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0.5rem 0.7rem;
+}
+
+.container .activeCard {
+  border: 1px solid #2dc071;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+}
+
+.container .activePayment {
+  border: 1px solid #2dc071;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.modal {
+  border-radius: 0.5rem;
+  width: 40%;
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 90%;
+  }
+}
+/*# sourceMappingURL=checkout.module.css.map */

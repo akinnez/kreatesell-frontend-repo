@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,KAAK,CAAC;EACL,aAAa,EAAE,IAAI;EACnB,OAAO,EAAE,MAAM;CAMf;;AC2BG,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EDnCvC,AAAA,KAAK,CAAC;IAKJ,OAAO,EAAE,CAAC;IACV,UAAU,EAAE,UAAkB;GAE/B",
+    "sources": [
+        "Settings.module.scss",
+        "screens.scss",
+        "colors.scss"
+    ],
+    "names": [],
+    "file": "Settings.module.css"
+}

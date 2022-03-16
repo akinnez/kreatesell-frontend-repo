@@ -1,0 +1,52 @@
+.bio_info {
+  padding: 0 0 20px 0;
+}
+
+.bio_info h5 {
+  font-size: 18px;
+}
+
+.bio_info p {
+  color: #8c8c8c;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.progress_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px 0 0 20px;
+}
+
+.progress_wrapper .progress {
+  width: 150px;
+  height: 180px;
+}
+
+.progress_wrapper #progress_text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 10px 0 0 20px;
+}
+
+.progress_wrapper #progress_text p {
+  font-size: 20px;
+}
+
+.card {
+  padding: 10px 200px;
+  text-align: center;
+}
+
+.card h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.card p {
+  color: #8c8c8c;
+  margin-bottom: 50px;
+}
+/*# sourceMappingURL=Store.module.css.map */
