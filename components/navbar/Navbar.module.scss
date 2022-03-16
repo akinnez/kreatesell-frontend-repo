@@ -3,11 +3,12 @@
 @import "../../public/css/screens.scss";
 
 .navContainer {
-  @include flex(row, space-between, null);
+  @include flex(row, center, center);
   width: 100%;
   box-sizing: border-box;
   padding: 1rem 10.31rem;
   position: fixed;
+  text-align: center;
   top: 0;
   background-color: $base-white;
   z-index: 1;

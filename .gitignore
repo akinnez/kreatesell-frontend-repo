@@ -6,8 +6,8 @@
 .pnp.js
 
 
-* .module.css
-* .module.css.map
+*.module.css
+*.module.css.map
 # testing
 /coverage
 
