@@ -1,0 +1,28 @@
+@use "public/css/colors";
+
+.modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
+  font-size: 25px;
+  color: colors.$black-100;
+}
+
+.header {
+  margin-top: 60px;
+  margin-bottom: 20px;
+
+  h2 {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 24px;
+    color: colors.$black-100;
+  }
+}
+
+.note > p {
+  margin-bottom: 0;
+
+  > [class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$gray-200;
+  }
+}
