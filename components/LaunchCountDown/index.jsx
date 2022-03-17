@@ -44,65 +44,60 @@ const CountDownTimer = () => {
 
   return (
     <>
-      {timerDays === 0 &&
-      timerHours === 0 &&
-      timerSeconds === 0 &&
-      timerMinutes === 0 ? (
-        <section className={styles.timerContainer}>
-          <div
-            className={
-              timerDays === 0 || timerHours === 0
-                ? styles.bothGone
-                : styles.TwoColumn
-            }
-          >
-            {timerDays !== 0 && (
-              <>
-                <div className={styles.timerBox}>
-                  <p className={styles.timerValue}>{timerDays}</p>
-                  <p className={styles.time}>
-                    <small>{timerDays <= 1 ? "day" : "days"}</small>
-                  </p>
-                </div>
-                <span className={styles.delimit}>:</span>
-              </>
-            )}
-            {timerHours !== 0 && (
-              <>
-                <div className={styles.timerBox}>
-                  <p className={styles.timerValue}>{timerHours}</p>
-                  <p className={styles.time}>
-                    <small>{timerHours <= 1 ? "hour" : "hours"}</small>
-                  </p>
-                </div>
-                <span className={`${styles.delimit} ${styles.hide}`}>:</span>
-              </>
-            )}
-          </div>
-
-          <div className={styles.TwoColumn}>
-            {timerMinutes !== 0 && (
-              <>
-                <div className={styles.timerBox}>
-                  <p className={styles.timerValue}>{timerMinutes}</p>
-                  <p className={styles.time}>
-                    <small>{timerMinutes <= 1 ? "minute" : "minutes"}</small>
-                  </p>
-                </div>
-                <span className={styles.delimit}>:</span>
-              </>
-            )}
-            {timerSeconds !== 0 && (
+      <section className={styles.timerContainer}>
+        <div
+          className={
+            timerDays === 0 || timerHours === 0
+              ? styles.bothGone
+              : styles.TwoColumn
+          }
+        >
+          {timerDays !== 0 && (
+            <>
               <div className={styles.timerBox}>
-                <p className={styles.timerValue}>{timerSeconds}</p>
+                <p className={styles.timerValue}>{timerDays}</p>
                 <p className={styles.time}>
-                  <small>{timerSeconds <= 1 ? "second" : "seconds"}</small>
+                  <small>{timerDays <= 1 ? "day" : "days"}</small>
                 </p>
               </div>
-            )}
-          </div>
-        </section>
-      ) : null}
+              <span className={styles.delimit}>:</span>
+            </>
+          )}
+          {timerHours !== 0 && (
+            <>
+              <div className={styles.timerBox}>
+                <p className={styles.timerValue}>{timerHours}</p>
+                <p className={styles.time}>
+                  <small>{timerHours <= 1 ? "hour" : "hours"}</small>
+                </p>
+              </div>
+              <span className={`${styles.delimit} ${styles.hide}`}>:</span>
+            </>
+          )}
+        </div>
+
+        <div className={styles.TwoColumn}>
+          {timerMinutes !== 0 && (
+            <>
+              <div className={styles.timerBox}>
+                <p className={styles.timerValue}>{timerMinutes}</p>
+                <p className={styles.time}>
+                  <small>{timerMinutes <= 1 ? "minute" : "minutes"}</small>
+                </p>
+              </div>
+              <span className={styles.delimit}>:</span>
+            </>
+          )}
+          {timerSeconds !== 0 && (
+            <div className={styles.timerBox}>
+              <p className={styles.timerValue}>{timerSeconds}</p>
+              <p className={styles.time}>
+                <small>{timerSeconds <= 1 ? "second" : "seconds"}</small>
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
     </>
   );
 };
