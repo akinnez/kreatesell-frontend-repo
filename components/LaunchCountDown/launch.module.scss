@@ -1,0 +1,86 @@
+.timerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   border: 4px ridge #000;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  background-color: ghostwhite;
+  //   background-color: #000;
+  margin: 0 auto;
+  max-width: 1000px;
+
+  text-align: center;
+
+  @media (min-width: 900px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .timerBox {
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    background-color: #fff;
+    margin-right: 0.5rem;
+    padding: 2rem 1rem;
+    max-height: 60px;
+    // border: 1px solid #000;
+    .timerValue {
+      font-size: 3rem;
+      font-weight: bold;
+      position: relative;
+      top: -48px;
+      padding: 0.2rem 0.4rem;
+      text-align: center;
+      min-width: 63px;
+      max-width: 63px;
+      transition: all 0.2s;
+      @media (min-width: 400px) {
+        min-width: 123px;
+        max-width: 123px;
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    .time {
+      text-align: center;
+      font-size: 1.5rem;
+      position: relative;
+      top: -128px;
+    }
+  }
+
+  .delimit {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    color: #333;
+    margin-right: 0.5rem;
+    display: block;
+  }
+
+  .hide {
+    display: none;
+
+    @media (min-width: 900px) {
+      display: block;
+    }
+  }
+
+  .TwoColumn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    @media (min-width: 900px) {
+      justify-content: center;
+    }
+  }
+
+  .bothGone {
+    display: none;
+  }
+}

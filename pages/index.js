@@ -1,36 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   InputButton,
   Layout,
-  Button,
-  Modal,
-  Input,
-  FormError,
+  // Button,
+  // Modal,
+  // Input,
+  // FormError,
 } from "../components";
 import styles from "../public/css/Home.module.scss";
-import {
-  RightArrow,
-  //   LandingPageHero,
-  //   AirBnBLogo,
-  //   MicrosoftLogo,
-  //   AddProduct,
-  //   CreateStore,
-  //   Publish,
-  //   AutomationIcon,
-  //   LeftSpiral,
-  //   RightSpiral,
-  //   PayoutMethod,
-  //   InstantPayout,
-  //   PrimaryNews,
-  //   SecondaryNews,
-  //   PrimaryNewsFooterImg,
-  //   videoThumbnail,
-  //   ElipseImage,
-  //   MobileElipse,
-  //   PlayIcon,
-  //   isAnEmpytyObject,
-} from "../utils";
-import Image from "next/image";
+import { RightArrow } from "../utils";
+import CountDownTimer from "../components/LaunchCountDown";
 
 export default function Home() {
   const [mail, setEmail] = useState("");
@@ -40,15 +19,56 @@ export default function Home() {
       <div className={styles.container}>
         <section className={styles.mainBody}>
           <div className={styles.left}>
-            <h1>
+            <h1>Be The First To Know!</h1>
+            <h2>
               Are you ready to experience a mind-blowing platform made just for
               you to sell all your content and digital products across borders,
               and massively earn without any hassle?
-            </h1>
-            <h2>Get ready! We are launching soon.</h2>
+            </h2>
+
+            <h3 className={styles.animateFlicker}>
+              KreateSell is coming soon...
+            </h3>
+            <h3>Sneak peek of what to expect:</h3>
+
+            <ol>
+              <li>
+                <span className={styles.animateFire}>🔥</span> Free digital
+                products upload.
+              </li>
+              <li>
+                <span className={styles.animateFire}>🔥</span> 21 supported
+                currencies.
+              </li>
+              <li>
+                <span className={styles.animateFire}>🔥</span> Earn massively
+                from borderless sales.
+              </li>
+              <li>
+                <span className={styles.animateFire}>🔥</span> Army of affiliate
+                marketers to sell your digital product(s) for you.
+              </li>
+              <li>
+                <span className={styles.animateFire}>🔥</span> 24/7 customer
+                support.{" "}
+              </li>
+              <li>
+                <span className={styles.animateFire}>🔥</span> Automated
+                done-for-you payment and follow up processes.
+              </li>
+              <li>
+                <span className={styles.animateFire}>🔥</span> And so much
+                more...
+              </li>
+            </ol>
+
+            <div>
+              <CountDownTimer />
+              {/* <p>To launch</p> */}
+            </div>
             <p className={styles.text}>
-              To be the first to know when we launch, join the wait-list by
-              submitting your details below.
+              We want you to be the first to know when we launch. So, join the
+              wait-list by submitting your details below.
             </p>
           </div>
           <div className={styles.inputContainer}>
@@ -62,7 +82,7 @@ export default function Home() {
                 e.preventDefault();
               }}
             />
-            <p className={styles.textC}>KreateSell loading...</p>
+            {/* <p className={styles.textC}>KreateSell loading...</p> */}
           </div>
         </section>
       </div>
