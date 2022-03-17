@@ -10,7 +10,7 @@ const CountDownTimer = () => {
   let interval = useRef();
 
   const startTimer = () => {
-    const countdownDate = new Date("April 17, 2022 12:00:00").getTime();
+    const countdownDate = new Date("April 17, 2022 00:00:00").getTime();
     interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
@@ -60,18 +60,19 @@ const CountDownTimer = () => {
                   <small>{timerDays <= 1 ? "day" : "days"}</small>
                 </p>
               </div>
-              <span className={styles.delimit}>:</span>
+              {/* <span className={styles.delimit}>:</span> */}
             </>
           )}
           {timerHours !== 0 && (
             <>
+              <span className={styles.delimit}>:</span>
               <div className={styles.timerBox}>
                 <p className={styles.timerValue}>{timerHours}</p>
                 <p className={styles.time}>
                   <small>{timerHours <= 1 ? "hour" : "hours"}</small>
                 </p>
               </div>
-              <span className={`${styles.delimit} ${styles.hide}`}>:</span>
+              {/* <span className={`${styles.delimit} ${styles.hide}`}>:</span> */}
             </>
           )}
         </div>
@@ -79,22 +80,25 @@ const CountDownTimer = () => {
         <div className={styles.TwoColumn}>
           {timerMinutes !== 0 && (
             <>
+              <span className={`${styles.delimit} ${styles.hide}`}>:</span>
               <div className={styles.timerBox}>
                 <p className={styles.timerValue}>{timerMinutes}</p>
                 <p className={styles.time}>
                   <small>{timerMinutes <= 1 ? "minute" : "minutes"}</small>
                 </p>
               </div>
-              <span className={styles.delimit}>:</span>
             </>
           )}
           {timerSeconds !== 0 && (
-            <div className={styles.timerBox}>
-              <p className={styles.timerValue}>{timerSeconds}</p>
-              <p className={styles.time}>
-                <small>{timerSeconds <= 1 ? "second" : "seconds"}</small>
-              </p>
-            </div>
+            <>
+              <span className={styles.delimit}>:</span>
+              <div className={styles.timerBox}>
+                <p className={styles.timerValue}>{timerSeconds}</p>
+                <p className={styles.time}>
+                  <small>{timerSeconds <= 1 ? "second" : "seconds"}</small>
+                </p>
+              </div>
+            </>
           )}
         </div>
       </section>

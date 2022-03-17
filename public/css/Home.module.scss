@@ -7,6 +7,8 @@
   background-image: url("/images/partial-general-bg.svg");
   background-size: cover;
   background-repeat: repeat-x;
+  position: relative;
+  top: -20px;
   .mainBody {
     width: 100%;
     background-image: url("/images/partial-general-bg.svg");
@@ -17,7 +19,25 @@
     transition: padding 0.2s;
     max-width: 960px;
     margin: 0 auto;
+    .countdown {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      .text {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: red;
+        font-weight: bold;
+        align-self: center;
+      }
 
+      @media (min-width: 1200px) {
+        position: relative;
+        right: 30px;
+      }
+    }
     .text,
     .textC {
       font-size: 16px;
@@ -28,14 +48,23 @@
       margin-top: 1rem;
     }
 
+    .offers {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
     .left {
       h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: bold;
+        color: red;
+        text-align: center;
       }
       h2 {
         font-size: 1.5rem;
         font-weight: normal;
+        text-align: center;
       }
 
       // h3:first-child {
@@ -48,7 +77,8 @@
         // text-decoration: underline;
         font-weight: bold;
         color: #0072ef;
-        font-size: 1.2rem;
+        // font-size: 1.2rem;
+        font-size: 1.5rem;
       }
     }
 
@@ -145,6 +175,16 @@
     font-size: 1.3rem;
     margin: 1.2rem;
     font-size: 2rem;
+    .blue {
+      color: $base-blue;
+    }
+
+    .green {
+      color: $base-green-100;
+      display: inline-block;
+      margin-right: 0.5rem;
+      font-weight: normal;
+    }
     // margin-bottom: 0.5rem;
   }
 
@@ -202,6 +242,8 @@
     -o-animation: fireAnimation 3s infinite;
     animation: fireAnimation 3s infinite;
     display: inline-block;
+    color: $base-green-100;
+    font-size: 1.2rem;
   }
 
   //
