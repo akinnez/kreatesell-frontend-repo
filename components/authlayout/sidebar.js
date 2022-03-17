@@ -123,6 +123,11 @@ const Sidebar = () => {
               <a>Abandoned Carts</a>
             </Link>
           </Menu.Item>
+          <Menu.Item key={41}>
+            <Link href="/account/kreator/requests">
+              <a>Affiliates Requests</a>
+            </Link>
+          </Menu.Item>
         </SubMenu>
         <SubMenu
           key="affiliates-menu"

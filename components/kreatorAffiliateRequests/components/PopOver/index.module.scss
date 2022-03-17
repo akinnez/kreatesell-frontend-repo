@@ -1,0 +1,107 @@
+@use "public/css/colors";
+
+.content__container {
+  max-width: 360px;
+  position: relative;
+  padding: 50px 25px 15px;
+}
+
+.close__btn {
+  position: absolute;
+  top: 15px;
+  right: 0;
+
+  > button[class^="ant-btn"] {
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+
+    > svg {
+      font-size: 25px;
+      color: colors.$base-gray;
+    }
+  }
+}
+
+.header {
+  margin-bottom: 15px;
+  > div {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}
+
+.affiliate__info {
+  text-align: center;
+
+  p {
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+
+      > [class="ant-typography"] {
+        font-weight: 500;
+        font-size: 20px;
+        color: colors.$black-100;
+      }
+    }
+
+    &:last-child > [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$base-gray;
+    }
+  }
+}
+
+.divider {
+  background-color: #d9d9d9;
+}
+
+.footer {
+  text-align: center;
+
+  > button {
+    color: #f90005;
+    border: 1px solid #f90005;
+    border-radius: 8px;
+
+    &:hover {
+      color: #f90005;
+      border-color: #f90005;
+    }
+
+    svg {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  > button[disabled="true"] {
+    color: #bfbfbf;
+    border-color: #bfbfbf;
+    cursor: default;
+
+    &:hover {
+      color: #bfbfbf;
+      border-color: #bfbfbf;
+    }
+  }
+}
+
+.btn {
+  color: colors.$base-blue;
+
+  &:hover {
+    color: colors.$base-blue;
+  }
+
+  svg {
+    margin-right: 10px;
+  }
+}
