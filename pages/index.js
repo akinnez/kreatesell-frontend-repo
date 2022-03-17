@@ -62,10 +62,10 @@ export default function Home() {
               </li>
             </ol>
           </div>
-          <div>
+          {/* <div>
             <CountDownTimer />
             {/* <p>To launch</p> */}
-          </div>
+          {/* </div> */}
           <p className={styles.text}>
             We want you to be the first to know when we launch. So, join the
             wait-list by submitting your details below.
