@@ -1,0 +1,1338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportAffiliate:  renders a snapshot of <ReportAffiliate /> when report is false 1`] = `
+<ReportAffiliate
+  hideReport={[MockFunction]}
+  report={false}
+>
+  <Modal
+    className="modal"
+    closeIcon={<CloseIcon />}
+    confirmLoading={false}
+    footer={null}
+    okType="primary"
+    onCancel={[MockFunction]}
+    title={null}
+    visible={false}
+    width={765}
+  >
+    <Dialog
+      className="modal"
+      closeIcon={
+        <span
+          className="ant-modal-close-x"
+        >
+          <CloseIcon />
+        </span>
+      }
+      confirmLoading={false}
+      focusTriggerAfterClose={true}
+      footer={null}
+      maskTransitionName="ant-fade"
+      okType="primary"
+      onCancel={[MockFunction]}
+      onClose={[Function]}
+      prefixCls="ant-modal"
+      title={null}
+      transitionName="ant-zoom"
+      visible={false}
+      width={765}
+      wrapClassName=""
+    >
+      <PortalWrapper
+        visible={false}
+      />
+    </Dialog>
+  </Modal>
+</ReportAffiliate>
+`;
+
+exports[`ReportAffiliate:  renders a snapshot of <ReportAffiliate /> when report is true 1`] = `
+<ReportAffiliate
+  hideReport={[MockFunction]}
+  report={true}
+>
+  <Modal
+    className="modal"
+    closeIcon={<CloseIcon />}
+    confirmLoading={false}
+    footer={null}
+    okType="primary"
+    onCancel={[MockFunction]}
+    title={null}
+    visible={true}
+    width={765}
+  >
+    <Dialog
+      className="modal"
+      closeIcon={
+        <span
+          className="ant-modal-close-x"
+        >
+          <CloseIcon />
+        </span>
+      }
+      confirmLoading={false}
+      focusTriggerAfterClose={true}
+      footer={null}
+      maskTransitionName="ant-fade"
+      okType="primary"
+      onCancel={[MockFunction]}
+      onClose={[Function]}
+      prefixCls="ant-modal"
+      title={null}
+      transitionName="ant-zoom"
+      visible={true}
+      width={765}
+      wrapClassName=""
+    >
+      <PortalWrapper
+        visible={true}
+      >
+        <ForwardRef
+          getContainer={[Function]}
+        >
+          <Portal
+            containerInfo={
+              <div>
+                <div
+                  class="ant-modal-root"
+                >
+                  <div
+                    class="ant-modal-mask"
+                  />
+                  <div
+                    class="ant-modal-wrap"
+                    role="dialog"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="ant-modal modal"
+                      role="document"
+                      style="width: 765px;"
+                    >
+                      <div
+                        aria-hidden="true"
+                        style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                        tabindex="0"
+                      />
+                      <div
+                        class="ant-modal-content"
+                      >
+                        <button
+                          aria-label="Close"
+                          class="ant-modal-close"
+                          type="button"
+                        >
+                          <span
+                            class="ant-modal-close-x"
+                          >
+                            <span
+                              aria-label="close"
+                              class="anticon anticon-close ant-modal-close-icon"
+                              role="img"
+                            >
+                              <svg
+                                fill="currentColor"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-width="0"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                />
+                                <path
+                                  d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </button>
+                        <div
+                          class="ant-modal-body"
+                        >
+                          <form
+                            class="ant-form ant-form-vertical ant-form-large form"
+                          >
+                            <div
+                              class="ant-row ant-form-item"
+                            >
+                              <div
+                                class="ant-col ant-form-item-label"
+                              >
+                                <label
+                                  class=""
+                                  for="report_note"
+                                  title="Report Note"
+                                >
+                                  Report Note
+                                </label>
+                              </div>
+                              <div
+                                class="ant-col ant-form-item-control"
+                              >
+                                <div
+                                  class="ant-form-item-control-input"
+                                >
+                                  <div
+                                    class="ant-form-item-control-input-content"
+                                  >
+                                    <textarea
+                                      class="ant-input ant-input-lg"
+                                      id="report_note"
+                                      name="report_note"
+                                      placeholder="Fill out how you want to promote this product"
+                                      rows="5"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="actions"
+                            >
+                              <div>
+                                <button
+                                  class="ant-btn ant-btn-lg"
+                                  type="button"
+                                />
+                                <button
+                                  class="ant-btn ant-btn-lg"
+                                  type="button"
+                                />
+                                <p>
+                                  <span
+                                    class="ant-typography"
+                                  >
+                                    Upload Evidence
+                                  </span>
+                                </p>
+                              </div>
+                              <div
+                                class="submit__btn"
+                              >
+                                <button
+                                  class="ant-btn ant-btn-lg"
+                                  type="submit"
+                                >
+                                  <span>
+                                    Send
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div
+                        aria-hidden="true"
+                        style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                        tabindex="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <Dialog
+              afterClose={[Function]}
+              className="modal"
+              closeIcon={
+                <span
+                  className="ant-modal-close-x"
+                >
+                  <CloseIcon />
+                </span>
+              }
+              confirmLoading={false}
+              destroyOnClose={false}
+              focusTriggerAfterClose={true}
+              footer={null}
+              getContainer={[Function]}
+              getOpenCount={[Function]}
+              maskTransitionName="ant-fade"
+              okType="primary"
+              onCancel={[MockFunction]}
+              onClose={[Function]}
+              prefixCls="ant-modal"
+              scrollLocker={
+                ScrollLocker {
+                  "getContainer": [Function],
+                  "lock": [Function],
+                  "lockTarget": 1,
+                  "options": Object {
+                    "container": <body
+                      class="ant-scrolling-effect"
+                      style="overflow: hidden; overflow-x: hidden; overflow-y: hidden;"
+                    >
+                      <div>
+                        <div
+                          class="ant-modal-root"
+                        >
+                          <div
+                            class="ant-modal-mask"
+                          />
+                          <div
+                            class="ant-modal-wrap"
+                            role="dialog"
+                            tabindex="-1"
+                          >
+                            <div
+                              class="ant-modal modal"
+                              role="document"
+                              style="width: 765px;"
+                            >
+                              <div
+                                aria-hidden="true"
+                                style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                tabindex="0"
+                              />
+                              <div
+                                class="ant-modal-content"
+                              >
+                                <button
+                                  aria-label="Close"
+                                  class="ant-modal-close"
+                                  type="button"
+                                >
+                                  <span
+                                    class="ant-modal-close-x"
+                                  >
+                                    <span
+                                      aria-label="close"
+                                      class="anticon anticon-close ant-modal-close-icon"
+                                      role="img"
+                                    >
+                                      <svg
+                                        fill="currentColor"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        stroke-width="0"
+                                        viewBox="0 0 1024 1024"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                        />
+                                        <path
+                                          d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </button>
+                                <div
+                                  class="ant-modal-body"
+                                >
+                                  <form
+                                    class="ant-form ant-form-vertical ant-form-large form"
+                                  >
+                                    <div
+                                      class="ant-row ant-form-item"
+                                    >
+                                      <div
+                                        class="ant-col ant-form-item-label"
+                                      >
+                                        <label
+                                          class=""
+                                          for="report_note"
+                                          title="Report Note"
+                                        >
+                                          Report Note
+                                        </label>
+                                      </div>
+                                      <div
+                                        class="ant-col ant-form-item-control"
+                                      >
+                                        <div
+                                          class="ant-form-item-control-input"
+                                        >
+                                          <div
+                                            class="ant-form-item-control-input-content"
+                                          >
+                                            <textarea
+                                              class="ant-input ant-input-lg"
+                                              id="report_note"
+                                              name="report_note"
+                                              placeholder="Fill out how you want to promote this product"
+                                              rows="5"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="actions"
+                                    >
+                                      <div>
+                                        <button
+                                          class="ant-btn ant-btn-lg"
+                                          type="button"
+                                        />
+                                        <button
+                                          class="ant-btn ant-btn-lg"
+                                          type="button"
+                                        />
+                                        <p>
+                                          <span
+                                            class="ant-typography"
+                                          >
+                                            Upload Evidence
+                                          </span>
+                                        </p>
+                                      </div>
+                                      <div
+                                        class="submit__btn"
+                                      >
+                                        <button
+                                          class="ant-btn ant-btn-lg"
+                                          type="submit"
+                                        >
+                                          <span>
+                                            Send
+                                          </span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <div
+                                aria-hidden="true"
+                                style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                tabindex="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </body>,
+                  },
+                  "reLock": [Function],
+                  "unLock": [Function],
+                }
+              }
+              switchScrollingEffect={[Function]}
+              title={null}
+              transitionName="ant-zoom"
+              visible={true}
+              width={765}
+              wrapClassName=""
+            >
+              <div
+                className="ant-modal-root"
+              >
+                <Mask
+                  motionName="ant-fade"
+                  prefixCls="ant-modal"
+                  style={
+                    Object {
+                      "zIndex": undefined,
+                    }
+                  }
+                  visible={true}
+                >
+                  <CSSMotion
+                    key="mask"
+                    leavedClassName="ant-modal-mask-hidden"
+                    motionName="ant-fade"
+                    visible={true}
+                  >
+                    <DomWrapper>
+                      <div
+                        className="ant-modal-mask"
+                        style={
+                          Object {
+                            "zIndex": undefined,
+                          }
+                        }
+                      />
+                    </DomWrapper>
+                  </CSSMotion>
+                </Mask>
+                <div
+                  aria-labelledby={null}
+                  className="ant-modal-wrap"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="dialog"
+                  style={
+                    Object {
+                      "display": null,
+                      "zIndex": undefined,
+                    }
+                  }
+                  tabIndex={-1}
+                >
+                  <Content
+                    afterClose={[Function]}
+                    ariaId="rcDialogTitle0"
+                    className="modal"
+                    closable={true}
+                    closeIcon={
+                      <span
+                        className="ant-modal-close-x"
+                      >
+                        <CloseIcon />
+                      </span>
+                    }
+                    confirmLoading={false}
+                    destroyOnClose={false}
+                    focusTriggerAfterClose={true}
+                    footer={null}
+                    getContainer={[Function]}
+                    getOpenCount={[Function]}
+                    maskTransitionName="ant-fade"
+                    motionName="ant-zoom"
+                    okType="primary"
+                    onCancel={[MockFunction]}
+                    onClose={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseUp={[Function]}
+                    onVisibleChanged={[Function]}
+                    prefixCls="ant-modal"
+                    scrollLocker={
+                      ScrollLocker {
+                        "getContainer": [Function],
+                        "lock": [Function],
+                        "lockTarget": 1,
+                        "options": Object {
+                          "container": <body
+                            class="ant-scrolling-effect"
+                            style="overflow: hidden; overflow-x: hidden; overflow-y: hidden;"
+                          >
+                            <div>
+                              <div
+                                class="ant-modal-root"
+                              >
+                                <div
+                                  class="ant-modal-mask"
+                                />
+                                <div
+                                  class="ant-modal-wrap"
+                                  role="dialog"
+                                  tabindex="-1"
+                                >
+                                  <div
+                                    class="ant-modal modal"
+                                    role="document"
+                                    style="width: 765px;"
+                                  >
+                                    <div
+                                      aria-hidden="true"
+                                      style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                      tabindex="0"
+                                    />
+                                    <div
+                                      class="ant-modal-content"
+                                    >
+                                      <button
+                                        aria-label="Close"
+                                        class="ant-modal-close"
+                                        type="button"
+                                      >
+                                        <span
+                                          class="ant-modal-close-x"
+                                        >
+                                          <span
+                                            aria-label="close"
+                                            class="anticon anticon-close ant-modal-close-icon"
+                                            role="img"
+                                          >
+                                            <svg
+                                              fill="currentColor"
+                                              height="1em"
+                                              stroke="currentColor"
+                                              stroke-width="0"
+                                              viewBox="0 0 1024 1024"
+                                              width="1em"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                              />
+                                              <path
+                                                d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </span>
+                                      </button>
+                                      <div
+                                        class="ant-modal-body"
+                                      >
+                                        <form
+                                          class="ant-form ant-form-vertical ant-form-large form"
+                                        >
+                                          <div
+                                            class="ant-row ant-form-item"
+                                          >
+                                            <div
+                                              class="ant-col ant-form-item-label"
+                                            >
+                                              <label
+                                                class=""
+                                                for="report_note"
+                                                title="Report Note"
+                                              >
+                                                Report Note
+                                              </label>
+                                            </div>
+                                            <div
+                                              class="ant-col ant-form-item-control"
+                                            >
+                                              <div
+                                                class="ant-form-item-control-input"
+                                              >
+                                                <div
+                                                  class="ant-form-item-control-input-content"
+                                                >
+                                                  <textarea
+                                                    class="ant-input ant-input-lg"
+                                                    id="report_note"
+                                                    name="report_note"
+                                                    placeholder="Fill out how you want to promote this product"
+                                                    rows="5"
+                                                  />
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="actions"
+                                          >
+                                            <div>
+                                              <button
+                                                class="ant-btn ant-btn-lg"
+                                                type="button"
+                                              />
+                                              <button
+                                                class="ant-btn ant-btn-lg"
+                                                type="button"
+                                              />
+                                              <p>
+                                                <span
+                                                  class="ant-typography"
+                                                >
+                                                  Upload Evidence
+                                                </span>
+                                              </p>
+                                            </div>
+                                            <div
+                                              class="submit__btn"
+                                            >
+                                              <button
+                                                class="ant-btn ant-btn-lg"
+                                                type="submit"
+                                              >
+                                                <span>
+                                                  Send
+                                                </span>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                    <div
+                                      aria-hidden="true"
+                                      style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                      tabindex="0"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </body>,
+                        },
+                        "reLock": [Function],
+                        "unLock": [Function],
+                      }
+                    }
+                    switchScrollingEffect={[Function]}
+                    title={null}
+                    transitionName="ant-zoom"
+                    visible={true}
+                    width={765}
+                    wrapClassName=""
+                  >
+                    <CSSMotion
+                      motionName="ant-zoom"
+                      onAppearPrepare={[Function]}
+                      onEnterPrepare={[Function]}
+                      onVisibleChanged={[Function]}
+                      removeOnLeave={false}
+                      visible={true}
+                    >
+                      <DomWrapper>
+                        <div
+                          className="ant-modal modal"
+                          key="dialog-element"
+                          onMouseDown={[Function]}
+                          onMouseUp={[Function]}
+                          role="document"
+                          style={
+                            Object {
+                              "width": 765,
+                            }
+                          }
+                        >
+                          <div
+                            aria-hidden="true"
+                            style={
+                              Object {
+                                "height": 0,
+                                "outline": "none",
+                                "overflow": "hidden",
+                                "width": 0,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                          <Component
+                            shouldUpdate={true}
+                          >
+                            <div
+                              className="ant-modal-content"
+                            >
+                              <button
+                                aria-label="Close"
+                                className="ant-modal-close"
+                                onClick={[Function]}
+                                type="button"
+                              >
+                                <span
+                                  className="ant-modal-close-x"
+                                >
+                                  <CloseIcon>
+                                    <span
+                                      aria-label="close"
+                                      className="anticon anticon-close ant-modal-close-icon"
+                                      role="img"
+                                    >
+                                      <AiOutlineCloseCircle>
+                                        <IconBase
+                                          attr={
+                                            Object {
+                                              "viewBox": "0 0 1024 1024",
+                                            }
+                                          }
+                                        >
+                                          <svg
+                                            fill="currentColor"
+                                            height="1em"
+                                            stroke="currentColor"
+                                            strokeWidth="0"
+                                            style={
+                                              Object {
+                                                "color": undefined,
+                                              }
+                                            }
+                                            viewBox="0 0 1024 1024"
+                                            width="1em"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                              key="0"
+                                            />
+                                            <path
+                                              d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                              key="1"
+                                            />
+                                          </svg>
+                                        </IconBase>
+                                      </AiOutlineCloseCircle>
+                                    </span>
+                                  </CloseIcon>
+                                </span>
+                              </button>
+                              <div
+                                className="ant-modal-body"
+                              >
+                                <Formik
+                                  initialValues={
+                                    Object {
+                                      "report_note": "",
+                                    }
+                                  }
+                                  onSubmit={[Function]}
+                                  validationSchema={
+                                    ObjectSchema {
+                                      "_blacklist": ReferenceSet {
+                                        "list": Set {},
+                                        "refs": Map {},
+                                      },
+                                      "_excludedEdges": Array [],
+                                      "_mutate": undefined,
+                                      "_nodes": Array [
+                                        "report_note",
+                                      ],
+                                      "_sortErrors": [Function],
+                                      "_typeError": [Function],
+                                      "_whitelist": ReferenceSet {
+                                        "list": Set {},
+                                        "refs": Map {},
+                                      },
+                                      "conditions": Array [],
+                                      "deps": Array [],
+                                      "exclusiveTests": Object {},
+                                      "fields": Object {
+                                        "report_note": StringSchema {
+                                          "_blacklist": ReferenceSet {
+                                            "list": Set {},
+                                            "refs": Map {},
+                                          },
+                                          "_blacklistError": undefined,
+                                          "_mutate": undefined,
+                                          "_typeError": [Function],
+                                          "_whitelist": ReferenceSet {
+                                            "list": Set {},
+                                            "refs": Map {},
+                                          },
+                                          "_whitelistError": undefined,
+                                          "conditions": Array [],
+                                          "deps": Array [],
+                                          "exclusiveTests": Object {
+                                            "required": true,
+                                          },
+                                          "spec": Object {
+                                            "abortEarly": true,
+                                            "nullable": false,
+                                            "presence": "required",
+                                            "recursive": true,
+                                            "strict": false,
+                                            "strip": false,
+                                          },
+                                          "tests": Array [
+                                            [Function],
+                                          ],
+                                          "transforms": Array [
+                                            [Function],
+                                          ],
+                                          "type": "string",
+                                        },
+                                      },
+                                      "spec": Object {
+                                        "abortEarly": true,
+                                        "nullable": false,
+                                        "presence": "optional",
+                                        "recursive": true,
+                                        "strict": false,
+                                        "strip": false,
+                                      },
+                                      "tests": Array [],
+                                      "transforms": Array [
+                                        [Function],
+                                      ],
+                                      "type": "object",
+                                    }
+                                  }
+                                >
+                                  <ForwardRef(InternalForm)
+                                    className="form"
+                                    layout="vertical"
+                                    onFinish={[Function]}
+                                    size="large"
+                                  >
+                                    <SizeContextProvider
+                                      size="large"
+                                    >
+                                      <ForwardRef(Form)
+                                        className="ant-form ant-form-vertical ant-form-large form"
+                                        form={
+                                          Object {
+                                            "__INTERNAL__": Object {
+                                              "itemRef": [Function],
+                                              "name": undefined,
+                                            },
+                                            "getFieldError": [Function],
+                                            "getFieldInstance": [Function],
+                                            "getFieldValue": [Function],
+                                            "getFieldWarning": [Function],
+                                            "getFieldsError": [Function],
+                                            "getFieldsValue": [Function],
+                                            "getInternalHooks": [Function],
+                                            "isFieldTouched": [Function],
+                                            "isFieldValidating": [Function],
+                                            "isFieldsTouched": [Function],
+                                            "isFieldsValidating": [Function],
+                                            "resetFields": [Function],
+                                            "scrollToField": [Function],
+                                            "setFields": [Function],
+                                            "setFieldsValue": [Function],
+                                            "submit": [Function],
+                                            "validateFields": [Function],
+                                          }
+                                        }
+                                        onFinish={[Function]}
+                                        onFinishFailed={[Function]}
+                                      >
+                                        <form
+                                          className="ant-form ant-form-vertical ant-form-large form"
+                                          onReset={[Function]}
+                                          onSubmit={[Function]}
+                                        >
+                                          <FormItem
+                                            label="Report Note"
+                                            name="report_note"
+                                          >
+                                            <WrapperField
+                                              label="Report Note"
+                                              messageVariables={
+                                                Object {
+                                                  "label": "Report Note",
+                                                }
+                                              }
+                                              name="report_note"
+                                              onMetaChange={[Function]}
+                                              trigger="onChange"
+                                              validateTrigger="onChange"
+                                            >
+                                              <Field
+                                                fieldContext={
+                                                  Object {
+                                                    "__INTERNAL__": Object {
+                                                      "itemRef": [Function],
+                                                      "name": undefined,
+                                                    },
+                                                    "getFieldError": [Function],
+                                                    "getFieldInstance": [Function],
+                                                    "getFieldValue": [Function],
+                                                    "getFieldWarning": [Function],
+                                                    "getFieldsError": [Function],
+                                                    "getFieldsValue": [Function],
+                                                    "getInternalHooks": [Function],
+                                                    "isFieldTouched": [Function],
+                                                    "isFieldValidating": [Function],
+                                                    "isFieldsTouched": [Function],
+                                                    "isFieldsValidating": [Function],
+                                                    "resetFields": [Function],
+                                                    "scrollToField": [Function],
+                                                    "setFields": [Function],
+                                                    "setFieldsValue": [Function],
+                                                    "submit": [Function],
+                                                    "validateFields": [Function],
+                                                    "validateTrigger": "onChange",
+                                                  }
+                                                }
+                                                key="_report_note"
+                                                label="Report Note"
+                                                messageVariables={
+                                                  Object {
+                                                    "label": "Report Note",
+                                                  }
+                                                }
+                                                name={
+                                                  Array [
+                                                    "report_note",
+                                                  ]
+                                                }
+                                                onMetaChange={[Function]}
+                                                trigger="onChange"
+                                                validateTrigger="onChange"
+                                                valuePropName="value"
+                                              >
+                                                <Row
+                                                  className="ant-form-item"
+                                                  key="row"
+                                                >
+                                                  <div
+                                                    className="ant-row ant-form-item"
+                                                    style={Object {}}
+                                                  >
+                                                    <FormItemLabel
+                                                      htmlFor="report_note"
+                                                      label="Report Note"
+                                                      name="report_note"
+                                                      prefixCls="ant-form"
+                                                      required={false}
+                                                      requiredMark={true}
+                                                    >
+                                                      <Col
+                                                        className="ant-form-item-label"
+                                                      >
+                                                        <div
+                                                          className="ant-col ant-form-item-label"
+                                                          style={Object {}}
+                                                        >
+                                                          <label
+                                                            className=""
+                                                            htmlFor="report_note"
+                                                            title="Report Note"
+                                                          >
+                                                            Report Note
+                                                          </label>
+                                                        </div>
+                                                      </Col>
+                                                    </FormItemLabel>
+                                                    <FormItemInput
+                                                      errors={Array []}
+                                                      label="Report Note"
+                                                      name={Array []}
+                                                      prefixCls="ant-form"
+                                                      status=""
+                                                      touched={false}
+                                                      validateStatus=""
+                                                      validating={false}
+                                                      warnings={Array []}
+                                                    >
+                                                      <Col
+                                                        className="ant-form-item-control"
+                                                      >
+                                                        <div
+                                                          className="ant-col ant-form-item-control"
+                                                          style={Object {}}
+                                                        >
+                                                          <div
+                                                            className="ant-form-item-control-input"
+                                                          >
+                                                            <div
+                                                              className="ant-form-item-control-input-content"
+                                                            >
+                                                              <Component
+                                                                update={
+                                                                  <ForwardRef
+                                                                    name="report_note"
+                                                                    onBlur={[Function]}
+                                                                    onChange={[Function]}
+                                                                    placeholder="Fill out how you want to promote this product"
+                                                                    rows={5}
+                                                                    value=""
+                                                                  />
+                                                                }
+                                                              >
+                                                                <ForwardRef
+                                                                  id="report_note"
+                                                                  name="report_note"
+                                                                  onBlur={[Function]}
+                                                                  onChange={[Function]}
+                                                                  placeholder="Fill out how you want to promote this product"
+                                                                  rows={5}
+                                                                >
+                                                                  <ClearableLabeledInput
+                                                                    bordered={true}
+                                                                    element={
+                                                                      <TextArea
+                                                                        className="ant-input-lg"
+                                                                        id="report_note"
+                                                                        name="report_note"
+                                                                        onBlur={[Function]}
+                                                                        onChange={[Function]}
+                                                                        onCompositionEnd={[Function]}
+                                                                        onCompositionStart={[Function]}
+                                                                        placeholder="Fill out how you want to promote this product"
+                                                                        prefixCls="ant-input"
+                                                                        rows={5}
+                                                                      />
+                                                                    }
+                                                                    handleReset={[Function]}
+                                                                    id="report_note"
+                                                                    inputType="text"
+                                                                    name="report_note"
+                                                                    onBlur={[Function]}
+                                                                    placeholder="Fill out how you want to promote this product"
+                                                                    prefixCls="ant-input"
+                                                                    rows={5}
+                                                                    value=""
+                                                                  >
+                                                                    <TextArea
+                                                                      className="ant-input-lg"
+                                                                      id="report_note"
+                                                                      name="report_note"
+                                                                      onBlur={[Function]}
+                                                                      onChange={[Function]}
+                                                                      onCompositionEnd={[Function]}
+                                                                      onCompositionStart={[Function]}
+                                                                      placeholder="Fill out how you want to promote this product"
+                                                                      prefixCls="ant-input"
+                                                                      rows={5}
+                                                                      value=""
+                                                                    >
+                                                                      <ResizableTextArea
+                                                                        className="ant-input-lg"
+                                                                        id="report_note"
+                                                                        name="report_note"
+                                                                        onBlur={[Function]}
+                                                                        onChange={[Function]}
+                                                                        onCompositionEnd={[Function]}
+                                                                        onCompositionStart={[Function]}
+                                                                        onKeyDown={[Function]}
+                                                                        placeholder="Fill out how you want to promote this product"
+                                                                        prefixCls="ant-input"
+                                                                        rows={5}
+                                                                        value=""
+                                                                      >
+                                                                        <ResizeObserver
+                                                                          disabled={true}
+                                                                          onResize={[Function]}
+                                                                        >
+                                                                          <SingleObserver
+                                                                            disabled={true}
+                                                                            key="rc-observer-key-0"
+                                                                            onResize={[Function]}
+                                                                          >
+                                                                            <DomWrapper>
+                                                                              <textarea
+                                                                                className="ant-input ant-input-lg"
+                                                                                id="report_note"
+                                                                                name="report_note"
+                                                                                onBlur={[Function]}
+                                                                                onChange={[Function]}
+                                                                                onCompositionEnd={[Function]}
+                                                                                onCompositionStart={[Function]}
+                                                                                onKeyDown={[Function]}
+                                                                                placeholder="Fill out how you want to promote this product"
+                                                                                rows={5}
+                                                                                style={Object {}}
+                                                                                value=""
+                                                                              />
+                                                                            </DomWrapper>
+                                                                          </SingleObserver>
+                                                                        </ResizeObserver>
+                                                                      </ResizableTextArea>
+                                                                    </TextArea>
+                                                                  </ClearableLabeledInput>
+                                                                </ForwardRef>
+                                                              </Component>
+                                                            </div>
+                                                          </div>
+                                                          <ErrorList
+                                                            className="ant-form-item-explain-connected"
+                                                            errors={Array []}
+                                                            helpStatus=""
+                                                            warnings={Array []}
+                                                          >
+                                                            <CSSMotion
+                                                              motionAppear={false}
+                                                              motionDeadline={500}
+                                                              motionEnter={false}
+                                                              motionName="ant-show-help"
+                                                              onAppearActive={[Function]}
+                                                              onAppearEnd={[Function]}
+                                                              onAppearStart={[Function]}
+                                                              onEnterActive={[Function]}
+                                                              onEnterEnd={[Function]}
+                                                              onEnterStart={[Function]}
+                                                              onLeaveActive={[Function]}
+                                                              onLeaveEnd={[Function]}
+                                                              onLeaveStart={[Function]}
+                                                              visible={false}
+                                                            >
+                                                              <DomWrapper />
+                                                            </CSSMotion>
+                                                          </ErrorList>
+                                                        </div>
+                                                      </Col>
+                                                    </FormItemInput>
+                                                  </div>
+                                                </Row>
+                                              </Field>
+                                            </WrapperField>
+                                          </FormItem>
+                                          <div
+                                            className="actions"
+                                          >
+                                            <div>
+                                              <Button>
+                                                <Wave
+                                                  disabled={false}
+                                                >
+                                                  <button
+                                                    className="ant-btn ant-btn-lg"
+                                                    onClick={[Function]}
+                                                    type="button"
+                                                  >
+                                                    <LoadingIcon
+                                                      existIcon={false}
+                                                      loading={false}
+                                                      prefixCls="ant-btn"
+                                                    >
+                                                      <CSSMotion
+                                                        motionName="ant-btn-loading-icon-motion"
+                                                        onAppearActive={[Function]}
+                                                        onAppearStart={[Function]}
+                                                        onEnterActive={[Function]}
+                                                        onEnterStart={[Function]}
+                                                        onLeaveActive={[Function]}
+                                                        onLeaveStart={[Function]}
+                                                        removeOnLeave={true}
+                                                        visible={false}
+                                                      >
+                                                        <DomWrapper />
+                                                      </CSSMotion>
+                                                    </LoadingIcon>
+                                                  </button>
+                                                </Wave>
+                                              </Button>
+                                              <Button>
+                                                <Wave
+                                                  disabled={false}
+                                                >
+                                                  <button
+                                                    className="ant-btn ant-btn-lg"
+                                                    onClick={[Function]}
+                                                    type="button"
+                                                  >
+                                                    <LoadingIcon
+                                                      existIcon={false}
+                                                      loading={false}
+                                                      prefixCls="ant-btn"
+                                                    >
+                                                      <CSSMotion
+                                                        motionName="ant-btn-loading-icon-motion"
+                                                        onAppearActive={[Function]}
+                                                        onAppearStart={[Function]}
+                                                        onEnterActive={[Function]}
+                                                        onEnterStart={[Function]}
+                                                        onLeaveActive={[Function]}
+                                                        onLeaveStart={[Function]}
+                                                        removeOnLeave={true}
+                                                        visible={false}
+                                                      >
+                                                        <DomWrapper />
+                                                      </CSSMotion>
+                                                    </LoadingIcon>
+                                                  </button>
+                                                </Wave>
+                                              </Button>
+                                              <p>
+                                                <Text>
+                                                  <ForwardRef
+                                                    component="span"
+                                                  >
+                                                    <ResizeObserver
+                                                      disabled={true}
+                                                      onResize={[Function]}
+                                                    >
+                                                      <SingleObserver
+                                                        disabled={true}
+                                                        key="rc-observer-key-0"
+                                                        onResize={[Function]}
+                                                      >
+                                                        <DomWrapper>
+                                                          <EllipsisTooltip
+                                                            enabledEllipsis={false}
+                                                            isEllipsis={false}
+                                                          >
+                                                            <Typography
+                                                              className=""
+                                                              component="span"
+                                                              onClick={null}
+                                                              style={
+                                                                Object {
+                                                                  "WebkitLineClamp": undefined,
+                                                                }
+                                                              }
+                                                            >
+                                                              <span
+                                                                className="ant-typography"
+                                                                onClick={null}
+                                                                style={
+                                                                  Object {
+                                                                    "WebkitLineClamp": undefined,
+                                                                  }
+                                                                }
+                                                              >
+                                                                <Ellipsis
+                                                                  enabledMeasure={false}
+                                                                  onEllipsis={[Function]}
+                                                                  rows={1}
+                                                                  text="Upload Evidence"
+                                                                  width={0}
+                                                                >
+                                                                  Upload Evidence
+                                                                </Ellipsis>
+                                                              </span>
+                                                            </Typography>
+                                                          </EllipsisTooltip>
+                                                        </DomWrapper>
+                                                      </SingleObserver>
+                                                    </ResizeObserver>
+                                                  </ForwardRef>
+                                                </Text>
+                                              </p>
+                                            </div>
+                                            <div
+                                              className="submit__btn"
+                                            >
+                                              <Button
+                                                htmlType="submit"
+                                                loading={false}
+                                              >
+                                                <Wave
+                                                  disabled={false}
+                                                >
+                                                  <button
+                                                    className="ant-btn ant-btn-lg"
+                                                    onClick={[Function]}
+                                                    type="submit"
+                                                  >
+                                                    <LoadingIcon
+                                                      existIcon={false}
+                                                      loading={false}
+                                                      prefixCls="ant-btn"
+                                                    >
+                                                      <CSSMotion
+                                                        motionName="ant-btn-loading-icon-motion"
+                                                        onAppearActive={[Function]}
+                                                        onAppearStart={[Function]}
+                                                        onEnterActive={[Function]}
+                                                        onEnterStart={[Function]}
+                                                        onLeaveActive={[Function]}
+                                                        onLeaveStart={[Function]}
+                                                        removeOnLeave={true}
+                                                        visible={false}
+                                                      >
+                                                        <DomWrapper />
+                                                      </CSSMotion>
+                                                    </LoadingIcon>
+                                                    <span
+                                                      key=".0"
+                                                    >
+                                                      Send
+                                                    </span>
+                                                  </button>
+                                                </Wave>
+                                              </Button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                      </ForwardRef(Form)>
+                                    </SizeContextProvider>
+                                  </ForwardRef(InternalForm)>
+                                </Formik>
+                              </div>
+                            </div>
+                          </Component>
+                          <div
+                            aria-hidden="true"
+                            style={
+                              Object {
+                                "height": 0,
+                                "outline": "none",
+                                "overflow": "hidden",
+                                "width": 0,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </div>
+                      </DomWrapper>
+                    </CSSMotion>
+                  </Content>
+                </div>
+              </div>
+            </Dialog>
+          </Portal>
+        </ForwardRef>
+      </PortalWrapper>
+    </Dialog>
+  </Modal>
+</ReportAffiliate>
+`;
