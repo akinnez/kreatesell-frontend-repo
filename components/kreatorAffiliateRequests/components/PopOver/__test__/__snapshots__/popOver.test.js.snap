@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <PopOver />  1`] = `
+<button
+  className="ant-btn ant-btn-link btn"
+  onClick={[Function]}
+  onMouseDown={[Function]}
+  onTouchStart={[Function]}
+  type="button"
+>
+  <svg
+    fill="currentColor"
+    height="1em"
+    stroke="currentColor"
+    strokeWidth="0"
+    style={
+      Object {
+        "color": undefined,
+      }
+    }
+    viewBox="0 0 512 512"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="256"
+      cy="256"
+      r="48"
+    />
+    <circle
+      cx="256"
+      cy="416"
+      r="48"
+    />
+    <circle
+      cx="256"
+      cy="96"
+      r="48"
+    />
+  </svg>
+  <span>
+    mock name
+  </span>
+</button>
+`;
