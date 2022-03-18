@@ -1,0 +1,755 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AffiliateNote:  renders a snapshot of <AffiliateNote /> when notes is false 1`] = `
+<AffiliateNote
+  affiliateNote="mockNote"
+  hideNotes={[MockFunction]}
+  notes={false}
+>
+  <Modal
+    className="modal"
+    closeIcon={<CloseIcon />}
+    confirmLoading={false}
+    footer={null}
+    okType="primary"
+    onCancel={[MockFunction]}
+    title={null}
+    visible={false}
+    width={765}
+  >
+    <Dialog
+      className="modal"
+      closeIcon={
+        <span
+          className="ant-modal-close-x"
+        >
+          <CloseIcon />
+        </span>
+      }
+      confirmLoading={false}
+      focusTriggerAfterClose={true}
+      footer={null}
+      maskTransitionName="ant-fade"
+      okType="primary"
+      onCancel={[MockFunction]}
+      onClose={[Function]}
+      prefixCls="ant-modal"
+      title={null}
+      transitionName="ant-zoom"
+      visible={false}
+      width={765}
+      wrapClassName=""
+    >
+      <PortalWrapper
+        visible={false}
+      />
+    </Dialog>
+  </Modal>
+</AffiliateNote>
+`;
+
+exports[`AffiliateNote:  renders a snapshot of <AffiliateNote /> when notes is true 1`] = `
+<AffiliateNote
+  affiliateNote="mockNote"
+  hideNotes={[MockFunction]}
+  notes={true}
+>
+  <Modal
+    className="modal"
+    closeIcon={<CloseIcon />}
+    confirmLoading={false}
+    footer={null}
+    okType="primary"
+    onCancel={[MockFunction]}
+    title={null}
+    visible={true}
+    width={765}
+  >
+    <Dialog
+      className="modal"
+      closeIcon={
+        <span
+          className="ant-modal-close-x"
+        >
+          <CloseIcon />
+        </span>
+      }
+      confirmLoading={false}
+      focusTriggerAfterClose={true}
+      footer={null}
+      maskTransitionName="ant-fade"
+      okType="primary"
+      onCancel={[MockFunction]}
+      onClose={[Function]}
+      prefixCls="ant-modal"
+      title={null}
+      transitionName="ant-zoom"
+      visible={true}
+      width={765}
+      wrapClassName=""
+    >
+      <PortalWrapper
+        visible={true}
+      >
+        <ForwardRef
+          getContainer={[Function]}
+        >
+          <Portal
+            containerInfo={
+              <div>
+                <div
+                  class="ant-modal-root"
+                >
+                  <div
+                    class="ant-modal-mask"
+                  />
+                  <div
+                    class="ant-modal-wrap"
+                    role="dialog"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="ant-modal modal"
+                      role="document"
+                      style="width: 765px;"
+                    >
+                      <div
+                        aria-hidden="true"
+                        style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                        tabindex="0"
+                      />
+                      <div
+                        class="ant-modal-content"
+                      >
+                        <button
+                          aria-label="Close"
+                          class="ant-modal-close"
+                          type="button"
+                        >
+                          <span
+                            class="ant-modal-close-x"
+                          >
+                            <span
+                              aria-label="close"
+                              class="anticon anticon-close ant-modal-close-icon"
+                              role="img"
+                            >
+                              <svg
+                                fill="currentColor"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-width="0"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                />
+                                <path
+                                  d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </button>
+                        <div
+                          class="ant-modal-body"
+                        >
+                          <header
+                            class="header"
+                          >
+                            <h2
+                              class="ant-typography"
+                            >
+                              Affiliate Note
+                            </h2>
+                          </header>
+                          <div
+                            class="note"
+                          >
+                            <p>
+                              <span
+                                class="ant-typography"
+                              >
+                                mockNote
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        aria-hidden="true"
+                        style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                        tabindex="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <Dialog
+              afterClose={[Function]}
+              className="modal"
+              closeIcon={
+                <span
+                  className="ant-modal-close-x"
+                >
+                  <CloseIcon />
+                </span>
+              }
+              confirmLoading={false}
+              destroyOnClose={false}
+              focusTriggerAfterClose={true}
+              footer={null}
+              getContainer={[Function]}
+              getOpenCount={[Function]}
+              maskTransitionName="ant-fade"
+              okType="primary"
+              onCancel={[MockFunction]}
+              onClose={[Function]}
+              prefixCls="ant-modal"
+              scrollLocker={
+                ScrollLocker {
+                  "getContainer": [Function],
+                  "lock": [Function],
+                  "lockTarget": 1,
+                  "options": Object {
+                    "container": <body
+                      class="ant-scrolling-effect"
+                      style="overflow: hidden; overflow-x: hidden; overflow-y: hidden;"
+                    >
+                      <div>
+                        <div
+                          class="ant-modal-root"
+                        >
+                          <div
+                            class="ant-modal-mask"
+                          />
+                          <div
+                            class="ant-modal-wrap"
+                            role="dialog"
+                            tabindex="-1"
+                          >
+                            <div
+                              class="ant-modal modal"
+                              role="document"
+                              style="width: 765px;"
+                            >
+                              <div
+                                aria-hidden="true"
+                                style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                tabindex="0"
+                              />
+                              <div
+                                class="ant-modal-content"
+                              >
+                                <button
+                                  aria-label="Close"
+                                  class="ant-modal-close"
+                                  type="button"
+                                >
+                                  <span
+                                    class="ant-modal-close-x"
+                                  >
+                                    <span
+                                      aria-label="close"
+                                      class="anticon anticon-close ant-modal-close-icon"
+                                      role="img"
+                                    >
+                                      <svg
+                                        fill="currentColor"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        stroke-width="0"
+                                        viewBox="0 0 1024 1024"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                        />
+                                        <path
+                                          d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </button>
+                                <div
+                                  class="ant-modal-body"
+                                >
+                                  <header
+                                    class="header"
+                                  >
+                                    <h2
+                                      class="ant-typography"
+                                    >
+                                      Affiliate Note
+                                    </h2>
+                                  </header>
+                                  <div
+                                    class="note"
+                                  >
+                                    <p>
+                                      <span
+                                        class="ant-typography"
+                                      >
+                                        mockNote
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                aria-hidden="true"
+                                style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                tabindex="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </body>,
+                  },
+                  "reLock": [Function],
+                  "unLock": [Function],
+                }
+              }
+              switchScrollingEffect={[Function]}
+              title={null}
+              transitionName="ant-zoom"
+              visible={true}
+              width={765}
+              wrapClassName=""
+            >
+              <div
+                className="ant-modal-root"
+              >
+                <Mask
+                  motionName="ant-fade"
+                  prefixCls="ant-modal"
+                  style={
+                    Object {
+                      "zIndex": undefined,
+                    }
+                  }
+                  visible={true}
+                >
+                  <CSSMotion
+                    key="mask"
+                    leavedClassName="ant-modal-mask-hidden"
+                    motionName="ant-fade"
+                    visible={true}
+                  >
+                    <DomWrapper>
+                      <div
+                        className="ant-modal-mask"
+                        style={
+                          Object {
+                            "zIndex": undefined,
+                          }
+                        }
+                      />
+                    </DomWrapper>
+                  </CSSMotion>
+                </Mask>
+                <div
+                  aria-labelledby={null}
+                  className="ant-modal-wrap"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="dialog"
+                  style={
+                    Object {
+                      "display": null,
+                      "zIndex": undefined,
+                    }
+                  }
+                  tabIndex={-1}
+                >
+                  <Content
+                    afterClose={[Function]}
+                    ariaId="rcDialogTitle0"
+                    className="modal"
+                    closable={true}
+                    closeIcon={
+                      <span
+                        className="ant-modal-close-x"
+                      >
+                        <CloseIcon />
+                      </span>
+                    }
+                    confirmLoading={false}
+                    destroyOnClose={false}
+                    focusTriggerAfterClose={true}
+                    footer={null}
+                    getContainer={[Function]}
+                    getOpenCount={[Function]}
+                    maskTransitionName="ant-fade"
+                    motionName="ant-zoom"
+                    okType="primary"
+                    onCancel={[MockFunction]}
+                    onClose={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseUp={[Function]}
+                    onVisibleChanged={[Function]}
+                    prefixCls="ant-modal"
+                    scrollLocker={
+                      ScrollLocker {
+                        "getContainer": [Function],
+                        "lock": [Function],
+                        "lockTarget": 1,
+                        "options": Object {
+                          "container": <body
+                            class="ant-scrolling-effect"
+                            style="overflow: hidden; overflow-x: hidden; overflow-y: hidden;"
+                          >
+                            <div>
+                              <div
+                                class="ant-modal-root"
+                              >
+                                <div
+                                  class="ant-modal-mask"
+                                />
+                                <div
+                                  class="ant-modal-wrap"
+                                  role="dialog"
+                                  tabindex="-1"
+                                >
+                                  <div
+                                    class="ant-modal modal"
+                                    role="document"
+                                    style="width: 765px;"
+                                  >
+                                    <div
+                                      aria-hidden="true"
+                                      style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                      tabindex="0"
+                                    />
+                                    <div
+                                      class="ant-modal-content"
+                                    >
+                                      <button
+                                        aria-label="Close"
+                                        class="ant-modal-close"
+                                        type="button"
+                                      >
+                                        <span
+                                          class="ant-modal-close-x"
+                                        >
+                                          <span
+                                            aria-label="close"
+                                            class="anticon anticon-close ant-modal-close-icon"
+                                            role="img"
+                                          >
+                                            <svg
+                                              fill="currentColor"
+                                              height="1em"
+                                              stroke="currentColor"
+                                              stroke-width="0"
+                                              viewBox="0 0 1024 1024"
+                                              width="1em"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                              />
+                                              <path
+                                                d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </span>
+                                      </button>
+                                      <div
+                                        class="ant-modal-body"
+                                      >
+                                        <header
+                                          class="header"
+                                        >
+                                          <h2
+                                            class="ant-typography"
+                                          >
+                                            Affiliate Note
+                                          </h2>
+                                        </header>
+                                        <div
+                                          class="note"
+                                        >
+                                          <p>
+                                            <span
+                                              class="ant-typography"
+                                            >
+                                              mockNote
+                                            </span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      aria-hidden="true"
+                                      style="width: 0px; height: 0px; overflow: hidden; outline: none;"
+                                      tabindex="0"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </body>,
+                        },
+                        "reLock": [Function],
+                        "unLock": [Function],
+                      }
+                    }
+                    switchScrollingEffect={[Function]}
+                    title={null}
+                    transitionName="ant-zoom"
+                    visible={true}
+                    width={765}
+                    wrapClassName=""
+                  >
+                    <CSSMotion
+                      motionName="ant-zoom"
+                      onAppearPrepare={[Function]}
+                      onEnterPrepare={[Function]}
+                      onVisibleChanged={[Function]}
+                      removeOnLeave={false}
+                      visible={true}
+                    >
+                      <DomWrapper>
+                        <div
+                          className="ant-modal modal"
+                          key="dialog-element"
+                          onMouseDown={[Function]}
+                          onMouseUp={[Function]}
+                          role="document"
+                          style={
+                            Object {
+                              "width": 765,
+                            }
+                          }
+                        >
+                          <div
+                            aria-hidden="true"
+                            style={
+                              Object {
+                                "height": 0,
+                                "outline": "none",
+                                "overflow": "hidden",
+                                "width": 0,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                          <Component
+                            shouldUpdate={true}
+                          >
+                            <div
+                              className="ant-modal-content"
+                            >
+                              <button
+                                aria-label="Close"
+                                className="ant-modal-close"
+                                onClick={[Function]}
+                                type="button"
+                              >
+                                <span
+                                  className="ant-modal-close-x"
+                                >
+                                  <CloseIcon>
+                                    <span
+                                      aria-label="close"
+                                      className="anticon anticon-close ant-modal-close-icon"
+                                      role="img"
+                                    >
+                                      <AiOutlineCloseCircle>
+                                        <IconBase
+                                          attr={
+                                            Object {
+                                              "viewBox": "0 0 1024 1024",
+                                            }
+                                          }
+                                        >
+                                          <svg
+                                            fill="currentColor"
+                                            height="1em"
+                                            stroke="currentColor"
+                                            strokeWidth="0"
+                                            style={
+                                              Object {
+                                                "color": undefined,
+                                              }
+                                            }
+                                            viewBox="0 0 1024 1024"
+                                            width="1em"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+                                              key="0"
+                                            />
+                                            <path
+                                              d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                              key="1"
+                                            />
+                                          </svg>
+                                        </IconBase>
+                                      </AiOutlineCloseCircle>
+                                    </span>
+                                  </CloseIcon>
+                                </span>
+                              </button>
+                              <div
+                                className="ant-modal-body"
+                              >
+                                <header
+                                  className="header"
+                                >
+                                  <Title
+                                    level={2}
+                                  >
+                                    <ForwardRef
+                                      component="h2"
+                                    >
+                                      <ResizeObserver
+                                        disabled={true}
+                                        onResize={[Function]}
+                                      >
+                                        <SingleObserver
+                                          disabled={true}
+                                          key="rc-observer-key-0"
+                                          onResize={[Function]}
+                                        >
+                                          <DomWrapper>
+                                            <EllipsisTooltip
+                                              enabledEllipsis={false}
+                                              isEllipsis={false}
+                                            >
+                                              <Typography
+                                                className=""
+                                                component="h2"
+                                                onClick={null}
+                                                style={
+                                                  Object {
+                                                    "WebkitLineClamp": undefined,
+                                                  }
+                                                }
+                                              >
+                                                <h2
+                                                  className="ant-typography"
+                                                  onClick={null}
+                                                  style={
+                                                    Object {
+                                                      "WebkitLineClamp": undefined,
+                                                    }
+                                                  }
+                                                >
+                                                  <Ellipsis
+                                                    enabledMeasure={false}
+                                                    onEllipsis={[Function]}
+                                                    rows={1}
+                                                    text="Affiliate Note"
+                                                    width={0}
+                                                  >
+                                                    Affiliate Note
+                                                  </Ellipsis>
+                                                </h2>
+                                              </Typography>
+                                            </EllipsisTooltip>
+                                          </DomWrapper>
+                                        </SingleObserver>
+                                      </ResizeObserver>
+                                    </ForwardRef>
+                                  </Title>
+                                </header>
+                                <div
+                                  className="note"
+                                >
+                                  <p>
+                                    <Text>
+                                      <ForwardRef
+                                        component="span"
+                                      >
+                                        <ResizeObserver
+                                          disabled={true}
+                                          onResize={[Function]}
+                                        >
+                                          <SingleObserver
+                                            disabled={true}
+                                            key="rc-observer-key-0"
+                                            onResize={[Function]}
+                                          >
+                                            <DomWrapper>
+                                              <EllipsisTooltip
+                                                enabledEllipsis={false}
+                                                isEllipsis={false}
+                                              >
+                                                <Typography
+                                                  className=""
+                                                  component="span"
+                                                  onClick={null}
+                                                  style={
+                                                    Object {
+                                                      "WebkitLineClamp": undefined,
+                                                    }
+                                                  }
+                                                >
+                                                  <span
+                                                    className="ant-typography"
+                                                    onClick={null}
+                                                    style={
+                                                      Object {
+                                                        "WebkitLineClamp": undefined,
+                                                      }
+                                                    }
+                                                  >
+                                                    <Ellipsis
+                                                      enabledMeasure={false}
+                                                      onEllipsis={[Function]}
+                                                      rows={1}
+                                                      text="mockNote"
+                                                      width={0}
+                                                    >
+                                                      mockNote
+                                                    </Ellipsis>
+                                                  </span>
+                                                </Typography>
+                                              </EllipsisTooltip>
+                                            </DomWrapper>
+                                          </SingleObserver>
+                                        </ResizeObserver>
+                                      </ForwardRef>
+                                    </Text>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </Component>
+                          <div
+                            aria-hidden="true"
+                            style={
+                              Object {
+                                "height": 0,
+                                "outline": "none",
+                                "overflow": "hidden",
+                                "width": 0,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </div>
+                      </DomWrapper>
+                    </CSSMotion>
+                  </Content>
+                </div>
+              </div>
+            </Dialog>
+          </Portal>
+        </ForwardRef>
+      </PortalWrapper>
+    </Dialog>
+  </Modal>
+</AffiliateNote>
+`;
