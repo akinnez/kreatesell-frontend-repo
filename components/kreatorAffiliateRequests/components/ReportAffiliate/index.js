@@ -172,7 +172,7 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
                   <Button
                     icon={<MdOutlineImage />}
                     onClick={handleClick}
-                    disabled={images.length === 5}
+                    disabled={images.length >= 5}
                   />
                   <Text>Upload Evidence</Text>
                   <input
