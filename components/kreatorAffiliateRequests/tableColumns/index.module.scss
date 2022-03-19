@@ -1,8 +1,12 @@
 .notes__btn {
   width: 18px;
-  height: 18px;
   padding: 5px;
   border: none;
+  border-radius: 0 !important;
   box-shadow: none;
   align-items: flex-start !important;
+
+  &:hover {
+    background-color: transparent;
+  }
 }

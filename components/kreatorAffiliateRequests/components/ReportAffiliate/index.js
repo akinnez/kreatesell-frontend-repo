@@ -1,16 +1,111 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Modal, Typography, Button, Input, Form } from "antd";
 import { Formik } from "formik";
+import { MdOutlineImage } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
 import CloseIcon from "components/affiliates/CloseIcon";
 import { KreatorReportSchema } from "validation/KreatorReportSchema.validation";
+import { showToast } from "utils";
+import axiosAPI from "utils/axios";
 import styles from "./index.module.scss";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 const { TextArea } = Input;
 
 const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
-  const [loading, setLoading] = useState(false);
-  const submitHandler = () => {};
+  const [images, setImages] = useState([]);
+
+  const inputElement = useRef();
+
+  const imageTypes = ["image/png", "image/jpeg", "image/gif"];
+  const maxSize = 2 * 1024 * 1024;
+  const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
+  const limit = 5;
+
+  const submitHandler = (values, actions) => {
+    if (images.length > 0) {
+      if (images.length > limit) {
+        showToast(`You can only select up to ${limit} images`, "warn");
+        actions.setSubmitting(false);
+        return;
+      }
+
+      for (let i = 0; i < images.length; i++) {
+        if (!imageTypes.includes(images[i].type)) {
+          showToast(
+            "Selected files can only be of type png/jpg/jpeg/gif",
+            "warn"
+          );
+          actions.setSubmitting(false);
+          return;
+        }
+
+        if (images[i].size > maxSize) {
+          showToast(`Selected images cannot exceed ${size}`, "warn");
+          actions.setSubmitting(false);
+          return;
+        }
+      }
+    }
+
+    const formData = new FormData();
+
+    formData.append("Affiliate_Id", affiliateId);
+    formData.append("Report_Details", values.report_note.trim());
+    images.forEach(image => {
+      formData.append("Evidence", image);
+    });
+
+    axiosAPI.request(
+      "post",
+      `${process.env.BASE_URL}v1/kreatesell/product/report/affiliate`,
+      res => {
+        showToast(res.message, "success");
+        hideReport();
+      },
+      err => {
+        showToast(err.message, "error");
+        hideReport();
+      },
+      formData
+    );
+  };
+
+  const handleClick = () => {
+    inputElement.current.click();
+  };
+
+  const handleChange = e => {
+    const { files } = e.target;
+
+    if (files.length > limit || files.length + images.length > limit) {
+      showToast(`You can only select up to ${limit} images`, "warn");
+      return;
+    }
+
+    const newImages = Array.from(files);
+
+    for (let i = 0; i < newImages.length; i++) {
+      if (!imageTypes.includes(newImages[i].type)) {
+        showToast(
+          "Selected files can only be of type png/jpg/jpeg/gif",
+          "warn"
+        );
+        break;
+      }
+
+      if (newImages[i].size > maxSize) {
+        showToast(`Selected images cannot exceed ${size}`, "warn");
+        break;
+      }
+
+      setImages(s => [...s, newImages[i]]);
+    }
+  };
+
+  const handleRemove = index => {
+    setImages(state => state.filter((_, idx) => idx !== index));
+  };
 
   return (
     <Modal
@@ -53,15 +148,44 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
               />
             </Form.Item>
             <div className={styles.actions}>
+              {images.length > 0 && (
+                <div className={styles.image__preview__container}>
+                  <ul className={styles.image__preview}>
+                    {images.map((image, index) => (
+                      <li key={`${image.name}-${index}`}>
+                        <div className={styles.image__container}>
+                          <p>
+                            <Text>{image.name}</Text>
+                          </p>
+                          <Button
+                            icon={<AiFillDelete />}
+                            onClick={() => handleRemove(index)}
+                          />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div>
-                <Button></Button>
-                <Button></Button>
-                <p>
+                <div className={styles.image__upload}>
+                  <Button
+                    icon={<MdOutlineImage />}
+                    onClick={handleClick}
+                    disabled={images.length === 5}
+                  />
                   <Text>Upload Evidence</Text>
-                </p>
+                  <input
+                    ref={inputElement}
+                    type="file"
+                    multiple
+                    onChange={handleChange}
+                    accept="image/png, image/jpeg, image/gif"
+                  />
+                </div>
               </div>
               <div className={styles.submit__btn}>
-                <Button htmlType="submit" loading={loading}>
+                <Button htmlType="submit" loading={formik.isSubmitting}>
                   Send
                 </Button>
               </div>
