@@ -8,6 +8,7 @@ import {
 	ManageProduct,
 	ViewSales,
 	MobileIcon,
+	EmptyDataTable
 } from "utils";
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
@@ -373,3 +374,103 @@ export const AllProductsTableHeader = [
 		render: (item) => ActionComponent({ item }),
 	},
 ];
+export const AllCouponTableHeader = [
+	{
+		title: "S/N",
+		dataIndex: "numbers",
+	},
+	{
+		title: "Products",
+		dataIndex: "products",
+		// render: (item) => (
+		// 	<div className="">
+		// 		<a
+		// 			href={item}
+		// 			target="_blank"
+		// 			rel="noopener noreferrer"
+		// 			className="productTooltip"
+		// 		>
+		// 			{item?.slice(0, 30)}...
+		// 			<div className="tooltipText flex justify-between items-center">
+		// 				<span className="text-black-100">Go to link: </span>
+		// 				<span
+		// 					href={item}
+		// 					target="_blank"
+		// 					className="pl-2 pr-4"
+		// 					rel="noopener noreferrer"
+		// 				>
+		// 					{item}
+		// 				</span>
+		// 				<span
+		// 					className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
+		// 					onClick={() => _copyToClipboard(item, "Product Link Copied")}
+		// 				>
+		// 					<Image src={MailClipboard} />
+		// 				</span>
+		// 			</div>
+		// 		</a>
+		// 	</div>
+		// ),
+	},
+	{
+		title: "Code",
+		dataIndex: "code",
+	},
+	{
+		title: "Discount",
+		dataIndex: "discount",
+		// render: (item) => (
+		// 	<div>
+		// 		{item?.currency} {item?.productPrice || "0.00"}
+		// 	</div>
+		// ),
+	},
+	{
+		title: "Quantity",
+		dataIndex: "quantity",
+		// render: (item) => {
+		// 	const time = parseISO(item);
+		// 	const formatTime = format(time, "PPpp");
+		// 	return <div>{formatTime}</div>;
+		// },
+	},
+	{
+		title: "Usages",
+		dataIndex: "usages",
+		// render: (item) => StatusComponent({ item }),
+	},
+	{
+		title: "Max Usages",
+		dataIndex: "max_usages",
+		// render: (item) => ActionComponent({ item }),
+	},
+	{
+		title: "Start Date",
+		dataIndex: "start_date",
+	},
+	{
+		title: "End Date",
+		dataIndex: "end_date",
+	},
+	{
+		title: "Status",
+		dataIndex: "status",
+	},
+	{
+		title: "More",
+		dataIndex: "more",
+	},
+];
+const emptyComponent = ()=>{
+	return(
+		<div className={styles.emptyTable+ " flex flex-col"}>
+			<Image src={EmptyDataTable}/>
+			<h2 className={styles.lightGrey + " mt-5 font-semibold text-2xl"}> No content has been added</h2>
+		</div>
+	)
+}
+export const tableLocale = {
+	emptyText: (
+		emptyComponent()
+	)
+}

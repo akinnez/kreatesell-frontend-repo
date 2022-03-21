@@ -103,6 +103,12 @@ const Sidebar = () => {
             Create Product
           </Menu.Item>
           <Menu.Item
+            key={38}
+            onClick={() => router.push("/account/kreator/products/coupon")}
+          >
+            Coupon Codes
+          </Menu.Item>
+          <Menu.Item
             key={37}
             onClick={() => router.push("/account/kreator/products")}
           >

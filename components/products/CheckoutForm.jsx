@@ -306,8 +306,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							placeholder="0"
 							onChange={(e) => handleSellingPrice(e)}
 						/>
-
-						<ProductInput
+						<Input style={{}}/>
+						{/* <ProductInput
 							prefix="GBP"
 							name="GBP"
 							placeholder="0"
@@ -354,7 +354,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 							name="UGX"
 							placeholder="0"
 							onChange={(e) => handleSellingPrice(e)}
-						/>
+						/> */}
 					</div>
 					<p className="text-base-gray-200 text-xs pt-2">
 						Set the equivalent price of your product in the currencies of the
@@ -375,7 +375,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								placeholder="0"
 								onChange={(e) => handleMinimumPrice(e)}
 							/>
-							<ProductInput
+							{/* <ProductInput
 								prefix="GBP"
 								name="GBP"
 								placeholder="0"
@@ -416,7 +416,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								name="UGX"
 								placeholder="0"
 								onChange={(e) => handleMinimumPrice(e)}
-							/>
+							/> */}
 						</div>
 					</div>
 
@@ -429,7 +429,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								placeholder="0"
 								onChange={(e) => handleSuggestedPrice(e)}
 							/>
-							<ProductInput
+							{/* <ProductInput
 								prefix="GBP"
 								name="GBP"
 								placeholder="0"
@@ -470,7 +470,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								name="UGX"
 								placeholder="0"
 								onChange={(e) => handleSuggestedPrice(e)}
-							/>
+							/> */}
 						</div>
 					</div>
 				</div>
@@ -487,7 +487,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								placeholder="0"
 								onChange={(e) => handleInitialPrice(e)}
 							/>
-							<ProductInput
+							{/* <ProductInput
 								prefix="GBP"
 								name="GBP"
 								placeholder="0"
@@ -528,7 +528,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								name="UGX"
 								placeholder="0"
 								onChange={(e) => handleInitialPrice(e)}
-							/>
+							/> */}
 						</div>
 					</div>
 
@@ -591,7 +591,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								placeholder="0"
 								onChange={(e) => handleOriginalPrice(e)}
 							/>
-							<ProductInput
+							{/* <ProductInput
 								prefix="GBP"
 								name="GBP"
 								placeholder="0"
@@ -632,7 +632,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 								name="UGX"
 								placeholder="0"
 								onChange={(e) => handleOriginalPrice(e)}
-							/>
+							/> */}
 						</div>
 					</div>
 				)}
@@ -685,7 +685,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 									<Input
 										placeholder="0"
 										className={styles.ctaBtn}
-										name="ctaBtnText"
+										// name="ctaBtnText"
 										name="coupon_settings.percentage_value"
 										onChange={formik.handleChange}
 									/>
@@ -960,7 +960,7 @@ const BatchInput = ({ handleChange }) => {
 				placeholder="0"
 				onChange={(e) => handleChange(e)}
 			/>
-			<ProductInput
+			{/* <ProductInput
 				prefix="GBP"
 				name="GBP"
 				placeholder="0"
@@ -1001,7 +1001,7 @@ const BatchInput = ({ handleChange }) => {
 				name="UGX"
 				placeholder="0"
 				onChange={(e) => handleChange(e)}
-			/>
+			/> */}
 
 			<div className="pt-2 lg:hidden">
 				<div className="divider"></div>
