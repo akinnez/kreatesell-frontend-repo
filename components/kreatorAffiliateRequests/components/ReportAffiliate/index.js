@@ -83,24 +83,26 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
       return;
     }
 
-    const newImages = Array.from(files);
+    let newImages = [];
 
-    for (let i = 0; i < newImages.length; i++) {
-      if (!imageTypes.includes(newImages[i].type)) {
+    for (let i = 0; i < files.length; i++) {
+      if (!imageTypes.includes(files[i].type)) {
         showToast(
           "Selected files can only be of type png/jpg/jpeg/gif",
           "warn"
         );
-        break;
+        return;
       }
 
-      if (newImages[i].size > maxSize) {
+      if (files[i].size > maxSize) {
         showToast(`Selected images cannot exceed ${size}`, "warn");
-        break;
+        return;
       }
 
-      setImages(s => [...s, newImages[i]]);
+      newImages = [...newImages, files[i]];
     }
+
+    setImages([...images, ...newImages]);
   };
 
   const handleRemove = index => {
