@@ -77,7 +77,7 @@ const Coupon = () => {
 
 	return (
 		<AuthLayout>
-			<div className={styles.allProduct}>
+			<div className={styles.allProduct + " pb-10"}>
 				<div className="flex justify-between mb-4">
 					<h3 className=" font-semibold text-2xl">Coupon</h3>
                     <Button
