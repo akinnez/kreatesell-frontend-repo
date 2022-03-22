@@ -1,0 +1,165 @@
+@import "styles/colors.module.scss";
+
+.container {
+  // background-image: url("../../public/images/home-shape.png");
+  align-self: flex-start;
+  // align-self: center;
+  margin-top: 1.5rem;
+  transition: all 0.2s;
+  .heading {
+    color: $base-blue;
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    margin-top: unset;
+    align-self: center;
+  }
+  @media (min-width: 1200px) {
+    margin: 5rem 0;
+  }
+}
+.offers {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  // text-transform: capitalize;
+  // line-height: 1.7;
+  font-size: 0.8rem;
+  color: #000;
+  // color: #d9d9d9;
+  opacity: 0.6;
+  // font-weight: bold;
+}
+
+// animations
+@keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animateFlicker {
+  -webkit-animation: flickerAnimation 5s infinite;
+  -moz-animation: flickerAnimation 5s infinite;
+  -o-animation: flickerAnimation 5s infinite;
+  animation: flickerAnimation 5s infinite;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 1.2rem;
+  font-size: 2rem;
+  .blue {
+    color: $base-blue;
+  }
+
+  .green {
+    color: $base-green-100;
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-weight: normal;
+  }
+  // margin-bottom: 0.5rem;
+}
+
+// fire animation
+
+@keyframes fireAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@-o-keyframes fireAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-moz-keyframes fireAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes fireAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animateFire {
+  -webkit-animation: fireAnimation 3s infinite;
+  -moz-animation: fireAnimation 3s infinite;
+  -o-animation: fireAnimation 3s infinite;
+  animation: fireAnimation 3s infinite;
+  display: inline-block;
+  color: $base-green-100;
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+  position: relative;
+  top: -5px;
+}

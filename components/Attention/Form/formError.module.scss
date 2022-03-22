@@ -1,0 +1,27 @@
+.error {
+  // @include flex(row, null, center);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // height: 1.4rem;
+  padding: 0.09rem 0;
+  // background: $pink-100;
+  background: red;
+  max-width: 300px;
+  // margin: 0 auto;
+  opacity: 0.6;
+  margin-bottom: 1.1rem;
+  text-align: center;
+
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    margin: auto 0;
+    padding-left: 1rem;
+    // color: $wine-100;
+    color: #fff;
+  }
+}

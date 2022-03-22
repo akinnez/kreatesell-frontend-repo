@@ -1,0 +1,11 @@
+@import "styles/colors.module.scss";
+
+.modal {
+  width: 60vw !important;
+  .container {
+    background-color: ghostwhite;
+    border: 1px solid $base-blue;
+    height: 60vh;
+    width: 100%;
+  }
+}

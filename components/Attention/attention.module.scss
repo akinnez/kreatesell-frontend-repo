@@ -1,0 +1,133 @@
+@import "styles/colors.module.scss";
+
+.container {
+  width: 100%;
+  transition: all 0.2s;
+  margin-bottom: 1rem;
+  .mainHeading {
+    font-size: 2.5rem;
+    color: $base-blue;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+    text-align: center;
+    .green {
+      color: $base-green-100;
+    }
+    @media (min-width: 600px) {
+      text-align: left;
+    }
+    @media (min-width: 900px) {
+      font-size: 4rem;
+    }
+  }
+  .subHeading {
+    font-size: 1rem;
+    transition: all 0.2s;
+    font-weight: normal;
+    max-width: 600px;
+    // margin-bottom: 3rem;
+    margin-top: 2rem;
+    line-height: 1.8;
+  }
+
+  .text {
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    color: $base-green-100;
+    font-weight: bold;
+  }
+
+  @media (min-width: 600px) {
+    margin-right: 0.5rem;
+    margin-bottom: unset;
+  }
+}
+
+@keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animateFlicker {
+  -webkit-animation: flickerAnimation 3s infinite;
+  -moz-animation: flickerAnimation 3s infinite;
+  -o-animation: flickerAnimation 3s infinite;
+  animation: flickerAnimation 3s infinite;
+  // text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin: 1.2rem;
+  font-size: 2rem;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+  color: $base-green-100;
+  font-weight: bold;
+  // .blue {
+  //   color: $base-blue;
+  // }
+
+  // .green {
+  //   color: $base-green-100;
+  //   display: inline-block;
+  //   margin-right: 0.5rem;
+  //   font-weight: normal;
+  // }
+  // margin-bottom: 0.5rem;
+}
+
+.stopFlicker {
+  // webkit-animation: unset;
+  // -moz-animation: unset;
+  // -o-animation: unset;
+  animation: unset;
+  // text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin: 1.2rem;
+  font-size: 2rem;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+  color: $base-green-100;
+  font-weight: bold;
+}
