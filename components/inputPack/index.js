@@ -620,10 +620,11 @@ export const DatePicker = ({ onChange = () => {}, value, format }) => {
 	);
 };
 
-export const Switch = ({ value, onChange = () => {}, label }) => {
+export const Switch = ({ value, onChange = () => {}, label, ...rest }) => {
+	const {className} = {...rest}
 	return (
 		<>
-			<div className="switch-wrapper">
+			<div className={className ? `${className} switch-wrapper`: "switch-wrapper"}>
 				<span className="label">{label}</span>
 				<label className="switch">
 					<input

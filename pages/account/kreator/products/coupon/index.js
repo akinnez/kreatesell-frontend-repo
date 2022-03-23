@@ -7,12 +7,11 @@ import {
 } from "components";
 
 import { DownloadIcon } from "utils";
-import AuthLayout from "../../../../components/authlayout";
-import styles from "../../../../public/css/AllProducts.module.scss";
+import AuthLayout from "../../../../../components/authlayout";
+import styles from "../../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 // import { ProductsTableData } from "components/tableHeader/dummyTableData";
 import { Table } from "antd";
-import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
 import { GetProducts, GetProductStatus } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";
@@ -84,7 +83,7 @@ const Coupon = () => {
                         text="+ Add a Coupon"
                         bgColor="blue"
                         className={styles.addProductBtn + " pr-2 pl-2"}
-                        onClick={() => router.push("/account/kreator/products/create")}
+                        onClick={() => router.push("/account/kreator/products/coupon/create")}
                     />
 				</div>
 
@@ -132,7 +131,7 @@ const Coupon = () => {
                         text="Add a Coupon"
                         bgColor="blue"
                         className={styles.addCouponBtn + " mt-2"}
-                        onClick={() => router.push("/account/kreator/products/create")}
+                        onClick={() => router.push("/account/kreator/products/coupon/create")}
                     />
 				</div>
 				{/* {memoisedProductData?.map((item, i) => (
