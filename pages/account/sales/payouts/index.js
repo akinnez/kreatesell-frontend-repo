@@ -19,7 +19,7 @@ const PayoutsPage = () => {
   const router = useRouter();
 
   const { store, loading } = useSelector(state => state.store);
-  const { bank_details: bankDetails } = store;
+  const { bank_details: bankDetails, wallet_details_dtos: walletInfo } = store;
 
   const handleClick = key => {
     setTab(key);
@@ -52,7 +52,11 @@ const PayoutsPage = () => {
             <BankAccountDetails bankDetails={bankDetails} />
           </TabPane>
           <TabPane tab="Wallet" key="3">
-            <Wallet bankDetails={bankDetails} />
+            <Wallet
+              bankDetails={bankDetails}
+              walletInfo={walletInfo}
+              loading={loading}
+            />
           </TabPane>
         </Tabs>
       )}
