@@ -1,0 +1,32 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.links {
+  @include mixins.flex(row, flex-start, center);
+  column-gap: 10px;
+  margin-bottom: 30px;
+}
+
+.link {
+  padding: 9px 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  color: colors.$base-gray;
+  font-weight: 400;
+  font-size: 14px;
+
+  &:hover {
+    border-color: colors.$base-blue;
+    color: colors.$base-blue;
+  }
+}
+
+.active {
+  border-color: colors.$base-blue;
+  color: colors.$base-white;
+  background-color: colors.$base-blue;
+
+  &:hover {
+    color: colors.$base-white;
+  }
+}

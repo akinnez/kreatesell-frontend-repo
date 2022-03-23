@@ -1,0 +1,68 @@
+@use "colors";
+@use "mixins";
+@use "screens";
+
+.stats__container:first-child {
+  margin-bottom: 40px;
+}
+
+.modal__wrapper {
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 32px;
+
+  > h1 {
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 18px;
+    color: colors.$base-gray;
+  }
+}
+
+.content {
+  margin-bottom: 32px;
+
+  p {
+    margin-bottom: 0;
+
+    > [class="ant-typography"] {
+      font-weight: 400;
+      font-size: 14px;
+      color: colors.$base-gray;
+    }
+  }
+}
+
+.footer {
+  @include mixins.flex(row, center, center);
+  flex-wrap: wrap;
+  gap: 20px 40px;
+
+  > button,
+  a {
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 8px;
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+  }
+
+  > a:first-child {
+    border: 1px solid colors.$base-blue;
+    color: colors.$base-blue;
+
+    &:hover {
+      border-color: colors.$base-blue;
+      color: colors.$base-blue;
+    }
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .modal__wrapper {
+    padding: 40px 50px;
+  }
+}
