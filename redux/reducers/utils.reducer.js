@@ -1,7 +1,7 @@
 import * as types from "../types";
 
 const initialState = {
-  user: {},
+  // user: {},
   countries: [],
   banks: [],
   banksByCountryId: {},
@@ -16,9 +16,9 @@ const UtilsReducer = (state = initialState, { type, payload }) => {
     case types.GUEST_SUBSCRIPTION.REQUEST:
       return { ...state, loading: true };
 
-    case types.GET_STORE_DETAILS.SUCCESS:
-    case types.GUEST_SUBSCRIPTION.SUCCESS:
-      return { ...state, loading: false, user: payload };
+    // case types.GET_STORE_DETAILS.SUCCESS:
+    // case types.GUEST_SUBSCRIPTION.SUCCESS:
+    //   return { ...state, loading: false, user: payload };
 
     case types.GET_COUNTRIES.SUCCESS:
       return { ...state, loading: false, countries: payload };

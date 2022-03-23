@@ -3,37 +3,14 @@ import { useRouter } from "next/router";
 import { RightArrow, GrossSales, Profit, UnitSales, Visit } from "../../utils";
 import styles from "../../public/css/Dashboard.module.scss";
 
-export const StatsCard = ({
-  name,
-  totalVisits,
-  unitSales,
-  grossSales,
-  profit,
-}) => {
+export const StatsCard = ({ totalVisits, unitSales, grossSales, profit }) => {
   const router = useRouter();
 
   return (
     <div className={styles.container}>
       <div className={styles.midSection}>
-        <div className={styles.title}>
+        {/* <div className={styles.title}>
           <div className={styles.userType}>{name}</div>
-
-          {/* {router.pathname !==
-						("/account/kreator/kreator/dashboard/affiliate" ||
-							"/account/kreator/kreator/dashboard/kreator") && (
-						<div
-							className={styles.userTypeLink}
-							onClick={() =>
-								router.push(`/account/dashboard/${name.toLowerCase()}`)
-							}
-						>
-							<p>{name}’s Dashboard</p>
-							<div className={styles.arrowIcon}>
-								<RightArrow color="#0072EF" />
-							</div>
-						</div>
-					)} */}
-
           {router.pathname === "/account/dashboard/affiliate" && (
             <div
               className={styles.userTypeLink}
@@ -57,7 +34,7 @@ export const StatsCard = ({
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className={styles.cardContainer}>
           <div className={styles.firstCard}>
