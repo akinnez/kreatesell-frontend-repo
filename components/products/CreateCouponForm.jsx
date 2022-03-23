@@ -50,9 +50,10 @@ export const CreateCouponForm = () =>{
         console.log(values)
     }
 
-    const handleChangeField = (a, b)=>{
-        a(true)
-        b(false)
+    const handleChangeField = (setSelfChecked, setPrevCheck)=>{
+        setSelfChecked(true)
+        setPrevCheck(false)
+        // setFieldValue(`coupon_settings.${is_for_all_product}`, true)
     }
     const formik = useFormik({
 		initialValues,
@@ -60,13 +61,25 @@ export const CreateCouponForm = () =>{
 		// validationSchema: "",
 		validateOnChange: false,
 	})
+    const { errors, values, setFieldValue } = formik;
+    const {coupon_code, product_id, fixed_amount_value, no_of_usage, no_of_frequency, percentage_value} = values.coupon_settings
+    const handleRadioChange = (e)=>{
+        // console.log(e.target.value)
+        if(e.target.value === true){
+            setFieldValue("coupon_settings.is_for_all_product", true)
+            setFieldValue("coupon_settings.product_id", 0)
+            return
+        }
+        setFieldValue("coupon_settings.is_for_all_product", false)
+        // const {name, value} = e.target
+    }
     return(
         <div className={`px-0 lg:px-8 ${styles.container}`}>
             <div className="flex flex-col">
                 <h1 className="font-bold text-center text-2xl">Create New Coupon</h1>
                 <h3 className={style.lightGrey +" font-semibold text-center text-base"}>Generate a new coupon that drives more sales to your product(s).</h3>
             </div>
-            <form className={styles.formContent + " flex flex-col"}>
+            <form onSubmit={formik.handleSubmit} className={styles.formContent + " flex flex-col"}>
                 <div className="">
                     <TextInput
                         type="text"
@@ -74,17 +87,23 @@ export const CreateCouponForm = () =>{
                         labelExtra=" Letters and Numbers only!."
                         style={{ width: "100%" }}
                         placeholder="EX: EMBER100"
+                        name="coupon_code" 
+                        onChange={(e)=>setFieldValue("coupon_settings.coupon_code", e)}
+                        value={coupon_code}
                     />
                 </div>
                 <div className="flex flex-col mt-8">
                     <h2 className="font-semibold text-base">Apply Coupon to</h2>
                     <div className="flex items-center">
-                        <Radio.Group onChange={(e)=>setIsAllProduct(e.target.value)} >
+                        <Radio.Group onChange={handleRadioChange} >
                             <Radio className={styles.radioContent} value={true} checked={isAllProduct ? true : false}>All Products</Radio>
                             <Radio className={styles.radioContent} value={false} checked={!isAllProduct ? true : false}>Choose Speific Product</Radio>
                         </Radio.Group>
                     </div>
                     <CustomSelect
+                        name="product_id"
+                        value={product_id}
+                        onChange={(e)=>setFieldValue("coupon_settings.product_id", e)}
                         disabled={isAllProduct ? true : false}
                         list={[{value:"Land of Hope and Opportunities", label: "Land of Hope and Opportunities"}, {value:"Multiple wins", label:"Multiple wins"}]}
                     />
@@ -94,18 +113,28 @@ export const CreateCouponForm = () =>{
                     <h2 className="font-semibold text-base">Coupon Type</h2>
                     <div className="flex">
                         <div className="col-3">
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsPercentage, setIsAmount)} checked={isPercentage ? true : false} value={'1'}>Percentage Off</Radio>
+                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsPercentage, setIsAmount )} checked={isPercentage ? true : false} value={'1'}>Percentage Off</Radio>
                             <TextInput 
                                 type="number"
                                 placeholder="0"
-                                disabled={!isPercentage ? true : false} />
+                                name="percentage_value"
+                                onChange={(e)=>setFieldValue("coupon_settings.percentage_value", e)}
+                                disabled={!isPercentage ? true : false}
+                                value={percentage_value}
+                                />
+                                
                         </div>
                         <div className="col-3 ml-8">
                             <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsAmount, setIsPercentage)} checked={isAmount ? true : false}>Amount Off</Radio>
                             <TextInput 
                                 type="number"
                                 placeholder="0"
-                                disabled={!isAmount ? true : false} />
+                                name="fixed_amount_value"
+                                value={fixed_amount_value}
+                                disabled={!isAmount ? true : false} 
+                                onChange={(e)=>setFieldValue("coupon_settings.fixed_amount_value", e)}
+                                />
+                                
                         </div>
                      </div>
                 </div>
@@ -141,6 +170,9 @@ export const CreateCouponForm = () =>{
                         style={{ width: "100%" }}
                         placeholder="1"
                         disabled={isUnLimited ? true : false}
+                        name="no_of_frequency"
+                        value={no_of_frequency}
+                        onChange={(e)=>setFieldValue("coupon_settings.no_of_frequency", e)}
                     />
                 </div>
                 <div className="flex flex-col mt-8">
@@ -160,7 +192,10 @@ export const CreateCouponForm = () =>{
                         label="Number of times coupon can be used per customer"
                         style={{ width: "100%" }}
                         placeholder="1"
+                        name="no_of_usage"
+                        value={no_of_usage}
                         disabled={isUsage ? false : true}
+                        onChange={(e)=>setFieldValue("coupon_settings.no_of_usage", e)}
                     />
                 </div>
                 <div >
@@ -169,7 +204,7 @@ export const CreateCouponForm = () =>{
                 <Button 
                     className="justify-self-center w-1/3 self-center mt-4"
                     label="Save"
-                    
+                    type="submit"
                     />
             </form>
         </div>
