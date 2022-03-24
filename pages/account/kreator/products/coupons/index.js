@@ -82,8 +82,8 @@ const Coupon = () => {
                     <Button
                         text="+ Add a Coupon"
                         bgColor="blue"
-                        className={styles.addProductBtn + " pr-2 pl-2"}
-                        onClick={() => router.push("/account/kreator/products/coupon/create")}
+                        className={styles.addCouponBtn1 + " pr-2 pl-2"}
+                        onClick={() => router.push("/account/kreator/products/coupons/create")}
                     />
 				</div>
 
@@ -131,7 +131,7 @@ const Coupon = () => {
                         text="Add a Coupon"
                         bgColor="blue"
                         className={styles.addCouponBtn + " mt-2"}
-                        onClick={() => router.push("/account/kreator/products/coupon/create")}
+                        onClick={() => router.push("/account/kreator/products/coupons/create")}
                     />
 				</div>
 				{/* {memoisedProductData?.map((item, i) => (
