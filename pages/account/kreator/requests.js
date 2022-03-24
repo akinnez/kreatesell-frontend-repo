@@ -26,7 +26,7 @@ const AffiliateRequests = () => {
   const [requests, setRequests] = useState([]);
   const [totalRequests, setTotalRequests] = useState(0);
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
+  const [limit, setLimit] = useState(5);
   const [requestDate, setRequestDate] = useState("");
   const [affiliateName, setAffiliateName] = useState("");
   const [productName, setProductName] = useState("");
@@ -73,6 +73,10 @@ const AffiliateRequests = () => {
 
   const handleClicks = (setter, value) => param => {
     setter(value || value === false ? value : param);
+  };
+
+  const handleSizeChanger = (_, pageSize) => {
+    setLimit(pageSize);
   };
 
   const showReportModal = id => {
@@ -146,6 +150,7 @@ const AffiliateRequests = () => {
             total: requests.length === 0 ? requestsData.length : totalRequests,
             current: page,
             onChange: handleClicks(setPage),
+            onShowSizeChange: handleSizeChanger,
           }}
           rowKey={rowKey}
           loading={!res}

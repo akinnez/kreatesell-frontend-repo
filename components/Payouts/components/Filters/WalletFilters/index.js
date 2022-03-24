@@ -45,15 +45,9 @@ const WalletFilters = ({ data, setFiltered, searchQuery }) => {
     form.setFieldsValue({ currency: value });
   };
 
-  const handleFrom = (_, dateStr) => {
+  const handleDate = field => (_, dateStr) => {
     form.setFieldsValue({
-      from: dateStr ? moment(dateStr, "YYYY-MM-DD") : "",
-    });
-  };
-
-  const handleTo = (_, dateStr) => {
-    form.setFieldsValue({
-      to: dateStr ? moment(dateStr, "YYYY-MM-DD") : "",
+      [field]: dateStr ? moment(dateStr, "YYYY-MM-DD") : "",
     });
   };
 
@@ -101,18 +95,14 @@ const WalletFilters = ({ data, setFiltered, searchQuery }) => {
     form.resetFields();
   };
 
-  const handleShowFilter = () => {
-    setShowFilter(true);
-  };
-
-  const handleHideFilter = () => {
-    setShowFilter(false);
+  const handleToggle = value => () => {
+    setShowFilter(value);
   };
 
   return (
     <>
       <div className={styles.filterToggle}>
-        <Button shape="round" onClick={handleShowFilter}>
+        <Button shape="round" onClick={handleToggle(true)}>
           Show Filters...
         </Button>
         {isFiltered && <ResetBtn resetFilters={resetFilters} />}
@@ -128,7 +118,7 @@ const WalletFilters = ({ data, setFiltered, searchQuery }) => {
           shape="circle"
           type="text"
           icon={<MdOutlineCancel />}
-          onClick={handleHideFilter}
+          onClick={handleToggle(false)}
           className={styles.closeFilter}
         />
         <div className={isFiltered ? styles.mdMargin : styles.lgMargin}>
@@ -171,7 +161,7 @@ const WalletFilters = ({ data, setFiltered, searchQuery }) => {
                 <Form.Item label="From" name="from">
                   <DatePicker
                     placeholder="2021-07-22"
-                    onChange={handleFrom}
+                    onChange={handleDate("from")}
                     allowClear={false}
                   />
                 </Form.Item>
@@ -184,7 +174,7 @@ const WalletFilters = ({ data, setFiltered, searchQuery }) => {
                 <Form.Item label="To" name="to">
                   <DatePicker
                     placeholder="2021-07-22"
-                    onChange={handleTo}
+                    onChange={handleDate("to")}
                     allowClear={false}
                   />
                 </Form.Item>
