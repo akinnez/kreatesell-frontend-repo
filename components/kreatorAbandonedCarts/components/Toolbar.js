@@ -24,6 +24,7 @@ const Toolbar = () => (
     <button className="ql-list" value="ordered" />
     <select className="ql-color" onChange={e => e.persist()} />
     <button className="ql-link" />
+    <button className="ql-code-block" />
     <button className="ql-image" />
     <button className="ql-video" />
     {/* <button className="ql-file">
