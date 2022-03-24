@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { Typography, Table } from "antd";
 import SyncDataToCSV from "components/DataToCSV/SyncDataToCSV";
@@ -12,7 +12,7 @@ import styles from "./index.module.scss";
 const { Title } = Typography;
 const rowKey = record => record.id;
 
-const Wallet = ({ bankDetails }) => {
+const Wallet = ({ bankDetails, walletInfo, loading }) => {
   const [filtered, setFiltered] = useState(null);
 
   const { data } = useSWR(
@@ -22,7 +22,11 @@ const Wallet = ({ bankDetails }) => {
 
   return (
     <>
-      <WalletBalance bankDetails={bankDetails} />
+      <WalletBalance
+        bankDetails={bankDetails}
+        walletInfo={walletInfo}
+        loading={loading}
+      />
       <section className={styles.filter__section}>
         <Title level={2}>Wallet History</Title>
         <WalletFilters

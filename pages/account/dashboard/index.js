@@ -2,7 +2,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { Modal, Button, Typography } from "antd";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import { StatsCard } from "components/account-dashboard/StatsCard";
 import AuthLayout from "components/authlayout";
 import DashboardFilters from "components/account-dashboard/DashboardFilters";

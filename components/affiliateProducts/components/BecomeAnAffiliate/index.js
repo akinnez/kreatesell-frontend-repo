@@ -18,7 +18,7 @@ const BecomeAnAffiliate = () => {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
 
-  const { back } = useRouter();
+  const { push } = useRouter();
 
   const dispatch = useDispatch();
   const { auth, store } = useSelector(state => state);
@@ -60,7 +60,7 @@ const BecomeAnAffiliate = () => {
         title={null}
         footer={null}
         visible
-        onCancel={() => back()}
+        onCancel={() => push("/account/dashboard")}
         maskClosable={false}
         closeIcon={<CloseIcon />}
         className={styles.affiliate__modal}

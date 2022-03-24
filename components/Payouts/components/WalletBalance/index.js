@@ -20,7 +20,7 @@ const breakPoints = {
   md: { span: 12 },
 };
 
-const WalletBalance = ({ bankDetails }) => {
+const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
   const [kreator, setKreator] = useState(false);
   const [affiliate, setAffiliate] = useState(false);
   const [withdrawModal, setWithdrawModal] = useState(false);
@@ -39,10 +39,14 @@ const WalletBalance = ({ bankDetails }) => {
     setter(valuea);
   };
 
+  const currency = walletInfo[0].currency;
+
   return (
     <header className={styles.header}>
       <Card>
-        {affiliateBalance === null || affiliateBalance === undefined ? (
+        {loading ||
+        affiliateBalance === null ||
+        affiliateBalance === undefined ? (
           <Spinner />
         ) : (
           <Row gutter={[40, { xs: 40, sm: 40 }]}>
@@ -63,7 +67,9 @@ const WalletBalance = ({ bankDetails }) => {
                 <p>
                   <Text>
                     {kreator
-                      ? `$ ${formatNumber(kreatorBalance)}`
+                      ? `${currency} ${formatNumber(
+                          parseInt(walletInfo[0].available_balance)
+                        )}`
                       : "************"}
                   </Text>
                 </p>
@@ -94,7 +100,7 @@ const WalletBalance = ({ bankDetails }) => {
                 <p>
                   <Text>
                     {affiliate
-                      ? `$ ${formatNumber(affiliateBalance)}`
+                      ? `${currency} ${formatNumber(affiliateBalance)}`
                       : "************"}
                   </Text>
                 </p>

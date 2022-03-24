@@ -10,7 +10,7 @@ const Affiliate = () => {
   const [_, setFiltered] = useState(null);
 
   return (
-    <AuthLayout>
+    <AuthLayout headerTitle="Dashboard">
       <Head>
         <title>KreateSell | Affiliate Dashboard</title>
       </Head>
@@ -19,12 +19,8 @@ const Affiliate = () => {
         <section>
           <DashboardLinks />
         </section>
-        <StatsHeader
-          title="Affiliate"
-          orderUrl="/account/dashboard/affiliate/orders"
-        />
+        <StatsHeader title="Affiliate" orderUrl="/account/sales/transactions" />
         <StatsCard
-          name="Affiliate"
           totalVisits="123,456"
           unitSales="123,456"
           grossSales="123,456"

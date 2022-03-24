@@ -75,7 +75,7 @@ const menu = logout => (
   </Menu>
 );
 
-const Nav = () => {
+const Nav = ({ headerTitle }) => {
   const { Header } = Layout;
 
   const [info, setInfo] = useState({});
@@ -113,7 +113,7 @@ const Nav = () => {
           </div>
           <div className={style.pageDot}>
             <PageDot />
-            <h1>{title}</h1>
+            <h1>{headerTitle || title}</h1>
           </div>
         </div>
         <div className={style.nav_right}>

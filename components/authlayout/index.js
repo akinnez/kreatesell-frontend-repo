@@ -44,7 +44,13 @@ const Loader = () => {
   );
 };
 
-const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
+const Index = ({
+  loading,
+  children,
+  contentStyle,
+  mobilePadding = false,
+  headerTitle,
+}) => {
   const { Header, Footer, Sider, Content } = Layout;
   const router = useRouter();
 
@@ -104,7 +110,7 @@ const Index = ({ loading, children, contentStyle, mobilePadding = false }) => {
           </div>
         </Sider>
         <Layout>
-          <Nav />
+          <Nav headerTitle={headerTitle} />
           <Content
             // style={{
             // 	backgroundColor: "rgba(245, 245, 245, 1)",

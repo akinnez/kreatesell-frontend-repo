@@ -7,6 +7,7 @@ import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import Spinner from "components/Spinner";
+import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
 import productsColumns from "components/affiliateProducts/productsColumns";
 import {
   affiliateProductsFailure,
@@ -69,12 +70,15 @@ const AffiliateProducts = () => {
   }
 
   return (
-    <AuthLayout>
+    <AuthLayout headerTitle={!user.is_affiliate ? "Dashboard" : ""}>
       <Head>
         <title>KreateSell | Affiliate Market Place</title>
       </Head>
       {!user.is_affiliate ? (
-        <BecomeAnAffiliate />
+        <>
+          <KreatorDashboard />
+          <BecomeAnAffiliate />
+        </>
       ) : (
         <>
           <AffiliateFilters data={products} setFiltered={setFiltered} />
