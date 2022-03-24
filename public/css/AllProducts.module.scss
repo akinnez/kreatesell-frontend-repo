@@ -7,6 +7,18 @@
 		font-size: 12px;
 		line-height: 16px;
 		font-weight: 600;
+		
+	}
+	.addCouponBtn {
+		line-height: 16px;
+		font-weight: 600;
+		width: 20%;
+		padding: 1.5em 0.5em;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.2em;
 	}
 }
 
@@ -148,4 +160,13 @@
 		padding-right: 0 !important;
 		margin-right: 0 !important;
 	}
+}
+
+.lightGrey{
+	color: $gray-200;
+}
+.emptyTable{
+	min-height: 400px;
+	justify-content: center;
+	align-items: center;
 }
