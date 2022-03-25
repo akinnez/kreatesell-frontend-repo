@@ -35,12 +35,8 @@ const AffiliateFilters = ({ data, setFiltered }) => {
 
   const [form] = Form.useForm();
 
-  const handleProductName = e => {
-    form.setFieldsValue({ product_name: e.target.value });
-  };
-
-  const handleKreatorName = e => {
-    form.setFieldsValue({ kreator_name: e.target.value });
+  const handleSearch = field => e => {
+    form.setFieldsValue({ [field]: e.target.value });
   };
 
   const handleProductType = value => {
@@ -156,7 +152,7 @@ const AffiliateFilters = ({ data, setFiltered }) => {
                 <Form.Item label="Product Name" name="product_name">
                   <Input
                     placeholder="Search by product name"
-                    onChange={handleProductName}
+                    onChange={handleSearch("product_name")}
                   />
                 </Form.Item>
               </Col>
@@ -168,7 +164,7 @@ const AffiliateFilters = ({ data, setFiltered }) => {
                 <Form.Item label="Kreator Name" name="kreator_name">
                   <Input
                     placeholder="Search by kreator name"
-                    onChange={handleKreatorName}
+                    onChange={handleSearch("kreator_name")}
                   />
                 </Form.Item>
               </Col>

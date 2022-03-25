@@ -15,7 +15,7 @@ const rowKey = record => record.id;
 const Payouts = ({ bankDetails, handleClick }) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
+  const [limit, setLimit] = useState(5);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [productName, setProductName] = useState("");
@@ -63,6 +63,10 @@ const Payouts = ({ bankDetails, handleClick }) => {
     setPage(newPage);
   };
 
+  const handleSizeChanger = (_, pageSize) => {
+    setLimit(pageSize);
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -96,6 +100,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
             total: totalPayouts,
             current: page,
             onChange: handlePageChange,
+            onShowSizeChange: handleSizeChanger,
           }}
           rowKey={rowKey}
           loading={loading}
