@@ -1,4 +1,4 @@
-import DashboardFilters from "..";
+import UserFilters from "..";
 import renderer from "react-test-renderer";
 
 Object.defineProperty(window, "matchMedia", {
@@ -16,10 +16,11 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 const mockProps = {
+  data: [],
   setFiltered: jest.fn(),
+  searchQuery: "",
 };
-
-it("renders a snapshot of <DashboardFilters /> with mock props ", () => {
-  const filter = renderer.create(<DashboardFilters {...mockProps} />).toJSON();
+it("renders a snapshot of <UserFilters /> with mock props", () => {
+  const filter = renderer.create(<UserFilters {...mockProps} />).toJSON();
   expect(filter).toMatchSnapshot();
 });
