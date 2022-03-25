@@ -5,15 +5,16 @@ import * as nextRouter from "next/router";
 nextRouter.useRouter = jest.fn();
 nextRouter.useRouter.mockImplementation(() => ({
   route: "/",
+  pathname: "/account/dashboard",
 }));
 
 const mockProps = {
-  title: "mocktitle",
+  title: "mockTitle",
   url: "mockUrl",
   orderUrl: "mockOrderUrl",
 };
 
-it("renders a snapshot of <StatsHeader /> with mock props", () => {
+it("renders a snapshot of <StatsHeader />  with mock props", () => {
   const header = renderer.create(<StatsHeader {...mockProps} />).toJSON();
   expect(header).toMatchSnapshot();
 });

@@ -7,10 +7,10 @@ const mockProps = {
   handleSearchDate: jest.fn(),
   handleEndDate: jest.fn(),
   handleSearchSubmit: jest.fn(),
-  // productStatusOption:""
+  productStatusOption: "",
 };
 
-it("renders a snapshot of <CouponHeader /> with mock props", () => {
+it("renders a snapshot of <CouponHeader />", () => {
   const header = renderer.create(<CouponHeader {...mockProps} />).toJSON();
   expect(header).toMatchSnapshot();
 });
