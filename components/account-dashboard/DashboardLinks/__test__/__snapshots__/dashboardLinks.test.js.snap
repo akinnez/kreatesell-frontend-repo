@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <DashboardLinks />  1`] = `
+<div
+  className="links"
+>
+  <a
+    className="link false"
+    href="/account/dashboard"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    All
+  </a>
+  <a
+    className="link active"
+    href="/account/dashboard/kreator"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    Kreator
+  </a>
+  <a
+    className="link false"
+    href="/account/dashboard/affiliate"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    Affiliate
+  </a>
+</div>
+`;
