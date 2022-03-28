@@ -1,8 +1,10 @@
-import { Select, Input } from "components";
+// import { Select, Input } from "components";
 import { SVGFilter } from "../../utils";
 import Image from "next/image";
 import { dayOptions, currencyOptions } from "./partials";
 import styles from "../../public/css/Dashboard.module.scss";
+import { Form, Button, DatePicker, Select, Row, Col, Input } from "antd";
+import {useState} from 'react'
 
 export const CouponHeader = ({
 	handleSearchInput,
@@ -12,78 +14,85 @@ export const CouponHeader = ({
 	handleSearchSubmit,
 	productStatusOptions,
 }) => {
-	// const fmtDt = format(Date.now(), "yyyy-MM-dd");
-
-	// useEffect(() => {}, [handleSearchInput]);
+	const [form] = Form.useForm();
+	const [isFiltered, setIsFiltered] = useState(false);
 
 	return (
-		<div className={`w-full ${styles.productHeader}`}>
-			{/* <div
-			className={`w-full grid gap-4 items-center grid-cols-3 lg:grid-cols-6 ${styles.productHeader}`}
-		> */}
-			<div className={`pt-5 w-full ${styles.searchInput}`}>
-				<p className={styles.label}>Search</p>
-				<Input
-					placeholder="Click here to Search"
-					className={styles.search}
-					onChange={handleSearchInput}
-				/>
-			</div>
+		<div>
+          <Form
+            // onFinish={handleSubmitFilter}
+            size="large"
+			layout="vertical"
+            form={form}
+          >
+            <Row gutter={8} align="bottom" justify="space-between">
+				<Col 
+				>
+					<Form.Item label="Search" name="search">
+						<Input placeholder="Click here to Search"/>
+					</Form.Item>
+				</Col>
+              <Col
+				span={3}
+              >
+                <Form.Item label="Show" name="show">
+                  <Select
+                    // options={showOptions}
+                    placeholder="Today"
+                    // onChange={handleSelect("show")}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
+				span={3}
+              >
+                <Form.Item label="Currency" name="currency">
+                  <Select
+                    // options={currencyOptions}
+                    placeholder="NGN"
+                    // onChange={handleSelect("currency")}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
+              >
+                <Form.Item label="From" name="from">
+                  <DatePicker
+                    placeholder="2021-07-22"
+                    // onChange={handleDatePicker("from")}
+                    allowClear={false}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
 
-			<div className={`w-full hidden lg:block ${styles.selectToday}`}>
-				<Select
-					options={dayOptions}
-					value="Custom Select"
-					placeholder="Today"
-					placeHolderColor="#8c8c8c"
-					label="Show"
-					height="44px"
-					className="h-11"
-				/>
-			</div>
-
-			<div className={`w-full ${styles.selectProduct}`}>
-				<Select
-					options={currencyOptions}
-					placeholder="All"
-					placeHolderColor="#8c8c8c"
-					label="Currency"
-					height="44px"
-					className="h-11"
-					onChange={(e) => handleProductStatus(e.value)}
-				/>
-			</div>
-
-			<div className={`pt-1 w-full ${styles.fromDate}`}>
-				<p className={styles.label}>From</p>
-				<div>
-					<input
-						type="date"
-						className={styles.date}
-						// defaultValue={fmtDt}
-						onChange={handleStartDate}
-					/>
-				</div>
-			</div>
-
-			<div className={`pt-1 w-full ${styles.toDate}`}>
-				<p className={styles.label}>To</p>
-				<div>
-					<input
-						type="date"
-						className={styles.date}
-						// defaultValue={fmtDt}
-						onChange={handleEndDate}
-					/>
-				</div>
-			</div>
-
-			<div
-				className={`h-16 py-5 w-full cursor-pointer ${styles.filterCont}`}
-				onClick={handleSearchSubmit}
-			>
-				<Image src={SVGFilter} alt="filter" width="130" height="44" />
-			</div>
-		</div>
+              >
+                <Form.Item label="To" name="to">
+                  <DatePicker
+                    placeholder="2021-07-22"
+                    // onChange={handleDatePicker("to")}
+                    allowClear={false}
+                  />
+                </Form.Item>
+              </Col>
+              <Col
+			  	span={3}
+                className={styles.filter__btn}
+              >
+                <Form.Item>
+                  <Button type="primary" htmlType="submit">
+                    <Image
+                      src="/images/FilterIcon.png"
+                      alt="Filter icon"
+                      width={19}
+                      height={16}
+                    />
+                    &nbsp; Filter
+                  </Button>
+                </Form.Item>
+              </Col>
+            </Row>
+          </Form>
+        </div>
 	);
 };

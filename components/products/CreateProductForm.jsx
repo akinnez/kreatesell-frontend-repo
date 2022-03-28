@@ -200,7 +200,7 @@ export const CreateProductForm = ({
 
   return (
     <div className={styles.digitalDownload}>
-      <h5 className="text-primary-blue font-medium text-2xl">
+      <h5 className="text-primary-blue font-semibold text-2xl">
         {productType === "digitalDownload" && "DIGITAL DOWNLOAD"}
         {productType === "oneTimeSubscription" && "ONE-TIME SUBSCRIPTION"}
         {productType === "membership" && "MEMBERSHIP "}

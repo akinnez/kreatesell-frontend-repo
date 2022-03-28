@@ -12,30 +12,21 @@ const CreateProduct = () => {
 
   return (
     <AuthLayout>
-      <Card style={{ padding: "25px" }}>
+      <Card style={{ padding: "5px 25px 0", marginBottom: "1em" }}>
         <Tab
           titles={["Product Design", "Checkout", "Design and Content"]}
           active={productTab}
           onSelect={e => setProductTab(e)}
           key={productTab}
         >
-          {/* <TabItem>
-						<CreateProductTab />
-					</TabItem>
-
-					<TabItem>
-						<CheckoutProductTab />
-					</TabItem>
-
-					<TabItem>
-						<h3>hello Design and Content</h3>
-					</TabItem> */}
         </Tab>
-
+      </Card>
+      <Card style={{ padding: "25px" }}>
         {productTab === 0 && <CreateProductTab />}
         {productTab === 1 && <CheckoutProductTab />}
         {productTab === 2 && <h3>hello Design and Content</h3>}
       </Card>
+
     </AuthLayout>
   );
 };
