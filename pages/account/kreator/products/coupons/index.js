@@ -2,7 +2,7 @@ import {
 	Button,
 	AllCouponTableHeader,
 	CouponHeader,
-    tableLocale
+	emptyComponent
 } from "components";
 import { DownloadIcon } from "utils";
 import AuthLayout from "../../../../../components/authlayout";
@@ -40,7 +40,11 @@ const Coupon = () => {
 		  tags: ['cool', 'teacher'],
 		},
 	  ];
-
+	  const tableLocale = {
+		emptyText: (
+			emptyComponent("No record yet")
+		)
+	}
 	return (
 		<AuthLayout>
 			<div className={styles.allProduct + " pb-10"}>

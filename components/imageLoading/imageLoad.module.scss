@@ -1,0 +1,10 @@
+@import "../../public//css/colors.scss";
+@import "../../public//css/mixins.scss";
+@import "../../public//css/screens.scss";
+
+.imageLoader{
+    width: 100%;
+    border-radius: .5em;
+    height: 2px;
+    background-color: $gray-100;
+}

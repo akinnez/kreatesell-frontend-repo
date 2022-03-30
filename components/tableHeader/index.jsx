@@ -461,16 +461,11 @@ export const AllCouponTableHeader = [
 		dataIndex: "more",
 	},
 ];
-const emptyComponent = ()=>{
+export const emptyComponent = (text)=>{
 	return(
 		<div className={styles.emptyTable+ " flex flex-col"}>
 			<Image alt="" src={EmptyDataTable}/>
-			<h2 className={styles.lightGrey + " mt-5 font-semibold text-2xl"}> No content has been added</h2>
+			<h2 className={styles.lightGrey + " mt-5 font-semibold text-lg"}>{text? text :"No content has been added"}</h2>
 		</div>
-	)
-}
-export const tableLocale = {
-	emptyText: (
-		emptyComponent()
 	)
 }

@@ -97,8 +97,15 @@
 	}
 }
 
+.businessPlan{
+	background-color: $gray-100;
+	padding: .5em .5em .5em 2em;
+}
+
 .digitalDownload {
 	.inputLabel {
+		font-weight: 600;
+		font-size: 16px;
 		@extend .label;
 	}
 
@@ -110,7 +117,7 @@
 	}
 
 	.upload {
-		border: 1px dotted $base-blue;
+		border: 2px dotted $base-blue;
 		width: 100%;
 		border-radius: 0.5rem;
 		cursor: pointer;
@@ -133,16 +140,22 @@
 	}
 
 	.contentFileUpload {
+		padding: .8em;
+		margin-top: 1em;
 		@extend .upload;
 		// display: flex;
 		// align-items: center;
 		// justify-content: center;
 	}
-
+	.imageContent{
+		width: 100%;
+		height: 68px;
+		border-radius: 8px;
+	}
 	.noImage {
-		border: 1px solid $gray-100;
-		border-radius: 0.5rem;
-
+		// border: 1px solid $gray-100;
+		box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+		background-color: rgba(34, 34, 34, 0.1);
 		@include screen("laptop") {
 			min-height: 20vh;
 		}

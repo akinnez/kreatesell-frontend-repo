@@ -10,7 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { GetProductTypes } from "redux/actions";
 
-export const CreateProductTab = () => {
+export const CreateProductTab = ({setTitles, titles}) => {
   const getProductTypes = GetProductTypes();
 
   const [tab, setTab] = useState(1);
@@ -34,6 +34,24 @@ export const CreateProductTab = () => {
   useEffect(() => {
     getProductTypes();
   }, []);
+
+  useEffect(()=>{
+    if(tab === 1){
+      const newTitles = [titles[0], titles[1]]
+      setTitles(newTitles)
+      return
+    }
+    if(tab === 2){
+      const newTitles = [titles[0], titles[1], 'One-Time-Subscription']
+      setTitles(newTitles)
+      return
+    }
+    if(tab === 3){
+      const newTitles = [titles[0], titles[1], 'Membership']
+      setTitles(newTitles)
+      return
+    }
+  }, [tab])
 
   return (
     <div className={`px-0 lg:px-8 ${styles.container}`}>
@@ -166,7 +184,10 @@ export const CreateProductTab = () => {
           </div>
         </Col>
       </Row>
-
+      {/* {(tab === 2 || tab === 3) && } */}
+      {tab !== 1 ?<div className={styles.businessPlan}>
+        <h2 className="text-base">This action requires a business plan, click <a>here</a> to subscribe</h2>
+        </div>: <></>}
       <div className="mt-8 mb-4">
         <div className="divider"></div>
       </div>

@@ -1,0 +1,30 @@
+@import "../../public//css/colors.scss";
+@import "../../public//css/mixins.scss";
+@import "../../public//css/screens.scss";
+
+
+.selectButton{
+    &> div:first-child{
+        border-radius: 5px;
+    }
+}
+.currencyField{
+    width: 85%;
+    border: 2px solid $gray-100;
+    border-radius: 8px;
+    min-height: 150px;
+    padding: 2em;
+
+    .currencyButtons{
+        background-color: $gray-500;
+        padding: .7em .5em;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        p{
+            cursor: pointer;
+        }
+    }
+}

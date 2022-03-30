@@ -2,7 +2,8 @@ import {
 	// DateHeader,
 	Button,
 	AllProductsTableHeader,
-	ProductHeader,
+	CouponHeader,
+	emptyComponent
 } from "components";
 
 import { DownloadIcon } from "utils";
@@ -74,9 +75,14 @@ const AllProducts = () => {
 		getProducts(1, productName, startDate, endDate, productStatusId);
 	const handlePaginationChange = (page) => getProducts(page);
 
+	const tableLocale = {
+		emptyText: (
+			emptyComponent("No record yet")
+		)
+	}
 	return (
 		<AuthLayout>
-			<div className={styles.allProduct}>
+			{/* <div className={styles.allProduct}>
 				<div className="flex justify-between mb-4">
 					<h3 className="font-semibold text-2xl">Products</h3>
 					<div>
@@ -89,7 +95,6 @@ const AllProducts = () => {
 					</div>
 				</div>
 
-				{/* <DateHeader showSelect={false} /> */}
 				<ProductHeader
 					handleSearchInput={(e) => setProductName(e.target.value)}
 					handleSearchSubmit={() => handleSearchSubmit()}
@@ -126,6 +131,59 @@ const AllProducts = () => {
 				{memoisedProductData?.map((item, i) => (
 					<MobileProductCard item={item} key={item?.id || i} />
 				))}
+			</div> */}
+
+
+			<div className={styles.allProduct + " pb-10"}>
+				<div className="flex justify-between mb-4">
+					<h3 className=" font-semibold text-2xl">All Products</h3>
+                    <Button
+                        text="+ Add a Product"
+                        bgColor="blue"
+                        className={styles.addCouponBtn1 + " pr-2 pl-2"}
+                        onClick={() => router.push("/account/kreator/products/create")}
+                    />
+				</div>
+				<CouponHeader
+					// handleSearchInput={(e) => setProductName(e.target.value)}
+					// handleSearchSubmit={() => handleSearchSubmit()}
+					// handleStartDate={(e) => setStartDate(e.target.value)}
+					// handleEndDate={(e) => setEndDate(e.target.value)}
+					// productStatusOptions={productStatusOptions}
+					// handleProductStatus={(e) => setProductStatusId(e)}
+				/>
+
+				<div className="flex justify-end items-center pt-3 mr-10">
+                    <div className="flex justify-end items-center cursor-pointer">
+                        <div className="text-primary-blue  font-semibold text-xs pr-2">
+                            Export Data in CSV
+                        </div>
+                        <Image alt="" src={DownloadIcon} />
+                    </div>
+				</div>
+
+				<div className="hidden lg:block mb-16 mt-8">
+					<Table
+						columns={AllProductsTableHeader}
+                        locale={tableLocale}
+						// dataSource={memoisedProductData}
+						// loading={loading}
+						pagination={{
+							position: ["none","bottomLeft"],
+						}}
+						size="large"
+					/>
+				</div>
+                <div className="flex flex-col items-center">
+                    <h2 className={styles.lightGrey +" font-semibold text-center text-base"}>Almost there, now click the button to add your product.</h2>
+                    <Button
+                        leftIcon="+"
+                        text="Add a Product"
+                        bgColor="blue"
+                        className={styles.addCouponBtn + " mt-2"}
+                        onClick={() => router.push("/account/kreator/products/create")}
+                    />
+				</div>
 			</div>
 		</AuthLayout>
 	);
