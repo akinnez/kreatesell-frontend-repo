@@ -1,0 +1,1040 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <KreatorDashboard /> 1`] = `
+<div>
+  <div
+    className="filterToggle"
+  >
+    <button
+      className="ant-btn ant-btn-round"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Show Filters...
+      </span>
+    </button>
+  </div>
+  <div
+    className="filtersContainer"
+  >
+    <button
+      className="ant-btn ant-btn-text ant-btn-circle ant-btn-icon-only closeFilter"
+      onClick={[Function]}
+      type="button"
+    >
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0V0z"
+          fill="none"
+          opacity=".87"
+        />
+        <path
+          d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"
+        />
+      </svg>
+    </button>
+    <div
+      className="lgMargin"
+    >
+      <form
+        className="ant-form ant-form-horizontal ant-form-large"
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="ant-row ant-row-space-between ant-row-bottom"
+          style={
+            Object {
+              "marginLeft": -10,
+              "marginRight": -10,
+            }
+          }
+        >
+          <div
+            className="ant-col input__wrapper ant-col-xs-24 ant-col-lg-4"
+            style={
+              Object {
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <div
+              className="ant-row ant-form-item"
+              style={Object {}}
+            >
+              <div
+                className="ant-col ant-col-24 ant-form-item-label"
+                style={Object {}}
+              >
+                <label
+                  className=""
+                  htmlFor="search"
+                  title="Search"
+                >
+                  Search
+                </label>
+              </div>
+              <div
+                className="ant-col ant-col-24 ant-form-item-control"
+                style={Object {}}
+              >
+                <div
+                  className="ant-form-item-control-input"
+                >
+                  <div
+                    className="ant-form-item-control-input-content"
+                  >
+                    <input
+                      className="ant-input ant-input-lg"
+                      id="search"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      placeholder="Search"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="ant-col input__wrapper ant-col-xs-24 ant-col-lg-4"
+            style={
+              Object {
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <div
+              className="ant-row ant-form-item"
+              style={Object {}}
+            >
+              <div
+                className="ant-col ant-col-24 ant-form-item-label"
+                style={Object {}}
+              >
+                <label
+                  className=""
+                  htmlFor="show"
+                  title="Show"
+                >
+                  Show
+                </label>
+              </div>
+              <div
+                className="ant-col ant-col-24 ant-form-item-control"
+                style={Object {}}
+              >
+                <div
+                  className="ant-form-item-control-input"
+                >
+                  <div
+                    className="ant-form-item-control-input-content"
+                  >
+                    <div
+                      className="ant-select ant-select-lg ant-select-single ant-select-show-arrow"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                    >
+                      <div
+                        className="ant-select-selector"
+                        onClick={[Function]}
+                        onMouseDown={[Function]}
+                      >
+                        <span
+                          className="ant-select-selection-search"
+                        >
+                          <input
+                            aria-activedescendant="show_list_0"
+                            aria-autocomplete="list"
+                            aria-controls="show_list"
+                            aria-haspopup="listbox"
+                            aria-owns="show_list"
+                            autoComplete="off"
+                            className="ant-select-selection-search-input"
+                            id="show"
+                            onChange={[Function]}
+                            onCompositionEnd={[Function]}
+                            onCompositionStart={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseDown={[Function]}
+                            onPaste={[Function]}
+                            readOnly={true}
+                            role="combobox"
+                            style={
+                              Object {
+                                "opacity": 0,
+                              }
+                            }
+                            type="search"
+                            unselectable="on"
+                            value=""
+                          />
+                        </span>
+                        <span
+                          className="ant-select-selection-placeholder"
+                        >
+                          Today
+                        </span>
+                      </div>
+                      <span
+                        aria-hidden={true}
+                        className="ant-select-arrow"
+                        onMouseDown={[Function]}
+                        style={
+                          Object {
+                            "WebkitUserSelect": "none",
+                            "userSelect": "none",
+                          }
+                        }
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="down"
+                          className="anticon anticon-down ant-select-suffix"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="ant-col input__wrapper ant-col-xs-24 ant-col-lg-4"
+            style={
+              Object {
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <div
+              className="ant-row ant-form-item"
+              style={Object {}}
+            >
+              <div
+                className="ant-col ant-col-24 ant-form-item-label"
+                style={Object {}}
+              >
+                <label
+                  className=""
+                  htmlFor="currency"
+                  title="Currency"
+                >
+                  Currency
+                </label>
+              </div>
+              <div
+                className="ant-col ant-col-24 ant-form-item-control"
+                style={Object {}}
+              >
+                <div
+                  className="ant-form-item-control-input"
+                >
+                  <div
+                    className="ant-form-item-control-input-content"
+                  >
+                    <div
+                      className="ant-select ant-select-lg ant-select-single ant-select-show-arrow"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                    >
+                      <div
+                        className="ant-select-selector"
+                        onClick={[Function]}
+                        onMouseDown={[Function]}
+                      >
+                        <span
+                          className="ant-select-selection-search"
+                        >
+                          <input
+                            aria-activedescendant="currency_list_0"
+                            aria-autocomplete="list"
+                            aria-controls="currency_list"
+                            aria-haspopup="listbox"
+                            aria-owns="currency_list"
+                            autoComplete="off"
+                            className="ant-select-selection-search-input"
+                            id="currency"
+                            onChange={[Function]}
+                            onCompositionEnd={[Function]}
+                            onCompositionStart={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseDown={[Function]}
+                            onPaste={[Function]}
+                            readOnly={true}
+                            role="combobox"
+                            style={
+                              Object {
+                                "opacity": 0,
+                              }
+                            }
+                            type="search"
+                            unselectable="on"
+                            value=""
+                          />
+                        </span>
+                        <span
+                          className="ant-select-selection-placeholder"
+                        >
+                          NGN
+                        </span>
+                      </div>
+                      <span
+                        aria-hidden={true}
+                        className="ant-select-arrow"
+                        onMouseDown={[Function]}
+                        style={
+                          Object {
+                            "WebkitUserSelect": "none",
+                            "userSelect": "none",
+                          }
+                        }
+                        unselectable="on"
+                      >
+                        <span
+                          aria-label="down"
+                          className="anticon anticon-down ant-select-suffix"
+                          role="img"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            data-icon="down"
+                            fill="currentColor"
+                            focusable="false"
+                            height="1em"
+                            viewBox="64 64 896 896"
+                            width="1em"
+                          >
+                            <path
+                              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="ant-col input__wrapper ant-col-xs-24 ant-col-lg-4"
+            style={
+              Object {
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <div
+              className="ant-row ant-form-item"
+              style={Object {}}
+            >
+              <div
+                className="ant-col ant-col-24 ant-form-item-label"
+                style={Object {}}
+              >
+                <label
+                  className=""
+                  htmlFor="from"
+                  title="From"
+                >
+                  From
+                </label>
+              </div>
+              <div
+                className="ant-col ant-col-24 ant-form-item-control"
+                style={Object {}}
+              >
+                <div
+                  className="ant-form-item-control-input"
+                >
+                  <div
+                    className="ant-form-item-control-input-content"
+                  >
+                    <div
+                      className="ant-picker ant-picker-large"
+                      onMouseUp={[Function]}
+                    >
+                      <div
+                        className="ant-picker-input"
+                      >
+                        <input
+                          autoComplete="off"
+                          id="from"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseDown={[Function]}
+                          placeholder="2021-07-22"
+                          readOnly={true}
+                          size={12}
+                          title=""
+                          value=""
+                        />
+                        <span
+                          className="ant-picker-suffix"
+                        >
+                          <span
+                            aria-label="calendar"
+                            className="anticon anticon-calendar"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="calendar"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="ant-col input__wrapper ant-col-xs-24 ant-col-lg-4"
+            style={
+              Object {
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <div
+              className="ant-row ant-form-item"
+              style={Object {}}
+            >
+              <div
+                className="ant-col ant-col-24 ant-form-item-label"
+                style={Object {}}
+              >
+                <label
+                  className=""
+                  htmlFor="to"
+                  title="To"
+                >
+                  To
+                </label>
+              </div>
+              <div
+                className="ant-col ant-col-24 ant-form-item-control"
+                style={Object {}}
+              >
+                <div
+                  className="ant-form-item-control-input"
+                >
+                  <div
+                    className="ant-form-item-control-input-content"
+                  >
+                    <div
+                      className="ant-picker ant-picker-large"
+                      onMouseUp={[Function]}
+                    >
+                      <div
+                        className="ant-picker-input"
+                      >
+                        <input
+                          autoComplete="off"
+                          id="to"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseDown={[Function]}
+                          placeholder="2021-07-22"
+                          readOnly={true}
+                          size={12}
+                          title=""
+                          value=""
+                        />
+                        <span
+                          className="ant-picker-suffix"
+                        >
+                          <span
+                            aria-label="calendar"
+                            className="anticon anticon-calendar"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="calendar"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="ant-col filter__btn ant-col-xs-24 ant-col-lg-3"
+            style={
+              Object {
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <div
+              className="ant-row ant-form-item"
+              style={Object {}}
+            >
+              <div
+                className="ant-col ant-col-24 ant-form-item-control"
+                style={Object {}}
+              >
+                <div
+                  className="ant-form-item-control-input"
+                >
+                  <div
+                    className="ant-form-item-control-input-content"
+                  >
+                    <button
+                      className="ant-btn ant-btn-primary ant-btn-lg"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      <img
+                        src="[jest.find('../utils')]"
+                      />
+                      <span>
+                          Filter
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <section>
+    <div
+      className="links"
+    >
+      <a
+        className="link false"
+        href="/account/dashboard"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        All
+      </a>
+      <a
+        className="link false"
+        href="/account/dashboard/kreator"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Kreator
+      </a>
+      <a
+        className="link false"
+        href="/account/dashboard/affiliate"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Affiliate
+      </a>
+    </div>
+  </section>
+  <div
+    className="stats__header"
+  >
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      Kreator
+    </span>
+    <a
+      href="/account/sales/transactions"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      See Orders   
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 1024 1024"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"
+        />
+      </svg>
+    </a>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="midSection"
+    >
+      <div
+        className="cardContainer"
+      >
+        <div
+          className="firstCard"
+        >
+          <div
+            className="iconCont"
+          >
+            <div
+              className="icon"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <div
+              className="countCont"
+            >
+              <div
+                className="value"
+              >
+                123,456
+              </div>
+              <div
+                className="valueText"
+              >
+                Total visits
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="card"
+        >
+          <div
+            className="iconCont"
+          >
+            <div
+              className="icon"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <div
+              className="countCont"
+            >
+              <div
+                className="value"
+              >
+                123,456
+              </div>
+              <div
+                className="valueText"
+              >
+                Sales in Unit
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="card"
+        >
+          <div
+            className="iconCont"
+          >
+            <div
+              className="icon"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <div
+              className="countCont"
+            >
+              <div
+                className="value"
+              >
+                123,456
+              </div>
+              <div
+                className="valueText"
+              >
+                Gross Sales
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="card"
+        >
+          <div
+            className="iconCont"
+          >
+            <div
+              className="icon"
+            >
+              <img
+                src="[jest.find('../utils')]"
+              />
+            </div>
+            <div
+              className="countCont"
+            >
+              <div
+                className="value"
+              >
+                123,456
+              </div>
+              <div
+                className="valueText"
+              >
+                Profit
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="download"
+    >
+      <p>
+        Download CSV
+      </p>
+      <div
+        className="downloadIcon"
+      >
+        <img
+          src="[jest.find('../utils')]"
+        />
+      </div>
+    </div>
+    <div
+      className="analytics"
+    >
+      <div
+        className="recentSales"
+      >
+        <div
+          className="graphTitle"
+        >
+          <div
+            className="recentTitle"
+          >
+            Recent Sales
+          </div>
+          <div
+            className="graphLegend"
+          >
+            <div
+              className="roundIcon"
+            />
+            <p>
+              Last 12 months
+            </p>
+          </div>
+        </div>
+        <canvas
+          height={150}
+          onClick={[Function]}
+          role="img"
+          width={300}
+        />
+      </div>
+      <div
+        className="recentSection"
+      >
+        <div
+          className="customers"
+        >
+          <div
+            className="customerTitle"
+          >
+            Recent Customers
+          </div>
+          <div
+            className="customerSubTitle"
+          >
+            <ul
+              className="titleList"
+            >
+              <li>
+                Customer name
+              </li>
+              <li>
+                Transaction ID
+              </li>
+              <li>
+                Date
+              </li>
+            </ul>
+            <ul
+              className="contentList"
+            >
+              <li>
+                Kathryn Murphy
+              </li>
+              <li>
+                3455323324
+              </li>
+              <li>
+                20/03/2021
+              </li>
+            </ul>
+            <ul
+              className="contentList"
+            >
+              <li>
+                Kathryn Murphy
+              </li>
+              <li>
+                3455323324
+              </li>
+              <li>
+                20/03/2021
+              </li>
+            </ul>
+            <ul
+              className="contentList"
+            >
+              <li>
+                Kathryn Murphy
+              </li>
+              <li>
+                3455323324
+              </li>
+              <li>
+                20/03/2021
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          className="revenue"
+        >
+          <div
+            className="revenueTitle"
+          >
+            Total Revenue
+          </div>
+          <div
+            className="revenueAmount"
+          >
+            <sup
+              className="currency"
+            >
+              #
+            </sup>
+            0
+          </div>
+          <div
+            className="duration"
+          >
+            <div
+              className="selectCont"
+            >
+              <div
+                className="select"
+              >
+                <label
+                  className="label"
+                />
+                <div
+                  className="selectOptions undefined css-2b097c-container"
+                  onKeyDown={[Function]}
+                >
+                  <span
+                    aria-atomic="false"
+                    aria-live="polite"
+                    aria-relevant="additions text"
+                    className="css-1f43avz-a11yText-A11yText"
+                  />
+                  <div
+                    className=" css-17xcoxp-control"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <div
+                      className=" css-14100a9-ValueContainer"
+                    >
+                      <div
+                        className=" css-1eoeshf-placeholder"
+                      >
+                        Sales this Week
+                      </div>
+                      <div
+                        className="css-b8ldur-Input"
+                      >
+                        <div
+                          className=""
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-2-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className=" css-1hb7zxy-IndicatorsContainer"
+                    >
+                      <span
+                        className=" css-43ykx9-indicatorSeparator"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className=" css-132wh94-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-tj5bde-Svg"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
