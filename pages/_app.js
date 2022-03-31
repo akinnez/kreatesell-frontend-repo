@@ -1,3 +1,4 @@
+import "../styles/globals.css";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { useStore } from "../redux/store";
