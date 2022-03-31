@@ -1,6 +1,6 @@
 export const data = [
   {
-    iconSrc: "/images/facebook.svg",
+    iconSrc: "/images/Facebook.svg",
     name: "facebook",
     color: "#3b5998",
     link: "https://www.facebook.com/Kreatesell-100977575650709",
@@ -12,7 +12,7 @@ export const data = [
     link: "https://twitter.com/KreateSell",
   },
   {
-    iconSrc: "/images/linkedIn.svg",
+    iconSrc: "/images/LinkedIn.svg",
     name: "LinkedIn",
     color: "#0072b1",
     link: "https://www.linkedin.com/in/kreate-sell-b1291121a/",
