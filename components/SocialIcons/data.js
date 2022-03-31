@@ -12,7 +12,7 @@ export const data = [
     link: "https://twitter.com/KreateSell",
   },
   {
-    iconSrc: "/images/LinkedIn.svg",
+    iconSrc: "/images/Linkedin.svg",
     name: "LinkedIn",
     color: "#0072b1",
     link: "https://www.linkedin.com/in/kreate-sell-b1291121a/",
