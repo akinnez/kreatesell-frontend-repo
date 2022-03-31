@@ -1,4 +1,4 @@
-import "../styles/global.css";
+import "../styles/globals.css";
 import styles from "../styles/home.module.scss";
 import { Navbar } from "components/Nav";
 import MainAttention from "components/Attention";
