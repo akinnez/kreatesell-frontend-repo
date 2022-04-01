@@ -13,6 +13,7 @@ export const data = [
   },
   {
     iconSrc: "/images/Linkedin.svg",
+    // changed image name
     name: "LinkedIn",
     color: "#0072b1",
     link: "https://www.linkedin.com/in/kreate-sell-b1291121a/",
