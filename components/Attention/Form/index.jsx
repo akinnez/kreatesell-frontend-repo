@@ -5,7 +5,6 @@ import { WaitListSchema } from "../../../validations";
 import { isAnEmpytyObject } from "../../../utils";
 import { useFormik } from "formik";
 import { FormError } from "./FormError";
-import { Modal, Button } from "antd";
 
 const Form = ({ showModal }) => {
   // const feedBackOptions = {
@@ -26,14 +25,9 @@ const Form = ({ showModal }) => {
     for (let value in data) {
       formData.append(value, data[value]);
     }
-
+    // make request here and then showModal should be passed as a callback to
+    // successfully posting these details to the given endpoint.
     showModal();
-
-    // feedback
-    // cogoToast.success(
-    //   `${formik.values.FirstName}, you have been added to the wait-list`,
-    //   feedBackOptions
-    // );
   };
 
   const formik = useFormik({
@@ -48,6 +42,7 @@ const Form = ({ showModal }) => {
   return (
     <>
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+
       <form className={styles.formMain} onSubmit={formik.handleSubmit}>
         <div className={styles.formBox}>
           <InputBox

@@ -7,7 +7,7 @@ import "antd/dist/antd.css";
 import { Modal } from "antd";
 
 export default function Home() {
-  function success() {
+  function showModalContent() {
     Modal.success({
       title: <Title />,
       content: <Content />,
@@ -18,7 +18,7 @@ export default function Home() {
     <div className={styles.container}>
       <Navbar />
       <section className={styles.doFlex}>
-        <MainAttention showModal={success} />
+        <MainAttention showModal={showModalContent} />
         <SneakPeak />
       </section>
       <SocialIcons />
