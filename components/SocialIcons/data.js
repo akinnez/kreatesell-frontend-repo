@@ -3,20 +3,19 @@ export const data = [
     iconSrc: "/images/Facebook.svg",
     name: "facebook",
     color: "#3b5998",
-    link: "https://www.facebook.com/Kreatesell-100977575650709",
+    link: "https://www.facebook.com/usekreatesell",
   },
   {
     iconSrc: "/images/Twitter.svg",
     name: "twitter",
     color: "#1DA1F2",
-    link: "https://twitter.com/KreateSell",
+    link: "https://twitter.com/usekreatesell",
   },
   {
     iconSrc: "/images/Linkedin.svg",
-    // changed image name
     name: "LinkedIn",
     color: "#0072b1",
-    link: "https://www.linkedin.com/in/kreate-sell-b1291121a/",
+    link: "https://www.linkedin.com/company/usekreatesell",
   },
   {
     iconSrc: "/images/WhatsApp.svg",
