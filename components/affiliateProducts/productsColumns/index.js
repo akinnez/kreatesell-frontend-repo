@@ -13,7 +13,7 @@ const productsColumns = types => [
   {
     title: "Kreator",
     dataIndex: "kreator_name",
-    render: name => `${name || "Kreator Name"}`,
+    render: name => `${name || ""}`,
   },
   {
     title: "Product Type",
@@ -30,7 +30,7 @@ const productsColumns = types => [
   {
     title: "No of Sales",
     dataIndex: "number_of_sales",
-    render: sales => formatNumber(sales || 10),
+    render: sales => formatNumber(sales || 0),
     sorter: (a, b) => a.number_of_sales - b.number_of_sales,
     sortDirections: ["descend", "ascend", "descend"],
   },
