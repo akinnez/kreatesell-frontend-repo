@@ -113,7 +113,14 @@ const PayoutsForm = ({
       account_number: values.paypal_email.trim(),
     };
 
-    createAccount({ data, hideModal, showSuccessModal, dispatchObj, dispatch });
+    createAccount({
+      data,
+      hideModal,
+      showSuccessModal,
+      dispatchObj,
+      dispatch,
+      actions,
+    });
   };
 
   const formik = useFormik({

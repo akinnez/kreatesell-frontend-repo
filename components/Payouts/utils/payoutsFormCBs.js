@@ -41,6 +41,7 @@ export const createAccount = ({
   showSuccessModal,
   dispatchObj,
   dispatch,
+  actions,
 }) => {
   axiosApi.request(
     "post",
@@ -52,7 +53,7 @@ export const createAccount = ({
     },
     err => {
       showToast(err.message, "error");
-      hideModal();
+      actions.setSubmitting(false);
     },
     data
   );
