@@ -10,11 +10,11 @@ import axios from "axios";
 
 const waitListUrl = `${process.env.BASE_URL}v1/kreatesell/utils/subscribe`;
 
-const Form = ({ showModal }) => {
-  const feedBackOptions = {
-    hideAfter: 5,
-    position: "top-right",
-  };
+const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
+  // const feedBackOptions = {
+  //   hideAfter: 5,
+  //   position: "center",
+  // };
 
   const initialValues = {
     customer_name: "",
@@ -25,21 +25,20 @@ const Form = ({ showModal }) => {
     const { customer_name, customer_email } = values;
     const data = { customer_name, customer_email };
 
-    // make request here and then showModal should be passed as a callback to
-    // successfully posting these details to the given endpoint.
-    axios
-      .post(waitListUrl, data)
-      .then(() => {
-        // DETAILS GO THROUGH
-        showModal();
-      })
-      .catch(() => {
-        // ERROR OCCURRED
-        cogoToast.error(
-          "Sorry, we encountered a problem while saving your details. Please, try again",
-          feedBackOptions
-        );
-      });
+    // always show the submitting details message
+    cogoToast.loading("Submitting your details...").then(() => {
+      // make request to submit details
+      axios
+        .post(waitListUrl, data)
+        .then(() => {
+          // DETAILS GO THROUGH, THEN showSubmissionSuccessModal
+          showSubmissionSuccessModal();
+        })
+        .catch(() => {
+          // ERROR OCCURRED
+          showSubmissionFailureModal();
+        });
+    });
   };
 
   const formik = useFormik({
