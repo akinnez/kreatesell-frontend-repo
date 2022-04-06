@@ -9,6 +9,6 @@ export const WaitListSchema = () => {
       .required("Please input your first name"),
     customer_email: Yup.string()
       .email("Please use a valid e-mail address")
-      .required("Please input a valid email address"),
+      .required("Please input your e-mail address"),
   });
 };
