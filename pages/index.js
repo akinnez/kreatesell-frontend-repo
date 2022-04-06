@@ -11,9 +11,7 @@ export default function Home() {
     Modal.success({
       title: (
         <Title
-          text={() => (
-            <span> Hurray! You&rsquo;re on the exclusive wait-list.</span>
-          )}
+          text={<span> Hurray! You&rsquo;re on the exclusive wait-list.</span>}
         />
       ),
       content: <Content />,
