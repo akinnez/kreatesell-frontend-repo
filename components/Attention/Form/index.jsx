@@ -26,7 +26,7 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
     const data = { customer_name, customer_email };
 
     // always show the submitting details message
-    cogoToast.loading("Submitting your details...").then(() => {
+    cogoToast.loading("Saving your details...").then(() => {
       // make request to submit details
       axios
         .post(waitListUrl, data)
@@ -64,7 +64,7 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
           />
           <InputBox
             type="mail"
-            placeholder="Enter your Mail Address"
+            placeholder="Enter your Email Address"
             name="customer_email"
             onChange={formik.handleChange}
           />

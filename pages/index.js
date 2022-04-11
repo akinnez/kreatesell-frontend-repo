@@ -2,7 +2,7 @@ import styles from "../styles/home.module.scss";
 import { Navbar } from "components/Nav";
 import MainAttention from "components/Attention";
 import SneakPeak from "components/SneakPeak";
-import SocialIcons from "components/SocialIcons";
+// import SocialIcons from "components/SocialIcons";
 import "antd/dist/antd.css";
 import { Modal } from "antd";
 
@@ -41,7 +41,7 @@ export default function Home() {
         />
         <SneakPeak />
       </section>
-      <SocialIcons />
+      {/* <SocialIcons /> */}
     </div>
   );
 }

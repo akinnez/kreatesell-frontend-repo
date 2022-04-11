@@ -4,11 +4,11 @@
 .container {
   width: 100%;
   // background-image: url("../public/images/home-shape.png");
-  background-image: url("../public/images/partial-general-bg.svg");
+  // HERE => background-image: url("../public/images/partial-general-bg.svg");
   // background-image: url("../public/images/banner.png");
-  background-position: 100% 100%;
+  // background-position: 100% 100%;
   // background-position: -200% 43%;
-  background-repeat: repeat;
+  // background-repeat: repeat;
   overflow: hidden;
   font-family: Inter, sans-serif;
   @media (min-width: 1200px) {
@@ -37,9 +37,12 @@
   @media (min-width: 900px) {
     padding: 0.5rem 10.31rem;
   }
+  @media (min-width: 1200px) {
+    padding: 0.5rem 15rem;
+  }
   .bannerImg {
     position: absolute;
-    background-image: url("../public/images/banner.png");
+    // background-image: url("../public/images/banner.png");
     // background-color: red;
     top: -80px;
     width: 100%;

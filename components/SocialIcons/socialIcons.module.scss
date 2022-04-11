@@ -1,22 +1,23 @@
 .container {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 
   // right: auto;
-  text-align: center;
+  // text-align: center;
   //   border: 1px solid red;
-  max-width: 500px;
-  margin: 0 auto;
-  margin-top: 3.6rem;
+  // max-width: 500px;
+  // margin: 0 auto;
+  // margin-top: 3.6rem;
   .icon {
     margin-right: 0.5rem;
     display: inline-block;
   }
 
-  @media (min-width: 1300px) {
-    position: fixed;
-    bottom: 0;
-    left: 600px;
-  }
+  // @media (min-width: 1300px) {
+  //   position: fixed;
+  //   bottom: 0;
+  //   left: 600px;
+  // }
 }

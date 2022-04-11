@@ -2,6 +2,7 @@ import styles from "./Navbar.module.scss";
 import Logo, { MobileLogo } from "components/Logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SocialIcons from "../SocialIcons";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ export const Navbar = () => {
         <div className={styles.MobileLogo} onClick={() => router.push("/")}>
           <MobileLogo />
         </div>
+        <SocialIcons />
       </nav>
     </>
   );

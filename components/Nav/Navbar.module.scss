@@ -8,7 +8,9 @@
   background-color: #fff;
   position: relative;
   z-index: 100;
-  justify-content: flex-start;
+  // justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   transition: all 0.2s;
   .MobileLogo {
     display: block;
@@ -26,5 +28,9 @@
 
   @media (min-width: 900px) {
     padding: 0.5rem 10.31rem;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 0.5rem 15rem;
   }
 }
