@@ -253,7 +253,7 @@ export const Animate = (
     "data-aos": animationType,
     "data-aos-delay": delay,
     "data-aos-easing": transition,
-    "data-aos-duration": 1500,
+    "data-aos-duration": 1000,
   };
   return animationObj;
 };
