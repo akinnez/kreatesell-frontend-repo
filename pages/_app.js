@@ -8,6 +8,9 @@ import "antd/dist/antd.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Router from "next/router";
+// aos animations
+import AOS from "aos";
+import "aos/dist/aos.css";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,6 +26,12 @@ function MyApp({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
   useEffect(() => {
     setAuthorizationHeader();
+  }, []);
+
+  // run animation once page finishes loading
+  useEffect(() => {
+    console.log("aos has loaded!");
+    AOS.init();
   }, []);
 
   return (
