@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }) {
   // run animation once page finishes loading
   useEffect(() => {
     AOS.init();
+    AOS.refresh();
   }, []);
 
   return (
