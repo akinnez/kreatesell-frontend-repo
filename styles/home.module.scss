@@ -10,10 +10,10 @@
   // background-position: -200% 43%;
   // background-repeat: repeat;
   height: 100%;
-  background-image: url("../public/images/home-bg.png");
-  background-position: 100% 100%;
-  background-repeat: no-repeat;
-  object-fit: cover;
+
+  // background-position: 100% 100%;
+  // background-repeat: no-repeat;
+  // object-fit: cover;
   overflow: hidden;
   font-family: Inter, sans-serif;
   // @media (min-width: 1200px) {
@@ -33,6 +33,7 @@
   flex-direction: column;
   padding: 1rem 2rem;
   transition: all 0.2s;
+  background-image: url("../public/images/home-bg.png");
   @media (min-width: 768px) {
     padding: 0.5rem 4rem;
     flex-direction: row;
