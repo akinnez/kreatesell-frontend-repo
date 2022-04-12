@@ -7,6 +7,7 @@ import Link from "next/link";
 import ResourcesDrop from "./ResourcesDrop";
 import Image from "next/image";
 import { ArrowDown } from "../../utils/assets";
+import { Animate } from "../../utils";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -64,7 +65,10 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
+      <nav
+        className={`${styles.navContainer} ${navBg && styles.navBg}`}
+        {...Animate("fade-down", 500, "ease-in")}
+      >
         <div
           className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
           onClick={() => handleNavbar()}
