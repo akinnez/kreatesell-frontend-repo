@@ -9,16 +9,17 @@
   // background-position: 100% 100%;
   // background-position: -200% 43%;
   // background-repeat: repeat;
+  height: 100%;
   background-image: url("../public/images/home-bg.png");
   background-position: 100% 100%;
   background-repeat: no-repeat;
   object-fit: cover;
   overflow: hidden;
   font-family: Inter, sans-serif;
-  @media (min-width: 1200px) {
-    height: 100vh;
-    background-position: 50% -250%;
-  }
+  // @media (min-width: 1200px) {
+  //   height: 100vh;
+  // background-position: 50% -250%;
+  // }
 }
 // .try {
 //   position: relative;
