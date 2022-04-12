@@ -29,6 +29,7 @@ import {
   MobileElipse,
   PlayIcon,
   isAnEmpytyObject,
+  Animate,
 } from "../utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -78,10 +79,11 @@ export default function Home() {
         <div className={styles.body}>
           <div className={styles.header}>
             <h1
-              data-aos="zoom-in"
-              data-aos-delay="500"
-              data-aos-easing="ease-in"
-              data-aos-duration="2000"
+              {...Animate("zoom-in", 500, "ease-in")}
+              // data-aos="zoom-in"
+              // data-aos-delay="500"
+              // data-aos-easing="ease-in"
+              // data-aos-duration="2000"
             >
               Kreate. Upload. And Sell <br /> your{" "}
               <span className={styles.digital}>Digital Product</span> <br />
