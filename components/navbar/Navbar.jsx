@@ -65,10 +65,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav
-        className={`${styles.navContainer} ${navBg && styles.navBg}`}
-        {...Animate("fade-down", 500, "ease-in")}
-      >
+      <nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
         <div
           className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
           onClick={() => handleNavbar()}
