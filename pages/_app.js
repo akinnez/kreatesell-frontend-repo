@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }) {
 
   // run animation once page finishes loading
   useEffect(() => {
-    console.log("aos has loaded!");
     AOS.init();
   }, []);
 

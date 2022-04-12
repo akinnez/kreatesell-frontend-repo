@@ -77,7 +77,7 @@ export default function Home() {
       <div className={styles.container}>
         <div className={styles.body}>
           <div className={styles.header}>
-            <h1>
+            <h1 data-aos="zoom-in" className="aos-init aos-animate">
               Kreate. Upload. And Sell <br /> your{" "}
               <span className={styles.digital}>Digital Product</span> <br />
               Online under Minutes. For Free
