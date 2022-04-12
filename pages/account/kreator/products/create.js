@@ -5,14 +5,16 @@ import AuthLayout from "../../../../components/authlayout";
 import { Card } from "components/card";
 import { useSelector } from "react-redux";
 import { SetProductTab } from "redux/actions";
+import MembershipTab from "components/products/BusinessSection/MembershipTab";
 
 const CreateProduct = () => {
   const setProductTab = SetProductTab();
   const { productTab } = useSelector(state => state.product);
   const [titles, setTitles] = useState(["Product Design", "Checkout"])
+  const [isTabsActive, setIsTabsActive] = useState(true)
   return (
     <AuthLayout>
-      <Card style={{ padding: "5px 25px 0", marginBottom: "1em" }}>
+      {isTabsActive && <Card style={{ padding: "5px 25px 0", marginBottom: "1em" }}>
         <Tab
           titles={titles}
           active={productTab}
@@ -20,12 +22,17 @@ const CreateProduct = () => {
           key={productTab}
         >
         </Tab>
+      </Card>}
+        {productTab === 0 && <Card style={{ padding: "60px 48px 60px 48px " }}>
+          <CreateProductTab titles={titles} setTitles={setTitles}/>
+        </Card>
+        }
+        {productTab === 1 && <Card style={{ padding: "60px 48px 60px 48px " }}>
+          <CheckoutProductTab />
       </Card>
-      <Card style={{ padding: "25px" }}>
-        {productTab === 0 && <CreateProductTab titles={titles} setTitles={setTitles}/>}
-        {productTab === 1 && <CheckoutProductTab />}
-        {/* {productTab === 2 && <h3>hello Design and Content</h3>} */}
-      </Card>
+        }
+        {productTab === 2 && <MembershipTab setIsTabsActive={setIsTabsActive} />}
+      
 
     </AuthLayout>
   );

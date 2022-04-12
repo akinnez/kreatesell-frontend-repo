@@ -186,7 +186,7 @@ export const CreateProductTab = ({setTitles, titles}) => {
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
       {tab !== 1 ?<div className={styles.businessPlan}>
-        <h2 className="text-base">This action requires a business plan, click <a>here</a> to subscribe</h2>
+        <h2 className="text-base font-normal">This action requires a business plan, click <a>here</a> to subscribe</h2>
         </div>: <></>}
       <div className="mt-8 mb-4">
         <div className="divider"></div>

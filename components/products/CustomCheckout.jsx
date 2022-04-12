@@ -36,10 +36,10 @@ export default function CustomCheckoutSelect({title, field, setField}){
                     <Option value="KEN">KEN</Option>
                     <Option value="CED">CED</Option>
                 </Select>
-                <div className='w-12 ml-3 mr-3'>
+                <div className={styles.inputButton}>
                     <Input value={newCurrency.amount} onChange={(e)=>setNewCurrency({...newCurrency, amount: e.target.value})} className='w-24' placeholder='0'/>
                 </div>
-                <Button onClick={addCurrency} className='w-40 rounded-md' type='primary'>+ Add Currency</Button>
+                <Button onClick={addCurrency} className={styles.addCurrency} type='primary'>+ Add Currency</Button>
             </div>
             <h2 className='text-lg font-medium text-base-gray-200 mt-3 mb-3'>Selected Currencies</h2>
 

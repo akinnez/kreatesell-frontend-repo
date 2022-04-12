@@ -84,6 +84,7 @@ import Crypto from "../public/images/crypto.png";
 import Paypal from "../public/images/paypal.png";
 import Stripe from "../public/images/stripe.png";
 import placeholder1 from "../public/images/placeholder-1.jpg";
+import placeholder2 from "../public/images/placeholder-2.jpg";
 import NotificationPlaceholder from "../public/images/notifications.svg";
 import ProductNotificationImage from "../public/images/product_image.png";
 import tick from "../public/images/tick.svg";
@@ -98,6 +99,7 @@ export {
 	FacebookBtn,
 	GoogleBtn,
 	placeholder1,
+	placeholder2,
 	RightArrow,
 	AutomationIcon,
 	InstantPayout,

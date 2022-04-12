@@ -323,7 +323,7 @@
 			grid-column-end: 4;
 		}
 	}
-
+	
 	.search {
 		height: 2.75rem;
 	}
@@ -341,4 +341,10 @@
 			margin-right: 0 !important;
 		}
 	}
+	.selectRadius {
+		div{
+		  border-radius: 8px;
+		  background-color: black !important;
+	  }
+  }
 }

@@ -4,9 +4,21 @@
 
 
 .selectButton{
-    &> div:first-child{
-        border-radius: 5px;
+    width: 91px;
+     div {
+        border-radius: 8px !important;
     }
+}
+.inputButton{
+    width: 86px;
+    margin: 0 4px;
+}
+.addCurrency{
+    width: 124px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .currencyField{
     width: 85%;
@@ -16,7 +28,7 @@
     padding: 2em;
 
     .currencyButtons{
-        background-color: $gray-500;
+        background-color: $white-200;
         padding: .7em .5em;
         border-radius: 5px;
         display: flex;

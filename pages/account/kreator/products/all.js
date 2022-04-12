@@ -6,11 +6,10 @@ import {
 	emptyComponent
 } from "components";
 
-import { DownloadIcon } from "utils";
+import { DownloadIcon, placeholder2 } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
-// import { ProductsTableData } from "components/tableHeader/dummyTableData";
 import { Table } from "antd";
 import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
@@ -26,7 +25,7 @@ const AllProducts = () => {
 		(state) => state.product
 	);
 
-	const { page, total_records } = productPagination;
+	const { page, total_records, limit } = productPagination;
 
 	const [productData, setProductData] = useState([]);
 	const [productName, setProductName] = useState("");
@@ -71,15 +70,106 @@ const AllProducts = () => {
 		setProductData(products);
 	}, [products]);
 
-	const handleSearchSubmit = () =>
-		getProducts(1, productName, startDate, endDate, productStatusId);
+	// const handleSearchSubmit = () =>
+	// 	getProducts(1, productName, startDate, endDate, productStatusId);
 	const handlePaginationChange = (page) => getProducts(page);
 
 	const tableLocale = {
 		emptyText: (
 			emptyComponent("No record yet")
 		)
+	
 	}
+
+	useEffect(()=>{
+		console.log(memoisedProductData)
+	}, [memoisedProductData])
+	 const mockDatas = [
+		{
+		  key: '1',
+		  product_image: placeholder2,
+		  product_name: 'John Brown',
+		  product_type: "Membership",
+		  price: {
+			  currency: 'EUR',
+			  productPrice: 235
+		  } ,
+		  date_created: "13-26-9282",
+		  status: 'live',
+		  actions: {
+			  product_data: {
+				  id: 3456
+			  },
+			  product_details:{
+				product_name: 'ytdfghj',
+				kreasell_product_id: 435678
+			  }
+		  }
+		},
+		{
+		  key: '2',
+		  product_image: placeholder2,
+		  product_name: 'Jim Green',
+		  product_type:" Digital Download",
+		  price: {
+			  currency: 'NGN',
+			  productPrice: 235
+		  },
+		  date_created:"13-26-9282",
+		  status: 'draft',
+		  actions: {
+			  product_data: {
+				  id: 3456
+			  },
+			  product_details:{
+				product_name: 'ytdfghj',
+				kreasell_product_id: 435678
+			  }
+		  }
+		},
+		{
+		  key: '3',
+		  product_image: placeholder2,
+		  product_name: 'Joe Black',
+		  product_type: "One-Time Subscription",
+		  price: {
+			  currency: 'USD',
+			  productPrice: 500
+		  },
+		  date_created:"13-26-9282",
+		  status: 'flagged',
+		  actions: {
+			  product_data: {
+				  id: 3456
+			  },
+			  product_details:{
+				product_name: 'ytdfghj',
+				kreasell_product_id: 435678
+			  }
+		  }
+		},
+		{
+		  key: '4',
+		  product_image: placeholder2,
+		  product_name: 'The Land of Hope and Opportunities',
+		  product_type: "One-Time Subscription",
+		  price: {
+			  currency: 'USD',
+			  productPrice: 500
+		  },
+		  date_created:"13-26-9282",
+		  status: 'deactivated',
+		  actions: {
+			  product_data: {
+				  id: 3456
+			  },
+			  product_details:{
+				product_name: 'ytdfghj',
+				kreasell_product_id: 435678
+			  }
+		  }
+		},
+	  ];
 	return (
 		<AuthLayout>
 			{/* <div className={styles.allProduct}>
@@ -95,14 +185,6 @@ const AllProducts = () => {
 					</div>
 				</div>
 
-				<ProductHeader
-					handleSearchInput={(e) => setProductName(e.target.value)}
-					handleSearchSubmit={() => handleSearchSubmit()}
-					handleStartDate={(e) => setStartDate(e.target.value)}
-					handleEndDate={(e) => setEndDate(e.target.value)}
-					productStatusOptions={productStatusOptions}
-					handleProductStatus={(e) => setProductStatusId(e)}
-				/>
 
 				<div className="flex justify-end pt-3">
 					<div className="text-primary-blue  font-semibold text-xs pr-2">
@@ -126,12 +208,7 @@ const AllProducts = () => {
 						}}
 						size="large"
 					/>
-				</div>
-
-				{memoisedProductData?.map((item, i) => (
-					<MobileProductCard item={item} key={item?.id || i} />
-				))}
-			</div> */}
+				</div> */}
 
 
 			<div className={styles.allProduct + " pb-10"}>
@@ -168,8 +245,14 @@ const AllProducts = () => {
                         locale={tableLocale}
 						// dataSource={memoisedProductData}
 						// loading={loading}
+						dataSource={mockDatas}
 						pagination={{
 							position: ["none","bottomLeft"],
+							total: total_records,
+							defaultCurrent: 1,
+							onChange: handlePaginationChange,
+							current: page,
+							defaultPageSize: limit
 						}}
 						size="large"
 					/>

@@ -16,7 +16,8 @@ export const CouponHeader = ({
 }) => {
 	const [form] = Form.useForm();
 	const [isFiltered, setIsFiltered] = useState(false);
-
+  //   Email: salvoprograms@gmail.com
+  // Pass: Salvo$123
 	return (
 		<div>
           <Form
@@ -25,36 +26,40 @@ export const CouponHeader = ({
 			layout="vertical"
             form={form}
           >
-            <Row gutter={8} align="bottom" justify="space-between">
+            <Row gutter={4} align="bottom" justify="space-between">
 				<Col 
+          span={5}
 				>
 					<Form.Item label="Search" name="search">
 						<Input placeholder="Click here to Search"/>
 					</Form.Item>
 				</Col>
               <Col
-				span={3}
+				span={4}
               >
                 <Form.Item label="Show" name="show">
                   <Select
                     // options={showOptions}
+                    className={styles.selectRadius}
                     placeholder="Today"
                     // onChange={handleSelect("show")}
                   />
                 </Form.Item>
               </Col>
               <Col
-				span={3}
+				span={4}
               >
                 <Form.Item label="Currency" name="currency">
                   <Select
                     // options={currencyOptions}
+                    className={styles.selectRadius}
                     placeholder="NGN"
                     // onChange={handleSelect("currency")}
                   />
                 </Form.Item>
               </Col>
               <Col
+                span={3}
               >
                 <Form.Item label="From" name="from">
                   <DatePicker
@@ -65,7 +70,7 @@ export const CouponHeader = ({
                 </Form.Item>
               </Col>
               <Col
-
+                span={3}
               >
                 <Form.Item label="To" name="to">
                   <DatePicker
@@ -76,11 +81,11 @@ export const CouponHeader = ({
                 </Form.Item>
               </Col>
               <Col
-			  	span={3}
+			  	      span={2}
                 className={styles.filter__btn}
               >
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" style={{borderRadius: "8px"}} htmlType="submit">
                     <Image
                       src="/images/FilterIcon.png"
                       alt="Filter icon"

@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-// import { Button, Input, TextArea } from "components";
-import { CloudUpload, isAnEmpytyObject, placeholder1 } from "utils";
+import { CloudUpload, isAnEmpytyObject } from "utils";
 import styles from "./CreateProduct.module.scss";
-import { DeleteIcon } from "components/IconPack";
 import { Radio } from "components/inputPack";
 import { Switch } from "antd";
 import { useFormik } from "formik";
@@ -14,7 +12,6 @@ import {
   oneTimeSubscriptionAndMembershipSchema,
   // membershipProductSchema,
 } from "validation";
-import filesize from "filesize";
 import {
   SetProductTab,
   GetListingStatus,
@@ -24,7 +21,8 @@ import {
 } from "redux/actions";
 import { useSelector } from "react-redux";
 import { useUpload } from "hooks";
-import ImageLoad from "components/imageLoading/imageLoad";
+import ImageUpload from "./ImageUpload";
+import ProductEditor from "./ProductEditor";
 
 export const CreateProductForm = ({
   productType = "digitalDownload",
@@ -38,7 +36,6 @@ export const CreateProductForm = ({
   const {TextArea} = Input
   const [preOrder, setPreOrder] = useState(false);
   const [contentFiles, setContentFiles] = useState(false);
-
   /**product is for single product fetched by ID */
   const { listingStatus, loading, productID, product } = useSelector(
     (state) => state.product
@@ -55,24 +52,23 @@ export const CreateProductForm = ({
   const unListStatus = filterListingStatus(3);
 
   const {
-    files: customFile,
-    preview,
+    mainFile: imageUploads,
     getRootProps,
     getInputProps,
-    removeFile,
+    deleteFile
   } = useUpload({
-    setFileChange: setFiles,
+    setFileChange: setProductFile
   });
 
-  const {
-    files: productFileFile,
-    preview: productFilePreview,
-    getRootProps: getProductFileRootProps,
-    getInputProps: getProductFileInputProps,
-    removeFile: removeProductFile,
-  } = useUpload({
-    setFileChange: setProductFile,
-  });
+  // const {
+  //   files: productFileFile,
+  //   preview: productFilePreview,
+  //   getRootProps: getProductFileRootProps,
+  //   getInputProps: getProductFileInputProps,
+  //   removeFile: removeProductFile,
+  // } = useUpload({
+  //   setFileChange: setProductFile,
+  // });
 
   const initialValues = {
     product_name: "",
@@ -99,30 +95,32 @@ export const CreateProductForm = ({
   };
 
   const handleSubmit = (data) => {
-    if (["oneTimeSubscription", "membership"].includes(productType)) {
-      delete data?.content_file_details;
-      // delete data?.preorder_details;
-      // delete data?.enable_preorder;
-      delete data?.upload_content;
-      delete data?.upload_preview;
-    }
-    if (!data.enable_preorder) {
-      delete data.preorder_details;
-    }
-    if (preview.length < 1) {
-      delete data.cover_image;
-    }
-    if (productFilePreview.length < 1) {
-      // delete data.content_file_details.product_files;
-      delete data.content_file_details;
-    }
+    console.log(formik.values)
+    // if (["oneTimeSubscription", "membership"].includes(productType)) {
+    //   delete data?.content_file_details;
+    //   // delete data?.preorder_details;
+    //   // delete data?.enable_preorder;
+    //   delete data?.upload_content;
+    //   delete data?.upload_preview;
+    // }
+    // if (!data.enable_preorder) {
+    //   delete data.preorder_details;
+    // }
+    // if (preview.length < 1) {
+    //   delete data.cover_image;
+    // }
+    // if (productFilePreview.length < 1) {
+    //   // delete data.content_file_details.product_files;
+    //   delete data.content_file_details;
+    // }
 
-    createProduct(data, (data) => {
-      setProductID(
-        product?.product_details?.kreasell_product_id || data?.token
-      );
-      setProductTab(1);
-    });
+    // createProduct(data, (data) => {
+    //   setProductID(
+    //     product?.product_details?.kreasell_product_id || data?.token
+    //   );
+    //   setProductTab(1);
+    // });
+    // console.log(data)
   };
 
   const formik = useFormik({
@@ -134,25 +132,25 @@ export const CreateProductForm = ({
         : oneTimeSubscriptionAndMembershipSchema,
     validateOnChange: false,
   });
+  
+  const { errors, setFieldValue, handleSubmit:mainSubmit, values } = formik;
 
-  const { errors, setFieldValue, values } = formik;
+  // useEffect(() => {
+  //   setFieldValue("product_type_id", productTypeId);
+  //   setFieldValue("cover_image", preview[0]?.url);
+  //   setFieldValue(
+  //     "content_file_details.product_files",
+  //     productFilePreview?.map((item) => item.url)
+  //   );
+  // }, [setFieldValue, preview, productTypeId, productFilePreview]);
 
-  useEffect(() => {
-    setFieldValue("product_type_id", productTypeId);
-    setFieldValue("cover_image", preview[0]?.url);
-    setFieldValue(
-      "content_file_details.product_files",
-      productFilePreview?.map((item) => item.url)
-    );
-  }, [setFieldValue, preview, productTypeId, productFilePreview]);
-
-  useEffect(() => {
-    if (files.length > 0) {
-      setFieldValue("upload_preview", true);
-    } else {
-      setFieldValue("upload_preview", false);
-    }
-  }, [files]);
+  // useEffect(() => {
+  //   if (files.length > 0) {
+  //     setFieldValue("upload_preview", true);
+  //   } else {
+  //     setFieldValue("upload_preview", false);
+  //   }
+  // }, [files]);
 
   useEffect(() => {
     getListingStatus();
@@ -200,6 +198,12 @@ export const CreateProductForm = ({
     );
   }, [product]);
 
+  const initSubmit = ()=>{
+    handleSubmit()
+    console.log('done')
+    mainSubmit()
+    console.log(mainSubmit())
+  }
   return (
     <div className={styles.digitalDownload}>
       <h5 className="text-primary-blue font-semibold text-2xl">
@@ -208,7 +212,7 @@ export const CreateProductForm = ({
         {productType === "membership" && "MEMBERSHIP "}
       </h5>
 
-      <Form layout="vertical" className="pt-3" onSubmit={formik.handleSubmit}>
+      <Form layout="vertical" className="pt-3" onFinish={initSubmit}>
         <Form.Item label={<h2 className="font-semibold text-lg mb-0">Name</h2>} className={styles.inputCont}>
           <Input
             placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
@@ -236,7 +240,10 @@ export const CreateProductForm = ({
           />
         </Form.Item>
         <Form.Item label={<h2 className="font-semibold text-lg mb-0">More Details</h2>}>
-          <TextArea
+          <div style={{minHeight: "250px"}}>
+            <ProductEditor />
+          </div>
+          {/* <TextArea
               name="product_details"
               label="details"
               placeholder=""
@@ -245,262 +252,198 @@ export const CreateProductForm = ({
               onChange={formik.handleChange}
               errorMessage={errors.product_description}
               value={values?.product_description}
-            />
+            /> */}
         </Form.Item>
-        <div className="mt-4 w-full lg:w-3/4">
-          <p className={styles.inputLabel}>Product Image</p>
-          <div className="flex flex-col">
-              <p className="text-base-gray-200 text-xs">
-                This image will be displayed on your store page! (You can upload up to 3 images)
-              </p>
-              <p className="text-black font-medium text-xs">
-                Allowed Files: PNG, JPG | Maximum file size: 5MB
-              </p>
-              <div className="flex">
-                <div className="w-1/3 mr-3">
-                  <div
-                    className={`${styles.upload} ${
-                      files?.length > 0 && styles.activeUpload
-                    }`}
-                    {...getRootProps()}
-                  >
-                  {/* {preview.length > 0 && (
-                    <div className="flex justify-between px-4 pt-3 text-base-gray text-sm font-light">
-                      <p>{files?.[0]?.name}</p>
-                      <p>{filesize(files[0]?.size)}</p>
+        <Form.Item>
+          <div className="mt-4 w-full lg:w-3/4">
+            <p className={styles.inputLabel}>Product Image</p>
+            <div className="flex flex-col">
+                <p className="text-base-gray-200 text-xs">
+                  This image will be displayed on your store page! (You can upload up to 3 images)
+                </p>
+                <p className="text-black font-medium text-xs">
+                  Allowed Files: PNG, JPG | Maximum file size: 5MB
+                </p>
+                <div className="flex">
+                  <div className={styles.uploadChart}>
+                    <div
+                      className={`${styles.upload} h-full px-5`}
+                      {...getRootProps()}
+                    >
+                    {/* {preview.length > 0 && (
+                      <div className="flex justify-between px-4 pt-3 text-base-gray text-sm font-light">
+                        <p>{files?.[0]?.name}</p>
+                        <p>{filesize(files[0]?.size)}</p>
+                      </div>
+                    )} */}
+                    <div className={styles.uploadCont}>
+                      <Image style={{color:"#BFBFBF"}} src={CloudUpload} alt="upload image" />
+                      <input {...getInputProps()} />
+                      <h5 className="hidden lg:block text-primary-blue text-base pt-2 font-normal text-center">
+                        Drag & Drop Your Image Here <br /> -OR-
+                      </h5>
+                      <Button className="primary-blue font-medium" type="primary">
+                        Browse Image
+                      </Button>
                     </div>
-                  )} */}
-                  <div className={styles.uploadCont}>
-                    <div>
-                      <Image src={CloudUpload} alt="upload image" />
-                    </div>
-                    <input {...getInputProps()} />
-                    <h5 className="hidden lg:block text-primary-blue text-base pt-2 font-medium text-center">
-                      Drag & Drop Your Image Here <br /> -OR-
-                    </h5>
-                    <Button className="primary-blue" type="primary">Browse Image</Button>
-                    <h5 className="lg:hidden text-primary-blue text-base font-normal text-center">
-                      Upload Image
-                    </h5>
                   </div>
                 </div>
-              </div>
-                <div className={styles.noImage + " w-1/2 "}>
-                  <ul className="flex flex-col">
-                    <li className={styles.imageContent +" bg-white flex justify-between w-full rounded-lg p-2"}>
-                      <div className="w-1/5 rounded-md">
-                        <Image layout="fill" src={placeholder1} alt="user"/>
-                      </div>
-                      <div className="w-2/3">
-                        <ImageLoad imageName={"Image.png"} />
-                      </div>
-                      <div className="w-1/6 flex justify-center">
-                        <DeleteIcon color="#F5F5F5" width='40' height="40" />
-                      </div>
-                    </li>
+                <div className={styles.noImage + " ml-3"}>
+                  <ul className="flex flex-col mb-0">
+                    {imageUploads.map((fileWrap, indx) =>(
+                      <ImageUpload key={indx} file={fileWrap.file} deleteFile={deleteFile} />
+                    ))}
                   </ul>
                 </div>
+              </div>
+            </div>
+          </div>
+        </Form.Item>
 
-              {/* {preview.length < 1 && (
-                <div className={`w-full lg:w-1/2 p-2 ${styles.noImage} relative`}>
-                  <div className="absolute right-4 cursor-pointer">
-                    <DeleteIcon />
-                  </div>
+        <Form.Item>
+          <div className="mt-6 w-full lg:w-3/4">
+            {productType === "digitalDownload" && (
+              <div className="flex justify-between items-center w-full lg:w-2/4">
+                <h2 className="text-black-100 font-semibold text-lg">Enable pre-orders</h2>
+                <div className="flex">
+                  <Switch
+                    onChange={(e) => {
+                      setPreOrder((value) => !value);
+                      setFieldValue("enable_preorder", e);
+                    }}
+                    checked={preOrder}
+                  />
+                  <h2 className="pl-6 font-semibold text-medium text-black-100">
+                    {preOrder ? "ON" : "OFF"}
+                  </h2>
+                </div>
+              </div>
+            )}
 
-                  <div
-                    className={`absolute inset-1/3 text-center py-4 ${styles.emptyImg}`}
-                  >
-                    <p className="text-base-gray-200 text-sm">
-                      No image available
+            {preOrder && (
+              <div className={styles.enablePreOrderCont}>
+                <p className="text-base-gray-200">Release Date and Time</p>
+                <Input
+                  type="datetime-local"
+                  label="Release date & time"
+                  className={styles.inputHeight}
+                  onChange={(e) => {
+                    setFieldValue(
+                      "preorder_details.preorder_release_date",
+                      e.target.value
+                    );
+                  }}
+                  value={values?.preorder_details?.preorder_release_date}
+                />
+              </div>
+            )}
+
+            {productType === "digitalDownload" && (
+              <div className="flex justify-between items-center mt-5 w-full lg:w-2/4 pt-4">
+                <h2 className="text-black-100 font-semibold text-lg">Content File</h2>
+                <div className="flex">
+                  <Switch
+                    onChange={(e) => {
+                      setContentFiles((value) => !value);
+                      setFieldValue("upload_content", contentFiles);
+                    }}
+                  />
+                  <h2 className="pl-6 font-semibold text-medium text-black-100">
+                    {contentFiles ? "ON" : "OFF"}
+                  </h2>
+                </div>
+              </div>
+            )}
+
+            {contentFiles && (
+              <div className="pt-2">
+                <p className="text-base-gray-200 text-xs mb-0">
+                  Only one file is allowed to be uploaded. Bundle all your files
+                  into single RAR or ZIP file.
+                </p>
+                <small className="text-black mb-4 font-medium">The maximum allowed file size is 1GB.</small>
+                <div
+                  className={`${styles.contentFileUpload} ${
+                    productFile?.length > 0 && styles.activeUpload
+                  }`}
+                  {...getProductFileRootProps()}
+                >
+                  {productFile.length > 0 && (
+                    <p className="float-left px-4 pt-3 text-base-gray text-sm font-light">
+                      {productFile[0]?.name}
+                    </p>
+                  )}
+
+                  <div className="flex justify-center items-center">
+                    <input {...getProductFileInputProps()} />
+                    <Image src={CloudUpload} alt="upload image" />
+                    <p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
+                      Drag and Drop or Click to Upload Your Product File
+                    </p>
+                    <p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
+                      Upload your product files
                     </p>
                   </div>
                 </div>
-              )} */}
-
-              {preview.length > 0 && (
-                <div className={`w-full lg:w-1/2 p-2 ${styles.noImage}`}>
-                  <div
-                    className="z-10 float-right cursor-pointer"
-                    onClick={() => removeFile()}
-                  >
-                    <DeleteIcon color="#FF4D4F" />
-                  </div>
-                  {preview.length && (
-                    <div
-                      className={`flex justify-center text-center py-4 ${styles.emptyImg}`}
-                    >
-                      {preview.length && (
-                        <Image src={preview?.[0]?.url} alt="product preview" />
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
               </div>
+            )}
           </div>
-        </div>
-
-        <div className="mt-4 w-full lg:w-3/4">
-          {productType === "digitalDownload" && (
-            <div className="flex justify-between items-center w-full lg:w-2/4">
-              <h2 className="text-black-100 font-semibold text-lg">Enable pre-orders</h2>
-              <div className="flex">
-                <Switch
-                  onChange={(e) => {
-                    setPreOrder((value) => !value);
-                    setFieldValue("enable_preorder", e);
-                  }}
-                  checked={preOrder}
-                />
-                <h2 className="pl-6 font-semibold text-medium text-black-100">
-                  {preOrder ? "ON" : "OFF"}
-                </h2>
-              </div>
-            </div>
-          )}
-
-          {preOrder && (
-            <div className={styles.enablePreOrderCont}>
-              <p className="text-base-gray-200">Release Date and Time</p>
-              <Input
-                type="datetime-local"
-                label="Release date & time"
-                className={styles.inputHeight}
-                onChange={(e) => {
+        </Form.Item>
+        <Form.Item>
+          <div className="pt-4">
+            <div className={styles.inputLabel}>Listing Status</div>
+            <p className="text-base-gray-200 text-sm pt-2">
+              Choose whether product should be available on your store and
+              audience dashboard.
+            </p>
+            <div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg">
+              <Radio
+                value={values.product_visibility_status}
+                content={1}
+                label="Activated"
+                extralable="- Your product will go live and visible to audience for a purchase once you complete creating the sales template"
+                labelStyle={styles.radioLabel}
+                extralableStyle={styles.extralableStyle}
+                onChange={(e) =>
                   setFieldValue(
-                    "preorder_details.preorder_release_date",
-                    e.target.value
-                  );
-                }}
-                value={values?.preorder_details?.preorder_release_date}
+                    "product_visibility_status",
+                    e || activateStatus[0]?.id
+                  )
+                }
+              />
+              <Radio
+                value={values.product_visibility_status}
+                content={2}
+                label="Deactivated"
+                extralable="- Nobody would be able to access or purchase this product until you activate it."
+                labelStyle={styles.radioLabel}
+                extralableStyle={styles.extralableStyle}
+                onChange={(e) =>
+                  setFieldValue(
+                    "product_visibility_status",
+                    e || deActivateStatus[0]?.id
+                  )
+                }
+              />
+              <Radio
+                value={values.product_visibility_status}
+                content={3}
+                label="Unlisted"
+                extralable="- Product would not be visible on the store page but anyone with direct link can purchase it."
+                labelStyle={styles.radioLabel}
+                extralableStyle={styles.extralableStyle}
+                onChange={(e) =>
+                  setFieldValue(
+                    "product_visibility_status",
+                    e || unListStatus[0]?.id
+                  )
+                }
               />
             </div>
-          )}
-
-          {productType === "digitalDownload" && (
-            <div className="flex justify-between items-center mt-5 w-full lg:w-2/4 pt-4">
-              <h2 className="text-black-100 font-semibold text-lg">Content File</h2>
-              <div className="flex">
-                <Switch
-                  onChange={(e) => {
-                    setContentFiles((value) => !value);
-                    setFieldValue("upload_content", contentFiles);
-                  }}
-                />
-                <h2 className="pl-6 font-semibold text-medium text-black-100">
-                  {contentFiles ? "ON" : "OFF"}
-                </h2>
-              </div>
-            </div>
-          )}
-
-          {contentFiles && (
-            <div className="pt-2">
-              <p className="text-base-gray-200 text-xs mb-0">
-                Only one file is allowed to be uploaded. Bundle all your files
-                into single RAR or ZIP file.
-              </p>
-              <small className="text-black mb-4 font-medium">The maximum allowed file size is 1GB.</small>
-              <div
-                className={`${styles.contentFileUpload} ${
-                  productFile?.length > 0 && styles.activeUpload
-                }`}
-                {...getProductFileRootProps()}
-              >
-                {productFile.length > 0 && (
-                  <p className="float-left px-4 pt-3 text-base-gray text-sm font-light">
-                    {productFile[0]?.name}
-                  </p>
-                )}
-
-                <div className="flex justify-center items-center">
-                  <input {...getProductFileInputProps()} />
-                  <Image src={CloudUpload} alt="upload image" />
-                  <p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
-                    Drag and Drop or Click to Upload Your Product File
-                  </p>
-                  <p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
-                    Upload your product files
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="pt-4">
-          <div className={styles.inputLabel}>Listing Status</div>
-          <p className="text-base-gray-200 text-sm pt-2">
-            Choose whether product should be available on your store and
-            audience dashboard.
-          </p>
-          <div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg">
-            <Radio
-              value={values.product_visibility_status}
-              content={1}
-              label="Activated"
-              extralable="- Your product will go live and visible to audience for a purchase once you complete creating the sales template"
-              labelStyle={styles.radioLabel}
-              extralableStyle={styles.extralableStyle}
-              onChange={(e) =>
-                setFieldValue(
-                  "product_visibility_status",
-                  e || activateStatus[0]?.id
-                )
-              }
-            />
-
-            <Radio
-              value={values.product_visibility_status}
-              content={2}
-              label="Deactivated"
-              extralable="- Nobody would be able to access or purchase this product until you activate it."
-              labelStyle={styles.radioLabel}
-              extralableStyle={styles.extralableStyle}
-              onChange={(e) =>
-                setFieldValue(
-                  "product_visibility_status",
-                  e || deActivateStatus[0]?.id
-                )
-              }
-            />
-
-            <Radio
-              value={values.product_visibility_status}
-              content={3}
-              label="Unlisted"
-              extralable="- Product would not be visible on the store page but anyone with direct link can purchase it."
-              labelStyle={styles.radioLabel}
-              extralableStyle={styles.extralableStyle}
-              onChange={(e) =>
-                setFieldValue(
-                  "product_visibility_status",
-                  e || unListStatus[0]?.id
-                )
-              }
-            />
           </div>
-        </div>
-
-        <p className="text-center text-sm text-base-gray pt-4 md:text-base">
-          Almost there, Click the next button to continue
-        </p>
-
-        {/* <div className="flex flex-col-reverse lg:flex-row justify-center items-center pb-4">
-          <div className="">
-            <Button text="Previous" className={styles.digitalBtn} />
-          </div>
-          <div className="pl-0 mb-4 lg:pl-4 lg:mb-0">
-            <Button
-              text="Save and continue"
-              bgColor="blue"
-              className={styles.digitalBtn}
-              loading={loading}
-            />
-          </div>
-        </div> */}
-        <Form.Item className="flex justify-center items-center">
-          <Button type="primary">Save and Continue</Button>
+        </Form.Item>
+        <Form.Item className={styles.saveButton}>
+          <Button type="primary" htmlType="submit">Save and Continue</Button>
         </Form.Item>
       </Form>
     </div>
