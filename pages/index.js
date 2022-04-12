@@ -29,6 +29,7 @@ import {
   MobileElipse,
   PlayIcon,
   isAnEmpytyObject,
+  Animate,
 } from "../utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -77,23 +78,32 @@ export default function Home() {
       <div className={styles.container}>
         <div className={styles.body}>
           <div className={styles.header}>
-            <h1>
+            <h1 {...Animate("zoom-in", 500, "ease-in")}>
               Kreate. Upload. And Sell <br /> your{" "}
               <span className={styles.digital}>Digital Product</span> <br />
               Online under Minutes. For Free
             </h1>
-            <p className={styles.subHeader}>
+            <p
+              className={styles.subHeader}
+              {...Animate("fade-up", 600, "ease")}
+            >
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, <br /> and Memberships in an online all-in-one platform for
               free and accept payment from anywhere in the world.
             </p>
-            <p className={styles.mobileSubHeader}>
+            <p
+              {...Animate("fade-up", 600, "ease")}
+              className={styles.mobileSubHeader}
+            >
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, and Memberships in an online all-in-one platform for free
               and accept payment from anywhere in the world.
             </p>
 
-            <div className={styles.inputContainer}>
+            <div
+              className={styles.inputContainer}
+              {...Animate("fade-up", 700, "ease")}
+            >
               <InputButton
                 name="email"
                 placeholder="Enter your email..."
@@ -110,7 +120,10 @@ export default function Home() {
               />
             </div>
 
-            <div className={styles.benefits}>
+            <div
+              className={styles.benefits}
+              {...Animate("fade-up", 700, "ease")}
+            >
               <span className={styles.benefitSpan}>Signup for free</span>
               <span className={styles.benefitSpan}>• Easy setup</span>
               <span className={styles.benefitSpan}>• Fast payout</span>
@@ -118,6 +131,7 @@ export default function Home() {
           </div>
 
           <div
+            {...Animate("zoom-in", 800, "ease-in")}
             className={styles.heroImage}
             onClick={() => setVisible(!modalVisible)}
           >
@@ -126,7 +140,10 @@ export default function Home() {
 
           <div className={styles.featured}>
             <h5 className={styles.title}>As featured in</h5>
-            <div className={styles.featuredImages}>
+            <div
+              className={styles.featuredImages}
+              {...Animate("fade-up", 500, "ease")}
+            >
               <div className={styles.imageStyle}>
                 <Image src={AirBnBLogo} alt="airBnB" />
               </div>
@@ -147,7 +164,10 @@ export default function Home() {
               </div>
             </div>
 
-            <div className={styles.mobileFeaturedImages}>
+            <div
+              className={styles.mobileFeaturedImages}
+              {...Animate("fade-up", 500, "ease")}
+            >
               <div className={styles.firstRow}>
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
@@ -194,7 +214,10 @@ export default function Home() {
           </div>
 
           <div className={styles.howItWorksImgCont}>
-            <div className={styles.howItWorksImgSingle}>
+            <div
+              className={styles.howItWorksImgSingle}
+              {...Animate("fade-right", 500, "ease")}
+            >
               <Image
                 src={CreateStore}
                 width="194"
@@ -207,7 +230,10 @@ export default function Home() {
               </p>
             </div>
 
-            <div className={styles.howItWorksImgSingle}>
+            <div
+              className={styles.howItWorksImgSingle}
+              {...Animate("zoom-in", 400, "ease")}
+            >
               <Image
                 src={AddProduct}
                 width="194"
@@ -220,7 +246,10 @@ export default function Home() {
               </p>
             </div>
 
-            <div className={styles.howItWorksImgSingle}>
+            <div
+              className={styles.howItWorksImgSingle}
+              {...Animate("fade-left", 500, "ease")}
+            >
               <Image src={Publish} width="194" height="150" alt="publish" />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -229,7 +258,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.howItWorksBtnCont}>
+          <div
+            className={styles.howItWorksBtnCont}
+            {...Animate("zoom-in", 500, "ease")}
+          >
             <Button
               text="More details"
               bgColor="blue"
@@ -248,7 +280,10 @@ export default function Home() {
           </div>
 
           <div className={styles.automation}>
-            <div className={styles.image}>
+            <div
+              className={styles.image}
+              {...Animate("zoom-in-right", 500, "ease")}
+            >
               <Image
                 src={AutomationIcon}
                 height="420"
@@ -256,7 +291,10 @@ export default function Home() {
                 alt="automation icon"
               />
             </div>
-            <div className={styles.automationText}>
+            <div
+              className={styles.automationText}
+              {...Animate("zoom-in-left", 500, "ease")}
+            >
               <h3 className={styles.automationTitle}>
                 Enjoy Free, Beautiful, <br /> Unlimited Templates
               </h3>
@@ -286,7 +324,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.spiral}>
+          <div
+            className={styles.spiral}
+            {...Animate("fade-down", 1500, "linear")}
+          >
             <Image
               src={RightSpiral}
               height="150"
@@ -321,12 +362,15 @@ export default function Home() {
 
               <div className={styles.linkText}>
                 Learn more{" "}
-                <span>
+                <span {...Animate("fade-down", 1500, "linear")}>
                   <RightArrow color="#0072ef" />
                 </span>
               </div>
             </div>
-            <div className={styles.image}>
+            <div
+              className={styles.image}
+              {...Animate("flip-left", 2000, "ease-out-cubic")}
+            >
               <Image
                 src={PayoutMethod}
                 height="513"
@@ -336,7 +380,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.spiral}>
+          <div
+            className={styles.spiral}
+            {...Animate("fade-down", 1500, "linear")}
+          >
             <Image
               src={LeftSpiral}
               height="150"
@@ -347,7 +394,10 @@ export default function Home() {
           </div>
 
           <div className={styles.automation}>
-            <div className={styles.image}>
+            <div
+              className={styles.image}
+              {...Animate("zoom-in-right", 500, "ease")}
+            >
               <Image
                 src={InstantPayout}
                 height="420"
@@ -355,7 +405,10 @@ export default function Home() {
                 alt="instant payout"
               />
             </div>
-            <div className={styles.automationText}>
+            <div
+              className={styles.automationText}
+              {...Animate("zoom-in-left", 500, "ease")}
+            >
               <h3 className={styles.automationTitle}>Automation</h3>
               <h3 className={styles.mobileAutomationTitle}>Automation</h3>
               <p className={styles.automationSubTitle}>
