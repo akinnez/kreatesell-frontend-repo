@@ -79,7 +79,7 @@ export default function Home() {
           <div className={styles.header}>
             <h1
               data-aos="zoom-in"
-              data-aos-delay="1000"
+              data-aos-delay="500"
               data-aos-easing="ease-in"
               data-aos-duration="2000"
             >
