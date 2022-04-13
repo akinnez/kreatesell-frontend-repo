@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { useStore } from "../redux/store";
-import Script from "next/script";
+// import Script from "next/script";
 import "../public/css/global.scss";
 import "react-dates/initialize";
 import "antd/dist/antd.css";
@@ -28,11 +28,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
-      <Script
+      {/* <Script
         charset="UTF-8"
         src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
         async
-      />
+      /> */}
       {/* <ChatScript /> */}
       <Component {...pageProps} />
     </Provider>
