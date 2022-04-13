@@ -7,11 +7,16 @@ import "antd/dist/antd.css";
 import { Modal } from "antd";
 
 export default function Home() {
-  function detailsSubmissionSuccess() {
+  function detailsSubmissionSuccess(msg = "") {
+    const guestStatus = msg === "already on wait-list" ? "already on" : "on";
     Modal.success({
       title: (
         <Title
-          text={<span> Hurray! You&rsquo;re on the exclusive wait-list.</span>}
+          text={
+            <span>
+              Hurray! You&rsquo;re {guestStatus} the exclusive wait-list.
+            </span>
+          }
         />
       ),
       content: <Content />,
