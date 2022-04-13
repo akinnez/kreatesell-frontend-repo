@@ -8,7 +8,7 @@ import { Modal } from "antd";
 
 export default function Home() {
   function detailsSubmissionSuccess(msg = "") {
-    
+
     const isAlreadyOnList = msg === "already on wait-list";
     const guestStatus = isAlreadyOnList ? "already on" : "on";
 
@@ -17,7 +17,7 @@ export default function Home() {
         <Title
           text={
             <span>
-              {isAlreadyOnList ? "" : "Hurray!"}
+              {isAlreadyOnList ? "" : `Hurray! `}
               You&rsquo;re {guestStatus} the exclusive wait-list.
             </span>
           }
