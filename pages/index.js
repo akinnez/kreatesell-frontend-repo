@@ -24,7 +24,7 @@ export default function Home() {
         />
       ),
       content: isAlreadyOnList ? (
-       <FinalMsg text="Thank you for registering" />
+       <FinalMsg text="Thank you for registering." />
       ) : (
         <Content />
       ),
