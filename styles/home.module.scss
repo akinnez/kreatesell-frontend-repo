@@ -34,6 +34,9 @@
   padding: 1rem 2rem;
   transition: all 0.2s;
   background-image: url("../public/images/home-bg.png");
+  background-repeat: no-repeat;
+  background-size: auto;
+  // background-color: black;
   @media (min-width: 768px) {
     padding: 0.5rem 4rem;
     flex-direction: row;
