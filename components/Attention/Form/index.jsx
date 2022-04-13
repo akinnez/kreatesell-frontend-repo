@@ -30,7 +30,8 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
       // make request to submit details
       axios
         .post(waitListUrl, data)
-        .then(() => {
+        .then((res) => {
+          console.log(res);
           // DETAILS GO THROUGH, THEN showSubmissionSuccessModal
           showSubmissionSuccessModal();
         })
