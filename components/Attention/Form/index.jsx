@@ -8,7 +8,7 @@ import { FormError } from "./FormError";
 // import axios from '../../../utils/axios'
 import axios from "axios";
 
-const waitListUrl = `${process.env.BASE_URL}v1/kreatesell/utils/subscribe`;
+const waitListUrl = `${process.env.BASE_URL}v1/kreatesell/utils/waitlist`;
 
 const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
   // const feedBackOptions = {
