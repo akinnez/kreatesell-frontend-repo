@@ -56,6 +56,7 @@ import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
 import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
+import ErrorIcon from "../public/images/ErrorIcon.svg";
 import MailClipboard from "../public/images/mail-clipboard.svg";
 import { RightArrow } from "./icons/RightArrow";
 import { CloudDownload } from "./icons/CloudDownload";
@@ -101,6 +102,7 @@ export {
 	placeholder1,
 	placeholder2,
 	RightArrow,
+	ErrorIcon,
 	AutomationIcon,
 	InstantPayout,
 	PayoutMethod,

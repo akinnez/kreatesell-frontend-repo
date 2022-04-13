@@ -6,18 +6,15 @@ import axios from 'axios'
 import {useEffect, useState} from 'react'
 import {placeholder1 } from "utils";
 
-export default function ImageUpload ({file, deleteFile}){
+export default function ImageUpload ({file, deleteFile, setUrl}){
     const [progress, setProgress] = useState(0)
-    
+    const [image, setImage] = useState('')
     useEffect(()=>{
         async function upload (){
             await uploadFile(file, setProgress)
         }
         upload()
     }, [])
-    useEffect(()=>{
-        console.log(file)
-    }, [file])
     async function uploadFile(file, cb){
         const formData = new FormData()
           formData.append('upload_preset', 'kreatesell')
@@ -25,14 +22,14 @@ export default function ImageUpload ({file, deleteFile}){
           const options = {onUploadProgress: (progressEvent)=>{
             const {loaded, total} = progressEvent
             let percent = Math.floor(loaded * 100 / total)
-            console.log(percent)
             cb(percent)
           }}
           try {
             const instance = axios.create()
             delete instance.defaults.headers.common['Authorization'];
             const {data} = await instance.post('https://api.cloudinary.com/v1_1/salvoagency/image/upload', formData, options)
-            console.log('THE DATA', data)
+            setUrl(file, data?.secure_url)
+            setImage(data?.secure_url)
           } catch (error) {
             console.log('ERROR',error)
           }
@@ -40,7 +37,7 @@ export default function ImageUpload ({file, deleteFile}){
     return (
         <li className={styles.imageContent +" bg-white flex justify-between w-full rounded-lg p-1"}>
             <div className={styles.imageWrap}>
-            <Image width="100" height="100" objectFit="cover" src={placeholder1} alt="user"/>
+            <Image width="100" height="100" objectFit="cover" src={image ? image: placeholder1} alt="user"/>
             </div>
             <div className="w-2/3">
             <ImageLoad imageName={`${file.name} (${progress}%)`} progress={progress}/>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { CloudUpload, isAnEmpytyObject } from "utils";
+import { CloudUpload, ErrorIcon, isAnEmpytyObject } from "utils";
 import styles from "./CreateProduct.module.scss";
 import { Radio } from "components/inputPack";
 import { Switch } from "antd";
@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { useUpload } from "hooks";
 import ImageUpload from "./ImageUpload";
 import ProductEditor from "./ProductEditor";
+import ImageError from "./ImageError";
 
 export const CreateProductForm = ({
   productType = "digitalDownload",
@@ -36,12 +37,12 @@ export const CreateProductForm = ({
   const {TextArea} = Input
   const [preOrder, setPreOrder] = useState(false);
   const [contentFiles, setContentFiles] = useState(false);
+  const [isImageFilled, setIsImageFilled] = useState(false)
+  const [contents, setContents] = useState('')
   /**product is for single product fetched by ID */
   const { listingStatus, loading, productID, product } = useSelector(
     (state) => state.product
   );
-
-  const [files, setFiles] = useState([]);
   const [productFile, setProductFile] = useState([]);
 
   const filterListingStatus = (id) =>
@@ -50,77 +51,73 @@ export const CreateProductForm = ({
   const activateStatus = filterListingStatus(1);
   const deActivateStatus = filterListingStatus(2);
   const unListStatus = filterListingStatus(3);
-
   const {
     mainFile: imageUploads,
     getRootProps,
     getInputProps,
-    deleteFile
+    deleteFile, 
+    setUrl
   } = useUpload({
-    setFileChange: setProductFile
+    setFileChange: setProductFile,
+    fileType: "image"
   });
 
-  // const {
-  //   files: productFileFile,
-  //   preview: productFilePreview,
-  //   getRootProps: getProductFileRootProps,
-  //   getInputProps: getProductFileInputProps,
-  //   removeFile: removeProductFile,
-  // } = useUpload({
-  //   setFileChange: setProductFile,
-  // });
+  const {
+    mainFile: fileUploads,
+    getRootProps: getProductFileRootProps,
+    getInputProps: getProductFileInputProps,
+  } = useUpload({
+    setFileChange: setProductFile,
+    fileType: ".zip,.rar"
+  });
+
 
   const initialValues = {
     product_name: "",
     product_description: "",
     enable_preorder: false,
     upload_content: false,
-    product_visibility_status: 0,
+    product_visibility_status: 1,
     upload_preview: false,
     preorder_details: {
       preorder_release_date: "",
       is_preorder_downloadable: true,
     },
     content_file_details: {
-      product_files: [""],
+      product_files: [],
       file_access_type: 1,
     },
     action: !isAnEmpytyObject(product) ? "e" : "c",
     kreatesell_id: "",
-    product_type_id: 0,
+    product_type_id: 1,
     product_listing_status_id: 0,
     product_status: 0,
     cta_button: "",
     product_id: 0,
+    product_images: {
+      product_files: []
+    },
+    product_details: "",
   };
 
   const handleSubmit = (data) => {
-    console.log(formik.values)
-    // if (["oneTimeSubscription", "membership"].includes(productType)) {
-    //   delete data?.content_file_details;
-    //   // delete data?.preorder_details;
-    //   // delete data?.enable_preorder;
-    //   delete data?.upload_content;
-    //   delete data?.upload_preview;
-    // }
-    // if (!data.enable_preorder) {
-    //   delete data.preorder_details;
-    // }
-    // if (preview.length < 1) {
-    //   delete data.cover_image;
-    // }
-    // if (productFilePreview.length < 1) {
-    //   // delete data.content_file_details.product_files;
-    //   delete data.content_file_details;
-    // }
-
-    // createProduct(data, (data) => {
-    //   setProductID(
-    //     product?.product_details?.kreasell_product_id || data?.token
-    //   );
-    //   setProductTab(1);
-    // });
-    // console.log(data)
+    if (["oneTimeSubscription", "membership"].includes(productType)) {
+      delete data?.content_file_details;
+      delete data?.upload_content;
+      delete data?.upload_preview;
+    }
+    if (!data.enable_preorder) {
+      delete data.preorder_details;
+    }
+    if (!data.upload_content){
+      delete data.content_file_details
+    }
+    createProduct(data, (data) => {
+      setProductID(
+        product?.product_details?.kreasell_product_id || data?.token
+      );
+      setProductTab(1);
+    });
   };
 
   const formik = useFormik({
@@ -133,28 +130,14 @@ export const CreateProductForm = ({
     validateOnChange: false,
   });
   
-  const { errors, setFieldValue, handleSubmit:mainSubmit, values } = formik;
-
-  // useEffect(() => {
-  //   setFieldValue("product_type_id", productTypeId);
-  //   setFieldValue("cover_image", preview[0]?.url);
-  //   setFieldValue(
-  //     "content_file_details.product_files",
-  //     productFilePreview?.map((item) => item.url)
-  //   );
-  // }, [setFieldValue, preview, productTypeId, productFilePreview]);
-
-  // useEffect(() => {
-  //   if (files.length > 0) {
-  //     setFieldValue("upload_preview", true);
-  //   } else {
-  //     setFieldValue("upload_preview", false);
-  //   }
-  // }, [files]);
+  const { errors, setFieldValue, values } = formik;
 
   useEffect(() => {
     getListingStatus();
   }, []);
+  useEffect(()=>{
+    setFieldValue("product_images.product_files", [...imageUploads.map(file => file.url)])
+  }, [imageUploads])
 
   useEffect(() => {
     if (productID) {
@@ -162,48 +145,64 @@ export const CreateProductForm = ({
     }
   }, [productID]);
 
+  useEffect(()=>{
+    if(imageUploads.length >= 3){
+      setIsImageFilled(true)
+      return
+    }
+    return setIsImageFilled(false)
+  }, [imageUploads])
+
+  useEffect(()=>{
+    setFieldValue('product_details', contents)
+  }, [contents])
+
+  useEffect(()=>{
+    setFieldValue("content_file_details.product_files", [fileUploads[fileUploads.length - 1]?.file])
+  }, [fileUploads])
+
+  useEffect(()=>{
+    setFieldValue('product_type_id', productTypeId)
+  }, [productTypeId])
+
   useEffect(() => {
-    setFieldValue("product_name", product?.product_details?.product_name);
-    setFieldValue(
-      "product_description",
-      product?.product_details?.product_description
-    );
-    setFieldValue(
-      "enable_preorder",
-      product?.product_details?.enable_preorder ?? false
-    );
-    setFieldValue("upload_content", product?.product_details?.upload_content);
-    setFieldValue(
-      "product_visibility_status",
-      product?.product_details?.product_visibility
-    );
-    setFieldValue("upload_preview", product?.product_details?.is_preview_only);
-    setFieldValue(
-      "preorder_details.preorder_release_date",
-      product?.product_details?.preoder_date ?? ""
-    );
-    setFieldValue(
-      "preorder_details.is_preorder_downloadable",
-      product?.product_details?.is_preoder_downloadable ?? false
-    );
-    setFieldValue(
-      "kreatesell_id",
-      product?.product_details?.kreasell_product_id
-    );
-    setFieldValue("product_type_id", product?.product_details?.product_type_id);
-    setFieldValue("product_id", product?.product_details?.id);
-    setFieldValue(
-      "product_listing_status",
-      product?.product_details?.product_listing_status
-    );
+    if(Object.keys(product).length > 0){
+        setFieldValue("product_name", product?.product_details?.product_name);
+      setFieldValue(
+        "product_description",
+        product?.product_details?.product_description
+      );
+      setFieldValue(
+        "enable_preorder",
+        product?.product_details?.enable_preorder ?? false
+      );
+      setFieldValue("upload_content", product?.product_details?.upload_content);
+      setFieldValue(
+        "product_visibility_status",
+        product?.product_details?.product_visibility
+      );
+      setFieldValue("upload_preview", product?.product_details?.is_preview_only);
+      setFieldValue(
+        "preorder_details.preorder_release_date",
+        product?.product_details?.preoder_date ?? ""
+      );
+      setFieldValue(
+        "preorder_details.is_preorder_downloadable",
+        product?.product_details?.is_preoder_downloadable ?? false
+      );
+      setFieldValue(
+        "kreatesell_id",
+        product?.product_details?.kreasell_product_id
+      );
+      setFieldValue("product_type_id", product?.product_details?.product_type_id);
+      setFieldValue("product_id", product?.product_details?.id);
+      setFieldValue(
+        "product_listing_status",
+        product?.product_details?.product_listing_status
+      );
+    }
   }, [product]);
 
-  const initSubmit = ()=>{
-    handleSubmit()
-    console.log('done')
-    mainSubmit()
-    console.log(mainSubmit())
-  }
   return (
     <div className={styles.digitalDownload}>
       <h5 className="text-primary-blue font-semibold text-2xl">
@@ -212,7 +211,7 @@ export const CreateProductForm = ({
         {productType === "membership" && "MEMBERSHIP "}
       </h5>
 
-      <Form layout="vertical" className="pt-3" onFinish={initSubmit}>
+      <Form layout="vertical" className="pt-3" onFinish={formik.handleSubmit}>
         <Form.Item label={<h2 className="font-semibold text-lg mb-0">Name</h2>} className={styles.inputCont}>
           <Input
             placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
@@ -240,19 +239,7 @@ export const CreateProductForm = ({
           />
         </Form.Item>
         <Form.Item label={<h2 className="font-semibold text-lg mb-0">More Details</h2>}>
-          <div style={{minHeight: "250px"}}>
-            <ProductEditor />
-          </div>
-          {/* <TextArea
-              name="product_details"
-              label="details"
-              placeholder=""
-              rows={6}
-              labelStyle={styles.inputLabel}
-              onChange={formik.handleChange}
-              errorMessage={errors.product_description}
-              value={values?.product_description}
-            /> */}
+          <ProductEditor content={contents} setContent={setContents} />
         </Form.Item>
         <Form.Item>
           <div className="mt-4 w-full lg:w-3/4">
@@ -262,37 +249,40 @@ export const CreateProductForm = ({
                   This image will be displayed on your store page! (You can upload up to 3 images)
                 </p>
                 <p className="text-black font-medium text-xs">
-                  Allowed Files: PNG, JPG | Maximum file size: 5MB
+                  Allowed Files: PNG, JPG | Maximum file size: 2MB
                 </p>
                 <div className="flex">
-                  <div className={styles.uploadChart}>
+                  <div className={"relative "+ styles.uploadChart}>
+                    {isImageFilled && <div className="absolute z-50 w-full h-full bg-transparent"></div>}
                     <div
                       className={`${styles.upload} h-full px-5`}
                       {...getRootProps()}
                     >
-                    {/* {preview.length > 0 && (
-                      <div className="flex justify-between px-4 pt-3 text-base-gray text-sm font-light">
-                        <p>{files?.[0]?.name}</p>
-                        <p>{filesize(files[0]?.size)}</p>
-                      </div>
-                    )} */}
                     <div className={styles.uploadCont}>
                       <Image style={{color:"#BFBFBF"}} src={CloudUpload} alt="upload image" />
                       <input {...getInputProps()} />
                       <h5 className="hidden lg:block text-primary-blue text-base pt-2 font-normal text-center">
                         Drag & Drop Your Image Here <br /> -OR-
                       </h5>
-                      <Button className="primary-blue font-medium" type="primary">
+                      <Button className="font-medium" disabled={isImageFilled ? true: false} type={isImageFilled ? "default": "primary"}>
                         Browse Image
                       </Button>
                     </div>
                   </div>
                 </div>
-                <div className={styles.noImage + " ml-3"}>
+                <div className={imageUploads.length > 0 ? styles.isImage : styles.noImage + " ml-3"}>
                   <ul className="flex flex-col mb-0">
-                    {imageUploads.map((fileWrap, indx) =>(
-                      <ImageUpload key={indx} file={fileWrap.file} deleteFile={deleteFile} />
-                    ))}
+                    {imageUploads.map((fileWrap, indx) =>{
+                      if(!(fileWrap.errors.length > 0)){
+                        return(
+                          <ImageUpload key={indx} file={fileWrap.file} setUrl={setUrl}  deleteFile={deleteFile} />
+                        )
+                      }else{
+                        return(
+                          <ImageError key={indx} file={fileWrap.file} errors={fileWrap.errors} deleteFile={deleteFile} />
+                        )
+                      }
+                      })}
                   </ul>
                 </div>
               </div>
@@ -345,7 +335,7 @@ export const CreateProductForm = ({
                   <Switch
                     onChange={(e) => {
                       setContentFiles((value) => !value);
-                      setFieldValue("upload_content", contentFiles);
+                      setFieldValue("upload_content", e);
                     }}
                   />
                   <h2 className="pl-6 font-semibold text-medium text-black-100">
@@ -441,6 +431,33 @@ export const CreateProductForm = ({
               />
             </div>
           </div>
+        </Form.Item>
+        <Form.Item>
+            {
+              Object.keys(errors).length > 0 && Object.entries(errors).map((items, index)=>{
+                if (typeof items[1] === "string"){
+                  return (
+                    <div key={index} className={styles.errorContent + " h-10"}>
+                      <div style={{width: "25px", height: "25px"}}>
+                        <Image width={100} height={100} src={ErrorIcon} alt="error" />
+                      </div>
+                      <h2 className="text-base font-medium ">{items[1]}</h2>
+                    </div>
+                  )
+                }
+                for(let values in items[1]){
+                  return(
+                    <div key={index} className={styles.errorContent + " h-10"}>
+                      <div style={{width: "25px", height: "25px"}}>
+                        <Image width={100} height={100} src={ErrorIcon} alt="error" />
+                      </div>
+                      <h2 className="text-base font-medium ">{items[1][values]}</h2>
+                    </div>
+                  )
+                }
+                
+              })
+            }
         </Form.Item>
         <Form.Item className={styles.saveButton}>
           <Button type="primary" htmlType="submit">Save and Continue</Button>
