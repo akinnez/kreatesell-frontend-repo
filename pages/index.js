@@ -8,18 +8,26 @@ import { Modal } from "antd";
 
 export default function Home() {
   function detailsSubmissionSuccess(msg = "") {
-    const guestStatus = msg === "already on wait-list" ? "already on" : "on";
+    
+    const isAlreadyOnList = msg === "already on wait-list";
+    const guestStatus = isAlreadyOnList ? "already on" : "on";
+
     Modal.success({
       title: (
         <Title
           text={
             <span>
-              Hurray! You&rsquo;re {guestStatus} the exclusive wait-list.
+              {isAlreadyOnList ? "" : "Hurray!"}
+              You&rsquo;re {guestStatus} the exclusive wait-list.
             </span>
           }
         />
       ),
-      content: <Content />,
+      content: isAlreadyOnList ? (
+       <FinalMsg text="Thank you for registering" />
+      ) : (
+        <Content />
+      ),
       width: 700,
     });
   }
@@ -31,7 +39,7 @@ export default function Home() {
           text={"Sorry, we encountered a problem while saving your details."}
         />
       ),
-      content: <p className={styles.content}>Please, try again.</p>,
+      content: <FinalMsg text="Please, try again." />,
       width: 700,
     });
   }
@@ -52,6 +60,8 @@ export default function Home() {
 }
 
 const Title = ({ text }) => <h1 className={styles.heading}>{text}</h1>;
+
+
 const Content = () => (
   <p className={styles.content}>
     You&rsquo;ll be alerted immediately{" "}
@@ -59,3 +69,6 @@ const Content = () => (
     <span className={styles.green}>Sell</span> launches.
   </p>
 );
+
+
+const FinalMsg = ({text}) => <p className={styles.content}>{text}</p>
