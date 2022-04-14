@@ -10,12 +10,12 @@ export const FormError = ({ errors }) => {
     <motion.div
       className={styles.error}
       {...variantProps}
-      variants={projectCardVariant(1, 0)}
+      variants={projectCardVariant(2, 0)}
       exit={{
         scale: 0,
         transition: {
           type: "spring",
-          duration: duration,
+          duration: 2,
         },
       }}
     >
