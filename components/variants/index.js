@@ -110,7 +110,7 @@ const projectCardVariant = (duration = 2, delay = 0) => {
 
     // exit: {
     //   scale: 0,
-    //   // y: " -100vh",
+
     //   transition: {
     //     type: "spring",
     //     duration: duration,
