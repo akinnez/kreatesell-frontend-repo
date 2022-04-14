@@ -31,6 +31,22 @@
   // color: #d9d9d9;
   opacity: 0.6;
   // font-weight: bold;
+  // @media (min-width: 360px) {
+  &:nth-child(4),
+  &:nth-child(6) {
+    margin-bottom: 0.5rem;
+  }
+  // }
+  @media (min-width: 441px) {
+    &:nth-child(6) {
+      margin-bottom: unset;
+    }
+  }
+  @media (min-width: 467px) {
+    &:nth-child(4) {
+      margin-bottom: unset;
+    }
+  }
   @media (min-width: 768px) {
     &:nth-child(4),
     &:nth-child(6) {
