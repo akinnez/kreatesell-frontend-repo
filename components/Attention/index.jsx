@@ -15,7 +15,7 @@ const MainAttention = (props) => {
         Be the <span className={styles.green}>FIRST</span> <br />
         to Know!
       </motion.h1>
-      <motion.div variants={pageVariant(2, 1)} {...variantProps}>
+      <motion.div variants={pageVariant(3, 2)} {...variantProps}>
         <h2 className={styles.subHeading}>
           Are you ready to experience a mind-blowing platform made just for you
           to sell all your content and digital products across borders, and
