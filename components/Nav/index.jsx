@@ -3,12 +3,18 @@ import Logo, { MobileLogo } from "components/Logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SocialIcons from "../SocialIcons";
-
+import { motion } from "framer-motion";
+import { useVariants } from "../variants";
 export const Navbar = () => {
   const router = useRouter();
+  const { slideFromTop, variantProps } = useVariants();
   return (
     <>
-      <nav className={styles.navContainer}>
+      <motion.nav
+        className={styles.navContainer}
+        {...variantProps}
+        variants={slideFromTop}
+      >
         <Link href="/">
           <a className={styles.imgCont}>
             <Logo />
@@ -18,7 +24,7 @@ export const Navbar = () => {
           <MobileLogo />
         </div>
         <SocialIcons />
-      </nav>
+      </motion.nav>
     </>
   );
 };
