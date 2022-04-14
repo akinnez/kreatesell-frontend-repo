@@ -10,7 +10,7 @@ const SneakPeak = () => {
       <motion.h3
         className={styles.heading}
         {...variantProps}
-        variants={pageVariant(1, 3)}
+        variants={pageVariant(2, 0)}
       >
         Sneak peek of what to expect
       </motion.h3>
