@@ -36,15 +36,17 @@
   background-repeat: no-repeat;
   background-size: contain;
   height: 100%;
+  margin-top: 5rem;
   // background-color: black;
   @media (min-width: 768px) {
     padding: 0.5rem 4rem;
     flex-direction: row;
 
-    margin-top: 1rem;
+    // margin-top: 1rem;
   }
   @media (min-width: 900px) {
     padding: 0.5rem 10.31rem;
+    margin-top: 1rem;
   }
   @media (min-width: 1200px) {
     padding: 0.5rem 15rem;
