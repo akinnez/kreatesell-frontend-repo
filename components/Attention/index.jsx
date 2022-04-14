@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useVariants } from "../variants";
 
 const MainAttention = (props) => {
-  const { projectCardVariant, landRVariant, variantProps } = useVariants();
+  const { projectCardVariant, pageVariant, variantProps } = useVariants();
   return (
     <section className={styles.container}>
       <motion.h1
@@ -15,7 +15,7 @@ const MainAttention = (props) => {
         Be the <span className={styles.green}>FIRST</span> <br />
         to Know!
       </motion.h1>
-      <motion.div variants={landRVariant("-100%", 1)} {...variantProps}>
+      <motion.div variants={pageVariant(2, 1)} {...variantProps}>
         <h2 className={styles.subHeading}>
           Are you ready to experience a mind-blowing platform made just for you
           to sell all your content and digital products across borders, and

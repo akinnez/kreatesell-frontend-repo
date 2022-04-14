@@ -7,13 +7,13 @@ import { motion } from "framer-motion";
 import { useVariants } from "../variants";
 export const Navbar = () => {
   const router = useRouter();
-  const { slideFromTop, variantProps } = useVariants();
+  const { pageVariant, variantProps } = useVariants();
   return (
     <>
       <motion.nav
         className={styles.navContainer}
         {...variantProps}
-        variants={slideFromTop}
+        variants={pageVariant(1, 0)}
       >
         <Link href="/">
           <a className={styles.imgCont}>
