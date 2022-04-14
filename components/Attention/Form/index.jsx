@@ -5,7 +5,7 @@ import { WaitListSchema } from "../../../validations";
 import { isAnEmpytyObject } from "../../../utils";
 import { useFormik } from "formik";
 import { FormError } from "./FormError";
-import { AnimatePresence } from "framer-motion";
+
 // import axios from '../../../utils/axios'
 import axios from "axios";
 
@@ -54,9 +54,7 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
 
   return (
     <>
-      <AnimatePresence>
-        {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
-      </AnimatePresence>
+      {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
       <form className={styles.formMain} onSubmit={formik.handleSubmit}>
         <div className={styles.formBox}>
