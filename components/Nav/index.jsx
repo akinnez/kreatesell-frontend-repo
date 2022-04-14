@@ -8,7 +8,7 @@ export const Navbar = () => {
   const router = useRouter();
   return (
     <>
-      <nav className={`${styles.navContainer}`}>
+      <nav className={styles.navContainer}>
         <Link href="/">
           <a className={styles.imgCont}>
             <Logo />

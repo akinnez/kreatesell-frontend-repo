@@ -13,6 +13,12 @@
   .icon {
     margin-right: 0.5rem;
     display: inline-block;
+    transition: transform .2s;
+    cursor: pointer;
+
+    &:hover{
+      transform: scale(1.05);
+    }
   }
 
   // @media (min-width: 1300px) {

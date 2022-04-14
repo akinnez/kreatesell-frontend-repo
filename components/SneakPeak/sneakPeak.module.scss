@@ -14,7 +14,7 @@
 
   @media (min-width: 768px) {
     margin-top: unset;
-    align-self: center;
+    // align-self: center;
   }
   @media (min-width: 1200px) {
     margin: 5rem 0;
@@ -31,16 +31,13 @@
   // color: #d9d9d9;
   opacity: 0.6;
   // font-weight: bold;
-  @media (min-width: 768px){
-   
-
-    &:nth-child(4), &:nth-child(6){
-      
-       margin-bottom: .5rem;
-    // line-height: 1.7;
+  @media (min-width: 768px) {
+    &:nth-child(4),
+    &:nth-child(6) {
+      margin-bottom: 0.5rem;
+      // line-height: 1.7;
     }
   }
-
 }
 
 // animations
