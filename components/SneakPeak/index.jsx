@@ -7,7 +7,13 @@ const SneakPeak = () => {
   const { pageVariant, variantProps } = useVariants();
   return (
     <div className={styles.container}>
-      <h3 className={styles.heading}>Sneak peek of what to expect</h3>
+      <motion.h3
+        className={styles.heading}
+        {...variantProps}
+        variants={pageVariant(1, 3)}
+      >
+        Sneak peek of what to expect
+      </motion.h3>
       <ol>
         {benefits.map((benefit, index) => (
           <motion.li
