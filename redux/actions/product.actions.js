@@ -25,6 +25,7 @@ export const CreateProduct = () => {
 	);
 };
 
+
 export const GetProductByID = () => {
 	const dispatch = useDispatch();
 	return (productID, successCallback, errorCallback) => (
@@ -72,7 +73,7 @@ export const GetProducts = () => {
 			(res) => {
 				const products = res?.data?.data;
 				const data = res?.data;
-
+				console.log('The products', res)
 				delete data?.data;
 				const payload = {
 					products,

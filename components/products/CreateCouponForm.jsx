@@ -6,8 +6,9 @@ import {TextInput,
     Switch,
     Button
 } from '../../components/inputPack'
+import {CreateCouponSchema} from '../../validation/CreateCoupon.validation'
 import { Radio } from 'antd';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 // import DateTimePicker from 'react-datetime-picker';
 import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle'
 import 'react-datetime-picker/dist/DateTimePicker.css'
@@ -42,11 +43,11 @@ export const CreateCouponForm = () =>{
             "is_for_all_product": true,
             "product_id": 0
           },
-          "action": "string",
+          action: "string",
           "coupon_id": 0
     }
     const handleSubmit = (values)=>{
-        // console.log(values)
+        console.log(values)
         // createCoupon()
     }
 
@@ -58,7 +59,7 @@ export const CreateCouponForm = () =>{
     const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		// validationSchema: "",
+		validationSchema: CreateCouponSchema,
 		validateOnChange: false,
 	})
     const { errors, values, setFieldValue } = formik;
@@ -68,11 +69,17 @@ export const CreateCouponForm = () =>{
         if(e.target.value === true){
             setFieldValue("coupon_settings.is_for_all_product", true)
             setFieldValue("coupon_settings.product_id", 0)
+            setIsAllProduct(true)
             return
         }
         setFieldValue("coupon_settings.is_for_all_product", false)
+        setIsAllProduct(false)
         // const {name, value} = e.target
     }
+    useEffect(() => {
+      console.log(errors)
+    }, [errors])
+    
     return(
         <div className={`px-0 lg:px-8 ${styles.container}`}>
             <div className="flex flex-col">
@@ -198,8 +205,8 @@ export const CreateCouponForm = () =>{
                         onChange={(e)=>setFieldValue("coupon_settings.no_of_usage", e)}
                     />
                 </div>
-                <div >
-                    <Switch className={styles.switchContent} label="Allow Discount to be Applied for Recurring Purchases" />
+                <div className={styles.switchContent}>
+                    <Switch label="Allow Discount to be Applied for Recurring Purchases" />
                 </div>
                 <Button 
                     className="justify-self-center w-1/3 self-center mt-4"

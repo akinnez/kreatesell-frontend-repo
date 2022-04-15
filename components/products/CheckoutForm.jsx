@@ -1,6 +1,6 @@
 import { Percentage, Radio } from "components/inputPack";
-import { Input, Button, ProductInput } from "components";
-import { Switch } from "antd";
+import { Button, ProductInput } from "components";
+import { Switch, Form, Input } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
 import { CloudUpload } from "utils";
@@ -15,6 +15,7 @@ import {
   SetProductTab,
 } from "redux/actions";
 import { useHandleProductInputDebounce, useUpload } from "hooks";
+import CustomCheckoutSelect from "./CustomCheckout";
 
 export const CheckoutForm = ({ ctaBtnText, priceType }) => {
   /**
@@ -46,6 +47,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     isPercentage: true,
     is_fixed_amount: false,
   });
+
+  const [selling, setSelling] = useState([
+    {amount: 353, currency: "NGN"},
+    {amount: 250, currency: "EUR"},
+    {amount: 50, currency: "USD"},
+    {amount: 96789, currency: "JPY"},
+    {amount: 250000, currency: "KEN"},
+  ])
 
   const { data: minimumPrice, handleDebounce: handleMinimumPrice } =
     useHandleProductInputDebounce();
@@ -294,67 +303,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
   }, [product]);
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      {[1, 3].includes(priceType) && (
-        <div>
-          <p className="text-base mb-2">Selling Price</p>
-          <div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-            <ProductInput
-              prefix="NGN"
-              name="NGN"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="GBP"
-              name="GBP"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="KES"
-              name="KES"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="TZS"
-              name="TZS"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="USD"
-              name="USD"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="GHS"
-              name="GHS"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="ZAR"
-              name="ZAR"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-
-            <ProductInput
-              prefix="UGX"
-              name="UGX"
-              placeholder="0"
-              onChange={(e) => handleSellingPrice(e)}
-            />
-          </div>
+    <Form onSubmit={formik.handleSubmit}>
+      {priceType === "Fixed Price" && (
+        <div className="flex flex-col">
+          <CustomCheckoutSelect title={"Selling Price"} field={selling} setField={setSelling} />
           <p className="text-base-gray-200 text-xs pt-2">
             Set the equivalent price of your product in the currencies of the
             country you accept. You can always enable or disable any currency in
@@ -362,208 +314,45 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
           </p>
         </div>
       )}
-
-      {priceType === 2 && (
+      {priceType === "Pay What You Want" && (
         <div>
-          <div>
-            <p className="text-base mb-2">Minimum Amount</p>
-            <div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-              <ProductInput
-                prefix="NGN"
-                name="NGN"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="GBP"
-                name="GBP"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="KES"
-                name="KES"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="TZS"
-                name="TZS"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="USD"
-                name="USD"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="GHS"
-                name="GHS"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="ZAR"
-                name="ZAR"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-              <ProductInput
-                prefix="UGX"
-                name="UGX"
-                placeholder="0"
-                onChange={(e) => handleMinimumPrice(e)}
-              />
-            </div>
-          </div>
-
-          <div className="pt-4">
-            <p className="text-base mb-2">Suggested Amount</p>
-            <div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-              <ProductInput
-                prefix="NGN"
-                name="NGN"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="GBP"
-                name="GBP"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="KES"
-                name="KES"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="TZS"
-                name="TZS"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="USD"
-                name="USD"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="GHS"
-                name="GHS"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="ZAR"
-                name="ZAR"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-              <ProductInput
-                prefix="UGX"
-                name="UGX"
-                placeholder="0"
-                onChange={(e) => handleSuggestedPrice(e)}
-              />
-            </div>
-          </div>
+            <CustomCheckoutSelect title={"Minimum Amount"} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={"Suggested Amount"} field={selling} setField={setSelling} />
         </div>
       )}
 
-      {priceType === 3 && (
-        <div>
+      {priceType === "Installment Payment" && (
           <div className="pt-4">
-            <p className="text-base mb-2">Initial Payment at Checkout</p>
-            <div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-              <ProductInput
-                prefix="NGN"
-                name="NGN"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="GBP"
-                name="GBP"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="KES"
-                name="KES"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="TZS"
-                name="TZS"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="USD"
-                name="USD"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="GHS"
-                name="GHS"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="ZAR"
-                name="ZAR"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
-              <ProductInput
-                prefix="UGX"
-                name="UGX"
-                placeholder="0"
-                onChange={(e) => handleInitialPrice(e)}
-              />
+            <p className="text-base mb-2"></p>
+            <CustomCheckoutSelect title={"Selling Price"} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={"Initial Payment at Checkout"} field={selling} setField={setSelling} />
+            <div className="mt-3 w-full">
+              <p className="text-base mb-2">Select Frequency of payments</p>
+              <div className="w-full lg:w-1/5">
+                <Select
+                  options={frequencyOptions}
+                  onChange={(e) => setNumberOfInputs(e.value)}
+                />
+              </div>
+            </div>
+            <CustomCheckoutSelect title={"Type What You Want Buyers To Pay At Each Installments"} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
+            <div className="mt-3 w-full">
+              <p className="text-base mb-2">Interval between each payment</p>
+              <div className="w-full lg:w-1/5">
+                <Select options={mappedBillingInterval} />
+              </div>
             </div>
           </div>
-
-          <div className="mt-3 w-full">
-            <p className="text-base mb-2">Select Frequency of payments</p>
-            <div className="w-full lg:w-1/5">
-              <Select
-                options={frequencyOptions}
-                onChange={(e) => setNumberOfInputs(e.value)}
-              />
-            </div>
-          </div>
-
-          <div className="mt-3">
-            <p className="text-base mb-2">
-              Division of the remaining payment by the frequency
-            </p>
-
-            {[...Array(numberOfInputs)].map((item, i) => (
-              <BatchInput key={i} handleChange={handleInstallmentPrice} />
-            ))}
-          </div>
-
-          <div className="mt-3 w-full">
-            <p className="text-base mb-2">Interval between each payment</p>
-            <div className="w-full lg:w-1/5">
-              <Select options={mappedBillingInterval} />
-            </div>
-          </div>
-        </div>
       )}
 
       <div>
-        {[1].includes(priceType) && (
+        {priceType === "Fixed Price" && (
           <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100">
+            <div className="text-black-100 font-semibold text-lg">
               Show Compare-To Price (Optional)
             </div>
             <div className="flex">
@@ -573,7 +362,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 }}
                 checked={compareToPrice}
               />
-              <span className="pl-6 text-black-100">
+              <span className="pl-6 text-black-100 text-lg font-semibold">
                 {compareToPrice ? "ON" : "OFF"}
               </span>
             </div>
@@ -582,63 +371,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
         {compareToPrice && (
           <div className="mt-4">
-            <p className="text-sm">Original price (NGN) </p>
-            <div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-1">
-              <ProductInput
-                prefix="NGN"
-                name="NGN"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="GBP"
-                name="GBP"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="KES"
-                name="KES"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="TZS"
-                name="TZS"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="USD"
-                name="USD"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="GHS"
-                name="GHS"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="ZAR"
-                name="ZAR"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-              <ProductInput
-                prefix="UGX"
-                name="UGX"
-                placeholder="0"
-                onChange={(e) => handleOriginalPrice(e)}
-              />
-            </div>
+            <CustomCheckoutSelect title={"Original price (NGN)"} field={selling} setField={setSelling} />
           </div>
         )}
 
         {priceType !== 4 && (
-          <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100">Apply Coupon Code</div>
+          <div className="flex justify-between items-center mt-3 w-full lg:w-2/4 pt-4">
+            <div className="text-black-100 font-semibold text-lg">Apply Coupon Code</div>
             <div className="flex">
               <Switch
                 onChange={(e) => {
@@ -646,7 +385,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 }}
                 checked={applyCoupon}
               />
-              <span className="pl-6 text-black-100">
+              <span className="pl-6 text-black-100 font-semibold text-lg">
                 {applyCoupon ? "ON" : "OFF"}
               </span>
             </div>
@@ -792,7 +531,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 					</div> */}
         </div>
 
-        <p className="mt-4">Settings</p>
+        <h2 className="mt-6 text-xl font-semibold">Settings</h2>
         <div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 w-11/12">
           <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
             <div className="text-black-100">
@@ -946,65 +685,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
           </div>
         </div>
       </div>
-    </form>
-  );
-};
-
-const BatchInput = ({ handleChange }) => {
-  return (
-    <div className="w-4/5 md:w-full grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-8 py-2">
-      <ProductInput
-        prefix="NGN"
-        name="NGN"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="GBP"
-        name="GBP"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="KES"
-        name="KES"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="TZS"
-        name="TZS"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="USD"
-        name="USD"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="GHS"
-        name="GHS"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="ZAR"
-        name="ZAR"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-      <ProductInput
-        prefix="UGX"
-        name="UGX"
-        placeholder="0"
-        onChange={(e) => handleChange(e)}
-      />
-
-      <div className="pt-2 lg:hidden">
-        <div className="divider"></div>
-      </div>
-    </div>
+    </Form>
   );
 };
