@@ -1,10 +1,6 @@
-import styles from './ImageLoad.module.scss'
 import { Progress } from 'antd';
-import { useEffect } from 'react';
+
 export default function ImageLoad ({imageName,errors, progress, isError}){
-    useEffect(()=>{
-        console.log(errors)
-    }, [errors])
     return(<>
         {isError ? 
         <div className="w-full ">
