@@ -24,6 +24,7 @@ import { useUpload } from "hooks";
 import ImageUpload from "./ImageUpload";
 import ProductEditor from "./ProductEditor";
 import ImageError from "./ImageError";
+import { useRouter } from "next/router";
 
 export const CreateProductForm = ({
   productType = "digitalDownload",
@@ -34,6 +35,7 @@ export const CreateProductForm = ({
   const createProduct = CreateProduct();
   const getProductByID = GetProductByID();
   const setProductID = SetProductID();
+  const router = useRouter()
   const {TextArea} = Input
   const [preOrder, setPreOrder] = useState(false);
   const [contentFiles, setContentFiles] = useState(false);
@@ -112,12 +114,13 @@ export const CreateProductForm = ({
     if (!data.upload_content){
       delete data.content_file_details
     }
-    createProduct(data, (data) => {
-      setProductID(
-        product?.product_details?.kreasell_product_id || data?.token
-      );
-      setProductTab(1);
-    });
+    // createProduct(data, (data) => {
+    //   setProductID(
+    //     product?.product_details?.kreasell_product_id || data?.token
+    //   );
+    //   setProductTab(1);
+    // });
+    console.log(data)
   };
 
   const formik = useFormik({
@@ -135,6 +138,7 @@ export const CreateProductForm = ({
   useEffect(() => {
     getListingStatus();
   }, []);
+  
   useEffect(()=>{
     setFieldValue("product_images.product_files", [...imageUploads.map(file => file.url)])
   }, [imageUploads])
@@ -152,6 +156,14 @@ export const CreateProductForm = ({
     }
     return setIsImageFilled(false)
   }, [imageUploads])
+
+  useEffect(()=>{
+    console.log(product)
+  }, [product])
+
+  useEffect(()=>{
+    console.log('the id', router.query.kreasell_product_id)
+  }, [router.query])
 
   useEffect(()=>{
     setFieldValue('product_details', contents)

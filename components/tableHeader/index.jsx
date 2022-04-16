@@ -153,50 +153,25 @@ const ModalPrompt = ({ handleCancel, onOk, modalText, productName }) => {
 
 const StatusComponent = (item) => {
   const statusTextList = {
-    "draft": "You need to complete the editing of this product before it is published.",
-    "live": "Your product will go live and visible to audience for purchase once you complete creating the sales page.",
-    "deactivated": " No one can see this product. You may reactivate it anytime you like.",
-    "flagged": "Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment.",
-    "revoked": " Product violated copyright terms and has been removed permanently.",
+    "1": {type: "draft", styles:{background: "rgba(255, 214, 102, 0.2)", color: "#FBB500" }, contents:"You need to complete the editing of this product before it is published."},
+    "2": {type: "live", styles:{background: "#F1FCF8", color: "#2DC071" }, contents:"Your product will go live and visible to audience for purchase once you complete creating the sales page."},
+    "3": {type: "deactivate", styles:{background: "rgba(255, 77, 79, 0.1)", color: "#F90005" }, contents:" No one can see this product. You may reactivate it anytime you like."},
+    "4": {type: "flagged", styles:{background: "#F5F5F5", color: "#595959" }, contents:"Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment."},
+    "5": {type: "revoked", styles:{background: "#F5F5F5", color: "#595959" }, contents:" Product violated copyright terms and has been removed permanently."}
   }
-  let color
-  let content = "";
-    switch (item) {
-      case "draft":
-        color = "yellow"
-        content = statusTextList[item]
-        break;
-      case "live":
-        color = "green"
-        content = statusTextList[item]
-        break;
-      case "deactivated":
-        color = "red"
-        content = statusTextList[item]
-        break;
-      case "flagged":
-        color = "gray"
-        content = statusTextList[item]
-        break;
-      case "revoked":
-        color = "gray"
-        content = statusTextList[item]
-        break;
-    
-      default:
-        break;
-    }
+  let tagStyles = statusTextList[item].styles
+  let content = statusTextList[item].contents;
+  const mainType = statusTextList[item].type
   return (
       <Tooltip 
         overlayInnerStyle={
           {fontSize: "10px", textAlign: "center"}
         }
-        overlayStyle={{width: "150px", borderRadius: "10px", padding: "10px 8px"}}
+        overlayStyle={{width: "150px", borderRadius: "10px", padding: "20px 8px"}}
        className="text-xs" placement="top" title={content}>
-        <Tag color={color}>
-          {item.charAt(0).toUpperCase() + item.slice(1)}
-
-        </Tag>
+        <div className={styles.tags} style={tagStyles}>
+          {mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+        </div>
       </Tooltip>
   );
 };
@@ -255,7 +230,7 @@ const ActionComponent = ({ item, showAction }) => {
           <li
             onClick={() => {
               setProductID(kreasell_product_id);
-              router.push("/account/kreator/products/create");
+              router.push({ pathname: "/account/kreator/products/create", query: { kreasell_product_id } },"/account/kreator/products/create");
               setProductTab(0);
             }}
           >
@@ -339,7 +314,7 @@ export const AllProductsTableHeader = [
     render: (item) => (
       <div className={styles.productTableName + " flex flex-col"}>
         <h2 className="text-lg mb-1 font-semibold">{item}</h2>
-        <p className="text-xs mb-2 p-2 pl-0 text-center border-green-400 rounded-md border-2"> Unlimited Copies</p>
+        <p className="text-xs mb-2 w-3/4 px-2 py-1 text-center border-green-400 rounded-md border-2"> Unlimited Copies</p>
         <p className="text-xs font-normal"> 20 copies sold</p>
       </div>
     )
@@ -360,11 +335,14 @@ export const AllProductsTableHeader = [
   {
     title: "Date Added",
     dataIndex: "date_created",
-    // render: (item) => {
-    //   const time = parseISO(item);
-    //   const formatTime = format(time, "PPpp");
-    //   return <div>{formatTime}</div>;
-    // },
+    render: (item) => {
+      const time = parseISO(item);
+      const formatTime = format(time, "PPPp");
+      return <div className="flex flex-col items-center">
+          <div>{`${formatTime.split('at')[0]},`}</div>
+          <div>{formatTime.split('at')[1]}</div>
+        </div>;
+    },
   },
   {
     title: "Status",

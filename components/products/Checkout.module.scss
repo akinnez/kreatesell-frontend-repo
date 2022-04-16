@@ -22,6 +22,9 @@
 			align-items: baseline !important;
 			margin-right: 2em;
 		}
+		& > div:first-child{
+			margin-bottom: 20px;
+		}
 	}
 	.disabledRadio {
 		color: #bfbfbf !important;

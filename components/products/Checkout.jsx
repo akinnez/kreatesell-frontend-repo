@@ -43,7 +43,7 @@ export const CheckoutProductTab = () => {
 					</div>
 					<p className="text-xs text-base-gray-200 mt-3">
 						Leave blank if you want the default{" "}
-						<span className="text-black">BUY NOW</span>, else, change it to best
+						<span className="text-black-100 font-semibold">{ctaBtnText ? ctaBtnText : "BUY NOW"}</span>, else, change it to best
 						action request of your taste.
 					</p>
 				</Form.Item>

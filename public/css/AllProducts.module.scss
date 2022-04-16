@@ -43,6 +43,10 @@
 	h2{
 		word-wrap: break-word;
 	}
+	p:first-child{
+		width: 56px;
+		padding: 6px;
+	}
 }
 .tooltip {
 	position: relative;
@@ -183,7 +187,13 @@
 		margin-right: 0 !important;
 	}
 }
-
+.tags{
+	width: 86px;
+	padding: 5px 8px;
+	text-align: center;
+	border-radius: 8px;
+	cursor: pointer;
+}
 .lightGrey{
 	color: $gray-200;
 }

@@ -6,6 +6,7 @@ import { Card } from "components/card";
 import { useSelector } from "react-redux";
 import { SetProductTab } from "redux/actions";
 import MembershipTab from "components/products/BusinessSection/MembershipTab";
+import { withRouter } from "next/router";
 
 const CreateProduct = () => {
   const setProductTab = SetProductTab();
@@ -38,7 +39,7 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default withRouter(CreateProduct);
 
 // import { useState } from "react";
 // import { Tabs, Card } from "antd";
