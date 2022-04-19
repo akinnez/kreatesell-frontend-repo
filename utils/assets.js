@@ -56,6 +56,7 @@ import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
 import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
+import ErrorIcon from "../public/images/ErrorIcon.svg";
 import MailClipboard from "../public/images/mail-clipboard.svg";
 import { RightArrow } from "./icons/RightArrow";
 import { CloudDownload } from "./icons/CloudDownload";
@@ -83,6 +84,8 @@ import CheckoutPlaceholder from "../public/images/checkout-placeholder.png";
 import Crypto from "../public/images/crypto.png";
 import Paypal from "../public/images/paypal.png";
 import Stripe from "../public/images/stripe.png";
+import placeholder1 from "../public/images/placeholder-1.jpg";
+import placeholder2 from "../public/images/placeholder-2.jpg";
 import NotificationPlaceholder from "../public/images/notifications.svg";
 import ProductNotificationImage from "../public/images/product_image.png";
 import tick from "../public/images/tick.svg";
@@ -96,7 +99,10 @@ export {
 	Mobile,
 	FacebookBtn,
 	GoogleBtn,
+	placeholder1,
+	placeholder2,
 	RightArrow,
+	ErrorIcon,
 	AutomationIcon,
 	InstantPayout,
 	PayoutMethod,

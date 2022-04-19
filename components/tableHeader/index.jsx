@@ -13,7 +13,7 @@ import {
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { useState } from "react";
-import { Modal } from "antd";
+import { Modal, Tag, Tooltip } from "antd";
 import { Button } from "components";
 import { useRouter } from "next/router";
 import { format, parseISO } from "date-fns";
@@ -151,33 +151,53 @@ const ModalPrompt = ({ handleCancel, onOk, modalText, productName }) => {
   );
 };
 
-const StatusComponent = ({ item }) => {
-  const statusList = {
-    1: "Draft",
-    2: "Live",
-    3: "Deactivated",
-    4: "Flagged",
-    5: "Revoked",
-  };
-
+const StatusComponent = (item) => {
   const statusTextList = {
-    1: "You need to complete the editing of this product before it is published.",
-    2: "Your product will go live and visible to audience for purchase once you complete creating the sales page.",
-    3: " No one can see this product. You may reactivate it anytime you like.",
-    4: "Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment.",
-    5: " Product violated copyright terms and has been removed permanently.",
-  };
-
-  const status = statusList[item]?.toLowerCase();
-  const statusText = statusTextList[item];
-
+    "draft": "You need to complete the editing of this product before it is published.",
+    "live": "Your product will go live and visible to audience for purchase once you complete creating the sales page.",
+    "deactivated": " No one can see this product. You may reactivate it anytime you like.",
+    "flagged": "Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment.",
+    "revoked": " Product violated copyright terms and has been removed permanently.",
+  }
+  let color
+  let content = "";
+    switch (item) {
+      case "draft":
+        color = "yellow"
+        content = statusTextList[item]
+        break;
+      case "live":
+        color = "green"
+        content = statusTextList[item]
+        break;
+      case "deactivated":
+        color = "red"
+        content = statusTextList[item]
+        break;
+      case "flagged":
+        color = "gray"
+        content = statusTextList[item]
+        break;
+      case "revoked":
+        color = "gray"
+        content = statusTextList[item]
+        break;
+    
+      default:
+        break;
+    }
   return (
-    <div>
-      <div className={`status-${status} ${styles.tooltip}`}>
-        {status}
-        <span className={styles.tooltiptext}>{statusText}</span>
-      </div>
-    </div>
+      <Tooltip 
+        overlayInnerStyle={
+          {fontSize: "10px", textAlign: "center"}
+        }
+        overlayStyle={{width: "150px", borderRadius: "10px", padding: "10px 8px"}}
+       className="text-xs" placement="top" title={content}>
+        <Tag color={color}>
+          {item.charAt(0).toUpperCase() + item.slice(1)}
+
+        </Tag>
+      </Tooltip>
   );
 };
 
@@ -305,41 +325,24 @@ const ActionComponent = ({ item, showAction }) => {
 
 export const AllProductsTableHeader = [
   {
-    title: "Product",
-    dataIndex: "product_name",
+    title: '',
+    dataIndex: "product_image",
+    render: (item)=> (
+      <div className={styles.productTableImage}>
+        <Image src={item} width="100" height={100}  objectFit="cover" alt="Product" />
+      </div>
+    )
   },
   {
-    title: "Product Link",
-    dataIndex: "product_link",
+    title: "Product",
+    dataIndex: "product_name",
     render: (item) => (
-      <div className="">
-        <a
-          href={item}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="productTooltip"
-        >
-          {item?.slice(0, 30)}...
-          <div className="tooltipText flex justify-between items-center">
-            <span className="text-black-100">Go to link: </span>
-            <span
-              href={item}
-              target="_blank"
-              className="pl-2 pr-4"
-              rel="noopener noreferrer"
-            >
-              {item}
-            </span>
-            <span
-              className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
-              onClick={() => _copyToClipboard(item, "Product Link Copied")}
-            >
-              <Image alt="" src={MailClipboard} />
-            </span>
-          </div>
-        </a>
+      <div className={styles.productTableName + " flex flex-col"}>
+        <h2 className="text-lg mb-1 font-semibold">{item}</h2>
+        <p className="text-xs mb-2 p-2 pl-0 text-center border-green-400 rounded-md border-2"> Unlimited Copies</p>
+        <p className="text-xs font-normal"> 20 copies sold</p>
       </div>
-    ),
+    )
   },
   {
     title: "Product Type",
@@ -357,16 +360,16 @@ export const AllProductsTableHeader = [
   {
     title: "Date Added",
     dataIndex: "date_created",
-    render: (item) => {
-      const time = parseISO(item);
-      const formatTime = format(time, "PPpp");
-      return <div>{formatTime}</div>;
-    },
+    // render: (item) => {
+    //   const time = parseISO(item);
+    //   const formatTime = format(time, "PPpp");
+    //   return <div>{formatTime}</div>;
+    // },
   },
   {
     title: "Status",
     dataIndex: "status",
-    render: (item) => StatusComponent({ item }),
+    render: (item) => StatusComponent(item),
   },
   {
     title: "Actions",
@@ -461,16 +464,11 @@ export const AllCouponTableHeader = [
 		dataIndex: "more",
 	},
 ];
-const emptyComponent = ()=>{
+export const emptyComponent = (text)=>{
 	return(
 		<div className={styles.emptyTable+ " flex flex-col"}>
 			<Image alt="" src={EmptyDataTable}/>
-			<h2 className={styles.lightGrey + " mt-5 font-semibold text-2xl"}> No content has been added</h2>
+			<h2 className={styles.lightGrey + " mt-5 font-semibold text-lg"}>{text? text :"No content has been added"}</h2>
 		</div>
-	)
-}
-export const tableLocale = {
-	emptyText: (
-		emptyComponent()
 	)
 }

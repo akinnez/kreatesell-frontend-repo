@@ -549,7 +549,7 @@ export const Radio = ({
 		<>
 			<div className="radio-wrapper">
 				<div
-					className={`radio ${value == content ? "checked" : ""}`}
+					className={`radio ${value === content ? "checked" : ""}`}
 					onClick={() => onChange(content)}
 				>
 					{value == content ? <div className="indicator" /> : null}

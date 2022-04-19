@@ -8,13 +8,14 @@ export const DigitalProductSchema = () => {
 		),
 		enable_preorder: Yup.boolean(),
 		upload_content: Yup.boolean(),
-		product_visibility_status: Yup.number().required(
-			"Product Visibility status is required"
-		),
+		product_visibility_status: Yup.number(),
 		preorder_details: Yup.object().shape({
 			preorder_release_date: Yup.date(),
 			// preorder_release_date: Yup.date().nullable(),
 			is_preorder_downloadable: Yup.boolean(),
+		}),
+		product_images: Yup.object().shape({
+			product_files: Yup.array().min(1, "Please upload at least one Product Image to proceed")
 		}),
 		product_type_id: Yup.number(),
 		content_file_details: Yup.object().shape({
