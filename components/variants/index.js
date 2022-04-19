@@ -1,8 +1,6 @@
 const variantProps = {
   initial: "hidden",
   animate: "visible",
-  hover: "hover",
-  //   exit: "exit",
 };
 
 const landRVariant = (direction, delay) => {
@@ -75,7 +73,6 @@ const dropVariant = {
       duration: 1,
     },
   },
-  //   exit: { height: "0px", transition: { type: "tween", duration: 1 } },
 };
 
 const slideFromTop = {
@@ -99,7 +96,6 @@ const projectCardVariant = (duration = 2, delay = 0) => {
     },
 
     visible: {
-      // y: 0,
       scale: 1,
       transition: {
         type: "spring",
@@ -107,15 +103,6 @@ const projectCardVariant = (duration = 2, delay = 0) => {
         delay: delay,
       },
     },
-
-    // exit: {
-    //   scale: 0,
-
-    //   transition: {
-    //     type: "spring",
-    //     duration: duration,
-    //   },
-    // },
   };
 };
 // custom Hook to export the variants as needed

@@ -5,9 +5,9 @@ import { WaitListSchema } from "../../../validations";
 import { isAnEmpytyObject } from "../../../utils";
 import { useFormik } from "formik";
 import { FormError } from "./FormError";
-
 // import axios from '../../../utils/axios'
 import axios from "axios";
+
 
 const waitListUrl = `${process.env.BASE_URL}v1/kreatesell/utils/waitlist`;
 
@@ -52,9 +52,15 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
 
   const { errors } = formik;
 
+  // state to track error view.
+  
+
+ 
   return (
     <>
-      {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+      
+        {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+      
 
       <form className={styles.formMain} onSubmit={formik.handleSubmit}>
         <div className={styles.formBox}>
