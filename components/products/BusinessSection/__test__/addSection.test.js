@@ -6,9 +6,7 @@ const mockProps = {
   setIsTabActive: jest.fn(),
 };
 
-describe("AddSection: ", () => {
-  it("renders a snapshot of AddSection ", () => {
-    const elem = renderer.create(<AddSection {...mockProps} />).toJSON();
-    expect(elem).toMatchSnapshot();
-  });
+it("renders a snapshot of AddSection ", () => {
+  const elem = renderer.create(<AddSection {...mockProps} />).toJSON();
+  expect(elem).toMatchSnapshot();
 });
