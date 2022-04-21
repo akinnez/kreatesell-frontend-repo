@@ -63,7 +63,7 @@ const HowItWorks = () => {
             />
           </div>
 
-          <div className={styles.benefits}>
+          <div className={styles.benefits} {...Animate("fade-up", 700, "ease")}>
             <span>Signup for free</span>
             <span>• Easy setup</span>
             <span>• Fast payout</span>
