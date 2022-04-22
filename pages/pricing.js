@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Layout, PricingCard, Select, Button } from "../components";
 import styles from "../public/css/Pricing.module.scss";
-import { Faq } from "../utils";
+import { Faq, Animate } from "../utils";
 import Image from "next/image";
 
 const Pricing = () => {
@@ -38,11 +38,18 @@ const Pricing = () => {
       <div className={styles.container}>
         <div className={styles.body}>
           <div className={styles.header}>
-            <h2>Cost-friendly and Transparent Pricing</h2>
-            <p>No hidden fees that may give you surprises.</p>
+            <h2 {...Animate("zoom-in", 500, "ease-in")}>
+              Cost-friendly and Transparent Pricing
+            </h2>
+            <p {...Animate("fade-up", 600, "ease")}>
+              No hidden fees that may give you surprises.
+            </p>
           </div>
 
-          <div className={styles.tabContainer}>
+          <div
+            className={styles.tabContainer}
+            {...Animate("fade-up", 700, "ease")}
+          >
             <div className={styles.tabSelect}>
               <div className={styles.tab}>
                 <button
@@ -77,7 +84,10 @@ const Pricing = () => {
 
           <div className={styles.priceCards}>
             <div className={styles.pricingCont}>
-              <div className={styles.free}>
+              <div
+                className={styles.free}
+                {...Animate("zoom-in-right", 500, "ease-in")}
+              >
                 <PricingCard
                   title="basic"
                   price="0"
@@ -87,7 +97,10 @@ const Pricing = () => {
                 />
               </div>
 
-              <div className={`${styles.free}`}>
+              <div
+                className={`${styles.free}`}
+                {...Animate("zoom-in-left", 500, "ease-in")}
+              >
                 <PricingCard
                   title="business"
                   subTitle="The combination of core tools, custom options, and automated events for professional course creators looking for the growing of their businesses."
@@ -102,8 +115,8 @@ const Pricing = () => {
         </div>
 
         <div className={styles.midSection}>
-          <h3>Want to Reach out?</h3>
-          <p>
+          <h3 {...Animate("zoom-in", 500, "ease-in")}>Want to Reach out?</h3>
+          <p {...Animate("zoom-in", 600, "ease-in")}>
             Email us at{" "}
             <a
               rel="noopener noreferrer"
