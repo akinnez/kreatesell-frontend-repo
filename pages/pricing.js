@@ -127,13 +127,19 @@ const Pricing = () => {
             </a>{" "}
             if your questions or concerns <br /> are not answered here.
           </p>
-          <div className={styles.buttonCont}>
+          <div
+            className={styles.buttonCont}
+            {...Animate("zoom-in", 700, "ease-in")}
+          >
             <Button className={styles.btn} text="Contact Now" />
           </div>
         </div>
 
         <div className={styles.faqContainer}>
-          <div className={styles.faqHeader}>
+          <div
+            className={styles.faqHeader}
+            {...Animate("zoom-in-right", 500, "ease-in")}
+          >
             <h3 className={styles.title}>
               Frequently <br /> Asked <br /> Questions
             </h3>
@@ -148,10 +154,16 @@ const Pricing = () => {
 
           <div className={styles.contentWrapper}>
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 How long will the free offer remain free?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   The free offer is forever, for unlimited users, as long as you
                   do not request for extra integrations.
@@ -160,10 +172,16 @@ const Pricing = () => {
             </div>
 
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 700, "ease-in")}
+              >
                 What does the subscription include?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 800, "ease")}
+              >
                 <p>
                   You get access to our automation panel, self customized store,
                   email integration, top notch security, round-the-clock
@@ -181,7 +199,10 @@ const Pricing = () => {
             </div>
 
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 How long does it take for funds to be deposited into my account?
               </h5>
               <div className={styles.answer}>
@@ -214,10 +235,16 @@ const Pricing = () => {
             </div>
 
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 How can I make money as a Creator?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   It&#39;s very simple I say. All you just need to do is compile
                   the knowledge you have into an ebook, audio course, online
