@@ -369,7 +369,7 @@ export default function Home() {
             </div>
             <div
               className={styles.image}
-              {...Animate("flip-left", 2000, "ease-out-cubic")}
+              {...Animate("flip-left", 500, "ease-out-cubic")}
             >
               <Image
                 src={PayoutMethod}
@@ -448,7 +448,10 @@ export default function Home() {
               Kreate an account for free and sell your digital products online
               from home or anywhere.
             </p>
-            <div className={styles.midSectionInputBtn}>
+            <div
+              className={styles.midSectionInputBtn}
+              {...Animate("zoom-in", 500, "ease")}
+            >
               <Button
                 text="Get Started Free"
                 icon={<RightArrow color="#0072ef" />}
@@ -607,15 +610,24 @@ export default function Home() {
         </div>
 
         <div className={styles.subFooter}>
-          <h3 className={styles.subFooterTitle}>
+          <h3
+            className={styles.subFooterTitle}
+            {...Animate("zoom-in", 500, "ease-in")}
+          >
             <span>Hiya</span>, Are you ready to start making <br /> money from
             Selling your contents?
           </h3>
-          <h3 className={styles.subMobileFooterTitle}>
+          <h3
+            className={styles.subMobileFooterTitle}
+            {...Animate("zoom-in", 500, "ease-in")}
+          >
             <span>Hiya</span>, Are you ready to start making money from Selling
             your contents?
           </h3>
-          <div className={styles.footerInput}>
+          <div
+            className={styles.footerInput}
+            {...Animate("fade-up", 600, "ease")}
+          >
             <InputButton
               name="email"
               placeholder="Enter your email..."
