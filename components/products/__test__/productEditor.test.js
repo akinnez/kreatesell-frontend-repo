@@ -11,6 +11,6 @@ const mockProps = {
 };
 
 it("renders a snapshot of <ProductEditor /> with mock props", () => {
-  const editor = mount(<ProductEditor {...mockProps} />).toJSON();
+  const editor = mount(<ProductEditor {...mockProps} />);
   expect(EnzymeToJson(editor)).toMatchSnapshot();
 });
