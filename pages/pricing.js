@@ -205,7 +205,10 @@ const Pricing = () => {
               >
                 How long does it take for funds to be deposited into my account?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   Funds are basically deposited into your local account within
                   48hours or two business days.
@@ -213,10 +216,16 @@ const Pricing = () => {
               </div>
             </div>
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 Am I Safe to make payment for a membership plan?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   Yes, you&#39;re safe to make payment for anything. Our
                   platform is safe for anybody.
