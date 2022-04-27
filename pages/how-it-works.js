@@ -11,6 +11,7 @@ import {
   RightArrow,
   LeftSpiral,
   RightSpiral,
+  Animate,
 } from "../utils";
 
 const HowItWorks = () => {
@@ -21,20 +22,31 @@ const HowItWorks = () => {
     <Layout subFooter={true} defaultMarginTop={true}>
       <div className={styles.container}>
         <div className={styles.hero}>
-          <h2 className={styles.main}>Just Upload It. Make Money From It.</h2>
-          <h2 className={styles.mobileHeader}>
+          <h2 className={styles.main} {...Animate("zoom-in", 500, "ease-in")}>
+            Just Upload It. Make Money From It.
+          </h2>
+          <h2
+            className={styles.mobileHeader}
+            {...Animate("zoom-in", 500, "ease-in")}
+          >
             Just Upload It. Make <br /> Money From It.
           </h2>
 
-          <p className={styles.subtitle}>
+          <p
+            className={styles.subtitle}
+            {...Animate("zoom-in", 600, "ease-in")}
+          >
             A Smarter and Better way of making money from your <br /> Digital
             Content.
           </p>
-          <p className={styles.mobileSubtitle}>
+          <p
+            className={styles.mobileSubtitle}
+            {...Animate("zoom-in", 600, "ease-in")}
+          >
             A Smarter and Better way of making money from your Digital Content.
           </p>
 
-          <div className={styles.input}>
+          <div className={styles.input} {...Animate("fade-up", 600, "ease")}>
             <InputButton
               name="email"
               placeholder="Enter your email..."
@@ -51,7 +63,7 @@ const HowItWorks = () => {
             />
           </div>
 
-          <div className={styles.benefits}>
+          <div className={styles.benefits} {...Animate("fade-up", 700, "ease")}>
             <span>Signup for free</span>
             <span>• Easy setup</span>
             <span>• Fast payout</span>
@@ -59,7 +71,10 @@ const HowItWorks = () => {
         </div>
 
         <div className={styles.bestOption}>
-          <div className={styles.content}>
+          <div
+            className={styles.content}
+            {...Animate("fade-right", 500, "ease")}
+          >
             <h3>Best Option for</h3>
             <div className={styles.pillContainer}>
               <div className={styles.pills}>
@@ -92,7 +107,10 @@ const HowItWorks = () => {
               anywhere in the world conveniently.
             </p>
           </div>
-          <div className={styles.image}>
+          <div
+            className={styles.image}
+            {...Animate("flip-left", 500, "ease-out-cubic")}
+          >
             <Image
               src={HowItWorksHero}
               width="445"
@@ -103,14 +121,17 @@ const HowItWorks = () => {
         </div>
 
         <div className={styles.subCaption}>
-          <h3>How it works</h3>
-          <p>
+          <h3 {...Animate("fade-up", 500, "ease")}>How it works</h3>
+          <p {...Animate("fade-up", 600, "ease")}>
             Amazing all-in-one tools that bring a winning customer experience
           </p>
         </div>
 
         <div className={styles.rowOne}>
-          <div className={styles.image}>
+          <div
+            className={styles.image}
+            {...Animate("flip-right", 500, "ease-out-cubic")}
+          >
             <Image
               src={CreateStore}
               width={280}
@@ -119,8 +140,16 @@ const HowItWorks = () => {
             />
           </div>
           <div className={styles.rowContent}>
-            <div className={styles.rowNumber}>1</div>
-            <div className={styles.content}>
+            <div
+              className={styles.rowNumber}
+              {...Animate("zoom-in", 500, "ease")}
+            >
+              1
+            </div>
+            <div
+              className={styles.content}
+              {...Animate("zoom-in-left", 500, "ease")}
+            >
               <h5 className={styles.webTitle}>
                 Create your Store and setup Store details
               </h5>
@@ -152,7 +181,10 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div className={styles.spiral}>
+        <div
+          className={styles.spiral}
+          {...Animate("fade-down", 1000, "linear")}
+        >
           <Image
             src={RightSpiral}
             height="150"
@@ -164,8 +196,16 @@ const HowItWorks = () => {
 
         <div className={`${styles.rowOne} ${styles.evenRow}`}>
           <div className={styles.rowContent}>
-            <div className={styles.rowNumber}>2</div>
-            <div className={styles.content}>
+            <div
+              className={styles.rowNumber}
+              {...Animate("zoom-in", 500, "ease")}
+            >
+              2
+            </div>
+            <div
+              className={styles.content}
+              {...Animate("zoom-in-right", 500, "ease")}
+            >
               <h5 className={styles.webTitle}>Add Product</h5>
               <h5 className={styles.mobileTitle}>Add Product</h5>
               <div>
@@ -185,7 +225,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-          <div className={styles.image}>
+          <div
+            className={styles.image}
+            {...Animate("flip-left", 500, "ease-out-cubic")}
+          >
             <Image
               src={AddProduct}
               width={280}
@@ -195,7 +238,10 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div className={styles.spiral}>
+        <div
+          className={styles.spiral}
+          {...Animate("fade-down", 1000, "linear")}
+        >
           <Image
             src={LeftSpiral}
             height="150"
@@ -206,7 +252,10 @@ const HowItWorks = () => {
         </div>
 
         <div className={`${styles.rowOne} ${styles.rowThree}`}>
-          <div className={styles.image}>
+          <div
+            className={styles.image}
+            {...Animate("flip-right", 500, "ease-out-cubic")}
+          >
             <Image
               src={Publish}
               width={280}
@@ -215,8 +264,16 @@ const HowItWorks = () => {
             />
           </div>
           <div className={styles.rowContent}>
-            <div className={styles.rowNumber}>3</div>
-            <div className={styles.content}>
+            <div
+              className={styles.rowNumber}
+              {...Animate("zoom-in", 500, "ease")}
+            >
+              3
+            </div>
+            <div
+              className={styles.content}
+              {...Animate("zoom-in-left", 500, "ease")}
+            >
               <h5 className={styles.webTitle}>
                 Publish - Go live in a seconds
               </h5>
@@ -241,7 +298,10 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div className={styles.spiral}>
+        <div
+          className={styles.spiral}
+          {...Animate("fade-down", 1000, "linear")}
+        >
           <Image
             src={RightSpiral}
             height="150"
@@ -253,8 +313,16 @@ const HowItWorks = () => {
 
         <div className={`${styles.rowOne} ${styles.evenRow}`}>
           <div className={styles.rowContent}>
-            <div className={styles.rowNumber}>4</div>
-            <div className={styles.content}>
+            <div
+              className={styles.rowNumber}
+              {...Animate("zoom-in", 500, "ease")}
+            >
+              4
+            </div>
+            <div
+              className={styles.content}
+              {...Animate("zoom-in-right", 500, "ease")}
+            >
               <h5 className={styles.webTitle}>
                 Get paid instantly into your account
               </h5>
@@ -280,7 +348,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-          <div className={styles.image}>
+          <div
+            className={styles.image}
+            {...Animate("flip-left", 500, "ease-out-cubic")}
+          >
             <Image
               src={AddProduct}
               width={280}
@@ -291,14 +362,20 @@ const HowItWorks = () => {
         </div>
 
         <div className={styles.subFooter}>
-          <h3 className={styles.subFooterTitle}>
+          <h3
+            className={styles.subFooterTitle}
+            {...Animate("fade-up", 500, "ease")}
+          >
             KreateSell solves your marketing <br /> and conversion hectic
             processes.
           </h3>
-          <h3 className={styles.mobileSubFooterTitle}>
+          <h3
+            className={styles.mobileSubFooterTitle}
+            {...Animate("fade-up", 500, "ease")}
+          >
             KreateSell solves your marketing and conversion hectic processes.
           </h3>
-          <p>
+          <p {...Animate("fade-up", 500, "ease")}>
             Rid yourself of stress. Upload more content. Make money. Enjoy your
             choiced life to the fullest.
           </p>
@@ -307,6 +384,7 @@ const HowItWorks = () => {
             bgColor="blue"
             className={styles.btn}
             icon={<RightArrow />}
+            {...Animate("zoom-in", 500, "ease-in")}
           />
         </div>
       </div>
