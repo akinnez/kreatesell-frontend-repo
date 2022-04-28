@@ -78,21 +78,21 @@ export default function Home() {
       <div className={styles.container}>
         <div className={styles.body}>
           <div className={styles.header}>
-            <h1 {...Animate("zoom-in", 500, "ease-in")}>
+            <h1>
               Kreate. Upload. And Sell <br /> your{" "}
               <span className={styles.digital}>Digital Product</span> <br />
               Online under Minutes. For Free
             </h1>
             <p
               className={styles.subHeader}
-              {...Animate("fade-up", 600, "ease")}
+              
             >
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, <br /> and Memberships in an online all-in-one platform for
               free and accept payment from anywhere in the world.
             </p>
             <p
-              {...Animate("fade-up", 600, "ease")}
+              
               className={styles.mobileSubHeader}
             >
               Upload your Ebooks, Online Courses, Video Courses, Subscription
@@ -102,7 +102,7 @@ export default function Home() {
 
             <div
               className={styles.inputContainer}
-              {...Animate("fade-up", 700, "ease")}
+              
             >
               <InputButton
                 name="email"
@@ -122,7 +122,7 @@ export default function Home() {
 
             <div
               className={styles.benefits}
-              {...Animate("fade-up", 700, "ease")}
+             
             >
               <span className={styles.benefitSpan}>Signup for free</span>
               <span className={styles.benefitSpan}>• Easy setup</span>
@@ -131,7 +131,7 @@ export default function Home() {
           </div>
 
           <div
-            {...Animate("zoom-in", 800, "ease-in")}
+            {...Animate("zoom-in", 100, "ease-in")}
             className={styles.heroImage}
             onClick={() => setVisible(!modalVisible)}
           >
@@ -142,7 +142,7 @@ export default function Home() {
             <h5 className={styles.title}>As featured in</h5>
             <div
               className={styles.featuredImages}
-              {...Animate("fade-up", 500, "ease")}
+              {...Animate("fade-up", 100, "ease")}
             >
               <div className={styles.imageStyle}>
                 <Image src={AirBnBLogo} alt="airBnB" />
@@ -166,7 +166,7 @@ export default function Home() {
 
             <div
               className={styles.mobileFeaturedImages}
-              {...Animate("fade-up", 500, "ease")}
+              {...Animate("fade-up", 100, "ease")}
             >
               <div className={styles.firstRow}>
                 <div
@@ -216,7 +216,7 @@ export default function Home() {
           <div className={styles.howItWorksImgCont}>
             <div
               className={styles.howItWorksImgSingle}
-              {...Animate("fade-right", 500, "ease")}
+              {...Animate("fade-right", 200, "ease")}
             >
               <Image
                 src={CreateStore}
@@ -232,7 +232,7 @@ export default function Home() {
 
             <div
               className={styles.howItWorksImgSingle}
-              {...Animate("zoom-in", 400, "ease")}
+              {...Animate("zoom-in", 100, "ease")}
             >
               <Image
                 src={AddProduct}
@@ -248,7 +248,7 @@ export default function Home() {
 
             <div
               className={styles.howItWorksImgSingle}
-              {...Animate("fade-left", 500, "ease")}
+              {...Animate("fade-left", 200, "ease")}
             >
               <Image src={Publish} width="194" height="150" alt="publish" />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
@@ -282,7 +282,7 @@ export default function Home() {
           <div className={styles.automation}>
             <div
               className={styles.image}
-              {...Animate("zoom-in-right", 500, "ease")}
+              {...Animate("zoom-in-right", 200, "ease")}
             >
               <Image
                 src={AutomationIcon}
@@ -293,7 +293,7 @@ export default function Home() {
             </div>
             <div
               className={styles.automationText}
-              {...Animate("zoom-in-left", 500, "ease")}
+              {...Animate("zoom-in-left", 100, "ease")}
             >
               <h3 className={styles.automationTitle}>
                 Enjoy Free, Beautiful, <br /> Unlimited Templates
@@ -362,14 +362,14 @@ export default function Home() {
 
               <div className={styles.linkText}>
                 Learn more{" "}
-                <span {...Animate("fade-down", 1500, "linear")}>
+                <span {...Animate("fade-down",100, "linear")}>
                   <RightArrow color="#0072ef" />
                 </span>
               </div>
             </div>
             <div
               className={styles.image}
-              {...Animate("flip-left", 500, "ease-out-cubic")}
+              {...Animate("flip-down", 200, "ease-out-cubic")}
             >
               <Image
                 src={PayoutMethod}
@@ -382,7 +382,7 @@ export default function Home() {
 
           <div
             className={styles.spiral}
-            {...Animate("fade-down", 1500, "linear")}
+            {...Animate("fade-down", 300, "linear")}
           >
             <Image
               src={LeftSpiral}
@@ -396,7 +396,7 @@ export default function Home() {
           <div className={styles.automation}>
             <div
               className={styles.image}
-              {...Animate("zoom-in-right", 500, "ease")}
+              {...Animate("zoom-in-right", 400, "ease")}
             >
               <Image
                 src={InstantPayout}
@@ -407,7 +407,7 @@ export default function Home() {
             </div>
             <div
               className={styles.automationText}
-              {...Animate("zoom-in-left", 500, "ease")}
+              {...Animate("zoom-in-left", 300, "ease")}
             >
               <h3 className={styles.automationTitle}>Automation</h3>
               <h3 className={styles.mobileAutomationTitle}>Automation</h3>
@@ -450,7 +450,7 @@ export default function Home() {
             </p>
             <div
               className={styles.midSectionInputBtn}
-              {...Animate("zoom-in", 500, "ease")}
+             
             >
               <Button
                 text="Get Started Free"
