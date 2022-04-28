@@ -5,8 +5,12 @@
 
 .selectButton{
     width: 91px;
+    
      div {
         border-radius: 8px !important;
+    }
+    & > div:first-child{
+        height: 2.5rem;
     }
 }
 .inputButton{
@@ -20,6 +24,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .currencyField{
     width: 85%;
     border: 2px solid $gray-100;
@@ -38,5 +43,20 @@
         p{
             cursor: pointer;
         }
+    }
+}
+.optionField {
+    align-items: center;
+    display: flex;
+}
+
+.countriesFlag{
+    width: 15px;
+    height: 15px;
+    position: relative;
+
+    img{
+        border-radius: 50%;
+        transform: scale(1.2);
     }
 }

@@ -13,7 +13,7 @@ import {
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { useState } from "react";
-import { Modal, Tag, Tooltip } from "antd";
+import { Modal, Tag, Tooltip, Popover,Popconfirm } from "antd";
 import { Button } from "components";
 import { useRouter } from "next/router";
 import { format, parseISO } from "date-fns";
@@ -209,92 +209,158 @@ const ActionComponent = ({ item, showAction }) => {
       getProducts();
     });
   };
+  let content = (
+  <ul>
+  <li className="flex items-center cursor-pointer"
+    onClick={() => {
+      setProductID(kreasell_product_id);
+      router.push("/account/kreator/products/create");
+      setProductTab(0);
+    }}
+  >
+    <span>
+      <Image alt="" src={EditProduct} />
+    </span>
+    <p className="mb-0 ml-3">Edit Product</p>
+  </li>
 
+  <li className="flex items-center cursor-pointer">
+    <span>
+      <Image alt="" src={ManageProduct} />
+    </span>
+    <p className="mb-0 ml-3">Copy Link</p>
+  </li>
+
+  <li onClick={() => router.push(`/account/kreator/products/preview/${kreasell_product_id}`)} className="flex items-center cursor-pointer">
+    <span>
+      <Image alt="" src={ViewSales} />
+    </span>
+    <p className="mb-0 ml-3"> Preview</p>
+  </li>
+
+  <li className="flex items-center cursor-pointer" onClick={() => duplicateProduct(id, () => getProducts())}>
+    <span>
+      <Image alt="" src={DuplicateProduct} />
+    </span>
+    <p className="mb-0 ml-3">Duplicate</p>
+  </li>
+
+  <li className="flex items-center cursor-pointer" onClick={() => showModal("deactivate")}>
+    <span>
+      <Image alt="" src={DeactvateProduct} />
+    </span>
+    <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
+  </li>
+
+  <li className={styles.deletePop + " flex items-center cursor-pointer"} onClick={() => showModal("delete")}>
+  <Popconfirm
+    title="Are you sure to delete this task?"
+    // onConfirm={confirm}
+    // onCancel={cancel}
+    okText="Delete"
+    cancelText="Cancel"
+    icon={<></>}
+    placement="bottom"
+    overlayClassName={styles.popConfirm}
+  >
+    <span>
+      <Image alt="" src={DeleteProduct} />
+    </span>
+    <p className="mb-0 ml-3">
+        Delete
+    </p>
+  </Popconfirm>
+  </li>
+</ul>
+)
   return (
-    <div className="relative" key={id}>
-      <div
-        className="hidden lg:block cursor-pointer pl-4"
-        onClick={() =>
-          menu || typeof menu === "undefined" ? setMenu(false) : setMenu(true)
-        }
-      >
-        ...
-      </div>
+    // <div className="relative" key={id}>
+    //   <div
+    //     className="hidden lg:block cursor-pointer pl-4"
+    //     onClick={() =>
+    //       menu || typeof menu === "undefined" ? setMenu(false) : setMenu(true)
+    //     }
+    //   >
+    //     ...
+    //   </div>
 
-      <div
-        className={` ${styles.action} ${
-          menu || showAction ? "visible" : "hidden"
-        }`}
-      >
-        <ul>
-          <li
-            onClick={() => {
-              setProductID(kreasell_product_id);
-              router.push({ pathname: "/account/kreator/products/create", query: { kreasell_product_id } },"/account/kreator/products/create");
-              setProductTab(0);
-            }}
-          >
-            <span>
-              <Image alt="" src={EditProduct} />
-            </span>
-            <p>Edit</p>
-          </li>
+    //   <div
+    //     className={` ${styles.action} ${
+    //       menu || showAction ? "visible" : "hidden"
+    //     }`}
+    //   >
+        // <ul>
+        //   <li
+        //     onClick={() => {
+        //       setProductID(kreasell_product_id);
+        //       router.push("/account/kreator/products/create");
+        //       setProductTab(0);
+        //     }}
+        //   >
+        //     <span>
+        //       <Image alt="" src={EditProduct} />
+        //     </span>
+        //     <p>Edit</p>
+        //   </li>
 
-          <li>
-            <span>
-              <Image alt="" src={ManageProduct} />
-            </span>
-            <p>Manage Product</p>
-          </li>
+        //   <li>
+        //     <span>
+        //       <Image alt="" src={ManageProduct} />
+        //     </span>
+        //     <p>Manage Product</p>
+        //   </li>
 
-          <li>
-            <span>
-              <Image alt="" src={ViewSales} />
-            </span>
-            <p>View Sales</p>
-          </li>
+        //   <li>
+        //     <span>
+        //       <Image alt="" src={ViewSales} />
+        //     </span>
+        //     <p>View Sales</p>
+        //   </li>
 
-          <li onClick={() => duplicateProduct(id, () => getProducts())}>
-            <span>
-              <Image alt="" src={DuplicateProduct} />
-            </span>
-            <p>Duplicate</p>
-          </li>
+        //   <li onClick={() => duplicateProduct(id, () => getProducts())}>
+        //     <span>
+        //       <Image alt="" src={DuplicateProduct} />
+        //     </span>
+        //     <p>Duplicate</p>
+        //   </li>
 
-          <li onClick={() => showModal("deactivate")}>
-            <span>
-              <Image alt="" src={DeactvateProduct} />
-            </span>
-            <p>Deactivate (Unpublish)</p>
-          </li>
+        //   <li onClick={() => showModal("deactivate")}>
+        //     <span>
+        //       <Image alt="" src={DeactvateProduct} />
+        //     </span>
+        //     <p>Deactivate (Unpublish)</p>
+        //   </li>
 
-          <li onClick={() => showModal("delete")}>
-            <span>
-              <Image alt="" src={DeleteProduct} />
-            </span>
-            <p>Delete</p>
-          </li>
-        </ul>
-      </div>
+        //   <li onClick={() => showModal("delete")}>
+        //     <span>
+        //       <Image alt="" src={DeleteProduct} />
+        //     </span>
+        //     <p>Delete</p>
+        //   </li>
+        // </ul>
+    //   </div>
 
-      <Modal
-        title=""
-        visible={modalVisible}
-        onOk={handleModalOk}
-        onCancel={handleCancel}
-        footer=""
-        closable={false}
-        className={styles.modalContainer}
-        width="312"
-      >
-        <ModalPrompt
-          handleCancel={handleCancel}
-          onOk={handleModalOk}
-          modalText={modalText}
-          productName={productName}
-        />
-      </Modal>
-    </div>
+    //   <Modal
+    //     title=""
+    //     visible={modalVisible}
+    //     onOk={handleModalOk}
+    //     onCancel={handleCancel}
+    //     footer=""
+    //     closable={false}
+    //     className={styles.modalContainer}
+    //     width="312"
+    //   >
+    //     <ModalPrompt
+    //       handleCancel={handleCancel}
+    //       onOk={handleModalOk}
+    //       modalText={modalText}
+    //       productName={productName}
+    //     />
+    //   </Modal>
+    // </div>
+    <Popover overlayStyle={{width: "150px", padding: '0'}} placement="bottomLeft" overlayClassName={styles.action} content={content} title="" trigger="click">
+      <h2 className="font-semibold cursor-pointer text-lg">...</h2>
+    </Popover>
   );
 };
 

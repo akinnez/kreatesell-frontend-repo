@@ -1,17 +1,15 @@
 import {
-	// DateHeader,
 	Button,
 	AllProductsTableHeader,
 	CouponHeader,
 	emptyComponent
 } from "components";
 
-import { DownloadIcon, placeholder2 } from "utils";
+import { DownloadIcon } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { Table } from "antd";
-import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
 import { GetProducts, GetProductStatus } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";

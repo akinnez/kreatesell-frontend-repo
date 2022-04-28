@@ -3,7 +3,7 @@ import { CheckoutForm } from "components";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { GetPricingTypes } from "redux/actions";
-import {Row, Col, Input, Radio, Form} from 'antd'
+import { Input, Radio, Form} from 'antd'
 import styles from "./Checkout.module.scss";
 
 export const CheckoutProductTab = () => {
@@ -48,14 +48,20 @@ export const CheckoutProductTab = () => {
 					</p>
 				</Form.Item>
 				<div className={styles.antRadioLabel + " mb-3"}>
-					<Radio.Group
+					{/* <Radio.Group
 						options={options}
-						defaultValue={options[0].value}
-						onChange={(field)=>changeField(field)}
-					/>
+						
+						
+					/> */}
+					<Radio.Group onChange={(field)=>changeField(field)} defaultValue={options[0].value}>
+						<Radio value="Fixed Price">Fixed Price</Radio>
+						<Radio value="Pay What You Want">Pay What You Want</Radio>
+						<Radio value="Installment Payment">Installment Payment</Radio>
+						<Radio className={styles.freeButton} value="Make It Free"><p>Make It Free</p> <h3>Business</h3></Radio>
+					</Radio.Group>
 				</div>
 			</Form>
-			<CheckoutForm priceType={priceType} ctaBtnText={ctaBtnText} />
+			<CheckoutForm setCtaBtnText={setCtaBtnText} priceType={priceType} ctaBtnText={ctaBtnText} />
 		</div>
 	);
 };

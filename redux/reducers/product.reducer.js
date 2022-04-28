@@ -37,6 +37,9 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 			return { ...state, loading: false, ...payload };
 
 		case types.CREATE_PRODUCT.SUCCESS:
+			if(payload.token){
+				return { ...state, loading: false, productID: payload.token }
+			}
 			return { ...state, loading: false, ...payload };
 
 		case types.GET_PRODUCT_TYPES.SUCCESS:

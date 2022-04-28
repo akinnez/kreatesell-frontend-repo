@@ -10,11 +10,15 @@ export default function ImageUpload ({file, deleteFile, setUrl}){
     const [progress, setProgress] = useState(0)
     const [image, setImage] = useState('')
     useEffect(()=>{
+      if(file.isEdits){
+        setProgress(100)
+        return setImage(file.filename)
+      }
         async function upload (){
             await uploadFile(file, setProgress)
         }
         upload()
-    }, [])
+    }, [file])
     async function uploadFile(file, cb){
         const formData = new FormData()
           formData.append('upload_preset', 'kreatesell')
