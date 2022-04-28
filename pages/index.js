@@ -612,21 +612,21 @@ export default function Home() {
         <div className={styles.subFooter}>
           <h3
             className={styles.subFooterTitle}
-            {...Animate("zoom-in", 500, "ease-in")}
+           
           >
             <span>Hiya</span>, Are you ready to start making <br /> money from
             Selling your contents?
           </h3>
           <h3
             className={styles.subMobileFooterTitle}
-            {...Animate("zoom-in", 500, "ease-in")}
+            
           >
             <span>Hiya</span>, Are you ready to start making money from Selling
             your contents?
           </h3>
           <div
             className={styles.footerInput}
-            {...Animate("fade-up", 600, "ease")}
+            
           >
             <InputButton
               name="email"
