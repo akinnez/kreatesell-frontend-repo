@@ -83,27 +83,18 @@ export default function Home() {
               <span className={styles.digital}>Digital Product</span> <br />
               Online under Minutes. For Free
             </h1>
-            <p
-              className={styles.subHeader}
-              
-            >
+            <p className={styles.subHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, <br /> and Memberships in an online all-in-one platform for
               free and accept payment from anywhere in the world.
             </p>
-            <p
-              
-              className={styles.mobileSubHeader}
-            >
+            <p className={styles.mobileSubHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, and Memberships in an online all-in-one platform for free
               and accept payment from anywhere in the world.
             </p>
 
-            <div
-              className={styles.inputContainer}
-              
-            >
+            <div className={styles.inputContainer}>
               <InputButton
                 name="email"
                 placeholder="Enter your email..."
@@ -120,10 +111,7 @@ export default function Home() {
               />
             </div>
 
-            <div
-              className={styles.benefits}
-             
-            >
+            <div className={styles.benefits}>
               <span className={styles.benefitSpan}>Signup for free</span>
               <span className={styles.benefitSpan}>• Easy setup</span>
               <span className={styles.benefitSpan}>• Fast payout</span>
@@ -362,14 +350,14 @@ export default function Home() {
 
               <div className={styles.linkText}>
                 Learn more{" "}
-                <span {...Animate("fade-down",100, "linear")}>
+                <span {...Animate("fade-down", 100, "linear")}>
                   <RightArrow color="#0072ef" />
                 </span>
               </div>
             </div>
             <div
               className={styles.image}
-              {...Animate("flip-down", 200, "ease-out-cubic")}
+              {...Animate("fade-down", 200, "linear")}
             >
               <Image
                 src={PayoutMethod}
@@ -448,10 +436,7 @@ export default function Home() {
               Kreate an account for free and sell your digital products online
               from home or anywhere.
             </p>
-            <div
-              className={styles.midSectionInputBtn}
-             
-            >
+            <div className={styles.midSectionInputBtn}>
               <Button
                 text="Get Started Free"
                 icon={<RightArrow color="#0072ef" />}
@@ -610,24 +595,15 @@ export default function Home() {
         </div>
 
         <div className={styles.subFooter}>
-          <h3
-            className={styles.subFooterTitle}
-           
-          >
+          <h3 className={styles.subFooterTitle}>
             <span>Hiya</span>, Are you ready to start making <br /> money from
             Selling your contents?
           </h3>
-          <h3
-            className={styles.subMobileFooterTitle}
-            
-          >
+          <h3 className={styles.subMobileFooterTitle}>
             <span>Hiya</span>, Are you ready to start making money from Selling
             your contents?
           </h3>
-          <div
-            className={styles.footerInput}
-            
-          >
+          <div className={styles.footerInput}>
             <InputButton
               name="email"
               placeholder="Enter your email..."
