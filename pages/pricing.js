@@ -33,23 +33,22 @@ const Pricing = () => {
     { value: "Spain", label: "UGX" },
   ];
 
+  const handleBtnClick = () => {
+    // do nothing for now.
+    return;
+    
+  };
+
   return (
     <Layout defaultMarginTop={true}>
       <div className={styles.container}>
         <div className={styles.body}>
           <div className={styles.header}>
-            <h2>
-              Cost-friendly and Transparent Pricing
-            </h2>
-            <p>
-              No hidden fees that may give you surprises.
-            </p>
+            <h2>Cost-friendly and Transparent Pricing</h2>
+            <p>No hidden fees that may give you surprises.</p>
           </div>
 
-          <div
-            className={styles.tabContainer}
-           
-          >
+          <div className={styles.tabContainer}>
             <div className={styles.tabSelect}>
               <div className={styles.tab}>
                 <button
@@ -84,23 +83,18 @@ const Pricing = () => {
 
           <div className={styles.priceCards}>
             <div className={styles.pricingCont}>
-              <div
-                className={styles.free}
-               
-              >
+              <div className={styles.free}>
                 <PricingCard
                   title="basic"
                   price="0"
                   btnText="Start for free"
                   subTitle="All of the features you need to start selling your contents"
                   priceType="100% Free "
+                  btnOnClick={handleBtnClick}
                 />
               </div>
 
-              <div
-                className={`${styles.free}`}
-                
-              >
+              <div className={`${styles.free}`}>
                 <PricingCard
                   title="business"
                   subTitle="The combination of core tools, custom options, and automated events for professional course creators looking for the growing of their businesses."
@@ -108,6 +102,7 @@ const Pricing = () => {
                   btnText="Start for free"
                   priceType={priceLabel}
                   subPriceType={subPriceType}
+                  btnOnClick={handleBtnClick}
                 />
               </div>
             </div>
@@ -127,10 +122,7 @@ const Pricing = () => {
             </a>{" "}
             if your questions or concerns <br /> are not answered here.
           </p>
-          <div
-            className={styles.buttonCont}
-           
-          >
+          <div className={styles.buttonCont}>
             <Button className={styles.btn} text="Contact Now" />
           </div>
         </div>
