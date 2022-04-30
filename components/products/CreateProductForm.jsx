@@ -112,10 +112,10 @@ export const CreateProductForm = ({
     });
   };
   const imageIsEdits = (files)=>{
-    const mapped = files.map(items=>{
+    const mapped = files.map((items,i)=>{
       items.isEdits = true
       const fileMapped = {
-        file: items,
+        file: {...items, name:`image${i+1}`},
         errors: []
       }
       return fileMapped

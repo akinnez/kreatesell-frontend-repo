@@ -141,3 +141,45 @@
 
     }
 }
+.publishModal{
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 1.5em;
+    & > h2{
+        text-align: center;
+    }
+
+    .copyInput{
+        position: relative;
+        width: 100%;
+
+        input{
+            width: 100%;
+            border: 2px solid $base-blue !important;
+        }
+        span{
+            width: 10%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: $base-blue;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid $base-blue;
+        }
+    }
+    .submitBtn{
+        width: 90%;
+        margin: 1.5em auto 0;
+        button{
+            padding: 1.5em;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

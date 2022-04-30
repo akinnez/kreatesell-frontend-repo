@@ -235,6 +235,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       delete data.is_show_compare_price;
     }
     const checkedData = checkArrays(data)
+    console.log(checkedData)
     createProduct(checkedData, () => 
     router.push(`/account/kreator/products/preview/${productID}`)
     );
@@ -807,6 +808,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             <Button
               type="primary"
               htmlType="submit"
+              loading={loading}
             >Save and Preview</Button>
           </div>
         </div>

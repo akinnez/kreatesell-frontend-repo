@@ -40,6 +40,7 @@ export default function FileUpload({file, setFile}){
                     (item, i) =>
                         new Promise(async (res, rej) => {
                             let baseUrl = await getBase64(item.file);
+                            console.log('the url', baseUrl)
                             setFile([baseUrl])
                             res(null);
                         })

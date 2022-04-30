@@ -27,13 +27,15 @@ export default function ImageUpload ({file, deleteFile, setUrl}){
             const {loaded, total} = progressEvent
             let percent = Math.floor(loaded * 100 / total)
             cb(percent)
-          }}
+          },
+          resource_type: "raw" }
           try {
             const instance = axios.create()
             delete instance.defaults.headers.common['Authorization'];
             const {data} = await instance.post('https://api.cloudinary.com/v1_1/salvoagency/image/upload', formData, options)
-            setUrl(file, data?.secure_url)
-            setImage(data?.secure_url)
+            // setUrl(file, data?.secure_url)
+            // setImage(data?.secure_url)
+            console.log('the zip data', data)
           } catch (error) {
             console.log('ERROR',error)
           }
