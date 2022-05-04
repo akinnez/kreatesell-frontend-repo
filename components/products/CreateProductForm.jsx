@@ -24,8 +24,11 @@ import { useUpload } from "hooks";
 import ImageUpload from "./ImageUpload";
 import ProductEditor from "./ProductEditor";
 import ImageError from "./ImageError";
+import { useRouter } from "next/router";
+import FileUpload from "./FileUpload";
 
 export const CreateProductForm = ({
+  submit,
   productType = "digitalDownload",
   productTypeId,
 }) => {
@@ -34,6 +37,7 @@ export const CreateProductForm = ({
   const createProduct = CreateProduct();
   const getProductByID = GetProductByID();
   const setProductID = SetProductID();
+  const router = useRouter()
   const {TextArea} = Input
   const [preOrder, setPreOrder] = useState(false);
   const [contentFiles, setContentFiles] = useState(false);
@@ -56,21 +60,11 @@ export const CreateProductForm = ({
     getRootProps,
     getInputProps,
     deleteFile, 
-    setUrl
+    setUrl,
+    setFiles
   } = useUpload({
-    setFileChange: setProductFile,
     fileType: "image"
   });
-
-  const {
-    mainFile: fileUploads,
-    getRootProps: getProductFileRootProps,
-    getInputProps: getProductFileInputProps,
-  } = useUpload({
-    setFileChange: setProductFile,
-    fileType: ".zip,.rar"
-  });
-
 
   const initialValues = {
     product_name: "",
@@ -112,14 +106,22 @@ export const CreateProductForm = ({
     if (!data.upload_content){
       delete data.content_file_details
     }
-    createProduct(data, (data) => {
-      setProductID(
-        product?.product_details?.kreasell_product_id || data?.token
-      );
+    console.log(data)
+    createProduct(data, () => {
       setProductTab(1);
     });
   };
-
+  const imageIsEdits = (files)=>{
+    const mapped = files.map((items,i)=>{
+      items.isEdits = true
+      const fileMapped = {
+        file: {...items, name:`image${i+1}`},
+        errors: []
+      }
+      return fileMapped
+    })
+    return mapped
+  }
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
@@ -135,8 +137,9 @@ export const CreateProductForm = ({
   useEffect(() => {
     getListingStatus();
   }, []);
+  
   useEffect(()=>{
-    setFieldValue("product_images.product_files", [...imageUploads.map(file => file.url)])
+    setFieldValue("product_images.product_files", [...imageUploads.map(file => file.url ? file.url : file.file.filename)])
   }, [imageUploads])
 
   useEffect(() => {
@@ -145,6 +148,9 @@ export const CreateProductForm = ({
     }
   }, [productID]);
 
+  useEffect(()=>{
+    console.log('here', product)
+  }, [product])
   useEffect(()=>{
     if(imageUploads.length >= 3){
       setIsImageFilled(true)
@@ -158,8 +164,8 @@ export const CreateProductForm = ({
   }, [contents])
 
   useEffect(()=>{
-    setFieldValue("content_file_details.product_files", [fileUploads[fileUploads.length - 1]?.file])
-  }, [fileUploads])
+    setFieldValue("content_file_details.product_files", [...productFile])
+  }, [productFile])
 
   useEffect(()=>{
     setFieldValue('product_type_id', productTypeId)
@@ -176,12 +182,13 @@ export const CreateProductForm = ({
         "enable_preorder",
         product?.product_details?.enable_preorder ?? false
       );
-      setFieldValue("upload_content", product?.product_details?.upload_content);
+      setFieldValue("upload_content", product.product_details.upload_content ? product.product_details.upload_content : false);
       setFieldValue(
         "product_visibility_status",
         product?.product_details?.product_visibility
       );
       setFieldValue("upload_preview", product?.product_details?.is_preview_only);
+      setFieldValue("action", "e");
       setFieldValue(
         "preorder_details.preorder_release_date",
         product?.product_details?.preoder_date ?? ""
@@ -200,6 +207,9 @@ export const CreateProductForm = ({
         "product_listing_status",
         product?.product_details?.product_listing_status
       );
+      setFieldValue("product_images.product_files", product?.product_images.map(item => item.filename))
+     setFiles(imageIsEdits(product?.product_images))
+     setContents(product?.product_details?.product_details)
     }
   }, [product]);
 
@@ -215,11 +225,9 @@ export const CreateProductForm = ({
         <Form.Item label={<h2 className="font-semibold text-lg mb-0">Name</h2>} className={styles.inputCont}>
           <Input
             placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
-            labelStyle={styles.inputLabel}
             className={`${styles.input}`}
             name="product_name"
             onChange={formik.handleChange}
-            errorMessage={errors.product_name}
             value={values?.product_name}
           />
         </Form.Item >
@@ -231,9 +239,7 @@ export const CreateProductForm = ({
             label="Description"
             placeholder="Tell a story about your product. Buyers are also interested in knowing more about your product uniqueness"
             rows={6}
-            labelStyle={styles.inputLabel}
             onChange={formik.handleChange}
-            errorMessage={errors.product_description}
             value={values?.product_description}
             
           />
@@ -346,36 +352,7 @@ export const CreateProductForm = ({
             )}
 
             {contentFiles && (
-              <div className="pt-2">
-                <p className="text-base-gray-200 text-xs mb-0">
-                  Only one file is allowed to be uploaded. Bundle all your files
-                  into single RAR or ZIP file.
-                </p>
-                <small className="text-black mb-4 font-medium">The maximum allowed file size is 1GB.</small>
-                <div
-                  className={`${styles.contentFileUpload} ${
-                    productFile?.length > 0 && styles.activeUpload
-                  }`}
-                  {...getProductFileRootProps()}
-                >
-                  {productFile.length > 0 && (
-                    <p className="float-left px-4 pt-3 text-base-gray text-sm font-light">
-                      {productFile[0]?.name}
-                    </p>
-                  )}
-
-                  <div className="flex justify-center items-center">
-                    <input {...getProductFileInputProps()} />
-                    <Image src={CloudUpload} alt="upload image" />
-                    <p className="hidden md:block text-primary-blue text-sm pl-4 my-auto">
-                      Drag and Drop or Click to Upload Your Product File
-                    </p>
-                    <p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
-                      Upload your product files
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <FileUpload file={productFile} setFile={setProductFile}/>
             )}
           </div>
         </Form.Item>
@@ -391,7 +368,7 @@ export const CreateProductForm = ({
                 value={values.product_visibility_status}
                 content={1}
                 label="Activated"
-                extralable="- Your product will go live and visible to audience for a purchase once you complete creating the sales template"
+                extralable="- Your product will go live and visible to audience for a purchase once you complete the creation of your product page"
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) =>
@@ -405,7 +382,7 @@ export const CreateProductForm = ({
                 value={values.product_visibility_status}
                 content={2}
                 label="Deactivated"
-                extralable="- Nobody would be able to access or purchase this product until you activate it."
+                extralable="- Your product would not be visible on your store page but anyone with its direct link can purchase it."
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) =>
@@ -419,7 +396,7 @@ export const CreateProductForm = ({
                 value={values.product_visibility_status}
                 content={3}
                 label="Unlisted"
-                extralable="- Product would not be visible on the store page but anyone with direct link can purchase it."
+                extralable="- Your product would not be visible on your store page but anyone with its direct link can purchase it."
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) =>
@@ -460,7 +437,7 @@ export const CreateProductForm = ({
             }
         </Form.Item>
         <Form.Item className={styles.saveButton}>
-          <Button type="primary" htmlType="submit">Save and Continue</Button>
+          <Button loading={loading} type="primary" htmlType="submit">Save and Continue</Button>
         </Form.Item>
       </Form>
     </div>

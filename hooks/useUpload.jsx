@@ -1,18 +1,9 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
-export const useUpload = ({ setFileChange, fileType}) => {
+export const useUpload = ({fileType}) => {
 	// const [files, setFiles] = useState([]);
-	// const [preview, setPreview] = useState([]);
-
-	// const getBase64 = (file) => {
-	// 	return new Promise((resolve, reject) => {
-	// 		const reader = new FileReader();
-	// 		reader.readAsDataURL(file);
-	// 		reader.onload = () => resolve(reader.result);
-	// 		reader.onerror = (error) => reject(error);
-	// 	});
-	// };
+	// const [preview, setPreview] = useState([])
 
 	// const onDrop = async (acceptedFiles) => {
 	// 	setFiles([...files, ...acceptedFiles]);
@@ -43,8 +34,12 @@ export const useUpload = ({ setFileChange, fileType}) => {
 	const [files, setFiles] = useState([])
 	const onDrop = useCallback((acceptedFiles, rejectedFiles)=>{
 		const fileMatched = acceptedFiles.map(file=> ({file, errors:[]}))
-		setFiles(prev=> [...prev, ...fileMatched, ...rejectedFiles])
-	}, [])
+		if(fileType === "image"){
+			setFiles(prev=> [...prev, ...fileMatched, ...rejectedFiles])
+			return
+		}
+		return setFiles([...fileMatched, ...rejectedFiles])
+	}, [fileType])
 
 	const deleteFile = (file)=>{
 		setFiles(prev => prev.filter(item=> item.file !== file))
@@ -67,5 +62,5 @@ export const useUpload = ({ setFileChange, fileType}) => {
 		maxSize: fileType === "image" ? 2097152: 5368709120
 	})
 
-	return { mainFile: files, getRootProps, getInputProps, deleteFile, setUrl };
+	return { mainFile: files, getRootProps, getInputProps, deleteFile, setUrl, setFiles };
 };
