@@ -1,17 +1,15 @@
 import {
-	// DateHeader,
 	Button,
 	AllProductsTableHeader,
 	CouponHeader,
 	emptyComponent
 } from "components";
 
-import { DownloadIcon, placeholder2 } from "utils";
+import { DownloadIcon } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { Table } from "antd";
-import { MobileProductCard } from "components/tableHeader";
 import { useRouter } from "next/router";
 import { GetProducts, GetProductStatus } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";
@@ -48,15 +46,23 @@ const AllProducts = () => {
 				)
 				?.map((item, i) => ({
 					...item,
+					key: i+1,
+					product_image: item?.product_images[0].filename,
 					product_name: item?.product_details?.product_name,
 					product_type: item?.product_details?.product_type?.product_type_name,
 					date_created: item?.product_details?.date_created,
 					status: item?.product_details?.status,
 					price: {
-						currency: item?.default_currency,
+						currency: item.default_currency ? item.default_currency : item.product_currencies[0].currency_short_name,
 						productPrice: item?.default_price,
 					},
-					actions: item,
+					actions: {
+						product_details: {
+							id:item?.product_details?.id,
+							kreasell_product_id: item?.product_details?.kreasell_product_id,
+							product_name: item?.product_details?.product_name
+						}
+					},
 				})),
 		[productData]
 	);
@@ -80,119 +86,9 @@ const AllProducts = () => {
 		)
 	
 	}
-
-	useEffect(()=>{
-		console.log(memoisedProductData)
-	}, [memoisedProductData])
-	 const mockDatas = [
-		{
-		  key: '1',
-		  product_image: placeholder2,
-		  product_name: 'John Brown',
-		  product_type: "Membership",
-		  price: {
-			  currency: 'EUR',
-			  productPrice: 235
-		  } ,
-		  date_created: "13-26-9282",
-		  status: 'live',
-		  actions: {
-			  product_data: {
-				  id: 3456
-			  },
-			  product_details:{
-				product_name: 'ytdfghj',
-				kreasell_product_id: 435678
-			  }
-		  }
-		},
-		{
-		  key: '2',
-		  product_image: placeholder2,
-		  product_name: 'Jim Green',
-		  product_type:" Digital Download",
-		  price: {
-			  currency: 'NGN',
-			  productPrice: 235
-		  },
-		  date_created:"13-26-9282",
-		  status: 'draft',
-		  actions: {
-			  product_data: {
-				  id: 3456
-			  },
-			  product_details:{
-				product_name: 'ytdfghj',
-				kreasell_product_id: 435678
-			  }
-		  }
-		},
-		{
-		  key: '3',
-		  product_image: placeholder2,
-		  product_name: 'Joe Black',
-		  product_type: "One-Time Subscription",
-		  price: {
-			  currency: 'USD',
-			  productPrice: 500
-		  },
-		  date_created:"13-26-9282",
-		  status: 'flagged',
-		  actions: {
-			  product_data: {
-				  id: 3456
-			  },
-			  product_details:{
-				product_name: 'ytdfghj',
-				kreasell_product_id: 435678
-			  }
-		  }
-		},
-		{
-		  key: '4',
-		  product_image: placeholder2,
-		  product_name: 'The Land of Hope and Opportunities',
-		  product_type: "One-Time Subscription",
-		  price: {
-			  currency: 'USD',
-			  productPrice: 500
-		  },
-		  date_created:"13-26-9282",
-		  status: 'deactivated',
-		  actions: {
-			  product_data: {
-				  id: 3456
-			  },
-			  product_details:{
-				product_name: 'ytdfghj',
-				kreasell_product_id: 435678
-			  }
-		  }
-		},
-	  ];
 	return (
 		<AuthLayout>
 			{/* <div className={styles.allProduct}>
-				<div className="flex justify-between mb-4">
-					<h3 className="font-semibold text-2xl">Products</h3>
-					<div>
-						<Button
-							text="+ Add Product"
-							bgColor="blue"
-							className={styles.addProductBtn}
-							onClick={() => router.push("/account/kreator/products/create")}
-						/>
-					</div>
-				</div>
-
-
-				<div className="flex justify-end pt-3">
-					<div className="text-primary-blue  font-semibold text-xs pr-2">
-						Export Data in CSV
-					</div>
-					<Image src={DownloadIcon} />
-				</div>
-
 				<div className="hidden lg:block mb-16 mt-8">
 					<Table
 						columns={AllProductsTableHeader}
@@ -239,13 +135,12 @@ const AllProducts = () => {
                     </div>
 				</div>
 
-				<div className="hidden lg:block mb-16 mt-8">
+				<div className="hidden lg:block mt-8">
 					<Table
 						columns={AllProductsTableHeader}
                         locale={tableLocale}
-						// dataSource={memoisedProductData}
-						// loading={loading}
-						dataSource={mockDatas}
+						loading={loading}
+						dataSource={memoisedProductData}
 						pagination={{
 							position: ["none","bottomLeft"],
 							total: total_records,
@@ -257,7 +152,7 @@ const AllProducts = () => {
 						size="large"
 					/>
 				</div>
-                <div className="flex flex-col items-center">
+                {productData.length <= 0 && <div className="flex flex-col mt-18 items-center">
                     <h2 className={styles.lightGrey +" font-semibold text-center text-base"}>Almost there, now click the button to add your product.</h2>
                     <Button
                         leftIcon="+"
@@ -266,7 +161,7 @@ const AllProducts = () => {
                         className={styles.addCouponBtn + " mt-2"}
                         onClick={() => router.push("/account/kreator/products/create")}
                     />
-				</div>
+				</div>}
 			</div>
 		</AuthLayout>
 	);

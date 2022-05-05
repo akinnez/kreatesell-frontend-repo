@@ -10,7 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { GetProductTypes } from "redux/actions";
 
-export const CreateProductTab = ({setTitles, titles}) => {
+export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => {
   const getProductTypes = GetProductTypes();
 
   const [tab, setTab] = useState(1);
@@ -34,7 +34,9 @@ export const CreateProductTab = ({setTitles, titles}) => {
   useEffect(() => {
     getProductTypes();
   }, []);
-
+  useEffect(()=>{
+    setSelectedTab(tab)
+  }, [tab])
   useEffect(()=>{
     if(tab === 1){
       const newTitles = [titles[0], titles[1]]
@@ -197,6 +199,7 @@ export const CreateProductTab = ({setTitles, titles}) => {
           <CreateProductForm
             productType="digitalDownload"
             productTypeId={tab}
+            submit={submit}
           />
         )}
 
@@ -204,11 +207,12 @@ export const CreateProductTab = ({setTitles, titles}) => {
           <CreateProductForm
             productType="oneTimeSubscription"
             productTypeId={tab}
+            submit={submit}
           />
         )}
 
         {tab === 3 && (
-          <CreateProductForm productType="membership" productTypeId={tab} />
+          <CreateProductForm submit={submit} productType="membership" productTypeId={tab} />
         )}
       </div>
     </div>
