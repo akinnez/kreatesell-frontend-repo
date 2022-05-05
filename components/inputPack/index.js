@@ -564,6 +564,7 @@ export const Radio = ({
 				.radio-wrapper {
 					display: flex;
 					margin: 15px 0;
+					align-items: center;
 				}
 
 				.radio {
@@ -593,14 +594,15 @@ export const Radio = ({
 
 				.label {
 					margin-left: 10px;
-					font-weight: 500;
-					font-size: 16px;
+					font-weight: 500 !important;
+					font-size: 16px !important;
 					flex: 1;
 					color: #595959;
 				}
 
 				.extra {
 					color: #8c8c8c;
+					font-weight: 400 !important;
 				}
 			`}</style>
 		</>

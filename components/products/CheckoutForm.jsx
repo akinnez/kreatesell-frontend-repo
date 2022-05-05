@@ -1,12 +1,12 @@
 import { Percentage, Radio } from "components/inputPack";
-import { Button, ProductInput } from "components";
-import { Switch, Form, Input } from "antd";
+import { ProductInput } from "components";
+import { Switch, Form, Input, Select, Button } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
 import { CloudUpload } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
-import { Select } from "components/select/Select";
+// import { Select } from "components/select/Select";
 import { useSelector } from "react-redux";
 import {
   GetProductByID,
@@ -16,8 +16,9 @@ import {
 } from "redux/actions";
 import { useHandleProductInputDebounce, useUpload } from "hooks";
 import CustomCheckoutSelect from "./CustomCheckout";
+import {useRouter} from "next/router";
 
-export const CheckoutForm = ({ ctaBtnText, priceType }) => {
+export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
    * PriceType Values
    * FixedPrice: 1
@@ -30,44 +31,69 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
   const createProduct = CreateProduct();
   const setProductTab = SetProductTab();
 
+  const router = useRouter()
+
   const [compareToPrice, setCompareToPrice] = useState(false);
   const [applyCoupon, setApplyCoupon] = useState(false);
+  const [isCouponDiabled, setIsCouponDisabled] = useState(true)
   const [couponType, setCouponType] = useState(0);
-  const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
-  const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
-    useState(false);
-  const [limitProductSale, setLimitProductSale] = useState(false);
-  const [showTotalSales, setShowTotalSales] = useState(false);
-  const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
   const [promotionalMaterial, setPromotionalMaterial] = useState([]);
   const [frequencyOptions, setFrequencyOptions] = useState([]);
   const [numberOfInputs, setNumberOfInputs] = useState(1);
+  const [inputsArray, setInputsArray] = useState([])
+  const [initialPayment, setInitialPayment] = useState([])
+  const [firstPayment, setFirstPayment] = useState([])
+  const [secondPayment, setSecondPayment] = useState([])
+  const [thirdPayment, setThirdPayment] = useState([])
+  const [billingIntervalDuration, setBillingIntervalDuration] = useState(7)
+  const [initialBillingInput, setInitialBillingInput] = useState(0)
+  const [custombillingInterval, setCustomBillingInterval] = useState(0)
+
+
+
+  const {Option} = Select
 
   const [couponVariance, setCouponVariance] = useState({
     isPercentage: true,
     is_fixed_amount: false,
   });
 
-  const [selling, setSelling] = useState([
-    {amount: 353, currency: "NGN"},
-    {amount: 250, currency: "EUR"},
-    {amount: 50, currency: "USD"},
-    {amount: 96789, currency: "JPY"},
-    {amount: 250000, currency: "KEN"},
-  ])
+  // Fixed Price Inputs
+  const [fixedSellingPrice, setFixedSellingPrice] = useState([])
+  const [fixedOriginalPrice, setFixedOriginalPrice] = useState([])
+  
+  // Pay What You Want
+  const [minimumPrice, setMinimumPrice] = useState([])
+  const [suggestedPrice, setSuggestedPrice] = useState([])
 
-  const { data: minimumPrice, handleDebounce: handleMinimumPrice } =
-    useHandleProductInputDebounce();
-  const { data: sellingPrice, handleDebounce: handleSellingPrice } =
-    useHandleProductInputDebounce();
-  const { data: originalPrice, handleDebounce: handleOriginalPrice } =
-    useHandleProductInputDebounce();
-  const { data: suggestedPrice, handleDebounce: handleSuggestedPrice } =
-    useHandleProductInputDebounce();
-  const { data: initialPrice, handleDebounce: handleInitialPrice } =
-    useHandleProductInputDebounce();
-  const { data: installmentPrice, handleDebounce: handleInstallmentPrice } =
-    useHandleProductInputDebounce();
+
+  // Settings Controlled Inputs
+  const [allowAffiliateMarket, setAllowAffiliateMarket] 
+  = useState(false);
+  const [afiliatePercentage, setAfiliatePercentage] = useState(0)
+  const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
+  useState(false);
+  const [limitProductSale, setLimitProductSale] = useState(false);
+  const [numberOfLimit, setNumberOfLimit] = useState(0)
+  const [showTotalSales, setShowTotalSales] = useState(false);
+  const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
+
+  const [totalSelling, setTotalSelling] = useState([])
+  const mapNumberToArray = (number)=>{
+    const arrayNumbers = []
+    for(let i=0; i< number; i++){
+      arrayNumbers.push(i)
+    }
+    return arrayNumbers
+  }
+  const handleBillingIntervalChange = (e)=>{
+    setInitialBillingInput(e)
+    setCustomBillingInterval(e * billingIntervalDuration)
+  }
+
+  useEffect(()=>{
+    setCustomBillingInterval(initialBillingInput * billingIntervalDuration)
+  }, [billingIntervalDuration])
 
   const { preview, getRootProps, getInputProps } = useUpload({
     setFileChange: setPromotionalMaterial,
@@ -77,6 +103,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     (state) => state.product
   );
 
+  const customBillingIntervals = [
+    {label: "Day(s)", value: 1},
+    {label: "Week(s)", value: 7},
+    {label: "Month(s)", value: 30}
+
+  ]
   const mappedBillingInterval = billingInterval?.map((billing) => ({
     label: billing.billing_types,
     value: billing.billing_durations,
@@ -99,18 +131,92 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     getBillingInterval();
   }, []);
 
+  useEffect(()=>{
+    setInputsArray(mapNumberToArray(numberOfInputs))
+  }, [numberOfInputs])
+
+  const createCustomCurrencyField =(array)=>{
+    let title = ""
+    let field = []
+    let setField = ()=>{}
+    return array.map((value, index)=>{
+      switch(value){
+        case 0:
+          title = "Initial Payment at Checkout"
+          field = initialPayment
+          setField = setInitialPayment
+          break
+        case 1:
+          title = "Second Payment"
+          field = firstPayment
+          setField = setFirstPayment
+          break
+        case 2:
+          title = "Third Payment"
+          field = secondPayment
+          setField = setSecondPayment
+          break
+        case 3:
+          title = "Fourth Payment"
+          field = thirdPayment
+          setField = setThirdPayment
+          break
+      }
+      return (
+        <div key={index} className="mt-4">
+          <CustomCheckoutSelect field={field} title={title} setField={setField} />
+        </div>
+      )
+    })
+  }
   useEffect(() => {
     if (productID) {
       getProductByID(productID);
     }
   }, [productID]);
 
+  useEffect(()=>{
+    console.log(product)
+  }, [product])
+
+  const populatePricingObject = (currency, price)=>{
+    const prices = {
+      currency_value: price,
+      currency_name: currency
+    }
+    return prices
+  }
+
+  const populatePricing = (array)=>{
+    for (let values of array){
+      switch(values.price_indicator){
+        case "Selling":
+          const registeredPrice = populatePricingObject(values.currency_name, values.price)
+          setFixedSellingPrice(prev => [...prev, registeredPrice])
+          break
+        default:
+          return
+      }
+    }
+  }
+  const checkArrays = (data)=>{
+    const arrayLists = ["selling_prices", "minimum_prices", "original_prices", "suggested_prices", "initial_prices", "installment_prices"]
+    for(let value of arrayLists){
+      if (value in data){
+        if(typeof data[value] === "object" && data[value].length < 1){
+          delete data[value]
+        }
+      }
+    }
+    return data
+  }
+
   const handleSubmit = (data) => {
-    delete data?.cover_image;
-    delete data?.product_details?.product_cover_picture;
+    // delete data?.cover_image;
+    // delete data?.product_details?.product_cover_picture;
     delete data?.upload_content || data?.product_details?.upload_content;
     delete data?.upload_preview;
-    delete data?.product_listing_status;
+    // delete data?.product_listing_status;
 
     if (promotionalMaterial.length < 1) {
       delete data?.promotional_items;
@@ -118,25 +224,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     if (!data.cta_button) {
       delete data.cta_button;
     }
-    if (data?.selling_prices.length < 1) {
-      delete data.selling_prices;
-    }
-    if (data?.minimum_prices.length < 1) {
-      delete data.minimum_prices;
-    }
-    if (data?.original_prices.length < 1) {
-      delete data.original_prices;
-    }
-    if (data?.suggested_prices.length < 1) {
-      delete data.suggested_prices;
-    }
-    if (data?.initial_prices.length < 1) {
-      delete data.initial_prices;
-    }
-    if (data?.installment_prices.length < 1) {
-      delete data.installment_prices;
-    }
-    if (!data.checkout.is_coupon) {
+    if (!applyCoupon) {
       delete data.coupon_settings;
       delete data.checkout;
     }
@@ -146,45 +234,53 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
     if (!data.is_show_compare_price) {
       delete data.is_show_compare_price;
     }
-
-    createProduct(data, () => setProductTab(2));
+    const checkedData = checkArrays(data)
+    console.log(checkedData)
+    createProduct(checkedData, () => 
+    router.push(`/account/kreator/products/preview/${productID}`)
+    );
   };
-
   const initialValues = {
-    checkout: {
-      cta_button: "",
-      is_coupon: false,
-      coupon_code: "",
+    "action": "e",
+    "minimum_price": 0,
+    "is_minimum_price": true,
+    "is_show_compare_price": compareToPrice,
+    "pricing_type_id": 0,
+    "is_strike_original_price": true,
+    "selling_prices": [],
+    "original_prices": [],
+    "initial_prices": [],
+    "suggested_prices": [],
+    "billing_frequency": 0,
+    "minimum_prices": [],
+    
+    "coupon_settings": {
+      "coupon_code": "string",
+      "is_coupon": true,
+      "start_date": "",
+      "end_date": "",
+      "fixed_amount_value": 0,
+      "percentage_value": 0,
+      "is_percentage": true,
+      "is_fixed_amount": true,
+      // "product_id": 0
     },
-    is_show_compare_price: false,
-    pricing_type_id: 1,
-    selling_prices: [],
-    minimum_prices: [],
-    original_prices: [],
-    suggested_prices: [],
-    initial_prices: [],
-    installment_prices: [],
-    coupon_settings: {
-      start_date: "",
-      end_date: "",
-      fixed_amount_value: 0,
-      percentage_value: 0,
-      is_percentage: false,
-      is_fixed_amount: false,
+    "installment_prices": [],
+    "promotional_items": {
+      "allow_promotional_items": uploadPromotionalMaterial,
+      "promotional_files": []
     },
-    product_settings: {
-      allow_affiliates: false,
-      affiliate_percentage_on_sales: 0,
-      is_limited_sales: false,
-      show_number_of_sales: false,
+    "set_price": true,
+    "cta_button": "",
+    "number_of_limited_product": 0,
+    "who_bear_fee": buyerPaysTransactionFee,
+    "product_settings": {
+      "allow_affiliates": allowAffiliateMarket,
+      "affiliate_percentage_on_sales": 0,
+      "is_limited_sales": limitProductSale,
+      "show_number_of_sales": showTotalSales
     },
-    promotional_items: {
-      allow_promotional_items: false,
-      promotional_files: [],
-    },
-    action: "e",
-    set_price: false,
-  };
+  }
 
   const formik = useFormik({
     initialValues,
@@ -195,118 +291,184 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
   const { errors, setFieldValue, values } = formik;
 
-  useEffect(() => {
-    if (!values.enable_preorder) {
-      delete values.preorder_details;
-      delete values.enable_preorder;
-    }
-  }, [values]);
+  // useEffect(() => {
+  //   if (!values.enable_preorder) {
+  //     delete values.preorder_details;
+  //     delete values.enable_preorder;
+  //   }
+  // }, [values]);
 
-  useEffect(() => {
-    if (
-      values[
-        "minimum_prices" ||
-          "suggested_prices" ||
-          "original_prices" ||
-          "suggested_prices" ||
-          "initial_prices" ||
-          "installment_prices"
-      ]?.length > 0
-    ) {
-      setFieldValue("set_price", true);
-    }
-  }, [values, setFieldValue]);
+  // useEffect(() => {
+  //   if (
+  //     values[
+  //       "minimum_prices" ||
+  //         "suggested_prices" ||
+  //         "original_prices" ||
+  //         "suggested_prices" ||
+  //         "initial_prices" ||
+  //         "installment_prices"
+  //     ]?.length > 0
+  //   ) {
+  //     setFieldValue("set_price", true);
+  //   }
+  // }, [values]);
 
-  useEffect(() => {
-    setFieldValue("pricing_type_id", priceType);
-    setFieldValue("checkout.cta_button", ctaBtnText);
-    setFieldValue("selling_prices", sellingPrice);
-    setFieldValue("minimum_prices", minimumPrice);
-    setFieldValue("is_show_compare_price", compareToPrice);
-    setFieldValue("checkout.is_coupon", applyCoupon);
-    setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
-    setFieldValue(
-      "coupon_settings.is_fixed_amount",
-      couponVariance.is_fixed_amount
-    );
+  // useEffect(() => {
+  //   setFieldValue("pricing_type_id", priceType);
+  //   setFieldValue("checkout.cta_button", ctaBtnText);
+  //   setFieldValue("selling_prices", sellingPrice);
+  //   setFieldValue("minimum_prices", minimumPrice);
+  //   setFieldValue("is_show_compare_price", compareToPrice);
+  //   setFieldValue("checkout.is_coupon", applyCoupon);
+  //   setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
+  //   setFieldValue(
+  //     "coupon_settings.is_fixed_amount",
+  //     couponVariance.is_fixed_amount
+  //   );
+  //   setFieldValue("product_settings.allow_affiliates", allowAffiliateMarket);
+  //   setFieldValue("product_settings.is_limited_sales", limitProductSale);
+  //   setFieldValue("product_settings.show_number_of_sales", showTotalSales);
+  //   setFieldValue("who_bear_fee", buyerPaysTransactionFee);
+  //   setFieldValue("minimum_prices", minimumPrice);
+  //   setFieldValue("selling_prices", sellingPrice);
+  //   setFieldValue("original_prices", originalPrice);
+  //   setFieldValue("suggested_prices", suggestedPrice);
+  //   setFieldValue("initial_prices", initialPrice);
+  //   setFieldValue("installment_prices", installmentPrice);
+  //   setFieldValue(
+  //     "promotional_items.allow_promotional_items",
+  //     uploadPromotionalMaterial
+  //   );
+  //   setFieldValue(
+  //     "promotional_items.promotional_files",
+  //     preview?.map((item) => item.url)
+  //   );
+  // }, [
+  //   priceType,
+  //   ctaBtnText,
+  //   sellingPrice,
+  //   compareToPrice,
+  //   applyCoupon,
+  //   couponVariance,
+  //   allowAffiliateMarket,
+  //   limitProductSale,
+  //   showTotalSales,
+  //   buyerPaysTransactionFee,
+  //   minimumPrice,
+  //   originalPrice,
+  //   suggestedPrice,
+  //   uploadPromotionalMaterial,
+  //   preview,
+  //   promotionalMaterial,
+  //   initialPrice,
+  //   installmentPrice,
+  // ]);
+
+  //Updating Formik values
+  useEffect(()=>{
+    setFieldValue("pricing_type_id", 1);
+    setFieldValue("cta_button", ctaBtnText)
+    setFieldValue("selling_prices", [...fixedSellingPrice])
+    setFieldValue("is_show_compare_price", compareToPrice)
+    setFieldValue("original_prices", [...fixedOriginalPrice])
     setFieldValue("product_settings.allow_affiliates", allowAffiliateMarket);
-    setFieldValue("product_settings.is_limited_sales", limitProductSale);
+    setFieldValue("product_settings.affiliate_percentage_on_sales", afiliatePercentage);
+    setFieldValue("promotional_items.allow_promotional_items", uploadPromotionalMaterial);
     setFieldValue("product_settings.show_number_of_sales", showTotalSales);
     setFieldValue("who_bear_fee", buyerPaysTransactionFee);
-    setFieldValue("minimum_prices", minimumPrice);
-    setFieldValue("selling_prices", sellingPrice);
-    setFieldValue("original_prices", originalPrice);
-    setFieldValue("suggested_prices", suggestedPrice);
-    setFieldValue("initial_prices", initialPrice);
-    setFieldValue("installment_prices", installmentPrice);
-    setFieldValue(
-      "promotional_items.allow_promotional_items",
-      uploadPromotionalMaterial
-    );
-    setFieldValue(
-      "promotional_items.promotional_files",
-      preview?.map((item) => item.url)
-    );
+    setFieldValue("product_settings.is_limited_sales", limitProductSale);
+    setFieldValue("number_of_limited_product", +numberOfLimit);
+    setFieldValue("minimum_prices", [...minimumPrice]);
+    setFieldValue("suggested_prices", [...suggestedPrice]);
+    setFieldValue("billing_frequency", numberOfInputs);
+    setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
+    setFieldValue("coupon_settings.is_fixed_amount", couponVariance.is_fixed_amount);
   }, [
-    setFieldValue,
-    priceType,
     ctaBtnText,
-    sellingPrice,
+    fixedSellingPrice,
     compareToPrice,
-    applyCoupon,
-    couponVariance,
+    fixedOriginalPrice,
     allowAffiliateMarket,
-    limitProductSale,
+    afiliatePercentage,
+    uploadPromotionalMaterial,
     showTotalSales,
     buyerPaysTransactionFee,
+    limitProductSale,
+    numberOfLimit,
     minimumPrice,
-    originalPrice,
     suggestedPrice,
-    uploadPromotionalMaterial,
-    preview,
-    promotionalMaterial,
-    initialPrice,
-    installmentPrice,
-  ]);
+    numberOfInputs,
+    couponVariance
+  ])
+
+
+  // Clear outs
+  useEffect(()=>{
+    if(compareToPrice === false){
+      setFixedOriginalPrice([])
+    }
+    if(allowAffiliateMarket === false){
+      setAfiliatePercentage(0)
+    }
+    if(limitProductSale === false){
+      setNumberOfLimit(0)
+    }
+  }, [compareToPrice, allowAffiliateMarket, limitProductSale])
 
   useEffect(() => {
-    setFieldValue("product_name", product?.product_details?.product_name);
-    setFieldValue(
-      "product_description",
-      product?.product_details?.product_description
-    );
-    setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
-    setFieldValue("upload_content", product?.product_details?.upload_content);
-    setFieldValue(
-      "product_visibility_status",
-      product?.product_details?.product_visibility
-    );
-    setFieldValue("upload_preview", product?.product_details?.is_preview_only);
-    setFieldValue(
-      "preorder_details.preorder_release_date",
-      product?.product_details?.preoder_date
-    );
-    setFieldValue(
-      "preorder_details.is_preorder_downloadable",
-      product?.product_details?.is_preoder_downloadable ?? false
-    );
-    setFieldValue(
-      "kreatesell_id",
-      product?.product_details?.kreasell_product_id
-    );
-    setFieldValue("product_type_id", product?.product_details?.product_type_id);
-    setFieldValue("product_id", product?.product_details?.id);
-    setFieldValue(
-      "product_listing_status_id",
-      product?.product_details?.product_listing_status
-    );
+    if(Object.keys(product).length > 0){
+      setFieldValue("product_name", product?.product_details?.product_name);
+      setFieldValue('product_details', product?.product_details?.product_details)
+      setFieldValue(
+        "product_description",
+        product?.product_details?.product_description
+      );
+      setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+      setFieldValue("upload_content", product?.product_details?.upload_content);
+      setFieldValue(
+        "product_visibility_status",
+        product?.product_details?.product_visibility
+      );
+      setFieldValue("upload_preview", product?.product_details?.is_preview_only);
+      setFieldValue(
+        "preorder_details.preorder_release_date",
+        product?.product_details?.preoder_date
+      );
+      setFieldValue(
+        "preorder_details.is_preorder_downloadable",
+        product?.product_details?.is_preoder_downloadable ?? false
+      );
+      setFieldValue(
+        "kreatesell_id",
+        product?.product_details?.kreasell_product_id
+      );
+      setFieldValue("product_type_id", product?.product_details?.product_type_id);
+      setFieldValue("product_id", product?.product_details?.id);
+      setFieldValue(
+        "product_listing_status_id",
+        product?.product_details?.product_listing_status
+      );
+      setFieldValue("cta_button", product.product_details.cta_button ? product.product_details.cta_button : ctaBtnText)
+      setCtaBtnText(product?.product_details?.cta_button)
+
+      if(product.check_out_details && product.check_out_details.length > 0){
+        populatePricing(product?.check_out_details)
+      }
+      if(product.product_details.is_allow_affiliate === true){
+        setAllowAffiliateMarket(true)
+        setAfiliatePercentage(product?.product_details?.affiliate_percentage_on_sales)
+      }
+      if(product.product_details.is_limited_sales === true){
+        setLimitProductSale(true)
+      }
+    }
   }, [product]);
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form onFinish={formik.handleSubmit}>
       {priceType === "Fixed Price" && (
         <div className="flex flex-col">
-          <CustomCheckoutSelect title={"Selling Price"} field={selling} setField={setSelling} />
+          <CustomCheckoutSelect title={"Selling Price"} field={fixedSellingPrice} setField={setFixedSellingPrice} />
           <p className="text-base-gray-200 text-xs pt-2">
             Set the equivalent price of your product in the currencies of the
             country you accept. You can always enable or disable any currency in
@@ -315,35 +477,52 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
         </div>
       )}
       {priceType === "Pay What You Want" && (
-        <div>
-            <CustomCheckoutSelect title={"Minimum Amount"} field={selling} setField={setSelling} />
-            <CustomCheckoutSelect title={"Suggested Amount"} field={selling} setField={setSelling} />
+        <div className="flex flex-col">
+          <div className="mt-1">
+            <CustomCheckoutSelect title={"Minimum Amount"} field={minimumPrice} setField={setMinimumPrice} />
+          </div>
+            <div className="mt-4">
+              <CustomCheckoutSelect title={"Suggested Amount"} field={suggestedPrice} setField={setSuggestedPrice} />
+            </div>
         </div>
       )}
 
       {priceType === "Installment Payment" && (
-          <div className="pt-4">
+          <div>
             <p className="text-base mb-2"></p>
-            <CustomCheckoutSelect title={"Selling Price"} field={selling} setField={setSelling} />
-            <CustomCheckoutSelect title={"Initial Payment at Checkout"} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={"Total Selling Price"} field={totalSelling} setField={setTotalSelling} />
             <div className="mt-3 w-full">
               <p className="text-base mb-2">Select Frequency of payments</p>
-              <div className="w-full lg:w-1/5">
+              <div className={"w-full lg:w-1/5 "+ styles.selectBorder}>
                 <Select
-                  options={frequencyOptions}
-                  onChange={(e) => setNumberOfInputs(e.value)}
-                />
+                  defaultValue={numberOfInputs}
+                  onChange={(e) => setNumberOfInputs(e)}
+                  style={{width: "100%", borderRadius: "8px"}}
+                >
+                  <Option value="1">1</Option>
+                  <Option value="2">2</Option>
+                  <Option value="3">3</Option>
+                  <Option value="4">4</Option>
+                </Select>
               </div>
             </div>
-            <CustomCheckoutSelect title={"Type What You Want Buyers To Pay At Each Installments"} field={selling} setField={setSelling} />
-            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
-            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
-            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
-            <CustomCheckoutSelect title={""} field={selling} setField={setSelling} />
+            <h2 className="font-semibold my-3 text-base">Type What You Want Buyers To Pay At Each Installments</h2>
+            {createCustomCurrencyField(inputsArray)}
             <div className="mt-3 w-full">
-              <p className="text-base mb-2">Interval between each payment</p>
-              <div className="w-full lg:w-1/5">
-                <Select options={mappedBillingInterval} />
+              <h2 className="text-base font-medium mb-2">Interval Between Each Payment</h2>
+              <div className={"w-full flex lg:w-2/5 "+ styles.billingContainer}>
+                <Input type="number"
+                onChange={(e)=>handleBillingIntervalChange(e.target.value)}
+                style={{paddingLeft: "10px"}}  />
+                <Select
+                 onChange={(e)=>setBillingIntervalDuration(e)}
+                  defaultValue={customBillingIntervals[1].value}
+                  style={{width: "30%"}}
+                >
+                  {customBillingIntervals && customBillingIntervals.map((item, index)=>(
+                    <Option key={index} value={item.value}>{item.label}</Option>
+                  ))}
+                </Select>
               </div>
             </div>
           </div>
@@ -368,26 +547,27 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             </div>
           </div>
         )}
-
-        {compareToPrice && (
+        {priceType === "Fixed Price" && compareToPrice && (
           <div className="mt-4">
-            <CustomCheckoutSelect title={"Original price (NGN)"} field={selling} setField={setSelling} />
+            <CustomCheckoutSelect title={"Original price (NGN)"} field={fixedOriginalPrice} setField={setFixedOriginalPrice} />
           </div>
         )}
 
         {priceType !== 4 && (
-          <div className="flex justify-between items-center mt-3 w-full lg:w-2/4 pt-4">
+          <div className={styles.aplyCpn + " flex justify-between items-center mt-3 w-full pt-4"}>
             <div className="text-black-100 font-semibold text-lg">Apply Coupon Code</div>
-            <div className="flex">
+            <div className={styles.businessCoupon +" flex"}>
               <Switch
                 onChange={(e) => {
                   setApplyCoupon((value) => !value);
                 }}
                 checked={applyCoupon}
+                disabled={isCouponDiabled ? true : false}
               />
               <span className="pl-6 text-black-100 font-semibold text-lg">
-                {applyCoupon ? "ON" : "OFF"}
+                {isCouponDiabled ? "DISABLED": applyCoupon ? "ON" : "OFF"}
               </span>
+              <h3>Business</h3>
             </div>
           </div>
         )}
@@ -398,7 +578,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
               <Input
                 placeholder="Enter coupon code"
                 className={styles.ctaBtn}
-                name="checkout.coupon_code"
+                name="coupon_settings.coupon_code"
                 onChange={formik.handleChange}
               />
             </div>
@@ -422,10 +602,11 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 <div className="w-full">
                   <Input
                     placeholder="0"
+                    type="number"
                     className={styles.ctaBtn}
-                    name="ctaBtnText"
-                    // name="coupon_settings.percentage_value"
+                    name="coupon_settings.percentage_value"
                     onChange={formik.handleChange}
+                    disabled={couponVariance.isPercentage === true ? false : true}
                   />
                 </div>
               </div>
@@ -448,17 +629,19 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 <div className="w-full">
                   <Input
                     placeholder="0"
+                    type="number"
                     className={styles.ctaBtn}
                     name="coupon_settings.fixed_amount_value"
                     onChange={formik.handleChange}
+                    disabled={couponVariance.is_fixed_amount === true ? false : true}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="grid gap-3 w-full lg:w-full xl:w-3/5 grid-cols-1 lg:grid-cols-2">
+            <div className="grid gap-3 mt-4 w-full lg:w-full xl:w-3/5 grid-cols-1 lg:grid-cols-2">
               <div className="flex items-center gap-3">
-                <p className="text-base-gray-200">From</p>
+                <h2 className="text-base-gray-200 mb-0 text-base font-medium">From</h2>
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
@@ -469,7 +652,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
               </div>
 
               <div className="flex items-center gap-3">
-                <p className="text-base-gray-200 pr-5 lg:pr-0">to</p>
+                <h2 className="text-base-gray-200 mb-0 text-base font-medium pr-5 lg:pr-0">To</h2>
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
@@ -482,69 +665,21 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
           </div>
         )}
 
-        {/* <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-					<div className="text-black-100">Limit Product Sales</div>
-					<div className="flex">
-						<Switch
-							onChange={(e) => {
-								setLimitProductSale((value) => !value);
-								// setFieldValue("upload_content", e);
-							}}
-						/>
-						<span className="pl-6 text-black-100">
-							{limitProductSale ? "ON" : "OFF"}
-						</span>
-					</div>
-				</div> */}
-
-        <div>
-          {/* <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-						<div className="text-black-100">
-							Publicly Show Total Sales on Store Page
-						</div>
-						<div className="flex">
-							<Switch
-								onChange={(e) => {
-									setShowTotalSales((value) => !value);
-									// setFieldValue("upload_content", e);
-								}}
-							/>
-							<span className="pl-6 text-black-100">
-								{showTotalSales ? "ON" : "OFF"}
-							</span>
-						</div>
-					</div> */}
-
-          {/* <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-						<div className="text-black-100">Buyer Pays for Transaction Fee</div>
-						<div className="flex">
-							<Switch
-								onChange={(e) => {
-									setBuyerPaysTransactionFee((value) => !value);
-									// setFieldValue("upload_content", e);
-								}}
-							/>
-							<span className="pl-6 text-black-100">
-								{buyerPaysTransactionFee ? "ON" : "OFF"}
-							</span>
-						</div>
-					</div> */}
-        </div>
-
         <h2 className="mt-6 text-xl font-semibold">Settings</h2>
         <div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 w-11/12">
-          <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100">
+          <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+            <div className="text-black-100 font-semibold">
               Allow Affiliates to Market Product
             </div>
             <div className="flex">
               <Switch
                 onChange={(e) => {
-                  setAllowAffiliateMarket((value) => !value);
+                  setAllowAffiliateMarket((
+                    value) => !value);
                 }}
                 checked={allowAffiliateMarket}
               />
-              <span className="pl-6 text-black-100">
+              <span className="pl-6 font-semibold text-black-100">
                 {allowAffiliateMarket ? "ON" : "OFF"}
               </span>
             </div>
@@ -552,16 +687,22 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
 
           {allowAffiliateMarket && (
             <>
-              <div className="w-3/5">
-                <Percentage
-                  border={true}
-                  name="product_settings.affiliate_percentage_on_sales"
-                  onChange={formik.handleChange}
-                />
+              <div className={styles.affilateUpload}>
+                <div className="flex items-center justify-between">
+                  <h2 className="mb-0 text-base"> How much percentage are you willing to pay affiliate</h2>
+                  <div className={styles.affilateInput}>
+                    <Input
+                      type="number"
+                      placeholder="0"
+                      value={afiliatePercentage}
+                      onChange={(e)=> setAfiliatePercentage(e.target.value)}
+                    />
+                    <span>%</span>
+                  </div>
+                </div>
               </div>
-
-              <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-                <div className="text-black-100">
+              <div className="flex justify-between items-center w-full lg:w-3/5 pt-4">
+                <div className="text-gray-500 font-semibold">
                   Upload a Promotional Material for affiliates
                 </div>
                 <div className="flex">
@@ -571,7 +712,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                     }}
                     checked={uploadPromotionalMaterial}
                   />
-                  <span className="pl-6 text-black-100">
+                  <span className="pl-6 font-semibold text-black-100">
                     {uploadPromotionalMaterial ? "ON" : "OFF"}
                   </span>
                 </div>
@@ -605,8 +746,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
             </>
           )}
 
-          <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100">Limit Product Sales</div>
+          <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+            <div className="text-black-100 font-semibold">Limit Product Sales</div>
             <div className="flex">
               <Switch
                 onChange={(e) => {
@@ -614,23 +755,24 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 }}
                 checked={limitProductSale}
               />
-              <span className="pl-6 text-black-100">
+              <span className="pl-6 font-semibold text-black-100">
                 {limitProductSale ? "ON" : "OFF"}
               </span>
             </div>
           </div>
 
           {limitProductSale && (
-            <div className="w-3/5 items-center flex justify-between pt-3">
-              <p className="text-base-gray-200 ">Product Sales Limit</p>
-              <div className="">
-                <Input placeholder="100" className={styles.limitProductInput} />
-              </div>
+            <div className={"items-center mt-2 flex justify-between pt-3 w-2/3"}>
+              <h2 className="text-base-gray-200 mb-0 font-medium text-base">Product Sales Limit</h2>
+              <Input placeholder="Enter Limit"
+               onChange={(e)=> setNumberOfLimit(e.target.value)} 
+               value={numberOfLimit}
+               className={styles.limitProductInput} />
             </div>
           )}
 
-          <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100">
+          <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+            <div className="text-black-100 font-semibold">
               Publicly Show Total Sales on Store Page
             </div>
             <div className="flex">
@@ -640,14 +782,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 }}
                 checked={showTotalSales}
               />
-              <span className="pl-6 text-black-100">
+              <span className="pl-6 font-semibold text-black-100">
                 {showTotalSales ? "ON" : "OFF"}
               </span>
             </div>
           </div>
 
-          <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100">Buyer Pays for Transaction Fee</div>
+          <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+            <div className="text-black-100 font-semibold">Buyer Pays for Transaction Fee</div>
             <div className="flex">
               <Switch
                 onChange={(e) => {
@@ -655,36 +797,21 @@ export const CheckoutForm = ({ ctaBtnText, priceType }) => {
                 }}
                 checked={buyerPaysTransactionFee}
               />
-              <span className="pl-6 text-black-100">
+              <span className="pl-6 font-semibold text-black-100">
                 {buyerPaysTransactionFee ? "ON" : "OFF"}
               </span>
             </div>
           </div>
         </div>
 
-        <p className="text-center text-sm text-base-gray pt-4 md:text-base">
-          Almost there, now click the button to proceed to create product from
-          template
-        </p>
-
-        <div className="flex flex-col-reverse lg:flex-row justify-center items-center pb-4">
-          <div className="">
+          <div className={styles.digitalBtn}>
             <Button
-              text="Previous"
-              className={styles.digitalBtn}
-              onClick={() => setProductTab(0)}
-            />
-          </div>
-          <div className="pl-0 mb-4 lg:pl-4 lg:mb-0">
-            <Button
-              text="Save and continue"
-              bgColor="blue"
-              className={styles.digitalBtn}
+              type="primary"
+              htmlType="submit"
               loading={loading}
-            />
+            >Save and Preview</Button>
           </div>
         </div>
-      </div>
     </Form>
   );
 };

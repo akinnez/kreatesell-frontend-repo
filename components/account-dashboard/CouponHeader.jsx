@@ -39,7 +39,7 @@ export const CouponHeader = ({
               >
                 <Form.Item label="Show" name="show">
                   <Select
-                    // options={showOptions}
+                    options={dayOptions}
                     className={styles.selectRadius}
                     placeholder="Today"
                     // onChange={handleSelect("show")}
@@ -51,7 +51,7 @@ export const CouponHeader = ({
               >
                 <Form.Item label="Currency" name="currency">
                   <Select
-                    // options={currencyOptions}
+                    options={currencyOptions}
                     className={styles.selectRadius}
                     placeholder="NGN"
                     // onChange={handleSelect("currency")}

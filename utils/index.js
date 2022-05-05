@@ -32,7 +32,6 @@ export const generateActions = (action) => {
 
 export const getToken = () => {
   const token = pathName.localStorage.getItem("token");
-
   if (!token) return false;
   if (token) {
     const decodedToken = jwt_decode(token);

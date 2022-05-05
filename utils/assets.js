@@ -82,23 +82,41 @@ import ArrowLeft from "../public/images/arrow-left.svg";
 import StoryTellingPNG from "../public/images/storytelling.png";
 import CheckoutPlaceholder from "../public/images/checkout-placeholder.png";
 import Crypto from "../public/images/crypto.png";
+import CopyLink from "../public/images/copy-link.svg";
 import Paypal from "../public/images/paypal.png";
 import Stripe from "../public/images/stripe.png";
 import placeholder1 from "../public/images/placeholder-1.jpg";
+import ProductHeaderLogo from "../public/images/product-header-logo.svg";
 import placeholder2 from "../public/images/placeholder-2.jpg";
+import RightPreviewArrow from "../public/images/right-arrow.svg";
+import LeftPreviewArrow from "../public/images/left-arrow.svg";
+import FooterLogo from "../public/images/footer-logo.svg";
+import ExternalLink from "../public/images/external_link.svg";
+import FileZip from "../public/images/FileZip.svg";
+import FileDelete from "../public/images/Delete.svg";
+import CloudUploadDisable from "../public/images/CloudUpload-disabled.svg";
 import NotificationPlaceholder from "../public/images/notifications.svg";
 import ProductNotificationImage from "../public/images/product_image.png";
 import tick from "../public/images/tick.svg";
 import UserImage from "../public/images/user_image.png";
 
 export {
+	RightPreviewArrow,
+	CloudUploadDisable,
+	FileZip,
+	FileDelete,
+	LeftPreviewArrow,
 	KreateSellBrand,
+	FooterLogo,
+	ExternalLink,
 	FooterBrand,
 	Location,
 	Message,
 	Mobile,
+	CopyLink,
 	FacebookBtn,
 	GoogleBtn,
+	ProductHeaderLogo,
 	placeholder1,
 	placeholder2,
 	RightArrow,
