@@ -63,25 +63,28 @@ export const _isUserLoggedIn = () => {
 export const showToast = (message, type) => {
   if (type) type = type.toLowerCase();
 
+  const errorMessagePosition  = {
+    position: "top-center"
+  }
   switch (type) {
     case "success":
-      cogoToast.success(message, { position: "top-right" });
+      cogoToast.success(message, errorMessagePosition);
       break;
     case "info":
-      cogoToast.info(message, { position: "top-right" });
+      cogoToast.info(message, errorMessagePosition);
       break;
     case "loading":
-      cogoToast.loading(message, { position: "top-right" });
+      cogoToast.loading(message, errorMessagePosition);
       break;
     case "warn":
-      cogoToast.warn(message, { position: "top-right" });
+      cogoToast.warn(message, errorMessagePosition);
       break;
     case "error":
-      cogoToast.error(message, { position: "top-right" });
+      cogoToast.error(message, errorMessagePosition);
       break;
 
     default:
-      cogoToast.info(message, { position: "top-right" });
+      cogoToast.info(message, errorMessagePosition);
       break;
   }
 };
