@@ -93,7 +93,7 @@ export default function Home() {
               plans, and Memberships in an online all-in-one platform for free
               and accept payment from anywhere in the world.
             </p>
-
+            {/* here */}
             <div className={styles.inputContainer}>
               <InputButton
                 name="email"
