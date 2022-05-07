@@ -2,7 +2,6 @@ import {
   MailClipboard,
   _copyToClipboard,
   DeactvateProduct,
-  DeleteProduct,
   DuplicateProduct,
   EditProduct,
   ManageProduct,
@@ -245,13 +244,6 @@ const ActionComponent = ({ item, showAction }) => {
     <p className="mb-0 ml-3">Duplicate</p>
   </li>
 
-  <li className="flex items-center cursor-pointer" onClick={() => showModal("deactivate")}>
-    <span>
-      <Image alt="" src={DeactvateProduct} />
-    </span>
-    <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
-  </li>
-
   <li className={styles.deletePop + " flex items-center cursor-pointer"} onClick={() => showModal("delete")}>
   <Popconfirm
     title="Are you sure to delete this task?"
@@ -264,11 +256,9 @@ const ActionComponent = ({ item, showAction }) => {
     overlayClassName={styles.popConfirm}
   >
     <span>
-      <Image alt="" src={DeleteProduct} />
+      <Image alt="" src={DeactvateProduct} />
     </span>
-    <p className="mb-0 ml-3">
-        Delete
-    </p>
+      <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
   </Popconfirm>
   </li>
 </ul>
@@ -368,11 +358,13 @@ export const AllProductsTableHeader = [
   {
     title: '',
     dataIndex: "product_image",
-    render: (item)=> (
+    render: (item)=> {
+      return (
       <div className={styles.productTableImage}>
-        <Image src={item} width="100" height={100}  objectFit="cover" alt="Product" />
+        { item !== undefined && item.length > 0 && <Image src={item[0]} width="100" height={100}  objectFit="cover" alt="Product" />}
       </div>
     )
+  }
   },
   {
     title: "Product",

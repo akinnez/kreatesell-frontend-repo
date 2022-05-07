@@ -10,7 +10,7 @@ export default function PreviewContent (){
     const [images, setImages] = useState([])
     const [mainImage, setMainImage] = useState('')
     const [activeImage, setActiveImage] = useState(0)
-    const [checkout, setCheckout]= useState('')
+    const [checkout, setCheckout]= useState(null)
     const { product } = useSelector(
         (state) => state.product
       );
@@ -31,7 +31,15 @@ export default function PreviewContent (){
         if(Object.keys(product).length > 0){
             console.log('from preview',product)
             setDetails(product?.product_details)
-            setImages(product?.product_images)
+            setImages(...product?.product_images.filter(images => images.file_type !== 4).map(item => {
+                const arr = item.filename.split(',')
+                const truc = arr.map(item => {
+                  return {
+                    filename: item
+                  }
+                })
+                return truc
+              }))
             setCheckout(product?.check_out_details)
         }        
     }, [product])
@@ -66,10 +74,10 @@ export default function PreviewContent (){
                     </div>
                     <div className={'flex items-center '+ styles.padBottom}>
                         <div className={styles.dp}>
-                        {details !== undefined && Object.keys(details).length > 0 && <Image src={`/${details.user.business_logo}`} width="100" height={100} objectFit="cover" alt="cover_image" />}
+                        {/* {details !== undefined && Object.keys(details).length > 0 && <Image src={`/${details.user.business_logo}`} width="100" height={100} objectFit="cover" alt="cover_image" />} */}
                         </div>
                         <div className='flex  ml-6 flex-col'>
-                            {details !== undefined && Object.keys(details).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{details.user.full_name}</h2>}
+                            {/* {details !== undefined && Object.keys(details).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{details.user.full_name}</h2>} */}
                             <div className={styles.visitLink}>
                                 <h2 className='mb-0 font-medium'>Visit Store</h2>
                                 <Image src={ExternalLink} alt="link" />
@@ -82,7 +90,7 @@ export default function PreviewContent (){
                     </div>
                     <div className={styles.priceSection}>
                         <div className="flex flex-col">
-                            <h1 className='text-3xl font-bold'>{checkout && `${checkout[0].currency_name}  ${checkout[0].price}`}</h1> 
+                            {checkout && checkout.length > 0 && <h1 className='text-3xl font-bold'>{checkout && `${checkout[0].currency_name}  ${checkout[0].price}`}</h1> }
                         </div>
                         <Button type='primary' >{details !== undefined && details.cta_button ? details.cta_button : 'Buy Now'}</Button>
                     </div>
