@@ -154,7 +154,7 @@ const StatusComponent = (item) => {
   const statusTextList = {
     "1": {type: "draft", styles:{background: "rgba(255, 214, 102, 0.2)", color: "#FBB500" }, contents:"You need to complete the editing of this product before it is published."},
     "2": {type: "live", styles:{background: "#F1FCF8", color: "#2DC071" }, contents:"Your product will go live and visible to audience for purchase once you complete creating the sales page."},
-    "3": {type: "deactivate", styles:{background: "rgba(255, 77, 79, 0.1)", color: "#F90005" }, contents:" No one can see this product. You may reactivate it anytime you like."},
+    "3": {type: "deactivated", styles:{background: "rgba(255, 77, 79, 0.1)", color: "#F90005" }, contents:" No one can see this product. You may reactivate it anytime you like."},
     "4": {type: "flagged", styles:{background: "#F5F5F5", color: "#595959" }, contents:"Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment."},
     "5": {type: "revoked", styles:{background: "#F5F5F5", color: "#595959" }, contents:" Product violated copyright terms and has been removed permanently."}
   }
@@ -185,26 +185,14 @@ const ActionComponent = ({ item, showAction }) => {
 
   const id = item?.product_details?.id;
   const kreasell_product_id = item?.product_details?.kreasell_product_id;
-  const productName = item?.product_details?.product_name;
-
-  const [menu, setMenu] = useState(false);
-
-  const [modalVisible, setVisible] = useState(false);
-  const [modalText, setModalText] = useState("");
-
-  const showModal = (text) => {
-    setVisible(true);
-    setModalText(text);
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
+  const productName = item?.product_details?.product_name
 
   /**Used to delete and deactivate product */
   const handleModalOk = () => {
-    createEditDeleteProduct({ product_id: id, action: "d" }, () => {
-      setVisible(false);
+    const formdata = new FormData()
+    formdata.append('product_id', id)
+    formdata.append('action', 'd')
+    createEditDeleteProduct(formdata, () => {
       getProducts();
     });
   };
@@ -223,7 +211,7 @@ const ActionComponent = ({ item, showAction }) => {
     <p className="mb-0 ml-3">Edit Product</p>
   </li>
 
-  <li className="flex items-center cursor-pointer">
+  <li className="flex items-center cursor-pointer" onClick={() => _copyToClipboard(id, "Product Link Copied")}>
     <span>
       <Image alt="" src={ManageProduct} />
     </span>
@@ -244,10 +232,10 @@ const ActionComponent = ({ item, showAction }) => {
     <p className="mb-0 ml-3">Duplicate</p>
   </li>
 
-  <li className={styles.deletePop + " flex items-center cursor-pointer"} onClick={() => showModal("delete")}>
+  <li className={styles.deletePop + " flex items-center cursor-pointer"}>
   <Popconfirm
     title="Are you sure to delete this task?"
-    // onConfirm={confirm}
+    onConfirm={handleModalOk}
     // onCancel={cancel}
     okText="Delete"
     cancelText="Cancel"
@@ -264,90 +252,6 @@ const ActionComponent = ({ item, showAction }) => {
 </ul>
 )
   return (
-    // <div className="relative" key={id}>
-    //   <div
-    //     className="hidden lg:block cursor-pointer pl-4"
-    //     onClick={() =>
-    //       menu || typeof menu === "undefined" ? setMenu(false) : setMenu(true)
-    //     }
-    //   >
-    //     ...
-    //   </div>
-
-    //   <div
-    //     className={` ${styles.action} ${
-    //       menu || showAction ? "visible" : "hidden"
-    //     }`}
-    //   >
-        // <ul>
-        //   <li
-        //     onClick={() => {
-        //       setProductID(kreasell_product_id);
-        //       router.push("/account/kreator/products/create");
-        //       setProductTab(0);
-        //     }}
-        //   >
-        //     <span>
-        //       <Image alt="" src={EditProduct} />
-        //     </span>
-        //     <p>Edit</p>
-        //   </li>
-
-        //   <li>
-        //     <span>
-        //       <Image alt="" src={ManageProduct} />
-        //     </span>
-        //     <p>Manage Product</p>
-        //   </li>
-
-        //   <li>
-        //     <span>
-        //       <Image alt="" src={ViewSales} />
-        //     </span>
-        //     <p>View Sales</p>
-        //   </li>
-
-        //   <li onClick={() => duplicateProduct(id, () => getProducts())}>
-        //     <span>
-        //       <Image alt="" src={DuplicateProduct} />
-        //     </span>
-        //     <p>Duplicate</p>
-        //   </li>
-
-        //   <li onClick={() => showModal("deactivate")}>
-        //     <span>
-        //       <Image alt="" src={DeactvateProduct} />
-        //     </span>
-        //     <p>Deactivate (Unpublish)</p>
-        //   </li>
-
-        //   <li onClick={() => showModal("delete")}>
-        //     <span>
-        //       <Image alt="" src={DeleteProduct} />
-        //     </span>
-        //     <p>Delete</p>
-        //   </li>
-        // </ul>
-    //   </div>
-
-    //   <Modal
-    //     title=""
-    //     visible={modalVisible}
-    //     onOk={handleModalOk}
-    //     onCancel={handleCancel}
-    //     footer=""
-    //     closable={false}
-    //     className={styles.modalContainer}
-    //     width="312"
-    //   >
-    //     <ModalPrompt
-    //       handleCancel={handleCancel}
-    //       onOk={handleModalOk}
-    //       modalText={modalText}
-    //       productName={productName}
-    //     />
-    //   </Modal>
-    // </div>
     <Popover overlayStyle={{width: "150px", padding: '0'}} placement="bottomLeft" overlayClassName={styles.action} content={content} title="" trigger="click">
       <h2 className="font-semibold cursor-pointer text-lg">...</h2>
     </Popover>

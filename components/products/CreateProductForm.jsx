@@ -86,7 +86,7 @@ export const CreateProductForm = ({
     cta_button: "",
     product_id: 0,
     product_images: {
-      productFiles: []
+      product_Files: []
     },
     product_details: "",
   };
@@ -145,10 +145,6 @@ export const CreateProductForm = ({
     getListingStatus();
   }, []);
   
-  useEffect(()=>{
-    setFieldValue("product_images.productFiles", [...imageUploads.map(file => file.url ? file.url : file.file.filename)])
-  }, [imageUploads])
-
   useEffect(() => {
     if (productID) {
       getProductByID(productID);
@@ -158,9 +154,7 @@ export const CreateProductForm = ({
   useEffect(()=>{
     console.log('here', product)
   }, [product])
-  useEffect(()=>{
-    console.log('here', initialProduct)
-  }, [initialProduct])
+  
   useEffect(()=>{
     if(imageUploads.length >= 3){
       setIsImageFilled(true)
@@ -171,15 +165,10 @@ export const CreateProductForm = ({
 
   useEffect(()=>{
     setFieldValue('product_details', contents)
-  }, [contents])
-
-  useEffect(()=>{
-    setFieldValue("contentZipFiles", productFile)
-  }, [productFile])
-
-  useEffect(()=>{
+    setFieldValue("product_images.productFiles", [...imageUploads.map(file => file.url ? file.url : file.file.filename)])
     setFieldValue('product_type_id', productTypeId)
-  }, [productTypeId])
+    setFieldValue("contentZipFiles", productFile)
+  }, [productTypeId, productFile, contents, imageUploads])
 
   useEffect(() => {
     if(Object.keys(product).length > 0){
