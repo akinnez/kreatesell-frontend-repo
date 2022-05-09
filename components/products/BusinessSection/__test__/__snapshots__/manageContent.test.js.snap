@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <ManageContent /> 1`] = `
+<div
+  className=""
+>
+  <div
+    className="inline-flex justify-start cursor-pointer items-center mb-4"
+    onClick={[Function]}
+  >
+    <img
+      src="[jest.find('../utils')]"
+    />
+    <h3
+      className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3"
+    >
+      Back
+    </h3>
+  </div>
+  <div
+    className="flex items-center justify-between mb-7"
+  >
+    <h1
+      className="text-2xl text-blue-600 font-bold"
+    >
+      How to Invest in Crypocurrency
+    </h1>
+  </div>
+  <div
+    className="bg-white rounded"
+  >
+    <h2>
+      Lecture 1
+    </h2>
+    <div
+      className="pt-2"
+    >
+      <p
+        className="text-base-gray-200 text-xs mb-0"
+      >
+        Only one file is allowed to be uploaded. Bundles all your files into single RAR or ZIP file.
+      </p>
+      <small
+        className="text-black mb-4 font-normal"
+      >
+        The maximum allowed file size is 1GB.
+      </small>
+      <div
+        className="fileUploader"
+      >
+        <span />
+        <div
+          className="contentFileUpload contentFileUploadDisabled"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragEnter={[Function]}
+          onDragLeave={[Function]}
+          onDragOver={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          tabIndex={0}
+        >
+          <div
+            className="flex justify-center items-center"
+          >
+            <input
+              accept=".zip,.rar/*"
+              autoComplete="off"
+              multiple={true}
+              onChange={[Function]}
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+              tabIndex={-1}
+              type="file"
+            />
+            <img
+              src="[jest.find('../utils')]"
+            />
+            <p
+              className="hidden md:block text-sm pl-4 my-auto"
+            >
+              Drag and Drop or Click to Upload Your Product File
+            </p>
+            <p
+              className="md:hidden text-primary-blue text-sm pl-4 my-auto"
+            >
+              Upload your product files
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
