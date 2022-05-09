@@ -4,6 +4,7 @@ import { useState } from "react"
 import {DeleteProduct,
 	DuplicateProduct} from 'utils'
 import Image from "next/image"
+import {HandleBar, EditPen, AddLecture} from 'utils'
 
 export default function AddSection ({setIsTabsActive, setMajorPage}){
     const [sections, setSections] = useState([{
@@ -67,9 +68,9 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
             return [...prev]
         })
     }
-    const toManageSection = ()=>{
+    const toSection = (section)=>{
         setIsTabsActive(false)
-        setMajorPage('manage-section')
+        setMajorPage(section)
     }
     return(
 
@@ -77,13 +78,14 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
             {sections.map((item, index)=>(
                 <div key={index} className={styles.section}>
                     <div className="flex justify-between items-center">
-                        <div className="">
-                            <h2 onClick={(e)=> handleClick(e.target)} className="text-base font-medium cursor-pointer">{item.name ? item.name : "Section Name"}</h2>
+                        <div className="flex items-center">
+                            <Image src={HandleBar} alt="handle" />
+                            <h2 onClick={(e)=> handleClick(e.target)} className="text-base mb-0 ml-2 font-medium cursor-pointer">{item.name ? item.name : "Section Name"}</h2>
                             <Input autoFocus={true} style={{display: "none"}} value={item.name} onBlur={(e)=>handleBlur(e.target)} onChange={(e)=> handleChange(e.target.value, index)} placeholder="Introduction" />
                         </div>
                         <div className="flex items-center">
                             <div className={styles.manageButton + " mr-3"}>
-                                <Button onClick={()=>toManageSection()} type="primary" style={{color: "#0072ef", border: " 2px solid #0072ef"}}>Manage Section</Button>
+                                <Button onClick={()=>toSection('manage-section')} type="primary" style={{color: "#0072ef", border: " 2px solid #0072ef"}}>Manage Section</Button>
                             </div>
                             <Tooltip color="white" overlayInnerStyle={{color: "black"}} placement="top" title="Duplicate">
                                 <div className={styles.manageIcon + " mr-3"}>
@@ -100,13 +102,14 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
                     {
                         item.lectures.map((lecture, idx)=>(
                         <div key={idx} className="flex mt-5 ml-5 justify-between items-center">
-                            <div className="">
-                                <h2 onClick={(e)=> handleClick(e.target)} className="text-base font-medium cursor-pointer">{lecture.lecture_name ? lecture.lecture_name : "Lecture Name"}</h2>
+                            <div className="flex items-center">
+                                <Image src={HandleBar} alt="handle" />
+                                <h2 onClick={(e)=> handleClick(e.target)} className="text-base mb-0 ml-2 font-medium cursor-pointer">{lecture.lecture_name ? lecture.lecture_name : "Lecture Name"}</h2>
                                 <Input autoFocus={true} style={{display: "none"}} value={item.lectures[idx].lecture_name} onBlur={(e)=>handleBlur(e.target)} onChange={(e)=> handleLectureChange(e.target.value, index, idx)} placeholder="Brief" />
                             </div>
                             <div className="flex items-center">
                                 <div className={styles.manageButton + " mr-3"}>
-                                    <Button type="primary" style={{color: "#00b140", border: " 2px solid #00b140"}}>Manage Lecture</Button>
+                                    <Button onClick={()=> toSection('manage-content')} type="primary" style={{color: "#00b140", border: " 2px solid #00b140"}}>Manage Lecture</Button>
                                 </div>
                                 <Tooltip color="white" overlayInnerStyle={{color: "black"}} overlayStyle={{backgroundColor: "white"}} placement="top" title="Duplicate">
                                     <div className={styles.manageIcon + " mr-3"}>
@@ -122,13 +125,14 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
                         </div>
                         ))
                     }
-                    <div className="flex mt-5">
-                        <h2 onClick={()=> addNewLecture(index)} className="text-base font-medium cursor-pointer">Add a Lecture</h2>
+                    <div className="flex items-center mt-5">
+                        <Image src={AddLecture} alt="add" />
+                        <h2 onClick={()=> addNewLecture(index)} className="text-base mb-0 ml-2 font-medium cursor-pointer">Add a Lecture</h2>
                     </div>
                 </div>
                 ))
             }
-            <div className={styles.miniSaveButton + " mt-5"}>
+            <div className={styles.miniSaveButton + "flex mt-5"}>
                     <Button onClick={()=> addSection()} type="primary">+ Add New Section</Button>
             </div>
         </div>

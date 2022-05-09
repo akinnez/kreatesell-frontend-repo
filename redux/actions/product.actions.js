@@ -57,18 +57,17 @@ export const GetProducts = () => {
 		product_Name = "",
 		StartDate,
 		endDate,
-		Status,
 		successCallback,
 		errorCallback
-	) => (
+	) => {
 		dispatch({ type: types.GET_ALL_PRODUCTS.REQUEST }),
+		console.log(product_Name, StartDate, endDate)
 		axios.request(
 			`get`,
 			`v1/kreatesell/product/fetch/all?page=${page}
 			${product_Name ? `&product_name=${product_Name}` : ""}
 			${StartDate ? `&StartDate=${StartDate}` : ""}
 			${endDate ? `&endDate=${endDate}` : ""}
-			${Status ? `&Status=${Status}` : ""}
 			`,
 			(res) => {
 				const products = res?.data?.data;
@@ -86,8 +85,9 @@ export const GetProducts = () => {
 				showToast(err?.message, "error");
 				errorCallback?.();
 			}
-		)
+	
 	);
+	}
 };
 
 export const GetProductTypes = () => {

@@ -97,24 +97,26 @@ import FileDelete from "../public/images/Delete.svg";
 import CloudUploadDisable from "../public/images/CloudUpload-disabled.svg";
 import NotificationPlaceholder from "../public/images/notifications.svg";
 import ProductNotificationImage from "../public/images/product_image.png";
-import tick from "../public/images/tick.svg";
 import UserImage from "../public/images/user_image.png";
-import TechCabal from "../public/images/tech-cabal.svg";
-import Guardian from "../public/images/guardian.svg";
-import TechCrunch from "../public/images/tech-crunch.svg";
-import Vanguard from "../public/images/vanguard.svg";
-import TechCity from "../public/images/tech-city.svg";
-import Punch from "../public/images/punch.svg";
+import tick from "../public/images/tick.svg";
+import AddLecture from "../public/images/unkown1.svg";
+import EditPen from "../public/images/unkown2.svg";
+import HandleBar from "../public/images/unkown3.svg";
+import Subscribers from "../public/images/unkown4.svg";
+import Audio from "../public/images/unkown5.svg";
+import Edit from "../public/images/unkown6.svg";
+import Video from "../public/images/unkown7.svg";
 
 export {
-  Vanguard,
-  TechCity,
-  Punch,
-  TechCabal,
-  Guardian,
-  TechCrunch,
   RightPreviewArrow,
   CloudUploadDisable,
+  AddLecture,
+  EditPen,
+  HandleBar,
+  Subscribers,
+  Audio,
+  Edit,
+  Video,
   FileZip,
   FileDelete,
   LeftPreviewArrow,
