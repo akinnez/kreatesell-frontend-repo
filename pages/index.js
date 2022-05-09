@@ -201,7 +201,7 @@ export default function Home() {
           <div className={styles.howItWorkstitleCont}>
             <h3 className={styles.howItWorksTitle}>How it works</h3>
             <p className={styles.howItWorksSubTitle}>
-              Amazing all-in-one tools that bring a winning customer experience
+              Set up your sales converting store in 3 easy steps
             </p>
           </div>
 
