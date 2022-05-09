@@ -234,7 +234,7 @@ const ActionComponent = ({ item, showAction }) => {
 
   <li className={styles.deletePop + " flex items-center cursor-pointer"}>
   <Popconfirm
-    title="Are you sure to delete this task?"
+    title={<p className="mb-0 text-sm ">Are you sure to <h2 className="text-base font-semibold">Deactivate</h2> this product?</p> }
     onConfirm={handleModalOk}
     // onCancel={cancel}
     okText="Delete"
