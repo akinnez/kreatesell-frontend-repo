@@ -12,6 +12,12 @@ import {
   RightArrow,
   LandingPageHero,
   AirBnBLogo,
+  Vanguard,
+  TechCity,
+  Punch,
+  TechCabal,
+  Guardian,
+  TechCrunch,
   MicrosoftLogo,
   AddProduct,
   CreateStore,
@@ -121,34 +127,38 @@ export default function Home() {
           <div
             {...Animate("zoom-in", 100, "ease-in")}
             className={styles.heroImage}
-            onClick={() => setVisible(!modalVisible)}
           >
-            <Image src={LandingPageHero} alt="kreatesell hero" />
+            <Image
+              src={LandingPageHero}
+              alt="kreatesell hero"
+              onClick={() => setVisible(!modalVisible)}
+            />
           </div>
 
           <div className={styles.featured}>
             <h5 className={styles.title}>As featured in</h5>
+            {/* desktop */}
             <div
               className={styles.featuredImages}
               {...Animate("fade-up", 100, "ease")}
             >
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} alt="airBnB" />
+                <Image src={TechCrunch} alt="tech crunch" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} alt="microsoft logo" />
+                <Image src={TechCabal} alt="tech cabal" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} alt="airBnB" />
+                <Image src={TechCity} alt="tech city" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} alt="microsoft logo" />
+                <Image src={Guardian} alt="guardian" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} alt="airbnb logo" />
+                <Image src={Punch} alt="punch" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} alt="microsoft logo" />
+                <Image src={Vanguard} alt="vanguard" />
               </div>
             </div>
 
@@ -160,16 +170,13 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={TechCrunch} alt="tech crunch" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={TechCabal} alt="tech cabal" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
-                </div>
-                <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={TechCity} alt="tech city" />
                 </div>
               </div>
 
@@ -177,16 +184,13 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={Guardian} alt="guardian" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={Punch} alt="punch" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
-                </div>
-                <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={Vanguard} alt="vanguard" />
                 </div>
               </div>
             </div>
