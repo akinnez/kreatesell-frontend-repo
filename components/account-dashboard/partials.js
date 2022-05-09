@@ -9,13 +9,13 @@ export const dayOptions = [
 ];
 
 export const currencyOptions = [
-	{ value: "Nigeria", label: "NGN" },
+	{ value: "NGN", label: "NGN" },
 	{ value: "USA", label: "USD" },
-	{ value: "Spain", label: "GBP" },
-	{ value: "Spain", label: "KES" },
-	{ value: "Spain", label: "ZAR" },
-	{ value: "Spain", label: "TZX" },
-	{ value: "Spain", label: "UGX" },
+	{ value: "GBP", label: "GBP" },
+	{ value: "KES", label: "KES" },
+	{ value: "ZAR", label: "ZAR" },
+	{ value: "TZX", label: "TZX" },
+	{ value: "UGX", label: "UGX" },
 ];
 
 export const kreatorsOptions = [

@@ -1,5 +1,3 @@
-// import { Select, Input } from "components";
-import { SVGFilter } from "../../utils";
 import Image from "next/image";
 import { dayOptions, currencyOptions } from "./partials";
 import styles from "../../public/css/Dashboard.module.scss";
@@ -18,25 +16,22 @@ export const CouponHeader = ({
 	const [isFiltered, setIsFiltered] = useState(false);
   //   Email: salvoprograms@gmail.com
   // Pass: Salvo$123
+  const format = 'YYYY-MM-DD'
 	return (
 		<div>
           <Form
-            // onFinish={handleSubmitFilter}
+            onFinish={handleSearchSubmit}
             size="large"
-			layout="vertical"
+			      layout="vertical"
             form={form}
           >
             <Row gutter={4} align="bottom" justify="space-between">
-				<Col 
-          span={5}
-				>
-					<Form.Item label="Search" name="search">
-						<Input placeholder="Click here to Search"/>
-					</Form.Item>
-				</Col>
-              <Col
-				span={4}
-              >
+              <Col span={5}>
+                <Form.Item label="Search" name="search">
+                  <Input onChange={handleSearchInput} placeholder="Click here to Search"/>
+                </Form.Item>
+              </Col>
+              <Col span={4}>
                 <Form.Item label="Show" name="show">
                   <Select
                     options={dayOptions}
@@ -46,9 +41,7 @@ export const CouponHeader = ({
                   />
                 </Form.Item>
               </Col>
-              <Col
-				span={4}
-              >
+              <Col span={4}>
                 <Form.Item label="Currency" name="currency">
                   <Select
                     options={currencyOptions}
@@ -58,32 +51,26 @@ export const CouponHeader = ({
                   />
                 </Form.Item>
               </Col>
-              <Col
-                span={3}
-              >
+              <Col span={3}>
                 <Form.Item label="From" name="from">
                   <DatePicker
                     placeholder="2021-07-22"
-                    // onChange={handleDatePicker("from")}
-                    allowClear={false}
+                    onChange={handleStartDate}
+                    format={format}
+
                   />
                 </Form.Item>
               </Col>
-              <Col
-                span={3}
-              >
+              <Col span={3}>
                 <Form.Item label="To" name="to">
                   <DatePicker
                     placeholder="2021-07-22"
-                    // onChange={handleDatePicker("to")}
-                    allowClear={false}
+                    onChange={handleEndDate}
+                    format={format}
                   />
                 </Form.Item>
               </Col>
-              <Col
-			  	      span={2}
-                className={styles.filter__btn}
-              >
+              <Col span={2} className={styles.filter__btn}>
                 <Form.Item>
                   <Button type="primary" style={{borderRadius: "8px"}} htmlType="submit">
                     <Image

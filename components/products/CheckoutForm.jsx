@@ -217,6 +217,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     delete data?.upload_content || data?.product_details?.upload_content;
     delete data?.upload_preview;
     // delete data?.product_listing_status;
+    delete data?.preorder_details
 
     if (promotionalMaterial.length < 1) {
       delete data?.promotional_items;
@@ -236,7 +237,17 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     }
     const checkedData = checkArrays(data)
     console.log(checkedData)
-    createProduct(checkedData, () => 
+    const formdata = new FormData()
+    for(let value in checkedData){
+      if(typeof checkedData[value] === 'object'&& !(checkedData[value] instanceof Array)){
+        for(let inner in checkedData[value]){
+          formdata.append(`${value}.${inner}`, checkedData[value][inner])
+        }
+        continue
+      }
+      formdata.append(value, checkedData[value])
+    }
+    createProduct(formdata, () => 
     router.push(`/account/kreator/products/preview/${productID}`)
     );
   };
@@ -366,7 +377,19 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   //Updating Formik values
   useEffect(()=>{
-    setFieldValue("pricing_type_id", 1);
+    switch(priceType){
+      case "Fixed Price": 
+        return setFieldValue("pricing_type_id", 1)
+      case "Pay What You Want":
+        return setFieldValue("pricing_type_id", 2);
+      case "Installment Payment":
+        return setFieldValue("pricing_type_id", 3);
+      case "Make It Free":
+        return setFieldValue("pricing_type_id", 4);
+
+    }
+  }, [priceType])
+  useEffect(()=>{
     setFieldValue("cta_button", ctaBtnText)
     setFieldValue("selling_prices", [...fixedSellingPrice])
     setFieldValue("is_show_compare_price", compareToPrice)

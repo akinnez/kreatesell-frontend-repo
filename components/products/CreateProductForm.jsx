@@ -47,8 +47,8 @@ export const CreateProductForm = ({
   const { listingStatus, loading, productID, product } = useSelector(
     (state) => state.product
   );
-  const [productFile, setProductFile] = useState([]);
-
+  const [productFile, setProductFile] = useState(null);
+  const [initialProduct, setInitialProduct] = useState(null)
   const filterListingStatus = (id) =>
     listingStatus?.filter((item) => item.id === id);
 
@@ -77,10 +77,7 @@ export const CreateProductForm = ({
       preorder_release_date: "",
       is_preorder_downloadable: true,
     },
-    content_file_details: {
-      product_files: [],
-      file_access_type: 1,
-    },
+    contentZipFiles: "",
     action: !isAnEmpytyObject(product) ? "e" : "c",
     kreatesell_id: "",
     product_type_id: 1,
@@ -89,14 +86,14 @@ export const CreateProductForm = ({
     cta_button: "",
     product_id: 0,
     product_images: {
-      product_files: []
+      product_Files: []
     },
     product_details: "",
   };
 
   const handleSubmit = (data) => {
     if (["oneTimeSubscription", "membership"].includes(productType)) {
-      delete data?.content_file_details;
+      delete data?.contentZipFiles;
       delete data?.upload_content;
       delete data?.upload_preview;
     }
@@ -104,10 +101,20 @@ export const CreateProductForm = ({
       delete data.preorder_details;
     }
     if (!data.upload_content){
-      delete data.content_file_details
+      delete data.contentZipFiles
     }
     console.log(data)
-    createProduct(data, () => {
+    const formdata = new FormData()
+    for(let value in data){
+      if(value !== 'contentZipFiles' && typeof data[value] === 'object'){
+        for(let inner in data[value]){
+          console.log(data[value][inner])
+          formdata.append(`${value}.${inner}`, data[value][inner])
+        }
+      }
+      formdata.append(value, data[value])
+    }
+    createProduct(formdata, () => {
       setProductTab(1);
     });
   };
@@ -138,10 +145,6 @@ export const CreateProductForm = ({
     getListingStatus();
   }, []);
   
-  useEffect(()=>{
-    setFieldValue("product_images.product_files", [...imageUploads.map(file => file.url ? file.url : file.file.filename)])
-  }, [imageUploads])
-
   useEffect(() => {
     if (productID) {
       getProductByID(productID);
@@ -151,6 +154,7 @@ export const CreateProductForm = ({
   useEffect(()=>{
     console.log('here', product)
   }, [product])
+  
   useEffect(()=>{
     if(imageUploads.length >= 3){
       setIsImageFilled(true)
@@ -161,15 +165,10 @@ export const CreateProductForm = ({
 
   useEffect(()=>{
     setFieldValue('product_details', contents)
-  }, [contents])
-
-  useEffect(()=>{
-    setFieldValue("content_file_details.product_files", [...productFile])
-  }, [productFile])
-
-  useEffect(()=>{
+    setFieldValue("product_images.productFiles", [...imageUploads.map(file => file.url ? file.url : file.file.filename)])
     setFieldValue('product_type_id', productTypeId)
-  }, [productTypeId])
+    setFieldValue("contentZipFiles", productFile)
+  }, [productTypeId, productFile, contents, imageUploads])
 
   useEffect(() => {
     if(Object.keys(product).length > 0){
@@ -207,9 +206,24 @@ export const CreateProductForm = ({
         "product_listing_status",
         product?.product_details?.product_listing_status
       );
-      setFieldValue("product_images.product_files", product?.product_images.map(item => item.filename))
-     setFiles(imageIsEdits(product?.product_images))
+      setFieldValue("product_images.productFiles",  ...product.product_images.filter(images => images.file_type !== 4).map(item => {
+        const arr = item.filename.split(',')
+        return [...arr]
+      }))
+     setFiles(imageIsEdits(...product?.product_images.filter(images => images.file_type !== 4).map(item => {
+      const arr = item.filename.split(',')
+      const truc = arr.map(item => {
+        return {
+          filename: item
+        }
+      })
+      return truc
+    })))
      setContents(product?.product_details?.product_details)
+     if(product.product_details.upload_content){
+       setContentFiles(product.product_details.upload_content)
+       setInitialProduct(product.product_images.filter(images => images.file_type === 4))
+     }
     }
   }, [product]);
 
@@ -339,6 +353,7 @@ export const CreateProductForm = ({
                 <h2 className="text-black-100 font-semibold text-lg">Content File</h2>
                 <div className="flex">
                   <Switch
+                    checked={contentFiles ? true : false}
                     onChange={(e) => {
                       setContentFiles((value) => !value);
                       setFieldValue("upload_content", e);
@@ -352,7 +367,7 @@ export const CreateProductForm = ({
             )}
 
             {contentFiles && (
-              <FileUpload file={productFile} setFile={setProductFile}/>
+              <FileUpload initialFile={initialProduct} file={productFile} isToggleable={true} toggleValue={contentFiles} setFile={setProductFile}/>
             )}
           </div>
         </Form.Item>
