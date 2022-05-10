@@ -2,7 +2,7 @@
 
 .request__link > a {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700;
   color: colors.$base-blue;
   width: 134px;
   display: inline-flex;
@@ -10,6 +10,11 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid colors.$base-blue;
+
+  &[disabled] {
+    border-color: #bfbfbf;
+    color: #bfbfbf;
+  }
 
   svg {
     display: inline;
