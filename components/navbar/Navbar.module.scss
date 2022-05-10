@@ -94,14 +94,18 @@
 .btnLinks {
   @include flex(row, null, center);
   width: 20%;
+  // here
+  // margin-right: 2rem;
 }
 
 .mobileBtnLinks {
   display: none;
+  // margin-right: 2rem;
   @include screen("medium") {
     display: flex;
     justify-content: flex-end;
-
+    //here
+    // margin-right: 2rem;
     .loginBtn {
       .loginBtnStyle {
         border: none;

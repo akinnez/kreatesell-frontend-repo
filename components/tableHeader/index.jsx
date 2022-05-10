@@ -2,7 +2,6 @@ import {
   MailClipboard,
   _copyToClipboard,
   DeactvateProduct,
-  DeleteProduct,
   DuplicateProduct,
   EditProduct,
   ManageProduct,
@@ -13,7 +12,7 @@ import {
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { useState } from "react";
-import { Modal } from "antd";
+import { Modal, Tag, Tooltip, Popover,Popconfirm } from "antd";
 import { Button } from "components";
 import { useRouter } from "next/router";
 import { format, parseISO } from "date-fns";
@@ -151,33 +150,28 @@ const ModalPrompt = ({ handleCancel, onOk, modalText, productName }) => {
   );
 };
 
-const StatusComponent = ({ item }) => {
-  const statusList = {
-    1: "Draft",
-    2: "Live",
-    3: "Deactivated",
-    4: "Flagged",
-    5: "Revoked",
-  };
-
+const StatusComponent = (item) => {
   const statusTextList = {
-    1: "You need to complete the editing of this product before it is published.",
-    2: "Your product will go live and visible to audience for purchase once you complete creating the sales page.",
-    3: " No one can see this product. You may reactivate it anytime you like.",
-    4: "Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment.",
-    5: " Product violated copyright terms and has been removed permanently.",
-  };
-
-  const status = statusList[item]?.toLowerCase();
-  const statusText = statusTextList[item];
-
+    "1": {type: "draft", styles:{background: "rgba(255, 214, 102, 0.2)", color: "#FBB500" }, contents:"You need to complete the editing of this product before it is published."},
+    "2": {type: "live", styles:{background: "#F1FCF8", color: "#2DC071" }, contents:"Your product will go live and visible to audience for purchase once you complete creating the sales page."},
+    "3": {type: "deactivated", styles:{background: "rgba(255, 77, 79, 0.1)", color: "#F90005" }, contents:" No one can see this product. You may reactivate it anytime you like."},
+    "4": {type: "flagged", styles:{background: "#F5F5F5", color: "#595959" }, contents:"Product draws our attention and it's temporarily deactivated; Might be restored if it passes our assessment."},
+    "5": {type: "revoked", styles:{background: "#F5F5F5", color: "#595959" }, contents:" Product violated copyright terms and has been removed permanently."}
+  }
+  let tagStyles = statusTextList[item].styles
+  let content = statusTextList[item].contents;
+  const mainType = statusTextList[item].type
   return (
-    <div>
-      <div className={`status-${status} ${styles.tooltip}`}>
-        {status}
-        <span className={styles.tooltiptext}>{statusText}</span>
-      </div>
-    </div>
+      <Tooltip 
+        overlayInnerStyle={
+          {fontSize: "10px", textAlign: "center"}
+        }
+        overlayStyle={{width: "150px", borderRadius: "10px", padding: "20px 8px"}}
+       className="text-xs" placement="top" title={content}>
+        <div className={styles.tags} style={tagStyles}>
+          {mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+        </div>
+      </Tooltip>
   );
 };
 
@@ -191,155 +185,104 @@ const ActionComponent = ({ item, showAction }) => {
 
   const id = item?.product_details?.id;
   const kreasell_product_id = item?.product_details?.kreasell_product_id;
-  const productName = item?.product_details?.product_name;
-
-  const [menu, setMenu] = useState(false);
-
-  const [modalVisible, setVisible] = useState(false);
-  const [modalText, setModalText] = useState("");
-
-  const showModal = (text) => {
-    setVisible(true);
-    setModalText(text);
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
+  const productName = item?.product_details?.product_name
 
   /**Used to delete and deactivate product */
   const handleModalOk = () => {
-    createEditDeleteProduct({ product_id: id, action: "d" }, () => {
-      setVisible(false);
-      getProducts();
+    return new Promise(resolve => {
+      const formdata = new FormData()
+      formdata.append('product_id', id)
+      formdata.append('action', 'd')
+      createEditDeleteProduct(formdata, () => {
+        getProducts();
+        resolve()
+      });
     });
   };
+  let content = (
+  <ul>
+  <li className="flex items-center cursor-pointer"
+    onClick={() => {
+      setProductID(kreasell_product_id);
+      router.push("/account/kreator/products/create");
+      setProductTab(0);
+    }}
+  >
+    <span>
+      <Image alt="" src={EditProduct} />
+    </span>
+    <p className="mb-0 ml-3">Edit Product</p>
+  </li>
 
+  <li className="flex items-center cursor-pointer" onClick={() => _copyToClipboard(id, "Product Link Copied")}>
+    <span>
+      <Image alt="" src={ManageProduct} />
+    </span>
+    <p className="mb-0 ml-3">Copy Link</p>
+  </li>
+
+  <li onClick={() => router.push(`/account/kreator/products/preview/${kreasell_product_id}`)} className="flex items-center cursor-pointer">
+    <span>
+      <Image alt="" src={ViewSales} />
+    </span>
+    <p className="mb-0 ml-3"> Preview</p>
+  </li>
+
+  <li className="flex items-center cursor-pointer" onClick={() => duplicateProduct(id, () => getProducts())}>
+    <span>
+      <Image alt="" src={DuplicateProduct} />
+    </span>
+    <p className="mb-0 ml-3">Duplicate</p>
+  </li>
+
+  <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+  <Popconfirm
+    title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this product?</pre> }
+    onConfirm={handleModalOk}
+    // onCancel={cancel}
+    okText="Delete"
+    cancelText="Cancel"
+    icon={<></>}
+    placement="bottom"
+    overlayClassName={styles.popConfirm}
+  >
+    <span>
+      <Image alt="" src={DeactvateProduct} />
+    </span>
+      <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
+  </Popconfirm>
+  </li>
+</ul>
+)
   return (
-    <div className="relative" key={id}>
-      <div
-        className="hidden lg:block cursor-pointer pl-4"
-        onClick={() =>
-          menu || typeof menu === "undefined" ? setMenu(false) : setMenu(true)
-        }
-      >
-        ...
-      </div>
-
-      <div
-        className={` ${styles.action} ${
-          menu || showAction ? "visible" : "hidden"
-        }`}
-      >
-        <ul>
-          <li
-            onClick={() => {
-              setProductID(kreasell_product_id);
-              router.push("/account/kreator/products/create");
-              setProductTab(0);
-            }}
-          >
-            <span>
-              <Image alt="" src={EditProduct} />
-            </span>
-            <p>Edit</p>
-          </li>
-
-          <li>
-            <span>
-              <Image alt="" src={ManageProduct} />
-            </span>
-            <p>Manage Product</p>
-          </li>
-
-          <li>
-            <span>
-              <Image alt="" src={ViewSales} />
-            </span>
-            <p>View Sales</p>
-          </li>
-
-          <li onClick={() => duplicateProduct(id, () => getProducts())}>
-            <span>
-              <Image alt="" src={DuplicateProduct} />
-            </span>
-            <p>Duplicate</p>
-          </li>
-
-          <li onClick={() => showModal("deactivate")}>
-            <span>
-              <Image alt="" src={DeactvateProduct} />
-            </span>
-            <p>Deactivate (Unpublish)</p>
-          </li>
-
-          <li onClick={() => showModal("delete")}>
-            <span>
-              <Image alt="" src={DeleteProduct} />
-            </span>
-            <p>Delete</p>
-          </li>
-        </ul>
-      </div>
-
-      <Modal
-        title=""
-        visible={modalVisible}
-        onOk={handleModalOk}
-        onCancel={handleCancel}
-        footer=""
-        closable={false}
-        className={styles.modalContainer}
-        width="312"
-      >
-        <ModalPrompt
-          handleCancel={handleCancel}
-          onOk={handleModalOk}
-          modalText={modalText}
-          productName={productName}
-        />
-      </Modal>
-    </div>
+    <Popover overlayStyle={{width: "150px", padding: '0'}} placement="bottomLeft" overlayClassName={styles.action} content={content} title="" trigger="click">
+      <h2 className="font-semibold cursor-pointer text-lg">...</h2>
+    </Popover>
   );
 };
 
 export const AllProductsTableHeader = [
   {
-    title: "Product",
-    dataIndex: "product_name",
+    title: '',
+    dataIndex: "product_image",
+    render: (item)=> {
+      return (
+      <div className={styles.productTableImage}>
+        { item !== undefined && item.length > 0 && <Image src={item[0]} width="100" height={100}  objectFit="cover" alt="Product" />}
+      </div>
+    )
+  }
   },
   {
-    title: "Product Link",
-    dataIndex: "product_link",
+    title: "Product",
+    dataIndex: "product_name",
     render: (item) => (
-      <div className="">
-        <a
-          href={item}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="productTooltip"
-        >
-          {item?.slice(0, 30)}...
-          <div className="tooltipText flex justify-between items-center">
-            <span className="text-black-100">Go to link: </span>
-            <span
-              href={item}
-              target="_blank"
-              className="pl-2 pr-4"
-              rel="noopener noreferrer"
-            >
-              {item}
-            </span>
-            <span
-              className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
-              onClick={() => _copyToClipboard(item, "Product Link Copied")}
-            >
-              <Image alt="" src={MailClipboard} />
-            </span>
-          </div>
-        </a>
+      <div className={styles.productTableName + " flex flex-col"}>
+        <h2 className="text-lg mb-1 font-semibold">{item}</h2>
+        <p className="text-xs mb-2 w-3/4 px-2 py-1 text-center border-green-400 rounded-md border-2"> Unlimited Copies</p>
+        <p className="text-xs font-normal"> 20 copies sold</p>
       </div>
-    ),
+    )
   },
   {
     title: "Product Type",
@@ -359,14 +302,17 @@ export const AllProductsTableHeader = [
     dataIndex: "date_created",
     render: (item) => {
       const time = parseISO(item);
-      const formatTime = format(time, "PPpp");
-      return <div>{formatTime}</div>;
+      const formatTime = format(time, "PPPp");
+      return <div className="flex flex-col items-center">
+          <div>{`${formatTime.split('at')[0]},`}</div>
+          <div>{formatTime.split('at')[1]}</div>
+        </div>;
     },
   },
   {
     title: "Status",
     dataIndex: "status",
-    render: (item) => StatusComponent({ item }),
+    render: (item) => StatusComponent(item),
   },
   {
     title: "Actions",
@@ -461,16 +407,11 @@ export const AllCouponTableHeader = [
 		dataIndex: "more",
 	},
 ];
-const emptyComponent = ()=>{
+export const emptyComponent = (text)=>{
 	return(
 		<div className={styles.emptyTable+ " flex flex-col"}>
 			<Image alt="" src={EmptyDataTable}/>
-			<h2 className={styles.lightGrey + " mt-5 font-semibold text-2xl"}> No content has been added</h2>
+			<h2 className={styles.lightGrey + " mt-5 font-semibold text-lg"}>{text? text :"No content has been added"}</h2>
 		</div>
-	)
-}
-export const tableLocale = {
-	emptyText: (
-		emptyComponent()
 	)
 }

@@ -27,42 +27,58 @@
         }
 
         .radioContent{
+            align-items: baseline !important;
             span:last-child{
                 font-weight: 500;
                 font-size: 1.15em;
             }
         }
         .switchContent{
-            & > span{
-                font-weight: 500;
-                font-size: 1.15em;
-            }
-            label{
-                span{
-                    background-color: rgb(252, 150, 165);
-                }
-            }
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
         }
         .inputGroup{
-            & > div{
-                border-radius: 4px;
-                & > div:first-of-type{
-                        background-color: white;
-                        font-size: 1em;
-                        border-radius: 4px;
-                        border: 1px solid #d9d9d9;
-                        height: 3.5em;
-                    & > div:first-child{
-                        display: flex;
-                        flex-grow: 1;
-                        align-items: baseline;
-
-                        select{
-                            min-width: 0;
-                            width: 25px;
-                        }
-                    }
-                }
+            input{
+                height: 2.5rem;
+            }
+        }
+        .selectField{
+            margin-top: 8px;
+            & > div {
+                border-radius: 8px;
+                height: 3rem;
+                align-items: center;
+            }
+        }
+        .errorContent{
+            background-color: $error-bg;
+            margin: 24px 0;
+            display: flex;
+            padding: 8px 8px 8px 32px;
+            align-items: center;
+            h2{
+                color: $error-main;
+                margin-left: 24px;
+                margin-bottom: 0;
+            }
+    
+        }
+        .submitBtn{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            button{
+                width: 40%;
+                height: 3rem;
+                font-weight: 700;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 8px;
+                margin: 0 auto;
             }
         }
     }

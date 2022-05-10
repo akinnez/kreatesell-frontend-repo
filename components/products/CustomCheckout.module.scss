@@ -1,0 +1,61 @@
+@import "../../public//css/colors.scss";
+@import "../../public//css/mixins.scss";
+@import "../../public//css/screens.scss";
+
+
+.selectButton{
+    width: 91px;
+    
+     div {
+        border-radius: 8px !important;
+    }
+    & > div:first-child{
+        height: 2.5rem;
+    }
+}
+.inputButton{
+    width: 86px;
+    margin: 0 4px;
+}
+.addCurrency{
+    width: 124px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.currencyField{
+    width: 85%;
+    border: 2px solid $gray-100;
+    border-radius: 8px;
+    min-height: 150px;
+    padding: 14px 2em;
+
+    .currencyButtons{
+        background-color: $white-200;
+        padding: .7em 1em;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        p{
+            cursor: pointer;
+        }
+    }
+}
+.optionField {
+    align-items: center;
+    display: flex;
+}
+
+.countriesFlag{
+    width: 15px;
+    height: 15px;
+    position: relative;
+
+    img{
+        border-radius: 50%;
+    }
+}

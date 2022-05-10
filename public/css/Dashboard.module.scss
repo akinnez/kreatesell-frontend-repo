@@ -4,7 +4,7 @@
 
 .container {
 	width: 100%;
-
+  
 	.selector {
 		background: $white-100;
 		@include flex(row, center, null);
@@ -323,7 +323,7 @@
 			grid-column-end: 4;
 		}
 	}
-
+	
 	.search {
 		height: 2.75rem;
 	}
@@ -341,4 +341,10 @@
 			margin-right: 0 !important;
 		}
 	}
+	
+}
+.selectRadius{
+	& > div:first-child{
+	  border-radius: 8px !important;
+  }
 }

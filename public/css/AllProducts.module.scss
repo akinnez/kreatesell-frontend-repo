@@ -18,15 +18,36 @@
 		line-height: 16px;
 		font-weight: 600;
 		width: 20%;
-		padding: 1.5em 0.5em;
+		padding: 1.2em 0.5em;
 		text-align: center;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		font-size: 1.2em;
+		margin-top: 1em;
 	}
 }
 
+.productTableImage{
+	width: 100px;
+	height: 100px;
+	border-radius: 8px;
+
+	img {
+		border-radius: 8px;
+	}
+}
+.productTableName {
+	width: 200px;
+
+	h2{
+		word-wrap: break-word;
+	}
+	p:first-child{
+		width: 56px;
+		padding: 6px;
+	}
+}
 .tooltip {
 	position: relative;
 }
@@ -67,67 +88,74 @@
 }
 
 .action {
-	min-height: 25vh;
-	width: 8rem;
-	background: $base-white;
-	border-radius: 0.5rem;
-	color: $base-white;
-	margin-top: 0.7rem;
-	position: absolute;
-	z-index: 1;
-	box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.3);
+	cursor: pointer;
 
-	::after {
-		content: "";
-		position: absolute;
-		bottom: 100%;
-		left: 18%;
-		margin-left: -5px;
-		border-width: 5px;
-		border-style: solid;
-		border-color: transparent transparent white transparent;
-	}
-
-	@include screen("medium") {
-		right: 2%;
-
-		::after {
-			content: "";
-			position: absolute;
-			bottom: 100%;
-			left: 90%;
-			margin-left: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: transparent transparent blwhitee transparent;
+	div{
+		& > div:last-child{
+			& > div:first-child{
+				padding: 0;
+			}
 		}
 	}
-
 	ul {
 		li {
 			height: 44px;
 			border-bottom: 0.5px solid $gray-100;
-			padding-left: 0.8rem;
-			padding-right: 0.5rem;
+			padding-bottom: 0.5rem;
+			padding-top: .5rem;
 			display: flex;
 			align-items: center;
 			cursor: pointer;
-			margin-top: 0.5rem;
-			margin-bottom: 0.5rem;
 			color: $gray-200;
+			padding-left: 1em;
 
 			&:last-child {
 				border-bottom: none;
 			}
-
-			p {
-				padding-top: 0.4rem;
-				padding-left: 0.5rem;
+		}
+	}
+}
+.popConfirm{
+	width: 250px;
+	div{
+		& > div:last-child{
+			div{
+				padding: .8em;
+				& > div:first-child{
+					div{
+						font-size: 16px;
+						color: $gray-200;
+						
+						pre {
+							font-family: inherit;
+							width: 100%;
+							text-align: center;
+						}
+					}
+				}
+				& > div:last-child{
+					display: flex;
+					justify-content: space-between;
+					
+					button{
+						border-radius: 8px;
+						padding: 1.3em 1em;
+					}
+					& >button:first-child{
+						background-color: $white-200 !important;
+						color: $gray-600;
+						border: 2px solid  $white-200;
+					}
+					& >button:last-child{
+						background-color: $base-white !important;
+						color: $notification-bg;
+						border: 2px solid $error-main;
+					}
+				}
 			}
 		}
 	}
 }
-
 .modalContainer {
 	width: 312px;
 	border-radius: 0.5rem;
@@ -166,7 +194,13 @@
 		margin-right: 0 !important;
 	}
 }
-
+.tags{
+	width: 86px;
+	padding: 5px 8px;
+	text-align: center;
+	border-radius: 8px;
+	cursor: pointer;
+}
 .lightGrey{
 	color: $gray-200;
 }
@@ -174,4 +208,14 @@
 	min-height: 400px;
 	justify-content: center;
 	align-items: center;
+}
+.deletePop{
+	& > span:first-child{
+		display: flex;
+		align-items: center;
+
+		p{
+			margin-left: 1rem;
+		}
+	}
 }

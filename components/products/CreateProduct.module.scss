@@ -17,23 +17,40 @@
 
 .container {
 	.productTypeTab {
-		border: 1px solid $gray-100;
 		border-radius: 0.5rem;
 		font-weight: 400;
 		font-size: 1rem;
 		line-height: 1.625rem;
 		color: $black-100;
-		padding: 0.7rem 1.5rem;
+		padding: 0.7rem 0 0.7rem 1.5rem;
 		margin-bottom: 1.2rem;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
-
+		height: 130px;
+		// transition: .3s all ease;
+		position: relative;
+		border: 2px solid $gray-100;
 		span {
 			color: $gray-200;
 			font-weight: 400;
 			padding-right: 0.75rem;
 			font-size: 0.875rem;
+		}
+		h2 {
+			margin-bottom: 0;
+		}
+		h3{
+			position: absolute;
+			right: -2px;
+			top: 4px;
+			background-color: $base-green-100;
+			padding: 1px 7px;
+			color: $base-white;
+			font-size: .55em;
+			font-weight: 600;
+			letter-spacing: 1px;
+			border: 1px solid $green-200;
 		}
 
 		@include screen("inbetween") {
@@ -51,9 +68,21 @@
 			}
 		}
 
-		&.active,
+		&.active{
+			border: 2px solid $base-blue;
+			color: $base-blue;
+			background: $blue-100;
+
+			h2 {
+				color: $base-blue;
+			}
+			span {
+				color: $base-blue;
+				font-weight: 400;
+			}
+		}
 		&:hover {
-			border: 1px solid $base-blue;
+			border: 2px solid $base-blue;
 			color: $base-blue;
 
 			span {
@@ -63,13 +92,20 @@
 		}
 
 		&:hover {
-			border: 1px solid $base-blue;
+			border: 2px solid $base-blue;
 		}
 	}
 }
 
+.businessPlan{
+	background-color: $white-200;
+	padding: .5em .5em .5em 2em;
+}
+
 .digitalDownload {
 	.inputLabel {
+		font-weight: 600;
+		font-size: 16px;
 		@extend .label;
 	}
 
@@ -81,44 +117,157 @@
 	}
 
 	.upload {
-		border: 1px dotted $base-blue;
+		border: 2px dotted $base-blue;
 		width: 100%;
 		border-radius: 0.5rem;
-		cursor: pointer;
 
 		&.activeUpload {
 			border-top: 8px solid #00b140;
 		}
 	}
-
+	.uploadChart{
+		width: 280px;
+		height: 240px;
+		margin-right: 8px;
+	}
 	.uploadCont {
 		flex-direction: column;
-		padding: 1.5rem 0;
+		height: 100%;
 		display: flex;
-		align-items: center;
-		justify-content: center;
-
+		padding: 45px 0;
+		
+		h5{
+			margin-bottom: 8px;
+		}
+		button {
+			font-weight: 500;
+			width: 124px;
+			height: 40px;
+			border-radius: 8px;
+			align-self: center;
+		}
 		@include screen("medium") {
 			padding: 0.1rem 0;
 		}
 	}
-
-	.contentFileUpload {
-		@extend .upload;
-		// display: flex;
-		// align-items: center;
-		// justify-content: center;
+	.fileUploader{
+		position: relative;
+		& > span{
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			position: absolute;
+			display: block;
+			top: 0;
+			z-index: 99;
+			left: 0;
+		}
 	}
+	.contentFileUpload {
+		padding: .8em;
+		margin-top: 1em;
+		cursor: pointer;
+		@extend .upload;
 
+		p{
+			color: $base-blue;
+		}
+
+	}
+	.contentFileUploadDisabled{
+		background-color: $white-200 !important;
+
+		p{
+			color: $gray-200 !important;
+		}
+	}
+	.fileUpload{
+		margin-top: 35px;
+		.uploaded{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+			border-radius: 8px;
+			background-color: $base-white;
+			padding: 12px 24px;
+			position: relative;
+
+			& > span{
+				width: 100%;
+				height: 100%;
+				background-color: rgba(34, 34, 34, 0.574);
+				position: absolute;
+				display: block;
+				top: 0;
+				z-index: 99;
+				left: 0;
+				border-radius: 8px;
+			}
+		}
+		& > p{
+		   color: $base-green-100;
+	   }
+	}
+	.deleteFile{
+		width: 32px;
+		height: 32px;
+		border: 1px solid #D9D9D9;
+		border-radius: 8px;
+		padding: 4px;
+		cursor: pointer;
+	}
+	.imageContent{
+		width: 100%;
+		height: 68px;
+		border-radius: 8px;
+		margin: 6px 0;
+		padding: 8px 12px;
+		& > div, img{
+			border-radius: 8px;
+		}
+		.imageWrap{
+			width: 52px;
+			height: 52px;
+			margin-right: 8px;
+		}
+	}
 	.noImage {
-		border: 1px solid $gray-100;
-		border-radius: 0.5rem;
-
+		// border: 1px solid $gray-100;
+		width: 435px;
+		background: white;
+		flex: 1;
+		max-height: 240px;
 		@include screen("laptop") {
 			min-height: 20vh;
 		}
 	}
-
+	
+	.isImage {
+		// border: 1px solid $gray-100;
+		width: 435px;
+		box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+		background-color: rgba(34, 34, 34, 0.0300);
+		flex: 1;
+		max-height: 240px;
+		@include screen("laptop") {
+			min-height: 20vh;
+		}
+	}
+	.saveButton{
+		margin: 24px auto 0;
+		width: 10%;
+		button{
+			width: 180px;
+			height: 52px;
+			border-radius: 8px;
+			text-align: center;
+			font-weight: 700;
+			justify-content: center;
+			transform: translateX(-20px);
+			background-color: $base-blue;
+		}
+	}
 	.radioLabel {
 		font-weight: 400 !important;
 		color: $black-100 !important;
@@ -150,5 +299,18 @@
 		width: 15rem;
 		height: 3.3rem;
 		font-size: 1rem;
+	}
+	.errorContent{
+		background-color: $error-bg;
+		margin: 24px 0;
+		display: flex;
+		padding: 8px 8px 8px 32px;
+		align-items: center;
+		h2{
+			color: $error-main;
+			margin-left: 24px;
+			margin-bottom: 0;
+		}
+
 	}
 }

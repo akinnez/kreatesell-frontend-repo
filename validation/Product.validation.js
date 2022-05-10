@@ -8,13 +8,14 @@ export const DigitalProductSchema = () => {
 		),
 		enable_preorder: Yup.boolean(),
 		upload_content: Yup.boolean(),
-		product_visibility_status: Yup.number().required(
-			"Product Visibility status is required"
-		),
+		product_visibility_status: Yup.number(),
 		preorder_details: Yup.object().shape({
 			preorder_release_date: Yup.date(),
 			// preorder_release_date: Yup.date().nullable(),
 			is_preorder_downloadable: Yup.boolean(),
+		}),
+		product_images: Yup.object().shape({
+			productFiles: Yup.array().min(1, "Please upload at least one Product Image to proceed")
 		}),
 		product_type_id: Yup.number(),
 		content_file_details: Yup.object().shape({
@@ -25,6 +26,7 @@ export const DigitalProductSchema = () => {
 		// is_preview_only: true,
 		// redirect_buyer: true,
 		cover_image: Yup.string(),
+		isBasicPlan: Yup.boolean().isFalse("Pre Order feature is for Business plan, kindly upgrade your account")
 	});
 };
 

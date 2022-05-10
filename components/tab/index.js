@@ -17,7 +17,7 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
                 titles?.map((item,i)=>(
                     <li key={i} 
                    onClick={()=>onSelect(i)}
-                    className={active == i ? 'active': active > i ? 'completed':'disabled'}>{item}</li>
+                    className={active == i ? 'active': active > i ? 'completed':'completed'}>{item}</li>
                 ))
             }
           
@@ -38,15 +38,16 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
                 display:flex;
                 gap:10px;
                 padding:0;
-                border-bottom:1px solid #BFBFBF;
                 justify-content:center;
             }
 
             .tab-wrapper li{
-                border-bottom:2px solid transparent;
+                border-bottom:5px solid transparent;
                 padding:10px;
-                font-size:16px;
+                font-size:18px;
                 cursor:pointer;
+                font-weight: 600
+                color: #8c8c8c;
             }
 
             .tab-wrapper li.active{
@@ -57,7 +58,7 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
             }
 
             .tab-wrapper li.completed{
-                color:#2DC071;
+                color:#8c8c8c;
             }
 
         

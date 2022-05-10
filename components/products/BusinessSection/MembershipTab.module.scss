@@ -1,0 +1,101 @@
+@import "../../../public//css/colors.scss";
+@import "../../../public//css/mixins.scss";
+@import "../../../public//css/screens.scss";
+
+.saveButton{
+    margin: 24px auto 0;
+    width: 10%;
+
+    button{
+        width: 180px;
+        height: 52px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 700;
+        justify-content: center;
+        background-color: $base-blue;
+    }
+}
+.miniSaveButton{
+    button{
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 500;
+        padding: 1.5em;
+    }
+}
+.miniSaveButtons{
+    & > button:first-child{
+        & > span{
+            margin-left: 5px !important;
+        }
+    }
+    button{
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 500;
+        padding: 1.5em 1em;
+    }
+    button:not(:last-child) {
+        margin-right: 13px;
+        background-color: transparent !important;
+    }
+}
+.section{
+    background-color: $base-white;
+    min-height: 150px;
+    border-radius: 8px;
+    padding: 3em;
+    margin-bottom: 5px;
+}
+.manageButton{
+    button{
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 500;
+        background-color: transparent !important;
+    }
+}
+.manageIcon{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.toolTip{
+    background-color: $base-white !important;
+    color: $black-100;
+}
+.managedContent{
+    padding: 15px 80px 15px 40px;
+
+}
+.fileImage{
+    margin-right: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: $base-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        border-radius: 8px;
+    }
+}
+.managedControls{
+    display: flex;
+    &>div{
+        width: 40px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        padding: .3em;
+        cursor: pointer;
+    }
+    div:not(:last-child){
+        margin-right: 5px;
+    }
+}

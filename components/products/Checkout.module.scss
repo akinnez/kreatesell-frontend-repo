@@ -15,6 +15,18 @@
 		}
 	}
 
+	.antRadioLabel{
+		label{
+			font-weight: 600;
+			font-size: 16px;
+			align-items: baseline !important;
+			margin-right: 2em;
+		}
+		& > div:first-child{
+			margin-bottom: 20px;
+			display: flex;
+		}
+	}
 	.disabledRadio {
 		color: #bfbfbf !important;
 		font-weight: 400 !important;
@@ -25,9 +37,19 @@
 	}
 
 	.digitalBtn {
-		width: 15rem;
-		height: 3.3rem;
-		font-size: 1rem;
+		margin: 32px auto;
+		width: 20%;
+		button{
+			width: 100%;
+			height: 3rem;
+			font-size: 1rem;
+			text-align: center;
+			border-radius: 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-weight: 700;
+		}
 	}
 
 	.couponDateTimeLocaleContInput {
@@ -36,7 +58,7 @@
 
 	.limitProductInput {
 		height: 2rem;
-		width: 40%;
+		width: 20%;
 	}
 
 	.upload {
@@ -56,4 +78,102 @@
 		align-items: center;
 		justify-content: center;
 	}
+	.affilateUpload{
+		margin-top: 12px;
+		width: 70%;
+		h2{
+			color: $gray-200;
+			flex: 1;
+		}
+	}
+	.affilateInput{
+		width: 15%;
+		position: relative;
+
+
+		input{
+			width: 100%;
+		}
+		input[type="number"]::-webkit-outer-spin-button,
+		input[type="number"]::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+			-moz-appearance: textfield;
+			}
+		span{
+			width: 35%;
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: 100%;
+			background: #0072ef;
+			color: #ffffff;
+			border-radius: 0 8px 8px 0;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+	.selectBorder{
+		div{
+			border-radius: 8px !important;
+		}
+	}
+	.billingContainer{
+		input[type="number"]{
+			width: 70%;
+			border-radius: 8px 0 0 8px !important;
+		}
+		div{
+			border-radius: 0 8px 8px 0 !important;
+		}
+		input[type="number"]::-webkit-outer-spin-button,
+		input[type="number"]::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+			-moz-appearance: textfield;
+			}
+	}
+	.freeButton{
+		color: $gray-700;
+		display: flex;
+		
+		& > span:last-child{
+			display: flex;
+			align-items: center;
+
+			p{
+				margin-bottom: 0;
+			}
+		}
+		h3{
+			margin-bottom: 0;
+			background-color: $base-green-100;
+			padding: 2px 7px;
+			color: $base-white;
+			font-size: .8em;
+			margin-left: 10px;
+			font-weight: 500;
+			border: 1px solid $green-200;
+			text-transform: uppercase;
+		}
+	}
+	.aplyCpn{
+		width: 65%;
+	}
+	.businessCoupon{
+		align-items: center;
+		h3{
+			margin-bottom: 0;
+			background-color: $base-green-100;
+			padding: 2px 7px;
+			color: $base-white;
+			font-size: .8em;
+			margin-left: 10px;
+			font-weight: 500;
+			border: 1px solid $green-200;
+			text-transform: uppercase;
+		}
+	} 
 }

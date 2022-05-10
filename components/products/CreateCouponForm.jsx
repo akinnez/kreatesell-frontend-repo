@@ -1,78 +1,138 @@
 import { useFormik } from "formik";
 import styles from "./CreateCouponForm.module.scss";
 import style from '../../public/css/AllProducts.module.scss'
-import {TextInput,
-    CustomSelect,
-    Switch,
-    Button
-} from '../../components/inputPack'
+import {TextInput} from '../../components/inputPack'
+import {CreateCouponSchema} from '../../validation/CreateCoupon.validation'
 import { Radio } from 'antd';
-import {useState} from 'react'
-// import DateTimePicker from 'react-datetime-picker';
-import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle'
-import 'react-datetime-picker/dist/DateTimePicker.css'
-import 'react-calendar/dist/Calendar.css'
-import 'react-clock/dist/Clock.css'
+import {useState, useEffect, useMemo} from 'react'
+import {Input, Switch, Select, Button} from 'antd'
+import { useSelector } from "react-redux";
+import { GetProducts } from "redux/actions";
+import Image from "next/image";
+import { ErrorIcon } from "utils";
+import { CreateCoupon } from "redux/actions";
 
 export const CreateCouponForm = () =>{
     const [isPercentage, setIsPercentage] = useState(true)
-    const [isAmount, setIsAmount] = useState(false)
-    const [isLimited, setIsLimited] = useState(true)
-    const [isUnLimited, setIsUnLimited] = useState(false)
-    const [isUsage, setIsUsage] = useState(true)
-    const [isUsageUnlimited, setIsUsageUnlimited] = useState(false)
+    const [isLimited, setIsLimited] = useState(false)
+    const [isUsage, setIsUsage] = useState(false)
     const [isAllProduct, setIsAllProduct] = useState(true)
-    const [dateAndTime, setDateAndTime] = useState(new Date())
-    const [toDateAndTime, setToDateAndTime] = useState(new Date())
+    const [productData, setProductData] = useState([])
+    const [isApplied, setIsApplied] = useState(false)
+    const { products } = useSelector(
+        (state) => state.product
+      );
+    const { loading } = useSelector(
+        (state) => state.coupon
+      );
+      const { store } = useSelector(
+        (state) => state.store
+      );
+      const getProducts = GetProducts()
+      const createCoupon = CreateCoupon()
     const initialValues = {
         "coupon_settings": {
             "coupon_code": "",
             "is_coupon": true,
             "start_date": "",
-            "end_date": "",
-            "fixed_amount_value": 0,
-            "percentage_value": 0,
-            "is_percentage": true,
-            "is_apply_to_recurring": true,
-            "is_fixed_amount": true,
-            "is_coupon_limited": true,
-            "no_of_frequency": 0,
-            "is_usage_limited": true,
-            "no_of_usage": 0,
             "is_for_all_product": true,
-            "product_id": 0
-          },
-          "action": "string",
-          "coupon_id": 0
+            "end_date": "",
+            "fixed_amount_value": '',
+            "product_id": "",
+            "percentage_value": '',
+            "is_percentage": true,
+            "is_fixed_amount": false,
+            "is_coupon_limited": false,
+            "no_of_frequency": '',
+            "is_usage_limited": false,
+            "no_of_usage": '',
+            "is_apply_to_recurring": false,
+        },
+        action: "c",
+        "coupon_id": 0,
+        isBasicPlan: false
     }
-    const handleSubmit = (values)=>{
-        // console.log(values)
-        // createCoupon()
+    const handleSubmit = (data)=>{
+        if(data?.coupon_settings.is_for_all_product){
+            delete data.coupon_settings.product_id
+        }
+        if(data?.coupon_settings.is_percentage){
+            delete data.coupon_settings.fixed_amount_value
+        }else if (data.coupon_settings.is_fixed_amount){
+            delete data.coupon_settings.percentage_value
+        }
+        if(!data.coupon_settings.is_coupon_limited){
+            delete data.coupon_settings.no_of_frequency
+        }
+        if(!data.coupon_settings.is_usage_limited){
+            delete data.coupon_settings.no_of_usage
+        }
+        if(!data.coupon_settings.start_date){
+            delete data.coupon_settings.start_date
+        }
+        if(!data.coupon_settings.end_date){
+            delete data.coupon_settings.end_date
+        }
+        delete data.isBasicPlan
+        createCoupon(data, ()=>console.log('we re here'))
+        
     }
 
-    const handleChangeField = (setSelfChecked, setPrevCheck)=>{
-        setSelfChecked(true)
-        setPrevCheck(false)
-        // setFieldValue(`coupon_settings.${is_for_all_product}`, true)
-    }
+    const productList = useMemo(() =>
+        productData?.map((item)=> ({
+            value: item?.product_details?.id,
+            label: item?.product_details?.product_name
+        }))
+    , [productData])
+    
     const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		// validationSchema: "",
+		validationSchema: CreateCouponSchema,
 		validateOnChange: false,
 	})
     const { errors, values, setFieldValue } = formik;
-    const {coupon_code, product_id, fixed_amount_value, no_of_usage, no_of_frequency, percentage_value} = values.coupon_settings
+    const {coupon_code,
+          fixed_amount_value,
+          no_of_usage,
+            no_of_frequency,
+            percentage_value,
+            start_date,
+            end_date
+            } = values.coupon_settings
     const handleRadioChange = (e)=>{
-        // console.log(e.target.value)
         if(e.target.value === true){
             setFieldValue("coupon_settings.is_for_all_product", true)
             setFieldValue("coupon_settings.product_id", 0)
+            setIsAllProduct(true)
             return
         }
         setFieldValue("coupon_settings.is_for_all_product", false)
-        // const {name, value} = e.target
+        setIsAllProduct(false)
     }
+    useEffect(()=>{
+        getProducts()
+    }, [])
+    useEffect(()=>{
+        setProductData(products)
+    }, [products])
+    useEffect(()=>{
+        setFieldValue("coupon_settings.is_apply_to_recurring", isApplied)
+    }, [isApplied])
+
+    useEffect(()=>{
+        if(Object.keys(store).length > 0){
+            const {user} = store
+            if(user.user_plan === 'Basic'){
+              setFieldValue("isBasicPlan", true)
+            }
+          return ()=>{
+            setFieldValue("isBasicPlan", false)
+          }
+        }
+      }, [store])
+
+
     return(
         <div className={`px-0 lg:px-8 ${styles.container}`}>
             <div className="flex flex-col">
@@ -95,17 +155,18 @@ export const CreateCouponForm = () =>{
                 <div className="flex flex-col mt-8">
                     <h2 className="font-semibold text-base">Apply Coupon to</h2>
                     <div className="flex items-center">
-                        <Radio.Group onChange={handleRadioChange} >
+                        <Radio.Group defaultValue={true} onChange={handleRadioChange} >
                             <Radio className={styles.radioContent} value={true} checked={isAllProduct ? true : false}>All Products</Radio>
                             <Radio className={styles.radioContent} value={false} checked={!isAllProduct ? true : false}>Choose Speific Product</Radio>
                         </Radio.Group>
                     </div>
-                    <CustomSelect
+                    <Select
                         name="product_id"
-                        value={product_id}
+                        placeholder="Select Product"
                         onChange={(e)=>setFieldValue("coupon_settings.product_id", e)}
                         disabled={isAllProduct ? true : false}
-                        list={[{value:"Land of Hope and Opportunities", label: "Land of Hope and Opportunities"}, {value:"Multiple wins", label:"Multiple wins"}]}
+                        options={productList}
+                        className={styles.selectField}
                     />
                 </div>
 
@@ -113,27 +174,39 @@ export const CreateCouponForm = () =>{
                     <h2 className="font-semibold text-base">Coupon Type</h2>
                     <div className="flex">
                         <div className="col-3">
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsPercentage, setIsAmount )} checked={isPercentage ? true : false} value={'1'}>Percentage Off</Radio>
-                            <TextInput 
-                                type="number"
-                                placeholder="0"
-                                name="percentage_value"
-                                onChange={(e)=>setFieldValue("coupon_settings.percentage_value", e)}
-                                disabled={!isPercentage ? true : false}
-                                value={percentage_value}
-                                />
+                            <Radio className={styles.radioContent} onClick={()=>{
+                                setIsPercentage(true)
+                                setFieldValue("coupon_settings.is_percentage", true)
+                                setFieldValue("coupon_settings.is_fixed_amount", false)
+                               } } checked={isPercentage ? true : false}>Percentage Off</Radio>
+                            <div className={styles.inputGroup + " w-full mt-2"}>
+                                <Input 
+                                    type="number"
+                                    placeholder="0"
+                                    name="percentage_value"
+                                    onChange={(e)=>setFieldValue("coupon_settings.percentage_value", e.target.value)}
+                                    disabled={!isPercentage ? true : false}
+                                    value={percentage_value}
+                                    />
+                            </div>
                                 
                         </div>
                         <div className="col-3 ml-8">
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsAmount, setIsPercentage)} checked={isAmount ? true : false}>Amount Off</Radio>
-                            <TextInput 
-                                type="number"
-                                placeholder="0"
-                                name="fixed_amount_value"
-                                value={fixed_amount_value}
-                                disabled={!isAmount ? true : false} 
-                                onChange={(e)=>setFieldValue("coupon_settings.fixed_amount_value", e)}
-                                />
+                            <Radio className={styles.radioContent} onClick={()=>{
+                                setIsPercentage(false)
+                                setFieldValue("coupon_settings.is_percentage", false)
+                                setFieldValue("coupon_settings.is_fixed_amount", true)
+                               } } checked={!isPercentage ? true : false}>Amount Off</Radio>
+                            <div className={styles.inputGroup + " w-full mt-2"}>
+                                <Input 
+                                    type="number"
+                                    placeholder="0"
+                                    name="fixed_amount_value"
+                                    value={fixed_amount_value}
+                                    disabled={isPercentage ? true : false} 
+                                    onChange={(e)=>setFieldValue("coupon_settings.fixed_amount_value", e.target.value)}
+                                    />
+                            </div>
                                 
                         </div>
                      </div>
@@ -142,70 +215,120 @@ export const CreateCouponForm = () =>{
                 <div className="flex items-center mt-8 mb-3">
                     <div className={`pt-1 w-full flex items-center`}>
                         <h2 className={styles.label + " text-lg mb-0 font-normal"}>From</h2>
-                        <div className={styles.inputGroup +" w-full"}>
-                            <DateTimePicker className="w-3/4" onChange={setDateAndTime} value={dateAndTime} />
+                        <div className={styles.inputGroup +"  w-3/5"}>
+                             <Input
+                                type="datetime-local"
+                                onChange={(e)=>setFieldValue("coupon_settings.start_date", e.target.value)}
+                                value={start_date}
+                            />
                         </div>
                     </div>
                     <div className={`pt-1 w-full flex items-center`}>
                         <h2 className={styles.label + " text-lg mb-0 font-normal"}>To</h2>
-                        <div className={styles.inputGroup +" w-full"}>
-                            
-                            <DateTimePicker className="w-3/4" onChange={setToDateAndTime} value={toDateAndTime} />
-                        </div>
+                        <div className={styles.inputGroup +" w-3/5"}>
+                            <Input
+                                type="datetime-local"
+                                onChange={(e)=>setFieldValue("coupon_settings.end_date", e.target.value)}
+                                value={end_date}
+                            />
+                           </div>
                     </div>
                 </div>
                 <div className="flex flex-col mt-8">
                     <h2 className="font-semib5old text-base">Limit the Frequency of the Coupon</h2>
                     <div className="flex items-center mt-2 mb-4">
                         <div>
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsUnLimited, setIsLimited)} checked={isUnLimited ? true : false} value={'1'}>Unlimited</Radio>
+                            <Radio className={styles.radioContent} onClick={()=>{
+                                setIsLimited(false)
+                                setFieldValue("coupon_settings.is_coupon_limited", false)
+                               } } checked={!isLimited ? true : false}>Unlimited</Radio>
                         </div>
                         <div className="ml-5">
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsLimited, setIsUnLimited)} checked={isLimited ? true : false} value={'1'}>Limited</Radio>
+                            <Radio className={styles.radioContent} onClick={()=>{
+                                setIsLimited(true)
+                                setFieldValue("coupon_settings.is_coupon_limited", true)
+                               } } checked={isLimited ? true : false}>Limited</Radio>
                         </div>
                     </div>
-                    <TextInput
-                        type="number"
-                        label="Number of Times"
-                        style={{ width: "100%" }}
-                        placeholder="1"
-                        disabled={isUnLimited ? true : false}
-                        name="no_of_frequency"
-                        value={no_of_frequency}
-                        onChange={(e)=>setFieldValue("coupon_settings.no_of_frequency", e)}
-                    />
+                    <div className={styles.inputGroup + " w-full mt-2"}>
+                        <h2 className="text-lg text-base-black-100">Number of Times</h2>
+                        <Input
+                            type="number"
+                            label="Number of Times"
+                            disabled={!isLimited ? true : false}
+                            name="no_of_frequency"
+                            value={no_of_frequency}
+                            onChange={(e)=>setFieldValue("coupon_settings.no_of_frequency", e.target.value)}
+                        />
+                    </div>
                 </div>
                 <div className="flex flex-col mt-8">
                     <h2 className="font-semibold text-base">Limit the Usage per Customer</h2>
                     <div className="flex items-center mb-4">
                         <div>
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsUsageUnlimited, setIsUsage)} checked={isUsageUnlimited ? true : false} value={'1'}>Unlimited use per Customer</Radio>
-                            {/* <Radio value={"not checked"} label="" /> */}
+                            <Radio className={styles.radioContent} onClick={()=>{
+                                setIsUsage(false)
+                                setFieldValue("coupon_settings.is_usage_limited", false)
+                               } } checked={!isUsage ? true : false} >Unlimited use per Customer</Radio>
                         </div>
                         <div className="ml-5">
-                            <Radio className={styles.radioContent} onClick={()=>handleChangeField(setIsUsage, setIsUsageUnlimited)} checked={isUsage ? true : false} value={'1'}>Coupon can be used how many times by a customer</Radio>
-                            {/* <Radio label="" /> */}
+                            <Radio className={styles.radioContent} onClick={()=>{
+                                setIsUsage(true)
+                                setFieldValue("coupon_settings.is_usage_limited", true)
+                               } } checked={isUsage ? true : false} >Coupon can be used how many times by a customer</Radio>
                         </div>
                     </div>
-                    <TextInput
-                        type="number"
-                        label="Number of times coupon can be used per customer"
-                        style={{ width: "100%" }}
-                        placeholder="1"
-                        name="no_of_usage"
-                        value={no_of_usage}
-                        disabled={isUsage ? false : true}
-                        onChange={(e)=>setFieldValue("coupon_settings.no_of_usage", e)}
-                    />
+                    <div className={styles.inputGroup + " w-full mt-2"}>
+                        <h2 className="text-lg text-base-black-100">Number of times coupon can be used per customer</h2>
+                        <Input
+                            type="number"
+                            placeholder="1"
+                            name="no_of_usage"
+                            value={no_of_usage}
+                            disabled={isUsage ? false : true}
+                            onChange={(e)=>setFieldValue("coupon_settings.no_of_usage", e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div >
-                    <Switch className={styles.switchContent} label="Allow Discount to be Applied for Recurring Purchases" />
+                <div className={styles.switchContent}>
+                    <h2 className="mb-0 text-xl text-base-gray-200">Allow Discount to be Applied for Recurring Purchases</h2>
+                    <Switch onChange={(e)=>setIsApplied(value => !value)} />
                 </div>
-                <Button 
-                    className="justify-self-center w-1/3 self-center mt-4"
-                    label="Save"
-                    type="submit"
-                    />
+                <div className="my-2">
+                {
+                    Object.keys(errors).length > 0 && Object.entries(errors).map((items, index)=>{
+                        if (typeof items[1] === "string"){
+                        return (
+                            <div key={index} className={styles.errorContent + " h-10"}>
+                            <div style={{width: "25px", height: "25px"}}>
+                                <Image width={100} height={100} src={ErrorIcon} alt="error" />
+                            </div>
+                            <h2 className="text-base font-medium ">{items[1]}</h2>
+                            </div>
+                        )
+                        }
+                        for(let values in items[1]){
+                        return(
+                            <div key={index} className={styles.errorContent + " h-10"}>
+                            <div style={{width: "25px", height: "25px"}}>
+                                <Image width={100} height={100} src={ErrorIcon} alt="error" />
+                            </div>
+                            <h2 className="text-base font-medium ">{items[1][values]}</h2>
+                            </div>
+                        )
+                        }
+                        
+                    })
+                    }
+                </div>
+                <div className={styles.submitBtn}>
+                    <Button 
+                        label="Save"
+                        type="primary"
+                        loading={loading}
+                        htmlType="submit"
+                        >Save</Button>
+                </div>
             </form>
         </div>
     )
