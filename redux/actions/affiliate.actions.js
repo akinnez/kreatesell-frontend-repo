@@ -4,9 +4,9 @@ export const affiliateProductsRequest = () => ({
   type: types.AFFILIATE_PRODUCTS_REQUEST,
 });
 
-export const affiliateProductsSuccess = products => ({
+export const affiliateProductsSuccess = productsObj => ({
   type: types.AFFILIATE_PRODUCTS_SUCCESS,
-  payload: products,
+  payload: productsObj,
 });
 
 export const affiliateProductsFailure = () => ({

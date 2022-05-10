@@ -104,6 +104,28 @@ export const _copyToClipboard = (str, message) => {
   showToast(message || "Copied", "info");
 };
 
+export  function transformToFormData(data, exempt) {
+  let formData = new FormData();
+  for (let key in data) {
+    if (Array.isArray(data[key])) {
+      data[key].forEach((obj, index) => {
+        let keyList = Object.keys(obj);
+        keyList.forEach((keyItem) => {
+          let keyName = [key, "[", index, "]", ".", keyItem].join("");
+          formData.append(keyName, obj[keyItem]);
+        });
+      });
+    } else if (key !== exempt && typeof data[key] === "object") { 
+      for (let innerKey in data[key]) {
+        formData.append(`${key}.${innerKey}`, data[key][innerKey]);
+      }
+    } else {
+      formData.append(key, data[key]);
+    }
+  }
+  return formData;
+}
+
 export const _formatURL = (url) => url.replace(/(^\w+:|^)\/\//, "");
 
 export const _prependHttp = ({ url, https = true }) => {

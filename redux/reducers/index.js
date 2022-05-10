@@ -7,10 +7,11 @@ import utils from "./utils.reducer";
 import product from "./product.reducer";
 import notification from "./notification.reducer";
 import affiliate from "./affiliate.reducer";
-
+import coupon from './coupon.reducer'
 const rootReducer = combineReducers({
   auth,
   checkout,
+  coupon,
   domain,
   store,
   utils,

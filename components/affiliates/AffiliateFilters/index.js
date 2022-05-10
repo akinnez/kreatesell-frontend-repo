@@ -1,11 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
 import { MdOutlineCancel } from "react-icons/md";
 import moment from "moment";
-import normalize from "utils/normalize";
-import { cbOne, cbTwo } from "../callbacks";
 import styles from "./index.module.scss";
 
 const ResetBtn = ({ resetFilters }) => (
@@ -16,33 +14,20 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const AffiliateFilters = ({ data, setFiltered }) => {
+const AffiliateFilters = ({ setQueries }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-
   const { productTypes } = useSelector(state => state.product);
-
-  const types = useMemo(() => {
-    return [{ id: "all", product_type_name: "All" }, ...productTypes];
-  }, [productTypes]);
-
-  const [normalizeById, normalizeByName] = useMemo(() => {
-    const normalizeById = normalize(types, "id");
-    const normalizeByName = normalize(types, "product_type_name");
-
-    return [normalizeById, normalizeByName];
-  }, [types]);
-
   const [form] = Form.useForm();
+
+  const types = [{ id: 0, product_type_name: "All" }, ...productTypes];
 
   const handleSearch = field => e => {
     form.setFieldsValue({ [field]: e.target.value });
   };
 
   const handleProductType = value => {
-    form.setFieldsValue({
-      product_type: normalizeById[value].product_type_name,
-    });
+    form.setFieldsValue({ product_type: value });
   };
 
   const handleDateListed = (_, dateStr) => {
@@ -58,48 +43,18 @@ const AffiliateFilters = ({ data, setFiltered }) => {
       return;
     }
 
-    const productType = normalizeByName[product_type]?.id;
-    let tempArr;
-
-    if (product_name) {
-      tempArr = cbOne(data, "product_name", product_name);
-    }
-
-    if (kreator_name && tempArr) {
-      tempArr = cbOne(tempArr, "kreator_name", kreator_name);
-    } else if (kreator_name && !tempArr) {
-      tempArr = cbOne(data, "kreator_name", kreator_name);
-    }
-
-    if (productType && tempArr) {
-      if (productType === "all") {
-        tempArr = tempArr;
-      } else {
-        tempArr = tempArr.filter(item => +item.product_type_id === productType);
-      }
-    } else if (productType && !tempArr) {
-      if (productType === "all") {
-        tempArr = data;
-      } else {
-        tempArr = data.filter(item => +item.product_type_id === productType);
-      }
-    }
-
-    if (date_listed && tempArr) {
-      tempArr = cbTwo(tempArr, date_listed._i);
-    } else if (date_listed && !tempArr) {
-      tempArr = cbTwo(data, date_listed._i);
-    }
-
-    if (tempArr) {
-      setFiltered(tempArr);
-      setIsFiltered(true);
-      setShowFilter(false);
-    }
+    setIsFiltered(true);
+    setShowFilter(false);
+    setQueries(s => ({
+      ...s,
+      productName: product_name || "",
+      kreatorName: kreator_name || "",
+      productType: product_type || null,
+      dateListed: date_listed ? date_listed._i : "",
+    }));
   };
 
   const resetFilters = () => {
-    setFiltered(null);
     setIsFiltered(false);
     form.resetFields();
   };

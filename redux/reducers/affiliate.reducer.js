@@ -3,6 +3,7 @@ import * as types from "../types/affiliate.types";
 const initialState = {
   loading: false,
   products: [],
+  totalProducts: null,
 };
 
 const affiliate = (state = initialState, { type, payload }) => {
@@ -11,7 +12,12 @@ const affiliate = (state = initialState, { type, payload }) => {
       return { ...state, loading: true };
 
     case types.AFFILIATE_PRODUCTS_SUCCESS:
-      return { ...state, loading: false, products: payload };
+      return {
+        ...state,
+        loading: false,
+        products: payload.products,
+        totalProducts: payload.totalProducts,
+      };
 
     case types.AFFILIATE_PRODUCTS_FAILURE:
       return { ...state, loading: false };

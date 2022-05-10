@@ -17,7 +17,7 @@ export const CreateProduct = () => {
 			},
 			(err) => {
 				dispatch({ type: types.CREATE_PRODUCT.FAILURE, payload: err });
-				showToast(err?.message, "error");
+				showToast(err.message? err.message: "Network Error, Check your Connection", "error");
 				errorCallback?.();
 			},
 			data
@@ -61,7 +61,6 @@ export const GetProducts = () => {
 		errorCallback
 	) => {
 		dispatch({ type: types.GET_ALL_PRODUCTS.REQUEST }),
-		console.log(product_Name, StartDate, endDate)
 		axios.request(
 			`get`,
 			`v1/kreatesell/product/fetch/all?page=${page}
@@ -140,12 +139,14 @@ export const GetBillingInterval = () => {
 
 export const GetPricingTypes = () => {
 	const dispatch = useDispatch();
-	return (successCallback, errorCallback) => (
+	return (successCallback, errorCallback) => {
+		console.log('hererere')
 		dispatch({ type: types.GET_PRICING_TYPES.REQUEST }),
 		axios.request(
 			`get`,
 			`v1/kreatesell/product/get-pricing-types`,
 			(res) => {
+				console.log('pricing', res)
 				dispatch({
 					type: types.GET_PRICING_TYPES.SUCCESS,
 					payload: res?.data?.pricing_types,
@@ -158,7 +159,7 @@ export const GetPricingTypes = () => {
 				errorCallback?.();
 			}
 		)
-	);
+		};
 };
 
 export const GetListingStatus = () => {

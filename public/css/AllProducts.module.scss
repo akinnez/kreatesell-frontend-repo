@@ -125,8 +125,11 @@
 					div{
 						font-size: 16px;
 						color: $gray-200;
-						p{
-							display: flex;
+						
+						pre {
+							font-family: inherit;
+							width: 100%;
+							text-align: center;
 						}
 					}
 				}
