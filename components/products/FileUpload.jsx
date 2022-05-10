@@ -2,9 +2,10 @@ import { useUpload } from "hooks";
 import Image from "next/image"
 import { useEffect, useState } from "react";
 import { CloudUpload, CloudUploadDisable, FileDelete, FileZip } from "utils"
+import axios from "axios";
 import styles from "./CreateProduct.module.scss";
 
-export default function FileUpload({file, setFile}){
+export default function FileUpload({file, setFile, isToggleable, toggleValue, initialFile}){
     const [progress, setProgress] = useState(0)
     const {
         mainFile,
@@ -14,7 +15,16 @@ export default function FileUpload({file, setFile}){
       } = useUpload({
         fileType: ".zip,.rar"
       });
-
+      const fetchFile = async(url)=>{
+        const instance = axios.create()
+        delete instance.defaults.headers.common['Authorization'];
+        try {
+          const {data} = await axios.get(url, {resource_type: "raw"})
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
       const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -31,17 +41,32 @@ export default function FileUpload({file, setFile}){
       };
       const handleDeleteFile = ()=>{
         deleteFile(mainFile[0].file)
-        setFile([])
+        setFile(null)
       }
+      useEffect(()=>{
+        return()=>{
+          deleteFile(mainFile[0]?.file)
+          setFile(null)
+        }
+      }, [isToggleable, toggleValue])
+      useEffect(()=>{
+        if(initialFile){
+          const getFileDetails = ()=>{
+            initialFile.map(async(item) =>{
+              await fetchFile(item.filename)
+            })
+          }
+          getFileDetails()
+        }
+      }, [initialFile])
       useEffect(()=>{
         if(mainFile.length > 0){
             const start = async ()=>{
                 const pr_arr = mainFile.map(
                     (item, i) =>
                         new Promise(async (res, rej) => {
-                            let baseUrl = await getBase64(item.file);
-                            console.log('the url', baseUrl)
-                            setFile([baseUrl])
+                            await getBase64(item.file);
+                            setFile(item.file)
                             res(null);
                         })
                         );
@@ -80,14 +105,14 @@ export default function FileUpload({file, setFile}){
                 ))
                   }
                 <div className={styles.fileUploader}>
-                  {file.length > 0 && <span></span>}
+                  {file && <span></span>}
                   <div
-                    className={`${styles.contentFileUpload} ${file.length > 0 ? styles.contentFileUploadDisabled : ''}`}
+                    className={`${styles.contentFileUpload} ${file ? styles.contentFileUploadDisabled : ''}`}
                     {...getRootProps()}
                   >
                     <div className="flex justify-center items-center">
                       <input {...getInputProps()} />
-                      <Image src={file.length > 0 ? CloudUploadDisable : CloudUpload} alt="upload image" />
+                      <Image src={file ? CloudUploadDisable : CloudUpload} alt="upload image" />
                       <p className="hidden md:block text-sm pl-4 my-auto">
                         Drag and Drop or Click to Upload Your Product File
                       </p>

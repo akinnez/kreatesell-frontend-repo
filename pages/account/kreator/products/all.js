@@ -47,7 +47,10 @@ const AllProducts = () => {
 				?.map((item, i) => ({
 					...item,
 					key: i+1,
-					product_image: item?.product_images[0].filename,
+					product_image: item?.product_images.filter(images => images.file_type !== 4).map(item => {
+						const arr = item.filename.split(',')
+						return [...arr]
+					  })[0],
 					product_name: item?.product_details?.product_name,
 					product_type: item?.product_details?.product_type?.product_type_name,
 					date_created: item?.product_details?.date_created,
@@ -76,8 +79,10 @@ const AllProducts = () => {
 		setProductData(products);
 	}, [products]);
 
-	// const handleSearchSubmit = () =>
-	// 	getProducts(1, productName, startDate, endDate, productStatusId);
+	const handleSearchSubmit = () =>{
+		getProducts(1, productName, startDate, endDate, ()=>console.log('done'));
+		console.log( productName, startDate, endDate)
+	}
 	const handlePaginationChange = (page) => getProducts(page);
 
 	const tableLocale = {
@@ -88,25 +93,6 @@ const AllProducts = () => {
 	}
 	return (
 		<AuthLayout>
-			{/* <div className={styles.allProduct}>
-				<div className="hidden lg:block mb-16 mt-8">
-					<Table
-						columns={AllProductsTableHeader}
-						dataSource={memoisedProductData}
-						loading={loading}
-						pagination={{
-							position: ["bottomLeft"],
-							total: total_records,
-							defaultCurrent: 1,
-							onChange: handlePaginationChange,
-							current: page,
-							defaultPageSize: 10,
-						}}
-						size="large"
-					/>
-				</div> */}
-
-
 			<div className={styles.allProduct + " pb-10"}>
 				<div className="flex justify-between mb-4">
 					<h3 className=" font-semibold text-2xl">All Products</h3>
@@ -118,10 +104,13 @@ const AllProducts = () => {
                     />
 				</div>
 				<CouponHeader
-					// handleSearchInput={(e) => setProductName(e.target.value)}
-					// handleSearchSubmit={() => handleSearchSubmit()}
-					// handleStartDate={(e) => setStartDate(e.target.value)}
-					// handleEndDate={(e) => setEndDate(e.target.value)}
+					handleSearchInput={(e) => setProductName(e.target.value)}
+					handleSearchSubmit={() => handleSearchSubmit()}
+					handleStartDate={(e, string) => {
+						console.log(string)
+						setStartDate(string)}
+					}
+					handleEndDate={(e, string) => setEndDate(string)}
 					// productStatusOptions={productStatusOptions}
 					// handleProductStatus={(e) => setProductStatusId(e)}
 				/>
@@ -152,7 +141,7 @@ const AllProducts = () => {
 						size="large"
 					/>
 				</div>
-                {productData.length <= 0 && <div className="flex flex-col mt-18 items-center">
+                {productData.length <= 0 && <div className="flex flex-col mt-10 items-center">
                     <h2 className={styles.lightGrey +" font-semibold text-center text-base"}>Almost there, now click the button to add your product.</h2>
                     <Button
                         leftIcon="+"

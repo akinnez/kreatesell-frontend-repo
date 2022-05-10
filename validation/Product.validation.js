@@ -15,7 +15,7 @@ export const DigitalProductSchema = () => {
 			is_preorder_downloadable: Yup.boolean(),
 		}),
 		product_images: Yup.object().shape({
-			product_files: Yup.array().min(1, "Please upload at least one Product Image to proceed")
+			productFiles: Yup.array().min(1, "Please upload at least one Product Image to proceed")
 		}),
 		product_type_id: Yup.number(),
 		content_file_details: Yup.object().shape({

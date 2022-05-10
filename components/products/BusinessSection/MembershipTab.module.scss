@@ -25,6 +25,11 @@
     }
 }
 .miniSaveButtons{
+    & > button:first-child{
+        & > span{
+            margin-left: 5px !important;
+        }
+    }
     button{
         border-radius: 8px;
         text-align: center;
@@ -66,6 +71,13 @@
 }
 .fileImage{
     margin-right: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: $base-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img{
         border-radius: 8px;
     }

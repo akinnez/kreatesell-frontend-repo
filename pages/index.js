@@ -11,7 +11,17 @@ import styles from "../public/css/Home.module.scss";
 import {
   RightArrow,
   LandingPageHero,
-  AirBnBLogo,
+  DashPreviewOne,
+  DashPreviewTwo,
+  PaymentPreview,
+  LineOne,
+  LineTwo,
+  Vanguard,
+  TechCity,
+  Punch,
+  TechCabal,
+  Guardian,
+  TechCrunch,
   MicrosoftLogo,
   AddProduct,
   CreateStore,
@@ -72,7 +82,7 @@ export default function Home() {
       },
     ],
   };
-
+  // test push
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <div className={styles.container}>
@@ -86,14 +96,14 @@ export default function Home() {
             <p className={styles.subHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, <br /> and Memberships in an online all-in-one platform for
-              free and accept payment from anywhere in the world.
+              free and accept payment from anywhere <br /> in the world.
             </p>
             <p className={styles.mobileSubHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, and Memberships in an online all-in-one platform for free
               and accept payment from anywhere in the world.
             </p>
-
+            {/* here */}
             <div className={styles.inputContainer}>
               <InputButton
                 name="email"
@@ -121,34 +131,53 @@ export default function Home() {
           <div
             {...Animate("zoom-in", 100, "ease-in")}
             className={styles.heroImage}
-            onClick={() => setVisible(!modalVisible)}
           >
-            <Image src={LandingPageHero} alt="kreatesell hero" />
+            <Image
+              src={LandingPageHero}
+              alt="kreatesell hero"
+              onClick={() => setVisible(!modalVisible)}
+            />
           </div>
 
           <div className={styles.featured}>
             <h5 className={styles.title}>As featured in</h5>
+            {/* desktop */}
             <div
               className={styles.featuredImages}
               {...Animate("fade-up", 100, "ease")}
             >
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} alt="airBnB" />
+                <Image
+                  src={TechCrunch}
+                  alt="tech crunch"
+                  width="100"
+                  height="100"
+                />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} alt="microsoft logo" />
+                <Image
+                  src={TechCabal}
+                  alt="tech cabal"
+                  width="100"
+                  height="100"
+                />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} alt="airBnB" />
+                <Image
+                  src={TechCity}
+                  alt="tech city"
+                  width="100"
+                  height="100"
+                />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} alt="microsoft logo" />
+                <Image src={Guardian} alt="guardian" width="100" height="100" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={AirBnBLogo} alt="airbnb logo" />
+                <Image src={Punch} alt="punch" width="100" height="100" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={MicrosoftLogo} alt="microsoft logo" />
+                <Image src={Vanguard} alt="vanguard" width="100" height="100" />
               </div>
             </div>
 
@@ -160,16 +189,28 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image
+                    src={TechCrunch}
+                    alt="tech crunch"
+                    width="100"
+                    height="100"
+                  />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image
+                    src={TechCabal}
+                    alt="tech cabal"
+                    width="100"
+                    height="100"
+                  />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
-                </div>
-                <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image
+                    src={TechCity}
+                    alt="tech city"
+                    width="100"
+                    height="100"
+                  />
                 </div>
               </div>
 
@@ -177,16 +218,23 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image
+                    src={Guardian}
+                    alt="guardian"
+                    width="100"
+                    height="100"
+                  />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image src={Punch} alt="punch" width="100" height="100" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
-                </div>
-                <div className={styles.mobileFeaturedStyle}>
-                  <Image src={AirBnBLogo} alt="airbnb logo" />
+                  <Image
+                    src={Vanguard}
+                    alt="vanguard"
+                    width="100"
+                    height="100"
+                  />
                 </div>
               </div>
             </div>
@@ -197,7 +245,7 @@ export default function Home() {
           <div className={styles.howItWorkstitleCont}>
             <h3 className={styles.howItWorksTitle}>How it works</h3>
             <p className={styles.howItWorksSubTitle}>
-              Amazing all-in-one tools that bring a winning customer experience
+              Set up your sales converting store in 3 easy steps
             </p>
           </div>
 
@@ -217,7 +265,13 @@ export default function Home() {
                 Kreate an account to get started.
               </p>
             </div>
-
+            {/* path line */}
+            <div
+              className={styles.lineImageOne}
+              // {...Animate("fade-up", 700, "ease")}
+            >
+              <Image src={LineOne} alt="line one" />
+            </div>
             <div
               className={styles.howItWorksImgSingle}
               {...Animate("zoom-in", 100, "ease")}
@@ -233,7 +287,9 @@ export default function Home() {
                 Add products and setup your store.
               </p>
             </div>
-
+            <div className={styles.lineImageTwo}>
+              <Image src={LineTwo} alt="line two" />
+            </div>
             <div
               className={styles.howItWorksImgSingle}
               {...Animate("fade-left", 200, "ease")}
@@ -263,7 +319,8 @@ export default function Home() {
           <div className={styles.subHero}>
             <h3>More than an ecommerce platfrom</h3>
             <p>
-              Amazing all-in-one tools that bring a winning customer experience
+              It&apos;s an amazing all-in-one platform that brings a winning
+              customer experience.
             </p>
           </div>
 
@@ -273,7 +330,7 @@ export default function Home() {
               {...Animate("zoom-in-right", 200, "ease")}
             >
               <Image
-                src={AutomationIcon}
+                src={DashPreviewOne}
                 height="420"
                 width="417"
                 alt="automation icon"
@@ -284,23 +341,22 @@ export default function Home() {
               {...Animate("zoom-in-left", 100, "ease")}
             >
               <h3 className={styles.automationTitle}>
-                Enjoy Free, Beautiful, <br /> Unlimited Templates
+                Enjoy multiple captivating publishing options
               </h3>
               <h3 className={styles.mobileAutomationTitle}>
-                Enjoy Free, Beautiful, Unlimited Templates
+                Enjoy multiple captivating publishing options
               </h3>
               <p className={styles.automationSubTitle}>
-                With the free templates, you can kreate a stunning <br />{" "}
-                individual product look from the varieties of pre-set <br />{" "}
-                templates. Make your product looks and layout <br /> stand out
-                and appealing. Design your store to be <br /> device-friendly
-                and attractive.
+                Explore diverse ways of putting out your content for your
+                audience to access — digital download, one-time subscription
+                and/or membership. Be in total control of how people acquire
+                your digital products.
               </p>
               <p className={styles.mobileAutomationSubTitle}>
-                With the free templates, you can kreate a stunning individual
-                product look from the varieties of pre-set templates. Make your
-                product looks and layout stand out and appealing. Design your
-                store to be device-friendly and attractive.
+                Explore diverse ways of putting out your content for your
+                audience to access — digital download, one-time subscription
+                and/or membership. Be in total control of how people acquire
+                your digital products.
               </p>
 
               <div className={styles.linkText}>
@@ -360,7 +416,7 @@ export default function Home() {
               {...Animate("fade-down", 200, "linear")}
             >
               <Image
-                src={PayoutMethod}
+                src={DashPreviewTwo}
                 height="513"
                 width="635"
                 alt="payout method"
@@ -387,7 +443,7 @@ export default function Home() {
               {...Animate("zoom-in-right", 400, "ease")}
             >
               <Image
-                src={InstantPayout}
+                src={PaymentPreview}
                 height="420"
                 width="417"
                 alt="instant payout"

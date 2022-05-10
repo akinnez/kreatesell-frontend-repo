@@ -116,6 +116,7 @@
 	}
 }
 .popConfirm{
+	width: 250px;
 	div{
 		& > div:last-child{
 			div{
@@ -124,6 +125,9 @@
 					div{
 						font-size: 16px;
 						color: $gray-200;
+						p{
+							display: flex;
+						}
 					}
 				}
 				& > div:last-child{
@@ -141,8 +145,8 @@
 					}
 					& >button:last-child{
 						background-color: $base-white !important;
-						color: $pink-100;
-						border: 2px solid $pink-100;
+						color: $notification-bg;
+						border: 2px solid $error-main;
 					}
 				}
 			}

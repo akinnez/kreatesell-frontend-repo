@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import Image from "next/image";
 import { useState } from "react";
-import {EmptyDataTable, ViewSales} from 'utils'
+import {EmptyDataTable, Subscribers} from 'utils'
 import productStyles from '../../../public/css/AllProducts.module.scss'
 import AddSection from "./AddSection";
 import styles from './MembershipTab.module.scss'
@@ -20,7 +20,7 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage}) {
                     <Button onClick={()=> setFields('adding section')} type="primary">+ Add Content</Button>
                 </div>}
                 {fields === 'adding section' && <div className={styles.miniSaveButtons + " flex"}>
-                    <Button type="default" icon={<Image src={ViewSales} alt="empty"/>}>  View Subscribers</Button>
+                    <Button type="default" icon={<Image src={Subscribers} alt="empty"/>}>  View Subscribers</Button>
                     <Button type="primary" onClick={()=> toManageSection()} style={{color: "#0072ef"}}>Manage All Sections</Button>
                     <Button type="primary">Preview Membership</Button>
                 </div>}
