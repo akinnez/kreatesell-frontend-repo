@@ -34,7 +34,7 @@ const requestsColumns = types => [
     title: "Performance",
     dataIndex: "performance",
     render: performance => (
-      <Performance sold={performance.sold} visit={performance.visit} />
+      <Performance sold={performance.sold} visits={performance.visit} />
     ),
   },
   {
