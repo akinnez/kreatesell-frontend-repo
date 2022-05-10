@@ -11,7 +11,7 @@ import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { Table } from "antd";
 import { useRouter } from "next/router";
-import { GetProducts, GetProductStatus } from "redux/actions";
+import { GetProducts, GetProductStatus, SetProductID } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 
@@ -19,6 +19,7 @@ const AllProducts = () => {
 	const router = useRouter();
 	const getProducts = GetProducts();
 	const getProductStatus = GetProductStatus();
+	const setProductId = SetProductID()
 	const { products, loading, productPagination, productStatus } = useSelector(
 		(state) => state.product
 	);
@@ -100,7 +101,7 @@ const AllProducts = () => {
                         text="+ Add a Product"
                         bgColor="blue"
                         className={styles.addCouponBtn1 + " pr-2 pl-2"}
-                        onClick={() => router.push("/account/kreator/products/create")}
+                        onClick={() => setProductId('',router.push("/account/kreator/products/create"))}
                     />
 				</div>
 				<CouponHeader

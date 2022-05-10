@@ -106,8 +106,16 @@ import Subscribers from "../public/images/unkown4.svg";
 import Audio from "../public/images/unkown5.svg";
 import Edit from "../public/images/unkown6.svg";
 import Video from "../public/images/unkown7.svg";
+import PublishProduct from "../public/images/publish.svg";
+import UnPublishProduct from "../public/images/unpublish.svg";
+import PreviewMembership from "../public/images/new-vec.svg";
+import LinkCopy from "../public/images/content_copy.svg";
 
 export {
+	PublishProduct,
+	LinkCopy,
+	PreviewMembership,
+	UnPublishProduct,
 	RightPreviewArrow,
 	CloudUploadDisable,
 	AddLecture,

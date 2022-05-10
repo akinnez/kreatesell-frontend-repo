@@ -26,6 +26,7 @@ export const DigitalProductSchema = () => {
 		// is_preview_only: true,
 		// redirect_buyer: true,
 		cover_image: Yup.string(),
+		isBasicPlan: Yup.boolean().isFalse("Pre Order feature is for Business plan, kindly upgrade your account")
 	});
 };
 

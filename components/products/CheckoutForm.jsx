@@ -1,5 +1,4 @@
 import { Percentage, Radio } from "components/inputPack";
-import { ProductInput } from "components";
 import { Switch, Form, Input, Select, Button } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect } from "react";
@@ -17,6 +16,7 @@ import {
 import { useHandleProductInputDebounce, useUpload } from "hooks";
 import CustomCheckoutSelect from "./CustomCheckout";
 import {useRouter} from "next/router";
+import { transformToFormData } from 'utils'
 
 export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
@@ -48,8 +48,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const [billingIntervalDuration, setBillingIntervalDuration] = useState(7)
   const [initialBillingInput, setInitialBillingInput] = useState(0)
   const [custombillingInterval, setCustomBillingInterval] = useState(0)
-
-
 
   const {Option} = Select
 
@@ -113,6 +111,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     label: billing.billing_types,
     value: billing.billing_durations,
   }));
+
 
   const paymentFrequencyOptions = async () => {
     let opt = [];
@@ -237,26 +236,18 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     }
     const checkedData = checkArrays(data)
     console.log(checkedData)
-    const formdata = new FormData()
-    for(let value in checkedData){
-      if(typeof checkedData[value] === 'object'&& !(checkedData[value] instanceof Array)){
-        for(let inner in checkedData[value]){
-          formdata.append(`${value}.${inner}`, checkedData[value][inner])
-        }
-        continue
-      }
-      formdata.append(value, checkedData[value])
-    }
-    createProduct(formdata, () => 
+    const result = transformToFormData(checkedData)
+    createProduct(result, () => 
     router.push(`/account/kreator/products/preview/${productID}`)
     );
   };
+
   const initialValues = {
     "action": "e",
     "minimum_price": 0,
     "is_minimum_price": true,
     "is_show_compare_price": compareToPrice,
-    "pricing_type_id": 0,
+    "pricing_type_id": 1,
     "is_strike_original_price": true,
     "selling_prices": [],
     "original_prices": [],
@@ -471,6 +462,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         "product_listing_status_id",
         product?.product_details?.product_listing_status
       );
+      setFieldValue("upload_content", product.product_details.upload_content ? product.product_details.upload_content : false);
+      console.log(product.product_details.cta_button)
       setFieldValue("cta_button", product.product_details.cta_button ? product.product_details.cta_button : ctaBtnText)
       setCtaBtnText(product?.product_details?.cta_button)
 
