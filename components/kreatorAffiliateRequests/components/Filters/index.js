@@ -30,12 +30,8 @@ const Filters = ({
     return [{ id: "all", product_type_name: "All" }, ...productTypes];
   }, [productTypes]);
 
-  const handleProductName = e => {
-    form.setFieldsValue({ product_name: e.target.value });
-  };
-
-  const handleAffiliateName = e => {
-    form.setFieldsValue({ affiliate_name: e.target.value });
+  const handleSearch = field => e => {
+    form.setFieldsValue({ [field]: e.target.value });
   };
 
   const handleProductType = value => {
@@ -118,7 +114,7 @@ const Filters = ({
                 <Form.Item label="Product Name" name="product_name">
                   <Input
                     placeholder="Search by product name"
-                    onChange={handleProductName}
+                    onChange={handleSearch("product_name")}
                   />
                 </Form.Item>
               </Col>
@@ -130,7 +126,7 @@ const Filters = ({
                 <Form.Item label="Affiliate Name" name="affiliate_name">
                   <Input
                     placeholder="Search by affiliate name"
-                    onChange={handleAffiliateName}
+                    onChange={handleSearch("affiliate_name")}
                   />
                 </Form.Item>
               </Col>

@@ -3,7 +3,9 @@ import { StatsCard } from "../StatsCard";
 import * as nextRouter from "next/router";
 
 nextRouter.useRouter = jest.fn();
-nextRouter.useRouter.mockImplementation(() => ({ route: "/" }));
+nextRouter.useRouter.mockImplementation(() => ({
+  route: "/",
+}));
 
 test("renders <StatsCard /> correctly in snapshot", () => {
   const statsCardMockProps = {

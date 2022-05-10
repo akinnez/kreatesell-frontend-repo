@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Layout, PricingCard, Select, Button } from "../components";
 import styles from "../public/css/Pricing.module.scss";
-import { Faq } from "../utils";
+import { Faq, Animate } from "../utils";
 import Image from "next/image";
 
 const Pricing = () => {
@@ -32,6 +32,12 @@ const Pricing = () => {
     { value: "Spain", label: "TZX" },
     { value: "Spain", label: "UGX" },
   ];
+
+  const handleBtnClick = () => {
+    // do nothing for now.
+    return;
+    
+  };
 
   return (
     <Layout defaultMarginTop={true}>
@@ -84,6 +90,7 @@ const Pricing = () => {
                   btnText="Start for free"
                   subTitle="All of the features you need to start selling your contents"
                   priceType="100% Free "
+                  btnOnClick={handleBtnClick}
                 />
               </div>
 
@@ -95,6 +102,7 @@ const Pricing = () => {
                   btnText="Start for free"
                   priceType={priceLabel}
                   subPriceType={subPriceType}
+                  btnOnClick={handleBtnClick}
                 />
               </div>
             </div>
@@ -120,7 +128,10 @@ const Pricing = () => {
         </div>
 
         <div className={styles.faqContainer}>
-          <div className={styles.faqHeader}>
+          <div
+            className={styles.faqHeader}
+            {...Animate("zoom-in-right", 500, "ease-in")}
+          >
             <h3 className={styles.title}>
               Frequently <br /> Asked <br /> Questions
             </h3>
@@ -135,10 +146,16 @@ const Pricing = () => {
 
           <div className={styles.contentWrapper}>
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 How long will the free offer remain free?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   The free offer is forever, for unlimited users, as long as you
                   do not request for extra integrations.
@@ -147,10 +164,16 @@ const Pricing = () => {
             </div>
 
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 700, "ease-in")}
+              >
                 What does the subscription include?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 800, "ease")}
+              >
                 <p>
                   You get access to our automation panel, self customized store,
                   email integration, top notch security, round-the-clock
@@ -168,10 +191,16 @@ const Pricing = () => {
             </div>
 
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 How long does it take for funds to be deposited into my account?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   Funds are basically deposited into your local account within
                   48hours or two business days.
@@ -179,10 +208,16 @@ const Pricing = () => {
               </div>
             </div>
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 Am I Safe to make payment for a membership plan?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   Yes, you&#39;re safe to make payment for anything. Our
                   platform is safe for anybody.
@@ -201,10 +236,16 @@ const Pricing = () => {
             </div>
 
             <div className={styles.content}>
-              <h5 className={styles.question}>
+              <h5
+                className={styles.question}
+                {...Animate("zoom-in", 500, "ease-in")}
+              >
                 How can I make money as a Creator?
               </h5>
-              <div className={styles.answer}>
+              <div
+                className={styles.answer}
+                {...Animate("fade-up", 600, "ease")}
+              >
                 <p>
                   It&#39;s very simple I say. All you just need to do is compile
                   the knowledge you have into an ebook, audio course, online

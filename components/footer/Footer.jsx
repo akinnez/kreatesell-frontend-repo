@@ -149,18 +149,43 @@ export const Footer = () => {
         <div>
           <div className={styles.categoryTitle}>Follow us</div>
           <div className={styles.categoryLink}>
-            <Link href="#">
-              <a>Facebook</a>
-            </Link>
-            <Link href="#">
-              <a>Twitter</a>
-            </Link>
-            <Link href="#">
-              <a>Instagram</a>
-            </Link>
-            <Link href="#">
-              <a>Linkedin</a>
-            </Link>
+            {/* <Link href="#"> */}
+            <a
+              href="https://www.facebook.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook
+            </a>
+            {/* </Link> */}
+            {/* <Link href="#">  */}
+            <a
+              href="https://twitter.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Twitter
+            </a>
+
+            {/* </Link> */}
+            {/* <Link href="#"> */}
+            <a
+              href="https://www.instagram.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+            </a>
+            {/* </Link> */}
+            {/* <Link href="#"> */}
+            <a
+              href="https://www.linkedin.com/company/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Linkedin
+            </a>
+            {/* </Link> */}
           </div>
         </div>
       </div>
@@ -263,27 +288,62 @@ export const Footer = () => {
           <div className={styles.engageUs}>Engage with us</div>
 
           <div className={styles.mobileSocialLinks}>
-            <Image src={FBIcon} alt="kreatesell facebook" className="cursor" />
-            <Image
-              src={InstaIcon}
-              alt="kreatesell instagram"
-              className="cursor"
-            />
-            <Image
-              src={LinkedIcon}
-              alt="kreatesell linkedin"
-              className="cursor"
-            />
-            <Image
-              src={WhatsappIcon}
-              alt="kreatesell whatsapp"
-              className="cursor"
-            />
-            <Image
-              src={TwitterIcon}
-              alt="kreatesell twitter"
-              className="cursor"
-            />
+            <a
+              href="https://www.facebook.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={FBIcon}
+                alt="kreatesell facebook"
+                className="cursor"
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={InstaIcon}
+                alt="kreatesell instagram"
+                className="cursor"
+              />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={LinkedIcon}
+                alt="kreatesell linkedin"
+                className="cursor"
+              />
+            </a>
+            <a
+              href="https://wa.me/+2349016324945"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={WhatsappIcon}
+                alt="kreatesell whatsapp"
+                className="cursor"
+              />
+            </a>
+
+            <a
+              href="https://twitter.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={TwitterIcon}
+                alt="kreatesell twitter"
+                className="cursor"
+              />
+            </a>
           </div>
 
           <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div>

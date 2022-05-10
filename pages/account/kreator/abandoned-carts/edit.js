@@ -11,7 +11,7 @@ const { Title, Text } = Typography;
 const Edit = () => (
   <ProfileLayout>
     <Head>
-      <title>KreateSell | Edit Abandoned Cart Mail</title>
+      <title>KreateSell | Edit Mail</title>
     </Head>
     <div className={styles.back__btn}>
       <BackButton />

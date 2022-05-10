@@ -15,12 +15,7 @@ const KreatorDashboard = () => {
         <DashboardLinks />
       </section>
       <StatsHeader title="Kreator" orderUrl="/account/sales/transactions" />
-      <StatsCard
-        totalVisits="123,456"
-        unitSales="123,456"
-        grossSales="123,456"
-        profit="123,456"
-      />
+      <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
       <RecentAnalytics />
     </div>
   );

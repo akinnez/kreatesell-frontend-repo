@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 const Add = () => (
   <ProfileLayout>
     <Head>
-      <title>KreateSell | Add Abandoned Cart Mail</title>
+      <title>KreateSell | Compose Mail</title>
     </Head>
     <div className={styles.back__btn}>
       <BackButton />

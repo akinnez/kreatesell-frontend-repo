@@ -29,21 +29,11 @@ const Dashboard = () => {
       <section>
         <div className={styles.stats__container}>
           <StatsHeader title="Kreator" url="/account/dashboard/kreator" />
-          <StatsCard
-            totalVisits="123,456"
-            unitSales="123,456"
-            grossSales="123,456"
-            profit="123,456"
-          />
+          <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
         </div>
         <div className={styles.stats__container}>
           <StatsHeader title="Affiliate" url="/account/dashboard/affiliate" />
-          <StatsCard
-            totalVisits="123,456"
-            unitSales="123,456"
-            grossSales="123,456"
-            profit="123,456"
-          />
+          <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
         </div>
       </section>
 

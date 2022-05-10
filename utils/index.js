@@ -12,14 +12,14 @@ export const _clearData = ({ pushToLogin = true }) => {
   return false;
 };
 
-export const isAnEmpytyObject = obj => {
+export const isAnEmpytyObject = (obj) => {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
   }
   return true;
 };
 
-export const generateActions = action => {
+export const generateActions = (action) => {
   action = action.toUpperCase();
   return {
     REQUEST: `${action}_REQUEST`,
@@ -62,30 +62,33 @@ export const _isUserLoggedIn = () => {
 export const showToast = (message, type) => {
   if (type) type = type.toLowerCase();
 
+  const errorMessagePosition  = {
+    position: "top-center"
+  }
   switch (type) {
     case "success":
-      cogoToast.success(message, { position: "top-right" });
+      cogoToast.success(message, errorMessagePosition);
       break;
     case "info":
-      cogoToast.info(message, { position: "top-right" });
+      cogoToast.info(message, errorMessagePosition);
       break;
     case "loading":
-      cogoToast.loading(message, { position: "top-right" });
+      cogoToast.loading(message, errorMessagePosition);
       break;
     case "warn":
-      cogoToast.warn(message, { position: "top-right" });
+      cogoToast.warn(message, errorMessagePosition);
       break;
     case "error":
-      cogoToast.error(message, { position: "top-right" });
+      cogoToast.error(message, errorMessagePosition);
       break;
 
     default:
-      cogoToast.info(message, { position: "top-right" });
+      cogoToast.info(message, errorMessagePosition);
       break;
   }
 };
 
-export const _validateEmail = email => {
+export const _validateEmail = (email) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
@@ -123,7 +126,7 @@ export  function transformToFormData(data, exempt) {
   return formData;
 }
 
-export const _formatURL = url => url.replace(/(^\w+:|^)\/\//, "");
+export const _formatURL = (url) => url.replace(/(^\w+:|^)\/\//, "");
 
 export const _prependHttp = ({ url, https = true }) => {
   if (typeof url !== "string") {
@@ -157,7 +160,7 @@ export const _prependKreateSell = ({ url, https = true }) => {
   return url.replace(/^(?!(?:\w+?:)?\/\/)/, "Kreatesell.com/");
 };
 
-export const _timeToMomentAgo = timeValue => {
+export const _timeToMomentAgo = (timeValue) => {
   const parseServerTime = Date.parse(timeValue);
 
   const secs = (Date.now() - parseServerTime) / 1000;
@@ -226,7 +229,7 @@ export const setAuthorizationHeader = () => {
   }
 };
 
-export const downloadFile = url => {
+export const downloadFile = (url) => {
   const name1 = new Date().toISOString();
   const name2 = Math.random().toString(35);
   axios({
@@ -234,7 +237,7 @@ export const downloadFile = url => {
     method: "GET",
     responseType: "blob", // important
   })
-    .then(response => {
+    .then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -242,9 +245,9 @@ export const downloadFile = url => {
       document.body.appendChild(link);
       link.click();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
-export const downloadMultiFiles = files => {
+export const downloadMultiFiles = (files) => {
   // files must be an array of images
   for (let i of files) {
     if (typeof window !== "undefined") {
@@ -263,3 +266,18 @@ export const currencyOptions = [
   { value: "USD", label: "USD" },
   { value: "GBP", label: "GBP" },
 ];
+
+export const Animate = (
+  animationType,
+  delay = 1000,
+  transition = "ease-in"
+  // duration = 1500
+) => {
+  const animationObj = {
+    "data-aos": animationType,
+    "data-aos-delay": delay,
+    "data-aos-easing": transition,
+    "data-aos-duration": 1000,
+  };
+  return animationObj;
+};

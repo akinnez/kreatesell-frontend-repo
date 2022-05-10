@@ -7,6 +7,7 @@ import Link from "next/link";
 import ResourcesDrop from "./ResourcesDrop";
 import Image from "next/image";
 import { ArrowDown } from "../../utils/assets";
+import { Animate } from "../../utils";
 
 export const Navbar = () => {
   const router = useRouter();
