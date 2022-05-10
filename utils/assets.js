@@ -30,7 +30,7 @@ import UnitSales from "../public/images/dashboard-unit-sales.svg";
 import Visit from "../public/images/dashboard-visits.svg";
 import DownloadIcon from "../public/images/download.svg";
 import FBLike from "../public/images/fb-like.svg";
-import AirBnBLogo from "../public/images/Airbnb-logo.svg";
+// import AirBnBLogo from "../public/images/Airbnb-logo.svg";
 import MicrosoftLogo from "../public/images/Microsoft-logo.svg";
 import ElipseImage from "../public/images/hero-elipse-2.svg";
 import MobileElipse from "../public/images/mobile-elipse.svg";
@@ -114,8 +114,14 @@ import Guardian from "../public/images/guardian.svg";
 import TechCrunch from "../public/images/tech-crunch.svg";
 import LineOne from "../public/images/line-1.svg";
 import LineTwo from "../public/images/line-2.svg";
+import DashPreviewOne from "../public/images/dash-preview-1.svg";
+import DashPreviewTwo from "../public/images/dash-preview-2.svg";
+import PaymentPreview from "../public/images/foreign-payments-preview.svg";
 
 export {
+  DashPreviewOne,
+  DashPreviewTwo,
+  PaymentPreview,
   LineOne,
   LineTwo,
   Vanguard,
@@ -175,7 +181,7 @@ export {
   UnitSales,
   Visit,
   DownloadIcon,
-  AirBnBLogo,
+  // AirBnBLogo,
   MicrosoftLogo,
   PrimaryNews,
   SecondaryNews,

@@ -205,18 +205,30 @@
       @include flex(row, space-evenly, null);
       position: relative;
 
-      // .lineImage {
-      //   position: absolute;
-      //   bottom: 380px;
-      //   display: flex;
-      //   justify-content: center;
-      //   align-items: center;
-      //   padding: 1rem 4rem;
-      //   border: 1px solid red;
-      //   // max-width: 200px;
-      // }
+      .lineImageOne,
+      .lineImageTwo {
+        position: absolute;
+        bottom: 570px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 4rem;
+        // border: 1px solid red;
+        // max-width: 200px;
+        width: 100%;
+        margin: 0 auto;
+        @include minScreen("tablet") {
+          display: none;
+        }
+      }
+
+      .lineImageTwo {
+        bottom: 260px;
+      }
       .howItWorksImgSingle {
         @include flex(column, null, null);
+        margin-bottom: 4rem;
+        transition: all 0.2s;
         .howItWorksImgTitle {
           font-weight: 600;
           font-size: 1.25rem;
@@ -233,6 +245,10 @@
           text-align: center;
           font-weight: 300;
           margin-top: 8px;
+        }
+
+        @include minScreen("tablet") {
+          margin-bottom: unset;
         }
       }
       @include screen("tablet") {
@@ -311,6 +327,7 @@
       .automationText {
         width: 50%;
         padding-left: 7rem;
+        text-align: left !important;
         h3,
         p {
           margin: 0;
@@ -322,10 +339,12 @@
           font-size: 2.5rem;
           line-height: 3.375rem;
           color: $black-100;
+          text-align: left;
         }
 
         .mobileAutomationTitle {
           display: none;
+          // text-align: left;
         }
 
         .automationSubTitle {

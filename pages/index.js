@@ -11,7 +11,9 @@ import styles from "../public/css/Home.module.scss";
 import {
   RightArrow,
   LandingPageHero,
-  AirBnBLogo,
+  DashPreviewOne,
+  DashPreviewTwo,
+  PaymentPreview,
   LineOne,
   LineTwo,
   Vanguard,
@@ -264,9 +266,12 @@ export default function Home() {
               </p>
             </div>
             {/* path line */}
-            {/* <div className={styles.lineImage}>
+            <div
+              className={styles.lineImageOne}
+              // {...Animate("fade-up", 700, "ease")}
+            >
               <Image src={LineOne} alt="line one" />
-            </div> */}
+            </div>
             <div
               className={styles.howItWorksImgSingle}
               {...Animate("zoom-in", 100, "ease")}
@@ -281,6 +286,9 @@ export default function Home() {
               <p className={styles.howItWorksImgSubTitle}>
                 Add products and setup your store.
               </p>
+            </div>
+            <div className={styles.lineImageTwo}>
+              <Image src={LineTwo} alt="line two" />
             </div>
             <div
               className={styles.howItWorksImgSingle}
@@ -311,7 +319,8 @@ export default function Home() {
           <div className={styles.subHero}>
             <h3>More than an ecommerce platfrom</h3>
             <p>
-              Amazing all-in-one tools that bring a winning customer experience
+              It&apos;s an amazing all-in-one platform that brings a winning
+              customer experience.
             </p>
           </div>
 
@@ -321,7 +330,7 @@ export default function Home() {
               {...Animate("zoom-in-right", 200, "ease")}
             >
               <Image
-                src={AutomationIcon}
+                src={DashPreviewOne}
                 height="420"
                 width="417"
                 alt="automation icon"
@@ -332,10 +341,10 @@ export default function Home() {
               {...Animate("zoom-in-left", 100, "ease")}
             >
               <h3 className={styles.automationTitle}>
-                Enjoy Free, Beautiful, <br /> Unlimited Templates
+                Enjoy multiple captivating publishing options
               </h3>
               <h3 className={styles.mobileAutomationTitle}>
-                Enjoy Free, Beautiful, Unlimited Templates
+                Enjoy multiple captivating publishing options
               </h3>
               <p className={styles.automationSubTitle}>
                 With the free templates, you can kreate a stunning <br />{" "}
