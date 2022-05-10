@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { CloudUpload, ErrorIcon, isAnEmpytyObject } from "utils";
+import { CloudUpload, ErrorIcon, isAnEmpytyObject, transformToFormData } from "utils";
 import styles from "./CreateProduct.module.scss";
 import { Radio } from "components/inputPack";
 import { Switch } from "antd";
@@ -47,6 +47,9 @@ export const CreateProductForm = ({
   const { listingStatus, loading, productID, product } = useSelector(
     (state) => state.product
   );
+  const { store } = useSelector(
+    (state) => state.store
+  );
   const [productFile, setProductFile] = useState(null);
   const [initialProduct, setInitialProduct] = useState(null)
   const filterListingStatus = (id) =>
@@ -89,6 +92,7 @@ export const CreateProductForm = ({
       product_Files: []
     },
     product_details: "",
+    isBasicPlan: false
   };
 
   const handleSubmit = (data) => {
@@ -103,18 +107,10 @@ export const CreateProductForm = ({
     if (!data.upload_content){
       delete data.contentZipFiles
     }
+    delete data.isBasicPlan
     console.log(data)
-    const formdata = new FormData()
-    for(let value in data){
-      if(value !== 'contentZipFiles' && typeof data[value] === 'object'){
-        for(let inner in data[value]){
-          console.log(data[value][inner])
-          formdata.append(`${value}.${inner}`, data[value][inner])
-        }
-      }
-      formdata.append(value, data[value])
-    }
-    createProduct(formdata, () => {
+    const result = transformToFormData(data, 'contentZipFiles')
+    createProduct(result, () => {
       setProductTab(1);
     });
   };
@@ -151,6 +147,19 @@ export const CreateProductForm = ({
     }
   }, [productID]);
 
+  useEffect(()=>{
+    if(preOrder){
+      const {user} = store
+      if(user.user_plan === 'Basic'){
+        setFieldValue("isBasicPlan", true)
+      }else{
+        setFieldValue("isBasicPlan", false)
+      }
+    }
+    return ()=>{
+      setFieldValue("isBasicPlan", false)
+    }
+  }, [preOrder, store])
   useEffect(()=>{
     console.log('here', product)
   }, [product])
@@ -206,6 +215,7 @@ export const CreateProductForm = ({
         "product_listing_status",
         product?.product_details?.product_listing_status
       );
+      setFieldValue("cta_button", product?.product_details?.cta_button)
       setFieldValue("product_images.productFiles",  ...product.product_images.filter(images => images.file_type !== 4).map(item => {
         const arr = item.filename.split(',')
         return [...arr]

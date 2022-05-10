@@ -189,11 +189,14 @@ const ActionComponent = ({ item, showAction }) => {
 
   /**Used to delete and deactivate product */
   const handleModalOk = () => {
-    const formdata = new FormData()
-    formdata.append('product_id', id)
-    formdata.append('action', 'd')
-    createEditDeleteProduct(formdata, () => {
-      getProducts();
+    return new Promise(resolve => {
+      const formdata = new FormData()
+      formdata.append('product_id', id)
+      formdata.append('action', 'd')
+      createEditDeleteProduct(formdata, () => {
+        getProducts();
+        resolve()
+      });
     });
   };
   let content = (
@@ -234,7 +237,7 @@ const ActionComponent = ({ item, showAction }) => {
 
   <li className={styles.deletePop + " flex items-center cursor-pointer"}>
   <Popconfirm
-    title={<p className="mb-0 text-sm ">Are you sure to <h2 className="text-base font-semibold">Deactivate</h2> this product?</p> }
+    title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this product?</pre> }
     onConfirm={handleModalOk}
     // onCancel={cancel}
     okText="Delete"

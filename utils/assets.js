@@ -117,9 +117,16 @@ import LineTwo from "../public/images/line-2.svg";
 import DashPreviewOne from "../public/images/dash-preview-1.svg";
 import DashPreviewTwo from "../public/images/dash-preview-2.svg";
 import PaymentPreview from "../public/images/foreign-payments-preview.svg";
-
+import PublishProduct from "../public/images/publish.svg";
+import UnPublishProduct from "../public/images/unpublish.svg";
+import PreviewMembership from "../public/images/new-vec.svg";
+import LinkCopy from "../public/images/content_copy.svg";
 export {
+  PublishProduct,
+  UnPublishProduct,
+  PreviewMembership,
   DashPreviewOne,
+  LinkCopy,
   DashPreviewTwo,
   PaymentPreview,
   LineOne,

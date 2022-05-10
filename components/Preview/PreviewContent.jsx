@@ -11,8 +11,13 @@ export default function PreviewContent (){
     const [mainImage, setMainImage] = useState('')
     const [activeImage, setActiveImage] = useState(0)
     const [checkout, setCheckout]= useState(null)
+    const [sellingPrice, setSellingPrice] = useState([])
+    const [originalPrice, setOriginalPrice] = useState([])
     const { product } = useSelector(
         (state) => state.product
+      );
+    const { user } = useSelector(
+        (state) => state.auth
       );
 
       const increase = ()=>{
@@ -41,14 +46,20 @@ export default function PreviewContent (){
                 return truc
               }))
             setCheckout(product?.check_out_details)
-        }        
-    }, [product])
+        }
+        if(checkout && checkout.length > 0){
+            const defaultPrice = product.default_currency
+            const prices = checkout.filter(item => item.currency_name === defaultPrice)
+            setSellingPrice(prices.filter(item => item.price_indicator === "Selling"))
+            setOriginalPrice(prices.filter(item => item.price_indicator === "Original"))
+        }
+    }, [product, checkout])
     useEffect(()=>{
         if(images !== undefined && images.length > 0 ){
             setMainImage(images[activeImage].filename)
         }
-    }, [images, activeImage])
-  
+        
+    }, [images, activeImage,])
     return(
         <div className={styles.contentContainer + " flex flex-col bg-white rounded-lg"}>
             <div className="flex">
@@ -74,10 +85,10 @@ export default function PreviewContent (){
                     </div>
                     <div className={'flex items-center '+ styles.padBottom}>
                         <div className={styles.dp}>
-                        {/* {details !== undefined && Object.keys(details).length > 0 && <Image src={`/${details.user.business_logo}`} width="100" height={100} objectFit="cover" alt="cover_image" />} */}
+                            {Object.keys(user).length > 0 && user.back_drop_image && <Image src={`/${user.back_drop_image}`} width="100" height={100} objectFit="cover" alt="cover_image" />}
                         </div>
                         <div className='flex  ml-6 flex-col'>
-                            {/* {details !== undefined && Object.keys(details).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{details.user.full_name}</h2>} */}
+                            {Object.keys(user).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{user.full_name}</h2>}
                             <div className={styles.visitLink}>
                                 <h2 className='mb-0 font-medium'>Visit Store</h2>
                                 <Image src={ExternalLink} alt="link" />
@@ -90,7 +101,9 @@ export default function PreviewContent (){
                     </div>
                     <div className={styles.priceSection}>
                         <div className="flex flex-col">
-                            {checkout && checkout.length > 0 && <h1 className='text-3xl font-bold'>{checkout && `${checkout[0].currency_name}  ${checkout[0].price}`}</h1> }
+                            {/* {checkout && checkout.length > 0 && <h1 className='text-3xl font-bold'>{checkout && `${checkout[0].currency_name}  ${checkout[0].price}`}</h1> } */}
+                            {sellingPrice.length > 0 && sellingPrice.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item.currency_name}  ${item.price}`}</h1>)}
+                            {originalPrice.length > 0 && originalPrice.map((item, i) => <h2 key={i} className='text-xl line-through font-medium'>{`${item.currency_name}  ${item.price}`}</h2>)}
                         </div>
                         <Button type='primary' >{details !== undefined && details.cta_button ? details.cta_button : 'Buy Now'}</Button>
                     </div>
