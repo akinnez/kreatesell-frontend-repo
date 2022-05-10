@@ -322,6 +322,18 @@
       .image {
         margin-top: 4rem;
         width: 50%;
+        margin-bottom: 40px;
+        transition: margin-bottom 0.2s;
+        @include minScreen("tablet") {
+          margin-bottom: unset;
+        }
+        & img {
+          transform: scale(1.1);
+          transition: transform 0.2s;
+          @include minScreen("tablet") {
+            transform: scale(1);
+          }
+        }
       }
 
       .automationText {
@@ -349,10 +361,11 @@
 
         .automationSubTitle {
           margin-top: 1rem;
-          font-weight: 500;
+          font-weight: 400;
           font-size: 1rem;
           line-height: 1.75rem;
           color: $base-gray;
+          text-align: left;
         }
         .mobileAutomationSubTitle {
           display: none;
@@ -409,12 +422,13 @@
             font-weight: 400;
             font-size: 0.9rem;
             line-height: 1.4rem;
-            padding: 0 3rem;
+            // padding: 0 3rem;
             color: $base-gray;
-            text-align: center;
+            text-align: left;
           }
           .linkText {
             font-weight: 500;
+            display: none;
             font-size: 1rem;
             line-height: 1.5625rem;
           }
@@ -424,7 +438,8 @@
 
     .spiral {
       @include flex(row, center, null);
-      margin-top: -3.25rem;
+      // margin-top: -3.25rem;
+      margin-bottom: 1.8rem;
 
       @include screen("tablet") {
         display: none;
@@ -436,14 +451,23 @@
     background: $base-blue;
     display: flex;
     width: 100%;
+    height: 100%;
+    padding: 6rem 0;
     align-items: center;
     @include screen("tablet") {
       flex-direction: column;
     }
 
+    @include minScreen("tablet") {
+      padding: unset;
+    }
+
     .midSectionText {
-      padding: 0 10.31rem;
+      // padding: 0 10.31rem;
       // width: 60%;
+      padding: 4rem 0;
+      padding-left: 10.31rem;
+
       width: 58%;
       color: $base-white;
 
@@ -466,6 +490,7 @@
         font-weight: 500;
         font-size: 1rem;
         line-height: 1.75rem;
+        // padding: 6rem 10.31rem;
       }
 
       .midSectionInputBtn {
@@ -515,8 +540,15 @@
     .midSectionImage {
       // width: 40%;
       width: 42%;
+      height: 100%;
       display: flex;
       justify-content: center;
+      // align-self: stretch;
+      // transform: scale(1.5);
+
+      & img {
+        height: 100%;
+      }
       @include screen("tablet") {
         display: none;
         width: 100%;

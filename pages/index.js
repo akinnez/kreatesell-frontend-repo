@@ -347,17 +347,16 @@ export default function Home() {
                 Enjoy multiple captivating publishing options
               </h3>
               <p className={styles.automationSubTitle}>
-                With the free templates, you can kreate a stunning <br />{" "}
-                individual product look from the varieties of pre-set <br />{" "}
-                templates. Make your product looks and layout <br /> stand out
-                and appealing. Design your store to be <br /> device-friendly
-                and attractive.
+                Explore diverse ways of putting out your content for your
+                audience to access — digital download, one-time subscription
+                and/or membership. Be in total control of how people acquire
+                your digital products.
               </p>
               <p className={styles.mobileAutomationSubTitle}>
-                With the free templates, you can kreate a stunning individual
-                product look from the varieties of pre-set templates. Make your
-                product looks and layout stand out and appealing. Design your
-                store to be device-friendly and attractive.
+                Explore diverse ways of putting out your content for your
+                audience to access — digital download, one-time subscription
+                and/or membership. Be in total control of how people acquire
+                your digital products.
               </p>
 
               <div className={styles.linkText}>
@@ -417,7 +416,7 @@ export default function Home() {
               {...Animate("fade-down", 200, "linear")}
             >
               <Image
-                src={PayoutMethod}
+                src={DashPreviewTwo}
                 height="513"
                 width="635"
                 alt="payout method"
@@ -444,7 +443,7 @@ export default function Home() {
               {...Animate("zoom-in-right", 400, "ease")}
             >
               <Image
-                src={InstantPayout}
+                src={PaymentPreview}
                 height="420"
                 width="417"
                 alt="instant payout"
