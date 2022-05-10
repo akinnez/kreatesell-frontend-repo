@@ -106,8 +106,20 @@ import Subscribers from "../public/images/unkown4.svg";
 import Audio from "../public/images/unkown5.svg";
 import Edit from "../public/images/unkown6.svg";
 import Video from "../public/images/unkown7.svg";
+import Vanguard from "../public/images/vanguard.svg";
+import TechCity from "../public/images/tech-city.svg";
+import Punch from "../public/images/punch.svg";
+import TechCabal from "../public/images/tech-cabal.svg";
+import Guardian from "../public/images/guardian.svg";
+import TechCrunch from "../public/images/tech-crunch.svg";
 
 export {
+  Vanguard,
+  TechCity,
+  Punch,
+  TechCabal,
+  Guardian,
+  TechCrunch,
   RightPreviewArrow,
   CloudUploadDisable,
   AddLecture,

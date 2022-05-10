@@ -143,22 +143,37 @@ export default function Home() {
               {...Animate("fade-up", 100, "ease")}
             >
               <div className={styles.imageStyle}>
-                <Image src={TechCrunch} alt="tech crunch" />
+                <Image
+                  src={TechCrunch}
+                  alt="tech crunch"
+                  width="100"
+                  height="100"
+                />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={TechCabal} alt="tech cabal" />
+                <Image
+                  src={TechCabal}
+                  alt="tech cabal"
+                  width="100"
+                  height="100"
+                />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={TechCity} alt="tech city" />
+                <Image
+                  src={TechCity}
+                  alt="tech city"
+                  width="100"
+                  height="100"
+                />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={Guardian} alt="guardian" />
+                <Image src={Guardian} alt="guardian" width="100" height="100" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={Punch} alt="punch" />
+                <Image src={Punch} alt="punch" width="100" height="100" />
               </div>
               <div className={styles.imageStyle}>
-                <Image src={Vanguard} alt="vanguard" />
+                <Image src={Vanguard} alt="vanguard" width="100" height="100" />
               </div>
             </div>
 
@@ -170,13 +185,28 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={TechCrunch} alt="tech crunch" />
+                  <Image
+                    src={TechCrunch}
+                    alt="tech crunch"
+                    width="100"
+                    height="100"
+                  />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={TechCabal} alt="tech cabal" />
+                  <Image
+                    src={TechCabal}
+                    alt="tech cabal"
+                    width="100"
+                    height="100"
+                  />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={TechCity} alt="tech city" />
+                  <Image
+                    src={TechCity}
+                    alt="tech city"
+                    width="100"
+                    height="100"
+                  />
                 </div>
               </div>
 
@@ -184,13 +214,23 @@ export default function Home() {
                 <div
                   className={`${styles.mobileFeaturedStyle} ${styles.firstChild}`}
                 >
-                  <Image src={Guardian} alt="guardian" />
+                  <Image
+                    src={Guardian}
+                    alt="guardian"
+                    width="100"
+                    height="100"
+                  />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={Punch} alt="punch" />
+                  <Image src={Punch} alt="punch" width="100" height="100" />
                 </div>
                 <div className={styles.mobileFeaturedStyle}>
-                  <Image src={Vanguard} alt="vanguard" />
+                  <Image
+                    src={Vanguard}
+                    alt="vanguard"
+                    width="100"
+                    height="100"
+                  />
                 </div>
               </div>
             </div>
