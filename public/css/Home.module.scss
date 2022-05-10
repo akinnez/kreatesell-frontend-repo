@@ -203,7 +203,18 @@
       padding-top: 5.25rem;
       padding-bottom: 4.06rem;
       @include flex(row, space-evenly, null);
+      position: relative;
 
+      // .lineImage {
+      //   position: absolute;
+      //   bottom: 380px;
+      //   display: flex;
+      //   justify-content: center;
+      //   align-items: center;
+      //   padding: 1rem 4rem;
+      //   border: 1px solid red;
+      //   // max-width: 200px;
+      // }
       .howItWorksImgSingle {
         @include flex(column, null, null);
         .howItWorksImgTitle {

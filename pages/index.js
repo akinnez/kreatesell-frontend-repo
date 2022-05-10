@@ -12,6 +12,8 @@ import {
   RightArrow,
   LandingPageHero,
   AirBnBLogo,
+  LineOne,
+  LineTwo,
   Vanguard,
   TechCity,
   Punch,
@@ -261,7 +263,10 @@ export default function Home() {
                 Kreate an account to get started.
               </p>
             </div>
-
+            {/* path line */}
+            {/* <div className={styles.lineImage}>
+              <Image src={LineOne} alt="line one" />
+            </div> */}
             <div
               className={styles.howItWorksImgSingle}
               {...Animate("zoom-in", 100, "ease")}
@@ -277,7 +282,6 @@ export default function Home() {
                 Add products and setup your store.
               </p>
             </div>
-
             <div
               className={styles.howItWorksImgSingle}
               {...Animate("fade-left", 200, "ease")}

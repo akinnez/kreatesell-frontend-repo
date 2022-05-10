@@ -112,8 +112,12 @@ import Punch from "../public/images/punch.svg";
 import TechCabal from "../public/images/tech-cabal.svg";
 import Guardian from "../public/images/guardian.svg";
 import TechCrunch from "../public/images/tech-crunch.svg";
+import LineOne from "../public/images/line-1.svg";
+import LineTwo from "../public/images/line-2.svg";
 
 export {
+  LineOne,
+  LineTwo,
   Vanguard,
   TechCity,
   Punch,
