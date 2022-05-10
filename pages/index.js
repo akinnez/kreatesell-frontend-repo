@@ -96,7 +96,7 @@ export default function Home() {
             <p className={styles.subHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
               plans, <br /> and Memberships in an online all-in-one platform for
-              free and accept payment from anywhere in the world.
+              free and accept payment from anywhere <br /> in the world.
             </p>
             <p className={styles.mobileSubHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
