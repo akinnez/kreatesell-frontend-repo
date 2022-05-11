@@ -681,8 +681,8 @@
       .newsCard {
         background: $base-white;
 
-        .newsImage {
-        }
+        // .newsImage {
+        // }
         .newsTextCont {
           background: $base-white;
           padding: 1rem;
@@ -926,8 +926,8 @@
                 margin: 0 0.5rem;
                 cursor: pointer;
 
-                .mobileVideo {
-                }
+                // .mobileVideo {
+                // }
                 .mobileAuthor {
                   font-weight: 550;
                   font-size: 1.1875rem;
@@ -961,8 +961,8 @@
             &:last-child {
               margin-right: 0;
             }
-            .videoImage {
-            }
+            // .videoImage {
+            // }
             .videoAuthor {
               font-weight: 600;
               font-size: 1.3rem;
@@ -1010,8 +1010,8 @@
       display: none;
       @extend .subFooterStyle;
     }
-    .footerInput {
-    }
+    // .footerInput {
+    // }
     .benefits {
       display: none;
     }
@@ -1065,8 +1065,8 @@
         padding: 0 1rem 1rem 1rem;
       }
 
-      .inputCont {
-      }
+      // .inputCont {
+      // }
       .context {
         font-size: 0.875rem;
         line-height: 1.375rem;
