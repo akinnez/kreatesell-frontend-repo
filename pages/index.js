@@ -412,7 +412,7 @@ export default function Home() {
               </div>
             </div>
             <div
-              className={styles.image}
+              className={`${styles.image} ${styles.imgTwo}`}
               {...Animate("fade-down", 200, "linear")}
             >
               <Image
