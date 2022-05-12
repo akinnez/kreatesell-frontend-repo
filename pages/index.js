@@ -140,7 +140,7 @@ export default function Home() {
           </div>
 
           <div className={styles.featured}>
-            <h5 className={styles.title}>As featured in</h5>
+            <h5 className={styles.title}>We Are Featured In</h5>
             {/* desktop */}
             <div
               className={styles.featuredImages}
