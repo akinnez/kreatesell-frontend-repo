@@ -339,6 +339,15 @@ export default function Home() {
               className={styles.image}
               {...Animate("zoom-in-right", 200, "ease")}
             >
+              {/* layout="responsive" isn't applied on mobile images */}
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={DashPreviewOne}
+                  height="420"
+                  width="417"
+                  alt="automation icon"
+                />
+              </div>
               <Image
                 src={DashPreviewOne}
                 height="420"
@@ -443,6 +452,15 @@ export default function Home() {
               className={`${styles.image} ${styles.imgTwo}`}
               {...Animate("fade-down", 200, "linear")}
             >
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={DashPreviewTwo}
+                  height="420"
+                  width="417"
+                  alt="payout method"
+                  // layout="responsive"
+                />
+              </div>
               <Image
                 src={DashPreviewTwo}
                 height="513"
@@ -472,6 +490,14 @@ export default function Home() {
               className={styles.image}
               {...Animate("zoom-in-right", 400, "ease")}
             >
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={PaymentPreview}
+                  height="420"
+                  width="417"
+                  alt="instant payout"
+                />
+              </div>
               <Image
                 src={PaymentPreview}
                 height="420"

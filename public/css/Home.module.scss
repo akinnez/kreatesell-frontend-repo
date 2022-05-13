@@ -330,6 +330,12 @@
         margin-bottom: 40px;
         transition: margin-bottom 0.2s;
 
+        .mobileOnly {
+          border: 1px solid red;
+          @include minScreen("tablet") {
+            display: none;
+          }
+        }
         @media (min-width: 1300px) {
           &:nth-child(1),
           &:nth-child(3) {
