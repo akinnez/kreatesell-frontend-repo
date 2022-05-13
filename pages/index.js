@@ -261,7 +261,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="create store"
-                layout="responsive"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Kreate your Store</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -284,7 +284,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="add product"
-                layout="responsive"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Add Product</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -303,7 +303,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="publish"
-                layout="responsive"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
               <p className={styles.howItWorksImgSubTitle}>

@@ -331,7 +331,7 @@
         transition: margin-bottom 0.2s;
 
         .mobileOnly {
-          border: 1px solid red;
+          // border: 1px solid red;
           @include minScreen("tablet") {
             display: none;
           }
