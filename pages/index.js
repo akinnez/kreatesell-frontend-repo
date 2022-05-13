@@ -327,7 +327,7 @@ export default function Home() {
 
         <div className={styles.featuresSection}>
           <div className={styles.subHero}>
-            <h3>More than an ecommerce platfrom</h3>
+            <h3>More Than Just An E-commerce Platform</h3>
             <p>
               It&apos;s an amazing all-in-one platform that brings a winning
               customer experience.
@@ -544,10 +544,10 @@ export default function Home() {
             <div className={styles.midSectionTitle}>
               Easiest, fastest, and safest <br /> way to sell your Digital{" "}
               <br />
-              Content Online
+              Products Online
             </div>
             <div className={styles.midSectionMobileTitle}>
-              Easiest, fastest, and safest way to sell your Digital Content
+              Easiest, fastest, and safest way to sell your Digital Products
               Online
             </div>
 
