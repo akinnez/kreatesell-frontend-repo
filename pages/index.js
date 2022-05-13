@@ -542,9 +542,8 @@ export default function Home() {
         <div className={styles.midSection}>
           <div className={styles.midSectionText}>
             <div className={styles.midSectionTitle}>
-              Easiest, fastest, and safest <br /> way to sell your Digital{" "}
-              <br />
-              Products Online
+              Easiest, fastest, and <br /> safest way to sell your
+              <br /> Digital Products Online
             </div>
             <div className={styles.midSectionMobileTitle}>
               Easiest, fastest, and safest way to sell your Digital Products
