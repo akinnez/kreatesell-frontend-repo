@@ -92,17 +92,17 @@ export const Footer = () => {
         <div>
           <div className={styles.categoryTitle}>Company</div>
           <div className={styles.categoryLink}>
-            <Link href="#">
+            <Link href="/about-us">
               <a>About</a>
             </Link>
             <Link href="/blog">
               <a>Blog</a>
             </Link>
             <Link href="#">
-              <a>Press</a>
+              <a>Media</a>
             </Link>
             <Link href="#">
-              <a>Careers</a>
+              <a>Jobs</a>
             </Link>
             <Link href="#">
               <a>Integration</a>
@@ -216,17 +216,17 @@ export const Footer = () => {
           <div className={styles.firstRowB}>
             <div className={styles.categoryTitle}>Company</div>
             <div className={styles.categoryLink}>
-              <Link href="#">
+              <Link href="/about-us">
                 <a>About</a>
               </Link>
-              <Link href="#">
+              <Link href="/blog">
                 <a>Blog</a>
               </Link>
               <Link href="#">
-                <a>Press</a>
+                <a>Media</a>
               </Link>
               <Link href="#">
-                <a>Careers</a>
+                <a>Jobs</a>
               </Link>
               <Link href="#">
                 <a>Integration</a>

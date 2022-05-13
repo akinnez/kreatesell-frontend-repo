@@ -542,11 +542,12 @@ export default function Home() {
         <div className={styles.midSection}>
           <div className={styles.midSectionText}>
             <div className={styles.midSectionTitle}>
-              Easier, faster, and safer <br /> way to sell your Digital <br />
+              Easiet, fastest, and safest <br /> way to sell your Digital <br />
               Content Online
             </div>
             <div className={styles.midSectionMobileTitle}>
-              Easier, faster, and safer way to sell your Digital Content Online
+              Easiet, fastest, and safest way to sell your Digital Content
+              Online
             </div>
 
             <p className={styles.midSectionSubTitle}>
@@ -675,7 +676,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.testimonial}>
+        {/* <div className={styles.testimonial}>
           <div className={styles.testimonialContainer}>
             <div className={styles.testimonialCont}>
               <h3 className={styles.testimonialTitle}>
@@ -713,17 +714,19 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.subFooter}>
           <h3 className={styles.subFooterTitle}>
-            <span>Hiya</span>, Are you ready to start making <br /> money from
-            Selling your contents?
+            Don’t Be Told, Trying Is Believing
           </h3>
           <h3 className={styles.subMobileFooterTitle}>
-            <span>Hiya</span>, Are you ready to start making money from Selling
-            your contents?
+            Don’t Be Told, Trying Is Believing
           </h3>
+          <p className={styles.subFooterText}>
+            See what amazing people are saying about the uniqueness and
+            effectiveness of Kreatesell.
+          </p>
           <div className={styles.footerInput}>
             <InputButton
               name="email"
