@@ -542,11 +542,12 @@ export default function Home() {
         <div className={styles.midSection}>
           <div className={styles.midSectionText}>
             <div className={styles.midSectionTitle}>
-              Easiet, fastest, and safest <br /> way to sell your Digital <br />
+              Easiest, fastest, and safest <br /> way to sell your Digital{" "}
+              <br />
               Content Online
             </div>
             <div className={styles.midSectionMobileTitle}>
-              Easiet, fastest, and safest way to sell your Digital Content
+              Easiest, fastest, and safest way to sell your Digital Content
               Online
             </div>
 
@@ -730,7 +731,9 @@ export default function Home() {
           <div className={styles.footerInput}>
             <InputButton
               name="email"
-              placeholder="Enter your email..."
+              placeholder="Enter yo
+              
+              ur email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
               onChange={(e) => setEmail(e.target.value)}
