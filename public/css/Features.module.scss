@@ -78,42 +78,50 @@
     }
 
     .features {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 3rem;
-
-      .featuresWrapper {
+      display: none;
+      @include minScreen("xx-large") {
+        width: 100%;
         display: flex;
-        width: 45%;
-        justify-content: space-between;
-        @include screen("medium") {
-          width: 100%;
-        }
+        justify-content: center;
+        margin-top: 3rem;
 
-        ul {
-          text-align: start;
-          font-weight: 400;
-          font-size: 1rem;
-          line-height: 1.875rem;
-          color: $base-gray;
+        .featuresWrapper {
+          display: flex;
+          width: 45%;
+          justify-content: space-between;
+          @include screen("medium") {
+            width: 100%;
+          }
 
-          li {
-            cursor: pointer;
-            color: $base-gray !important;
-            :hover {
-              color: $blue-600 !important;
-            }
-            .Link {
-              color: $base-gray;
+          ul {
+            text-align: start;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.875rem;
+            color: $base-gray;
+
+            li {
+              cursor: pointer;
+              text-transform: capitalize;
+              list-style-type: disc;
+              color: $base-gray !important;
+              :hover {
+                color: $blue-600 !important;
+              }
+              .Link {
+                color: $base-gray;
+              }
+              &.activeScrollLink {
+                color: $blue-600 !important;
+              }
             }
           }
-        }
 
-        .hrDivider {
-          width: 1px;
-          background: #bfbfbf;
-          margin: 0.6rem 0 1.5rem 0;
+          .hrDivider {
+            width: 1px;
+            background: #bfbfbf;
+            margin: 0.6rem 0 1.5rem 0;
+          }
         }
       }
     }
@@ -148,33 +156,37 @@
 
   .majorFeatures {
     width: 100%;
-    // display: flex;
+    display: flex;
 
     @include screen("tablet") {
       flex-direction: column;
     }
 
+    @media (max-width: 1277px) {
+      display: block;
+    }
+
     &.alte {
       @include screen("tablet") {
-        // flex-direction: column-reverse;
+        flex-direction: column-reverse;
       }
     }
 
     .imageCont {
-      //   width: 50%;
-      width: 100%;
-      //   margin-right: 3rem;
+      width: 50%;
+      margin-right: 3rem;
+
+      .featureTop {
+        @media (max-width: 1277px) {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+      }
 
       &.alternate {
         margin-right: 0;
         margin-left: 5rem;
-      }
-
-      .featureTop {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        align-self: flex-start;
       }
 
       &.centred {
@@ -183,15 +195,13 @@
         justify-content: center;
       }
 
-      //   .featureTitleIcon {
-      //   }
+      .featureTitleIcon {
+      }
       .featureTitle {
         font-weight: 800;
         font-size: 3rem;
         line-height: 4rem;
         color: $black-100;
-        margin-left: 1rem;
-        margin-bottom: unset;
 
         @include screen("medium") {
           font-weight: 700;
@@ -205,7 +215,6 @@
         line-height: 1.875rem;
         color: $base-gray;
         width: 60%;
-        text-align: left;
 
         @include screen("medium") {
           font-weight: 400;
@@ -213,8 +222,11 @@
           line-height: 1.5625rem;
         }
       }
-      //   .featureIcon {
-      //   }
+      .featureIcon {
+        @media (max-width: 1277px) {
+          display: none;
+        }
+      }
 
       @include screen("tablet") {
         width: 100%;
@@ -230,7 +242,7 @@
 
         .featureExcerpt {
           width: 100%;
-          //   text-align: center;
+          text-align: center;
         }
         .featureIcon {
           display: none;
@@ -238,14 +250,8 @@
       }
     }
     .cardCont {
-      //   width: 50%;
-      width: 100%;
-      //   display: flex;
-      background: $base-white;
-      box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
-      border-radius: 0.5rem;
-      padding: 1.5rem 1rem;
-      margin-bottom: 1.5rem;
+      width: 50%;
+      display: flex;
       // background-image: url("../images//feature-bg.svg");
       // background-repeat: no-repeat;
 
@@ -262,23 +268,13 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        // &.alternateSecondRow {
-        // }
+        &.alternateSecondRow {
+        }
       }
 
       @include screen("tablet") {
-        // display: flex;
         width: 100%;
         justify-content: center;
-      }
-      @include minScreen("inbetween") {
-        display: flex;
-        align-items: flex-start;
-      }
-      @include minScreen("large") {
-        background-color: unset;
-        box-shadow: unset;
-        width: 50%;
       }
     }
 
@@ -335,13 +331,11 @@
 
 .featureCard {
   width: 15.875rem;
-  //   background: $base-white;
-  //   box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
-  //   border-radius: 0.5rem;
-
-  padding: 1.5rem 1.5rem;
-  width: 100%;
-  //   margin-bottom: 1.5rem;
+  background: $base-white;
+  box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
+  border-radius: 0.5rem;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.5rem;
 
   @include screen("medium") {
     width: 11.25rem;
@@ -349,19 +343,11 @@
   @include screen("small") {
     width: 100%;
   }
-
-  @include minScreen("large") {
-    background: $base-white;
-    box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
   .cardTitle {
-    font-weight: 600;
-    font-size: 1.5rem;
+    font-weight: 650;
+    font-size: 1rem;
     line-height: 1.75rem;
     color: $base-black;
-    margin-bottom: 1rem;
   }
   .cardContent {
     font-weight: 400;

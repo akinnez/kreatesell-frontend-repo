@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Layout, InputButton } from "../components";
@@ -23,6 +23,16 @@ import {
 const Features = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [activeScrollLink, setActiveScrollLink] = useState("");
+
+  const handleClick = (linkName) => {
+    setActiveScrollLink(linkName);
+    console.log("linkName = ", linkName);
+    console.log("activeScrollLink = ", activeScrollLink);
+  };
+
+  // console.log("linkName = ", linkName);
+  console.log("activeScrollLink = ", activeScrollLink);
 
   return (
     <Layout subFooter={true} defaultMarginTop={true}>
@@ -77,7 +87,7 @@ const Features = () => {
           >
             <div className={styles.featuresWrapper}>
               <ul>
-                <li>
+                {/* <li>
                   <Link
                     to="sell"
                     spy={true}
@@ -118,11 +128,17 @@ const Features = () => {
                   >
                     Manage
                   </Link>
-                </li>
+                </li> */}
+
+                <GenerateScrollLinks
+                  data={leftLinks}
+                  handleClick={handleClick}
+                  activeLink={activeScrollLink}
+                />
               </ul>
               <div className={styles.hrDivider}></div>
               <ul>
-                <li>
+                {/* <li>
                   <Link
                     to="market"
                     spy={true}
@@ -162,12 +178,17 @@ const Features = () => {
                   >
                     Secure
                   </Link>
-                </li>
+                </li> */}
+                <GenerateScrollLinks
+                  data={middleLinks}
+                  handleClick={handleClick}
+                  activeLink={activeScrollLink}
+                />
               </ul>
               <div className={styles.hrDivider}></div>
 
               <ul>
-                <li>
+                {/* <li>
                   <Link
                     to="analyze"
                     spy={true}
@@ -207,7 +228,12 @@ const Features = () => {
                   >
                     Supports
                   </Link>
-                </li>
+                </li> */}
+                <GenerateScrollLinks
+                  data={rightLinks}
+                  handleClick={handleClick}
+                  activeLink={activeScrollLink}
+                />
               </ul>
             </div>
           </div>
@@ -776,4 +802,41 @@ const FeatureCard = (props) => {
       <p className={styles.cardContent}>{content}</p>
     </div>
   );
+};
+
+// scroll spy links
+
+const linksData = {
+  leftLinks: ["sell", "deliver", "manage"],
+  middleLinks: ["market", "customize", "secure"],
+  rightLinks: ["analyze", "payouts", "supports"],
+};
+
+const { leftLinks, middleLinks, rightLinks } = linksData;
+
+const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
+  return data.map((item) => {
+    return (
+      <li
+        key={item}
+        onClick={() => console.log("click happened")}
+        className={
+          styles.activeScrollLink
+          // activeLink === item ? styles.activeScrollLink : styles.scrollListItem
+        }
+      >
+        <Link
+          to={item}
+          spy={true}
+          smooth={true}
+          offset={-200}
+          duration={500}
+          className={styles.Link}
+          activeClass="react-scroll-active-link"
+        >
+          {item}
+        </Link>
+      </li>
+    );
+  });
 };
