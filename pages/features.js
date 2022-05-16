@@ -28,32 +28,24 @@ const Features = () => {
     <Layout subFooter={true} defaultMarginTop={true}>
       <div className={styles.container}>
         <div className={styles.hero}>
-          <h2
-            className={styles.webTitle}
-            
-          >
-            The Fastest and Safest Way <br /> To Sell Digital Products <br />{" "}
-            Beyond Borders
+          <h2 className={styles.webTitle}>
+            No more Headaches from Multiple <br />
+            Complex Tech Tools
           </h2>
-          <h2
-            className={styles.mobileTitle}
-            
-          >
-            The Fastest and Safest Way To Sell Digital Products Beyond Borders
+          <h2 className={styles.mobileTitle}>
+            No more headaches from multiple complex tech tools
           </h2>
 
-          <p
-            className={styles.webSubtitle}
-            
-          >
-            A Smarter and Better way of making money from your <br /> Digital
-            Content.
+          <p className={styles.webSubtitle}>
+            You need quality time to create brilliant content for your audience
+            who needs them. Upload your content on a simple
+            <br /> all-in-one platform and save yourself from losing your peace
+            in figuring things out….
           </p>
-          <p
-            className={styles.mobileSubtitle}
-           
-          >
-            A Smarter and Better way of making money from your Digital Content.
+          <p className={styles.mobileSubtitle}>
+            You need quality time to create brilliant content for your audience
+            who needs them. Upload your content on a simple all-in-one platform
+            and save yourself from losing your peace in figuring things out….
           </p>
 
           <div className={styles.input}>
@@ -228,12 +220,14 @@ const Features = () => {
               className={styles.imageCont}
               {...Animate("fade-right", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image alt="sell icon" src={SellIcon} />
-              </div>
-              <h2 className={styles.featureTitle} id="sell">
-                Sell
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image alt="sell icon" src={SellIcon} />
+                </div>
+                <h2 className={styles.featureTitle} id="sell">
+                  Sell
+                </h2>
+              </section>
               <h6 className={styles.featureExcerpt}>
                 Sell your contents to anywhere in the world doing almost
                 nothing.
