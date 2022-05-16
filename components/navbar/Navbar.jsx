@@ -63,6 +63,11 @@ export const Navbar = () => {
 
   const handleNavbar = () => setOpenMobileNav((value) => !value);
 
+  const handleMobileNavLinkClick = (path) => {
+    handleNavbar();
+    router.push(path);
+  };
+
   return (
     <>
       <nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
@@ -108,48 +113,17 @@ export const Navbar = () => {
         <div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
           <div className={styles.inner}>
             <ul className={styles.mobileCategoryLinks}>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/how-it-works");
-                }}
-              >
+              <li onClick={() => handleMobileNavLinkClick("/how-it-works")}>
                 How it works
               </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/features");
-                }}
-              >
+              <li onClick={() => handleMobileNavLinkClick("/features")}>
                 Features
               </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-
-                  router.push("/pricing");
-                }}
-              >
+              <li onClick={() => handleMobileNavLinkClick("/pricing")}>
                 Pricing
               </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/blog");
-                }}
-              >
-                Blog
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-
-                  router.push("/faq");
-                }}
-              >
-                FAQs
-              </li>
+              <li onClick={() => handleMobileNavLinkClick("/blog")}>Blog</li>
+              <li onClick={() => handleMobileNavLinkClick("/faq")}>FAQs</li>
             </ul>
             <div className={styles.mobileInput}>
               <Input type="" placeholder="Enter your email.." />
