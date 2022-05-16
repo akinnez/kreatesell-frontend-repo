@@ -249,13 +249,29 @@
       background: $base-white;
       width: 100%;
       height: fit-content;
+      height: 120vh;
+      // height: 100%;
       text-align: center;
       padding: 5rem 1rem;
-      overflow-y: scroll;
+      padding-bottom: 8rem;
+      // overflow-y: scroll;
 
       .inner {
-        overflow-y: scroll;
+        // overflow: scroll;
         height: 100%;
+        // border: 1px solid red;
+        .innerBox {
+          overflow: auto;
+          height: 100%;
+          padding-bottom: 3.5rem;
+          //hide the scrollbar
+          ::-webkit-scrollbar {
+            height: 100vh;
+          }
+          ::-webkit-scrollbar-track {
+            display: none;
+          }
+        }
       }
       .mobileCategoryLinks {
         list-style: none;
