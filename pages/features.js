@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Layout, InputButton } from "../components";
@@ -23,37 +23,39 @@ import {
 const Features = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [activeScrollLink, setActiveScrollLink] = useState("");
+
+  const handleClick = (linkName) => {
+    setActiveScrollLink(linkName);
+    console.log("linkName = ", linkName);
+    console.log("activeScrollLink = ", activeScrollLink);
+  };
+
+  // console.log("linkName = ", linkName);
+  console.log("activeScrollLink = ", activeScrollLink);
 
   return (
     <Layout subFooter={true} defaultMarginTop={true}>
       <div className={styles.container}>
         <div className={styles.hero}>
-          <h2
-            className={styles.webTitle}
-            
-          >
-            The Fastest and Safest Way <br /> To Sell Digital Products <br />{" "}
-            Beyond Borders
+          <h2 className={styles.webTitle}>
+            No more Headaches from Multiple <br />
+            Complex Tech Tools
           </h2>
-          <h2
-            className={styles.mobileTitle}
-            
-          >
-            The Fastest and Safest Way To Sell Digital Products Beyond Borders
+          <h2 className={styles.mobileTitle}>
+            No more headaches from multiple complex tech tools
           </h2>
 
-          <p
-            className={styles.webSubtitle}
-            
-          >
-            A Smarter and Better way of making money from your <br /> Digital
-            Content.
+          <p className={styles.webSubtitle}>
+            You need quality time to create brilliant content for your audience
+            who needs them. Upload your content on a simple
+            <br /> all-in-one platform and save yourself from losing your peace
+            in figuring things out….
           </p>
-          <p
-            className={styles.mobileSubtitle}
-           
-          >
-            A Smarter and Better way of making money from your Digital Content.
+          <p className={styles.mobileSubtitle}>
+            You need quality time to create brilliant content for your audience
+            who needs them. Upload your content on a simple all-in-one platform
+            and save yourself from losing your peace in figuring things out….
           </p>
 
           <div className={styles.input}>
@@ -85,7 +87,7 @@ const Features = () => {
           >
             <div className={styles.featuresWrapper}>
               <ul>
-                <li>
+                {/* <li>
                   <Link
                     to="sell"
                     spy={true}
@@ -126,11 +128,17 @@ const Features = () => {
                   >
                     Manage
                   </Link>
-                </li>
+                </li> */}
+
+                <GenerateScrollLinks
+                  data={leftLinks}
+                  handleClick={handleClick}
+                  activeLink={activeScrollLink}
+                />
               </ul>
               <div className={styles.hrDivider}></div>
               <ul>
-                <li>
+                {/* <li>
                   <Link
                     to="market"
                     spy={true}
@@ -170,12 +178,17 @@ const Features = () => {
                   >
                     Secure
                   </Link>
-                </li>
+                </li> */}
+                <GenerateScrollLinks
+                  data={middleLinks}
+                  handleClick={handleClick}
+                  activeLink={activeScrollLink}
+                />
               </ul>
               <div className={styles.hrDivider}></div>
 
               <ul>
-                <li>
+                {/* <li>
                   <Link
                     to="analyze"
                     spy={true}
@@ -215,7 +228,12 @@ const Features = () => {
                   >
                     Supports
                   </Link>
-                </li>
+                </li> */}
+                <GenerateScrollLinks
+                  data={rightLinks}
+                  handleClick={handleClick}
+                  activeLink={activeScrollLink}
+                />
               </ul>
             </div>
           </div>
@@ -228,12 +246,14 @@ const Features = () => {
               className={styles.imageCont}
               {...Animate("fade-right", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image alt="sell icon" src={SellIcon} />
-              </div>
-              <h2 className={styles.featureTitle} id="sell">
-                Sell
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image alt="sell icon" src={SellIcon} />
+                </div>
+                <h2 className={styles.featureTitle} id="sell">
+                  Sell
+                </h2>
+              </section>
               <h6 className={styles.featureExcerpt}>
                 Sell your contents to anywhere in the world doing almost
                 nothing.
@@ -782,4 +802,41 @@ const FeatureCard = (props) => {
       <p className={styles.cardContent}>{content}</p>
     </div>
   );
+};
+
+// scroll spy links
+
+const linksData = {
+  leftLinks: ["sell", "deliver", "manage"],
+  middleLinks: ["market", "customize", "secure"],
+  rightLinks: ["analyze", "payouts", "supports"],
+};
+
+const { leftLinks, middleLinks, rightLinks } = linksData;
+
+const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
+  return data.map((item) => {
+    return (
+      <li
+        key={item}
+        onClick={() => console.log("click happened")}
+        className={
+          styles.activeScrollLink
+          // activeLink === item ? styles.activeScrollLink : styles.scrollListItem
+        }
+      >
+        <Link
+          to={item}
+          spy={true}
+          smooth={true}
+          offset={-200}
+          duration={500}
+          className={styles.Link}
+          activeClass="react-scroll-active-link"
+        >
+          {item}
+        </Link>
+      </li>
+    );
+  });
 };

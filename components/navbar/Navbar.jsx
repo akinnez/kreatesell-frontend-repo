@@ -63,6 +63,11 @@ export const Navbar = () => {
 
   const handleNavbar = () => setOpenMobileNav((value) => !value);
 
+  const handleMobileNavLinkClick = (path) => {
+    handleNavbar();
+    router.push(path);
+  };
+
   return (
     <>
       <nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
@@ -107,64 +112,44 @@ export const Navbar = () => {
 
         <div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
           <div className={styles.inner}>
-            <ul className={styles.mobileCategoryLinks}>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/how-it-works");
-                }}
-              >
-                How it works
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/features");
-                }}
-              >
-                Features
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
+            <div className={styles.innerBox}>
+              <ul className={styles.mobileCategoryLinks}>
+                <li onClick={() => handleMobileNavLinkClick("/home")}>Home</li>
+                <li onClick={() => handleMobileNavLinkClick("about-us")}>
+                  About Us
+                </li>
 
-                  router.push("/pricing");
-                }}
-              >
-                Pricing
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/blog");
-                }}
-              >
-                Blog
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-
-                  router.push("/faq");
-                }}
-              >
-                FAQs
-              </li>
-            </ul>
-            <div className={styles.mobileInput}>
-              <Input type="" placeholder="Enter your email.." />
-            </div>
-            <div className={styles.mobileButton}>
-              <Button
-                text="Get Started Free"
-                bgColor="blue"
-                className={styles.freeBtn}
-              />
-            </div>
-            <div className={styles.benefits}>
-              <span className={styles.benefitSpan}>Signup for free</span>
-              <span className={styles.benefitSpan}>• Easy setup</span>
-              <span className={styles.benefitSpan}>• Fast payout</span>
+                {/* <li onClick={() => handleMobileNavLinkClick("")}></li> */}
+                <li onClick={() => handleMobileNavLinkClick("/how-it-works")}>
+                  How it works
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/features")}>
+                  Features
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/pricing")}>
+                  Pricing
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/blog")}>Blog</li>
+                <li onClick={() => handleMobileNavLinkClick("/payments")}>
+                  Payments
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/faq")}>FAQs</li>
+              </ul>
+              <div className={styles.mobileInput}>
+                <Input type="" placeholder="Enter your email.." />
+              </div>
+              <div className={styles.mobileButton}>
+                <Button
+                  text="Get Started Free"
+                  bgColor="blue"
+                  className={styles.freeBtn}
+                />
+              </div>
+              <div className={styles.benefits}>
+                <span className={styles.benefitSpan}>Signup for free</span>
+                <span className={styles.benefitSpan}>• Easy setup</span>
+                <span className={styles.benefitSpan}>• Fast payout</span>
+              </div>
             </div>
           </div>
         </div>

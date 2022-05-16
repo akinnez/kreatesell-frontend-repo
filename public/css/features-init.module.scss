@@ -78,50 +78,42 @@
     }
 
     .features {
-      display: none;
-      @include minScreen("xx-large") {
-        width: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 3rem;
+
+      .featuresWrapper {
         display: flex;
-        justify-content: center;
-        margin-top: 3rem;
+        width: 45%;
+        justify-content: space-between;
+        @include screen("medium") {
+          width: 100%;
+        }
 
-        .featuresWrapper {
-          display: flex;
-          width: 45%;
-          justify-content: space-between;
-          @include screen("medium") {
-            width: 100%;
-          }
+        ul {
+          text-align: start;
+          font-weight: 400;
+          font-size: 1rem;
+          line-height: 1.875rem;
+          color: $base-gray;
 
-          ul {
-            text-align: start;
-            font-weight: 400;
-            font-size: 1rem;
-            line-height: 1.875rem;
-            color: $base-gray;
-
-            li {
-              cursor: pointer;
-              text-transform: capitalize;
-              list-style-type: disc;
-              color: $base-gray !important;
-              :hover {
-                color: $blue-600 !important;
-              }
-              .Link {
-                color: $base-gray;
-              }
-              &.activeScrollLink {
-                color: $blue-600 !important;
-              }
+          li {
+            cursor: pointer;
+            color: $base-gray !important;
+            :hover {
+              color: $blue-600 !important;
+            }
+            .Link {
+              color: $base-gray;
             }
           }
+        }
 
-          .hrDivider {
-            width: 1px;
-            background: #bfbfbf;
-            margin: 0.6rem 0 1.5rem 0;
-          }
+        .hrDivider {
+          width: 1px;
+          background: #bfbfbf;
+          margin: 0.6rem 0 1.5rem 0;
         }
       }
     }
@@ -162,10 +154,6 @@
       flex-direction: column;
     }
 
-    @media (max-width: 1277px) {
-      display: block;
-    }
-
     &.alte {
       @include screen("tablet") {
         flex-direction: column-reverse;
@@ -175,14 +163,6 @@
     .imageCont {
       width: 50%;
       margin-right: 3rem;
-
-      .featureTop {
-        @media (max-width: 1277px) {
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-        }
-      }
 
       &.alternate {
         margin-right: 0;
@@ -223,9 +203,6 @@
         }
       }
       .featureIcon {
-        @media (max-width: 1277px) {
-          display: none;
-        }
       }
 
       @include screen("tablet") {
