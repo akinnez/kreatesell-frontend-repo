@@ -100,7 +100,8 @@
             line-height: 1.875rem;
             color: $base-gray;
 
-            li {
+            li,
+            li.scrollListItem {
               cursor: pointer;
               text-transform: capitalize;
               list-style-type: disc;
@@ -111,6 +112,7 @@
               .Link {
                 color: $base-gray;
               }
+
               &.activeScrollLink {
                 color: $blue-600 !important;
                 & > a {
