@@ -114,7 +114,7 @@ export const Navbar = () => {
           <div className={styles.inner}>
             <div className={styles.innerBox}>
               <ul className={styles.mobileCategoryLinks}>
-                <li onClick={() => handleMobileNavLinkClick("/home")}>Home</li>
+                <li onClick={() => handleMobileNavLinkClick("/")}>Home</li>
                 <li onClick={() => handleMobileNavLinkClick("about-us")}>
                   About Us
                 </li>

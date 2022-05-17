@@ -161,14 +161,18 @@
 
   .majorFeatures {
     width: 100%;
-    display: flex;
+    // display: flex;
+    display: block;
 
-    @include screen("tablet") {
-      flex-direction: column;
-    }
+    // @include screen("tablet") {
+    //   flex-direction: column;
+    // }
 
-    @media (max-width: 1277px) {
-      display: block;
+    @media (min-width: 1277px) {
+      & {
+        display: flex;
+        // flex-direction: column;
+      }
     }
 
     &.alte {
@@ -178,12 +182,15 @@
     }
 
     .imageCont {
-      width: 50%;
+      width: 100%;
       margin-right: 3rem;
 
       .featureTop {
+        text-align: left !important;
+        align-self: flex-start;
         @media (max-width: 1277px) {
           display: flex;
+          width: 50%;
           align-items: center;
           justify-content: flex-start;
         }
@@ -207,6 +214,8 @@
         font-size: 3rem;
         line-height: 4rem;
         color: $black-100;
+        margin-bottom: unset;
+        margin-left: 0.8rem;
 
         @include screen("medium") {
           font-weight: 700;
@@ -219,7 +228,8 @@
         font-size: 1.125rem;
         line-height: 1.875rem;
         color: $base-gray;
-        width: 60%;
+        text-align: left !important;
+        // width: 60%;
 
         @include screen("medium") {
           font-weight: 400;
@@ -255,10 +265,11 @@
       }
     }
     .cardCont {
-      width: 50%;
-      display: flex;
+      // width: 50%;
+      // display: flex;
       // background-image: url("../images//feature-bg.svg");
       // background-repeat: no-repeat;
+      width: 100%;
 
       .firstRow {
         margin-right: 1.5rem;
@@ -281,11 +292,21 @@
         width: 100%;
         justify-content: center;
       }
+
+      @media (min-width: 1277px) {
+        display: flex;
+        width: 50%;
+      }
     }
 
     .mobileFeatureIcon {
       display: none;
-      @include screen("tablet") {
+      // @include screen("tablet") {
+      //   display: flex;
+      //   justify-content: center;
+      // }
+
+      @media (min-width: 1277px) {
         display: flex;
         justify-content: center;
       }
