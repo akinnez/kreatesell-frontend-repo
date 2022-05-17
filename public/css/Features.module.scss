@@ -113,6 +113,9 @@
               }
               &.activeScrollLink {
                 color: $blue-600 !important;
+                & > a {
+                  color: $blue-600 !important;
+                }
               }
             }
           }
