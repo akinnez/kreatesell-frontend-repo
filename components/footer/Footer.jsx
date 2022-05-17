@@ -13,9 +13,11 @@ import {
   WhatsappIcon,
 } from "../../utils";
 import styles from "./Footer.module.scss";
+import { useState } from "react";
 
 export const Footer = () => {
   const router = useRouter();
+  const [isHiring] = useState(true);
 
   return (
     <footer className={styles.footer}>
@@ -92,17 +94,22 @@ export const Footer = () => {
         <div>
           <div className={styles.categoryTitle}>Company</div>
           <div className={styles.categoryLink}>
-            <Link href="#">
+            <Link href="/about-us">
               <a>About</a>
             </Link>
             <Link href="/blog">
               <a>Blog</a>
             </Link>
             <Link href="#">
-              <a>Press</a>
+              <a>Media</a>
             </Link>
             <Link href="#">
-              <a>Careers</a>
+              <a className={styles.jobs}>
+                Jobs{" "}
+                {isHiring && (
+                  <div className={styles.hireBox}>we&apos;re hiring!</div>
+                )}
+              </a>
             </Link>
             <Link href="#">
               <a>Integration</a>
@@ -148,44 +155,52 @@ export const Footer = () => {
 
         <div>
           <div className={styles.categoryTitle}>Follow us</div>
-          <div className={styles.categoryLink}>
-            {/* <Link href="#"> */}
+          <div className={styles.categorySocial}>
             <a
               href="https://www.facebook.com/usekreatesell"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Facebook
+              <Image
+                src={FBIcon}
+                alt="kreatesell facebook"
+                className="cursor"
+              />
             </a>
-            {/* </Link> */}
-            {/* <Link href="#">  */}
-            <a
-              href="https://twitter.com/usekreatesell"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Twitter
-            </a>
-
-            {/* </Link> */}
-            {/* <Link href="#"> */}
             <a
               href="https://www.instagram.com/usekreatesell"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Instagram
+              <Image
+                src={InstaIcon}
+                alt="kreatesell instagram"
+                className="cursor"
+              />
             </a>
-            {/* </Link> */}
-            {/* <Link href="#"> */}
             <a
               href="https://www.linkedin.com/company/usekreatesell"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Linkedin
+              <Image
+                src={LinkedIcon}
+                alt="kreatesell linkedin"
+                className="cursor"
+              />
             </a>
-            {/* </Link> */}
+
+            <a
+              href="https://twitter.com/usekreatesell"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={TwitterIcon}
+                alt="kreatesell twitter"
+                className="cursor"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -216,17 +231,22 @@ export const Footer = () => {
           <div className={styles.firstRowB}>
             <div className={styles.categoryTitle}>Company</div>
             <div className={styles.categoryLink}>
-              <Link href="#">
+              <Link href="/about-us">
                 <a>About</a>
               </Link>
-              <Link href="#">
+              <Link href="/blog">
                 <a>Blog</a>
               </Link>
               <Link href="#">
-                <a>Press</a>
+                <a>Media</a>
               </Link>
               <Link href="#">
-                <a>Careers</a>
+                <a className={styles.jobs}>
+                  Jobs{" "}
+                  {isHiring && (
+                    <div className={styles.hireBox}>we&apos;re hiring!</div>
+                  )}
+                </a>
               </Link>
               <Link href="#">
                 <a>Integration</a>

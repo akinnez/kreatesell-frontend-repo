@@ -217,6 +217,7 @@
 
     .navLinks {
       .categoryLinks {
+        width: 60%;
         display: none;
         .drop {
           display: flex;
@@ -226,6 +227,12 @@
           & > span {
             margin-right: 0.5rem;
             display: none !important;
+          }
+
+          .navLinkDrop {
+            margin-left: 1rem;
+            display: inline-block;
+            border: 1px solid red;
           }
           .navLinkDrop + div {
             color: $black-100 !important;
@@ -365,6 +372,8 @@
   .navLinks {
     margin-right: 2.5rem;
     .categoryLinks {
+      // min-width: 220px;
+      width: 80%;
       li {
         margin-right: 0.5rem;
         &:first-child {
@@ -373,6 +382,9 @@
       }
       .drop {
         min-width: 90px;
+        & .navLinkDrop {
+          margin-right: 0.2rem;
+        }
       }
     }
   }
@@ -389,6 +401,9 @@
       }
       .drop {
         min-width: 90px;
+        & .navLinkDrop {
+          margin-right: 0.4rem;
+        }
       }
     }
   }

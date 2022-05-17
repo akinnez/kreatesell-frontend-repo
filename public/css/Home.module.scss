@@ -4,7 +4,9 @@
 
 .container {
   min-height: 60vh;
-
+  // max-width: 1200px;
+  // margin: 0 auto;
+  // text-align: center;
   .body {
     background-repeat: no-repeat;
     background-image: url("/images/partial-general-bg.svg");
@@ -86,6 +88,7 @@
       margin-top: 2rem;
       cursor: pointer;
       padding: unset;
+      text-align: center;
       & img {
         transition: transform 0.2s;
         transform: scale(1.3);
@@ -286,7 +289,7 @@
   .featuresSection {
     padding: 4rem 10.31rem;
     @include screen("tablet") {
-      padding: 0rem 1rem;
+      padding: 0rem 1.5rem;
       padding-bottom: 3rem;
     }
 
@@ -298,6 +301,7 @@
         font-size: 2.5rem;
         line-height: 2rem;
         color: $black-100;
+        // margin-bottom: 0.5rem;
       }
       p {
         margin: 0;
@@ -318,34 +322,63 @@
     .automation {
       width: 100%;
       display: flex;
-
+      // max-width: 1200px;
+      justify-content: space-between;
+      align-items: center;
       .image {
         margin-top: 4rem;
         width: 50%;
         margin-bottom: 40px;
         transition: margin-bottom 0.2s;
-        @include minScreen("tablet") {
-          margin-bottom: unset;
+
+        .mobileOnly {
+          // border: 1px solid red;
+          @include minScreen("tablet") {
+            display: none;
+          }
+        }
+        @media (min-width: 1300px) {
+          &:nth-child(1),
+          &:nth-child(3) {
+            // border: 1px solid red;
+            margin-right: 2rem;
+          }
+          &:nth-child(2),
+          &:last-child {
+            // border: 1px solid red;
+            margin-top: -3rem;
+            // border: 1px solid red;
+          }
         }
         & img {
           transform: scale(1.1);
+          width: 100%;
+          height: 100%;
           transition: transform 0.2s;
-          @include minScreen("tablet") {
-            transform: scale(1);
-          }
         }
+
+        // & .image.imgTwo img {
+        //   transform: scale(1.9);
+        // }
       }
 
       .automationText {
         width: 50%;
-        padding-left: 7rem;
+        padding-left: 4rem;
         text-align: left !important;
         h3,
         p {
           margin: 0;
         }
         @include flex(column, center, null);
-
+        @media (min-width: 1300px) {
+          &.Two {
+            margin-right: -2rem;
+            // border: 1px solid black;
+            // margin-bottom: -15rem;
+            margin-bottom: unset;
+          }
+        }
         .automationTitle {
           font-weight: 800;
           font-size: 2.5rem;
@@ -366,6 +399,7 @@
           line-height: 1.75rem;
           color: $base-gray;
           text-align: left;
+          max-width: 444px;
         }
         .mobileAutomationSubTitle {
           display: none;
@@ -374,6 +408,7 @@
         .linkText {
           display: flex;
           align-items: center;
+
           margin-top: 1.25rem;
           font-weight: 700;
           font-size: 1.25rem;
@@ -383,6 +418,12 @@
 
           span {
             padding-left: 0.5rem;
+          }
+        }
+
+        @include minScreen("inbetween") {
+          & {
+            padding-left: 1rem;
           }
         }
       }
@@ -398,6 +439,10 @@
           width: 100%;
           display: flex;
           justify-content: center;
+          // & img {
+          //   min-height: 500px !important;
+          //   min-height: 600px !important;
+          // }
         }
         .automationText {
           width: 100%;
@@ -429,8 +474,16 @@
           .linkText {
             font-weight: 500;
             display: none;
+            width: 100%;
             font-size: 1rem;
             line-height: 1.5625rem;
+            min-width: 300px;
+            & .learnMore {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              // min-width: 150px;
+            }
           }
         }
       }
@@ -452,7 +505,7 @@
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 6rem 0;
+    // padding: 6rem 0;
     align-items: center;
     @include screen("tablet") {
       flex-direction: column;
@@ -681,8 +734,8 @@
       .newsCard {
         background: $base-white;
 
-        .newsImage {
-        }
+        // .newsImage {
+        // }
         .newsTextCont {
           background: $base-white;
           padding: 1rem;
@@ -926,8 +979,8 @@
                 margin: 0 0.5rem;
                 cursor: pointer;
 
-                .mobileVideo {
-                }
+                // .mobileVideo {
+                // }
                 .mobileAuthor {
                   font-weight: 550;
                   font-size: 1.1875rem;
@@ -961,8 +1014,8 @@
             &:last-child {
               margin-right: 0;
             }
-            .videoImage {
-            }
+            // .videoImage {
+            // }
             .videoAuthor {
               font-weight: 600;
               font-size: 1.3rem;
@@ -997,7 +1050,8 @@
       font-size: 2.5rem;
       line-height: 3.375rem;
       color: $base-blue;
-      padding-bottom: 2.5rem;
+      // padding-bottom: 2.5rem;
+      // margin-bottom: -1.5rem;
 
       span {
         color: $green-100;
@@ -1011,9 +1065,18 @@
       @extend .subFooterStyle;
     }
     .footerInput {
+      margin-bottom: 1.5rem;
     }
     .benefits {
       display: none;
+    }
+
+    .subFooterText {
+      position: relative;
+      top: -0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 18px;
+      line-height: 28px;
     }
 
     @include screen("tablet") {
@@ -1065,8 +1128,8 @@
         padding: 0 1rem 1rem 1rem;
       }
 
-      .inputCont {
-      }
+      // .inputCont {
+      // }
       .context {
         font-size: 0.875rem;
         line-height: 1.375rem;
