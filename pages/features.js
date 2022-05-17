@@ -23,16 +23,10 @@ import {
 const Features = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
+
+  // state for getting active link
   const [activeScrollLink, setActiveScrollLink] = useState("");
-
-  const handleClick = (linkName) => {
-    setActiveScrollLink(linkName);
-    console.log("linkName = ", linkName);
-    console.log("activeScrollLink = ", activeScrollLink);
-  };
-
-  // console.log("linkName = ", linkName);
-  console.log("activeScrollLink = ", activeScrollLink);
+  const handleClick = (linkName) => setActiveScrollLink(linkName);
 
   return (
     <Layout subFooter={true} defaultMarginTop={true}>
@@ -87,49 +81,6 @@ const Features = () => {
           >
             <div className={styles.featuresWrapper}>
               <ul>
-                {/* <li>
-                  <Link
-                    to="sell"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    <span id={styles.bullet}></span>
-                    Sell
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="deliver"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Deliver
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="manage"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Manage
-                  </Link>
-                </li> */}
-
                 <GenerateScrollLinks
                   data={leftLinks}
                   handleClick={handleClick}
@@ -138,47 +89,6 @@ const Features = () => {
               </ul>
               <div className={styles.hrDivider}></div>
               <ul>
-                {/* <li>
-                  <Link
-                    to="market"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Market
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="customize"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Customize
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="secure"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Secure
-                  </Link>
-                </li> */}
                 <GenerateScrollLinks
                   data={middleLinks}
                   handleClick={handleClick}
@@ -188,47 +98,6 @@ const Features = () => {
               <div className={styles.hrDivider}></div>
 
               <ul>
-                {/* <li>
-                  <Link
-                    to="analyze"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Analyze
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="payouts"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Payouts
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    to="supports"
-                    spy={true}
-                    smooth={true}
-                    offset={-200}
-                    duration={500}
-                    className={styles.Link}
-                    activeClass="react-scroll-active-link"
-                  >
-                    Supports
-                  </Link>
-                </li> */}
                 <GenerateScrollLinks
                   data={rightLinks}
                   handleClick={handleClick}
@@ -816,15 +685,11 @@ const { leftLinks, middleLinks, rightLinks } = linksData;
 
 const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
   return data.map((item) => {
+    const classApplied =
+      activeLink === item ? styles.activeScrollLink : styles.scrollListItem;
+
     return (
-      <li
-        key={item}
-        onClick={() => console.log("click happened")}
-        className={
-          styles.activeScrollLink
-          // activeLink === item ? styles.activeScrollLink : styles.scrollListItem
-        }
-      >
+      <li key={item} className={classApplied}>
         <Link
           to={item}
           spy={true}
@@ -833,6 +698,7 @@ const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
           duration={500}
           className={styles.Link}
           activeClass="react-scroll-active-link"
+          onClick={() => handleClick(item)}
         >
           {item}
         </Link>
