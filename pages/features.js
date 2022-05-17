@@ -175,7 +175,7 @@ const Features = () => {
 
         {/* Deliver Features Row */}
         <div className={styles.deliverFeatures}>
-          <div className={`${styles.majorFeatures} ${styles.alte}`}>
+          <div className={`${styles.majorFeatures} ${styles.alternate}`}>
             <div
               className={styles.mobileFeatureIcon}
               {...Animate("fade-right", 200, "ease")}
@@ -212,15 +212,19 @@ const Features = () => {
             </div>
 
             <div
-              className={`${styles.imageCont} ${styles.alternate}`}
+              className={`${styles.imageCont}  ${styles.alternate}`}
               {...Animate("fade-left", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={DeliverIcon} alt="deliver icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="deliver">
-                Deliver
-              </h2>
+              <section className={styles.featureTop}>
+                {" "}
+                <div className={styles.featureTitleIcon}>
+                  <Image src={DeliverIcon} alt="deliver icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="deliver">
+                  Deliver
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
                 Customize how, where, when, and the market you want to sell your
                 products to. Delivery will be done faster and safer, based on
@@ -241,12 +245,15 @@ const Features = () => {
               className={styles.imageCont}
               {...Animate("fade-right", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={ManageIcon} alt="manage icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="manage">
-                Manage
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={ManageIcon} alt="manage icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="manage">
+                  Manage
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
                 You are provided with a full functional toolbox that takes care
                 of the legal and administrative requirements. Concentrate on
@@ -290,12 +297,15 @@ const Features = () => {
               className={`${styles.imageCont} ${styles.centred}`}
               {...Animate("fade-right", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={MarketIcon} alt="feature icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="market">
-                Market
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={MarketIcon} alt="feature icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="market">
+                  Market
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
                 Reduce your stress by automating your marketing funnel or flow
                 with super-effective tools to help you increase your conversion
