@@ -685,11 +685,10 @@ const { leftLinks, middleLinks, rightLinks } = linksData;
 
 const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
   return data.map((item) => {
-    const classApplied =
-      activeLink === item ? styles.activeScrollLink : styles.scrollListItem;
+    const classApplied = activeLink === item ? styles.activeScrollLink : "";
 
     return (
-      <li key={item} className={classApplied}>
+      <li key={item} className={`${styles.scrollListItem} ${classApplied}`}>
         <Link
           to={item}
           spy={true}
