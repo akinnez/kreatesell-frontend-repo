@@ -261,7 +261,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="create store"
-                layout="responsive"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Kreate your Store</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -284,7 +284,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="add product"
-                layout="responsive"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Add Product</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -303,7 +303,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="publish"
-                layout="responsive"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -327,7 +327,7 @@ export default function Home() {
 
         <div className={styles.featuresSection}>
           <div className={styles.subHero}>
-            <h3>More than an ecommerce platfrom</h3>
+            <h3>More Than Just An E-commerce Platform</h3>
             <p>
               It&apos;s an amazing all-in-one platform that brings a winning
               customer experience.
@@ -339,6 +339,15 @@ export default function Home() {
               className={styles.image}
               {...Animate("zoom-in-right", 200, "ease")}
             >
+              {/* layout="responsive" isn't applied on mobile images */}
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={DashPreviewOne}
+                  height="420"
+                  width="417"
+                  alt="automation icon"
+                />
+              </div>
               <Image
                 src={DashPreviewOne}
                 height="420"
@@ -443,6 +452,15 @@ export default function Home() {
               className={`${styles.image} ${styles.imgTwo}`}
               {...Animate("fade-down", 200, "linear")}
             >
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={DashPreviewTwo}
+                  height="420"
+                  width="417"
+                  alt="payout method"
+                  // layout="responsive"
+                />
+              </div>
               <Image
                 src={DashPreviewTwo}
                 height="513"
@@ -472,6 +490,14 @@ export default function Home() {
               className={styles.image}
               {...Animate("zoom-in-right", 400, "ease")}
             >
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={PaymentPreview}
+                  height="420"
+                  width="417"
+                  alt="instant payout"
+                />
+              </div>
               <Image
                 src={PaymentPreview}
                 height="420"
@@ -516,11 +542,12 @@ export default function Home() {
         <div className={styles.midSection}>
           <div className={styles.midSectionText}>
             <div className={styles.midSectionTitle}>
-              Easier, faster, and safer <br /> way to sell your Digital <br />
-              Content Online
+              Easiest, fastest, and <br /> safest way to sell your
+              <br /> Digital Products Online
             </div>
             <div className={styles.midSectionMobileTitle}>
-              Easier, faster, and safer way to sell your Digital Content Online
+              Easiest, fastest, and safest way to sell your Digital Products
+              Online
             </div>
 
             <p className={styles.midSectionSubTitle}>
@@ -649,7 +676,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.testimonial}>
+        {/* <div className={styles.testimonial}>
           <div className={styles.testimonialContainer}>
             <div className={styles.testimonialCont}>
               <h3 className={styles.testimonialTitle}>
@@ -687,21 +714,25 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.subFooter}>
           <h3 className={styles.subFooterTitle}>
-            <span>Hiya</span>, Are you ready to start making <br /> money from
-            Selling your contents?
+            Don’t Be Told, Trying Is Believing
           </h3>
           <h3 className={styles.subMobileFooterTitle}>
-            <span>Hiya</span>, Are you ready to start making money from Selling
-            your contents?
+            Don’t Be Told, Trying Is Believing
           </h3>
+          <p className={styles.subFooterText}>
+            See what amazing people are saying about the uniqueness and
+            effectiveness of Kreatesell.
+          </p>
           <div className={styles.footerInput}>
             <InputButton
               name="email"
-              placeholder="Enter your email..."
+              placeholder="Enter yo
+              
+              ur email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
               onChange={(e) => setEmail(e.target.value)}
