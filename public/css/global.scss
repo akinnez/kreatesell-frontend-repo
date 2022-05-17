@@ -210,6 +210,41 @@ select {
   background-color: #2dc071 !important;
 }
 
+.ant-collapse-content {
+  &> .ant-collapse-content-box{
+    padding: 0px !important;
+  }
+}
+
+
+// inactive state
+.ant-collapse-icon-position-right {
+  &> .ant-collapse-item{
+     &> .ant-collapse-header{
+      background: $base-white;
+     }
+    }
+
+}
+
+
+.ant-collapse-icon-position-right{
+  &> .ant-collapse-item{
+    &>.ant-collapse-header{
+      font-size: 24px !important;
+      font-weight: 600 !important;
+      line-height: 32px !important;
+      color: #262626 !important;
+    }
+  }
+}
+
+
+
+
+
+
+
 .status-live {
   @include allProductsTableHeaderStyle(#2dc071, #f1fcf8);
 }
