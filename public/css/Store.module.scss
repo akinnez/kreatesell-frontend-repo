@@ -32,8 +32,8 @@
 
 
 .card{
-    padding:10px 200px;
-    text-align: center;
+    padding:10px 200px 10px 10px;
+    text-align: left;
 
     h3{
         font-size: 24px;
@@ -46,4 +46,21 @@
     }
 
  
+}
+
+.storeDescription{
+    color: #8C8C8C; 
+    font-size:14px; 
+    text-align: center;
+    margin-bottom: 10px !important;
+}
+
+.submitButtons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    .outlinedBtn{
+        border: 1px solid #0072EF;
+        color: #0072EF;
+    }
 }
