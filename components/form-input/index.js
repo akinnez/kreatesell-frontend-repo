@@ -4,6 +4,7 @@ import style from './Index.module.scss'
 import {UploaderIcon,ProfileInputIcon} from '../../components/IconPack'
 import {toast} from 'react-toastify'
 import { MdDelete } from "react-icons/md";
+import NImg from "next/image";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -160,7 +161,7 @@ export const FileInput = ({
             <div className="label"><span className="label-text">{label}</span> <span className="extralable">{extralable}</span></div>
             <div className="input-group-wrapper">
                 <div className="profile-input-icon">
-                    {!!value ? <img src={value} className='img' /> :<ProfileInputIcon />}
+                    {!!value ? <NImg objectFit='cover' width={42} height={45} src={value} /> :<ProfileInputIcon />}
                 </div>
             <label className="file-input-label">
                 <input type="file" accept="image/*" onChange={(e)=>handleChange(e)}/>

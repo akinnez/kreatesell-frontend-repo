@@ -201,7 +201,7 @@ const Index = ()=>{
                             <p className={style.storeDescription}>Are you done setting up your store? Next step is putting up your first product</p>
                         <div className={style.submitButtons}>
                             <Button className={style.outlinedBtn} loading={loading?.updating} htmlType="submit" label="Save and Preview"/>
-                            <Button type="primary" onClick={()=> Router.push("/account/kreator/products/create")} htmlType="button" type="primary" label="Add Product"/>
+                            <Button type="primary" onClick={()=> Router.push("/account/kreator/products/create")} htmlType="button" label="Add Product"/>
                         </div>
                     </Form>
                 </Card>
