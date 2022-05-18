@@ -24,17 +24,22 @@ const Payouts = ({ bankDetails, handleClick }) => {
 
   let url = `${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=${page}&Limit=${limit}`;
 
-  if (startDate) {
-    url = `${url}&StartDate=${startDate}`;
-  }
 
-  if (endDate) {
-    url = `${url}&EndDate=${endDate}`;
-  }
-
-  if (productName) {
-    url = `${url}&Product_Name=${productName}`;
-  }
+  useEffect(() => {
+    if (startDate) {
+      url = `${url}&StartDate=${startDate}`;
+    }
+  
+    if (endDate) {
+      url = `${url}&EndDate=${endDate}`;
+    }
+  
+    if (productName) {
+      url = `${url}&Product_Name=${productName}`;
+    }
+  }, [startDate, endDate, productName])
+  
+ 
 
   useEffect(() => {
     if (bankDetails) {
