@@ -1,23 +1,45 @@
 import { Button } from "antd";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {EmptyDataTable, Subscribers} from 'utils'
 import productStyles from '../../../public/css/AllProducts.module.scss'
 import AddSection from "./AddSection";
 import styles from './MembershipTab.module.scss'
 
-export default function MembershipIndex({setIsTabsActive, setMajorPage}) {
+export default function MembershipIndex({setIsTabsActive, setMajorPage, sections, setSections, toSection}) {
     const [fields, setFields] = useState('adding section')
     const toManageSection = ()=>{
         setIsTabsActive(false)
         setMajorPage('manage-section')
+    }
+    useEffect(()=>{
+        if(sections.length <= 0){
+            setFields("empty")
+        }else{
+            setFields("adding section")
+        }
+        return ()=>{
+            setFields("adding section")
+        }
+    }, [sections])
+    const addSection = ()=>{
+        const newSection = {
+            name: "",
+            isControl: false,
+            lectures: [{lecture_name: "", type:"", size:"", url: '',description:"",isDownload: false}]
+            
+        }
+        setSections(prev => [...prev, newSection])
     }
   return (
     <div className="flex flex-col mt-7">
             <div className="flex items-center justify-between mb-7">
                 <h1 className="text-2xl text-blue-600 font-bold">How to Invest in Crypocurrency</h1>
                 {fields === 'empty' && <div className={styles.miniSaveButton}>
-                    <Button onClick={()=> setFields('adding section')} type="primary">+ Add Content</Button>
+                    <Button onClick={()=>{ 
+                        addSection()
+                        setFields('adding section')
+                        }} type="primary">+ Add Content</Button>
                 </div>}
                 {fields === 'adding section' && <div className={styles.miniSaveButtons + " flex"}>
                     <Button type="default" icon={<Image src={Subscribers} alt="empty"/>}>  View Subscribers</Button>
@@ -33,13 +55,20 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage}) {
                 <h2 className={productStyles.lightGrey +" font-semibold text-center text-base"}>Almost there, now click the button to start your membership setup.</h2>
                 <div className={styles.saveButton}>
                     <Button
-                        onClick={()=> setFields('adding section')}
+                        onClick={()=> { 
+                            addSection()
+                            setFields('adding section')
+                            }}
                         type="primary"
                     >+ Add Content</Button>
                 </div>
 			</div>
             </>}
-            {fields === 'adding section' && <AddSection setMajorPage={setMajorPage} setIsTabsActive={setIsTabsActive}/>}
+            {fields === 'adding section' && <AddSection 
+             sections={sections}
+             toSection={toSection}
+             setSections={setSections}
+            />}
         </div>
   )
 }

@@ -16,7 +16,7 @@ export default function PreviewProduct ({id}){
     return (
         <AuthLayout>
             <div style={{position: "absolute",background:"#e5e5e5", left:0, top: 0, width: "100%", }}>
-                <PreviewHeader />
+                <PreviewHeader id={id} />
                 <PreviewContent />
             
             </div>

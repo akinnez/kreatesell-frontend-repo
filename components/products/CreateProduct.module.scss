@@ -115,7 +115,7 @@
 			border: 1px solid $gray-100;
 		}
 	}
-
+}
 	.upload {
 		border: 2px dotted $base-blue;
 		width: 100%;
@@ -273,6 +273,7 @@
 		color: $black-100 !important;
 		font-size: 0.9rem !important;
 	}
+	
 
 	.extralableStyle {
 		font-weight: 400 !important;
@@ -312,5 +313,21 @@
 			margin-bottom: 0;
 		}
 
+	}
+	
+
+.mdBtn{
+	position: relative;
+	a{
+		padding: 1em;
+		font-size: 16px;
+		height: 2.5em;
+		font-weight: 600;
+		background-color: $base-blue;
+		color: $base-white;
+		border-radius: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
