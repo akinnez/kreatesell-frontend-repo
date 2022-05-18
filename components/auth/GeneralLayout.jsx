@@ -1,7 +1,6 @@
 import FacebookLoginComponent from "components/forms/FacebookLoginComponent";
-import Image from "next/image";
+import GoogleLoginComponent from "components/forms/GoogleLoginComponent";
 import { Layout } from "..";
-import { FacebookBtn, GoogleBtn } from "../../utils";
 import styles from "./GeneralLayout.module.scss";
 
 export const GeneralLayout = ({
@@ -36,7 +35,8 @@ export const GeneralLayout = ({
 
                   <div className={styles.socialBtn}>
                     <div className={styles.google}>
-                      <Image src={GoogleBtn} alt="sign up with google" />
+                      {/* <Image src={GoogleBtn} alt="sign up with google" /> */}
+                      <GoogleLoginComponent/>
                     </div>
                     <div className="cursor">
                       {/* <Image src={FacebookBtn} alt="sign up with facebook" /> */}

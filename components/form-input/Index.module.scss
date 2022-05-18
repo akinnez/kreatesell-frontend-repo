@@ -13,9 +13,45 @@
     border-radius: 10px;
 }
 
+.inputV2Container{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #F5F5F5;
+    p{
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+        color: #595959;
+        margin-bottom: 0 !important;
+    }
+    .input{
+        width: 75%;
+    }
+}
+
 .dragger_wrapper{
     text-align: left;
     margin:20px 0;
+    position: relative;
+    .deleteContainer{
+        position: absolute;
+        background: #fff;
+        border-radius: 5px;
+        height: 35px;
+        width: 35px;
+        top: 50px;
+        right: 20px;
+        z-index: 10;
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+        .icon{
+            font-size: 25px;
+            color: red;
+        }
+    }
 }
 
 .btn{

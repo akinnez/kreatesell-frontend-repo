@@ -3,6 +3,8 @@ import {Form,Input as AntInput, Select as AntSelect,Upload as AntUpload,Image, B
 import style from './Index.module.scss'
 import {UploaderIcon,ProfileInputIcon} from '../../components/IconPack'
 import {toast} from 'react-toastify'
+import { MdDelete } from "react-icons/md";
+import NImg from "next/image";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -57,6 +59,20 @@ export const Input = ({CustomInput,type="text",placeholder,size="large",disabled
     )
 }
 
+/**
+ * @description Input Variant 2 component: It has a Prefix text and Input field too
+ *
+ */
+export const InputV2 = ({type="text",placeholder,size="large",prefixText,disabled,label,extraLabel,row,defaultValue,...rest})=>{
+    return(
+        <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
+            <div className={style.inputV2Container}>
+                <p>{prefixText}</p> <AntInput defaultValue={defaultValue} disabled={disabled} className={style.input} type={type} size={size} placeholder={placeholder}/>
+            </div>
+        </Form.Item>
+    )
+}
+
 
 export const Select = ({placeholder,size="large", onChange=()=>{},loading,label,extraLabel,list=[],...rest})=>{
     return(
@@ -78,10 +94,10 @@ export const Select = ({placeholder,size="large", onChange=()=>{},loading,label,
 }
 
 
-export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
+export const Dropzone = ({label, value, onChange=()=>{},handleDelete, extraLabel,...rest})=>{
 
     const [imgUrl, setImgUrl] = useState()
-
+    
 
       const handleBeforeUpload = (info,inp)=>{
           const isImage = info?.type?.split("/")[0] == "image"
@@ -100,6 +116,9 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
 
     return(
         <div className={style.dragger_wrapper}>
+        <div className={style.deleteContainer} onClick={()=>handleDelete()}>
+        <MdDelete className={style.icon} />
+        </div>
         <label className={style.label}>{label} <span>{extraLabel}</span></label>
             <AntUpload.Dragger {...rest}
                 previewFile={false}
@@ -113,16 +132,17 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
     )
 }
 
-export const Button = ({label,...rest})=>{
+export const Button = ({label,type,className="",...rest})=>{
 
     return(
-        <AntButton className={style.btn}  {...rest}>{label}</AntButton>
+        <AntButton className={`${style.btn} ${className}`} type={type||""}  {...rest}>{label}</AntButton>
     )
 }
 
 export const FileInput = ({
     onChange=()=>{}, 
-    value, 
+    value,
+    handleDelete,
     placeholder,
      label = "Profile picture", 
      disabled,
@@ -141,11 +161,11 @@ export const FileInput = ({
             <div className="label"><span className="label-text">{label}</span> <span className="extralable">{extralable}</span></div>
             <div className="input-group-wrapper">
                 <div className="profile-input-icon">
-                    <ProfileInputIcon />
+                    {!!value ? <NImg objectFit='cover' width={42} height={45} src={value} /> :<ProfileInputIcon />}
                 </div>
             <label className="file-input-label">
                 <input type="file" accept="image/*" onChange={(e)=>handleChange(e)}/>
-                {value != "" ? <div id="fi" style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{file || value}</div>: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
+                {value != "" ? <div id="fi" style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis", display:"flex", position:"relative", zIndex:"14"}}><MdDelete onClick={handleDelete} style={{fontSize: "20px",cursor:"pointer"}} color="red" /> Click to delete the profile picture</div>: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
             </label>
             </div>
 
@@ -171,6 +191,16 @@ export const FileInput = ({
                         display:block;
                         font-weight:600;
                         text-align:left;
+                }
+                .icon{
+                    font-size: 25px;
+                    color: red !important; 
+                }
+                .img{
+                    border-radius: 5px;
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
                 }
 
                 span.extralable{

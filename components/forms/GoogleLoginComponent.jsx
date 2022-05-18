@@ -1,18 +1,17 @@
 import { Button } from "components/button/Button";
 import React from "react";
 import Image from "next/image";
-// import FacebookLogin from "react-facebook-login";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { FacebookBtn, showToast } from "utils";
+import GoogleLogin from 'react-google-login';
+import { GoogleBtn, showToast } from "utils";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
-const FacebookLoginComponent = () => {
+const GoogleLoginComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-
-  const responseFacebook = (response) => {
+  
+  const responseGoogle = (response) => {
     // Login failed
     if (response.status === "unknown") {
       return false;
@@ -20,11 +19,11 @@ const FacebookLoginComponent = () => {
     if (response.accessToken) {
       axios
         .post(
-          `${process.env.BASE_URL}auth/facebookSignUp?accessToken=${response.accessToken}`,
+          `${process.env.BASE_URL}auth/googleSignUp?accessToken=${response.accessToken}`,
           {}
         )
         .then((res) => {
-          // console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", res?.data);
+          console.log("google login res is: ", res);
           localStorage.setItem("token", res?.data?.data?.token);
           localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
           router.push("/account/dashboard");
@@ -35,38 +34,44 @@ const FacebookLoginComponent = () => {
         });
     }
   };
-  const responseFacebookSignup = (response) => {
-    // Login failed
+
+  const responseGoogleSignup = (response) => {
     if (response.status === "unknown") {
       return false;
     }
     if (response.accessToken) {
       axios
         .post(
-          `${process.env.BASE_URL}auth/facebookSignUp?accessToken=${response.accessToken}`,
+          `${process.env.BASE_URL}auth/googleSignUp?accessToken=${response.accessToken}`,
           {}
         )
-        .then((res) => {
+        .then(() => {
           router.push("/login");
         })
         .catch((err) => {
-          // showToast(err.message, "error");
           console.log(err);
         });
     }
   };
 
   return (
-    <FacebookLogin
-      appId={process.env.FB_APP_ID}
-      callback={router.pathname === "signup"? responseFacebookSignup :responseFacebook}
-      render={(renderProps) => (
-        <button onClick={() => renderProps.onClick()}>
-          <Image src={FacebookBtn} alt="sign up with facebook" />
-        </button>
-      )}
+    <GoogleLogin
+        clientId={process.env.GOOGLE_CLIENT_KEY}
+        render={renderProps => (
+            <button disabled={renderProps.disabled} onClick={() => {
+                renderProps.onClick()
+            }}>
+                <Image src={GoogleBtn} alt="sign up with google" />
+            </button>
+        )}
+        buttonText="Login"
+        onSuccess={router.pathname === "signup" ? responseGoogleSignup :responseGoogle}
+        onFailure={router.pathname === "signup" ? responseGoogleSignup :responseGoogle}
+        cookiePolicy={'single_host_origin'}
     />
   );
 };
 
-export default FacebookLoginComponent;
+
+
+export default GoogleLoginComponent;
