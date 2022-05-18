@@ -1,5 +1,5 @@
 import renderer from "react-test-renderer";
-import { Input, FileInput, Button, Dropzone, Select } from "../index";
+import { Input, FileInput, Button, Dropzone, Select, InputV2 } from "../index";
 
 const label = "mockLabel";
 const mockHandleChange = jest.fn();
@@ -22,6 +22,10 @@ describe("Form elements", () => {
 
   it("renders a snapshot of <Input />", () => {
     const inputElement = renderer.create(<Input />).toJSON();
+    expect(inputElement).toMatchSnapshot();
+  });
+  it("renders a snapshot of <InputV2 />", () => {
+    const inputElement = renderer.create(<InputV2 />).toJSON();
     expect(inputElement).toMatchSnapshot();
   });
   it("renders a snapshot of <Select />", () => {
