@@ -1,12 +1,16 @@
 import React,{useState,useEffect} from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router'
 import AuthLayout from "../../../../components/authlayout"
 import { Row,Col,Card,Form,Input as AntInput, } from 'antd';
-import {Input,Select,Dropzone,Button,FileInput} from '../../../../components/form-input'
+import {Input,Select,Dropzone,Button,FileInput, InputV2} from '../../../../components/form-input'
 import style from '../../../../public/css/Store.module.scss'
 import ApiService from '../../../../utils/axios'
 import { toast } from 'react-toastify';
 
 const Index = ()=>{
+    const store = useSelector(state=> state.store)
+    const Router = useRouter();
     const [file,setFile] = useState({
         Profile_Picture:"",
         Cover_Picture:""
@@ -23,10 +27,8 @@ const Index = ()=>{
 
     const handleFinish = (info)=>{
         setLoading({...loading,updating:true})
-
         const formData = new FormData()
         formData.append("Brand_Name",info.Brand_Name)
-        formData.append("Store_Name",info.Store_Name)
         formData.append("Bio_Data",info.Bio_Data)
         formData.append("Country_Id",1)
         formData.append("Cover_Picture",file.Cover_Picture)
@@ -34,8 +36,9 @@ const Index = ()=>{
         formData.append("Mobile_Number",info.Mobile_Number)
         formData.append("Facebook",info.Facebook)
         formData.append("Instagram",info.Instagram)
-        formData.append("Linkedln",info.Linkedin)
+        formData.append("Linkedln",info.Linkedln)
         formData.append("Twitter",info.Twitter)
+        formData.append("Store_Name",store?.store.store_details?.store_name)
     
         
            ApiService.request(
@@ -52,6 +55,15 @@ const Index = ()=>{
         )
     }
 
+    const handleDeleteDropZone = () => {
+        console.log("handleDeleteDropZone clicked")
+    }
+
+    const handleDeleteImg = (e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation(); //to prevent event propagation
+        console.log("handleDeleteImg clicked")
+    }
    
    
 
@@ -60,7 +72,6 @@ const Index = ()=>{
             'get',
             'v1/kreatesell/store/me',
             ({data}) => {
-                console.log(data?.store_details)
                 setFile({
                     Profile_Picture:data?.store_details?.display_picture,
                     Cover_Picture:data?.store_details?.cover_page
@@ -75,7 +86,7 @@ const Index = ()=>{
                     Facebook:data?.store_details?.facebook,
                     Twitter:data?.store_details?.twitter,
                     Instagram:data?.store_details?.instagram,
-                    Linkedin:data?.store_details?.linked_in})
+                    Linkedln:data?.store_details?.linked_in})
             },
             (err) => {console.log(err)},
         )
@@ -105,27 +116,44 @@ const Index = ()=>{
                         form={form}
                         onFinish={handleFinish}
                         >
+                        <Dropzone
+                            onChange={(e)=>setFile({...file,Cover_Picture:e})}
+                            label="Cover"
+                            accept="image/*"
+                            value={file?.Cover_Picture}
+                            handleDelete={handleDeleteDropZone}
+                            extraLabel="- Add image on your cover page"/>
+                        <FileInput 
+                            value={file?.Profile_Picture} 
+                            handleDelete={(e)=>handleDeleteImg(e)} 
+                            onChange={(e)=>setFile({...file,Profile_Picture:e})}
+                        />
                           <Input
                             name="Brand_Name"
                             label="Name"
                             extraLabel="- Your unique username or business name"
                             placeholder="Brand name, Business name or Full name"
                             rules={[{required:true, min:4, message:"Brand name is a required field"}]}/>
-                        <FileInput value={file?.Profile_Picture} onChange={(e)=>setFile({...file,Profile_Picture:e})}/>
-                        <Dropzone
-                            onChange={(e)=>setFile({...file,Cover_Picture:e})}
-                            label="Image"
-                            accept="image/*"
-                            value={file?.Cover_Picture}
-                            extraLabel="- add image on your cover page"/>
+                        
+                          <InputV2
+                            name="Store_Name"
+                            label="Username"
+                            defaultValue={form.getFieldValue("Store_Name")}
+                            extraLabel="- This is your unique store link"
+                            prefixText="Kreatesell.com/"
+                            disabled={true}
+                            rules={[{required:true, min:4, message:"Store name is a required field"}]}/>
+
                          <Input
                             name="Bio_Data"
                             CustomInput={AntInput.TextArea}
                             row={5}
-                           
                             label="Description"
                             placeholder="Tell us more about your business. 
                             Buyers are also interested in knowing more about your business uniqueness."/>
+                        <Row gutter={{ xs: 0, sm: 0, md: 8}}>
+                        <Col xs={24} md={12}>
+                            
                          <Select
                             label="Country"
                             size="large"
@@ -133,12 +161,17 @@ const Index = ()=>{
                             placeholder="Choose an option"
                             name="Country_Id"
                             rules={[{required:true, message:"Country is a required field"}]}/>
+                        </Col>
+                        <Col xs={24} md={12}>
                         <Input
                             type="tel"
                             label="Phone Number"
                             placeholder="+234"
                             rules={[{required:true, message:"Valid phone number is required", min:11, max:14}]}
                             name="Mobile_Number"/>
+                        </Col>
+                        </Row>
+                        
                         <Input
                             label="Facebook"
                             type="url"
@@ -165,9 +198,11 @@ const Index = ()=>{
                             placeholder="https://twitter.com/"
                             name="Twitter"/>
 
-                        <Form.Item>
-                            <Button loading={loading?.updating} htmlType="submit" type="primary" label="Save"/>
-                        </Form.Item>
+                            <p className={style.storeDescription}>Are you done setting up your store? Next step is putting up your first product</p>
+                        <div className={style.submitButtons}>
+                            <Button className={style.outlinedBtn} loading={loading?.updating} htmlType="submit" label="Save and Preview"/>
+                            <Button type="primary" onClick={()=> Router.push("/account/kreator/products/create")} htmlType="button" type="primary" label="Add Product"/>
+                        </div>
                     </Form>
                 </Card>
             </Col>
