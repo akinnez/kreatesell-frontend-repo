@@ -24,6 +24,7 @@ import {
   SetProductTab,
 } from "redux/actions";
 import { useSelector } from "react-redux";
+import {useEffect} from "react"
 
 export const MobileProductCard = ({ item }) => {
   const [showAction, setShowAction] = useState(false);
@@ -174,19 +175,33 @@ const StatusComponent = (item) => {
       </Tooltip>
   );
 };
+const CouponStatusComponent = (item) => {
+  const statusTextList = {
+    "Pending": {type: "Pending", styles:{background: "rgba(255, 214, 102, 0.2)", color: "#FBB500" }},
+    "Active": {type: "Active", styles:{background: "#F1FCF8", color: "#2DC071" }},
+    "Finished": {type: "Finished", styles:{background: "rgba(255, 77, 79, 0.1)", color: "#F90005" }}, 
+   }
+  
+  let tagStyles = statusTextList[item].styles
+  const mainType = statusTextList[item].type
+  return (
+        <div className={styles.tags} style={tagStyles}>
+          {mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+        </div>
+  );
+};
 
-const ActionComponent = ({ item, showAction }) => {
+const ActionComponent = ({ item }) => {
   const router = useRouter();
   const duplicateProduct = DuplicateProductAction();
   const getProducts = GetProducts();
   const createEditDeleteProduct = CreateProduct();
   const setProductID = SetProductID();
   const setProductTab = SetProductTab();
-
   const id = item?.product_details?.id;
   const kreasell_product_id = item?.product_details?.kreasell_product_id;
-  const productName = item?.product_details?.product_name
-
+  const productLink = item?.product_details?.product_link
+  
   /**Used to delete and deactivate product */
   const handleModalOk = () => {
     return new Promise(resolve => {
@@ -214,7 +229,7 @@ const ActionComponent = ({ item, showAction }) => {
     <p className="mb-0 ml-3">Edit Product</p>
   </li>
 
-  <li className="flex items-center cursor-pointer" onClick={() => _copyToClipboard(id, "Product Link Copied")}>
+  <li className="flex items-center cursor-pointer" onClick={() => _copyToClipboard(productLink, "Product Link Copied")}>
     <span>
       <Image alt="" src={ManageProduct} />
     </span>
@@ -257,6 +272,63 @@ const ActionComponent = ({ item, showAction }) => {
   return (
     <Popover overlayStyle={{width: "150px", padding: '0'}} placement="bottomLeft" overlayClassName={styles.action} content={content} title="" trigger="click">
       <h2 className="font-semibold cursor-pointer text-lg">...</h2>
+    </Popover>
+  );
+};
+const CouponActionComponent = ({ item }) => {
+  const router = useRouter();
+  const id = item?.id;
+  /**Used to delete and deactivate product */
+  // const handleModalOk = () => {
+  //   return new Promise(resolve => {
+  //     const formdata = new FormData()
+  //     formdata.append('product_id', id)
+  //     formdata.append('action', 'd')
+  //     createEditDeleteProduct(formdata, () => {
+  //       getProducts();
+  //       resolve()
+  //     });
+  //   });
+  // };
+  let content = (
+  <ul>
+  <li className="flex items-center cursor-pointer"
+    onClick={() => {
+      router.push("/account/kreator/products/coupons/create", '',{id});
+    }}
+  >
+    <span>
+      <Image alt="" src={EditProduct} />
+    </span>
+    <p className="mb-0 ml-3">Edit Coupon</p>
+  </li>
+
+  <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+  <Popconfirm
+    title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this coupon?</pre> }
+    // onConfirm={handleModalOk}
+    // onCancel={cancel}
+    okText="Delete"
+    cancelText="Cancel"
+    icon={<></>}
+    placement="bottom"
+    overlayClassName={styles.popConfirm}
+  >
+    <span>
+      <Image alt="" src={DeactvateProduct} />
+    </span>
+      <p className="mb-0 ml-3">Deactivate</p>
+  </Popconfirm>
+  </li>
+</ul>
+)
+  return (
+    <Popover overlayStyle={{width: "150px", padding: '0'}} placement="bottomLeft" overlayClassName={styles.action} content={content} title="" trigger="click">
+      <h2 className={styles.spanCont +" text-sm mb-0 font-semibold inline-flex flex-col cursor-pointer text-lg"}>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        </h2>
     </Popover>
   );
 };
@@ -327,36 +399,7 @@ export const AllCouponTableHeader = [
 	},
 	{
 		title: "Products",
-		dataIndex: "products",
-		// render: (item) => (
-		// 	<div className="">
-		// 		<a
-		// 			href={item}
-		// 			target="_blank"
-		// 			rel="noopener noreferrer"
-		// 			className="productTooltip"
-		// 		>
-		// 			{item?.slice(0, 30)}...
-		// 			<div className="tooltipText flex justify-between items-center">
-		// 				<span className="text-black-100">Go to link: </span>
-		// 				<span
-		// 					href={item}
-		// 					target="_blank"
-		// 					className="pl-2 pr-4"
-		// 					rel="noopener noreferrer"
-		// 				>
-		// 					{item}
-		// 				</span>
-		// 				<span
-		// 					className="bg-primary-blue h-10 w-12 flex justify-center rounded-r-lg ml-4 px-1"
-		// 					onClick={() => _copyToClipboard(item, "Product Link Copied")}
-		// 				>
-		// 					<Image src={MailClipboard} />
-		// 				</span>
-		// 			</div>
-		// 		</a>
-		// 	</div>
-		// ),
+		dataIndex: "product_name",
 	},
 	{
 		title: "Code",
@@ -365,20 +408,12 @@ export const AllCouponTableHeader = [
 	{
 		title: "Discount",
 		dataIndex: "discount",
-		// render: (item) => (
-		// 	<div>
-		// 		{item?.currency} {item?.productPrice || "0.00"}
-		// 	</div>
-		// ),
+		
 	},
 	{
 		title: "Quantity",
 		dataIndex: "quantity",
-		// render: (item) => {
-		// 	const time = parseISO(item);
-		// 	const formatTime = format(time, "PPpp");
-		// 	return <div>{formatTime}</div>;
-		// },
+		
 	},
 	{
 		title: "Usages",
@@ -393,18 +428,36 @@ export const AllCouponTableHeader = [
 	{
 		title: "Start Date",
 		dataIndex: "start_date",
+    render: (item) => {
+      const time = parseISO(item);
+      const formatTime = format(time, "PPPp");
+      return <div style={{whiteSpace:"pre"}} className="flex flex-col items-center">
+          <div>{`${formatTime.split('at')[0]},`}</div>
+          <div>{formatTime.split('at')[1]}</div>
+        </div>;
+    }
 	},
 	{
 		title: "End Date",
 		dataIndex: "end_date",
+    render: (item) => {
+      const time = parseISO(item);
+      const formatTime = format(time, "PPPp");
+      return <div style={{whiteSpace:"pre"}} className="flex flex-col items-center">
+          <div>{`${formatTime.split('at')[0]},`}</div>
+          <div>{formatTime.split('at')[1]}</div>
+        </div>;
+    }
 	},
 	{
 		title: "Status",
 		dataIndex: "status",
+    render: (item) => CouponStatusComponent(item),
 	},
 	{
 		title: "More",
 		dataIndex: "more",
+    render: (item) => CouponActionComponent({ item })
 	},
 ];
 export const emptyComponent = (text)=>{

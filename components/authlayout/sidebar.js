@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Menu } from "antd";
 import style from "./sidebar.module.scss";
 import Router, { useRouter } from "next/router";
+import { SetProductDefault, SetProductID } from "redux/actions";
+
 import {
   Shop,
   Dashboard,
@@ -67,6 +69,8 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 const Sidebar = () => {
   const { SubMenu } = Menu;
   const router = useRouter();
+  const setProductId = SetProductID()
+  const setProductDefault = SetProductDefault()
   return (
     <>
       <Menu mode="inline" theme="light" className={style.menu}>
@@ -102,7 +106,13 @@ const Sidebar = () => {
           </Menu.Item>
           <Menu.Item key={36}>
             <Link href="/account/kreator/products/create">
-              <a>Create Product</a>
+              <a  onClick={(e) => {
+              e.preventDefault()
+							setProductId('')
+							setProductDefault()
+              console.log('ytrfghjuytrdfgh')
+							router.push("/account/kreator/products/create")
+						}}>Create Product</a>
             </Link>
           </Menu.Item>
           <Menu.Item key={37}>

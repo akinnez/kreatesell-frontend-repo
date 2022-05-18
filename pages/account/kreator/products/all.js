@@ -11,7 +11,7 @@ import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
 import { Table } from "antd";
 import { useRouter } from "next/router";
-import { GetProducts, GetProductStatus, SetProductID } from "redux/actions";
+import { GetProducts, GetProductStatus, SetProductID, SetProductDefault } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 
@@ -20,9 +20,11 @@ const AllProducts = () => {
 	const getProducts = GetProducts();
 	const getProductStatus = GetProductStatus();
 	const setProductId = SetProductID()
+	const setProductDefault = SetProductDefault()
 	const { products, loading, productPagination, productStatus } = useSelector(
 		(state) => state.product
 	);
+	const {store } = useSelector((state) => state.store);
 
 	const { page, total_records, limit } = productPagination;
 
@@ -31,6 +33,7 @@ const AllProducts = () => {
 	const [startDate, setStartDate] = useState("");
 	const [productStatusId, setProductStatusId] = useState("");
 	const [endDate, setEndDate] = useState("");
+	const [domainLink, setDomainLink] = useState('')
 
 	const productStatusOptions = productStatus?.map((item) => ({
 		value: item.id,
@@ -64,11 +67,12 @@ const AllProducts = () => {
 						product_details: {
 							id:item?.product_details?.id,
 							kreasell_product_id: item?.product_details?.kreasell_product_id,
-							product_name: item?.product_details?.product_name
+							product_name: item?.product_details?.product_name,
+							product_link: `${domainLink}/${item?.product_details?.kreasell_product_id}`
 						}
 					},
 				})),
-		[productData]
+		[domainLink, productData]
 	);
 
 	useEffect(() => {
@@ -80,6 +84,12 @@ const AllProducts = () => {
 		setProductData(products);
 	}, [products]);
 
+	  useEffect(() => {
+    if(Object.keys(store).length > 0){
+      const {domain_details} = store.domain_details
+      setDomainLink(domain_details[0].domain_url)
+    }
+  }, [store])
 	const handleSearchSubmit = () =>{
 		getProducts(1, productName, startDate, endDate, ()=>console.log('done'));
 		console.log( productName, startDate, endDate)
@@ -101,7 +111,12 @@ const AllProducts = () => {
                         text="+ Add a Product"
                         bgColor="blue"
                         className={styles.addCouponBtn1 + " pr-2 pl-2"}
-                        onClick={() => setProductId('',router.push("/account/kreator/products/create"))}
+                        onClick={() => {
+							setProductId('')
+							setProductDefault()
+							console.log('settes')
+							router.push("/account/kreator/products/create")
+						}}
                     />
 				</div>
 				<CouponHeader
@@ -149,7 +164,11 @@ const AllProducts = () => {
                         text="Add a Product"
                         bgColor="blue"
                         className={styles.addCouponBtn + " mt-2"}
-                        onClick={() => router.push("/account/kreator/products/create")}
+                        onClick={() => {
+							setProductId('')
+							setProductDefault()
+							router.push("/account/kreator/products/create")
+						}}
                     />
 				</div>}
 			</div>
