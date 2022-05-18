@@ -14,7 +14,12 @@ const Kreator = ({questions}) => {
         <Collapse expandIconPosition="right" bordered={false} defaultActiveKey={['0']}>
         {questions.map(({question, answer}, idx)=>(
             <Panel className={styles.panelHeader} header={question} key={idx}>
-                <div className={styles.answer} >{answer}</div>
+            <div
+              className={styles.answer}
+              dangerouslySetInnerHTML={{
+                  __html: answer,
+              }}
+          />
             </Panel>
         ))}
         </Collapse>
