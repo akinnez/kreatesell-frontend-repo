@@ -1,19 +1,20 @@
 import Image from "next/image"
 import { useState } from "react"
-import { ArrowLeft, ViewSales, Video, Audio,EditPen, FileDelete} from "utils"
+import { ArrowLeft, ViewSales, Video, Audio,EditPen, FileDelete, FileZip} from "utils"
 import { Button, Input, Radio,Popconfirm, Switch } from "antd"
 import styles from './MembershipTab.module.scss'
+import PlayMedia from "./PlayMedia"
 
-export default function ManageSection ({setIsTabsActive, setMajorPage}) {
-    const [sections, setSections] = useState([{
-        name: "",
-        lectures: [{lecture_name: ""}]
-    }])
-    const [isControl, setIsControl] = useState(false)
-
+export default function ManageSection ({setIsTabsActive, setMajorPage, sections, setSections, toSection}) {
+    const [play, setPlay]= useState(false)
     const goBack = ()=>{
         setIsTabsActive(true)
         setMajorPage('index')
+    }
+    const displayMedia = (type, source, fn)=>{
+        return (
+            <PlayMedia source={source} type={type} open={play} closePlay={fn} />
+        )
     }
     return(
         <div className="">
@@ -38,12 +39,17 @@ export default function ManageSection ({setIsTabsActive, setMajorPage}) {
                                 <h1 className="text-2xl font-semibold">{items.name ? items.name : "Section Name"}</h1>
                             </div>
                             <div className="flex item-center">
-                                <Switch onChange={()=>setIsControl(value=> !value)}/>
-                                <h2 className="text-base ml-3 font-semibold">{isControl ? "OFF" : "ON"}</h2>
+                                <Switch checked={items.isControl ? true : false} onChange={()=>setSections(prev => {
+                                    const sec = prev[index]
+                                    sec.isControl = !sec.isControl
+                                    prev[index] =sec
+                                    return [...prev]
+                                })}/>
+                                <h2 className="text-base ml-3 font-semibold">{items.isControl ? "ON" : "OFF"}</h2>
                             </div>
                         </div>
                         {
-                            !isControl && <div className="mb-5">
+                            items.isControl && <div className="mb-5">
                                  <div className="inline-flex">
                                     <h2 className="text-base font-medium mr-2">Access Control</h2>
                                     <p className="text-sm mb-0">- Set the subscribers who access this module</p>
@@ -61,22 +67,27 @@ export default function ManageSection ({setIsTabsActive, setMajorPage}) {
                             </div>
                         }
                         {
-                            items.lectures.map((item, indx)=>(
+                            items.lectures && items.lectures.length > 0 && items.lectures.map((item, indx)=>(
                                 <div key={indx} className={styles.managedContent + " bg-white flex justify-between items-center rounded-lg mb-3"}>
                                     <div className="flex items-center">
                                         <div className={styles.fileImage}>
-                                            <Image width={20} height={20} src={Audio} alt="file" />
+                                            {item.type && <Image width={20} height={20} src={item.type === "audio" ? Audio: item.type === "video"? Video :FileZip} alt="file" />}
                                         </div>
                                         <div className="flex flex-col">
                                             <h1 className="text-xl font-semibold">{item.lecture_name ? item.lecture_name : `Lecture ${indx + 1}`}</h1>
-                                            <h2 className="text-base font-medium">2.3MB</h2>
+                                            {item.size && <h2 className="text-base font-medium">{`${(item.size/ (1024 * 1024)).toFixed()}MB`}</h2>}
                                         </div>
                                     </div>
                                     <div className={styles.managedControls}>
-                                        <div className="p-4">
+                                        <div onClick={()=>{
+                                            console.log('media', item)
+                                            // setPlay(value => !value)
+                                            // displayMedia('audio', item.url)
+                                            }} className="p-4">
+                                                {/* {play && displayMedia('audio', item.url, setPlay)} */}
                                             <Image  width={15} height={15} src={ViewSales} alt="icon" />
                                         </div>
-                                        <div onClick={()=>setMajorPage("manage-content")} className="p-4">
+                                        <div onClick={()=>toSection("manage-content", index, indx)} className="p-4">
                                             <Image  width={15} height={15} src={EditPen} alt="icon" />
                                         </div>
                                         <div >
@@ -98,6 +109,7 @@ export default function ManageSection ({setIsTabsActive, setMajorPage}) {
                                 </div>
                             ))
                         }
+                        
                     </div>
                 ))
             }

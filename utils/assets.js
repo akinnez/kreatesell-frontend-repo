@@ -121,8 +121,15 @@ import PublishProduct from "../public/images/publish.svg";
 import UnPublishProduct from "../public/images/unpublish.svg";
 import PreviewMembership from "../public/images/new-vec.svg";
 import LinkCopy from "../public/images/content_copy.svg";
+import KreatorBankSetting from '../public/images/kreator_bankset.svg'
+import AffilateBankSetting from '../public/images/affilate_bankset.svg'
+
+
+
 export {
   PublishProduct,
+  KreatorBankSetting,
+  AffilateBankSetting,
   UnPublishProduct,
   PreviewMembership,
   DashPreviewOne,

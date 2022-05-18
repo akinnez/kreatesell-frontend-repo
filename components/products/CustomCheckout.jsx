@@ -6,7 +6,6 @@ import styles from './CustomCheckout.module.scss'
 
 
 export default function CustomCheckoutSelect({title, field, setField}){
-    
   const { countries } = useSelector((state) => state.utils);
     const {Option} = Select
     const removeCurrency = (item)=>{

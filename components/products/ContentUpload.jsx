@@ -1,11 +1,11 @@
 import { useUpload } from "hooks";
 import Image from "next/image"
 import { useEffect, useState } from "react";
-import { CloudUpload, CloudUploadDisable, FileDelete, FileZip } from "utils"
+import { CloudUpload, CloudUploadDisable, FileDelete, FileZip, Audio, Video } from "utils"
 import axios from "axios";
 import styles from "./CreateProduct.module.scss";
 
-export default function FileUpload({file, setFile, isToggleable, toggleValue, initialFile}){
+export default function ContentUpload({file, setFile}){
     const [progress, setProgress] = useState(0)
     const {
         mainFile,
@@ -13,78 +13,52 @@ export default function FileUpload({file, setFile, isToggleable, toggleValue, in
         getInputProps,
         deleteFile
       } = useUpload({
-        fileType: ".zip,.rar"
+        fileType: "audio/*,video/*,application/pdf"
       });
-      const fetchFile = async(url)=>{
-        const instance = axios.create()
-        delete instance.defaults.headers.common['Authorization'];
-        try {
-          const data = await axios.get(url, {resource_type: "raw"})
-          console.log(data)
-          let buffer = new Buffer(data.data.toString());
-          console.log(buffer.toString("base64"));
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      const getBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onprogress = (data) => {
-            if (data.lengthComputable) {                                            
-            var progress = parseInt( ((data.loaded / data.total) * 100), 10 );
-            setProgress(progress);
-            } 
-          }
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = (error) => reject(error);
-        });
-      };
       const handleDeleteFile = ()=>{
         deleteFile(mainFile[0].file)
         setFile(null)
       }
-      useEffect(()=>{
-        return()=>{
-          deleteFile(mainFile[0]?.file)
-          setFile(null)
-        }
-      }, [isToggleable, toggleValue])
-      useEffect(()=>{
-        if(initialFile){
-          const getFileDetails = ()=>{
-            initialFile.map(async(item) =>{
-              await fetchFile(item.filename)
-            })
-          }
-          getFileDetails()
-        }
-      }, [initialFile])
+
       useEffect(()=>{
         if(mainFile.length > 0){
-            const start = async ()=>{
-                const pr_arr = mainFile.map(
-                    (item, i) =>
-                        new Promise(async (res, rej) => {
-                            await getBase64(item.file);
-                            setFile(item.file)
-                            res(null);
-                        })
-                        );
-                  await Promise.all(pr_arr);
-            }
-            start()
+            console.log(mainFile)
+            mainFile.map(async (item)=>(
+                await uploadFile(item.file, setProgress)
+            ))
         }
       }, [mainFile])
-
+    async function uploadFile(file, cb){
+        const formData = new FormData()
+          formData.append('upload_preset', 'kreatesell')
+          formData.append('file', file)
+          const options = {onUploadProgress: (progressEvent)=>{
+            const {loaded, total} = progressEvent
+            let percent = Math.floor(loaded * 100 / total)
+            cb(percent)
+          }}
+          try {
+            const instance = axios.create()
+            delete instance.defaults.headers.common['Authorization'];
+            const {data} = await instance.post('https://api.cloudinary.com/v1_1/salvoagency/upload', formData, options)
+            console.log(data)
+            setFile({
+                type: data?.resource_type,
+                url: data?.secure_url,
+                format: data?.format,
+                duration: data?.duration,
+                size: data?.bytes
+            })
+          } catch (error) {
+            console.log('ERROR',error)
+          }
+    }
     return (
             <div className="pt-2">
                 <p className="text-base-gray-200 text-xs mb-0">
-                  Only one file is allowed to be uploaded. Bundles all your files
-                  into single RAR or ZIP file.
+                  You can upload Audio, Video or PDF Files
                 </p>
-                <small className="text-black mb-4 font-normal">The maximum allowed file size is 1GB.</small>
+                <small className="text-black mb-4 font-normal">The maximum allowed file size is 750MB.</small>
                 {mainFile.length > 0 && mainFile.map((item, index)=>(
                   <div key={index} className={styles.fileUpload + " flex flex-col"}>
                     <p className="mb-3">{progress !== 100 ? "Uploading" :"Content Uploaded Successfully"} ({progress && <>{progress}</>})%</p>
@@ -92,7 +66,7 @@ export default function FileUpload({file, setFile, isToggleable, toggleValue, in
                       {progress !== 100 && <span></span>}
                       <div className="flex items-center">
                         <div className="mr-4 flex items-center justify-center" style={{width: "48px", height: "48px", background: "#0072EF", borderRadius: "8px"}}>
-                          <Image src={FileZip} alt="zip" />
+                          <Image src={item.file.type.includes("video") ? Video : item.file.type.includes("audio")? Audio : FileZip} alt="zip" />
                         </div>
                         <div className="flex flex-col">
                           <h2 className="mb-3 text-base font-bold">{item.file.name}</h2>
@@ -119,7 +93,7 @@ export default function FileUpload({file, setFile, isToggleable, toggleValue, in
                         Drag and Drop or Click to Upload Your Product File
                       </p>
                       <p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
-                        Upload your product files
+                        Drag & Drop Or Click to Upload Your Product File
                       </p>
                     </div>
                   </div>

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { CreateProductForm } from "components";
 import styles from "./CreateProduct.module.scss";
-import {Row, Col} from 'antd'
+import {Row, Col, Button, Modal} from 'antd'
+import Image from "next/image";
+import { useRouter } from "next/router";
+import CloseIcon from "components/affiliates/CloseIcon";
+import { AffilateBankSetting, KreatorBankSetting } from "utils";
 import {
   OneTimeSubscriptionIcon,
   MembershipSubscriptionIcon,
@@ -23,14 +28,28 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
   const { tab1, tab2, tab3 } = iconHover;
 
   const { productTypes } = useSelector((state) => state.product);
-
+  const { store } = useSelector(state => state.store);
   const filterProductType = (id) =>
     productTypes?.filter((item) => item.id === id);
 
   const digitalDownloadMenu = filterProductType(1);
   const oneTimeSubMenu = filterProductType(2);
   const membershipMenu = filterProductType(3);
-
+  const [isBank, setIsBank] = useState(false)
+  const router = useRouter()
+  useEffect(()=>{
+    if(Object.keys(store).length > 0 ){
+      const {bank_details} = store
+      if(!bank_details){
+        setIsBank(true)
+      }else{
+        setIsBank(false)
+      }
+      return ()=>{
+        setIsBank(false)
+      }
+    }
+  }, [store])
   useEffect(() => {
     getProductTypes();
   }, []);
@@ -188,7 +207,7 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
       {tab !== 1 ?<div className={styles.businessPlan}>
-        <h2 className="text-base font-normal">This action requires a business plan, click <a>here</a> to subscribe</h2>
+        <h2 className="text-base w-full font-normal">This action requires a business plan, click <Link href="/account/kreator/settings">here</Link> to subscribe</h2>
         </div>: <></>}
       <div className="mt-8 mb-4">
         <div className="divider"></div>
@@ -199,7 +218,7 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
           <CreateProductForm
             productType="digitalDownload"
             productTypeId={tab}
-            submit={submit}
+          
           />
         )}
 
@@ -207,13 +226,40 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
           <CreateProductForm
             productType="oneTimeSubscription"
             productTypeId={tab}
-            submit={submit}
+          
           />
         )}
 
         {tab === 3 && (
-          <CreateProductForm submit={submit} productType="membership" productTypeId={tab} />
+          <CreateProductForm productType="membership" productTypeId={tab} />
         )}
+        {isBank && <Modal title={null}
+            footer={null}
+            visible={isBank}
+            onCancel={() =>{ 
+              setIsBank(false)
+              router.push('all')
+            }}
+            // maskClosable={false}
+            closeIcon={<CloseIcon />}>
+              <div className="mt-4 mx-auto w-full py-5 px-2">
+                <h2 className="mb-4 text-lg text-center font-semibold">Set Up Bank Details</h2>
+                <p className="text-base-gray-300 text-center text-sm">In oredr</p>
+                <div className="flex justify-between">
+                  <div className="border-r-2 border-gray-300" style={{width: "55%", height: "250px", position: "relative"}}>
+                    <Image src={KreatorBankSetting} alt="kreator" layout="fill" />
+                  </div>
+                  <div style={{width: "40%", height: "220px", position: "relative"}}>
+                    <Image src={AffilateBankSetting} alt="affilate" layout="fill" />
+                  </div>
+                </div>
+                <div className={styles.mdBtn +" w-1/2 flex items-center justify-center mx-auto mt-3"}>
+                  <Link href={{pathname: "/account/sales/payouts/set-up-bank-details"}}>
+                    Setup Account
+                  </Link>
+                </div>
+              </div>
+            </Modal>}
       </div>
     </div>
   );
