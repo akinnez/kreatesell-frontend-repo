@@ -5,6 +5,9 @@ import { Layout, InputButton } from "../components";
 import { Link } from "react-scroll";
 import styles from "../public/css/Features.module.scss";
 import {
+  SupportFeatures,
+  PayoutFeatures,
+  AnalyzeFeature,
   RightArrow,
   AnalyzeIcon,
   CustomizeIcon,
@@ -580,7 +583,7 @@ const Features = () => {
                 comprehensive analytic tools provided by kreatsell.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={AnalyzeFeature} alt="feature icon" />
               </div>
             </div>
           </div>
@@ -610,7 +613,7 @@ const Features = () => {
                 from your dashboard.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={PayoutFeatures} alt="feature icon" />
               </div>
             </div>
 
@@ -680,7 +683,7 @@ const Features = () => {
                 className={styles.featureIcon}
                 {...Animate("fade-left", 200, "ease")}
               >
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={SupportFeatures} alt="feature icon" />
               </div>
             </div>
           </div>

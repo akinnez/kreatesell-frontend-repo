@@ -476,6 +476,9 @@
       flex-direction: column-reverse;
       @media (min-width: 1277px) {
         flex-direction: row-reverse;
+        .featureExcerpt {
+          max-width: 441px;
+        }
       }
     }
   }

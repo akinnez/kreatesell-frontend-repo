@@ -127,7 +127,13 @@ import ManageFeatures from "../public/images/manageFeatures.png";
 import MarketFeatures from "../public/images/marketFeatures.png";
 import CustomizeFeatures from "../public/images/customizeFeatures.png";
 import SecureFeatures from "../public/images/secureFeatures.png";
+import AnalyzeFeature from "../public/images/analyzeFeature.png";
+import PayoutFeatures from "../public/images/payoutFeatures.png";
+import SupportFeatures from "../public/images/supportFeatures.png";
 export {
+  SupportFeatures,
+  PayoutFeatures,
+  AnalyzeFeature,
   SecureFeatures,
   CustomizeFeatures,
   MarketFeatures,
