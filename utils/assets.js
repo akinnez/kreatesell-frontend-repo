@@ -124,7 +124,13 @@ import PreviewMembership from "../public/images/new-vec.svg";
 import LinkCopy from "../public/images/content_copy.svg";
 import DeliverFeature from "../public/images/DeliverFeature.png";
 import ManageFeatures from "../public/images/manageFeatures.png";
+import MarketFeatures from "../public/images/marketFeatures.png";
+import CustomizeFeatures from "../public/images/customizeFeatures.png";
+import SecureFeatures from "../public/images/secureFeatures.png";
 export {
+  SecureFeatures,
+  CustomizeFeatures,
+  MarketFeatures,
   ManageFeatures,
   DeliverFeature,
   PublishProduct,

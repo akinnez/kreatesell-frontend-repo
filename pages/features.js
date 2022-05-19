@@ -8,15 +8,18 @@ import {
   RightArrow,
   AnalyzeIcon,
   CustomizeIcon,
+  CustomizeFeatures,
   DeliverIcon,
   DeliverFeature,
   ManageFeatures,
+  MarketFeatures,
   // FeatureBg,
   FeatureIcon,
   ManageIcon,
   MarketIcon,
   PayoutIcon,
   SecureIcon,
+  SecureFeatures,
   SellIcon,
   SellFeature,
   SupportIcon,
@@ -319,7 +322,7 @@ const Features = () => {
                 and sell better.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={MarketFeatures} alt="feature icon" />
               </div>
             </div>
 
@@ -457,7 +460,7 @@ const Features = () => {
                 to bring ease to your target audience purchasing experience.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={CustomizeFeatures} alt="feature icon" />
               </div>
             </div>
           </div>
@@ -488,7 +491,7 @@ const Features = () => {
                 className={styles.featureIcon}
                 {...Animate("fade-right", 200, "ease")}
               >
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={SecureFeatures} alt="feature icon" />
               </div>
             </div>
 
