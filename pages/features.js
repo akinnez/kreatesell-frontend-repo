@@ -212,7 +212,7 @@ const Features = () => {
             </div>
 
             <div
-              className={`${styles.imageCont}  ${styles.alternate}`}
+              className={`${styles.imageCont}  `}
               {...Animate("fade-left", 200, "ease")}
             >
               <section className={styles.featureTop}>
