@@ -7,27 +7,53 @@
     span{
         color:#8C8C8C;
     }
+    
 }
+
+
 
 .input{
     border-radius: 10px;
+    margin-block-end: 20px;
 }
 
-.inputV2Container{
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #F5F5F5;
-    p{
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 28px;
-        color: #595959;
-        margin-bottom: 0 !important;
-    }
-    .input{
-        width: 75%;
+.telInput{
+    margin: inherit;
+}
+
+
+.container{
+    margin-block: 20px;
+    .inputV2Container{
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #F5F5F5;
+        text-align: left;
+        position: relative;
+        padding-inline: 10px;
+
+        .container{
+            margin-bottom: 0px !important;
+        }
+        p{
+            flex: 1;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 28px;
+            color: #595959;
+            margin-bottom: 0 !important;
+        }
+        .inputV2FormItem{
+            flex: 3.5;
+        margin-bottom: 0px !important;
+            
+        }
+        .inputV2{
+            margin-bottom: 0px !important;
+            // width: 75%;
+        }
     }
 }
 
@@ -54,6 +80,7 @@
     }
 }
 
+// buttons
 .btn{
     height: 36px;
     border-radius: 8px;
@@ -63,4 +90,61 @@
     justify-content: center;
     gap:5px;
 }
+.danger{
+    border: 1px solid #FF4D4F !important;
+    color: #FF4D4F !important;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    &:hover{
+        opacity: .4;
+    }
+}
+.dullFilled{
+    border: none;
+    color: #8C8C8C;;
+    background: #F5F5F5;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    &:hover{
+        opacity: .4;
+    }
+}
 
+// button ends here
+
+.popOverDescription{
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #8C8C8C;
+
+}
+
+
+
+.popOverButtonContainer{
+    display: flex !important;
+    gap: 5px !important;
+}
+
+.popOverTriggerButtonContainer{
+    white-space:"nowrap";
+    overflow:"hidden";
+    text-overflow:"ellipsis"; 
+    display:"flex";
+}
+
+// select drop down
+.select{
+    display: flex; 
+    align-items:center !important; 
+    gap:5px !important;
+    img{
+        border-radius: 5px;
+    }
+}

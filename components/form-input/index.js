@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {Form,Input as AntInput, Select as AntSelect,Upload as AntUpload,Image, Button as AntButton} from 'antd'
 import style from './Index.module.scss'
+import {Popover} from "../../components/popover/Popover";
 import {UploaderIcon,ProfileInputIcon} from '../../components/IconPack'
 import {toast} from 'react-toastify'
 import { MdDelete } from "react-icons/md";
@@ -47,15 +48,17 @@ const UploadPlaceholder = ()=>{
 }
 
 
-export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,...rest})=>{
+export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,addonBefore,...rest})=>{
     return(
+        <>
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
             {
                 CustomInput ? <CustomInput rows={row} className={style.input} size={size} placeholder={placeholder}/>:
 
-                <AntInput disabled={disabled} className={style.input} type={type} size={size} placeholder={placeholder}/>
+                <AntInput addonBefore={addonBefore}  className={`${style.input} ${type==="tel"&&"telInput"}`} {...{placeholder, size, type, disabled}}/>
             }
         </Form.Item>
+        </>
     )
 }
 
@@ -63,13 +66,17 @@ export const Input = ({CustomInput,type="text",placeholder,size="large",disabled
  * @description Input Variant 2 component: It has a Prefix text and Input field too
  *
  */
-export const InputV2 = ({type="text",placeholder,size="large",prefixText,disabled,label,extraLabel,row,defaultValue,...rest})=>{
+export const InputV2 = ({type="text",placeholder,size="large",prefixText,disabled,label,extraLabel,row,...rest})=>{
     return(
-        <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
+        <div className={style.container}>
+            <label className={style.label}>{label} <span>{extraLabel}</span></label>
             <div className={style.inputV2Container}>
-                <p>{prefixText}</p> <AntInput defaultValue={defaultValue} disabled={disabled} className={style.input} type={type} size={size} placeholder={placeholder}/>
+            <p>{prefixText}</p>
+            <Form.Item {...rest} className={style.inputV2FormItem}>
+                    <AntInput  disabled={disabled} className={style.inputV2} type={type} size={size} placeholder={placeholder}/>
+            </Form.Item>
             </div>
-        </Form.Item>
+        </div>
     )
 }
 
@@ -92,7 +99,32 @@ export const Select = ({placeholder,size="large", onChange=()=>{},loading,label,
         </Form.Item>
     )
 }
+export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,label,extraLabel,list=[],...rest})=>{
+    return(
+        <>
+        <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
+            {
+                <AntSelect showSearch
+                optionFilterProp="value"
+                filterOption={(input, option) =>
+                    option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                  onChange={(e)=>onChange(e)} loading={loading} className={style.input} size={size} placeholder={placeholder}>
+                    {list?.map(({name,flag},i)=>(
+                        <AntSelect.Option key={i} value={name}>
+                        <div className={style.select}>
+                            {label==="Country"&&(<NImg style={{borderRadius:"5px"}} objectFit='cover' width={40} height={30} src={flag} />)}
+                            {name}
+                        </div>
+                        </AntSelect.Option>
+                    ))}
+                </AntSelect>
+            }
+        </Form.Item>
 
+        </>
+    )
+}
 
 export const Dropzone = ({label, value, onChange=()=>{},handleDelete, extraLabel,...rest})=>{
 
@@ -150,11 +182,22 @@ export const FileInput = ({
     })=>{
 
         const [file, setFile] = useState("")
+        const [showDeletePopover, setShowDeletePopover] = useState(false);
 
         const handleChange = (e)=>{
             setFile(e.target.files[0].name)
             onChange(e.target.files[0])
         }
+
+        const content = (
+            <div>
+            <p className={style.popOverDescription}>Are you sure you want to delete <br/> your profile picture</p>
+            <div className={style.popOverButtonContainer}>
+            <Button className={style.dullFilled} onClick={()=> setShowDeletePopover(false)} label="Cancel"/>
+            <Button className={style.danger} onClick={handleDelete} label="Delete"/>
+            </div>
+        </div>
+        )
 
     return (
         <>
@@ -164,8 +207,26 @@ export const FileInput = ({
                     {!!value ? <NImg objectFit='cover' width={42} height={45} src={value} /> :<ProfileInputIcon />}
                 </div>
             <label className="file-input-label">
-                <input type="file" accept="image/*" onChange={(e)=>handleChange(e)}/>
-                {value != "" ? <div id="fi" style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis", display:"flex", position:"relative", zIndex:"14"}}><MdDelete onClick={handleDelete} style={{fontSize: "20px",cursor:"pointer"}} color="red" /> Click to delete the profile picture</div>: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
+                <input type="file" disabled={!!value} accept="image/*" onChange={(e)=>handleChange(e)}/>
+                {value != "" ? 
+                (
+                    <div style={{display: "flex"}}>
+                    <Popover
+                        trigger="click"
+                        title="title"
+                        placement="bottom"
+                        visible={showDeletePopover}
+                        triggerButton={
+                        <div id="fi" className={style.popOverTriggerButtonContainer}>
+                            <MdDelete onClick={()=>setShowDeletePopover(true)} style={{fontSize: "20px",cursor:"pointer", position:"relative", zIndex:"3"}} color="red" />
+                        </div>}
+                        content={content}
+                />
+                Click to delete the profile picture
+                </div>
+                )
+                : 
+                <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
             </label>
             </div>
 
