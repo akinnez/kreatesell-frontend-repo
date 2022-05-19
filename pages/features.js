@@ -38,7 +38,12 @@ const Features = () => {
   const handleClick = (linkName) => setActiveScrollLink(linkName);
 
   return (
-    <Layout subFooter={true} defaultMarginTop={true}>
+    <Layout
+      subFooter={true}
+      defaultMarginTop={true}
+      text="Enjoy the benefits of multiple applications in one place."
+      withSearch={true}
+    >
       <div className={styles.container}>
         <div className={styles.hero}>
           <h2 className={styles.webTitle}>
