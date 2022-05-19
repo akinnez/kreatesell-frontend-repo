@@ -111,7 +111,7 @@ const Index = () => {
                 }
                 list={[
                   {text: "Complete your store profile details", route: "/account/kreator/store/edit", completed:true},
-                  {text: "Add your bank account details to receive your payments", route:"/", completed:calculatePercentageComplete().bankAccount},
+                  {text: "Add your bank account details to receive your payments", route:"/account/sales/payouts", completed:calculatePercentageComplete().bankAccount},
                   {text: "Add your first product to increase your store completion", route:"/account/kreator/products/create", completed: calculatePercentageComplete().AddedProducts},
                 ]}
               />
