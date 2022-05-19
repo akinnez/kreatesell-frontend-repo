@@ -37,7 +37,7 @@ const Features = () => {
             Complex Tech Tools
           </h2>
           <h2 className={styles.mobileTitle}>
-            No more headaches from multiple complex tech tools
+            No more headaches from <br /> multiple complex tech tools
           </h2>
 
           <p className={styles.webSubtitle}>

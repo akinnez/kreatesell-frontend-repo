@@ -34,10 +34,27 @@
 
     .webTitle {
       @extend .main;
+      display: none;
+      @media (min-width: 1277px) {
+        display: block;
+      }
     }
     .mobileTitle {
-      display: none;
+      // display: none;
+      display: block;
+      transition: all 0.2s;
       @extend .main;
+      font-size: 28px;
+      line-height: 40px;
+      @media (min-width: 500px) {
+        & {
+          font-size: 36px;
+          line-height: 45px;
+        }
+      }
+      @media (min-width: 1277px) {
+        display: none;
+      }
     }
 
     .subtitleStyle {
@@ -50,12 +67,24 @@
 
     .webSubtitle {
       @extend .subtitleStyle;
+      display: none;
+      @media (min-width: 1277px) {
+        display: block;
+      }
     }
     .mobileSubtitle {
-      display: none;
+      // display: none;
+      display: block;
       @extend .subtitleStyle;
-      font-weight: 300;
-      line-height: 1.5rem;
+      // font-weight: 300;
+      // line-height: 1.5rem;
+      font-size: 18px;
+      line-height: 34px;
+      text-align: center;
+
+      @media (min-width: 1277px) {
+        display: none;
+      }
     }
 
     .input {
@@ -134,33 +163,33 @@
       }
     }
 
-    @include screen("tablet") {
-      .webTitle {
-        display: block;
-        text-align: center;
-      }
-      .mobileTitle {
-        display: none;
-      }
-    }
+    // @include screen("tablet") {
+    //   .webTitle {
+    //     display: block;
+    //     text-align: center;
+    //   }
+    //   .mobileTitle {
+    //     display: none;
+    //   }
+    // }
 
-    @include screen("medium") {
-      .webTitle {
-        display: none;
-      }
-      .mobileTitle {
-        display: block;
-        font-size: 1.5rem;
-        line-height: 2rem;
-      }
-      .webSubtitle {
-        display: none;
-      }
-      .mobileSubtitle {
-        display: block;
-        // border: 1px solid red;
-      }
-    }
+    // @include screen("medium") {
+    //   .webTitle {
+    //     display: none;
+    //   }
+    //   .mobileTitle {
+    //     display: block;
+    //     font-size: 1.5rem;
+    //     line-height: 2rem;
+    //   }
+    //   .webSubtitle {
+    //     display: none;
+    //   }
+    //   .mobileSubtitle {
+    //     display: block;
+    //     // border: 1px solid red;
+    //   }
+    // }
   }
 
   .majorFeatures {
