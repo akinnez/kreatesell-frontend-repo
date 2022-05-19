@@ -326,13 +326,9 @@ const Features = () => {
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 200, "ease")}
                   title="Affiliate marketing"
-                  content="Allow the affiliate to promote options in your product and let the affiliate promoter to share your links and bring in sales for just a fraction of the product price."
+                  content="Enable the ‘Allow affiliate to promote’ option during your product upload and let affiliate promoters share your product link. And bring in massive sales for just a small percentage of the sales price as their commission."
                 />
-                <FeatureCard
-                  // animate={() => Animate("zoom-in", 300, "ease")}
-                  title="1-click upsells"
-                  content="Trigger your customers’ buying interest by offering a similar product from your store listings as they proceed to checkout."
-                />
+
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 500, "ease")}
                   title="Product update emails"
@@ -341,19 +337,19 @@ const Features = () => {
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
                   title="Give Free Gift"
-                  content="Give your customers free gifts for compensation or lead magnet to increase your store traffic and conversion by setting your product price to zero."
+                  content="Give your customers gifts for compensation or as lead magnets to increase your store's traffic and conversion by setting your product price to ‘Make It Free‘."
                 />
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
                   title="Activate and Deactivate"
-                  content="Activate your product so that it could be listed on your product listing page. Customers get to see activated products and make purchases. You can deactivate a product, probably there is something to sort for the particular moment until such is resolved, put the product on deactivation mode."
+                  content="Activate your product to get it listed on your store page. Customers would see activated products and can make purchases. You can deactivate a product if there is something to be sorted out, until it is resolved. When deactivated, your product would not be visible for purchase."
                 />
               </div>
               <div className={styles.secondRow}>
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
                   title="Cart abandonments"
-                  content="Stop losing potential buyers. Cart abandonment campaign has been put in place to notify and send reminder messages to the potential customer that left the product after clicking the checkout button."
+                  content="Now you can stop losing potential buyers. Cart abandonment campaign has been put in place to notify and send reminder messages to a potential customer who clicked the checkout button but left your product without buying."
                 />
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
@@ -363,17 +359,18 @@ const Features = () => {
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 300, "ease")}
                   title="New Product Alert"
-                  content="Get your active customer notified about the new product you just added to your store listing."
+                  content="Get your active customers notified about any new product you add to your store.
+"
                 />
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
                   title="Lead magnets"
-                  content="Give your audience free content in exchange for their email addresses and build your audience. They are your new leads and you can sell your course to them anytime."
+                  content="Give people free content in exchange for their email addresses, to build your audience list. They become your new leads and you can sell your digital products to them at anytime."
                 />
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 300, "ease")}
-                  title="Pre-launch and pre-sell"
-                  content="You don’t need to wait until launch day! Create your course, then publish and start creating awareness and receiving payment in advance."
+                  title="Product Pre-order"
+                  content="You don’t need to have a ready-made product before you can sell. With this feature, you can be in the process of creating a product, but set a release date and start receiving payment in advance before you complete and publish the product."
                 />
               </div>
             </div>
@@ -400,27 +397,8 @@ const Features = () => {
               <div className={`${styles.firstRow} ${styles.alternateFirstRow}`}>
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 300, "ease")}
-                  title="Custom checkout fields"
-                  content="Decide on the information you need from your buyers, like a phone number or email, name and many more."
-                />
-                <FeatureCard
-                  // animate={() => Animate("zoom-in", 300, "ease")}
-                  title="Customize buttons"
-                  content="Change and stylize checkout call-to-action buttons by typing in your new desired text."
-                />
-                <FeatureCard
-                  // animate={() => Animate("zoom-in", 300, "ease")}
-                  title="Be simple"
-                  content="Enable or disable any option in your product page to increase the ease of your customer buying experience."
-                />
-              </div>
-              <div
-                className={`${styles.secondRow} ${styles.alternateSecondRow}`}
-              >
-                <FeatureCard
-                  // animate={() => Animate("zoom-in", 400, "ease")}
-                  title="Custom store page"
-                  content="Use drag and drop elements or select preset templates, then customize fonts, and colors that align with your branding for a seamless customer buying experience."
+                  title="Custom Product Store"
+                  content="Use drag-and-drop elements or select preset templates, then customize fonts and colours that align with your branding for a seamless customer buying experience."
                 />
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
@@ -433,18 +411,40 @@ const Features = () => {
                   content="Customize your email templates for orders, campaigns, or a newsletter to maintain your brand voice."
                 />
               </div>
+              <div
+                className={`${styles.secondRow} ${styles.alternateSecondRow}`}
+              >
+                <FeatureCard
+                  // animate={() => Animate("zoom-in", 300, "ease")}
+                  title="Custom checkout fields"
+                  content="Decide on the information you need from your buyers, like a phone number or email, name and many more."
+                />
+                <FeatureCard
+                  // animate={() => Animate("zoom-in", 300, "ease")}
+                  title="Customize buttons"
+                  content="Change your checkout call-to-action button by typing in your new desired text."
+                />
+                <FeatureCard
+                  // animate={() => Animate("zoom-in", 300, "ease")}
+                  title="Be simple"
+                  content="Your aim for enabling or disabling any option on your product page should be to ease your customer's buying experience."
+                />
+              </div>
             </div>
 
             <div
               className={`${styles.imageCont} ${styles.alternate}`}
               {...Animate("fade-left", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={CustomizeIcon} alt="customize icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="customize">
-                Customize
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={CustomizeIcon} alt="customize icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="customize">
+                  Customize
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
                 Make the checkout page to look just exactly as you want. Also,
                 to bring ease to your target audience purchasing experience.
@@ -464,12 +464,15 @@ const Features = () => {
               className={styles.imageCont}
               {...Animate("fade-right", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={SecureIcon} alt="secure icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="secure">
-                Secure
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={SecureIcon} alt="secure icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="secure">
+                  Secure
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
                 Get your personal documents and files secured by using the
                 management tools on the platform.
@@ -534,22 +537,17 @@ const Features = () => {
                 />
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 500, "ease")}
-                  title="Upsell analytics"
-                  content="Review the information from your previous upsells, to determine how to effectively upsell to your existing/active customer."
+                  title="Full product reports"
+                  content="Create and export all your products, including names, prices for offline or personal use."
                 />
               </div>
               <div
                 className={`${styles.secondRow} ${styles.alternateSecondRow}`}
               >
                 <FeatureCard
-                  // animate={() => Animate("zoom-in", 500, "ease")}
-                  title="Full product reports"
-                  content="Create and export all your products, including names, prices for offline or personal use."
-                />
-                <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
                   title="Abandoned cart analytics"
-                  content="Get the full analytics of the buyers that abandoned your product to cart. Download and even get to reach out to them to see why and how to help them resolve any issue just in case."
+                  content="Get the complete analytics of the buyers that abandoned your digital product while shopping. You can download their details and personally reach out to them to see why and how to help them resolve any issue."
                 />
               </div>
             </div>
@@ -558,12 +556,15 @@ const Features = () => {
               className={`${styles.imageCont} ${styles.alternate}`}
               {...Animate("fade-left", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={AnalyzeIcon} alt="analyze icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="analyze">
-                Analyze
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={AnalyzeIcon} alt="analyze icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="analyze">
+                  Analyze
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
                 Get the proper data and analytics of your store with the
                 comprehensive analytic tools provided by kreatsell.

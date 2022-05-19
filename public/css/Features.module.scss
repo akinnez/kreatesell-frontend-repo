@@ -100,9 +100,15 @@
       justify-content: center;
       margin-top: 0.6rem;
       font-weight: 400;
-      font-size: 0.75rem;
-      line-height: 0.9375rem;
+      font-size: 16px;
+      line-height: 26px;
       color: $base-gray;
+      transition: all 0.2s;
+
+      @media (min-wdith: 1277px) {
+        font-size: 12px;
+        line-height: 14.52px;
+      }
 
       span {
         padding: 0 0.4rem;
@@ -235,11 +241,11 @@
         margin-right: 0;
         // margin-left: 5rem;
 
-        @media (min-width: 1277px) {
-          // display: none;
+        // @media (min-width: 1277px) {
+        //   // display: none;
 
-          margin-left: 15rem;
-        }
+        //   // margin-left: 15rem;
+        // }
       }
 
       &.alt {
@@ -256,7 +262,7 @@
         transition: margin-top 0.2s;
 
         @media (min-width: 1277px) {
-          margint-top: unset;
+          margin-top: unset;
         }
       }
 
@@ -434,6 +440,14 @@
   .marketFeatures {
     @extend .majorFeatures;
     margin-bottom: 5rem;
+    @media (min-width: 1277px) {
+      .majorFeatures {
+        flex-direction: row-reverse;
+        .imageCont {
+          margin-left: 17rem;
+        }
+      }
+    }
   }
 
   .supportFeatures {
@@ -468,12 +482,27 @@
     }
   }
 
-  // .customizeFeatures {
-  //   .majorFeatures {
-  //     display: flex;
-  //     flex-direction: column;
-  //   }
-  // }
+  .secureFeatures {
+    @media (min-width: 1277px) {
+      .majorFeatures {
+        flex-direction: row-reverse;
+        .imageCont {
+          margin-left: 17rem;
+        }
+      }
+    }
+  }
+
+  .customizeFeatures {
+    .majorFeatures {
+      display: flex;
+      flex-direction: column-reverse;
+
+      @media (min-width: 1277px) {
+        flex-direction: row-reverse;
+      }
+    }
+  }
 }
 
 .featureCard {
@@ -501,11 +530,15 @@
     margin-bottom: 1rem;
     color: $base-black;
     margin-bottom: 1rem;
+    @media (min-width: 1277px) {
+      font-size: 18px;
+      line-height: 28px;
+    }
   }
   .cardContent {
     font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 1.625rem;
+    font-size: 16px;
+    line-height: 26px;
     color: $base-gray;
     text-align: justify;
     transition: text-align 0.2s;
