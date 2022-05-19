@@ -33,7 +33,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
   }
 
   if (productName) {
-    url = `${url}&Product_Name=${productName}`;
+    url = `${url}&Product_Name=${encodeURIComponent(productName)}`;
   }
 
   useEffect(() => {

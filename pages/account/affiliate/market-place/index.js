@@ -43,44 +43,24 @@ const AffiliateProducts = () => {
   useEffect(() => {
     const url = new URL(`${process.env.BASE_URL}affiliate/get-products`);
 
-    if (queries.page) {
-      url.searchParams.set("Page", encodeURIComponent(queries.page));
-    }
-
-    if (queries.limit) {
-      url.searchParams.set("Limit", encodeURIComponent(queries.limit));
-    }
-
-    // if (queries.status) {
-    //   url.searchParams.set("Status", encodeURIComponent(queries.status));
-    // }
+    if (queries.page) url.searchParams.set("Page", queries.page);
+    if (queries.limit) url.searchParams.set("Limit", queries.limit);
+    // if (queries.status) url.searchParams.set("Status", (queries.status));
 
     if (queries.dateListed) {
-      url.searchParams.set(
-        "Launch_Date",
-        encodeURIComponent(queries.dateListed)
-      );
+      url.searchParams.set("Launch_Date", queries.dateListed);
     }
 
     if (queries.kreatorName) {
-      url.searchParams.set(
-        "Affiliate_Name",
-        encodeURIComponent(queries.kreatorName)
-      );
+      url.searchParams.set("Affiliate_Name", queries.kreatorName);
     }
 
     if (queries.productName) {
-      url.searchParams.set(
-        "Product_Name",
-        encodeURIComponent(queries.productName)
-      );
+      url.searchParams.set("Product_Name", queries.productName);
     }
 
     if (queries.productType) {
-      url.searchParams.set(
-        "Product_Type",
-        encodeURIComponent(queries.productType)
-      );
+      url.searchParams.set("Product_Type", queries.productType);
     }
 
     setUri(url);
