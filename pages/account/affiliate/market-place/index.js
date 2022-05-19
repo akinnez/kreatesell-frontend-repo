@@ -32,7 +32,6 @@ const AffiliateProducts = () => {
   const [uri, setUri] = useState("");
   const [queries, setQueries] = useState({
     page: 1,
-    limit: 8,
     dateListed: "",
     productName: "",
     productType: null,
@@ -41,11 +40,9 @@ const AffiliateProducts = () => {
   });
 
   useEffect(() => {
-    const url = new URL(`${process.env.BASE_URL}affiliate/get-products`);
-
-    if (queries.page) url.searchParams.set("Page", queries.page);
-    if (queries.limit) url.searchParams.set("Limit", queries.limit);
-    // if (queries.status) url.searchParams.set("Status", (queries.status));
+    const url = new URL(
+      `${process.env.BASE_URL}affiliate/get-products?Page=${queries.page}&Limit=8`
+    );
 
     if (queries.dateListed) {
       url.searchParams.set("Launch_Date", queries.dateListed);
@@ -63,10 +60,11 @@ const AffiliateProducts = () => {
       url.searchParams.set("Product_Type", queries.productType);
     }
 
+    // if (queries.status) url.searchParams.set("Status", (queries.status));
+
     setUri(url);
   }, [
     queries.page,
-    queries.limit,
     queries.dateListed,
     queries.kreatorName,
     queries.productName,

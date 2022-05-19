@@ -7,7 +7,7 @@ import Link from "next/link";
 import ResourcesDrop from "./ResourcesDrop";
 import Image from "next/image";
 import { ArrowDown } from "../../utils/assets";
-import { Animate } from "../../utils";
+// import { Animate } from "../../utils";
 
 export const Navbar = () => {
   const router = useRouter();
@@ -83,6 +83,9 @@ export const Navbar = () => {
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
+            <li>
+              <NavLink href="about-us" title="About Us" />
+            </li>
             <li onClick={(e) => clickHandler(e)} className={styles.drop}>
               <span className={styles.navLinkDrop}>Resources</span>
               <Image src={ArrowDown} width="10" height="10" alt="arrow icon" />
@@ -96,9 +99,9 @@ export const Navbar = () => {
             <li>
               <NavLink href="blog" title="Blog" />
             </li>
-            <li>
+            {/* <li>
               <NavLink href="faq" title="FAQS" />
-            </li>
+            </li> */}
           </ul>
         </div>
 

@@ -9,10 +9,13 @@ import {
 	Instagram,
 	LinkedIn,
 } from "../../IconPack";
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import Dropdown from "../../dropdown";
 import Router from "next/router";
 import Social from "./social-media";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 const CtaButton = ({ Icon = () => <></>, label, active }) => {
 	return (
@@ -52,19 +55,27 @@ export const ProtectedStoreHeader = ({
 	return (
 		<>
 			<div
-				className={styles.bg_wrapper}
-				style={{
+				className={coverImage ||
+						publicStoreInfo?.cover_page ? styles.bg_wrapper: styles.empty_bg_wrapper}
+				style={ coverImage ||
+						publicStoreInfo?.cover_page ? {
 					backgroundImage: `url(${
 						coverImage ||
 						publicStoreInfo?.cover_page ||
 						"/images/placeholder-1.jpg"
 					})`,
-				}}
+				}: {}}
 			>
+				{!(coverImage ||
+						publicStoreInfo?.cover_page) && <div className={styles.image}><Image src={"/images/placeholder-3.png"} height={"100px"} width={"100px"} /></div>}
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
 						<div className={styles.profile_wrapper}>
-							<div
+							{!displayPicture ? 
+								<div className={styles.image_intro_text}>
+									<Avatar shape="square" className={styles.avatar} size={70} icon={<UserOutlined />} />
+								</div>
+							 :<div
 								className={styles.image_intro_text}
 								style={{
 									backgroundImage: `url(${
@@ -73,7 +84,7 @@ export const ProtectedStoreHeader = ({
 										"/images/placeholder-2.jpg"
 									})`,
 								}}
-							/>
+							/>}
 							<div className={styles.txt_wrapper}>
 								<h3>
 									{(brandName || publicStoreInfo?.brand_name) ?? "Olumide John"}

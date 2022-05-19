@@ -35,11 +35,31 @@ const FacebookLoginComponent = () => {
         });
     }
   };
+  const responseFacebookSignup = (response) => {
+    // Login failed
+    if (response.status === "unknown") {
+      return false;
+    }
+    if (response.accessToken) {
+      axios
+        .post(
+          `${process.env.BASE_URL}auth/facebookSignUp?accessToken=${response.accessToken}`,
+          {}
+        )
+        .then((res) => {
+          router.push("/login");
+        })
+        .catch((err) => {
+          // showToast(err.message, "error");
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <FacebookLogin
       appId={process.env.FB_APP_ID}
-      callback={responseFacebook}
+      callback={router.pathname === "signup"? responseFacebookSignup :responseFacebook}
       render={(renderProps) => (
         <button onClick={() => renderProps.onClick()}>
           <Image src={FacebookBtn} alt="sign up with facebook" />

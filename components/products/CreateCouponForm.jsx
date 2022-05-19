@@ -7,10 +7,11 @@ import { Radio } from 'antd';
 import {useState, useEffect, useMemo} from 'react'
 import {Input, Switch, Select, Button} from 'antd'
 import { useSelector } from "react-redux";
-import { GetProducts } from "redux/actions";
+import {  GetCouponProducts } from "redux/actions";
 import Image from "next/image";
 import { ErrorIcon } from "utils";
-import { CreateCoupon } from "redux/actions";
+import { CreateCoupon, GetCoupons } from "redux/actions";
+import { useRouter } from "next/router";
 
 export const CreateCouponForm = () =>{
     const [isPercentage, setIsPercentage] = useState(true)
@@ -19,7 +20,7 @@ export const CreateCouponForm = () =>{
     const [isAllProduct, setIsAllProduct] = useState(true)
     const [productData, setProductData] = useState([])
     const [isApplied, setIsApplied] = useState(false)
-    const { products } = useSelector(
+    const { couponProducts } = useSelector(
         (state) => state.product
       );
     const { loading } = useSelector(
@@ -28,13 +29,15 @@ export const CreateCouponForm = () =>{
       const { store } = useSelector(
         (state) => state.store
       );
-      const getProducts = GetProducts()
+      const router = useRouter()
+      const getCouponProducts = GetCouponProducts()
       const createCoupon = CreateCoupon()
+      const getCoupon = GetCoupons()
     const initialValues = {
         "coupon_settings": {
             "coupon_code": "",
             "is_coupon": true,
-            "start_date": "",
+            "start_date": '',
             "is_for_all_product": true,
             "end_date": "",
             "fixed_amount_value": '',
@@ -69,19 +72,22 @@ export const CreateCouponForm = () =>{
         }
         if(!data.coupon_settings.start_date){
             delete data.coupon_settings.start_date
+            const day = new Date().toISOString()
+            data.coupon_settings.start_date = day
         }
         if(!data.coupon_settings.end_date){
-            delete data.coupon_settings.end_date
+            const day = new Date(new Date().getTime()+(5*24*60*60*1000)).toISOString()
+            data.coupon_settings.end_date = day
         }
         delete data.isBasicPlan
-        createCoupon(data, ()=>console.log('we re here'))
+        createCoupon(data, ()=>router.push('/account/kreator/products/coupons'))
         
     }
 
     const productList = useMemo(() =>
         productData?.map((item)=> ({
-            value: item?.product_details?.id,
-            label: item?.product_details?.product_name
+            value: item?.id,
+            label: item?.product_name
         }))
     , [productData])
     
@@ -111,11 +117,14 @@ export const CreateCouponForm = () =>{
         setIsAllProduct(false)
     }
     useEffect(()=>{
-        getProducts()
+        getCouponProducts()
+        getCoupon()
     }, [])
+
     useEffect(()=>{
-        setProductData(products)
-    }, [products])
+        setProductData(couponProducts)
+    }, [couponProducts])
+
     useEffect(()=>{
         setFieldValue("coupon_settings.is_apply_to_recurring", isApplied)
     }, [isApplied])

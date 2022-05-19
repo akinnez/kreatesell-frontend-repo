@@ -16,9 +16,14 @@ const ResourceDrop = ({ leftOffset, handleMouseLeave }) => {
         </div>
       </Link>
       {/* break */}
-      <Link href="/">
+      <Link href="/" passHref>
         <div className={styles.resourceItem} onClick={handleMouseLeave}>
           Payments
+        </div>
+      </Link>
+      <Link href="/faq" passHref>
+        <div className={styles.resourceItem} onClick={handleMouseLeave}>
+          FAQ
         </div>
       </Link>
     </section>

@@ -28,7 +28,6 @@ import { useRouter } from "next/router";
 import FileUpload from "./FileUpload";
 
 export const CreateProductForm = ({
-  submit,
   productType = "digitalDownload",
   productTypeId,
 }) => {
@@ -89,7 +88,7 @@ export const CreateProductForm = ({
     cta_button: "",
     product_id: 0,
     product_images: {
-      product_Files: []
+      productFiles: []
     },
     product_details: "",
     isBasicPlan: false
@@ -220,6 +219,9 @@ export const CreateProductForm = ({
         const arr = item.filename.split(',')
         return [...arr]
       }))
+      if(product.product_details.enable_preorder){
+        setPreOrder(true)
+      }
      setFiles(imageIsEdits(...product?.product_images.filter(images => images.file_type !== 4).map(item => {
       const arr = item.filename.split(',')
       const truc = arr.map(item => {

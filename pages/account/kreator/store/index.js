@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Row, Column, Divider } from "../../../../components/grid";
 import styles from "../../../../public/css/Store.module.scss";
 import AuthLayout from "../../../../components/authlayout";
@@ -6,7 +7,7 @@ import { Button } from "../../../../components/inputPack";
 import { Card } from "../../../../components/card";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import List from "../../../../components/list";
+import List from "../../../../components/list2";
 import Router from "next/router";
 import { ProtectedStoreHeader } from "../../../../components/store/storeHeader";
 import useSWR from "swr";
@@ -28,11 +29,14 @@ const progressbarStyles = buildStyles({
   trailColor: "#E6F7FF",
 });
 
+
+
 const Index = () => {
   const [loading, setLoading] = useState(false);
+  const {products} = useSelector(state=>state.product);
+  const {store: {bank_details}} = useSelector(state=>state.store);
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
-
   // useEffect(()=>{
   //     setLoading(true)
   //     ApiService.request(
@@ -43,6 +47,13 @@ const Index = () => {
   //         setLoading(false)
   //     })
   // },[])
+
+  function calculatePercentageComplete(){
+    let task_completed = {};
+    task_completed.bankAccount = bank_details?? bank_details;
+    task_completed.AddedProducts = products.length > 0;
+    return task_completed;
+  }
 
   return (
     <>
@@ -60,15 +71,15 @@ const Index = () => {
           }}
         />
         <Row style={{ marginTop: "100px" }}>
-          <Column m="7" s="12">
+          <Column m="7" s="12" >
             <Card style={cardStyles}>
               <div className={styles.bio_info}>
-                <h5>Description</h5>
+                <h5>Bio</h5>
                 <p>{data?.store_details?.bio_data}</p>
               </div>
             </Card>
           </Column>
-          <Column m="5">
+          <Column m="5" >
             <Card style={{ ...cardStyles }}>
               <div className={styles.progress_wrapper}>
                 <div className={styles.progress}>
@@ -99,9 +110,9 @@ const Index = () => {
                     : 3
                 }
                 list={[
-                  "Complete your store profile details",
-                  "Add your bank account details to receive your payments",
-                  "Add your first product to increase your store completion",
+                  {text: "Complete your store profile details", route: "/account/kreator/store/edit", completed:true},
+                  {text: "Add your bank account details to receive your payments", route:"/account/sales/payouts", completed:calculatePercentageComplete().bankAccount},
+                  {text: "Add your first product to increase your store completion", route:"/account/kreator/products/create", completed: calculatePercentageComplete().AddedProducts},
                 ]}
               />
             </Card>
@@ -114,7 +125,7 @@ const Index = () => {
             <Button
               label="+ Add Product"
               style={{ marginTop: "20px" }}
-              onClick={() => Router.push("#")}
+              onClick={() => Router.push("/account/kreator/products/create")}
             />
           </Column>
         </Row>

@@ -1,22 +1,18 @@
 import { Button, Input, Tooltip } from "antd"
 import styles from './MembershipTab.module.scss'
-import { useState } from "react"
 import {DeleteProduct,
 	DuplicateProduct} from 'utils'
 import Image from "next/image"
 import {HandleBar, EditPen, AddLecture} from 'utils'
 
-export default function AddSection ({setIsTabsActive, setMajorPage}){
-    const [sections, setSections] = useState([{
-        name: "",
-        lectures: [{lecture_name: ""}]
-    }])
-    const [editSectionName, setEditSectionName] = useState(false)
+export default function AddSection ({sections, setSections, toSection}){
+    
     const addSection = ()=>{
         const newSection = {
             name: "",
-            lectures: [{lecture_name: ""}]
-        
+            isControl: false,
+            lectures: [{lecture_name: "", type:"", size:"", url: '',description:"",isDownload: false}]
+            
         }
         setSections(prev => [...prev, newSection])
     }
@@ -53,7 +49,7 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
     const addNewLecture =(index)=>{
         setSections(prev =>{
             const mainSection = prev[index]
-            const newLecture = {lecture_name: ""}
+            const newLecture = {lecture_name: "", type:"", size:"", url: '',description:"",isDownload: false}
             mainSection.lectures = [...mainSection.lectures, newLecture]
             prev[index] = mainSection
             return [...prev]
@@ -68,10 +64,7 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
             return [...prev]
         })
     }
-    const toSection = (section)=>{
-        setIsTabsActive(false)
-        setMajorPage(section)
-    }
+    
     return(
 
         <div className={styles.allSection}>
@@ -100,7 +93,7 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
                         </div>
                     </div>
                     {
-                        item.lectures.map((lecture, idx)=>(
+                        item.lectures && item.lectures.length > 0 && item.lectures.map((lecture, idx)=>(
                         <div key={idx} className="flex mt-5 ml-5 justify-between items-center">
                             <div className="flex items-center">
                                 <Image src={HandleBar} alt="handle" />
@@ -109,7 +102,7 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
                             </div>
                             <div className="flex items-center">
                                 <div className={styles.manageButton + " mr-3"}>
-                                    <Button onClick={()=> toSection('manage-content')} type="primary" style={{color: "#00b140", border: " 2px solid #00b140"}}>Manage Lecture</Button>
+                                    <Button onClick={()=> toSection('manage-content', index, idx)} type="primary" style={{color: "#00b140", border: " 2px solid #00b140"}}>Manage Lecture</Button>
                                 </div>
                                 <Tooltip color="white" overlayInnerStyle={{color: "black"}} overlayStyle={{backgroundColor: "white"}} placement="top" title="Duplicate">
                                     <div className={styles.manageIcon + " mr-3"}>
@@ -125,9 +118,9 @@ export default function AddSection ({setIsTabsActive, setMajorPage}){
                         </div>
                         ))
                     }
-                    <div className="flex items-center mt-5">
+                    <div onClick={()=> addNewLecture(index)} className="inline-flex items-center cursor-pointer mt-5">
                         <Image src={AddLecture} alt="add" />
-                        <h2 onClick={()=> addNewLecture(index)} className="text-base mb-0 ml-2 font-medium cursor-pointer">Add a Lecture</h2>
+                        <h2 className="text-base mb-0 ml-2 font-medium">Add a Lecture</h2>
                     </div>
                 </div>
                 ))
