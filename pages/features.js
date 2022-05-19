@@ -9,6 +9,8 @@ import {
   AnalyzeIcon,
   CustomizeIcon,
   DeliverIcon,
+  DeliverFeature,
+  ManageFeatures,
   // FeatureBg,
   FeatureIcon,
   ManageIcon,
@@ -16,6 +18,7 @@ import {
   PayoutIcon,
   SecureIcon,
   SellIcon,
+  SellFeature,
   SupportIcon,
   Animate,
 } from "../utils";
@@ -128,7 +131,7 @@ const Features = () => {
                 nothing.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image src={SellFeature} alt="feature icon" />
               </div>
             </div>
 
@@ -231,7 +234,11 @@ const Features = () => {
                 what you pre-set.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feature icon" />
+                <Image
+                  src={DeliverFeature}
+                  alt="feature icon"
+                  layout="responsive"
+                />
               </div>
             </div>
           </div>
@@ -260,7 +267,7 @@ const Features = () => {
                 creating content and making money.
               </h6>
               <div className={styles.featureIcon}>
-                <Image src={FeatureIcon} alt="feauture icon" />
+                <Image src={ManageFeatures} alt="feauture icon" />
               </div>
             </div>
 
@@ -584,15 +591,20 @@ const Features = () => {
               className={styles.imageCont}
               {...Animate("fade-right", 200, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={PayoutIcon} alt="payout icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="payouts">
-                Payout
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={PayoutIcon} alt="payout icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="payouts">
+                  Payout
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                aliquam gravida sed nec.
+                Fast instant payment. With Kreatesell, your earnings are
+                instantly sent to your local bank/wallet for easy access and
+                use. Manage your payout settings and get settled in a flash, all
+                from your dashboard.
               </h6>
               <div className={styles.featureIcon}>
                 <Image src={FeatureIcon} alt="feature icon" />
@@ -611,7 +623,7 @@ const Features = () => {
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 500, "ease")}
                   title="Unified payouts"
-                  content="Get paid for all your sales made in different currencies in a single currency."
+                  content="Get all your sales made in different currencies paid directly to you in your local currency. You get settled immediately, after we process it for you."
                 />
               </div>
             </div>
@@ -637,8 +649,8 @@ const Features = () => {
               >
                 <FeatureCard
                   // animate={() => Animate("zoom-in", 400, "ease")}
-                  title="Round-the-clock support"
-                  content="We have the full functioning and round-the-clock support readily available to take any concerns, questions, complaints or suggestions."
+                  title="24/7 Support"
+                  content="We have a full-functioning 24/7 support readily available to take care of any concerns, questions, complaints or suggestions you might have."
                 />
               </div>
             </div>
@@ -647,15 +659,19 @@ const Features = () => {
               className={`${styles.imageCont} ${styles.alternate}`}
               {...Animate("fade-left", 500, "ease")}
             >
-              <div className={styles.featureTitleIcon}>
-                <Image src={SupportIcon} alt="support icon" />
-              </div>
-              <h2 className={styles.featureTitle} id="supports">
-                Support
-              </h2>
+              <section className={styles.featureTop}>
+                <div className={styles.featureTitleIcon}>
+                  <Image src={SupportIcon} alt="support icon" />
+                </div>
+                <h2 className={styles.featureTitle} id="supports">
+                  Support
+                </h2>
+              </section>
+
               <h6 className={styles.featureExcerpt}>
-                Get the proper data and analytics of your store with the
-                comprehensive analytic tools provided by kreatsell.
+                Kreatesell support is your partner in business. We care for your
+                wellbeing and peace. That is why we&apos;re right next to you
+                whenever the need arises.
               </h6>
               <div
                 className={styles.featureIcon}

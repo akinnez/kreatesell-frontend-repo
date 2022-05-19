@@ -432,10 +432,24 @@
   .sellFeatures {
     @extend .majorFeatures;
     margin: 4rem 0;
+    @media (min-width: 1277px) {
+      .majorFeatures {
+        .featureExcerpt {
+          max-width: 363px;
+        }
+      }
+    }
   }
 
   .manageFeatures {
     @extend .majorFeatures;
+    @media (min-width: 1277px) {
+      .majorFeatures {
+        .featureExcerpt {
+          max-width: 449px;
+        }
+      }
+    }
   }
   .marketFeatures {
     @extend .majorFeatures;
@@ -453,6 +467,12 @@
   .supportFeatures {
     @extend .majorFeatures;
     margin: 5rem 0;
+    .majorFeatures {
+      flex-direction: column-reverse;
+      @media (min-width: 1277px) {
+        flex-direction: row-reverse;
+      }
+    }
   }
 
   .deliverFeatures,
@@ -468,6 +488,11 @@
       flex-direction: column-reverse;
       .featureExcerpt {
         margin-bottom: 1rem;
+        @media (min-width: 1277px) {
+          & {
+            max-width: 441px;
+          }
+        }
       }
 
       @media (min-width: 1277px) {

@@ -54,6 +54,7 @@ import MarketIcon from "../public/images/market-feature.svg";
 import PayoutIcon from "../public/images/payout-feature.svg";
 import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
+import SellFeature from "../public/images/sellFeatures.png";
 import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
 import ErrorIcon from "../public/images/ErrorIcon.svg";
@@ -121,7 +122,11 @@ import PublishProduct from "../public/images/publish.svg";
 import UnPublishProduct from "../public/images/unpublish.svg";
 import PreviewMembership from "../public/images/new-vec.svg";
 import LinkCopy from "../public/images/content_copy.svg";
+import DeliverFeature from "../public/images/DeliverFeature.png";
+import ManageFeatures from "../public/images/manageFeatures.png";
 export {
+  ManageFeatures,
+  DeliverFeature,
   PublishProduct,
   UnPublishProduct,
   PreviewMembership,
@@ -245,4 +250,5 @@ export {
   ProductNotificationImage,
   tick,
   UserImage,
+  SellFeature,
 };
