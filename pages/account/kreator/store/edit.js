@@ -3,24 +3,25 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router'
 import AuthLayout from "../../../../components/authlayout"
 import { Row,Col,Card,Form,Input as AntInput, } from 'antd';
-import {Input,Select,Dropzone,Button,FileInput, InputV2} from '../../../../components/form-input'
+import {Input,Select,Dropzone,Button,FileInput, InputV2, SelectV2} from '../../../../components/form-input'
 import style from '../../../../public/css/Store.module.scss'
 import ApiService from '../../../../utils/axios'
 import { toast } from 'react-toastify';
 
 const Index = ()=>{
     const store = useSelector(state=> state.store)
+    const {countries} = useSelector(state=> state.utils)
     const Router = useRouter();
     const [file,setFile] = useState({
         Profile_Picture:"",
         Cover_Picture:""
     })
 
-    const [country, setCountry] = useState([])
     const [loading,setLoading] = useState({
         updating:false,
         fetching:true
     })
+    // const [country, setCountry] = useState([]);
 
     const [form] = Form.useForm()
 
@@ -59,14 +60,10 @@ const Index = ()=>{
         console.log("handleDeleteDropZone clicked")
     }
 
-    const handleDeleteImg = (e) => {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation(); //to prevent event propagation
+    const handleDeleteImg = () => {
         console.log("handleDeleteImg clicked")
     }
    
-   
-
     useEffect(()=>{
         ApiService.request(
             'get',
@@ -81,24 +78,26 @@ const Index = ()=>{
                     Brand_Name:data?.store_details?.brand_name,
                     Store_Name:data?.store_details?.store_name, 
                     Bio_Data:data?.store_details?.bio_data,
-                    Country_Id:data?.store_details?.country_id, 
+                    Country_Id:data?.store_details?.country_name, 
                     Mobile_Number:data?.store_details?.mobile_number,
                     Facebook:data?.store_details?.facebook,
                     Twitter:data?.store_details?.twitter,
                     Instagram:data?.store_details?.instagram,
-                    Linkedln:data?.store_details?.linked_in})
+                    Linkedln:data?.store_details?.linked_ln})
             },
             (err) => {console.log(err)},
         )
     },[])
 
-    useEffect(()=>{
-        ApiService.request('get','v1/kreatesell/utils/get-countries',
-        ({data})=>{
-            const countries = data?.list_of_countries?.map(({id,name})=>({label:name, value:id}))
-            setCountry(countries)
-        })
-    },[])
+    // useEffect(()=>{
+    //     ApiService.request('get','v1/kreatesell/utils/get-countries',
+    //     ({data})=>{
+    //         console.log("country are", data);
+            
+    //         const countries = data?.list_of_countries?.map(({id,name})=>({label:name, value:id}))
+    //         setCountry(countries)
+    //     })
+    // },[])
 
     return(
         <>
@@ -125,9 +124,10 @@ const Index = ()=>{
                             extraLabel="- Add image on your cover page"/>
                         <FileInput 
                             value={file?.Profile_Picture} 
-                            handleDelete={(e)=>handleDeleteImg(e)} 
+                            handleDelete={handleDeleteImg} 
                             onChange={(e)=>setFile({...file,Profile_Picture:e})}
                         />
+                        <br/>
                           <Input
                             name="Brand_Name"
                             label="Name"
@@ -138,11 +138,10 @@ const Index = ()=>{
                           <InputV2
                             name="Store_Name"
                             label="Username"
-                            defaultValue={form.getFieldValue("Store_Name")}
                             extraLabel="- This is your unique store link"
                             prefixText="Kreatesell.com/"
-                            disabled={true}
-                            rules={[{required:true, min:4, message:"Store name is a required field"}]}/>
+                            disabled={false}
+                            rules={[{required:true, message:"Store name is a required field"}]}/>
 
                          <Input
                             name="Bio_Data"
@@ -151,19 +150,21 @@ const Index = ()=>{
                             label="Description"
                             placeholder="Tell us more about your business. 
                             Buyers are also interested in knowing more about your business uniqueness."/>
+                        
                         <Row gutter={{ xs: 0, sm: 0, md: 8}}>
                         <Col xs={24} md={12}>
                             
-                         <Select
+                         <SelectV2
                             label="Country"
                             size="large"
-                            list={country}
+                            list={countries}
                             placeholder="Choose an option"
                             name="Country_Id"
                             rules={[{required:true, message:"Country is a required field"}]}/>
                         </Col>
                         <Col xs={24} md={12}>
                         <Input
+                            addonBefore="+234"
                             type="tel"
                             label="Phone Number"
                             placeholder="+234"
@@ -198,11 +199,11 @@ const Index = ()=>{
                             placeholder="https://twitter.com/"
                             name="Twitter"/>
 
-                            <p className={style.storeDescription}>Are you done setting up your store? Next step is putting up your first product</p>
-                        <div className={style.submitButtons}>
-                            <Button className={style.outlinedBtn} loading={loading?.updating} htmlType="submit" label="Save and Preview"/>
-                            <Button type="primary" onClick={()=> Router.push("/account/kreator/products/create")} htmlType="button" label="Add Product"/>
-                        </div>
+                            <h4 className={style.storeDescription}>Are you done setting up your store? Next step is putting up your first product</h4>
+                            <div className={style.submitButtons}>
+                                <Button className={style.outlinedBtn} loading={loading?.updating} htmlType="submit" label="Save and Preview"/>
+                                <Button type="primary" onClick={()=> Router.push("/account/kreator/products/create")} htmlType="button" label="Add Product"/>
+                            </div>
                     </Form>
                 </Card>
             </Col>
