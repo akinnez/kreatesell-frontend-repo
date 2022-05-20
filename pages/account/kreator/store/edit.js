@@ -21,7 +21,8 @@ const Index = ()=>{
         updating:false,
         fetching:true
     })
-    // const [country, setCountry] = useState([]);
+    const [countryCode, setCountryCode] = useState("");
+    const [country, setCountry] = useState("");
 
     const [form] = Form.useForm()
 
@@ -39,7 +40,7 @@ const Index = ()=>{
         formData.append("Instagram",info.Instagram)
         formData.append("Linkedln",info.Linkedln)
         formData.append("Twitter",info.Twitter)
-        formData.append("Store_Name",store?.store.store_details?.store_name)
+        formData.append("Store_Name",info.Store_Name)
     
         
            ApiService.request(
@@ -48,6 +49,9 @@ const Index = ()=>{
             ({data}) => {
                 setLoading({...loading,updating:false})
                 toast.success("Successful")
+                setTimeout(() => {
+                    Router.push("/account/kreator/store")
+                }, 3000);
             },
             (err) => {
                 setLoading({...loading,updating:false})
@@ -56,14 +60,28 @@ const Index = ()=>{
         )
     }
 
-    const handleDeleteDropZone = () => {
-        console.log("handleDeleteDropZone clicked")
+    // value from countryParam
+    const handlePhoneCode = (countryParam) => {
+        let phoneCode = countries.find((country)=> country.name===countryParam);
+        setCountryCode(phoneCode.country_code);
     }
 
-    const handleDeleteImg = () => {
-        console.log("handleDeleteImg clicked")
-    }
-   
+    // prefill the country code when the user selects another country
+    useEffect(() => {
+        if(country){
+            handlePhoneCode(country);
+        }
+    }, [country])
+
+    // prefill the country code on page mount
+    useEffect(() => {
+        if(countries.length>0){
+            handlePhoneCode(form.getFieldValue("Country_Id"));
+        }
+    }, [countries.length])
+    
+
+
     useEffect(()=>{
         ApiService.request(
             'get',
@@ -120,11 +138,11 @@ const Index = ()=>{
                             label="Cover"
                             accept="image/*"
                             value={file?.Cover_Picture}
-                            handleDelete={handleDeleteDropZone}
+                            // handleDelete={handleDeleteDropZone}
                             extraLabel="- Add image on your cover page"/>
                         <FileInput 
                             value={file?.Profile_Picture} 
-                            handleDelete={handleDeleteImg} 
+                            // handleDelete={handleDeleteImg} 
                             onChange={(e)=>setFile({...file,Profile_Picture:e})}
                         />
                         <br/>
@@ -157,6 +175,7 @@ const Index = ()=>{
                          <SelectV2
                             label="Country"
                             size="large"
+                            setCountry={setCountry}
                             list={countries}
                             placeholder="Choose an option"
                             name="Country_Id"
@@ -164,10 +183,10 @@ const Index = ()=>{
                         </Col>
                         <Col xs={24} md={12}>
                         <Input
-                            addonBefore="+234"
+                            addonBefore={countryCode||""}
                             type="tel"
                             label="Phone Number"
-                            placeholder="+234"
+                            placeholder={countryCode}
                             rules={[{required:true, message:"Valid phone number is required", min:11, max:14}]}
                             name="Mobile_Number"/>
                         </Col>
