@@ -99,7 +99,7 @@ export const Select = ({placeholder,size="large", onChange=()=>{},loading,label,
         </Form.Item>
     )
 }
-export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,label,extraLabel,list=[],...rest})=>{
+export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,label,extraLabel,list=[],setCountry,...rest})=>{
     return(
         <>
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
@@ -109,7 +109,9 @@ export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,labe
                 filterOption={(input, option) =>
                     option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
-                  onChange={(e)=>onChange(e)} loading={loading} className={style.input} size={size} placeholder={placeholder}>
+                  onChange={(e)=>{
+                    setCountry(e);
+                      onChange(e)}} loading={loading} className={style.input} size={size} placeholder={placeholder}>
                     {list?.map(({name,flag},i)=>(
                         <AntSelect.Option key={i} value={name}>
                         <div className={style.select}>
@@ -126,10 +128,13 @@ export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,labe
     )
 }
 
-export const Dropzone = ({label, value, onChange=()=>{},handleDelete, extraLabel,...rest})=>{
+export const Dropzone = ({label, value, onChange=()=>{}, extraLabel,...rest})=>{
 
     const [imgUrl, setImgUrl] = useState()
     
+      const handleDelete = () => {
+          onChange(null)
+      }
 
       const handleBeforeUpload = (info,inp)=>{
           const isImage = info?.type?.split("/")[0] == "image"
@@ -174,7 +179,7 @@ export const Button = ({label,type,className="",...rest})=>{
 export const FileInput = ({
     onChange=()=>{}, 
     value,
-    handleDelete,
+    // handleDelete,
     placeholder,
      label = "Profile picture", 
      disabled,
@@ -183,6 +188,15 @@ export const FileInput = ({
 
         const [file, setFile] = useState("")
         const [showDeletePopover, setShowDeletePopover] = useState(false);
+
+
+        const handleDelete = ()=>{
+            setFile(null)
+            onChange(null)
+            setTimeout(() => {
+                setShowDeletePopover(false)                
+            }, 1000);
+        }
 
         const handleChange = (e)=>{
             setFile(e.target.files[0].name)
