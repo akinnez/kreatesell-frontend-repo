@@ -104,14 +104,20 @@
       line-height: 26px;
       color: $base-gray;
       transition: all 0.2s;
+      // border: 1px solid red;
 
       @media (min-wdith: 1277px) {
         font-size: 12px;
         line-height: 14.52px;
       }
-
       span {
-        padding: 0 0.4rem;
+        padding: 0 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span {
+          font-size: 0.5rem;
+        }
       }
     }
 

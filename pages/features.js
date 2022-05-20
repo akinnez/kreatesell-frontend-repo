@@ -41,7 +41,8 @@ const Features = () => {
     <Layout
       subFooter={true}
       defaultMarginTop={true}
-      text="Enjoy the benefits of multiple applications in one place."
+      firstText="Enjoy the benefits of multiple"
+      secondText="applications in one place."
       withSearch={true}
       childComp={<SignUpBenefits />}
     >
@@ -745,13 +746,17 @@ const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
     );
   });
 };
-
-const SignUpBenefits = () => {
+// •
+export const SignUpBenefits = () => {
   return (
     <div className={styles.benefits}>
       <span>Signup for free</span>
-      <span>• Easy setup</span>
-      <span>• Fast payout</span>
+      <span>
+        <span>•</span>Easy setup
+      </span>
+      <span>
+        <span>•</span> Fast payout
+      </span>
     </div>
   );
 };

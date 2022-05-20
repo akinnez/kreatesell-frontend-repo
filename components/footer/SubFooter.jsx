@@ -2,10 +2,17 @@ import { RightArrow } from "../../utils";
 import { InputButton } from "../inputButton/InputButton";
 import styles from "./Footer.module.scss";
 
-export const SubFooter = ({ withSearch = false, text, childComp }) => {
+export const SubFooter = ({
+  withSearch = false,
+  firstText,
+  secondText,
+  childComp,
+}) => {
   return (
     <div className={styles.subFooter}>
-      <h3>{text}</h3>
+      <h3>
+        {firstText} <br /> {secondText}
+      </h3>
       {withSearch && (
         <div>
           <InputButton
