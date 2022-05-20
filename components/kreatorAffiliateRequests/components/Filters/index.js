@@ -53,9 +53,7 @@ const Filters = ({
 
     setProductName(product_name || "");
     setAffiliateName(affiliate_name || "");
-    setProductType(
-      product_type && Number(product_type) !== NaN ? product_type : ""
-    );
+    setProductType(product_type && product_type !== "all" ? product_type : "");
     setRequestDate(date_listed ? date_listed._i : "");
     setIsFiltered(true);
     setShowFilter(false);
@@ -113,7 +111,7 @@ const Filters = ({
               >
                 <Form.Item label="Product Name" name="product_name">
                   <Input
-                    placeholder="Search by product name"
+                    placeholder="Search By Product Name"
                     onChange={handleSearch("product_name")}
                   />
                 </Form.Item>
@@ -125,7 +123,7 @@ const Filters = ({
               >
                 <Form.Item label="Affiliate Name" name="affiliate_name">
                   <Input
-                    placeholder="Search by affiliate name"
+                    placeholder="Search By Affiliate Name"
                     onChange={handleSearch("affiliate_name")}
                   />
                 </Form.Item>
