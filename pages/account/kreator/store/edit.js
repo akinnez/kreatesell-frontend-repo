@@ -50,7 +50,7 @@ const Index = ()=>{
                 setLoading({...loading,updating:false})
                 toast.success("Successful")
                 setTimeout(() => {
-                    // Router.push("/account/kreator/store")
+                    Router.push("/account/kreator/store")
                 }, 3000);
             },
             (err) => {
