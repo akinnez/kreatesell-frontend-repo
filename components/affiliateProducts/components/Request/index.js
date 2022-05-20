@@ -11,33 +11,34 @@ import styles from "./index.module.scss";
 const { TextArea } = Input;
 
 const Request = () => {
-  const [permission, setPermission] = useState("");
-  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const router = useRouter();
 
-  const submitHandler = () => {
-    const id = router.query.pId;
-    const data = permission.trim();
+  const submitHandler = (values, actions) => {
+    const data = {
+      requested_product_id: router.query.pId,
+      note: values.permission.trim(),
+    };
 
-    setLoading(true);
     axiosApi.request(
       "post",
       `${process.env.BASE_URL}affiliate/create-product-marketing-request`,
-      res => {
-        setLoading(false);
+      () => {
         setShowModal(true);
+        actions.setSubmitting(false);
       },
       err => {
-        setLoading(false);
-        showToast(err.message, "error");
+        showToast(err, "error");
+        actions.setSubmitting(false);
       },
-      { requested_product_id: id, data }
+      data
     );
   };
 
   const handleHideModal = () => {
     setShowModal(false);
+    setHasSubmitted(true);
   };
 
   return (
@@ -66,6 +67,7 @@ const Request = () => {
                   rows={5}
                   placeholder="Fill out how you want to promote this product"
                   {...formik.getFieldProps("permission")}
+                  disabled={hasSubmitted}
                 />
               </Form.Item>
               <div className={styles.text}>
@@ -76,14 +78,24 @@ const Request = () => {
                 </p>
               </div>
               <Form.Item>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  loading={loading}
-                  className={styles.submit__btn}
-                >
-                  Request Approval
-                </Button>
+                {hasSubmitted ? (
+                  <Button
+                    type="primary"
+                    className={styles.submit__btn}
+                    disabled
+                  >
+                    Request Approval
+                  </Button>
+                ) : (
+                  <Button
+                    htmlType="submit"
+                    type="primary"
+                    loading={formik.isSubmitting}
+                    className={styles.submit__btn}
+                  >
+                    Request Approval
+                  </Button>
+                )}
               </Form.Item>
             </Form>
           )}
