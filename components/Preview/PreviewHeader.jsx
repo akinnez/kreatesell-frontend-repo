@@ -11,25 +11,27 @@ import styles from './PreviewHeader.module.scss'
 import CloseIcon from "components/affiliates/CloseIcon";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { CreateProduct } from "redux/actions";
+import { PublishProducts} from "redux/actions";
+import Link from "next/link";
 
-export default function PreviewHeader (){
+export default function PreviewHeader ({id}){
     const [isOpen, setIsOpen] = useState(false)
     const [isResponse, setIsResponse] = useState(false)
     const [isError, setIsError] = useState(false)
     const [title, setTitle] = useState('')
     const [link, setLink] = useState('')
-    const [fixedSellingPrice, setFixedSellingPrice]= useState([])
     const { product, loading } = useSelector(
         (state) => state.product
       );
+    const [domainLink, setDomainLink] = useState('')
+    const {store } = useSelector((state) => state.store);
     const {Option} = Select
     const router = useRouter()
-    const createProduct = CreateProduct()
+    const publishProduct = PublishProducts()
+    
+    
     const handleSubmit = (data) => {
-        console.log(data)
-        const result = transformToFormData(data)
-        createProduct(result, ()=>{
+        publishProduct(data, ()=>{
             setIsOpen(false)
             setIsResponse(true)
         }, ()=> {
@@ -39,55 +41,17 @@ export default function PreviewHeader (){
       };
         
     const initialValues = {
-        "action": "e",
-        "minimum_price": 0,
-        "is_minimum_price": false,
-        "is_show_compare_price": false,
-        "pricing_type_id": 1,
-        "is_strike_original_price": true,
-        "billing_frequency": 0,
-        "set_price": true,
-        "cta_button": "",
-        "number_of_limited_product": 0,
-        "who_bear_fee": true,
-        "product_settings": {
-          "allow_affiliates": false,
-          "affiliate_percentage_on_sales": 0,
-          "is_limited_sales": false,
-          "show_number_of_sales": false
-        },
-        publish: "live"
-      }
+        product_id: '',
+      "publish": "live"
+    }
       
       const formik = useFormik({
         initialValues,
         onSubmit: handleSubmit,
         validateOnChange: false,
       });
-      const populatePricingObject = (currency, price)=>{
-        const prices = {
-          currency_value: price,
-          currency_name: currency
-        }
-        return prices
-      }
-    
-      const populatePricing = (array)=>{
-        for (let values of array){
-          switch(values.price_indicator){
-            case "Selling":
-              const registeredPrice = populatePricingObject(values.currency_name, values.price)
-              setFixedSellingPrice(prev => [...prev, registeredPrice])
-              break
-            default:
-              return
-          }
-        }
-      }
+     
       const {setFieldValue, values} = formik
-      useEffect(()=>{
-          setFieldValue('selling_prices', [...fixedSellingPrice])
-      }, [fixedSellingPrice])
 
     useEffect(()=>{
         setTitle( product?.product_details?.product_name)
@@ -96,45 +60,16 @@ export default function PreviewHeader (){
     
     useEffect(() => {
         if(Object.keys(product).length > 0){
-          setFieldValue("product_name", product?.product_details?.product_name);
-          setFieldValue('product_details', product?.product_details?.product_details)
-          setFieldValue(
-            "product_description",
-            product?.product_details?.product_description
-          );
-          setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
-          setFieldValue("upload_content", product?.product_details?.upload_content);
-          setFieldValue(
-            "product_visibility_status",
-            product?.product_details?.product_visibility
-          );
-          setFieldValue("upload_preview", product?.product_details?.is_preview_only);
-          setFieldValue(
-            "kreatesell_id",
-            product?.product_details?.kreasell_product_id
-          );
-          setFieldValue("product_type_id", product?.product_details?.product_type_id);
           setFieldValue("product_id", product?.product_details?.id);
-          setFieldValue(
-            "product_listing_status_id",
-            product?.product_details?.product_listing_status
-          );
-          setFieldValue("upload_content", product.product_details.upload_content ? product.product_details.upload_content : false)
-          setFieldValue("cta_button", product.product_details.cta_button ? product.product_details.cta_button : "Buy Now")
-          if(product.check_out_details && product.check_out_details.length > 0){
-            populatePricing(product?.check_out_details)
-          }
-        //   if(product.product_details.is_allow_affiliate === true){
-        //     setAllowAffiliateMarket(true)
-        //     setAfiliatePercentage(product?.product_details?.affiliate_percentage_on_sales)
-        //   }
-        //   if(product.product_details.is_limited_sales === true){
-        //     setLimitProductSale(true)
-        //   }
         }
       }, [product])
 
-
+    useEffect(() => {
+      if(Object.keys(store).length > 0){
+        const {domain_details} = store.domain_details
+        setDomainLink(domain_details[0].domain_url)
+      }
+    }, [store])
     return (
     <header className='flex items-center justify-between bg-white px-10 py-6 '>
         <div className='flex items-center'>
@@ -149,7 +84,7 @@ export default function PreviewHeader (){
         </div>
         <div className={styles.miniSaveButtons +' flex self-end'}>
             <Button type='default' icon={<Image src={CopyLink} alt="copy" />}  onClick={() => _copyToClipboard(link, "Product Link Copied")}>Copy Link</Button>
-            <Button onClick={()=>router.back()} type='primary'>Exit Preview</Button>
+            <Button onClick={()=>router.push("all")} type='primary'>Exit Preview</Button>
             <Button type='primary' onClick={()=>setIsOpen(true)}>Publish</Button>
         </div>
         {isOpen && <Modal title={null}
@@ -165,18 +100,18 @@ export default function PreviewHeader (){
               <Form layout="vertical" onFinish={formik.handleSubmit}>
                     <Form.Item label={<h2 className="font-semibold text-sm mb-0">Product Link</h2>}>
                         <div className={styles.copyInput + " flex"}>
-                            <Input readOnly bordered className="rounded-lg" placeholder={`https://kreatesell.com/${values.kreatesell_id ? values.kreatesell_id: ''}`}/>
-                            <span onClick={() => _copyToClipboard(link, "Product Link Copied")} className="cursor-pointer">
+                            <Input readOnly bordered className="rounded-lg" placeholder={ `${domainLink}/${id}`}/>
+                            <span onClick={() => _copyToClipboard( `${domainLink}/${values.kreatesell_id}`, "Product Link Copied")} className="cursor-pointer">
                                 <Image src={LinkCopy} alt="copy" />
                             </span>
                         </div>
                     </Form.Item>
                     <Form.Item label={<h2 className="font-semibold text-sm mb-0">Domain name</h2>}>
-                        <Select defaultValue="jh">
-                            <Option value="jh" >{`https://${values.product_name ? values.product_name : ""}/kreatsell.com`}</Option>
+                        <Select defaultValue={domainLink}>
+                            <Option value={domainLink} >{domainLink}</Option>
                         </Select>
                     </Form.Item>
-                    <p style={{marginTop: "-15px"}} className="text-xs font-normal">Will you like to customize your domain? You can do that <a href="#">here</a> </p>
+                    <p style={{marginTop: "-10px"}} className="text-xs font-normal">Will you like to customize your domain? You can do that <Link href="/account/kreator/settings">here</Link> </p>
                     <div className={styles.submitBtn}>
                         <Button loading={loading} type="primary" htmlType="submit">
                             Publish
@@ -188,8 +123,10 @@ export default function PreviewHeader (){
         {isResponse && <Modal title={null}
                 footer={null}
                 visible={isResponse}
-                afterClose={()=>console.log('close mo')}
-                onCancel={() => setIsResponse(false)}
+                onCancel={() =>{
+                  setIsResponse(false)
+                  router.push("/account/kreator/products/all")
+                  }}
                 closable={false}
             >
             <div className={styles.publishModal + " p-5"}>

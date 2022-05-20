@@ -1,8 +1,11 @@
 import React,{useState} from 'react'
 import {Form,Input as AntInput, Select as AntSelect,Upload as AntUpload,Image, Button as AntButton} from 'antd'
 import style from './Index.module.scss'
+import {Popover} from "../../components/popover/Popover";
 import {UploaderIcon,ProfileInputIcon} from '../../components/IconPack'
 import {toast} from 'react-toastify'
+import { MdDelete } from "react-icons/md";
+import NImg from "next/image";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -45,15 +48,35 @@ const UploadPlaceholder = ()=>{
 }
 
 
-export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,...rest})=>{
+export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,addonBefore,...rest})=>{
     return(
+        <>
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
             {
                 CustomInput ? <CustomInput rows={row} className={style.input} size={size} placeholder={placeholder}/>:
 
-                <AntInput disabled={disabled} className={style.input} type={type} size={size} placeholder={placeholder}/>
+                <AntInput addonBefore={addonBefore}  className={`${style.input} ${type==="tel"&&"telInput"}`} {...{placeholder, size, type, disabled}}/>
             }
         </Form.Item>
+        </>
+    )
+}
+
+/**
+ * @description Input Variant 2 component: It has a Prefix text and Input field too
+ *
+ */
+export const InputV2 = ({type="text",placeholder,size="large",prefixText,disabled,label,extraLabel,row,...rest})=>{
+    return(
+        <div className={style.container}>
+            <label className={style.label}>{label} <span>{extraLabel}</span></label>
+            <div className={style.inputV2Container}>
+            <p>{prefixText}</p>
+            <Form.Item {...rest} className={style.inputV2FormItem}>
+                    <AntInput  disabled={disabled} className={style.inputV2} type={type} size={size} placeholder={placeholder}/>
+            </Form.Item>
+            </div>
+        </div>
     )
 }
 
@@ -76,12 +99,42 @@ export const Select = ({placeholder,size="large", onChange=()=>{},loading,label,
         </Form.Item>
     )
 }
+export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,label,extraLabel,list=[],setCountry,...rest})=>{
+    return(
+        <>
+        <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
+            {
+                <AntSelect showSearch
+                optionFilterProp="value"
+                filterOption={(input, option) =>
+                    option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                  onChange={(e)=>{
+                    setCountry(e);
+                      onChange(e)}} loading={loading} className={style.input} size={size} placeholder={placeholder}>
+                    {list?.map(({name,flag},i)=>(
+                        <AntSelect.Option key={i} value={name}>
+                        <div className={style.select}>
+                            {label==="Country"&&(<NImg style={{borderRadius:"5px"}} objectFit='cover' width={40} height={30} src={flag} />)}
+                            {name}
+                        </div>
+                        </AntSelect.Option>
+                    ))}
+                </AntSelect>
+            }
+        </Form.Item>
 
+        </>
+    )
+}
 
-export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
+export const Dropzone = ({label, value, onChange=()=>{}, extraLabel,...rest})=>{
 
     const [imgUrl, setImgUrl] = useState()
-
+    
+      const handleDelete = () => {
+          onChange(null)
+      }
 
       const handleBeforeUpload = (info,inp)=>{
           const isImage = info?.type?.split("/")[0] == "image"
@@ -100,6 +153,9 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
 
     return(
         <div className={style.dragger_wrapper}>
+        <div className={style.deleteContainer} onClick={()=>handleDelete()}>
+        <MdDelete className={style.icon} />
+        </div>
         <label className={style.label}>{label} <span>{extraLabel}</span></label>
             <AntUpload.Dragger {...rest}
                 previewFile={false}
@@ -113,16 +169,17 @@ export const Dropzone = ({label, value, onChange=()=>{},extraLabel,...rest})=>{
     )
 }
 
-export const Button = ({label,...rest})=>{
+export const Button = ({label,type,className="",...rest})=>{
 
     return(
-        <AntButton className={style.btn}  {...rest}>{label}</AntButton>
+        <AntButton className={`${style.btn} ${className}`} type={type||""}  {...rest}>{label}</AntButton>
     )
 }
 
 export const FileInput = ({
     onChange=()=>{}, 
-    value, 
+    value,
+    // handleDelete,
     placeholder,
      label = "Profile picture", 
      disabled,
@@ -130,22 +187,60 @@ export const FileInput = ({
     })=>{
 
         const [file, setFile] = useState("")
+        const [showDeletePopover, setShowDeletePopover] = useState(false);
+
+
+        const handleDelete = ()=>{
+            setFile(null)
+            onChange(null)
+            setTimeout(() => {
+                setShowDeletePopover(false)                
+            }, 1000);
+        }
 
         const handleChange = (e)=>{
             setFile(e.target.files[0].name)
             onChange(e.target.files[0])
         }
 
+        const content = (
+            <div>
+            <p className={style.popOverDescription}>Are you sure you want to delete <br/> your profile picture</p>
+            <div className={style.popOverButtonContainer}>
+            <Button className={style.dullFilled} onClick={()=> setShowDeletePopover(false)} label="Cancel"/>
+            <Button className={style.danger} onClick={handleDelete} label="Delete"/>
+            </div>
+        </div>
+        )
+
     return (
         <>
             <div className="label"><span className="label-text">{label}</span> <span className="extralable">{extralable}</span></div>
             <div className="input-group-wrapper">
                 <div className="profile-input-icon">
-                    <ProfileInputIcon />
+                    {!!value ? <NImg objectFit='cover' width={42} height={45} src={value} /> :<ProfileInputIcon />}
                 </div>
             <label className="file-input-label">
-                <input type="file" accept="image/*" onChange={(e)=>handleChange(e)}/>
-                {value != "" ? <div id="fi" style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{file || value}</div>: <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
+                <input type="file" disabled={!!value} accept="image/*" onChange={(e)=>handleChange(e)}/>
+                {value != "" ? 
+                (
+                    <div style={{display: "flex"}}>
+                    <Popover
+                        trigger="click"
+                        title="title"
+                        placement="bottom"
+                        visible={showDeletePopover}
+                        triggerButton={
+                        <div id="fi" className={style.popOverTriggerButtonContainer}>
+                            <MdDelete onClick={()=>setShowDeletePopover(true)} style={{fontSize: "20px",cursor:"pointer", position:"relative", zIndex:"3"}} color="red" />
+                        </div>}
+                        content={content}
+                />
+                Click to delete the profile picture
+                </div>
+                )
+                : 
+                <span>upload a profile picture of 300 X 300 pixel not exceed 300KB</span>}
             </label>
             </div>
 
@@ -171,6 +266,16 @@ export const FileInput = ({
                         display:block;
                         font-weight:600;
                         text-align:left;
+                }
+                .icon{
+                    font-size: 25px;
+                    color: red !important; 
+                }
+                .img{
+                    border-radius: 5px;
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
                 }
 
                 span.extralable{

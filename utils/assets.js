@@ -131,6 +131,9 @@ import AnalyzeFeature from "../public/images/analyzeFeature.png";
 import PayoutFeatures from "../public/images/payoutFeatures.png";
 import SupportFeatures from "../public/images/supportFeatures.png";
 import ScrollUpIcon from "../public/images/scrollUp.svg";
+import KreatorBankSetting from "../public/images/kreator_bankset.svg";
+import AffilateBankSetting from "../public/images/affilate_bankset.svg";
+
 export {
   ScrollUpIcon,
   SupportFeatures,
@@ -142,6 +145,8 @@ export {
   ManageFeatures,
   DeliverFeature,
   PublishProduct,
+  KreatorBankSetting,
+  AffilateBankSetting,
   UnPublishProduct,
   PreviewMembership,
   DashPreviewOne,

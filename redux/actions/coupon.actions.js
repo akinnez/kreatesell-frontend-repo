@@ -47,15 +47,12 @@ export const GetCoupons = () => {
 			`,
 			(res) => {
                 console.log(res)
-				// const products = res?.data?.data;
-				// const data = res?.data;
-				// delete data?.data;
-				// const payload = {
-				// 	products,
-				// 	productPagination: { ...data },
-				// };
-				// dispatch({ type: types.GET_ALL_COUPONS.SUCCESS, payload });
-				// successCallback?.();
+				const coupons = res?.data?.data;
+				const payload = {
+					coupons
+				};
+				dispatch({ type: types.GET_ALL_COUPONS.SUCCESS, payload });
+				successCallback?.();
 			},
 			(err) => {
 				dispatch({ type: types.GET_ALL_COUPONS.FAILURE, payload: err });

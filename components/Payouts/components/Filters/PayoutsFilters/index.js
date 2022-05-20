@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdOutlineCancel, MdSearch } from "react-icons/md";
 import moment from "moment";
 import { currencyOptions } from "utils";
 import styles from "./index.module.scss";
@@ -97,7 +97,7 @@ const Filters = ({ setStartDate, setEndDate, setProductName }) => {
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Search" name="search">
-                  <Input placeholder="Search" onChange={handleSearch} />
+                  <Input placeholder="Click here to Search" onChange={handleSearch} prefix={<MdSearch color="#8C8C8C" fontSize={"1.2em"}/>} />
                 </Form.Item>
               </Col>
               <Col

@@ -1,7 +1,7 @@
 import { Percentage, Radio } from "components/inputPack";
 import { Switch, Form, Input, Select, Button } from "antd";
 import styles from "./Checkout.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { CloudUpload } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
@@ -13,7 +13,7 @@ import {
   CreateProduct,
   SetProductTab,
 } from "redux/actions";
-import { useHandleProductInputDebounce, useUpload } from "hooks";
+import {  useUpload } from "hooks";
 import CustomCheckoutSelect from "./CustomCheckout";
 import {useRouter} from "next/router";
 import { transformToFormData } from 'utils'
@@ -55,7 +55,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     isPercentage: true,
     is_fixed_amount: false,
   });
-
   // Fixed Price Inputs
   const [fixedSellingPrice, setFixedSellingPrice] = useState([])
   const [fixedOriginalPrice, setFixedOriginalPrice] = useState([])
@@ -185,19 +184,19 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     }
     return prices
   }
-
-  const populatePricing = (array)=>{
-    for (let values of array){
-      switch(values.price_indicator){
-        case "Selling":
-          const registeredPrice = populatePricingObject(values.currency_name, values.price)
-          setFixedSellingPrice(prev => [...prev, registeredPrice])
-          break
-        default:
-          return
-      }
+ const populatePricing = useCallback((array)=>{
+  for (let values of array){
+    switch(values.price_indicator){
+      case "Selling":
+        const registeredPrice = populatePricingObject(values.currency_name, values.price)
+        setFixedSellingPrice(prev => [...prev, registeredPrice])
+        break
+      default:
+        return
     }
   }
+}, [])
+  
   const checkArrays = (data)=>{
     const arrayLists = ["selling_prices", "minimum_prices", "original_prices", "suggested_prices", "initial_prices", "installment_prices"]
     for(let value of arrayLists){
@@ -213,11 +212,17 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const handleSubmit = (data) => {
     // delete data?.cover_image;
     // delete data?.product_details?.product_cover_picture;
-    delete data?.upload_content || data?.product_details?.upload_content;
-    delete data?.upload_preview;
+    // delete data?.upload_content || data?.product_details?.upload_content;
+    // delete data?.upload_preview;
     // delete data?.product_listing_status;
-    delete data?.preorder_details
-
+    // delete data?.preorder_details
+    if (!data.enable_preorder) {
+      delete data.preorder_details;
+    }
+    if (!data.upload_content){
+      delete data.upload_content
+      delete data.contentZipFiles
+    }
     if (promotionalMaterial.length < 1) {
       delete data?.promotional_items;
     }
@@ -293,78 +298,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   const { errors, setFieldValue, values } = formik;
 
-  // useEffect(() => {
-  //   if (!values.enable_preorder) {
-  //     delete values.preorder_details;
-  //     delete values.enable_preorder;
-  //   }
-  // }, [values]);
-
-  // useEffect(() => {
-  //   if (
-  //     values[
-  //       "minimum_prices" ||
-  //         "suggested_prices" ||
-  //         "original_prices" ||
-  //         "suggested_prices" ||
-  //         "initial_prices" ||
-  //         "installment_prices"
-  //     ]?.length > 0
-  //   ) {
-  //     setFieldValue("set_price", true);
-  //   }
-  // }, [values]);
-
-  // useEffect(() => {
-  //   setFieldValue("pricing_type_id", priceType);
-  //   setFieldValue("checkout.cta_button", ctaBtnText);
-  //   setFieldValue("selling_prices", sellingPrice);
-  //   setFieldValue("minimum_prices", minimumPrice);
-  //   setFieldValue("is_show_compare_price", compareToPrice);
-  //   setFieldValue("checkout.is_coupon", applyCoupon);
-  //   setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
-  //   setFieldValue(
-  //     "coupon_settings.is_fixed_amount",
-  //     couponVariance.is_fixed_amount
-  //   );
-  //   setFieldValue("product_settings.allow_affiliates", allowAffiliateMarket);
-  //   setFieldValue("product_settings.is_limited_sales", limitProductSale);
-  //   setFieldValue("product_settings.show_number_of_sales", showTotalSales);
-  //   setFieldValue("who_bear_fee", buyerPaysTransactionFee);
-  //   setFieldValue("minimum_prices", minimumPrice);
-  //   setFieldValue("selling_prices", sellingPrice);
-  //   setFieldValue("original_prices", originalPrice);
-  //   setFieldValue("suggested_prices", suggestedPrice);
-  //   setFieldValue("initial_prices", initialPrice);
-  //   setFieldValue("installment_prices", installmentPrice);
-  //   setFieldValue(
-  //     "promotional_items.allow_promotional_items",
-  //     uploadPromotionalMaterial
-  //   );
-  //   setFieldValue(
-  //     "promotional_items.promotional_files",
-  //     preview?.map((item) => item.url)
-  //   );
-  // }, [
-  //   priceType,
-  //   ctaBtnText,
-  //   sellingPrice,
-  //   compareToPrice,
-  //   applyCoupon,
-  //   couponVariance,
-  //   allowAffiliateMarket,
-  //   limitProductSale,
-  //   showTotalSales,
-  //   buyerPaysTransactionFee,
-  //   minimumPrice,
-  //   originalPrice,
-  //   suggestedPrice,
-  //   uploadPromotionalMaterial,
-  //   preview,
-  //   promotionalMaterial,
-  //   initialPrice,
-  //   installmentPrice,
-  // ]);
 
   //Updating Formik values
   useEffect(()=>{
@@ -428,10 +361,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setNumberOfLimit(0)
     }
   }, [compareToPrice, allowAffiliateMarket, limitProductSale])
-
-  useEffect(() => {
-    if(Object.keys(product).length > 0){
-      setFieldValue("product_name", product?.product_details?.product_name);
+  
+  const setAllFields = useCallback(()=>{
+    setFieldValue("product_name", product?.product_details?.product_name);
       setFieldValue('product_details', product?.product_details?.product_details)
       setFieldValue(
         "product_description",
@@ -463,9 +395,17 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         product?.product_details?.product_listing_status
       );
       setFieldValue("upload_content", product.product_details.upload_content ? product.product_details.upload_content : false);
-      console.log(product.product_details.cta_button)
+      // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
+      // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
+      
       setFieldValue("cta_button", product.product_details.cta_button ? product.product_details.cta_button : ctaBtnText)
       setCtaBtnText(product?.product_details?.cta_button)
+      if(product.product_details.is_show_number_of_sales){
+        setShowTotalSales(true)
+      }
+      if(product.product_details.who_bears_fee){
+        setBuyerPaysTransactionFee(true)
+      }
 
       if(product.check_out_details && product.check_out_details.length > 0){
         populatePricing(product?.check_out_details)
@@ -477,8 +417,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       if(product.product_details.is_limited_sales === true){
         setLimitProductSale(true)
       }
+  }, [product])
+  
+  useEffect(() => {
+    if(Object.keys(product).length > 0){
+      setAllFields()
     }
-  }, [product]);
+  }, [product, setAllFields]);
 
   return (
     <Form onFinish={formik.handleSubmit}>
