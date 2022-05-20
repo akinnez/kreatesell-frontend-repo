@@ -19,8 +19,10 @@ export default function FileUpload({file, setFile, isToggleable, toggleValue, in
         const instance = axios.create()
         delete instance.defaults.headers.common['Authorization'];
         try {
-          const {data} = await axios.get(url, {resource_type: "raw"})
+          const data = await axios.get(url, {resource_type: "raw"})
           console.log(data)
+          let buffer = new Buffer(data.data.toString());
+          console.log(buffer.toString("base64"));
         } catch (error) {
           console.log(error)
         }

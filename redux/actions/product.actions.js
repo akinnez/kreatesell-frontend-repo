@@ -24,6 +24,28 @@ export const CreateProduct = () => {
 		)
 	);
 };
+export const PublishProducts = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.PUBLISH_PRODUCT.REQUEST }),
+		axios.request(
+			`patch`,
+			`v1/kreatesell/product/configurations`,
+			(res) => {
+				console.log('publish',res)
+				dispatch({ type: types.PUBLISH_PRODUCT.SUCCESS });
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.PUBLISH_PRODUCT.FAILURE, payload: err });
+				showToast(err.message? err.message: "Network Error, Check your Connection", "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
 
 
 export const GetProductByID = () => {
@@ -136,17 +158,39 @@ export const GetBillingInterval = () => {
 		)
 	);
 };
+export const GetCouponProducts = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => (
+		dispatch({ type: types.FETCH_COUPON_PRODUCT.REQUEST }),
+		axios.request(
+			`get`,
+			`v1/kreatesell/product/fetch/product-data`,
+			(res) => {
+				const payload = res?.data?.data
+
+				dispatch({
+					type: types.FETCH_COUPON_PRODUCT.SUCCESS,
+					payload,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.FETCH_COUPON_PRODUCT.FAILURE, payload: err });
+				showToast(err?.message, "error");
+				errorCallback?.();
+			}
+		)
+	);
+};
 
 export const GetPricingTypes = () => {
 	const dispatch = useDispatch();
 	return (successCallback, errorCallback) => {
-		console.log('hererere')
 		dispatch({ type: types.GET_PRICING_TYPES.REQUEST }),
 		axios.request(
 			`get`,
 			`v1/kreatesell/product/get-pricing-types`,
 			(res) => {
-				console.log('pricing', res)
 				dispatch({
 					type: types.GET_PRICING_TYPES.SUCCESS,
 					payload: res?.data?.pricing_types,
@@ -281,5 +325,14 @@ export const SetProductID = () => {
 		dispatch({
 			type: types.SET_PRODUCT_ID.REQUEST,
 			payload: productID,
+		});
+};
+
+export const SetProductDefault = () => {
+	const dispatch = useDispatch();
+	return ( successCallback, errorCallback) =>
+		dispatch({
+			type: types.SET_PRODUCT_DEFAULT.REQUEST,
+			payload: {},
 		});
 };

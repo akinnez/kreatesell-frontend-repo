@@ -26,8 +26,7 @@ export default function ImageUpload ({file, deleteFile, setUrl}){
             const {loaded, total} = progressEvent
             let percent = Math.floor(loaded * 100 / total)
             cb(percent)
-          },
-          resource_type: "raw" }
+          }}
           try {
             const instance = axios.create()
             delete instance.defaults.headers.common['Authorization'];

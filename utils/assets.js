@@ -122,15 +122,9 @@ import PublishProduct from "../public/images/publish.svg";
 import UnPublishProduct from "../public/images/unpublish.svg";
 import PreviewMembership from "../public/images/new-vec.svg";
 import LinkCopy from "../public/images/content_copy.svg";
-import DeliverFeature from "../public/images/DeliverFeature.png";
-import ManageFeatures from "../public/images/manageFeatures.png";
-import MarketFeatures from "../public/images/marketFeatures.png";
-import CustomizeFeatures from "../public/images/customizeFeatures.png";
-import SecureFeatures from "../public/images/secureFeatures.png";
-import AnalyzeFeature from "../public/images/analyzeFeature.png";
-import PayoutFeatures from "../public/images/payoutFeatures.png";
-import SupportFeatures from "../public/images/supportFeatures.png";
-import ScrollUpIcon from "../public/images/scrollUp.svg";
+import KreatorBankSetting from "../public/images/kreator_bankset.svg";
+import AffilateBankSetting from "../public/images/affilate_bankset.svg";
+
 export {
   ScrollUpIcon,
   SupportFeatures,
@@ -142,6 +136,8 @@ export {
   ManageFeatures,
   DeliverFeature,
   PublishProduct,
+  KreatorBankSetting,
+  AffilateBankSetting,
   UnPublishProduct,
   PreviewMembership,
   DashPreviewOne,

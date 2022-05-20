@@ -11,7 +11,6 @@ export const CheckoutProductTab = () => {
 	const { pricingTypes } = useSelector((state) => state.product);
 
 	useEffect(() => {
-		console.log('calling')
 		getPricingTypes()
 	}, []);
 

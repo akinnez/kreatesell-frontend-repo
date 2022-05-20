@@ -16,6 +16,7 @@ const initialState = {
 	singleStoreDetails: {},
 	singleStoreProducts: [],
 	singleStorePaginationDetails: {},
+	couponProducts: []
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -24,11 +25,13 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.CREATE_PRODUCT.REQUEST:
 		case types.GET_PRODUCT_TYPES.REQUEST:
 		case types.GET_PRODUCT_BY_ID.REQUEST:
+		case types.PUBLISH_PRODUCT.REQUEST:
 		case types.GET_PRICING_TYPES.REQUEST:
 		case types.GET_LISTING_STATUS.REQUEST:
 		case types.GET_BILLING_INTERVAL.REQUEST:
 		case types.FETCH_SINGLE_STORE_PRODUCT.REQUEST:
 		case types.FETCH_SINGLE_STORE_PRODUCT.REQUEST:
+		case types.FETCH_COUPON_PRODUCT.REQUEST:
 			return { ...state, loading: true };
 
 		case types.GET_ALL_PRODUCTS.SUCCESS:
@@ -36,6 +39,8 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS:
 			return { ...state, loading: false, ...payload };
 
+			case types.PUBLISH_PRODUCT.SUCCESS:
+				return {...state, loading: false}
 		case types.CREATE_PRODUCT.SUCCESS:
 			if(payload.token){
 				return { ...state, loading: false, productID: payload.token }
@@ -56,6 +61,9 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 
 		case types.FETCH_PRODUCT_STATUS.SUCCESS:
 			return { ...state, loading: false, productStatus: payload };
+		
+			case types.FETCH_COUPON_PRODUCT.SUCCESS:
+			return { ...state, loading: false, couponProducts: payload };
 
 		case types.GET_ALL_PRODUCTS.FAILURE:
 		case types.CREATE_PRODUCT.FAILURE:
@@ -63,6 +71,8 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 		case types.GET_PRODUCT_BY_ID.FAILURE:
 		case types.GET_PRICING_TYPES.FAILURE:
 		case types.GET_LISTING_STATUS.FAILURE:
+		case types.PUBLISH_PRODUCT.FAILURE:
+		case types.FETCH_COUPON_PRODUCT.FAILURE:
 		case types.GET_BILLING_INTERVAL.FAILURE:
 		case types.FETCH_SINGLE_STORE_PRODUCT.FAILURE:
 		case types.FETCH_SINGLE_STORE_PRODUCT.FAILURE:
@@ -73,6 +83,9 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 
 		case types.SET_PRODUCT_ID.REQUEST:
 			return { ...state, productID: payload };
+			
+		case types.SET_PRODUCT_DEFAULT.REQUEST:
+			return { ...state, product: payload };
 
 		default:
 			return state;

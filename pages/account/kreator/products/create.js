@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CreateProductTab, CheckoutProductTab } from "components";
 import Tab from "components/tab";
 import AuthLayout from "../../../../components/authlayout";
@@ -13,11 +13,7 @@ const CreateProduct = () => {
   const [titles, setTitles] = useState(["Product Design", "Checkout"])
   const [isTabsActive, setIsTabsActive] = useState(true)
   const [selectedTab, setSelectedTab]= useState(1)
-  const [submit, setSubmit] = useState((secondaryFunction)=> secondaryFunction)
 
-  useEffect(()=>{
-    console.log(submit)
-  }, [submit])
   return (
     <AuthLayout>
       {isTabsActive && <Card style={{ padding: "5px 25px 0", marginBottom: "1em" }}>
@@ -32,7 +28,7 @@ const CreateProduct = () => {
         </Tab>
       </Card>}
         {productTab === 0 && <Card style={{ padding: "60px 48px 60px 48px " }}>
-          <CreateProductTab submit={submit} setSelectedTab={setSelectedTab} titles={titles} setTitles={setTitles}/>
+          <CreateProductTab  setSelectedTab={setSelectedTab} titles={titles} setTitles={setTitles}/>
         </Card>
         }
         {productTab === 1 && <Card style={{ padding: "60px 48px 60px 48px " }}>
