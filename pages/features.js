@@ -16,6 +16,7 @@ import {
   DeliverFeature,
   ManageFeatures,
   MarketFeatures,
+  ScrollUpIcon,
   // FeatureBg,
   FeatureIcon,
   ManageIcon,
@@ -46,7 +47,7 @@ const Features = () => {
       withSearch={true}
       childComp={<SignUpBenefits />}
     >
-      <div className={styles.container}>
+      <div className={styles.container} id="main-top">
         <div className={styles.hero}>
           <h2 className={styles.webTitle}>
             No more Headaches from Multiple <br />
@@ -91,7 +92,7 @@ const Features = () => {
             className={styles.features}
             {...Animate("zoom-in", 200, "ease-in")}
           >
-            <div className={styles.featuresWrapper} id="links-section">
+            <div className={styles.featuresWrapper}>
               <ul>
                 <GenerateScrollLinks
                   data={leftLinks}
@@ -188,7 +189,7 @@ const Features = () => {
 
           <div className={styles.scrollUp}>
             <Link
-              to="links-section"
+              to="main-top"
               spy={true}
               smooth={true}
               offset={-200}
@@ -197,7 +198,7 @@ const Features = () => {
               // activeClass="react-scroll-active-link"
               // onClick={() => handleClick(item)}
             >
-              scroll up
+              <Image src={ScrollUpIcon} alt="scroll up icon" />
             </Link>
           </div>
           {/* Deliver Features Row */}

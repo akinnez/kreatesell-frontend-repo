@@ -130,7 +130,9 @@ import SecureFeatures from "../public/images/secureFeatures.png";
 import AnalyzeFeature from "../public/images/analyzeFeature.png";
 import PayoutFeatures from "../public/images/payoutFeatures.png";
 import SupportFeatures from "../public/images/supportFeatures.png";
+import ScrollUpIcon from "../public/images/scrollUp.svg";
 export {
+  ScrollUpIcon,
   SupportFeatures,
   PayoutFeatures,
   AnalyzeFeature,
