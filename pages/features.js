@@ -43,6 +43,7 @@ const Features = () => {
       defaultMarginTop={true}
       text="Enjoy the benefits of multiple applications in one place."
       withSearch={true}
+      childComp={<SignUpBenefits />}
     >
       <div className={styles.container}>
         <div className={styles.hero}>
@@ -83,11 +84,12 @@ const Features = () => {
             />
           </div>
 
-          <div className={styles.benefits}>
+          {/* <div className={styles.benefits}>
             <span>Signup for free</span>
             <span>• Easy setup</span>
             <span>• Fast payout</span>
-          </div>
+          </div> */}
+          <SignUpBenefits />
 
           <div
             className={styles.features}
@@ -313,7 +315,7 @@ const Features = () => {
           <div className={styles.majorFeatures}>
             <div
               className={`${styles.imageCont} ${styles.centred}`}
-              {...Animate("fade-right", 200, "ease")}
+              {...Animate("fade-left", 200, "ease")}
             >
               <section className={styles.featureTop}>
                 <div className={styles.featureTitleIcon}>
@@ -452,7 +454,7 @@ const Features = () => {
 
             <div
               className={`${styles.imageCont} ${styles.alternate}`}
-              {...Animate("fade-left", 200, "ease")}
+              {...Animate("fade-right", 200, "ease")}
             >
               <section className={styles.featureTop}>
                 <div className={styles.featureTitleIcon}>
@@ -480,7 +482,7 @@ const Features = () => {
           <div className={styles.majorFeatures}>
             <div
               className={styles.imageCont}
-              {...Animate("fade-right", 200, "ease")}
+              {...Animate("fade-left", 200, "ease")}
             >
               <section className={styles.featureTop}>
                 <div className={styles.featureTitleIcon}>
@@ -572,7 +574,7 @@ const Features = () => {
 
             <div
               className={`${styles.imageCont} ${styles.alternate}`}
-              {...Animate("fade-left", 200, "ease")}
+              {...Animate("fade-right", 200, "ease")}
             >
               <section className={styles.featureTop}>
                 <div className={styles.featureTitleIcon}>
@@ -600,7 +602,7 @@ const Features = () => {
           <div className={styles.majorFeatures}>
             <div
               className={styles.imageCont}
-              {...Animate("fade-right", 200, "ease")}
+              {...Animate("fade-left", 200, "ease")}
             >
               <section className={styles.featureTop}>
                 <div className={styles.featureTitleIcon}>
@@ -668,7 +670,7 @@ const Features = () => {
 
             <div
               className={`${styles.imageCont} ${styles.alternate}`}
-              {...Animate("fade-left", 500, "ease")}
+              {...Animate("fade-right", 500, "ease")}
             >
               <section className={styles.featureTop}>
                 <div className={styles.featureTitleIcon}>
@@ -742,4 +744,14 @@ const GenerateScrollLinks = ({ data, handleClick, activeLink }) => {
       </li>
     );
   });
+};
+
+const SignUpBenefits = () => {
+  return (
+    <div className={styles.benefits}>
+      <span>Signup for free</span>
+      <span>• Easy setup</span>
+      <span>• Fast payout</span>
+    </div>
+  );
 };

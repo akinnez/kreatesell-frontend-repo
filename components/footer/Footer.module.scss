@@ -107,6 +107,18 @@
     color: $base-blue;
   }
 
+  .subFooterBottomChild {
+    margin-top: 6.65px;
+    font-size: 16px;
+    line-height: 28px;
+    .benefits {
+      span {
+        display: inline-block;
+        margin-right: 16px;
+      }
+    }
+  }
+
   @include screen("medium") {
     display: none;
   }
