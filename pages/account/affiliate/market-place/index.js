@@ -135,7 +135,7 @@ const AffiliateProducts = () => {
               pagination={{
                 position: ["bottomLeft", "topRight"],
                 showSizeChanger: false,
-                defaultPageSize: queries.limit,
+                pageSize: 8,
                 total: totalProducts,
                 responsive: true,
                 onChange: handlePageChange,

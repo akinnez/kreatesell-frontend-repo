@@ -29,7 +29,7 @@ const Request = () => {
         actions.setSubmitting(false);
       },
       err => {
-        showToast(err, "error");
+        showToast(err.message, "error");
         actions.setSubmitting(false);
       },
       data
