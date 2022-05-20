@@ -84,11 +84,6 @@ const Features = () => {
             />
           </div>
 
-          {/* <div className={styles.benefits}>
-            <span>Signup for free</span>
-            <span>• Easy setup</span>
-            <span>• Fast payout</span>
-          </div> */}
           <SignUpBenefits />
 
           <div
