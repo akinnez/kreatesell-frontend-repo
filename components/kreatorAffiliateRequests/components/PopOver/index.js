@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Button, Popover, Typography, Divider } from "antd";
+import { Button, Popover, Typography, Divider, Avatar } from "antd";
+import { FaRegUser } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { AiOutlineCloseCircle, AiOutlineStop } from "react-icons/ai";
-import Profile from "public/images/placeholder-2.jpg";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;
@@ -29,9 +29,24 @@ const PopOver = ({ record, showReportModal }) => {
         />
       </div>
       <header className={styles.header}>
-        <div>
-          <Image src={Profile} alt="Profile picture" />
-        </div>
+        {record.profile_image ? (
+          <Avatar
+            size={100}
+            src={
+              <Image
+                src={record.profile_image}
+                layout="fill"
+                alt={`${record.product_name}`}
+              />
+            }
+          />
+        ) : (
+          <Avatar
+            size={100}
+            icon={<FaRegUser />}
+            className={styles.profile__image__placeholder}
+          />
+        )}
       </header>
       <section className={styles.affiliate__info}>
         <p>
@@ -50,7 +65,7 @@ const PopOver = ({ record, showReportModal }) => {
           size="large"
           disabled={record.reported}
           danger={record.reported}
-          onClick={() => showReport(record.affiliateId)}
+          onClick={() => showReport(record.affiliate_id)}
           icon={<AiOutlineStop />}
         >
           {record.reported ? "Reported" : "Report Affiliate"}

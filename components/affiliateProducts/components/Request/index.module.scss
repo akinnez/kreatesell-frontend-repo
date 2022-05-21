@@ -5,6 +5,16 @@
 .form__wrapper {
   max-width: 645px;
 
+  form[class^="ant-form"] textarea {
+    line-height: 30px;
+    font-size: 14px;
+
+    &[disabled] {
+      background-color: colors.$white-200;
+      color: colors.$gray-200;
+    }
+  }
+
   div[class$="ant-form-item-label"] {
     padding: 0;
     font-weight: 500;
@@ -30,6 +40,17 @@
 
 .submit__btn {
   border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+
+  &[disabled] {
+    background-color: colors.$gray-700 !important;
+    color: colors.$base-white;
+
+    &:hover {
+      color: colors.$base-white;
+    }
+  }
 }
 
 @include screens.screen("medium-large") {

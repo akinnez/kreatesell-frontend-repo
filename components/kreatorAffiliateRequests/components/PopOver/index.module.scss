@@ -1,9 +1,10 @@
 @use "public/css/colors";
+@use "public/css/mixins";
 
 .content__container {
   max-width: 360px;
   position: relative;
-  padding: 50px 25px 15px;
+  padding: 25px 45px 15px;
 }
 
 .close__btn {
@@ -25,13 +26,15 @@
 }
 
 .header {
+  @include mixins.flex(row, center, center);
   margin-bottom: 15px;
-  > div {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    border-radius: 50%;
-    overflow: hidden;
+
+  > span[class^="ant-avatar"] {
+    @include mixins.flex(row, center, center);
+
+    > svg {
+      font-size: 40px;
+    }
   }
 }
 

@@ -10,10 +10,8 @@ import Spinner from "components/Spinner";
 import WithdrawModal from "../WithdrawModal";
 import SuccessModal from "../SuccessModal";
 import walletFetcher from "../../utils/walletFetcher";
-import formatNumber from "utils/formatNumber";
 import styles from "./index.module.scss";
 
-const kreatorBalance = 10000.0;
 const { Text } = Typography;
 const breakPoints = {
   xs: { span: 24 },
@@ -35,11 +33,11 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
     setter(!value);
   };
 
-  const handleClicks = (setter, valuea) => () => {
-    setter(valuea);
+  const handleClicks = (setter, value) => () => {
+    setter(value);
   };
 
-  const currency = walletInfo[0].currency;
+  const { currency, available_balance: kreatorBalance } = walletInfo[0];
 
   return (
     <header className={styles.header}>
@@ -66,11 +64,7 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
                 </div>
                 <p>
                   <Text>
-                    {kreator
-                      ? `${currency} ${formatNumber(
-                          parseInt(walletInfo[0].available_balance)
-                        )}`
-                      : "************"}
+                    {kreator ? `${currency} ${kreatorBalance}` : "************"}
                   </Text>
                 </p>
                 <div className={styles.withdraw__btn}>
@@ -100,7 +94,7 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
                 <p>
                   <Text>
                     {affiliate
-                      ? `${currency} ${formatNumber(affiliateBalance)}`
+                      ? `${currency} ${affiliateBalance.toFixed(2)}`
                       : "************"}
                   </Text>
                 </p>
@@ -123,7 +117,8 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
           withdrawModal={withdrawModal}
           hideModal={handleClicks(setWithdrawModal, false)}
           showSuccess={handleClicks(setSuccessModal, true)}
-          balance={formatNumber(kreatorBalance)}
+          currency={currency}
+          balance={kreatorBalance}
           bankDetails={bankDetails}
         />
       )}
