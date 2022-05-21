@@ -1,4 +1,4 @@
-import { questions } from "../../../pages/api/faqs/Affiliate";
+import { questions } from "../../../pages/api/faqs/Buyer";
 import renderer from "react-test-renderer";
 import Buyer from "../Buyer";
 
