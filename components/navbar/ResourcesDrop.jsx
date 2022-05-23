@@ -26,6 +26,14 @@ const ResourceDrop = ({ leftOffset, handleMouseLeave }) => {
           FAQ
         </div>
       </Link>
+      <Link href="/blog" passHref>
+        <div
+          className={`${styles.resourceItem} ${styles.hideNav}`}
+          onClick={handleMouseLeave}
+        >
+          Blog
+        </div>
+      </Link>
     </section>
   );
 };
