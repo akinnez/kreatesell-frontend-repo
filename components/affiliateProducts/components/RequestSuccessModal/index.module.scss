@@ -15,18 +15,20 @@
 
 .content {
   text-align: center;
+  margin-bottom: 25px;
 
   p {
     margin-bottom: 0;
 
     &:first-child > span[class="ant-typography"] {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 30px;
+      font-weight: 600;
       color: colors.$black-100;
     }
 
     &:last-child > span[class="ant-typography"] {
-      font-size: 14px;
+      font-size: 16px;
+      font-weight: 500;
       color: colors.$gray-200;
     }
   }

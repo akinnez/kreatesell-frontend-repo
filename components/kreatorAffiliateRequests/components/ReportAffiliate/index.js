@@ -11,16 +11,14 @@ import styles from "./index.module.scss";
 
 const { Text } = Typography;
 const { TextArea } = Input;
+const imageTypes = ["image/png", "image/jpeg", "image/gif"];
+const maxSize = 2 * 1024 * 1024;
+const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
+const limit = 5;
 
 const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
   const [images, setImages] = useState([]);
-
   const inputElement = useRef();
-
-  const imageTypes = ["image/png", "image/jpeg", "image/gif"];
-  const maxSize = 2 * 1024 * 1024;
-  const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
-  const limit = 5;
 
   const submitHandler = (values, actions) => {
     if (images.length > 0) {
@@ -120,9 +118,7 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
       width={765}
     >
       <Formik
-        initialValues={{
-          report_note: "",
-        }}
+        initialValues={{ report_note: "" }}
         validationSchema={KreatorReportSchema}
         onSubmit={submitHandler}
       >

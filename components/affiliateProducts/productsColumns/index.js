@@ -55,7 +55,16 @@ const productsColumns = types => [
     render: (_, record) => (
       <div className={styles.request__link}>
         {!record.has_requested_access ? (
-          <Link href={`/account/affiliate/market-place/${record.id}`}>
+          <Link
+            href={{
+              pathname: "/account/affiliate/market-place/[pId]",
+              query: {
+                pId: record.id,
+                "product-name": record.product_name,
+                "product-type": record.product_type_id,
+              },
+            }}
+          >
             <a>
               Request Access&nbsp;
               <AiOutlineArrowRight />
