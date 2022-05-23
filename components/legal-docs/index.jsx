@@ -75,16 +75,32 @@ const Legal = ({ defaultActiveKey }) => {
                 centered
                 size="large"
               >
-                <TabPane tab="Cookies Policy" key="1">
+                <TabPane
+                  tab="Cookies Policy"
+                  key="1"
+                  className={styles.tabItem}
+                >
                   <CookiePolicy />
                 </TabPane>
-                <TabPane tab="Privacy Policy" key="2">
+                <TabPane
+                  tab="Privacy Policy"
+                  key="2"
+                  className={styles.tabItem}
+                >
                   <Privacy />
                 </TabPane>
-                <TabPane tab="Terms of Service" key="3">
+                <TabPane
+                  tab="Terms of Service"
+                  key="3"
+                  className={styles.tabItem}
+                >
                   <TermsOfService />
                 </TabPane>
-                <TabPane tab="Affiliate Terms" key="4">
+                <TabPane
+                  tab="Affiliate Terms"
+                  key="4"
+                  className={styles.tabItem}
+                >
                   <AffiliateTerms />
                 </TabPane>
               </Tabs>
