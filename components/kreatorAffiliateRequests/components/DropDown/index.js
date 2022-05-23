@@ -48,7 +48,7 @@ const menu = (record, updateRequest) => {
         disabled={record.status === "Approved" || record.status === "Revoked"}
       >
         <span className={styles.image__wrapper}>
-          <Image src={ApproveImg} alt="" />
+          <Image src={ApproveImg} alt="Approve Icon" />
         </span>
         Approve
       </Menu.Item>
@@ -58,7 +58,7 @@ const menu = (record, updateRequest) => {
         disabled={record.status === "Declined" || record.status === "Revoked"}
       >
         <span className={styles.image__wrapper}>
-          <Image src={DeclineImg} alt="" />
+          <Image src={DeclineImg} alt="Decline Icon" />
         </span>
         Decline
       </Menu.Item>
@@ -68,7 +68,7 @@ const menu = (record, updateRequest) => {
         disabled={record.status === "Revoked"}
       >
         <span className={styles.image__wrapper}>
-          <Image src={RevokeImg} alt="" />
+          <Image src={RevokeImg} alt="Revoke Icon" />
         </span>
         Revoke
       </Menu.Item>

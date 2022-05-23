@@ -13,7 +13,7 @@ const AffiliateNote = ({ notes, hideNotes, affiliateNote }) => {
       onCancel={hideNotes}
       closeIcon={<CloseIcon />}
       className={styles.modal}
-      width={765}
+      width={700}
     >
       <header className={styles.header}>
         <Title level={2}>Affiliate Note</Title>

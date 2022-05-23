@@ -25,7 +25,7 @@ const RequestSuccessModal = ({ showModal, handleHideModal }) => {
       visible={showModal}
       closeIcon={<CloseIcon />}
       className={styles.success__modal}
-      width={600}
+      width={700}
     >
       <header className={styles.header}>
         <div>

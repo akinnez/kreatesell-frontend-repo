@@ -95,16 +95,59 @@
 .subFooter {
   background-color: $blue-100;
   text-align: center;
-  padding: 3rem 0;
+  padding: 3rem 24px;
 
   h3 {
     margin: 0;
     font-weight: 700;
-    font-size: 2.5rem;
-    line-height: 3.375rem;
-    margin-bottom: 2.5rem;
+    font-size: 28px;
+    line-height: 40px;
+    margin-bottom: 13px;
     text-align: center;
     color: $base-blue;
+    @media (min-width: 1277px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  .subFooterBottomChild {
+    margin-top: 6.65px;
+    font-size: 16px;
+    line-height: 28px;
+    @media (min-width: 1277px) {
+      max-width: 722px;
+      margin: 0 auto;
+      // padding-bottom: 2rem;
+      // padding-top: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.6rem;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+      color: $base-gray;
+      transition: all 0.2s;
+
+      @media (min-width: 1277px) {
+        font-size: 12px;
+        line-height: 14.52px;
+        display: none;
+      }
+
+      span {
+        padding: 0 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span {
+          font-size: 0.5rem;
+        }
+      }
+    }
   }
 
   @include screen("medium") {

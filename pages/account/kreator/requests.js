@@ -1,24 +1,24 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
-import { useSelector } from "react-redux";
 import { Typography, Button, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
-import {
-  statusArr,
-  requestsData,
-} from "components/kreatorAffiliateRequests/data";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
-import normalize from "utils/normalize";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
 import styles from "public/css/KreatorAffiliateRequests.module.scss";
 
 const { Title } = Typography;
 const rowKey = record => record.id;
+const statusArr = [
+  { type: "All", label: "All" },
+  { type: "Pending", label: "Pending" },
+  { type: "Approved", label: "Approved" },
+  { type: "Denied", label: "Denied" },
+];
 
 const AffiliateRequests = () => {
   const [notes, setNotes] = useState(false);
@@ -26,7 +26,6 @@ const AffiliateRequests = () => {
   const [requests, setRequests] = useState([]);
   const [totalRequests, setTotalRequests] = useState(0);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
   const [requestDate, setRequestDate] = useState("");
   const [affiliateName, setAffiliateName] = useState("");
   const [productName, setProductName] = useState("");
@@ -34,49 +33,42 @@ const AffiliateRequests = () => {
   const [status, setStatus] = useState("All");
   const [affiliateId, setAffiliateId] = useState(null);
   const [affiliateNote, setAffiliateNote] = useState(null);
+  const [uri, setUri] = useState("");
 
-  const { productTypes } = useSelector(state => state.product);
-  const types = useMemo(() => normalize(productTypes, "id"), [productTypes]);
-
-  let uri = `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${page}&Limit=${limit}&Status=${status}`;
-
-  if (requestDate) {
-    uri = `${uri}&Launch_Date=${requestDate}`;
-  }
-
-  if (affiliateName) {
-    uri = `${uri}&Affiliate_Name=${affiliateName}`;
-  }
-
-  if (productName) {
-    uri = `${uri}&Product_Name=${productName}`;
-  }
-
-  if (productType) {
-    uri = `${uri}&Product_Type=${productType}`;
-  }
-
-  const { data: res } = useSWR(uri, url => {
-    return axiosAPI.request(
-      "get",
-      url,
-      res => {
-        setRequests(res.data.data);
-        setTotalRequests(res.data.total_records);
-        return res;
-      },
-      err => {
-        showToast(err.message, "error");
-      }
+  useEffect(() => {
+    let url = new URL(
+      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${page}&Limit=8`
     );
-  });
+
+    if (status !== "All") url.searchParams.set("Status", status);
+    if (requestDate) url.searchParams.set("Launch_Date", requestDate);
+    if (affiliateName) url.searchParams.set("Affiliate_Name", affiliateName);
+    if (productName) url.searchParams.set("Product_Name", productName);
+    if (productType) url.searchParams.set("Product_Type", productType);
+
+    setUri(url);
+  }, [page, status, requestDate, affiliateName, productName, productType]);
+
+  const { data: res } = useSWR(
+    () => (uri ? uri : null),
+    url => {
+      return axiosAPI.request(
+        "get",
+        url,
+        res => {
+          setRequests(res.data.data);
+          setTotalRequests(res.data.total_records);
+          return res;
+        },
+        err => {
+          showToast(err.message, "error");
+        }
+      );
+    }
+  );
 
   const handleClicks = (setter, value) => param => {
     setter(value || value === false ? value : param);
-  };
-
-  const handleSizeChanger = (_, pageSize) => {
-    setLimit(pageSize);
   };
 
   const showReportModal = id => {
@@ -102,12 +94,7 @@ const AffiliateRequests = () => {
     setRequests(newRequests);
   };
 
-  const columns = tableColumns({
-    types,
-    showNotesModal,
-    updateRequest,
-    showReportModal,
-  });
+  const columns = tableColumns(showNotesModal, updateRequest, showReportModal);
 
   return (
     <AuthLayout>
@@ -141,16 +128,15 @@ const AffiliateRequests = () => {
       </section>
       <section className={styles.table__section}>
         <Table
-          dataSource={res && requests.length === 0 ? requestsData : requests}
+          dataSource={requests}
           columns={columns}
           pagination={{
             position: ["bottomLeft"],
-            defaultPageSize: limit,
+            pageSize: 8,
             responsive: true,
-            total: requests.length === 0 ? requestsData.length : totalRequests,
+            total: totalRequests,
             current: page,
             onChange: handleClicks(setPage),
-            onShowSizeChange: handleSizeChanger,
           }}
           rowKey={rowKey}
           loading={!res}

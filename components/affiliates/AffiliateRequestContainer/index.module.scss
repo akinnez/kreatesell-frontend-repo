@@ -1,3 +1,4 @@
+@use "public/css/colors";
 @use "public/css/screens";
 
 .product__name {
@@ -52,6 +53,6 @@
   }
 
   .tabs > div[class="ant-tabs-nav"]::before {
-    border-bottom-color: #bfbfbf;
+    border-bottom-color: colors.$gray-700;
   }
 }
