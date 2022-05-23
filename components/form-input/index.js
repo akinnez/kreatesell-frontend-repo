@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {Form,Input as AntInput, Select as AntSelect,Upload as AntUpload,Image, Button as AntButton} from 'antd'
 import style from './Index.module.scss'
 import {Popover} from "../../components/popover/Popover";
@@ -6,6 +6,7 @@ import {UploaderIcon,ProfileInputIcon} from '../../components/IconPack'
 import {toast} from 'react-toastify'
 import { MdDelete } from "react-icons/md";
 import NImg from "next/image";
+import {deleteImage} from "../../redux/actions";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -128,12 +129,19 @@ export const SelectV2 = ({placeholder,size="large", onChange=()=>{},loading,labe
     )
 }
 
-export const Dropzone = ({label, value, onChange=()=>{}, extraLabel,...rest})=>{
-
+export const Dropzone = ({label, value, onChange=()=>{}, extraLabel,name,...rest})=>{
+    const [showDeletePopover, setShowDeletePopover] = useState(false);
+    const DeleteImage = deleteImage();
     const [imgUrl, setImgUrl] = useState()
     
+    
       const handleDelete = () => {
-          onChange(null)
+        DeleteImage(name, ()=>{
+            onChange(null)
+              setTimeout(() => {
+                setShowDeletePopover(false)                
+            }, 1000);
+        });
       }
 
       const handleBeforeUpload = (info,inp)=>{
@@ -151,11 +159,30 @@ export const Dropzone = ({label, value, onChange=()=>{}, extraLabel,...rest})=>{
           
       }
 
+        const content = (
+            <div>
+            <p className={style.popOverDescription}>Are you sure you want to delete <br/> your profile picture</p>
+            <div className={style.popOverButtonContainer}>
+            <Button className={style.dullFilled} onClick={()=> setShowDeletePopover(false)} label="Cancel"/>
+            <Button className={style.danger} onClick={handleDelete} label="Delete"/>
+            </div>
+        </div>)
+
     return(
         <div className={style.dragger_wrapper}>
-        <div className={style.deleteContainer} onClick={()=>handleDelete()}>
-        <MdDelete className={style.icon} />
-        </div>
+        {(imgUrl || value) && <div className={style.deleteContainer} >
+        <Popover
+            trigger="click"
+            title="title"
+            placement="bottom"
+            visible={showDeletePopover}
+            triggerButton={
+            <div id="fi" className={style.popOverTriggerButtonContainer}>
+                <MdDelete onClick={()=>setShowDeletePopover(true)} className={style.icon} />
+            </div>}
+            content={content}
+        />
+        </div>}
         <label className={style.label}>{label} <span>{extraLabel}</span></label>
             <AntUpload.Dragger {...rest}
                 previewFile={false}
@@ -179,29 +206,55 @@ export const Button = ({label,type,className="",...rest})=>{
 export const FileInput = ({
     onChange=()=>{}, 
     value,
-    // handleDelete,
     placeholder,
      label = "Profile picture", 
      disabled,
-      extralable = "- Your profile picture"
+      extralable = "- Your profile picture",
+      name
     })=>{
 
+        const DeleteImage = deleteImage();
         const [file, setFile] = useState("")
         const [showDeletePopover, setShowDeletePopover] = useState(false);
-
+        const [fileDataURL, setFileDataURL] = useState(null);
 
         const handleDelete = ()=>{
-            setFile(null)
-            onChange(null)
-            setTimeout(() => {
-                setShowDeletePopover(false)                
-            }, 1000);
-        }
+            DeleteImage(name, ()=>{
+                setFile(null)
+                onChange(null)
+                setFileDataURL(null)
+                setTimeout(() => {
+                    setShowDeletePopover(false)                
+                }, 1000);
+            });
+        }                  
 
         const handleChange = (e)=>{
             setFile(e.target.files[0].name)
             onChange(e.target.files[0])
         }
+
+        
+        useEffect(() => {
+            let fileReader, isCancel = false;
+            if (value && value instanceof Blob) {
+              fileReader = new FileReader();
+              fileReader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                  setFileDataURL(result)
+                }
+              }
+              fileReader.readAsDataURL(value);
+            }
+            return () => {
+              isCancel = true;
+              if (fileReader && fileReader.readyState === 1) {
+                fileReader.abort();
+              }
+            }
+        
+          }, [value]);
 
         const content = (
             <div>
@@ -218,11 +271,11 @@ export const FileInput = ({
             <div className="label"><span className="label-text">{label}</span> <span className="extralable">{extralable}</span></div>
             <div className="input-group-wrapper">
                 <div className="profile-input-icon">
-                    {!!value ? <NImg objectFit='cover' width={42} height={45} src={value} /> :<ProfileInputIcon />}
+                    {!!value && !value?.name ? <NImg objectFit='cover' width={42} height={45} src={value} />: fileDataURL ? <NImg objectFit='cover' width={42} height={45} src={fileDataURL} /> :<ProfileInputIcon />}
                 </div>
             <label className="file-input-label">
                 <input type="file" disabled={!!value} accept="image/*" onChange={(e)=>handleChange(e)}/>
-                {value != "" ? 
+                {!!value ? 
                 (
                     <div style={{display: "flex"}}>
                     <Popover
@@ -235,7 +288,7 @@ export const FileInput = ({
                             <MdDelete onClick={()=>setShowDeletePopover(true)} style={{fontSize: "20px",cursor:"pointer", position:"relative", zIndex:"3"}} color="red" />
                         </div>}
                         content={content}
-                />
+                    />
                 Click to delete the profile picture
                 </div>
                 )
