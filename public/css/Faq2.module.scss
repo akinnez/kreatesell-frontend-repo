@@ -2,9 +2,9 @@
 @import "./mixins.scss";
 @import "./screens.scss";
 
-.container {
+.container2 {
 	box-sizing: border-box;
-	padding: 0rem 10.31rem;
+	padding: 2rem 10.31rem 0rem 10.31rem;
 			background-color: $white-200;
 
 
@@ -16,12 +16,12 @@
 		background-repeat: no-repeat;
 	}
 
-	.hero {
+	.hero2 {
 		width: 100%;
 		display: flex;
 		padding-bottom: 4rem;
 
-		.heroText {
+		.heroText2 {
 			width: 70%;
 			h3 {
 				font-weight: 700;
@@ -42,7 +42,7 @@
 				}
 			}
 		}
-		.heroImage {
+		.heroImage2 {
 			width: 30%;
 		}
 
@@ -65,7 +65,7 @@
 		}
 	}
 
-    .faq {
+    .faq2 {
         width: 100%;
         margin-right: 5rem;
         padding: 1.125rem 0 1.125rem 1.5rem;
@@ -108,7 +108,7 @@
     // border: 1px solid;
 
     
-        .groupQuestions {
+        .groupQuestions2 {
             .dropDown {
                 display: flex;
                 flex-direction: column;
