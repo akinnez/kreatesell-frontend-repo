@@ -347,13 +347,13 @@
 // navResourceDrop
 .navResourceContainer {
   position: absolute;
-
+  transition: all 0.2s;
   background-color: #fff;
   top: 4rem;
   z-index: 100;
   padding: 0.8rem 0;
   width: 188px;
-  height: 120px;
+  // height: 120px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -365,6 +365,12 @@
 
   @include screen("inbetween") {
     display: none;
+  }
+
+  @media (min-width: 1108px) {
+    .hideDrop {
+      display: none;
+    }
   }
 
   .resourceItem {
@@ -400,6 +406,15 @@
         min-width: 90px;
         & .navLinkDrop {
           margin-right: 0.2rem;
+        }
+      }
+      .joinDrop {
+        @media (min-width: 768px) {
+          display: none;
+        }
+
+        @media (min-width: 1108px) {
+          display: block;
         }
       }
     }
