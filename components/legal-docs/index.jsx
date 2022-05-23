@@ -12,7 +12,7 @@ import { TermsOfService } from "./TermsOfService";
 import { AffiliateTerms } from "./AffiliateTerms";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { isPathMatched } from "./data/getPath";
+import { isPathMatched, getHeadingFromPath } from "./data/getPath";
 
 const Legal = ({ defaultActiveKey }) => {
   const { TabPane } = Tabs;
@@ -29,6 +29,7 @@ const Legal = ({ defaultActiveKey }) => {
     setActiveKey(key);
   };
 
+  console.log(pathname);
   return (
     <Layout subFooter={true} defaultMarginTop={true}>
       {/* BANNER */}
@@ -42,6 +43,9 @@ const Legal = ({ defaultActiveKey }) => {
           <div className={styles.img}>
             <Image src={legalBannerImg} width="161" height="242" alt="" />
           </div>
+          <h2 className={styles.mobileHeading}>
+            {getHeadingFromPath(pathname)}
+          </h2>
         </section>
         {/* Tabs View on Mobile based on route */}
         {/* Tabs View on Mobile based on route */}
