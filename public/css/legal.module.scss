@@ -39,24 +39,56 @@
   text-align: center;
   .header {
     width: 100%;
+    padding: 0 2rem;
 
     @include flex(column, center, center);
     .title {
       color: $black-100;
       font-size: 40px;
       font-weight: 800;
-      text-align: center;
+      text-align: left;
       line-height: 54px;
+      width: 100%;
     }
     .sub {
       color: $base-gray;
       font-size: 18px;
       line-height: 28px;
+      text-align: left;
+      width: 100%;
     }
     @include minScreen("tablet") {
       text-align: left;
 
       @include flex(column, flex-start, flex-start);
+    }
+  }
+
+  .mobileHeading {
+    font-size: 30px;
+    line-height: 64px;
+    text-transform: capitalize;
+    text-align: center;
+    color: #d9d9d9;
+
+    padding: 0 2rem 0rem;
+    margin-top: 1rem;
+    transition: all 0.2s;
+    width: 100%;
+
+    .innerbox {
+      padding: 0 0.2rem 2rem;
+      width: 100%;
+      display: inline-block;
+      // border-bottom: 1px solid red;
+      border-bottom: 1px solid #f0f0f0;
+      // border-bottom: 1px solid red;
+    }
+    @media (min-width: 320px) {
+      font-size: 48px;
+    }
+    @include minScreen("inbetween") {
+      display: none;
     }
   }
 
@@ -93,6 +125,7 @@
 
 .heading {
   margin-top: 1rem;
+  text-align: left;
 }
 .qLower {
   font-size: 18px;
@@ -103,8 +136,9 @@
 }
 
 .container {
-  padding: 2rem;
+  padding: 0 2rem 2rem;
   transition: padding 0.2s;
+  // background: #f5f5f5;
 
   .heading,
   .question {
@@ -114,6 +148,11 @@
     color: $black-100;
     text-align: left;
   }
+
+  // .ant-card .ant-card-body .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap {
+  //   background: #fff;
+  //   border: 1px solid red !important;
+  // }
 
   .item {
     .answer,

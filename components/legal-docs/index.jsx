@@ -12,7 +12,7 @@ import { TermsOfService } from "./TermsOfService";
 import { AffiliateTerms } from "./AffiliateTerms";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { isPathMatched } from "./data/getPath";
+import { isPathMatched, getHeadingFromPath } from "./data/getPath";
 
 const Legal = ({ defaultActiveKey }) => {
   const { TabPane } = Tabs;
@@ -42,6 +42,11 @@ const Legal = ({ defaultActiveKey }) => {
           <div className={styles.img}>
             <Image src={legalBannerImg} width="161" height="242" alt="" />
           </div>
+          <h2 className={styles.mobileHeading}>
+            <span className={styles.innerbox}>
+              {getHeadingFromPath(pathname)}
+            </span>
+          </h2>
         </section>
         {/* Tabs View on Mobile based on route */}
         {/* Tabs View on Mobile based on route */}
@@ -70,16 +75,32 @@ const Legal = ({ defaultActiveKey }) => {
                 centered
                 size="large"
               >
-                <TabPane tab="Cookies Policy" key="1">
+                <TabPane
+                  tab="Cookies Policy"
+                  key="1"
+                  className={styles.tabItem}
+                >
                   <CookiePolicy />
                 </TabPane>
-                <TabPane tab="Privacy Policy" key="2">
+                <TabPane
+                  tab="Privacy Policy"
+                  key="2"
+                  className={styles.tabItem}
+                >
                   <Privacy />
                 </TabPane>
-                <TabPane tab="Terms of Service" key="3">
+                <TabPane
+                  tab="Terms of Service"
+                  key="3"
+                  className={styles.tabItem}
+                >
                   <TermsOfService />
                 </TabPane>
-                <TabPane tab="Affiliate Terms" key="4">
+                <TabPane
+                  tab="Affiliate Terms"
+                  key="4"
+                  className={styles.tabItem}
+                >
                   <AffiliateTerms />
                 </TabPane>
               </Tabs>
