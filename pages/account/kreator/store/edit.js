@@ -125,11 +125,11 @@ const Index = ()=>{
                             onChange={(e)=>setFile({...file,Cover_Picture:e})}
                             label="Cover"
                             accept="image/*"
-                            name="Cover_Picture"
+                            name="cover"
                             value={file?.Cover_Picture}
                             extraLabel="- Add image on your cover page"/>
                         <FileInput
-                            name="Profile_Picture"
+                            name="profile"
                             value={file?.Profile_Picture}
                             onChange={(e)=>setFile({...file,Profile_Picture:e})}
                         />
