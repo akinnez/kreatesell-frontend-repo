@@ -37,9 +37,9 @@ const FAQ2 = () => {
 
   return (
     <Layout defaultMarginTop={true}>
-      <div className={styles.container}>
-        <div className={styles.hero}>
-          <div className={styles.heroText}>
+      <div className={styles.container2}>
+        <div className={styles.hero2}>
+          <div className={styles.heroText2}>
             <h3>How can we help you?</h3>
             <p>
               Email us at{" "}
@@ -49,7 +49,7 @@ const FAQ2 = () => {
               if you don&#39;t find an answer here.
             </p>
           </div>
-          <div className={styles.heroImage}>
+          <div className={styles.heroImage2}>
             <Image src={FAQHero} width="366" height="200" alt="" />
           </div>
         </div>
@@ -57,7 +57,7 @@ const FAQ2 = () => {
         <div className={styles.backToTop}>
           <BackTop style={backToTopStyle} />
         </div>
-        <div className={styles.faq}>
+        <div className={styles.faq2}>
             <h3>Frequently Asked Questions</h3>
             <Input
               type="search"
@@ -69,7 +69,7 @@ const FAQ2 = () => {
       </div>
         <div className={styles.body}>
          
-            <div className={styles.groupQuestions}>
+            <div className={styles.groupQuestions2}>
             <Tabs defaultActiveKey="1" centered>
                 <TabPane tab="Kreator" key="kreator">
                   <Kreator questions={questions.Kreator||[]}/>
