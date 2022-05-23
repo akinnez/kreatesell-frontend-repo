@@ -29,7 +29,6 @@ const Legal = ({ defaultActiveKey }) => {
     setActiveKey(key);
   };
 
-  console.log(pathname);
   return (
     <Layout subFooter={true} defaultMarginTop={true}>
       {/* BANNER */}
@@ -44,7 +43,9 @@ const Legal = ({ defaultActiveKey }) => {
             <Image src={legalBannerImg} width="161" height="242" alt="" />
           </div>
           <h2 className={styles.mobileHeading}>
-            {getHeadingFromPath(pathname)}
+            <span className={styles.innerbox}>
+              {getHeadingFromPath(pathname)}
+            </span>
           </h2>
         </section>
         {/* Tabs View on Mobile based on route */}

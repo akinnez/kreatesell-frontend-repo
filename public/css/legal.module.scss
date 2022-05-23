@@ -70,10 +70,20 @@
     text-transform: capitalize;
     text-align: center;
     color: #d9d9d9;
-    margin-bottom: 2rem;
-    border: 1px solid #f0f0f0;
+
+    padding: 0 2rem 0rem;
     margin-top: 1rem;
     transition: all 0.2s;
+    width: 100%;
+
+    .innerbox {
+      padding: 0 0.2rem 2rem;
+      width: 100%;
+      display: inline-block;
+      // border-bottom: 1px solid red;
+      border-bottom: 1px solid #f0f0f0;
+      // border-bottom: 1px solid red;
+    }
     @media (min-width: 320px) {
       font-size: 48px;
     }
