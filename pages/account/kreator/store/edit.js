@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router'
 import AuthLayout from "../../../../components/authlayout"
 import { Row,Col,Card,Form,Input as AntInput, } from 'antd';
-import {Input,Select,Dropzone,Button,FileInput, InputV2, SelectV2} from '../../../../components/form-input'
+import {Input,Dropzone,Button,FileInput, InputV2, SelectV2} from '../../../../components/form-input'
 import style from '../../../../public/css/Store.module.scss'
 import ApiService from '../../../../utils/axios'
 import { toast } from 'react-toastify';
@@ -26,8 +26,7 @@ const Index = ()=>{
 
     const [form] = Form.useForm()
 
-
-    const handleFinish = (info)=>{
+    const handleFinish = async (info)=>{
         setLoading({...loading,updating:true})
         const formData = new FormData()
         formData.append("Brand_Name",info.Brand_Name)
@@ -60,10 +59,9 @@ const Index = ()=>{
         )
     }
 
-    // value from countryParam
     const handlePhoneCode = (countryParam) => {
         let phoneCode = countries.find((country)=> country.name===countryParam);
-        setCountryCode(phoneCode.country_code);
+        setCountryCode(phoneCode?.country_code);
     }
 
     // prefill the country code when the user selects another country
@@ -107,16 +105,6 @@ const Index = ()=>{
         )
     },[])
 
-    // useEffect(()=>{
-    //     ApiService.request('get','v1/kreatesell/utils/get-countries',
-    //     ({data})=>{
-    //         console.log("country are", data);
-            
-    //         const countries = data?.list_of_countries?.map(({id,name})=>({label:name, value:id}))
-    //         setCountry(countries)
-    //     })
-    // },[])
-
     return(
         <>
         
@@ -137,12 +125,12 @@ const Index = ()=>{
                             onChange={(e)=>setFile({...file,Cover_Picture:e})}
                             label="Cover"
                             accept="image/*"
+                            name="Cover_Picture"
                             value={file?.Cover_Picture}
-                            // handleDelete={handleDeleteDropZone}
                             extraLabel="- Add image on your cover page"/>
-                        <FileInput 
-                            value={file?.Profile_Picture} 
-                            // handleDelete={handleDeleteImg} 
+                        <FileInput
+                            name="Profile_Picture"
+                            value={file?.Profile_Picture}
                             onChange={(e)=>setFile({...file,Profile_Picture:e})}
                         />
                         <br/>
