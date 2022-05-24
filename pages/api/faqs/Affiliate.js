@@ -7,33 +7,33 @@ export const questions = [
     {
         question: "How do I become an Affiliate?", 
         answer: `To become an affiliate on Kreatesell, create an account on the platform as a user, verify the account and fill in your store details. After that, click on the “Find product” menu on the navigation bar. There would be a prompt to confirm if you would like to be an affiliate. 
-
+        <br/><br/>
         After confirming, you would have access to the marketplace to see listed products. You can now browse through the products, find the ones you are interested in, then you can request access. After you’ve been approved by the Kreator, you can get your unique link to promote the product(s) and start earning commissions for every sale you make. Yes! You are free to start promoting immediately.
-        
+        <br/><br/>
         After five successful sales, you would no longer need to request access to be an affiliate. You can get unique links for any product you want. 
         `
     },
     {
         question: "How do I make money as an Affiliate on Kreatesell?", 
         answer: `You earn by requesting to be an affiliate for a product listed in the Kreatesell marketplace. Once you have been approved, you would receive a unique referral link and can start promoting the product through any of your marketing channels.
-
+        <br/><br/>
         Once you've made five sales through any of your affiliate links on Kreatesell, you would no longer need to request approval to be an affiliate for a product. You can instantly get as many links as you want and earn massively.
         `
     },
     {
         question: "How much money can I make as a Kreatesell Affiliate?", 
         answer: `The money you make as an affiliate on Kreatesell is dependent on your marketing efforts and audience size. You can make as much as you want per time.
-
-        Let’s talk about Samson.
-        
+        <br/><br/>
+        Let's talk about Samson.
+        <br/><br/>
         Samson was always broke and known for borrowing until he decided to stop at all costs. He started to look for ways to make money online and discovered Kreatesell's Affiliate program. He signed up as a user on Kreatesell and started browsing through the products. He finally found the ones that offered great commissions to Affiliates.
-        
+        <br/><br/>
         After applying for them, he was approved and got his unique referral link for each product. He started promoting them on his Facebook, Instagram and Whatsapp status where he had a following and got so many people to buy - A total of 2,000!
-        
+        <br/><br/>
         He made commissions on every person who bought through his link and got paid instantly into his Kreatesell wallet and then, into his registered bank account or Mobile money account on our Affiliate payday - every Tuesday! 
-        
+        <br/><br/>
         So in less than 60 days, Samson Blew! He became a MULTI MILLIONAIRE in Naira!
-        
+        <br/><br/>
         Do you see? You can make as much as you want in as little time as you like as a Kreatesell Affiliate.
         `
     },
@@ -75,7 +75,7 @@ export const questions = [
     },
     {
         question: "Do I need to pay to become an Affiliate?", 
-        answer: `No, it is totally free to create an account and become an affiliate on Kreatesell. Go here to create an account.
+        answer: `No, it is totally free to create an account and become an affiliate on Kreatesell. <a href="/signup">Go here to create an account</a>.
         `
     },
     {

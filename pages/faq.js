@@ -15,7 +15,9 @@ import axios from "axios";
 
 const FAQ2 = () => {
   const [questions, setQuestions] = useState({});
-
+  const [activeTab, setActiveTab] = useState("Kreator")
+  const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [searchKeyword, setSearchKeyWord] = useState("");
   const {TabPane} = Tabs;
 
   const backToTopStyle = {
@@ -23,14 +25,31 @@ const FAQ2 = () => {
     // color: "#ffffff",
   };
 
+  const handleChange = (e) => {
+    setActiveTab(prev=>e);
+    // do logic to filter active questions if there is a search key
+    if(searchKeyword){
+      setFilteredQuestions(prev => questions[e].filter(({question})=> question.toLowerCase().includes(searchKeyword.toLowerCase())))
+    }else{
+      setFilteredQuestions(questions[e]);
+    }
+  }
+
+  const handleInputChange = (value) => {
+    setSearchKeyWord(value);
+    setFilteredQuestions(prev => questions[activeTab].filter(({question})=> question.toLowerCase().includes(value.toLowerCase())))
+  }
+
   async function getQuestions(){
     try{
       const res = await axios.get("/api/faqs");
       setQuestions(res?.data.items);
+      setFilteredQuestions(res?.data.items[activeTab]);
     }catch(err){
       console.log(err);
     }
   }
+
   useEffect(() => {
       getQuestions();
   }, [])
@@ -63,6 +82,7 @@ const FAQ2 = () => {
               type="search"
               placeholder="Search by keyword"
               className={styles.input}
+              onChange={(e)=>handleInputChange(e.target.value)}
             />
 
           </div>
@@ -70,21 +90,21 @@ const FAQ2 = () => {
         <div className={styles.body}>
          
             <div className={styles.groupQuestions2}>
-            <Tabs defaultActiveKey="1" centered>
-                <TabPane tab="Kreator" key="kreator">
-                  <Kreator questions={questions.Kreator||[]}/>
+            <Tabs defaultActiveKey="Kreator" centered onChange={handleChange}>
+                <TabPane tab="Kreator" key="Kreator">
+                  <Kreator questions={(activeTab==="Kreator" && (filteredQuestions.length > 0 && filteredQuestions)) ||[]}/>
                 </TabPane>
-                <TabPane tab="Affiliate" key="affiliate">
-                  <Affiliate questions={questions.Affiliate||[]}/>
+                <TabPane tab="Affiliate" key="Affiliate">
+                  <Affiliate questions={(activeTab==="Affiliate" && (filteredQuestions.length > 0 && filteredQuestions)) ||[]}/>
                 </TabPane>
-                <TabPane tab="Kreator  & Affiliate" key="kreator_affiliate">
-                  <KreatorAffiliate questions={questions.KreatorAffiliate||[]}/>
+                <TabPane tab="Kreator  & Affiliate" key="KreatorAffiliate">
+                  <KreatorAffiliate questions={(activeTab==="KreatorAffiliate" && (filteredQuestions.length > 0 && filteredQuestions)) ||[]}/>
                 </TabPane>
-                <TabPane tab="Buyer" key="buyer">
-                  <Buyer questions={questions.Buyer||[]}/>
+                <TabPane tab="Buyer" key="Buyer">
+                  <Buyer questions={(activeTab==="Buyer" && (filteredQuestions.length > 0 && filteredQuestions)) ||[]}/>
                 </TabPane>
-                <TabPane tab="General" key="general">
-                  <General questions={questions.General||[]}/>
+                <TabPane tab="General" key="General">
+                  <General questions={(activeTab==="General" && (filteredQuestions.length > 0 && filteredQuestions)) ||[]}/>
                 </TabPane>
             </Tabs>
             </div>     

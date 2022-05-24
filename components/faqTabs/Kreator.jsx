@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect} from 'react';
 import {Collapse} from "antd";
 import styles from "./Index.module.scss";
 
