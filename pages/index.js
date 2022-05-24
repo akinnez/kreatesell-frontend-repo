@@ -574,7 +574,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.newsAndEvents}>
+        {/* <div className={styles.newsAndEvents}>
           <div className={styles.newsAndEventsHeader}>
             <h3 className={styles.newsAndEventTitle}>
               News, events and insights for you
@@ -673,49 +673,20 @@ export default function Home() {
                 <RightArrow color="#0072EF" />
               </div>
             </div>
+          </div> */}
+        {/* </div> */}
+
+        <section className={styles.newsAndEvents}>
+          <div className={styles.newsHeader}>
+            <h5>News, events and insights for you</h5>
+            <p className={styles.seeMore}>
+              See more
+              <span className="pb-1">
+                <RightArrow color="#0072EF" />
+              </span>
+            </p>
           </div>
-        </div>
-
-        {/* <div className={styles.testimonial}>
-          <div className={styles.testimonialContainer}>
-            <div className={styles.testimonialCont}>
-              <h3 className={styles.testimonialTitle}>
-                Don’t be told, Trying is believing
-              </h3>
-              <p className={styles.testimonialSubTitle}>
-                See what amazing people are saying about the uniqueness and
-                effectiveness <br /> of KreateSell.
-              </p>
-
-              <div className={styles.videoContainer}>
-                <TestimonialVideoCard />
-                <TestimonialVideoCard />
-                <TestimonialVideoCard />
-              </div>
-
-              <div className={styles.mobileVideoContainer}>
-                <Slider {...settings}>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                </Slider>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
+        </section>
         <div className={styles.subFooter}>
           <h3 className={styles.subFooterTitle}>
             Don’t Be Told, Trying Is Believing
