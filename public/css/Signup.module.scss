@@ -2,7 +2,7 @@
 @import "./screens.scss";
 
 .layoutMargin {
-	margin-top: 10rem;
+	margin-top: 6rem;
 	@include screen("tablet") {
 		margin-top: 7rem;
 	}

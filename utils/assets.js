@@ -133,6 +133,7 @@ import SupportFeatures from "../public/images/supportFeatures.png";
 import ScrollUpIcon from "../public/images/scrollUp.svg";
 import KreatorBankSetting from "../public/images/kreator_bankset.svg";
 import AffilateBankSetting from "../public/images/affilate_bankset.svg";
+import EditIcon from "../public/images/icons/EditIcon.svg";
 
 export {
   ScrollUpIcon,
@@ -270,4 +271,5 @@ export {
   tick,
   UserImage,
   SellFeature,
+  EditIcon,
 };
