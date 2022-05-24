@@ -10,6 +10,14 @@ const ResourceDrop = ({ leftOffset, handleMouseLeave }) => {
         left: leftOffset,
       }}
     >
+      <Link href="/about-us" passHref>
+        <div
+          className={`${styles.resourceItem} ${styles.hideDrop}`}
+          onClick={handleMouseLeave}
+        >
+          About Us
+        </div>
+      </Link>
       <Link href="/how-it-works" passHref>
         <div className={styles.resourceItem} onClick={handleMouseLeave}>
           How it works

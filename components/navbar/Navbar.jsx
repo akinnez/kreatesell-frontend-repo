@@ -88,7 +88,7 @@ export const Navbar = () => {
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
-            <li>
+            <li className={styles.joinDrop}>
               <NavLink href="about-us" title="About Us" />
             </li>
             <li onClick={(e) => clickHandler(e)} className={styles.drop}>
