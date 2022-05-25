@@ -135,10 +135,14 @@ import KreatorBankSetting from "../public/images/kreator_bankset.svg";
 import AffilateBankSetting from "../public/images/affilate_bankset.svg";
 import NewsCardOne from "../public/images/card-one.png";
 import NewsCardTwo from "../public/images/card-two.png";
+import NewsCardThree from "../public/images/card-three.png";
+import NewsCardFour from "../public/images/card-four.png";
 
 export {
   NewsCardOne,
   NewsCardTwo,
+  NewsCardThree,
+  NewsCardFour,
   ScrollUpIcon,
   SupportFeatures,
   PayoutFeatures,

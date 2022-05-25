@@ -25,6 +25,8 @@ import {
   TechCrunch,
   NewsCardOne,
   NewsCardTwo,
+  NewsCardThree,
+  NewsCardFour,
   AddProduct,
   CreateStore,
   Publish,
@@ -706,12 +708,12 @@ export default function Home() {
             </div>
             <div className={styles.newsCardsGrid}>
               <NewsCard
-                imgSrc={""}
+                imgSrc={NewsCardThree}
                 mainText="Minimal workspace for inspirations"
                 authorName="Anthony Masional"
               />
               <NewsCard
-                imgSrc={""}
+                imgSrc={NewsCardFour}
                 mainText="5+ tips to find comfortable co-working space"
                 authorName="Mykola Ilschenko"
               />
@@ -773,7 +775,7 @@ const NewsCard = ({ mainText, authorName, imgSrc }) => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
-        <Image src={NewsCardOne} width="207" height="132" alt="news card" />
+        <Image src={imgSrc} width="207" height="132" alt="news card" />
       </div>
       <div className={styles.newsTextCont}>
         <div className={styles.newsTitle}>{mainText}</div>
