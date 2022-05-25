@@ -708,13 +708,15 @@ export default function Home() {
                     employees, and local communities — and in line with recent
                     ...
                   </p>
-                  <section>
+                  <section className={styles.profile}>
                     <Image
                       src={ProfileImage}
                       className={styles.profileImage}
                       alt="profile image"
+                      width="37"
+                      height="37"
                     />
-                    <div>
+                    <div className={styles.contact}>
                       <p>Babatunde Amotekun</p>
                       <p>CEO at Tuntek Agency</p>
                     </div>
@@ -727,6 +729,19 @@ export default function Home() {
                   Out of concern for the health and safety of our developers,
                   employees, and local communities — and in line with recent ...
                 </p>
+                <section className={styles.profile}>
+                  <Image
+                    src={ProfileImage}
+                    className={styles.profileImage}
+                    alt="profile image"
+                    width="37"
+                    height="37"
+                  />
+                  <div className={styles.contact}>
+                    <p>Babatunde Amotekun</p>
+                    <p>CEO at Tuntek Agency</p>
+                  </div>
+                </section>
               </div>
               <div className={styles.newsCardsGridWithTopImage}>
                 <NewsCard

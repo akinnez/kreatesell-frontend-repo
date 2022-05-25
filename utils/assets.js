@@ -138,7 +138,7 @@ import NewsCardTwo from "../public/images/card-two.png";
 import NewsCardThree from "../public/images/card-three.png";
 import NewsCardFour from "../public/images/card-four.png";
 import CardMain from "../public/images/cardMain.png";
-import ProfileImage from "../public/images/cardMain.png";
+import ProfileImage from "../public/images/profileImage.png";
 
 export {
   ProfileImage,

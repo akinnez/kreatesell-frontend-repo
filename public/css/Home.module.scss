@@ -1153,6 +1153,7 @@
   // border: 1px solid red;
   background-color: #f5f5f5;
   padding: 1rem 24px;
+  padding-bottom: 108px;
   .newsHeader,
   .seeMore {
     display: flex;
@@ -1190,6 +1191,7 @@
     // height: 100%;
     border: 1px solid red;
     border-radius: 8px;
+    margin-bottom: 1rem;
     // border: 1px solid black;
     .newsTextCont {
       padding: 9.11px 9.49px;
@@ -1277,6 +1279,7 @@
         // max-width: 900px;
         // justify-content: space-evenly;
         display: grid;
+        margin-bottom: 1rem;
         // max-height: 280px;
         grid-template-columns: repeat(3, minmax(170px, 350px));
       }
@@ -1287,8 +1290,9 @@
         width: 100%;
         margin: 0 auto;
         max-width: 400px;
+        margin-bottom: 1rem;
 
-        @media (min-width: 350px) {
+        @media (min-width: 386px) {
           flex-direction: row;
         }
 
@@ -1315,6 +1319,62 @@
         display: block;
       }
 
+      .profile {
+        display: flex;
+        justify-content: space-between;
+        img {
+          width: 20px;
+          height: 50px;
+          border: 1px solid red;
+
+          @media (min-width: 768px) {
+            width: 62px;
+            height: 63px;
+          }
+        }
+
+        .contact {
+          flex: 3;
+          margin-left: 10px;
+          p {
+            margin-bottom: unset;
+          }
+          p:first-child {
+            font-family: Inter;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 16px;
+            letter-spacing: 0em;
+            text-align: left;
+
+            @media (min-width: 768px) {
+              font-size: 18px;
+              font-weight: 700;
+              line-height: 28px;
+              letter-spacing: 0em;
+              text-align: left;
+            }
+            // margin-bottom: unset;
+          }
+
+          p + p {
+            font-family: Inter;
+            font-size: 9px;
+            font-weight: 500;
+            line-height: 15px;
+            letter-spacing: 0em;
+            text-align: left;
+            @media (min-width: 768px) {
+              font-size: 16px;
+              font-weight: 500;
+              line-height: 26px;
+              letter-spacing: 0em;
+              text-align: left;
+            }
+          }
+        }
+      }
+
       .profileImage {
         width: 50px;
         height: 50px;
@@ -1333,6 +1393,27 @@
         line-height: 23.52px;
         color: #262626;
         margin-bottom: 15.48px;
+
+        @media (min-width: 768px) {
+          //styleName: Headings/h4 -  MOBILE HEAD;
+          font-family: Inter;
+          font-size: 28px;
+          font-weight: 800;
+          line-height: 40px;
+          letter-spacing: 0em;
+          text-align: left;
+          margin-bottom: 26.33px;
+        }
+      }
+
+      h5 + p {
+        @media (min-width: 768px) {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 26px;
+          letter-spacing: 0em;
+          text-align: left;
+        }
       }
 
       p {
