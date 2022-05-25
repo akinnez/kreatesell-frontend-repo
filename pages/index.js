@@ -693,9 +693,14 @@ export default function Home() {
             </p>
           </div>
           <section>
-            <div>
+            <div className={styles.profileAndCard}>
               <div className={styles.newsFront}>
-                <Image src={CardMain} alt="main" />
+                <Image
+                  src={CardMain}
+                  alt="main"
+                  className={styles.cardMain}
+                  layout="responsive"
+                />
                 <div className={styles.profileCard}>
                   <h5>Google I / O 2020 news update</h5>
                   <p>
@@ -711,14 +716,23 @@ export default function Home() {
                   mainText="Does productivity increase when working remotely ? "
                   authorName="Franck Martin"
                 />
+                <div className={styles.mobileCardTwo}>
+                  <NewsCard
+                    imgSrc={NewsCardTwo}
+                    mainText="Morning routine to boost your mood"
+                    authorName="Elizabeth swan"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={styles.newsCardsGrid}>
+              <div className={styles.lgCardTwo}>
                 <NewsCard
                   imgSrc={NewsCardTwo}
                   mainText="Morning routine to boost your mood"
                   authorName="Elizabeth swan"
                 />
               </div>
-            </div>
-            <div className={styles.newsCardsGrid}>
               <NewsCard
                 imgSrc={NewsCardThree}
                 mainText="Minimal workspace for inspirations"
@@ -787,7 +801,12 @@ const NewsCard = ({ mainText, authorName, imgSrc }) => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
-        <Image src={imgSrc} width="207" height="132" alt="news card" />
+        <Image
+          src={imgSrc}
+          // width="207" height="132"
+          alt="news card"
+          layout="responsive"
+        />
       </div>
       <div className={styles.newsTextCont}>
         <div className={styles.newsTitle}>{mainText}</div>
