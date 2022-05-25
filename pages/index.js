@@ -692,7 +692,7 @@ export default function Home() {
               </span>
             </p>
           </div>
-          <section>
+          <section className={styles.parentCard}>
             <div className={styles.profileAndCard}>
               <div className={styles.newsFront}>
                 <Image
@@ -701,14 +701,32 @@ export default function Home() {
                   className={styles.cardMain}
                   layout="responsive"
                 />
-                <div className={styles.profileCard}>
+                <div className={`${styles.profileCard} ${styles.mb}`}>
                   <h5>Google I / O 2020 news update</h5>
                   <p>
                     Out of concern for the health and safety of our developers,
                     employees, and local communities — and in line with recent
                     ...
                   </p>
+                  <section>
+                    <Image
+                      src={ProfileImage}
+                      className={styles.profileImage}
+                      alt="profile image"
+                    />
+                    <div>
+                      <p>Babatunde Amotekun</p>
+                      <p>CEO at Tuntek Agency</p>
+                    </div>
+                  </section>
                 </div>
+              </div>
+              <div className={styles.profileCard}>
+                <h5>Google I / O 2020 news update</h5>
+                <p>
+                  Out of concern for the health and safety of our developers,
+                  employees, and local communities — and in line with recent ...
+                </p>
               </div>
               <div className={styles.newsCardsGridWithTopImage}>
                 <NewsCard
