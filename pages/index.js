@@ -27,6 +27,8 @@ import {
   NewsCardTwo,
   NewsCardThree,
   NewsCardFour,
+  ProfileImage,
+  CardMain,
   AddProduct,
   CreateStore,
   Publish,
@@ -692,7 +694,17 @@ export default function Home() {
           </div>
           <section>
             <div>
-              <div>first image</div>
+              <div className={styles.newsFront}>
+                <Image src={CardMain} alt="main" />
+                <div className={styles.profileCard}>
+                  <h5>Google I / O 2020 news update</h5>
+                  <p>
+                    Out of concern for the health and safety of our developers,
+                    employees, and local communities — and in line with recent
+                    ...
+                  </p>
+                </div>
+              </div>
               <div className={styles.newsCardsGridWithTopImage}>
                 <NewsCard
                   imgSrc={NewsCardOne}

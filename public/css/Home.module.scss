@@ -1219,4 +1219,30 @@
   .newsCardsGridWithTopImage {
     margin-bottom: 14.2px;
   }
+  .newsFront {
+    display: flex;
+
+    & * {
+      flex: 1;
+    }
+    .profileCard {
+      padding: 20.64px 19.4px 1rem 18.82px;
+      border: 1px solid red;
+      h5 {
+        font-weight: 800;
+        text-align: left;
+        font-size: 16.46px;
+        line-height: 23.52px;
+        color: #262626;
+      }
+
+      p {
+        font-size: 9px;
+        font-weight: 500;
+        line-height: 15.2px;
+        text-align: left;
+        color: #8c8c8c;
+      }
+    }
+  }
 }
