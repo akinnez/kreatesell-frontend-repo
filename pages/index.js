@@ -694,6 +694,7 @@ export default function Home() {
           </div>
           <section className={styles.parentCard}>
             <div className={styles.profileAndCard}>
+              {/* mobiile - section 1 */}
               <div className={styles.newsFront}>
                 <Image
                   src={CardMain}
@@ -722,61 +723,48 @@ export default function Home() {
                     </div>
                   </section>
                 </div>
-              </div>
-              <div className={styles.profileCard}>
-                <h5>Google I / O 2020 news update</h5>
-                <p>
-                  Out of concern for the health and safety of our developers,
-                  employees, and local communities — and in line with recent ...
-                </p>
-                <section className={styles.profile}>
-                  <Image
-                    src={ProfileImage}
-                    className={styles.profileImage}
-                    alt="profile image"
-                    width="37"
-                    height="37"
+                <div className={styles.min}>
+                  <NewsCard
+                    imgSrc={NewsCardThree}
+                    mainText="Minimal workspace for inspirations"
+                    authorName="Anthony Masional"
                   />
-                  <div className={styles.contact}>
-                    <p>Babatunde Amotekun</p>
-                    <p>CEO at Tuntek Agency</p>
-                  </div>
-                </section>
+                </div>
               </div>
-              <div className={styles.newsCardsGridWithTopImage}>
+
+              {/* end of section 1 */}
+
+              <div className={styles.newsCardsGridWithTopImageM}>
                 <NewsCard
                   imgSrc={NewsCardOne}
                   mainText="Does productivity increase when working remotely ? "
                   authorName="Franck Martin"
                 />
-                <div className={styles.mobileCardTwo}>
-                  <NewsCard
-                    imgSrc={NewsCardTwo}
-                    mainText="Morning routine to boost your mood"
-                    authorName="Elizabeth swan"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className={styles.newsCardsGrid}>
-              <div className={styles.lgCardTwo}>
+
+                {/* <div className={styles.lgCardTwo}> */}
                 <NewsCard
                   imgSrc={NewsCardTwo}
                   mainText="Morning routine to boost your mood"
                   authorName="Elizabeth swan"
                 />
+                {/* </div> */}
+                <div className={styles.min}>
+                  <NewsCard
+                    imgSrc={NewsCardThree}
+                    mainText="Minimal workspace for inspirations"
+                    authorName="Anthony Masional"
+                  />
+                </div>
+
+                <NewsCard
+                  imgSrc={NewsCardFour}
+                  mainText="5+ tips to find comfortable co-working space"
+                  authorName="Mykola Ilschenko"
+                />
               </div>
-              <NewsCard
-                imgSrc={NewsCardThree}
-                mainText="Minimal workspace for inspirations"
-                authorName="Anthony Masional"
-              />
-              <NewsCard
-                imgSrc={NewsCardFour}
-                mainText="5+ tips to find comfortable co-working space"
-                authorName="Mykola Ilschenko"
-              />
             </div>
+
+            <div className={styles.newsCardsGrid}></div>
           </section>
         </section>
         <div className={styles.subFooter}>
