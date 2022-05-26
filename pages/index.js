@@ -23,19 +23,17 @@ import {
   TechCabal,
   Guardian,
   TechCrunch,
-  MicrosoftLogo,
+  NewsCardOne,
+  NewsCardTwo,
+  NewsCardThree,
+  NewsCardFour,
+  ProfileImage,
+  CardMain,
   AddProduct,
   CreateStore,
   Publish,
-  AutomationIcon,
   LeftSpiral,
   RightSpiral,
-  PayoutMethod,
-  InstantPayout,
-  PrimaryNews,
-  SecondaryNews,
-  PrimaryNewsFooterImg,
-  videoThumbnail,
   ElipseImage,
   MobileElipse,
   PlayIcon,
@@ -44,7 +42,7 @@ import {
 } from "../utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import { SubscribeEmailSchema } from "../validation";
 import { useFormik } from "formik";
 import { GuestSubscription } from "../redux/actions";
@@ -574,7 +572,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.newsAndEvents}>
+        {/* <div className={styles.newsAndEvents}>
           <div className={styles.newsAndEventsHeader}>
             <h3 className={styles.newsAndEventTitle}>
               News, events and insights for you
@@ -619,13 +617,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <NewsCard />
+              <NewsCard
+              imgSrc={} />
             </div>
 
             <div className={styles.secondRow}>
-              <NewsCard />
-              <NewsCard />
-              <NewsCard />
+              <NewsCard
+              imgSrc={} />
+              <NewsCard
+              imgSrc={} />
+              <NewsCard
+              imgSrc={} />
             </div>
 
             <div className={styles.mobileNews}>
@@ -658,64 +660,117 @@ export default function Home() {
               </div>
               <div className={styles.mobileSecondaryNews}>
                 <div className={styles.firstChild}>
-                  <NewsCard />
+                  <NewsCard
+                  imgSrc={} />
                 </div>
-                <NewsCard />
+                <NewsCard
+                imgSrc={} />
               </div>
               <div className={styles.mobileSecondaryNews}>
                 <div className={styles.firstChild}>
-                  <NewsCard />
+                  <NewsCard
+                  imgSrc={} />
                 </div>
-                <NewsCard />
+                <NewsCard
+                imgSrc={} />
               </div>
-              <div className={styles.newsAndEventSeeMore}>
+              <div className=.newsAndEventSeeMore}>
                 <p>See more</p>
                 <RightArrow color="#0072EF" />
               </div>
             </div>
+          </div> */}
+        {/* </div> */}
+
+        <section className={styles.newsAndEvents}>
+          <div className={styles.newsHeader}>
+            <h5>News, Events And Insights For You</h5>
+            <p className={styles.seeMore}>
+              See more
+              <span className="pb-1">
+                <RightArrow color="#0072EF" />
+              </span>
+            </p>
           </div>
-        </div>
-
-        {/* <div className={styles.testimonial}>
-          <div className={styles.testimonialContainer}>
-            <div className={styles.testimonialCont}>
-              <h3 className={styles.testimonialTitle}>
-                Don’t be told, Trying is believing
-              </h3>
-              <p className={styles.testimonialSubTitle}>
-                See what amazing people are saying about the uniqueness and
-                effectiveness <br /> of KreateSell.
-              </p>
-
-              <div className={styles.videoContainer}>
-                <TestimonialVideoCard />
-                <TestimonialVideoCard />
-                <TestimonialVideoCard />
+          <section className={styles.parentCard}>
+            <div className={styles.profileAndCard}>
+              {/* mobiile - section 1 */}
+              <div className={styles.newsFront}>
+                <Image
+                  src={CardMain}
+                  alt="main"
+                  className={styles.cardMain}
+                  layout="responsive"
+                />
+                <div className={`${styles.profileCard} ${styles.mb}`}>
+                  <h5>
+                    Google I / O 2020 <br />
+                    news update
+                  </h5>
+                  <p>
+                    Out of concern for the health and safety of our developers,
+                    employees, and local communities — and in line with recent
+                    ...
+                  </p>
+                  <section className={styles.profile}>
+                    <Image
+                      src={ProfileImage}
+                      className={styles.profileImage}
+                      alt="profile image"
+                      width="37"
+                      height="37"
+                    />
+                    <div className={styles.contact}>
+                      <p>Babatunde Amotekun</p>
+                      <p>CEO at Tuntek Agency</p>
+                    </div>
+                  </section>
+                </div>
+                <div className={styles.min}>
+                  <NewsCard
+                    imgSrc={NewsCardThree}
+                    mainText={`Minimal workspace for `}
+                    drop="inspirations"
+                    authorName="Anthony Masional"
+                  />
+                </div>
               </div>
 
-              <div className={styles.mobileVideoContainer}>
-                <Slider {...settings}>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                </Slider>
+              {/* end of section 1 */}
+
+              <div className={styles.newsCardsGridWithTopImageM}>
+                <NewsCard
+                  imgSrc={NewsCardOne}
+                  mainText="Does productivity increase when working remotely ? "
+                  authorName="Franck Martin"
+                />
+
+                {/* <div className={styles.lgCardTwo}> */}
+                <NewsCard
+                  imgSrc={NewsCardTwo}
+                  mainText="Morning routine to boost your mood"
+                  authorName="Elizabeth swan"
+                />
+                {/* </div> */}
+                <div className={styles.min}>
+                  <NewsCard
+                    imgSrc={NewsCardThree}
+                    mainText="Minimal workspace for inspirations"
+                    authorName="Anthony Masional"
+                  />
+                </div>
+
+                <NewsCard
+                  imgSrc={NewsCardFour}
+                  mainText="5+ tips to find comfortable co-working space"
+                  authorName="Mykola Ilschenko"
+                />
               </div>
             </div>
-          </div>
-        </div> */}
 
+            <div className={styles.newsCardsGrid}></div>
+          </section>
+        </section>
         <div className={styles.subFooter}>
           <h3 className={styles.subFooterTitle}>
             Don’t Be Told, Trying Is Believing
@@ -767,56 +822,66 @@ export default function Home() {
   );
 }
 
-const NewsCard = () => {
+const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
-        <Image src={SecondaryNews} width="352" alt="secondary news" />
+        <Image
+          src={imgSrc}
+          // width="207" height="132"
+          alt="news card"
+          layout="responsive"
+        />
       </div>
       <div className={styles.newsTextCont}>
         <div className={styles.newsTitle}>
-          Minimal workspace for inspirations
+          {mainText}{" "}
+          {drop && (
+            <>
+              <br /> {drop}
+            </>
+          )}
         </div>
-        <div className={styles.newsAuthor}>Anthony Masional</div>
+        <div className={styles.newsAuthor}>{authorName}</div>
       </div>
     </div>
   );
 };
 
-const TestimonialVideoCard = () => {
-  return (
-    <div className={styles.singleVideoContainer}>
-      <div className={styles.videoImage}>
-        <Image src={videoThumbnail} alt="testimonial video" />
-      </div>
-      <div className={styles.videoAuthor}>Review by Michelle Hyatt</div>
-      <div className={styles.videoExcerpt}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-        imperdiet risus, venenatis at.
-      </div>
-    </div>
-  );
-};
+// const TestimonialVideoCard = () => {
+//   return (
+//     <div className={styles.singleVideoContainer}>
+//       <div className={styles.videoImage}>
+//         <Image src={videoThumbnail} alt="testimonial video" />
+//       </div>
+//       <div className={styles.videoAuthor}>Review by Michelle Hyatt</div>
+//       <div className={styles.videoExcerpt}>
+//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
+//         imperdiet risus, venenatis at.
+//       </div>
+//     </div>
+//   );
+// };
 
-const MobileTestimonialVideoCard = () => {
-  return (
-    <div className={styles.singleMobileVideoContainer}>
-      <div className={styles.mobileVideo}>
-        <Image
-          src={videoThumbnail}
-          alt="testimonial video"
-          width="350"
-          height="196"
-        />
-      </div>
-      <div className={styles.mobileAuthor}>Review by Michelle Hyatt</div>
-      <div className={styles.mobileExcerpt}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-        imperdiet risus, venenatis at.
-      </div>
-    </div>
-  );
-};
+// const MobileTestimonialVideoCard = () => {
+//   return (
+//     <div className={styles.singleMobileVideoContainer}>
+//       <div className={styles.mobileVideo}>
+//         <Image
+//           src={videoThumbnail}
+//           alt="testimonial video"
+//           width="350"
+//           height="196"
+//         />
+//       </div>
+//       <div className={styles.mobileAuthor}>Review by Michelle Hyatt</div>
+//       <div className={styles.mobileExcerpt}>
+//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
+//         imperdiet risus, venenatis at.
+//       </div>
+//     </div>
+//   );
+// };
 
 const OnboardingModal = () => {
   const { loading } = useSelector((state) => state.utils);

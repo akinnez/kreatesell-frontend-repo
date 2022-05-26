@@ -134,8 +134,20 @@ import ScrollUpIcon from "../public/images/scrollUp.svg";
 import KreatorBankSetting from "../public/images/kreator_bankset.svg";
 import AffilateBankSetting from "../public/images/affilate_bankset.svg";
 import EditIcon from "../public/images/icons/EditIcon.svg";
+import NewsCardOne from "../public/images/card-one.png";
+import NewsCardTwo from "../public/images/card-two.png";
+import NewsCardThree from "../public/images/card-three.png";
+import NewsCardFour from "../public/images/card-four.png";
+import CardMain from "../public/images/cardMain.png";
+import ProfileImage from "../public/images/profileImage.png";
 
 export {
+  ProfileImage,
+  CardMain,
+  NewsCardOne,
+  NewsCardTwo,
+  NewsCardThree,
+  NewsCardFour,
   ScrollUpIcon,
   SupportFeatures,
   PayoutFeatures,
