@@ -703,7 +703,10 @@ export default function Home() {
                   layout="responsive"
                 />
                 <div className={`${styles.profileCard} ${styles.mb}`}>
-                  <h5>Google I / O 2020 news update</h5>
+                  <h5>
+                    Google I / O 2020 <br />
+                    news update
+                  </h5>
                   <p>
                     Out of concern for the health and safety of our developers,
                     employees, and local communities — and in line with recent
@@ -726,7 +729,8 @@ export default function Home() {
                 <div className={styles.min}>
                   <NewsCard
                     imgSrc={NewsCardThree}
-                    mainText="Minimal workspace for inspirations"
+                    mainText={`Minimal workspace for `}
+                    drop="inspirations"
                     authorName="Anthony Masional"
                   />
                 </div>
@@ -818,7 +822,7 @@ export default function Home() {
   );
 }
 
-const NewsCard = ({ mainText, authorName, imgSrc }) => {
+const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
@@ -830,7 +834,14 @@ const NewsCard = ({ mainText, authorName, imgSrc }) => {
         />
       </div>
       <div className={styles.newsTextCont}>
-        <div className={styles.newsTitle}>{mainText}</div>
+        <div className={styles.newsTitle}>
+          {mainText}{" "}
+          {drop && (
+            <>
+              <br /> {drop}
+            </>
+          )}
+        </div>
         <div className={styles.newsAuthor}>{authorName}</div>
       </div>
     </div>
