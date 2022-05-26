@@ -10,7 +10,7 @@ const Affiliate = ({questions}) => {
           <h3 className={styles.title}>
               Affiliate
           </h3>
-          <Collapse expandIconPosition="right" bordered={false} defaultActiveKey={['0']}>
+          <Collapse expandIconPosition="right" bordered={false} defaultActiveKey={['0']} accordion>
             {questions.map(({question, answer}, idx)=>(
                 <Panel className={styles.panelHeader} header={question} key={idx}>
                 <div

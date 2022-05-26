@@ -258,6 +258,29 @@ select {
   }
 }
 
+.ant-collapse-borderless {
+  &>.ant-collapse-item {
+    margin-bottom: 10px !important;
+    border-bottom: none !important;
+  }
+}
+
+.Index_tabContainer__3tEdu{
+  &.Index_panelHeader__3NaOQ {
+    margin-bottom: 15px !important;
+  }
+} 
+
+.ant-collapse-borderless{
+  & > .ant-collapse-item{
+    // border-bottom: 10px !important;
+    &> .ant-collapse-content {
+      border-top: 5px solid rgba(34, 34, 34, 0.05) !important;
+    }
+  } 
+}
+
+
 .status-live {
   @include allProductsTableHeaderStyle(#2dc071, #f1fcf8);
 }

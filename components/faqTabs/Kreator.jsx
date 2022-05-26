@@ -11,7 +11,7 @@ const Kreator = ({questions}) => {
         <h3 className={styles.title}>
             Kreator
         </h3>
-        <Collapse expandIconPosition="right" bordered={false} defaultActiveKey={['0']}>
+        <Collapse expandIconPosition="right" bordered={false} defaultActiveKey={['0']} accordion>
         {questions.map(({question, answer}, idx)=>(
             <Panel className={styles.panelHeader} header={question} key={idx}>
             <div
