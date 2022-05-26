@@ -674,7 +674,7 @@ export default function Home() {
                 <NewsCard
                 imgSrc={} />
               </div>
-              <div className={styles.newsAndEventSeeMore}>
+              <div className=.newsAndEventSeeMore}>
                 <p>See more</p>
                 <RightArrow color="#0072EF" />
               </div>
@@ -684,7 +684,7 @@ export default function Home() {
 
         <section className={styles.newsAndEvents}>
           <div className={styles.newsHeader}>
-            <h5>News, events and insights for you</h5>
+            <h5>News, Events And Insights For You</h5>
             <p className={styles.seeMore}>
               See more
               <span className="pb-1">
