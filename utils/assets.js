@@ -133,12 +133,12 @@ import SupportFeatures from "../public/images/supportFeatures.png";
 import ScrollUpIcon from "../public/images/scrollUp.svg";
 import KreatorBankSetting from "../public/images/kreator_bankset.svg";
 import AffilateBankSetting from "../public/images/affilate_bankset.svg";
-import NewsCardOne from "../public/images/card-one.png";
-import NewsCardTwo from "../public/images/card-two.png";
-import NewsCardThree from "../public/images/card-three.png";
-import NewsCardFour from "../public/images/card-four.png";
-import CardMain from "../public/images/cardMain.png";
-import ProfileImage from "../public/images/profileImage.png";
+import NewsCardOne from "../public/images/card-one.svg";
+import NewsCardTwo from "../public/images/card-two.svg";
+import NewsCardThree from "../public/images/card-three.svg";
+import NewsCardFour from "../public/images/card-four.svg";
+import CardMain from "../public/images/card-main.svg";
+import ProfileImage from "../public/images/profile-image.svg";
 
 export {
   ProfileImage,

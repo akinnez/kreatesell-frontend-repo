@@ -607,8 +607,9 @@ export default function Home() {
                       src={ProfileImage}
                       className={styles.profileImage}
                       alt="profile image"
-                      width="37"
-                      height="37"
+                      width="20"
+                      height="20"
+                      layout="responsive"
                     />
                     <div className={styles.contact}>
                       <p>Babatunde Amotekun</p>
