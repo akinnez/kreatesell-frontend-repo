@@ -572,116 +572,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* <div className={styles.newsAndEvents}>
-          <div className={styles.newsAndEventsHeader}>
-            <h3 className={styles.newsAndEventTitle}>
-              News, events and insights for you
-            </h3>
-            <div className={styles.newsAndEventSubTitle}>
-              <p>See more</p>
-              <span className="pb-1">
-                <RightArrow color="#0072EF" />
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.newsAndEventsCardCont}>
-            <div className={styles.firstRow}>
-              <div className={styles.primaryNews}>
-                <div className={styles.primaryNewsImage}>
-                  <Image src={PrimaryNews} width="352" alt="primary news" />
-                </div>
-                <div className={styles.primaryNewsCont}>
-                  <div className={styles.primaryTitle}>
-                    Google I / O 2020 <br /> news update
-                  </div>
-                  <div className={styles.primaryContent}>
-                    Out of concern for the health and safety of our developers,
-                    employees, and local communities — and in line with recent
-                    ...
-                  </div>
-
-                  <div className={styles.primaryFooterCont}>
-                    <div className={styles.primaryFooterImage}>
-                      <Image
-                        src={PrimaryNewsFooterImg}
-                        alt="primary news footer"
-                      />
-                    </div>
-                    <div className={styles.primaryFooterPosition}>
-                      <div className={styles.primaryName}>Sundar pichai</div>
-                      <div className={styles.primaryPosition}>
-                        CEO at Salvo Agency
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <NewsCard
-              imgSrc={} />
-            </div>
-
-            <div className={styles.secondRow}>
-              <NewsCard
-              imgSrc={} />
-              <NewsCard
-              imgSrc={} />
-              <NewsCard
-              imgSrc={} />
-            </div>
-
-            <div className={styles.mobileNews}>
-              <div className={styles.primaryNews}>
-                <div className={styles.primaryNewsImage}>
-                  <Image src={PrimaryNews} width="352" alt="primary news" />
-                </div>
-                <div className={styles.primaryNewsCont}>
-                  <div className={styles.primaryTitle}>
-                    Google I / O 2020 <br /> news update
-                  </div>
-                  <div className={styles.primaryContent}>
-                    Out of concern for the health and safety of our developers,
-                    employees, and local communities — and in line with recent
-                    ...
-                  </div>
-
-                  <div className={styles.primaryFooterCont}>
-                    <div className={styles.primaryFooterImage}>
-                      <Image src={PrimaryNewsFooterImg} width="32" alt="" />
-                    </div>
-                    <div className={styles.primaryFooterPosition}>
-                      <div className={styles.primaryName}>Sundar pichai</div>
-                      <div className={styles.primaryPosition}>
-                        CEO at Salvo Agency
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.mobileSecondaryNews}>
-                <div className={styles.firstChild}>
-                  <NewsCard
-                  imgSrc={} />
-                </div>
-                <NewsCard
-                imgSrc={} />
-              </div>
-              <div className={styles.mobileSecondaryNews}>
-                <div className={styles.firstChild}>
-                  <NewsCard
-                  imgSrc={} />
-                </div>
-                <NewsCard
-                imgSrc={} />
-              </div>
-              <div className=.newsAndEventSeeMore}>
-                <p>See more</p>
-                <RightArrow color="#0072EF" />
-              </div>
-            </div>
-          </div> */}
-        {/* </div> */}
-
         <section className={styles.newsAndEvents}>
           <div className={styles.newsHeader}>
             <h5>News, Events And Insights For You</h5>
@@ -717,8 +607,9 @@ export default function Home() {
                       src={ProfileImage}
                       className={styles.profileImage}
                       alt="profile image"
-                      width="37"
-                      height="37"
+                      width="20"
+                      height="20"
+                      layout="responsive"
                     />
                     <div className={styles.contact}>
                       <p>Babatunde Amotekun</p>

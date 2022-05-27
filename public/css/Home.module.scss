@@ -1152,7 +1152,7 @@
 .newsAndEvents {
   // border: 1px solid red;
   background-color: #f5f5f5;
-  padding: 1rem 24px;
+  padding: 0 24px 1rem 24px;
   padding-bottom: 108px;
   .newsHeader,
   .seeMore {
@@ -1172,14 +1172,16 @@
     text-align: center;
     font-weight: 700;
     margin-bottom: 32px;
+    margin-top: 72px;
     @media (min-width: 1440px) {
       margin-bottom: unset;
+      margin-top: unset;
     }
   }
 
   .seeMore {
     display: none;
-    @media (min-width: 1400px) {
+    @media (min-width: 1440px) {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1197,7 +1199,7 @@
     max-width: 1100px;
     margin: 0 auto;
     transition: all 0.2s;
-    @media (min-width: 1400px) {
+    @media (min-width: 1440px) {
       justify-content: space-between;
       align-items: center;
       padding-top: 85px;
@@ -1330,18 +1332,8 @@
   }
   .parentCard {
     .profileAndCard {
-      //HERE
-      // @media (min-width: 768px) {
-      //   display: flex;
-      //   // margin: 0 auto;
-      //   // max-width: 900px;
-      //   // justify-content: space-evenly;
-      //   display: grid;
-      //   margin-bottom: 1rem;
-      //   // max-height: 280px;
-      //   grid-template-columns: repeat(3, minmax(170px, 350px));
-      // }
-      // border: 1px solid blue;
+      padding: 0 2rem;
+      transition: padding 0.2;
       .newsFront {
         display: flex;
         flex-direction: column;
@@ -1396,6 +1388,10 @@
           height: 100%;
         }
       }
+
+      @media (min-width: 386px) {
+        padding: unset;
+      }
     }
 
     .profileCard {
@@ -1417,9 +1413,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        // & > div {
+        //   max-height: 37px;
+        //   max-width: 37px;
+        // }
         img {
-          width: 20px;
-          height: 50px;
+          // width: 20px;
+          // height: 50px;
           // border: 1px solid red;
 
           @media (min-width: 768px) {
