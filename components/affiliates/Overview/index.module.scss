@@ -2,6 +2,13 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
+%text {
+  font-weight: 400;
+  font-size: 14px;
+  color: colors.$base-gray;
+  white-space: pre-wrap;
+}
+
 .product__overview {
   border: 1px solid colors.$gray-100;
   border-radius: 8px;
@@ -29,9 +36,7 @@
     margin-bottom: 0;
 
     > span[class="ant-typography"] {
-      font-weight: 400;
-      font-size: 14px;
-      color: colors.$base-gray;
+      @extend %text;
     }
   }
 }
@@ -134,9 +139,7 @@
   margin-bottom: 0;
 
   > span[class="ant-typography"] {
-    font-weight: 400;
-    font-size: 14px;
-    color: colors.$base-gray;
+    @extend %text;
   }
 }
 
