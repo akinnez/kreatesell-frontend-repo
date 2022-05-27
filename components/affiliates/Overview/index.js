@@ -1,67 +1,58 @@
 import Image from "next/image";
-import { Typography } from "antd";
+import { Typography, Avatar } from "antd";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import ProductImage from "public/images/checkout-placeholder.png";
-import KreatorImage from "public/images/placeholder-2.jpg";
+import { FaRegUser } from "react-icons/fa";
+import { BsFillImageFill } from "react-icons/bs";
 import styles from "./index.module.scss";
 
 const { Title, Text, Link } = Typography;
+const breakpoint = { xs: 240, sm: 280, md: 280, lg: 280, xl: 280, xxl: 280 };
 
-const Overview = () => {
+const Overview = ({
+  productImage,
+  productName,
+  productDescription,
+  productPrice,
+  productAffiliateCommission,
+  currency,
+  kreatorName,
+  kreatorImage,
+  kreatorBio,
+}) => {
   return (
     <div className={styles.overview__container}>
-      <section className={styles.kreator__overview}>
-        <div className={styles.kreator__overview__title}>
-          <Title level={2}>Kreator</Title>
-        </div>
-        <div className={styles.kreator__overview__image}>
-          <Image
-            alt="Kreator Image"
-            src={KreatorImage}
-            objectFit="cover"
-            className={styles.image}
-          />
-        </div>
-        <div className={styles.kreator__overview__info}>
-          <Title level={3}>Olumide John</Title>
-          <Link>
-            Visit Store&nbsp;&nbsp; <HiOutlineExternalLink />
-          </Link>
-        </div>
-        <div className={styles.kreator__overview__text}>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus
-            feugiat turpis sed fusce in. Pulvinar id enim tellus pharetra diam
-            ac. Bibendum in consectetur amet mi condimentum suspendisse.
-            Pellentes integer aliquet congue at proin adipiscing aliquet. Neque,
-            nunc arcu euismod eget proin est volutpat, vestibulum nibh.{" "}
-          </p>
-        </div>
-      </section>
       <section className={styles.product__overview}>
         <div className={styles.product__overview__img}>
-          <Image src={ProductImage} alt="Product Image" objectFit="cover" />
+          {productImage ? (
+            <Image
+              src={productImage}
+              alt={productName}
+              layout="fill"
+              objectFit="cover"
+              className={styles.product_image}
+              priority
+            />
+          ) : (
+            <div className={styles.empty_image_Banner}>
+              <BsFillImageFill />
+            </div>
+          )}
         </div>
-        <Title level={2}>The Land Of Hope</Title>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus
-          feugiat turpis sed fusce in. Pulvinar id enim tellus pharetra diam ac.
-          Bibendum in consectetur amet mi condimentum suspendisse. Pellentes
-          integer aliquet congue at proin adipiscing aliquet. Neque, nunc arcu
-          euismod eget proin est volutpat, vestibulum nibh. Pharetra lectus
-          semper tellus condimentum risus, tortor pulvinar nullam senectus.
-          Dignissim malesuada eu, aliquam enim ultrices neque, eget nibh. At
-          adipiscing congue bibendum at. Viverra justo, viverra dictum risus
-          lacus nullam pharetra lacus. Aliquet feugiat magna proin elementum
-          mauris. Duis vulputate ante magna tellus.
-        </p>
+        <div className={styles.product__overview__info}>
+          <Title level={2}>{productName}</Title>
+          <p>
+            <Text>{productDescription}</Text>
+          </p>
+        </div>
         <div className={styles.product__overview__stats}>
           <div>
             <p>
               <Text strong>Sales Price:</Text>
             </p>
             <p>
-              <Text>NGN 4,565.97</Text>
+              <Text>
+                {currency} {productPrice}
+              </Text>
             </p>
           </div>
           <div>
@@ -77,9 +68,42 @@ const Overview = () => {
               <Text strong>Commission (%):</Text>
             </p>
             <p>
-              <Text>47%</Text>
+              <Text>{productAffiliateCommission}%</Text>
             </p>
           </div>
+        </div>
+      </section>
+      <section className={styles.kreator__overview}>
+        <div className={styles.kreator__overview__title}>
+          <Title level={2}>Kreator</Title>
+        </div>
+        <div className={styles.kreator__overview__image}>
+          {kreatorImage ? (
+            <Avatar
+              className={styles.image}
+              shape="square"
+              size={breakpoint}
+              src={<Image src={kreatorImage} layout="fill" alt={kreatorName} />}
+            />
+          ) : (
+            <Avatar
+              className={`${styles.image} ${styles.bg__color}`}
+              shape="square"
+              size={breakpoint}
+              icon={<FaRegUser />}
+            />
+          )}
+        </div>
+        <div className={styles.kreator__overview__info}>
+          <Title level={3}>{kreatorName}</Title>
+          <Link>
+            Visit Store&nbsp;&nbsp; <HiOutlineExternalLink />
+          </Link>
+        </div>
+        <div className={styles.kreator__overview__text}>
+          <p>
+            <Text>{kreatorBio}</Text>
+          </p>
         </div>
       </section>
     </div>
