@@ -41,7 +41,7 @@ export const ForgotPasswordForm = () => {
         className={styles.container}
       >
         <Input
-          label="Email or Phone number"
+          label="Email"
           name="username"
           placeholder="Enter your Email "
           onChange={formik.handleChange}
