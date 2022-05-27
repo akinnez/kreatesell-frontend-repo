@@ -42,7 +42,7 @@ const AffiliateRequests = () => {
 
     if (status !== "All") url.searchParams.set("Status", status);
     if (requestDate) url.searchParams.set("Launch_Date", requestDate);
-    if (affiliateName) url.searchParams.set("Affiliate_Name", affiliateName);
+    if (affiliateName) url.searchParams.set("Kreator_Name", affiliateName);
     if (productName) url.searchParams.set("Product_Name", productName);
     if (productType) url.searchParams.set("Product_Type", productType);
 
