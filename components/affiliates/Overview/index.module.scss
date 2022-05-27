@@ -2,74 +2,53 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.kreator__overview {
-  border: 1px solid colors.$gray-100;
-  border-radius: 8px;
-  padding: 20px 50px;
-}
-
-.kreator__overview__title {
-  text-align: center;
-  background-color: colors.$base-green-300;
-  margin-bottom: 20px;
-
-  h2 {
-    margin-bottom: 0;
-  }
-}
-
-.kreator__overview__image {
-  margin: 0 auto 20px;
-  max-width: 100%;
-  height: 350px;
-  overflow: hidden;
-}
-
-.kreator__overview__info {
-  margin-bottom: 20px;
-
-  h3 {
-    color: colors.$base-gray;
-    font-size: 28px;
-    margin-bottom: 8px;
-  }
-
-  a {
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 8px;
-    padding: 4px;
-    background-color: colors.$base-green-300;
-    color: colors.$base-blue;
-    font-size: 16px;
-  }
-
-  svg {
-    display: inline;
-    font-size: 16px;
-  }
-}
-
 .product__overview {
   border: 1px solid colors.$gray-100;
   border-radius: 8px;
   padding: 20px;
+  margin-bottom: 50px;
 }
 
 .product__overview__img {
   margin-bottom: 25px;
   height: 350px;
   overflow: hidden;
+  border-radius: 8px;
+}
 
-  + h2 {
+.product__overview__info {
+  margin-bottom: 40px;
+
+  > h2 {
     margin-bottom: 25px;
+    font-size: 28px;
     color: colors.$black-100;
   }
 
-  ~ p {
-    margin-bottom: 40px;
+  > p {
+    margin-bottom: 0;
+
+    > span[class="ant-typography"] {
+      font-weight: 400;
+      font-size: 14px;
+      color: colors.$base-gray;
+    }
   }
+}
+
+.empty_image_Banner {
+  @include mixins.flex(row, center, center);
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+
+  svg {
+    font-size: 40px;
+    color: #808080;
+  }
+}
+
+.product_image {
+  height: 100%;
 }
 
 .product__overview__stats {
@@ -90,43 +69,91 @@
   }
 }
 
+.kreator__overview {
+  border: 1px solid colors.$gray-100;
+  border-radius: 8px;
+  padding: 20px 10px;
+}
+
+.kreator__overview__title {
+  text-align: center;
+  background-color: colors.$base-green-300;
+  margin-bottom: 20px;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.kreator__overview__image {
+  @include mixins.flex(row, center, flex-start);
+  margin-bottom: 20px;
+}
+
 .image {
   border-radius: 8px;
 }
 
-.kreator__overview__text > p,
-.product__overview__img ~ p {
-  color: colors.$base-gray;
+.bg__color {
+  @include mixins.flex(row, center, center);
+  background-color: rgba(0, 0, 0, 0.05);
+
+  svg {
+    font-size: 45px;
+    color: #808080;
+  }
 }
 
-@include screens.minScreen("medium-large") {
-  .kreator__overview {
-    margin-bottom: 50px;
+.kreator__overview__info {
+  margin-bottom: 20px;
+
+  h3 {
+    color: colors.$base-gray;
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  a {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4px;
+    background-color: colors.$base-green-300;
+    color: colors.$base-blue;
+    font-size: 16px;
+
+    > svg {
+      display: inline;
+      font-size: 16px;
+    }
+  }
+}
+
+.kreator__overview__text p {
+  margin-bottom: 0;
+
+  > span[class="ant-typography"] {
+    font-weight: 400;
+    font-size: 14px;
+    color: colors.$base-gray;
   }
 }
 
 @include screens.minScreen("x-large") {
   .overview__container {
     display: grid;
-    grid-template-areas: "product product kreator";
+    grid-template-columns: auto auto 370px;
     column-gap: 50px;
   }
 
-  .kreator__overview {
-    grid-area: kreator;
-    margin-bottom: 0;
-  }
-
   .product__overview {
-    grid-area: product;
+    margin-bottom: 0;
+    grid-column: 1 / 3;
   }
-}
 
-@include screens.screen("medium-large") {
   .kreator__overview {
-    background-color: #fff;
-    padding: 20px 40px;
-    width: 90%;
-    margin: 0 auto 50px;
+    grid-column: 3 / 4;
+    padding: 20px 50px;
   }
 }
