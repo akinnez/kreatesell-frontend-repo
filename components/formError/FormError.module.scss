@@ -3,7 +3,7 @@
 
 .error {
   @include flex(row, null, center);
-  height: 3rem;
+  // height: 3rem;
   background: $form-error-bg;
   opacity: 0.6;
   margin-bottom: 1.1rem;
@@ -15,7 +15,10 @@
     font-size: 0.875rem;
     line-height: 1.5rem;
     margin: auto 0;
-    padding-left: 1rem;
+    // padding-left: 1rem;
+    // text-align: left;
     color: $wine-100;
+    padding: 15px;
+    // padding-right: unset;
   }
 }
