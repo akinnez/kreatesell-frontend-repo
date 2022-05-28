@@ -11,6 +11,10 @@
 .nav_left {
   @include mixins.flex(row, flex-start, center);
 }
+.edit{
+  @include mixins.flex(row, null, center);
+  gap: 10px !important;
+}
 
 .mobileMenu {
   @include mixins.flex(row, flex-start, center);
