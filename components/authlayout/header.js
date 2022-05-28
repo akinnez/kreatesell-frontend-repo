@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 import { Layout, Menu, Button, Dropdown } from "antd";
-import { MdOutlineMenu } from "react-icons/md";
+import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
 import { Logout, GetNotifications } from "../../redux/actions";
-import { PageDot, ProfileIcon, Cog, Bell } from "../IconPack";
+import { PageDot, ProfileIcon, Cog, Bell, EditPen2, LogoutIcon2} from "../IconPack";
 import { _getMyStoreDetails } from "utils";
 import { MobileLogo } from "./logo";
 import { NotificationDropdown } from "components/notification/Dropdown";
 import style from "./Header.module.scss";
 
-const Profile = ({ name }) => {
+const Profile = ({ name, avi }) => {
   return (
     <>
       <div className="profile-wrapper">
@@ -20,7 +21,7 @@ const Profile = ({ name }) => {
           <p>Account</p>
         </div>
         <div className="profile">
-          <ProfileIcon />
+          {avi ? <Image src={avi} width={"100%"} height={"100%"} objectFit="cover"/> :<ProfileIcon />}
         </div>
       </div>
       <style jsx>{`
@@ -65,12 +66,16 @@ const menu = logout => (
   <Menu>
     <Menu.Item key="prof-1">
       <Link href="/account/kreator/store/edit">
-        <a>Profile</a>
+      
+      <a className={style.edit}><EditPen2 />Edit Profile</a>
       </Link>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="prof-2" onClick={() => logout()}>
-      Logout
+    <a className={style.edit}>
+      <MdOutlineLogout />
+       Logout
+    </a>
     </Menu.Item>
   </Menu>
 );
@@ -82,7 +87,8 @@ const Nav = ({ headerTitle }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const { pathname } = useRouter();
-  const store = _getMyStoreDetails();
+  const [store] = useState(_getMyStoreDetails())
+  // const store = _getMyStoreDetails();
 
   const { notifications } = useSelector(state => state.notification);
 
@@ -132,7 +138,7 @@ const Nav = ({ headerTitle }) => {
           </Button>
           <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
             <Button type="text">
-              <Profile name={info?.full_name} />
+              <Profile name={info?.full_name} avi={info?.business_logo} />
             </Button>
           </Dropdown>
         </div>
