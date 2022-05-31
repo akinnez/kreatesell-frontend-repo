@@ -19,30 +19,19 @@ const HowItWorks = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <Layout subFooter={true} defaultMarginTop={true}>
+    <Layout subFooter={false} defaultMarginTop={true}>
       <div className={styles.container}>
         <div className={styles.hero}>
-          <h2 className={styles.main}>
-            Just Upload It. Make Money From It.
-          </h2>
-          <h2
-            className={styles.mobileHeader}
-            
-          >
+          <h2 className={styles.main}>Just Upload It. Make Money From It.</h2>
+          <h2 className={styles.mobileHeader}>
             Just Upload It. Make <br /> Money From It.
           </h2>
 
-          <p
-            className={styles.subtitle}
-           
-          >
+          <p className={styles.subtitle}>
             A Smarter and Better way of making money from your <br /> Digital
             Content.
           </p>
-          <p
-            className={styles.mobileSubtitle}
-           
-          >
+          <p className={styles.mobileSubtitle}>
             A Smarter and Better way of making money from your Digital Content.
           </p>
 
@@ -181,10 +170,7 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div
-          className={styles.spiral}
-          {...Animate("fade-down", 200, "linear")}
-        >
+        <div className={styles.spiral} {...Animate("fade-down", 200, "linear")}>
           <Image
             src={RightSpiral}
             height="150"
@@ -238,10 +224,7 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div
-          className={styles.spiral}
-          {...Animate("fade-down", 200, "linear")}
-        >
+        <div className={styles.spiral} {...Animate("fade-down", 200, "linear")}>
           <Image
             src={LeftSpiral}
             height="150"
@@ -298,10 +281,7 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div
-          className={styles.spiral}
-          {...Animate("fade-down", 300, "linear")}
-        >
+        <div className={styles.spiral} {...Animate("fade-down", 300, "linear")}>
           <Image
             src={RightSpiral}
             height="150"
