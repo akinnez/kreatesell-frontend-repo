@@ -139,6 +139,7 @@ import NewsCardThree from "../public/images/card-three.svg";
 import NewsCardFour from "../public/images/card-four.svg";
 import CardMain from "../public/images/card-main.svg";
 import ProfileImage from "../public/images/profile-image.svg";
+import EditIcon from "../public/images/icons/EditIcon.svg";
 
 export {
   ProfileImage,
@@ -282,4 +283,5 @@ export {
   tick,
   UserImage,
   SellFeature,
+  EditIcon
 };
