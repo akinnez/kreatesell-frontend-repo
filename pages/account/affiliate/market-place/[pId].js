@@ -87,16 +87,15 @@ const AffiliateProductRequest = () => {
         </TabPane>
         <TabPane tab="Overview" key="2">
           <Overview
-            productImage={product.affiliate_kreator_product.product_image}
+            productImages={product.kreator_product_files}
             productName={product.affiliate_kreator_product.product_name}
             productDescription={
               product.affiliate_kreator_product.product_description
             }
-            productPrice={product.affiliate_kreator_product.product_price}
+            productPriceDetails={product.kreator_product_price_details}
             productAffiliateCommission={
               product.affiliate_kreator_product.affiliate_percentage_on_sales
             }
-            currency={product.affiliate_kreator_product.currency}
             kreatorName={product.kreator_user_details.full_name}
             kreatorImage={product.kreator_user_details.profile_image}
             kreatorBio={product.kreator_user_details.store_description}

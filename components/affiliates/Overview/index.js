@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Image from "next/image";
 import { Typography, Avatar } from "antd";
 import { HiOutlineExternalLink } from "react-icons/hi";
@@ -9,16 +10,34 @@ const { Title, Text, Link } = Typography;
 const breakpoint = { xs: 240, sm: 280, md: 280, lg: 280, xl: 280, xxl: 280 };
 
 const Overview = ({
-  productImage,
+  productImages,
   productName,
   productDescription,
-  productPrice,
+  productPriceDetails,
   productAffiliateCommission,
-  currency,
   kreatorName,
   kreatorImage,
   kreatorBio,
 }) => {
+  const productImage = useMemo(() => {
+    if (productImages.length === 0) return null;
+
+    return productImages
+      .filter(images => images.file_type !== 4)
+      .map(item => item.filename.split(",")[0])[0];
+  }, [productImages]);
+
+  const productPrice = useMemo(() => {
+    if (productPriceDetails.length === 0) return null;
+
+    const details = productPriceDetails[0];
+    return {
+      currency: details.currency_name,
+      price: details.price,
+      commission: (productAffiliateCommission / 100) * details.price,
+    };
+  }, [productPriceDetails, productAffiliateCommission]);
+
   return (
     <div className={styles.overview__container}>
       <section className={styles.product__overview}>
@@ -51,7 +70,13 @@ const Overview = ({
             </p>
             <p>
               <Text>
-                {currency} {productPrice}
+                {productPrice ? (
+                  <>
+                    {productPrice.currency} {productPrice.price.toFixed(2)}
+                  </>
+                ) : (
+                  "0.00"
+                )}
               </Text>
             </p>
           </div>
@@ -60,7 +85,15 @@ const Overview = ({
               <Text strong>Commission:</Text>
             </p>
             <p>
-              <Text>NGN 234,533.33</Text>
+              <Text>
+                {productPrice ? (
+                  <>
+                    {productPrice.currency} {productPrice.commission.toFixed(2)}
+                  </>
+                ) : (
+                  "0.00"
+                )}
+              </Text>
             </p>
           </div>
           <div>
