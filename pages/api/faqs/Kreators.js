@@ -1,29 +1,38 @@
 export const questions = [
     {
         question: "What is Kreatesell?", 
-        answer:`Kreatesell is an easy-to-use, cross-border education technology (edtech) SaaS platform that enables content kreators and digital entrepreneurs to upload their digital products for the fastest and easiest sales. With KreateSell, you can convert your audience into buying customers without going through the stress of learning many sales funnels that may be complex to use. Also, you instantly get paid from anywhere in the world conveniently. See more about how it works
-        Kreatesell is solving the major problems that Kreators face while selling online including having no means to receive payment in foreign currency. With Kreatesell, this is no longer a barrier because buyers can now pay in their local currency and Kreators can receive the money seamlessly in their local currencies without going through the stress of trying to exchange currencies using third-party platforms.
+        answer:`
+        Kreatesell is an easy-to-use, cross-border education technology (edtech) SaaS platform that enables content kreators and digital entrepreneurs to upload their digital products for the fastest and easiest sales. With KreateSell, you can convert your audience into buying customers without going through the stress of learning many sales funnels that may be complex to use. Also, you instantly get paid from anywhere in the world conveniently. See more about <a href="/how-it-works">how it works</a>.<br/><br/>
+        Kreatesell is solving the major problems that Kreators face while selling online including having no means to receive payment in foreign currency. With Kreatesell, this is no longer a barrier because buyers can now pay in their local currency and Kreators can receive the money seamlessly in their local currencies without going through the stress of trying to exchange currencies using third-party platforms.<br/><br/>
         On Kreatesell, you have access to a large number of affiliates ready to promote your product to potential buyers with a preset commission fee of your choice. Also, you do not have to go through the stress of manual delivery of your digital product, your delivery process is automated for you. Your customer receives the product immediately after payment is confirmed.
         `
     },
     {
         question: "Why should I use KreateSell?", 
         answer:`We know that you might be thinking “there are many platforms like Kreatesell, why do I have to use yours?” Or you might already be using another platform to sell your digital product. What if we show you that Kreatesell is much more than an e-commerce platform or checkout platform.
-
+        <br/><br/>
         Kreatesell is a SaaS platform that helps you sell your digital products automatically to anyone, no matter where they are in the world, with no worries about differences in currency. Buyers can pay in any currency of their choice including their local currency or cryptocurrency, while you receive it in your preferred local currency, into your Kreatesell wallet then your local bank account or mobile money wallet. You also have access to a large number of affiliates to push your product to potential customers with a commission set by you. 
+        <br/><br/>
         
         You have access to preset sales page templates on Kreatesell. You can create a sales page that sells more while you do less in this all-in-one Kreatesell platform. You do not need to spend money that you should save to hire developers, designers, graphic designers, copywriters, etc. Neither do you need tech skills. Everything you need has been done for you, just drag and drop.
+        <br/><br/>
         
-        So, now that you see the extra value you would be getting, don’t you think signing up as a User to become a Kreatesell Kreator for free is the best decision you can make? Sign up today!`
+        So, now that you see the extra value you would be getting, don't you think signing up as a User to become a Kreatesell Kreator for free is the best decision you can make? <a href="/signup">Sign up today<a>!
+      `  
     },
     {
         question: "How much does it cost to use KreateSell?", 
-        answer:`It is absolutely free to sign up, set up a store and start selling on Kreatesell. There are no setup fees whatsoever and listing a product for sale is also always free on Kreatesell. As a Kreator, you will only pay a small fee (transaction fee) whenever a sale is made, that is, you’ll only pay for results. 
-        Also, if you wish to access more advanced features on Kreatesell, you can do so by signing up for the affordable business plan. Payment is on a subscription basis. You can sign up for a monthly payment plan or the cheaper annual payment plan. Read more about this on the pricing page`
+        answer:`
+            It is absolutely free to sign up, set up a store and start selling on Kreatesell. There are no setup fees whatsoever and listing a product for sale is also always free on Kreatesell. As a Kreator, you will only pay a small fee (transaction fee) whenever a sale is made, that is, you'll only pay for results. 
+            <br/><br/>
+            Also, if you wish to access more advanced features on Kreatesell, you can do so by signing up for the affordable business plan. Payment is on a subscription basis. You can sign up for a monthly payment plan or the cheaper annual payment plan. Read more about this on <a href="/pricing">the pricing page</a>.
+        `
     },
     {
         question: "Do I need to know about tech to use Kreatesell?", 
-        answer:`The good thing about using Kreatesell is that you do not need to be tech-inclined or have tech skills to start making massive sales. Everything has been done for you. All you need to do is to drag and drop. `
+        answer:`The good thing about using Kreatesell is that you do not need to be tech-inclined or have tech skills to start making massive sales. Everything has been done for you. All you need to do is to drag and drop. 
+        
+        `
     },
     {
         question: "Do I need coding skills to use Kreatesell?", 
@@ -31,17 +40,23 @@ export const questions = [
     },
     {
         question: "After Creating my account, what next?", 
-        answer:`After creating an account as a User on Kreatesell, you would get an account verification prompt on your registered email address. Open and verify your account using the link sent. After verifying your account, it would be activated and you would be redirected to set up your store.
-        The next step is to set up your store details. Then you can upload your digital product, set up a sales page that can turn your visitors into paying customers and start selling.         
+        answer:`
+        After creating an account as a User on Kreatesell, you would get an account verification prompt on your registered email address. Open and verify your account using the link sent. After verifying your account, it would be activated and you would be redirected to set up your store.
+        <br/><br/>
+        The next step is to set up your store details. Then you can upload your digital product, set up a sales page that can turn your visitors into paying customers and start selling.
+        <br/><br/>
         Remember to make your store intriguing and compelling to push buyers to buy your products without any objection.
+        <br/><br/>
         To upload your product, navigate to the product upload section. Remember to make your prices attractive to buyers, you can also make use of coupon giveaways to get them to buy. There are tons of automation options to choose from, to automate your processes and make life easier for you.
-        After inputting all the important information, you can publish your product to go live and start selling immediately.
+        <br/><br/>
+        After inputting all the important information, you can publish your product to go live and start selling immediately. 
+        
         `
     },
     {
         question: "Can you show me a video on how to use this site?", 
         answer:`Yes! We can. We have broken down the step 
-        by step process of using Kreatesell in this demonstration video. Click to check it out for free!
+        by step process of using Kreatesell in this <a href="">demonstration video.</a> Click to check it out for free!
         `
     },
     {
@@ -68,12 +83,15 @@ export const questions = [
     },
     {
         question: "Can I use my favourite tools in Kreatesell?", 
-        answer: `Good news! We have integrated the best sales and marketing tools you can find on the internet for you to use stress-free on Kreatesell. From email marketing to Webinars, to payment tools, name it! Our affordable business plan has much more integrations than the free basic plan. Check out the integrated tools here.`
+        answer: `Good news! We have integrated the best sales and marketing tools you can find on the internet for you to use stress-free on Kreatesell. From email marketing to Webinars, to payment tools, name it! Our affordable business plan has much more integrations than the free basic plan. Check out the integrated tools <a>here</a>.`
     },
     {
         question: "As a Kreator, how do I pay Affiliates?", 
-        answer: `Affiliates help promote your product to bring in more buyers while you pay them a commission fee set by you. Yes! You are in full control of deciding how much money to pay an affiliate using a percentage of your product’s price. But, we advise that you set a reasonable commission to attract affiliates and make more sales. The affiliate commission is usually a percentage of your product’s price. You set it while setting up your product on your Kreatesell store.  
+        answer: `
+        Affiliates help promote your product to bring in more buyers while you pay them a commission fee set by you. Yes! You are in full control of deciding how much money to pay an affiliate using a percentage of your product’s price. But, we advise that you set a reasonable commission to attract affiliates and make more sales. The affiliate commission is usually a percentage of your product’s price. You set it while setting up your product on your Kreatesell store.  
+        <br/> <br/>
         The process of link generation when you approve an affiliate, as well as their commission payment are all automated for you on Kreatesell.
+        
         `
     },
     {
@@ -82,9 +100,13 @@ export const questions = [
     },
     {
         question: "How can my customers make payments?", 
-        answer: `Kreatesell has solved the problem of the cross border currency barrier. Your customers can now pay in any of the currencies supported on Kreatesell including Nigerian Naira (NGN), United States dollar (USD), Liberian Dollar (LRD), Ghanaian cedi (GHS), Kenya Shilling (KES), South African rand (ZAR), Tanzanian shilling (TZS), British pound sterling (GBP), Sierra Leonean Leone (SLL), Ugandan shilling (UGX), Malawian Kwacha (MWK), Gambian dalasi (GMD), West African CFA franc (XOF) and Central African CFA franc (XAF). 
-        Kreatesell also supports payments with cryptocurrencies. The cryptocurrencies supported include Bitcoin (BTC), Ethereum (ETH), Bitcoin Cash (BCH), Aave (AAVE), Cardano (ADA), USD Coin (USDC), Dash (DASH), Dogecoin (DOGE), Litecoin (LTC), Uniswap (UNI), and Tether (USDT).        
+        answer: `
+        Kreatesell has solved the problem of the cross border currency barrier. Your customers can now pay in any of the currencies supported on Kreatesell including Nigerian Naira (NGN), United States dollar (USD), Liberian Dollar (LRD), Ghanaian cedi (GHS), Kenya Shilling (KES), South African rand (ZAR), Tanzanian shilling (TZS), British pound sterling (GBP), Sierra Leonean Leone (SLL), Ugandan shilling (UGX), Malawian Kwacha (MWK), Gambian dalasi (GMD), West African CFA franc (XOF) and Central African CFA franc (XAF). 
+        <br/><br/>
+        Kreatesell also supports payments with cryptocurrencies. The cryptocurrencies supported include Bitcoin (BTC), Ethereum (ETH), Bitcoin Cash (BCH), Aave (AAVE), Cardano (ADA), USD Coin (USDC), Dash (DASH), Dogecoin (DOGE), Litecoin (LTC), Uniswap (UNI), and Tether (USDT).
+        <br/><br/>
         Kreatesell has a wide range of payment options. Your customers can pay through USSD, Bank Transfer, Bank Card, QR Code, Cryptocurrency etc. And you get your payment converted to your local currency for you with no stress at all.
+        
         `
     },
     {
@@ -99,7 +121,7 @@ export const questions = [
     },
     {
         question: "How do I notify you if my product gets pirated?", 
-        answer: `To report cases of piracy, reach out to us via our support channels including live chat and support email: business@kreatesell.com
+        answer: `To report cases of piracy, reach out to us via our support channels including live chat and support email: <a href="mailto:business@kreatesell.com">business@kreatesell.com</a>
         `
     },
     {
@@ -148,8 +170,9 @@ export const questions = [
     },
     {
         question: "Can I attract new affiliates to my product?", 
-        answer: `Yes! Once your product is listed in the Kreatesell product marketplace, it would be visible to all affiliate users on the platform. To attract affiliates to promote your product in the competitive marketplace, we advise that you set attractive affiliate commissions. Also, provide promotional materials while setting up your product.
-
+        answer: `
+        Yes! Once your product is listed in the Kreatesell product marketplace, it would be visible to all affiliate users on the platform. To attract affiliates to promote your product in the competitive marketplace, we advise that you set attractive affiliate commissions. Also, provide promotional materials while setting up your product.
+        <br/><br/>
         If you know influencers or affiliates who are not on Kreatesell, you can invite them to sign up on Kreatesell. You can also earn an affiliate commission from Kreatesell if you request to be an affiliate for our affordable business plan and get users to sign up for our paid business plan using your unique referral link.
         `
     },
@@ -163,11 +186,11 @@ export const questions = [
         <li>Sell in any supported currency including cryptocurrency</li>
         <li>Access to one follow up email sent on your behalf to buyers who did not complete the buying process</li>
         <li>Add watermarks to your downloadable digital product to protect it from copyright infringement</li>
-        <li>Track your customer’s /buyer’s journey by adding pixels to your sales page so that your adverts can be more targeted and specific</li>
+        <li>Track your customer's /buyer's journey by adding pixels to your sales page so that your adverts can be more targeted and specific</li>
         <li>Get notified immediately every time a buyer purchases your product</li>
-        <li>Once a buyer purchases your product using an affiliate’s link, the affiliate automatically receives the set commission without any stress on you </li>
+        <li>Once a buyer purchases your product using an affiliate's link, the affiliate automatically receives the set commission without any stress on you </li>
         <li>Storage space of up to 500Mb under the free plan</li>
-        <li>Customise the Call to action (CTA) message on your sales page’s checkout button</li>
+        <li>Customise the Call to action (CTA) message on your sales page's checkout button</li>
         <li>Restrict the number of times a customer downloads your digital product after buying</li>
         <li>Brand your Kreatesell profile to be unique to you in terms of colour, logo and bio. You can make it uniform with your social media profiles for consistency.</li>
         </ul>

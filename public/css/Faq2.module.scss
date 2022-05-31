@@ -20,7 +20,9 @@
 		width: 100%;
 		display: flex;
 		padding-bottom: 4rem;
-
+        @include screen("tablet") {
+            margin-bottom: 5px;
+        }
 		.heroText2 {
 			width: 70%;
 			h3 {
@@ -49,6 +51,7 @@
 		@include screen("tablet") {
 			flex-direction: column;
 			text-align: center;
+            align-items: center;
 			.heroText {
 				width: 100%;
 				h3 {
@@ -59,8 +62,11 @@
 					opacity: 0.8;
 				}
 			}
-			.heroImage {
+			.heroImage2 {
 				width: 100%;
+                @include screen("tablet") {
+                    display: none;
+                }
 			}
 		}
 	}
@@ -70,9 +76,7 @@
         margin-right: 5rem;
         padding: 1.125rem 0 1.125rem 1.5rem;
         border-radius: 0.5rem;
-        @include screen("tablet") {
-            display: none;
-        }
+        
 
         h3 {
             font-weight: 600;
@@ -106,6 +110,12 @@
     padding-bottom: 5rem;
     background-color: #fff;
     // border: 1px solid;
+    @include screen("tablet") {
+        padding: 0rem 1.5rem;
+    }
+    @include screen("medium") {
+		padding: 0rem 3rem;
+	}
 
     
         .groupQuestions2 {
