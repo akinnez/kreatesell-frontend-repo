@@ -28,8 +28,7 @@ const HowItWorks = () => {
           </h2>
 
           <p className={styles.subtitle}>
-            A Smarter and Better way of making money from your <br /> Digital
-            Content.
+            A Smarter and Better way of making money from your Digital Content.
           </p>
           <p className={styles.mobileSubtitle}>
             A Smarter and Better way of making money from your Digital Content.
