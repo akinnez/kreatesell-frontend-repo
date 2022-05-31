@@ -9,7 +9,10 @@ export const SignupSchema = () => {
       .max(11, "Password must have six to eleven characters"),
     FullName: Yup.string()
       .required("Please enter your full name")
-      .matches(/^[a-zA-Z]+$/g, "Full name cannot contain digits"),
+      .matches(
+        /^[a-zA-Z]+$/g,
+        "Unsupported character. This field only accepts alphabets."
+      ),
     phoneNo: Yup.string()
       .required("Phone number is required")
       .matches(/^[0-9]+$/, "Phone number can only be digits")
