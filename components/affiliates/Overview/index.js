@@ -75,7 +75,7 @@ const Overview = ({
                     {productPrice.currency} {productPrice.price.toFixed(2)}
                   </>
                 ) : (
-                  <>{(0).toFixed(2)}</>
+                  "0.00"
                 )}
               </Text>
             </p>
@@ -91,7 +91,7 @@ const Overview = ({
                     {productPrice.currency} {productPrice.commission.toFixed(2)}
                   </>
                 ) : (
-                  <>{(0).toFixed(2)}</>
+                  "0.00"
                 )}
               </Text>
             </p>
