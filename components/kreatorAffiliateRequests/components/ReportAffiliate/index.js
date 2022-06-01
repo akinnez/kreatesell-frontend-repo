@@ -16,7 +16,12 @@ const maxSize = 2 * 1024 * 1024;
 const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
 const limit = 5;
 
-const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
+const ReportAffiliate = ({
+  report,
+  hideReport,
+  affiliateId,
+  updateReported,
+}) => {
   const [images, setImages] = useState([]);
   const inputElement = useRef();
 
@@ -58,6 +63,7 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
       "post",
       `${process.env.BASE_URL}v1/kreatesell/product/report/affiliate`,
       res => {
+        updateReported(affiliateId);
         showToast(res.message, "success");
         hideReport();
       },

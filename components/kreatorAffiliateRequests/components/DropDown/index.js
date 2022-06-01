@@ -7,12 +7,12 @@ import DeclineImg from "public/images/decline_icon.png";
 import RevokeImg from "public/images/revoke_icon.png";
 import styles from "./index.module.scss";
 
-const menu = (record, updateRequest) => {
-  const request = handleRequest(record, updateRequest);
+const menu = (record, updateStatus) => {
+  const request = handleRequest(record, updateStatus);
 
   const handleApprove = () => {
     request({
-      status: "Approved",
+      status: "approve",
       title: "Approve",
       content: `Are you sure you want to approve ${record.affiliate_name} to market ${record.product_name}?`,
     });
@@ -20,7 +20,7 @@ const menu = (record, updateRequest) => {
 
   const handleDecline = () => {
     request({
-      status: "Declined",
+      status: "decline",
       title: "Decline",
       content: `Are you sure you want to decline ${record.affiliate_name} from marketing ${record.product_name}?`,
       okButtonProps: {
@@ -31,7 +31,7 @@ const menu = (record, updateRequest) => {
 
   const handleRevoke = () => {
     request({
-      status: "Revoked",
+      status: "revoke",
       title: "Revoke",
       content: `Are you sure you want to revoke ${record.affiliate_name}`,
       okButtonProps: {
@@ -76,10 +76,10 @@ const menu = (record, updateRequest) => {
   );
 };
 
-const DropDown = ({ record, updateRequest }) => {
+const DropDown = ({ record, updateStatus }) => {
   return (
     <Dropdown
-      overlay={menu(record, updateRequest)}
+      overlay={menu(record, updateStatus)}
       placement="bottomRight"
       arrow
     >

@@ -81,10 +81,10 @@ const AffiliateRequests = () => {
     setAffiliateNote(note);
   };
 
-  const updateRequest = (id, status) => {
+  const updateReported = id => {
     const newRequests = requests.map(request => {
-      if (request.id === id) {
-        request.status = status;
+      if (request.affiliate_id === id) {
+        request.affiliate_reported = "true";
         return request;
       }
 
@@ -94,10 +94,23 @@ const AffiliateRequests = () => {
     setRequests(newRequests);
   };
 
-  const columns = tableColumns(showNotesModal, updateRequest, showReportModal);
+  const updateStatus = (id, value) => {
+    const newRequests = requests.map(request => {
+      if (request.id === id) {
+        request.status = value;
+        return request;
+      }
+
+      return request;
+    });
+
+    setRequests(newRequests);
+  };
+
+  const columns = tableColumns(showNotesModal, showReportModal, updateStatus);
 
   return (
-    <AuthLayout>
+    <AuthLayout headerTitle="REQUESTS">
       <Head>
         <title>KreateSell | Kreator&#39;s Affiliate Requests</title>
       </Head>
@@ -154,6 +167,7 @@ const AffiliateRequests = () => {
           report={report}
           hideReport={handleClicks(setReport, false)}
           affiliateId={affiliateId}
+          updateReported={updateReported}
         />
       )}
     </AuthLayout>

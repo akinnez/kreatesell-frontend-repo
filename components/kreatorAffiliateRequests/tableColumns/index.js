@@ -9,7 +9,7 @@ import ReadImg from "public/images/note_read.png";
 import UnreadImg from "public/images/note_unread.png";
 import styles from "./index.module.scss";
 
-const tableColumns = (showNotesModal, updateRequest, showReportModal) => [
+const tableColumns = (showNotesModal, showReportModal, updateStatus) => [
   {
     title: "Affiliate",
     dataIndex: "",
@@ -48,10 +48,10 @@ const tableColumns = (showNotesModal, updateRequest, showReportModal) => [
         shape="circle"
         className={styles.notes__btn}
       >
-        {record.notes_read ? (
-          <Image src={ReadImg} alt="Read Image" />
-        ) : (
+        {record.note_flag === "Unread" ? (
           <Image src={UnreadImg} alt="Unread Image" />
+        ) : (
+          <Image src={ReadImg} alt="Read Image" />
         )}
       </Button>
     ),
@@ -77,7 +77,7 @@ const tableColumns = (showNotesModal, updateRequest, showReportModal) => [
     title: "Request Action",
     dataIndex: "",
     render: (_, record) => (
-      <DropDown record={record} updateRequest={updateRequest} />
+      <DropDown record={record} updateStatus={updateStatus} />
     ),
     width: "140px",
   },

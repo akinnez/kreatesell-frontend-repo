@@ -2,14 +2,19 @@ import { Modal } from "antd";
 import { showToast } from "utils";
 import axiosAPI from "utils/axios";
 
-const handleRequest = (record, updateRequest) => {
+const handleRequest = (record, updateStatus) => {
   return ({ status, title, content, okButtonProps = {} }) => {
     const data = {
       request_status: status,
       request_id: record.id,
       product_id: record.product_id,
       affiliate_id: record.affiliate_id,
-      // reason_for_rejection: "string",
+    };
+
+    const statuses = {
+      approve: "Approved",
+      decline: "Declined",
+      revoke: "Revoked",
     };
 
     Modal.confirm({
@@ -24,7 +29,7 @@ const handleRequest = (record, updateRequest) => {
           `${process.env.BASE_URL}v1/kreatesell/product/permit/affiliates`,
           res => {
             showToast(res.message, "success");
-            updateRequest(record.id, status);
+            updateStatus(record.id, statuses[status]);
           },
           err => {
             showToast(err.message, "error");
