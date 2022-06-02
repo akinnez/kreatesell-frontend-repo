@@ -6,7 +6,7 @@ import DeclineImg from "public/images/decline_icon.png";
 import RevokeImg from "public/images/revoke_icon.png";
 import styles from "./index.module.scss";
 
-const menu = (record, showPermissionsModal) => {
+const menu = (record, showActionModal) => {
   const handler = (status, title) => {
     const data = {
       status,
@@ -18,7 +18,7 @@ const menu = (record, showPermissionsModal) => {
       productId: record.product_id,
     };
 
-    showPermissionsModal(data);
+    showActionModal(data);
   };
 
   return (
@@ -57,10 +57,10 @@ const menu = (record, showPermissionsModal) => {
   );
 };
 
-const DropDown = ({ record, showPermissionsModal }) => {
+const DropDown = ({ record, showActionModal }) => {
   return (
     <Dropdown
-      overlay={menu(record, showPermissionsModal)}
+      overlay={menu(record, showActionModal)}
       placement="bottomRight"
       arrow
     >

@@ -6,9 +6,10 @@ import styles from "./index.module.scss";
 
 const { Title, Text } = Typography;
 
-const PermissionsModal = ({
-  permissions,
-  hidePermissions,
+const ActionModal = ({
+  actionIsVisible,
+  hideAction,
+  updateStatus,
   status,
   title,
   requestId,
@@ -16,7 +17,6 @@ const PermissionsModal = ({
   affiliateId,
   product,
   productId,
-  updateStatus,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -41,11 +41,11 @@ const PermissionsModal = ({
       res => {
         showToast(res.message, "success");
         updateStatus(requestId, statuses[status]);
-        hidePermissions();
+        hideAction();
       },
       err => {
         showToast(err.message, "error");
-        hidePermissions();
+        hideAction();
       },
       data
     );
@@ -56,8 +56,8 @@ const PermissionsModal = ({
       title={null}
       footer={null}
       closable={false}
-      onCancel={hidePermissions}
-      visible={permissions}
+      onCancel={hideAction}
+      visible={actionIsVisible}
     >
       <header className={styles.header}>
         <Title level={4}>
@@ -80,7 +80,7 @@ const PermissionsModal = ({
         </p>
       </section>
       <footer className={styles.footer}>
-        <Button size="large" onClick={hidePermissions}>
+        <Button size="large" onClick={hideAction}>
           Cancel
         </Button>
         <Button
@@ -96,4 +96,4 @@ const PermissionsModal = ({
   );
 };
 
-export default PermissionsModal;
+export default ActionModal;

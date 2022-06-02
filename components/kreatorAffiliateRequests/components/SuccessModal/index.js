@@ -6,12 +6,12 @@ import styles from "./index.module.scss";
 
 const { Text } = Typography;
 
-const SuccessModal = ({ success, hideSuccess }) => (
+const SuccessModal = ({ successIsVisible, hideSuccess }) => (
   <Modal
     title={null}
     footer={null}
     onCancel={hideSuccess}
-    visible={success}
+    visible={successIsVisible}
     closeIcon={<CloseIcon />}
     className={styles.success__modal}
     maskClosable={false}

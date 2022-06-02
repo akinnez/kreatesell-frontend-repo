@@ -9,11 +9,7 @@ import ReadImg from "public/images/note_read.png";
 import UnreadImg from "public/images/note_unread.png";
 import styles from "./index.module.scss";
 
-const tableColumns = (
-  showNotesModal,
-  showReportModal,
-  showPermissionsModal
-) => [
+const tableColumns = (showReportModal, showActionModal, showNoteModal) => [
   {
     title: "Affiliate",
     dataIndex: "",
@@ -48,7 +44,7 @@ const tableColumns = (
     dataIndex: "notes",
     render: (_, record) => (
       <Button
-        onClick={() => showNotesModal(record.notes)}
+        onClick={() => showNoteModal(record.notes)}
         shape="circle"
         className={styles.notes__btn}
       >
@@ -81,7 +77,7 @@ const tableColumns = (
     title: "Request Action",
     dataIndex: "",
     render: (_, record) => (
-      <DropDown record={record} showPermissionsModal={showPermissionsModal} />
+      <DropDown record={record} showActionModal={showActionModal} />
     ),
     width: "140px",
   },

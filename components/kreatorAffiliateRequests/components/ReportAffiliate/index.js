@@ -17,9 +17,9 @@ const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
 const limit = 5;
 
 const ReportAffiliate = ({
-  report,
+  reportIsVisible,
   hideReport,
-  affiliateId,
+  id,
   updateReported,
   showSuccess,
 }) => {
@@ -54,7 +54,7 @@ const ReportAffiliate = ({
 
     const formData = new FormData();
 
-    formData.append("Affiliate_Id", affiliateId);
+    formData.append("Affiliate_Id", id);
     formData.append("Report_Details", values.report_note.trim());
     images.forEach(image => {
       formData.append("Evidence", image);
@@ -64,7 +64,7 @@ const ReportAffiliate = ({
       "post",
       `${process.env.BASE_URL}v1/kreatesell/product/report/affiliate`,
       () => {
-        updateReported(affiliateId);
+        updateReported(id);
         showSuccess();
         hideReport();
       },
@@ -118,7 +118,7 @@ const ReportAffiliate = ({
     <Modal
       title={null}
       footer={null}
-      visible={report}
+      visible={reportIsVisible}
       onCancel={hideReport}
       closeIcon={<CloseIcon />}
       className={styles.modal}

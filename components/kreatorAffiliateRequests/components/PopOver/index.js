@@ -65,15 +65,20 @@ const PopOver = ({ record, showReportModal }) => {
       </section>
       <Divider className={styles.divider} />
       <footer className={styles.footer}>
-        <Button
-          size="large"
-          disabled={reported}
-          danger={reported}
-          onClick={() => showReport(record.affiliate_id)}
-          icon={<AiOutlineStop />}
-        >
-          {reported ? "Reported" : "Report Affiliate"}
-        </Button>
+        {reported ? (
+          <Button size="large" icon={<AiOutlineStop />} disabled>
+            Reported
+          </Button>
+        ) : (
+          <Button
+            size="large"
+            danger
+            onClick={() => showReport(record.affiliate_id)}
+            icon={<AiOutlineStop />}
+          >
+            Report Affiliate
+          </Button>
+        )}
       </footer>
     </div>
   );

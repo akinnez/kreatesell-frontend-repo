@@ -6,7 +6,7 @@ import AuthLayout from "components/authlayout";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
-import PermissionsModal from "components/kreatorAffiliateRequests/components/PermissionsModal";
+import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
 import SuccessModal from "components/kreatorAffiliateRequests/components/SuccessModal";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
 import axiosAPI from "utils/axios";
@@ -23,36 +23,60 @@ const statusArr = [
 ];
 
 const AffiliateRequests = () => {
-  const [notes, setNotes] = useState(false);
-  const [report, setReport] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [permissions, setPermissions] = useState(false);
-  const [requests, setRequests] = useState([]);
-  const [totalRequests, setTotalRequests] = useState(0);
-  const [page, setPage] = useState(1);
-  const [requestDate, setRequestDate] = useState("");
-  const [affiliateName, setAffiliateName] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productType, setProductType] = useState("");
-  const [status, setStatus] = useState("All");
-  const [affiliateId, setAffiliateId] = useState(null);
-  const [affiliateNote, setAffiliateNote] = useState(null);
-  const [permissionsData, setPermissionsData] = useState(null);
   const [uri, setUri] = useState("");
+  const [requests, setRequests] = useState({ data: [], total: 0 });
+  const [successModal, setSuccessModal] = useState(false);
+  const [noteModal, setNoteModal] = useState({ visible: false, note: null });
+  const [reportModal, setReportModal] = useState({ visible: false, id: null });
+
+  const [actionModal, setActionModal] = useState({
+    visible: false,
+    data: null,
+  });
+
+  const [filters, setFilters] = useState({
+    page: 1,
+    status: "All",
+    productName: "",
+    affiliateName: "",
+    productType: "",
+    requestDate: "",
+  });
 
   useEffect(() => {
     let url = new URL(
-      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${page}&Limit=8`
+      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${filters.page}&Limit=8`
     );
 
-    if (status !== "All") url.searchParams.set("Status", status);
-    if (requestDate) url.searchParams.set("Launch_Date", requestDate);
-    if (affiliateName) url.searchParams.set("Kreator_Name", affiliateName);
-    if (productName) url.searchParams.set("Product_Name", productName);
-    if (productType) url.searchParams.set("Product_Type", productType);
+    if (filters.status !== "All") {
+      url.searchParams.set("Status", filters.status);
+    }
+
+    if (filters.requestDate) {
+      url.searchParams.set("Launch_Date", filters.requestDate);
+    }
+
+    if (filters.affiliateName) {
+      url.searchParams.set("Kreator_Name", filters.affiliateName);
+    }
+
+    if (filters.productName) {
+      url.searchParams.set("Product_Name", filters.productName);
+    }
+
+    if (filters.productType) {
+      url.searchParams.set("Product_Type", filters.productType);
+    }
 
     setUri(url);
-  }, [page, status, requestDate, affiliateName, productName, productType]);
+  }, [
+    filters.page,
+    filters.status,
+    filters.requestDate,
+    filters.affiliateName,
+    filters.productName,
+    filters.productType,
+  ]);
 
   const { data: res } = useSWR(
     () => (uri ? uri : null),
@@ -61,8 +85,11 @@ const AffiliateRequests = () => {
         "get",
         url,
         res => {
-          setRequests(res.data.data);
-          setTotalRequests(res.data.total_records);
+          setRequests({
+            ...requests,
+            data: res.data.data,
+            total: res.data.total_records,
+          });
           return res;
         },
         err => {
@@ -72,32 +99,28 @@ const AffiliateRequests = () => {
     }
   );
 
-  const handleClicks = (setter, value) => param => {
-    setter(value || value === false ? value : param);
+  const handler = (setter, field, value) => param => {
+    setter(s => ({ ...s, [field]: param ?? value }));
   };
 
-  const showReportModal = id => {
-    setReport(true);
-    setAffiliateId(id);
+  const handleSuccess = value => {
+    setSuccessModal(value);
   };
 
-  const showPermissionsModal = data => {
-    setPermissions(true);
-    setPermissionsData(data);
+  const hideHandler = (setter, field) => () => {
+    setter({ visible: false, [field]: null });
   };
 
-  const showNotesModal = note => {
-    setNotes(true);
-    setAffiliateNote(note);
+  const showHandler = (setter, field) => value => {
+    setter({ visible: true, [field]: value });
   };
 
-  const hidePermissions = () => {
-    setPermissions(false);
-    setPermissionsData(null);
-  };
+  const showReportModal = showHandler(setReportModal, "id");
+  const showActionModal = showHandler(setActionModal, "data");
+  const showNoteModal = showHandler(setNoteModal, "note");
 
   const updateReported = id => {
-    const newRequests = requests.map(request => {
+    const newRequests = requests.data.map(request => {
       if (request.affiliate_id === id) {
         request.affiliate_reported = "true";
         return request;
@@ -106,11 +129,11 @@ const AffiliateRequests = () => {
       return request;
     });
 
-    setRequests(newRequests);
+    setRequests({ ...requests, data: newRequests });
   };
 
   const updateStatus = (id, value) => {
-    const newRequests = requests.map(request => {
+    const newRequests = requests.data.map(request => {
       if (request.id === id) {
         request.status = value;
         return request;
@@ -119,14 +142,10 @@ const AffiliateRequests = () => {
       return request;
     });
 
-    setRequests(newRequests);
+    setRequests({ ...requests, data: newRequests });
   };
 
-  const columns = tableColumns(
-    showNotesModal,
-    showReportModal,
-    showPermissionsModal
-  );
+  const columns = tableColumns(showReportModal, showActionModal, showNoteModal);
 
   return (
     <AuthLayout headerTitle="REQUESTS">
@@ -137,20 +156,15 @@ const AffiliateRequests = () => {
         <Title>Affiliate Offers</Title>
       </header>
       <section>
-        <Filters
-          setProductName={setProductName}
-          setAffiliateName={setAffiliateName}
-          setProductType={setProductType}
-          setRequestDate={setRequestDate}
-        />
+        <Filters setFilters={setFilters} />
       </section>
       <section className={styles.status__btns__section}>
         <div className={styles.status__btns}>
           {statusArr.map(({ type, label }) => (
             <div className={styles.status__btn} key={label}>
               <Button
-                onClick={handleClicks(setStatus, type)}
-                type={status === type && "primary"}
+                onClick={handler(setFilters, "status", type)}
+                type={filters.status === type ? "primary" : "default"}
               >
                 {label}
               </Button>
@@ -160,48 +174,48 @@ const AffiliateRequests = () => {
       </section>
       <section className={styles.table__section}>
         <Table
-          dataSource={requests}
+          dataSource={requests.data}
           columns={columns}
           pagination={{
             position: ["bottomLeft"],
             pageSize: 8,
             responsive: true,
-            total: totalRequests,
-            current: page,
-            onChange: handleClicks(setPage),
+            total: requests.total,
+            current: filters.page,
+            onChange: handler(setFilters, "page", null),
           }}
           rowKey={rowKey}
           loading={!res}
         />
       </section>
-      {notes && (
+      {noteModal.visible && (
         <AffiliateNote
-          notes={notes}
-          hideNotes={handleClicks(setNotes, false)}
-          affiliateNote={affiliateNote}
+          noteIsVisible={noteModal.visible}
+          hideNote={hideHandler(setNoteModal, "note")}
+          note={noteModal.note}
         />
       )}
-      {report && (
+      {reportModal.visible && (
         <ReportAffiliate
-          report={report}
-          hideReport={handleClicks(setReport, false)}
-          affiliateId={affiliateId}
+          reportIsVisible={reportModal.visible}
+          hideReport={hideHandler(setReportModal, "id")}
+          id={reportModal.id}
           updateReported={updateReported}
-          showSuccess={handleClicks(setSuccess, true)}
+          showSuccess={() => handleSuccess(true)}
         />
       )}
-      {success && (
+      {successModal && (
         <SuccessModal
-          success={success}
-          hideSuccess={handleClicks(setSuccess, false)}
+          successIsVisible={successModal}
+          hideSuccess={() => handleSuccess(false)}
         />
       )}
-      {permissions && (
-        <PermissionsModal
-          permissions={permissions}
-          hidePermissions={hidePermissions}
+      {actionModal.visible && (
+        <ActionModal
+          actionIsVisible={actionModal.visible}
+          hideAction={hideHandler(setActionModal, "data")}
           updateStatus={updateStatus}
-          {...permissionsData}
+          {...actionModal.data}
         />
       )}
     </AuthLayout>
