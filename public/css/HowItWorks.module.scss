@@ -69,8 +69,8 @@
 
       h3 {
         font-weight: 600;
-        font-size: 2.5rem;
-        line-height: 4rem;
+        font-size: 28px;
+        line-height: 40px;
         color: $gray-300;
       }
       .pillContainer {
@@ -133,7 +133,17 @@
       }
     }
     .image {
-      transform: scale(1.4);
+      border: 1px solid blue;
+      img {
+        transform: scale(1.2);
+      }
+      @media (min-width: 1200px) {
+        & {
+          img {
+            transform: scale(1.4);
+          }
+        }
+      }
     }
   }
 
@@ -141,14 +151,14 @@
     text-align: center;
     h3 {
       font-weight: 600;
-      font-size: 2.5rem;
-      line-height: 3.375rem;
+      font-size: 28px;
+      line-height: 40px;
       color: $black-100;
     }
     p {
       font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.75rem;
+      font-size: 18px;
+      line-height: 28px;
       text-align: center;
       color: $base-gray;
     }
@@ -157,10 +167,17 @@
   .rowOne {
     display: flex;
     justify-content: space-between;
+
     margin-top: 1rem;
     width: 100%;
     .image {
       width: 40%;
+      border: 1px solid green;
+      @media (min-width: 1200px) {
+        & img {
+          // transform: scale(1.2);
+        }
+      }
     }
 
     .rowContent {
@@ -168,6 +185,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      // flex-direction: column;
 
       .rowNumber {
         font-family: "Beat Word demo";
@@ -185,23 +203,24 @@
         .contentTitle {
           margin: 0;
           font-weight: 500;
-          font-size: 1.2rem;
+          font-size: 24px;
           padding-bottom: 0.5rem;
           line-height: 2rem;
-          color: $base-blue;
+          color: $black-100;
         }
 
         .webTitle {
           @extend .contentTitle;
-          @include screen("medium") {
-            display: none;
+          display: none;
+          @include screen("medium-large") {
+            display: block;
           }
         }
         .mobileTitle {
-          display: none;
+          display: block;
           @extend .contentTitle;
-          @include screen("medium") {
-            display: block;
+          @include screen("medium-large") {
+            display: none;
             color: #262626;
             line-height: 1.5rem;
             font-size: 1.3rem;
@@ -214,21 +233,27 @@
           color: $base-gray;
         }
 
-        .mobileStatement {
-          @extend .statement;
-          display: none;
+        // .mobileStatement {
+        //   @extend .statement;
+        //   display: none;
+        // }
+
+        .statementBox {
+          border: 1px solid red;
+          // min-height: 200px;
+          text-align: justify;
+          .statement {
+            font-size: 18px;
+            line-height: 34px;
+          }
         }
 
-        @include screen("tablet") {
-          .statement {
-            display: none;
-          }
-          .mobileStatement {
-            display: block;
-            font-size: 0.9rem;
-            line-height: 1.5rem;
-          }
-        }
+        // @include screen("tablet") {
+        //   .statement {
+        //     display: none;
+        //   }
+
+        // }
       }
     }
   }
@@ -245,7 +270,7 @@
     // .img {
     // }
 
-    @include screen("medium") {
+    @include screen("medium-large") {
       display: none;
     }
   }
@@ -330,6 +355,9 @@
       .content {
         .pillContent {
           display: none;
+          @media (min-width: 1200px) {
+            max-width: 540px;
+          }
         }
         .mobilePillContent {
           display: block;
@@ -341,9 +369,9 @@
       padding-top: 3rem;
     }
 
-    .rowOne {
-      padding: 0 2rem;
-    }
+    // .rowOne {
+    //   padding: 0 2rem;
+    // }
   }
 
   @include screen("medium") {
@@ -391,9 +419,40 @@
       }
     }
 
+    // .rowOne {
+    //   flex-direction: column;
+    //   padding: 0 2rem;
+
+    //   &.evenRow {
+    //     flex-direction: column-reverse;
+    //   }
+
+    //   .image {
+    //     width: 100%;
+    //     display: flex;
+    //     justify-content: center;
+    //   }
+
+    //   .rowContent {
+    //     width: 100%;
+
+    //     .rowNumber {
+    //       display: none;
+    //     }
+    //     .content {
+    //       padding: 0;
+    //       text-align: center;
+    //       padding: 0 2.5rem;
+    //     }
+    //   }
+    // }
+  }
+
+  // here
+  @include screen("medium-large") {
     .rowOne {
       flex-direction: column;
-      padding: 0 2rem;
+      // padding: 0 2rem;
 
       &.evenRow {
         flex-direction: column-reverse;
@@ -414,7 +473,7 @@
         .content {
           padding: 0;
           text-align: center;
-          padding: 0 2.5rem;
+          padding: 0 27px 1px 21px;
         }
       }
     }
