@@ -6,6 +6,8 @@ import AuthLayout from "components/authlayout";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
+import PermissionsModal from "components/kreatorAffiliateRequests/components/PermissionsModal";
+import SuccessModal from "components/kreatorAffiliateRequests/components/SuccessModal";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
@@ -23,6 +25,8 @@ const statusArr = [
 const AffiliateRequests = () => {
   const [notes, setNotes] = useState(false);
   const [report, setReport] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [permissions, setPermissions] = useState(false);
   const [requests, setRequests] = useState([]);
   const [totalRequests, setTotalRequests] = useState(0);
   const [page, setPage] = useState(1);
@@ -33,6 +37,7 @@ const AffiliateRequests = () => {
   const [status, setStatus] = useState("All");
   const [affiliateId, setAffiliateId] = useState(null);
   const [affiliateNote, setAffiliateNote] = useState(null);
+  const [permissionsData, setPermissionsData] = useState(null);
   const [uri, setUri] = useState("");
 
   useEffect(() => {
@@ -76,9 +81,19 @@ const AffiliateRequests = () => {
     setAffiliateId(id);
   };
 
+  const showPermissionsModal = data => {
+    setPermissions(true);
+    setPermissionsData(data);
+  };
+
   const showNotesModal = note => {
     setNotes(true);
     setAffiliateNote(note);
+  };
+
+  const hidePermissions = () => {
+    setPermissions(false);
+    setPermissionsData(null);
   };
 
   const updateReported = id => {
@@ -107,7 +122,11 @@ const AffiliateRequests = () => {
     setRequests(newRequests);
   };
 
-  const columns = tableColumns(showNotesModal, showReportModal, updateStatus);
+  const columns = tableColumns(
+    showNotesModal,
+    showReportModal,
+    showPermissionsModal
+  );
 
   return (
     <AuthLayout headerTitle="REQUESTS">
@@ -168,6 +187,21 @@ const AffiliateRequests = () => {
           hideReport={handleClicks(setReport, false)}
           affiliateId={affiliateId}
           updateReported={updateReported}
+          showSuccess={handleClicks(setSuccess, true)}
+        />
+      )}
+      {success && (
+        <SuccessModal
+          success={success}
+          hideSuccess={handleClicks(setSuccess, false)}
+        />
+      )}
+      {permissions && (
+        <PermissionsModal
+          permissions={permissions}
+          hidePermissions={hidePermissions}
+          updateStatus={updateStatus}
+          {...permissionsData}
         />
       )}
     </AuthLayout>

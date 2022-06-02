@@ -21,6 +21,7 @@ const ReportAffiliate = ({
   hideReport,
   affiliateId,
   updateReported,
+  showSuccess,
 }) => {
   const [images, setImages] = useState([]);
   const inputElement = useRef();
@@ -62,9 +63,9 @@ const ReportAffiliate = ({
     axiosAPI.request(
       "post",
       `${process.env.BASE_URL}v1/kreatesell/product/report/affiliate`,
-      res => {
+      () => {
         updateReported(affiliateId);
-        showToast(res.message, "success");
+        showSuccess();
         hideReport();
       },
       err => {

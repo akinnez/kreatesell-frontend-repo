@@ -9,7 +9,11 @@ import ReadImg from "public/images/note_read.png";
 import UnreadImg from "public/images/note_unread.png";
 import styles from "./index.module.scss";
 
-const tableColumns = (showNotesModal, showReportModal, updateStatus) => [
+const tableColumns = (
+  showNotesModal,
+  showReportModal,
+  showPermissionsModal
+) => [
   {
     title: "Affiliate",
     dataIndex: "",
@@ -77,7 +81,7 @@ const tableColumns = (showNotesModal, showReportModal, updateStatus) => [
     title: "Request Action",
     dataIndex: "",
     render: (_, record) => (
-      <DropDown record={record} updateStatus={updateStatus} />
+      <DropDown record={record} showPermissionsModal={showPermissionsModal} />
     ),
     width: "140px",
   },
