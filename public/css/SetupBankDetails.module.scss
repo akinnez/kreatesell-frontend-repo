@@ -138,6 +138,27 @@
   }
 }
 
+.content {
+  margin-bottom: 40px;
+
+  p {
+    margin-bottom: 0;
+    text-align: center;
+
+    &:first-child [class="ant-typography"] {
+      font-weight: 600;
+      font-size: 30px;
+      color: colors.$black-100;
+    }
+
+    &:last-child [class="ant-typography"] {
+      font-weight: 500;
+      font-size: 16px;
+      color: colors.$gray-200;
+    }
+  }
+}
+
 @include screens.minScreen("medium-large") {
   .card__wrapper > div[class="ant-card-body"] {
     padding: 60px;

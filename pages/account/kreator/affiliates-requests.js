@@ -3,17 +3,17 @@ import Head from "next/head";
 import { Typography, Button, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
+import SuccessModalBox from "components/SuccessModalBox";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
-import SuccessModal from "components/kreatorAffiliateRequests/components/SuccessModal";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
 import styles from "public/css/KreatorAffiliateRequests.module.scss";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const rowKey = record => record.id;
 const statusArr = [
   { type: "All", label: "All" },
@@ -188,6 +188,24 @@ const AffiliateRequests = () => {
           loading={!res}
         />
       </section>
+      {successModal && (
+        <SuccessModalBox
+          modalIsVisible={successModal}
+          closeModal={() => handleSuccess(false)}
+        >
+          <section className={styles.content}>
+            <p>
+              <Text>Report Successfully Sent</Text>
+            </p>
+            <p>
+              <Text>
+                We would review it and if the affiliate is found guilty, they
+                would no longer have access to your products.
+              </Text>
+            </p>
+          </section>
+        </SuccessModalBox>
+      )}
       {noteModal.visible && (
         <AffiliateNote
           noteIsVisible={noteModal.visible}
@@ -202,12 +220,6 @@ const AffiliateRequests = () => {
           id={reportModal.id}
           updateReported={updateReported}
           showSuccess={() => handleSuccess(true)}
-        />
-      )}
-      {successModal && (
-        <SuccessModal
-          successIsVisible={successModal}
-          hideSuccess={() => handleSuccess(false)}
         />
       )}
       {actionModal.visible && (
