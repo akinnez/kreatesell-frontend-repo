@@ -3,9 +3,9 @@ import { Button, Tabs } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
-import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
+// import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
 import AffiliateLink from "components/affiliateRequests/components/AffiliateLink";
-import Overview from "components/affiliates/Overview";
+// import Overview from "components/affiliates/Overview";
 import styles from "public/css/AffiliateRequestLink.module.scss";
 import PromotionalMaterials from "components/affiliateRequests/components/PromotionalMaterials";
 
@@ -23,17 +23,19 @@ const AffiliateRequestLinK = () => {
           View Sales Page
         </Button>
       </header>
-      <AffiliateRequestContainer>
+      {/* <AffiliateRequestContainer> */}
+      <Tabs className={styles.tabs} defaultActiveKey="1" centered>
         <TabPane tab="Affiliate Link" key="1">
           <AffiliateLink />
         </TabPane>
-        <TabPane tab="Overview" key="2">
+        {/* <TabPane tab="Overview" key="2">
           <Overview />
-        </TabPane>
+        </TabPane> */}
         <TabPane tab="Promotional Materials/Bonus" key="3">
           <PromotionalMaterials />
         </TabPane>
-      </AffiliateRequestContainer>
+      </Tabs>
+      {/* </AffiliateRequestContainer> */}
     </ProfileLayout>
   );
 };
