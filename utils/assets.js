@@ -5,7 +5,7 @@ import FacebookBtn from "../public/images/facebookLogin.svg";
 import GoogleBtn from "../public/images/googleLogin.svg";
 import KreateSellBrand from "../public/images/KreateSell-brand.svg";
 import LogoutIcon from "../public/images/logout.svg";
-import FooterBrand from "../public/images/kreatesell-footer-brand.svg";
+import FooterBrand from "../public/images/Ks-footer-logo.svg";
 import AutomationIcon from "../public/images/automation.svg";
 import InstantPayout from "../public/images/instant-payout.svg";
 import PayoutMethod from "../public/images/payment-method.svg";
