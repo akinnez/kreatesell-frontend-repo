@@ -7,15 +7,14 @@ import { isAnEmpytyObject } from "utils";
 const useFetchUtilities = () => {
   const { store, utils } = useSelector(state => state);
   const { bank_details: bankDetails } = store.store;
-  const { countries: storeCountries } = utils;
+  const { countries } = utils;
 
   const dispatch = useDispatch();
 
-  const countriesIsEmpty = storeCountries.length === 0;
   const hasBankDetails = !isAnEmpytyObject(store.store) && bankDetails;
 
   useEffect(() => {
-    if (countriesIsEmpty) {
+    if (countries.length === 0) {
       const fetcher = async () => {
         dispatch(countriesRequest());
 
@@ -54,7 +53,7 @@ const useFetchUtilities = () => {
 
       fetcher();
     }
-  }, [dispatch, countriesIsEmpty]);
+  }, [dispatch, countries]);
 
   useEffect(() => {
     if (

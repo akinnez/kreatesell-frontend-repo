@@ -47,6 +47,7 @@ const PopOver = ({ record, showReportModal }) => {
                 src={record.affiliate_profile_image}
                 layout="fill"
                 alt={`${record.affiliate_name}`}
+                objectFit="cover"
               />
             }
           />

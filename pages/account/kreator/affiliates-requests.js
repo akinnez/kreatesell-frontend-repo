@@ -19,7 +19,7 @@ const statusArr = [
   { type: "All", label: "All" },
   { type: "Pending", label: "Pending" },
   { type: "Approved", label: "Approved" },
-  { type: "Denied", label: "Denied" },
+  { type: "Revoked", label: "Revoked" },
 ];
 
 const AffiliateRequests = () => {
