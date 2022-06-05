@@ -1,0 +1,43 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.campaign {
+  padding-bottom: 15px;
+  border-bottom: 1px solid colors.$gray-100;
+
+  &:not(:last-child) {
+    margin-bottom: 25px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+    &:first-child {
+      color: colors.$base-gray;
+    }
+
+    &:last-of-type {
+      color: colors.$gray-200;
+    }
+  }
+}
+
+.actions {
+  @include mixins.flex(row, flex-start, center);
+  gap: 15px 30px;
+
+  > a {
+    font-weight: bold;
+    font-size: 14px;
+
+    &:first-child {
+      color: colors.$base-blue;
+    }
+
+    &:last-child {
+      color: colors.$green-100;
+    }
+  }
+}

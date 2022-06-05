@@ -4,6 +4,9 @@
 
 .header {
   margin-bottom: 35px;
+  @include mixins.flex(row, space-between, center);
+  flex-wrap: wrap;
+  gap: 15px 25px;
 
   p {
     margin-bottom: 0;
@@ -12,14 +15,35 @@
       margin-bottom: 10px;
       font-size: 24px;
       font-weight: 600;
-      color: colors.$black-100;
+
+      > span[class="ant-typography"] {
+        color: colors.$black-100;
+      }
     }
 
     &:last-child {
       font-weight: 500;
       font-size: 16px;
-      color: colors.$gray-200;
+
+      > span[class="ant-typography"] {
+        color: colors.$gray-200;
+      }
     }
+  }
+
+  > a {
+    display: inline-flex;
+    padding: 16px 30px;
+    background-color: colors.$base-blue;
+    border-radius: 8px;
+    color: colors.$base-white;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  svg {
+    display: inline;
+    font-size: 14px;
   }
 }
 
@@ -34,7 +58,9 @@
 
 .tabs {
   div[class="ant-tabs-nav"] {
-    margin-bottom: 45px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: colors.$base-white;
 
     div[class^="ant-tabs-ink-bar"] {
       height: 4px;

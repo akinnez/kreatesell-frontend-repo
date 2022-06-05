@@ -1,33 +1,31 @@
 @use "public/css/colors";
-@use "public/css/mixins";
 @use "public/css/screens";
+
+.card {
+  margin-bottom: 80px;
+  border-radius: 12px;
+}
+
+.error__message {
+  text-align: center;
+  font-weight: bold;
+}
 
 .header {
   margin-bottom: 30px;
-  @include mixins.flex(row, space-between, center);
-  flex-wrap: wrap;
-  gap: 15px;
 
-  a {
-    display: inline-flex;
-    padding: 16px 30px;
-    background-color: colors.$base-blue;
-    border-radius: 8px;
-    color: colors.$base-white;
-    font-weight: bold;
-    font-size: 12px;
-  }
-
-  svg {
-    display: inline;
-    font-size: 14px;
+  > h1[class="ant-typography"] {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 0;
   }
 }
 
-.mail__wrapper {
+.campaign__wrapper {
   border: 1px solid colors.$gray-100;
   border-radius: 8px;
   padding: 40px 20px;
+  margin-bottom: 35px;
 
   > a {
     display: inline-flex;
@@ -45,53 +43,23 @@
   }
 }
 
-.mails__container {
+.campaigns__container {
   margin-bottom: 40px;
 }
 
-.mail {
-  padding-bottom: 15px;
-  border-bottom: 1px solid colors.$gray-100;
+@include screens.screen("medium-large") {
+  .card {
+    background-color: transparent;
+    border: none;
 
-  &:not(:last-child) {
-    margin-bottom: 25px;
-  }
-
-  p {
-    font-weight: 500;
-    font-size: 16px;
-    margin-bottom: 10px;
-
-    &:first-child {
-      color: colors.$base-gray;
-    }
-
-    &:last-of-type {
-      color: colors.$gray-200;
-    }
-  }
-}
-
-.actions {
-  @include mixins.flex(row, flex-start, center);
-  gap: 15px 30px;
-
-  > a {
-    font-weight: bold;
-    font-size: 14px;
-
-    &:first-child {
-      color: colors.$base-blue;
-    }
-
-    &:last-child {
-      color: colors.$green-100;
+    > div[class="ant-card-body"] {
+      padding: 0;
     }
   }
 }
 
 @include screens.minScreen("medium-large") {
-  .mail__wrapper {
+  .campaign__wrapper {
     padding: 40px;
   }
 }
