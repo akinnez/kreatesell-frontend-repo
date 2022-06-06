@@ -119,7 +119,7 @@ const Careers = () => {
                         Benefits
                     </h3>
                     <p className={styles.benefitsSubtitle}>
-                    In addition to a competitive salary, here're a few resources we offer to<br/> help our team excel.
+                    In addition to a competitive salary, here&apos;re a few resources we offer to<br/> help our team excel.
                     </p>
                     <div className={styles.cardContainer}>
                     <Row gutter={[16, 16]}>
