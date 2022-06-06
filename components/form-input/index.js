@@ -49,12 +49,17 @@ const UploadPlaceholder = ()=>{
 }
 
 
-export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,addonBefore,...rest})=>{
+export const Input = ({CustomInput,type="text",placeholder,size="large",disabled,label,extraLabel,row,addonBefore,subText,...rest})=>{
+    {/* CustomInput ? <>
+        {subText && <p className={style.subtext}>{subText}</p>}
+    <CustomInput rows={row} className={style.input} size={size} placeholder={placeholder}/></>: */}
     return(
         <>
         <Form.Item {...rest} label={<label className={style.label}>{label} <span>{extraLabel}</span></label>}>
+            
             {
-                CustomInput ? <CustomInput rows={row} className={style.input} size={size} placeholder={placeholder}/>:
+                CustomInput ?
+                <CustomInput rows={row} className={style.input} size={size} placeholder={placeholder}/>:
 
                 <AntInput addonBefore={addonBefore}  className={`${style.input} ${type==="tel"&&"telInput"}`} {...{placeholder, size, type, disabled}}/>
             }
@@ -133,7 +138,6 @@ export const Dropzone = ({label, value, onChange=()=>{}, extraLabel,name,...rest
     const [showDeletePopover, setShowDeletePopover] = useState(false);
     const DeleteImage = deleteImage();
     const [imgUrl, setImgUrl] = useState()
-    
     
       const handleDelete = () => {
         DeleteImage(name, ()=>{
