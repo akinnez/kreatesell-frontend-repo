@@ -55,8 +55,15 @@ const AffiliateFilters = ({ setQueries }) => {
   };
 
   const resetFilters = () => {
-    setIsFiltered(false);
     form.resetFields();
+    setIsFiltered(false);
+    setQueries(s => ({
+      ...s,
+      productName: "",
+      kreatorName: "",
+      productType: null,
+      dateListed: "",
+    }));
   };
 
   const handleShowFilter = () => {

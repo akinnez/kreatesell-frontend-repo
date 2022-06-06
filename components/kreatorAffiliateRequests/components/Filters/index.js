@@ -14,12 +14,7 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const Filters = ({
-  setProductName,
-  setAffiliateName,
-  setProductType,
-  setRequestDate,
-}) => {
+const Filters = ({ setFilters }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
@@ -51,21 +46,27 @@ const Filters = ({
       return;
     }
 
-    setProductName(product_name || "");
-    setAffiliateName(affiliate_name || "");
-    setProductType(product_type && product_type !== "all" ? product_type : "");
-    setRequestDate(date_listed ? date_listed._i : "");
     setIsFiltered(true);
     setShowFilter(false);
+    setFilters(s => ({
+      ...s,
+      productName: product_name || "",
+      affiliateName: affiliate_name || "",
+      productType: product_type && product_type !== "all" ? product_type : "",
+      requestDate: date_listed ? date_listed._i : "",
+    }));
   };
 
   const resetFilters = () => {
-    setProductName("");
-    setAffiliateName("");
-    setProductType("");
-    setRequestDate("");
-    setIsFiltered(false);
     form.resetFields();
+    setIsFiltered(false);
+    setFilters(s => ({
+      ...s,
+      productName: "",
+      affiliateName: "",
+      productType: "",
+      requestDate: "",
+    }));
   };
 
   const handler = (setter, value) => () => {

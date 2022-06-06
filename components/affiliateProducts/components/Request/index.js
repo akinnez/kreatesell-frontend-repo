@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { Button, Form, Input, Typography } from "antd";
 import { Formik } from "formik";
 import RequestSuccessModal from "../RequestSuccessModal";
@@ -10,14 +9,12 @@ import styles from "./index.module.scss";
 
 const { TextArea } = Input;
 
-const Request = () => {
+const Request = ({ productId, hasRequestedAccess, updateProduct }) => {
   const [showModal, setShowModal] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-  const router = useRouter();
 
   const submitHandler = (values, actions) => {
     const data = {
-      requested_product_id: router.query.pId,
+      requested_product_id: productId,
       note: values.permission.trim(),
     };
 
@@ -38,7 +35,7 @@ const Request = () => {
 
   const handleHideModal = () => {
     setShowModal(false);
-    setHasSubmitted(true);
+    updateProduct();
   };
 
   return (
@@ -67,7 +64,7 @@ const Request = () => {
                   rows={5}
                   placeholder="Fill out how you want to promote this product"
                   {...formik.getFieldProps("permission")}
-                  disabled={hasSubmitted}
+                  disabled={hasRequestedAccess}
                 />
               </Form.Item>
               <div className={styles.text}>
@@ -78,7 +75,7 @@ const Request = () => {
                 </p>
               </div>
               <Form.Item>
-                {hasSubmitted ? (
+                {hasRequestedAccess ? (
                   <Button
                     type="primary"
                     className={styles.submit__btn}

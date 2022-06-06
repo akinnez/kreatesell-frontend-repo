@@ -36,7 +36,6 @@ const AffiliateProducts = () => {
     productName: "",
     productType: null,
     kreatorName: "",
-    // status: "",
   });
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const AffiliateProducts = () => {
     }
 
     if (queries.kreatorName) {
-      url.searchParams.set("Affiliate_Name", queries.kreatorName);
+      url.searchParams.set("Kreator_Name", queries.kreatorName);
     }
 
     if (queries.productName) {
@@ -60,8 +59,6 @@ const AffiliateProducts = () => {
       url.searchParams.set("Product_Type", queries.productType);
     }
 
-    // if (queries.status) url.searchParams.set("Status", (queries.status));
-
     setUri(url);
   }, [
     queries.page,
@@ -69,7 +66,6 @@ const AffiliateProducts = () => {
     queries.kreatorName,
     queries.productName,
     queries.productType,
-    // queries.status,
   ]);
 
   const { data } = useSWR(

@@ -11,6 +11,8 @@ const { Text } = Typography;
 const PopOver = ({ record, showReportModal }) => {
   const [visible, setVisible] = useState(false);
 
+  const reported = record.affiliate_reported === "false" ? false : true;
+
   const handleVisibility = value => visible => {
     setVisible(value || value === false ? value : visible);
   };
@@ -29,22 +31,24 @@ const PopOver = ({ record, showReportModal }) => {
         />
       </div>
       <header className={styles.header}>
-        {record.profile_image ? (
-          <Avatar
-            size={100}
-            src={
-              <Image
-                src={record.profile_image}
-                layout="fill"
-                alt={`${record.product_name}`}
-              />
-            }
-          />
-        ) : (
+        {!record.affiliate_profile_image ||
+        record.affiliate_profile_image ===
+          "Images\\ProfilePicture\\imageIcon" ? (
           <Avatar
             size={100}
             icon={<FaRegUser />}
             className={styles.profile__image__placeholder}
+          />
+        ) : (
+          <Avatar
+            size={100}
+            src={
+              <Image
+                src={record.affiliate_profile_image}
+                layout="fill"
+                alt={`${record.affiliate_name}`}
+              />
+            }
           />
         )}
       </header>
@@ -53,23 +57,28 @@ const PopOver = ({ record, showReportModal }) => {
           <Text>{record.affiliate_name}</Text>
         </p>
         <p>
-          <Text>Unique Username</Text>
+          <Text>{record.affiliate_unique_username}</Text>
         </p>
         <p>
-          <Text>Nigeria</Text>
+          <Text>{record.affiliate_country}</Text>
         </p>
       </section>
       <Divider className={styles.divider} />
       <footer className={styles.footer}>
-        <Button
-          size="large"
-          disabled={record.reported}
-          danger={record.reported}
-          onClick={() => showReport(record.affiliate_id)}
-          icon={<AiOutlineStop />}
-        >
-          {record.reported ? "Reported" : "Report Affiliate"}
-        </Button>
+        {reported ? (
+          <Button size="large" icon={<AiOutlineStop />} disabled>
+            Reported
+          </Button>
+        ) : (
+          <Button
+            size="large"
+            danger
+            onClick={() => showReport(record.affiliate_id)}
+            icon={<AiOutlineStop />}
+          >
+            Report Affiliate
+          </Button>
+        )}
       </footer>
     </div>
   );
