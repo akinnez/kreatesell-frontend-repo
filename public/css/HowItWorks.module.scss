@@ -247,6 +247,7 @@
         .webTitle {
           @extend .contentTitle;
           display: none;
+          text-transform: capitalize;
           margin-top: 1rem;
           @include screen("medium-large") {
             display: block;
@@ -261,6 +262,7 @@
         .mobileTitle {
           display: block;
           @extend .contentTitle;
+          text-transform: capitalize;
           @include screen("medium-large") {
             display: none;
             color: #262626;

@@ -139,10 +139,10 @@ const HowItWorks = () => {
               {...Animate("zoom-in-left", 200, "ease")}
             >
               <h5 className={styles.webTitle}>
-                Create your Store and setup Store details
+                Create Your Store And Setup Store Details
               </h5>
               <h5 className={styles.mobileTitle}>
-                Create your Store and <br /> setup Store details
+                Create Your Store And <br /> setup Store details
               </h5>
               <div className={styles.statementBox}>
                 <p className={styles.statement}>
