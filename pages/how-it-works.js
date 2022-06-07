@@ -347,6 +347,7 @@ const HowItWorks = () => {
             choiced life to the fullest.
           </p>
           <Button
+            onClick={() => router.push("/signup")}
             text="Get Started Free"
             bgColor="blue"
             className={styles.btn}
