@@ -89,16 +89,17 @@
 
           .pill {
             background: $base-white;
-            margin-right: 1rem;
+            margin-right: 19.74px;
             border: 0.658064px solid $gray-200;
             padding: 0.5rem;
             box-sizing: border-box;
             border-radius: 3.29rem;
-            border-radius: 55.6px;
+            border-radius: 52.65px;
             font-size: 0.75rem;
             line-height: 1.125rem;
             color: $base-gray;
             margin-bottom: 1rem;
+            padding: 11px 13.57px 11.65px 11px;
             cursor: pointer;
             @media (max-width: 400px) {
               margin-bottom: 1rem;
@@ -123,9 +124,9 @@
             flex-direction: row;
           }
         }
-        @media (min-width: 1200px) {
-          padding-top: 1rem;
-        }
+        // @media (min-width: 1200px) {
+        //   padding-top: 1rem;
+        // }
       }
       .pillContentStyle {
         font-size: 0.937rem;

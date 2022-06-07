@@ -63,7 +63,7 @@ const HowItWorks = () => {
             className={styles.content}
             {...Animate("fade-right", 200, "ease")}
           >
-            <h3>Best Option for</h3>
+            <h3>Best Option For</h3>
             <div className={styles.pillContainer}>
               <div className={styles.pills}>
                 <div className={styles.pill}>Ebook Author</div>
@@ -109,7 +109,7 @@ const HowItWorks = () => {
         </div>
 
         <div className={styles.subCaption}>
-          <h3 {...Animate("fade-up", 500, "ease")}>How it works</h3>
+          <h3 {...Animate("fade-up", 500, "ease")}>How It Works</h3>
           <p {...Animate("fade-up", 600, "ease")}>
             Amazing all-in-one tools that bring a winning customer experience
           </p>
