@@ -53,9 +53,9 @@ const Dashboard = () => {
           <div className={styles.content}>
             <p>
               <Text>
-                You’re a few minutes away from selling your e-books, online
-                courses, memberships and subscriptions on an all-in-one
-                e-commerce platform.
+                You&apos;re few minutes away from selling your e-books, online
+                courses, templates, memberships and subscriptions on an amazing
+                all-in-one edtech platform.
               </Text>
             </p>
           </div>
