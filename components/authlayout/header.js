@@ -91,6 +91,7 @@ const Nav = ({ headerTitle }) => {
   // const store = _getMyStoreDetails();
 
   const { notifications } = useSelector(state => state.notification);
+  const { store: {store_details}} = useSelector(state => state.store);
 
   const unreadNotification = notifications?.filter(item => !item?.is_read);
 
@@ -138,7 +139,7 @@ const Nav = ({ headerTitle }) => {
           </Button>
           <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
             <Button type="text">
-              <Profile name={info?.full_name} avi={info?.business_logo} />
+              <Profile name={info?.full_name} avi={store_details?.display_picture} />
             </Button>
           </Dropdown>
         </div>
