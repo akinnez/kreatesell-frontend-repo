@@ -1,0 +1,48 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+.container{
+    min-height: 300px;
+    width: 70%;
+    background: #FAFAFA;
+    padding: 2rem 1.8rem;
+    .title{
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 40px;
+        color: #262626;
+    }
+    @include screen("medium-large") {
+        width: 100%;
+        padding: 2rem 1.8rem;
+      }
+    .greyedBtn{
+        background: #BFBFBF;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 20px 15px !important;
+        &:disabled{
+            background: #d6d6d6 !important ;
+            color: #fff !important;
+        }
+    }
+
+    .checkbox{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1.3rem;
+        .checkboxText{
+            margin-bottom: 0px;
+            font-weight: 500;
+            font-size: 16px;
+            font-style: italic;
+            line-height: 26px;
+            color: #262626;
+        }
+    }
+}

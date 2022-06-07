@@ -24,7 +24,7 @@ export const Modal = ({
       {...rest}
       className={`
 			${styles.modal}
-			${!_visible && "hidden"} 
+			${!_visible && `hidden ${styles.hidden}` } 
 			${_visible && styles.styleDisplay} 
 			${rest.className}
 			`}
