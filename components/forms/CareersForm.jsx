@@ -6,6 +6,7 @@ import {Input,Button} from "../form-input"
 import {Checkbox} from "../"
 import {DropzoneV2} from "../form-input/UploadV2";
 import styles from "../../public/css/CareersForm.module.scss";
+import { number } from 'yup/lib/locale';
 
 
 export const CareersForm = ({submitCB, loading}) => {
@@ -40,26 +41,46 @@ export const CareersForm = ({submitCB, loading}) => {
           name="first_name"
           label="First Name"
           placeholder="Enter your first name"
-          rules={[{required:true, min:4, message:"First name required"}]}
+          rules={[
+            {required:true, message:"First name required"},
+            {
+              pattern: new RegExp(/^[A-Za-z]+$/),
+              message: "Only letters are accepted"
+            }]}
         />
         <Input
           name="last_name"
           label="Last Name"
           placeholder="Enter your last name"
-          rules={[{required:true, min:4, message:"Last name required"}]}
+          rules={[
+            {required:true, message:"Last name required"},
+            {
+              pattern: new RegExp(/^[A-Za-z]+$/),
+              message: "Only letters are accepted"
+            }
+          ]}
         />
         <Input
           name="email"
           label="Email"
           placeholder="Enter your first name"
-          rules={[{type:"email",required:true, min:4, message:"Email required"}]}
+          rules={[
+            {
+              type: "email",
+              message: 'The input is not valid E-mail!'
+            },
+            {
+              required:true,
+              message:"Email required"
+            },
+          ]}
         />
         <Input
           name="phone"
           label="Phone"
           placeholder="Enter your phone number"
           type="tel"
-          // rules={[{ min:9}]}
+          rules={[{type: "number"}]}
         />
         <DropzoneV2 
           variant={3} 
@@ -79,7 +100,12 @@ export const CareersForm = ({submitCB, loading}) => {
               name="linkedin"
               label="LinkedIn Profile"
               placeholder=""
-              rules={[{required:true, min:4, message:"LinkedIn is required"}]}
+              rules={[
+                    {required:true, message:"LinkedIn is required"},
+                    {pattern: new RegExp(/^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/gm),
+                      message:"Please enter a valid link"
+                    }
+                  ]}
             />
           </Col>
           <Col xs={24} md={8}>
@@ -102,7 +128,7 @@ export const CareersForm = ({submitCB, loading}) => {
           name="location"
           label="Where are you currently based?"
           placeholder=""
-          rules={[{ required: true, min:8, message:"Location is required"}]}
+          rules={[{ required: true, message:"Location is required"}]}
         />
 
         <Input

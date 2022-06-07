@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from "prop-types";
 import Image from "next/image"
 import {useRouter} from "next/router";
+import Link from "next/link"
 
 import {Button} from "../../";
 import {LeftArrow} from "../../../utils";
@@ -24,7 +25,9 @@ const CareerNavigationCard = ({department, description, role}) => {
             </div>
         </div>
         <div className={styles.right}>
-            <Button text="Apply" bgColor="blue" className={styles.actionBtn}/>
+            <Link href={"#CareerPageForm"}>
+              <Button text="Apply" bgColor="blue" className={styles.actionBtn}/>
+            </Link>
         </div>
     </div>
   )
