@@ -31,12 +31,12 @@ const Benefits = [
     description:"We provide bonuses including team eat outs, birthday celebrations, end of the year hangouts, give aways and other team bonding activities."
   },
   {
-    Icon: <Image src={Bag} alt="" width="60"/>,
+    Icon: <Image src={Box} alt="" width="60"/>,
     title: "Quality Health Insurance",
     description:"\"Health is wealth.\" We care about the health of the team as good health leads to better overall performance."
   },
   {
-    Icon: <Image src={Box} alt="" width="60"/>,
+    Icon: <Image src={Bag} alt="" width="60"/>,
     title: "Access to Certification Training Materials",
     description:"We are growth oriented and make sure that skill gaps within the team are closed. We ensure that the team members are up to date in their area of expertise."
   },
@@ -138,7 +138,7 @@ const Careers = () => {
                 <section className={styles.peopleImageContainer}>
                     {/* image of people comes here */}
                     <div className={styles.peopleImage}>
-                      <Image objectFit='contain' src={People} width={600} height={300} alt="people"/>
+                      <Image objectFit='contain' src={People} width={700} height={400} alt="people"/>
                     </div>
 
                 </section>
