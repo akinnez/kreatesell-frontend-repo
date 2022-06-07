@@ -1,13 +1,13 @@
 import * as types from "../types/abandonedCart.types";
 
 const initialState = {
-  campaign: {},
+  campaign: null,
 };
 
 const affiliate = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.SET_CAMPAIGN:
-      return payload;
+      return { campaign: payload };
 
     default:
       return state;

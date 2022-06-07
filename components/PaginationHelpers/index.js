@@ -16,6 +16,8 @@ const PaginationHelper = ({ dataSize, filters, setFilters }) => {
 
   const totalPages = Math.ceil(dataSize / filters.limit);
   const handleInput = () => {
+    if (!input || input === "0") return;
+
     const page = +input > totalPages ? totalPages : +input;
     setFilters({ ...filters, page });
     setInput("");
