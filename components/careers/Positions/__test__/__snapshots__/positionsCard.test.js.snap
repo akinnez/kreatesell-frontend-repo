@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <PositionsCard /> with mockprops 1`] = `
+<div
+  className="container"
+>
+  <h3
+    className="positionName"
+  >
+    product designer
+  </h3>
+  <p
+    className="positionDescription"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "mock description",
+      }
+    }
+  />
+  <div
+    className="jobRolesContainer"
+  >
+    <ul
+      className="jobDetails"
+    >
+      <li
+        className="job"
+      >
+        graphic designer, product designer
+      </li>
+    </ul>
+    <div
+      className="callToActionButton"
+    >
+      <button
+        className="
+			actionBtn
+			button
+			false 
+			btnBlue
+			false
+			"
+        onClick={[Function]}
+        type="submit"
+      >
+        <div
+          className="buttonValue"
+        >
+          Apply Now
+        </div>
+      </button>
+      <p
+        className="status"
+      >
+        Status: Open
+      </p>
+    </div>
+  </div>
+</div>
+`;

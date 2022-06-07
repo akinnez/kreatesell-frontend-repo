@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <TitleDescription /> with mock props 1`] = `
+<div
+  className="container"
+>
+  <h3
+    className="title"
+  >
+    Product designer
+  </h3>
+  <p
+    className="description"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "mock description",
+      }
+    }
+  />
+</div>
+`;
