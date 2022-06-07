@@ -118,8 +118,8 @@
 }
 .dragger_wrapperV2{
     text-align: left;
-    margin:20px 0 0px 0;
-    width: 60%;
+    margin:20px 0 10px 0;
+    // width: 60%;
     position: relative;
       @include screen("x-large") {
         width: 100%;
@@ -154,10 +154,11 @@
     }
     .label{
         line-height: 22px;
-        font-weight: 400;
-        font-size: 16px;
+        font-weight: 500;
+        font-size: 14px;
         line-height: 26px;
         color: #262626;
+        display: inline-block;
     }
 }
 .dragger_wrapperV3{
@@ -166,6 +167,22 @@
     align-items: center;
     .plain{
         height:fit-content !important;
+    }
+}
+
+.otheFileDescription{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(199, 199, 199);
+    padding: 2px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    .fileName{
+        display: flex;
+        align-items: center;
+        margin-bottom: 0px;
+        text-transform: capitalize;
     }
 }
 

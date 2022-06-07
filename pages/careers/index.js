@@ -142,6 +142,7 @@ const Careers = () => {
                     </div>
 
                 </section>
+
               
               <div className={styles.body2} id="departments">
                 <section className={styles.openPositions} >
@@ -160,10 +161,10 @@ const Careers = () => {
                           {Array.isArray(sJb.jobs) && sJb.jobs.map((job,idx2)=>(
                             <PositionsCard
                               key={job?.id}
-                              title={job.title||""}
-                              description={job.description1}
-                              roles={job.role||[]}
-                              path={`/careers/${job.id}`}
+                              title={job?.title||""}
+                              description={job?.description1}
+                              roles={Array.isArray(job.role) ? job?.role :[]}
+                              path={`/careers/${job?.id}`}
                             />
                           ))}
                       </div>
