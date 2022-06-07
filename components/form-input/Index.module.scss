@@ -1,3 +1,7 @@
+@import "../../public/css/colors.scss";
+@import "../../public/css/mixins.scss";
+@import "../../public/css/screens.scss";
+
 .label{
     font-weight: 500;
     font-size: 16px;
@@ -7,7 +11,15 @@
     span{
         color:#8C8C8C;
     }
-    
+}
+
+.subtext{
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #595959;
+    margin-block-end: 10px;
 }
 
 
@@ -21,6 +33,13 @@
     margin: inherit;
 }
 
+.error{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #F90005;
+}
 
 .container{
     margin-block: 20px;
@@ -77,6 +96,93 @@
             font-size: 25px;
             color: red;
         }
+    }
+    .dragger{
+        border: 1px dashed #0072EF !important;
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    .plain{
+        border: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .label{
+        line-height: 22px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 26px;
+        color: #262626;
+    }
+}
+.dragger_wrapperV2{
+    text-align: left;
+    margin:20px 0 10px 0;
+    // width: 60%;
+    position: relative;
+      @include screen("x-large") {
+        width: 100%;
+      }
+    .deleteContainer{
+        position: absolute;
+        background: #fff;
+        border-radius: 5px;
+        height: 35px;
+        width: 35px;
+        top: 50px;
+        right: 20px;
+        z-index: 10;
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+        .icon{
+            font-size: 25px;
+            color: red;
+        }
+    }
+    .dragger{
+        border: 1px dashed #0072EF !important;
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    .plain{
+        border: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .label{
+        line-height: 22px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 26px;
+        color: #262626;
+        display: inline-block;
+    }
+}
+.dragger_wrapperV3{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    .plain{
+        height:fit-content !important;
+    }
+}
+
+.otheFileDescription{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(199, 199, 199);
+    padding: 2px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    .fileName{
+        display: flex;
+        align-items: center;
+        margin-bottom: 0px;
+        text-transform: capitalize;
     }
 }
 

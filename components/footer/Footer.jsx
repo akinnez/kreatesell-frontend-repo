@@ -103,7 +103,7 @@ export const Footer = () => {
             <Link href="#">
               <a>Media</a>
             </Link>
-            <Link href="#">
+            <Link href="/careers">
               <a className={styles.jobs}>
                 Jobs{" "}
                 {isHiring && (

@@ -1,0 +1,55 @@
+@import "../../../public/css/colors.scss";
+@import "../../../public/css/mixins.scss";
+@import "../../../public/css/screens.scss";
+
+.container{
+    background: #FFFFFF;
+    box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 4rem 3rem;
+    margin-bottom: 20px;
+    .positionName{
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 40px;
+        color: #262626;
+    }
+    .positionDescription{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 26px;
+        color: #595959;
+    }
+    .jobRolesContainer{
+        @include flex(row, space-between, null);
+        @include screen("x-large") {
+            display: block;
+          }
+        .jobDetails{
+            @include flex(row, flex-start, null);
+            gap: 4rem;
+            .job{
+                &::before{
+                    content: "\2022 \00A0";
+                    color: #595959;
+                    font-size: 1.1rem;
+                }
+            }
+        }
+        .callToActionButton{
+            .actionBtn{
+                @include screen("x-large") {
+                    width: 100%;
+                  }
+            }
+            .status{
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 20px;
+                color: #8C8C8C;
+                text-align: center;
+                margin-top: 4px;
+            }
+        }
+    }
+}

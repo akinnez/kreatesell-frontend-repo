@@ -11,7 +11,7 @@ export const Signup = () => {
     axios.request(
       `post`,
       `auth/signup/EmailConfirmation`,
-      res => {
+      (res) => {
         const { token, user } = res;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
@@ -23,7 +23,7 @@ export const Signup = () => {
         );
         successCallback?.(res);
       },
-      err => {
+      (err) => {
         dispatch({ type: types.SIGNUP.FAILURE, payload: err?.error });
         showToast(err?.error?.message, "error");
         errorCallback?.();
@@ -40,14 +40,14 @@ export const Login = () => {
     axios.request(
       `post`,
       `auth/signin/EmailConfirm`,
-      res => {
+      (res) => {
         const { token, user } = res;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch({ type: types.LOGIN.SUCCESS, payload: user });
         successCallback?.(res);
       },
-      err => {
+      (err) => {
         dispatch({ type: types.LOGIN.FAILURE, payload: err });
         showToast(err?.message, "error");
         errorCallback?.(err);
@@ -64,14 +64,14 @@ export const SuperAdminLogin = () => {
     axios.request(
       `post`,
       "auth/superadmin/signin",
-      res => {
+      (res) => {
         const { token, user } = res;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch({ type: types.SUPER_ADMIN_LOGIN.SUCCESS, payload: res });
         successCallback?.(res);
       },
-      err => {
+      (err) => {
         dispatch({ type: types.SUPER_ADMIN_LOGIN.FAILURE, payload: err });
         showToast(err?.error, "error");
         errorCallback?.(err);
@@ -89,7 +89,7 @@ export const ResendConfirmationEmail = () => {
     axios.request(
       `get`,
       endpoint + email,
-      res => {
+      (res) => {
         dispatch({
           type: types.RESEND_CONFIRMATION_EMAIL.SUCCESS,
           payload: res,
@@ -97,7 +97,7 @@ export const ResendConfirmationEmail = () => {
         showToast("Kindly check your mail for verification link", "info");
         successCallback?.(res);
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.RESEND_CONFIRMATION_EMAIL.FAILURE,
           payload: err,
@@ -116,14 +116,14 @@ export const Resolve2FALogin = () => {
     axios.request(
       `post`,
       `auth/2fa/validatetoken`,
-      res => {
+      (res) => {
         const { token, user } = res;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch({ type: types.RESOLVE_2FA_LOGIN.SUCCESS, payload: res });
         successCallback?.(res);
       },
-      err => {
+      (err) => {
         dispatch({ type: types.RESOLVE_2FA_LOGIN.FAILURE, payload: err });
         showToast(err?.error, "error");
         errorCallback?.();
@@ -140,12 +140,12 @@ export const InitiatePasswordReset = () => {
     axios.request(
       `post`,
       `auth/forgot_password/generate_token`,
-      res => {
+      (res) => {
         dispatch({ type: types.INITIATE_PASSWORD_RESET.SUCCESS, payload: res });
         showToast("Kindly check your mail for password reset token", "info");
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({ type: types.INITIATE_PASSWORD_RESET.FAILURE, payload: err });
         showToast(err?.error, "error");
         errorCallback?.();
@@ -162,7 +162,7 @@ export const ValidateResetToken = () => {
     axios.request(
       `post`,
       `auth/forgot_password/confirm_token`,
-      res => {
+      (res) => {
         const { token } = res;
         localStorage.setItem("token", token);
         dispatch({
@@ -171,7 +171,7 @@ export const ValidateResetToken = () => {
         });
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.VALIDATE_PASSWORD_RESET_TOKEN.FAILURE,
           payload: err,
@@ -191,14 +191,14 @@ export const ResetPassword = () => {
     axios.request(
       `post`,
       `auth/forgot_password/reset_password`,
-      res => {
+      (res) => {
         dispatch({
           type: types.RESET_PASSWORD.SUCCESS,
           payload: res,
         });
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.RESET_PASSWORD.FAILURE,
           payload: err,
@@ -218,14 +218,14 @@ export const SuperAdminResetPassword = () => {
     axios.request(
       `post`,
       `auth/superadmin/reset_password`,
-      res => {
+      (res) => {
         dispatch({
           type: types.SUPER_ADMIN_RESET_PASSWORD.SUCCESS,
           payload: res,
         });
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.SUPER_ADMIN_RESET_PASSWORD.FAILURE,
           payload: err,
@@ -245,14 +245,14 @@ export const EnableAndDisable2FA = () => {
     axios.request(
       `post`,
       `Seller/Activate/De-Activate2FA`,
-      res => {
+      (res) => {
         dispatch({
           type: types.ENABLE_AND_DISABLE_2FA.SUCCESS,
           payload: res,
         });
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.ENABLE_AND_DISABLE_2FA.FAILURE,
           payload: err,
@@ -271,14 +271,14 @@ export const Resend2FA = () => {
     axios.request(
       `post`,
       `auth/resend/2FA/${userId}`,
-      res => {
+      (res) => {
         dispatch({
           type: types.RESEND_2FA.SUCCESS,
           payload: res,
         });
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.RESEND_2FA.FAILURE,
           payload: err,

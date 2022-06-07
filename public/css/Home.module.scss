@@ -1172,7 +1172,11 @@
     text-align: center;
     font-weight: 700;
     margin-bottom: 32px;
-    margin-top: 72px;
+    // margin-top: 72px;
+
+    @media (min-width: 768px) {
+      margin-top: 35px;
+    }
     @media (min-width: 1440px) {
       margin-bottom: unset;
       margin-top: unset;
