@@ -279,6 +279,30 @@ select {
   }
 }
 
+.customUploadV2{
+  .ant-upload {
+    &.ant-upload-btn{
+      padding: 5px !important;
+    }
+    &.ant-upload-drag{
+      // margin-top: 0px !important;
+    }
+  
+  }
+}
+.customUploadV3{
+  .ant-upload {
+    &.ant-upload-btn{
+      padding: 0px !important;
+    }
+    &.ant-upload-drag{
+      margin-top: 0px !important;
+    }
+  
+  }
+}
+
+
 .status-live {
   @include allProductsTableHeaderStyle(#2dc071, #f1fcf8);
 }

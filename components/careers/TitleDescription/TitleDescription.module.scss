@@ -1,0 +1,37 @@
+@import "../../../public/css/colors.scss";
+@import "../../../public/css/mixins.scss";
+@import "../../../public/css/screens.scss";
+
+
+.container{
+    margin-bottom: 30px;
+    .title{
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 40px;
+        color: #262626;
+    }
+    .description{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 26px;
+        color: #595959;
+    }
+
+    .listWrapper{
+        .list{
+            margin-bottom: 2px;
+            @include flex(row, null, null);
+            gap: 5px;
+            .itm{
+                margin-bottom: 0;
+            }
+            // &::before{
+            //     content: "\2022 \00A0";
+            //     color: #595959;
+            //     font-size: 1.1rem;
+            // }
+        }
+    }
+    // @include flex(row, space-between, center);
+}

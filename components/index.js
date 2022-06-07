@@ -1,6 +1,7 @@
 export * from "./layout";
 export * from "./auth/GeneralLayout";
 export * from "./button/Button";
+export * from "./BackButton/index";
 export * from "./checkbox/Checkbox";
 export * from "./footer";
 export * from "./formError/FormError";

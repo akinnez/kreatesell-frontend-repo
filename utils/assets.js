@@ -140,6 +140,15 @@ import NewsCardFour from "../public/images/card-four.svg";
 import CardMain from "../public/images/card-main.svg";
 import ProfileImage from "../public/images/profile-image.svg";
 import EditIcon from "../public/images/icons/EditIcon.svg";
+import Accommodation from "../public/images/icons/Accomodation.svg";
+import Bag from "../public/images/icons/Bag.svg";
+import Box from "../public/images/icons/Box.svg";
+import Building from "../public/images/icons/Building.svg";
+import FlexibleOffice from "../public/images/icons/FlexibleOffice.svg";
+import House from "../public/images/icons/House.svg";
+import LeftArrow from "../public/images/icons/circle_left.svg";
+import CareerSuccess from "../public/images/career-success.svg";
+import CareerFailure from "../public/images/career-failure.svg";
 
 export {
   ProfileImage,
@@ -283,5 +292,14 @@ export {
   tick,
   UserImage,
   SellFeature,
-  EditIcon
+  EditIcon,
+  Accommodation,
+  Bag,
+  Box,
+  Building,
+  FlexibleOffice,
+  House,
+  LeftArrow,
+  CareerSuccess,
+  CareerFailure
 };
