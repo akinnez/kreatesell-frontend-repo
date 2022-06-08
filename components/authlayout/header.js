@@ -6,7 +6,14 @@ import { useSelector } from "react-redux";
 import { Layout, Menu, Button, Dropdown } from "antd";
 import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
 import { Logout, GetNotifications } from "../../redux/actions";
-import { PageDot, ProfileIcon, Cog, Bell, EditPen2, LogoutIcon2} from "../IconPack";
+import {
+  PageDot,
+  ProfileIcon,
+  Cog,
+  Bell,
+  EditPen2,
+  LogoutIcon2,
+} from "../IconPack";
 import { _getMyStoreDetails } from "utils";
 import { MobileLogo } from "./logo";
 import { NotificationDropdown } from "components/notification/Dropdown";
@@ -21,7 +28,17 @@ const Profile = ({ name, avi }) => {
           <p>Account</p>
         </div>
         <div className="profile">
-          {avi ? <Image src={avi} width={"100%"} height={"100%"} objectFit="cover"/> :<ProfileIcon />}
+          {!avi || avi === "Images\\ProfilePicture\\imageIcon" ? (
+            <ProfileIcon />
+          ) : (
+            <Image
+              src={avi}
+              width={"100%"}
+              height={"100%"}
+              alt={name}
+              objectFit="cover"
+            />
+          )}
         </div>
       </div>
       <style jsx>{`
@@ -66,16 +83,18 @@ const menu = logout => (
   <Menu>
     <Menu.Item key="prof-1">
       <Link href="/account/kreator/store/edit">
-      
-      <a className={style.edit}><EditPen2 />Edit Profile</a>
+        <a className={style.edit}>
+          <EditPen2 />
+          Edit Profile
+        </a>
       </Link>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="prof-2" onClick={() => logout()}>
-    <a className={style.edit}>
-      <MdOutlineLogout />
-       Logout
-    </a>
+      <a className={style.edit}>
+        <MdOutlineLogout />
+        Logout
+      </a>
     </Menu.Item>
   </Menu>
 );
@@ -87,10 +106,11 @@ const Nav = ({ headerTitle }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const { pathname } = useRouter();
-  const [store] = useState(_getMyStoreDetails())
+  const [store] = useState(_getMyStoreDetails());
   // const store = _getMyStoreDetails();
 
   const { notifications } = useSelector(state => state.notification);
+  const { store: {store_details}} = useSelector(state => state.store);
 
   const unreadNotification = notifications?.filter(item => !item?.is_read);
 
@@ -138,7 +158,7 @@ const Nav = ({ headerTitle }) => {
           </Button>
           <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
             <Button type="text">
-              <Profile name={info?.full_name} avi={info?.business_logo} />
+              <Profile name={info?.full_name} avi={store_details?.display_picture} />
             </Button>
           </Dropdown>
         </div>

@@ -22,6 +22,9 @@
     }
     .jobRolesContainer{
         @include flex(row, space-between, null);
+        @include screen("x-large") {
+            display: block;
+          }
         .jobDetails{
             @include flex(row, flex-start, null);
             gap: 4rem;
@@ -34,8 +37,10 @@
             }
         }
         .callToActionButton{
-            button{
-
+            .actionBtn{
+                @include screen("x-large") {
+                    width: 100%;
+                  }
             }
             .status{
                 font-weight: 700;

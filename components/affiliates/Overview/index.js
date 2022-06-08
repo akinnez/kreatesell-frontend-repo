@@ -4,6 +4,7 @@ import { Typography, Avatar } from "antd";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaRegUser } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
+import formatNumber from "utils/formatNumber";
 import styles from "./index.module.scss";
 
 const { Title, Text, Link } = Typography;
@@ -72,7 +73,8 @@ const Overview = ({
               <Text>
                 {productPrice ? (
                   <>
-                    {productPrice.currency} {productPrice.price.toFixed(2)}
+                    {productPrice.currency}{" "}
+                    {formatNumber(productPrice.price.toFixed(2))}
                   </>
                 ) : (
                   "0.00"
@@ -88,7 +90,8 @@ const Overview = ({
               <Text>
                 {productPrice ? (
                   <>
-                    {productPrice.currency} {productPrice.commission.toFixed(2)}
+                    {productPrice.currency}{" "}
+                    {formatNumber(productPrice.commission.toFixed(2))}
                   </>
                 ) : (
                   "0.00"
@@ -116,7 +119,14 @@ const Overview = ({
               className={styles.image}
               shape="square"
               size={breakpoint}
-              src={<Image src={kreatorImage} layout="fill" alt={kreatorName} />}
+              src={
+                <Image
+                  src={kreatorImage}
+                  layout="fill"
+                  objectFit="cover"
+                  alt={kreatorName}
+                />
+              }
             />
           ) : (
             <Avatar

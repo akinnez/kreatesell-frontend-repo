@@ -61,7 +61,8 @@ const UploadPlaceholderV3 = ()=>{
 }
 
 export const DropzoneV2 = ({label, value, onChange=()=>{}, extraLabel,name,variant,accept,errors={},required=false,...rest})=>{
-    const [imgUrl, setImgUrl] = useState()
+    const [imgUrl, setImgUrl] = useState();
+    const [fileName, setFileName] = useState("");
 
       const handleBeforeUpload = (info,inp)=>{
           const isAcceptable = info?.type?.split("/")[1] == accept;
@@ -71,8 +72,10 @@ export const DropzoneV2 = ({label, value, onChange=()=>{}, extraLabel,name,varia
             toast.error("File must be an "+accept)
           }else{
             onChange(inp[0])
-            getBase64(inp[0], imageUrl =>
+            getBase64(inp[0], imageUrl =>{
                 setImgUrl(imageUrl)
+                setFileName(info?.name);
+            }
             );
           }
           return false
@@ -81,7 +84,7 @@ export const DropzoneV2 = ({label, value, onChange=()=>{}, extraLabel,name,varia
     return(
         <>
              <div className={`${variant === 2 ?"customUploadV2": "customUploadV3"} ${style.dragger_wrapperV2} ${variant === 3 && style.dragger_wrapperV3} }`}>
-            <label className={style.label}>{label} <span style={{color: "red"}}>{extraLabel}</span></label>
+            <label className={style.label}><span style={{color: "red"}}>{extraLabel}</span> {label} </label>
                 <AntUpload.Dragger {...rest}
                 className={`${variant === 2 ? style.dragger : style.plain}`}
                     previewFile={false}
@@ -89,7 +92,7 @@ export const DropzoneV2 = ({label, value, onChange=()=>{}, extraLabel,name,varia
                     beforeUpload={handleBeforeUpload}
                     listType="picture-card" 
                     showUploadList={false}>
-                    {accept === "pdf" && imgUrl ? <h1>PDF</h1> : imgUrl || value ? <Image src={imgUrl || value} alt="avatar" height={50} preview={false}/> : variant === 2 ? <UploadPlaceholderV2/>: variant === 3 ? <UploadPlaceholderV3/>: null}
+                    {!!accept && imgUrl ? <div className={style.otheFileDescription}><h1 className={style.fileName}>{accept} file:</h1> {fileName}</div> : imgUrl || value ? <Image src={imgUrl || value} alt="avatar" height={50} preview={false}/> : variant === 2 ? <UploadPlaceholderV2/>: variant === 3 ? <UploadPlaceholderV3/>: null}
                 </AntUpload.Dragger>
              </div>
                 {(`${name}` in errors) && errors[name] && <p className={style.error} style={{display:"block"}}>{name} is required</p>}

@@ -132,14 +132,14 @@ const Sidebar = () => {
           className={style.subMenu}
           expandIcon={<CloseSubMenu />}
         >
-          <Menu.Item key={40}>
-            <Link href="/account/kreator/abandoned-carts">
-              <a>Abandoned Carts</a>
-            </Link>
-          </Menu.Item>
           <Menu.Item key={41}>
             <Link href="/account/kreator/affiliates-requests">
               <a>Affiliates Requests</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key={40}>
+            <Link href="/account/kreator/abandoned-carts">
+              <a>Abandoned Carts</a>
             </Link>
           </Menu.Item>
         </SubMenu>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Input, Typography } from "antd";
 import { Formik } from "formik";
-import RequestSuccessModal from "../RequestSuccessModal";
+import SuccessModalBox from "components/SuccessModalBox";
 import { showToast } from "utils";
 import axiosApi from "utils/axios";
 import { AffiliatePermission } from "validation/AffiliatePermission.validation";
@@ -99,10 +99,24 @@ const Request = ({ productId, hasRequestedAccess, updateProduct }) => {
         </Formik>
       </div>
       {showModal && (
-        <RequestSuccessModal
-          showModal={showModal}
-          handleHideModal={handleHideModal}
-        />
+        <SuccessModalBox
+          modalIsVisible={showModal}
+          closeModal={handleHideModal}
+        >
+          <section className={styles.content}>
+            <p>
+              <Typography.Text strong>
+                Your request has been sent to the Kreator
+              </Typography.Text>
+            </p>
+            <p>
+              <Typography.Text>
+                You will be notified when the Kreator accepts or rejects your
+                request
+              </Typography.Text>
+            </p>
+          </section>
+        </SuccessModalBox>
       )}
     </>
   );

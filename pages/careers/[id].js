@@ -101,8 +101,7 @@ export default function Career () {
                 setLoading({submitting: false});
                 setJobstatus("success");
                 setShowModal(true);
-                console.log(data);
-                
+                // console.log(data);
             },
             (err) => {
                 setLoading({submitting: false});
@@ -126,6 +125,7 @@ export default function Career () {
             </Layout>
         ) 
     }
+    console.log(job);
     // if(error) return <h3>Error</h3>
   return (
       <>
@@ -200,7 +200,7 @@ export default function Career () {
                 />
             </section>}
           </div>
-            <section className={styles.form}>
+            <section id="CareerPageForm" className={styles.form}>
                 <CareersForm submitCB={handleSubmit} jobID={Router.query.id} loading={loading}/>
             </section>
         </div>

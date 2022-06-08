@@ -11,7 +11,7 @@
 	@include screen("tablet") {
 		padding: 0 1rem;
 	}
-	@include screen("medium") {
+	@include screen("medium") { 
 		background-image: url("/images/mobile-general-bg.svg");
 		background-repeat: no-repeat;
 	}
@@ -189,6 +189,15 @@
         margin: auto;
         width: 30%;
         @include flex(row, null, null);
+        @include screen("xx-large") {
+            width: 50%;
+        }
+        @include screen("tablet") {
+            width: 70%;
+        }
+        @include screen("medium-large") {
+            width: 90%;
+        }
         input{
             border-radius: 0.5rem 0 0 0.5rem;
             height: 2.5rem;
@@ -199,6 +208,10 @@
             height: 2.5rem;
             font-size: 14px;
             border-radius: 0 0.5rem 0.5rem 0;
+            @include screen("tablet") {
+                font-size: 12px;
+                padding-inline: 2px;
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, Button, Typography } from "antd";
-import SuccessModal from "../SuccessModal";
+import SuccessModalBox from "components/SuccessModalBox";
 import EditBankDetails from "../EditBankDetails";
 import BankInformation from "../BankInformation";
 import ClipboardImg from "public/images/clipboards.png";
@@ -49,21 +49,22 @@ const BankAccountDetails = ({ bankDetails }) => {
                 />
               )}
               {successModal && (
-                <SuccessModal
-                  successModal={successModal}
-                  hideModal={handleClicks(setSuccessModal, false)}
-                  closable
+                <SuccessModalBox
+                  modalIsVisible={successModal}
+                  closeModal={handleClicks(setSuccessModal, false)}
                 >
-                  <p>
-                    <Text>Account Details Successfully Updated</Text>
-                  </p>
-                  <p>
-                    <Text>
-                      Congratulations! You can now start seamlessly receiving
-                      your settlement as at when due.
-                    </Text>
-                  </p>
-                </SuccessModal>
+                  <section className={styles.content}>
+                    <p>
+                      <Text>Account Details Successfully Updated</Text>
+                    </p>
+                    <p>
+                      <Text>
+                        Congratulations! You can now start seamlessly receiving
+                        your settlement in your new account as at when due.
+                      </Text>
+                    </p>
+                  </section>
+                </SuccessModalBox>
               )}
             </div>
           ) : (
