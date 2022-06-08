@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import style from "./sidebar.module.scss";
 import Router, { useRouter } from "next/router";
 import { SetProductDefault, SetProductID } from "redux/actions";
-
+import Image from "next/image";
 import {
   Shop,
   Dashboard,
@@ -17,6 +17,8 @@ import {
   KreatorsIcon,
   SalesIcon,
 } from "../IconPack";
+import { BusinessPlanBox } from "../../utils/assets";
+
 import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
 
 const menuItemStyle = {
@@ -206,13 +208,11 @@ const Sidebar = () => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-      <div className={style.businessBg}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, dolorem
-        voluptates, ab debitis enim odio quas repellat minus modi provident
-        veniam illo illum eveniet nesciunt atque eaque beatae autem? Quisquam,
-        blanditiis rerum nulla excepturi aspernatur aliquam repellendus, modi,
-        quasi natus doloremque ab quos incidunt libero est exercitationem.
-      </div>
+      <section className={style.businessBg}>
+        <div className={style.iconBox}>
+          <Image src={BusinessPlanBox} alt="business plan icon" />
+        </div>
+      </section>
     </div>
   );
 };

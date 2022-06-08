@@ -1,6 +1,6 @@
 import Location from "../public/images/Location.svg";
 import Message from "../public/images/Message.svg";
-import BusinessPlanBg from "../public/images/business-plan-bg.svg";
+import BusinessPlanBox from "../public/images/business-plan-box.svg";
 import Mobile from "../public/images/Mobile.svg";
 import FacebookBtn from "../public/images/facebookLogin.svg";
 import GoogleBtn from "../public/images/googleLogin.svg";
@@ -152,7 +152,7 @@ import CareerSuccess from "../public/images/career-success.svg";
 import CareerFailure from "../public/images/career-failure.svg";
 
 export {
-  BusinessPlanBg,
+  BusinessPlanBox,
   ProfileImage,
   CardMain,
   NewsCardOne,
