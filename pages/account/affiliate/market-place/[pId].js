@@ -69,7 +69,7 @@ const AffiliateProductRequest = () => {
       <header className={styles.header}>
         <BackButton />
         <Button className={styles.header__btn} icon={<MdOutlineRemoveRedEye />}>
-          View Sales Page
+          View Product Page
         </Button>
       </header>
       <AffiliateRequestContainer
