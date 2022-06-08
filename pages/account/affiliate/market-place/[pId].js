@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Button, Tabs, Typography } from "antd";
+import Link from "next/link";
+import { Tabs, Typography } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import BackButton from "components/BackButton";
 import Spinner from "components/Spinner";
@@ -68,9 +69,13 @@ const AffiliateProductRequest = () => {
     <AffiliateProductPageWrapper>
       <header className={styles.header}>
         <BackButton />
-        <Button className={styles.header__btn} icon={<MdOutlineRemoveRedEye />}>
-          View Product Page
-        </Button>
+        <Link
+          href={`/account/kreator/products/preview/${product.affiliate_kreator_product.product_id}`}
+        >
+          <a className={styles.header__btn}>
+            <MdOutlineRemoveRedEye /> View Product Page
+          </a>
+        </Link>
       </header>
       <AffiliateRequestContainer
         productTypeId={product.affiliate_kreator_product.product_type_id}

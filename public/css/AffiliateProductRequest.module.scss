@@ -2,7 +2,6 @@
 @use "colors";
 
 .error__section {
-  // @include mixins.flex(row, center, center);
   text-align: center;
 
   [class="ant-typography"] {
@@ -18,6 +17,7 @@
 }
 
 .header__btn {
+  display: inline-flex;
   height: auto;
   padding: 10px 20px;
   background-color: transparent;
