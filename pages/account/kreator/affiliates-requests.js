@@ -4,6 +4,7 @@ import { Typography, Button, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import SuccessModalBox from "components/SuccessModalBox";
+import PaginationHelper from "components/PaginationHelpers";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
@@ -19,7 +20,7 @@ const statusArr = [
   { type: "All", label: "All" },
   { type: "Pending", label: "Pending" },
   { type: "Approved", label: "Approved" },
-  { type: "Revoked", label: "Revoked" },
+  { type: "Declined", label: "Declined" },
 ];
 
 const AffiliateRequests = () => {
@@ -36,6 +37,7 @@ const AffiliateRequests = () => {
 
   const [filters, setFilters] = useState({
     page: 1,
+    limit: 10,
     status: "All",
     productName: "",
     affiliateName: "",
@@ -45,7 +47,7 @@ const AffiliateRequests = () => {
 
   useEffect(() => {
     let url = new URL(
-      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${filters.page}&Limit=8`
+      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${filters.page}&Limit=${filters.limit}`
     );
 
     if (filters.status !== "All") {
@@ -71,6 +73,7 @@ const AffiliateRequests = () => {
     setUri(url);
   }, [
     filters.page,
+    filters.limit,
     filters.status,
     filters.requestDate,
     filters.affiliateName,
@@ -100,7 +103,7 @@ const AffiliateRequests = () => {
   );
 
   const handler = (setter, field, value) => param => {
-    setter(s => ({ ...s, [field]: param ?? value }));
+    setter(s => ({ ...s, [field]: value || param }));
   };
 
   const handleSuccess = value => {
@@ -158,6 +161,11 @@ const AffiliateRequests = () => {
       <section>
         <Filters setFilters={setFilters} />
       </section>
+      <PaginationHelper
+        dataSize={requests.total}
+        filters={filters}
+        setFilters={setFilters}
+      />
       <section className={styles.status__btns__section}>
         <div className={styles.status__btns}>
           {statusArr.map(({ type, label }) => (
@@ -178,10 +186,10 @@ const AffiliateRequests = () => {
           columns={columns}
           pagination={{
             position: ["bottomLeft"],
-            pageSize: 8,
-            responsive: true,
-            total: requests.total,
+            pageSize: filters.limit,
             current: filters.page,
+            total: requests.total,
+            responsive: true,
             onChange: handler(setFilters, "page", null),
           }}
           rowKey={rowKey}

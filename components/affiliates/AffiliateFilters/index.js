@@ -47,6 +47,7 @@ const AffiliateFilters = ({ setQueries }) => {
     setShowFilter(false);
     setQueries(s => ({
       ...s,
+      page: 1,
       productName: product_name || "",
       kreatorName: kreator_name || "",
       productType: product_type || null,
@@ -59,6 +60,7 @@ const AffiliateFilters = ({ setQueries }) => {
     setIsFiltered(false);
     setQueries(s => ({
       ...s,
+      page: 1,
       productName: "",
       kreatorName: "",
       productType: null,

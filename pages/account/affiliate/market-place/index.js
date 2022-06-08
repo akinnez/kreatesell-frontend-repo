@@ -7,6 +7,7 @@ import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import Spinner from "components/Spinner";
+import PaginationHelper from "components/PaginationHelpers";
 import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
 import productsColumns from "components/affiliateProducts/productsColumns";
 import {
@@ -36,6 +37,7 @@ const AffiliateProducts = () => {
   const [uri, setUri] = useState("");
   const [queries, setQueries] = useState({
     page: 1,
+    limit: 10,
     dateListed: "",
     productName: "",
     productType: null,
@@ -44,7 +46,7 @@ const AffiliateProducts = () => {
 
   useEffect(() => {
     const url = new URL(
-      `${process.env.BASE_URL}affiliate/get-products?Page=${queries.page}&Limit=8`
+      `${process.env.BASE_URL}affiliate/get-products?Page=${queries.page}&Limit=${queries.limit}`
     );
 
     if (queries.dateListed) {
@@ -66,13 +68,14 @@ const AffiliateProducts = () => {
     setUri(url);
   }, [
     queries.page,
+    queries.limit,
     queries.dateListed,
     queries.kreatorName,
     queries.productName,
     queries.productType,
   ]);
 
-  useSWR(
+  const { data: res } = useSWR(
     () => (user.is_affiliate && uri ? uri : null),
     url => {
       dispatch(affiliateProductsRequest());
@@ -128,20 +131,25 @@ const AffiliateProducts = () => {
       ) : (
         <>
           <AffiliateFilters setQueries={setQueries} />
+          <PaginationHelper
+            dataSize={totalProducts}
+            filters={queries}
+            setFilters={setQueries}
+          />
           <section className={styles.tableWrapper}>
             <Table
               dataSource={products}
               columns={columns}
               pagination={{
-                position: ["bottomLeft", "topRight"],
-                showSizeChanger: false,
-                pageSize: 8,
+                position: ["bottomLeft"],
+                pageSize: queries.limit,
+                current: queries.page,
                 total: totalProducts,
                 responsive: true,
                 onChange: handlePageChange,
               }}
               rowKey={rowKey}
-              loading={affiliateLoading}
+              loading={!res}
             />
           </section>
         </>
