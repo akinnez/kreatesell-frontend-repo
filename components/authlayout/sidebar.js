@@ -72,7 +72,7 @@ const Sidebar = () => {
   const setProductId = SetProductID();
   const setProductDefault = SetProductDefault();
   return (
-    <>
+    <div className={style.sidebar}>
       <Menu mode="inline" theme="light" className={style.menu}>
         <MenuItem
           key={1}
@@ -107,7 +107,7 @@ const Sidebar = () => {
           <Menu.Item key={36}>
             <Link href="/account/kreator/products/create">
               <a
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   setProductId("");
                   setProductDefault();
@@ -206,7 +206,14 @@ const Sidebar = () => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-    </>
+      <div className={style.businessBg}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, dolorem
+        voluptates, ab debitis enim odio quas repellat minus modi provident
+        veniam illo illum eveniet nesciunt atque eaque beatae autem? Quisquam,
+        blanditiis rerum nulla excepturi aspernatur aliquam repellendus, modi,
+        quasi natus doloremque ab quos incidunt libero est exercitationem.
+      </div>
+    </div>
   );
 };
 
