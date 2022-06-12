@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Card } from "antd";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
-import "react-quill/dist/quill.snow.css";
+import RenderQuillHTML from "components/RenderQuillHTML";
 import styles from "public/css/AbandonedCartPreview.module.scss";
 
 const Preview = () => {
@@ -19,12 +19,7 @@ const Preview = () => {
       </header>
       <section className={styles.content}>
         <Card className={styles.card}>
-          <div className="ql-container ql-snow">
-            <div
-              className="ql-editor"
-              dangerouslySetInnerHTML={{ __html: campaign?.email_content }}
-            />
-          </div>
+          <RenderQuillHTML html={campaign?.email_content} />
         </Card>
       </section>
     </ProfileLayout>

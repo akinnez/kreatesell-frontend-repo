@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Tabs, Typography } from "antd";
@@ -9,31 +8,15 @@ import AffiliateRequestContainer from "components/affiliates/AffiliateRequestCon
 import AffiliateProductPageWrapper from "components/affiliates/AffiliateProductPageWrapper";
 import Request from "components/affiliateProducts/components/Request";
 import Overview from "components/affiliates/Overview";
-import axiosAPI from "utils/axios";
+import useProductOverview from "hooks/useProductOverview";
 import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { TabPane } = Tabs;
 const { Text } = Typography;
 
 const AffiliateProductRequest = () => {
-  const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null);
   const router = useRouter();
-
-  useEffect(() => {
-    if (router.query.pId) {
-      axiosAPI.request(
-        "get",
-        `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`,
-        res => {
-          setProduct(res.data);
-        },
-        err => {
-          setError(err.message);
-        }
-      );
-    }
-  }, [router.query.pId]);
+  const { data: product, error } = useProductOverview(router.query.pId);
 
   if (error) {
     return (
@@ -102,6 +85,7 @@ const AffiliateProductRequest = () => {
             kreatorName={product.kreator_user_details.full_name}
             kreatorImage={product.kreator_user_details.profile_image}
             kreatorBio={product.kreator_user_details.store_description}
+            storeName={product.kreator_user_details.store_name}
           />
         </TabPane>
       </AffiliateRequestContainer>
