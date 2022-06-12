@@ -6,6 +6,7 @@ import Spinner from "components/Spinner";
 import PageWrapper from "components/affiliateProductPreview/PageWrapper";
 import ProductImages from "components/affiliateProductPreview/ProductImages";
 import ProductKreator from "components/affiliateProductPreview/ProductKreator";
+import AffiliatePageFooter from "components/affiliates/AffiliatePageFooter";
 import useProductOverview from "hooks/useProductOverview";
 import formatNumber from "utils/formatNumber";
 import styles from "public/css/AffiliateProductPreview.module.scss";
@@ -50,7 +51,7 @@ const ProductPreview = () => {
 
   return (
     <PageWrapper>
-      <article>
+      <article className={styles.product}>
         <Card className={styles.product__card}>
           <section className={styles.product__header}>
             <div className={styles.product__images}>
@@ -90,6 +91,7 @@ const ProductPreview = () => {
           </section>
         </Card>
       </article>
+      <AffiliatePageFooter />
     </PageWrapper>
   );
 };
