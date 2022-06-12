@@ -69,9 +69,7 @@ const AffiliateProductRequest = () => {
     <AffiliateProductPageWrapper>
       <header className={styles.header}>
         <BackButton />
-        <Link
-          href={`/account/kreator/products/preview/${product.affiliate_kreator_product.product_id}`}
-        >
+        <Link href={`/account/affiliate/preview/product/${router.query.pId}`}>
           <a className={styles.header__btn}>
             <MdOutlineRemoveRedEye /> View Product Page
           </a>
