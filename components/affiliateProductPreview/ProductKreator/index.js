@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { FaRegUser } from "react-icons/fa";
 import KreatorInfo from "components/affiliates/KreatorInfo";
+import KreatorAvatar from "components/affiliates/KreatorAvatar";
 import styles from "./index.module.scss";
 
 const ProductKreator = ({ kreatorImage, kreatorName, storeName }) => {
@@ -8,12 +8,7 @@ const ProductKreator = ({ kreatorImage, kreatorName, storeName }) => {
     <div className={styles.product__kreator}>
       {kreatorImage ? (
         <div className={styles.product__kreator__avatar}>
-          <Image
-            src={kreatorImage}
-            alt={kreatorName}
-            layout="fill"
-            objectFit="cover"
-          />
+          <KreatorAvatar image={kreatorImage} name={kreatorName} />
         </div>
       ) : (
         <div className={styles.empty__avatar}>

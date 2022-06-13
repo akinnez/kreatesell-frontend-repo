@@ -8,12 +8,14 @@ const AffiliateProductPageWrapper = ({ children, back }) => (
     <Head>
       <title>KreateSell | Affiliate Product Request</title>
     </Head>
-    {back && (
-      <header className={styles.header}>
-        <BackButton />
-      </header>
-    )}
-    {children}
+    <div className={styles.container}>
+      {back && (
+        <header className={styles.header}>
+          <BackButton />
+        </header>
+      )}
+      {children}
+    </div>
   </ProfileLayout>
 );
 

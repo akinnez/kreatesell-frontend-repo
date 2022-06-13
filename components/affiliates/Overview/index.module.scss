@@ -20,6 +20,19 @@
   margin-bottom: 25px;
 }
 
+.empty__image__Banner {
+  @include mixins.flex(row, center, center);
+  height: calc(100vw - 82px * 1.745);
+  max-height: 295px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  svg {
+    font-size: 40px;
+    color: #808080;
+  }
+}
+
 .product__overview__info {
   margin-bottom: 40px;
 
@@ -69,6 +82,7 @@
 }
 
 .empty__avatar {
+  margin-bottom: 20px;
   height: 330px;
   @include mixins.flex(row, center, center);
   background-color: rgba(0, 0, 0, 0.05);

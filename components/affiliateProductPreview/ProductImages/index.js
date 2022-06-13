@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "antd";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import KreatorProductImage from "components/affiliates/KreatorProductImage";
+import { BsChevronLeft, BsChevronRight, BsFillImageFill } from "react-icons/bs";
+import ProductImage from "components/affiliates/ProductImage";
 import styles from "./index.module.scss";
 
 const ProductImages = ({ imageFiles, productName }) => {
@@ -61,12 +61,17 @@ const ProductImages = ({ imageFiles, productName }) => {
   return (
     <>
       <div className={styles.product__image__overview}>
-        <KreatorProductImage
+        <ProductImage
           productImage={src}
           productName={productName}
           width={280}
           height={280}
-        />
+          priority
+        >
+          <div className={styles.empty__image__Banner}>
+            <BsFillImageFill />
+          </div>
+        </ProductImage>
       </div>
       {images && (
         <div className={styles.product__images__controls}>

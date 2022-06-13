@@ -6,6 +6,19 @@
   margin-bottom: 25px;
 }
 
+.empty__image__Banner {
+  @include mixins.flex(row, center, center);
+  height: calc(100vw - 40px);
+  max-height: 600px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  svg {
+    font-size: 40px;
+    color: #808080;
+  }
+}
+
 .product__images {
   margin-bottom: 10px;
   @include mixins.flex(row, center, center);

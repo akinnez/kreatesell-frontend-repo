@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Card, Typography, Divider } from "antd";
 import RenderQuillHTML from "components/RenderQuillHTML";
 import Spinner from "components/Spinner";
-import PageWrapper from "components/affiliateProductPreview/PageWrapper";
+import PageWrapper from "components/affiliates/PageWrapper";
 import ProductImages from "components/affiliateProductPreview/ProductImages";
 import ProductKreator from "components/affiliateProductPreview/ProductKreator";
 import AffiliatePageFooter from "components/affiliates/AffiliatePageFooter";
@@ -31,7 +31,7 @@ const ProductPreview = () => {
 
   if (error) {
     return (
-      <PageWrapper>
+      <PageWrapper title="Product Preview">
         <section className={styles.error__section}>
           <p>
             <strong>{error}</strong>
@@ -43,14 +43,14 @@ const ProductPreview = () => {
 
   if (!product) {
     return (
-      <PageWrapper>
+      <PageWrapper title="Product Preview">
         <Spinner />
       </PageWrapper>
     );
   }
 
   return (
-    <PageWrapper>
+    <PageWrapper title="Product Preview">
       <article className={styles.product}>
         <Card className={styles.product__card}>
           <section className={styles.product__header}>

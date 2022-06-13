@@ -1,8 +1,14 @@
 import Image from "next/image";
-import { BsFillImageFill } from "react-icons/bs";
 import styles from "./index.module.scss";
 
-const KreatorProductImage = ({ productImage, productName, width, height }) => (
+const ProductImage = ({
+  children,
+  productImage,
+  productName,
+  width,
+  height,
+  priority = false,
+}) => (
   <>
     {productImage ? (
       <div className={styles.product__image}>
@@ -13,15 +19,13 @@ const KreatorProductImage = ({ productImage, productName, width, height }) => (
           width={width}
           height={height}
           objectFit="cover"
-          priority
+          priority={priority}
         />
       </div>
     ) : (
-      <div className={styles.empty__image__Banner}>
-        <BsFillImageFill />
-      </div>
+      <>{children}</>
     )}
   </>
 );
 
-export default KreatorProductImage;
+export default ProductImage;

@@ -1,10 +1,12 @@
 import { useMemo } from "react";
-import Image from "next/image";
 import { Typography } from "antd";
 import { FaRegUser } from "react-icons/fa";
+import { BsFillImageFill } from "react-icons/bs";
 import KreatorInfo from "../KreatorInfo";
-import KreatorProductImage from "../KreatorProductImage";
 import ProductPricing from "../ProductPricing";
+import KreatorAvatar from "../KreatorAvatar";
+import ProductImage from "../ProductImage";
+import productImageFn from "utils/productImageFn";
 import styles from "./index.module.scss";
 
 const { Title, Text } = Typography;
@@ -20,24 +22,26 @@ const Overview = ({
   kreatorBio,
   storeName,
 }) => {
-  const productImage = useMemo(() => {
-    if (productImages.length === 0) return null;
-
-    return productImages
-      .filter(images => images.file_type !== 4)
-      .map(item => item.filename.split(",")[0])[0];
-  }, [productImages]);
+  const productImage = useMemo(
+    () => productImageFn(productImages),
+    [productImages]
+  );
 
   return (
     <div className={styles.overview__container}>
       <section className={styles.product__overview}>
         <div className={styles.product__overview__img}>
-          <KreatorProductImage
+          <ProductImage
             productImage={productImage}
             productName={productName}
-            width={515}
+            width={516}
             height={295}
-          />
+            priority
+          >
+            <div className={styles.empty__image__Banner}>
+              <BsFillImageFill />
+            </div>
+          </ProductImage>
         </div>
         <div className={styles.product__overview__info}>
           <Title level={2}>{productName}</Title>
@@ -57,12 +61,7 @@ const Overview = ({
           </div>
           {kreatorImage ? (
             <div className={styles.kreator__overview__image}>
-              <Image
-                src={kreatorImage}
-                alt={kreatorName}
-                layout="fill"
-                objectFit="cover"
-              />
+              <KreatorAvatar image={kreatorImage} name={kreatorName} />
             </div>
           ) : (
             <div className={styles.empty__avatar}>

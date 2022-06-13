@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Typography } from "antd";
 import formatNumber from "utils/formatNumber";
+import productPriceFn from "utils/productPriceFn";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;
@@ -9,17 +10,14 @@ const ProductPricing = ({
   productPriceDetails,
   productAffiliateCommission,
 }) => {
-  const productPrice = useMemo(() => {
-    if (productPriceDetails.length === 0) return null;
+  const productPrice = useMemo(
+    () => productPriceFn(productPriceDetails),
+    [productPriceDetails]
+  );
 
-    const details = productPriceDetails[0];
-
-    return {
-      currency: details.currency_name,
-      price: details.price,
-      commission: (productAffiliateCommission / 100) * details.price,
-    };
-  }, [productPriceDetails, productAffiliateCommission]);
+  const commission = !productPrice
+    ? 0
+    : (productAffiliateCommission / 100) * productPrice.price;
 
   return (
     <div className={styles.product__overview__pricing}>
@@ -46,14 +44,8 @@ const ProductPricing = ({
         </p>
         <p>
           <Text>
-            {productPrice ? (
-              <>
-                {productPrice.currency}{" "}
-                {formatNumber(productPrice.commission.toFixed(2))}
-              </>
-            ) : (
-              "0.00"
-            )}
+            {productPrice && <>{productPrice.currency} </>}
+            {formatNumber(commission.toFixed(2))}
           </Text>
         </p>
       </div>
