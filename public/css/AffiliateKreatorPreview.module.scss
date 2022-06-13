@@ -64,7 +64,7 @@
     justify-content: center;
   }
 
-  ul[class="ant-pagination"] {
+  ul[class^="ant-pagination"] {
     @include mixins.flex(row, center, center);
   }
 }
