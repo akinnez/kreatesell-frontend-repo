@@ -1,11 +1,11 @@
 import { useMemo } from "react";
+import Image from "next/image";
 import { Typography } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
 import KreatorInfo from "../KreatorInfo";
 import ProductPricing from "../ProductPricing";
 import KreatorAvatar from "../KreatorAvatar";
-import ProductImage from "../ProductImage";
 import productImageFn from "utils/productImageFn";
 import styles from "./index.module.scss";
 
@@ -31,17 +31,23 @@ const Overview = ({
     <div className={styles.overview__container}>
       <section className={styles.product__overview}>
         <div className={styles.product__overview__img}>
-          <ProductImage
-            productImage={productImage}
-            productName={productName}
-            width={516}
-            height={295}
-            priority
-          >
+          {productImage ? (
+            <div className={styles.product__image}>
+              <Image
+                src={productImage}
+                alt={productName}
+                layout="responsive"
+                width={516}
+                height={295}
+                objectFit="cover"
+                priority
+              />
+            </div>
+          ) : (
             <div className={styles.empty__image__Banner}>
               <BsFillImageFill />
             </div>
-          </ProductImage>
+          )}
         </div>
         <div className={styles.product__overview__info}>
           <Title level={2}>{productName}</Title>

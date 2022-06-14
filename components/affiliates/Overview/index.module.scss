@@ -20,10 +20,16 @@
   margin-bottom: 25px;
 }
 
+.product__image {
+  max-width: 516px;
+  margin: 0 auto;
+}
+
 .empty__image__Banner {
   @include mixins.flex(row, center, center);
   height: calc(100vw - 82px * 1.745);
   max-height: 295px;
+  max-width: 516px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
 

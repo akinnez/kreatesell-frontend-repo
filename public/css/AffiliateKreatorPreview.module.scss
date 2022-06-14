@@ -14,6 +14,18 @@
   overflow: hidden;
 }
 
+.empty__image__Banner {
+  @include mixins.flex(row, center, center);
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  svg {
+    font-size: 40px;
+    color: #808080;
+  }
+}
+
 .kreator__info__container {
   margin-bottom: 20px;
 }
@@ -32,6 +44,20 @@
   border: 2px solid colors.$base-white;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.empty__avatar {
+  width: 80px;
+  height: 80px;
+  border: 2px solid colors.$base-white;
+  border-radius: 8px;
+  @include mixins.flex(row, center, center);
+  background-color: rgba(0, 0, 0, 0.05);
+
+  svg {
+    font-size: 20px;
+    color: #808080;
+  }
 }
 
 .kreator__details p {
@@ -60,7 +86,7 @@
 .products {
   margin-bottom: 88px;
 
-  div[class="ant-spin-nested-loading"] div[class="ant-spin-container"] > div {
+  div[class="ant-spin-nested-loading"] div[class^="ant-spin-container"] > div {
     justify-content: center;
   }
 
@@ -80,7 +106,8 @@
     position: relative;
   }
 
-  .kreator__banner {
+  .kreator__banner,
+  .empty__image__Banner {
     margin-bottom: 75px;
   }
 

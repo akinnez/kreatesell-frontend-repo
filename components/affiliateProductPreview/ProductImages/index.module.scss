@@ -6,10 +6,15 @@
   margin-bottom: 25px;
 }
 
+.product__img {
+  max-width: 600px;
+}
+
 .empty__image__Banner {
   @include mixins.flex(row, center, center);
   height: calc(100vw - 40px);
   max-height: 600px;
+  max-width: 600px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
 
@@ -52,6 +57,10 @@
 }
 
 @include screens.minScreen("medium-large") {
+  .empty__image__Banner {
+    height: calc(100vw - 162px);
+  }
+
   .product__images__controls {
     @include mixins.flex(row, center, center);
     column-gap: 25px;
@@ -62,7 +71,11 @@
   }
 }
 
-@include screens.minScreen("medium-large") {
+@include screens.minScreen("x-large") {
+  .empty__image__Banner {
+    height: calc(100vw - 560px);
+  }
+
   .product__images__controls {
     justify-content: flex-start;
   }

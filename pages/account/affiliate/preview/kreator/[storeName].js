@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Spin } from "antd";
+import { FaRegUser } from "react-icons/fa";
+import { BsFillImageFill } from "react-icons/bs";
 import Spinner from "components/Spinner";
 import PageWrapper from "components/affiliates/PageWrapper";
 import KreatorAvatar from "components/affiliates/KreatorAvatar";
@@ -38,7 +40,7 @@ const KreatorPreview = () => {
 
   useEffect(() => {
     if (uri) {
-      setData({ ...data, loading: true });
+      setData(s => ({ ...s, loading: true }));
       axiosAPI.request(
         "get",
         uri,
@@ -56,7 +58,7 @@ const KreatorPreview = () => {
           });
         },
         err => {
-          setData({ ...data, loading: false });
+          setData(s => ({ ...s, loading: false }));
           setError(err.message);
         }
       );
@@ -82,23 +84,35 @@ const KreatorPreview = () => {
   return (
     <PageWrapper title="Kreator Preview">
       <section className={styles.kreator}>
-        <div className={styles.kreator__banner}>
-          <Image
-            src={data.kreator.cover_page}
-            alt={`${data.kreator.full_name} cover page`}
-            layout="fill"
-            objectFit="cover"
-            priority
-          />
-        </div>
+        {data.kreator.cover_page ? (
+          <div className={styles.kreator__banner}>
+            <Image
+              src={data.kreator.cover_page}
+              alt={`${data.kreator.full_name} cover page`}
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </div>
+        ) : (
+          <div className={styles.empty__image__Banner}>
+            <BsFillImageFill />
+          </div>
+        )}
         <div className={styles.kreator__info__container}>
           <div className={styles.kreator__info}>
-            <div className={styles.kreator__image}>
-              <KreatorAvatar
-                image={data.kreator.display_picture}
-                name={data.kreator.full_name}
-              />
-            </div>
+            {data.kreator.display_picture ? (
+              <div className={styles.kreator__image}>
+                <KreatorAvatar
+                  image={data.kreator.display_picture}
+                  name={data.kreator.full_name}
+                />
+              </div>
+            ) : (
+              <div className={styles.empty__avatar}>
+                <FaRegUser />
+              </div>
+            )}
             <div className={styles.kreator__details}>
               <p>
                 <strong>{data.kreator.full_name}</strong>

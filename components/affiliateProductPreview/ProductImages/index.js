@@ -2,12 +2,12 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "antd";
 import { BsChevronLeft, BsChevronRight, BsFillImageFill } from "react-icons/bs";
-import ProductImage from "components/affiliates/ProductImage";
 import styles from "./index.module.scss";
 
 const ProductImages = ({ imageFiles, productName }) => {
   const images = useMemo(() => {
-    if (imageFiles.length === 0) return null;
+    console.log("logging");
+    if (!imageFiles || imageFiles.length === 0) return null;
 
     const urls = imageFiles.filter(files => files.file_type !== 4);
 
@@ -17,7 +17,7 @@ const ProductImages = ({ imageFiles, productName }) => {
   }, [imageFiles]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [src, setSrc] = useState(images[currentIndex]);
+  const [src, setSrc] = useState(() => (images ? images[currentIndex] : ""));
 
   useEffect(() => {
     setSrc(images[currentIndex]);
@@ -39,7 +39,7 @@ const ProductImages = ({ imageFiles, productName }) => {
   const renderImages =
     images &&
     images.map((image, index) => (
-      <div
+      <button
         key={index}
         onClick={() => handleImage(image, index)}
         className={
@@ -55,23 +55,29 @@ const ProductImages = ({ imageFiles, productName }) => {
           height={125}
           objectFit="cover"
         />
-      </div>
+      </button>
     ));
 
   return (
     <>
       <div className={styles.product__image__overview}>
-        <ProductImage
-          productImage={src}
-          productName={productName}
-          width={280}
-          height={280}
-          priority
-        >
+        {src ? (
+          <div className={styles.product__img}>
+            <Image
+              src={src}
+              alt={productName}
+              layout="responsive"
+              width={280}
+              height={280}
+              objectFit="cover"
+              priority
+            />
+          </div>
+        ) : (
           <div className={styles.empty__image__Banner}>
             <BsFillImageFill />
           </div>
-        </ProductImage>
+        )}
       </div>
       {images && (
         <div className={styles.product__images__controls}>
