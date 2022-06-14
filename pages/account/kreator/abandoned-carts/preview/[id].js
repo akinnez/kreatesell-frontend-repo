@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Card } from "antd";
-import Spinner from "components/Spinner";
 import ProfileLayout from "components/ProfileLayout";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import BackButton from "components/BackButton";
 import RenderQuillHTML from "components/RenderQuillHTML";
 import useFetchData from "hooks/useFetchData";
@@ -18,32 +19,10 @@ const Preview = () => {
   );
 
   if (error) {
-    return (
-      <ProfileLayout>
-        <Head>
-          <title>KreateSell | Abandoned Cart Preview</title>
-        </Head>
-        <header className={styles.header}>
-          <BackButton />
-        </header>
-        <section className={styles.error}>{error}</section>
-      </ProfileLayout>
-    );
+    return <ProfilePageError errorMsg={error} title="Abandoned Cart Preview" />;
   }
 
-  if (!campaign) {
-    return (
-      <ProfileLayout>
-        <Head>
-          <title>KreateSell | Abandoned Cart Preview</title>
-        </Head>
-        <header className={styles.header}>
-          <BackButton />
-        </header>
-        <Spinner />
-      </ProfileLayout>
-    );
-  }
+  if (!campaign) return <ProfilePageLoading title="Abandoned Cart Preview" />;
 
   return (
     <ProfileLayout>

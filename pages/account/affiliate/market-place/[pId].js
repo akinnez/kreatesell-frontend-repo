@@ -1,14 +1,16 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Tabs, Typography } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import ProfileLayout from "components/ProfileLayout";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import BackButton from "components/BackButton";
-import Spinner from "components/Spinner";
 import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
-import AffiliateProductPageWrapper from "components/affiliates/AffiliateProductPageWrapper";
 import Request from "components/affiliateProducts/components/Request";
 import Overview from "components/affiliates/Overview";
-import useProductOverview from "hooks/useProductOverview";
+import useFetchData from "hooks/useFetchData";
 import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { TabPane } = Tabs;
@@ -16,27 +18,20 @@ const { Text } = Typography;
 
 const AffiliateProductRequest = () => {
   const router = useRouter();
-  const { data: product, error } = useProductOverview(router.query.pId);
+
+  const { data: product, error } = useFetchData(
+    router.query.pId
+      ? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`
+      : null
+  );
 
   if (error) {
     return (
-      <AffiliateProductPageWrapper back>
-        <section className={styles.error__section}>
-          <p>
-            <Text strong>{error}</Text>
-          </p>
-        </section>
-      </AffiliateProductPageWrapper>
+      <ProfilePageError errorMsg={error} title="Affiliate Product Request" />
     );
   }
 
-  if (!product) {
-    return (
-      <AffiliateProductPageWrapper back>
-        <Spinner />
-      </AffiliateProductPageWrapper>
-    );
-  }
+  if (!product) return <ProfilePageLoading title="Affiliate Product Request" />;
 
   const updateProduct = () => {
     setProduct(state => ({
@@ -49,7 +44,10 @@ const AffiliateProductRequest = () => {
   };
 
   return (
-    <AffiliateProductPageWrapper>
+    <ProfileLayout>
+      <Head>
+        <title>KreateSell | Affiliate Product Request</title>
+      </Head>
       <header className={styles.header}>
         <BackButton />
         <Link href={`/account/affiliate/preview/product/${router.query.pId}`}>
@@ -89,7 +87,7 @@ const AffiliateProductRequest = () => {
           />
         </TabPane>
       </AffiliateRequestContainer>
-    </AffiliateProductPageWrapper>
+    </ProfileLayout>
   );
 };
 

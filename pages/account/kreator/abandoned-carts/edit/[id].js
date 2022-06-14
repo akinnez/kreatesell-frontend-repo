@@ -2,8 +2,9 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Typography, Card } from "antd";
-import Spinner from "components/Spinner";
 import ProfileLayout from "components/ProfileLayout";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import BackButton from "components/BackButton";
 import SuccessModalBox from "components/SuccessModalBox";
 import AbandonedCartsForm from "components/kreatorAbandonedCarts/components/AbandonedCartsForm";
@@ -23,32 +24,10 @@ const Edit = () => {
   );
 
   if (error) {
-    return (
-      <ProfileLayout>
-        <Head>
-          <title>KreateSell | Edit Mail</title>
-        </Head>
-        <header className={styles.back__btn}>
-          <BackButton />
-        </header>
-        <section className={styles.error}>{error}</section>
-      </ProfileLayout>
-    );
+    return <ProfilePageError errorMsg={error} title="Edit Mail" />;
   }
 
-  if (!campaign) {
-    return (
-      <ProfileLayout>
-        <Head>
-          <title>KreateSell | Edit Mail</title>
-        </Head>
-        <header className={styles.back__btn}>
-          <BackButton />
-        </header>
-        <Spinner />
-      </ProfileLayout>
-    );
-  }
+  if (!campaign) return <ProfilePageLoading title="Edit Mail" />;
 
   const showModal = () => {
     setModalIsVisible(true);

@@ -3,12 +3,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Card, Typography, Divider } from "antd";
 import RenderQuillHTML from "components/RenderQuillHTML";
-import Spinner from "components/Spinner";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import PageWrapper from "components/affiliates/PageWrapper";
 import ProductImages from "components/affiliateProductPreview/ProductImages";
 import ProductKreator from "components/affiliateProductPreview/ProductKreator";
 import AffiliatePageFooter from "components/affiliates/AffiliatePageFooter";
-import useProductOverview from "hooks/useProductOverview";
+import useFetchData from "hooks/useFetchData";
 import formatNumber from "utils/formatNumber";
 import styles from "public/css/AffiliateProductPreview.module.scss";
 
@@ -16,7 +17,12 @@ const { Title } = Typography;
 
 const ProductPreview = () => {
   const router = useRouter();
-  const { data: product, error } = useProductOverview(router.query.id);
+
+  const { data: product, error } = useFetchData(
+    router.query.id
+      ? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.id}`
+      : null
+  );
 
   const productPrice = useMemo(() => {
     if (product && product.kreator_product_price_details.length > 0) {
@@ -31,24 +37,10 @@ const ProductPreview = () => {
   }, [product]);
 
   if (error) {
-    return (
-      <PageWrapper title="Product Preview">
-        <section className={styles.error__section}>
-          <p>
-            <strong>{error}</strong>
-          </p>
-        </section>
-      </PageWrapper>
-    );
+    return <ProfilePageError errorMsg={error} title="Product Preview" />;
   }
 
-  if (!product) {
-    return (
-      <PageWrapper title="Product Preview">
-        <Spinner />
-      </PageWrapper>
-    );
-  }
+  if (!product) return <ProfilePageLoading title="Product Preview" />;
 
   return (
     <PageWrapper title="Product Preview">

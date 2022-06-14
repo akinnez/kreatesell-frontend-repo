@@ -4,7 +4,8 @@ import Image from "next/image";
 import { Spin } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
-import Spinner from "components/Spinner";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import PageWrapper from "components/affiliates/PageWrapper";
 import KreatorAvatar from "components/affiliates/KreatorAvatar";
 import AffiliatePageFooter from "components/affiliates/AffiliatePageFooter";
@@ -66,20 +67,10 @@ const KreatorPreview = () => {
   }, [uri]);
 
   if (error) {
-    return (
-      <PageWrapper title="Kreator Preview">
-        <section className={styles.error}>{error}</section>
-      </PageWrapper>
-    );
+    return <ProfilePageError errorMsg={error} title="Kreator Preview" />;
   }
 
-  if (!data.kreator) {
-    return (
-      <PageWrapper title="Kreator Preview">
-        <Spinner />
-      </PageWrapper>
-    );
-  }
+  if (!data.kreator) return <ProfilePageLoading title="Kreator Preview" />;
 
   return (
     <PageWrapper title="Kreator Preview">

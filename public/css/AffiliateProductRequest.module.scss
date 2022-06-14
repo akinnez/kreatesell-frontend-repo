@@ -1,15 +1,6 @@
 @use "mixins";
 @use "colors";
 
-.error__section {
-  text-align: center;
-
-  [class="ant-typography"] {
-    font-size: 20px;
-    color: colors.$black-100;
-  }
-}
-
 .header {
   @include mixins.flex(row, space-between, center);
   flex-wrap: wrap;
