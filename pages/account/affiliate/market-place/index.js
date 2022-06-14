@@ -26,8 +26,12 @@ const AffiliateProducts = () => {
 
   const { user, loading: userLoading } = useSelector(state => state.auth);
   const { productTypes } = useSelector(state => state.product);
-  const { products, totalProducts } = useSelector(state => state.affiliate);
   const { loading: storeLoading } = useSelector(state => state.store);
+  const {
+    products,
+    totalProducts,
+    loading: affiliateLoading,
+  } = useSelector(state => state.affiliate);
 
   const [uri, setUri] = useState("");
   const [queries, setQueries] = useState({
@@ -68,7 +72,7 @@ const AffiliateProducts = () => {
     queries.productType,
   ]);
 
-  const { data } = useSWR(
+  useSWR(
     () => (user.is_affiliate && uri ? uri : null),
     url => {
       dispatch(affiliateProductsRequest());
@@ -85,7 +89,7 @@ const AffiliateProducts = () => {
           return res;
         },
         err => {
-          showToast(err, "error");
+          showToast(err.message, "error");
           dispatch(affiliateProductsFailure());
         }
       );
@@ -137,7 +141,7 @@ const AffiliateProducts = () => {
                 onChange: handlePageChange,
               }}
               rowKey={rowKey}
-              loading={!data}
+              loading={affiliateLoading}
             />
           </section>
         </>

@@ -7,7 +7,7 @@ import { Typography, Card, Button, Row, Col, Divider } from "antd";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import Spinner from "components/Spinner";
-import SuccessModal from "components/Payouts/components/SuccessModal";
+import SuccessModalBox from "components/SuccessModalBox";
 import CreateBankDetails from "components/Payouts/components/CreateBankDetails";
 import AffiliateImg from "public/images/payouts-affiliate-icon.png";
 import KreatorImg from "public/images/payouts-kreator-icon.png";
@@ -155,17 +155,19 @@ const SetupBankDetails = () => {
         />
       )}
       {successModal && (
-        <SuccessModal successModal={successModal} hideModal={goBack} closable>
-          <p>
-            <Text>Account Details Successfully Added</Text>
-          </p>
-          <p>
-            <Text>
-              Congratulations! You can now start seamlessly receiving your
-              settlement as at when due.
-            </Text>
-          </p>
-        </SuccessModal>
+        <SuccessModalBox modalIsVisible={successModal} closeModal={goBack}>
+          <section className={styles.content}>
+            <p>
+              <Text>Account Details Successfully Added</Text>
+            </p>
+            <p>
+              <Text>
+                Congratulations! You can now start seamlessly receiving your
+                settlement as at when due.
+              </Text>
+            </p>
+          </section>
+        </SuccessModalBox>
       )}
     </ProfileLayout>
   );

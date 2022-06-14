@@ -7,8 +7,8 @@ import {
   AiOutlineInfoCircle,
 } from "react-icons/ai";
 import Spinner from "components/Spinner";
+import SuccessModalBox from "components/SuccessModalBox";
 import WithdrawModal from "../WithdrawModal";
-import SuccessModal from "../SuccessModal";
 import walletFetcher from "../../utils/walletFetcher";
 import styles from "./index.module.scss";
 
@@ -123,21 +123,23 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
         />
       )}
       {successModal && (
-        <SuccessModal
-          successModal={successModal}
-          hideModal={handleClicks(setSuccessModal, false)}
+        <SuccessModalBox
+          modalIsVisible={successModal}
+          closeModal={handleClicks(setSuccessModal, false)}
           closable={false}
         >
-          <p>
-            <Text>Money is being processed</Text>
-          </p>
-          <p>
-            <Text>
-              Kindly exercise patience while we process your funds. Processing
-              takes about 24 hours before reflecting in your account
-            </Text>
-          </p>
-        </SuccessModal>
+          <section className={styles.content}>
+            <p>
+              <Text>Money is being processed</Text>
+            </p>
+            <p>
+              <Text>
+                Kindly exercise patience while we process your funds. Processing
+                takes about 24 hours before reflecting in your account
+              </Text>
+            </p>
+          </section>
+        </SuccessModalBox>
       )}
     </header>
   );

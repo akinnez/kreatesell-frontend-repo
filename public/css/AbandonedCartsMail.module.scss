@@ -35,6 +35,18 @@
   margin: 0 auto 150px;
 }
 
+.content {
+  margin-bottom: 40px;
+
+  p {
+    margin-bottom: 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    color: colors.$black-100;
+  }
+}
+
 @include screens.minScreen("tablet") {
   .card__container > div[class="ant-card-body"] {
     padding: 68px 50px;

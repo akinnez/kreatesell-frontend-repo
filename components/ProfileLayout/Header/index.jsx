@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 import { Button, Dropdown, Layout, Menu } from "antd";
 import { Logout } from "../../../redux/actions";
@@ -8,7 +9,7 @@ import Logo from "../Logo";
 import { NotificationDropdown } from "components/notification/Dropdown";
 import style from "./index.module.scss";
 
-const Profile = ({ name }) => {
+const Profile = ({ name, avi }) => {
   return (
     <>
       <div className="profile-wrapper">
@@ -17,7 +18,17 @@ const Profile = ({ name }) => {
           <p>Account</p>
         </div>
         <div className="profile">
-          <ProfileIcon />
+          {!avi || avi === "Images\\ProfilePicture\\imageIcon" ? (
+            <ProfileIcon />
+          ) : (
+            <Image
+              src={avi}
+              width={"100%"}
+              height={"100%"}
+              alt={name}
+              objectFit="cover"
+            />
+          )}
         </div>
       </div>
       <style jsx>{`
@@ -109,7 +120,7 @@ const Header = () => {
           </Button>
           <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
             <Button type="text">
-              <Profile name={info?.full_name} />
+              <Profile name={info?.full_name} avi={info?.business_logo} />
             </Button>
           </Dropdown>
         </div>
