@@ -1,27 +1,61 @@
 import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import { Typography, Card } from "antd";
+import Spinner from "components/Spinner";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import SuccessModalBox from "components/SuccessModalBox";
 import AbandonedCartsForm from "components/kreatorAbandonedCarts/components/AbandonedCartsForm";
+import useFetchData from "hooks/useFetchData";
 import styles from "public/css/AbandonedCartsMail.module.scss";
 
 const { Title, Text } = Typography;
 
 const Edit = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
-  const { campaign } = useSelector(state => state.abandonedCart);
-  const router = useRouter();
+  const { query, push } = useRouter();
+
+  const { data: campaign, error } = useFetchData(
+    query.id
+      ? `${process.env.BASE_URL}v1/kreatesell/product/campaign/get/${query.id}`
+      : null
+  );
+
+  if (error) {
+    return (
+      <ProfileLayout>
+        <Head>
+          <title>KreateSell | Edit Mail</title>
+        </Head>
+        <header className={styles.back__btn}>
+          <BackButton />
+        </header>
+        <section className={styles.error}>{error}</section>
+      </ProfileLayout>
+    );
+  }
+
+  if (!campaign) {
+    return (
+      <ProfileLayout>
+        <Head>
+          <title>KreateSell | Edit Mail</title>
+        </Head>
+        <header className={styles.back__btn}>
+          <BackButton />
+        </header>
+        <Spinner />
+      </ProfileLayout>
+    );
+  }
 
   const showModal = () => {
     setModalIsVisible(true);
   };
 
   const redirect = () => {
-    router.push("/account/kreator/abandoned-carts");
+    push("/account/kreator/abandoned-carts");
   };
 
   return (
@@ -48,7 +82,10 @@ const Edit = () => {
                 <Text>Edit your custom email</Text>
               </div>
               <div>
-                <AbandonedCartsForm showModal={showModal} campaign={campaign} />
+                <AbandonedCartsForm
+                  showModal={showModal}
+                  campaign={campaign.data.result}
+                />
               </div>
             </div>
           </Card>

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Card, Typography, Divider } from "antd";
 import RenderQuillHTML from "components/RenderQuillHTML";
@@ -79,7 +80,9 @@ const ProductPreview = () => {
                 <strong>
                   {productPrice.currency} {formatNumber(productPrice.price)}
                 </strong>
-                <a>Buy Now</a>
+                <Link href="/checkout">
+                  <a>Buy Now</a>
+                </Link>
               </div>
             </div>
           </section>
