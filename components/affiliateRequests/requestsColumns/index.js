@@ -6,45 +6,47 @@ import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
 import styles from "./index.module.scss";
 
-const requestsColumns = types => [
+const requestsColumns = [
   {
     title: "Product",
     dataIndex: "product_name",
   },
   {
     title: "Product Type",
-    dataIndex: "product_type",
-    render: productTypeId => types[productTypeId]?.product_type_name,
+    dataIndex: "product_type_name",
   },
   {
     title: "Launch Date",
-    dataIndex: "date_created",
-    render: dateStr => dateString(dateStr),
+    dataIndex: "launch_date",
+    render: dateStr => (!dateStr ? "N/A" : dateString(dateStr)),
     sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
     sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "Sales Price",
-    dataIndex: "sales_price",
-    render: (_, record) => {
-      return `${record.currency} ${formatNumber(record.sales_price)}`;
+    render: record => {
+      return `${record.currency || ""} ${formatNumber(
+        record.sales_price || 0
+      )}`;
     },
   },
   {
     title: "Performance",
-    dataIndex: "performance",
-    render: performance => (
-      <Performance sold={performance.sold} visits={performance.visit} />
+    render: record => (
+      <Performance
+        sold={record.total_sold}
+        visits={record.total_product_visits}
+      />
     ),
   },
   {
     title: "Commission (%)",
-    dataIndex: "commission",
+    dataIndex: "affiliate_percentage_on_sales",
     render: commission => `${commission}%`,
   },
   {
     title: "Request Status",
-    dataIndex: "status",
+    dataIndex: "request_status",
     render: status => (
       <>
         {status === "Approved" ? (
@@ -61,10 +63,10 @@ const requestsColumns = types => [
   },
   {
     title: "Actions",
-    render: (_, record) => (
+    render: record => (
       <>
-        {record.status === "Approved" ? (
-          <Link href={`/account/affiliate/requests/${record.id}`}>
+        {record.request_status === "Approved" ? (
+          <Link href={`/account/affiliate/requests/${record.product_id}`}>
             <a className={styles.link}>
               Get Link&nbsp; <MdOutlineLink />
             </a>

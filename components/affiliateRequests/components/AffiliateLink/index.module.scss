@@ -1,56 +1,46 @@
-@use "public/css/mixins";
 @use "public/css/colors";
-@use "public/css/screens";
-
-.link__container {
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
-  column-gap: 15px;
-  background-color: colors.$base-white;
-  border-radius: 8px;
-  padding: 24px;
-}
+@use "public/css/mixins";
 
 .label {
   margin-bottom: 10px;
-  flex-basis: 100%;
 
-  & > span[class="ant-typography"] {
+  & > span {
     font-weight: 500;
     font-size: 16px;
     color: colors.$black-100;
   }
 }
 
+.link__container {
+  max-width: 790px;
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
 .link {
+  height: 45px;
   width: 100%;
   max-width: 670px;
-  padding: 13px 16px;
-  margin-bottom: 20px;
+  padding: 10px 15px;
   border: 1px dashed colors.$base-blue;
   border-radius: 8px;
   background-color: colors.$base-green-300;
 
-  & > span[class="ant-typography"] {
+  & > span {
     color: colors.$black-100;
+    font-size: 18px;
+    line-height: 1;
   }
 }
 
 .link__btn {
-  height: auto;
-  margin-bottom: 20px;
-  padding: 13px 16px;
+  height: 45px;
+  padding: 10px 15px;
   border-radius: 8px;
   border: 1px solid colors.$base-blue;
   color: colors.$base-blue;
   font-weight: bold;
   font-size: 12px;
-  line-height: 22px;
-}
-
-@include screens.minScreen("medium-large") {
-  .link__container {
-    background-color: transparent;
-    padding: 0;
-  }
+  line-height: 1;
 }
