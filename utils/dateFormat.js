@@ -31,6 +31,8 @@ const fullMonths = [
 const appendZero = t => (t < 10 ? `0${t}` : `${t}`);
 
 export const localeDateString = dateStr => {
+  if (!dateStr) return "";
+
   const d = new Date(dateStr);
 
   const month = d.getMonth() + 1;
@@ -41,6 +43,8 @@ export const localeDateString = dateStr => {
 };
 
 export const dateString = dateStr => {
+  if (!dateStr) return "";
+
   const d = new Date(dateStr);
 
   const month = d.getMonth() + 1;
@@ -51,6 +55,8 @@ export const dateString = dateStr => {
 };
 
 export const formatDateString = dateStr => {
+  if (!dateStr) return "";
+
   const d = new Date(dateStr);
 
   const month = fullMonths[d.getMonth()];
@@ -61,6 +67,8 @@ export const formatDateString = dateStr => {
 };
 
 const dateFormat = dateStr => {
+  if (!dateStr) return "";
+
   const d = new Date(dateStr);
 
   const month = months[d.getMonth()];

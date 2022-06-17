@@ -1,9 +1,11 @@
-const productPriceFn = images => {
-  if (!images || images.length === 0) return null;
+const productImageFn = files => {
+  if (!files || files.length === 0) return null;
 
-  return images
-    .filter(images => images.file_type !== 4)
-    .map(item => item.filename.split(",")[0])[0];
+  const imageFiles = files.find(file => file.file_type === 1);
+
+  if (!imageFiles.filename) return null;
+
+  return imageFiles.filename.split(",");
 };
 
-export default productPriceFn;
+export default productImageFn;
