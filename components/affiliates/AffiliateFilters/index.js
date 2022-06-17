@@ -14,7 +14,7 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const AffiliateFilters = ({ setQueries }) => {
+const AffiliateFilters = ({ setFilters }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const { productTypes } = useSelector(state => state.product);
@@ -45,7 +45,7 @@ const AffiliateFilters = ({ setQueries }) => {
 
     setIsFiltered(true);
     setShowFilter(false);
-    setQueries(s => ({
+    setFilters(s => ({
       ...s,
       page: 1,
       productName: product_name || "",
@@ -58,7 +58,7 @@ const AffiliateFilters = ({ setQueries }) => {
   const resetFilters = () => {
     form.resetFields();
     setIsFiltered(false);
-    setQueries(s => ({
+    setFilters(s => ({
       ...s,
       page: 1,
       productName: "",

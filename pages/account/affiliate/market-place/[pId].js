@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Tabs, Typography } from "antd";
+import { Tabs } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
 import ProfilePageError from "components/ProfilePageError";
@@ -11,19 +12,28 @@ import AffiliateRequestContainer from "components/affiliates/AffiliateRequestCon
 import Request from "components/affiliateProducts/components/Request";
 import Overview from "components/affiliates/Overview";
 import useFetchData from "hooks/useFetchData";
+import productImageFn from "utils/productImageFn";
 import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { TabPane } = Tabs;
-const { Text } = Typography;
 
 const AffiliateProductRequest = () => {
   const router = useRouter();
 
-  const { data: product, error } = useFetchData(
+  const {
+    data: product,
+    setData,
+    error,
+  } = useFetchData(
     router.query.pId
       ? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`
       : null
   );
+
+  const productImages = useMemo(() => {
+    if (!product) return null;
+    return productImageFn(product.kreator_product_files);
+  }, [product]);
 
   if (error) {
     return (
@@ -34,7 +44,7 @@ const AffiliateProductRequest = () => {
   if (!product) return <ProfilePageLoading title="Affiliate Product Request" />;
 
   const updateProduct = () => {
-    setProduct(state => ({
+    setData(state => ({
       ...state,
       affiliate_kreator_product: {
         ...state.affiliate_kreator_product,
@@ -71,7 +81,7 @@ const AffiliateProductRequest = () => {
         </TabPane>
         <TabPane tab="Overview" key="2">
           <Overview
-            productImages={product.kreator_product_files}
+            productImages={productImages}
             productName={product.affiliate_kreator_product.product_name}
             productDescription={
               product.affiliate_kreator_product.product_description

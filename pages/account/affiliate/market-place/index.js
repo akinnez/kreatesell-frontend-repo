@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import useSWR from "swr";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Table } from "antd";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
@@ -10,101 +10,46 @@ import Spinner from "components/Spinner";
 import PaginationHelper from "components/PaginationHelpers";
 import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
 import productsColumns from "components/affiliateProducts/productsColumns";
-import {
-  affiliateProductsFailure,
-  affiliateProductsRequest,
-  affiliateProductsSuccess,
-} from "redux/actions/affiliate.actions";
+import useFilters from "hooks/useFilters";
 import { showToast, isAnEmpytyObject } from "utils";
 import axiosApi from "utils/axios";
-import normalize from "utils/normalize";
 import styles from "public/css/AffiliateProducts.module.scss";
 
 const rowKey = record => record.id;
 
 const AffiliateProducts = () => {
-  const dispatch = useDispatch();
+  const [products, setProducts] = useState({ data: [], total: 0 });
 
   const { user, loading: userLoading } = useSelector(state => state.auth);
-  const { productTypes } = useSelector(state => state.product);
   const { loading: storeLoading } = useSelector(state => state.store);
-  const {
-    products,
-    totalProducts,
-    loading: affiliateLoading,
-  } = useSelector(state => state.affiliate);
 
-  const [uri, setUri] = useState("");
-  const [queries, setQueries] = useState({
-    page: 1,
-    limit: 10,
-    dateListed: "",
-    productName: "",
-    productType: null,
-    kreatorName: "",
-  });
-
-  useEffect(() => {
-    const url = new URL(
-      `${process.env.BASE_URL}affiliate/get-products?Page=${queries.page}&Limit=${queries.limit}`
-    );
-
-    if (queries.dateListed) {
-      url.searchParams.set("Launch_Date", queries.dateListed);
-    }
-
-    if (queries.kreatorName) {
-      url.searchParams.set("Kreator_Name", queries.kreatorName);
-    }
-
-    if (queries.productName) {
-      url.searchParams.set("Product_Name", queries.productName);
-    }
-
-    if (queries.productType) {
-      url.searchParams.set("Product_Type", queries.productType);
-    }
-
-    setUri(url);
-  }, [
-    queries.page,
-    queries.limit,
-    queries.dateListed,
-    queries.kreatorName,
-    queries.productName,
-    queries.productType,
-  ]);
+  const { uri, filters, setFilters } = useFilters("affiliate/get-products");
 
   const { data: res } = useSWR(
     () => (user.is_affiliate && uri ? uri : null),
     url => {
-      dispatch(affiliateProductsRequest());
       return axiosApi.request(
         "get",
         url,
         res => {
-          const obj = {
-            products: res.data.data,
-            totalProducts: res.data.total_records,
-          };
-
-          dispatch(affiliateProductsSuccess(obj));
+          setProducts({
+            ...products,
+            data: res.data.data,
+            total: res.data.total_records,
+          });
           return res;
         },
         err => {
           showToast(err.message, "error");
-          dispatch(affiliateProductsFailure());
         }
       );
     }
   );
 
   const userIsEmpty = isAnEmpytyObject(user);
-  const types = normalize(productTypes, "id");
-  const columns = productsColumns(types);
 
-  const handlePageChange = newPage => {
-    setQueries({ ...queries, page: newPage });
+  const handlePageChange = page => {
+    setQueries({ ...queries, page });
   };
 
   if (storeLoading || userLoading || userIsEmpty) {
@@ -130,21 +75,21 @@ const AffiliateProducts = () => {
         </>
       ) : (
         <>
-          <AffiliateFilters setQueries={setQueries} />
+          <AffiliateFilters setFilters={setFilters} />
           <PaginationHelper
-            dataSize={totalProducts}
-            filters={queries}
-            setFilters={setQueries}
+            dataSize={products.total}
+            filters={filters}
+            setFilters={setFilters}
           />
           <section className={styles.tableWrapper}>
             <Table
-              dataSource={products}
-              columns={columns}
+              dataSource={products.data}
+              columns={productsColumns}
               pagination={{
                 position: ["bottomLeft"],
-                pageSize: queries.limit,
-                current: queries.page,
-                total: totalProducts,
+                pageSize: filters.limit,
+                current: filters.page,
+                total: products.total,
                 responsive: true,
                 onChange: handlePageChange,
               }}

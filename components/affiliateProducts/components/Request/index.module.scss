@@ -8,6 +8,7 @@
   form[class^="ant-form"] textarea {
     line-height: 30px;
     font-size: 14px;
+    overflow: hidden;
 
     &[disabled] {
       background-color: colors.$white-200;
