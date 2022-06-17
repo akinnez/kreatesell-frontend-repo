@@ -10,7 +10,11 @@ const Campaign = ({ campaign }) => (
     </p>
     <p>
       <Typography.Text type="secondary">
-        {formatDateString(campaign.date_created)} | {campaign.time_to_send}
+        {formatDateString(campaign.date_created)}
+        &nbsp;&nbsp;&nbsp;
+        <span className={styles.divider}>|</span>
+        &nbsp;&nbsp;&nbsp;
+        {campaign.time_to_send}
       </Typography.Text>
     </p>
     <div className={styles.actions}>

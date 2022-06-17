@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import { Typography, Button, Table } from "antd";
 import useSWR from "swr";
@@ -10,6 +10,7 @@ import AffiliateNote from "components/kreatorAffiliateRequests/components/Affili
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
+import useFilters from "hooks/useFilters";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
 import styles from "public/css/KreatorAffiliateRequests.module.scss";
@@ -24,7 +25,6 @@ const statusArr = [
 ];
 
 const AffiliateRequests = () => {
-  const [uri, setUri] = useState("");
   const [requests, setRequests] = useState({ data: [], total: 0 });
   const [successModal, setSuccessModal] = useState(false);
   const [noteModal, setNoteModal] = useState({ visible: false, note: null });
@@ -35,51 +35,9 @@ const AffiliateRequests = () => {
     data: null,
   });
 
-  const [filters, setFilters] = useState({
-    page: 1,
-    limit: 10,
-    status: "All",
-    productName: "",
-    affiliateName: "",
-    productType: "",
-    requestDate: "",
-  });
-
-  useEffect(() => {
-    let url = new URL(
-      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${filters.page}&Limit=${filters.limit}`
-    );
-
-    if (filters.status !== "All") {
-      url.searchParams.set("Status", filters.status);
-    }
-
-    if (filters.requestDate) {
-      url.searchParams.set("Launch_Date", filters.requestDate);
-    }
-
-    if (filters.affiliateName) {
-      url.searchParams.set("Kreator_Name", filters.affiliateName);
-    }
-
-    if (filters.productName) {
-      url.searchParams.set("Product_Name", filters.productName);
-    }
-
-    if (filters.productType) {
-      url.searchParams.set("Product_Type", filters.productType);
-    }
-
-    setUri(url);
-  }, [
-    filters.page,
-    filters.limit,
-    filters.status,
-    filters.requestDate,
-    filters.affiliateName,
-    filters.productName,
-    filters.productType,
-  ]);
+  const { uri, filters, setFilters } = useFilters(
+    "v1/kreatesell/product/fetch/affiliates/all"
+  );
 
   const { data: res } = useSWR(
     () => (uri ? uri : null),

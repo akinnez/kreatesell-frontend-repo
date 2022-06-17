@@ -2,19 +2,11 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "antd";
 import { BsChevronLeft, BsChevronRight, BsFillImageFill } from "react-icons/bs";
+import productImageFn from "utils/productImageFn";
 import styles from "./index.module.scss";
 
-const ProductImages = ({ imageFiles, productName }) => {
-  const images = useMemo(() => {
-    console.log("logging");
-    if (!imageFiles || imageFiles.length === 0) return null;
-
-    const urls = imageFiles.filter(files => files.file_type !== 4);
-
-    if (!urls[0]?.filename) return null;
-
-    return urls[0].filename.split(",");
-  }, [imageFiles]);
+const ProductImages = ({ productFiles, productName }) => {
+  const images = useMemo(() => productImageFn(productFiles), [productFiles]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [src, setSrc] = useState(() => (images ? images[currentIndex] : ""));
@@ -36,27 +28,25 @@ const ProductImages = ({ imageFiles, productName }) => {
     setCurrentIndex(state => (state + 1 === images.length ? 0 : state + 1));
   };
 
-  const renderImages =
-    images &&
-    images.map((image, index) => (
-      <button
-        key={index}
-        onClick={() => handleImage(image, index)}
-        className={
-          index === currentIndex
-            ? `${styles.product__image} ${styles["product__image--active"]}`
-            : `${styles.product__image}`
-        }
-      >
-        <Image
-          src={image}
-          alt={productName}
-          width={125}
-          height={125}
-          objectFit="cover"
-        />
-      </button>
-    ));
+  const renderImages = images.map((image, index) => (
+    <button
+      key={index}
+      onClick={() => handleImage(image, index)}
+      className={
+        index === currentIndex
+          ? `${styles.product__image} ${styles["product__image--active"]}`
+          : `${styles.product__image}`
+      }
+    >
+      <Image
+        src={image}
+        alt={productName}
+        width={125}
+        height={125}
+        objectFit="cover"
+      />
+    </button>
+  ));
 
   return (
     <>

@@ -28,6 +28,8 @@ const ActionModal = ({
       affiliate_id: affiliateId,
     };
 
+    console.log(data);
+
     const statuses = {
       approve: "Approved",
       decline: "Declined",

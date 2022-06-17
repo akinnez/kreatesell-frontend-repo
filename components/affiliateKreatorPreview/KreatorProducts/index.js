@@ -13,7 +13,7 @@ const KreatorProducts = ({ products, totalProducts, filters, setFilters }) => {
   };
 
   const productsList = products.map(product => {
-    const productImage = productImageFn(product.product_images);
+    const productImages = productImageFn(product.product_images);
 
     return (
       <li key={product.product_details.id} className={styles.product}>
@@ -21,10 +21,10 @@ const KreatorProducts = ({ products, totalProducts, filters, setFilters }) => {
           href={`/account/affiliate/preview/product/${product.product_details.id}`}
         >
           <a>
-            {productImage ? (
+            {productImages ? (
               <div className={styles.product__image}>
                 <Image
-                  src={productImage}
+                  src={productImages[0]}
                   alt={product.product_details.product_name}
                   layout="fill"
                   objectFit="cover"

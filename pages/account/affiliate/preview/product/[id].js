@@ -50,7 +50,7 @@ const ProductPreview = () => {
             <div className={styles.product__images}>
               <ProductImages
                 productName={product.affiliate_kreator_product.product_name}
-                imageFiles={product.kreator_product_files}
+                productFiles={product.kreator_product_files}
               />
             </div>
             <div className={styles.product__info}>
