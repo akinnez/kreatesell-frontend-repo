@@ -8,15 +8,20 @@ const TitleDescriptionList = ({title, subtitle, list, isNumberList}) => {
     <div className={styles.container}>
         <h3 className={styles.title}>{title}</h3>
         {subtitle && <p className={styles.description}>{subtitle}</p>}
-        <ul className={styles.listWrapper}>
-            {list.map((itm,idx)=>(
-                <li className={styles.list} key={idx}>
-                    <span>{!!isNumberList ? <>{idx+1}. </> : <>&#8226;</>}  </span>
-                    <p className={styles.itm}>{itm}</p> 
-                    
-                </li>
-            ))}
-        </ul>
+        {Array.isArray(list) && 
+        <>
+          <ul className={styles.listWrapper}>
+              {list.map((itm,idx)=>(
+                  <li className={styles.list} key={idx}>
+                      <span>{!!isNumberList ? <>{idx+1}. </> : <>&#8226;</>}  </span>
+                      <p className={styles.itm}>{itm}</p> 
+                      
+                  </li>
+              ))}
+          </ul>
+
+        </>
+        }
     </div>
   )
 }

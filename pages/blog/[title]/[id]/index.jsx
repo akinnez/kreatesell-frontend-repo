@@ -1,17 +1,9 @@
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import Image from "next/image";
-import { Layout } from "components";
-import {
-  FBLike,
-  RelatedBlog,
-  RelatedImgSmall,
-  BlogHero,
-  showToast,
-} from "utils";
-import styles from "public/css/SingleBlog.module.scss";
+
 import axios from "axios";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { IoFolderOpenSharp } from "react-icons/io5";
-import { AiOutlineClockCircle } from "react-icons/ai";
 import {
   MdOutlineShare,
   MdOutlineCancel,
@@ -20,10 +12,22 @@ import {
   MdContentCopy,
 } from "react-icons/md";
 import moment from "moment";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import { AiFillLike } from "react-icons/ai";
+import { IoFolderOpenSharp } from "react-icons/io5";
+import { AiOutlineClockCircle } from "react-icons/ai";
+
+
+import { Layout } from "components";
+
+import {
+  FBLike,
+  RelatedBlog,
+  RelatedImgSmall,
+  BlogHero,
+  showToast,
+} from "utils";
+import styles from "public/css/SingleBlog.module.scss";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -37,8 +41,10 @@ import {
 import { DiscussionEmbed } from "disqus-react";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
+  console.log("blog", blog);
+  console.log("recentBlogs", recentBlogs)
+  console.log("moreBlogs", moreBlogs)
   const router = useRouter();
-
   const genUrl =
     process.env.NODE_ENV === "production"
       ? `https://kreatesell.com${router.asPath}`
@@ -92,6 +98,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     category,
     id,
   }) => {
+    console.log("thumbnail is", thumbnail)
     return (
       <div className={styles.asideContainer}>
         <div className={styles.image}>
@@ -319,6 +326,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                   ?.filter((item) => item?.id !== blog?.id)
                   .slice(0, 6)
                   .map((item, index) => (
+                    item?.thumbnail !== "string" &&
                     <SideBlogPost
                       key={index}
                       excerpt={item.excerpt}

@@ -164,6 +164,8 @@ import House from "../public/images/icons/House.svg";
 import LeftArrow from "../public/images/icons/circle_left.svg";
 import CareerSuccess from "../public/images/career-success.svg";
 import CareerFailure from "../public/images/career-failure.svg";
+import Briefcase from "../public/images/icons/briefcase.svg";
+import Clock from "../public/images/icons/clock.svg";
 
 export {
   BusinessPlanBox,
@@ -332,4 +334,6 @@ export {
   LeftArrow,
   CareerSuccess,
   CareerFailure,
+  Briefcase,
+  Clock
 };
