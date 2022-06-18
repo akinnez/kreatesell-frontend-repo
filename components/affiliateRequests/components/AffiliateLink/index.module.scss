@@ -26,6 +26,9 @@
   border: 1px dashed colors.$base-blue;
   border-radius: 8px;
   background-color: colors.$base-green-300;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 
   & > span {
     color: colors.$black-100;
