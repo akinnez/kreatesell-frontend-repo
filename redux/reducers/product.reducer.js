@@ -3,8 +3,8 @@ import * as types from "../types";
 const initialState = {
 	loading: false,
 	products: [],
-	product: {},
 	error: {},
+	product: {},
 	productTab: 0,
 	productTypes: [],
 	pricingTypes: [],
@@ -23,6 +23,8 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 	switch (type) {
 		case types.GET_ALL_PRODUCTS.REQUEST:
 		case types.CREATE_PRODUCT.REQUEST:
+		case types.CREATE_SECTION.REQUEST:
+		case types.CREATE_CONTENT.REQUEST:
 		case types.GET_PRODUCT_TYPES.REQUEST:
 		case types.GET_PRODUCT_BY_ID.REQUEST:
 		case types.PUBLISH_PRODUCT.REQUEST:
@@ -40,7 +42,10 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 			return { ...state, loading: false, ...payload };
 
 			case types.PUBLISH_PRODUCT.SUCCESS:
+			case types.CREATE_SECTION.SUCCESS:
+			case types.CREATE_CONTENT.SUCCESS:
 				return {...state, loading: false}
+				
 		case types.CREATE_PRODUCT.SUCCESS:
 			if(payload.token){
 				return { ...state, loading: false, productID: payload.token }
@@ -67,6 +72,8 @@ const ProductReducer = (state = initialState, { type, payload }) => {
 
 		case types.GET_ALL_PRODUCTS.FAILURE:
 		case types.CREATE_PRODUCT.FAILURE:
+		case types.CREATE_SECTION.FAILURE:
+		case types.CREATE_CONTENT.FAILURE:
 		case types.GET_PRODUCT_TYPES.FAILURE:
 		case types.GET_PRODUCT_BY_ID.FAILURE:
 		case types.GET_PRICING_TYPES.FAILURE:

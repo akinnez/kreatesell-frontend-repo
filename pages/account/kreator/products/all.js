@@ -51,8 +51,8 @@ const AllProducts = () => {
 				?.map((item, i) => ({
 					...item,
 					key: i+1,
-					product_image: item?.product_images.filter(images => images.file_type !== 4).map(item => {
-						const arr = item.filename.split(',')
+					product_image: item?.product_images?.filter(images => images?.file_type !== 4).map(item => {
+						const arr = item?.filename?.split(',')
 						return [...arr]
 					  })[0],
 					product_name: item?.product_details?.product_name,

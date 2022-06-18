@@ -5,15 +5,32 @@ import {EmptyDataTable, Subscribers} from 'utils'
 import productStyles from '../../../public/css/AllProducts.module.scss'
 import AddSection from "./AddSection";
 import styles from './MembershipTab.module.scss'
+import {CreateSection, GetProductByID} from 'redux/actions'
+import { useSelector } from "react-redux";
 
-export default function MembershipIndex({setIsTabsActive, setMajorPage, sections, setSections, toSection}) {
+export default function MembershipIndex({setIsTabsActive, setMajorPage, toSection}) {
     const [fields, setFields] = useState('adding section')
+    const createSection = CreateSection()
+    const getProduct = GetProductByID()
+    const [productData, setProductData] = useState(null)
+
+    const { product, productID } = useSelector(
+        (state) => state.product
+      );
     const toManageSection = ()=>{
         setIsTabsActive(false)
         setMajorPage('manage-section')
     }
     useEffect(()=>{
-        if(sections.length <= 0){
+        if(Object.keys(product).length > 0){
+            const {product_content} = product
+            console.log(product_content)
+            setProductData(product_content)
+        }
+    }, [product])
+
+    useEffect(()=>{
+        if(productData === null || productData.length <= 0){
             setFields("empty")
         }else{
             setFields("adding section")
@@ -21,15 +38,16 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, sections
         return ()=>{
             setFields("adding section")
         }
-    }, [sections])
+    }, [productData])
     const addSection = ()=>{
-        const newSection = {
-            name: "",
-            isControl: false,
-            lectures: [{lecture_name: "", type:"", size:"", url: '',description:"",isDownload: false}]
-            
-        }
-        setSections(prev => [...prev, newSection])
+        createSection({
+            "product_id": product?.product_details?.id,
+            "kreatesell_id": product?.product_details?.kreasell_product_id,
+            "product_content_name": `Section ${product?.product_content.length + 1}`,
+            "action": "c",
+          }, () => {
+            getProduct(productID)
+        })
     }
   return (
     <div className="flex flex-col mt-7">
@@ -65,9 +83,7 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, sections
 			</div>
             </>}
             {fields === 'adding section' && <AddSection 
-             sections={sections}
              toSection={toSection}
-             setSections={setSections}
             />}
         </div>
   )

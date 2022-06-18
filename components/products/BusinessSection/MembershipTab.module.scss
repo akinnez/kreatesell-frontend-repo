@@ -16,6 +16,14 @@
         background-color: $base-blue;
     }
 }
+.addSectionBtn{
+    height: 2.5rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
 .miniSaveButton{
     button{
         border-radius: 8px;
@@ -107,6 +115,62 @@
     display: flex;
     flex-direction: column;
 
+}
+.rad{
+    label{
+        align-items: baseline !important;
+        span{
+            font-size: 18px;
+        }
+    }
+}
+.in{
+    input{
+        height: 2.5rem;
+    }
+}
+
+.popConfirm{
+	div{
+		& > div:last-child{
+			div{
+				padding: .8em;
+				& > div:first-child{
+					div{
+						font-size: 16px;
+						color: $gray-200;
+						padding: 0;
+						pre {
+							font-family: inherit;
+							width: 80%;
+                            margin-bottom: 0;
+                            white-space: wrap;
+							text-align: center;
+						}
+					}
+				}
+				& > div:last-child{
+					display: flex;
+					justify-content: space-between;
+					
+					button{
+						border-radius: 8px;
+						// padding: 1.3em 1em;
+					}
+					// & >button:first-child{
+					// 	background-color: $white-200 !important;
+					// 	color: $gray-600;
+					// 	border: 2px solid  $white-200;
+					// }
+					// & >button:last-child{
+					// 	background-color: $base-white !important;
+					// 	color: $notification-bg;
+					// 	border: 2px solid $error-main;
+					// }
+				}
+			}
+		}
+	}
 }
 .addContentButton{
     display: flex;

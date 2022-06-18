@@ -159,7 +159,7 @@ const ProductCard = ({ productDetails }) => {
 							"0.00"}
 					</p>
 					<Button
-						text={productDetails?.product_details?.product_details ?? "Buy Now"}
+						text={productDetails?.product_details?.cta_button ?? "Buy Now"}
 						className={styles.productCardBtn}
 						onClick={() => {
 							router.push("/checkout");
