@@ -1,7 +1,7 @@
 @import "../../public/css/colors.scss";
 
 .button {
-	width: 6.25rem;
+	min-width: 6.25rem;
 	height: 2.5rem;
 	background-color: transparent;
 	border-radius: 0.5rem;
@@ -16,7 +16,9 @@
 			padding: 0 0.5rem;
 		}
 	}
-
+	&:hover{
+		opacity: .9;
+	}
 	&:disabled {
 		opacity: 0.7;
 		cursor: progress;

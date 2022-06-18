@@ -1,0 +1,892 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Popover /> with mock props 1`] = `
+<Popover
+  content="mock content"
+  placement="bottom"
+  title="mockTitle"
+  triggerButton="triggerBtn?"
+  visible={true}
+  width="100"
+>
+  <Popover
+    className="popOverButtonContainer"
+    content="mock content"
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    overlayStyle={Object {}}
+    placement="bottom"
+    style={
+      Object {
+        "width": "100",
+      }
+    }
+    trigger="click"
+    visible={true}
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      className="popOverButtonContainer"
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      overlay={
+        <React.Fragment>
+          <div
+            className="ant-popover-inner-content"
+          >
+            mock content
+          </div>
+        </React.Fragment>
+      }
+      overlayStyle={Object {}}
+      placement="bottom"
+      prefixCls="ant-popover"
+      style={
+        Object {
+          "width": "100",
+        }
+      }
+      transitionName="ant-zoom-big"
+      trigger="click"
+      visible={true}
+    >
+      <ForwardRef(Tooltip)
+        arrowContent={
+          <span
+            className="ant-popover-arrow-content"
+          />
+        }
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        builtinPlacements={
+          Object {
+            "bottom": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                0,
+                4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tc",
+                "bc",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "bottomLeft": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                0,
+                4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tl",
+                "bl",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "bottomRight": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                0,
+                4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tr",
+                "br",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "left": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                -4,
+                0,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "cr",
+                "cl",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "leftBottom": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                -4,
+                0,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "br",
+                "bl",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "leftTop": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                -4,
+                0,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tr",
+                "tl",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "right": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                4,
+                0,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "cl",
+                "cr",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "rightBottom": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                4,
+                0,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "bl",
+                "br",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "rightTop": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                4,
+                0,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tl",
+                "tr",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "top": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                0,
+                -4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "bc",
+                "tc",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "topLeft": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                0,
+                -4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "bl",
+                "tl",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+            "topRight": Object {
+              "ignoreShake": true,
+              "offset": Array [
+                0,
+                -4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "br",
+                "tr",
+              ],
+              "targetOffset": Array [
+                0,
+                0,
+              ],
+            },
+          }
+        }
+        className="popOverButtonContainer"
+        motion={
+          Object {
+            "motionDeadline": 1000,
+            "motionName": "ant-zoom-big",
+          }
+        }
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        onPopupAlign={[Function]}
+        onVisibleChange={[Function]}
+        overlay={
+          <React.Fragment>
+            <div
+              className="ant-popover-inner-content"
+            >
+              mock content
+            </div>
+          </React.Fragment>
+        }
+        overlayClassName=""
+        overlayStyle={Object {}}
+        placement="bottom"
+        prefixCls="ant-popover"
+        style={
+          Object {
+            "width": "100",
+          }
+        }
+        transitionName="ant-zoom-big"
+        trigger="click"
+        visible={true}
+      >
+        <Trigger
+          action="click"
+          afterPopupVisibleChange={[Function]}
+          arrowContent={
+            <span
+              className="ant-popover-arrow-content"
+            />
+          }
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          autoDestroy={false}
+          blurDelay={0.15}
+          builtinPlacements={
+            Object {
+              "bottom": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  0,
+                  4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tc",
+                  "bc",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "bottomLeft": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  0,
+                  4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "bottomRight": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  0,
+                  4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tr",
+                  "br",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "left": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  -4,
+                  0,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "cr",
+                  "cl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "leftBottom": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  -4,
+                  0,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "br",
+                  "bl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "leftTop": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  -4,
+                  0,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tr",
+                  "tl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "right": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  4,
+                  0,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "cl",
+                  "cr",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "rightBottom": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  4,
+                  0,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "bl",
+                  "br",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "rightTop": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  4,
+                  0,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "tr",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "top": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  0,
+                  -4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "bc",
+                  "tc",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "topLeft": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  0,
+                  -4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "bl",
+                  "tl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+              "topRight": Object {
+                "ignoreShake": true,
+                "offset": Array [
+                  0,
+                  -4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "br",
+                  "tr",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              },
+            }
+          }
+          className="popOverButtonContainer"
+          defaultPopupVisible={false}
+          destroyPopupOnHide={false}
+          focusDelay={0}
+          getDocument={[Function]}
+          getPopupClassNameFromAlign={[Function]}
+          hideAction={Array []}
+          mask={false}
+          maskClosable={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          onPopupAlign={[Function]}
+          onPopupVisibleChange={[Function]}
+          overlay={
+            <React.Fragment>
+              <div
+                className="ant-popover-inner-content"
+              >
+                mock content
+              </div>
+            </React.Fragment>
+          }
+          popup={[Function]}
+          popupAlign={Object {}}
+          popupClassName=""
+          popupMotion={
+            Object {
+              "motionDeadline": 1000,
+              "motionName": "ant-zoom-big",
+            }
+          }
+          popupPlacement="bottom"
+          popupStyle={Object {}}
+          popupTransitionName="ant-zoom-big"
+          popupVisible={true}
+          prefixCls="ant-popover"
+          showAction={Array []}
+          style={
+            Object {
+              "width": "100",
+            }
+          }
+          visible={true}
+        >
+          <span
+            className="ant-popover-open popOverButtonContainer"
+            key="trigger"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+          >
+            triggerBtn?
+          </span>
+          <ForwardRef
+            didUpdate={[Function]}
+            getContainer={[Function]}
+            key="portal"
+          >
+            <Portal
+              containerInfo={
+                <div
+                  style="position: absolute; top: 0px; left: 0px; width: 100%;"
+                >
+                  <div>
+                    <div
+                      class="ant-popover"
+                      style="opacity: 0; pointer-events: none;"
+                    >
+                      <div
+                        class="ant-popover-content"
+                      >
+                        <div
+                          class="ant-popover-arrow"
+                        >
+                          <span
+                            class="ant-popover-arrow-content"
+                          />
+                        </div>
+                        <div
+                          class="ant-popover-inner"
+                          role="tooltip"
+                        >
+                          <div
+                            class="ant-popover-inner-content"
+                          >
+                            mock content
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            >
+              <Popup
+                align={
+                  Object {
+                    "ignoreShake": true,
+                    "offset": Array [
+                      0,
+                      4,
+                    ],
+                    "overflow": Object {
+                      "adjustX": 1,
+                      "adjustY": 1,
+                    },
+                    "points": Array [
+                      "tc",
+                      "bc",
+                    ],
+                    "targetOffset": Array [
+                      0,
+                      0,
+                    ],
+                  }
+                }
+                className=""
+                destroyPopupOnHide={false}
+                getClassNameFromAlign={[Function]}
+                getRootDomNode={[Function]}
+                mask={false}
+                motion={
+                  Object {
+                    "motionDeadline": 1000,
+                    "motionName": "ant-zoom-big",
+                  }
+                }
+                onAlign={[Function]}
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                prefixCls="ant-popover"
+                style={Object {}}
+                transitionName="ant-zoom-big"
+                visible={true}
+              >
+                <div>
+                  <Mask
+                    align={
+                      Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      }
+                    }
+                    className=""
+                    destroyPopupOnHide={false}
+                    getClassNameFromAlign={[Function]}
+                    getRootDomNode={[Function]}
+                    mask={false}
+                    motion={
+                      Object {
+                        "motionDeadline": 1000,
+                        "motionName": "ant-zoom-big",
+                      }
+                    }
+                    onAlign={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchStart={[Function]}
+                    prefixCls="ant-popover"
+                    style={Object {}}
+                    transitionName="ant-zoom-big"
+                    visible={true}
+                  />
+                  <PopupInner
+                    align={
+                      Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      }
+                    }
+                    className=""
+                    destroyPopupOnHide={false}
+                    getClassNameFromAlign={[Function]}
+                    getRootDomNode={[Function]}
+                    mask={false}
+                    motion={
+                      Object {
+                        "motionDeadline": 1000,
+                        "motionName": "ant-zoom-big",
+                      }
+                    }
+                    onAlign={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchStart={[Function]}
+                    prefixCls="ant-popover"
+                    style={Object {}}
+                    transitionName="ant-zoom-big"
+                    visible={true}
+                  >
+                    <CSSMotion
+                      leavedClassName="ant-popover-hidden"
+                      motionDeadline={1000}
+                      motionName="ant-zoom-big"
+                      onAppearEnd={[Function]}
+                      onAppearPrepare={[Function]}
+                      onEnterEnd={[Function]}
+                      onEnterPrepare={[Function]}
+                      onLeaveEnd={[Function]}
+                      removeOnLeave={false}
+                      visible={true}
+                    >
+                      <DomWrapper>
+                        <Align
+                          align={
+                            Object {
+                              "ignoreShake": true,
+                              "offset": Array [
+                                0,
+                                4,
+                              ],
+                              "overflow": Object {
+                                "adjustX": 1,
+                                "adjustY": 1,
+                              },
+                              "points": Array [
+                                "tc",
+                                "bc",
+                              ],
+                              "targetOffset": Array [
+                                0,
+                                0,
+                              ],
+                            }
+                          }
+                          disabled={true}
+                          key="popup"
+                          monitorWindowResize={true}
+                          onAlign={[Function]}
+                          target={[Function]}
+                        >
+                          <div
+                            className="ant-popover"
+                            onMouseDownCapture={[Function]}
+                            onTouchStartCapture={[Function]}
+                            style={
+                              Object {
+                                "opacity": 0,
+                                "pointerEvents": "none",
+                                "zIndex": undefined,
+                              }
+                            }
+                          >
+                            <div
+                              className="ant-popover-content"
+                            >
+                              <div
+                                className="ant-popover-arrow"
+                                key="arrow"
+                              >
+                                <span
+                                  className="ant-popover-arrow-content"
+                                />
+                              </div>
+                              <Content
+                                key="content"
+                                overlay={
+                                  <React.Fragment>
+                                    <div
+                                      className="ant-popover-inner-content"
+                                    >
+                                      mock content
+                                    </div>
+                                  </React.Fragment>
+                                }
+                                prefixCls="ant-popover"
+                              >
+                                <div
+                                  className="ant-popover-inner"
+                                  role="tooltip"
+                                >
+                                  <div
+                                    className="ant-popover-inner-content"
+                                  >
+                                    mock content
+                                  </div>
+                                </div>
+                              </Content>
+                            </div>
+                          </div>
+                        </Align>
+                      </DomWrapper>
+                    </CSSMotion>
+                  </PopupInner>
+                </div>
+              </Popup>
+            </Portal>
+          </ForwardRef>
+        </Trigger>
+      </ForwardRef(Tooltip)>
+    </Tooltip>
+  </Popover>
+</Popover>
+`;

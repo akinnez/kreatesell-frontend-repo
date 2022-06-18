@@ -69,8 +69,8 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 const Sidebar = () => {
   const { SubMenu } = Menu;
   const router = useRouter();
-  const setProductId = SetProductID()
-  const setProductDefault = SetProductDefault()
+  const setProductId = SetProductID();
+  const setProductDefault = SetProductDefault();
   return (
     <>
       <Menu mode="inline" theme="light" className={style.menu}>
@@ -106,13 +106,17 @@ const Sidebar = () => {
           </Menu.Item>
           <Menu.Item key={36}>
             <Link href="/account/kreator/products/create">
-              <a  onClick={(e) => {
-              e.preventDefault()
-							setProductId('')
-							setProductDefault()
-              console.log('ytrfghjuytrdfgh')
-							router.push("/account/kreator/products/create")
-						}}>Create Product</a>
+              <a
+                onClick={e => {
+                  e.preventDefault();
+                  setProductId("");
+                  setProductDefault();
+                  console.log("ytrfghjuytrdfgh");
+                  router.push("/account/kreator/products/create");
+                }}
+              >
+                Create Product
+              </a>
             </Link>
           </Menu.Item>
           <Menu.Item key={37}>
@@ -128,14 +132,14 @@ const Sidebar = () => {
           className={style.subMenu}
           expandIcon={<CloseSubMenu />}
         >
+          <Menu.Item key={41}>
+            <Link href="/account/kreator/affiliates-requests">
+              <a>Affiliates Requests</a>
+            </Link>
+          </Menu.Item>
           <Menu.Item key={40}>
             <Link href="/account/kreator/abandoned-carts">
               <a>Abandoned Carts</a>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key={41}>
-            <Link href="/account/kreator/requests">
-              <a>Affiliates Requests</a>
             </Link>
           </Menu.Item>
         </SubMenu>

@@ -8,6 +8,7 @@ export const Layout = ({
   description,
   subFooter = false,
   defaultMarginTop,
+  ...subFooterProps
 }) => {
   return (
     <>
@@ -17,7 +18,7 @@ export const Layout = ({
         <main className={defaultMarginTop && styles.layoutMargin}>
           {children}
         </main>
-        {subFooter && <SubFooter />}
+        {subFooter && <SubFooter {...subFooterProps} />}
       </section>
       <Footer />
     </>

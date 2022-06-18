@@ -7,9 +7,9 @@
 @import "./screens.scss";
 @import "react-dates/lib/css/_datepicker.css";
 @import "react_dates_overrides.scss";
-
+@import url("http://db.onlinewebfonts.com/c/25a7a213c7215b479c86172604a49723?family=Beat+Word+demo");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap");
 html,
 body {
   margin: 0;
@@ -186,6 +186,23 @@ select {
   }
 }
 
+.ant-select-show-search.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  border-radius: 5px !important;
+}
+
+.ant-select-single .ant-select-selector .ant-select-selection-item {
+  display: flex;
+  align-items: center;
+  & > div {
+    margin-right: 5px;
+  }
+  img {
+    border-radius: 5px;
+    margin-right: 3px;
+  }
+}
+
 .ant-table-tbody {
   color: #595959;
   border: 1px solid #f0f0f0;
@@ -199,6 +216,10 @@ select {
   border: none !important;
 }
 
+.telInput input {
+  border-radius: 0px 10px 10px 0px !important;
+}
+
 .react-scroll-active-link {
   color: $blue-600;
 }
@@ -209,6 +230,78 @@ select {
 .ant-switch-checked {
   background-color: #2dc071 !important;
 }
+
+.ant-collapse-content {
+  & > .ant-collapse-content-box {
+    padding: 0px !important;
+  }
+}
+
+// inactive state
+.ant-collapse-icon-position-right {
+  & > .ant-collapse-item {
+    & > .ant-collapse-header {
+      background: $base-white;
+    }
+  }
+}
+
+.ant-collapse-icon-position-right {
+  & > .ant-collapse-item {
+    & > .ant-collapse-header {
+      font-size: 1.1rem !important;
+      font-weight: 600 !important;
+      line-height: 32px !important;
+      color: #262626 !important;
+    }
+  }
+}
+
+.ant-collapse-borderless {
+  & > .ant-collapse-item {
+    margin-bottom: 10px !important;
+    border-bottom: none !important;
+  }
+}
+
+.Index_tabContainer__3tEdu {
+  &.Index_panelHeader__3NaOQ {
+    margin-bottom: 15px !important;
+  }
+}
+
+.ant-collapse-borderless {
+  & > .ant-collapse-item {
+    // border-bottom: 10px !important;
+    & > .ant-collapse-content {
+      border-top: 5px solid rgba(34, 34, 34, 0.05) !important;
+    }
+  }
+}
+
+.customUploadV2{
+  .ant-upload {
+    &.ant-upload-btn{
+      padding: 5px !important;
+    }
+    &.ant-upload-drag{
+      // margin-top: 0px !important;
+    }
+  
+  }
+}
+.customUploadV3{
+  .ant-upload {
+    &.ant-upload-btn{
+      padding: 0px !important;
+    }
+    &.ant-upload-drag{
+      margin-top: 0px !important;
+    }
+  
+  }
+}
+
 
 .status-live {
   @include allProductsTableHeaderStyle(#2dc071, #f1fcf8);
@@ -305,3 +398,13 @@ input[type="date"] {
     display: none;
   }
 }
+
+// legal docs
+// .lg {
+//   .container {
+//     .ant-card .ant-card-body .ant-tabs .ant-tabs-nav .ant-tabs-nav-wrap {
+//       background: #fff;
+//       border: 1px solid red !important;
+//     }
+//   }
+// }

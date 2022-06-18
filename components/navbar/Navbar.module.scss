@@ -22,6 +22,11 @@
   }
 }
 
+.activePath {
+  color: $base-blue;
+  font-weight: 600;
+}
+
 .mobileMenuCont {
   display: none;
 }
@@ -217,6 +222,7 @@
 
     .navLinks {
       .categoryLinks {
+        width: 60%;
         display: none;
         .drop {
           display: flex;
@@ -227,10 +233,17 @@
             margin-right: 0.5rem;
             display: none !important;
           }
+
+          .navLinkDrop {
+            margin-left: 1rem;
+            display: inline-block;
+            border: 1px solid red;
+          }
           .navLinkDrop + div {
             color: $black-100 !important;
             margin-left: 0.6rem !important;
           }
+          
         }
       }
     }
@@ -242,13 +255,29 @@
       background: $base-white;
       width: 100%;
       height: fit-content;
+      height: 120vh;
+      // height: 100%;
       text-align: center;
       padding: 5rem 1rem;
-      overflow-y: scroll;
+      padding-bottom: 8rem;
+      // overflow-y: scroll;
 
       .inner {
-        overflow-y: scroll;
+        // overflow: scroll;
         height: 100%;
+        // border: 1px solid red;
+        .innerBox {
+          overflow: auto;
+          height: 100%;
+          padding-bottom: 3.5rem;
+          //hide the scrollbar
+          ::-webkit-scrollbar {
+            height: 100vh;
+          }
+          ::-webkit-scrollbar-track {
+            display: none;
+          }
+        }
       }
       .mobileCategoryLinks {
         list-style: none;
@@ -324,13 +353,13 @@
 // navResourceDrop
 .navResourceContainer {
   position: absolute;
-
+  transition: all 0.2s;
   background-color: #fff;
   top: 4rem;
   z-index: 100;
   padding: 0.8rem 0;
   width: 188px;
-  height: 120px;
+  // height: 120px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -342,6 +371,12 @@
 
   @include screen("inbetween") {
     display: none;
+  }
+
+  @media (min-width: 1108px) {
+    .hideDrop {
+      display: none;
+    }
   }
 
   .resourceItem {
@@ -365,6 +400,8 @@
   .navLinks {
     margin-right: 2.5rem;
     .categoryLinks {
+      // min-width: 220px;
+      width: 80%;
       li {
         margin-right: 0.5rem;
         &:first-child {
@@ -373,6 +410,18 @@
       }
       .drop {
         min-width: 90px;
+        & .navLinkDrop {
+          margin-right: 0.2rem;
+        }
+      }
+      .joinDrop {
+        @media (min-width: 768px) {
+          display: none;
+        }
+
+        @media (min-width: 1108px) {
+          display: block;
+        }
       }
     }
   }
@@ -389,6 +438,9 @@
       }
       .drop {
         min-width: 90px;
+        & .navLinkDrop {
+          margin-right: 0.4rem;
+        }
       }
     }
   }

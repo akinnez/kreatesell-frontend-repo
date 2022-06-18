@@ -9,15 +9,10 @@ import ReadImg from "public/images/note_read.png";
 import UnreadImg from "public/images/note_unread.png";
 import styles from "./index.module.scss";
 
-const tableColumns = ({
-  types,
-  showNotesModal,
-  updateRequest,
-  showReportModal,
-}) => [
+const tableColumns = (showReportModal, showActionModal, showNoteModal) => [
   {
     title: "Affiliate",
-    dataIndex: "affiliate_name",
+    dataIndex: "",
     render: (_, record) => (
       <PopOver record={record} showReportModal={showReportModal} />
     ),
@@ -28,12 +23,11 @@ const tableColumns = ({
   },
   {
     title: "Product Type",
-    dataIndex: "product_type_id",
-    render: typeId => types[typeId]?.product_type_name,
+    dataIndex: "product_type",
   },
   {
     title: "Request Date",
-    dataIndex: "date_created",
+    dataIndex: "request_date",
     render: dateStr => dateString(dateStr),
     sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
     sortDirections: ["descend", "ascend", "descend"],
@@ -41,7 +35,7 @@ const tableColumns = ({
   {
     title: "No of Sales",
     dataIndex: "number_of_sales",
-    render: sales => formatNumber(sales || 10),
+    render: sales => formatNumber(sales),
     sorter: (a, b) => a.number_of_sales - b.number_of_sales,
     sortDirections: ["descend", "ascend", "descend"],
   },
@@ -50,14 +44,14 @@ const tableColumns = ({
     dataIndex: "notes",
     render: (_, record) => (
       <Button
-        onClick={() => showNotesModal(record.notes)}
+        onClick={() => showNoteModal(record.notes)}
         shape="circle"
         className={styles.notes__btn}
       >
-        {record.notes_read ? (
-          <Image src={ReadImg} alt="Read Image" />
-        ) : (
+        {record.note_flag === "Unread" ? (
           <Image src={UnreadImg} alt="Unread Image" />
+        ) : (
+          <Image src={ReadImg} alt="Read Image" />
         )}
       </Button>
     ),
@@ -83,7 +77,7 @@ const tableColumns = ({
     title: "Request Action",
     dataIndex: "",
     render: (_, record) => (
-      <DropDown record={record} updateRequest={updateRequest} />
+      <DropDown record={record} showActionModal={showActionModal} />
     ),
     width: "140px",
   },

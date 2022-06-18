@@ -29,8 +29,8 @@ const productsColumns = types => [
   },
   {
     title: "No of Sales",
-    dataIndex: "number_of_sales",
-    render: sales => formatNumber(sales || 0),
+    dataIndex: "total_affiliate_sales",
+    render: sales => formatNumber(sales),
     sorter: (a, b) => a.number_of_sales - b.number_of_sales,
     sortDirections: ["descend", "ascend", "descend"],
   },
@@ -38,25 +38,35 @@ const productsColumns = types => [
     title: "Performance",
     dataIndex: "",
     render: (_, record) => (
-      <Performance sold={record.sold} visit={record.visit} />
+      <Performance
+        sold={record.total_sold}
+        visits={record.total_product_visits}
+      />
     ),
   },
   {
     title: "Commission (%)",
     dataIndex: "affiliate_percentage_on_sales",
-    render: percent => `${percent || 0}%`,
+    render: percent => `${percent}%`,
   },
   {
     title: "Action",
     dataIndex: "",
     render: (_, record) => (
       <div className={styles.request__link}>
-        <Link href={`/account/affiliate/market-place/${record.id}`}>
-          <a>
+        {!record.has_requested_access ? (
+          <Link href={`/account/affiliate/market-place/${record.id}`}>
+            <a>
+              Request Access&nbsp;
+              <AiOutlineArrowRight />
+            </a>
+          </Link>
+        ) : (
+          <a disabled>
             Request Access&nbsp;
             <AiOutlineArrowRight />
           </a>
-        </Link>
+        )}
       </div>
     ),
     width: "130px",

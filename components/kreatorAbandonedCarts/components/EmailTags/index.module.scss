@@ -1,0 +1,93 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.email__tags__container {
+  margin-bottom: 30px;
+}
+
+.email__tags__header {
+  @include mixins.flex(row, space-between, center);
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 16px;
+  background-color: colors.$white-200;
+  border-radius: 8px;
+
+  & > span[class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$black-100;
+  }
+
+  & > button[class^="ant-btn"] {
+    background-color: transparent;
+    height: auto;
+    padding: 16px 25px;
+    color: colors.$base-blue;
+    font-weight: bold;
+    font-size: 12px;
+    border: 1px solid colors.$base-blue;
+    border-radius: 8px;
+
+    svg {
+      font-size: 20px;
+    }
+  }
+}
+
+.email__tags__header--clicked {
+  border-radius: 8px 8px 0 0;
+}
+
+.email__tags {
+  padding: 25px 10px 10px;
+  border: 1px solid colors.$white-200;
+  border-radius: 0 0 8px 8px;
+  display: none;
+}
+
+.email__tags--open {
+  display: block;
+}
+
+.email__tag {
+  @include mixins.flex(column, flex-start, flex-start);
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  & > span[class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+
+    &:first-child {
+      color: colors.$base-gray;
+      margin-bottom: 5px;
+    }
+
+    &:last-child {
+      color: colors.$gray-200;
+    }
+  }
+}
+
+@include screens.minScreen("tablet") {
+  .email__tags {
+    padding: 30px 50px;
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .email__tag {
+    flex-direction: row;
+    align-items: center;
+
+    & > span[class="ant-typography"]:first-child {
+      margin-bottom: 0;
+      margin-right: 40px;
+      width: 165px;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <TitleDescriptionList /> with mock props 1`] = `
+<div
+  className="container"
+>
+  <h3
+    className="title"
+  >
+    Benefits
+  </h3>
+  <ul
+    className="listWrapper"
+  >
+    <li
+      className="list"
+    >
+      <span>
+        •
+          
+      </span>
+      <p
+        className="itm"
+      >
+        Attractive Salary
+      </p>
+    </li>
+    <li
+      className="list"
+    >
+      <span>
+        •
+          
+      </span>
+      <p
+        className="itm"
+      >
+        Provision of quality Health Insurance.
+      </p>
+    </li>
+    <li
+      className="list"
+    >
+      <span>
+        •
+          
+      </span>
+      <p
+        className="itm"
+      >
+        Access to Certification Training Materials.
+      </p>
+    </li>
+    <li
+      className="list"
+    >
+      <span>
+        •
+          
+      </span>
+      <p
+        className="itm"
+      >
+        Conducive Work Environment.
+      </p>
+    </li>
+    <li
+      className="list"
+    >
+      <span>
+        •
+          
+      </span>
+      <p
+        className="itm"
+      >
+        Flexible office time.
+      </p>
+    </li>
+  </ul>
+</div>
+`;

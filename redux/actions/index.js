@@ -5,4 +5,5 @@ export * from "./notification.action";
 export * from "./product.actions";
 export * from "./utils.actions";
 export * from "./store.actions";
-export * from './coupon.actions'
+export * from './coupon.actions';
+export * from './files.action';

@@ -11,16 +11,20 @@ import styles from "./index.module.scss";
 
 const { Text } = Typography;
 const { TextArea } = Input;
+const imageTypes = ["image/png", "image/jpeg", "image/gif"];
+const maxSize = 2 * 1024 * 1024;
+const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
+const limit = 5;
 
-const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
+const ReportAffiliate = ({
+  reportIsVisible,
+  hideReport,
+  id,
+  updateReported,
+  showSuccess,
+}) => {
   const [images, setImages] = useState([]);
-
   const inputElement = useRef();
-
-  const imageTypes = ["image/png", "image/jpeg", "image/gif"];
-  const maxSize = 2 * 1024 * 1024;
-  const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
-  const limit = 5;
 
   const submitHandler = (values, actions) => {
     if (images.length > 0) {
@@ -50,7 +54,7 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
 
     const formData = new FormData();
 
-    formData.append("Affiliate_Id", affiliateId);
+    formData.append("Affiliate_Id", id);
     formData.append("Report_Details", values.report_note.trim());
     images.forEach(image => {
       formData.append("Evidence", image);
@@ -59,8 +63,9 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
     axiosAPI.request(
       "post",
       `${process.env.BASE_URL}v1/kreatesell/product/report/affiliate`,
-      res => {
-        showToast(res.message, "success");
+      () => {
+        updateReported(id);
+        showSuccess();
         hideReport();
       },
       err => {
@@ -113,16 +118,14 @@ const ReportAffiliate = ({ report, hideReport, affiliateId }) => {
     <Modal
       title={null}
       footer={null}
-      visible={report}
+      visible={reportIsVisible}
       onCancel={hideReport}
       closeIcon={<CloseIcon />}
       className={styles.modal}
       width={765}
     >
       <Formik
-        initialValues={{
-          report_note: "",
-        }}
+        initialValues={{ report_note: "" }}
         validationSchema={KreatorReportSchema}
         onSubmit={submitHandler}
       >

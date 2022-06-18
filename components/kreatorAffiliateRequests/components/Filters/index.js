@@ -14,12 +14,7 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const Filters = ({
-  setProductName,
-  setAffiliateName,
-  setProductType,
-  setRequestDate,
-}) => {
+const Filters = ({ setFilters }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
@@ -51,23 +46,27 @@ const Filters = ({
       return;
     }
 
-    setProductName(product_name || "");
-    setAffiliateName(affiliate_name || "");
-    setProductType(
-      product_type && Number(product_type) !== NaN ? product_type : ""
-    );
-    setRequestDate(date_listed ? date_listed._i : "");
     setIsFiltered(true);
     setShowFilter(false);
+    setFilters(s => ({
+      ...s,
+      productName: product_name || "",
+      affiliateName: affiliate_name || "",
+      productType: product_type && product_type !== "all" ? product_type : "",
+      requestDate: date_listed ? date_listed._i : "",
+    }));
   };
 
   const resetFilters = () => {
-    setProductName("");
-    setAffiliateName("");
-    setProductType("");
-    setRequestDate("");
-    setIsFiltered(false);
     form.resetFields();
+    setIsFiltered(false);
+    setFilters(s => ({
+      ...s,
+      productName: "",
+      affiliateName: "",
+      productType: "",
+      requestDate: "",
+    }));
   };
 
   const handler = (setter, value) => () => {
@@ -113,7 +112,7 @@ const Filters = ({
               >
                 <Form.Item label="Product Name" name="product_name">
                   <Input
-                    placeholder="Search by product name"
+                    placeholder="Search By Product Name"
                     onChange={handleSearch("product_name")}
                   />
                 </Form.Item>
@@ -125,7 +124,7 @@ const Filters = ({
               >
                 <Form.Item label="Affiliate Name" name="affiliate_name">
                   <Input
-                    placeholder="Search by affiliate name"
+                    placeholder="Search By Affiliate Name"
                     onChange={handleSearch("affiliate_name")}
                   />
                 </Form.Item>

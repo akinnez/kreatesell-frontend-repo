@@ -19,31 +19,19 @@ const HowItWorks = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <Layout subFooter={true} defaultMarginTop={true}>
+    <Layout subFooter={false} defaultMarginTop={true}>
       <div className={styles.container}>
         <div className={styles.hero}>
-          <h2 className={styles.main}>
-            Just Upload It. Make Money From It.
-          </h2>
-          <h2
-            className={styles.mobileHeader}
-            
-          >
+          <h2 className={styles.main}>Just Upload It. Make Money From It.</h2>
+          <h2 className={styles.mobileHeader}>
             Just Upload It. Make <br /> Money From It.
           </h2>
 
-          <p
-            className={styles.subtitle}
-           
-          >
-            A Smarter and Better way of making money from your <br /> Digital
-            Content.
+          <p className={styles.subtitle}>
+            A smarter and better way of making money from your content.
           </p>
-          <p
-            className={styles.mobileSubtitle}
-           
-          >
-            A Smarter and Better way of making money from your Digital Content.
+          <p className={styles.mobileSubtitle}>
+            A smarter and better way of making money from your content.
           </p>
 
           <div className={styles.input}>
@@ -75,7 +63,7 @@ const HowItWorks = () => {
             className={styles.content}
             {...Animate("fade-right", 200, "ease")}
           >
-            <h3>Best Option for</h3>
+            <h3>Best Option For</h3>
             <div className={styles.pillContainer}>
               <div className={styles.pills}>
                 <div className={styles.pill}>Ebook Author</div>
@@ -95,16 +83,16 @@ const HowItWorks = () => {
               platform that will enable you to upload your digital products for{" "}
               <br />
               fastest and easiest sales and conversion without having to <br />{" "}
-              learn multiple complex sales funnel platforms and instantly get{" "}
-              <br />
+              learn multiple complex sales funnel platforms. And you instantly
+              get <br />
               paid from anywhere in the world conveniently.
             </p>
             <p className={styles.mobilePillContent}>
               KreateSell is an ease-to-use, cross-border ecommerce platform that
-              will enable you to upload your digital products for fastest and
-              easiest sales and conversion without having to learn multiple
-              complex sales funnel platforms and instantly get paid from
-              anywhere in the world conveniently.
+              will enable you to upload your digital products for the fastest
+              and easiest sales and conversions, without having to learn to use
+              multiple complex sales funnel platforms. And you instantly get
+              paid from anywhere in the world conveniently.
             </p>
           </div>
           <div
@@ -121,7 +109,7 @@ const HowItWorks = () => {
         </div>
 
         <div className={styles.subCaption}>
-          <h3 {...Animate("fade-up", 500, "ease")}>How it works</h3>
+          <h3 {...Animate("fade-up", 500, "ease")}>How It Works</h3>
           <p {...Animate("fade-up", 600, "ease")}>
             Amazing all-in-one tools that bring a winning customer experience
           </p>
@@ -151,40 +139,37 @@ const HowItWorks = () => {
               {...Animate("zoom-in-left", 200, "ease")}
             >
               <h5 className={styles.webTitle}>
-                Create your Store and setup Store details
+                Create Your Store And Setup Store Details
               </h5>
               <h5 className={styles.mobileTitle}>
-                Create your Store and <br /> setup Store details
+                Create Your Store And <br /> setup Store details
               </h5>
-              <div>
+              <div className={styles.statementBox}>
                 <p className={styles.statement}>
                   To get started, just navigate to the get started or sign up
-                  button <br /> and create a free account to have the all-in-one
-                  system in action <br /> for use.
+                  button and create a free account to have the all-in-one system
+                  in action for your use.
                 </p>
                 <br />
                 <p className={styles.statement}>
-                  Getting ready? Now add all your store details for easy <br />
-                  recognition. Details that compel, attract and intrigue
-                  potential <br /> buyers.
+                  Getting set? Add all your store details for easy recognition.
+                  Use details that compel, attract and intrigue potential
+                  buyers.
                 </p>
 
-                <p className={styles.mobileStatement}>
+                {/* <p className={styles.mobileStatement}>
                   To get started, just navigate to the get started or sign up
                   button and create a free account to have the all-in-one system
                   in action for use. Getting ready? Now add all your store
                   details for easy recognition. Details that compel, attract and
                   intrigue potential buyers.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          className={styles.spiral}
-          {...Animate("fade-down", 200, "linear")}
-        >
+        <div className={styles.spiral} {...Animate("fade-down", 200, "linear")}>
           <Image
             src={RightSpiral}
             height="150"
@@ -208,19 +193,12 @@ const HowItWorks = () => {
             >
               <h5 className={styles.webTitle}>Add Product</h5>
               <h5 className={styles.mobileTitle}>Add Product</h5>
-              <div>
+              <div className={styles.statementBox}>
                 <p className={styles.statement}>
-                  Ready to go global, create your products with awesome <br />
-                  descriptions and additional beneficial details that capture
-                  the <br /> attention of customers. After that, share your
-                  product link for <br /> the target audience.
-                </p>
-
-                <p className={styles.mobileStatement}>
-                  Ready to go global, create your products with awesome
+                  Ready to go global? Create your products with awesome
                   descriptions and additional beneficial details that capture
                   the attention of customers. After that, share your product
-                  link for the target audience.
+                  link to your target audience.
                 </p>
               </div>
             </div>
@@ -238,10 +216,7 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div
-          className={styles.spiral}
-          {...Animate("fade-down", 200, "linear")}
-        >
+        <div className={styles.spiral} {...Animate("fade-down", 200, "linear")}>
           <Image
             src={LeftSpiral}
             height="150"
@@ -278,30 +253,31 @@ const HowItWorks = () => {
                 Publish - Go live in a seconds
               </h5>
               <h5 className={styles.mobileTitle}>Publish</h5>
-              <div>
+              <div className={styles.statementBox}>
                 <p className={styles.statement}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
-                  <br />
-                  Semper viverra posuere augue pretium. Egestas malesuada <br />{" "}
-                  urna, scelerisque non. Nunc pretium, amet in id duis
-                  sollicitudin <br /> eget. Et facilisi pretium pellentesque
-                  elit.
+                  Creating any of the supported products - membership,
+                  subscription or digital downloads under minutes is cool,
+                  right?
                 </p>
-                <p className={styles.mobileStatement}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Semper viverra posuere augue pretium. Egestas malesuada urna,
-                  scelerisque non. Nunc pretium, amet in id duis sollicitudin
-                  eget. Et facilisi pretium pellentesque elit.
+                {/* here */}
+                <p className={styles.statement}>
+                  The cooler part of it is setting up your funnel on the same
+                  page in a couple of clicks, without going through any tech
+                  headache. Do that and you are ready to go live and start
+                  getting paid from anywhere in the world where your audience
+                  reside, in seconds.
+                </p>
+                {/* here */}
+                <p className={styles.statement}>
+                  Click the publish button and your product link will be
+                  available for sharing.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          className={styles.spiral}
-          {...Animate("fade-down", 300, "linear")}
-        >
+        <div className={styles.spiral} {...Animate("fade-down", 300, "linear")}>
           <Image
             src={RightSpiral}
             height="150"
@@ -329,21 +305,12 @@ const HowItWorks = () => {
               <h5 className={styles.mobileTitle}>
                 Get paid instantly into your account
               </h5>
-              <div>
+              <div className={styles.statementBox}>
                 <p className={styles.statement}>
-                  Enter your local bank account and start receiving your sales{" "}
-                  <br />
-                  payment instantly. No foreign currency barriers again,
-                  you&#39;ll <br />
-                  receive your payout directly and instantly into the local bank{" "}
-                  <br />
-                  provided.
-                </p>
-                <p className={styles.mobileStatement}>
-                  Enter your local bank account and start receiving your sales
-                  payment instantly. No foreign currency barriers again,
-                  you&#39;ll receive your payout directly and instantly into the
-                  local bank provided.
+                  Enter your local bank account details and start receiving your
+                  sales payment instantly. No more foreign currency barriers,
+                  you&apos;ll receive your payout directly and instantly into
+                  the account provided.
                 </p>
               </div>
             </div>
@@ -380,6 +347,7 @@ const HowItWorks = () => {
             choiced life to the fullest.
           </p>
           <Button
+            onClick={() => router.push("/signup")}
             text="Get Started Free"
             bgColor="blue"
             className={styles.btn}

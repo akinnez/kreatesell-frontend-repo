@@ -1,15 +1,17 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Button, Popover, Typography, Divider } from "antd";
+import { Button, Popover, Typography, Divider, Avatar } from "antd";
+import { FaRegUser } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { AiOutlineCloseCircle, AiOutlineStop } from "react-icons/ai";
-import Profile from "public/images/placeholder-2.jpg";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;
 
 const PopOver = ({ record, showReportModal }) => {
   const [visible, setVisible] = useState(false);
+
+  const reported = record.affiliate_reported === "false" ? false : true;
 
   const handleVisibility = value => visible => {
     setVisible(value || value === false ? value : visible);
@@ -29,32 +31,55 @@ const PopOver = ({ record, showReportModal }) => {
         />
       </div>
       <header className={styles.header}>
-        <div>
-          <Image src={Profile} alt="Profile picture" />
-        </div>
+        {!record.affiliate_profile_image ||
+        record.affiliate_profile_image ===
+          "Images\\ProfilePicture\\imageIcon" ? (
+          <Avatar
+            size={100}
+            icon={<FaRegUser />}
+            className={styles.profile__image__placeholder}
+          />
+        ) : (
+          <Avatar
+            size={100}
+            src={
+              <Image
+                src={record.affiliate_profile_image}
+                layout="fill"
+                alt={`${record.affiliate_name}`}
+                objectFit="cover"
+              />
+            }
+          />
+        )}
       </header>
       <section className={styles.affiliate__info}>
         <p>
           <Text>{record.affiliate_name}</Text>
         </p>
         <p>
-          <Text>Unique Username</Text>
+          <Text>{record.affiliate_unique_username}</Text>
         </p>
         <p>
-          <Text>Nigeria</Text>
+          <Text>{record.affiliate_country}</Text>
         </p>
       </section>
       <Divider className={styles.divider} />
       <footer className={styles.footer}>
-        <Button
-          size="large"
-          disabled={record.reported}
-          danger={record.reported}
-          onClick={() => showReport(record.affiliateId)}
-          icon={<AiOutlineStop />}
-        >
-          {record.reported ? "Reported" : "Report Affiliate"}
-        </Button>
+        {reported ? (
+          <Button size="large" icon={<AiOutlineStop />} disabled>
+            Reported
+          </Button>
+        ) : (
+          <Button
+            size="large"
+            danger
+            onClick={() => showReport(record.affiliate_id)}
+            icon={<AiOutlineStop />}
+          >
+            Report Affiliate
+          </Button>
+        )}
       </footer>
     </div>
   );

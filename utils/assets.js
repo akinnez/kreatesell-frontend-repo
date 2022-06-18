@@ -5,7 +5,7 @@ import FacebookBtn from "../public/images/facebookLogin.svg";
 import GoogleBtn from "../public/images/googleLogin.svg";
 import KreateSellBrand from "../public/images/KreateSell-brand.svg";
 import LogoutIcon from "../public/images/logout.svg";
-import FooterBrand from "../public/images/kreatesell-footer-brand.svg";
+import FooterBrand from "../public/images/Ks-footer-logo.svg";
 import AutomationIcon from "../public/images/automation.svg";
 import InstantPayout from "../public/images/instant-payout.svg";
 import PayoutMethod from "../public/images/payment-method.svg";
@@ -54,6 +54,7 @@ import MarketIcon from "../public/images/market-feature.svg";
 import PayoutIcon from "../public/images/payout-feature.svg";
 import SecureIcon from "../public/images/secure-feature.svg";
 import SellIcon from "../public/images/sell-feature.svg";
+import SellFeature from "../public/images/sellFeatures.png";
 import SupportIcon from "../public/images/support-feature.svg";
 import SVGFilter from "../public/images/filter.svg";
 import ErrorIcon from "../public/images/ErrorIcon.svg";
@@ -121,12 +122,50 @@ import PublishProduct from "../public/images/publish.svg";
 import UnPublishProduct from "../public/images/unpublish.svg";
 import PreviewMembership from "../public/images/new-vec.svg";
 import LinkCopy from "../public/images/content_copy.svg";
-import KreatorBankSetting from '../public/images/kreator_bankset.svg'
-import AffilateBankSetting from '../public/images/affilate_bankset.svg'
-
-
+import DeliverFeature from "../public/images/DeliverFeature.png";
+import ManageFeatures from "../public/images/manageFeatures.png";
+import MarketFeatures from "../public/images/marketFeatures.png";
+import CustomizeFeatures from "../public/images/customizeFeatures.png";
+import SecureFeatures from "../public/images/secureFeatures.png";
+import AnalyzeFeature from "../public/images/analyzeFeature.png";
+import PayoutFeatures from "../public/images/payoutFeatures.png";
+import SupportFeatures from "../public/images/supportFeatures.png";
+import ScrollUpIcon from "../public/images/scrollUp.svg";
+import KreatorBankSetting from "../public/images/kreator_bankset.svg";
+import AffilateBankSetting from "../public/images/affilate_bankset.svg";
+import NewsCardOne from "../public/images/card-one.svg";
+import NewsCardTwo from "../public/images/card-two.svg";
+import NewsCardThree from "../public/images/card-three.svg";
+import NewsCardFour from "../public/images/card-four.svg";
+import CardMain from "../public/images/card-main.svg";
+import ProfileImage from "../public/images/profile-image.svg";
+import EditIcon from "../public/images/icons/EditIcon.svg";
+import Accommodation from "../public/images/icons/Accomodation.svg";
+import Bag from "../public/images/icons/Bag.svg";
+import Box from "../public/images/icons/Box.svg";
+import Building from "../public/images/icons/Building.svg";
+import FlexibleOffice from "../public/images/icons/FlexibleOffice.svg";
+import House from "../public/images/icons/House.svg";
+import LeftArrow from "../public/images/icons/circle_left.svg";
+import CareerSuccess from "../public/images/career-success.svg";
+import CareerFailure from "../public/images/career-failure.svg";
 
 export {
+  ProfileImage,
+  CardMain,
+  NewsCardOne,
+  NewsCardTwo,
+  NewsCardThree,
+  NewsCardFour,
+  ScrollUpIcon,
+  SupportFeatures,
+  PayoutFeatures,
+  AnalyzeFeature,
+  SecureFeatures,
+  CustomizeFeatures,
+  MarketFeatures,
+  ManageFeatures,
+  DeliverFeature,
   PublishProduct,
   KreatorBankSetting,
   AffilateBankSetting,
@@ -252,4 +291,15 @@ export {
   ProductNotificationImage,
   tick,
   UserImage,
+  SellFeature,
+  EditIcon,
+  Accommodation,
+  Bag,
+  Box,
+  Building,
+  FlexibleOffice,
+  House,
+  LeftArrow,
+  CareerSuccess,
+  CareerFailure
 };

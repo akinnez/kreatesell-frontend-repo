@@ -1,6 +1,4 @@
-// import Image from "next/image";
-// import PersonificationIcon from "public/images/mailing-list-personification.png";
-// import FileIcon from "public/images/file-icon.png";
+import { MdOutlinePersonAddAlt } from "react-icons/md";
 
 const Toolbar = () => (
   <div id="toolbar">
@@ -14,7 +12,7 @@ const Toolbar = () => (
     <button className="ql-italic" />
     <button className="ql-underline" />
     <button className="ql-strike" />
-    {/* <button className="ql-blockquote" /> */}
+    <button className="ql-blockquote" />
     <select className="ql-align" defaultValue={""} onChange={e => e.persist()}>
       <option value="" />
       <option value="center" />
@@ -27,12 +25,9 @@ const Toolbar = () => (
     <button className="ql-code-block" />
     <button className="ql-image" />
     <button className="ql-video" />
-    {/* <button className="ql-file">
-      <Image alt="icon" src={FileIcon} width={15} height={18.75} />
-    </button>
     <button className="ql-personification">
-      <Image alt="icon" src={PersonificationIcon} width={18} height={18} />
-    </button> */}
+      <MdOutlinePersonAddAlt style={{ fontSize: "20px" }} />
+    </button>
   </div>
 );
 

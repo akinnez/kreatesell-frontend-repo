@@ -7,15 +7,16 @@ import Link from "next/link";
 import ResourcesDrop from "./ResourcesDrop";
 import Image from "next/image";
 import { ArrowDown } from "../../utils/assets";
-import { Animate } from "../../utils";
+// import { Animate } from "../../utils";
 
+const resourcesRoute = ["/how-it-works","/faq"];
 export const Navbar = () => {
   const router = useRouter();
   const [navBg, setNavBg] = useState(false);
   const [openMobileNav, setOpenMobileNav] = useState(false);
   const pathName = typeof window !== "undefined" && window;
   // const navDropIsInView = useSelector((state) => state.)
-
+  const { pathname } = useRouter();
   // state for navDrop
   // .
   const [navDrop, setNavDrop] = useState({
@@ -63,6 +64,11 @@ export const Navbar = () => {
 
   const handleNavbar = () => setOpenMobileNav((value) => !value);
 
+  const handleMobileNavLinkClick = (path) => {
+    handleNavbar();
+    router.push(path);
+  };
+
   return (
     <>
       <nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
@@ -83,8 +89,11 @@ export const Navbar = () => {
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
+            <li className={styles.joinDrop}>
+              <NavLink href="about-us" title="About Us" />
+            </li>
             <li onClick={(e) => clickHandler(e)} className={styles.drop}>
-              <span className={styles.navLinkDrop}>Resources</span>
+              <span className={`${styles.navLinkDrop} ${resourcesRoute.includes(pathname) && styles.activePath}`}>Resources</span>
               <Image src={ArrowDown} width="10" height="10" alt="arrow icon" />
             </li>
             <li>
@@ -96,72 +105,52 @@ export const Navbar = () => {
             <li>
               <NavLink href="blog" title="Blog" />
             </li>
-            <li>
+            {/* <li>
               <NavLink href="faq" title="FAQS" />
-            </li>
+            </li> */}
           </ul>
         </div>
 
         <div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
           <div className={styles.inner}>
-            <ul className={styles.mobileCategoryLinks}>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/how-it-works");
-                }}
-              >
-                How it works
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/features");
-                }}
-              >
-                Features
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
+            <div className={styles.innerBox}>
+              <ul className={styles.mobileCategoryLinks}>
+                <li onClick={() => handleMobileNavLinkClick("/")}>Home</li>
+                <li onClick={() => handleMobileNavLinkClick("about-us")}>
+                  About Us
+                </li>
 
-                  router.push("/pricing");
-                }}
-              >
-                Pricing
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-                  router.push("/blog");
-                }}
-              >
-                Blog
-              </li>
-              <li
-                onClick={() => {
-                  handleNavbar();
-
-                  router.push("/faq");
-                }}
-              >
-                FAQs
-              </li>
-            </ul>
-            <div className={styles.mobileInput}>
-              <Input type="" placeholder="Enter your email.." />
-            </div>
-            <div className={styles.mobileButton}>
-              <Button
-                text="Get Started Free"
-                bgColor="blue"
-                className={styles.freeBtn}
-              />
-            </div>
-            <div className={styles.benefits}>
-              <span className={styles.benefitSpan}>Signup for free</span>
-              <span className={styles.benefitSpan}>• Easy setup</span>
-              <span className={styles.benefitSpan}>• Fast payout</span>
+                {/* <li onClick={() => handleMobileNavLinkClick("")}></li> */}
+                <li onClick={() => handleMobileNavLinkClick("/how-it-works")}>
+                  How it works
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/features")}>
+                  Features
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/pricing")}>
+                  Pricing
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/blog")}>Blog</li>
+                <li onClick={() => handleMobileNavLinkClick("/payments")}>
+                  Payments
+                </li>
+                <li onClick={() => handleMobileNavLinkClick("/faq")}>FAQs</li>
+              </ul>
+              <div className={styles.mobileInput}>
+                <Input type="" placeholder="Enter your email.." />
+              </div>
+              <div className={styles.mobileButton}>
+                <Button
+                  text="Get Started Free"
+                  bgColor="blue"
+                  className={styles.freeBtn}
+                />
+              </div>
+              <div className={styles.benefits}>
+                <span className={styles.benefitSpan}>Signup for free</span>
+                <span className={styles.benefitSpan}>• Easy setup</span>
+                <span className={styles.benefitSpan}>• Fast payout</span>
+              </div>
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import {
   FormError,
 } from "../components";
 import styles from "../public/css/Home.module.scss";
+import Link from "next/link";
 import {
   RightArrow,
   LandingPageHero,
@@ -22,19 +23,17 @@ import {
   TechCabal,
   Guardian,
   TechCrunch,
-  MicrosoftLogo,
+  NewsCardOne,
+  NewsCardTwo,
+  NewsCardThree,
+  NewsCardFour,
+  ProfileImage,
+  CardMain,
   AddProduct,
   CreateStore,
   Publish,
-  AutomationIcon,
   LeftSpiral,
   RightSpiral,
-  PayoutMethod,
-  InstantPayout,
-  PrimaryNews,
-  SecondaryNews,
-  PrimaryNewsFooterImg,
-  videoThumbnail,
   ElipseImage,
   MobileElipse,
   PlayIcon,
@@ -43,7 +42,7 @@ import {
 } from "../utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import { SubscribeEmailSchema } from "../validation";
 import { useFormik } from "formik";
 import { GuestSubscription } from "../redux/actions";
@@ -135,12 +134,13 @@ export default function Home() {
             <Image
               src={LandingPageHero}
               alt="kreatesell hero"
+              layout="responsive"
               onClick={() => setVisible(!modalVisible)}
             />
           </div>
 
           <div className={styles.featured}>
-            <h5 className={styles.title}>As featured in</h5>
+            <h5 className={styles.title}>We Are Featured In</h5>
             {/* desktop */}
             <div
               className={styles.featuredImages}
@@ -259,6 +259,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="create store"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Kreate your Store</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -281,6 +282,7 @@ export default function Home() {
                 width="194"
                 height="150"
                 alt="add product"
+                // layout="responsive"
               />
               <h5 className={styles.howItWorksImgTitle}>Add Product</h5>
               <p className={styles.howItWorksImgSubTitle}>
@@ -294,7 +296,13 @@ export default function Home() {
               className={styles.howItWorksImgSingle}
               {...Animate("fade-left", 200, "ease")}
             >
-              <Image src={Publish} width="194" height="150" alt="publish" />
+              <Image
+                src={Publish}
+                width="194"
+                height="150"
+                alt="publish"
+                // layout="responsive"
+              />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
               <p className={styles.howItWorksImgSubTitle}>
                 Now publish to make your store live!
@@ -317,7 +325,7 @@ export default function Home() {
 
         <div className={styles.featuresSection}>
           <div className={styles.subHero}>
-            <h3>More than an ecommerce platfrom</h3>
+            <h3>More Than Just An E-commerce Platform</h3>
             <p>
               It&apos;s an amazing all-in-one platform that brings a winning
               customer experience.
@@ -329,11 +337,21 @@ export default function Home() {
               className={styles.image}
               {...Animate("zoom-in-right", 200, "ease")}
             >
+              {/* layout="responsive" isn't applied on mobile images */}
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={DashPreviewOne}
+                  height="420"
+                  width="417"
+                  alt="automation icon"
+                />
+              </div>
               <Image
                 src={DashPreviewOne}
                 height="420"
                 width="417"
                 alt="automation icon"
+                layout="responsive"
               />
             </div>
             <div
@@ -359,12 +377,16 @@ export default function Home() {
                 your digital products.
               </p>
 
-              <div className={styles.linkText}>
-                Learn more{" "}
-                <span>
-                  <RightArrow color="#0072ef" />
-                </span>
-              </div>
+              {/* <div className={styles.linkText}> */}
+              <Link href="/features">
+                <a className={styles.linkText}>
+                  Learn more
+                  <span>
+                    <RightArrow color="#0072ef" />
+                  </span>
+                </a>
+              </Link>
+              {/* </div> */}
             </div>
           </div>
 
@@ -377,49 +399,72 @@ export default function Home() {
               height="150"
               width="500"
               alt="right spiral"
+              // layout="responsive"
             />
           </div>
 
           <div className={`${styles.automation} ${styles.automationAlte}`}>
-            <div className={styles.automationText}>
+            <div className={`${styles.automationText} ${styles.Two}`}>
               <h3 className={styles.automationTitle}>
                 Foreign payments <br /> barriers solved
               </h3>
               <h3 className={styles.mobileAutomationTitle}>
                 Foreign payments barriers solved
               </h3>
+
               <div className={styles.automationSubTitle}>
-                <p>1. Set Local Payment</p>
-                <p>2. Payment made in buyers&#39; local currency</p>
                 <p>
-                  3. Get your payment instantly in your local bank <br />{" "}
-                  hassle-free.
+                  1. Activate different local currencies of customers (NGN, USD,
+                  UGX, TZX etc.)
+                </p>
+                <p>2. Get paid in customers&#39; local currency</p>
+                <p>
+                  3. Payouts are made into your local bank account in your local
+                  currency.
                 </p>
               </div>
               <div className={styles.mobileAutomationSubTitle}>
-                <p>1. Set Local Payment</p>
-                <p>2. Payment made in buyers&#39; local currency</p>
                 <p>
-                  3. Get your payment instantly in your local bank hassle-free.
+                  1. Activate different local currencies of customers (NGN, USD,
+                  UGX, TZX etc.)
+                </p>
+                <p>2. Get paid in customers&#39; local currency</p>
+                <p>
+                  3. Payouts are made into your local bank account in your local
+                  currency.
                 </p>
               </div>
 
-              <div className={styles.linkText}>
-                Learn more{" "}
-                <span {...Animate("fade-down", 100, "linear")}>
-                  <RightArrow color="#0072ef" />
-                </span>
-              </div>
+              {/* <div className={styles.linkText}> */}
+              <Link href="/features">
+                <a className={styles.linkText}>
+                  Learn more{" "}
+                  <span {...Animate("fade-down", 100, "linear")}>
+                    <RightArrow color="#0072ef" />
+                  </span>
+                </a>
+              </Link>
+              {/* </div> */}
             </div>
             <div
-              className={styles.image}
+              className={`${styles.image} ${styles.imgTwo}`}
               {...Animate("fade-down", 200, "linear")}
             >
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={DashPreviewTwo}
+                  height="420"
+                  width="417"
+                  alt="payout method"
+                  // layout="responsive"
+                />
+              </div>
               <Image
                 src={DashPreviewTwo}
                 height="513"
-                width="635"
+                width="535"
                 alt="payout method"
+                layout="responsive"
               />
             </div>
           </div>
@@ -434,6 +479,7 @@ export default function Home() {
               width="500"
               className={styles.img}
               alt="left spiral"
+              // layout="responsive"
             />
           </div>
 
@@ -442,19 +488,32 @@ export default function Home() {
               className={styles.image}
               {...Animate("zoom-in-right", 400, "ease")}
             >
+              <div className={styles.mobileOnly}>
+                <Image
+                  src={PaymentPreview}
+                  height="420"
+                  width="417"
+                  alt="instant payout"
+                />
+              </div>
               <Image
                 src={PaymentPreview}
                 height="420"
                 width="417"
                 alt="instant payout"
+                layout="responsive"
               />
             </div>
             <div
               className={styles.automationText}
               {...Animate("zoom-in-left", 300, "ease")}
             >
-              <h3 className={styles.automationTitle}>Automation</h3>
-              <h3 className={styles.mobileAutomationTitle}>Automation</h3>
+              <h3 className={styles.automationTitle}>
+                Automate Your Sales Processes
+              </h3>
+              <h3 className={styles.mobileAutomationTitle}>
+                Automate Your Sales Processes
+              </h3>
               <p className={styles.automationSubTitle}>
                 All the sales processes are being handled for you <br /> so you
                 can focus on your most important work.
@@ -464,12 +523,16 @@ export default function Home() {
                 focus on your most important work.
               </p>
 
-              <div className={styles.linkText}>
-                Learn more{" "}
-                <span>
-                  <RightArrow color="#0072ef" />
-                </span>
-              </div>
+              {/* <div className={styles.linkText}> */}
+              <Link href="/features">
+                <a className={styles.linkText}>
+                  Learn more
+                  <span>
+                    <RightArrow color="#0072ef" />
+                  </span>
+                </a>
+              </Link>
+              {/* </div> */}
             </div>
           </div>
         </div>
@@ -477,11 +540,12 @@ export default function Home() {
         <div className={styles.midSection}>
           <div className={styles.midSectionText}>
             <div className={styles.midSectionTitle}>
-              Easier, faster, and safer <br /> way to sell your Digital <br />
-              Content Online
+              Easiest, fastest, and <br /> safest way to sell your
+              <br /> Digital Products Online
             </div>
             <div className={styles.midSectionMobileTitle}>
-              Easier, faster, and safer way to sell your Digital Content Online
+              Easiest, fastest, and safest way to sell your Digital Products
+              Online
             </div>
 
             <p className={styles.midSectionSubTitle}>
@@ -508,161 +572,113 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.newsAndEvents}>
-          <div className={styles.newsAndEventsHeader}>
-            <h3 className={styles.newsAndEventTitle}>
-              News, events and insights for you
-            </h3>
-            <div className={styles.newsAndEventSubTitle}>
-              <p>See more</p>
+        <section className={styles.newsAndEvents}>
+          <div className={styles.newsHeader}>
+            <h5>News, Events And Insights For You</h5>
+            <p className={styles.seeMore}>
+              See more
               <span className="pb-1">
                 <RightArrow color="#0072EF" />
               </span>
-            </div>
+            </p>
           </div>
-
-          <div className={styles.newsAndEventsCardCont}>
-            <div className={styles.firstRow}>
-              <div className={styles.primaryNews}>
-                <div className={styles.primaryNewsImage}>
-                  <Image src={PrimaryNews} width="352" alt="primary news" />
-                </div>
-                <div className={styles.primaryNewsCont}>
-                  <div className={styles.primaryTitle}>
-                    Google I / O 2020 <br /> news update
-                  </div>
-                  <div className={styles.primaryContent}>
+          <section className={styles.parentCard}>
+            <div className={styles.profileAndCard}>
+              {/* mobiile - section 1 */}
+              <div className={styles.newsFront}>
+                <Image
+                  src={CardMain}
+                  alt="main"
+                  className={styles.cardMain}
+                  layout="responsive"
+                />
+                <div className={`${styles.profileCard} ${styles.mb}`}>
+                  <h5>
+                    Google I / O 2020 <br />
+                    news update
+                  </h5>
+                  <p>
                     Out of concern for the health and safety of our developers,
                     employees, and local communities — and in line with recent
                     ...
-                  </div>
-
-                  <div className={styles.primaryFooterCont}>
-                    <div className={styles.primaryFooterImage}>
-                      <Image
-                        src={PrimaryNewsFooterImg}
-                        alt="primary news footer"
-                      />
+                  </p>
+                  <section className={styles.profile}>
+                    <Image
+                      src={ProfileImage}
+                      className={styles.profileImage}
+                      alt="profile image"
+                      width="20"
+                      height="20"
+                      layout="responsive"
+                    />
+                    <div className={styles.contact}>
+                      <p>Babatunde Amotekun</p>
+                      <p>CEO at Tuntek Agency</p>
                     </div>
-                    <div className={styles.primaryFooterPosition}>
-                      <div className={styles.primaryName}>Sundar pichai</div>
-                      <div className={styles.primaryPosition}>
-                        CEO at Salvo Agency
-                      </div>
-                    </div>
-                  </div>
+                  </section>
+                </div>
+                <div className={styles.min}>
+                  <NewsCard
+                    imgSrc={NewsCardThree}
+                    mainText={`Minimal workspace for `}
+                    drop="inspirations"
+                    authorName="Anthony Masional"
+                  />
                 </div>
               </div>
-              <NewsCard />
+
+              {/* end of section 1 */}
+
+              <div className={styles.newsCardsGridWithTopImageM}>
+                <NewsCard
+                  imgSrc={NewsCardOne}
+                  mainText="Does productivity increase when working remotely ? "
+                  authorName="Franck Martin"
+                />
+
+                {/* <div className={styles.lgCardTwo}> */}
+                <NewsCard
+                  imgSrc={NewsCardTwo}
+                  mainText="Morning routine to boost your mood"
+                  authorName="Elizabeth swan"
+                />
+                {/* </div> */}
+                <div className={styles.min}>
+                  <NewsCard
+                    imgSrc={NewsCardThree}
+                    mainText="Minimal workspace for inspirations"
+                    authorName="Anthony Masional"
+                  />
+                </div>
+
+                <NewsCard
+                  imgSrc={NewsCardFour}
+                  mainText="5+ tips to find comfortable co-working space"
+                  authorName="Mykola Ilschenko"
+                />
+              </div>
             </div>
 
-            <div className={styles.secondRow}>
-              <NewsCard />
-              <NewsCard />
-              <NewsCard />
-            </div>
-
-            <div className={styles.mobileNews}>
-              <div className={styles.primaryNews}>
-                <div className={styles.primaryNewsImage}>
-                  <Image src={PrimaryNews} width="352" alt="primary news" />
-                </div>
-                <div className={styles.primaryNewsCont}>
-                  <div className={styles.primaryTitle}>
-                    Google I / O 2020 <br /> news update
-                  </div>
-                  <div className={styles.primaryContent}>
-                    Out of concern for the health and safety of our developers,
-                    employees, and local communities — and in line with recent
-                    ...
-                  </div>
-
-                  <div className={styles.primaryFooterCont}>
-                    <div className={styles.primaryFooterImage}>
-                      <Image src={PrimaryNewsFooterImg} width="32" alt="" />
-                    </div>
-                    <div className={styles.primaryFooterPosition}>
-                      <div className={styles.primaryName}>Sundar pichai</div>
-                      <div className={styles.primaryPosition}>
-                        CEO at Salvo Agency
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.mobileSecondaryNews}>
-                <div className={styles.firstChild}>
-                  <NewsCard />
-                </div>
-                <NewsCard />
-              </div>
-              <div className={styles.mobileSecondaryNews}>
-                <div className={styles.firstChild}>
-                  <NewsCard />
-                </div>
-                <NewsCard />
-              </div>
-              <div className={styles.newsAndEventSeeMore}>
-                <p>See more</p>
-                <RightArrow color="#0072EF" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.testimonial}>
-          <div className={styles.testimonialContainer}>
-            <div className={styles.testimonialCont}>
-              <h3 className={styles.testimonialTitle}>
-                Don’t be told, Trying is believing
-              </h3>
-              <p className={styles.testimonialSubTitle}>
-                See what amazing people are saying about the uniqueness and
-                effectiveness <br /> of KreateSell.
-              </p>
-
-              <div className={styles.videoContainer}>
-                <TestimonialVideoCard />
-                <TestimonialVideoCard />
-                <TestimonialVideoCard />
-              </div>
-
-              <div className={styles.mobileVideoContainer}>
-                <Slider {...settings}>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                  <div className={styles.cardSetting}>
-                    <MobileTestimonialVideoCard />
-                  </div>
-                </Slider>
-              </div>
-            </div>
-          </div>
-        </div>
-
+            <div className={styles.newsCardsGrid}></div>
+          </section>
+        </section>
         <div className={styles.subFooter}>
           <h3 className={styles.subFooterTitle}>
-            <span>Hiya</span>, Are you ready to start making <br /> money from
-            Selling your contents?
+            Don’t Be Told, Trying Is Believing
           </h3>
           <h3 className={styles.subMobileFooterTitle}>
-            <span>Hiya</span>, Are you ready to start making money from Selling
-            your contents?
+            Don’t Be Told, Trying Is Believing
           </h3>
+          <p className={styles.subFooterText}>
+            See what amazing people are saying about the uniqueness and
+            effectiveness of Kreatesell.
+          </p>
           <div className={styles.footerInput}>
             <InputButton
               name="email"
-              placeholder="Enter your email..."
+              placeholder="Enter yo
+              
+              ur email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
               onChange={(e) => setEmail(e.target.value)}
@@ -697,56 +713,66 @@ export default function Home() {
   );
 }
 
-const NewsCard = () => {
+const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
-        <Image src={SecondaryNews} width="352" alt="secondary news" />
+        <Image
+          src={imgSrc}
+          // width="207" height="132"
+          alt="news card"
+          layout="responsive"
+        />
       </div>
       <div className={styles.newsTextCont}>
         <div className={styles.newsTitle}>
-          Minimal workspace for inspirations
+          {mainText}{" "}
+          {drop && (
+            <>
+              <br /> {drop}
+            </>
+          )}
         </div>
-        <div className={styles.newsAuthor}>Anthony Masional</div>
+        <div className={styles.newsAuthor}>{authorName}</div>
       </div>
     </div>
   );
 };
 
-const TestimonialVideoCard = () => {
-  return (
-    <div className={styles.singleVideoContainer}>
-      <div className={styles.videoImage}>
-        <Image src={videoThumbnail} alt="testimonial video" />
-      </div>
-      <div className={styles.videoAuthor}>Review by Michelle Hyatt</div>
-      <div className={styles.videoExcerpt}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-        imperdiet risus, venenatis at.
-      </div>
-    </div>
-  );
-};
+// const TestimonialVideoCard = () => {
+//   return (
+//     <div className={styles.singleVideoContainer}>
+//       <div className={styles.videoImage}>
+//         <Image src={videoThumbnail} alt="testimonial video" />
+//       </div>
+//       <div className={styles.videoAuthor}>Review by Michelle Hyatt</div>
+//       <div className={styles.videoExcerpt}>
+//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
+//         imperdiet risus, venenatis at.
+//       </div>
+//     </div>
+//   );
+// };
 
-const MobileTestimonialVideoCard = () => {
-  return (
-    <div className={styles.singleMobileVideoContainer}>
-      <div className={styles.mobileVideo}>
-        <Image
-          src={videoThumbnail}
-          alt="testimonial video"
-          width="350"
-          height="196"
-        />
-      </div>
-      <div className={styles.mobileAuthor}>Review by Michelle Hyatt</div>
-      <div className={styles.mobileExcerpt}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-        imperdiet risus, venenatis at.
-      </div>
-    </div>
-  );
-};
+// const MobileTestimonialVideoCard = () => {
+//   return (
+//     <div className={styles.singleMobileVideoContainer}>
+//       <div className={styles.mobileVideo}>
+//         <Image
+//           src={videoThumbnail}
+//           alt="testimonial video"
+//           width="350"
+//           height="196"
+//         />
+//       </div>
+//       <div className={styles.mobileAuthor}>Review by Michelle Hyatt</div>
+//       <div className={styles.mobileExcerpt}>
+//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
+//         imperdiet risus, venenatis at.
+//       </div>
+//     </div>
+//   );
+// };
 
 const OnboardingModal = () => {
   const { loading } = useSelector((state) => state.utils);

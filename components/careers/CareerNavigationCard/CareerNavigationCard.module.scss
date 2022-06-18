@@ -1,0 +1,81 @@
+@import "../../../public/css/colors.scss";
+@import "../../../public/css/mixins.scss";
+@import "../../../public/css/screens.scss";
+
+
+.navigationContainer{
+        background: #E6F7FF;
+        height: 230px;
+        width: 100%;
+        padding: 2rem 10.31rem;
+        @include flex(row, space-between, center);
+        @include screen("tablet") {
+            padding: 0rem 4rem;
+          }
+        @include screen("medium") {
+            padding: 0rem 2rem;
+          }
+    .left{
+        @include screen("medium") {
+            height: 100%;
+            padding-block-start: 2rem;
+          }
+        .top{
+            @include flex(row, null, center);
+            gap: 10px;
+            margin-bottom: 15px;
+            .arrow{
+                @include flex(row, null, center);
+                cursor: pointer;
+                @include screen("medium"){
+                        display: none; 
+
+                }
+            }
+            .heading{
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 32px;
+                color: #0072EF;
+                margin-bottom: 0px;
+            }
+        }
+        .bottom{
+            .title{
+                font-weight: 700;
+                font-size: 28px;
+                line-height: 40px;
+                color: #262626;
+            }
+            .description{
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 26px;
+                color: #8C8C8C;
+            }
+            @include screen("tablet") {
+                .title{
+                    font-size: 1.4rem;
+                }
+                .description{
+                    font-size: 1rem;
+                }
+              }
+        }
+    }
+
+    .right{
+        @include screen("medium") {
+            height: 100%;
+            padding-block-start: 2rem;
+          }
+        .actionBtn{
+            @include flex(row, center, flex-start);
+            min-width: 10rem;
+            height: 3.125rem;
+            align-items: center;
+            font-size: 1rem;
+            padding-inline: 1.4rem;
+        }
+    }
+}

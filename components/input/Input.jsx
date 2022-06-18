@@ -15,9 +15,9 @@ export const Input = ({
 }) => {
 	return (
 		<div className={`${rest.containerstyle} ${styles.inputContainer}`}>
-			<label htmlFor={name} className={`${styles.label} ${labelStyle}`}>
+			{label && <label htmlFor={name} className={`${styles.label} ${labelStyle}`}>
 				{label}
-			</label>
+			</label>}
 			<input
 				{...rest}
 				type={type}

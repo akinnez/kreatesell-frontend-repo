@@ -4,11 +4,13 @@ import axiosApi from "utils/axios";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;
+const fee = 2;
 
 const WithdrawModal = ({
   withdrawModal,
   hideModal,
   showSuccess,
+  currency,
   balance,
   bankDetails,
 }) => {
@@ -44,7 +46,7 @@ const WithdrawModal = ({
             <p>
               <Text>You are about to withdraw</Text>
               &nbsp;
-              <span className={styles.value}>{`$${balance}`}</span>
+              <span className={styles.value}>{`${currency} ${balance}`}</span>
             </p>
             <p>
               <Text>into</Text>
@@ -78,7 +80,9 @@ const WithdrawModal = ({
             )}
           </div>
           <p>
-            <Text>Transaction Fee: $2</Text>
+            <Text>
+              Transaction Fee: {currency} {fee.toFixed(2)}
+            </Text>
           </p>
         </div>
         <Divider className={styles.divider} />

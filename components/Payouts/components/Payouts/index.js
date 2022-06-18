@@ -21,28 +21,27 @@ const Payouts = ({ bankDetails, handleClick }) => {
   const [productName, setProductName] = useState("");
   const [payouts, setPayouts] = useState([]);
   const [totalPayouts, setTotalPayouts] = useState(0);
-
-  let url = `${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=${page}&Limit=${limit}`;
-
-  if (startDate) {
-    url = `${url}&StartDate=${startDate}`;
-  }
-
-  if (endDate) {
-    url = `${url}&EndDate=${endDate}`;
-  }
-
-  if (productName) {
-    url = `${url}&Product_Name=${productName}`;
-  }
+  const [uri, setUri] = useState("");
 
   useEffect(() => {
-    if (bankDetails) {
+    const url = new URL(
+      `${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=${page}&Limit=${limit}`
+    );
+
+    if (startDate) url.searchParams.set("StartDate", startDate);
+    if (endDate) url.searchParams.set("EndDate", endDate);
+    if (productName) url.searchParams.set("Product_Name", productName);
+
+    setUri(url);
+  }, [limit, page, startDate, endDate, productName]);
+
+  useEffect(() => {
+    if (bankDetails && uri) {
       setLoading(true);
 
       axiosApi.request(
         "get",
-        url,
+        uri,
         res => {
           setPayouts(res.data.data);
           setTotalPayouts(res.data.total_records);
@@ -57,7 +56,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
         }
       );
     }
-  }, [bankDetails, url]);
+  }, [bankDetails, uri]);
 
   const handlePageChange = newPage => {
     setPage(newPage);

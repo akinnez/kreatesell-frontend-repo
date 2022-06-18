@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import useSWR from "swr";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,32 +22,74 @@ import styles from "public/css/AffiliateProducts.module.scss";
 const rowKey = record => record.id;
 
 const AffiliateProducts = () => {
-  const [filtered, setFiltered] = useState(null);
-
   const dispatch = useDispatch();
 
   const { user, loading: userLoading } = useSelector(state => state.auth);
   const { productTypes } = useSelector(state => state.product);
-  const { products } = useSelector(state => state.affiliate);
   const { loading: storeLoading } = useSelector(state => state.store);
+  const {
+    products,
+    totalProducts,
+    loading: affiliateLoading,
+  } = useSelector(state => state.affiliate);
 
-  const { data } = useSWR(
-    () => {
-      return user.is_affiliate
-        ? `${process.env.BASE_URL}affiliate/get-products`
-        : null;
-    },
+  const [uri, setUri] = useState("");
+  const [queries, setQueries] = useState({
+    page: 1,
+    dateListed: "",
+    productName: "",
+    productType: null,
+    kreatorName: "",
+  });
+
+  useEffect(() => {
+    const url = new URL(
+      `${process.env.BASE_URL}affiliate/get-products?Page=${queries.page}&Limit=8`
+    );
+
+    if (queries.dateListed) {
+      url.searchParams.set("Launch_Date", queries.dateListed);
+    }
+
+    if (queries.kreatorName) {
+      url.searchParams.set("Kreator_Name", queries.kreatorName);
+    }
+
+    if (queries.productName) {
+      url.searchParams.set("Product_Name", queries.productName);
+    }
+
+    if (queries.productType) {
+      url.searchParams.set("Product_Type", queries.productType);
+    }
+
+    setUri(url);
+  }, [
+    queries.page,
+    queries.dateListed,
+    queries.kreatorName,
+    queries.productName,
+    queries.productType,
+  ]);
+
+  useSWR(
+    () => (user.is_affiliate && uri ? uri : null),
     url => {
       dispatch(affiliateProductsRequest());
       return axiosApi.request(
         "get",
         url,
         res => {
-          dispatch(affiliateProductsSuccess(res.data));
+          const obj = {
+            products: res.data.data,
+            totalProducts: res.data.total_records,
+          };
+
+          dispatch(affiliateProductsSuccess(obj));
           return res;
         },
         err => {
-          showToast(err, "error");
+          showToast(err.message, "error");
           dispatch(affiliateProductsFailure());
         }
       );
@@ -57,6 +99,10 @@ const AffiliateProducts = () => {
   const userIsEmpty = isAnEmpytyObject(user);
   const types = normalize(productTypes, "id");
   const columns = productsColumns(types);
+
+  const handlePageChange = newPage => {
+    setQueries({ ...queries, page: newPage });
+  };
 
   if (storeLoading || userLoading || userIsEmpty) {
     return (
@@ -81,19 +127,21 @@ const AffiliateProducts = () => {
         </>
       ) : (
         <>
-          <AffiliateFilters data={products} setFiltered={setFiltered} />
+          <AffiliateFilters setQueries={setQueries} />
           <section className={styles.tableWrapper}>
             <Table
-              dataSource={filtered || products}
+              dataSource={products}
               columns={columns}
               pagination={{
                 position: ["bottomLeft", "topRight"],
                 showSizeChanger: false,
-                defaultPageSize: 5,
+                pageSize: 8,
+                total: totalProducts,
                 responsive: true,
+                onChange: handlePageChange,
               }}
               rowKey={rowKey}
-              loading={!data}
+              loading={affiliateLoading}
             />
           </section>
         </>

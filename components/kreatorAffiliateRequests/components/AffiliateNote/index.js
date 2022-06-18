@@ -4,23 +4,23 @@ import styles from "./index.module.scss";
 
 const { Text, Title } = Typography;
 
-const AffiliateNote = ({ notes, hideNotes, affiliateNote }) => {
+const AffiliateNote = ({ noteIsVisible, hideNote, note }) => {
   return (
     <Modal
       title={null}
       footer={null}
-      visible={notes}
-      onCancel={hideNotes}
+      visible={noteIsVisible}
+      onCancel={hideNote}
       closeIcon={<CloseIcon />}
       className={styles.modal}
-      width={765}
+      width={700}
     >
       <header className={styles.header}>
         <Title level={2}>Affiliate Note</Title>
       </header>
       <div className={styles.note}>
         <p>
-          <Text>{affiliateNote}</Text>
+          <Text>{note}</Text>
         </p>
       </div>
     </Modal>
