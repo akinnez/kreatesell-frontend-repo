@@ -97,7 +97,7 @@
 }
 
 .btnLinks {
-  @include flex(row, null, center);
+  @include flex(row, flex-end, center);
   width: 20%;
   // here
   // margin-right: 2rem;
@@ -154,12 +154,13 @@
     padding: 0;
     padding: 1.187rem 1.5rem;
     align-items: center;
+    position: relative;
+    margin-bottom: 0px !important;
 
     .mobileMenuCont {
       display: block;
-      width: 10%;
+      width: 1.875rem;
       margin-right: 0.5rem;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -167,15 +168,16 @@
       cursor: pointer;
       transition: all 0.5s ease-in-out;
       padding: 0.1rem;
-
+      // margin-right: 10px;
       .hamburgerDefault {
         width: 1.875rem;
         height: 3px;
-        background: $base-gray;
+        // background: $base-gray;
+        background: #0072EF;
         border-radius: 5px;
         transition: all 0.5s ease-in-out;
         padding: 0;
-        position: fixed;
+        position: relative;
         z-index: 10000;
       }
 
@@ -187,6 +189,7 @@
           position: absolute;
           @extend .hamburgerDefault;
           transform: translateY(-9px);
+          background: #0072EF;
         }
 
         &::after {
@@ -194,7 +197,11 @@
           position: absolute;
           @extend .hamburgerDefault;
           transform: translateY(9px);
+          background: #0072EF;
         }
+      }
+      &.fade{
+        display: none;
       }
 
       &.open .hamburger {
@@ -247,7 +254,9 @@
         }
       }
     }
-
+    .activeFade{
+      padding: 0px !important;
+    }
     .mobileNavLinks {
       display: block;
       position: absolute;
@@ -265,7 +274,11 @@
       .inner {
         // overflow: scroll;
         height: 100%;
-        // border: 1px solid red;
+        .top{
+          width: 100%;
+          height: 100px;
+          @include flex(row, space-between, center)
+        }
         .innerBox {
           overflow: auto;
           height: 100%;
@@ -282,17 +295,22 @@
       .mobileCategoryLinks {
         list-style: none;
         font-weight: 800;
-        font-size: 1.875rem;
+        font-size: 1.8rem;
         line-height: 2.5rem;
         color: $base-blue;
-        padding-right: 13%;
+        // padding-right: 13%;
 
         li {
           padding-bottom: 3.5rem;
         }
       }
-
+      .mobileInput{
+        width: 90%;
+        margin: auto;
+      }
       .mobileButton {
+        width: 90%;
+        margin: auto;
         .freeBtn {
           width: 100%;
           height: 3.75rem;

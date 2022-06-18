@@ -76,7 +76,9 @@ const Careers = () => {
       let oneDepartmentObj = {}
       jobs?.forEach((job)=>{
         let found = [...allJobs].some(jb=> {
-          return jb.category.trim() === job.category.trim();
+          if(job.category){
+            return jb.category?.trim() === job.category?.trim();
+          }
         });
         if(found){
           let index = allJobs.findIndex((jobIdx)=> jobIdx.category.trim() === job.category.trim());

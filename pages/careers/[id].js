@@ -125,7 +125,7 @@ export default function Career () {
             </Layout>
         ) 
     }
-    console.log(job);
+
     // if(error) return <h3>Error</h3>
   return (
       <>

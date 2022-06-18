@@ -79,8 +79,8 @@ export const CareersForm = ({submitCB, loading}) => {
           name="phone"
           label="Phone"
           placeholder="Enter your phone number"
-          type="tel"
-          rules={[{type: "number"}]}
+          // type="tel"
+          // rules={[{type: "number"}]}
         />
         <DropzoneV2 
           variant={3} 
