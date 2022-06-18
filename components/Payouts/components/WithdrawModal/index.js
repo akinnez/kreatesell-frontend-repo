@@ -15,9 +15,18 @@ const WithdrawModal = ({
   bankDetails,
 }) => {
   const handleWithdraw = () => {
+    const data = {
+      account_bank: bankDetails.account_name,
+      account_number: bankDetails.account_number,
+      amount: parseFloat(balance),
+      narration: `Payout transaction for ${bankDetails.account_name}`,
+      currency: bankDetails.currency_name,
+      debit_currency: bankDetails.currency_name,
+    };
+
     axiosApi.request(
       "post",
-      `${process.env.BASE_URL}`,
+      `${process.env.BASE_URL}v1/kreatesell/payment/transfer`,
       () => {
         showSuccess();
         hideModal();
@@ -26,7 +35,7 @@ const WithdrawModal = ({
         showToast(err.message, "error");
         hideModal();
       },
-      {}
+      data
     );
   };
 
