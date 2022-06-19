@@ -2,6 +2,8 @@ const { generateActions } = require("utils");
 
 export const GET_ALL_PRODUCTS = generateActions("GET_ALL_PRODUCTS");
 export const CREATE_PRODUCT = generateActions("CREATE_PRODUCT");
+export const CREATE_SECTION = generateActions("CREATE_SECTION");
+export const CREATE_CONTENT = generateActions("CREATE_CONTENT");
 export const SET_PRODUCT_TAB = generateActions("SET_PRODUCT_TAB");
 export const GET_PRODUCT_TYPES = generateActions("GET_PRODUCT_TYPES");
 export const GET_PRODUCT_BY_ID = generateActions("GET_PRODUCT_BY_ID");

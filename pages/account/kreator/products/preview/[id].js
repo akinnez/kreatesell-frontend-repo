@@ -4,7 +4,6 @@ import { GetProductByID } from "redux/actions";
 import { useEffect } from "react";
 import PreviewContent from "components/Preview/PreviewContent";
 import AuthLayout from "../../../../../components/authlayout";
-import { ExternalLink } from "utils";
 
 // export default function PreviewProduct ({id}){
 export default function PreviewProduct() {

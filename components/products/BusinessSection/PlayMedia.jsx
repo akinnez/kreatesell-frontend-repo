@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 
 
 export default function PlayMedia({type, open, source, closePlay}){
-    const [isOpen, setIsOpen] = useState(true)
-    useEffect(()=>{
-        console.log('open', isOpen, 'PLAY', open)
-    }, [isOpen, open])
+    const [isOpen, setIsOpen] = useState(open)
+    const handleclose = ()=>{
+        setIsOpen(fasle)
+
+    }
     return(
         <Modal title={null}
         footer={null}
@@ -16,7 +17,11 @@ export default function PlayMedia({type, open, source, closePlay}){
             closePlay(false)
         }}
         closable={false}>
-            {type === "audio" && <audio src={source} controls />}
+            <div >
+                Hello There {source}
+            </div>
+
+            {/* {type === "audio" && <audio src={source} controls />} */}
         </Modal>
     )
 }

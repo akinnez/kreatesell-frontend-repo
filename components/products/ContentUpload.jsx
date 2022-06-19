@@ -44,10 +44,7 @@ export default function ContentUpload({file, setFile}){
             console.log(data)
             setFile({
                 type: data?.resource_type,
-                url: data?.secure_url,
-                format: data?.format,
-                duration: data?.duration,
-                size: data?.bytes
+                url: data?.secure_url
             })
           } catch (error) {
             console.log('ERROR',error)
