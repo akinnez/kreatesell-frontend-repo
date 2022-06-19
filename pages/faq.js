@@ -11,7 +11,7 @@ import KreatorAffiliate from "../components/faqTabs/KreatorAffiliate";
 import Buyer from "../components/faqTabs/Buyer";
 import General from "../components/faqTabs/General";
 import styles from "../public/css/Faq2.module.scss";
-import axios from "axios";
+import {questionsData} from "utils/FAQ"
 
 const FAQ2 = () => {
   const [questions, setQuestions] = useState({});
@@ -40,14 +40,9 @@ const FAQ2 = () => {
     setFilteredQuestions(prev => questions[activeTab].filter(({question})=> question.toLowerCase().includes(value.toLowerCase())))
   }
 
-  async function getQuestions(){
-    try{
-      const res = await axios.get("/api/faqs");
-      setQuestions(res?.data.items);
-      setFilteredQuestions(res?.data.items[activeTab]);
-    }catch(err){
-      console.log(err);
-    }
+  function getQuestions(){
+      setQuestions(questionsData);
+      setFilteredQuestions(questionsData[activeTab]);
   }
 
   useEffect(() => {
@@ -69,7 +64,7 @@ const FAQ2 = () => {
             </p>
           </div>
           <div className={styles.heroImage2}>
-            <Image src={FAQHero} width="366" height="200" alt="" />
+            <Image src={FAQHero} width="366" height="300" alt="" />
           </div>
         </div>
 
@@ -89,7 +84,7 @@ const FAQ2 = () => {
       </div>
         <div className={styles.body}>
          
-            <div className={styles.groupQuestions2}>
+            <div className={`${styles.groupQuestions2} custom__faq__container`}>
             <Tabs defaultActiveKey="Kreator" centered onChange={handleChange}>
                 <TabPane tab="Kreator" key="Kreator">
                   <Kreator questions={(activeTab==="Kreator" && (filteredQuestions.length > 0 && filteredQuestions)) ||[]}/>
