@@ -108,7 +108,11 @@
     .right{
       flex: 2;
       .search{
-        height: 30px;
+        min-height: 30px;
+        .input{
+          width: 100%;
+          box-shadow: none;
+        }
       }
       .categories{
         .header{

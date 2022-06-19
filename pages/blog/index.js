@@ -8,7 +8,7 @@ import axios from "axios";
 import moment from "moment";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-import { Layout } from "../../components";
+import { Layout,Input } from "../../components";
 import styles from "../../public/css/Blog.module.scss";
 import { BlogHero, SingleBlog } from "../../utils";
 import CustomErrorPage from "components/CustomErrorPage/CustomErrorPage";
@@ -108,7 +108,12 @@ const Blog = ({ router }) => {
         </div>
         <div className={styles.right}>
             <div className={styles.search}>
-              <input placeholder="this input field will still be styled"/>
+            <Input
+              type="search"
+              placeholder="Search by keyword"
+              className={styles.input}
+              // onChange={(e)=>handleInputChange(e.target.value)}
+            />
             </div>
             <div className={styles.categories}>
               <h3 className={styles.header}>Categories: </h3>
