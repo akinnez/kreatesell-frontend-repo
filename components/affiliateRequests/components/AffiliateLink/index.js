@@ -1,11 +1,9 @@
 import { useRef } from "react";
-import { Typography, Button } from "antd";
-import styles from "./index.module.scss";
+import { Button } from "antd";
 import { showToast } from "utils";
+import styles from "./index.module.scss";
 
-const { Text } = Typography;
-
-const AffiliateLink = () => {
+const AffiliateLink = ({ affiliateLink }) => {
   const linkElement = useRef();
 
   const handleCopy = async () => {
@@ -24,18 +22,18 @@ const AffiliateLink = () => {
   };
 
   return (
-    <section className={styles.link__container}>
+    <section>
       <div className={styles.label}>
-        <Text>Affiliate Link</Text>
+        <span>Affiliate Link</span>
       </div>
-      <div className={styles.link}>
-        <span ref={linkElement}>
-          23dghy5668jjkkloo//pred892gykk//ujjikhs7778
-        </span>
+      <div className={styles.link__container}>
+        <div className={styles.link}>
+          <span ref={linkElement}>{affiliateLink}</span>
+        </div>
+        <Button className={styles.link__btn} onClick={handleCopy}>
+          Copy Link
+        </Button>
       </div>
-      <Button className={styles.link__btn} onClick={handleCopy}>
-        Copy Link
-      </Button>
     </section>
   );
 };

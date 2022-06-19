@@ -1,0 +1,40 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.product__kreator {
+  @include mixins.flex(row, flex-start, center);
+  column-gap: 20px;
+
+  + div[class^="ant-divider"] {
+    margin-top: 35px;
+    margin-bottom: 30px;
+  }
+}
+
+.product__kreator__avatar {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.empty__avatar {
+  width: 60px;
+  height: 60px;
+  @include mixins.flex(row, center, center);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  svg {
+    font-size: 20px;
+    color: #808080;
+  }
+}
+
+.product__kreator__info p {
+  margin-bottom: 0;
+  font-weight: 500;
+  font-size: 20px;
+  color: colors.$base-gray;
+}

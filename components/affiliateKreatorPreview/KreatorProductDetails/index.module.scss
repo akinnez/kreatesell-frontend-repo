@@ -1,0 +1,52 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.product_details {
+  background-color: colors.$base-white;
+  padding: 15px 24px 30px;
+}
+
+.product__stats {
+  min-height: 30px;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.product--in-stock {
+  color: colors.$base-green-100;
+}
+
+.product--out-of-stock {
+  color: colors.$error-main;
+}
+
+.product__stats__divider {
+  color: colors.$white-300;
+}
+
+.product__stock,
+.product__sold {
+  color: colors.$gray-200;
+}
+
+.product__name {
+  font-weight: 700;
+  font-size: 18px;
+  color: colors.$black-100;
+  margin-bottom: 10px;
+}
+
+.product__price {
+  @include mixins.flex(row, space-between, center);
+
+  span {
+    font-weight: 500;
+    font-size: 20px;
+    color: colors.$gray-200;
+  }
+
+  svg {
+    color: colors.$gray-700;
+    font-size: 30px;
+  }
+}

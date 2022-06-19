@@ -1,31 +1,47 @@
-import {useRouter} from 'next/router'
-import PreviewHeader from 'components/Preview/PreviewHeader';
-import {GetProductByID} from 'redux/actions'
-import { useEffect, useState } from 'react';
-import PreviewContent from 'components/Preview/PreviewContent';
+import { useRouter } from "next/router";
+import PreviewHeader from "components/Preview/PreviewHeader";
+import { GetProductByID } from "redux/actions";
+import { useEffect } from "react";
+import PreviewContent from "components/Preview/PreviewContent";
 import AuthLayout from "../../../../../components/authlayout";
-import {ExternalLink} from 'utils'
 
-export default function PreviewProduct (){
-    const router = useRouter()
-    const [mainId, setMainId] = useState('')
-    const getProductByID = GetProductByID();
-    
-    useEffect(()=>{
-        const {id} = router?.query
-        if(id){
-            getProductByID(id)
-            setMainId(id)
-        }
-    }, [router])
+// export default function PreviewProduct ({id}){
+export default function PreviewProduct() {
+  const router = useRouter();
+  const getProductByID = GetProductByID();
 
-    return (
-        <AuthLayout>
-            <div style={{position: "absolute",background:"#e5e5e5", left:0, top: 0, width: "100%", }}>
-                <PreviewHeader id={mainId} />
-                <PreviewContent />
-            
-            </div>
-        </AuthLayout>
-    )
-} 
+  useEffect(() => {
+    if (router.query.id) {
+      getProductByID(router.query.id);
+    }
+  }, [router.query.id]);
+
+  if (!router.query.id) {
+    return null;
+  }
+
+  return (
+    <AuthLayout>
+      <div
+        style={{
+          position: "absolute",
+          background: "#e5e5e5",
+          left: 0,
+          top: 0,
+          width: "100%",
+        }}
+      >
+        <PreviewHeader id={router.query.id} />
+        <PreviewContent />
+      </div>
+    </AuthLayout>
+  );
+}
+
+// export async function getServerSideProps({query: {id}}){
+//     return {
+//         props: {
+//             id
+//         }
+//     }
+// }

@@ -1,51 +1,53 @@
 import { useState } from "react";
 import Head from "next/head";
-// import useSWR from "swr";
+import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
+import PaginationHelper from "components/PaginationHelpers";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
-// import Spinner from "components/Spinner";
 import requestsColumns from "components/affiliateRequests/requestsColumns";
-import { requestsData } from "components/affiliateRequests/data";
-// import { showToast } from "utils";
-// import axiosApi from "utils/axios";
-import normalize from "utils/normalize";
+import useFilters from "hooks/useFilters";
+import { showToast } from "utils";
+import axiosApi from "utils/axios";
 import styles from "public/css/AffiliateRequests.module.scss";
 
 const { Text } = Typography;
 const rowKey = record => record.id;
 
 const AffiliateRequests = () => {
-  const [filtered, setFiltered] = useState(null);
-  const { productTypes } = useSelector(state => state.product);
-  // const dispatch = useDispatch();
+  const [requests, setRequests] = useState({ data: [], total: 0 });
 
-  // const { data } = useSWR(
-  //   () => {
-  //     return user.is_affiliate
-  //       ? `${process.env.BASE_URL}affiliate/get-products`
-  //       : null;
-  //   },
-  //   url => {
-  //     dispatch(affiliateProductsRequest());
-  //     return axiosApi.request(
-  //       "get",
-  //       url,
-  //       res => {
-  //         dispatch(affiliateProductsSuccess(res.data));
-  //         return res;
-  //       },
-  //       err => {
-  //         showToast(err, "error");
-  //         dispatch(affiliateProductsFailure());
-  //       }
-  //     );
-  //   }
-  // );
+  const { user } = useSelector(state => state.auth);
 
-  const types = normalize(productTypes, "id");
-  const columns = requestsColumns(types);
+  const { uri, filters, setFilters } = useFilters(
+    "affiliate/get-requested-products"
+  );
+
+  const { data: res } = useSWR(
+    () => (user.is_affiliate && uri ? uri : null),
+    url => {
+      return axiosApi.request(
+        "get",
+        url,
+        res => {
+          setRequests({
+            ...requests,
+            data: res.data.data,
+            total: res.data.total_records,
+          });
+          return res;
+        },
+        err => {
+          showToast(err.message, "error");
+        }
+      );
+    }
+  );
+
+  const handlePage = page => {
+    setFilters({ ...filters, page });
+  };
 
   return (
     <AuthLayout>
@@ -58,21 +60,26 @@ const AffiliateRequests = () => {
           Affiliate Offers
         </Text>
       </header>
-      <AffiliateFilters data={requestsData} setFiltered={setFiltered} />
+      <AffiliateFilters setQueries={setFilters} />
+      <PaginationHelper
+        dataSize={requests.total}
+        filters={filters}
+        setFilters={setFilters}
+      />
       <section className={styles.tableWrapper}>
         <Table
-          dataSource={filtered || requestsData}
-          columns={columns}
+          dataSource={requests.data}
+          columns={requestsColumns}
           pagination={{
             position: ["bottomLeft"],
-            showSizeChanger: true,
-            defaultPageSize: 5,
+            pageSize: filters.limit,
+            current: filters.page,
+            total: requests.total,
             responsive: true,
-            showQuickJumper: true,
-            pageSizeOptions: [5, 10, 20, 30, 40, 50, 100],
+            onChange: handlePage,
           }}
           rowKey={rowKey}
-          loading={false}
+          loading={!res}
         />
       </section>
     </AuthLayout>

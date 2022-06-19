@@ -24,6 +24,10 @@
   }
 }
 
+.divider {
+  color: colors.$white-300;
+}
+
 .actions {
   @include mixins.flex(row, flex-start, center);
   gap: 15px 30px;

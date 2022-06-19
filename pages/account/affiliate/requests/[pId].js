@@ -1,41 +1,103 @@
+import { useMemo } from "react";
 import Head from "next/head";
-import { Button, Tabs } from "antd";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { Tabs } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import BackButton from "components/BackButton";
-// import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
+import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
 import AffiliateLink from "components/affiliateRequests/components/AffiliateLink";
-// import Overview from "components/affiliates/Overview";
-import styles from "public/css/AffiliateRequestLink.module.scss";
+import Overview from "components/affiliates/Overview";
 import PromotionalMaterials from "components/affiliateRequests/components/PromotionalMaterials";
+import useFetchData from "hooks/useFetchData";
+import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { TabPane } = Tabs;
 
 const AffiliateRequestLinK = () => {
+  const router = useRouter();
+
+  const { data: product, error } = useFetchData(
+    router.query.pId
+      ? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`
+      : null
+  );
+
+  const productFiles = useMemo(() => {
+    if (!product || product.kreator_product_files.length === 0) return null;
+
+    const files = product.kreator_product_files.reduce((fileObj, file) => {
+      if (file.file_type === 4) {
+        fileObj.promotionalMaterial = file.filename;
+      } else if (file.file_type === 1) {
+        fileObj.images = file.filename;
+      }
+
+      return fileObj;
+    }, {});
+
+    const promotionalMaterial = files.promotionalMaterial || null;
+    const images = files.images ? files.images.split(",") : null;
+
+    return { images, promotionalMaterial };
+  }, [product]);
+
+  if (error) {
+    return (
+      <ProfilePageError errorMsg={error} title="Affiliate Request Overview" />
+    );
+  }
+
+  if (!product) {
+    return <ProfilePageLoading title="Affiliate Request Overview" />;
+  }
+
   return (
     <ProfileLayout>
       <Head>
-        <title>KreateSell | Affiliate Request Link</title>
+        <title>KreateSell | Affiliate Request Overview</title>
       </Head>
       <header className={styles.header}>
         <BackButton />
-        <Button className={styles.header__btn} icon={<MdOutlineRemoveRedEye />}>
-          View Sales Page
-        </Button>
+        <Link href={`/account/affiliate/preview/product/${router.query.pId}`}>
+          <a className={styles.header__btn}>
+            <MdOutlineRemoveRedEye /> View Product Page
+          </a>
+        </Link>
       </header>
-      {/* <AffiliateRequestContainer> */}
-      <Tabs className={styles.tabs} defaultActiveKey="1" centered>
+      <AffiliateRequestContainer
+        productTypeId={product.affiliate_kreator_product.product_type_id}
+        productName={product.affiliate_kreator_product.product_name}
+      >
         <TabPane tab="Affiliate Link" key="1">
-          <AffiliateLink />
+          <AffiliateLink affiliateLink={product.affiliate_link} />
         </TabPane>
-        {/* <TabPane tab="Overview" key="2">
-          <Overview />
-        </TabPane> */}
+        <TabPane tab="Overview" key="2">
+          <Overview
+            productImages={productFiles?.images}
+            productName={product.affiliate_kreator_product.product_name}
+            productDescription={
+              product.affiliate_kreator_product.product_description
+            }
+            productPriceDetails={product.kreator_product_price_details}
+            productAffiliateCommission={
+              product.affiliate_kreator_product.affiliate_percentage_on_sales
+            }
+            kreatorName={product.kreator_user_details.full_name}
+            kreatorImage={product.kreator_user_details.profile_image}
+            kreatorBio={product.kreator_user_details.store_description}
+            storeName={product.kreator_user_details.store_name}
+          />
+        </TabPane>
         <TabPane tab="Promotional Materials/Bonus" key="3">
-          <PromotionalMaterials />
+          <PromotionalMaterials
+            productFile={productFiles?.promotionalMaterial}
+          />
         </TabPane>
-      </Tabs>
-      {/* </AffiliateRequestContainer> */}
+      </AffiliateRequestContainer>
     </ProfileLayout>
   );
 };
