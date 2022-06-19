@@ -1,0 +1,82 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.product__image__overview {
+  margin-bottom: 25px;
+}
+
+.product__img {
+  max-width: 600px;
+}
+
+.empty__image__Banner {
+  @include mixins.flex(row, center, center);
+  height: calc(100vw - 40px);
+  max-height: 600px;
+  max-width: 600px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  svg {
+    font-size: 40px;
+    color: #808080;
+  }
+}
+
+.product__images {
+  margin-bottom: 10px;
+  @include mixins.flex(row, center, center);
+  column-gap: 10px;
+}
+
+.product__image {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: transparent;
+
+  > div {
+    display: block !important;
+  }
+}
+
+.product__image--active {
+  border: 2px solid colors.$black-100;
+}
+
+.product__images__btns {
+  @include mixins.flex(row, center, center);
+  column-gap: 10px;
+
+  > button[class^="ant-btn"] {
+    background-color: colors.$white-300;
+    border-radius: 6px;
+    justify-content: center;
+    color: #200e32;
+  }
+}
+
+@include screens.minScreen("medium-large") {
+  .empty__image__Banner {
+    height: calc(100vw - 162px);
+  }
+
+  .product__images__controls {
+    @include mixins.flex(row, center, center);
+    column-gap: 25px;
+  }
+
+  .product__images {
+    margin-bottom: 0;
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .empty__image__Banner {
+    height: calc(100vw - 560px);
+  }
+
+  .product__images__controls {
+    justify-content: flex-start;
+  }
+}

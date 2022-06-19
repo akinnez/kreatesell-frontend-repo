@@ -11,7 +11,7 @@ import KreatorAffiliate from "../components/faqTabs/KreatorAffiliate";
 import Buyer from "../components/faqTabs/Buyer";
 import General from "../components/faqTabs/General";
 import styles from "../public/css/Faq2.module.scss";
-import axios from "axios";
+import {questionsData} from "utils/FAQ"
 
 const questionsData = {
   Affiliate: [

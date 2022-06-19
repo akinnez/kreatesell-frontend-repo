@@ -1,8 +1,11 @@
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Typography, Select, Button } from "antd";
 import { BsDownload } from "react-icons/bs";
+import Spinner from "components/Spinner";
 import RecoveryStatusFilters from "../RecoveryStatusFilters";
 import AbandonedCartsStats from "../AbandonedCartsStats";
+import useFetchData from "hooks/useFetchData";
 import Img from "public/images/recovery_status_img.png";
 import styles from "./index.module.scss";
 
@@ -17,6 +20,34 @@ const options = [
 ];
 
 const RecoveryStatus = () => {
+  const [uri, setUri] = useState("");
+  const [filters, setFilters] = useState({ currency: null, from: "", to: "" });
+
+  const { data, error } = useFetchData(uri);
+
+  useEffect(() => {
+    const url = new URL(
+      `${process.env.BASE_URL}v1/kreatesell/product/campaign/get-recovery`
+    );
+
+    if (filters.currency && filters.currency !== "All") {
+      url.searchParams.set("Currency", filters.currency);
+    }
+
+    if (filters.from) {
+      url.searchParams.set("FromDate", filters.from);
+    }
+
+    if (filters.to) {
+      url.searchParams.set("ToDate", filters.to);
+    }
+
+    setUri(url);
+  }, [filters.currency, filters.from, filters.to]);
+
+  if (error) return <div className={styles.error}>Error: {error}</div>;
+  if (!data) return <Spinner />;
+
   return (
     <div className={styles.container}>
       <header className={styles.header__banner}>
@@ -39,10 +70,14 @@ const RecoveryStatus = () => {
         </div>
       </header>
       <section>
-        <RecoveryStatusFilters />
+        <RecoveryStatusFilters setFilters={setFilters} />
       </section>
       <section>
-        <AbandonedCartsStats />
+        <AbandonedCartsStats
+          inRecovery={data.in_recovery}
+          abandoned={data.abandoned}
+          recovered={data.recovered}
+        />
       </section>
       <section>
         <div className={styles.csv__btn}>

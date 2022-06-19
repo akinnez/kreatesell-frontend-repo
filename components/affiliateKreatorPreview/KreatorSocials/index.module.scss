@@ -1,0 +1,26 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.kreator__socials {
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+  gap: 5px 10px;
+
+  span {
+    font-size: 14px;
+    color: colors.$base-gray;
+  }
+
+  div {
+    @include mixins.flex(row, space-between, center);
+    column-gap: 15px;
+  }
+
+  a {
+    color: colors.$black-100;
+
+    > svg {
+      font-size: 21px;
+    }
+  }
+}

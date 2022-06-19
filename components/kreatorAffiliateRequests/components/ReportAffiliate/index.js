@@ -110,6 +110,12 @@ const ReportAffiliate = ({
     setImages([...images, ...newImages]);
   };
 
+  const handleKeyUp = e => {
+    if (e.target.scrollHeight > e.target.clientHeight) {
+      e.target.style.height = e.target.scrollHeight + "px";
+    }
+  };
+
   const handleRemove = index => {
     setImages(state => state.filter((_, idx) => idx !== index));
   };
@@ -150,6 +156,7 @@ const ReportAffiliate = ({
                 rows={5}
                 placeholder="Fill out how you want to promote this product"
                 {...formik.getFieldProps("report_note")}
+                onKeyUp={handleKeyUp}
               />
             </Form.Item>
             <div className={styles.actions}>
