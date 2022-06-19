@@ -165,7 +165,7 @@ export const Navbar = () => {
         </div>
 
         <div className={styles.btnLinks}>
-          {/* <div
+          <div
             className={styles.loginBtn}
             onClick={() => router.push("/login")}
           >
@@ -180,7 +180,7 @@ export const Navbar = () => {
               bgColor="blue"
               className={styles.signUpBtnStyle}
             />
-          </div> */}
+          </div>
           <div
             className={`${styles.mobileMenuCont} ${openMobileNav && styles.open && styles.fade}`}
             onClick={() => handleNavbar()}
