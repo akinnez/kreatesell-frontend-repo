@@ -1,61 +1,50 @@
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { Button, Tabs, Typography } from "antd";
+import Link from "next/link";
+import { Tabs } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import ProfileLayout from "components/ProfileLayout";
+import ProfilePageError from "components/ProfilePageError";
+import ProfilePageLoading from "components/ProfilePageLoading";
 import BackButton from "components/BackButton";
-import Spinner from "components/Spinner";
 import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
-import AffiliateProductPageWrapper from "components/affiliates/AffiliateProductPageWrapper";
 import Request from "components/affiliateProducts/components/Request";
 import Overview from "components/affiliates/Overview";
-import axiosAPI from "utils/axios";
+import useFetchData from "hooks/useFetchData";
+import productImageFn from "utils/productImageFn";
 import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { TabPane } = Tabs;
-const { Text } = Typography;
 
 const AffiliateProductRequest = () => {
-  const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    if (router.query.pId) {
-      axiosAPI.request(
-        "get",
-        `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`,
-        res => {
-          setProduct(res.data);
-        },
-        err => {
-          setError(err.message);
-        }
-      );
-    }
-  }, [router.query.pId]);
+  const {
+    data: product,
+    setData,
+    error,
+  } = useFetchData(
+    router.query.pId
+      ? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`
+      : null
+  );
+
+  const productImages = useMemo(() => {
+    if (!product) return null;
+    return productImageFn(product.kreator_product_files);
+  }, [product]);
 
   if (error) {
     return (
-      <AffiliateProductPageWrapper back>
-        <section className={styles.error__section}>
-          <p>
-            <Text strong>{error}</Text>
-          </p>
-        </section>
-      </AffiliateProductPageWrapper>
+      <ProfilePageError errorMsg={error} title="Affiliate Product Request" />
     );
   }
 
-  if (!product) {
-    return (
-      <AffiliateProductPageWrapper back>
-        <Spinner />
-      </AffiliateProductPageWrapper>
-    );
-  }
+  if (!product) return <ProfilePageLoading title="Affiliate Product Request" />;
 
   const updateProduct = () => {
-    setProduct(state => ({
+    setData(state => ({
       ...state,
       affiliate_kreator_product: {
         ...state.affiliate_kreator_product,
@@ -65,12 +54,17 @@ const AffiliateProductRequest = () => {
   };
 
   return (
-    <AffiliateProductPageWrapper>
+    <ProfileLayout>
+      <Head>
+        <title>KreateSell | Affiliate Product Request</title>
+      </Head>
       <header className={styles.header}>
         <BackButton />
-        <Button className={styles.header__btn} icon={<MdOutlineRemoveRedEye />}>
-          View Sales Page
-        </Button>
+        <Link href={`/account/affiliate/preview/product/${router.query.pId}`}>
+          <a className={styles.header__btn}>
+            <MdOutlineRemoveRedEye /> View Product Page
+          </a>
+        </Link>
       </header>
       <AffiliateRequestContainer
         productTypeId={product.affiliate_kreator_product.product_type_id}
@@ -87,7 +81,7 @@ const AffiliateProductRequest = () => {
         </TabPane>
         <TabPane tab="Overview" key="2">
           <Overview
-            productImages={product.kreator_product_files}
+            productImages={productImages}
             productName={product.affiliate_kreator_product.product_name}
             productDescription={
               product.affiliate_kreator_product.product_description
@@ -99,10 +93,11 @@ const AffiliateProductRequest = () => {
             kreatorName={product.kreator_user_details.full_name}
             kreatorImage={product.kreator_user_details.profile_image}
             kreatorBio={product.kreator_user_details.store_description}
+            storeName={product.kreator_user_details.store_name}
           />
         </TabPane>
       </AffiliateRequestContainer>
-    </AffiliateProductPageWrapper>
+    </ProfileLayout>
   );
 };
 

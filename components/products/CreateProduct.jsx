@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { CreateProductForm } from "components";
 import styles from "./CreateProduct.module.scss";
-import {Row, Col, Button, Modal} from 'antd'
+import {Row, Col, Modal} from 'antd'
 import Image from "next/image";
 import { useRouter } from "next/router";
 import CloseIcon from "components/affiliates/CloseIcon";
@@ -15,7 +15,7 @@ import {
 import { useSelector } from "react-redux";
 import { GetProductTypes } from "redux/actions";
 
-export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => {
+export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
   const getProductTypes = GetProductTypes();
 
   const [tab, setTab] = useState(1);
@@ -27,7 +27,7 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
 
   const { tab1, tab2, tab3 } = iconHover;
 
-  const { productTypes } = useSelector((state) => state.product);
+  const { productTypes, product } = useSelector((state) => state.product);
   const { store } = useSelector(state => state.store);
   const filterProductType = (id) =>
     productTypes?.filter((item) => item.id === id);
@@ -36,10 +36,14 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
   const oneTimeSubMenu = filterProductType(2);
   const membershipMenu = filterProductType(3);
   const [isBank, setIsBank] = useState(false)
+  const [isTypeEditable, setIsTypeEditable] = useState(false)
+  const [isBasic, setIsBasic] = useState(true)
+
   const router = useRouter()
   useEffect(()=>{
     if(Object.keys(store).length > 0 ){
-      const {bank_details} = store
+      const {bank_details, user} = store
+      if(user.user_plan === 'Business') setIsBasic(false)
       if(!bank_details){
         setIsBank(true)
       }else{
@@ -47,9 +51,31 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
       }
       return ()=>{
         setIsBank(false)
+        setIsBasic(true)
       }
     }
   }, [store])
+
+  useEffect(()=>{
+    if(Object.keys(product).length > 0 ){
+      const {product_type_details} = product
+      switch(product_type_details){
+        case "Digital Download":
+          setTab(1)
+          setIsTypeEditable(true)
+          break; 
+        case "One-time Subscription":
+          setTab(2)
+          setIsTypeEditable(true)
+          break; 
+        case "Membership":
+          setTab(3)
+          setIsTypeEditable(true)
+          break; 
+      }
+    }
+
+  }, [product])
   useEffect(() => {
     getProductTypes();
   }, []);
@@ -86,7 +112,12 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
               tab === 1 && styles.active
             } w-full`}
             key={digitalDownloadMenu[0]?.id ?? 1}
-            onClick={() => setTab(digitalDownloadMenu[0]?.id) ?? 1}
+            onClick={() => {
+              if(isTypeEditable && tab !==1){
+                return
+              }
+              setTab(digitalDownloadMenu[0]?.id) ?? 1
+            }}
             onMouseEnter={() =>
               setIconHover({
                 ...iconHover,
@@ -126,7 +157,11 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
               tab === 2 && styles.active
             } w-full`}
             key={oneTimeSubMenu[0]?.id ?? 2}
-            onClick={() => setTab(oneTimeSubMenu[0]?.id) ?? 2}
+            onClick={() => {
+              if(isTypeEditable && tab !==2){
+                return
+              }
+              setTab(oneTimeSubMenu[0]?.id) ?? 2}}
             onMouseEnter={() =>
               setIconHover({
                 ...iconHover,
@@ -168,7 +203,11 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
               tab === 3 && styles.active
             } w-full`}
             key={membershipMenu[0]?.id ?? 3}
-            onClick={() => setTab(membershipMenu[0]?.id) ?? 3}
+            onClick={() => {
+              if(isTypeEditable && tab !==3){
+                return
+              }
+              setTab(membershipMenu[0]?.id) ?? 3}}
             onMouseEnter={() =>
               setIconHover({
                 ...iconHover,
@@ -206,7 +245,7 @@ export const CreateProductTab = ({setTitles,submit, titles, setSelectedTab}) => 
         </Col>
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
-      {tab !== 1 ?<div className={styles.businessPlan}>
+      {(isBasic && tab !== 1) ? <div className={styles.businessPlan}>
         <h2 className="text-base w-full font-normal">This action requires a business plan, click <Link href="/account/kreator/settings">here</Link> to subscribe</h2>
         </div>: <></>}
       <div className="mt-8 mb-4">

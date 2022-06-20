@@ -1,0 +1,11 @@
+.container {
+  max-width: 1000px;
+
+  > div[class^="ql-container"] {
+    border: none;
+
+    > div[class="ql-editor"] {
+      padding: 0;
+    }
+  }
+}

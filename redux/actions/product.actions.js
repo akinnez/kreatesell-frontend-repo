@@ -24,6 +24,50 @@ export const CreateProduct = () => {
 		)
 	);
 };
+export const CreateSection = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.CREATE_SECTION.REQUEST }),
+		axios.request(
+			`post`,
+			`v1/kreatesell/product/section/create-edit`,
+			(res) => {
+				console.log(res)
+				dispatch({ type: types.CREATE_SECTION.SUCCESS, payload: res });
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.CREATE_SECTION.FAILURE, payload: err });
+				showToast(err.message? err.message: "Network Error, Check your Connection", "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+export const CreateContent = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({ type: types.CREATE_CONTENT.REQUEST }),
+		axios.request(
+			`post`,
+			`v1/kreatesell/product/subsection/create-edit`,
+			(res) => {
+				console.log(res)
+				dispatch({ type: types.CREATE_CONTENT.SUCCESS, payload: res });
+				showToast(res?.message, "info");
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({ type: types.CREATE_CONTENT.FAILURE, payload: err });
+				showToast(err.message? err.message: "Network Error, Check your Connection", "error");
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
 export const PublishProducts = () => {
 	const dispatch = useDispatch();
 	return (data, successCallback, errorCallback) => (

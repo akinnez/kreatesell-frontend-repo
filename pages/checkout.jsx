@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Logo from "components/authlayout/logo";
 import {
@@ -24,6 +24,8 @@ import { usePaystackPayment } from "react-paystack";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { SendPaymentCheckoutDetails } from "redux/actions";
 import crypto from "crypto";
+import LogoImg from "../public/images/logo.svg";
+import useFetchUtilities from "hooks/useFetchUtilities";
 
 const Checkout = () => {
   const [modal, setModal] = useState(false);
@@ -35,6 +37,20 @@ const Checkout = () => {
   const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
 
   const { checkoutDetails } = useSelector((state) => state.checkout);
+  const { countries } = useSelector((state) => state.utils);
+
+  const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
+
+  const filterdWest = useMemo(()=> {
+    const cn = ['Benin', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
+    return countries.filter(c => cn.includes(c.name))
+  }, [countries])
+
+  const filteredCentral = useMemo(()=> {
+    const cn = ['Chad', 'Cameroon', 'Gabon']
+    return countries.filter(c => cn.includes(c.name))
+  }, [countries])
+
 
   const checkout = checkoutDetails?.check_out_details?.filter(
     (item) => item?.currency_name === activeCard
@@ -48,22 +64,22 @@ const Checkout = () => {
   const openModal = () => setModal(true);
   const closeModal = () => setModal(false);
 
-  const paymentStatusList = {
-    success: "s",
-    failed: "f",
-    // abandoned: "a"
-  };
+  // const paymentStatusList = {
+  //   success: "s",
+  //   failed: "f",
+  //   // abandoned: "a"
+  // };
 
-  const onPaystackSuccess = (reference) => {
-    const status = paymentStatusList[reference?.status];
+  // const onPaystackSuccess = (reference) => {
+  //   const status = paymentStatusList[reference?.status];
 
-    openModal();
-    sendPaymentCheckoutDetails(
-      paymentDetails({ reference: reference?.reference, status })
-    );
-  };
+  //   openModal();
+  //   sendPaymentCheckoutDetails(
+  //     paymentDetails({ reference: reference?.reference, status })
+  //   );
+  // };
 
-  const onClose = () => {};
+  // const onClose = () => {};
 
   const handleSubmit = () => {
     /** Currencies using PayStack are listed here */
@@ -107,100 +123,105 @@ const Checkout = () => {
 
   const { errors, setFieldValue, values } = formik;
 
-  const paymentDetails = ({ reference = "", status = "" }) => {
-    const statusValue = paymentStatusList[status];
-    const value = {
-      fullname: `${values?.lastName} ${values?.firstName}`,
-      datetime: new Date().toISOString(),
-      email_address: values?.email,
-      mobile_number: values?.phoneNo,
-      reference_id: reference,
-      total: price,
-      status: statusValue,
-      card_type: "xxxx",
-      last_four: "",
-      currency: currency_name,
-      purchase_details: [
-        {
-          product_id: checkoutDetails?.product_details?.id,
-          quantity: 1,
-          amount: price,
-        },
-      ],
-    };
-    return value;
-  };
+  // const paymentDetails = ({ reference = "", status = "" }) => {
+  //   const statusValue = paymentStatusList[status];
+  //   const value = {
+  //     fullname: `${values?.lastName} ${values?.firstName}`,
+  //     datetime: new Date().toISOString(),
+  //     email_address: values?.email,
+  //     mobile_number: values?.phoneNo,
+  //     reference_id: reference,
+  //     total: price,
+  //     status: statusValue,
+  //     card_type: "xxxx",
+  //     last_four: "",
+  //     currency: currency_name,
+  //     purchase_details: [
+  //       {
+  //         product_id: checkoutDetails?.product_details?.id,
+  //         quantity: 1,
+  //         amount: price,
+  //       },
+  //     ],
+  //   };
+  //   return value;
+  // };
 
-  const payStackConfig = {
-    reference: randomId,
-    email,
-    amount: price * 100,
-    publicKey:
-      activeCard === "GHS"
-        ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
-        : process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
-    firstName: values.firstName,
-    lastname: values.lastName,
-    phone: values.phoneNo,
-    currency: activeCard,
-    channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"],
-  };
+  // const payStackConfig = {
+  //   reference: randomId,
+  //   email,
+  //   amount: price * 100,
+  //   publicKey:
+  //     activeCard === "GHS"
+  //       ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
+  //       : process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+  //   firstName: values.firstName,
+  //   lastname: values.lastName,
+  //   phone: values.phoneNo,
+  //   currency: activeCard,
+  //   channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"],
+  // };
 
-  const initializePayment = usePaystackPayment(payStackConfig);
+  // const initializePayment = usePaystackPayment(payStackConfig);
 
-  const flutterConfig = {
-    public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
-    tx_ref: randomId,
-    amount: price,
-    currency: activeCard,
-    // payment_options: "card,mobilemoney,ussd", //mobile_money_ghana
-    payment_options:
-      activeCard === "GHS" ? "mobile_money_ghana" : "card,mobilemoney,ussd",
-    customer: {
-      email: values?.email,
-      phonenumber: values?.phoneNo,
-      name: `${values?.lastName} ${values?.firstName}`,
-    },
-    type: activeCard === "GBP" ? "debit_uk_account" : "",
-    customizations: {
-      title: checkoutDetails?.product_details?.product_name,
-      description: checkoutDetails?.product_details?.product_description,
-      logo: "https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png",
-    },
-  };
+  // const flutterConfig = {
+  //   public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
+  //   tx_ref: randomId,
+  //   amount: price,
+  //   currency: activeCard,
+  //   // payment_options: "card,mobilemoney,ussd", //mobile_money_ghana
+  //   payment_options:
+  //     activeCard === "GHS" ? "mobile_money_ghana" : "card,mobilemoney,ussd",
+  //   customer: {
+  //     email: values?.email,
+  //     phonenumber: values?.phoneNo,
+  //     name: `${values?.lastName} ${values?.firstName}`,
+  //   },
+  //   type: activeCard === "GBP" ? "debit_uk_account" : "",
+  //   customizations: {
+  //     title: checkoutDetails?.product_details?.product_name,
+  //     description: checkoutDetails?.product_details?.product_description,
+  //     logo: "https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png",
+  //   },
+  // };
 
-  const handleFlutterPayment = useFlutterwave(flutterConfig);
+  // const handleFlutterPayment = useFlutterwave(flutterConfig);
 
-  useEffect(() => {
-    setFieldValue("currency", activeCard);
-  }, [activeCard]);
+  // useEffect(() => {
+  //   setFieldValue("currency", activeCard);
+  // }, [activeCard]);
 
-  useEffect(() => {
-    setEmail(values.email);
-  }, [values]);
+  // useEffect(() => {
+  //   setEmail(values.email);
+  // }, [values]);
 
-  useEffect(() => {
-    if (isAnEmpytyObject(checkoutDetails)) {
-      showToast("No item in cart, kindly add item to purchase", "info");
-      // return router.push("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isAnEmpytyObject(checkoutDetails)) {
+  //     showToast("No item in cart, kindly add item to purchase", "info");
+  //     // return router.push("/");
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (!currency_name || !price)
-      showToast(
-        "Values doesn't exist for selected option, select another currency ",
-        "info"
-      );
-  }, [currency_name, price]);
+  // useEffect(() => {
+  //   if (!currency_name || !price)
+  //     showToast(
+  //       "Values doesn't exist for selected option, select another currency ",
+  //       "info"
+  //     );
+  // }, [currency_name, price]);
+
+  useFetchUtilities();
+
+
 
   return (
     <>
-      <nav className="bg-secondary-blue-100 text-center py-1">
-        <Logo />
+      <nav className={styles.nav+ " white relative flex py-8 px-10 flex shadow items-center text-center"}>
+        <Image src={LogoImg} alt="logo" width={140} height={35} />
+        <h2 className=" font-bold mb-0 text-lg lg:text-2xl">Checkout</h2>
       </nav>
 
-      <div className={`px-4 md:px-6 lg:px-12 pb-12 ${styles.container}`}>
+      <div className={`${styles.container}`}>
         <div className="flex py-6 items-center">
           <div className="flex cursor-pointer" onClick={() => router.back()}>
             <div>
@@ -209,112 +230,68 @@ const Checkout = () => {
             <span className="pl-2 font-semibold text-primary-blue">BACK</span>
           </div>
 
-          <div className="mx-auto text-primary-blue font-bold text-lg lg:text-2xl">
-            Checkout
+          <div className="mx-auto font-medium text-lg lg:text-2xl">
+            Payment Details
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full">
-          <div className="bg-secondary-blue-200 rounded-lg w-full md:w-1/2 p-4 lg:p-8">
-            <div>
-              <Image
-                src={
-                  checkoutDetails?.product_images?.[0]?.filename ??
-                  CheckoutPlaceholder
-                }
-                className="rounded-lg"
-                width="600"
-                height="749"
-              />
-            </div>
+          <div style={{height: "fit-content"}} className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-20">
+              <form>
+                <div>
+                  <div className="text-black-100 font-bold text-lg mb-4">Personal Info</div>
+                  <p className="text-base-gray-200">
+                    Complete your purchase by filling in the following details
+                  </p>
+                </div>
 
-            <div className="flex justify-between items-center pt-4">
-              <h3 className="text-primary-blue font-semibold text-lg">
-                {checkoutDetails?.product_details?.product_name}
-              </h3>
-              <h3 className="text-base-green-100 font-semibold text-lg">
-                {currency_name} {price}
-              </h3>
-            </div>
+                <Input
+                  name="firstName"
+                  placeholder="Enter your Name"
+                  label="First Name"
+                  height="small"
+                  onChange={formik.handleChange}
+                  errorMessage={errors.firstName}
+                />
 
-            <h6 className="text-black-100">by Viktor Franklyn</h6>
+                <Input
+                  name="lastName"
+                  placeholder="Enter your Name"
+                  label="Last Name"
+                  height="small"
+                  onChange={formik.handleChange}
+                  errorMessage={errors.lastName}
+                />
 
-            <div className="pt-4">
-              <p className="text-base-gray-200 ">
-                {checkoutDetails?.product_details?.product_description}
-              </p>
-              {/* <p className="text-base-gray-200 ">
-								This book is about dolor sit amet, consectetur adipiscing elit.
-								Egestas duis diam adipiscing aenean. Ultrices tortor eget
-								integer volutpat posuere mauris vel com. Faucibus ultrices
-								elementum, cursus scelerisque mattis morbi quam.
-							</p>
-							<p className="text-base-gray-200 ">
-								This book is about dolor sit amet, consectetur adipiscing elit.
-								Egestas duis diam adipiscing aenean. Ultrices tortor eget
-								integer volutpat posuere mauris vel com. Faucibus ultrices
-								elementum, cursus scelerisque mattis morbi quam.
-							</p> */}
-            </div>
+                <Input
+                  name="email"
+                  placeholder="Enter your Email"
+                  label="Email Address"
+                  height="small"
+                  onChange={formik.handleChange}
+                  errorMessage={errors.email}
+                />
+
+                <Input
+                  name="phoneNo"
+                  placeholder="Enter your Phone number "
+                  label="Phone number"
+                  height="small"
+                  inputMode="numeric"
+                  onChange={formik.handleChange}
+                  errorMessage={errors.phoneNo}
+                />
+              </form>
           </div>
 
           <div
-            className={`bg-white rounded-lg w-full md:w-1/2 p-4 lg:p-8 ${styles.boxShadow}`}
+            className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8`}
           >
             <form
               onSubmit={formik.handleSubmit}
               autoComplete="off"
               className="w-full"
             >
-              <h3 className="text-primary-blue font-semibold text-lg">
-                Payment Details
-              </h3>
-
-              <div>
-                <div className="text-black-100">Personal Info</div>
-                <p className="text-base-gray-200">
-                  Complete your purchase by filling in the following details
-                </p>
-              </div>
-
-              <Input
-                name="firstName"
-                placeholder="Enter your Name"
-                label="First Name"
-                height="small"
-                onChange={formik.handleChange}
-                errorMessage={errors.firstName}
-              />
-
-              <Input
-                name="lastName"
-                placeholder="Enter your Name"
-                label="Last Name"
-                height="small"
-                onChange={formik.handleChange}
-                errorMessage={errors.lastName}
-              />
-
-              <Input
-                name="email"
-                placeholder="Enter your Email"
-                label="Email Address"
-                height="small"
-                onChange={formik.handleChange}
-                errorMessage={errors.email}
-              />
-
-              <Input
-                name="phoneNo"
-                placeholder="Enter your Phone number "
-                label="Phone number"
-                height="small"
-                inputMode="numeric"
-                onChange={formik.handleChange}
-                errorMessage={errors.phoneNo}
-              />
-
-              <div className="divider"></div>
 
               <div className="pb-4">
                 <div className="text-black-100">Select Currency</div>
@@ -323,15 +300,21 @@ const Checkout = () => {
                 </p>
 
                 <div className="grid gap-4 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-                  <div
-                    className={
-                      activeCard === "NGN" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("NGN")}
+                  {
+                    countriesCurrency.map((country, index)=>(
+                      <div
+                      key={index}
+                      className={
+                        activeCard === country.currency ? styles.activeCard : styles.card
+                      }
+                    onClick={() => setActiveCard(country.currency)}
                   >
-                    <div className="">NGN</div>
-                    {activeCard === "NGN" && (
-                      <div className="pl-4 pt-1">
+                    <div className={styles.checFlag+" mr-2"} style={{ borderRadius: "50%", }}>
+                      <Image src={country.flag} alt="flag" layout='fill' />
+                    </div>
+                    <div className="">{country.currency}</div>
+                    {activeCard === country.currency && (
+                      <div className="pl-1 pt-1">
                         <Image
                           src={ActiveTick}
                           alt="active"
@@ -341,16 +324,28 @@ const Checkout = () => {
                       </div>
                     )}
                   </div>
-
-                  <div
-                    className={
-                      activeCard === "USD" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("USD")}
+                    ))
+                  }
+                </div>
+              </div>
+              <div className="py-7">
+                <h2>West African  CFA Franc BCEAO</h2>
+                <div className="grid gap-4 grid-cols-4 ">
+                  {
+                    filterdWest.map((country, index)=>(
+                      <div
+                      key={index}
+                      className={
+                        activeCard === country.currency ? styles.activeCard : styles.card
+                      }
+                    onClick={() => setActiveCard(country.currency)}
                   >
-                    <div>USD</div>
-                    {activeCard === "USD" && (
-                      <div className="pl-4 pt-1">
+                    <div className={styles.checFlag+" mr-2"} style={{ borderRadius: "50%", }}>
+                      <Image src={country.flag} alt="flag" layout='fill' />
+                    </div>
+                    <div className="">{country.name}</div>
+                    {activeCard === country.currency && (
+                      <div className="pl-1 pt-1">
                         <Image
                           src={ActiveTick}
                           alt="active"
@@ -360,106 +355,47 @@ const Checkout = () => {
                       </div>
                     )}
                   </div>
-
-                  <div
-                    className={
-                      activeCard === "GBP" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("GBP")}
-                  >
-                    <div>GBP</div>
-                    {activeCard === "GBP" && (
-                      <div className="pl-4 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <div
-                    className={
-                      activeCard === "KES" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("KES")}
-                  >
-                    <div>KES</div>
-                    {activeCard === "KES" && (
-                      <div className="pl-4 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <div
-                    className={
-                      activeCard === "ZAR" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("ZAR")}
-                  >
-                    <div>ZAR</div>
-                    {activeCard === "ZAR" && (
-                      <div className="pl-4 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <div
-                    className={
-                      activeCard === "GHS" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("GHS")}
-                  >
-                    <div>GHS</div>
-                    {activeCard === "GHS" && (
-                      <div className="pl-4 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <div
-                    className={
-                      activeCard === "UGX" ? styles.activeCard : styles.card
-                    }
-                    onClick={() => setActiveCard("UGX")}
-                  >
-                    <div>UGX</div>
-                    {activeCard === "UGX" && (
-                      <div className="pl-4 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
-                      </div>
-                    )}
-                  </div>
+                    ))
+                  }
                 </div>
               </div>
 
+              <div className="py-7">
+                <h2>Central African CFA Franc BEAC</h2>
+                <div className="grid gap-4 grid-cols-4 ">
+                  {
+                    filteredCentral.map((country, index)=>(
+                      <div
+                      key={index}
+                      className={
+                        activeCard === country.currency ? styles.activeCard : styles.card
+                      }
+                    onClick={() => setActiveCard(country.currency)}
+                  >
+                    <div className={styles.checFlag+" mr-2"} style={{ borderRadius: "50%", }}>
+                      <Image src={country.flag} alt="flag" layout='fill' />
+                    </div>
+                    <div className="">{country.name}</div>
+                    {activeCard === country.currency && (
+                      <div className="pl-1 pt-1">
+                        <Image
+                          src={ActiveTick}
+                          alt="active"
+                          width="16"
+                          height="16"
+                        />
+                      </div>
+                    )}
+                  </div>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <div className="divider"></div>
+
               {/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
-              {/* {["GBP", "USD"].includes(activeCard) && (
+              {["GBP", "USD"].includes(activeCard) && (
 								<div className="pb-6">
 									<div className="text-black-100">Payment Method</div>
 									<p className="text-base-gray-200">
@@ -467,17 +403,6 @@ const Checkout = () => {
 									</p>
 
 									<div className="grid gap-4 grid-cols-3">
-										<div
-											className={
-												paymentMethod === "Card"
-													? styles.activePayment
-													: styles.card
-											}
-											onClick={() => setPaymentMethod("Card")}
-										>
-											Card Option
-										</div>
-
 										<div
 											className={
 												paymentMethod === "Stripe"
@@ -512,7 +437,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								</div>
-							)} */}
+							)}
 
               {/**Apply coupon feature is yet to be implemented */}
 
@@ -529,10 +454,10 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className="w-full hidden lg:flex gap-4 items-center">
+              <div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
                 <div className="w-4/5">
                   <Input
-                    placeholder="Coupon Code"
+                    placeholder=" Enter Coupon Code"
                     name="couponCode"
                     onChange={formik.handleChange}
                   />
@@ -542,7 +467,7 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className={`p-6 bg-white flex flex-col ${styles.boxShadow}`}>
+              <div className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}>
                 <div className="flex justify-between">
                   <p>SubTotal</p>
                   <div className="flex gap-4">
@@ -553,7 +478,8 @@ const Checkout = () => {
                       </s>
                     )}
                     <p>
-                      {currency_name} {price ?? checkoutDetails?.default_price}
+                      {/* {currency_name} {price ?? checkoutDetails?.default_price} */}
+                      NGN 890
                     </p>
                   </div>
                 </div>
@@ -589,15 +515,12 @@ const Checkout = () => {
               </div>
 
               <p className="text-base-gray text-center py-6 text-xs md:text-sm">
-                Instant Access to This Product After A Successful Purchase is
-                Confirmed!
+                Get instant access to this product once your payment is successful!
               </p>
 
-              <div className="">
+              <div className=" w-full lg:w-5/6 mx-auto">
                 <Button
-                  text={`Pay ${currency_name} ${new Intl.NumberFormat().format(
-                    checkoutDetails?.default_price
-                  )}`}
+                  text={`Pay Now`}
                   bgColor="blue"
                   className={styles.btnCont}
                   icon={<RightArrow />}

@@ -103,7 +103,11 @@ const Header = () => {
   return (
     <>
       <AntHeader className={style.header}>
-        <Logo />
+        <Link href="/account/dashboard">
+          <a>
+            <Logo />
+          </a>
+        </Link>
         <div className={style.nav_right}>
           <Button type="text" shape="circle" icon={<Cog />} />
           <Button

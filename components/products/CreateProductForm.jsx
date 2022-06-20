@@ -215,16 +215,16 @@ export const CreateProductForm = ({
         product?.product_details?.product_listing_status
       );
       setFieldValue("cta_button", product?.product_details?.cta_button)
-      setFieldValue("product_images.productFiles",  ...product.product_images.filter(images => images.file_type !== 4).map(item => {
-        const arr = item.filename.split(',')
+      setFieldValue("product_images.productFiles",  ...product?.product_images?.filter(images => images?.file_type !== 4)?.map(item => {
+        const arr = item?.filename?.split(',')
         return [...arr]
       }))
       if(product.product_details.enable_preorder){
         setPreOrder(true)
       }
-     setFiles(imageIsEdits(...product?.product_images.filter(images => images.file_type !== 4).map(item => {
-      const arr = item.filename.split(',')
-      const truc = arr.map(item => {
+     setFiles(imageIsEdits(...product?.product_images?.filter(images => images?.file_type !== 4)?.map(item => {
+      const arr = item?.filename?.split(',')
+      const truc = arr?.map(item => {
         return {
           filename: item
         }
@@ -232,10 +232,22 @@ export const CreateProductForm = ({
       return truc
     })))
      setContents(product?.product_details?.product_details)
-     if(product.product_details.upload_content){
-       setContentFiles(product.product_details.upload_content)
-       setInitialProduct(product.product_images.filter(images => images.file_type === 4))
+     if(product?.product_details.upload_content){
+       setContentFiles(product?.product_details.upload_content)
+       setInitialProduct(product?.product_images?.filter(images => images?.file_type === 4))
      }
+     if(product?.product_price_type){
+      switch(product?.product_price_type){
+        case "Fixed Price": 
+          return setFieldValue("pricing_type_id", 1)
+        case "Pay What You Want":
+          return setFieldValue("pricing_type_id", 2);
+        case "Installment Payment":
+          return setFieldValue("pricing_type_id", 3);
+        case "Make It Free":
+          return setFieldValue("pricing_type_id", 4);
+      }
+    }
     }
   }, [product]);
 

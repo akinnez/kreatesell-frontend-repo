@@ -5,7 +5,7 @@ import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
 import styles from "./index.module.scss";
 
-const productsColumns = types => [
+const productsColumns = [
   {
     title: "Product",
     dataIndex: "product_name",
@@ -17,12 +17,11 @@ const productsColumns = types => [
   },
   {
     title: "Product Type",
-    dataIndex: "product_type_id",
-    render: typeId => types[typeId]?.product_type_name,
+    dataIndex: "product_type_name",
   },
   {
     title: "Launch Date",
-    dataIndex: "date_created",
+    dataIndex: "launch_date",
     render: dateStr => dateString(dateStr),
     sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
     sortDirections: ["descend", "ascend", "descend"],
@@ -36,8 +35,7 @@ const productsColumns = types => [
   },
   {
     title: "Performance",
-    dataIndex: "",
-    render: (_, record) => (
+    render: record => (
       <Performance
         sold={record.total_sold}
         visits={record.total_product_visits}
@@ -51,8 +49,7 @@ const productsColumns = types => [
   },
   {
     title: "Action",
-    dataIndex: "",
-    render: (_, record) => (
+    render: record => (
       <div className={styles.request__link}>
         {!record.has_requested_access ? (
           <Link href={`/account/affiliate/market-place/${record.id}`}>
