@@ -2,6 +2,14 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
+.error {
+  text-align: center;
+  padding: 20px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: colors.$black-100;
+}
+
 .container {
   max-width: 990px;
   margin: 0 auto;

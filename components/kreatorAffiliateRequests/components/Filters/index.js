@@ -50,6 +50,7 @@ const Filters = ({ setFilters }) => {
     setShowFilter(false);
     setFilters(s => ({
       ...s,
+      page: 1,
       productName: product_name || "",
       affiliateName: affiliate_name || "",
       productType: product_type && product_type !== "all" ? product_type : "",
@@ -62,6 +63,7 @@ const Filters = ({ setFilters }) => {
     setIsFiltered(false);
     setFilters(s => ({
       ...s,
+      page: 1,
       productName: "",
       affiliateName: "",
       productType: "",

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Typography, Row, Col, Card } from "antd";
 import BasketImg from "public/images/basket.png";
+import formatNumber from "utils/formatNumber";
 import TrashImg from "public/images/trash_full.png";
 import styles from "./index.module.scss";
 
@@ -12,7 +13,11 @@ const breakpoints = {
   xl: { span: 8 },
 };
 
-const AbandonedCartsStats = () => (
+const AbandonedCartsStats = ({
+  inRecovery = 0,
+  abandoned = 0,
+  recovered = 0,
+}) => (
   <Row gutter={[28, { xs: 24, sm: 24, lg: 32 }]}>
     <Col {...breakpoints}>
       <Card className={styles.card__wrapper}>
@@ -24,7 +29,7 @@ const AbandonedCartsStats = () => (
           </div>
           <div className={styles.stats}>
             <p>
-              <Text>45</Text>
+              <Text>{formatNumber(inRecovery)}</Text>
             </p>
             <p>
               <Text>In Recovery</Text>
@@ -43,7 +48,7 @@ const AbandonedCartsStats = () => (
           </div>
           <div className={styles.stats}>
             <p>
-              <Text>45,000</Text>
+              <Text>{formatNumber(abandoned)}</Text>
             </p>
             <p>
               <Text>Abandoned</Text>
@@ -62,7 +67,7 @@ const AbandonedCartsStats = () => (
           </div>
           <div className={styles.stats}>
             <p>
-              <Text>22,500</Text>
+              <Text>{formatNumber(recovered)}</Text>
             </p>
             <p>
               <Text>Recovered</Text>

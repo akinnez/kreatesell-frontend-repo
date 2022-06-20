@@ -45,7 +45,8 @@ const PaginationHelper = ({ dataSize, filters, setFilters }) => {
           <Select.Option value={100}>100 / page</Select.Option>
         </Select>
       </div>
-      {filters.limit <= dataSize ? (
+      {/* {Math.ceil(dataSize / filters.limit) > 1 ? ( */}
+      {filters.limit < dataSize ? (
         <div className={styles["pagination-helper__input-box"]}>
           <span>Go to</span>
           <Input

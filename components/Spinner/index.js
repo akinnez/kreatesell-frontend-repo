@@ -1,8 +1,9 @@
+import { Spin } from "antd";
 import styles from "./index.module.scss";
 
 const Spinner = () => (
   <div className={styles.spinnerWrapper}>
-    <div className={styles.spinner} />
+    <Spin size="large" />
   </div>
 );
 

@@ -38,6 +38,12 @@ const Request = ({ productId, hasRequestedAccess, updateProduct }) => {
     updateProduct();
   };
 
+  const handleKeyUp = e => {
+    if (e.target.scrollHeight > e.target.clientHeight) {
+      e.target.style.height = e.target.scrollHeight + "px";
+    }
+  };
+
   return (
     <>
       <div className={styles.form__wrapper}>
@@ -65,6 +71,7 @@ const Request = ({ productId, hasRequestedAccess, updateProduct }) => {
                   placeholder="Fill out how you want to promote this product"
                   {...formik.getFieldProps("permission")}
                   disabled={hasRequestedAccess}
+                  onKeyUp={handleKeyUp}
                 />
               </Form.Item>
               <div className={styles.text}>

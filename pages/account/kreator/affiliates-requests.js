@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import { Typography, Button, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import SuccessModalBox from "components/SuccessModalBox";
+import PaginationHelper from "components/PaginationHelpers";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
+import useFilters from "hooks/useFilters";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
 import styles from "public/css/KreatorAffiliateRequests.module.scss";
@@ -19,11 +21,10 @@ const statusArr = [
   { type: "All", label: "All" },
   { type: "Pending", label: "Pending" },
   { type: "Approved", label: "Approved" },
-  { type: "Revoked", label: "Revoked" },
+  { type: "Declined", label: "Declined" },
 ];
 
 const AffiliateRequests = () => {
-  const [uri, setUri] = useState("");
   const [requests, setRequests] = useState({ data: [], total: 0 });
   const [successModal, setSuccessModal] = useState(false);
   const [noteModal, setNoteModal] = useState({ visible: false, note: null });
@@ -34,49 +35,9 @@ const AffiliateRequests = () => {
     data: null,
   });
 
-  const [filters, setFilters] = useState({
-    page: 1,
-    status: "All",
-    productName: "",
-    affiliateName: "",
-    productType: "",
-    requestDate: "",
-  });
-
-  useEffect(() => {
-    let url = new URL(
-      `${process.env.BASE_URL}v1/kreatesell/product/fetch/affiliates/all?Page=${filters.page}&Limit=8`
-    );
-
-    if (filters.status !== "All") {
-      url.searchParams.set("Status", filters.status);
-    }
-
-    if (filters.requestDate) {
-      url.searchParams.set("Launch_Date", filters.requestDate);
-    }
-
-    if (filters.affiliateName) {
-      url.searchParams.set("Kreator_Name", filters.affiliateName);
-    }
-
-    if (filters.productName) {
-      url.searchParams.set("Product_Name", filters.productName);
-    }
-
-    if (filters.productType) {
-      url.searchParams.set("Product_Type", filters.productType);
-    }
-
-    setUri(url);
-  }, [
-    filters.page,
-    filters.status,
-    filters.requestDate,
-    filters.affiliateName,
-    filters.productName,
-    filters.productType,
-  ]);
+  const { uri, filters, setFilters } = useFilters(
+    "v1/kreatesell/product/fetch/affiliates/all"
+  );
 
   const { data: res } = useSWR(
     () => (uri ? uri : null),
@@ -100,7 +61,7 @@ const AffiliateRequests = () => {
   );
 
   const handler = (setter, field, value) => param => {
-    setter(s => ({ ...s, [field]: param ?? value }));
+    setter(s => ({ ...s, [field]: value || param }));
   };
 
   const handleSuccess = value => {
@@ -158,6 +119,11 @@ const AffiliateRequests = () => {
       <section>
         <Filters setFilters={setFilters} />
       </section>
+      <PaginationHelper
+        dataSize={requests.total}
+        filters={filters}
+        setFilters={setFilters}
+      />
       <section className={styles.status__btns__section}>
         <div className={styles.status__btns}>
           {statusArr.map(({ type, label }) => (
@@ -178,10 +144,10 @@ const AffiliateRequests = () => {
           columns={columns}
           pagination={{
             position: ["bottomLeft"],
-            pageSize: 8,
-            responsive: true,
-            total: requests.total,
+            pageSize: filters.limit,
             current: filters.page,
+            total: requests.total,
+            responsive: true,
             onChange: handler(setFilters, "page", null),
           }}
           rowKey={rowKey}

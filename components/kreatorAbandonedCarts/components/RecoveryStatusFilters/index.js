@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import moment from "moment";
 import { Row, Col, Form, Select, DatePicker, Button } from "antd";
 import { MdOutlineCancel } from "react-icons/md";
 import { currencyOptions } from "utils";
@@ -20,54 +21,53 @@ const options = [
   { label: "Last Year", value: "last year" },
 ];
 
-const RecoveryStatusFilters = () => {
+const currencies = [{ value: "All", label: "All" }, ...currencyOptions];
+
+const RecoveryStatusFilters = ({ setFilters }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
 
   const [form] = Form.useForm();
 
-  const handleShow = value => {
-    form.setFieldsValue({ show: value });
+  const handleOptions = field => value => {
+    form.setFieldsValue({ [field]: value });
   };
 
-  const handleCurrency = value => {
-    form.setFieldsValue({ currency: value });
-  };
-
-  const handleFrom = (_, dateStr) => {
+  const handleDate = field => (_, dateStr) => {
     form.setFieldsValue({
-      from: dateStr ? moment(dateStr, "YYYY-MM-DD") : "",
-    });
-  };
-
-  const handleTo = (_, dateStr) => {
-    form.setFieldsValue({
-      to: dateStr ? moment(dateStr, "YYYY-MM-DD") : "",
+      [field]: dateStr ? moment(dateStr, "YYYY-MM-DD") : "",
     });
   };
 
   const handleSubmitFilter = values => {
-    console.log("submitted - ", values);
-  };
+    console.log(values);
+    const { currency = null, from, to } = values;
 
-  const handleShowFilter = () => {
-    setShowFilter(true);
-  };
+    if (!currency && !from && !to) return;
 
-  const handleHideFilter = () => {
+    setIsFiltered(true);
     setShowFilter(false);
+    setFilters({
+      currency,
+      from: from ? from._i : "",
+      to: to ? to._i : "",
+    });
+  };
+
+  const handleClicks = (setter, value) => () => {
+    setter(value);
   };
 
   const resetFilters = () => {
-    // setFiltered(null);
-    setIsFiltered(false);
     form.resetFields();
+    setIsFiltered(false);
+    setFilters({ currency: null, from: "", to: "" });
   };
 
   return (
     <div>
       <div className={styles.filterToggle}>
-        <Button shape="round" onClick={handleShowFilter}>
+        <Button shape="round" onClick={handleClicks(setShowFilter, true)}>
           Show Filters...
         </Button>
         {isFiltered && <ResetBtn resetFilters={resetFilters} />}
@@ -83,7 +83,7 @@ const RecoveryStatusFilters = () => {
           shape="circle"
           type="text"
           icon={<MdOutlineCancel />}
-          onClick={handleHideFilter}
+          onClick={handleClicks(setShowFilter, false)}
           className={styles.closeFilter}
         />
         <div className={isFiltered ? styles.mdMargin : styles.lgMargin}>
@@ -104,7 +104,7 @@ const RecoveryStatusFilters = () => {
                 <Form.Item label="Show" name="show">
                   <Select
                     placeholder="Today"
-                    onChange={handleShow}
+                    onChange={handleOptions("show")}
                     options={options}
                   />
                 </Form.Item>
@@ -117,8 +117,8 @@ const RecoveryStatusFilters = () => {
                 <Form.Item label="Currency" name="currency">
                   <Select
                     placeholder="NGN"
-                    onChange={handleCurrency}
-                    options={currencyOptions}
+                    onChange={handleOptions("currency")}
+                    options={currencies}
                   />
                 </Form.Item>
               </Col>
@@ -130,7 +130,7 @@ const RecoveryStatusFilters = () => {
                 <Form.Item label="From" name="from">
                   <DatePicker
                     placeholder="2021-07-22"
-                    onChange={handleFrom}
+                    onChange={handleDate("from")}
                     allowClear={false}
                   />
                 </Form.Item>
@@ -143,7 +143,7 @@ const RecoveryStatusFilters = () => {
                 <Form.Item label="To" name="to">
                   <DatePicker
                     placeholder="2021-07-22"
-                    onChange={handleTo}
+                    onChange={handleDate("to")}
                     allowClear={false}
                   />
                 </Form.Item>
