@@ -9,6 +9,7 @@ const Integrations = () => {
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.container}>
         {/* header */}
+        {/* header on mobile */}
         <div className={styles.mobileHeader}>
           <h1 className={styles.heading}>Integrations</h1>
           <p className={styles.text}>
@@ -25,6 +26,7 @@ const Integrations = () => {
           </p>
         </div>
 
+        {/* header on larger screens */}
         <div className={styles.lgHeader}>
           <div>
             <h1 className={styles.heading}>Integrations</h1>
@@ -41,6 +43,7 @@ const Integrations = () => {
         </div>
         {/* end of header */}
 
+        {/* Integrations card */}
         <section className={styles.intCards}>
           {integrations.map((item) => (
             <IntCard key={item?.name} {...item} />
