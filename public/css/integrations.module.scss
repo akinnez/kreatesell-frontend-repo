@@ -67,6 +67,14 @@
     @media (min-width: 1200px) {
       padding: 1rem 10.31rem;
       margin-top: 8rem;
+      & .imageBox {
+        transform: scale(1.22);
+      }
     }
+  }
+
+  // int cards
+  .intCards {
+    background-color: #e5e5e5;
   }
 }

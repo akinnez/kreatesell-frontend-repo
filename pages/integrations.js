@@ -39,9 +39,17 @@ const Integrations = () => {
           </div>
         </div>
         {/* end of header */}
+
+        <section className={styles.intCards}>
+          <IntCard />
+        </section>
       </section>
     </Layout>
   );
 };
 
 export default Integrations;
+
+const IntCard = () => {
+  return <div>int card</div>;
+};
