@@ -1,7 +1,7 @@
 import { Layout } from "../components";
 import styles from "../public/css/integrations.module.scss";
 import Image from "next/image";
-import { IntegrationsCircle } from "utils";
+import { IntegrationsCircle, IntZoom } from "utils";
 
 const Integrations = () => {
   return (
@@ -42,6 +42,18 @@ const Integrations = () => {
 
         <section className={styles.intCards}>
           <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
+          <IntCard />
         </section>
       </section>
     </Layout>
@@ -51,5 +63,17 @@ const Integrations = () => {
 export default Integrations;
 
 const IntCard = () => {
-  return <div>int card</div>;
+  return (
+    <div className={styles.intCard}>
+      <div className={styles.intImg}>
+        <Image src={IntZoom} alt="zoom" />
+      </div>
+      <p className={styles.intName}>Zoom</p>
+      <p className={styles.details}>
+        Zoom is a cloud-based video conferencing service you can use to
+        virtually meet with people. You can engage either by video, audio or
+        both.
+      </p>
+    </div>
+  );
 };

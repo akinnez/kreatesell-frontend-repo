@@ -19,6 +19,7 @@ import Faq from "../public/images/faq.svg";
 import LeftSpiral from "../public/images/left-spiral.png";
 import RightSpiral from "../public/images/right-spiral.png";
 import IntegrationsCircle from "../public/images/integrations-image.svg";
+import IntZoom from "../public/images/int-zoom.svg";
 import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
 import RelatedBlog from "../public/images/related-blog.svg";
@@ -158,6 +159,7 @@ export {
   CardMain,
   NewsCardOne,
   IntegrationsCircle,
+  IntZoom,
   NewsCardTwo,
   NewsCardThree,
   NewsCardFour,

@@ -75,6 +75,47 @@
 
   // int cards
   .intCards {
+    font-family: Inter;
     background-color: #e5e5e5;
+    padding: 3rem 1rem;
+    .intCard {
+      padding: 48px 40px 40px 40px;
+      //   border: 1px solid red;
+      margin-bottom: 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      .intImg {
+        margin-bottom: 32px;
+      }
+
+      .intName {
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 600px;
+        margin-bottom: 24px;
+      }
+
+      .details {
+        font-size: 18px;
+        line-height: 34px;
+        text-align: justify;
+      }
+      @media (min-width: 700px) {
+        margin-bottom: unset;
+      }
+    }
+
+    @media (min-width: 700px) {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    @media (min-width: 900px) {
+      padding: 4rem 5.31rem;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 4rem 10.31rem;
+    }
   }
 }
