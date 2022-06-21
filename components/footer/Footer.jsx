@@ -111,7 +111,7 @@ export const Footer = () => {
                 )}
               </a>
             </Link>
-            <Link href="#">
+            <Link href="/integrations">
               <a>Integration</a>
             </Link>
           </div>
@@ -248,7 +248,7 @@ export const Footer = () => {
                   )}
                 </a>
               </Link>
-              <Link href="#">
+              <Link href="/integrations">
                 <a>Integration</a>
               </Link>
             </div>
