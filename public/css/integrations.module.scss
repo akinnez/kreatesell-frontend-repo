@@ -77,12 +77,12 @@
   .intCards {
     font-family: Inter;
     background-color: #e5e5e5;
-
     padding: 3rem 1rem;
     margin-top: 2rem;
+    margin-bottom: 4rem;
     .intCard {
       padding: 48px 40px 40px 40px;
-
+      text-align: justify;
       opacity: 1;
       margin-bottom: 30px;
       background-color: #ffffff;
@@ -105,6 +105,11 @@
       }
       @media (min-width: 700px) {
         margin-bottom: unset;
+        // min-height: 420px;
+        // max-height: 420px;
+        .details {
+          text-align: left;
+        }
       }
     }
 
@@ -118,7 +123,8 @@
     }
 
     @media (min-width: 1200px) {
-      padding: 4rem 10.31rem;
+      padding: 4rem 6.31rem;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
   }
 }
