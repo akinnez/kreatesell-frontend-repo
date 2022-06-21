@@ -20,6 +20,18 @@ import LeftSpiral from "../public/images/left-spiral.png";
 import RightSpiral from "../public/images/right-spiral.png";
 import IntegrationsCircle from "../public/images/integrations-image.svg";
 import IntZoom from "../public/images/int-zoom.svg";
+import IntCoinBase from "../public/images/int-coinBase.svg";
+import IntSamsungPay from "../public/images/int-samsungPay.svg";
+import IntApplePay from "../public/images/int-applePay.svg";
+import IntGooglePay from "../public/images/int-googlePay.svg";
+import IntFacebookPixels from "../public/images/int-facebookPixels.svg";
+import IntGoogleAnalytics from "../public/images/int-googleAnalytics.svg";
+import IntHoverSignal from "../public/images/int-hoverSignal.svg";
+import IntZapier from "../public/images/int-Zapier.svg";
+import IntGoToWebinar from "../public/images/int-goToWebinar.svg";
+import IntGetResponse from "../public/images/int-getResponse.svg";
+import IntMailChimp from "../public/images/int-mail-chimp.svg";
+import IntAwebber from "../public/images/int-awebber.svg";
 import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
 import RelatedBlog from "../public/images/related-blog.svg";
@@ -160,6 +172,18 @@ export {
   NewsCardOne,
   IntegrationsCircle,
   IntZoom,
+  IntCoinBase,
+  IntSamsungPay,
+  IntApplePay,
+  IntGooglePay,
+  IntFacebookPixels,
+  IntGoogleAnalytics,
+  IntHoverSignal,
+  IntZapier,
+  IntGoToWebinar,
+  IntGetResponse,
+  IntMailChimp,
+  IntAwebber,
   NewsCardTwo,
   NewsCardThree,
   NewsCardFour,

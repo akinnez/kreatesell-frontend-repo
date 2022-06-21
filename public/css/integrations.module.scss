@@ -77,10 +77,13 @@
   .intCards {
     font-family: Inter;
     background-color: #e5e5e5;
+
     padding: 3rem 1rem;
+    margin-top: 2rem;
     .intCard {
       padding: 48px 40px 40px 40px;
-      //   border: 1px solid red;
+
+      opacity: 1;
       margin-bottom: 30px;
       background-color: #ffffff;
       border-radius: 8px;
