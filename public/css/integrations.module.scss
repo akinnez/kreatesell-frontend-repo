@@ -1,0 +1,72 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+.container {
+  width: 100%;
+  padding: 0 22px;
+  .mobileHeader {
+    .heading {
+      color: $black-100;
+      font-size: 28px;
+      line-height: 40px;
+      font-weight: 700;
+      margin-top: 54px;
+      //   margin-left: 22.5px;
+      margin-bottom: 24px;
+    }
+    .text {
+      font-size: 18px;
+      line-height: 34px;
+    }
+
+    .imageBox {
+      display: flex;
+      padding: 1rem 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+    @media (min-width: 700px) {
+      display: none;
+    }
+  }
+
+  .lgHeader {
+    transition: all 0.2s;
+    display: none;
+    & * {
+      transition: all 0.2s;
+    }
+    @media (min-width: 700px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .heading {
+        font-size: 48px;
+        line-height: 64px;
+        font-weight: 700;
+      }
+
+      .text {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+    @media (min-width: 900px) {
+      padding: 1rem 5.31rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .text {
+        max-width: 549px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      padding: 1rem 10.31rem;
+      margin-top: 8rem;
+    }
+  }
+}
