@@ -1,7 +1,8 @@
 import { Layout } from "../components";
 import styles from "../public/css/integrations.module.scss";
 import Image from "next/image";
-import { IntegrationsCircle, IntZoom } from "utils";
+import { IntegrationsCircle } from "utils";
+import { integrations } from "components/ks-integrations/data";
 
 const Integrations = () => {
   return (
@@ -41,19 +42,9 @@ const Integrations = () => {
         {/* end of header */}
 
         <section className={styles.intCards}>
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
-          <IntCard />
+          {integrations.map((item) => (
+            <IntCard key={item?.name} {...item} />
+          ))}
         </section>
       </section>
     </Layout>
@@ -62,18 +53,14 @@ const Integrations = () => {
 
 export default Integrations;
 
-const IntCard = () => {
+const IntCard = ({ name, details, imageSrc }) => {
   return (
     <div className={styles.intCard}>
       <div className={styles.intImg}>
-        <Image src={IntZoom} alt="zoom" />
+        <Image src={imageSrc} alt="zoom" />
       </div>
-      <p className={styles.intName}>Zoom</p>
-      <p className={styles.details}>
-        Zoom is a cloud-based video conferencing service you can use to
-        virtually meet with people. You can engage either by video, audio or
-        both.
-      </p>
+      <p className={styles.intName}>{name}</p>
+      <p className={styles.details}>{details}</p>
     </div>
   );
 };
