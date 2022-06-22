@@ -25,6 +25,8 @@ import {
   RelatedImgSmall,
   BlogHero,
   showToast,
+  Briefcase,
+  Clock
 } from "utils";
 import styles from "public/css/SingleBlog.module.scss";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -42,8 +44,8 @@ import { DiscussionEmbed } from "disqus-react";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
   console.log("blog", blog);
-  console.log("recentBlogs", recentBlogs)
-  console.log("moreBlogs", moreBlogs)
+  // console.log("recentBlogs", recentBlogs)
+  // console.log("moreBlogs", moreBlogs)
   const router = useRouter();
   const genUrl =
     process.env.NODE_ENV === "production"
@@ -69,6 +71,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
   };
 
   const handleLikePost = () => {
+    console.log("like clicked")
     axios
       .post(
         `https://disqus.com/api/oauth/2.0/authorize/?client_id=6lSQoKFGTpA9fercSGt0klM60BCv7vgF2PMnPb1NqNhpo6HTmwRpkRfAs4VVMLFp&scope=read,write&response_type=code&redirect_uri=${genUrl}`
@@ -98,15 +101,21 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     category,
     id,
   }) => {
-    console.log("thumbnail is", thumbnail)
     return (
       <div className={styles.asideContainer}>
         <div className={styles.image}>
-          <Image src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
+          <Image className={styles.sideImage} src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
         </div>
         <div className={styles.content}>
           <p className={styles.date}>
-            {moment(created_at).format("MMM DD YYYY")}
+          {formatDistanceToNow(
+            new Date(
+              new Date(created_at).getFullYear(),
+              new Date(created_at).getMonth(),
+              new Date(created_at).getDay()
+            ),
+            { addSuffix: true }
+          )}
           </p>
           <Link href={`/blog/${category}/${id}`}>
             <h4 style={{ cursor: "pointer" }} className={styles.title}>
@@ -154,6 +163,10 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
         <Link href={`/blog/${category}/${id}`}>
           <h4 className={styles.singleTitle}>{title}</h4>
         </Link>
+        <div className={styles.categoryTime}>
+          <span className={styles.category}><Image src={Briefcase} alt="" width="25" />{"  "}Marketing</span>
+          <p className={styles.time}><Image src={Clock} alt="" width="15" /> 7 days ago</p>
+        </div>
         <div className={styles.excerptDiv}>
           <p className={styles.singleExcerpt}>{excerpt}</p>
         </div>
