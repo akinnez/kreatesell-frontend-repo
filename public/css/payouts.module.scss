@@ -5,14 +5,16 @@
 .payoutsContainer {
   width: 100%;
   .details {
+    padding: 25px;
     .mobileHeading {
       font-size: 28px;
       line-height: 40px;
       font-weight: 700;
+      text-align: center;
     }
 
     .lgHeading {
-      //   display: none;
+      display: none;
       font-size: 48px;
       line-height: 64px;
       font-weight: 700;

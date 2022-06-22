@@ -1,5 +1,6 @@
 import { Layout } from "components";
 import styles from "../public/css/payouts.module.scss";
+// import Image from 'next/image'
 
 const Payouts = () => {
   return (
@@ -12,9 +13,16 @@ const Payouts = () => {
             Transaction Fee
           </h1>
         </div>
+        <div className={styles.flagItems}>
+          <Flag />
+        </div>
       </section>
     </Layout>
   );
 };
 
 export default Payouts;
+
+const Flag = () => {
+  return <div className={styles.flagItem}>flag</div>;
+};
