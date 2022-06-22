@@ -45,44 +45,40 @@ const AllProducts = () => {
     label: item.status_name,
   }));
 
-  const memoisedProductData = useMemo(
-    () =>
-      productData
-        ?.sort((a, b) =>
-          a.product_details?.date_created < b.product_details?.date_created
-            ? 1
-            : -1
-        )
-        ?.map((item, i) => ({
-          ...item,
-          key: i + 1,
-          product_image: item?.product_images
-            .filter(images => images.file_type !== 4)
-            .map(item => {
-              const arr = item.filename.split(",");
-              return [...arr];
-            })[0],
-          product_name: item?.product_details?.product_name,
-          product_type: item?.product_details?.product_type?.product_type_name,
-          date_created: item?.product_details?.date_created,
-          status: item?.product_details?.status,
-          price: {
-            currency: item.default_currency
-              ? item.default_currency
-              : item.product_currencies[0]?.currency_short_name,
-            productPrice: item?.default_price,
-          },
-          actions: {
-            product_details: {
-              id: item?.product_details?.id,
-              kreasell_product_id: item?.product_details?.kreasell_product_id,
-              product_name: item?.product_details?.product_name,
-              product_link: `${domainLink}/${item?.product_details?.kreasell_product_id}`,
-            },
-          },
-        })),
-    [domainLink, productData]
-  );
+	const memoisedProductData = useMemo(
+		() =>
+			productData
+				?.sort((a, b) =>
+					a.product_details?.date_created < b.product_details?.date_created
+						? 1
+						: -1
+				)
+				?.map((item, i) => ({
+					...item,
+					key: i+1,
+					product_image: item?.product_images?.filter(images => images?.file_type !== 4).map(item => {
+						const arr = item?.filename?.split(',')
+						return [...arr]
+					  })[0],
+					product_name: item?.product_details?.product_name,
+					product_type: item?.product_details?.product_type?.product_type_name,
+					date_created: item?.product_details?.date_created,
+					status: item?.product_details?.status,
+					price: {
+						currency: item?.default_currency ? item?.default_currency : item?.product_currencies[0]?.currency_short_name,
+						productPrice: item?.default_price,
+					},
+					actions: {
+						product_details: {
+							id:item?.product_details?.id,
+							kreasell_product_id: item?.product_details?.kreasell_product_id,
+							product_name: item?.product_details?.product_name,
+							product_link: `${domainLink}/${item?.product_details?.kreasell_product_id}`
+						}
+					},
+				})),
+		[domainLink, productData]
+	);
 
   useEffect(() => {
     getProducts();

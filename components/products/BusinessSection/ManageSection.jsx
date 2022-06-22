@@ -1,23 +1,83 @@
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowLeft, ViewSales, Video, Audio,EditPen, FileDelete, FileZip} from "utils"
 import { Button, Input, Radio,Popconfirm, Switch } from "antd"
 import styles from './MembershipTab.module.scss'
 import PlayMedia from "./PlayMedia"
+import { useSelector } from "react-redux"
+import { useFormik } from "formik"
+import { CreateSection, GetProductByID, CreateContent} from "redux/actions"
 
-export default function ManageSection ({setIsTabsActive, setMajorPage, sections, setSections, toSection}) {
+export default function ManageSection ({setIsTabsActive, setMajorPage, toSection}) {
+    const [mediaContent, setMediaContent] = useState(null)
+    const [productSection, setProductSection] = useState(null)
+    const { product, productID } = useSelector(
+        (state) => state.product
+      );
+        const getProduct = GetProductByID()
+        const createContent = CreateContent()
     const [play, setPlay]= useState(false)
     const goBack = ()=>{
         setIsTabsActive(true)
         setMajorPage('index')
     }
-    const displayMedia = (type, source, fn)=>{
-        return (
-            <PlayMedia source={source} type={type} open={play} closePlay={fn} />
-        )
+    const openMedia = (media)=>{
+        setMediaContent(media)
+        setPlay(true)
+    }
+
+    const initialValues = {
+        "product_id": 0,
+        "kreatesell_id": "",
+        "product_content_name": "",
+        "action": "e",
+        frequency_of_availability: 1,
+        is_access_control_set: false,
+        is_available_to_all_subscriber: true
+      }
+
+      const handleSubmit = (data)=>{
+      }
+    const formik = useFormik({
+        initialValues,
+        onSubmit: handleSubmit,
+        validationSchema:'',
+        validateOnChange: false,
+      });
+
+      const {setFieldValue} = formik
+    useEffect(()=>{
+        if(Object.keys(product).length > 0){
+            const {product_content} = product
+            setProductSection(product_content)
+        }
+    }, [product])
+
+    const handleChange = (item, e)=>{
+        setFieldValue("product_content_name", item.section_name)
+        setFieldValue("content_id", item.id)
+        setFieldValue("kreatesell_id", item.kreate_sell_product_id)
+        setFieldValue("product_id", item.product_id)
+        setFieldValue("is_access_control_set", true)
+        setFieldValue("is_available_to_all_subscriber", e.target.value)
+    }
+    const deleteLecture = (lecture)=>{
+        createContent({
+        "section_id": lecture.product_content_id,
+        "action": 'r',
+        "sub_section_id": lecture.id,
+        "product_section_name": lecture.product_section_name,
+        "product_section_description": lecture. product_section_description,
+        "product_file_details": lecture.product_file_details ?? {
+            "product_files": null
+        }
+        }, () => {
+            getProduct(productID)
+        })
     }
     return(
         <div className="">
+            { play && <PlayMedia source={mediaContent} open={play} closePlay={setPlay} />}
             <div onClick={()=> goBack()} className="inline-flex justify-start cursor-pointer items-center mb-4">
                     <Image alt="" src={ArrowLeft} />
 					<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">Back</h3>
@@ -32,67 +92,62 @@ export default function ManageSection ({setIsTabsActive, setMajorPage, sections,
             </div>
            
             {
-                sections.map((items, index)=>(
-                    <div key={index} className="flex flex-col mt-5">
+                productSection !== null && productSection.length > 0 && productSection.map((items, index)=>(
+                    <div key={index} className="flex flex-col mt-7">
                         <div className="flex justify-between items-center">
                             <div className="flex items-center">
-                                <h1 className="text-2xl font-semibold">{items.name ? items.name : "Section Name"}</h1>
+                                <h1 className="text-2xl font-semibold">{items.section_name}</h1>
                             </div>
                             <div className="flex item-center">
-                                <Switch checked={items.isControl ? true : false} onChange={()=>setSections(prev => {
-                                    const sec = prev[index]
-                                    sec.isControl = !sec.isControl
-                                    prev[index] =sec
+                                <Switch onChange={()=>setProductSection(prev=> {
+                                    prev[index].is_access_control_set = !prev[index].is_access_control_set
                                     return [...prev]
-                                })}/>
-                                <h2 className="text-base ml-3 font-semibold">{items.isControl ? "ON" : "OFF"}</h2>
+                                })} checked={items.is_access_control_set ? true : false}/>
+                                <h2 className="text-base ml-3 font-semibold">{items.is_access_control_set ? "ON" : "OFF"}</h2>
                             </div>
                         </div>
                         {
-                            items.isControl && <div className="mb-5">
+                            items?.is_access_control_set && <div className="mb-5">
                                  <div className="inline-flex">
-                                    <h2 className="text-base font-medium mr-2">Access Control</h2>
+                                    <h2 className="text-base mb-0 font-medium mr-2">Access Control</h2>
                                     <p className="text-sm mb-0">- Set the subscribers who access this module</p>
                                 </div>
                                 <div className="mt-3">
-                                    <Radio.Group>
-                                        <Radio className=" text-xl font-semibold items-center">Available to all Subscribers</Radio>
-                                        <Radio className=" text-xl font-semibold items-center">Only available to subscribers who has made payment up to:</Radio>
+                                    <Radio.Group className={styles.rad}  onChange={(e)=>handleChange(items, e)} defaultValue={true}>
+                                        <Radio className=" text-xl font-semibold items-center" value={true}>Available to all Subscribers</Radio>
+                                        <Radio className=" text-xl font-semibold items-center" value={false}>Only available to subscribers who has made payment up to:</Radio>
                                     </Radio.Group>
                                 </div>
-                                <div className="flex flex-col w-1/3 mt-4">
+                                {!formik.values.is_available_to_all_subscriber && <div className={styles.in +" flex flex-col w-1/3 mt-4"}>
                                     <label className="text-lg font-medium mb-3">Number of Times</label>
-                                    <Input placeholder="1"/>
-                                </div>
+                                    <Input onChange={(e)=>setFieldValue("frequency_of_availability", e.target.value)} placeholder="1"/>
+                                </div>}
                             </div>
                         }
                         {
-                            items.lectures && items.lectures.length > 0 && items.lectures.map((item, indx)=>(
-                                <div key={indx} className={styles.managedContent + " bg-white flex justify-between items-center rounded-lg mb-3"}>
+                           items?.product_subsection?.length > 0 ? items?.product_subsection?.map((item, indx)=>(
+                                <div key={indx} className={styles.managedContent + " bg-white flex justify-between mt-5 items-center rounded-lg mb-1"}>
                                     <div className="flex items-center">
                                         <div className={styles.fileImage}>
-                                            {item.type && <Image width={20} height={20} src={item.type === "audio" ? Audio: item.type === "video"? Video :FileZip} alt="file" />}
+                                            {<Image width={20} height={20} src={ Audio} alt="file" />}
                                         </div>
                                         <div className="flex flex-col">
-                                            <h1 className="text-xl font-semibold">{item.lecture_name ? item.lecture_name : `Lecture ${indx + 1}`}</h1>
-                                            {item.size && <h2 className="text-base font-medium">{`${(item.size/ (1024 * 1024)).toFixed()}MB`}</h2>}
+                                            <h1 className="text-xl font-semibold">{item.product_section_name}</h1>
+                                            {<h2 className="text-base font-medium">{`20MB`}</h2>}
                                         </div>
                                     </div>
                                     <div className={styles.managedControls}>
-                                        <div onClick={()=>{
-                                            console.log('media', item)
-                                            // setPlay(value => !value)
-                                            // displayMedia('audio', item.url)
-                                            }} className="p-4">
-                                                {/* {play && displayMedia('audio', item.url, setPlay)} */}
+                                        <div className="p-4" onClick={()=>openMedia(item.product_section_name)}>
                                             <Image  width={15} height={15} src={ViewSales} alt="icon" />
                                         </div>
-                                        <div onClick={()=>toSection("manage-content", index, indx)} className="p-4">
+                                        <div onClick={()=>toSection("manage-content", item)} className="p-4">
                                             <Image  width={15} height={15} src={EditPen} alt="icon" />
                                         </div>
                                         <div >
                                             <Popconfirm 
-                                            placement="bottomRight"
+                                            placement="bottom"
+                                            overlayClassName={styles.popConfirm}
+                                            onConfirm={()=>deleteLecture(item)}
                                             okText="Delete" cancelText="Cancel"
                                             cancelButtonProps={{type: "default", size: "large" }}
                                             okButtonProps={{type: "danger", size: "large" }}
@@ -100,7 +155,7 @@ export default function ManageSection ({setIsTabsActive, setMajorPage, sections,
                                             overlayStyle={{width: "350px", padding: "20px"}}
                                             icon={<></>}
                                             title={
-                                                <p className="text-sm font-normal inline-flex">Are you sure you want to delete this <strong>File</strong>?</p>
+                                                `Are you sure you want to delete this File?`
                                             } >
                                                 <Image  width={15} height={15} src={FileDelete} alt="icon" />
                                             </Popconfirm>   
@@ -108,6 +163,10 @@ export default function ManageSection ({setIsTabsActive, setMajorPage, sections,
                                     </div>
                                 </div>
                             ))
+                            : 
+                            <div className="w-full bg-white py-10 rounded-lg flex items-center justify-center">
+                                <h2 className="text-2xl font-semibold text-gray-300">No Contents Available</h2>
+                            </div>
                         }
                         
                     </div>

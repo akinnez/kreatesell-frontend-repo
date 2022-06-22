@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import style from "./sidebar.module.scss";
 import Router, { useRouter } from "next/router";
 import { SetProductDefault, SetProductID } from "redux/actions";
-
+import Image from "next/image";
 import {
   Shop,
   Dashboard,
@@ -17,6 +17,8 @@ import {
   KreatorsIcon,
   SalesIcon,
 } from "../IconPack";
+import { BusinessPlanBox } from "../../utils/assets";
+
 import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
 
 const menuItemStyle = {
@@ -72,7 +74,7 @@ const Sidebar = () => {
   const setProductId = SetProductID();
   const setProductDefault = SetProductDefault();
   return (
-    <>
+    <div className={style.sidebar}>
       <Menu mode="inline" theme="light" className={style.menu}>
         <MenuItem
           key={1}
@@ -107,7 +109,7 @@ const Sidebar = () => {
           <Menu.Item key={36}>
             <Link href="/account/kreator/products/create">
               <a
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   setProductId("");
                   setProductDefault();
@@ -206,7 +208,12 @@ const Sidebar = () => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-    </>
+      <section className={style.businessBg}>
+        <div className={style.iconBox}>
+          <Image src={BusinessPlanBox} alt="business plan icon" />
+        </div>
+      </section>
+    </div>
   );
 };
 

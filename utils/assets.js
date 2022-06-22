@@ -1,5 +1,6 @@
 import Location from "../public/images/Location.svg";
 import Message from "../public/images/Message.svg";
+import BusinessPlanBox from "../public/images/business-plan-box.svg";
 import Mobile from "../public/images/Mobile.svg";
 import FacebookBtn from "../public/images/facebookLogin.svg";
 import GoogleBtn from "../public/images/googleLogin.svg";
@@ -153,6 +154,7 @@ import Briefcase from "../public/images/icons/briefcase.svg";
 import Clock from "../public/images/icons/clock.svg";
 
 export {
+  BusinessPlanBox,
   ProfileImage,
   CardMain,
   NewsCardOne,

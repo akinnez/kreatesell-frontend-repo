@@ -30,7 +30,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const getBillingInterval = GetBillingInterval();
   const createProduct = CreateProduct();
   const setProductTab = SetProductTab();
-
+  const { store } = useSelector(state => state.store);
   const router = useRouter()
 
   const [compareToPrice, setCompareToPrice] = useState(false);
@@ -48,8 +48,23 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const [billingIntervalDuration, setBillingIntervalDuration] = useState(7)
   const [initialBillingInput, setInitialBillingInput] = useState(0)
   const [custombillingInterval, setCustomBillingInterval] = useState(0)
+  const [isBasic, setIsBasic] = useState(true)
 
   const {Option} = Select
+
+  useEffect(()=>{
+    if(Object.keys(store).length > 0 ){
+      const { user} = store
+      if(user.user_plan === 'Business'){
+        setIsCouponDisabled(false)
+      }else{
+        setIsCouponDisabled(true)
+      }
+      return ()=>{
+        setIsCouponDisabled(true)
+      }
+    }
+  }, [store])
 
   const [couponVariance, setCouponVariance] = useState({
     isPercentage: true,
@@ -210,12 +225,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   }
 
   const handleSubmit = (data) => {
-    // delete data?.cover_image;
-    // delete data?.product_details?.product_cover_picture;
-    // delete data?.upload_content || data?.product_details?.upload_content;
-    // delete data?.upload_preview;
-    // delete data?.product_listing_status;
-    // delete data?.preorder_details
     if (!data.enable_preorder) {
       delete data.preorder_details;
     }
@@ -242,8 +251,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     const checkedData = checkArrays(data)
     console.log(checkedData)
     const result = transformToFormData(checkedData)
-    createProduct(result, () => 
-    router.push(`/account/kreator/products/preview/${productID}`)
+    createProduct(result, () =>{
+      if (priceType === "Fixed Price"){
+        router.push(`/account/kreator/products/preview/${productID}`)
+        return
+      }
+      setProductTab(2)
+    }
     );
   };
 

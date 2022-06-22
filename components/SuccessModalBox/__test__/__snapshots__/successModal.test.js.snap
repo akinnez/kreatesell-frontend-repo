@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <SuccessModal /> with mock props  1`] = `
+<SuccessModalBox
+  closable={true}
+  closeButton={true}
+  closeModal={[MockFunction]}
+  modalIsVisible={false}
+>
+  <Modal
+    className="modal"
+    closable={true}
+    closeIcon={<CloseIcon />}
+    confirmLoading={false}
+    footer={null}
+    maskClosable={true}
+    okType="primary"
+    onCancel={[MockFunction]}
+    title={null}
+    visible={false}
+    width={700}
+  >
+    <Dialog
+      className="modal"
+      closable={true}
+      closeIcon={
+        <span
+          className="ant-modal-close-x"
+        >
+          <CloseIcon />
+        </span>
+      }
+      confirmLoading={false}
+      focusTriggerAfterClose={true}
+      footer={null}
+      maskClosable={true}
+      maskTransitionName="ant-fade"
+      okType="primary"
+      onCancel={[MockFunction]}
+      onClose={[Function]}
+      prefixCls="ant-modal"
+      title={null}
+      transitionName="ant-zoom"
+      visible={false}
+      width={700}
+      wrapClassName=""
+    >
+      <PortalWrapper
+        visible={false}
+      />
+    </Dialog>
+  </Modal>
+</SuccessModalBox>
+`;

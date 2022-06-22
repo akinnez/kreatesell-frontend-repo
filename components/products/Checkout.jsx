@@ -7,13 +7,21 @@ import { Input, Radio, Form} from 'antd'
 import styles from "./Checkout.module.scss";
 
 export const CheckoutProductTab = () => {
+	const [priceType, setPriceType] = useState("Fixed Price");
 	const getPricingTypes = GetPricingTypes();
-	const { pricingTypes } = useSelector((state) => state.product);
+	const { product } = useSelector((state) => state.product);
 
 	useEffect(() => {
 		getPricingTypes()
 	}, []);
 
+	useEffect(()=>{
+		if(Object.keys(product).length > 0){
+			if(product.product_price_type){
+				setPriceType(product.product_price_type)
+			}
+		}
+	}, [product])
 	// const filterPriceType = (id) =>
 	// 	pricingTypes?.filter((item) => item.pricing_type_id === id);
 	const options = [
@@ -23,7 +31,6 @@ export const CheckoutProductTab = () => {
 		{ label: 'Make It Free', value: 'Make It Free' },
 	  ];
 
-	const [priceType, setPriceType] = useState("Fixed Price");
 	const [ctaBtnText, setCtaBtnText] = useState("");
 	const changeField = (field)=>{
 		setPriceType(field.target.value)
@@ -54,7 +61,7 @@ export const CheckoutProductTab = () => {
 						
 						
 					/> */}
-					<Radio.Group onChange={(field)=>changeField(field)} defaultValue={options[0].value}>
+					<Radio.Group onChange={(field)=>changeField(field)} value={priceType} defaultValue={options[0].value}>
 						<Radio value="Fixed Price">Fixed Price</Radio>
 						<Radio value="Pay What You Want">Pay What You Want</Radio>
 						<Radio value="Installment Payment">Installment Payment</Radio>
