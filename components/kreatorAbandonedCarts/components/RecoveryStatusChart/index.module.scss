@@ -1,0 +1,9 @@
+@use "public/css/colors";
+
+.chart {
+  overflow-x: auto;
+  padding: 20px;
+  background-color: colors.$base-white;
+  border-radius: 8px;
+  box-shadow: 0px 15px 50px rgba(160, 163, 189, 0.1);
+}

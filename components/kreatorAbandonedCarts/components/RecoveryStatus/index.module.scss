@@ -89,12 +89,6 @@
   }
 }
 
-.csv__btn > button[class^="ant-btn"] {
-  color: colors.$base-blue;
-  font-weight: bold;
-  font-size: 12px;
-}
-
 @include screens.minScreen("tablet") {
   .header__banner {
     @include mixins.flex(row, center, center);
