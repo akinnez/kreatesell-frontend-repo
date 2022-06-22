@@ -43,7 +43,7 @@ import {
 import { DiscussionEmbed } from "disqus-react";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
-  console.log("blog", blog);
+  // console.log("blog", blog);
   // console.log("recentBlogs", recentBlogs)
   // console.log("moreBlogs", moreBlogs)
   const router = useRouter();
