@@ -50,6 +50,9 @@ import TogoFlag from "../public/images/flag-Togo.svg";
 import SenegalFlag from "../public/images/flag-senegal.svg";
 import MaliFlag from "../public/images/flag-mail.svg";
 import BurnkinaFasoFlag from "../public/images/flag-burkinaFaso.svg";
+import ChadFlag from "../public/images/flag-chad.svg";
+import GabonFlag from "../public/images/flag-gabon.svg";
+import CamFlag from "../public/images/flag-cam.svg";
 import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
 import RelatedBlog from "../public/images/related-blog.svg";
@@ -202,6 +205,27 @@ export {
   IntGetResponse,
   IntMailChimp,
   IntAwebber,
+  NgFlag,
+  ChadFlag,
+  GabonFlag,
+  CamFlag,
+  UsFlag,
+  UkFlag,
+  GhFlag,
+  KenFlag,
+  UganFlag,
+  SouthAfricanFlag,
+  LiberianFlag,
+  TanzanianFlag,
+  LeoneFlag,
+  MalawiFlag,
+  BeninFlag,
+  GambianFlag,
+  IvoryCoastFlag,
+  TogoFlag,
+  SenegalFlag,
+  MaliFlag,
+  BurnkinaFasoFlag,
   NewsCardTwo,
   NewsCardThree,
   NewsCardFour,
