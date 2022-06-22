@@ -25,7 +25,8 @@ export const Signup = () => {
       },
       (err) => {
         dispatch({ type: types.SIGNUP.FAILURE, payload: err?.error });
-        showToast(err?.error?.message, "error");
+        console.log(err.message);
+        showToast(err?.error?.message || "A network error occured", "error");
         errorCallback?.();
       },
       data
