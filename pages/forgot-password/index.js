@@ -11,6 +11,7 @@ const ForgotPassword = () => {
       socialBtn={false}
       signupStyle={styles.signup}
       subTitleOpacity={true}
+      withMargin={true}
     />
   );
 };

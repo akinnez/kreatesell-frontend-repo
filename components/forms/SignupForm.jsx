@@ -59,11 +59,7 @@ export const SignupForm = () => {
     <>
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
-      <form
-        onSubmit={formik.handleSubmit}
-        autoComplete="off"
-        className={styles.signUpForm}
-      >
+      <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Input
           label="Full Name"
           name="FullName"
