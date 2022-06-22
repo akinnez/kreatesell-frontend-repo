@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <Emailtags /> 1`] = `
+<div
+  className="email__tags__container"
+>
+  <div
+    className="email__tags__header"
+  >
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      Email Tags
+    </span>
+    <button
+      className="ant-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Show Tags  
+      </span>
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0V0z"
+          fill="none"
+        />
+        <path
+          d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    className="email__tags"
+  >
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {First_Name}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Curates the first names of your email list.
+      </span>
+    </div>
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {Last_Name}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Curates the last names of your email list.
+      </span>
+    </div>
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {Product_Name}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Choose the curated names of your digital products.
+      </span>
+    </div>
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {Product_Price}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Shows the price of your chosen digital product.
+      </span>
+    </div>
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {Product_Button}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Links the recipient to the digital product page.
+      </span>
+    </div>
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {Checkout_Button}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Links the recipient to the checkout page of the digital product.
+      </span>
+    </div>
+    <div
+      className="email__tag"
+    >
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        {Checkout_Url}
+      </span>
+      <span
+        className="ant-typography"
+        onClick={null}
+        style={
+          Object {
+            "WebkitLineClamp": undefined,
+          }
+        }
+      >
+        Shows the link to the checkout page for the digital product.
+      </span>
+    </div>
+  </div>
+</div>
+`;
