@@ -334,12 +334,11 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
             <h3 className={styles.heading}>Latest Posts</h3>
             <div className={styles.line} />
             <div className={styles.sideBlogDiv}>
-              {recentBlogs?.data &&
+            {recentBlogs?.data &&
                 recentBlogs?.data
                   ?.filter((item) => item?.id !== blog?.id)
                   .slice(0, 6)
                   .map((item, index) => (
-                    item?.thumbnail !== "string" &&
                     <SideBlogPost
                       key={index}
                       excerpt={item.excerpt}
@@ -409,7 +408,7 @@ export async function getStaticPaths(context) {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 }
 
