@@ -79,12 +79,13 @@ export const Footer = () => {
             <Link href="/pricing">
               <a>Pricing</a>
             </Link>
+            <Link href="/payouts">
+              <a>Payouts</a>
+            </Link>
             <Link href="/features">
               <a>Features</a>
             </Link>
-            <Link href="/how-it-works">
-              <a>Tutorials</a>
-            </Link>
+
             <Link href="#">
               <a>Affiliates</a>
             </Link>
@@ -126,12 +127,11 @@ export const Footer = () => {
             <Link href="/how-it-works">
               <a>Tutorials</a>
             </Link>
-            {/* <Link href="#"> */}
-            <a href="https://wa.me/+2349016324945">Contact Support</a>
-            {/* </Link> */}
             <Link href="/faq">
               <a>FAQ</a>
             </Link>
+
+            <a href="https://wa.me/+2349016324945">Contact Support</a>
           </div>
         </div>
 
@@ -210,20 +210,21 @@ export const Footer = () => {
           <div className={styles.firstRowA}>
             <div className={styles.categoryTitle}>Product</div>
             <div className={styles.categoryLink}>
-              <Link href="#">
+              <Link href="/">
                 <a>Home</a>
               </Link>
-              <Link href="#">
+              <Link href="/pricing">
                 <a>Pricing</a>
+              </Link>
+              <Link href="/payouts">
+                <a>Payouts</a>
               </Link>
               <Link href="/features">
                 <a>Features</a>
               </Link>
-              <Link href="/how-it-works">
+
+              <Link href="/affiliates">
                 <a>Affiliates</a>
-              </Link>
-              <Link href="#">
-                <a>Releases</a>
               </Link>
             </div>
           </div>
@@ -259,18 +260,17 @@ export const Footer = () => {
           <div className={styles.firstRowA}>
             <div className={styles.categoryTitle}>Support</div>
             <div className={styles.categoryLink}>
-              <Link href="#">
+              <Link href="/how-it-works">
                 <a>Getting Started</a>
               </Link>
-              <Link href="#">
+              <Link href="/how-it-works">
                 <a>Tutorials</a>
               </Link>
-              {/* <Link href="#"> */}
-              <a href="https://wa.me/+2349016324945">Contact Support</a>
-              {/* </Link> */}
-              <Link href="#">
+              <Link href="/faq">
                 <a>FAQ</a>
               </Link>
+
+              <a href="https://wa.me/+2349016324945">Contact Support</a>
             </div>
           </div>
 
