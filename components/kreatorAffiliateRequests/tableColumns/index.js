@@ -29,7 +29,7 @@ const tableColumns = (showReportModal, showActionModal, showNoteModal) => [
     title: "Request Date",
     dataIndex: "request_date",
     render: dateStr => dateString(dateStr),
-    sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
+    sorter: (a, b) => new Date(a.request_date) - new Date(b.request_date),
     sortDirections: ["descend", "ascend", "descend"],
   },
   {
