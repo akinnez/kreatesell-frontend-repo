@@ -5,20 +5,8 @@ import styles from "./index.module.scss";
 const options = {
   responsive: true,
   plugins: {
-    title: {
-      display: true,
-      text: "Recovery",
-      align: "start",
-      color: "#171717",
-      font: { size: 12 },
-    },
     legend: {
-      align: "end",
-      labels: {
-        boxWidth: 8,
-        boxHeight: 8,
-        usePointStyle: true,
-      },
+      display: false,
     },
   },
 };
@@ -43,7 +31,6 @@ const RecoveryStatusChart = ({ chartData }) => {
       labels: months,
       datasets: [
         {
-          label: "LAST 12 MONTHS",
           data: isAllNull ? secondaryValues : values,
           fill: false,
           backgroundColor: "#0072EF",
@@ -55,6 +42,10 @@ const RecoveryStatusChart = ({ chartData }) => {
 
   return (
     <div className={styles.chart}>
+      <div className={styles.chart__header}>
+        <span>Recovery</span>
+        <span>LAST 12 MONTHS</span>
+      </div>
       <Line data={data} options={options} />
     </div>
   );
