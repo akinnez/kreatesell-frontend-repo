@@ -2,6 +2,7 @@ import { Layout } from "components";
 import styles from "../public/css/payouts.module.scss";
 
 const Payouts = () => {
+  // here
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
