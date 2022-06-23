@@ -17,12 +17,15 @@ import {
   SenegalFlag,
   MaliFlag,
   BurnkinaFasoFlag,
+  ChadFlag,
+  GabonFlag,
+  CamFlag,
 } from "utils";
 
-export const Flag = () => NgFlag;
+export { NgFlag as Flag };
 
 export const data = [
-  { currency: "NGN", country: "Nigeria", flag: <Flag /> },
+  { currency: "NGN", country: "Nigeria", flag: <NgFlag /> },
   { currency: "", country: "USA", flag: <UsFlag /> },
   { currency: "", country: "United kingdom", flag: <UkFlag /> },
   { currency: "", country: "Ghana", flag: <GhFlag /> },
@@ -40,7 +43,7 @@ export const data = [
   { currency: "", country: "Togo", flag: <TogoFlag /> },
   { currency: "", country: "Senegal", flag: <SenegalFlag /> },
   { currency: "", country: "Mali", flag: <MaliFlag /> },
-  { currency: "", country: "Chad", flag: <Flag /> },
-  { currency: "", country: "Cameroon", flag: <Flag /> },
-  { currency: "", country: "Gabon", flag: <Flag /> },
+  { currency: "", country: "Chad", flag: <ChadFlag /> },
+  { currency: "", country: "Cameroon", flag: <CamFlag /> },
+  { currency: "", country: "Gabon", flag: <GabonFlag /> },
 ];
