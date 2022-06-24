@@ -25,7 +25,7 @@ const AffiliateProducts = () => {
 
   const { uri, filters, setFilters } = useFilters("affiliate/get-products");
 
-  const { data: res } = useSWR(
+  const { data: res, error } = useSWR(
     () => (user.is_affiliate && uri ? uri : null),
     url => {
       return axiosApi.request(
@@ -41,6 +41,7 @@ const AffiliateProducts = () => {
         },
         err => {
           showToast(err.message, "error");
+          return err;
         }
       );
     }
@@ -94,7 +95,7 @@ const AffiliateProducts = () => {
                 onChange: handlePageChange,
               }}
               rowKey={rowKey}
-              loading={!res}
+              loading={!res && !error}
             />
           </section>
         </>

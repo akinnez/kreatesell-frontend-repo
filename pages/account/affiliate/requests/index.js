@@ -24,7 +24,7 @@ const AffiliateRequests = () => {
     "affiliate/get-requested-products"
   );
 
-  const { data: res } = useSWR(
+  const { data: res, error } = useSWR(
     () => (user.is_affiliate && uri ? uri : null),
     url => {
       return axiosApi.request(
@@ -40,6 +40,7 @@ const AffiliateRequests = () => {
         },
         err => {
           showToast(err.message, "error");
+          return err;
         }
       );
     }
@@ -79,7 +80,7 @@ const AffiliateRequests = () => {
             onChange: handlePage,
           }}
           rowKey={rowKey}
-          loading={!res}
+          loading={!res && !error}
         />
       </section>
     </AuthLayout>
