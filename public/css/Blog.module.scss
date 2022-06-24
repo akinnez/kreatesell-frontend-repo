@@ -9,6 +9,7 @@
   @include screen("tablet") {
     padding: 0 1rem;
     width: 100%;
+    padding-block-start: 5rem;
   }
 
   @include screen("medium") {
@@ -131,12 +132,12 @@
     }
 
     @include screen("tablet") {
-      flex-direction: column;
+      flex-direction: column-reverse;
       padding-bottom: 2rem;
 
       .heroImage {
         width: 100%;
-      }
+      }socialsDiv
       .content {
         width: 100%;
         padding: 0;
@@ -179,6 +180,9 @@
   .pagination {
     display: flex;
     justify-content: center;
+    @include screen("tablet") {
+      margin-bottom: 2rem;
+    }
   }
 }
 

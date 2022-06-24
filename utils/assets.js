@@ -166,9 +166,17 @@ import CareerSuccess from "../public/images/career-success.svg";
 import CareerFailure from "../public/images/career-failure.svg";
 import Briefcase from "../public/images/icons/briefcase.svg";
 import Clock from "../public/images/icons/clock.svg";
+import CommentIcon from "../public/images/commentIcon.svg";
+import LikeIcon from "../public/images/likeIcon.svg";
+import LikeIconGrey from "../public/images/LikeIconGrey.svg";
+import CommentIconGrey from "../public/images/ChatIconGrey.svg";
+import ShareIconGrey from "../public/images/shareIconGrey.svg";
 
 export {
+  LikeIconGrey,
+  CommentIconGrey,
   BusinessPlanBox,
+  ShareIconGrey,
   ProfileImage,
   CardMain,
   NewsCardOne,
@@ -335,5 +343,7 @@ export {
   CareerSuccess,
   CareerFailure,
   Briefcase,
-  Clock
+  Clock,
+  LikeIcon,
+  CommentIcon
 };

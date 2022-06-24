@@ -6,10 +6,12 @@
   padding: 0 10.31rem;
   @include screen("laptop") {
     padding: 0 5rem;
+    padding-block-start: 5rem;
     width: 100%;
   }
   @include screen("tablet") {
     padding: 0 1rem;
+    padding-block-start: 5rem;
     width: 100%;
   }
 }
@@ -28,6 +30,7 @@
   width: 300px;
   @include screen("tablet") {
     width: 100%;
+    display: none;
   }
   .heading {
     font-weight: 700;
@@ -128,11 +131,13 @@
       }
 
       .smallInfoDiv {
+        margin-top: 2rem;
         display: flex;
+        gap: .6rem;
         .smallInfoCategoryDiv {
           display: flex;
           //   align-items: center;
-          //   justify-content: center;
+            // justify-content: space-between;
 
           margin-right: 7px;
           .smallIcon {
@@ -142,9 +147,12 @@
           }
           p {
             color: $base-blue;
-            font-size: 14px;
             margin-top: -3px;
             text-transform: uppercase;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.625;
+            color: #8C8C8C;
           }
         }
         .smallInfoDateDiv {
@@ -198,26 +206,29 @@
 }
 
 .blogBottomDiv {
-  .likeDiv {
-    display: flex;
-    .likeIcon {
-      color: $base-blue;
-      font-size: 20px;
-      margin-right: 6px;
+  .postActions{
+    @include flex(row, null, null);
+    gap: 1.3rem;
+    .likeIcon{
+      @include flex(row, null, center);
+      gap: .6rem;
+      .count{
+        margin-bottom: 0px;
+        font-weight: 500;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        color: #8C8C8C;        
+      }
     }
-  }
-  .socialsDiv {
-    margin-top: 15px;
-    .likeButtonDiv {
-      display: flex;
-      .likeIcon {
-        color: $base-gray;
-        font-size: 20px;
-        margin-right: 6px;
-        cursor: pointer;
-        &:hover {
-          color: $base-blue;
-        }
+    .commentIcon{
+      @include flex(row, null, center);
+      gap: .6rem;
+      .count{
+        margin-bottom: 0px;
+        font-weight: 500;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        color: #8C8C8C;
       }
     }
   }
@@ -340,14 +351,25 @@
 }
 .socialsSection {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  // align-items: flex-start;
+  // justify-content: flex-start;
+  border-top: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D9D9D9;
+  padding-block: 1.5rem;
+  margin-block: 2rem;
 }
-.socialDiv {
-  width: 200px;
-  overflow: hidden;
-
-  margin-left: 15px;
+.socialsDiv {
+  @include flex(row, null,null);
+  gap: 1rem;
+  .likeButtonDiv{
+    @include flex(row, null,null);
+    gap: .5rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    color: #8C8C8C;
+  }
 }
 
 .socialUl {
