@@ -24,7 +24,7 @@ const ResourceDrop = ({ leftOffset, handleMouseLeave }) => {
         </div>
       </Link>
       {/* break */}
-      <Link href="/" passHref>
+      <Link href="/payouts" passHref>
         <div className={styles.resourceItem} onClick={handleMouseLeave}>
           Payments
         </div>
