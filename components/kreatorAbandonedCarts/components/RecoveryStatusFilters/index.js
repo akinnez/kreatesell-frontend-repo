@@ -14,12 +14,12 @@ const ResetBtn = ({ resetFilters }) => (
   </div>
 );
 
-const options = [
-  { label: "Today", value: "today" },
-  { label: "Last Week", value: "last week" },
-  { label: "Last Month", value: "last month" },
-  { label: "Last Year", value: "last year" },
-];
+// const options = [
+//   { label: "Today", value: "today" },
+//   { label: "Last Week", value: "last week" },
+//   { label: "Last Month", value: "last month" },
+//   { label: "Last Year", value: "last year" },
+// ];
 
 const currencies = [{ value: "All", label: "All" }, ...currencyOptions];
 
@@ -96,7 +96,7 @@ const RecoveryStatusFilters = ({ setFilters }) => {
             name="filter_form"
           >
             <Row gutter={20} align="bottom" justify="space-between">
-              <Col
+              {/* <Col
                 xs={{ span: 24 }}
                 lg={{ span: 5 }}
                 className={styles.input__wrapper}
@@ -108,10 +108,10 @@ const RecoveryStatusFilters = ({ setFilters }) => {
                     options={options}
                   />
                 </Form.Item>
-              </Col>
+              </Col> */}
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 7 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Currency" name="currency">
@@ -124,7 +124,7 @@ const RecoveryStatusFilters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 7 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="From" name="from">
@@ -137,7 +137,7 @@ const RecoveryStatusFilters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 7 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="To" name="to">

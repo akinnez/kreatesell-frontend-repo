@@ -6,7 +6,10 @@ const walletFetcher = (url, msg) => {
     "get",
     url,
     res => res.data,
-    () => showToast(msg, "error")
+    err => {
+      showToast(msg, "error");
+      return err;
+    }
   );
 };
 

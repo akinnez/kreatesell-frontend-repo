@@ -85,14 +85,6 @@
 
 .products {
   margin-bottom: 88px;
-
-  div[class="ant-spin-nested-loading"] div[class^="ant-spin-container"] > div {
-    justify-content: center;
-  }
-
-  ul[class^="ant-pagination"] {
-    @include mixins.flex(row, center, center);
-  }
 }
 
 .no__products {

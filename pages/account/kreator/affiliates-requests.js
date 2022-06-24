@@ -55,6 +55,7 @@ const AffiliateRequests = () => {
         },
         err => {
           showToast(err.message, "error");
+          return err;
         }
       );
     }

@@ -9,7 +9,7 @@ import Image from "next/image";
 import { ArrowDown } from "../../utils/assets";
 // import { Animate } from "../../utils";
 
-const resourcesRoute = ["/how-it-works","/faq"];
+const resourcesRoute = ["/how-it-works", "/faq"];
 export const Navbar = () => {
   const router = useRouter();
   const [navBg, setNavBg] = useState(false);
@@ -93,7 +93,13 @@ export const Navbar = () => {
               <NavLink href="about-us" title="About Us" />
             </li>
             <li onClick={(e) => clickHandler(e)} className={styles.drop}>
-              <span className={`${styles.navLinkDrop} ${resourcesRoute.includes(pathname) && styles.activePath}`}>Resources</span>
+              <span
+                className={`${styles.navLinkDrop} ${
+                  resourcesRoute.includes(pathname) && styles.activePath
+                }`}
+              >
+                Resources
+              </span>
               <Image src={ArrowDown} width="10" height="10" alt="arrow icon" />
             </li>
             <li>
@@ -131,7 +137,7 @@ export const Navbar = () => {
                   Pricing
                 </li>
                 <li onClick={() => handleMobileNavLinkClick("/blog")}>Blog</li>
-                <li onClick={() => handleMobileNavLinkClick("/payments")}>
+                <li onClick={() => handleMobileNavLinkClick("/payouts")}>
                   Payments
                 </li>
                 <li onClick={() => handleMobileNavLinkClick("/faq")}>FAQs</li>

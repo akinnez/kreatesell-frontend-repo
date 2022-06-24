@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Card, Typography, Divider } from "antd";
@@ -11,6 +10,7 @@ import ProductKreator from "components/affiliateProductPreview/ProductKreator";
 import AffiliatePageFooter from "components/affiliates/AffiliatePageFooter";
 import useFetchData from "hooks/useFetchData";
 import formatNumber from "utils/formatNumber";
+import productPriceFn from "utils/productPriceFn";
 import styles from "public/css/AffiliateProductPreview.module.scss";
 
 const { Title } = Typography;
@@ -24,23 +24,13 @@ const ProductPreview = () => {
       : null
   );
 
-  const productPrice = useMemo(() => {
-    if (product && product.kreator_product_price_details.length > 0) {
-      const details = product.kreator_product_price_details[0];
-      return {
-        currency: details.currency_name,
-        price: details.price,
-      };
-    }
-
-    return null;
-  }, [product]);
-
   if (error) {
     return <ProfilePageError errorMsg={error} title="Product Preview" />;
   }
 
   if (!product) return <ProfilePageLoading title="Product Preview" />;
+
+  const productPrice = productPriceFn(product.kreator_product_price_details);
 
   return (
     <PageWrapper title="Product Preview">
@@ -68,14 +58,16 @@ const ProductPreview = () => {
                 <p>{product.affiliate_kreator_product.product_description}</p>
               </div>
               <Divider />
-              <div className={styles.product__checkout}>
-                <strong>
-                  {productPrice.currency} {formatNumber(productPrice.price)}
-                </strong>
-                <Link href="/checkout">
-                  <a>Buy Now</a>
-                </Link>
-              </div>
+              {productPrice && (
+                <div className={styles.product__checkout}>
+                  <strong>
+                    {productPrice.currency} {formatNumber(productPrice.price)}
+                  </strong>
+                  <Link href="/checkout">
+                    <a>Buy Now</a>
+                  </Link>
+                </div>
+              )}
             </div>
           </section>
           <section className={styles.product__details}>

@@ -15,13 +15,18 @@ export const GeneralLayout = ({
   formStyle,
   signupStyle,
   isForm = true,
+  withMargin = false,
 }) => {
   return (
     <Layout title={title} keywords={keywords} description={description}>
       <div className={`${signupStyle} ${styles.signup} `}>
         {!isForm && <Form />}
         {isForm && (
-          <div className={`${formStyle} ${styles.formContainer}`}>
+          <div
+            className={`${formStyle} ${styles.formContainer} ${
+              withMargin ? styles.withMargin : ""
+            }`}
+          >
             <div className={styles.form}>
               <h5 className={styles.formTitle}>{formTitle}</h5>
 
@@ -36,7 +41,7 @@ export const GeneralLayout = ({
                   <div className={styles.socialBtn}>
                     <div className={styles.google}>
                       {/* <Image src={GoogleBtn} alt="sign up with google" /> */}
-                      <GoogleLoginComponent/>
+                      <GoogleLoginComponent />
                     </div>
                     <div className="cursor">
                       {/* <Image src={FacebookBtn} alt="sign up with facebook" /> */}

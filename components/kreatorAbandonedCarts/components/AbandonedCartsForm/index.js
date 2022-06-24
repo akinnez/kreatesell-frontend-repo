@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import Editor from "../Editor";
 import EnableFormSwitch from "../EnableFormSwitch";
 import EmailTags from "../EmailTags";
-import { options } from "components/kreatorAbandonedCarts/formData";
+import { options } from "../../data/formData";
 import { AbandonedCartSchema } from "validation/AbandonedCartSchema.validation";
 import { showToast } from "utils";
 import axiosAPI from "utils/axios";

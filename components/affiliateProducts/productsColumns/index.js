@@ -23,7 +23,7 @@ const productsColumns = [
     title: "Launch Date",
     dataIndex: "launch_date",
     render: dateStr => dateString(dateStr),
-    sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
+    sorter: (a, b) => new Date(a.launch_date) - new Date(b.launch_date),
     sortDirections: ["descend", "ascend", "descend"],
   },
   {

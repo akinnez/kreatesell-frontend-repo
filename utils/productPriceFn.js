@@ -1,4 +1,4 @@
-const productPrice = prices => {
+const productPriceFn = prices => {
   if (!prices || prices.length === 0) return null;
 
   return {
@@ -7,4 +7,4 @@ const productPrice = prices => {
   };
 };
 
-export default productPrice;
+export default productPriceFn;

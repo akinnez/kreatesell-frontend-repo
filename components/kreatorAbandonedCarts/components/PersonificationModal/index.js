@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input, Modal, Typography, Button } from "antd";
 import FilteredPersonification from "../FilteredPersonification";
-import { emailTags } from "../../formData";
+import { emailTags } from "../../data/formData";
 import styles from "./index.module.scss";
 
 const { Title, Text } = Typography;

@@ -1,3 +1,4 @@
+@use "public/css/colors";
 @use "public/css/mixins";
 
 .products__list {
@@ -9,9 +10,14 @@
 }
 
 .product {
+  border: 1px solid transparent;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+
+  &:hover {
+    border-color: colors.$base-blue;
+  }
 }
 
 .product__image {
