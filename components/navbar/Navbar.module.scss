@@ -107,7 +107,7 @@
   display: none;
   // margin-right: 2rem;
   @include screen("medium") {
-    display: flex;
+    display: none;
     justify-content: flex-end;
     //here
     // margin-right: 2rem;
@@ -128,7 +128,7 @@
   }
 
   @include screen("x-small") {
-    display: flex;
+    display: none;
     justify-content: flex-end;
 
     .loginBtn {
@@ -145,17 +145,7 @@
 
 .loginBtn {
   margin-right: 1rem;
-  @include screen("tablet"){
-    display: none;
-  }
 }
-
-.signUpBtn{
-  @include screen("tablet"){
-    display: none;
-  }
-}
-
 
 @include screen("tablet") {
   .navContainer {
@@ -164,7 +154,6 @@
     padding: 0;
     padding: 1.187rem 1.5rem;
     align-items: center;
-
     .mobileMenuCont {
       display: block;
       width: 10%;
@@ -187,6 +176,7 @@
         padding: 0;
         position: fixed;
         z-index: 10000;
+        background: #0072EF;
       }
 
       .hamburger {
@@ -257,6 +247,9 @@
         }
       }
     }
+    .btnLinks{
+      display: none;
+    }
 
     .mobileNavLinks {
       display: block;
@@ -295,7 +288,7 @@
         font-size: 1.875rem;
         line-height: 2.5rem;
         color: $base-blue;
-        padding-right: 13%;
+        // padding-right: 13%;
 
         li {
           padding-bottom: 3.5rem;
