@@ -23,15 +23,11 @@ const productsColumns = [
     title: "Launch Date",
     dataIndex: "launch_date",
     render: dateStr => dateString(dateStr),
-    sorter: (a, b) => new Date(a.launch_date) - new Date(b.launch_date),
-    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "No of Sales",
     dataIndex: "total_affiliate_sales",
     render: sales => formatNumber(sales),
-    sorter: (a, b) => a.number_of_sales - b.number_of_sales,
-    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "Performance",

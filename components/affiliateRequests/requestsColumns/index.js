@@ -20,8 +20,6 @@ const requestsColumns = [
     title: "Launch Date",
     dataIndex: "launch_date",
     render: dateStr => dateString(dateStr),
-    sorter: (a, b) => new Date(a.launch_date) - new Date(b.launch_date),
-    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "Sales Price",

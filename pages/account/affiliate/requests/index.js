@@ -1,50 +1,25 @@
-import { useState } from "react";
 import Head from "next/head";
-import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
 import PaginationHelper from "components/PaginationHelpers";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import requestsColumns from "components/affiliateRequests/requestsColumns";
-import useFilters from "hooks/useFilters";
-import { showToast } from "utils";
-import axiosApi from "utils/axios";
+import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
+import useFetcher from "components/affiliates/hooks/useFetcher";
 import styles from "public/css/AffiliateRequests.module.scss";
 
 const { Text } = Typography;
 const rowKey = record => record.id;
 
 const AffiliateRequests = () => {
-  const [requests, setRequests] = useState({ data: [], total: 0 });
-
   const { user } = useSelector(state => state.auth);
 
-  const { uri, filters, setFilters } = useFilters(
+  const { url, filters, setFilters } = useAffiliateFilters(
     "affiliate/get-requested-products"
   );
 
-  const { data: res, error } = useSWR(
-    () => (user.is_affiliate && uri ? uri : null),
-    url => {
-      return axiosApi.request(
-        "get",
-        url,
-        res => {
-          setRequests({
-            ...requests,
-            data: res.data.data,
-            total: res.data.total_records,
-          });
-          return res;
-        },
-        err => {
-          showToast(err.message, "error");
-          return err;
-        }
-      );
-    }
-  );
+  const [requests, response, error] = useFetcher(user, url);
 
   const handlePage = page => {
     setFilters({ ...filters, page });
@@ -61,7 +36,7 @@ const AffiliateRequests = () => {
           Affiliate Offers
         </Text>
       </header>
-      <AffiliateFilters setQueries={setFilters} />
+      <AffiliateFilters setFilters={setFilters} />
       <PaginationHelper
         dataSize={requests.total}
         filters={filters}
@@ -80,7 +55,7 @@ const AffiliateRequests = () => {
             onChange: handlePage,
           }}
           rowKey={rowKey}
-          loading={!res && !error}
+          loading={!response && !error}
         />
       </section>
     </AuthLayout>

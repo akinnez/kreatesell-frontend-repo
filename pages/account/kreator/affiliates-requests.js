@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Typography, Button, Table } from "antd";
+import { Typography, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import SuccessModalBox from "components/SuccessModalBox";
@@ -9,20 +9,15 @@ import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
+import StatusButtons from "components/kreatorAffiliateRequests/components/StatusButtons";
 import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
-import useFilters from "hooks/useFilters";
+import useFilters from "components/kreatorAffiliateRequests/useFilters";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
 import styles from "public/css/KreatorAffiliateRequests.module.scss";
 
 const { Title, Text } = Typography;
 const rowKey = record => record.id;
-const statusArr = [
-  { type: "All", label: "All" },
-  { type: "Pending", label: "Pending" },
-  { type: "Approved", label: "Approved" },
-  { type: "Declined", label: "Declined" },
-];
 
 const AffiliateRequests = () => {
   const [requests, setRequests] = useState({ data: [], total: 0 });
@@ -35,34 +30,31 @@ const AffiliateRequests = () => {
     data: null,
   });
 
-  const { uri, filters, setFilters } = useFilters(
+  const { url, filters, setFilters } = useFilters(
     "v1/kreatesell/product/fetch/affiliates/all"
   );
 
-  const { data: res } = useSWR(
-    () => (uri ? uri : null),
-    url => {
-      return axiosAPI.request(
-        "get",
-        url,
-        res => {
-          setRequests({
-            ...requests,
-            data: res.data.data,
-            total: res.data.total_records,
-          });
-          return res;
-        },
-        err => {
-          showToast(err.message, "error");
-          return err;
-        }
-      );
-    }
-  );
+  const { data: res, error } = useSWR(url.href, url => {
+    return axiosAPI.request(
+      "get",
+      url,
+      res => {
+        setRequests({
+          ...requests,
+          data: res.data.data,
+          total: res.data.total_records,
+        });
+        return res;
+      },
+      err => {
+        showToast(err.message, "error");
+        return err;
+      }
+    );
+  });
 
-  const handler = (setter, field, value) => param => {
-    setter(s => ({ ...s, [field]: value || param }));
+  const handlePage = page => {
+    setFilters({ ...filters, page });
   };
 
   const handleSuccess = value => {
@@ -125,20 +117,7 @@ const AffiliateRequests = () => {
         filters={filters}
         setFilters={setFilters}
       />
-      <section className={styles.status__btns__section}>
-        <div className={styles.status__btns}>
-          {statusArr.map(({ type, label }) => (
-            <div className={styles.status__btn} key={label}>
-              <Button
-                onClick={handler(setFilters, "status", type)}
-                type={filters.status === type ? "primary" : "default"}
-              >
-                {label}
-              </Button>
-            </div>
-          ))}
-        </div>
-      </section>
+      <StatusButtons setFilters={setFilters} filters={filters} />
       <section className={styles.table__section}>
         <Table
           dataSource={requests.data}
@@ -149,10 +128,10 @@ const AffiliateRequests = () => {
             current: filters.page,
             total: requests.total,
             responsive: true,
-            onChange: handler(setFilters, "page", null),
+            onChange: handlePage,
           }}
           rowKey={rowKey}
-          loading={!res}
+          loading={!res && !error}
         />
       </section>
       {successModal && (

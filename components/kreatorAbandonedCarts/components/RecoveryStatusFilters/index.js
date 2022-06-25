@@ -40,7 +40,6 @@ const RecoveryStatusFilters = ({ setFilters }) => {
   };
 
   const handleSubmitFilter = values => {
-    console.log(values);
     const { currency = null, from, to } = values;
 
     if (!currency && !from && !to) return;
