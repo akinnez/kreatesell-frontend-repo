@@ -17,6 +17,17 @@
 
   &:hover {
     border-color: colors.$base-blue;
+    box-shadow: 0px 20px 30px rgba(0, 114, 239, 0.2);
+
+    a div:last-child {
+      div:nth-child(2) {
+        color: colors.$base-blue;
+      }
+
+      div:last-child > svg {
+        color: colors.$base-blue;
+      }
+    }
   }
 }
 
