@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a snapshot of <PaginationHelper /> with mock props 1`] = `
+exports[`renders a snapshot of <PaginationSizeChanger /> with mock props 1`] = `
 <div
-  className="pagination-helper__container"
+  className="pagination-size-changer__container"
 >
   <div
-    className="pagination-helper__select-box"
+    className="pagination-size-changer__select-box"
   >
     <div
       className="ant-select ant-select-single ant-select-show-arrow"
@@ -91,7 +91,7 @@ exports[`renders a snapshot of <PaginationHelper /> with mock props 1`] = `
     </div>
   </div>
   <div
-    className="pagination-helper__input-box"
+    className="pagination-size-changer__input-box"
   >
     <span>
       Go to

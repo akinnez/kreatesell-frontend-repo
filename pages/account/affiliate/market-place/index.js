@@ -4,7 +4,7 @@ import { Table } from "antd";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
-import PaginationHelper from "components/PaginationHelpers";
+import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
 import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
 import productsColumns from "components/affiliateProducts/productsColumns";
 import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
@@ -39,7 +39,7 @@ const AffiliateProducts = () => {
       ) : (
         <>
           <AffiliateFilters setFilters={setFilters} />
-          <PaginationHelper
+          <PaginationSizeChanger
             dataSize={products.total}
             filters={filters}
             setFilters={setFilters}

@@ -1,13 +1,20 @@
 @use "public/css/colors";
 @use "public/css/mixins";
+@use "public/css/screens";
 
-.pagination-helper__container {
+.pagination-size-changer__container {
   @include mixins.flex(row, flex-end, center);
   gap: 15px;
   margin-bottom: 25px;
 }
 
-.pagination-helper__input-box {
+.pagination-size-changer__select-box > span {
+  font-weight: 500;
+  font-size: 16px;
+  color: colors.$base-gray;
+}
+
+.pagination-size-changer__input-box {
   width: 150px;
   @include mixins.flex(row, flex-end, center);
   column-gap: 10px;
@@ -22,5 +29,11 @@
   > input {
     flex-basis: 60%;
     border-radius: 0 !important;
+  }
+}
+
+@include screens.screen("tablet") {
+  .pagination-size-changer__input-box {
+    display: none;
   }
 }

@@ -4,7 +4,7 @@ import { Typography, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import SuccessModalBox from "components/SuccessModalBox";
-import PaginationHelper from "components/PaginationHelpers";
+import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
 import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
@@ -112,7 +112,7 @@ const AffiliateRequests = () => {
       <section>
         <Filters setFilters={setFilters} />
       </section>
-      <PaginationHelper
+      <PaginationSizeChanger
         dataSize={requests.total}
         filters={filters}
         setFilters={setFilters}

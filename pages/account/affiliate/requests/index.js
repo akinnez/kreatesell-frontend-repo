@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useSelector } from "react-redux";
 import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
-import PaginationHelper from "components/PaginationHelpers";
+import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import requestsColumns from "components/affiliateRequests/requestsColumns";
 import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
@@ -37,7 +37,7 @@ const AffiliateRequests = () => {
         </Text>
       </header>
       <AffiliateFilters setFilters={setFilters} />
-      <PaginationHelper
+      <PaginationSizeChanger
         dataSize={requests.total}
         filters={filters}
         setFilters={setFilters}

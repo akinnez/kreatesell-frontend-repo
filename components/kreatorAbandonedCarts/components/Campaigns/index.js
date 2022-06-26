@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Typography, Pagination, Card, Spin } from "antd";
 import { BsPlusLg } from "react-icons/bs";
 import Spinner from "components/Spinner";
-import PaginationHelper from "components/PaginationHelpers";
+import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
 import Campaign from "../Campaign";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
@@ -81,7 +81,7 @@ const Campaigns = () => {
         <Title>Manage All Your Email Campaigns Here.</Title>
       </header>
       <Spin spinning={campaigns.loading}>
-        <PaginationHelper
+        <PaginationSizeChanger
           dataSize={campaigns.total}
           filters={filters}
           setFilters={setFilters}

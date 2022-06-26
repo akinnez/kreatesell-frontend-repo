@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input, Select } from "antd";
 import styles from "./index.module.scss";
 
-const PaginationHelper = ({ dataSize, filters, setFilters }) => {
+const PaginationSizeChanger = ({ dataSize, filters, setFilters }) => {
   const [input, setInput] = useState("");
 
   const handleSelect = value => {
@@ -36,18 +36,20 @@ const PaginationHelper = ({ dataSize, filters, setFilters }) => {
   };
 
   return (
-    <div className={styles["pagination-helper__container"]}>
-      <div className={styles["pagination-helper__select-box"]}>
+    <div className={styles["pagination-size-changer__container"]}>
+      <div className={styles["pagination-size-changer__select-box"]}>
+        <span>Results Per Page</span>
+        &nbsp;&nbsp;
         <Select defaultValue={filters.limit} onChange={handleSelect}>
-          <Select.Option value={10}>10 / page</Select.Option>
-          <Select.Option value={25}>25 / page</Select.Option>
-          <Select.Option value={50}>50 / page</Select.Option>
-          <Select.Option value={100}>100 / page</Select.Option>
+          <Select.Option value={10}>10</Select.Option>
+          <Select.Option value={25}>25</Select.Option>
+          <Select.Option value={50}>50</Select.Option>
+          <Select.Option value={100}>100</Select.Option>
         </Select>
       </div>
       {/* {Math.ceil(dataSize / filters.limit) > 1 ? ( */}
-      {filters.limit < dataSize ? (
-        <div className={styles["pagination-helper__input-box"]}>
+      {filters.limit < dataSize && (
+        <div className={styles["pagination-size-changer__input-box"]}>
           <span>Go to</span>
           <Input
             value={input}
@@ -55,9 +57,9 @@ const PaginationHelper = ({ dataSize, filters, setFilters }) => {
             onPressEnter={handleInput}
           />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
 
-export default PaginationHelper;
+export default PaginationSizeChanger;
