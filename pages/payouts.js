@@ -27,7 +27,13 @@ export default Payouts;
 
 const FlagItem = () => {
   return (
-    <div className={styles.flagItem}>
+    <div
+      className={styles.flagItem}
+      style={{
+        // backgroundImage: `url(${Flag?.src})`,
+        border: "1px solid green;",
+      }}
+    >
       <Image
         src={Flag}
         alt="flag"
