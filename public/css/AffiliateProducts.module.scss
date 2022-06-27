@@ -1,3 +1,64 @@
-.tableWrapper [class="ant-table-content"] {
-  overflow-x: auto;
+@use "colors";
+@use "mixins";
+@use "screens";
+
+.sales-stat {
+  margin-bottom: 40px;
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+  gap: 10px 15px;
+  font-size: 16px;
+  color: colors.$black-100;
+
+  span {
+    display: inline-block;
+    min-width: 105px;
+    text-align: center;
+    background-color: colors.$base-green-300;
+    border-radius: 8px;
+    color: colors.$base-green-100;
+    font-weight: 500;
+    font-size: 18px;
+  }
+}
+
+.data__section {
+  margin-bottom: 65px;
+
+  & + section {
+    margin-bottom: 100px;
+
+    ul {
+      @include mixins.flex(row, flex-end, center);
+    }
+  }
+}
+
+.table__wrapper {
+  display: none;
+}
+
+@include screens.minScreen("x-large") {
+  .sales-stat {
+    display: none;
+  }
+
+  .data__section {
+    ul,
+    div[class*="no__data"] {
+      display: none;
+    }
+
+    & + section ul {
+      justify-content: flex-start;
+    }
+  }
+
+  .table__wrapper {
+    display: block;
+
+    [class="ant-table-content"] {
+      overflow-x: auto;
+    }
+  }
 }

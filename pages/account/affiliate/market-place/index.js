@@ -1,14 +1,17 @@
 import Head from "next/head";
 import { useSelector } from "react-redux";
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import AuthLayout from "components/authlayout";
 import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
 import AffiliateFilters from "components/affiliates/AffiliateFilters";
 import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
+import DataPagination from "components/PaginationHelpers/Pagination";
 import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
 import productsColumns from "components/affiliateProducts/productsColumns";
+import ProductsMobileView from "components/affiliateProducts/components/ProductsMobileView";
 import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
 import useFetcher from "components/affiliates/hooks/useFetcher";
+import { isAnEmpytyObject } from "utils";
 import styles from "public/css/AffiliateProducts.module.scss";
 
 const rowKey = record => record.id;
@@ -31,7 +34,7 @@ const AffiliateProducts = () => {
       <Head>
         <title>KreateSell | Affiliate Market Place</title>
       </Head>
-      {!user.is_affiliate ? (
+      {isAnEmpytyObject(user) ? null : !user.is_affiliate ? (
         <>
           <KreatorDashboard />
           <BecomeAnAffiliate />
@@ -39,27 +42,37 @@ const AffiliateProducts = () => {
       ) : (
         <>
           <AffiliateFilters setFilters={setFilters} />
-          <PaginationSizeChanger
-            dataSize={products.total}
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <section className={styles.tableWrapper}>
-            <Table
-              dataSource={products.data}
-              columns={productsColumns}
-              pagination={{
-                position: ["bottomLeft"],
-                pageSize: filters.limit,
-                current: filters.page,
-                total: products.total,
-                responsive: true,
-                onChange: handlePageChange,
-              }}
-              rowKey={rowKey}
-              loading={!response && !error}
+          <div className={styles["sales-stat"]}>
+            Affiliate&apos;s Number of Sales: <span>0</span>
+          </div>
+          <Spin spinning={!response && !error}>
+            <PaginationSizeChanger
+              dataSize={products.total}
+              filters={filters}
+              setFilters={setFilters}
             />
-          </section>
+            <section className={styles.data__section}>
+              <ProductsMobileView products={products.data} />
+              <div className={styles.table__wrapper}>
+                <Table
+                  dataSource={products.data}
+                  columns={productsColumns}
+                  pagination={false}
+                  rowKey={rowKey}
+                />
+              </div>
+            </section>
+            <section>
+              {products.data.length > 0 && (
+                <DataPagination
+                  limit={filters.limit}
+                  page={filters.page}
+                  total={products.total}
+                  onChange={handlePageChange}
+                />
+              )}
+            </section>
+          </Spin>
         </>
       )}
     </AuthLayout>

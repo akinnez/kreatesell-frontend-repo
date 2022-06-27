@@ -1,9 +1,7 @@
-import Link from "next/link";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import Performance from "components/affiliates/Performance";
+import RequestAccessLink from "./components/RequestAccessLink";
 import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
-import styles from "./index.module.scss";
 
 const productsColumns = [
   {
@@ -46,21 +44,10 @@ const productsColumns = [
   {
     title: "Action",
     render: record => (
-      <div className={styles.request__link}>
-        {!record.has_requested_access ? (
-          <Link href={`/account/affiliate/market-place/${record.id}`}>
-            <a>
-              Request Access&nbsp;
-              <AiOutlineArrowRight />
-            </a>
-          </Link>
-        ) : (
-          <a disabled>
-            Request Access&nbsp;
-            <AiOutlineArrowRight />
-          </a>
-        )}
-      </div>
+      <RequestAccessLink
+        id={record.id}
+        hasRequested={record.has_requested_access}
+      />
     ),
     width: "130px",
   },
