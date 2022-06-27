@@ -18,14 +18,14 @@ export const Layout = ({
         style={{ width: "100%", overflow: "hidden" }}
       >
         <Navbar />
-        <a
+        {/* <a
           className={styles.whatsApp}
           href="https://wa.me/+2349016324945"
           target="_blank"
           rel="noopener noreferrer"
         >
           <FaWhatsapp />
-        </a>
+        </a> */}
         <main className={defaultMarginTop && styles.layoutMargin}>
           {children}
         </main>
