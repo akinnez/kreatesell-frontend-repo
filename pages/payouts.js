@@ -28,7 +28,14 @@ export default Payouts;
 const FlagItem = () => {
   return (
     <div className={styles.flagItem}>
-      <Image src={Flag} alt="flag" />
+      <Image
+        src={Flag}
+        alt="flag"
+        layout="fixed"
+        width={50}
+        objectFit="fill"
+        height={50}
+      />
     </div>
   );
 };
