@@ -22,7 +22,7 @@ import {
   CamFlag,
 } from "utils";
 
-export { MaliFlag as Flag };
+export { GabonFlag as Flag };
 
 export const data = [
   { currency: "NGN", country: "Nigeria", flag: NgFlag?.src },
