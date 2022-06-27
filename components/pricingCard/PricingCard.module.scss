@@ -3,7 +3,7 @@
 @import "../../public/css/screens.scss";
 
 .priceCard {
-  width: 23rem;
+  width: 30rem;
   height: 100%;
   background: $base-white;
   border: 0.5px solid $border-gray-100;
@@ -12,6 +12,7 @@
   text-align: center;
   box-shadow: 0px 10px 30px transparent;
   transition: all 0.2s;
+  padding-inline: 3rem;
 
   @include screen("medium") {
     width: 100%;
@@ -64,22 +65,27 @@
     font-size: 3rem;
     line-height: 4rem;
     color: $black-100;
-
+    
+    @include flex(row, center, flex-start);
     @include screen("medium") {
       font-size: 2rem;
       line-height: 3.375rem;
     }
-
+    p{
+      margin-bottom: 0px;
+    }
     .currency {
       font-weight: 400;
       font-size: 1rem;
       line-height: 1.625rem;
+      align-self: flex-start;
     }
 
     .month {
       font-weight: 500;
       font-size: 0.875rem;
       line-height: 1.5rem;
+      align-self: flex-end;
     }
   }
 
@@ -132,6 +138,11 @@
       line-height: 1.875rem;
       transition: background-color 0.5s;
     }
+    .selectedBtn{
+      color: #8C8C8C;
+      border: 1px solid #8C8C8C;
+      border-radius: 8px;
+    }
     @include screen("medium") {
       padding: 1rem 0;
       .btn {
@@ -144,14 +155,14 @@
   &:hover {
     border: none;
     box-shadow: 0px 10px 30px $form-shadow;
-    cursor: pointer;
-    transform: scale(1.02);
+    // cursor: pointer;
+    // transform: scale(1.02);
 	border: 0.5px solid transparent;
 
     .button {
       .btn {
-        background-color: $green-100;
-        border: none;
+        // background-color: $green-100;
+        // border: none;
       }
     }
   }
