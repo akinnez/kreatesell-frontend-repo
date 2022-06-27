@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
@@ -20,14 +20,16 @@ const AffiliateFilters = ({ setFilters }) => {
   const { productTypes } = useSelector(state => state.product);
   const [form] = Form.useForm();
 
-  const types = [{ id: 0, product_type_name: "All" }, ...productTypes];
+  const types = useMemo(() => {
+    return [{ id: "all", product_type_name: "All" }, ...productTypes];
+  }, [productTypes]);
 
   const handleSearch = field => e => {
     form.setFieldsValue({ [field]: e.target.value });
   };
 
-  const handleProductType = value => {
-    form.setFieldsValue({ product_type: value });
+  const handleOptions = field => value => {
+    form.setFieldsValue({ [field]: value });
   };
 
   const handleDateListed = (_, dateStr) => {
@@ -37,9 +39,16 @@ const AffiliateFilters = ({ setFilters }) => {
   };
 
   const handleSubmitFilter = values => {
-    const { product_name, kreator_name, product_type, date_listed } = values;
+    const { product_name, kreator_name, sort_by, product_type, date_listed } =
+      values;
 
-    if (!product_name && !kreator_name && !product_type && !date_listed) {
+    if (
+      !product_name &&
+      !kreator_name &&
+      !sort_by &&
+      !product_type &&
+      !date_listed
+    ) {
       return;
     }
 
@@ -50,6 +59,7 @@ const AffiliateFilters = ({ setFilters }) => {
       page: 1,
       productName: product_name || "",
       kreatorName: kreator_name || "",
+      sortBy: sort_by || null,
       productType: product_type || null,
       dateListed: date_listed ? date_listed._i : "",
     }));
@@ -63,23 +73,20 @@ const AffiliateFilters = ({ setFilters }) => {
       page: 1,
       productName: "",
       kreatorName: "",
+      sortBy: null,
       productType: null,
       dateListed: "",
     }));
   };
 
-  const handleShowFilter = () => {
-    setShowFilter(true);
-  };
-
-  const handleHideFilter = () => {
-    setShowFilter(false);
+  const handleClicks = (setter, value) => () => {
+    setter(value);
   };
 
   return (
     <>
       <div className={styles.filterToggle}>
-        <Button shape="round" onClick={handleShowFilter}>
+        <Button shape="round" onClick={handleClicks(setShowFilter, true)}>
           Show Filters...
         </Button>
         {isFiltered && <ResetBtn resetFilters={resetFilters} />}
@@ -95,7 +102,7 @@ const AffiliateFilters = ({ setFilters }) => {
           shape="circle"
           type="text"
           icon={<MdOutlineCancel />}
-          onClick={handleHideFilter}
+          onClick={handleClicks(setShowFilter, false)}
           className={styles.closeFilter}
         />
         <div className={isFiltered ? styles.mdMargin : styles.lgMargin}>
@@ -110,7 +117,7 @@ const AffiliateFilters = ({ setFilters }) => {
             <Row gutter={20} align="bottom" justify="space-between">
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Product Name" name="product_name">
@@ -122,7 +129,7 @@ const AffiliateFilters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Kreator Name" name="kreator_name">
@@ -134,11 +141,31 @@ const AffiliateFilters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
+                className={styles.input__wrapper}
+              >
+                <Form.Item label="Sort By" name="sort_by">
+                  <Select
+                    placeholder="Launch Date"
+                    onChange={handleOptions("sort_by")}
+                  >
+                    <Select.Option value="launchDate">
+                      Launch Date
+                    </Select.Option>
+                    <Select.Option value="sales">Sales</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Product Type" name="product_type">
-                  <Select placeholder="All" onChange={handleProductType}>
+                  <Select
+                    placeholder="All"
+                    onChange={handleOptions("product_type")}
+                  >
                     {types.map(({ id, product_type_name }) => (
                       <Select.Option key={id} value={id}>
                         {product_type_name}
@@ -149,7 +176,7 @@ const AffiliateFilters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Date Listed" name="date_listed">

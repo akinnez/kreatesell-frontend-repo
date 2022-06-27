@@ -55,44 +55,38 @@
     }
   }
 
-  > div {
-    width: 160px;
-    margin: 0 auto;
-    padding: 10px;
-    text-align: center;
-    background-color: colors.$blue-100;
-    border: 0.5px solid colors.$blue-700;
-    border-radius: 8px;
+  // > div {
+  //   width: 160px;
+  //   margin: 0 auto;
+  //   padding: 10px;
+  //   text-align: center;
+  //   background-color: colors.$blue-100;
+  //   border: 0.5px solid colors.$blue-700;
+  //   border-radius: 8px;
 
-    > span[class="ant-typography"] {
-      color: colors.$base-blue;
-      font-weight: bold;
-      font-size: 12px;
-    }
+  //   > span[class="ant-typography"] {
+  //     color: colors.$base-blue;
+  //     font-weight: bold;
+  //     font-size: 12px;
+  //   }
 
-    > div[class^="ant-select"] {
-      > div[class="ant-select-selector"] {
-        border: 1px solid colors.$base-blue;
-        border-radius: 8px;
+  //   > div[class^="ant-select"] {
+  //     > div[class="ant-select-selector"] {
+  //       border: 1px solid colors.$base-blue;
+  //       border-radius: 8px;
 
-        > span[class="ant-select-selection-item"] {
-          color: colors.$base-blue;
-          font-weight: bold;
-          font-size: 12px;
-        }
-      }
+  //       > span[class="ant-select-selection-item"] {
+  //         color: colors.$base-blue;
+  //         font-weight: bold;
+  //         font-size: 12px;
+  //       }
+  //     }
 
-      svg {
-        color: colors.$base-blue;
-      }
-    }
-  }
-}
-
-.csv__btn > button[class^="ant-btn"] {
-  color: colors.$base-blue;
-  font-weight: bold;
-  font-size: 12px;
+  //     svg {
+  //       color: colors.$base-blue;
+  //     }
+  //   }
+  // }
 }
 
 @include screens.minScreen("tablet") {

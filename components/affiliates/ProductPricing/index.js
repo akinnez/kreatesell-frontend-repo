@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Typography } from "antd";
 import formatNumber from "utils/formatNumber";
 import productPriceFn from "utils/productPriceFn";
@@ -10,10 +9,7 @@ const ProductPricing = ({
   productPriceDetails,
   productAffiliateCommission,
 }) => {
-  const productPrice = useMemo(
-    () => productPriceFn(productPriceDetails),
-    [productPriceDetails]
-  );
+  const productPrice = productPriceFn(productPriceDetails);
 
   const commission = !productPrice
     ? 0

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Typography, Button } from "antd";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
-import { emailTags } from "components/kreatorAbandonedCarts/formData";
+import { emailTags } from "../../data/formData";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;

@@ -1,0 +1,36 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.status__btns__section {
+  margin-bottom: 40px;
+}
+
+.status__btns {
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+  gap: 10px;
+
+  button {
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: transparent;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: transparent;
+      border: 1px solid colors.$base-blue;
+      color: colors.$base-blue;
+    }
+
+    &[class$="ant-btn-primary"]:hover,
+    &[class$="ant-btn-primary"]:active,
+    &[class$="ant-btn-primary"]:focus {
+      color: colors.$base-white;
+    }
+  }
+}

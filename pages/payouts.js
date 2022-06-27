@@ -6,6 +6,7 @@ import { MoneyRain } from "utils";
 import { SharedSubFooter } from "./how-it-works";
 
 const Payouts = () => {
+  // here
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>

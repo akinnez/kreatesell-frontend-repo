@@ -12,7 +12,9 @@ const ProductImages = ({ productFiles, productName }) => {
   const [src, setSrc] = useState(() => (images ? images[currentIndex] : ""));
 
   useEffect(() => {
-    setSrc(images[currentIndex]);
+    if (images) {
+      setSrc(images[currentIndex]);
+    }
   }, [images, currentIndex]);
 
   const handleImage = (img, idx) => {
@@ -28,29 +30,37 @@ const ProductImages = ({ productFiles, productName }) => {
     setCurrentIndex(state => (state + 1 === images.length ? 0 : state + 1));
   };
 
-  const renderImages = images.map((image, index) => (
-    <button
-      key={index}
-      onClick={() => handleImage(image, index)}
-      className={
-        index === currentIndex
-          ? `${styles.product__image} ${styles["product__image--active"]}`
-          : `${styles.product__image}`
-      }
-    >
-      <Image
-        src={image}
-        alt={productName}
-        width={125}
-        height={125}
-        objectFit="cover"
-      />
-    </button>
-  ));
+  const renderImages =
+    images &&
+    images.map((image, index) => (
+      <button
+        key={index}
+        onClick={() => handleImage(image, index)}
+        className={
+          index === currentIndex
+            ? `${styles.product__image} ${styles["product__image--active"]}`
+            : `${styles.product__image}`
+        }
+      >
+        <Image
+          src={image}
+          alt={productName}
+          width={125}
+          height={125}
+          objectFit="cover"
+        />
+      </button>
+    ));
 
   return (
     <>
-      <div className={styles.product__image__overview}>
+      <div
+        className={
+          images
+            ? styles.product__image__overview
+            : `${styles.product__image__overview} ${styles["product__image__overview--margin"]}`
+        }
+      >
         {src ? (
           <div className={styles.product__img}>
             <Image

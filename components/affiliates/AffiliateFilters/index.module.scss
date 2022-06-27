@@ -43,7 +43,7 @@
     padding: 0;
   }
 
-  &:nth-child(3) div[class="ant-select-selector"] {
+  > [class~="ant-form-item"] div[class="ant-select-selector"] {
     border-radius: 8px;
   }
 

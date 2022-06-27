@@ -4,6 +4,7 @@ import Tags from "components/Tags";
 import Performance from "components/affiliates/Performance";
 import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
+import productPriceFn from "utils/productPriceFn";
 import styles from "./index.module.scss";
 
 const requestsColumns = [
@@ -18,16 +19,15 @@ const requestsColumns = [
   {
     title: "Launch Date",
     dataIndex: "launch_date",
-    render: dateStr => (!dateStr ? "N/A" : dateString(dateStr)),
-    sorter: (a, b) => new Date(a.date_created) - new Date(b.date_created),
-    sortDirections: ["descend", "ascend", "descend"],
+    render: dateStr => dateString(dateStr),
   },
   {
     title: "Sales Price",
     render: record => {
-      return `${record.currency || ""} ${formatNumber(
-        record.sales_price || 0
-      )}`;
+      const priceDetails = productPriceFn(record.kreator_product_price_details);
+      return !priceDetails
+        ? 0
+        : `${priceDetails.currency} ${formatNumber(priceDetails.price)}`;
     },
   },
   {
