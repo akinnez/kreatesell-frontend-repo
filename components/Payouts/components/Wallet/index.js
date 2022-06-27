@@ -15,7 +15,7 @@ const rowKey = record => record.id;
 const Wallet = ({ bankDetails, walletInfo, loading }) => {
   const [filtered, setFiltered] = useState(null);
 
-  const { data } = useSWR(
+  const { data, error } = useSWR(
     `${process.env.BASE_URL}affiliate/get-wallet-history`,
     url => walletFetcher(url, "An error occurred fetching your wallet history")
   );
@@ -53,7 +53,7 @@ const Wallet = ({ bankDetails, walletInfo, loading }) => {
             responsive: true,
           }}
           rowKey={rowKey}
-          loading={!data}
+          loading={!data && !error}
         />
       </section>
     </>

@@ -29,15 +29,11 @@ const tableColumns = (showReportModal, showActionModal, showNoteModal) => [
     title: "Request Date",
     dataIndex: "request_date",
     render: dateStr => dateString(dateStr),
-    sorter: (a, b) => new Date(a.request_date) - new Date(b.request_date),
-    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "No of Sales",
     dataIndex: "number_of_sales",
     render: sales => formatNumber(sales),
-    sorter: (a, b) => a.number_of_sales - b.number_of_sales,
-    sortDirections: ["descend", "ascend", "descend"],
   },
   {
     title: "Notes",

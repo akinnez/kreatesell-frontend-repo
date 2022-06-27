@@ -29,8 +29,8 @@ const Filters = ({ setFilters }) => {
     form.setFieldsValue({ [field]: e.target.value });
   };
 
-  const handleProductType = value => {
-    form.setFieldsValue({ product_type: value });
+  const handleOptions = field => value => {
+    form.setFieldsValue({ [field]: value });
   };
 
   const handleDate = (_, dateStr) => {
@@ -40,9 +40,16 @@ const Filters = ({ setFilters }) => {
   };
 
   const handleSubmitFilter = values => {
-    const { product_name, affiliate_name, product_type, date_listed } = values;
+    const { product_name, affiliate_name, sort_by, product_type, date_listed } =
+      values;
 
-    if (!product_name && !affiliate_name && !product_type && !date_listed) {
+    if (
+      !product_name &&
+      !affiliate_name &&
+      !sort_by &&
+      !product_type &&
+      !date_listed
+    ) {
       return;
     }
 
@@ -53,7 +60,8 @@ const Filters = ({ setFilters }) => {
       page: 1,
       productName: product_name || "",
       affiliateName: affiliate_name || "",
-      productType: product_type && product_type !== "all" ? product_type : "",
+      sortBy: sort_by || null,
+      productType: product_type || null,
       requestDate: date_listed ? date_listed._i : "",
     }));
   };
@@ -66,7 +74,8 @@ const Filters = ({ setFilters }) => {
       page: 1,
       productName: "",
       affiliateName: "",
-      productType: "",
+      sortBy: null,
+      productType: null,
       requestDate: "",
     }));
   };
@@ -109,7 +118,7 @@ const Filters = ({ setFilters }) => {
             <Row gutter={20} align="bottom" justify="space-between">
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Product Name" name="product_name">
@@ -121,7 +130,7 @@ const Filters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Affiliate Name" name="affiliate_name">
@@ -133,11 +142,31 @@ const Filters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
+                className={styles.input__wrapper}
+              >
+                <Form.Item label="Sort By" name="sort_by">
+                  <Select
+                    placeholder="Launch Date"
+                    onChange={handleOptions("sort_by")}
+                  >
+                    <Select.Option value="launchDate">
+                      Launch Date
+                    </Select.Option>
+                    <Select.Option value="sales">Sales</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Product Type" name="product_type">
-                  <Select placeholder="All" onChange={handleProductType}>
+                  <Select
+                    placeholder="All"
+                    onChange={handleOptions("product_type")}
+                  >
                     {types.map(({ id, product_type_name }) => (
                       <Select.Option key={id} value={id}>
                         {product_type_name}
@@ -148,7 +177,7 @@ const Filters = ({ setFilters }) => {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                lg={{ span: 5 }}
+                lg={{ span: 4 }}
                 className={styles.input__wrapper}
               >
                 <Form.Item label="Date Listed" name="date_listed">
