@@ -51,6 +51,9 @@ import {
 import { USER } from "redux/types/auth.types";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
+  // console.log("blog", blog);
+  // console.log("recentBlogs", recentBlogs)
+  // console.log("moreBlogs", moreBlogs)
   const router = useRouter();
   const genUrl =
     process.env.NODE_ENV === "production"

@@ -145,7 +145,17 @@
 
 .loginBtn {
   margin-right: 1rem;
+  @include screen("tablet"){
+    display: none;
+  }
 }
+
+.signUpBtn{
+  @include screen("tablet"){
+    display: none;
+  }
+}
+
 
 @include screen("tablet") {
   .navContainer {
