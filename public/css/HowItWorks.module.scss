@@ -329,63 +329,63 @@
     }
   }
 
-  .subFooter {
-    text-align: center;
-    margin-bottom: 3.3rem;
-    margin-top: 4rem;
-    .footerTitleStyle {
-      font-weight: 700;
-      font-size: 2.5rem;
-      line-height: 3.125rem;
-      color: $black-100;
-    }
-    .subFooterTitle {
-      @extend .footerTitleStyle;
-    }
-    .mobileSubFooterTitle {
-      @extend .footerTitleStyle;
-      display: none;
-    }
-    p {
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.75rem;
-      color: $base-gray;
-      padding-top: 0.8rem;
-      padding-bottom: 1.5rem;
-    }
-    .btn {
-      width: 10rem;
-      height: 3.25rem;
-    }
+  // .subFooter {
+  //   text-align: center;
+  //   margin-bottom: 3.3rem;
+  //   margin-top: 4rem;
+  //   .footerTitleStyle {
+  //     font-weight: 700;
+  //     font-size: 2.5rem;
+  //     line-height: 3.125rem;
+  //     color: $black-100;
+  //   }
+  //   .subFooterTitle {
+  //     @extend .footerTitleStyle;
+  //   }
+  //   .mobileSubFooterTitle {
+  //     @extend .footerTitleStyle;
+  //     display: none;
+  //   }
+  //   p {
+  //     font-weight: 400;
+  //     font-size: 1rem;
+  //     line-height: 1.75rem;
+  //     color: $base-gray;
+  //     padding-top: 0.8rem;
+  //     padding-bottom: 1.5rem;
+  //   }
+  //   .btn {
+  //     width: 10rem;
+  //     height: 3.25rem;
+  //   }
 
-    @include screen("tablet") {
-      .subFooterTitle {
-        font-size: 2.1rem;
-        line-height: 2.5rem;
-      }
-      .btn {
-        width: 50%;
-      }
-    }
+  //   @include screen("tablet") {
+  //     .subFooterTitle {
+  //       font-size: 2.1rem;
+  //       line-height: 2.5rem;
+  //     }
+  //     .btn {
+  //       width: 50%;
+  //     }
+  //   }
 
-    @include screen("medium") {
-      margin-bottom: 0;
-      padding: 5rem 2rem 4rem 2rem;
+  //   @include screen("medium") {
+  //     margin-bottom: 0;
+  //     padding: 5rem 2rem 4rem 2rem;
 
-      .subFooterTitle {
-        display: none;
-      }
-      .mobileSubFooterTitle {
-        display: block;
-        font-size: 1.7rem;
-        line-height: 2.1875rem;
-      }
-      .btn {
-        width: 75%;
-      }
-    }
-  }
+  //     .subFooterTitle {
+  //       display: none;
+  //     }
+  //     .mobileSubFooterTitle {
+  //       display: block;
+  //       font-size: 1.7rem;
+  //       line-height: 2.1875rem;
+  //     }
+  //     .btn {
+  //       width: 75%;
+  //     }
+  //   }
+  // }
 
   @include screen("tablet") {
     padding: 0 0.8rem;
@@ -477,34 +477,6 @@
         margin-top: 2rem;
       }
     }
-
-    // .rowOne {
-    //   flex-direction: column;
-    //   padding: 0 2rem;
-
-    //   &.evenRow {
-    //     flex-direction: column-reverse;
-    //   }
-
-    //   .image {
-    //     width: 100%;
-    //     display: flex;
-    //     justify-content: center;
-    //   }
-
-    //   .rowContent {
-    //     width: 100%;
-
-    //     .rowNumber {
-    //       display: none;
-    //     }
-    //     .content {
-    //       padding: 0;
-    //       text-align: center;
-    //       padding: 0 2.5rem;
-    //     }
-    //   }
-    // }
   }
 
   // here
@@ -544,6 +516,64 @@
       .content {
         margin-right: 2.5rem;
       }
+    }
+  }
+}
+
+.subFooter {
+  text-align: center;
+  margin-bottom: 3.3rem;
+  margin-top: 4rem;
+  .footerTitleStyle {
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 3.125rem;
+    color: $black-100;
+  }
+  .subFooterTitle {
+    @extend .footerTitleStyle;
+  }
+  .mobileSubFooterTitle {
+    @extend .footerTitleStyle;
+    display: none;
+  }
+  p {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    color: $base-gray;
+    padding-top: 0.8rem;
+    padding-bottom: 1.5rem;
+  }
+  .btn {
+    width: 10rem;
+    height: 3.25rem;
+  }
+
+  @include screen("tablet") {
+    .subFooterTitle {
+      font-size: 2.1rem;
+      line-height: 2.5rem;
+    }
+    .btn {
+      width: 50%;
+    }
+  }
+
+  @include screen("medium") {
+    margin-bottom: 0;
+    padding: 5rem 2rem 4rem 2rem;
+
+    .subFooterTitle {
+      display: none;
+    }
+    .mobileSubFooterTitle {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 2.1875rem;
+    }
+    .btn {
+      width: 75%;
     }
   }
 }

@@ -1,28 +1,32 @@
 import { Layout } from "components";
 import styles from "../public/css/payouts.module.scss";
 import Image from "next/image";
-import { Flag, data } from "components/paymentsPayouts/data";
+import { data } from "components/paymentsPayouts/data";
 import { MoneyRain } from "utils";
+import { SharedSubFooter } from "./how-it-works";
 
 const Payouts = () => {
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
-        <div>
+        <div className={styles.deskFlex}>
           <section>
             <div className={styles.details}>
               <h1 className={styles.mobileHeading}>
-                Payout and Transaction Fee
+                Payout and Transaction Fees
               </h1>
               <h1 className={styles.lgHeading}>
                 Payout And <br />
-                Transaction Fee
+                Transaction Fees
               </h1>
             </div>
 
             <div className={styles.flagsAndText}>
               <div className={styles.flagItems}>
                 <GenerateFlags data={data} withDetails={false} dimension={40} />
+              </div>
+              <div className={`${styles.flagItems} ${styles.lgFlags}`}>
+                <GenerateFlags data={data} withDetails={false} dimension={50} />
               </div>
               <div className={styles.text}>
                 Kreatesell supports twenty one (21) currencies today and because
@@ -38,6 +42,7 @@ const Payouts = () => {
             <Image src={MoneyRain} alt="money rain" />
           </div>
         </div>
+        <SharedSubFooter />
       </section>
     </Layout>
   );
