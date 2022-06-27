@@ -11,7 +11,11 @@
       font-size: 28px;
       line-height: 40px;
       font-weight: 700;
+      margin-bottom: 12px;
       text-align: center;
+      // @media (min-width: 700px) {
+      //   text-align: left;
+      // }
     }
 
     .lgHeading {
@@ -23,20 +27,32 @@
   }
 
   .flagItems {
+    margin: 0 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 540px;
+    flex-wrap: wrap;
     .flagItem {
       // max-width: 100px;
       // max-height: 100px;
       display: flex;
+      // padding: 1rem;
       justify-content: center;
       align-items: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 100px;
+      // width: 50px;
+      // height: 50px;
+      width: unset;
+      // margin-right: 26px;
+      margin-right: 20px;
+      margin-bottom: 26px;
+      // min-width: 100px;
+      border-radius: 5px;
       object-fit: contain;
-      background-position: 200% 220%;
+      // background-position: 200% 220%;
       & > div {
         // height: 70px;
-        border-radius: 100%;
+        // border-radius: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -51,6 +67,73 @@
           height: 50px;
           // transform: scale(1.5);
         }
+      }
+
+      .countryName {
+        // width: 100%;
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        margin-left: 15px;
+        color: #8c8c8c;
+        // border: 1px solid red;
+        // min-width: 90px;
+        @media (min-width: 1200px) {
+          font-size: 16px;
+          line-height: 26px;
+        }
+      }
+
+      .countryName.fullWidth {
+        min-width: 110px;
+        margin-left: unset;
+      }
+
+      @media (max-width: 400px) {
+        margin-right: 9px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      justify-content: center;
+    }
+  }
+  .flagItem.withDetails {
+    border: 1px solid #e5e5e5;
+    justify-content: flex-start;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 34px;
+    margin-left: 25px;
+    margin-right: 32px;
+    text-align: justify;
+    margin-bottom: 67px;
+  }
+
+  .flagsAndText {
+    @media (min-width: 700px) {
+      // display: flex;
+      // justify-content: center;
+      // align-items: flex-start;
+      max-width: 650px;
+      margin: 0 auto;
+      // padding: 0 1rem;
+    }
+  }
+
+  .moneyRain {
+    text-align: center;
+    & img {
+      transition: transform 0.2s;
+    }
+    @media (min-width: 700px) {
+      text-align: center;
+      & img {
+        transform: scale(1.2);
       }
     }
   }

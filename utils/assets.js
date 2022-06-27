@@ -36,6 +36,7 @@ import NgFlag from "../public/images/flag-ng.png";
 import UsFlag from "../public/images/flag-us.svg";
 import UkFlag from "../public/images/flag-uk.svg";
 import GhFlag from "../public/images/flag-gh.png";
+import MoneyRain from "../public/images/money-rain.svg";
 import KenFlag from "../public/images/flag-ken.png";
 import UganFlag from "../public/images/flag-ugan.svg";
 import SouthAfricanFlag from "../public/images/flag-southAf.svg";
@@ -225,6 +226,7 @@ export {
   TogoFlag,
   SenegalFlag,
   MaliFlag,
+  MoneyRain,
   BurnkinaFasoFlag,
   NewsCardTwo,
   NewsCardThree,
