@@ -180,4 +180,20 @@
       margin-top: 118px;
     }
   }
+
+  .selectBox {
+    border: 1px solid red;
+    padding: 3rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .waitTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid blue;
+    padding: 4rem 0;
+  }
 }

@@ -26,78 +26,91 @@ export { GabonFlag as Flag };
 
 export const data = [
   { currency: "NGN", country: "Nigeria", flag: NgFlag?.src },
-  { currency: "", country: "USA", flag: UsFlag?.src },
+  { currency: "USD", country: "USA", flag: UsFlag?.src },
   {
-    currency: "",
+    currency: "GBP",
     country: "United kingdom",
     flag: UkFlag?.src,
     fullWidth: true,
   },
-  { currency: "", country: "Ghana", flag: GhFlag?.src },
-  { currency: "", country: "Kenya", flag: KenFlag?.src },
-  { currency: "", country: "Uganda", flag: UganFlag?.src },
+  { currency: "GHS", country: "Ghana", flag: GhFlag?.src },
+  { currency: "KES", country: "Kenya", flag: KenFlag?.src },
+  { currency: "UGX", country: "Uganda", flag: UganFlag?.src },
   {
-    currency: "",
+    currency: "ZAR",
     country: "South Africa",
     flag: SouthAfricanFlag?.src,
     fullWidth: true,
   },
   {
-    currency: "",
+    currency: "XOF",
     country: "Burkina Faso",
     flag: BurnkinaFasoFlag?.src,
     fullWidth: true,
   },
-  { currency: "", country: "Liberia", flag: LiberianFlag?.src },
-  { currency: "", country: "Tanzania", flag: TanzanianFlag?.src },
+  // dummy here
+  { currency: "DUMMY-1", country: "Liberia", flag: LiberianFlag?.src },
+  { currency: "TZS", country: "Tanzania", flag: TanzanianFlag?.src },
   {
-    currency: "",
+    currency: "SLL",
     country: "Sierra Leone",
     flag: LeoneFlag?.src,
     fullWidth: true,
   },
-  { currency: "", country: "Malawi", flag: MalawiFlag?.src },
+  { currency: "DUMMY-2", country: "Malawi", flag: MalawiFlag?.src },
   {
-    currency: "",
+    currency: "DUMMY-3",
     country: "Benin Republic",
     flag: BeninFlag?.src,
     fullWidth: true,
   },
-  { currency: "", country: "Gambia", flag: GambianFlag?.src },
+  { currency: "DUMMY-4", country: "Gambia", flag: GambianFlag?.src },
   {
-    currency: "",
+    currency: "XOF",
     country: "Ivory Coast",
     flag: IvoryCoastFlag?.src,
     fullWidth: true,
   },
-  { currency: "", country: "Togo", flag: TogoFlag?.src },
-  { currency: "", country: "Senegal", flag: SenegalFlag?.src },
-  { currency: "", country: "Mali", flag: MaliFlag?.src },
-  { currency: "", country: "Chad", flag: ChadFlag?.src },
-  { currency: "", country: "Cameroon", flag: CamFlag?.src },
-  { currency: "", country: "Gabon", flag: GabonFlag?.src },
+  { currency: "DUMMY-4", country: "Togo", flag: TogoFlag?.src },
+  { currency: "XOF", country: "Senegal", flag: SenegalFlag?.src },
+  { currency: "XOF", country: "Mali", flag: MaliFlag?.src },
+  { currency: "DUMMY-5", country: "Chad", flag: ChadFlag?.src },
+  { currency: "XOF", country: "Cameroon", flag: CamFlag?.src },
+  { currency: "DUMMY-6", country: "Gabon", flag: GabonFlag?.src },
 ];
 
-// export const data = [
-//   { currency: "NGN", country: "Nigeria", flag: NgFlag?.src },
-//   { currency: "", country: "USA", flag: UsFlag?.src },
-//   { currency: "", country: "United kingdom", flag: UkFlag?.src },
-//   { currency: "", country: "Ghana", flag: GhFlag?.src },
-//   { currency: "", country: "Kenya", flag: KenFlag?.src },
-//   { currency: "", country: "Uganda", flag: UganFlag?.src },
-//   { currency: "", country: "South Africa", flag: SouthAfricanFlag?.src },
-//   { currency: "", country: "Burkina Faso", flag: BurnkinaFasoFlag?.src },
-//   { currency: "", country: "Liberia", flag: LiberianFlag?.src },
-//   { currency: "", country: "Tanzania", flag: TanzanianFlag?.src },
-//   { currency: "", country: "Sierra Leone", flag: LeoneFlag?.src },
-//   { currency: "", country: "Malawi", flag: MalawiFlag?.src },
-//   { currency: "", country: "Benin Republic", flag: BeninFlag?.src },
-//   { currency: "", country: "Gambia", flag: GambianFlag?.src },
-//   { currency: "", country: "Ivory Coast", flag: IvoryCoastFlag?.src },
-//   { currency: "", country: "Togo", flag: TogoFlag?.src },
-//   { currency: "", country: "Senegal", flag: SenegalFlag?.src },
-//   { currency: "", country: "Mali", flag: MaliFlag?.src },
-//   { currency: "", country: "Chad", flag: ChadFlag?.src },
-//   { currency: "", country: "Cameroon", flag: CamFlag?.src },
-//   { currency: "", country: "Gabon", flag: GabonFlag?.src },
-// ];
+export const selectCountry = data.map((item) => ({
+  label: item?.country,
+  value: item?.country,
+}));
+
+export const selectCurrency = data.map((item) => ({
+  label: item?.currency,
+  // value: `${item?.country}:${item?.currency}`,
+  value: item?.currency,
+}));
+
+// CUSTOM FUNCTION TO RETURN CURRENCY TIME
+// const customCurrency = (country, currency) => {
+//   return `${country}:${currency}`;
+// };
+
+export const getWaitTime = (country, currency) => {
+  let time;
+  let condition = `${country}-${currency}`;
+  switch (condition) {
+    case "Nigeria-NGN":
+      time = 1;
+      break;
+    case "Nigeria-USD":
+      time = 10;
+      break;
+    // case country === "Kenya" && currency === "USD":
+    //   time = 5;
+    //   break;
+    default:
+      console.log("no matching conditions");
+      return (time = 1);
+  }
+  return time;
+};

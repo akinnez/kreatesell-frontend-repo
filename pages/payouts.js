@@ -1,11 +1,44 @@
 import { Layout } from "components";
 import styles from "../public/css/payouts.module.scss";
 import Image from "next/image";
-import { data } from "components/paymentsPayouts/data";
+import {
+  data,
+  selectCountry,
+  selectCurrency,
+  getWaitTime,
+} from "components/paymentsPayouts/data";
 import { MoneyRain } from "utils";
 import { SharedSubFooter } from "./how-it-works";
+import { Form, Select } from "antd";
+import { useState, useEffect } from "react";
 
 const Payouts = () => {
+  const [form] = Form.useForm();
+  const [country, setCountry] = useState("Nigeria");
+  const [currency, setCurrency] = useState("NGN");
+  const [time, setTime] = useState(getWaitTime(country, currency));
+
+  const handleCountrySelect = (field) => (value) => {
+    form.setFieldsValue({ [field]: value });
+    setCountry(value);
+    // console.log(` ${field} : ${value}`);
+  };
+  const handleCurrencySelect = (field) => (value) => {
+    form.setFieldsValue({ [field]: value });
+    setCurrency(value);
+  };
+
+  console.log("country = ", country);
+  console.log("currency = ", currency);
+
+  useEffect(() => {
+    console.log("getwait time called");
+    console.log("getWaitTime = ", getWaitTime(country, currency));
+    getWaitTime(country, currency);
+    setTime(getWaitTime(country, currency));
+  }, [country, currency]);
+
+  console.log("time  = ", time);
   // here
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
@@ -43,6 +76,22 @@ const Payouts = () => {
             <Image src={MoneyRain} alt="money rain" />
           </div>
         </div>
+
+        <Form className={styles.selectBox} form={form}>
+          {/* <Image src={} /> */}
+          <Select
+            options={selectCountry}
+            placeholder="Nigeria"
+            onChange={handleCountrySelect("country")}
+          />
+
+          <Select
+            options={selectCurrency}
+            placeholder="NGN"
+            onChange={handleCurrencySelect("currency")}
+          />
+        </Form>
+        <div className={styles.waitTime}>{time}</div>
         <SharedSubFooter />
       </section>
     </Layout>
