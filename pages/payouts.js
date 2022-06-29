@@ -55,7 +55,7 @@ const Payouts = () => {
     setCurrencyFlag(currencyCurrencyFlagObj);
   }, [currency, currencyCurrencyFlagObj]);
 
-  console.log(selectCurrency);
+  // console.log(selectCurrency);
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
