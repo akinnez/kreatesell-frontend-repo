@@ -89,6 +89,7 @@ export const selectCurrency = data.map((item) => ({
   label: item?.currency,
   // value: `${item?.country}:${item?.currency}`,
   value: item?.currency,
+  flag: item?.flag,
 }));
 
 // CUSTOM FUNCTION TO RETURN CURRENCY TIME

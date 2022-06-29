@@ -18,6 +18,16 @@ const Payouts = () => {
   const [country, setCountry] = useState("Nigeria");
   const [currency, setCurrency] = useState("NGN");
 
+  const currentCountryFlagObj = selectCountry.find(
+    (item) => item.label === country
+  );
+
+  const currencyCurrencyFlagObj = selectCurrency.find(
+    (item) => item.label === currency
+  );
+  // console.log(currentCountryFlag);
+  const [countryFlag, setCountryFlag] = useState(currentCountryFlagObj);
+  const [currencyFlag, setCurrencyFlag] = useState(currencyCurrencyFlagObj);
   // state for wait time
   const [time, setTime] = useState(getWaitTime(country, currency));
 
@@ -35,6 +45,14 @@ const Payouts = () => {
     setTime(getWaitTime(country, currency));
   }, [country, currency]);
   // here
+
+  useEffect(() => {
+    setCountryFlag(currentCountryFlagObj);
+  }, [country, currentCountryFlagObj]);
+
+  useEffect(() => {
+    setCurrencyFlag(currencyCurrencyFlagObj);
+  }, [currency, currencyCurrencyFlagObj]);
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
@@ -72,53 +90,91 @@ const Payouts = () => {
           </div>
         </div>
 
-        <Form className={styles.selectBox} form={form}>
-          {/* <Image src={} /> */}
-          {/* <Select
-            options={selectCountry}
-            placeholder="Nigeria"
-            onChange={handleCountrySelect("country")}
-          > */}
+        <section className={styles.howPayoutsWork}>
+          <h3 className={styles.heading}>How Payouts Work</h3>
+          <p className={styles.text}>
+            We help you collect your payment from anywhere in the world, process
+            and pay it in your local currency into your default account/ wallet.
+            Processing time is dependent on your location and currency.
+          </p>
+          <Form className={styles.selectBox} form={form}>
+            <div className={styles.selectMain}>
+              <Image
+                src={countryFlag?.flag}
+                alt={`Flag of ${country}`}
+                width={40}
+                height={40}
+                className={styles.optionIcon}
+              />
 
-          <Select
-            placeholder="Select Country"
-            size="large"
-            onChange={handleCountrySelect("country")}
-            value={country}
-            className={styles.selectContainer}
-          >
-            {selectCountry.map((item) => (
-              <Select.Option
-                value={item.label}
-                key={item.label}
-                className={styles.selectOption}
-              >
-                <div className={styles.selectContent}>
-                  {item.flag && (
-                    <Image
-                      src={item.flag}
-                      alt={`Flag of ${item.country}`}
-                      width={40}
-                      height={40}
-                      className={styles.optionIcon}
-                    />
-                  )}
+              <div className={styles.top}>
+                I am in
+                <Select
+                  placeholder="Select Country"
+                  size="large"
+                  onChange={handleCountrySelect("country")}
+                  value={country}
+                  className={styles.selectContainer}
+                >
+                  {selectCountry.map((item) => (
+                    <Select.Option
+                      value={item.label}
+                      key={item.label}
+                      className={styles.selectOption}
+                    >
+                      <div className={styles.selectContent}>
+                        <span className={styles.country}>{item.label}</span>
+                      </div>
+                    </Select.Option>
+                  ))}
+                </Select>
+              </div>
+            </div>
 
-                  <span className={styles.country}>{item.label}</span>
-                </div>
-              </Select.Option>
-            ))}
-          </Select>
+            <div className={styles.selectMain}>
+              <Image
+                src={currencyFlag?.flag}
+                alt={`Flag of ${currencyFlag?.value}`}
+                width={40}
+                height={40}
+                className={styles.optionIcon}
+              />
 
-          <Select
-            options={selectCurrency}
-            placeholder="NGN"
-            onChange={handleCurrencySelect("currency")}
-          />
-        </Form>
-        <div className={styles.waitTime}>{`${time} ${
-          time > 1 ? "days" : "day"
-        }`}</div>
+              <div className={styles.top}>
+                I want to sell in
+                <Select
+                  placeholder="Select Currency"
+                  size="large"
+                  onChange={handleCurrencySelect("currency")}
+                  value={currency}
+                  className={styles.selectContainer}
+                >
+                  {selectCurrency.map((item) => (
+                    <Select.Option
+                      value={item.label}
+                      key={item.label}
+                      className={styles.selectOption}
+                    >
+                      <div className={styles.selectContent}>
+                        <span className={styles.country}>{item.label}</span>
+                      </div>
+                    </Select.Option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+
+            {/* <Select
+              options={selectCurrency}
+              placeholder="NGN"
+              onChange={handleCurrencySelect("currency")}
+            /> */}
+          </Form>
+          <div className={styles.waitTime}>{`${time} ${
+            time > 1 ? "days" : "day"
+          }`}</div>
+        </section>
+
         <SharedSubFooter />
       </section>
     </Layout>

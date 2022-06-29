@@ -182,11 +182,12 @@
   }
 
   .selectBox {
-    border: 1px solid red;
+    // border: 1px solid red;
     padding: 3rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
     & .ant-select-selector {
       padding: 0.5rem 11px !important;
@@ -201,14 +202,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid blue;
+    // border: 1px solid blue;
     padding: 4rem 0;
   }
 
   .selectContainer {
-    min-width: 190px !important;
-    min-height: 120px !important;
-    border: 1px solid red !important;
+    // min-width: 190px !important;
+    // min-height: 120px !important;
+    // border: 1px solid red !important;
     // padding: 1rem;
     display: flex;
     justify-content: center;
@@ -226,7 +227,7 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    border: 1px solid red;
+    // border: 1px solid red;
   }
   .ant-select-item.ant-select-option-item-content {
     display: flex !important;
@@ -245,8 +246,51 @@
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     padding: 0.5rem 11px !important;
     height: 60px !important;
-    border: 1px solid black !important;
+    // border: 1px solid black !important;
     height: 100% !important;
     width: 100% !important;
+  }
+
+  .howPayoutsWork {
+    margin-top: 70px;
+    background-color: #e6f7ff;
+    .heading {
+      font-size: 28px;
+      line-height: 40px;
+      padding-top: 35px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .text {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 34px;
+      color: $base-gray;
+      margin-bottom: 32px;
+    }
+
+    .selectMain {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      // gap: 10px;
+      margin-bottom: 24px;
+      width: 288px;
+      height: 101px;
+
+      /* Gray / gray-1 WITE */
+
+      background: #ffffff;
+      border-radius: 8px;
+      .optionIcon {
+        flex: 1;
+      }
+
+      .top {
+        min-width: 174px;
+        margin-left: 20px;
+      }
+    }
   }
 }
