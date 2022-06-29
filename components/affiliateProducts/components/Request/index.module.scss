@@ -2,10 +2,15 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.form__wrapper {
+.form__wrapper > form[class^="ant-form"] {
   max-width: 645px;
+  label[for] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$black-100;
+  }
 
-  form[class^="ant-form"] textarea {
+  textarea {
     line-height: 30px;
     font-size: 14px;
     overflow: hidden;
@@ -75,7 +80,7 @@
   }
 }
 
-@include screens.screen("medium-large") {
+@include screens.screen("x-large") {
   .form__wrapper {
     padding: 24px 24px;
     background-color: #fff;
