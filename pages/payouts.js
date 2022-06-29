@@ -14,31 +14,26 @@ import { useState, useEffect } from "react";
 
 const Payouts = () => {
   const [form] = Form.useForm();
+  // state for country and currency
   const [country, setCountry] = useState("Nigeria");
   const [currency, setCurrency] = useState("NGN");
+
+  // state for wait time
   const [time, setTime] = useState(getWaitTime(country, currency));
 
   const handleCountrySelect = (field) => (value) => {
     form.setFieldsValue({ [field]: value });
     setCountry(value);
-    // console.log(` ${field} : ${value}`);
   };
   const handleCurrencySelect = (field) => (value) => {
     form.setFieldsValue({ [field]: value });
     setCurrency(value);
   };
 
-  console.log("country = ", country);
-  console.log("currency = ", currency);
-
   useEffect(() => {
-    console.log("getwait time called");
-    console.log("getWaitTime = ", getWaitTime(country, currency));
     getWaitTime(country, currency);
     setTime(getWaitTime(country, currency));
   }, [country, currency]);
-
-  console.log("time  = ", time);
   // here
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
@@ -79,11 +74,41 @@ const Payouts = () => {
 
         <Form className={styles.selectBox} form={form}>
           {/* <Image src={} /> */}
-          <Select
+          {/* <Select
             options={selectCountry}
             placeholder="Nigeria"
             onChange={handleCountrySelect("country")}
-          />
+          > */}
+
+          <Select
+            placeholder="Select Country"
+            size="large"
+            onChange={handleCountrySelect("country")}
+            value={country}
+            className={styles.selectContainer}
+          >
+            {selectCountry.map((item) => (
+              <Select.Option
+                value={item.label}
+                key={item.label}
+                className={styles.selectOption}
+              >
+                <div className={styles.selectContent}>
+                  {item.flag && (
+                    <Image
+                      src={item.flag}
+                      alt={`Flag of ${item.country}`}
+                      width={40}
+                      height={40}
+                      className={styles.optionIcon}
+                    />
+                  )}
+
+                  <span className={styles.country}>{item.label}</span>
+                </div>
+              </Select.Option>
+            ))}
+          </Select>
 
           <Select
             options={selectCurrency}
@@ -91,7 +116,9 @@ const Payouts = () => {
             onChange={handleCurrencySelect("currency")}
           />
         </Form>
-        <div className={styles.waitTime}>{time}</div>
+        <div className={styles.waitTime}>{`${time} ${
+          time > 1 ? "days" : "day"
+        }`}</div>
         <SharedSubFooter />
       </section>
     </Layout>

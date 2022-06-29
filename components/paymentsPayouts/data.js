@@ -82,6 +82,7 @@ export const data = [
 export const selectCountry = data.map((item) => ({
   label: item?.country,
   value: item?.country,
+  flag: item?.flag,
 }));
 
 export const selectCurrency = data.map((item) => ({
@@ -91,19 +92,31 @@ export const selectCurrency = data.map((item) => ({
 }));
 
 // CUSTOM FUNCTION TO RETURN CURRENCY TIME
-// const customCurrency = (country, currency) => {
-//   return `${country}:${currency}`;
-// };
+const customCurrency = (country, currency) => {
+  return `${country}-${currency}`;
+};
 
 export const getWaitTime = (country, currency) => {
   let time;
-  let condition = `${country}-${currency}`;
-  switch (condition) {
-    case "Nigeria-NGN":
+  let customCurrencyVal = `${country}-${currency}`;
+
+  // SWITCH
+  switch (customCurrencyVal) {
+    case customCurrency("Nigeria", "NGN"):
       time = 1;
       break;
-    case "Nigeria-USD":
+    case customCurrency("Nigeria", "USD"):
       time = 10;
+
+      break;
+    case customCurrency("Nigeria", "KES"):
+      time = 5;
+      break;
+    case customCurrency("Kenya", "KES"):
+      time = 1;
+      break;
+    case customCurrency("Kenya", "NGN"):
+      time = 5;
       break;
     // case country === "Kenya" && currency === "USD":
     //   time = 5;

@@ -187,6 +187,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    & .ant-select-selector {
+      padding: 0.5rem 11px !important;
+      height: 60px !important;
+      border: 1px solid black !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
   }
 
   .waitTime {
@@ -195,5 +203,50 @@
     align-items: center;
     border: 1px solid blue;
     padding: 4rem 0;
+  }
+
+  .selectContainer {
+    min-width: 190px !important;
+    min-height: 120px !important;
+    border: 1px solid red !important;
+    // padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .selectOption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .selectContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border: 1px solid red;
+  }
+  .ant-select-item.ant-select-option-item-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .optionIcon {
+    margin-left: 0.1rem !important;
+  }
+  .country {
+    margin-left: 0.5rem !important;
+    // position: relative;
+    // bottom: 20px !important;
+  }
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    padding: 0.5rem 11px !important;
+    height: 60px !important;
+    border: 1px solid black !important;
+    height: 100% !important;
+    width: 100% !important;
   }
 }
