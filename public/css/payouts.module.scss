@@ -181,6 +181,15 @@
     }
   }
 
+  .formAndTime {
+    @media (min-width: 900px) {
+      display: flex;
+      max-width: 700px;
+      margin: 0 auto;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
   .selectBox {
     // border: 1px solid red;
     padding: 3rem 0;
@@ -203,7 +212,71 @@
     justify-content: center;
     align-items: center;
     // border: 1px solid blue;
-    padding: 4rem 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .innerBox {
+      padding: 4rem 3rem;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      @media (min-width: 900px) {
+        padding: 4rem 5rem;
+        // margin-left: 4rem;
+      }
+
+      background-image: url("../images/waitTimeBg.png");
+      .text {
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        position: relative;
+        .wallet {
+          color: #f90005;
+        }
+        &:first-child {
+          top: 25px;
+        }
+
+        &:last-child {
+          bottom: -6px;
+        }
+
+        @media (max-width: 280px) {
+          font-size: 12px;
+        }
+      }
+      .time {
+        font-size: 48px;
+        line-height: 64px;
+        position: relative;
+        top: 32px;
+        color: $base-blue;
+        text-align: center;
+        font-weight: 700;
+        @media (max-width: 280px) {
+          font-size: 24px;
+        }
+      }
+
+      .box {
+        position: relative;
+        top: -50px;
+      }
+
+      @media (min-width: 1000px) {
+        left: 90px;
+        position: relative;
+      }
+    }
+
+    @media (min-width: 900px) {
+      margin-top: 2rem;
+    }
   }
 
   .selectContainer {
@@ -253,6 +326,7 @@
 
   .howPayoutsWork {
     margin-top: 70px;
+    padding-bottom: 70px;
     background-color: #e6f7ff;
     .heading {
       font-size: 28px;
@@ -260,6 +334,13 @@
       padding-top: 35px;
       margin-bottom: 16px;
       text-align: center;
+      font-weight: 700;
+      transition: all 0.2s;
+      @media (min-width: 900px) {
+        font-size: 48px;
+        line-height: 54px;
+        padding-top: 70px;
+      }
     }
     .text {
       font-weight: 400;
@@ -267,6 +348,15 @@
       line-height: 34px;
       color: $base-gray;
       margin-bottom: 32px;
+      max-width: 906px;
+      margin: 0 19px;
+      text-align: center;
+
+      @media (min-width: 900px) {
+        margin: 0 auto;
+        line-height: 28px;
+        // margin-bottom: 5px;
+      }
     }
 
     .selectMain {
