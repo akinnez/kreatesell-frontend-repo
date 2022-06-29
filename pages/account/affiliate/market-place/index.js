@@ -2,13 +2,14 @@ import Head from "next/head";
 import { useSelector } from "react-redux";
 import { Spin, Table } from "antd";
 import AuthLayout from "components/authlayout";
-import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
-import AffiliateFilters from "components/affiliates/AffiliateFilters";
+import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
 import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
 import DataPagination from "components/PaginationHelpers/Pagination";
-import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
+import AffiliateFilters from "components/affiliates/AffiliateFilters";
+import MobileDataRenderer from "components/affiliates/MobileDataRenderer";
+import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
+import RequestAccessLink from "components/affiliateProducts/components/RequestAccessLink";
 import productsColumns from "components/affiliateProducts/productsColumns";
-import ProductsMobileView from "components/affiliateProducts/components/ProductsMobileView";
 import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
 import useFetcher from "components/affiliates/hooks/useFetcher";
 import { isAnEmpytyObject } from "utils";
@@ -18,11 +19,9 @@ const rowKey = record => record.id;
 
 const AffiliateProducts = () => {
   const { user } = useSelector(state => state.auth);
-
   const { url, filters, setFilters } = useAffiliateFilters(
     "affiliate/get-products"
   );
-
   const [products, response, error] = useFetcher(user, url);
 
   const handlePageChange = page => {
@@ -52,7 +51,11 @@ const AffiliateProducts = () => {
               setFilters={setFilters}
             />
             <section className={styles.data__section}>
-              <ProductsMobileView products={products.data} />
+              <MobileDataRenderer
+                dataKey="has_requested_access"
+                products={products.data}
+                component={RequestAccessLink}
+              />
               <div className={styles.table__wrapper}>
                 <Table
                   dataSource={products.data}

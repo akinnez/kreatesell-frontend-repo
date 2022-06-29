@@ -2,10 +2,10 @@ import Link from "next/link";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import styles from "./index.module.scss";
 
-const RequestAccessLink = ({ id, hasRequested }) => (
+const RequestAccessLink = ({ productId, status }) => (
   <div className={styles.request__link}>
-    {!hasRequested ? (
-      <Link href={`/account/affiliate/market-place/${id}`}>
+    {!status ? (
+      <Link href={`/account/affiliate/market-place/${productId}`}>
         <a>
           Request Access&nbsp;
           <AiOutlineArrowRight />

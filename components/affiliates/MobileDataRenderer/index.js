@@ -1,13 +1,12 @@
 import { memo } from "react";
 import Image from "next/image";
-import RequestAccessLink from "../RequestAccessLink";
 import ProductDetails from "../ProductDetails";
 import dateFormat from "utils/dateFormat";
 import Basket from "public/images/basket-grayed.png";
 import Clipboard from "public/images/clipboards.png";
 import styles from "./index.module.scss";
 
-const ProductsMobileView = ({ products }) => (
+const MobileDataRenderer = ({ dataKey, products, component: Component }) => (
   <>
     {products.length === 0 ? (
       <div className={styles.no__data}>
@@ -38,10 +37,7 @@ const ProductsMobileView = ({ products }) => (
                   <strong>{product.product_name}</strong>
                 </div>
               </div>
-              <RequestAccessLink
-                id={product.id}
-                hasRequested={product.has_requested_access}
-              />
+              <Component productId={product.id} status={product[dataKey]} />
             </div>
             <ProductDetails
               kreatorName={product.kreator_name}
@@ -59,4 +55,4 @@ const ProductsMobileView = ({ products }) => (
   </>
 );
 
-export default memo(ProductsMobileView);
+export default memo(MobileDataRenderer);
