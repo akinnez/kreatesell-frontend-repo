@@ -11,6 +11,7 @@ import { MoneyRain } from "utils";
 import { SharedSubFooter } from "./how-it-works";
 import { Form, Select } from "antd";
 import React, { useState, useEffect } from "react";
+import { XofDefault } from "utils";
 
 const Payouts = () => {
   const [form] = Form.useForm();
@@ -53,6 +54,8 @@ const Payouts = () => {
   useEffect(() => {
     setCurrencyFlag(currencyCurrencyFlagObj);
   }, [currency, currencyCurrencyFlagObj]);
+
+  console.log(selectCurrency);
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
@@ -134,7 +137,11 @@ const Payouts = () => {
 
               <div className={styles.selectMain}>
                 <Image
-                  src={currencyFlag?.flag}
+                  src={
+                    currencyFlag.label === "XOF"
+                      ? XofDefault
+                      : currencyFlag?.flag
+                  }
                   alt={`Flag of ${currencyFlag?.value}`}
                   width={40}
                   height={40}
@@ -152,19 +159,15 @@ const Payouts = () => {
                   >
                     {selectCurrency.map((item) => (
                       <React.Fragment key={item.label}>
-                        {item?.label === "" && (
-                          <Select.Option
-                            value={item.label}
-                            // key={item.label}
-                            className={styles.selectOption}
-                          >
-                            <div className={styles.selectContent}>
-                              <span className={styles.country}>
-                                {item.label}
-                              </span>
-                            </div>
-                          </Select.Option>
-                        )}
+                        <Select.Option
+                          value={item.label}
+                          key={item.label}
+                          className={styles.selectOption}
+                        >
+                          <div className={styles.selectContent}>
+                            <span className={styles.country}>{item.label}</span>
+                          </div>
+                        </Select.Option>
                       </React.Fragment>
                     ))}
                   </Select>

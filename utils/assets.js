@@ -32,6 +32,7 @@ import IntGoToWebinar from "../public/images/int-goToWebinar.svg";
 import IntGetResponse from "../public/images/int-getResponse.svg";
 import IntMailChimp from "../public/images/int-mail-chimp.svg";
 import IntAwebber from "../public/images/int-awebber.svg";
+import XofDefault from "../public/images/xof.jpeg";
 import NgFlag from "../public/images/flag-ng.png";
 import UsFlag from "../public/images/flag-us.svg";
 import UkFlag from "../public/images/flag-uk.svg";
@@ -202,6 +203,7 @@ export {
   IntFacebookPixels,
   IntGoogleAnalytics,
   IntHoverSignal,
+  XofDefault,
   IntZapier,
   IntGoToWebinar,
   WaitTimeBg,

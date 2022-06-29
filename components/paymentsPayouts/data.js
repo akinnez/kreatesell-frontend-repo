@@ -92,7 +92,9 @@ const allCurrencies = data.map((item) => ({
   flag: item?.flag,
 }));
 
-export const selectCurrency = allCurrencies.filter((item) => item.value === "");
+export const selectCurrency = allCurrencies
+  .filter((item) => item.value !== "")
+  .slice(0, 10);
 // CUSTOM FUNCTION TO RETURN CURRENCY TIME
 const customCurrency = (country, currency) => {
   return `${country}-${currency}`;
