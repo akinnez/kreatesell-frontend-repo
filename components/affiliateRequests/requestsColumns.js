@@ -1,11 +1,9 @@
-import Link from "next/link";
-import { MdOutlineLink } from "react-icons/md";
 import Tags from "components/Tags";
 import Performance from "components/affiliates/Performance";
 import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
 import productPriceFn from "utils/productPriceFn";
-import styles from "./index.module.scss";
+import GetLink from "./components/GetLink";
 
 const requestsColumns = [
   {
@@ -64,19 +62,7 @@ const requestsColumns = [
   {
     title: "Actions",
     render: record => (
-      <>
-        {record.request_status === "Approved" ? (
-          <Link href={`/account/affiliate/requests/${record.product_id}`}>
-            <a className={styles.link}>
-              Get Link&nbsp; <MdOutlineLink />
-            </a>
-          </Link>
-        ) : (
-          <a className={styles.link} disabled>
-            Get Link&nbsp; <MdOutlineLink />
-          </a>
-        )}
-      </>
+      <GetLink status={record.request_status} productId={record.product_id} />
     ),
     width: "97px",
   },

@@ -6,7 +6,7 @@ import axiosApi from "utils/axios";
 const useFetcher = (user, url) => {
   const [products, setProducts] = useState({ data: [], total: 0 });
 
-  const { data, error } = useSWR(
+  const { error } = useSWR(
     () => (user.is_affiliate ? url.href : null),
     url => {
       return axiosApi.request(
@@ -28,7 +28,7 @@ const useFetcher = (user, url) => {
     }
   );
 
-  return [products, data, error];
+  return [products, error];
 };
 
 export default useFetcher;

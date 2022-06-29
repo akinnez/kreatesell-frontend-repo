@@ -1,6 +1,6 @@
-@use "colors";
-@use "mixins";
-@use "screens";
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
 
 .header {
   margin-bottom: 30px;
