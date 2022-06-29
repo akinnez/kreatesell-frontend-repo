@@ -83,6 +83,12 @@
       }
     }
 
+    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab"],
+    div[class="ant-tabs-tab ant-tabs-tab-active"] + div[class="ant-tabs-tab"],
+    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab ant-tabs-tab-active"] {
+      margin-left: 5px;
+    }
+
     div[class="ant-tabs-tab-btn"] {
       padding: 8px;
       border-radius: 8px;

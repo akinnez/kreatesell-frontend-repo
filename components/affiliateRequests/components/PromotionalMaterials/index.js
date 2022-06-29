@@ -8,8 +8,8 @@ import styles from "./index.module.scss";
 const { Text } = Typography;
 
 const PromotionalMaterials = ({ productFile }) => (
-  <section>
-    {productFile ? (
+  <section className={styles.section}>
+    {!productFile ? (
       <div className={styles.materials}>
         <div>
           <Image src={FileImg} alt="File image" />
