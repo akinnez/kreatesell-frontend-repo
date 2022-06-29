@@ -2,6 +2,19 @@
 @use "mixins";
 @use "screens";
 
+.header {
+  margin-bottom: 30px;
+
+  h2 {
+    margin-bottom: 0;
+    font: {
+      size: 24px;
+      weight: 600;
+    }
+    color: colors.$black-100;
+  }
+}
+
 .sales-stat {
   margin-bottom: 40px;
   @include mixins.flex(row, flex-start, center);

@@ -40,6 +40,9 @@ const AffiliateProducts = () => {
         </>
       ) : (
         <>
+          <header className={styles.header}>
+            <h2>Market Place</h2>
+          </header>
           <AffiliateFilters setFilters={setFilters} />
           <div className={styles["sales-stat"]}>
             Affiliate&apos;s Number of Sales: <span>0</span>
