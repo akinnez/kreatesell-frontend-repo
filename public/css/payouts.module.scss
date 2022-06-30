@@ -287,6 +287,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 0.5rem;
+    @media (min-width: 500px) {
+      margin-top: unset;
+    }
   }
 
   .selectOption {
@@ -408,7 +412,7 @@
       padding: 24px;
       max-width: 730px;
       margin: 0 2rem;
-      max-height: 168px;
+      min-height: 168px;
 
       background: #f0faff;
       transition: all 0.2s;
@@ -432,10 +436,10 @@
         flex-direction: column;
 
         .top {
-          margin-left: 1.5rem;
           margin-top: 1rem;
           @media (min-width: 500px) {
             margin-top: unset;
+            margin-left: 1.5rem;
           }
         }
         @media (min-width: 500px) {
@@ -443,7 +447,41 @@
           justify-content: space-between;
           align-items: flex-end;
         }
+
+        .selectAndInput {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .input {
+            margin-top: 1rem;
+            outline: none;
+            border: none;
+            padding: 0.5rem;
+            background-color: transparent;
+            font-size: 14px;
+            text-align: center;
+            // line-height: 24px;
+            font-weight: 700;
+            &:focus {
+              background-color: #ffffff;
+            }
+            @media (min-width: 500px) {
+              margin-top: unset;
+              text-align: left;
+            }
+          }
+
+          @media (min-width: 500px) {
+            flex-direction: row;
+            margin-top: 10px;
+          }
+        }
       }
+      // @media (min-width: 500px) {
+      //   display: flex !important;
+      //   justify-content: flex-start;
+      // }
     }
   }
 }

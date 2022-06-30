@@ -217,27 +217,32 @@ const Payouts = () => {
 
                 <div className={styles.top}>
                   <span> If your customer pays you in</span>
-                  <Select
-                    placeholder="Select Currency"
-                    size="large"
-                    onChange={handleCurrencySelect("currency")}
-                    value={currency}
-                    className={styles.selectContainer}
-                  >
-                    {selectCurrency.map((item) => (
-                      <React.Fragment key={item.label}>
-                        <Select.Option
-                          value={item.label}
-                          key={item.label}
-                          className={styles.selectOption}
-                        >
-                          <div className={styles.selectContent}>
-                            <span className={styles.country}>{item.label}</span>
-                          </div>
-                        </Select.Option>
-                      </React.Fragment>
-                    ))}
-                  </Select>
+                  <div className={styles.selectAndInput}>
+                    <Select
+                      placeholder="Select Currency"
+                      size="large"
+                      onChange={handleCurrencySelect("currency")}
+                      value={currency}
+                      className={styles.selectContainer}
+                    >
+                      {selectCurrency.map((item) => (
+                        <React.Fragment key={item.label}>
+                          <Select.Option
+                            value={item.label}
+                            key={item.label}
+                            className={styles.selectOption}
+                          >
+                            <div className={styles.selectContent}>
+                              <span className={styles.country}>
+                                {item.label}
+                              </span>
+                            </div>
+                          </Select.Option>
+                        </React.Fragment>
+                      ))}
+                    </Select>
+                    <input type="number" className={styles.input} />
+                  </div>
                 </div>
               </div>
             </Form>
