@@ -1,4 +1,4 @@
-import tableColumns from "..";
+import tableColumns from "../tableColumns";
 
 const mockParameters = {
   types: {

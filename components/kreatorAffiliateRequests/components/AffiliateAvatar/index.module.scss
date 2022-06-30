@@ -1,0 +1,14 @@
+@use "public/css/mixins";
+
+.header {
+  @include mixins.flex(row, center, center);
+  margin-bottom: 15px;
+
+  > span[class^="ant-avatar"] {
+    @include mixins.flex(row, center, center);
+
+    > svg {
+      font-size: 40px;
+    }
+  }
+}

@@ -1,19 +1,4 @@
-@use "colors";
-@use "mixins";
-
-.header {
-  margin-bottom: 32px;
-
-  > h1 {
-    font-weight: 600;
-    font-size: 24px;
-    color: colors.$black-100;
-  }
-}
-
-.table__section [class="ant-table-content"] {
-  overflow-x: auto;
-}
+@use "public/css/colors";
 
 .content {
   margin-bottom: 40px;

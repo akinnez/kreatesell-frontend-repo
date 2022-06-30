@@ -1,0 +1,30 @@
+.footer {
+  text-align: center;
+
+  > button {
+    color: #f90005;
+    border: 1px solid #f90005;
+    border-radius: 8px;
+
+    &:hover {
+      color: #f90005;
+      border-color: #f90005;
+    }
+
+    svg {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    &[disabled] {
+      color: #bfbfbf;
+      border-color: #bfbfbf;
+      cursor: default;
+
+      &:hover {
+        color: #bfbfbf;
+        border-color: #bfbfbf;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.header {
+  margin-bottom: 32px;
+
+  > h1 {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 20px;
+    color: colors.$black-100;
+  }
+}
+
+.data__section {
+  margin-bottom: 43px;
+
+  & + section {
+    margin-bottom: 100px;
+
+    ul {
+      @include mixins.flex(row, flex-end, center);
+    }
+  }
+}
+
+.table__wrapper {
+  display: none;
+}
+
+@include screens.minScreen("x-large") {
+  .header {
+    margin-bottom: 32px;
+
+    > h1 {
+      font-size: 24px;
+    }
+  }
+
+  .data__section {
+    ul,
+    div[class*="no__data"] {
+      display: none;
+    }
+
+    & + section ul {
+      justify-content: flex-start;
+    }
+  }
+
+  .table__wrapper {
+    display: block;
+
+    [class="ant-table-content"] {
+      overflow-x: auto;
+    }
+  }
+}

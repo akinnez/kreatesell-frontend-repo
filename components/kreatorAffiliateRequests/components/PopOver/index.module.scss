@@ -1,5 +1,6 @@
 @use "public/css/colors";
 @use "public/css/mixins";
+@use "public/css/screens";
 
 .content__container {
   max-width: 360px;
@@ -21,19 +22,6 @@
     > svg {
       font-size: 25px;
       color: colors.$base-gray;
-    }
-  }
-}
-
-.header {
-  @include mixins.flex(row, center, center);
-  margin-bottom: 15px;
-
-  > span[class^="ant-avatar"] {
-    @include mixins.flex(row, center, center);
-
-    > svg {
-      font-size: 40px;
     }
   }
 }
@@ -66,45 +54,36 @@
   background-color: #d9d9d9;
 }
 
-.footer {
-  text-align: center;
+.btn {
+  padding: 0;
+  color: colors.$base-blue;
 
-  > button {
-    color: #f90005;
-    border: 1px solid #f90005;
-    border-radius: 8px;
-
-    &:hover {
-      color: #f90005;
-      border-color: #f90005;
-    }
-
-    svg {
-      font-size: 20px;
-      margin-right: 10px;
-    }
-  }
-
-  > button[disabled="true"] {
-    color: #bfbfbf;
-    border-color: #bfbfbf;
-    cursor: default;
-
-    &:hover {
-      color: #bfbfbf;
-      border-color: #bfbfbf;
-    }
+  > span:first-child {
+    margin-right: 8px;
   }
 }
 
-.btn {
-  color: colors.$base-blue;
+@include screens.screen("x-large") {
+  .btn {
+    font: {
+      size: 18px;
+      weight: bold;
+    }
 
-  &:hover {
-    color: colors.$base-blue;
-  }
+    &:hover {
+      color: colors.$base-blue;
 
-  svg {
-    margin-right: 10px;
+      > span:first-child {
+        background-color: colors.$blue-100;
+      }
+    }
+
+    > span:first-child {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+      border-radius: 8px;
+      @include mixins.flex(row, center, center);
+    }
   }
 }

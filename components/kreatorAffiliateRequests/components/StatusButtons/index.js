@@ -8,9 +8,10 @@ const statusArr = [
   { type: "Declined", label: "Declined" },
 ];
 
-const StatusButtons = ({ setFilters, filters }) => {
+const StatusButtons = ({ setFilters, filters, setLoading }) => {
   const handleClick = type => {
     setFilters({ ...filters, status: type });
+    setLoading(true);
   };
 
   return (
