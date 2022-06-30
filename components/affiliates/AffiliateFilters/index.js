@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
 import moment from "moment";
-import ResetFilters from "../ResetFilters";
+import ResetFilters from "components/ResetFilters";
 import styles from "./index.module.scss";
 
 const AffiliateFilters = ({ setFilters }) => {

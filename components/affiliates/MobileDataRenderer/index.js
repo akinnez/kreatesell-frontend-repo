@@ -33,7 +33,6 @@ const MobileDataRenderer = ({ dataKey, products, component: Component }) => (
                       height={14}
                     />
                   </span>
-                  &nbsp;
                   <strong>{product.product_name}</strong>
                 </div>
               </div>

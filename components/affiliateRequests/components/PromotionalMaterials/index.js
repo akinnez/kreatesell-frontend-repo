@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 const PromotionalMaterials = ({ productFile }) => (
   <section className={styles.section}>
-    {!productFile ? (
+    {productFile ? (
       <div className={styles.materials}>
         <div>
           <Image src={FileImg} alt="File image" />

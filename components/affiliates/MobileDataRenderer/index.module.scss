@@ -45,8 +45,11 @@
 }
 
 .product__name {
+  @include mixins.flex(row, space-between, center);
+  column-gap: 10px;
+
   span {
-    width: 24px;
+    min-width: 24px;
     height: 24px;
     display: inline-flex;
     justify-content: center;
