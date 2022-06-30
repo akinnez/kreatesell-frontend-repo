@@ -190,7 +190,59 @@ const Payouts = () => {
             </div>
           </section>
         </section>
+        <section className={styles.transactionFees}>
+          <div className={styles.details}>
+            <h1 className={styles.heading}>Our Transaction Fees</h1>
+            <p className={styles.text}>
+              No matter what Kreatesell plan you are on, you would be charged a
+              small affordable fee for processing your successful sales. This
+              fee is determined by your location and currency. Below are the
+              supported countries and corresponding fees.
+            </p>
+          </div>
+          <div className={styles.getFee}>
+            <Form className={styles.selectBox} form={form}>
+              <div className={styles.selectMain}>
+                <Image
+                  src={
+                    currencyFlag.label === "XOF"
+                      ? XofDefault
+                      : currencyFlag?.flag
+                  }
+                  alt={`Flag of ${currencyFlag?.value}`}
+                  width={40}
+                  height={40}
+                  className={styles.optionIcon}
+                />
 
+                <div className={styles.top}>
+                  <span> If your customer pays you in</span>
+                  <Select
+                    placeholder="Select Currency"
+                    size="large"
+                    onChange={handleCurrencySelect("currency")}
+                    value={currency}
+                    className={styles.selectContainer}
+                  >
+                    {selectCurrency.map((item) => (
+                      <React.Fragment key={item.label}>
+                        <Select.Option
+                          value={item.label}
+                          key={item.label}
+                          className={styles.selectOption}
+                        >
+                          <div className={styles.selectContent}>
+                            <span className={styles.country}>{item.label}</span>
+                          </div>
+                        </Select.Option>
+                      </React.Fragment>
+                    ))}
+                  </Select>
+                </div>
+              </div>
+            </Form>
+          </div>
+        </section>
         <SharedSubFooter />
       </section>
     </Layout>
