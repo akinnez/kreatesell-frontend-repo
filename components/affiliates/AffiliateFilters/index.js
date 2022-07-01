@@ -6,7 +6,7 @@ import moment from "moment";
 import ResetFilters from "components/ResetFilters";
 import styles from "./index.module.scss";
 
-const AffiliateFilters = ({ setFilters }) => {
+const AffiliateFilters = ({ setFilters, setLoading }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const { productTypes } = useSelector(state => state.product);
   const [form] = Form.useForm();
@@ -44,6 +44,7 @@ const AffiliateFilters = ({ setFilters }) => {
     }
 
     setIsFiltered(true);
+    setLoading(true);
     setFilters(s => ({
       ...s,
       page: 1,

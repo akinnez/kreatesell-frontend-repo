@@ -9,8 +9,10 @@ const rowKey = record => record.id;
 
 const AffiliatePageLayout = ({
   products,
-  error,
+  isLoading,
+  setLoading,
   title,
+  totalSales,
   filters,
   setFilters,
   component: Component,
@@ -26,11 +28,11 @@ const AffiliatePageLayout = ({
       <header className={styles.header}>
         <h2>{title}</h2>
       </header>
-      <AffiliateFilters setFilters={setFilters} />
+      <AffiliateFilters setFilters={setFilters} setLoading={setLoading} />
       <div className={styles["sales-stat"]}>
-        Affiliate&apos;s Number of Sales: <span>0</span>
+        Affiliate&apos;s Number of Sales: <span>{totalSales}</span>
       </div>
-      <Spin spinning={products.data.length == 0 && !error}>
+      <Spin spinning={isLoading}>
         <PaginationSizeChanger
           dataSize={products.total}
           filters={filters}
