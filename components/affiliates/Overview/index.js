@@ -21,6 +21,34 @@ const Overview = ({
   storeName,
 }) => (
   <div className={styles.overview__container}>
+    <section className={styles.kreator__overview}>
+      <div className={styles.kreator__overview__wrapper}>
+        <div className={styles.kreator__overview__header}>
+          <div className={styles.kreator__overview__title}>
+            <Title level={2}>Kreator</Title>
+          </div>
+          {kreatorImage ? (
+            <div className={styles.kreator__overview__image}>
+              <KreatorAvatar image={kreatorImage} name={kreatorName} />
+            </div>
+          ) : (
+            <div className={styles.empty__avatar}>
+              <FaRegUser />
+            </div>
+          )}
+          <div className={styles.kreator__overview__info}>
+            <KreatorInfo href={storeName}>
+              <Title level={3}>{kreatorName}</Title>
+            </KreatorInfo>
+          </div>
+        </div>
+        <div className={styles.kreator__overview__bio}>
+          <p>
+            <Text>{kreatorBio}</Text>
+          </p>
+        </div>
+      </div>
+    </section>
     <section className={styles.product__overview}>
       <div className={styles.product__overview__img}>
         {productImages ? (
@@ -51,32 +79,6 @@ const Overview = ({
         productPriceDetails={productPriceDetails}
         productAffiliateCommission={productAffiliateCommission}
       />
-    </section>
-    <section className={styles.kreator__overview}>
-      <div className={styles.kreator__overview__header}>
-        <div className={styles.kreator__overview__title}>
-          <Title level={2}>Kreator</Title>
-        </div>
-        {kreatorImage ? (
-          <div className={styles.kreator__overview__image}>
-            <KreatorAvatar image={kreatorImage} name={kreatorName} />
-          </div>
-        ) : (
-          <div className={styles.empty__avatar}>
-            <FaRegUser />
-          </div>
-        )}
-        <div className={styles.kreator__overview__info}>
-          <KreatorInfo href={storeName}>
-            <Title level={3}>{kreatorName}</Title>
-          </KreatorInfo>
-        </div>
-      </div>
-      <div className={styles.kreator__overview__bio}>
-        <p>
-          <Text>{kreatorBio}</Text>
-        </p>
-      </div>
     </section>
   </div>
 );

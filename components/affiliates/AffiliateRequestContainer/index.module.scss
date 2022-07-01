@@ -1,57 +1,148 @@
 @use "public/css/colors";
+@use "public/css/mixins";
 @use "public/css/screens";
 
-.product__name {
-  margin-bottom: 40px;
+.header {
+  @include mixins.flex(column, space-between, flex-start);
+  row-gap: 10px;
+  margin-bottom: 25px;
+
+  > span {
+    margin-bottom: 10px;
+  }
 
   h1 {
-    text-align: center;
-    font-size: 25px;
+    margin-bottom: 0;
+    font: {
+      size: 18px;
+      weight: bold;
+    }
+    color: colors.$black-100;
+    word-break: break-word;
+
+    span {
+      color: colors.$gray-200;
+    }
+  }
+
+  a {
+    min-width: 182px;
+    display: inline-flex;
+    padding: 10px 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid colors.$base-blue;
+    color: colors.$base-blue;
+    font-size: 12px;
+    font-weight: bold;
+
+    svg {
+      margin-right: 10px;
+      font-size: 18px;
+    }
   }
 }
 
 .card__container {
-  border-radius: 8px;
-  margin-bottom: 85px;
-
-  div[class="ant-card-body"] {
-    padding-top: 80px;
-    padding-bottom: 140px;
-  }
+  margin-bottom: 275px;
 }
 
 .tabs {
-  div[class="ant-tabs-nav"] {
-    margin-bottom: 40px;
-
-    div[class^="ant-tabs-ink-bar"] {
-      height: 4px;
-    }
+  div[class="ant-tabs-nav"] div[class^="ant-tabs-ink-bar"]:last-child {
+    height: 4px;
   }
 
   div[class="ant-tabs-tab-btn"] {
-    font-size: 16px;
-  }
-}
-
-@include screens.minScreen("medium-large") {
-  .card__container div[class="ant-card-body"] {
-    padding-left: 62px;
-    padding-right: 62px;
-  }
-}
-
-@include screens.screen("medium-large") {
-  .card__container {
-    background-color: transparent;
-    border: none;
-
-    div[class="ant-card-body"] {
-      padding: 0;
+    color: colors.$base-gray;
+    font: {
+      weight: 500;
+      size: 16px;
     }
   }
 
-  .tabs > div[class="ant-tabs-nav"]::before {
-    border-bottom-color: colors.$gray-700;
+  div[class$="ant-tabs-tab-active"] div[class="ant-tabs-tab-btn"] {
+    color: colors.$base-blue;
+  }
+}
+
+@include screens.screen("x-large") {
+  .tabs {
+    div[class="ant-tabs-nav"] {
+      margin-bottom: 16px;
+      background-color: colors.$base-white;
+      border-radius: 8px;
+      padding-left: 7px;
+      padding-right: 7px;
+
+      &::before {
+        border: none;
+      }
+
+      div[class="ant-tabs-nav-wrap"]:first-child {
+        justify-content: flex-start;
+      }
+    }
+
+    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab"],
+    div[class="ant-tabs-tab ant-tabs-tab-active"] + div[class="ant-tabs-tab"],
+    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab ant-tabs-tab-active"] {
+      margin-left: 5px;
+    }
+
+    div[class="ant-tabs-tab-btn"] {
+      padding: 8px;
+      border-radius: 8px;
+      background-color: colors.$white-200;
+    }
+
+    div[class$="ant-tabs-tab-active"] div[class="ant-tabs-tab-btn"] {
+      background-color: colors.$blue-100;
+    }
+  }
+}
+
+@include screens.minScreen("medium") {
+  .header {
+    @include mixins.flex(row, space-between, center);
+    flex-wrap: wrap;
+    column-gap: 20px;
+
+    > span {
+      flex-basis: 100%;
+    }
+
+    h1 {
+      flex-basis: calc(100% - 210px);
+    }
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .header {
+    flex-wrap: nowrap;
+
+    > span {
+      flex-basis: auto;
+      margin-bottom: 0;
+    }
+
+    h1 {
+      text-align: center;
+      flex-basis: auto;
+    }
+  }
+
+  .card__container {
+    padding: 60px 75px;
+    background-color: colors.$base-white;
+    border-radius: 8px;
+  }
+
+  .tabs > div[class="ant-tabs-nav"] {
+    margin-bottom: 30px;
+
+    &::before {
+      border-bottom-color: colors.$gray-700;
+    }
   }
 }

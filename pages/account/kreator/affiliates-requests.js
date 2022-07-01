@@ -1,30 +1,20 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Typography, Button, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import SuccessModalBox from "components/SuccessModalBox";
-import PaginationHelper from "components/PaginationHelpers";
-import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
-import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
-import useFilters from "hooks/useFilters";
+import PageLayout from "components/kreatorAffiliateRequests/components/PageLayout";
+import SuccessMessage from "components/kreatorAffiliateRequests/components/SuccessMessage";
+import useFilters from "components/kreatorAffiliateRequests/useFilters";
 import axiosAPI from "utils/axios";
+import dataLoading from "utils/dataLoading";
 import { showToast } from "utils";
-import styles from "public/css/KreatorAffiliateRequests.module.scss";
-
-const { Title, Text } = Typography;
-const rowKey = record => record.id;
-const statusArr = [
-  { type: "All", label: "All" },
-  { type: "Pending", label: "Pending" },
-  { type: "Approved", label: "Approved" },
-  { type: "Declined", label: "Declined" },
-];
 
 const AffiliateRequests = () => {
+  const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState({ data: [], total: 0 });
   const [successModal, setSuccessModal] = useState(false);
   const [noteModal, setNoteModal] = useState({ visible: false, note: null });
@@ -35,35 +25,42 @@ const AffiliateRequests = () => {
     data: null,
   });
 
-  const { uri, filters, setFilters } = useFilters(
+  const { url, filters, setFilters } = useFilters(
     "v1/kreatesell/product/fetch/affiliates/all"
   );
 
-  const { data: res } = useSWR(
-    () => (uri ? uri : null),
-    url => {
-      return axiosAPI.request(
-        "get",
-        url,
-        res => {
-          setRequests({
-            ...requests,
-            data: res.data.data,
-            total: res.data.total_records,
-          });
-          return res;
-        },
-        err => {
-          showToast(err.message, "error");
-          return err;
-        }
-      );
-    }
-  );
+  const {
+    data: response,
+    error,
+    isValidating,
+  } = useSWR(url.href, url => {
+    return axiosAPI.request(
+      "get",
+      url,
+      res => {
+        setLoading(false);
+        setRequests({
+          ...requests,
+          data: res.data.data,
+          total: res.data.total_records,
+        });
+        return res;
+      },
+      err => {
+        setLoading(false);
+        showToast(err.message, "error");
+        return err;
+      }
+    );
+  });
 
-  const handler = (setter, field, value) => param => {
-    setter(s => ({ ...s, [field]: value || param }));
-  };
+  const isLoading = dataLoading({
+    products: requests.data,
+    loading,
+    response,
+    error,
+    isValidating,
+  });
 
   const handleSuccess = value => {
     setSuccessModal(value);
@@ -107,70 +104,27 @@ const AffiliateRequests = () => {
     setRequests({ ...requests, data: newRequests });
   };
 
-  const columns = tableColumns(showReportModal, showActionModal, showNoteModal);
-
   return (
     <AuthLayout headerTitle="REQUESTS">
       <Head>
         <title>KreateSell | Kreator&#39;s Affiliate Requests</title>
       </Head>
-      <header className={styles.header}>
-        <Title>Affiliate Offers</Title>
-      </header>
-      <section>
-        <Filters setFilters={setFilters} />
-      </section>
-      <PaginationHelper
-        dataSize={requests.total}
+      <PageLayout
+        requests={requests}
+        isLoading={isLoading}
+        setLoading={setLoading}
         filters={filters}
         setFilters={setFilters}
+        showReportModal={showReportModal}
+        showActionModal={showActionModal}
+        showNoteModal={showNoteModal}
       />
-      <section className={styles.status__btns__section}>
-        <div className={styles.status__btns}>
-          {statusArr.map(({ type, label }) => (
-            <div className={styles.status__btn} key={label}>
-              <Button
-                onClick={handler(setFilters, "status", type)}
-                type={filters.status === type ? "primary" : "default"}
-              >
-                {label}
-              </Button>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className={styles.table__section}>
-        <Table
-          dataSource={requests.data}
-          columns={columns}
-          pagination={{
-            position: ["bottomLeft"],
-            pageSize: filters.limit,
-            current: filters.page,
-            total: requests.total,
-            responsive: true,
-            onChange: handler(setFilters, "page", null),
-          }}
-          rowKey={rowKey}
-          loading={!res}
-        />
-      </section>
       {successModal && (
         <SuccessModalBox
           modalIsVisible={successModal}
           closeModal={() => handleSuccess(false)}
         >
-          <section className={styles.content}>
-            <p>
-              <Text>Report Successfully Sent</Text>
-            </p>
-            <p>
-              <Text>
-                We would review it and if the affiliate is found guilty, they
-                would no longer have access to your products.
-              </Text>
-            </p>
-          </section>
+          <SuccessMessage />
         </SuccessModalBox>
       )}
       {noteModal.visible && (

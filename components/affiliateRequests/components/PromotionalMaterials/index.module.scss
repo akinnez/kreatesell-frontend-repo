@@ -1,5 +1,12 @@
 @use "public/css/colors";
 @use "public/css/mixins";
+@use "public/css/screens";
+
+.section {
+  padding: 45px 10px;
+  background-color: colors.$base-white;
+  border-radius: 8px;
+}
 
 .materials {
   text-align: center;
@@ -67,5 +74,12 @@
     font-weight: 500;
     font-size: 20px;
     color: colors.$base-gray;
+  }
+}
+
+@include screens.minScreen("medium") {
+  .section {
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
