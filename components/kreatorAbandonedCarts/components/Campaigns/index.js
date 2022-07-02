@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Pagination, Card, Spin } from "antd";
 import { BsPlusLg } from "react-icons/bs";
 import Spinner from "components/Spinner";
-import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
 import Campaign from "../Campaign";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";

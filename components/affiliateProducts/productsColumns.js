@@ -45,8 +45,8 @@ const productsColumns = [
     title: "Action",
     render: record => (
       <RequestAccessLink
-        id={record.id}
-        hasRequested={record.has_requested_access}
+        productId={record.id}
+        status={record.has_requested_access}
       />
     ),
     width: "130px",
