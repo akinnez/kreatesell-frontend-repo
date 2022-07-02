@@ -11,7 +11,7 @@
   > div {
     flex: 1 1 254px;
 
-    h1 {
+    h2 {
       margin-bottom: 5px;
       font-size: 20px;
       font-weight: 600;
@@ -40,15 +40,6 @@
   svg {
     display: inline;
     font-size: 14px;
-  }
-}
-
-.card__wrapper {
-  border-radius: 8px;
-  margin: 0 auto 85px;
-
-  div[class="ant-card-body"] {
-    padding: 24px;
   }
 }
 
@@ -109,14 +100,8 @@
   }
 }
 
-@include screens.minScreen("tablet") {
-  .card__wrapper > div[class="ant-card-body"] {
-    padding: 40px 60px;
-  }
-}
-
 @include screens.minScreen("x-large") {
-  .header > div h1 {
+  .header > div h2 {
     font-size: 24px;
   }
 }

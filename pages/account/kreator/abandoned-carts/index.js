@@ -24,7 +24,7 @@ const AbandonedCarts = () => {
       </Head>
       <header className={styles.header}>
         <div>
-          <h1>{activeKey === "1" ? "Send Mail" : "Recovery Status"}</h1>
+          <h2>{activeKey === "1" ? "Send Mail" : "Recovery Status"}</h2>
           <p>
             {activeKey === "1"
               ? "Use your own words and content to reach your audience."

@@ -71,7 +71,7 @@ const Campaigns = () => {
   return (
     <Card className={styles.card}>
       <header className={styles.header}>
-        <h2>Manage All Your Email Campaigns Here.</h2>
+        <h3>Manage All Your Email Campaigns Here.</h3>
       </header>
       <Spin spinning={campaigns.loading}>
         {campaigns.data.length === 0 ? (
