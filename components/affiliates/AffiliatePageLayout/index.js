@@ -1,5 +1,5 @@
 import { Pagination, Spin, Table } from "antd";
-import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
 import AffiliateFilters from "../AffiliateFilters";
 import MobileDataRenderer from "../MobileDataRenderer";
 import styles from "./index.module.scss";

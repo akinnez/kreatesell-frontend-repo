@@ -1,5 +1,5 @@
 import { Pagination, Spin, Table } from "antd";
-import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
 import Filters from "../Filters";
 import MobileView from "../MobileView";
 import StatusButtons from "../StatusButtons";
@@ -64,9 +64,9 @@ const PageLayout = ({
             <Pagination
               pageSize={filters.limit}
               current={filters.page}
-              total={products.total}
+              total={requests.total}
               responsive={true}
-              onChange={handlePageChange}
+              onChange={handlePage}
             />
           )}
         </section>

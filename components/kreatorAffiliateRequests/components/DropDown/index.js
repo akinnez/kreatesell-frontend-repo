@@ -48,7 +48,12 @@ const menu = ({ status, showActionModal, ...props }) => {
 };
 
 const DropDown = props => (
-  <Dropdown overlay={menu(props)} placement="bottomRight" arrow>
+  <Dropdown
+    overlay={menu(props)}
+    placement="bottomRight"
+    trigger={["click", "hover"]}
+    arrow
+  >
     <Button
       className={styles.btn}
       type="text"
