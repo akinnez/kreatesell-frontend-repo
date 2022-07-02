@@ -281,6 +281,7 @@ const Payouts = () => {
                       className={styles.input}
                       value={feeAmount}
                       onChange={handleAmountChange}
+                      maxLength="6"
                     />
                   </div>
                 </div>
