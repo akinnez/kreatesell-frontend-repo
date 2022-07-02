@@ -6,6 +6,7 @@ import {
   selectCountry,
   selectCurrency,
   getWaitTime,
+  getFee,
 } from "components/paymentsPayouts/data";
 import { MoneyRain } from "utils";
 import { SharedSubFooter } from "./how-it-works";
@@ -38,6 +39,13 @@ const Payouts = () => {
   const [countryFlag, setCountryFlag] = useState(currentCountryFlagObj);
   const [currencyFlag, setCurrencyFlag] = useState(currentCurrencyFlagObj);
   const [feesCurrencyFlag, setFeesCurrencyFlag] = useState(currentFeesFlagObj);
+
+  // state to track amount entered
+  const [feeAmount, setFeeAmount] = useState(2000);
+
+  const handleAmountChange = (e) => {
+    setFeeAmount(e.target.value);
+  };
   // state for wait time
   const [time, setTime] = useState(getWaitTime(country, currency));
 
@@ -57,6 +65,7 @@ const Payouts = () => {
     setFeeCurrency(value);
   };
 
+  const { rate, fee } = getFee(feeCurrency, feeAmount);
   useEffect(() => {
     getWaitTime(country, currency);
     setTime(getWaitTime(country, currency));
@@ -76,6 +85,12 @@ const Payouts = () => {
   }, [feeCurrency, currentFeesFlagObj]);
 
   // console.log(selectCurrency);
+
+  useEffect(() => {
+    getFee(feeCurrency, feeAmount);
+  }, [feeAmount, feeCurrency]);
+
+  // const {rate, fee} = handleAmountChange
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
@@ -261,7 +276,12 @@ const Payouts = () => {
                         </React.Fragment>
                       ))}
                     </Select>
-                    <input type="number" className={styles.input} />
+                    <input
+                      type="number"
+                      className={styles.input}
+                      value={feeAmount}
+                      onChange={handleAmountChange}
+                    />
                   </div>
                 </div>
               </div>
@@ -271,16 +291,19 @@ const Payouts = () => {
             <div className={styles.txnBox}>
               <p className={styles.text}>We’ll pay you</p>
               <p className={styles.amount}>
-                <span className={styles.currencyBox}>{feeCurrency}</span> 1880{" "}
+                <span className={styles.currencyBox}>{feeCurrency}</span>
+                {(feeAmount - fee).toFixed(2)}
               </p>
             </div>
             <div className={styles.txnBox}>
               <p className={styles.text}>Transaction fee charge</p>
               <p className={styles.amount}>
-                <span className={styles.currencyBox}>{feeCurrency}</span> 120{" "}
+                <span className={styles.currencyBox}>{feeCurrency}</span>
+
+                {fee}
               </p>
               <div className={styles.percentBox}>
-                <p className={styles.rate}>6%</p>
+                <p className={styles.rate}>{rate}%</p>
                 <p className={styles.subText}>
                   of the sales price for <br /> your transaction fee.
                 </p>

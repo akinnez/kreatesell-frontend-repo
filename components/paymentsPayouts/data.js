@@ -298,3 +298,24 @@ export const getWaitTime = (country, currency) => {
   }
   return time;
 };
+
+export const getFee = (currency, amount) => {
+  let rate;
+  switch (currency) {
+    case "NGN":
+      rate = 5;
+
+      break;
+    case "USD":
+    case "GBP":
+      rate = 10;
+      break;
+    case currency:
+      rate = 6;
+      break;
+    default:
+      rate = 5;
+      break;
+  }
+  return { rate, fee: ((rate * amount) / 100).toFixed(2) };
+};
