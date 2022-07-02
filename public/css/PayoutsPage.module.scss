@@ -1,17 +1,59 @@
 @use "colors";
+@use "screens";
 
 .tabs {
   div[class="ant-tabs-nav"] {
-    margin-bottom: 40px;
+    margin-bottom: 16px;
     border-radius: 8px;
     background-color: colors.$base-white;
 
-    div[class^="ant-tabs-ink-bar"] {
+    &::before {
+      border: none;
+    }
+
+    div[class^="ant-tabs-ink-bar"]:last-child {
       height: 4px;
     }
   }
 
   div[class="ant-tabs-tab-btn"] {
-    font-size: 16px;
+    color: colors.$base-gray;
+    font: {
+      weight: 500;
+      size: 16px;
+    }
+  }
+
+  div[class$="ant-tabs-tab-active"] div[class="ant-tabs-tab-btn"] {
+    color: colors.$base-blue;
+  }
+}
+
+@include screens.screen("x-large") {
+  .tabs {
+    div[class="ant-tabs-nav"] {
+      padding-left: 7px;
+      padding-right: 7px;
+
+      div[class="ant-tabs-nav-wrap"]:first-child {
+        justify-content: flex-start;
+      }
+    }
+
+    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab"],
+    div[class="ant-tabs-tab ant-tabs-tab-active"] + div[class="ant-tabs-tab"],
+    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab ant-tabs-tab-active"] {
+      margin-left: 5px;
+    }
+
+    div[class="ant-tabs-tab-btn"] {
+      padding: 8px;
+      border-radius: 8px;
+      background-color: colors.$white-200;
+    }
+
+    div[class$="ant-tabs-tab-active"] div[class="ant-tabs-tab-btn"] {
+      background-color: colors.$blue-100;
+    }
   }
 }

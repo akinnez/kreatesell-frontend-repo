@@ -29,7 +29,7 @@ const PayoutsPage = () => {
     if (router.query.redirect) {
       showToast("You have already set up your payout bank account", "info");
     }
-  }, [router]);
+  }, [router.query.redirect]);
 
   return (
     <AuthLayout>

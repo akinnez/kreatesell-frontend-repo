@@ -1,5 +1,6 @@
 @use "public/css/colors";
 @use "public/css/mixins";
+@use "public/css/screens";
 
 .header {
   margin-bottom: 35px;
@@ -17,7 +18,7 @@
 }
 
 .download {
-  margin-bottom: 5px;
+  margin-top: 30px;
 }
 
 .csv__btn {
@@ -30,34 +31,61 @@
   }
 }
 
-.table__section {
-  + section {
-    text-align: center;
+.data__section + section {
+  margin-top: 40px;
+  margin-bottom: 100px;
 
-    p {
-      margin-bottom: 20px;
+  ul {
+    @include mixins.flex(row, flex-end, center);
+  }
+}
+
+.table__wrapper {
+  display: none;
+}
+
+.payout__set-up {
+  text-align: center;
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  span[class="ant-typography"] {
+    font-weight: 500;
+    font-size: 16px;
+    color: colors.$base-gray;
+  }
+
+  a {
+    display: inline-block;
+    height: auto;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background-color: colors.$base-blue;
+    color: colors.$base-white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .data__section {
+    ul,
+    div[class*="no__data"] {
+      display: none;
     }
 
-    span[class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$base-gray;
-    }
-
-    a {
-      display: inline-block;
-      height: auto;
-      padding: 14px 16px;
-      border-radius: 8px;
-      background-color: colors.$base-blue;
-      color: colors.$base-white;
-      font-weight: bold;
-      font-size: 16px;
+    & + section ul {
+      justify-content: flex-start;
     }
   }
 
-  [class="ant-table-content"] {
-    overflow-x: auto;
-    margin-bottom: 30px;
+  .table__wrapper {
+    display: block;
+
+    [class="ant-table-content"] {
+      overflow-x: auto;
+    }
   }
 }
