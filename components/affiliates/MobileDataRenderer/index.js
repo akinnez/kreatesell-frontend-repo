@@ -1,9 +1,9 @@
 import { memo } from "react";
 import Image from "next/image";
+import NoData from "components/NoData";
 import ProductDetails from "../ProductDetails";
 import dateFormat from "utils/dateFormat";
 import Basket from "public/images/basket-grayed.png";
-import Clipboard from "public/images/clipboards.png";
 import styles from "./index.module.scss";
 
 const MobileDataRenderer = ({
@@ -14,10 +14,7 @@ const MobileDataRenderer = ({
 }) => (
   <>
     {products.length === 0 ? (
-      <div className={styles.no__data}>
-        <Image src={Clipboard} alt="Clipboard" width={200} height={200} />
-        <p>No record yet</p>
-      </div>
+      <NoData />
     ) : (
       <ul className={styles.products}>
         {products.map(product => (

@@ -54,8 +54,8 @@ const AffiliatePageLayout = ({
             />
           </div>
         </section>
-        <section>
-          {products.data.length > 0 && (
+        {products.data.length > 0 && (
+          <section>
             <Pagination
               pageSize={filters.limit}
               current={filters.page}
@@ -63,8 +63,8 @@ const AffiliatePageLayout = ({
               responsive={true}
               onChange={handlePageChange}
             />
-          )}
-        </section>
+          </section>
+        )}
       </Spin>
     </>
   );

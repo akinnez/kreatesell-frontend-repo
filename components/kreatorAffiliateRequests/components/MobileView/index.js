@@ -1,11 +1,10 @@
 import { memo } from "react";
-import Image from "next/image";
+import NoData from "components/NoData";
 import RequestStatus from "../RequestStatus";
 import RequestNotesButton from "../RequestNotesButton";
 import DropDown from "../DropDown";
 import PopOver from "../PopOver";
 import dateFormat from "utils/dateFormat";
-import Clipboard from "public/images/clipboards.png";
 import styles from "./index.module.scss";
 
 const MobileView = ({
@@ -16,10 +15,7 @@ const MobileView = ({
 }) => (
   <>
     {requests.length === 0 ? (
-      <div className={styles.no__data}>
-        <Image src={Clipboard} alt="Clipboard" width={200} height={200} />
-        <p>No record yet</p>
-      </div>
+      <NoData />
     ) : (
       <ul className={styles.requests}>
         {requests.map(request => (

@@ -49,10 +49,6 @@ const RecoveryStatusFilters = ({ setFilters }) => {
     });
   };
 
-  const handleClicks = (setter, value) => () => {
-    setter(value);
-  };
-
   const resetFilters = () => {
     form.resetFields();
     setIsFiltered(false);

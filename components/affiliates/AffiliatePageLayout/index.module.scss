@@ -35,15 +35,12 @@
   }
 }
 
-.data__section {
-  margin-bottom: 65px;
+.data__section + section {
+  margin-top: 65px;
+  margin-bottom: 100px;
 
-  & + section {
-    margin-bottom: 100px;
-
-    ul {
-      @include mixins.flex(row, flex-end, center);
-    }
+  ul {
+    @include mixins.flex(row, flex-end, center);
   }
 }
 

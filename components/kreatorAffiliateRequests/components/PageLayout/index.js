@@ -59,8 +59,8 @@ const PageLayout = ({
             />
           </div>
         </section>
-        <section>
-          {requests.data.length > 0 && (
+        {requests.data.length > 0 && (
+          <section>
             <Pagination
               pageSize={filters.limit}
               current={filters.page}
@@ -68,8 +68,8 @@ const PageLayout = ({
               responsive={true}
               onChange={handlePage}
             />
-          )}
-        </section>
+          </section>
+        )}
       </Spin>
     </>
   );
