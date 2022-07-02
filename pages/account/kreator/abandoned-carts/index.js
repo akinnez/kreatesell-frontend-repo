@@ -2,13 +2,12 @@ import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { BsPlusLg } from "react-icons/bs";
-import { Typography, Tabs } from "antd";
+import { Tabs } from "antd";
 import AuthLayout from "components/authlayout";
 import Campaigns from "components/kreatorAbandonedCarts/components/Campaigns";
 import RecoveryStatus from "components/kreatorAbandonedCarts/components/RecoveryStatus";
 import styles from "public/css/AbandonedCarts.module.scss";
 
-const { Text } = Typography;
 const { TabPane } = Tabs;
 
 const AbandonedCarts = () => {
@@ -25,15 +24,11 @@ const AbandonedCarts = () => {
       </Head>
       <header className={styles.header}>
         <div>
+          <h1>{activeKey === "1" ? "Send Mail" : "Recovery Status"}</h1>
           <p>
-            <Text>{activeKey === "1" ? "Send Mail" : "Recovery Status"}</Text>
-          </p>
-          <p>
-            <Text>
-              {activeKey === "1"
-                ? "Use your own words and content to reach your audience."
-                : "Faucibus justo et in sit at eget faucibus. Faucibus justo et in sit at eget faucibus."}
-            </Text>
+            {activeKey === "1"
+              ? "Use your own words and content to reach your audience."
+              : "Faucibus justo et in sit at eget faucibus. Faucibus justo et in sit at eget faucibus."}
           </p>
         </div>
         {activeKey === "1" && (
