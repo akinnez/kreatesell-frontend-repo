@@ -247,6 +247,22 @@ const Payouts = () => {
               </div>
             </Form>
           </div>
+          <section className={styles.feeDisplay}>
+            <div className={styles.txnBox}>
+              <p className={styles.text}>We’ll pay you</p>
+              <p className={styles.amount}>NGN 1880 </p>
+            </div>
+            <div className={styles.txnBox}>
+              <p className={styles.text}>Transaction fee charge</p>
+              <p className={styles.amount}>NGN 120 </p>
+              <div className={styles.percentBox}>
+                <p className={styles.rate}>6%</p>
+                <p className={styles.subText}>
+                  of the sales price for <br /> your transaction fee.
+                </p>
+              </div>
+            </div>
+          </section>
         </section>
         <SharedSubFooter />
       </section>

@@ -284,6 +284,7 @@
     // min-height: 120px !important;
     // border: 1px solid red !important;
     // padding: 1rem;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -330,6 +331,7 @@
     margin-top: 70px;
     padding-bottom: 70px;
     background-color: #e6f7ff;
+
     .heading {
       font-size: 28px;
       line-height: 40px;
@@ -387,6 +389,7 @@
   }
 
   .transactionFees {
+    padding-bottom: 101px;
     background-color: #f7fffc;
     .details {
       .heading {
@@ -418,6 +421,13 @@
       transition: all 0.2s;
       border: 1px solid #0072ef;
       border-radius: 8px;
+      .selectContainer {
+        font-size: 20px;
+      }
+      @media (min-width: 500px) {
+        padding-top: 3rem;
+        padding-left: 3rem;
+      }
       @media (min-width: 900px) {
         margin: 0 auto;
       }
@@ -441,6 +451,10 @@
             margin-top: unset;
             margin-left: 1.5rem;
           }
+          span {
+            font-size: 16px;
+            line-height: 26px;
+          }
         }
         @media (min-width: 500px) {
           flex-direction: row;
@@ -460,6 +474,7 @@
             padding: 0.5rem;
             background-color: transparent;
             font-size: 14px;
+
             text-align: center;
             // line-height: 24px;
             font-weight: 700;
@@ -482,6 +497,97 @@
       //   display: flex !important;
       //   justify-content: flex-start;
       // }
+    }
+  }
+
+  .feeDisplay {
+    background-color: #003a8c;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 730px;
+    margin: 0 2rem;
+    margin-top: 15px;
+    min-height: 168px;
+    transition: all 0.2s;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
+    .txnBox {
+      margin-bottom: 1rem;
+      transition: all 0.2s;
+      // text-align: center !important;
+      .text {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 10px;
+        color: #bae7ff;
+        margin-left: unset !important;
+      }
+
+      .amount {
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 40px;
+
+        color: #ffffff;
+      }
+
+      .percentBox {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .rate {
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 40px;
+          color: #bae7ff;
+          margin-right: 1rem;
+          margin-bottom: unset !important;
+        }
+
+        .subText {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: #ffffff;
+          margin-bottom: unset !important;
+        }
+      }
+      @media (min-width: 600px) {
+        &:first-child {
+          // margin-right: 5rem;
+          padding-right: 1rem;
+        }
+        &:last-child {
+          // margin-right: 5rem;
+          padding-left: 1rem;
+          border-left: 1px solid #40a9ff;
+          // border-right: 1px solid #40a9ff;
+        }
+      }
+      @media (min-width: 800px) {
+        &:first-child {
+          padding-right: 4rem;
+        }
+        &:last-child {
+          padding-left: 5rem;
+        }
+      }
+    }
+    @media (min-width: 600px) {
+      margin-top: 15px;
+      padding: 60px 115px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 900px) {
+      margin: 0 auto;
+      margin-top: 15px;
     }
   }
 }
