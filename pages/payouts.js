@@ -270,11 +270,15 @@ const Payouts = () => {
           <section className={styles.feeDisplay}>
             <div className={styles.txnBox}>
               <p className={styles.text}>We’ll pay you</p>
-              <p className={styles.amount}>NGN 1880 </p>
+              <p className={styles.amount}>
+                <span className={styles.currencyBox}>{feeCurrency}</span> 1880{" "}
+              </p>
             </div>
             <div className={styles.txnBox}>
               <p className={styles.text}>Transaction fee charge</p>
-              <p className={styles.amount}>NGN 120 </p>
+              <p className={styles.amount}>
+                <span className={styles.currencyBox}>{feeCurrency}</span> 120{" "}
+              </p>
               <div className={styles.percentBox}>
                 <p className={styles.rate}>6%</p>
                 <p className={styles.subText}>

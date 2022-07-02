@@ -532,6 +532,12 @@
         line-height: 40px;
 
         color: #ffffff;
+        .currencyBox {
+          @media (min-width: 670px) {
+            min-width: 65px !important;
+            display: inline-block;
+          }
+        }
       }
 
       .percentBox {
