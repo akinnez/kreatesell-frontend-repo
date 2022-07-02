@@ -6,7 +6,12 @@ import Basket from "public/images/basket-grayed.png";
 import Clipboard from "public/images/clipboards.png";
 import styles from "./index.module.scss";
 
-const MobileDataRenderer = ({ dataKey, products, component: Component }) => (
+const MobileDataRenderer = ({
+  productKey,
+  statusKey,
+  products,
+  component: Component,
+}) => (
   <>
     {products.length === 0 ? (
       <div className={styles.no__data}>
@@ -36,7 +41,10 @@ const MobileDataRenderer = ({ dataKey, products, component: Component }) => (
                   <strong>{product.product_name}</strong>
                 </div>
               </div>
-              <Component productId={product.id} status={product[dataKey]} />
+              <Component
+                productId={product[productKey]}
+                status={product[statusKey]}
+              />
             </div>
             <ProductDetails
               kreatorName={product.kreator_name}

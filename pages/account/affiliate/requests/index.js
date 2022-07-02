@@ -42,7 +42,8 @@ const AffiliateRequests = () => {
         setFilters={setFilters}
         component={GetLink}
         columns={requestsColumns}
-        dataKey="request_status"
+        statusKey="request_status"
+        productKey="product_id"
       />
     </AuthLayout>
   );

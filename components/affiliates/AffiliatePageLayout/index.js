@@ -1,5 +1,4 @@
-import { Spin, Table } from "antd";
-import DataPagination from "components/PaginationHelpers/Pagination";
+import { Pagination, Spin, Table } from "antd";
 import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
 import AffiliateFilters from "../AffiliateFilters";
 import MobileDataRenderer from "../MobileDataRenderer";
@@ -17,7 +16,8 @@ const AffiliatePageLayout = ({
   setFilters,
   component: Component,
   columns,
-  dataKey,
+  statusKey,
+  productKey,
 }) => {
   const handlePageChange = page => {
     setFilters({ ...filters, page });
@@ -40,7 +40,8 @@ const AffiliatePageLayout = ({
         />
         <section className={styles.data__section}>
           <MobileDataRenderer
-            dataKey={dataKey}
+            productKey={productKey}
+            statusKey={statusKey}
             products={products.data}
             component={Component}
           />
@@ -55,10 +56,11 @@ const AffiliatePageLayout = ({
         </section>
         <section>
           {products.data.length > 0 && (
-            <DataPagination
-              limit={filters.limit}
-              page={filters.page}
+            <Pagination
+              pageSize={filters.limit}
+              current={filters.page}
               total={products.total}
+              responsive={true}
               onChange={handlePageChange}
             />
           )}
