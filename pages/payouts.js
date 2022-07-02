@@ -19,26 +19,42 @@ const Payouts = () => {
   const [country, setCountry] = useState("Nigeria");
   const [currency, setCurrency] = useState("NGN");
 
+  // state to track flags and currency for fee display area
+  const [feeCurrency, setFeeCurrency] = useState("NGN");
+
   const currentCountryFlagObj = selectCountry.find(
     (item) => item.label === country
   );
 
-  const currencyCurrencyFlagObj = selectCurrency.find(
+  const currentCurrencyFlagObj = selectCurrency.find(
     (item) => item.label === currency
+  );
+
+  // fee display area.
+  const currentFeesFlagObj = selectCurrency.find(
+    (item) => item.label === feeCurrency
   );
   // console.log(currentCountryFlag);
   const [countryFlag, setCountryFlag] = useState(currentCountryFlagObj);
-  const [currencyFlag, setCurrencyFlag] = useState(currencyCurrencyFlagObj);
+  const [currencyFlag, setCurrencyFlag] = useState(currentCurrencyFlagObj);
+  const [feesCurrencyFlag, setFeesCurrencyFlag] = useState(currentFeesFlagObj);
   // state for wait time
   const [time, setTime] = useState(getWaitTime(country, currency));
 
+  // first 2 select boxes
   const handleCountrySelect = (field) => (value) => {
     form.setFieldsValue({ [field]: value });
     setCountry(value);
   };
+
   const handleCurrencySelect = (field) => (value) => {
     form.setFieldsValue({ [field]: value });
     setCurrency(value);
+  };
+
+  const handleFeeCurrencySelect = (field) => (value) => {
+    form.setFieldsValue({ [field]: value });
+    setFeeCurrency(value);
   };
 
   useEffect(() => {
@@ -52,8 +68,12 @@ const Payouts = () => {
   }, [country, currentCountryFlagObj]);
 
   useEffect(() => {
-    setCurrencyFlag(currencyCurrencyFlagObj);
-  }, [currency, currencyCurrencyFlagObj]);
+    setCurrencyFlag(currentCurrencyFlagObj);
+  }, [currency, currentCurrencyFlagObj]);
+
+  useEffect(() => {
+    setFeesCurrencyFlag(currentFeesFlagObj);
+  }, [feeCurrency, currentFeesFlagObj]);
 
   // console.log(selectCurrency);
   return (
@@ -205,9 +225,9 @@ const Payouts = () => {
               <div className={styles.selectMain}>
                 <Image
                   src={
-                    currencyFlag.label === "XOF"
+                    feesCurrencyFlag.label === "XOF"
                       ? XofDefault
-                      : currencyFlag?.flag
+                      : feesCurrencyFlag?.flag
                   }
                   alt={`Flag of ${currencyFlag?.value}`}
                   width={40}
@@ -221,8 +241,8 @@ const Payouts = () => {
                     <Select
                       placeholder="Select Currency"
                       size="large"
-                      onChange={handleCurrencySelect("currency")}
-                      value={currency}
+                      onChange={handleFeeCurrencySelect("currency")}
+                      value={feeCurrency}
                       className={styles.selectContainer}
                     >
                       {selectCurrency.map((item) => (
