@@ -2,9 +2,11 @@
 @use "public/css/mixins";
 
 .no__data {
+  border-radius: 8px;
+  padding: 70px 10px;
   @include mixins.flex(column, space-between, center);
   row-gap: 10px;
-  height: 300px;
+  background-color: colors.$base-white;
 
   p {
     margin: 15px 0 0;

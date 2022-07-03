@@ -9,7 +9,7 @@ import styles from "./index.module.scss";
 
 const currencies = [{ value: "All", label: "All" }, ...currencyOptions];
 
-const Filters = ({ setFilters }) => {
+const Filters = ({ setFilters, setLoading }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [form] = Form.useForm();
 
@@ -35,6 +35,7 @@ const Filters = ({ setFilters }) => {
     }
 
     setIsFiltered(true);
+    setLoading?.(true);
     setFilters(s => ({
       ...s,
       page: 1,

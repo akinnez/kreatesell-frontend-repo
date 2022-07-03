@@ -55,7 +55,7 @@ const PayoutsPage = () => {
             <Wallet
               bankDetails={bankDetails}
               walletInfo={walletInfo}
-              loading={loading}
+              storeLoading={loading}
             />
           </TabPane>
         </Tabs>

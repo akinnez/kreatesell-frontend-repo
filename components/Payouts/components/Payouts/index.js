@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Typography, Button, Table, Pagination, Spin } from "antd";
 import AsyncDataToCSV from "components/DataToCSV/AsyncDataToCSV";
 import PaginationSizeChanger from "components/PaginationSizeChanger";
-import PayoutsFilters from "../Filters/PayoutsFilters";
+import Filters from "../Filters";
 import PayoutsMobileView from "../PayoutsMobileView";
 import { payoutsColumns } from "../../columns/payoutsColumns";
 import { payoutsHeaders } from "../../utils/payoutsHeaders";
@@ -62,16 +62,16 @@ const Payouts = ({ bankDetails, handleClick }) => {
         </Button>
       </header>
       <section>
-        <PayoutsFilters setFilters={setFilters} />
+        <Filters setFilters={setFilters} />
       </section>
-      <section className={styles.download}>
+      <section>
         <AsyncDataToCSV
           url={`${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=1&Limit=0`}
           headers={payoutsHeaders}
           filename="payouts"
         />
       </section>
-      <Spin spinning={loading}>
+      <Spin spinning={loading} wrapperClassName={styles.spin__wrapper}>
         <section>
           <PaginationSizeChanger
             dataSize={payouts.total}

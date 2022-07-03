@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useSWR from "swr";
-import { Card, Typography, Row, Col, Button } from "antd";
+import { Typography, Row, Col, Button } from "antd";
 import {
   AiOutlineEyeInvisible,
   AiOutlineEye,
@@ -9,7 +9,6 @@ import {
 import Spinner from "components/Spinner";
 import SuccessModalBox from "components/SuccessModalBox";
 import WithdrawModal from "../WithdrawModal";
-import walletFetcher from "../../utils/walletFetcher";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;
@@ -26,7 +25,16 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
 
   const { data: affiliateBalance } = useSWR(
     `${process.env.BASE_URL}affiliate/get-wallet-account-balance`,
-    url => walletFetcher(url, "An error occurred fetching your account balance")
+    url => {
+      return axiosApi.request(
+        "get",
+        url,
+        res => res.data,
+        () => {
+          showToast("An error occurred fetching your account balance", "error");
+        }
+      );
+    }
   );
 
   const handleToggle = (setter, value) => () => {
@@ -41,19 +49,17 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
 
   return (
     <header className={styles.header}>
-      <Card>
+      <div className={styles.card}>
         {loading ||
         affiliateBalance === null ||
         affiliateBalance === undefined ? (
           <Spinner />
         ) : (
-          <Row gutter={[40, { xs: 40, sm: 40 }]}>
+          <Row gutter={[40, 16]}>
             <Col {...breakPoints}>
               <div className={`${styles.box} ${styles.kreator__box}`}>
                 <div className={styles.title}>
-                  <p>
-                    <Text>Kreator&#39;s Wallet Balance</Text>
-                  </p>
+                  <span>Kreator&#39;s Wallet Balance</span>
                   <Button
                     shape="circle"
                     type="text"
@@ -62,11 +68,9 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
                     {kreator ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                   </Button>
                 </div>
-                <p>
-                  <Text>
-                    {kreator ? `${currency} ${kreatorBalance}` : "************"}
-                  </Text>
-                </p>
+                <div className={styles.amount}>
+                  {kreator ? `${currency} ${kreatorBalance}` : "************"}
+                </div>
                 <div className={styles.withdraw__btn}>
                   <Button
                     size="large"
@@ -80,9 +84,7 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
             <Col {...breakPoints}>
               <div className={`${styles.box} ${styles.affiliate__box}`}>
                 <div className={styles.title}>
-                  <p>
-                    <Text>Affiliate&#39;s Wallet Balance</Text>
-                  </p>
+                  <span>Affiliate&#39;s Wallet Balance</span>
                   <Button
                     shape="circle"
                     type="text"
@@ -91,27 +93,25 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
                     {affiliate ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                   </Button>
                 </div>
-                <p>
-                  <Text>
-                    {affiliate
-                      ? `${currency} ${affiliateBalance.toFixed(2)}`
-                      : "************"}
-                  </Text>
-                </p>
+                <div className={styles.amount}>
+                  {affiliate
+                    ? `${currency} ${affiliateBalance.toFixed(2)}`
+                    : "************"}
+                </div>
                 <div className={styles.affiliate__info}>
                   <span>
                     <AiOutlineInfoCircle />
                   </span>
-                  <Text>
+                  <span>
                     Money in your wallet will be withdrawn into your account
                     every Tuesday of the week.
-                  </Text>
+                  </span>
                 </div>
               </div>
             </Col>
           </Row>
         )}
-      </Card>
+      </div>
       {withdrawModal && (
         <WithdrawModal
           withdrawModal={withdrawModal}

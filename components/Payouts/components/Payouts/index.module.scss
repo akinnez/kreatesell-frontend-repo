@@ -17,23 +17,12 @@
   }
 }
 
-.download {
-  margin-top: 30px;
-}
-
-.csv__btn {
-  text-align: right;
-
-  > button[class^="ant-btn"] {
-    color: colors.$base-blue;
-    font-weight: bold;
-    font-size: 12px;
-  }
+.spin__wrapper section:last-child {
+  margin-bottom: 100px;
 }
 
 .data__section + section {
   margin-top: 40px;
-  margin-bottom: 100px;
 
   ul {
     @include mixins.flex(row, flex-end, center);
