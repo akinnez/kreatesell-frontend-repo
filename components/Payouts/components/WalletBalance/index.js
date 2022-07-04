@@ -9,6 +9,8 @@ import {
 import Spinner from "components/Spinner";
 import SuccessModalBox from "components/SuccessModalBox";
 import WithdrawModal from "../WithdrawModal";
+import axiosApi from "utils/axios";
+import { showToast } from "utils";
 import styles from "./index.module.scss";
 
 const { Text } = Typography;
