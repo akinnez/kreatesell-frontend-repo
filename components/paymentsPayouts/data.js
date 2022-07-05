@@ -304,12 +304,12 @@ export const getFee = (currency, amount) => {
   switch (currency) {
     case "NGN":
       rate = 5;
-
       break;
     case "USD":
     case "GBP":
       rate = 10;
       break;
+    // for whatever other currency passed in
     case currency:
       rate = 6;
       break;
@@ -317,5 +317,8 @@ export const getFee = (currency, amount) => {
       rate = 5;
       break;
   }
-  return { rate, fee: ((rate * amount) / 100).toFixed(2) };
+  return {
+    rate,
+    fee: (rate * amount) / 100,
+  };
 };

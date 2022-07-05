@@ -295,7 +295,7 @@ const Payouts = () => {
               <p className={styles.amount}>
                 <span className={styles.currencyBox}>{feeCurrency}</span>
                 <br />
-                {(feeAmount - fee).toFixed(2)}
+                {(feeAmount - fee).toLocaleString("en-US")}
               </p>
             </div>
             <div className={styles.txnBox}>
@@ -303,7 +303,7 @@ const Payouts = () => {
               <p className={styles.amount}>
                 <span className={styles.currencyBox}>{feeCurrency}</span>
                 <br />
-                {fee}
+                {fee.toLocaleString("en-US")}
               </p>
               <div className={styles.percentBox}>
                 <p className={styles.rate}>{rate}%</p>
