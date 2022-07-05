@@ -1,29 +1,25 @@
-import Tags from "components/Tags";
+import HistoryTag from "../components/HistoryTag";
+import formatAccountNumber from "../utils/formatAccountNumber";
 import dateFormat from "utils/dateFormat";
 
 export const walletColumns = [
-  { title: "Amount Withdrawn", dataIndex: "amount" },
-  { title: "Description", dataIndex: "description" },
+  {
+    title: "Amount Withdrawn",
+    render: record => `${record.currency} ${record.amount}`,
+  },
+  {
+    title: "Description",
+    render: record =>
+      `${record.bank_name} (${formatAccountNumber(record.bank_account)})`,
+  },
   {
     title: "Withdrawal Date",
-    dataIndex: "date",
+    dataIndex: "withdrawal_date",
     render: date => dateFormat(date),
   },
   {
     title: "Status",
     dataIndex: "status",
-    render: status => (
-      <>
-        {status === "Successful" ? (
-          <Tags color="green">{status}</Tags>
-        ) : status === "Failed" ? (
-          <Tags color="red">{status}</Tags>
-        ) : status === "Pending" ? (
-          <Tags color="orange">{status}</Tags>
-        ) : (
-          <Tags>{status}</Tags>
-        )}
-      </>
-    ),
+    render: status => <HistoryTag status={status} />,
   },
 ];

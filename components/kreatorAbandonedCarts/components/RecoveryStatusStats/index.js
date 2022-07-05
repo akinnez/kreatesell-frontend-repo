@@ -8,8 +8,9 @@ import styles from "./index.module.scss";
 const { Text } = Typography;
 
 const breakpoints = {
-  xs: { span: 24 },
+  xs: { span: 12 },
   sm: { span: 12 },
+  md: { span: 8 },
   xl: { span: 8 },
 };
 
@@ -18,7 +19,13 @@ const AbandonedCartsStats = ({
   abandoned = 0,
   recovered = 0,
 }) => (
-  <Row gutter={[28, { xs: 24, sm: 24, lg: 32 }]}>
+  <Row
+    gutter={[
+      { xs: 12, sm: 12, xl: 20 },
+      { xs: 12, sm: 12 },
+    ]}
+    wrap
+  >
     <Col {...breakpoints}>
       <Card className={styles.card__wrapper}>
         <div className={styles.stats__content}>

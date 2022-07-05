@@ -28,26 +28,29 @@
   background-color: colors.$base-blue;
   box-shadow: 0px 15px 50px rgba(160, 163, 189, 0.1);
   border-radius: 8px;
-  padding: 20px 15px;
+  padding: 50px 10px;
 }
 
 .header__img {
   max-width: 250px;
-  margin: 0 auto 60px;
+  margin: 0 auto 40px;
 }
 
 .header__stats {
   > p {
-    margin-bottom: 16px;
     font-weight: bold;
     text-align: center;
 
     &:first-child {
+      margin-bottom: 16px;
       font-size: 12px;
     }
 
     &:last-of-type {
       font-size: 48px;
+      margin-bottom: 0;
+      width: 100%;
+      max-width: 350px;
     }
 
     & > span[class="ant-typography"] {
@@ -89,9 +92,17 @@
   // }
 }
 
+@include screens.minScreen("medium") {
+  .header__banner {
+    padding: 50px;
+  }
+}
+
 @include screens.minScreen("tablet") {
   .header__banner {
     @include mixins.flex(row, center, center);
+    flex-wrap: wrap;
+    gap: 40px;
   }
 
   .header__img {
@@ -101,12 +112,5 @@
 
   .header__stats {
     order: 1;
-    margin-right: 40px;
-  }
-}
-
-@include screens.minScreen("xx-large") {
-  .header__stats {
-    margin-right: 99px;
   }
 }

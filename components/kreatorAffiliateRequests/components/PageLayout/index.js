@@ -1,6 +1,5 @@
-import { Spin, Table } from "antd";
-import DataPagination from "components/PaginationHelpers/Pagination";
-import PaginationSizeChanger from "components/PaginationHelpers/PaginationSizeChanger";
+import { Pagination, Spin, Table } from "antd";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
 import Filters from "../Filters";
 import MobileView from "../MobileView";
 import StatusButtons from "../StatusButtons";
@@ -60,16 +59,17 @@ const PageLayout = ({
             />
           </div>
         </section>
-        <section>
-          {requests.data.length > 0 && (
-            <DataPagination
-              limit={filters.limit}
-              page={filters.page}
+        {requests.data.length > 0 && (
+          <section>
+            <Pagination
+              pageSize={filters.limit}
+              current={filters.page}
               total={requests.total}
+              responsive={true}
               onChange={handlePage}
             />
-          )}
-        </section>
+          </section>
+        )}
       </Spin>
     </>
   );

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Typography, Button, Table } from "antd";
+import { Typography, Button, Table, Pagination, Spin } from "antd";
 import AsyncDataToCSV from "components/DataToCSV/AsyncDataToCSV";
-import PayoutsFilters from "../Filters/PayoutsFilters";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
+import Filters from "../Filters";
+import PayoutsMobileView from "../PayoutsMobileView";
 import { payoutsColumns } from "../../columns/payoutsColumns";
-import { payoutsHeaders } from "components/Payouts/utils/payoutsHeaders";
+import { payoutsHeaders } from "../../utils/payoutsHeaders";
+import useFilters from "../../useFilters";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
 import styles from "./index.module.scss";
@@ -14,56 +17,40 @@ const rowKey = record => record.id;
 
 const Payouts = ({ bankDetails, handleClick }) => {
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [productName, setProductName] = useState("");
-  const [payouts, setPayouts] = useState([]);
-  const [totalPayouts, setTotalPayouts] = useState(0);
-  const [uri, setUri] = useState("");
+  const [payouts, setPayouts] = useState({ data: [], total: 0 });
+
+  const { url, filters, setFilters } = useFilters(
+    "v1/kreatesell/store/payouts"
+  );
 
   useEffect(() => {
-    const url = new URL(
-      `${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=${page}&Limit=${limit}`
-    );
-
-    if (startDate) url.searchParams.set("StartDate", startDate);
-    if (endDate) url.searchParams.set("EndDate", endDate);
-    if (productName) url.searchParams.set("Product_Name", productName);
-
-    setUri(url);
-  }, [limit, page, startDate, endDate, productName]);
-
-  useEffect(() => {
-    if (bankDetails && uri) {
+    if (bankDetails) {
       setLoading(true);
 
       axiosApi.request(
         "get",
-        uri,
+        url,
         res => {
-          setPayouts(res.data.data);
-          setTotalPayouts(res.data.total_records);
           setLoading(false);
+          setPayouts(s => ({
+            ...s,
+            data: res.data.data,
+            total: res.data.total_records,
+          }));
         },
         () => {
+          setLoading(false);
           showToast(
-            "We cant fetch your payouts right now. Please try again later",
+            "An error has occurred and we cant fetch your payouts right now. Please try again later",
             "error"
           );
-          setLoading(false);
         }
       );
     }
-  }, [bankDetails, uri]);
+  }, [bankDetails, url]);
 
-  const handlePageChange = newPage => {
-    setPage(newPage);
-  };
-
-  const handleSizeChanger = (_, pageSize) => {
-    setLimit(pageSize);
+  const handlePageChange = page => {
+    setFilters({ ...filters, page });
   };
 
   return (
@@ -75,38 +62,48 @@ const Payouts = ({ bankDetails, handleClick }) => {
         </Button>
       </header>
       <section>
-        <PayoutsFilters
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          setProductName={setProductName}
-        />
+        <Filters setFilters={setFilters} />
       </section>
-      <section className={styles.download}>
+      <section>
         <AsyncDataToCSV
           url={`${process.env.BASE_URL}v1/kreatesell/store/payouts?Page=1&Limit=0`}
           headers={payoutsHeaders}
           filename="payouts"
         />
       </section>
-      <section className={styles.table__section}>
-        <Table
-          dataSource={payouts}
-          columns={payoutsColumns}
-          pagination={{
-            position: ["bottomLeft"],
-            defaultPageSize: limit,
-            responsive: true,
-            total: totalPayouts,
-            current: page,
-            onChange: handlePageChange,
-            onShowSizeChange: handleSizeChanger,
-          }}
-          rowKey={rowKey}
-          loading={loading}
-        />
-      </section>
-      {!bankDetails && (
+      <Spin spinning={loading} wrapperClassName={styles.spin__wrapper}>
         <section>
+          <PaginationSizeChanger
+            dataSize={payouts.total}
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </section>
+        <section className={styles.data__section}>
+          <PayoutsMobileView payouts={payouts.data} />
+          <div className={styles.table__wrapper}>
+            <Table
+              dataSource={payouts.data}
+              columns={payoutsColumns}
+              pagination={false}
+              rowKey={rowKey}
+            />
+          </div>
+        </section>
+        {payouts.data.length > 0 && (
+          <section>
+            <Pagination
+              pageSize={filters.limit}
+              current={filters.page}
+              total={payouts.total}
+              responsive={true}
+              onChange={handlePageChange}
+            />
+          </section>
+        )}
+      </Spin>
+      {!bankDetails && (
+        <section className={styles["payout__set-up"]}>
           <p>
             <Text>
               To start receiving money from your sales ensure you setup your

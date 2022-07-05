@@ -2,9 +2,13 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.card__wrapper > [class="ant-card-body"] {
-  padding-top: 50px;
-  padding-bottom: 200px;
+.card__wrapper {
+  border-radius: 8px;
+
+  > [class="ant-card-body"] {
+    padding-top: 50px;
+    padding-bottom: 200px;
+  }
 }
 
 .header {
@@ -30,8 +34,14 @@
   }
 
   > button {
+    height: auto;
     margin-top: 40px;
     border-radius: 8px;
+    font-size: 14px;
+
+    span {
+      white-space: normal;
+    }
   }
 }
 

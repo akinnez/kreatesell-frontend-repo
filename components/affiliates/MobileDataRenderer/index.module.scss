@@ -2,21 +2,6 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.no__data {
-  @include mixins.flex(column, space-between, center);
-  row-gap: 10px;
-  height: 300px;
-
-  p {
-    margin: 15px 0 0;
-    color: colors.$black-100;
-    font: {
-      size: 18px;
-      weight: bold;
-    }
-  }
-}
-
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 430px));
@@ -45,7 +30,7 @@
 }
 
 .product__name {
-  @include mixins.flex(row, space-between, center);
+  @include mixins.flex(row, flex-start, center);
   column-gap: 10px;
 
   span {

@@ -1,33 +1,24 @@
 import { useState } from "react";
 import Image from "next/image";
+import { Form, Button, DatePicker, Input, Select, Row, Col } from "antd";
+import { MdSearch } from "react-icons/md";
 import moment from "moment";
-import { Row, Col, Form, Select, DatePicker, Button } from "antd";
+import ResetFilters from "components/ResetFilters";
 import { currencyOptions } from "utils";
 import styles from "./index.module.scss";
-import ResetFilters from "components/ResetFilters";
-
-// const options = [
-//   { label: "Today", value: "today" },
-//   { label: "Last Week", value: "last week" },
-//   { label: "Last Month", value: "last month" },
-//   { label: "Last Year", value: "last year" },
-// ];
 
 const currencies = [{ value: "All", label: "All" }, ...currencyOptions];
 
-const breakpoints = {
-  xs: { span: 12 },
-  sm: { span: 12 },
-  md: { span: 6 },
-};
-
-const RecoveryStatusFilters = ({ setFilters }) => {
+const Filters = ({ setFilters, setLoading }) => {
   const [isFiltered, setIsFiltered] = useState(false);
-
   const [form] = Form.useForm();
 
-  const handleOptions = field => value => {
-    form.setFieldsValue({ [field]: value });
+  const handleSearch = e => {
+    form.setFieldsValue({ search: e.target.value });
+  };
+
+  const handleCurrency = value => {
+    form.setFieldsValue({ currency: value });
   };
 
   const handleDate = field => (_, dateStr) => {
@@ -37,22 +28,35 @@ const RecoveryStatusFilters = ({ setFilters }) => {
   };
 
   const handleSubmitFilter = values => {
-    const { currency = null, from, to } = values;
+    const { search, currency, from, to } = values;
 
-    if (!currency && !from && !to) return;
+    if (!search && !currency && !from && !to) {
+      return;
+    }
 
     setIsFiltered(true);
-    setFilters({
-      currency,
+    setLoading?.(true);
+    setFilters(s => ({
+      ...s,
+      page: 1,
+      productName: search || "",
+      currency: currency,
       from: from ? from._i : "",
       to: to ? to._i : "",
-    });
+    }));
   };
 
   const resetFilters = () => {
     form.resetFields();
     setIsFiltered(false);
-    setFilters({ currency: null, from: "", to: "" });
+    setFilters(s => ({
+      ...s,
+      page: 1,
+      productName: "",
+      currency: null,
+      from: "",
+      to: "",
+    }));
   };
 
   return (
@@ -65,30 +69,42 @@ const RecoveryStatusFilters = ({ setFilters }) => {
         form={form}
         name="filter_form"
       >
-        <Row gutter={[15, 14]} align="bottom" justify="space-between" wrap>
-          {/* <Col
-                xs={{ span: 24 }}
-                lg={{ span: 5 }}
-                className={styles.input__wrapper}
-              >
-                <Form.Item label="Show" name="show">
-                  <Select
-                    placeholder="Today"
-                    onChange={handleOptions("show")}
-                    options={options}
-                  />
-                </Form.Item>
-              </Col> */}
-          <Col {...breakpoints} className={styles.input__wrapper}>
-            <Form.Item label="Currency" name="currency">
-              <Select
-                placeholder="NGN"
-                onChange={handleOptions("currency")}
-                options={currencies}
+        <Row gutter={[15, 14]} align="bottom" justify="start" wrap>
+          <Col
+            xs={{ span: 24 }}
+            md={{ span: 12 }}
+            lg={{ span: 6 }}
+            xl={{ span: 5 }}
+            className={styles.input__wrapper}
+          >
+            <Form.Item label="Search" name="search">
+              <Input
+                placeholder="Click here to Search"
+                onChange={handleSearch}
+                prefix={<MdSearch color="#8C8C8C" fontSize={"1.2em"} />}
               />
             </Form.Item>
           </Col>
-          <Col {...breakpoints} className={styles.input__wrapper}>
+          <Col
+            xs={{ span: 12 }}
+            lg={{ span: 6 }}
+            xl={{ span: 5 }}
+            className={styles.input__wrapper}
+          >
+            <Form.Item label="Currency" name="currency">
+              <Select
+                options={currencies}
+                placeholder="NGN"
+                onChange={handleCurrency}
+              />
+            </Form.Item>
+          </Col>
+          <Col
+            xs={{ span: 12 }}
+            lg={{ span: 6 }}
+            xl={{ span: 5 }}
+            className={styles.input__wrapper}
+          >
             <Form.Item label="From" name="from">
               <DatePicker
                 placeholder="2021-07-22"
@@ -97,7 +113,12 @@ const RecoveryStatusFilters = ({ setFilters }) => {
               />
             </Form.Item>
           </Col>
-          <Col {...breakpoints} className={styles.input__wrapper}>
+          <Col
+            xs={{ span: 12 }}
+            lg={{ span: 6 }}
+            xl={{ span: 5 }}
+            className={styles.input__wrapper}
+          >
             <Form.Item label="To" name="to">
               <DatePicker
                 placeholder="2021-07-22"
@@ -106,10 +127,7 @@ const RecoveryStatusFilters = ({ setFilters }) => {
               />
             </Form.Item>
           </Col>
-          <Col
-            {...breakpoints}
-            className={`${styles.input__wrapper} ${styles.filter__btn}`}
-          >
+          <Col className={`${styles.input__wrapper} ${styles.filter__btn}`}>
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 <Image
@@ -129,4 +147,4 @@ const RecoveryStatusFilters = ({ setFilters }) => {
   );
 };
 
-export default RecoveryStatusFilters;
+export default Filters;

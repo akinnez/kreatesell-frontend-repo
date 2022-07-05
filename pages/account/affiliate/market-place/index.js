@@ -49,7 +49,8 @@ const AffiliateProducts = () => {
           setFilters={setFilters}
           columns={productsColumns}
           component={RequestAccessLink}
-          dataKey="has_requested_access"
+          statusKey="has_requested_access"
+          productKey="id"
         />
       )}
     </AuthLayout>
