@@ -5,6 +5,8 @@
 .payoutsContainer {
   width: 100%;
   margin: 4rem 0;
+  background-repeat: no-repeat;
+  background-image: url("../images/partial-general-bg.svg");
   .details {
     padding: 25px;
     .mobileHeading {
@@ -536,6 +538,7 @@
           @media (min-width: 670px) {
             min-width: 65px !important;
             display: inline-block;
+            font-size: 2rem;
           }
         }
       }

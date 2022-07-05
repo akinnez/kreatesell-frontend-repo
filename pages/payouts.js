@@ -277,11 +277,12 @@ const Payouts = () => {
                       ))}
                     </Select>
                     <input
-                      type="number"
+                      type="tel"
                       className={styles.input}
                       value={feeAmount}
                       onChange={handleAmountChange}
-                      maxLength="6"
+                      maxLength="7"
+                      pattern="[0-9]{5}"
                     />
                   </div>
                 </div>
@@ -293,6 +294,7 @@ const Payouts = () => {
               <p className={styles.text}>We’ll pay you</p>
               <p className={styles.amount}>
                 <span className={styles.currencyBox}>{feeCurrency}</span>
+                <br />
                 {(feeAmount - fee).toFixed(2)}
               </p>
             </div>
@@ -300,7 +302,7 @@ const Payouts = () => {
               <p className={styles.text}>Transaction fee charge</p>
               <p className={styles.amount}>
                 <span className={styles.currencyBox}>{feeCurrency}</span>
-
+                <br />
                 {fee}
               </p>
               <div className={styles.percentBox}>
