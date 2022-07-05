@@ -1,3 +1,4 @@
+@use "public/css/colors";
 @use "public/css/mixins";
 
 .menu span[class="ant-dropdown-menu-title-content"] {
@@ -9,4 +10,19 @@
   height: 20px;
   display: inline-block;
   margin-right: 10px;
+}
+
+.btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  box-shadow: none;
+  background-color: transparent;
+
+  &:hover {
+    background-color: colors.$white-200;
+  }
 }

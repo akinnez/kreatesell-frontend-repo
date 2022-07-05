@@ -52,10 +52,11 @@
 }
 
 .email__tag {
-  @include mixins.flex(column, flex-start, flex-start);
+  @include mixins.flex(row, flex-start, flex-start);
+  gap: 5px 60px;
 
   &:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   & > span[class="ant-typography"] {
@@ -64,7 +65,7 @@
 
     &:first-child {
       color: colors.$base-gray;
-      margin-bottom: 5px;
+      flex: 0 0 145px;
     }
 
     &:last-child {
@@ -73,21 +74,14 @@
   }
 }
 
-@include screens.minScreen("tablet") {
-  .email__tags {
-    padding: 30px 50px;
+@include screens.screen("medium") {
+  .email__tag {
+    flex-wrap: wrap;
   }
 }
 
-@include screens.minScreen("x-large") {
-  .email__tag {
-    flex-direction: row;
-    align-items: center;
-
-    & > span[class="ant-typography"]:first-child {
-      margin-bottom: 0;
-      margin-right: 40px;
-      width: 165px;
-    }
+@include screens.minScreen("tablet") {
+  .email__tags {
+    padding: 50px 85px;
   }
 }

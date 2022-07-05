@@ -20,6 +20,7 @@
 
     &:last-child {
       color: colors.$black-100;
+      word-break: break-all;
     }
   }
 }

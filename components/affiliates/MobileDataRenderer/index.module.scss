@@ -1,0 +1,56 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 430px));
+  justify-content: space-evenly;
+  gap: 16px 20px;
+}
+
+.product {
+  padding: 30px;
+  border: 1px solid colors.$white-300;
+  border-radius: 8px;
+  background-color: colors.$base-white;
+}
+
+.product__header {
+  margin-bottom: 15px;
+  @include mixins.flex(row, space-between, center);
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.product__launch-date {
+  font-size: 12px;
+  color: colors.$base-gray;
+  margin-bottom: 15px;
+}
+
+.product__name {
+  @include mixins.flex(row, flex-start, center);
+  column-gap: 10px;
+
+  span {
+    min-width: 24px;
+    height: 24px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid colors.$gray-100;
+    border-radius: 2px;
+  }
+
+  strong {
+    font-size: 16px;
+    color: colors.$black-100;
+  }
+}
+
+@include screens.screen("medium") {
+  .product {
+    padding: 10px;
+  }
+}

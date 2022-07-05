@@ -109,6 +109,7 @@ const Request = ({ productId, hasRequestedAccess, updateProduct }) => {
         <SuccessModalBox
           modalIsVisible={showModal}
           closeModal={handleHideModal}
+          closeButton={false}
         >
           <section className={styles.content}>
             <p>

@@ -8,7 +8,7 @@ import styles from "./index.module.scss";
 const { Text } = Typography;
 
 const PromotionalMaterials = ({ productFile }) => (
-  <section>
+  <section className={styles.section}>
     {productFile ? (
       <div className={styles.materials}>
         <div>

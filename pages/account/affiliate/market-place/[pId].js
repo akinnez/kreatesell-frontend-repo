@@ -1,19 +1,15 @@
 import { useMemo } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { Tabs } from "antd";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ProfileLayout from "components/ProfileLayout";
 import ProfilePageError from "components/ProfilePageError";
 import ProfilePageLoading from "components/ProfilePageLoading";
-import BackButton from "components/BackButton";
 import AffiliateRequestContainer from "components/affiliates/AffiliateRequestContainer";
 import Request from "components/affiliateProducts/components/Request";
 import Overview from "components/affiliates/Overview";
 import useFetchData from "hooks/useFetchData";
 import productImageFn from "utils/productImageFn";
-import styles from "public/css/AffiliateProductRequest.module.scss";
 
 const { TabPane } = Tabs;
 
@@ -58,14 +54,6 @@ const AffiliateProductRequest = () => {
       <Head>
         <title>KreateSell | Affiliate Product Request</title>
       </Head>
-      <header className={styles.header}>
-        <BackButton />
-        <Link href={`/account/affiliate/preview/product/${router.query.pId}`}>
-          <a className={styles.header__btn}>
-            <MdOutlineRemoveRedEye /> View Product Page
-          </a>
-        </Link>
-      </header>
       <AffiliateRequestContainer
         productTypeId={product.affiliate_kreator_product.product_type_id}
         productName={product.affiliate_kreator_product.product_name}

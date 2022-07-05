@@ -6,19 +6,9 @@ import DeclineImg from "public/images/decline_icon.png";
 import RevokeImg from "public/images/revoke_icon.png";
 import styles from "./index.module.scss";
 
-const menu = (record, showActionModal) => {
-  const handler = (status, title) => {
-    const data = {
-      status,
-      title,
-      requestId: record.id,
-      affiliate: record.affiliate_name,
-      affiliateId: record.affiliate_id,
-      product: record.product_name,
-      productId: record.product_id,
-    };
-
-    showActionModal(data);
+const menu = ({ status, showActionModal, ...props }) => {
+  const handler = (requestStatus, title) => {
+    showActionModal({ status: requestStatus, title, ...props });
   };
 
   return (
@@ -26,7 +16,7 @@ const menu = (record, showActionModal) => {
       <Menu.Item
         key={1}
         onClick={() => handler("approve", "Approve")}
-        disabled={record.status === "Approved" || record.status === "Revoked"}
+        disabled={status === "Approved" || status === "Revoked"}
       >
         <span className={styles.image__wrapper}>
           <Image src={ApproveImg} alt="Approve Icon" />
@@ -36,7 +26,7 @@ const menu = (record, showActionModal) => {
       <Menu.Item
         key={2}
         onClick={() => handler("decline", "Decline")}
-        disabled={record.status === "Declined" || record.status === "Revoked"}
+        disabled={status === "Declined" || status === "Revoked"}
       >
         <span className={styles.image__wrapper}>
           <Image src={DeclineImg} alt="Decline Icon" />
@@ -46,7 +36,7 @@ const menu = (record, showActionModal) => {
       <Menu.Item
         key={3}
         onClick={() => handler("revoke", "Revoke")}
-        disabled={record.status === "Revoked"}
+        disabled={status === "Revoked"}
       >
         <span className={styles.image__wrapper}>
           <Image src={RevokeImg} alt="Revoke Icon" />
@@ -57,16 +47,20 @@ const menu = (record, showActionModal) => {
   );
 };
 
-const DropDown = ({ record, showActionModal }) => {
-  return (
-    <Dropdown
-      overlay={menu(record, showActionModal)}
-      placement="bottomRight"
-      arrow
-    >
-      <Button type="text" shape="circle" icon={<BsThreeDots />} />
-    </Dropdown>
-  );
-};
+const DropDown = props => (
+  <Dropdown
+    overlay={menu(props)}
+    placement="bottomRight"
+    trigger={["click", "hover"]}
+    arrow
+  >
+    <Button
+      className={styles.btn}
+      type="text"
+      shape="circle"
+      icon={<BsThreeDots />}
+    />
+  </Dropdown>
+);
 
 export default DropDown;

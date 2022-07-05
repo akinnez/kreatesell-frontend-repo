@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { Typography, Card, Button, Row, Col, Divider } from "antd";
+import { Typography, Card, Button, Row, Col } from "antd";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import Spinner from "components/Spinner";
@@ -67,24 +67,26 @@ const SetupBankDetails = () => {
       <section>
         <Row gutter={[{ md: 40 }, 50]} justify="space-between">
           <Col {...breakPoints} md={{ span: 9, order: 2 }}>
-            <div className={styles.illustration}>
-              <p>
-                <Text>Kreator</Text>
-              </p>
-              <div className={styles.kreator__illustration}>
-                <Image src={KreatorIllustration} alt="Kreator Illustration" />
+            <div className={styles.illustrations}>
+              <div className={styles.illustration}>
+                <p>
+                  <Text>Kreator</Text>
+                </p>
+                <div className={styles.kreator__illustration}>
+                  <Image src={KreatorIllustration} alt="Kreator Illustration" />
+                </div>
               </div>
-            </div>
-            <Divider className={styles.divider} />
-            <div className={styles.illustration}>
-              <p>
-                <Text>Affiliate</Text>
-              </p>
-              <div className={styles.affiliate__illustration}>
-                <Image
-                  src={AffiliateIllustration}
-                  alt="Affiliate Illustration"
-                />
+              <div className={styles.divider} />
+              <div className={styles.illustration}>
+                <p>
+                  <Text>Affiliate</Text>
+                </p>
+                <div className={styles.affiliate__illustration}>
+                  <Image
+                    src={AffiliateIllustration}
+                    alt="Affiliate Illustration"
+                  />
+                </div>
               </div>
             </div>
           </Col>
@@ -94,8 +96,9 @@ const SetupBankDetails = () => {
                 <Title>Set up Bank Details</Title>
                 <p>
                   <Text>
-                    Choose how you receive payments from your sales as a Kreator
-                    or/and commissions as an Affiliate below
+                    You receive payments from your sales as a Kreator or/and
+                    commissions as an Affiliate with the account details
+                    provided.
                   </Text>
                 </p>
               </div>
@@ -129,9 +132,8 @@ const SetupBankDetails = () => {
               <div className={styles.content}>
                 <p>
                   <Text>
-                    Connect a bank account. Money from sales made as a kreator,
-                    and affiliate commissions go directly to the assigned bank
-                    account, mobile money wallet or PayPal address.
+                    Your settlements go directly to the assigned bank account,
+                    mobile money wallet or PayPal address.
                   </Text>
                 </p>
               </div>

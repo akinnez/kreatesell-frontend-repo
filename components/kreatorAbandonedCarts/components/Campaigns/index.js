@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Typography, Pagination, Card, Spin } from "antd";
+import { Pagination, Card, Spin } from "antd";
 import { BsPlusLg } from "react-icons/bs";
 import Spinner from "components/Spinner";
-import PaginationHelper from "components/PaginationHelpers";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
 import Campaign from "../Campaign";
 import axiosAPI from "utils/axios";
 import { showToast } from "utils";
+import Clipboard from "public/images/clipboards.png";
 import styles from "./index.module.scss";
-
-const { Title } = Typography;
 
 const Campaigns = () => {
   const [uri, setUri] = useState("");
@@ -56,14 +56,7 @@ const Campaigns = () => {
     return (
       <Card className={styles.card}>
         <div className={styles.error__message}>
-          <p>
-            <span>
-              Ann error has occurred and we could not get your campaigns.
-            </span>
-          </p>
-          <p>
-            <span>Please try again later</span>
-          </p>
+          Ann error has occurred and we could not get your campaigns.
         </div>
       </Card>
     );
@@ -78,34 +71,45 @@ const Campaigns = () => {
   return (
     <Card className={styles.card}>
       <header className={styles.header}>
-        <Title>Manage All Your Email Campaigns Here.</Title>
+        <h3>Manage All Your Email Campaigns Here.</h3>
       </header>
       <Spin spinning={campaigns.loading}>
-        <PaginationHelper
-          dataSize={campaigns.total}
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <article className={styles.campaign__wrapper}>
-          <div className={styles.campaigns__container}>
-            {campaigns.data.map(campaign => (
-              <Campaign key={campaign.id} campaign={campaign} />
-            ))}
+        {campaigns.data.length === 0 ? (
+          <div className={styles.no__data}>
+            <Image src={Clipboard} alt="clipboard" width={200} height={200} />
+            <p>No record yet</p>
           </div>
-          <Link href="/account/kreator/abandoned-carts/add">
-            <a>
-              <BsPlusLg />
-              &nbsp; Add Email
-            </a>
-          </Link>
-        </article>
-        <Pagination
-          pageSize={filters.limit}
-          current={filters.page}
-          total={campaigns.total}
-          responsive={true}
-          onChange={handlePageChange}
-        />
+        ) : (
+          <>
+            <PaginationSizeChanger
+              dataSize={campaigns.total}
+              filters={filters}
+              setFilters={setFilters}
+            />
+            <article className={styles.campaign__wrapper}>
+              <div className={styles.campaigns__container}>
+                {campaigns.data.map(campaign => (
+                  <Campaign key={campaign.id} campaign={campaign} />
+                ))}
+              </div>
+              <Link href="/account/kreator/abandoned-carts/add">
+                <a>
+                  <BsPlusLg />
+                  &nbsp; Add Email
+                </a>
+              </Link>
+            </article>
+            {campaigns.data.length > 0 && (
+              <Pagination
+                pageSize={filters.limit}
+                current={filters.page}
+                total={campaigns.total}
+                responsive={true}
+                onChange={handlePageChange}
+              />
+            )}
+          </>
+        )}
       </Spin>
     </Card>
   );
