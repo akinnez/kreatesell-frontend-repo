@@ -11,51 +11,6 @@
   margin: 0 auto;
 }
 
-.box {
-  min-width: 260px;
-  height: 100%;
-  padding: 15px;
-  background-color: #096dd9;
-  border-radius: 8px;
-}
-
-.title {
-  margin-bottom: 12px;
-  @include mixins.flex(row, space-between, center);
-  column-gap: 10px;
-  line-height: 1;
-
-  > span {
-    font-weight: 500;
-    font-size: 16px;
-    color: colors.$base-white;
-  }
-
-  button {
-    height: auto;
-    padding: 0;
-    border: none;
-    color: colors.$base-white;
-    font-size: 20px;
-
-    &:hover,
-    &:active,
-    svg {
-      color: colors.$base-white;
-    }
-  }
-}
-
-.amount {
-  margin-bottom: 12px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 20px;
-  color: colors.$blue-200;
-  line-height: 1.1;
-  word-break: break-all;
-}
-
 .withdraw__btn {
   text-align: center;
 
@@ -112,12 +67,6 @@
   }
 }
 
-@include screens.minScreen("medium") {
-  .title {
-    justify-content: center;
-  }
-}
-
 @include screens.minScreen("tablet") {
   .header {
     padding: 30px;
@@ -130,21 +79,6 @@
   .header {
     padding-left: 60px;
     padding-right: 60px;
-  }
-
-  .box {
-    padding: 30px 48px;
-  }
-
-  .title {
-    margin-bottom: 16px;
-  }
-
-  .amount {
-    margin-bottom: 16px;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 1.6;
   }
 
   .withdraw__btn > button {

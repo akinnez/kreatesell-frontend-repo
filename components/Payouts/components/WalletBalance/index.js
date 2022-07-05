@@ -1,14 +1,11 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { Typography, Row, Col, Button } from "antd";
-import {
-  AiOutlineEyeInvisible,
-  AiOutlineEye,
-  AiOutlineInfoCircle,
-} from "react-icons/ai";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import Spinner from "components/Spinner";
 import SuccessModalBox from "components/SuccessModalBox";
 import WithdrawModal from "../WithdrawModal";
+import WalletInfo from "../WalletInfo";
 import axiosApi from "utils/axios";
 import { showToast } from "utils";
 import styles from "./index.module.scss";
@@ -20,8 +17,6 @@ const breakPoints = {
 };
 
 const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
-  const [kreator, setKreator] = useState(false);
-  const [affiliate, setAffiliate] = useState(false);
   const [withdrawModal, setWithdrawModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
 
@@ -39,10 +34,6 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
     }
   );
 
-  const handleToggle = (setter, value) => () => {
-    setter(!value);
-  };
-
   const handleClicks = (setter, value) => () => {
     setter(value);
   };
@@ -59,47 +50,28 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
         ) : (
           <Row gutter={[40, 16]}>
             <Col {...breakPoints}>
-              <div className={`${styles.box} ${styles.kreator__box}`}>
-                <div className={styles.title}>
-                  <span>Kreator&#39;s Wallet Balance</span>
-                  <Button
-                    shape="circle"
-                    type="text"
-                    onClick={handleToggle(setKreator, kreator)}
-                  >
-                    {kreator ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-                  </Button>
-                </div>
-                <div className={styles.amount}>
-                  {kreator ? `${currency} ${kreatorBalance}` : "************"}
-                </div>
+              <WalletInfo
+                title="Kreator"
+                currency={currency}
+                balance={kreatorBalance}
+              >
                 <div className={styles.withdraw__btn}>
                   <Button
                     size="large"
                     onClick={handleClicks(setWithdrawModal, true)}
+                    disabled={parseFloat(kreatorBalance) <= 0}
                   >
                     Withdraw Funds $
                   </Button>
                 </div>
-              </div>
+              </WalletInfo>
             </Col>
             <Col {...breakPoints}>
-              <div className={`${styles.box} ${styles.affiliate__box}`}>
-                <div className={styles.title}>
-                  <span>Affiliate&#39;s Wallet Balance</span>
-                  <Button
-                    shape="circle"
-                    type="text"
-                    onClick={handleToggle(setAffiliate, affiliate)}
-                  >
-                    {affiliate ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-                  </Button>
-                </div>
-                <div className={styles.amount}>
-                  {affiliate
-                    ? `${currency} ${affiliateBalance.toFixed(2)}`
-                    : "************"}
-                </div>
+              <WalletInfo
+                title="Affiliate"
+                currency={currency}
+                balance={affiliateBalance.toFixed(2)}
+              >
                 <div className={styles.affiliate__info}>
                   <span>
                     <AiOutlineInfoCircle />
@@ -109,7 +81,7 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
                     every Tuesday of the week.
                   </span>
                 </div>
-              </div>
+              </WalletInfo>
             </Col>
           </Row>
         )}
