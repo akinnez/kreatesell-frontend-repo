@@ -243,7 +243,6 @@
             color: $black-100 !important;
             margin-left: 0.6rem !important;
           }
-          
         }
       }
     }
@@ -282,13 +281,14 @@
       .mobileCategoryLinks {
         list-style: none;
         font-weight: 800;
-        font-size: 1.875rem;
-        line-height: 2.5rem;
+        font-size: 28px;
+        line-height: 40px;
         color: $base-blue;
         padding-right: 13%;
+        margin-bottom: unset;
 
         li {
-          padding-bottom: 3.5rem;
+          margin-bottom: 33px;
         }
       }
 
