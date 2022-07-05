@@ -3,6 +3,8 @@ import { isAnEmpytyObject, showToast } from "utils";
 import { bankSuccess, updateStore } from "redux/actions";
 import axiosApi from "utils/axios";
 
+const getData = (dataSet, id) => dataSet.find(item => item.id === id);
+
 export const isValidCB = bankDetails => {
   if (bankDetails) return true;
 
@@ -29,12 +31,6 @@ export const banksCB = (bankDetails, banksByCountryId) => {
   return [];
 };
 
-export const getBank = (banks, id) => banks.find(bank => bank.id === id);
-
-export const getCountry = (countries, id) => {
-  return countries.find(country => country.id === id);
-};
-
 export const createAccount = ({
   data,
   hideModal,
@@ -47,9 +43,9 @@ export const createAccount = ({
     "post",
     `${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
     res => {
-      dispatch(updateStore(dispatchObj));
+      showSuccessModal();
       hideModal();
-      showSuccessModal ? showSuccessModal() : showToast(res.message, "success");
+      dispatch(updateStore(dispatchObj));
     },
     err => {
       showToast(err.message, "error");
@@ -120,7 +116,7 @@ export const validateAccountOnBlur = ({
   form,
   banks,
   setValidating,
-  setIsValid,
+  // setIsValid,
 }) => {
   formik.handleBlur(e);
 
@@ -129,10 +125,8 @@ export const validateAccountOnBlur = ({
 
   if (!accountNumber || !bankId) return;
 
-  const bank = getBank(banks, bankId);
-
   setValidating(true);
-  setIsValid(true);
+  // setIsValid(true);
 
   axiosApi.request(
     "post",
@@ -142,7 +136,7 @@ export const validateAccountOnBlur = ({
 
       if (res.status === "error") {
         showToast(res.message, "warn");
-        setIsValid(false);
+        // setIsValid(false);
         return;
       }
 
@@ -151,12 +145,104 @@ export const validateAccountOnBlur = ({
     },
     () => {
       setValidating(false);
-      setIsValid(false);
+      // setIsValid(false);
       showToast("Unable to verify bank account number", "error");
     },
     {
       account_number: accountNumber,
-      account_bank: bank.bank_code,
+      account_bank: getData(banks, bankId).bank_code,
     }
   );
+};
+
+export const createSubmitHandler = ({
+  dispatch,
+  countries,
+  banks,
+  hideModal,
+  showSuccessModal,
+}) => {
+  return (values, actions) => {
+    const country = getData(countries, values.country);
+
+    if (values.country === 1 || values.country === 72) {
+      const bank = getData(banks, values.bank);
+
+      axiosApi.request(
+        "post",
+        `${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
+        res => {
+          if (res.status === "error") {
+            actions.setFieldError("account_number", res.message);
+            actions.setFieldTouched("account_number", true, false);
+            actions.setSubmitting(false);
+            return;
+          }
+
+          const data = {
+            country_id: values.country,
+            bank_id: values.bank,
+            account_number: values.account_number.trim(),
+            account_name: values.account_name.trim(),
+            password: values.password,
+          };
+
+          const dispatchObj = {
+            bank_name: bank.name,
+            bank_id: `${values.bank}`,
+            country_id: `${values.country}`,
+            country_name: country.name,
+            account_name: values.account_name.trim(),
+            account_number: values.account_number.trim(),
+          };
+
+          createAccount({
+            data,
+            hideModal,
+            showSuccessModal,
+            dispatchObj,
+            dispatch,
+            actions,
+          });
+        },
+        () => {
+          actions.setFieldError(
+            "account_number",
+            "Unable to verify bank account number"
+          );
+          actions.setFieldTouched("account_number", true, false);
+          actions.setSubmitting(false);
+        },
+        {
+          account_number: values.account_number.trim(),
+          account_bank: bank.bank_code,
+        }
+      );
+    } else {
+      const data = {
+        country_id: values.country,
+        account_number: values.paypal_email.trim(),
+        account_name: values.paypal_email.trim(),
+        password: values.password,
+      };
+
+      const dispatchObj = {
+        bank_name: "Paypal",
+        bank_id: "194",
+        country_id: `${values.country}`,
+        country_name: country.name,
+        account_name: values.paypal_email.trim(),
+        account_number: values.paypal_email.trim(),
+      };
+
+      createAccount({
+        data,
+        hideModal,
+        showSuccessModal,
+        dispatchObj,
+        dispatch,
+        actions,
+      });
+    }
+  };
 };
