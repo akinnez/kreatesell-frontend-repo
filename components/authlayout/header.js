@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { Layout, Menu, Button, Dropdown } from "antd";
+import { Layout, Menu, Button, Dropdown, Badge } from "antd";
 import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
-import { Logout, GetNotifications } from "../../redux/actions";
-import {
-  PageDot,
-  ProfileIcon,
-  Cog,
-  Bell,
-  EditPen2,
-  LogoutIcon2,
-} from "../IconPack";
-import { _getMyStoreDetails } from "utils";
+import NotificationsDropdown from "components/notifications/NotificationsDropdown";
 import { MobileLogo } from "./logo";
-import { NotificationDropdown } from "components/notification/Dropdown";
+import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
+import { notificationTypes } from "utils/notificationTypes";
+import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
 
 const Profile = ({ name, avi }) => {
@@ -73,6 +66,7 @@ const Profile = ({ name, avi }) => {
           display: flex;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
         }
       `}</style>
     </>
@@ -103,19 +97,27 @@ const Nav = ({ headerTitle }) => {
   const { Header } = Layout;
 
   const [info, setInfo] = useState({});
-  const [showNotification, setShowNotification] = useState(false);
 
   const { pathname } = useRouter();
-  const [store] = useState(_getMyStoreDetails());
-  // const store = _getMyStoreDetails();
+
+  const {
+    store: { store_details },
+  } = useSelector(state => state.store);
 
   const { notifications } = useSelector(state => state.notification);
-  const { store: {store_details}} = useSelector(state => state.store);
 
-  const unreadNotification = notifications?.filter(item => !item?.is_read);
+  const count = useMemo(() => {
+    if (!notifications || notifications.length === 0) return 0;
+
+    return notifications.reduce((total, notification) => {
+      const typeExists = notification.notification_type in notificationTypes;
+      if (!typeExists) return total;
+
+      return notification.is_read === false ? total + 1 : total;
+    }, 0);
+  }, [notifications]);
 
   const logout = Logout();
-  const getNotifications = GetNotifications();
 
   const pageTitle = pathname?.split("/");
   const title =
@@ -126,45 +128,40 @@ const Nav = ({ headerTitle }) => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setInfo(user);
-    getNotifications(store?.user_id);
   }, []);
 
   return (
-    <>
-      <Header className={style.header}>
-        <div className={style.nav_left}>
-          <div className={style.mobileMenu}>
-            <Button type="text" shape="circle" icon={<MdOutlineMenu />} />
-            <MobileLogo />
-          </div>
-          <div className={style.pageDot}>
-            <PageDot />
-            <h1>{headerTitle || title}</h1>
-          </div>
+    <Header className={style.header}>
+      <div className={style.nav_left}>
+        <div className={style.mobileMenu}>
+          <Button type="text" shape="circle" icon={<MdOutlineMenu />} />
+          <MobileLogo />
         </div>
-        <div className={style.nav_right}>
-          <Button type="text" shape="circle" icon={<Cog />} />
-          <Button
-            type="text"
-            shape="circle"
-            icon={<Bell />}
-            onClick={() => setShowNotification(value => !value)}
-          >
-            {unreadNotification?.length > 0 && (
-              <span className="red bg-red-500 absolute rounded-full h-5 w-5 text-white text-xs flex items-center justify-center -top-2 right-3">
-                {unreadNotification.length}
-              </span>
-            )}
+        <div className={style.pageDot}>
+          <PageDot />
+          <h1>{headerTitle || title}</h1>
+        </div>
+      </div>
+      <div className={style.nav_right}>
+        <Button type="text" shape="circle" icon={<Cog />} />
+        <Badge
+          count={count}
+          color="#f5222d"
+          overflowCount={10}
+          offset={count > 10 ? [5, 5] : [-2, 5]}
+        >
+          <NotificationsDropdown />
+        </Badge>
+        <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
+          <Button type="text" className={style.dropdown__btn}>
+            <Profile
+              name={info?.full_name}
+              avi={store_details?.display_picture}
+            />
           </Button>
-          <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
-            <Button type="text">
-              <Profile name={info?.full_name} avi={store_details?.display_picture} />
-            </Button>
-          </Dropdown>
-        </div>
-      </Header>
-      {showNotification && <NotificationDropdown />}
-    </>
+        </Dropdown>
+      </div>
+    </Header>
   );
 };
 

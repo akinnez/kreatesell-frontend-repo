@@ -1,0 +1,17 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+
+.no__notifications {
+  @include mixins.flex(column, space-between, center);
+  row-gap: 20px;
+
+  p {
+    margin: 0;
+    color: colors.$black-100;
+    font: {
+      size: 16px;
+      weight: bold;
+    }
+    line-height: 1.3;
+  }
+}
