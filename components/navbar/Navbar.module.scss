@@ -10,6 +10,7 @@
   position: fixed;
   top: 0;
   background-color: $base-white;
+  // border-bottom: 1px solid red;
   z-index: 1;
   margin-bottom: 10rem !important;
   transition: padding 0.2s;
@@ -22,6 +23,13 @@
   }
 }
 
+.navContainer.reverseMobileView {
+  @include flex(row-reverse, space-between, null);
+  @media (min-width: 768px) {
+    @include flex(row, space-between, null);
+  }
+}
+
 .activePath {
   color: $base-blue;
   font-weight: 600;
@@ -29,6 +37,7 @@
 
 .mobileMenuCont {
   display: none;
+  color: $base-blue !important;
 }
 
 .navBg {
@@ -49,6 +58,17 @@
   display: none;
   @include screen("medium") {
     @include flex(row, null, center);
+  }
+}
+
+.mobileLoginLink {
+  display: none;
+}
+
+.mobileLoginLink.showLogin {
+  display: block;
+  @media (min-width: 768px) {
+    display: none;
   }
 }
 
@@ -97,7 +117,9 @@
 }
 
 .btnLinks {
-  @include flex(row, null, center);
+  // border: 1px solid red;
+  display: none;
+  // @include flex(row, null, center);
   width: 20%;
   // here
   // margin-right: 2rem;
@@ -157,6 +179,7 @@
 
     .mobileMenuCont {
       display: block;
+
       width: 10%;
       margin-right: 0.5rem;
       position: relative;
@@ -181,11 +204,14 @@
 
       .hamburger {
         @extend .hamburgerDefault;
-
+        // color: $base-blue !important;
+        background-color: $base-blue;
         &::before {
           content: "";
           position: absolute;
           @extend .hamburgerDefault;
+          background-color: $base-blue;
+          // color: $base-blue !important;
           transform: translateY(-9px);
         }
 
@@ -193,6 +219,8 @@
           content: "";
           position: absolute;
           @extend .hamburgerDefault;
+          background-color: $base-blue;
+          // color: $base-blue !important;
           transform: translateY(9px);
         }
       }
@@ -201,13 +229,16 @@
         transform: translateX(-50px);
         background: transparent;
         box-shadow: none;
+        // transition: all 0.2s;
       }
 
       &.open .hamburger::before {
+        background-color: $base-gray !important;
         transform: rotate(45deg) translate(35px, -35px);
       }
 
       &.open .hamburger::after {
+        background-color: $base-gray !important;
         transform: rotate(-45deg) translate(35px, 35px);
       }
     }
@@ -215,9 +246,14 @@
     .imgCont {
       min-width: 35%;
       padding: 0 1rem;
+      // display: none;
       @include screen("medium") {
         padding-top: 0.5rem;
       }
+    }
+
+    .imgCont.mobileView {
+      display: none;
     }
 
     .navLinks {
@@ -237,7 +273,7 @@
           .navLinkDrop {
             margin-left: 1rem;
             display: inline-block;
-            border: 1px solid red;
+            // border: 1px solid red;
           }
           .navLinkDrop + div {
             color: $black-100 !important;
@@ -254,11 +290,13 @@
       background: $base-white;
       width: 100%;
       height: fit-content;
-      height: 120vh;
+      height: 100vh;
       // height: 100%;
       text-align: center;
       padding: 5rem 1rem;
-      padding-bottom: 8rem;
+      padding-top: 1rem;
+      padding-bottom: 3rem;
+      margin-top: 4rem;
       // overflow-y: scroll;
 
       .inner {
@@ -269,6 +307,7 @@
           overflow: auto;
           height: 100%;
           padding-bottom: 3.5rem;
+          // border: 1px solid blue;
           //hide the scrollbar
           ::-webkit-scrollbar {
             height: 100vh;
@@ -284,7 +323,7 @@
         font-size: 28px;
         line-height: 40px;
         color: $base-blue;
-        padding-right: 13%;
+        // padding-right: 13%;
         margin-bottom: unset;
 
         li {
@@ -347,6 +386,13 @@
         color: #8c8c8c;
       }
     }
+  }
+}
+
+.btnLinks {
+  @media (min-width: 768px) {
+    @include flex(row, null, center);
+    // border: 1px solid red;
   }
 }
 
