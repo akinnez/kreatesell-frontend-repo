@@ -196,14 +196,6 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* <div className={styles.mobileBtnLinks}>
-          <div
-            className={styles.loginBtn}
-            onClick={() => router.push("/login")}
-          >
-            <Button text="Login" className={styles.loginBtnStyle} />
-          </div>
-        </div> */}
         <div
           className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
           onClick={() => handleNavbar()}

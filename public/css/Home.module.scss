@@ -1193,6 +1193,22 @@
       font-weight: 700;
       font-size: 20px;
       line-height: 30px;
+      cursor: pointer;
+    }
+  }
+
+  .seeMoreMobile {
+    display: flex;
+    cursor: pointer;
+    margin-top: 24px;
+    justify-content: center;
+    align-items: center;
+    color: #0072ef;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    @media (min-width: 1440px) {
+      display: none;
     }
   }
 

@@ -575,12 +575,14 @@ export default function Home() {
         <section className={styles.newsAndEvents}>
           <div className={styles.newsHeader}>
             <h5>News, Events And Insights For You</h5>
-            <p className={styles.seeMore}>
-              See more
-              <span className="pb-1">
-                <RightArrow color="#0072EF" />
-              </span>
-            </p>
+            <Link href="/blog" passHref>
+              <div className={styles.seeMore}>
+                See more
+                <span className="pb-1 pl-1">
+                  <RightArrow color="#0072EF" />
+                </span>
+              </div>
+            </Link>
           </div>
           <section className={styles.parentCard}>
             <div className={styles.profileAndCard}>
@@ -660,6 +662,14 @@ export default function Home() {
             </div>
 
             <div className={styles.newsCardsGrid}></div>
+            <Link href="/blog" passHref>
+              <div className={styles.seeMoreMobile}>
+                See more
+                <span className=" pl-1">
+                  <RightArrow color="#0072EF" />
+                </span>
+              </div>
+            </Link>
           </section>
         </section>
         <div className={styles.subFooter}>
