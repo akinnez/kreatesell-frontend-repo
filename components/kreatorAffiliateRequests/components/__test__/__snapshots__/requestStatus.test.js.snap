@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RequestStatus :  renders a snapshot of <RequestStatus /> when status is Approved 1`] = `
+<span
+  className="tag green"
+>
+  Approved
+</span>
+`;
+
+exports[`RequestStatus :  renders a snapshot of <RequestStatus /> when status is Declined  1`] = `
+<span
+  className="tag red"
+>
+  Declined
+</span>
+`;
+
+exports[`RequestStatus :  renders a snapshot of <RequestStatus /> when status is Pending  1`] = `
+<span
+  className="tag orange"
+>
+  Pending
+</span>
+`;

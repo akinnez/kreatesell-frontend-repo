@@ -7,6 +7,10 @@ exports[`renders a snapshot of <PaginationSizeChanger /> with mock props 1`] = `
   <div
     className="pagination-size-changer__select-box"
   >
+    <span>
+      Results Per Page
+    </span>
+      
     <div
       className="ant-select ant-select-single ant-select-show-arrow"
       onBlur={[Function]}
@@ -51,9 +55,9 @@ exports[`renders a snapshot of <PaginationSizeChanger /> with mock props 1`] = `
         </span>
         <span
           className="ant-select-selection-item"
-          title="10 / page"
+          title="10"
         >
-          10 / page
+          10
         </span>
       </div>
       <span

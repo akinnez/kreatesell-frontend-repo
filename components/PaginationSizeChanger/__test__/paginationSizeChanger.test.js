@@ -1,4 +1,4 @@
-import PaginationSizeChanger from "..";
+import PaginationSizeChanger from "../";
 import renderer from "react-test-renderer";
 
 const mockProps = {

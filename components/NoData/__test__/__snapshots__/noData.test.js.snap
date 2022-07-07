@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <NoData /> 1`] = `
+<div
+  className="no__data"
+>
+  <img
+    src="[jest.find('../utils')]"
+  />
+  <p>
+    No record yet
+  </p>
+</div>
+`;
