@@ -30,7 +30,13 @@ const Legal = ({ defaultActiveKey }) => {
   };
 
   return (
-    <Layout subFooter={true} defaultMarginTop={true}>
+    <Layout
+      subFooter={true}
+      defaultMarginTop={true}
+      firstText="Start making money"
+      secondText="with your content"
+      withSearch={true}
+    >
       {/* BANNER */}
       <div className={styles.main}>
         {/* shared layout on both mobile and desktop */}

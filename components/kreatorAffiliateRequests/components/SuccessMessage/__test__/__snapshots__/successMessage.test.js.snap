@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <SuccessMessage /> 1`] = `
+<section
+  className="content"
+>
+  <p>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      Report Successfully Sent
+    </span>
+  </p>
+  <p>
+    <span
+      className="ant-typography"
+      onClick={null}
+      style={
+        Object {
+          "WebkitLineClamp": undefined,
+        }
+      }
+    >
+      We would review it and if the affiliate is found guilty, they would no longer have access to your products.
+    </span>
+  </p>
+</section>
+`;

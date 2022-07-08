@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <ProductDetails /> with mock props 1`] = `
+<ol>
+  <li
+    className="product__detail"
+  >
+    <strong>
+      Kreator
+    </strong>
+    <span>
+      mock kreatorName
+    </span>
+  </li>
+  <li
+    className="product__detail"
+  >
+    <strong>
+      Product Type
+    </strong>
+    <span>
+      digital product
+    </span>
+  </li>
+  <li
+    className="product__detail"
+  >
+    <strong>
+      Price
+    </strong>
+    <span>
+      NGN
+       
+      2500
+    </span>
+  </li>
+  <li
+    className="product__detail product__performance"
+  >
+    <strong>
+      Performance
+    </strong>
+    <span>
+      <div>
+        <span
+          className="sold"
+        >
+          Sold:
+        </span>
+         
+        250
+      </div>
+      <div>
+        <span
+          className="visits"
+        >
+          Visit:
+        </span>
+         
+        20
+      </div>
+    </span>
+  </li>
+  <li
+    className="product__detail"
+  >
+    <strong>
+      Commission (%)
+    </strong>
+    <span>
+      10
+      %
+    </span>
+  </li>
+</ol>
+`;
