@@ -714,6 +714,7 @@ export default function Home() {
           cancelPropagation={true}
           containerStyle={styles.modalContainer}
           closeButton={true}
+          className={styles.modalParent}
           closeBtnAction={() => setVisible(!modalVisible)}
         >
           <OnboardingModal />
@@ -815,8 +816,8 @@ const OnboardingModal = () => {
       autoComplete="off"
     >
       <h5 className={styles.modalTitle}>
-        Do you want to see the amazing things KreateSell can do for you? Watch
-        KreateSell in action
+        Do you want to see the amazing things KreateSell can do for you? <br />
+        <span className={styles.span}>Watch KreateSell in action.</span>
       </h5>
 
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
@@ -841,12 +842,12 @@ const OnboardingModal = () => {
 
       <p className={styles.context}>
         You&#39;ll get helpful resources on how to become and make huge money as
-        a creator.
+        a Kreator.
       </p>
 
       <Button
         leftIcon={<PlayIcon />}
-        text="Watch Demo"
+        text="Play Demo"
         bgColor="blue"
         className={styles.btnCont}
         loading={loading}
