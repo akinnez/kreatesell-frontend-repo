@@ -121,7 +121,7 @@ export const Footer = () => {
         <div>
           <div className={styles.categoryTitle}>Support</div>
           <div className={styles.categoryLink}>
-            <Link href="/how-it-works">
+            <Link href="/signup">
               <a>Getting Started</a>
             </Link>
             <Link href="/how-it-works">
@@ -260,7 +260,7 @@ export const Footer = () => {
           <div className={styles.firstRowA}>
             <div className={styles.categoryTitle}>Support</div>
             <div className={styles.categoryLink}>
-              <Link href="/how-it-works">
+              <Link href="/signup">
                 <a>Getting Started</a>
               </Link>
               <Link href="/how-it-works">
