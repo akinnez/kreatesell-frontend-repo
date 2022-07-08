@@ -144,8 +144,8 @@ export const Footer = () => {
             <Link href="/legal/privacy-policy">
               <a>Privacy Policy</a>
             </Link>
-            <Link href="/legal/affiliate-policy">
-              <a>Affiliate Policy</a>
+            <Link href="/legal/affiliate-terms">
+              <a>Affiliate Terms</a>
             </Link>
             <Link href="/legal/terms-of-service">
               <a>Terms of Service</a>
@@ -283,8 +283,8 @@ export const Footer = () => {
               <Link href="/legal/privacy-policy">
                 <a>Privacy Policy</a>
               </Link>
-              <Link href="/legal/affiliate-policy">
-                <a>Affiliate Policy</a>
+              <Link href="/legal/affiliate-terms">
+                <a>Affiliate Terms</a>
               </Link>
               <Link href="/legal/terms-of-service">
                 <a>Terms of Service</a>
