@@ -8,7 +8,7 @@ import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
 import NotificationsDropdown from "components/notifications/NotificationsDropdown";
 import { MobileLogo } from "./logo";
 import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
-import { notificationTypes } from "utils/notificationTypes";
+import useUnreadNotificationsCount from "hooks/useUnreadNotificationsCount";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
 
@@ -106,16 +106,7 @@ const Nav = ({ headerTitle }) => {
 
   const { notifications } = useSelector(state => state.notification);
 
-  const count = useMemo(() => {
-    if (!notifications || notifications.length === 0) return 0;
-
-    return notifications.reduce((total, notification) => {
-      const typeExists = notification.notification_type in notificationTypes;
-      if (!typeExists) return total;
-
-      return notification.is_read === false ? total + 1 : total;
-    }, 0);
-  }, [notifications]);
+  const count = useUnreadNotificationsCount(notifications);
 
   const logout = Logout();
 

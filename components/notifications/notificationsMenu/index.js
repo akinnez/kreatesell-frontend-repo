@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Menu } from "antd";
 import NoNotifications from "../NoNotifications";
 import Spinner from "components/Spinner";
+import { generateName, generateProductName } from "../utils";
 import { notificationTime } from "utils";
 import { notificationTypes } from "utils/notificationTypes";
 import styles from "./index.module.scss";
@@ -48,17 +49,8 @@ const notificationsMenu = (notifications, error) => {
 
     if (!typeExists) continue;
 
-    const name = notification.name
-      ? notification.name
-      : type === "affiliate request"
-      ? "A Kreator"
-      : "An affiliate";
-
-    const productName = notification.product_name
-      ? notification.product_name
-      : type === "affiliate request"
-      ? "their product"
-      : "A product";
+    const name = generateName(notification.name, type);
+    const productName = generateProductName(notification.product_name, type);
 
     const jsx = (
       <Menu.Item

@@ -1,0 +1,79 @@
+@use "colors";
+@use "mixins";
+@use "screens";
+
+.header {
+  margin-bottom: 32px;
+  @include mixins.flex(column, space-between, flex-start);
+  row-gap: 33px;
+
+  div {
+    text-align: center;
+    width: 100%;
+
+    h2 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 25px;
+      color: colors.$black-100;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 500;
+      font-size: 12px;
+      color: colors.$gray-200;
+    }
+  }
+
+  + section {
+    margin-bottom: 50px;
+  }
+}
+
+.wrapper aside {
+  display: none;
+}
+
+@include screens.minScreen("tablet") {
+  .header {
+    flex-direction: row;
+    margin-bottom: 50px;
+
+    div {
+      margin-left: -84px;
+    }
+  }
+
+  .wrapper {
+    padding: 27px;
+    border-radius: 8px;
+    @include mixins.flex(row, space-between, flex-start);
+    column-gap: 30px;
+    background-color: colors.$base-white;
+
+    aside {
+      display: block;
+    }
+  }
+
+  .image {
+    max-width: 315px;
+    margin-top: 70px;
+    margin-bottom: 40px;
+
+    + p {
+      margin: 0;
+      font-weight: 700;
+      font-size: 18px;
+      color: colors.$base-gray;
+    }
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .wrapper {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

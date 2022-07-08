@@ -1,0 +1,76 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.notifications {
+  margin-bottom: 0;
+}
+
+.notification {
+  background-color: colors.$base-white;
+  border-radius: 8px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 13px;
+    width: 100%;
+  }
+}
+
+.notification--unread {
+  background-color: colors.$base-green-300;
+}
+
+.notification__content {
+  @include mixins.flex(row, space-between, flex-start);
+  column-gap: 20px;
+}
+
+.notification__info {
+  text-align: left;
+
+  p {
+    margin: 0;
+
+    &:first-child {
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 14px;
+      color: colors.$base-gray;
+    }
+
+    &:last-child {
+      font-weight: 500;
+      font-size: 14px;
+      color: colors.$gray-600;
+    }
+  }
+}
+
+.notification__product-image {
+  position: relative;
+  flex: 0 0 32px;
+  height: 25px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@include screens.minScreen("medium") {
+  .notification__content {
+    column-gap: 50px;
+  }
+}
+
+@include screens.minScreen("tablet") {
+  .notification button {
+    padding: 25px 45px;
+  }
+
+  .notification__product-image {
+    flex: 0 0 32px;
+    height: 32px;
+  }
+}

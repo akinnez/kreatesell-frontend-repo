@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import { Button, Dropdown, Layout, Menu, Badge } from "antd";
 import { MdOutlineLogout } from "react-icons/md";
 import NotificationsDropdown from "components/notifications/NotificationsDropdown";
+import useUnreadNotificationsCount from "hooks/useUnreadNotificationsCount";
 import Logo from "../Logo";
 import { ProfileIcon, Cog, EditPen2 } from "../../IconPack";
-import { notificationTypes } from "utils/notificationTypes";
 import { Logout } from "../../../redux/actions";
 import style from "./index.module.scss";
 
@@ -103,16 +103,7 @@ const Header = () => {
     store: { store_details },
   } = useSelector(state => state.store);
 
-  const count = useMemo(() => {
-    if (!notifications || notifications.length === 0) return 0;
-
-    return notifications.reduce((total, notification) => {
-      const typeExists = notification.notification_type in notificationTypes;
-      if (!typeExists) return total;
-
-      return notification.is_read === false ? total + 1 : total;
-    }, 0);
-  }, [notifications]);
+  const count = useUnreadNotificationsCount(notifications);
 
   const logout = Logout();
 
