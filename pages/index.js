@@ -578,7 +578,7 @@ export default function Home() {
             <Link href="/blog" passHref>
               <div className={styles.seeMore}>
                 See more
-                <span className="pb-1 pl-1">
+                <span className=" pl-2">
                   <RightArrow color="#0072EF" />
                 </span>
               </div>
@@ -665,7 +665,7 @@ export default function Home() {
             <Link href="/blog" passHref>
               <div className={styles.seeMoreMobile}>
                 See more
-                <span className=" pl-1">
+                <span className=" pl-2">
                   <RightArrow color="#0072EF" />
                 </span>
               </div>
