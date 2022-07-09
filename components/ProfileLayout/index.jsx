@@ -15,6 +15,7 @@ import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
 import useFetchStore from "hooks/useFetchStore";
 import useFetchUtilities from "hooks/useFetchUtilities";
+import useFetchNotifications from "hooks/useFetchNotifications";
 import styles from "./index.module.scss";
 
 const Loader = () => {
@@ -80,6 +81,7 @@ const ProfileLayout = ({
 
   useFetchUtilities();
   useFetchStore();
+  useFetchNotifications();
 
   return (
     <>

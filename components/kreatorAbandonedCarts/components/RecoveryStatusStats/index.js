@@ -8,9 +8,8 @@ import styles from "./index.module.scss";
 const { Text } = Typography;
 
 const breakpoints = {
-  xs: { span: 12 },
+  xs: { span: 24 },
   sm: { span: 12 },
-  md: { span: 8 },
   xl: { span: 8 },
 };
 

@@ -32,7 +32,7 @@ const PageLayout = ({
       <section>
         <Filters setFilters={setFilters} setLoading={setLoading} />
       </section>
-      <Spin spinning={isLoading}>
+      <Spin spinning={isLoading} wrapperClassName={styles.spin__wrapper}>
         <PaginationSizeChanger
           dataSize={requests.total}
           filters={filters}
