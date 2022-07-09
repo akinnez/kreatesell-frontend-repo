@@ -1,19 +1,14 @@
-import Image from "next/image";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import ProfileLayout from "components/ProfileLayout";
 import BackButton from "components/BackButton";
 import ProfilePageError from "components/ProfilePageError";
 import ProfilePageLoading from "components/ProfilePageLoading";
-import SingleNotification from "components/notifications/SingleNotification";
-import useUnreadNotificationsCount from "hooks/useUnreadNotificationsCount";
-import NotificationPlaceholder from "public/images/notifications.svg";
+import NotificationsRenderer from "components/notifications/NotificationsRenderer";
 import styles from "public/css/Notifications.module.scss";
 
 const InAppNotification = () => {
   const { notifications, error } = useSelector(state => state.notification);
-
-  const count = useUnreadNotificationsCount(notifications);
 
   if (error) {
     return (
@@ -43,18 +38,7 @@ const InAppNotification = () => {
         </div>
       </header>
       <section>
-        <div className={styles.wrapper}>
-          <SingleNotification notifications={notifications} />
-          <aside>
-            <div className={styles.image}>
-              <Image
-                src={NotificationPlaceholder}
-                alt="Notification placeholder"
-              />
-            </div>
-            {count > 0 && <p>You have some unread notifications</p>}
-          </aside>
-        </div>
+        <NotificationsRenderer notifications={notifications} />
       </section>
     </ProfileLayout>
   );

@@ -2,10 +2,6 @@
 @use "public/css/mixins";
 @use "public/css/screens";
 
-.notifications {
-  margin-bottom: 0;
-}
-
 .notification {
   background-color: colors.$base-white;
   border-radius: 8px;
@@ -56,12 +52,6 @@
   height: 25px;
   border-radius: 50%;
   overflow: hidden;
-}
-
-@include screens.minScreen("medium") {
-  .notification__content {
-    column-gap: 50px;
-  }
 }
 
 @include screens.minScreen("tablet") {

@@ -45,22 +45,10 @@
       display: none !important;
     }
   }
-
-  > [class^="ant-badge"] {
-    line-height: normal;
-    margin-right: 5px;
-    cursor: pointer;
-  }
 }
 
 .dropdown__btn {
   padding: 0;
-}
-
-@include mixins.minScreen("medium") {
-  .nav_right > [class^="ant-badge"] {
-    margin-right: 30px;
-  }
 }
 
 @include screens.minScreen("x-large") {

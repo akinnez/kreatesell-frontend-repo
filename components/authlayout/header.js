@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,7 +8,6 @@ import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
 import NotificationsDropdown from "components/notifications/NotificationsDropdown";
 import { MobileLogo } from "./logo";
 import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
-import useUnreadNotificationsCount from "hooks/useUnreadNotificationsCount";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
 
@@ -104,10 +103,6 @@ const Nav = ({ headerTitle }) => {
     store: { store_details },
   } = useSelector(state => state.store);
 
-  const { notifications } = useSelector(state => state.notification);
-
-  const count = useUnreadNotificationsCount(notifications);
-
   const logout = Logout();
 
   const pageTitle = pathname?.split("/");
@@ -135,14 +130,7 @@ const Nav = ({ headerTitle }) => {
       </div>
       <div className={style.nav_right}>
         <Button type="text" shape="circle" icon={<Cog />} />
-        <Badge
-          count={count}
-          color="#f5222d"
-          overflowCount={10}
-          offset={count > 10 ? [5, 5] : [-2, 5]}
-        >
-          <NotificationsDropdown />
-        </Badge>
+        <NotificationsDropdown />
         <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
           <Button type="text" className={style.dropdown__btn}>
             <Profile

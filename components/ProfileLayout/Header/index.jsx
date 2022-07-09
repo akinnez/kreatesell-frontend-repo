@@ -1,11 +1,10 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { Button, Dropdown, Layout, Menu, Badge } from "antd";
 import { MdOutlineLogout } from "react-icons/md";
 import NotificationsDropdown from "components/notifications/NotificationsDropdown";
-import useUnreadNotificationsCount from "hooks/useUnreadNotificationsCount";
 import Logo from "../Logo";
 import { ProfileIcon, Cog, EditPen2 } from "../../IconPack";
 import { Logout } from "../../../redux/actions";
@@ -97,13 +96,9 @@ const Header = () => {
 
   const [info, setInfo] = useState({});
 
-  const { notifications } = useSelector(state => state.notification);
-
   const {
     store: { store_details },
   } = useSelector(state => state.store);
-
-  const count = useUnreadNotificationsCount(notifications);
 
   const logout = Logout();
 
@@ -121,14 +116,7 @@ const Header = () => {
       </Link>
       <div className={style.nav_right}>
         <Button type="text" shape="circle" icon={<Cog />} />
-        <Badge
-          count={count}
-          color="#f5222d"
-          overflowCount={10}
-          offset={count > 10 ? [5, 5] : [-2, 5]}
-        >
-          <NotificationsDropdown />
-        </Badge>
+        <NotificationsDropdown />
         <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
           <Button type="text" className={style.dropdown__btn}>
             <Profile

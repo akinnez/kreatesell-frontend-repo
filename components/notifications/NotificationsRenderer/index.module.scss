@@ -1,0 +1,54 @@
+@use "public/css/colors";
+@use "public/css/mixins";
+@use "public/css/screens";
+
+.wrapper aside {
+  display: none;
+}
+
+.notifications {
+  margin-bottom: 0;
+}
+
+@include screens.minScreen("medium") {
+  .notification__content {
+    column-gap: 50px;
+  }
+}
+
+@include screens.minScreen("tablet") {
+  .wrapper {
+    padding: 27px;
+    border-radius: 8px;
+    @include mixins.flex(row, space-between, flex-start);
+    column-gap: 50px;
+    background-color: colors.$base-white;
+
+    aside {
+      display: block;
+    }
+  }
+
+  .notifications {
+    flex: 0 1 702px;
+  }
+
+  .image {
+    max-width: 308px;
+    margin: 70px auto 40px;
+
+    + p {
+      margin: 0;
+      font-weight: 700;
+      font-size: 18px;
+      color: colors.$base-gray;
+    }
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .wrapper {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

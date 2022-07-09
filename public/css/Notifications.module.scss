@@ -31,10 +31,6 @@
   }
 }
 
-.wrapper aside {
-  display: none;
-}
-
 @include screens.minScreen("tablet") {
   .header {
     flex-direction: row;
@@ -43,37 +39,5 @@
     div {
       margin-left: -84px;
     }
-  }
-
-  .wrapper {
-    padding: 27px;
-    border-radius: 8px;
-    @include mixins.flex(row, space-between, flex-start);
-    column-gap: 30px;
-    background-color: colors.$base-white;
-
-    aside {
-      display: block;
-    }
-  }
-
-  .image {
-    max-width: 315px;
-    margin-top: 70px;
-    margin-bottom: 40px;
-
-    + p {
-      margin: 0;
-      font-weight: 700;
-      font-size: 18px;
-      color: colors.$base-gray;
-    }
-  }
-}
-
-@include screens.minScreen("x-large") {
-  .wrapper {
-    padding-left: 40px;
-    padding-right: 40px;
   }
 }
