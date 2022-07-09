@@ -13,9 +13,12 @@
   }
 }
 
+.spin__wrapper section:last-child {
+  margin-bottom: 100px;
+}
+
 .data__section section {
   margin-top: 43px;
-  margin-bottom: 100px;
 
   ul {
     @include mixins.flex(row, flex-end, center);
