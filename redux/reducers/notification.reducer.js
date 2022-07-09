@@ -8,18 +8,6 @@ const initialState = {
 
 const notificationReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    // case types.GET_NOTIFICATIONS.REQUEST:
-    // case types.READ_NOTIFICATIONS.REQUEST:
-    //   return { ...state, loading: true };
-
-    // case types.GET_NOTIFICATIONS.SUCCESS:
-    // case types.READ_NOTIFICATIONS.SUCCESS:
-    //   return { ...state, loading: false, ...payload };
-
-    // case types.GET_NOTIFICATIONS.FAILURE:
-    // case types.READ_NOTIFICATIONS.FAILURE:
-    //   return { ...state, loading: false, error: payload };
-
     case types.GET_NOTIFICATIONS_REQUEST:
       return { ...state, loading: true };
 
@@ -28,6 +16,18 @@ const notificationReducer = (state = initialState, { type, payload }) => {
 
     case types.GET_NOTIFICATIONS_FAILURE:
       return { ...state, loading: false, error: payload };
+
+    case types.UPDATE_NOTIFICATIONS: {
+      const newNotifications = state.notifications.map(notification => {
+        if (notification.id === payload) {
+          return { ...notification, is_read: true };
+        }
+
+        return notification;
+      });
+
+      return { ...state, notifications: newNotifications };
+    }
 
     default:
       return state;

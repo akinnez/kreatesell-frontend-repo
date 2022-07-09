@@ -1,13 +1,29 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import Image from "next/image";
+import { useSWRConfig } from "swr";
+import { useDispatch } from "react-redux";
 import NoNotifications from "components/notifications/NoNotifications";
-import { generateName, generateProductName } from "../utils";
+import {
+  generateName,
+  generateProductName,
+  updateNotificationsFn,
+} from "../utils";
 import { notificationTime } from "utils";
 import { notificationTypes } from "utils/notificationTypes";
 import styles from "./index.module.scss";
 
 const SingleNotification = ({ notifications }) => {
-  const handleClick = id => null;
+  const { mutate } = useSWRConfig();
+  const dispatch = useDispatch();
+
+  const handleClick = useCallback(
+    notification => {
+      if (!notification.is_read) {
+        updateNotificationsFn(notification.id, dispatch, mutate);
+      }
+    },
+    [dispatch, mutate]
+  );
 
   const notificationsList = useMemo(() => {
     return notifications.reduce((list, notification) => {
@@ -28,7 +44,7 @@ const SingleNotification = ({ notifications }) => {
               : `${styles.notification} ${styles["notification--unread"]}`
           }
         >
-          <button onClick={() => handleClick(notification.id)}>
+          <button onClick={() => handleClick(notification)}>
             <div className={styles.notification__content}>
               <div className={styles.notification__info}>
                 <p>
@@ -57,7 +73,7 @@ const SingleNotification = ({ notifications }) => {
       list.push(jsx);
       return list;
     }, []);
-  }, [notifications]);
+  }, [notifications, handleClick]);
 
   return (
     <>

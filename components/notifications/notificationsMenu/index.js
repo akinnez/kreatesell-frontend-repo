@@ -2,12 +2,16 @@ import Link from "next/link";
 import { Menu } from "antd";
 import NoNotifications from "../NoNotifications";
 import Spinner from "components/Spinner";
-import { generateName, generateProductName } from "../utils";
+import {
+  generateName,
+  generateProductName,
+  updateNotificationsFn,
+} from "../utils";
 import { notificationTime } from "utils";
 import { notificationTypes } from "utils/notificationTypes";
 import styles from "./index.module.scss";
 
-const notificationsMenu = (notifications, error) => {
+const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
   if (error)
     return (
       <Menu>
@@ -38,6 +42,12 @@ const notificationsMenu = (notifications, error) => {
       </Menu>
     );
 
+  const handleClick = notification => {
+    if (!notification.is_read) {
+      updateNotificationsFn(notification.id, dispatch, mutate);
+    }
+  };
+
   const renderNotifications = [];
 
   for (let i = 0; i < notifications.length; i++) {
@@ -58,7 +68,7 @@ const notificationsMenu = (notifications, error) => {
         key={notification.id}
       >
         <Link href="/account/kreator/notifications">
-          <a>
+          <a onClick={() => handleClick(notification)}>
             <p className={!notification.is_read && styles.bold}>
               {type === "affiliate request"
                 ? notificationTypes[type](name, productName)
