@@ -64,7 +64,7 @@ const Legal = ({ defaultActiveKey }) => {
             {matchPath("/legal/cookie-policy") && <CookiePolicy />}
             {matchPath("/legal/privacy-policy") && <Privacy />}
             {matchPath("/legal/terms-of-service") && <TermsOfService />}
-            {matchPath("/legal/affiliate-policy") && <AffiliateTerms />}
+            {matchPath("/legal/affiliate-terms") && <AffiliateTerms />}
           </div>
           {/* <Image src={whatsAppSupport} alt="" width="68" height="65" /> */}
         </section>
