@@ -75,7 +75,7 @@ const KreatorPreview = () => {
   return (
     <PageWrapper title="Kreator Preview">
       <section className={styles.kreator}>
-        {!data.kreator.cover_page ? (
+        {data.kreator.cover_page ? (
           <div className={styles.kreator__banner}>
             <Image
               src={data.kreator.cover_page}
