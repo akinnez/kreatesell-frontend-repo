@@ -49,7 +49,7 @@ const NotificationsItem = ({ notification }) => {
             <div className={styles["notification__product-image"]}>
               <Image
                 src={notification.product_img}
-                alt={notification.product_name || "Product Image"}
+                alt={notification.product_name ?? productName}
                 layout="fill"
               />
             </div>

@@ -69,7 +69,7 @@ const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
       >
         <Link href="/account/kreator/notifications">
           <a onClick={() => handleClick(notification)}>
-            <p className={!notification.is_read && styles.bold}>
+            <p className={notification.is_read ? null : styles.bold}>
               {type === "affiliate request"
                 ? notificationTypes[type](name, productName)
                 : type === "approve affiliate"
