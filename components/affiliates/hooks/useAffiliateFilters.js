@@ -36,7 +36,7 @@ const useAffiliateFilters = api => {
   }
 
   if (filters.dateListed) {
-    url.searchParams.set("Date_Listed", filters.dateListed);
+    url.searchParams.set("DateListed", filters.dateListed);
   }
 
   return { url, filters, setFilters };

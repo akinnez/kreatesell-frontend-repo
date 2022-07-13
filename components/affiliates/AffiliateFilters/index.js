@@ -71,7 +71,7 @@ const AffiliateFilters = ({ setFilters, setLoading }) => {
   };
 
   return (
-    <div className={!isFiltered && styles["lg-margin"]}>
+    <div className={isFiltered ? null : styles["lg-margin"]}>
       <Form
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}

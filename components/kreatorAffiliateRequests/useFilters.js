@@ -21,7 +21,7 @@ const useFilters = api => {
   }
 
   if (filters.affiliateName) {
-    url.searchParams.set("Affiliate_Name", filters.affiliateName);
+    url.searchParams.set("AffiliateName", filters.affiliateName);
   }
 
   if (filters.sortBy) {
@@ -37,7 +37,7 @@ const useFilters = api => {
   }
 
   if (filters.dateListed) {
-    url.searchParams.set("Date_Listed", filters.dateListed);
+    url.searchParams.set("DateListed", filters.dateListed);
   }
 
   if (filters.status !== "All") {
