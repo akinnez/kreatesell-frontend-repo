@@ -133,22 +133,8 @@ export const Navbar = () => {
           </ul>
         </div>
 
-        <div className={`${openMobileNav ? `${styles.mobileNavLinks} ${styles.activeFade}` : `hidden`}`}>
+        <div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
           <div className={styles.inner}>
-          <div className={styles.top}>
-          <div
-            className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
-            onClick={() => handleNavbar()}
-          >
-            <div className={styles.hamburger}></div>
-          </div>
-          <div
-            className={styles.loginBtn}
-            onClick={() => router.push("/login")}
-          >
-            <Button text="Login" className={styles.loginBtnStyle} />
-          </div>
-          </div>
             <div className={styles.innerBox}>
               <ul className={styles.mobileCategoryLinks}>
                 <li onClick={() => handleMobileNavLinkClick("/")}>Home</li>
@@ -208,19 +194,6 @@ export const Navbar = () => {
               className={styles.signUpBtnStyle}
             />
           </div>
-          <div
-            className={`${styles.mobileMenuCont} ${openMobileNav && styles.open && styles.fade}`}
-            onClick={() => handleNavbar()}
-          >
-            <div className={styles.hamburger}></div>
-          </div>
-        </div>
-
-        <div
-          className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
-          onClick={() => handleNavbar()}
-        >
-          <div className={styles.hamburger}></div>
         </div>
 
         <div
