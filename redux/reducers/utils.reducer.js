@@ -14,6 +14,7 @@ const UtilsReducer = (state = initialState, { type, payload }) => {
     case types.GET_COUNTRIES.REQUEST:
     case types.GET_STORE_DETAILS.REQUEST:
     case types.GUEST_SUBSCRIPTION.REQUEST:
+    case types.GET_CURRENCIES.REQUEST:
       return { ...state, loading: true };
 
     // case types.GET_STORE_DETAILS.SUCCESS:
@@ -22,6 +23,9 @@ const UtilsReducer = (state = initialState, { type, payload }) => {
 
     case types.GET_COUNTRIES.SUCCESS:
       return { ...state, loading: false, countries: payload };
+
+    case types.GET_CURRENCIES.SUCCESS:
+      return { ...state, loading: false, currency: payload };
 
     case types.GET_BANKS:
       return { ...state, banks: payload };
@@ -35,6 +39,7 @@ const UtilsReducer = (state = initialState, { type, payload }) => {
     case types.GET_STORE_DETAILS.FAILURE:
     case types.GET_COUNTRIES.FAILURE:
     case types.GUEST_SUBSCRIPTION.FAILURE:
+    case types.GET_CURRENCIES.FAILURE:
       return { ...state, loading: false, error: payload };
 
     default:
