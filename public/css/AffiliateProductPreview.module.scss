@@ -10,16 +10,25 @@
   border-radius: 8px;
 
   div[class="ant-card-body"] {
-    padding: 060px;
+    padding: 0 60px;
   }
 }
 
 .product__header {
-  margin-bottom: 100px;
+  margin-bottom: 16px;
+}
+
+.product__images {
+  background-color: colors.$base-white;
+  padding: 25px 10px;
+  border-radius: 8px;
 }
 
 .product__info {
-  margin-top: 60px;
+  margin-top: 16px;
+  background-color: colors.$base-white;
+  padding: 25px 20px;
+  border-radius: 8px;
 
   > h1 {
     font-size: 28px;
@@ -48,7 +57,7 @@
   }
 
   + div[class^="ant-divider"] {
-    margin-top: 100px;
+    margin-top: 60px;
     margin-bottom: 35px;
   }
 }
@@ -74,6 +83,10 @@
 }
 
 .product__details {
+  background-color: colors.$base-white;
+  padding: 25px 10px;
+  border-radius: 8px;
+
   h2 {
     margin-bottom: 30px;
     font-size: 18px;
@@ -81,7 +94,7 @@
   }
 }
 
-@include screens.screen("medium-large") {
+@include screens.screen("tablet") {
   .product__card {
     background-color: transparent;
     border: none;
@@ -92,8 +105,30 @@
   }
 }
 
-@include screens.minScreen("x-large") {
+@include screens.minScreen("medium") {
+  .product__images {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+
+  .product__info {
+    padding-left: 44px;
+    padding-right: 44px;
+  }
+
+  .product__details {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@include screens.minScreen("tablet") {
+  .product__card div[class="ant-card-body"] {
+    padding: 60px 20px;
+  }
+
   .product__header {
+    margin-bottom: 100px;
     display: grid;
     grid-template-columns: minmax(250px, 630px) minmax(120px, 400px);
     justify-content: space-between;
@@ -105,6 +140,7 @@
     padding: 15px;
     border: 1px solid colors.$gray-100;
     border-radius: 8px;
+    background-color: transparent;
   }
 
   .product__info {
@@ -113,5 +149,18 @@
     padding: 32px;
     border: 1px solid colors.$gray-100;
     border-radius: 8px;
+    background-color: transparent;
+  }
+
+  .product__details {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+}
+
+@include screens.minScreen("x-large") {
+  .product__card div[class="ant-card-body"] {
+    padding: 60px 50px;
   }
 }

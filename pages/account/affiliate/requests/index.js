@@ -1,63 +1,50 @@
 import Head from "next/head";
 import { useSelector } from "react-redux";
-import { Typography, Table } from "antd";
 import AuthLayout from "components/authlayout";
-import PaginationHelper from "components/PaginationHelpers";
-import AffiliateFilters from "components/affiliates/AffiliateFilters";
-import requestsColumns from "components/affiliateRequests/requestsColumns";
+import AffiliatePageLayout from "components/affiliates/AffiliatePageLayout";
+import GetLink from "components/affiliateRequests/components/GetLink";
 import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
 import useFetcher from "components/affiliates/hooks/useFetcher";
-import styles from "public/css/AffiliateRequests.module.scss";
-
-const { Text } = Typography;
-const rowKey = record => record.id;
+import requestsColumns from "components/affiliateRequests/requestsColumns";
+import dataLoading from "utils/dataLoading";
 
 const AffiliateRequests = () => {
   const { user } = useSelector(state => state.auth);
+  const { store } = useSelector(state => state.store);
 
   const { url, filters, setFilters } = useAffiliateFilters(
     "affiliate/get-requested-products"
   );
 
-  const [requests, response, error] = useFetcher(user, url);
+  const { products, loading, setLoading, response, error, isValidating } =
+    useFetcher(user, url);
 
-  const handlePage = page => {
-    setFilters({ ...filters, page });
-  };
+  const isLoading = dataLoading({
+    products: products.data,
+    loading,
+    response,
+    error,
+    isValidating,
+  });
 
   return (
     <AuthLayout>
       <Head>
         <title>KreateSell | Affiliate Requests</title>
       </Head>
-
-      <header className={styles.header}>
-        <Text type="secondary" strong>
-          Affiliate Offers
-        </Text>
-      </header>
-      <AffiliateFilters setFilters={setFilters} />
-      <PaginationHelper
-        dataSize={requests.total}
+      <AffiliatePageLayout
+        products={products}
+        isLoading={isLoading}
+        setLoading={setLoading}
+        title="Affiliate Offers"
+        totalSales={store.total_sales_till_date}
         filters={filters}
         setFilters={setFilters}
+        component={GetLink}
+        columns={requestsColumns}
+        statusKey="request_status"
+        productKey="product_id"
       />
-      <section className={styles.tableWrapper}>
-        <Table
-          dataSource={requests.data}
-          columns={requestsColumns}
-          pagination={{
-            position: ["bottomLeft"],
-            pageSize: filters.limit,
-            current: filters.page,
-            total: requests.total,
-            responsive: true,
-            onChange: handlePage,
-          }}
-          rowKey={rowKey}
-          loading={!response && !error}
-        />
-      </section>
     </AuthLayout>
   );
 };

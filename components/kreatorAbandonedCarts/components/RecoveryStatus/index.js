@@ -4,7 +4,7 @@ import { Typography, Select } from "antd";
 import Spinner from "components/Spinner";
 import SyncDataToCSV from "components/DataToCSV/SyncDataToCSV";
 import RecoveryStatusFilters from "../RecoveryStatusFilters";
-import AbandonedCartsStats from "../AbandonedCartsStats";
+import RecoveryStatusStats from "../RecoveryStatusStats";
 import RecoveryStatusChart from "../RecoveryStatusChart";
 import { headers } from "../../data/recoveryStatusData";
 import axiosAPI from "utils/axios";
@@ -86,7 +86,7 @@ const RecoveryStatus = () => {
         <RecoveryStatusFilters setFilters={setFilters} />
       </section>
       <section>
-        <AbandonedCartsStats
+        <RecoveryStatusStats
           inRecovery={data.inRecovery}
           abandoned={data.abandoned}
           recovered={data.recovered}

@@ -5,13 +5,21 @@ import { FaRegUser } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { AiOutlineCloseCircle, AiOutlineStop } from "react-icons/ai";
 import styles from "./index.module.scss";
+import AffiliateAvatar from "../AffiliateAvatar";
+import PopOverFooter from "../PopOverFooter";
 
 const { Text } = Typography;
 
-const PopOver = ({ record, showReportModal }) => {
+const PopOver = ({
+  affiliateReported,
+  affiliateProfileImage,
+  affiliateName,
+  affiliateUniqueUsername,
+  affiliateCountry,
+  affiliateId,
+  showReportModal,
+}) => {
   const [visible, setVisible] = useState(false);
-
-  const reported = record.affiliate_reported === "false" ? false : true;
 
   const handleVisibility = value => visible => {
     setVisible(value || value === false ? value : visible);
@@ -30,57 +38,27 @@ const PopOver = ({ record, showReportModal }) => {
           icon={<AiOutlineCloseCircle />}
         />
       </div>
-      <header className={styles.header}>
-        {!record.affiliate_profile_image ||
-        record.affiliate_profile_image ===
-          "Images\\ProfilePicture\\imageIcon" ? (
-          <Avatar
-            size={100}
-            icon={<FaRegUser />}
-            className={styles.profile__image__placeholder}
-          />
-        ) : (
-          <Avatar
-            size={100}
-            src={
-              <Image
-                src={record.affiliate_profile_image}
-                layout="fill"
-                alt={`${record.affiliate_name}`}
-                objectFit="cover"
-              />
-            }
-          />
-        )}
-      </header>
+      <AffiliateAvatar
+        image={affiliateProfileImage}
+        affiliateName={affiliateName}
+      />
       <section className={styles.affiliate__info}>
         <p>
-          <Text>{record.affiliate_name}</Text>
+          <Text>{affiliateName}</Text>
         </p>
         <p>
-          <Text>{record.affiliate_unique_username}</Text>
+          <Text>{affiliateUniqueUsername}</Text>
         </p>
         <p>
-          <Text>{record.affiliate_country}</Text>
+          <Text>{affiliateCountry}</Text>
         </p>
       </section>
       <Divider className={styles.divider} />
-      <footer className={styles.footer}>
-        {reported ? (
-          <Button size="large" icon={<AiOutlineStop />} disabled>
-            Reported
-          </Button>
-        ) : (
-          <Button
-            size="large"
-            danger
-            onClick={() => showReport(record.affiliate_id)}
-            icon={<AiOutlineStop />}
-          >
-            Report Affiliate
-          </Button>
-        )}
-      </footer>
+      <PopOverFooter
+        affiliateReported={affiliateReported}
+        affiliateId={affiliateId}
+        showReport={showReport}
+      />
     </div>
   );
 
@@ -93,8 +71,11 @@ const PopOver = ({ record, showReportModal }) => {
       visible={visible}
       onVisibleChange={handleVisibility()}
     >
-      <Button icon={<IoEllipsisVertical />} type="link" className={styles.btn}>
-        {record.affiliate_name}
+      <Button type="link" className={styles.btn}>
+        <span>
+          <IoEllipsisVertical />
+        </span>
+        {affiliateName}
       </Button>
     </Popover>
   );

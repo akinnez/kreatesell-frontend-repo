@@ -42,33 +42,21 @@ const ProductImages = ({ productFiles, productName }) => {
             : `${styles.product__image}`
         }
       >
-        <Image
-          src={image}
-          alt={productName}
-          width={125}
-          height={125}
-          objectFit="cover"
-        />
+        <Image src={image} alt={productName} layout="fill" objectFit="cover" />
       </button>
     ));
 
   return (
     <>
-      <div
-        className={
-          images
-            ? styles.product__image__overview
-            : `${styles.product__image__overview} ${styles["product__image__overview--margin"]}`
-        }
-      >
+      <div className={images && styles.product__image__overview}>
         {src ? (
           <div className={styles.product__img}>
             <Image
               src={src}
               alt={productName}
               layout="responsive"
-              width={280}
-              height={280}
+              width={600}
+              height={600}
               objectFit="cover"
               priority
             />

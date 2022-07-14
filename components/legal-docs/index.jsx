@@ -30,7 +30,13 @@ const Legal = ({ defaultActiveKey }) => {
   };
 
   return (
-    <Layout subFooter={true} defaultMarginTop={true}>
+    <Layout
+      subFooter={true}
+      defaultMarginTop={true}
+      firstText="Start making money"
+      secondText="with your content"
+      withSearch={true}
+    >
       {/* BANNER */}
       <div className={styles.main}>
         {/* shared layout on both mobile and desktop */}
@@ -58,7 +64,7 @@ const Legal = ({ defaultActiveKey }) => {
             {matchPath("/legal/cookie-policy") && <CookiePolicy />}
             {matchPath("/legal/privacy-policy") && <Privacy />}
             {matchPath("/legal/terms-of-service") && <TermsOfService />}
-            {matchPath("/legal/affiliate-policy") && <AffiliateTerms />}
+            {matchPath("/legal/affiliate-terms") && <AffiliateTerms />}
           </div>
           {/* <Image src={whatsAppSupport} alt="" width="68" height="65" /> */}
         </section>

@@ -1,19 +1,51 @@
 @use "public/css/colors";
 @use "public/css/mixins";
+@use "public/css/screens";
 
-.filter__section {
-  h2 {
-    font-weight: 600;
-    font-size: 24px;
-    color: colors.$black-100;
-    margin-bottom: 30px;
+.heading {
+  font-weight: 700;
+  font-size: 20px;
+  color: colors.$black-100;
+  margin-bottom: 30px;
+}
+
+.spin__wrapper section:last-child {
+  margin-bottom: 100px;
+}
+
+.data__section + section {
+  margin-top: 40px;
+
+  ul {
+    @include mixins.flex(row, flex-end, center);
   }
 }
 
-.table__section {
-  margin-bottom: 30px;
+.table__wrapper {
+  display: none;
+}
 
-  [class="ant-table-content"] {
-    overflow-x: auto;
+@include screens.minScreen("x-large") {
+  .heading {
+    font-size: 24px;
+  }
+
+  .data__section {
+    ul,
+    div[class*="no__data"] {
+      display: none;
+    }
+
+    & + section ul {
+      justify-content: flex-start;
+    }
+  }
+
+  .table__wrapper {
+    display: block;
+
+    [class="ant-table-content"] {
+      overflow-x: auto;
+    }
   }
 }

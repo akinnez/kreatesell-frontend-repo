@@ -22,7 +22,7 @@ const AffiliateLink = ({ affiliateLink }) => {
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       <div className={styles.label}>
         <span>Affiliate Link</span>
       </div>

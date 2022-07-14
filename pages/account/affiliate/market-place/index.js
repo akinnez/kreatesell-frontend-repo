@@ -1,66 +1,57 @@
 import Head from "next/head";
 import { useSelector } from "react-redux";
-import { Table } from "antd";
 import AuthLayout from "components/authlayout";
-import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
-import AffiliateFilters from "components/affiliates/AffiliateFilters";
-import PaginationHelper from "components/PaginationHelpers";
 import KreatorDashboard from "components/account-dashboard/KreatorDashboard";
+import AffiliatePageLayout from "components/affiliates/AffiliatePageLayout";
+import BecomeAnAffiliate from "components/affiliateProducts/components/BecomeAnAffiliate";
+import RequestAccessLink from "components/affiliateProducts/components/RequestAccessLink";
 import productsColumns from "components/affiliateProducts/productsColumns";
 import useAffiliateFilters from "components/affiliates/hooks/useAffiliateFilters";
 import useFetcher from "components/affiliates/hooks/useFetcher";
-import styles from "public/css/AffiliateProducts.module.scss";
-
-const rowKey = record => record.id;
+import { isAnEmpytyObject } from "utils";
+import dataLoading from "utils/dataLoading";
 
 const AffiliateProducts = () => {
   const { user } = useSelector(state => state.auth);
-
+  const { store } = useSelector(state => state.store);
   const { url, filters, setFilters } = useAffiliateFilters(
     "affiliate/get-products"
   );
+  const { products, loading, setLoading, response, error, isValidating } =
+    useFetcher(user, url);
 
-  const [products, response, error] = useFetcher(user, url);
-
-  const handlePageChange = page => {
-    setFilters({ ...filters, page });
-  };
+  const isLoading = dataLoading({
+    products: products.data,
+    loading,
+    response,
+    error,
+    isValidating,
+  });
 
   return (
     <AuthLayout headerTitle={!user.is_affiliate ? "Dashboard" : ""}>
       <Head>
         <title>KreateSell | Affiliate Market Place</title>
       </Head>
-      {!user.is_affiliate ? (
+      {isAnEmpytyObject(user) ? null : !user.is_affiliate ? (
         <>
           <KreatorDashboard />
           <BecomeAnAffiliate />
         </>
       ) : (
-        <>
-          <AffiliateFilters setFilters={setFilters} />
-          <PaginationHelper
-            dataSize={products.total}
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <section className={styles.tableWrapper}>
-            <Table
-              dataSource={products.data}
-              columns={productsColumns}
-              pagination={{
-                position: ["bottomLeft"],
-                pageSize: filters.limit,
-                current: filters.page,
-                total: products.total,
-                responsive: true,
-                onChange: handlePageChange,
-              }}
-              rowKey={rowKey}
-              loading={!response && !error}
-            />
-          </section>
-        </>
+        <AffiliatePageLayout
+          products={products}
+          isLoading={isLoading}
+          setLoading={setLoading}
+          title="Market Place"
+          totalSales={store.total_sales_till_date}
+          filters={filters}
+          setFilters={setFilters}
+          columns={productsColumns}
+          component={RequestAccessLink}
+          statusKey="has_requested_access"
+          productKey="id"
+        />
       )}
     </AuthLayout>
   );

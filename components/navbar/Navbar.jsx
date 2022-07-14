@@ -71,16 +71,37 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className={`${styles.navContainer} ${navBg && styles.navBg}`}>
-        
+      <nav
+        className={`${styles.navContainer} ${navBg && styles.navBg} ${
+          openMobileNav ? styles.reverseMobileView : ""
+        }`}
+      >
+        <div
+          className={`${styles.mobileLoginLink} ${
+            openMobileNav ? styles.showLogin : ""
+          }`}
+        >
+          <div
+            className={styles.loginBtn}
+            onClick={() => router.push("/login")}
+          >
+            <Button text="Login" className={styles.loginBtnStyle} />
+          </div>
+        </div>
         <Link href="/">
-          <a className={styles.imgCont}>
+          <a
+            className={`${styles.imgCont} ${
+              openMobileNav ? styles.mobileView : ""
+            }`}
+          >
             <Logo />
           </a>
         </Link>
-        <div className={styles.MobileLogo} onClick={() => router.push("/")}>
-          <MobileLogo />
-        </div>
+        {!openMobileNav && (
+          <div className={styles.MobileLogo} onClick={() => router.push("/")}>
+            <MobileLogo />
+          </div>
+        )}
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
@@ -202,23 +223,11 @@ export const Navbar = () => {
           <div className={styles.hamburger}></div>
         </div>
 
-        <div className={styles.mobileBtnLinks}>
-          <div
-            className={styles.loginBtn}
-            onClick={() => router.push("/login")}
-          >
-            <Button text="Login" className={styles.loginBtnStyle} />
-          </div>
-          <div
-            className={styles.signUpBtn}
-            onClick={() => router.push("/signup")}
-          >
-            <Button
-              text="Signup Free"
-              bgColor="blue"
-              className={styles.signUpBtnStyle}
-            />
-          </div>
+        <div
+          className={`${styles.mobileMenuCont} ${openMobileNav && styles.open}`}
+          onClick={() => handleNavbar()}
+        >
+          <div className={styles.hamburger}></div>
         </div>
         {navDrop.isVisible && (
           <ResourcesDrop

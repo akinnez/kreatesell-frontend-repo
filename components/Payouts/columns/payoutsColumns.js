@@ -7,8 +7,7 @@ export const payoutsColumns = [
   { title: "Customer Email", dataIndex: "customer_email" },
   {
     title: "Amount",
-    dataIndex: "amount",
-    render: (_, record) => `${record.currency} ${formatNumber(record.amount)}`,
+    render: record => `${record.currency} ${formatNumber(record.amount)}`,
   },
   {
     title: "Transaction Date",

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Pagination } from "antd";
 import { BsFillImageFill } from "react-icons/bs";
-import PaginationHelper from "components/PaginationHelpers";
+import PaginationSizeChanger from "components/PaginationSizeChanger";
 import KreatorProductDetails from "../KreatorProductDetails";
 import productImageFn from "utils/productImageFn";
 import styles from "./index.module.scss";
@@ -49,7 +49,7 @@ const KreatorProducts = ({ products, totalProducts, filters, setFilters }) => {
 
   return (
     <>
-      <PaginationHelper
+      <PaginationSizeChanger
         dataSize={totalProducts}
         filters={filters}
         setFilters={setFilters}

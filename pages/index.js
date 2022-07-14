@@ -575,12 +575,14 @@ export default function Home() {
         <section className={styles.newsAndEvents}>
           <div className={styles.newsHeader}>
             <h5>News, Events And Insights For You</h5>
-            <p className={styles.seeMore}>
-              See more
-              <span className="pb-1">
-                <RightArrow color="#0072EF" />
-              </span>
-            </p>
+            <Link href="/blog" passHref>
+              <div className={styles.seeMore}>
+                See more
+                <span className=" pl-2">
+                  <RightArrow color="#0072EF" />
+                </span>
+              </div>
+            </Link>
           </div>
           <section className={styles.parentCard}>
             <div className={styles.profileAndCard}>
@@ -660,6 +662,14 @@ export default function Home() {
             </div>
 
             <div className={styles.newsCardsGrid}></div>
+            <Link href="/blog" passHref>
+              <div className={styles.seeMoreMobile}>
+                See more
+                <span className=" pl-2">
+                  <RightArrow color="#0072EF" />
+                </span>
+              </div>
+            </Link>
           </section>
         </section>
         <div className={styles.subFooter}>
@@ -704,6 +714,7 @@ export default function Home() {
           cancelPropagation={true}
           containerStyle={styles.modalContainer}
           closeButton={true}
+          className={styles.modalParent}
           closeBtnAction={() => setVisible(!modalVisible)}
         >
           <OnboardingModal />
@@ -805,8 +816,8 @@ const OnboardingModal = () => {
       autoComplete="off"
     >
       <h5 className={styles.modalTitle}>
-        Do you want to see the amazing things KreateSell can do for you? Watch
-        KreateSell in action
+        Do you want to see the amazing things KreateSell can do for you? <br />
+        <span className={styles.span}>Watch KreateSell in action.</span>
       </h5>
 
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
@@ -831,12 +842,12 @@ const OnboardingModal = () => {
 
       <p className={styles.context}>
         You&#39;ll get helpful resources on how to become and make huge money as
-        a creator.
+        a Kreator.
       </p>
 
       <Button
         leftIcon={<PlayIcon />}
-        text="Watch Demo"
+        text="Play Demo"
         bgColor="blue"
         className={styles.btnCont}
         loading={loading}

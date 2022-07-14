@@ -1,25 +1,20 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Typography, Table } from "antd";
 import useSWR from "swr";
 import AuthLayout from "components/authlayout";
 import SuccessModalBox from "components/SuccessModalBox";
-import PaginationHelper from "components/PaginationHelpers";
-import Filters from "components/kreatorAffiliateRequests/components/Filters";
 import AffiliateNote from "components/kreatorAffiliateRequests/components/AffiliateNote";
 import ReportAffiliate from "components/kreatorAffiliateRequests/components/ReportAffiliate";
 import ActionModal from "components/kreatorAffiliateRequests/components/ActionModal";
-import StatusButtons from "components/kreatorAffiliateRequests/components/StatusButtons";
-import tableColumns from "components/kreatorAffiliateRequests/tableColumns";
+import PageLayout from "components/kreatorAffiliateRequests/components/PageLayout";
+import SuccessMessage from "components/kreatorAffiliateRequests/components/SuccessMessage";
 import useFilters from "components/kreatorAffiliateRequests/useFilters";
 import axiosAPI from "utils/axios";
+import dataLoading from "utils/dataLoading";
 import { showToast } from "utils";
-import styles from "public/css/KreatorAffiliateRequests.module.scss";
-
-const { Title, Text } = Typography;
-const rowKey = record => record.id;
 
 const AffiliateRequests = () => {
+  const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState({ data: [], total: 0 });
   const [successModal, setSuccessModal] = useState(false);
   const [noteModal, setNoteModal] = useState({ visible: false, note: null });
@@ -34,11 +29,16 @@ const AffiliateRequests = () => {
     "v1/kreatesell/product/fetch/affiliates/all"
   );
 
-  const { data: res, error } = useSWR(url.href, url => {
+  const {
+    data: response,
+    error,
+    isValidating,
+  } = useSWR(url.href, url => {
     return axiosAPI.request(
       "get",
       url,
       res => {
+        setLoading(false);
         setRequests({
           ...requests,
           data: res.data.data,
@@ -47,15 +47,20 @@ const AffiliateRequests = () => {
         return res;
       },
       err => {
+        setLoading(false);
         showToast(err.message, "error");
         return err;
       }
     );
   });
 
-  const handlePage = page => {
-    setFilters({ ...filters, page });
-  };
+  const isLoading = dataLoading({
+    products: requests.data,
+    loading,
+    response,
+    error,
+    isValidating,
+  });
 
   const handleSuccess = value => {
     setSuccessModal(value);
@@ -99,57 +104,27 @@ const AffiliateRequests = () => {
     setRequests({ ...requests, data: newRequests });
   };
 
-  const columns = tableColumns(showReportModal, showActionModal, showNoteModal);
-
   return (
     <AuthLayout headerTitle="REQUESTS">
       <Head>
         <title>KreateSell | Kreator&#39;s Affiliate Requests</title>
       </Head>
-      <header className={styles.header}>
-        <Title>Affiliate Offers</Title>
-      </header>
-      <section>
-        <Filters setFilters={setFilters} />
-      </section>
-      <PaginationHelper
-        dataSize={requests.total}
+      <PageLayout
+        requests={requests}
+        isLoading={isLoading}
+        setLoading={setLoading}
         filters={filters}
         setFilters={setFilters}
+        showReportModal={showReportModal}
+        showActionModal={showActionModal}
+        showNoteModal={showNoteModal}
       />
-      <StatusButtons setFilters={setFilters} filters={filters} />
-      <section className={styles.table__section}>
-        <Table
-          dataSource={requests.data}
-          columns={columns}
-          pagination={{
-            position: ["bottomLeft"],
-            pageSize: filters.limit,
-            current: filters.page,
-            total: requests.total,
-            responsive: true,
-            onChange: handlePage,
-          }}
-          rowKey={rowKey}
-          loading={!res && !error}
-        />
-      </section>
       {successModal && (
         <SuccessModalBox
           modalIsVisible={successModal}
           closeModal={() => handleSuccess(false)}
         >
-          <section className={styles.content}>
-            <p>
-              <Text>Report Successfully Sent</Text>
-            </p>
-            <p>
-              <Text>
-                We would review it and if the affiliate is found guilty, they
-                would no longer have access to your products.
-              </Text>
-            </p>
-          </section>
+          <SuccessMessage />
         </SuccessModalBox>
       )}
       {noteModal.visible && (
