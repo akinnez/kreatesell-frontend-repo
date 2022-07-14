@@ -63,6 +63,13 @@
 
 .mobileLoginLink {
   display: none;
+  // border: 1px solid red;
+  width: 100%;
+  height: 100%;
+  text-align: right;
+  .loginBtn {
+    display: block;
+  }
 }
 
 .mobileLoginLink.showLogin {
@@ -167,17 +174,16 @@
 
 .loginBtn {
   margin-right: 1rem;
-  @include screen("tablet"){
+  @include screen("tablet") {
     display: none;
   }
 }
 
-.signUpBtn{
-  @include screen("tablet"){
+.signUpBtn {
+  @include screen("tablet") {
     display: none;
   }
 }
-
 
 @include screen("tablet") {
   .navContainer {
@@ -209,7 +215,7 @@
         padding: 0;
         position: fixed;
         z-index: 10000;
-        background: #0072EF;
+        background: #0072ef;
       }
 
       .hamburger {
@@ -292,7 +298,7 @@
         }
       }
     }
-    .btnLinks{
+    .btnLinks {
       display: none;
     }
 
