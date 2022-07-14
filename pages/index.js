@@ -90,7 +90,7 @@ export default function Home() {
             <h1>
               Kreate. Upload. And Sell <br /> your{" "}
               <span className={styles.digital}>Digital Product</span> <br />
-              Online under Minutes. For Free
+              online under 7 minutes. For Free
             </h1>
             <p className={styles.subHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
