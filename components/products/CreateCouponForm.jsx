@@ -141,12 +141,11 @@ export const CreateCouponForm = () =>{
         }
       }, [store])
 
-
     return(
         <div className={`px-0 lg:px-8 ${styles.container}`}>
-            <div className="flex flex-col">
-                <h1 className="font-bold text-center text-2xl">Create New Coupon</h1>
-                <h3 className={style.lightGrey +" font-semibold text-center text-base"}>Generate a new coupon that drives more sales to your product(s).</h3>
+            <div className="flex flex-col items-start">
+                <h1 className={`font-bold text-center text-2xl ${styles.title}`}>Create New Coupon</h1>
+                <h3 className={style.lightGrey +` font-semibold text-center text-base ${styles.subtitle}`}>Generate a new coupon that drives more sales to your product(s).</h3>
             </div>
             <form onSubmit={formik.handleSubmit} className={styles.formContent + " flex flex-col"}>
                 <div className="">
@@ -157,12 +156,12 @@ export const CreateCouponForm = () =>{
                         style={{ width: "100%" }}
                         placeholder="EX: EMBER100"
                         name="coupon_code" 
-                        onChange={(e)=>setFieldValue("coupon_settings.coupon_code", e)}
+                        onChange={(e)=>setFieldValue("coupon_settings.coupon_code", e?.toUpperCase())}
                         value={coupon_code}
                     />
                 </div>
                 <div className="flex flex-col mt-8">
-                    <h2 className="font-semibold text-base">Apply Coupon to</h2>
+                    <h2 className={`font-semibold text-base ${styles.labelV2}`}>Apply Coupon to</h2>
                     <div className="flex items-center">
                         <Radio.Group defaultValue={true} onChange={handleRadioChange} >
                             <Radio className={styles.radioContent} value={true} checked={isAllProduct ? true : false}>All Products</Radio>
@@ -180,7 +179,7 @@ export const CreateCouponForm = () =>{
                 </div>
 
                 <div className="flex flex-col mt-5">
-                    <h2 className="font-semibold text-base">Coupon Type</h2>
+                    <h2 className={`font-semibold text-base ${styles.labelV2}`}>Coupon Type</h2>
                     <div className="flex">
                         <div className="col-3">
                             <Radio className={styles.radioContent} onClick={()=>{
@@ -223,8 +222,8 @@ export const CreateCouponForm = () =>{
 
                 <div className="flex items-center mt-8 mb-3">
                     <div className={`pt-1 w-full flex items-center`}>
-                        <h2 className={styles.label + " text-lg mb-0 font-normal"}>From</h2>
-                        <div className={styles.inputGroup +"  w-3/5"}>
+                        <h2 className={styles.label }>From</h2>
+                        <div className={styles.inputGroup /*+"  w-3/5"*/}>
                              <Input
                                 type="datetime-local"
                                 onChange={(e)=>setFieldValue("coupon_settings.start_date", e.target.value)}
@@ -233,8 +232,8 @@ export const CreateCouponForm = () =>{
                         </div>
                     </div>
                     <div className={`pt-1 w-full flex items-center`}>
-                        <h2 className={styles.label + " text-lg mb-0 font-normal"}>To</h2>
-                        <div className={styles.inputGroup +" w-3/5"}>
+                        <h2 className={styles.label}>To</h2>
+                        <div className={styles.inputGroup /*+" w-3/5"*/}>
                             <Input
                                 type="datetime-local"
                                 onChange={(e)=>setFieldValue("coupon_settings.end_date", e.target.value)}
@@ -300,11 +299,12 @@ export const CreateCouponForm = () =>{
                     </div>
                 </div>
                 <div className={styles.switchContent}>
-                    <h2 className="mb-0 text-xl text-base-gray-200">Allow Discount to be Applied for Recurring Purchases</h2>
-                    <Switch onChange={(e)=>setIsApplied(value => !value)} />
+                    <h2 className={styles.label}>Allow Discount to be Applied for Recurring Purchases</h2>
+                    <span className="flex items-center gap-3"><Switch onChange={(e)=>setIsApplied(value => !value)} /> <h3 className="mb-0">{isApplied ? "ON": "OFF"}</h3></span>
                 </div>
                 <div className="my-2">
                 {
+                    
                     Object.keys(errors).length > 0 && Object.entries(errors).map((items, index)=>{
                         if (typeof items[1] === "string"){
                         return (

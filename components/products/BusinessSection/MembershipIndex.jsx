@@ -1,14 +1,17 @@
 import { Button } from "antd";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import {EmptyDataTable, Subscribers} from 'utils'
+import { useRouter } from 'next/router'
+import { useSelector } from "react-redux";
+
+import {EmptyDataTable, Subscribers, MobileViewSubscribers, MobileSettingsIcon} from 'utils'
 import productStyles from '../../../public/css/AllProducts.module.scss'
 import AddSection from "./AddSection";
 import styles from './MembershipTab.module.scss'
 import {CreateSection, GetProductByID} from 'redux/actions'
-import { useSelector } from "react-redux";
 
 export default function MembershipIndex({setIsTabsActive, setMajorPage, toSection}) {
+    const route = useRouter();
     const [fields, setFields] = useState('adding section')
     const createSection = CreateSection()
     const getProduct = GetProductByID()
@@ -51,8 +54,8 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, toSectio
     }
   return (
     <div className="flex flex-col mt-7">
-            <div className="flex items-center justify-between mb-7">
-                <h1 className="text-2xl text-blue-600 font-bold">How to Invest in Crypocurrency</h1>
+            <div className={`flex items-center justify-between mb-7 ${styles.sectionContainerTitle}`}>
+                <h1 className={``} style={{color: "#0072ef"}}>How to Invest in Crypocurrency</h1>
                 {fields === 'empty' && <div className={styles.miniSaveButton}>
                     <Button onClick={()=>{ 
                         addSection()
@@ -60,9 +63,15 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, toSectio
                         }} type="primary">+ Add Content</Button>
                 </div>}
                 {fields === 'adding section' && <div className={styles.miniSaveButtons + " flex"}>
-                    <Button type="default" icon={<Image src={Subscribers} alt="empty"/>}>  View Subscribers</Button>
+                    <Button type="default" icon={<Image src={Subscribers} alt="empty"/>} onClick={() => route.push(`/account/kreator/products/view-subscribers`)}>  View Subscribers</Button>
                     <Button type="primary" onClick={()=> toManageSection()} style={{color: "#0072ef"}}>Manage All Sections</Button>
                     <Button type="primary">Preview Membership</Button>
+                </div>}
+                {/* mobile */}
+                {fields === 'adding section' && <div className={styles.miniSaveButtonsMobile + " flex"}>
+                    <Button type="default"><Image src={MobileViewSubscribers} alt="empty"/></Button>
+                    <Button type="primary" className="flex gap-x-2" onClick={()=> toManageSection()} icon={<Image src={MobileSettingsIcon} />} style={{color: "#0072ef"}}> {"  "}Manage All</Button>
+                    <Button type="primary">Preview</Button>
                 </div>}
             </div>
            {fields === 'empty' && <> <div className={productStyles.emptyTable +" bg-white flex flex-col"}>

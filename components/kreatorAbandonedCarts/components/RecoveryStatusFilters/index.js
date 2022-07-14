@@ -56,7 +56,7 @@ const RecoveryStatusFilters = ({ setFilters }) => {
   };
 
   return (
-    <div className={!isFiltered && styles["lg-margin"]}>
+    <div className={isFiltered ? null : ["lg-margin"]}>
       <Form
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}

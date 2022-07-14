@@ -13,7 +13,11 @@ export default function ContentUpload({file, setFile}){
         getInputProps,
         deleteFile
       } = useUpload({
-        fileType: "audio/*,video/*,application/pdf"
+        fileType: {
+          'image/*': ['.jpeg', '.png'],
+          'audio/*' : [],
+          'application/pdf': []
+      }
       });
       const handleDeleteFile = ()=>{
         deleteFile(mainFile[0].file)

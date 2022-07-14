@@ -105,7 +105,7 @@ const Coupon = () => {
                     <Button
                         text="+ Add a Coupon"
                         bgColor="blue"
-                        className={styles.addCouponBtn1 + " pr-2 pl-2"}
+                        className={styles.addCouponBtn1 + "my-3 pr-2 pl-2"}
                         onClick={() => router.push("/account/kreator/products/coupons/create")}
                     />
 				</div>
@@ -138,6 +138,9 @@ const Coupon = () => {
 							position: ["none","bottomLeft"],
 						}}
 						size="large"
+						scroll={{
+							x: 1000,
+						}}
 					/>
 				</div>
                 <div className="flex flex-col items-center">

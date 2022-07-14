@@ -57,7 +57,8 @@ export const useUpload = ({fileType}) => {
 	
 	const {getRootProps, getInputProps } = useDropzone({
 		onDrop,
-		accept: `${fileType}/*`,
+		// TODO: work on the accept
+		// accept: fileType,
 		maxFiles: fileType === "image"? 3 : 50,
 		maxSize: fileType === "image" ? 2097152: 5368709120
 	})

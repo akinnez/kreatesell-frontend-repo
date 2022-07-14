@@ -8,6 +8,9 @@
     
      div {
         border-radius: 8px !important;
+        @include screen("inbetween"){
+           
+        }
     }
     & > div:first-child{
         height: 2.5rem;
@@ -24,7 +27,12 @@
     justify-content: center;
     align-items: center;
 }
-
+.currencyHeader{
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 26px;
+    color: #8C8C8C;
+}
 .currencyField{
     width: 85%;
     border: 2px solid $gray-100;
@@ -35,11 +43,18 @@
     .currencyButtons{
         background-color: $white-200;
         padding: .7em 1em;
-        border-radius: 5px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         text-align: center;
-
+        @include screen("inbetween"){
+            &>h2{
+                font-weight: 400;
+                font-size: 0.875rem;
+                line-height: 24px;
+                color: #8C8C8C;          
+            }
+        }
         p{
             cursor: pointer;
         }

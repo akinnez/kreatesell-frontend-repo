@@ -10,7 +10,7 @@ export const CheckoutProductTab = () => {
 	const [priceType, setPriceType] = useState("Fixed Price");
 	const getPricingTypes = GetPricingTypes();
 	const { product } = useSelector((state) => state.product);
-
+	const { store } = useSelector((state) => state.store);
 	useEffect(() => {
 		getPricingTypes()
 	}, []);
@@ -61,11 +61,11 @@ export const CheckoutProductTab = () => {
 						
 						
 					/> */}
-					<Radio.Group onChange={(field)=>changeField(field)} value={priceType} defaultValue={options[0].value}>
+					<Radio.Group onChange={(field)=>changeField(field)} value={priceType} defaultValue={options[0].value} className="flex-col gap-7 md:gap-0 md:flex-row">
 						<Radio value="Fixed Price">Fixed Price</Radio>
 						<Radio value="Pay What You Want">Pay What You Want</Radio>
 						<Radio value="Installment Payment">Installment Payment</Radio>
-						<Radio className={styles.freeButton} value="Make It Free"><p>Make It Free</p> <h3>Business</h3></Radio>
+						<Radio disabled={store?.user?.user_plan !== "Business"} className={store?.user?.user_plan === "Business" ? styles.businessButton : styles.freeButton} value="Make It Free"><p>Make It Free</p> <h3>Business</h3></Radio>
 					</Radio.Group>
 				</div>
 			</Form>

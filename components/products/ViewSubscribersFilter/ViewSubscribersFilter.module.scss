@@ -1,0 +1,64 @@
+@import "../../../public//css/colors.scss";
+@import "../../../public//css/mixins.scss";
+@import "../../../public//css/screens.scss";
+.dateHeader {
+  @include screen("tablet") {
+
+  }
+  .searchInput {
+    margin-bottom: -17px;
+    width: 100%;
+    margin-right: 7px;
+    @include screen("large") {
+      width: 100%;
+    }
+
+    .label {
+      margin-bottom: -7px;
+    }
+    .search {
+      height: 43px;
+    }
+  }
+  .selectDivStyle {
+    width: 100%;
+    margin-right: 7px;
+
+    @include screen("large") {
+      width: 100%;
+    }
+  }
+  .dateDiv {
+    width: 100%;
+    margin-right: 7px;
+    @include screen("large") {
+      width: 100%;
+    }
+
+    .label {
+      margin-bottom: -15px;
+      font-size: 14px;
+      color: $gray-200;
+    }
+    .date {
+      height: 43;
+    }
+  }
+  .input__wrapper div[class~="ant-form-item"],
+  .filter__btn {
+    margin-bottom: 0 !important;
+  }
+  .formItemButton{
+    margin-bottom: 0px;
+  }
+  .button{
+    border-radius: 10px;
+  }
+}
+
+.filterCont {
+  cursor: pointer;
+  width: 95px;
+  // margin-bottom: -30px;
+  transform: translateY(20px);
+}

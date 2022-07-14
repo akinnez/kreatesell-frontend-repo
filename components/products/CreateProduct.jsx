@@ -15,7 +15,7 @@ import {
 import { useSelector } from "react-redux";
 import { GetProductTypes } from "redux/actions";
 
-export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
+export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab}) => {
   const getProductTypes = GetProductTypes();
 
   const [tab, setTab] = useState(1);
@@ -26,7 +26,6 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
   });
 
   const { tab1, tab2, tab3 } = iconHover;
-
   const { productTypes, product } = useSelector((state) => state.product);
   const { store } = useSelector(state => state.store);
   const filterProductType = (id) =>
@@ -64,7 +63,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
           setTab(1)
           setIsTypeEditable(true)
           break; 
-        case "One-time Subscription":
+        case "One-Time Subscription":
           setTab(2)
           setIsTypeEditable(true)
           break; 
@@ -74,8 +73,13 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
           break; 
       }
     }
-
   }, [product])
+
+  useEffect(()=>{
+    if(selectedTab){
+      setTab(selectedTab);
+    }
+  },[])
   useEffect(() => {
     getProductTypes();
   }, []);
@@ -106,7 +110,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
       <p className="text-base font-semibold text-black-100 mt-5">Product Type</p>
 
       <Row gutter={24}>
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <div
             className={`${styles.productTypeTab} ${
               tab === 1 && styles.active
@@ -142,16 +146,16 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
               <h2 className="text-lg font-bold">Digital Download</h2> 
               <span>Start selling immediately</span>
             </div>
-            <div className="lg:hidden font-semibold">
+            <div className={`lg:hidden font-semibold ${styles.mobileContainer}`}>
               Digital Download
               <span className={`font-medium ${styles.mobileSubTitle}`}>
-                - Start selling immediately
+                Start selling immediately
               </span>
             </div>
           </div>
         </Col>
 
-        <Col span={8}>
+        <Col  xs={24} md={8}>
           <div
             className={`${styles.productTypeTab} ${
               tab === 2 && styles.active
@@ -187,7 +191,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
               <h2 className="text-lg font-bold">One-Time Subscription</h2>
               <span>Pay only once</span>
             </div>
-            <div className="lg:hidden font-semibold">
+            <div className={`lg:hidden font-semibold ${styles.mobileContainer}`}>
               One-Time Subscription
               <span className={`font-medium ${styles.mobileSubTitle}`}>
                 {" "}
@@ -197,7 +201,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
           </div>
         </Col>
 
-        <Col span={8}>
+        <Col  xs={24} md={8}>
           <div
             className={`${styles.productTypeTab} ${
               tab === 3 && styles.active
@@ -234,7 +238,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
               <h2 className="text-lg font-bold">Membership</h2> 
               <span>Charge on recurring basis</span>
             </div>
-            <div className="lg:hidden font-semibold">
+            <div className={`lg:hidden font-semibold ${styles.mobileContainer}`}>
               Membership
               <span className={`font-medium ${styles.mobileSubTitle}`}>
                 {" "}
@@ -245,7 +249,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
         </Col>
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
-      {(isBasic && tab !== 1) ? <div className={styles.businessPlan}>
+      {(!isBasic && tab !== 1) ? <div className={styles.businessPlan}>
         <h2 className="text-base w-full font-normal">This action requires a business plan, click <Link href="/account/kreator/settings">here</Link> to subscribe</h2>
         </div>: <></>}
       <div className="mt-8 mb-4">
@@ -283,7 +287,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab}) => {
             closeIcon={<CloseIcon />}>
               <div className="mt-4 mx-auto w-full py-5 px-2">
                 <h2 className="mb-4 text-lg text-center font-semibold">Set Up Bank Details</h2>
-                <p className="text-base-gray-300 text-center text-sm">In oredr</p>
+                <p className="text-base-gray-300 text-center text-sm">In order</p>
                 <div className="flex justify-between">
                   <div className="border-r-2 border-gray-300" style={{width: "55%", height: "250px", position: "relative"}}>
                     <Image src={KreatorBankSetting} alt="kreator" layout="fill" />
