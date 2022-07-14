@@ -4,21 +4,27 @@ import {
   CouponHeader,
   emptyComponent,
 } from "components";
+import { format, parseISO } from "date-fns";
 
-import { DownloadIcon } from "utils";
+import { DownloadIcon, ActionBtn, DeactvateProduct, DeleteIcon, EditProduct, ManageProduct, ViewSales, DuplicateProduct, _copyToClipboard } from "utils";
 import AuthLayout from "../../../../components/authlayout";
 import styles from "../../../../public/css/AllProducts.module.scss";
 import Image from "next/image";
-import { Table } from "antd";
+import { Popover, Table, Popconfirm } from "antd";
 import { useRouter } from "next/router";
 import {
   GetProducts,
   GetProductStatus,
   SetProductID,
   SetProductDefault,
+  CreateProduct,
+  SetProductTab,
+  DuplicateProductAction
 } from "redux/actions";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
+import {StatusComponent} from "components/tableHeader";
+import SyncDataToCSV from "components/DataToCSV/SyncDataToCSV";
 
 const AllProducts = () => {
   const router = useRouter();
@@ -26,6 +32,9 @@ const AllProducts = () => {
   const getProductStatus = GetProductStatus();
   const setProductId = SetProductID();
   const setProductDefault = SetProductDefault();
+  const createEditDeleteProduct = CreateProduct();
+  const setProductTab = SetProductTab();
+  const duplicateProduct = DuplicateProductAction();
   const { products, loading, productPagination, productStatus } = useSelector(
     state => state.product
   );
@@ -104,19 +113,119 @@ const AllProducts = () => {
   const tableLocale = {
     emptyText: emptyComponent("No record yet"),
   };
+
+  const formatTimeFn = (item) => {
+    const time = parseISO(item);
+    const formatTime = format(time, "PPPp");
+    return `${formatTime.split('at')[0]} ${formatTime.split('at')[1]}`
+  }
+    /**Used to delete and deactivate product */
+    const handleModalOk = (product) => {
+      return new Promise(resolve => {
+        const formdata = new FormData()
+        formdata.append('product_id', product.product_details?.id)
+        formdata.append('action', 'd')
+        createEditDeleteProduct(formdata, () => {
+          getProducts();
+          resolve()
+        });
+      });
+    };
+    let content = (product)=> (
+    <ul>
+    <li className="flex items-center cursor-pointer"
+      onClick={() => {
+        setProductId(product.product_details?.kreasell_product_id);
+        router.push("/account/kreator/products/create");
+        setProductTab(0);
+      }}
+    >
+      <span>
+        <Image alt="" src={EditProduct} />
+      </span>
+      <p className="mb-0 ml-3">Edit Product</p>
+    </li>
+  
+    <li className="flex items-center cursor-pointer" onClick={() => {
+      return _copyToClipboard(product?.actions.product_details?.product_link, "Product Link Copied")}}>
+      <span>
+        <Image alt="" src={ManageProduct} />
+      </span>
+      <p className="mb-0 ml-3">Copy Link</p>
+    </li>
+  
+    <li onClick={() => router.push(`/account/kreator/products/preview/${product.product_details?.kreasell_product_id}`)} className="flex items-center cursor-pointer">
+      <span>
+        <Image alt="" src={ViewSales} />
+      </span>
+      <p className="mb-0 ml-3"> Preview</p>
+    </li>
+  
+    <li className="flex items-center cursor-pointer" onClick={() => duplicateProduct(product.product_details?.id, () => getProducts())}>
+      <span>
+        <Image alt="" src={DuplicateProduct} />
+      </span>
+      <p className="mb-0 ml-3">Duplicate</p>
+    </li>
+  
+    <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+    <Popconfirm
+      title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this product?</pre> }
+      onConfirm={() => handleModalOk(product)}
+      // onCancel={cancel}
+      okText="`Deactivate`"
+      cancelText="Cancel"
+      icon={<></>}
+      placement="bottom"
+      overlayClassName={styles.popConfirm}
+    >
+      <span>
+        <Image alt="" src={DeactvateProduct} />
+      </span>
+        <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
+    </Popconfirm>
+    </li>
+    <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+    <Popconfirm
+      title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-red-400 mb-0 font-semibold">Delete</h2> this product?</pre> }
+      onConfirm={() => handleModalOk(product)}
+      // onCancel={cancel}
+      okText="Delete"
+      cancelText="Cancel"
+      icon={<></>}
+      placement="left"
+      overlayClassName={styles.popConfirm}
+    >
+      <span>
+        <Image alt="" src={DeleteIcon} />
+      </span>
+        <p className="mb-0 ml-3">Delete<br /></p>
+    </Popconfirm>
+    </li>
+  </ul>
+  )
+  const AvailabilityStatus = (status) => {
+    const availablityList = {
+      "Unlimited Copies": "#00B140",
+      "Out of Stock": "#F90005",
+      "100 Copies": "#0072EF",
+    }
+    return <p> <span>In Stock: </span><div style={{background: availablityList[status], height:"8px", width:"8px", borderRadius:"50%"}} className={`inline-block mr-2 ${styles.availabilityDot}`}></div>{status}</p>
+
+  }
   return (
     <AuthLayout>
       <div className={styles.allProduct + " pb-10"}>
-        <div className="flex justify-between mb-4">
-          <h3 className=" font-semibold text-2xl">All Products</h3>
+        <div className="flex justify-between mb-4 items-center">
+          <h3 className=" font-semibold text-2xl mb-0">All Products</h3>
           <Button
-            text="+ Add a Product"
+            text="+  Add Product"
             bgColor="blue"
-            className={styles.addCouponBtn1 + " pr-2 pl-2"}
+            className={styles.addCouponBtn1 + " px-2 py-4"}
             onClick={() => {
               setProductId("");
               setProductDefault();
-              console.log("settes");
+              // console.log("settes");
               router.push("/account/kreator/products/create");
             }}
           />
@@ -125,7 +234,7 @@ const AllProducts = () => {
           handleSearchInput={e => setProductName(e.target.value)}
           handleSearchSubmit={() => handleSearchSubmit()}
           handleStartDate={(e, string) => {
-            console.log(string);
+            // console.log(string);
             setStartDate(string);
           }}
           handleEndDate={(e, string) => setEndDate(string)}
@@ -133,21 +242,23 @@ const AllProducts = () => {
           // handleProductStatus={(e) => setProductStatusId(e)}
         />
 
-        <div className="flex justify-end items-center pt-3 mr-10">
-          <div className="flex justify-end items-center cursor-pointer">
-            <div className="text-primary-blue  font-semibold text-xs pr-2">
-              Export Data in CSV
-            </div>
-            <Image alt="" src={DownloadIcon} />
-          </div>
+<div className={styles.exportDiv}>
+        {/* <SyncDataToCSV
+            data={data}
+            headers={headCells}
+            filename="all_products"
+          /> */}
         </div>
 
-        <div className="hidden lg:block mt-8">
+        <div className="hidden md:block mt-8">
           <Table
             columns={AllProductsTableHeader}
             locale={tableLocale}
             loading={loading}
             dataSource={memoisedProductData}
+            scroll={{
+              x: 1000,
+            }}
             pagination={{
               position: ["none", "bottomLeft"],
               total: total_records,
@@ -158,6 +269,41 @@ const AllProducts = () => {
             }}
             size="large"
           />
+        </div>
+        {/* mobile screen table */}
+        <div className={`block md:hidden flex flex-col gap-4 mt-8 ${styles.productMobile}`}>
+        {memoisedProductData.map((product)=>(
+            <div key={product.key} className={`${styles.product}`}>
+              <div className={`w-100 flex justify-between mb-4 ${styles.liveElipsis}`}>
+                <span>{StatusComponent(product.status)}</span>
+                <Popover 
+                  overlayStyle={{width: "150px", padding: '0'}}
+                  placement="bottomLeft"
+                  content={() => content(product)}
+                  trigger="click"
+                  overlayClassName={styles.action}
+                >
+                <Image alt="" src={ActionBtn} width={"30px"} height={"30px"}/>
+                </Popover>
+              </div>
+              <div className={`flex justify-between ${styles.dateCategory}`}>
+                <p className={`${styles.date}`}>{formatTimeFn(product.date_created)}</p>
+                <span>|</span>
+                <p className={`${styles.category}`}>{product.product_type}</p>
+              </div>
+              <div className={`flex ${styles.content}`}>
+                <div className={`${styles.image}`}>
+                  {product.product_image?.length > 0 && <Image src={product.product_image[0]} width={100} height={100} objectFit="cover" alt="Product"/>}
+                </div>
+                <div className={`${styles.mainContent}`}>
+                  <h2>{product.product_name}</h2>
+                  <h5>{product.default_currency} {product.price.productPrice}</h5>
+                  {AvailabilityStatus("Out of Stock")}
+                  <p> <span>Sold: </span>0 Copies</p>
+                </div>
+              </div>
+            </div>
+        ))}
         </div>
         {productData.length <= 0 && (
           <div className="flex flex-col mt-10 items-center">

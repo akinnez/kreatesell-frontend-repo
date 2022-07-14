@@ -279,6 +279,31 @@ select {
   }
 }
 
+.membership_filter_form{
+  .ant-input-affix-wrapper {
+    &.ant-input-affix-wrapper-lg{
+      border-radius: 8px;
+    }
+  }
+  .ant-select{
+    &.ant-select-lg{
+        .ant-select-selector{
+            border-radius: 8px;
+        }
+    }
+}
+
+.customSelect{
+  .ant-select-selector{
+    height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 10px !important;
+}
+}
+
+}
+
 .customUploadV2{
   .ant-upload {
     &.ant-upload-btn{
