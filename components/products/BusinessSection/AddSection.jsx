@@ -3,7 +3,7 @@ import styles from './MembershipTab.module.scss'
 import {DeleteProduct,
 	DuplicateProduct} from 'utils'
 import Image from "next/image"
-import {HandleBar, EditPen, AddLecture} from 'utils'
+import {HandleBar, EditPen, AddLecture, MobileCopyIcon, MobileSettingsIcon, MobileSettingsIconGreen, MobileTrashIcon, MobileViewSubscribers} from 'utils'
 import { useFormik } from "formik"
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react"
@@ -198,6 +198,9 @@ export default function AddSection ({ toSection}){
                             <div className={styles.manageButton + " mr-3"}>
                                 <Button onClick={()=>toSection('manage-section')} type="primary" style={{color: "#0072ef", border: " 2px solid #0072ef"}}>Manage Section</Button>
                             </div>
+                            <div className={styles.mobileManageButton + " mr-3"}>
+                            <Button onClick={()=>toSection('manage-section')} type="primary" style={{color: "#0072ef", border: "none", boxShadow:"none"}}><Image src={MobileSettingsIcon} width={15} height={25} alt=""/></Button>
+                            </div>
                             <Tooltip color="white" overlayInnerStyle={{color: "black"}} placement="top" title="Duplicate">
                                 <div onClick={()=>duplicateSection(item)} className={styles.manageIcon + " mr-3"}>
                                     <Image width={100} height={100} src={DuplicateProduct} alt="duplicate" />
@@ -221,6 +224,9 @@ export default function AddSection ({ toSection}){
                             <div className="flex items-center">
                                 <div className={styles.manageButton + " mr-3"}>
                                     <Button onClick={()=> toSection('manage-content', lecture)} type="primary" style={{color: "#00b140", border: " 2px solid #00b140"}}>Manage Lecture</Button>
+                                </div>
+                                <div className={styles.mobileManageButton + " mr-3"}>
+                                    <Button onClick={()=> toSection('manage-content', lecture)} type="primary" style={{ border: "none", boxShadow:"none"}}><Image src={MobileSettingsIconGreen} width={15} height={20} alt=""/></Button>
                                 </div>
                                 <Tooltip color="white" overlayInnerStyle={{color: "black"}} overlayStyle={{backgroundColor: "white"}} placement="top" title="Duplicate">
                                     <div onClick={()=>duplicateLecture(lecture)} className={styles.manageIcon + " mr-3"}>

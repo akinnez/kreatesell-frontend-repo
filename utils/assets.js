@@ -164,9 +164,37 @@ import House from "../public/images/icons/House.svg";
 import LeftArrow from "../public/images/icons/circle_left.svg";
 import CareerSuccess from "../public/images/career-success.svg";
 import CareerFailure from "../public/images/career-failure.svg";
+import Briefcase from "../public/images/icons/briefcase.svg";
+import Clock from "../public/images/icons/clock.svg";
+import CommentIcon from "../public/images/commentIcon.svg";
+import LikeIcon from "../public/images/likeIcon.svg";
+import LikeIconGrey from "../public/images/LikeIconGrey.svg";
+import CommentIconGrey from "../public/images/ChatIconGrey.svg";
+import ShareIconGrey from "../public/images/shareIconGrey.svg";
+import DeleteIcon from "../public/images/DeleteIcon.svg";
+import ActionBtn from "../public/images/actionBtn.svg"
+import MobileCopyIcon from "../public/images/mobileCopyIcon.svg"
+import MobileSettingsIcon from "../public/images/mobileSettingsIcon.svg"
+import MobileSettingsIconGreen from "../public/images/mobileSettingsIconGreen.svg"
+import MobileTrashIcon from "../public/images/mobileTrashIcon.svg"
+import MobileViewSubscribers from "../public/images/mobileViewSubscribers.svg"
+import AccordionDown from "../public/images/accordionDownArrow.svg"
+import AccordionRight from "../public/images/accordionRightArrow.svg"
 
 export {
+  AccordionRight,
+  AccordionDown,
+  MobileCopyIcon,
+  MobileSettingsIcon,
+  MobileSettingsIconGreen,
+  MobileTrashIcon,
+  MobileViewSubscribers,
+  ActionBtn,
+  DeleteIcon,
+  LikeIconGrey,
+  CommentIconGrey,
   BusinessPlanBox,
+  ShareIconGrey,
   ProfileImage,
   CardMain,
   NewsCardOne,
@@ -332,4 +360,8 @@ export {
   LeftArrow,
   CareerSuccess,
   CareerFailure,
+  Briefcase,
+  Clock,
+  LikeIcon,
+  CommentIcon
 };

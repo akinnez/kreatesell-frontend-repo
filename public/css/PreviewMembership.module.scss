@@ -1,0 +1,51 @@
+@import "../css//mixins.scss";
+@import "../css//colors.scss";
+@import "../css//screens.scss";
+
+.container2{
+    header{
+        height: 90px;
+        border: 1px solid black;
+    }
+
+    section{
+        padding: 1rem 4rem;
+        background: #E5E5E5;
+        min-height: calc(100vh - 90px);
+        .left{
+            .card{
+                border-radius: 8px;
+            }
+            .mainTitle{
+                font-weight: 600;
+                font-size: 1.5rem;
+                line-height: 32px;
+                color: #0072EF;                
+            }
+            .accordion{
+                padding: 1rem .5rem;
+
+                .accordionItem{
+
+                    .accordionTitle{
+                        width: 100%;
+                        justify-content: space-between;
+                        .title{
+                            font-weight: 600;
+                            font-size: 24px;
+                            line-height: 32px;
+                            color: #262626;                            
+                        }
+                        .icon{
+
+                        }
+                    }
+                    .accordionContent{
+
+                    }
+                }
+            }
+        }
+    }
+}
+

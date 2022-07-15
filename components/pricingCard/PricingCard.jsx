@@ -24,8 +24,8 @@ export const PricingCard = ({
 			</div>
 
 			<div className={styles.price}>
-				<sup className={styles.currency}>NGN</sup> {price}{" "}
-				<sub className={styles.month}>/ Month</sub>
+				<p className={styles.currency}>NGN</p> <p className={styles.price2}>{price}{" "}</p>
+				<p className={styles.month}>/ Month</p>
 			</div>
 
 			<h5 className={styles.priceType}>
@@ -38,9 +38,9 @@ export const PricingCard = ({
 			{btnText && (
 				<div className={styles.button}>
 					<Button
-						className={styles.btn}
+						className={`${styles.btn} ${currentPlan && styles.selectedBtn}`}
 						text={btnText}
-						bgColor="blue"
+						bgColor={currentPlan ?"" :"blue"}
 						onClick={() => btnOnClick()}
 					/>
 				</div>
@@ -68,38 +68,44 @@ export const PricingCard = ({
 
 const BasicFeatures = [
 	"Unlimited Products",
+	"Unlimited Army of Affiliates ",
 	"Robust dashboard analytics.",
-	"Drag and Drop Sales Page Builder",
 	"Multi-currency store - six currencies",
-	"Cryptocurrency payment Method",
-	"Landing Page watermark",
-	"Tracking and Pixel",
-	"Instant Sale Notification ",
+	"1 Abandoned Cart Follow up Email ",
+	"PDF Stamping",
+	"Pixel Tracking",
+	"Instant Sales Notification",
 	"Affiliate Instant Commission",
-	"Storage 500MB",
-	"Limit downloads",
-	"Custom Checkout Button (CTA)",
+	"500MB Storage",
+	"Limit Product Sales",
+	"Custom Checkout Button ",
 	"Branded Profile",
+	// "Instant Sale Notification ",
+	// "Affiliate Instant Commission",
+	// "Storage 500MB",
+	// "Limit downloads",
+	// "Custom Checkout Button (CTA)",
+	// "Branded Profile",
 ];
 
 const BusinessFeatures = [
-	"Everything on Free Plan",
-	"Unlimited Army of Affiliates",
-	"Highest Converting beautiful Templates",
-	"Full Email Service Provider Integration",
-	"Webinar integration",
-	"Automated Abandoned Cart Emails",
-	"Installmental Payment",
+	"Everything in Basic Plan + ",
+	"Full Email Service Provider Integration ",
+	"Webinar Integration",
+	"3 Abandoned Cart Follow up Emails",
+	"Instalmental Payment",
 	"Membership Course Creation",
 	"Zapier Integration",
-	"Paypal + Stripe for verified merchants",
-	"Webinar replays (Stream online only)",
-	"Social Proof ",
-	"Exit intent Pop up on sales Page ",
-	"Use your own Domain",
-	"Pre order",
-	"Offer coupons",
-	"Remove default Watermark",
-	"15GB Storage",
-	"Advanced reports",
+	"Paypal + Stripe for Verified Kreators",
+	"Webinar Replays Online Streaming",
+	"Social Proof",
+	"Use Your Own Domain",
+	"Set Pre-orders",
+	"Offer Coupons",
+	"Remove Default Stamps",
+	"15 Gb Storage Space",
+	"Advanced Reports",
+	"Sell in Cryptocurrency",
+	// "15GB Storage",
+	// "Advanced reports",
 ];

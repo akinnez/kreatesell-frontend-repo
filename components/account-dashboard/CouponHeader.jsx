@@ -26,12 +26,12 @@ export const CouponHeader = ({
             form={form}
           >
             <Row gutter={4} align="bottom" justify="space-between">
-              <Col span={5}>
+              <Col xs={24} lg={5}>
                 <Form.Item label="Search" name="search">
                   <Input onChange={handleSearchInput} placeholder="Click here to Search"/>
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col xs={12} lg={4}>
                 <Form.Item label="Show" name="show">
                   <Select
                     options={dayOptions}
@@ -41,7 +41,7 @@ export const CouponHeader = ({
                   />
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col xs={12} lg={4}>
                 <Form.Item label="Currency" name="currency">
                   <Select
                     options={currencyOptions}
@@ -51,26 +51,27 @@ export const CouponHeader = ({
                   />
                 </Form.Item>
               </Col>
-              <Col span={3}>
+              <Col xs={10} lg={3}>
                 <Form.Item label="From" name="from">
                   <DatePicker
                     placeholder="2021-07-22"
                     onChange={handleStartDate}
                     format={format}
-
+                    style={{width:"100%"}}
                   />
                 </Form.Item>
               </Col>
-              <Col span={3}>
+              <Col xs={10} lg={3}>
                 <Form.Item label="To" name="to">
                   <DatePicker
                     placeholder="2021-07-22"
                     onChange={handleEndDate}
                     format={format}
+                    style={{width:"100%"}}
                   />
                 </Form.Item>
               </Col>
-              <Col span={2} className={styles.filter__btn}>
+              <Col xs={4} lg={2} className={styles.filter__btn}>
                 <Form.Item>
                   <Button type="primary" style={{borderRadius: "8px"}} htmlType="submit">
                     <Image

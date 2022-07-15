@@ -7,7 +7,8 @@ import {
   ManageProduct,
   ViewSales,
   MobileIcon,
-  EmptyDataTable
+  EmptyDataTable,
+  DeleteIcon
 } from "utils";
 import styles from "../../public/css/AllProducts.module.scss";
 import Image from "next/image";
@@ -151,7 +152,7 @@ const ModalPrompt = ({ handleCancel, onOk, modalText, productName }) => {
   );
 };
 
-const StatusComponent = (item) => {
+export const StatusComponent = (item) => {
   const statusTextList = {
     "1": {type: "draft", styles:{background: "rgba(255, 214, 102, 0.2)", color: "#FBB500" }, contents:"You need to complete the editing of this product before it is published."},
     "2": {type: "live", styles:{background: "#F1FCF8", color: "#2DC071" }, contents:"Your product will go live and visible to audience for purchase once you complete creating the sales page."},
@@ -255,7 +256,7 @@ const ActionComponent = ({ item }) => {
     title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this product?</pre> }
     onConfirm={handleModalOk}
     // onCancel={cancel}
-    okText="Delete"
+    okText="`Deactivate`"
     cancelText="Cancel"
     icon={<></>}
     placement="bottom"
@@ -265,6 +266,23 @@ const ActionComponent = ({ item }) => {
       <Image alt="" src={DeactvateProduct} />
     </span>
       <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
+  </Popconfirm>
+  </li>
+  <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+  <Popconfirm
+    title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-red-400 mb-0 font-semibold">Delete</h2> this product?</pre> }
+    onConfirm={handleModalOk}
+    // onCancel={cancel}
+    okText="Delete"
+    cancelText="Cancel"
+    icon={<></>}
+    placement="left"
+    overlayClassName={styles.popConfirm}
+  >
+    <span>
+      <Image alt="" src={DeleteIcon} />
+    </span>
+      <p className="mb-0 ml-3">Delete<br /></p>
   </Popconfirm>
   </li>
 </ul>
@@ -292,6 +310,40 @@ const CouponActionComponent = ({ item }) => {
   // };
   let content = (
   <ul>
+   <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+    <Popconfirm
+      title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this coupon?</pre> }
+      // onConfirm={handleModalOk}
+      // onCancel={cancel}
+      okText="Deactivate"
+      cancelText="Cancel"
+      icon={<></>}
+      placement="bottom"
+      overlayClassName={styles.popConfirm}
+    >
+    <span>
+      <Image alt="" src={DeactvateProduct} />
+    </span>
+      <p className="mb-0 ml-3">Deactivate</p>
+  </Popconfirm>
+  </li>
+   <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+    <Popconfirm
+      title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Delete</h2> this coupon?</pre> }
+      // onConfirm={handleModalOk}
+      // onCancel={cancel}
+      okText="Delete"
+      cancelText="Cancel"
+      icon={<></>}
+      placement="bottom"
+      overlayClassName={styles.popConfirm}
+    >
+    <span>
+      <Image alt="" src={DeleteIcon} />
+    </span>
+      <p className="mb-0 ml-3">Delete</p>
+  </Popconfirm>
+  </li>
   <li className="flex items-center cursor-pointer"
     onClick={() => {
       router.push("/account/kreator/products/coupons/create", '',{id});
@@ -300,26 +352,10 @@ const CouponActionComponent = ({ item }) => {
     <span>
       <Image alt="" src={EditProduct} />
     </span>
-    <p className="mb-0 ml-3">Edit Coupon</p>
+    <p className="mb-0 ml-3">Edit</p>
   </li>
 
-  <li className={styles.deletePop + " flex items-center cursor-pointer"}>
-  <Popconfirm
-    title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-gray-400 mb-0 font-semibold">Deactivate</h2> this coupon?</pre> }
-    // onConfirm={handleModalOk}
-    // onCancel={cancel}
-    okText="Delete"
-    cancelText="Cancel"
-    icon={<></>}
-    placement="bottom"
-    overlayClassName={styles.popConfirm}
-  >
-    <span>
-      <Image alt="" src={DeactvateProduct} />
-    </span>
-      <p className="mb-0 ml-3">Deactivate</p>
-  </Popconfirm>
-  </li>
+ 
 </ul>
 )
   return (
@@ -337,6 +373,8 @@ export const AllProductsTableHeader = [
   {
     title: '',
     dataIndex: "product_image",
+    width: 120,
+    fixed: "left",
     render: (item)=> {
       return (
       <div className={styles.productTableImage}>
@@ -348,11 +386,14 @@ export const AllProductsTableHeader = [
   {
     title: "Product",
     dataIndex: "product_name",
-    render: (item) => (
+    width: 180,
+    fixed: "left",
+    render: (item, record) => (
       <div className={styles.productTableName + " flex flex-col"}>
+      {/* {console.log(record)} */}
         <h2 className="text-lg mb-1 font-semibold">{item}</h2>
-        <p className="text-xs mb-2 w-3/4 px-2 py-1 text-center border-green-400 rounded-md border-2"> Unlimited Copies</p>
-        <p className="text-xs font-normal"> 20 copies sold</p>
+        <p className="text-xs mb-2 w-3/4  py-1 text-center border-green-400 rounded-md px-2 border"> Unlimited Copies</p>
+        <p className="text-xs font-normal"> 0 copies sold</p>
       </div>
     )
   },
@@ -390,12 +431,15 @@ export const AllProductsTableHeader = [
     title: "Actions",
     dataIndex: "actions",
     render: (item) => ActionComponent({ item }),
+    width: 100,
+    fixed: "right",
   },
 ];
 export const AllCouponTableHeader = [
 	{
 		title: "S/N",
 		dataIndex: "numbers",
+
 	},
 	{
 		title: "Products",
@@ -435,7 +479,8 @@ export const AllCouponTableHeader = [
           <div>{`${formatTime.split('at')[0]},`}</div>
           <div>{formatTime.split('at')[1]}</div>
         </div>;
-    }
+    },
+    // width: 150
 	},
 	{
 		title: "End Date",
@@ -447,7 +492,7 @@ export const AllCouponTableHeader = [
           <div>{`${formatTime.split('at')[0]},`}</div>
           <div>{formatTime.split('at')[1]}</div>
         </div>;
-    }
+    },
 	},
 	{
 		title: "Status",
@@ -457,7 +502,9 @@ export const AllCouponTableHeader = [
 	{
 		title: "More",
 		dataIndex: "more",
-    render: (item) => CouponActionComponent({ item })
+    render: (item) => CouponActionComponent({ item }),
+    // fixed: "right",
+    // width: 80
 	},
 ];
 export const emptyComponent = (text)=>{

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import styles from "./Tab.module.scss";
+
 
 
 export const TabItem = ({children})=>{
@@ -12,12 +14,12 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
 
     return(
         <>
-        <ul className="tab-wrapper">
+        <ul className={`tab-wrapper ${styles.tabWrapper}`}>
             {
                 titles?.map((item,i)=>(
                     <li key={i} 
                    onClick={()=>onSelect(i)}
-                    className={active == i ? 'active': active > i ? 'completed':'completed'}>{item}</li>
+                    className={`${active == i ? `active ${styles.activeContainer}`: active > i ? `completed ${styles.Completed}`:`completed ${styles.Completed}`}`}><span className={styles.active}>{item}</span></li>
                 ))
             }
           
@@ -27,8 +29,6 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
                 if(child.type.name == "TabItem" && active == i){
                     return child
                 }
-                    
-                
             })
         }
 
@@ -42,7 +42,7 @@ const Index = ({children, active=0, titles=[], onSelect=()=>{}})=>{
             }
 
             .tab-wrapper li{
-                border-bottom:5px solid transparent;
+                border-bottom:2px solid transparent;
                 padding:10px;
                 font-size:18px;
                 cursor:pointer;

@@ -107,14 +107,14 @@ export const CreateProductForm = ({
       delete data.contentZipFiles
     }
     delete data.isBasicPlan
-    console.log(data)
+    // console.log(data)
     const result = transformToFormData(data, 'contentZipFiles')
     createProduct(result, () => {
       setProductTab(1);
     });
   };
   const imageIsEdits = (files)=>{
-    const mapped = files.map((items,i)=>{
+    const mapped = files?.map((items,i)=>{
       items.isEdits = true
       const fileMapped = {
         file: {...items, name:`image${i+1}`},
@@ -160,7 +160,7 @@ export const CreateProductForm = ({
     }
   }, [preOrder, store])
   useEffect(()=>{
-    console.log('here', product)
+    // console.log('here', product)
   }, [product])
   
   useEffect(()=>{
@@ -260,7 +260,7 @@ export const CreateProductForm = ({
       </h5>
 
       <Form layout="vertical" className="pt-3" onFinish={formik.handleSubmit}>
-        <Form.Item label={<h2 className="font-semibold text-lg mb-0">Name</h2>} className={styles.inputCont}>
+        <Form.Item label={<h2 className={`${styles.label2} mb-0`}>Name</h2>} className={styles.inputCont}>
           <Input
             placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
             className={`${styles.input}`}
@@ -270,7 +270,7 @@ export const CreateProductForm = ({
           />
         </Form.Item >
 
-        <Form.Item label={<h2 className="font-semibold text-lg mb-0">Product Description</h2>}>
+        <Form.Item label={<h2 className={`${styles.label2} mb-0`}>Product Description</h2>}>
           <p className="mb-2 text-xs">120 words only is allowed</p>
           <TextArea
             name="product_description"
@@ -282,7 +282,7 @@ export const CreateProductForm = ({
             
           />
         </Form.Item>
-        <Form.Item label={<h2 className="font-semibold text-lg mb-0">More Details</h2>}>
+        <Form.Item label={<h2 className={`${styles.label2} mb-0`}>More Details</h2>}>
           <ProductEditor content={contents} setContent={setContents} />
         </Form.Item>
         <Form.Item>
@@ -295,7 +295,7 @@ export const CreateProductForm = ({
                 <p className="text-black font-medium text-xs">
                   Allowed Files: PNG, JPG | Maximum file size: 2MB
                 </p>
-                <div className="flex">
+                <div className="flex flex-col-reverse sm:flex-row">
                   <div className={"relative "+ styles.uploadChart}>
                     {isImageFilled && <div className="absolute z-50 w-full h-full bg-transparent"></div>}
                     <div
@@ -305,7 +305,7 @@ export const CreateProductForm = ({
                     <div className={styles.uploadCont}>
                       <Image style={{color:"#BFBFBF"}} src={CloudUpload} alt="upload image" />
                       <input {...getInputProps()} />
-                      <h5 className="hidden lg:block text-primary-blue text-base pt-2 font-normal text-center">
+                      <h5 className="lg:block text-primary-blue text-base pt-2 font-normal text-center">
                         Drag & Drop Your Image Here <br /> -OR-
                       </h5>
                       <Button className="font-medium" disabled={isImageFilled ? true: false} type={isImageFilled ? "default": "primary"}>
@@ -475,9 +475,9 @@ export const CreateProductForm = ({
               })
             }
         </Form.Item>
-        <Form.Item className={styles.saveButton}>
-          <Button loading={loading} type="primary" htmlType="submit">Save and Continue</Button>
-        </Form.Item>
+        <div className={`flex justify-center ${styles.saveButton}`}>
+              <Button loading={loading} type="primary" htmlType="submit">Save and Continue</Button>
+        </div>
       </Form>
     </div>
   );

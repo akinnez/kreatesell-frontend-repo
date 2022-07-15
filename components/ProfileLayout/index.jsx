@@ -44,6 +44,8 @@ const ProfileLayout = ({
   children,
   contentStyle,
   mobilePadding = false,
+  customWidth=false,
+  style
 }) => {
   const { Content } = Layout;
   const router = useRouter();
@@ -113,7 +115,7 @@ const ProfileLayout = ({
             {loading ? (
               <Loader />
             ) : (
-              <div className={styles.container}>{children}</div>
+              <div className={customWidth? styles.fullContainer : styles.container}>{children}</div>
             )}
           </Content>
           {/* <Footer>Footer</Footer> */}

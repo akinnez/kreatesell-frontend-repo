@@ -76,7 +76,7 @@ export default function PreviewContent (){
       
     return(
         <div className={styles.contentContainer + " flex flex-col bg-white rounded-lg"}>
-            <div className="flex">
+            <div className={`flex ${styles.previewContainer}`}>
                 <div className={styles.imageGallery}>
                     <div className={styles.mainImage}>
                         {mainImage && <Image src={mainImage}layout='fill' objectFit="cover" alt="cover_image" />}
@@ -99,7 +99,7 @@ export default function PreviewContent (){
                     </div>
                     <div className={'flex items-center '+ styles.padBottom}>
                         <div className={styles.dp}>
-                            {Object.keys(user).length > 0 && user.back_drop_image && <Image src={`/${user?.back_drop_image}`} width="100" height={100} objectFit="cover" alt="cover_image" />}
+                            {Object.keys(user).length > 0 && user.business_logo && <Image src={user?.business_logo} width="100" height={100} objectFit="cover" alt="cover_image" />}
                         </div>
                         <div className='flex  ml-6 flex-col'>
                             {Object.keys(user).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{user?.full_name}</h2>}
@@ -115,7 +115,6 @@ export default function PreviewContent (){
                     </div>
                     <div className={styles.priceSection}>
                         <div className="flex flex-col">
-                            {/* {checkout && checkout.length > 0 && <h1 className='text-3xl font-bold'>{checkout && `${checkout[0].currency_name}  ${checkout[0].price}`}</h1> } */}
                             {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)}
                             {originalPrice?.length > 0 && originalPrice?.map((item, i) => <h2 key={i} className='text-xl line-through font-medium'>{`${item?.currency_name}  ${item?.price}`}</h2>)}
                         </div>

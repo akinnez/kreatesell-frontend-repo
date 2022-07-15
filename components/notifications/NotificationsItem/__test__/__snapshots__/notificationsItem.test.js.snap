@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot of <NotificationsItem /> 1`] = `
+<li
+  className="notification"
+>
+  <button
+    onClick={[Function]}
+  >
+    <div
+      className="notification__content"
+    >
+      <div
+        className="notification__info"
+      >
+        <p>
+          mock name has approved your request to promote mockProductName. Best of luck!
+        </p>
+        <p>
+          -207947 minutes ago
+        </p>
+      </div>
+      <div
+        className="notification__product-image"
+      >
+        <img
+          src="[jest.find('../utils')]"
+        />
+      </div>
+    </div>
+  </button>
+</li>
+`;

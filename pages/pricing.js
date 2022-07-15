@@ -14,6 +14,7 @@ const Pricing = () => {
   const [businessPrice, setBusinessPrice] = useState("4,999");
   const [priceLabel, setPriceLabel] = useState("Billed Monthly");
   const [subPriceType, setSubPriceType] = useState("NGN 9989");
+  const [selectedPlan, setSelectedPlan] = useState("");
 
   useEffect(() => {
     monthly ? setBusinessPrice("4,999") : setBusinessPrice("4,167");
@@ -26,17 +27,17 @@ const Pricing = () => {
   const countryOptions = [
     { value: "Nigeria", label: "NGN" },
     { value: "USA", label: "USD" },
-    { value: "Spain", label: "GBP" },
-    { value: "Spain", label: "KES" },
-    { value: "Spain", label: "ZAR" },
-    { value: "Spain", label: "TZX" },
-    { value: "Spain", label: "UGX" },
+    { value: "United Kingdom", label: "GBP" },
+    { value: "Kenya", label: "KES" },
+    { value: "South Africa", label: "ZAR" },
+    { value: "Tanzania", label: "TZC" },
+    { value: "Uganda", label: "UGX" },
   ];
 
-  const handleBtnClick = () => {
+  const handleBtnClick = (plan) => {
     // do nothing for now.
-    return;
-    
+    setSelectedPlan(plan);
+    // return;
   };
 
   return (
@@ -90,19 +91,21 @@ const Pricing = () => {
                   btnText="Start for free"
                   subTitle="All of the features you need to start selling your contents"
                   priceType="100% Free "
-                  btnOnClick={handleBtnClick}
+                  btnOnClick={()=>handleBtnClick("basic")}
+                  currentPlan={selectedPlan==="basic"}
                 />
               </div>
 
               <div className={`${styles.free}`}>
                 <PricingCard
                   title="business"
-                  subTitle="The combination of core tools, custom options, and automated events for professional course creators looking for the growing of their businesses."
+                  subTitle="Get the combination of core tools, custom options, and automated events for professional digital product Kreators looking to massively grow their businesses."
                   price={businessPrice}
-                  btnText="Start for free"
+                  btnText="Select this plan"
                   priceType={priceLabel}
                   subPriceType={subPriceType}
-                  btnOnClick={handleBtnClick}
+                  btnOnClick={()=>handleBtnClick("business")}
+                  currentPlan={selectedPlan==="business"}
                 />
               </div>
             </div>
@@ -130,7 +133,7 @@ const Pricing = () => {
         <div className={styles.faqContainer}>
           <div
             className={styles.faqHeader}
-            {...Animate("zoom-in-right", 500, "ease-in")}
+            // {...Animate("zoom-in-right", 500, "ease-in")}
           >
             <h3 className={styles.title}>
               Frequently <br /> Asked <br /> Questions
@@ -148,17 +151,16 @@ const Pricing = () => {
             <div className={styles.content}>
               <h5
                 className={styles.question}
-                {...Animate("zoom-in", 500, "ease-in")}
+                // {...Animate("zoom-in", 500, "ease-in")}
               >
-                How long will the free offer remain free?
+                How long will the basic plan remain free?
               </h5>
               <div
                 className={styles.answer}
-                {...Animate("fade-up", 600, "ease")}
+                // {...Animate("fade-up", 600, "ease")}
               >
                 <p>
-                  The free offer is forever, for unlimited users, as long as you
-                  do not request for extra integrations.
+                The basic plan is free for as long as you remain on the plan. Although, upgrading to the paid business plan gives you access to more advanced features.
                 </p>
               </div>
             </div>
@@ -168,89 +170,69 @@ const Pricing = () => {
                 className={styles.question}
                 {...Animate("zoom-in", 700, "ease-in")}
               >
-                What does the subscription include?
+                What does the business plan include?
               </h5>
               <div
                 className={styles.answer}
-                {...Animate("fade-up", 800, "ease")}
+                // {...Animate("fade-up", 800, "ease")}
               >
                 <p>
-                  You get access to our automation panel, self customized store,
-                  email integration, top notch security, round-the-clock
-                  supervision and a control center to manage your KreateSell
-                  store. Your KreateSell store is upgraded upon request to
-                  benefit from new features at your convenience.
+                When you subscribe to the business plan, in addition to the features on the basic plan, you get: 
                 </p>
-                <br />
-                <p>
-                  You get access to our support by email or live chat in
-                  application. Our support teams are available from Monday to
-                  Friday, 24/5, in English.
-                </p>
+                <ol>
+                  <li>access to beautiful templates that can assure you of high conversion of your page visitors into buyers</li>
+                  <li>build an attractive sales page that holds your visitors’ attention and converts them to buyers using the drag and drop sales page builder</li>
+                  <li>access to three follow up emails sent on your behalf to buyers who did not complete the buying process
+integration of full email service provider</li>
+                  <li>integration of webinar platform
+accept instalmental payment
+create membership courses with recurring payment</li>
+                  <li>integrate Zapier</li>
+                  <li>access to use PayPal and Stripe as a verified Kreator</li>
+                  <li>allow Webinar replays online streaming</li>
+                  <li>You can activate pop up prompts to sell to visitors on your sales page</li>
+                  <li>access to social proof to help your visitors make the buying decision immediately</li>
+                  <li>use a personalised domain</li>
+                  <li>set pre-order in anticipation of the launch of your digital product
+set discount coupon for product offers</li>
+                  <li>remove default watermark on templates and customise the watermark</li>
+                  <li>access up to 15Gb storage space</li>
+                  <li>access advanced reports on your account activities</li>
+                </ol>
+                <p>You also get access to  top notch security, round-the-clock supervision and a control center to manage your KreateSell store.<br/>
+You get access to our support by email or live chat on the platform. Our support teams are available from Monday to Friday, 24/5, in English. Your KreateSell store is upgraded upon request to benefit from these new features at your convenience.</p>
               </div>
             </div>
 
             <div className={styles.content}>
               <h5
                 className={styles.question}
-                {...Animate("zoom-in", 500, "ease-in")}
+                // {...Animate("zoom-in", 500, "ease-in")}
               >
                 How long does it take for funds to be deposited into my account?
               </h5>
               <div
                 className={styles.answer}
-                {...Animate("fade-up", 600, "ease")}
+                // {...Animate("fade-up", 600, "ease")}
               >
                 <p>
-                  Funds are basically deposited into your local account within
-                  48hours or two business days.
+                Settlements are made between 24 hours to 10 days, depending on your currency and country.
                 </p>
               </div>
             </div>
             <div className={styles.content}>
               <h5
                 className={styles.question}
-                {...Animate("zoom-in", 500, "ease-in")}
+                // {...Animate("zoom-in", 500, "ease-in")}
               >
-                Am I Safe to make payment for a membership plan?
+                How can I make money as a Kreator?
               </h5>
               <div
                 className={styles.answer}
-                {...Animate("fade-up", 600, "ease")}
+                // {...Animate("zoom-in", 600, "ease-in")}
               >
                 <p>
-                  Yes, you&#39;re safe to make payment for anything. Our
-                  platform is safe for anybody.
-                </p>
-                <br />
-                <p>
-                  Affiliate commissions are paid instantly into your KreateSell
-                  wallet. The total commission will be available for withdrawal
-                  into your local account after 48 hours. If, during the payout
-                  period before a commission is paid out, the originating
-                  purchase is refunded back to the buyer, revoked, or gets
-                  removed in any way, we reserve the right to reverse the
-                  affiliate commission on that same purchase.
-                </p>
-              </div>
-            </div>
-
-            <div className={styles.content}>
-              <h5
-                className={styles.question}
-                {...Animate("zoom-in", 500, "ease-in")}
-              >
-                How can I make money as a Creator?
-              </h5>
-              <div
-                className={styles.answer}
-                {...Animate("fade-up", 600, "ease")}
-              >
-                <p>
-                  It&#39;s very simple I say. All you just need to do is compile
-                  the knowledge you have into an ebook, audio course, online
-                  course, video course, membership etc., upload on KreateSell
-                  and start making easy money into your local bank account.
+                It&#39;s very simple I say. All you just need to do is compile the knowledge you have into an ebook, audio course, online course, video course, membership etc., upload on KreateSell and start making easy money into your local bank account.
                 </p>
               </div>
             </div>

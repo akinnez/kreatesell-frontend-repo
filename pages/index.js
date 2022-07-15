@@ -9,6 +9,11 @@ import {
 } from "../components";
 import styles from "../public/css/Home.module.scss";
 import Link from "next/link";
+import useSliderAndGetCurrentValues, {
+  itemPosition,
+} from "../utils/useSlide.js";
+import React from "react";
+
 import {
   RightArrow,
   LandingPageHero,
@@ -88,9 +93,8 @@ export default function Home() {
         <div className={styles.body}>
           <div className={styles.header}>
             <h1>
-              Kreate. Upload. And Sell <br /> your{" "}
-              <span className={styles.digital}>Digital Product</span> <br />
-              Online under Minutes. For Free
+              Kreate. Upload. And Sell <br /> <ProductsSlide /> <br />
+              online under 7 minutes. For Free
             </h1>
             <p className={styles.subHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
@@ -750,41 +754,6 @@ const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
   );
 };
 
-// const TestimonialVideoCard = () => {
-//   return (
-//     <div className={styles.singleVideoContainer}>
-//       <div className={styles.videoImage}>
-//         <Image src={videoThumbnail} alt="testimonial video" />
-//       </div>
-//       <div className={styles.videoAuthor}>Review by Michelle Hyatt</div>
-//       <div className={styles.videoExcerpt}>
-//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-//         imperdiet risus, venenatis at.
-//       </div>
-//     </div>
-//   );
-// };
-
-// const MobileTestimonialVideoCard = () => {
-//   return (
-//     <div className={styles.singleMobileVideoContainer}>
-//       <div className={styles.mobileVideo}>
-//         <Image
-//           src={videoThumbnail}
-//           alt="testimonial video"
-//           width="350"
-//           height="196"
-//         />
-//       </div>
-//       <div className={styles.mobileAuthor}>Review by Michelle Hyatt</div>
-//       <div className={styles.mobileExcerpt}>
-//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-//         imperdiet risus, venenatis at.
-//       </div>
-//     </div>
-//   );
-// };
-
 const OnboardingModal = () => {
   const { loading } = useSelector((state) => state.utils);
 
@@ -853,5 +822,32 @@ const OnboardingModal = () => {
         loading={loading}
       />
     </form>
+  );
+};
+
+const productsList = ["Digital Products", "Memberships", "Subscriptions"];
+
+const ProductsSlide = () => {
+  const { items, index } = useSliderAndGetCurrentValues(productsList, 2000);
+
+  return (
+    <>
+      <span className={styles.digital}>
+        <span className={styles.your}>your</span>
+        {items.map((item, itemIndex) => {
+          const isDigitalProduct = item === "Digital Products";
+          return (
+            <span
+              key={itemIndex}
+              className={`${styles.productItem} ${
+                styles[itemPosition(index, itemIndex, items)]
+              } ${isDigitalProduct ? styles.isDigital : ""}`}
+            >
+              {item}
+            </span>
+          );
+        })}
+      </span>
+    </>
   );
 };

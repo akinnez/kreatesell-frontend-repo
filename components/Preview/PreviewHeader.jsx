@@ -14,6 +14,8 @@ import { useFormik } from "formik";
 import { PublishProducts} from "redux/actions";
 import Link from "next/link";
 
+import * as ROUTES from "routes";
+
 export default function PreviewHeader ({id}){
     const [isOpen, setIsOpen] = useState(false)
     const [isResponse, setIsResponse] = useState(false)
@@ -84,7 +86,7 @@ export default function PreviewHeader ({id}){
         </div>
         <div className={styles.miniSaveButtons +' flex self-end'}>
             <Button type='default' icon={<Image src={CopyLink} alt="copy" />}  onClick={() => _copyToClipboard(link, "Product Link Copied")}>Copy Link</Button>
-            <Button onClick={()=>router.push("all")} type='primary'>Exit Preview</Button>
+            <Button onClick={()=>router.push(ROUTES.ALL_PRODUCTS)} type='primary'>Exit Preview</Button>
             <Button type='primary' onClick={()=>setIsOpen(true)}>Publish</Button>
         </div>
         {isOpen && <Modal title={null}

@@ -38,7 +38,7 @@
 
 	.digitalBtn {
 		margin: 32px auto;
-		width: 20%;
+		width: fit-content;
 		button{
 			width: 100%;
 			height: 3rem;
@@ -49,6 +49,7 @@
 			justify-content: center;
 			align-items: center;
 			font-weight: 700;
+			padding: .7rem;
 		}
 	}
 
@@ -159,11 +160,66 @@
 			text-transform: uppercase;
 		}
 	}
+	.businessButton{
+		display: flex;
+		
+		& > span:last-child{
+			display: flex;
+			align-items: center;
+
+			p{
+				margin-bottom: 0;
+			}
+		}
+		h3{
+			margin-bottom: 0;
+			background-color: $base-green-100;
+			padding: 2px 7px;
+			font-size: .8em;
+			margin-left: 10px;
+			font-weight: 500;
+			border: 1px solid $green-200;
+			text-transform: uppercase;
+			color: #fff;
+		}
+	}
 	.aplyCpn{
 		width: 65%;
+		@include screen("inbetween"){
+			width: 100%;
+			.cpnLabel{
+				font-weight: 500;
+				font-size: 1rem;
+				line-height: 26px;
+				color: #262626;				
+			}
+		}
+	}
+	h2{
+		&.settingsLabel{
+			font-weight: 500;
+			font-size: 1rem;
+			line-height: 26px;
+			color: #262626;			
+		}
+	}
+	.settingsSubLabel{
+		font-weight: 500;
+		font-size: 1rem;
+		line-height: 26px;
+		color: #262626;
+	}
+	.cpnStatus{
+		display: flex;
+	}
+	@include screen("medium-large"){
+		.cpnStatus{
+			flex-direction: column-reverse;
+		}
 	}
 	.businessCoupon{
 		align-items: center;
+		
 		h3{
 			margin-bottom: 0;
 			background-color: $base-green-100;
@@ -173,6 +229,21 @@
 			margin-left: 10px;
 			font-weight: 500;
 			border: 1px solid $green-200;
+			text-transform: uppercase;
+		}
+	} 
+	.businessCouponNoShow{
+		align-items: center;
+		h3{
+			opacity: 0;
+			margin-bottom: 0;
+			background-color: $base-white;
+			padding: 2px 7px;
+			color: $base-white;
+			font-size: .8em;
+			margin-left: 10px;
+			font-weight: 500;
+			border: 1px solid $base-white;
 			text-transform: uppercase;
 		}
 	} 

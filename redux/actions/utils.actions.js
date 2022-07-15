@@ -24,6 +24,28 @@ export const GetCountries = () => {
     )
   );
 };
+export const GetAllowedCurrencies = () => {
+  const dispatch = useDispatch();
+  return (successCallback, errorCallback) => (
+    dispatch({ type: types.GET_CURRENCIES.REQUEST }),
+    axios.request(
+      'GET',
+      'v1/kreatesell/utils/allowed-currencies',
+      res => {
+        console.log("currency res.data", res.data);
+        dispatch({
+          type: types.GET_CURRENCIES.SUCCESS,
+          payload: res?.data?.currencies,
+        });
+        successCallback?.();
+      },
+      err => {
+        dispatch({ type: types.GET_CURRENCIES.FAILURE, payload: err });
+        errorCallback?.();
+      }
+    )
+  );
+};
 
 export const GuestSubscription = () => {
   const dispatch = useDispatch();
