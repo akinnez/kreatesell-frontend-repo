@@ -52,7 +52,7 @@ const Filters = ({ setFilters, setLoading }) => {
       affiliateName: affiliate_name || "",
       sortBy: sort_by || null,
       productType: product_type || null,
-      requestDate: date_listed ? date_listed._i : "",
+      dateListed: date_listed ? date_listed._i : "",
     }));
   };
 
@@ -67,7 +67,7 @@ const Filters = ({ setFilters, setLoading }) => {
       affiliateName: "",
       sortBy: null,
       productType: null,
-      requestDate: "",
+      dateListed: "",
     }));
   };
 
