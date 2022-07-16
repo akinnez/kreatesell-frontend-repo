@@ -6,6 +6,7 @@ import { Card } from "components/card";
 import { useSelector } from "react-redux";
 import { SetProductTab } from "redux/actions";
 import MembershipTab from "components/products/BusinessSection/MembershipTab";
+import styles from "../../../../public/css/CreateProducts.module.scss";
 
 const CreateProduct = () => {
   const setProductTab = SetProductTab();
@@ -13,10 +14,10 @@ const CreateProduct = () => {
   const [titles, setTitles] = useState(["Product Design", "Checkout"])
   const [isTabsActive, setIsTabsActive] = useState(true)
   const [selectedTab, setSelectedTab]= useState(1)
-
+  
   return (
     <AuthLayout>
-      {isTabsActive && <Card style={{ padding: "5px 25px 0", marginBottom: "1em" }}>
+      {isTabsActive && <Card style={{ padding: "5px 2px 0", marginBottom: "1em" }} className={styles.cardContainer} >
         <Tab
           titles={titles}
           active={productTab}
@@ -24,11 +25,11 @@ const CreateProduct = () => {
 
             setProductTab(e)}}
           key={productTab}
-        >
+        > 
         </Tab>
       </Card>}
-        {productTab === 0 && <Card style={{ padding: "60px 48px 60px 48px " }}>
-          <CreateProductTab  setSelectedTab={setSelectedTab} titles={titles} setTitles={setTitles}/>
+        {productTab === 0 && <Card style={{ padding: "60px 1.5rem 60px 1.5rem " }}>
+          <CreateProductTab setSelectedTab={setSelectedTab} titles={titles} setTitles={setTitles} {...{selectedTab}}/>
         </Card>
         }
         {productTab === 1 && <Card style={{ padding: "60px 48px 60px 48px " }}>
@@ -37,7 +38,7 @@ const CreateProduct = () => {
         }
         {productTab === 2 && <MembershipTab setIsTabsActive={setIsTabsActive} />}
     </AuthLayout>
-  );
+  ); 
 };
 
 export default CreateProduct;

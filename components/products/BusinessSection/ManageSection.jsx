@@ -75,6 +75,7 @@ export default function ManageSection ({setIsTabsActive, setMajorPage, toSection
             getProduct(productID)
         })
     }
+    console.log("Product section", productSection)
     return(
         <div className="">
             { play && <PlayMedia source={mediaContent} open={play} closePlay={setPlay} />}

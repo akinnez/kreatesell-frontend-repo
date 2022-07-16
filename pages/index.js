@@ -9,6 +9,11 @@ import {
 } from "../components";
 import styles from "../public/css/Home.module.scss";
 import Link from "next/link";
+import useSliderAndGetCurrentValues, {
+  itemPosition,
+} from "../utils/useSlide.js";
+import React from "react";
+
 import {
   RightArrow,
   LandingPageHero,
@@ -88,9 +93,8 @@ export default function Home() {
         <div className={styles.body}>
           <div className={styles.header}>
             <h1>
-              Kreate. Upload. And Sell <br /> your{" "}
-              <span className={styles.digital}>Digital Product</span> <br />
-              Online under Minutes. For Free
+              Kreate. Upload. And Sell <br /> <ProductsSlide /> <br />
+              online under 7 minutes. For Free
             </h1>
             <p className={styles.subHeader}>
               Upload your Ebooks, Online Courses, Video Courses, Subscription
@@ -578,7 +582,7 @@ export default function Home() {
             <Link href="/blog" passHref>
               <div className={styles.seeMore}>
                 See more
-                <span className="pb-1 pl-1">
+                <span className=" pl-2">
                   <RightArrow color="#0072EF" />
                 </span>
               </div>
@@ -665,7 +669,7 @@ export default function Home() {
             <Link href="/blog" passHref>
               <div className={styles.seeMoreMobile}>
                 See more
-                <span className=" pl-1">
+                <span className=" pl-2">
                   <RightArrow color="#0072EF" />
                 </span>
               </div>
@@ -714,6 +718,7 @@ export default function Home() {
           cancelPropagation={true}
           containerStyle={styles.modalContainer}
           closeButton={true}
+          className={styles.modalParent}
           closeBtnAction={() => setVisible(!modalVisible)}
         >
           <OnboardingModal />
@@ -749,41 +754,6 @@ const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
   );
 };
 
-// const TestimonialVideoCard = () => {
-//   return (
-//     <div className={styles.singleVideoContainer}>
-//       <div className={styles.videoImage}>
-//         <Image src={videoThumbnail} alt="testimonial video" />
-//       </div>
-//       <div className={styles.videoAuthor}>Review by Michelle Hyatt</div>
-//       <div className={styles.videoExcerpt}>
-//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-//         imperdiet risus, venenatis at.
-//       </div>
-//     </div>
-//   );
-// };
-
-// const MobileTestimonialVideoCard = () => {
-//   return (
-//     <div className={styles.singleMobileVideoContainer}>
-//       <div className={styles.mobileVideo}>
-//         <Image
-//           src={videoThumbnail}
-//           alt="testimonial video"
-//           width="350"
-//           height="196"
-//         />
-//       </div>
-//       <div className={styles.mobileAuthor}>Review by Michelle Hyatt</div>
-//       <div className={styles.mobileExcerpt}>
-//         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Risus, sit
-//         imperdiet risus, venenatis at.
-//       </div>
-//     </div>
-//   );
-// };
-
 const OnboardingModal = () => {
   const { loading } = useSelector((state) => state.utils);
 
@@ -815,8 +785,8 @@ const OnboardingModal = () => {
       autoComplete="off"
     >
       <h5 className={styles.modalTitle}>
-        Do you want to see the amazing things KreateSell can do for you? Watch
-        KreateSell in action
+        Do you want to see the amazing things KreateSell can do for you? <br />
+        <span className={styles.span}>Watch KreateSell in action.</span>
       </h5>
 
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
@@ -841,16 +811,43 @@ const OnboardingModal = () => {
 
       <p className={styles.context}>
         You&#39;ll get helpful resources on how to become and make huge money as
-        a creator.
+        a Kreator.
       </p>
 
       <Button
         leftIcon={<PlayIcon />}
-        text="Watch Demo"
+        text="Play Demo"
         bgColor="blue"
         className={styles.btnCont}
         loading={loading}
       />
     </form>
+  );
+};
+
+const productsList = ["Digital Products", "Memberships", "Subscriptions"];
+
+const ProductsSlide = () => {
+  const { items, index } = useSliderAndGetCurrentValues(productsList, 2000);
+
+  return (
+    <>
+      <span className={styles.digital}>
+        <span className={styles.your}>your</span>
+        {items.map((item, itemIndex) => {
+          const isDigitalProduct = item === "Digital Products";
+          return (
+            <span
+              key={itemIndex}
+              className={`${styles.productItem} ${
+                styles[itemPosition(index, itemIndex, items)]
+              } ${isDigitalProduct ? styles.isDigital : ""}`}
+            >
+              {item}
+            </span>
+          );
+        })}
+      </span>
+    </>
   );
 };

@@ -18,6 +18,6 @@ export * from "./table/Table";
 export * from "./account-dashboard/index";
 export * from "./tableHeader/index";
 export * from "./products/index";
-export * from "./notification/Dropdown";
-export * from './imageLoading/imageLoad'
-export * from "./Preview/index"
+export * from "./notifications/NotificationsDropdown";
+export * from "./imageLoading/imageLoad";
+export * from "./Preview/index";

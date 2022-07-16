@@ -121,7 +121,7 @@ export const Footer = () => {
         <div>
           <div className={styles.categoryTitle}>Support</div>
           <div className={styles.categoryLink}>
-            <Link href="/how-it-works">
+            <Link href="/signup">
               <a>Getting Started</a>
             </Link>
             <Link href="/how-it-works">
@@ -144,8 +144,8 @@ export const Footer = () => {
             <Link href="/legal/privacy-policy">
               <a>Privacy Policy</a>
             </Link>
-            <Link href="/legal/affiliate-policy">
-              <a>Affiliate Policy</a>
+            <Link href="/legal/affiliate-terms">
+              <a>Affiliate Terms</a>
             </Link>
             <Link href="/legal/terms-of-service">
               <a>Terms of Service</a>
@@ -260,7 +260,7 @@ export const Footer = () => {
           <div className={styles.firstRowA}>
             <div className={styles.categoryTitle}>Support</div>
             <div className={styles.categoryLink}>
-              <Link href="/how-it-works">
+              <Link href="/signup">
                 <a>Getting Started</a>
               </Link>
               <Link href="/how-it-works">
@@ -283,8 +283,8 @@ export const Footer = () => {
               <Link href="/legal/privacy-policy">
                 <a>Privacy Policy</a>
               </Link>
-              <Link href="/legal/affiliate-policy">
-                <a>Affiliate Policy</a>
+              <Link href="/legal/affiliate-terms">
+                <a>Affiliate Terms</a>
               </Link>
               <Link href="/legal/terms-of-service">
                 <a>Terms of Service</a>

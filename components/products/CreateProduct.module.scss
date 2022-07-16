@@ -54,17 +54,22 @@
 		}
 
 		@include screen("inbetween") {
-			font-size: 0.8rem;
+			font-size: 1.125rem;
 			padding: 0;
 			min-height: 8vh;
+			justify-content: center;
 
 			span {
 				padding-left: 1rem;
 				font-size: 0.8rem;
 			}
-
-			.mobileSubTitle {
-				padding-left: 0.2rem;
+			.mobileContainer{
+				display: flex;
+				flex-direction: column;
+				.mobileSubTitle {
+					padding-left: 0rem;
+					font-size: 0.75rem;
+				}
 			}
 		}
 
@@ -100,15 +105,23 @@
 .businessPlan{
 	background-color: $white-200;
 	padding: .5em .5em .5em 2em;
+	h2{
+		margin-bottom: 0px;
+	}
 }
 
 .digitalDownload {
+
 	.inputLabel {
 		font-weight: 600;
 		font-size: 16px;
 		@extend .label;
 	}
-
+	.label2{
+		font-weight: 500;
+		font-size: 1rem;
+		color: #262626;		
+	}
 	.inputCont {
 		.input {
 			height: 2.5rem;
@@ -120,7 +133,6 @@
 		border: 2px dotted $base-blue;
 		width: 100%;
 		border-radius: 0.5rem;
-
 		&.activeUpload {
 			border-top: 8px solid #00b140;
 		}
@@ -129,13 +141,16 @@
 		width: 280px;
 		height: 240px;
 		margin-right: 8px;
+		@include screen("tablet"){
+			min-width: 100%;
+		}
 	}
 	.uploadCont {
 		flex-direction: column;
 		height: 100%;
 		display: flex;
 		padding: 45px 0;
-		
+		cursor: pointer !important;
 		h5{
 			margin-bottom: 8px;
 		}
@@ -253,20 +268,24 @@
 		@include screen("laptop") {
 			min-height: 20vh;
 		}
+		@include screen("medium-large") {
+			width: 100% !important;
+		}
 	}
 	.saveButton{
 		margin: 24px auto 0;
-		width: 10%;
-		button{
-			width: 180px;
-			height: 52px;
-			border-radius: 8px;
-			text-align: center;
-			font-weight: 700;
-			justify-content: center;
-			transform: translateX(-20px);
-			background-color: $base-blue;
-		}
+		min-width: 10%;
+			button{
+				width: 180px;
+				height: 52px;
+				border-radius: 8px;
+				text-align: center;
+				font-weight: 700;
+				
+				justify-content: center;
+				transform: translateX(-20px);
+				background-color: $base-blue;
+			}
 	}
 	.radioLabel {
 		font-weight: 400 !important;

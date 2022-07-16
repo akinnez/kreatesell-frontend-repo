@@ -279,6 +279,31 @@ select {
   }
 }
 
+.membership_filter_form{
+  .ant-input-affix-wrapper {
+    &.ant-input-affix-wrapper-lg{
+      border-radius: 8px;
+    }
+  }
+  .ant-select{
+    &.ant-select-lg{
+        .ant-select-selector{
+            border-radius: 8px;
+        }
+    }
+}
+
+.customSelect{
+  .ant-select-selector{
+    height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 10px !important;
+}
+}
+
+}
+
 .customUploadV2{
   .ant-upload {
     &.ant-upload-btn{
@@ -299,6 +324,36 @@ select {
       margin-top: 0px !important;
     }
   
+  }
+}
+
+@include screen("x-large") {
+  .custom__faq__container{
+    margin-block: 2rem;
+    .ant-tabs-tab.ant-tabs-tab-active {
+      border: 1px solid #0072EF !important;
+      border-radius: 18px;
+      padding: .4rem 1rem;
+      z-index: 2;
+    }
+    .ant-tabs-ink-bar {
+      background: none !important;
+    }
+    .ant-tabs-nav{
+      .ant-tabs-nav-wrap{
+        @include screen("tablet") {
+          margin-bottom: 1.2rem;
+      }
+      }
+    }
+    .ant-tabs-nav>.ant-tabs-nav-wrap>.ant-tabs-nav-list{
+      flex-direction: column;
+      align-items: center;
+  
+      .ant-tabs-tab{
+        margin-left:0px !important;
+      }
+    }
   }
 }
 

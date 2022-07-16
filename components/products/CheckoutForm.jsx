@@ -1,7 +1,7 @@
 import { Percentage, Radio } from "components/inputPack";
 import { Switch, Form, Input, Select, Button } from "antd";
 import styles from "./Checkout.module.scss";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { CloudUpload } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
@@ -49,9 +49,17 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const [initialBillingInput, setInitialBillingInput] = useState(0)
   const [custombillingInterval, setCustomBillingInterval] = useState(0)
   const [isBasic, setIsBasic] = useState(true)
-
+  const mounted = useRef(null);
   const {Option} = Select
-
+  useEffect(() => {
+    if(!mounted.current){
+      mounted.current = 0;
+    }
+    return () => {
+      mounted.current = null;
+    }
+  }, [])
+  
   useEffect(()=>{
     if(Object.keys(store).length > 0 ){
       const { user} = store
@@ -175,6 +183,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           setField = setThirdPayment
           break
       }
+
       return (
         <div key={index} className="mt-4">
           <CustomCheckoutSelect field={field} title={title} setField={setField} />
@@ -189,7 +198,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   }, [productID]);
 
   useEffect(()=>{
-    console.log(product)
+    // console.log(product)
   }, [product])
 
   const populatePricingObject = (currency, price)=>{
@@ -207,7 +216,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         setFixedSellingPrice(prev => [...prev, registeredPrice])
         break
       default:
-        return
+        break
     }
   }
 }, [])
@@ -375,62 +384,65 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setNumberOfLimit(0)
     }
   }, [compareToPrice, allowAffiliateMarket, limitProductSale])
-  
   const setAllFields = useCallback(()=>{
-    setFieldValue("product_name", product?.product_details?.product_name);
-      setFieldValue('product_details', product?.product_details?.product_details)
-      setFieldValue(
-        "product_description",
-        product?.product_details?.product_description
-      );
-      setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
-      setFieldValue("upload_content", product?.product_details?.upload_content);
-      setFieldValue(
-        "product_visibility_status",
-        product?.product_details?.product_visibility
-      );
-      setFieldValue("upload_preview", product?.product_details?.is_preview_only);
-      setFieldValue(
-        "preorder_details.preorder_release_date",
-        product?.product_details?.preoder_date
-      );
-      setFieldValue(
-        "preorder_details.is_preorder_downloadable",
-        product?.product_details?.is_preoder_downloadable ?? false
-      );
-      setFieldValue(
-        "kreatesell_id",
-        product?.product_details?.kreasell_product_id
-      );
-      setFieldValue("product_type_id", product?.product_details?.product_type_id);
-      setFieldValue("product_id", product?.product_details?.id);
-      setFieldValue(
-        "product_listing_status_id",
-        product?.product_details?.product_listing_status
-      );
-      setFieldValue("upload_content", product.product_details.upload_content ? product.product_details.upload_content : false);
-      // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
-      // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
-      
-      setFieldValue("cta_button", product.product_details.cta_button ? product.product_details.cta_button : ctaBtnText)
-      setCtaBtnText(product?.product_details?.cta_button)
-      if(product.product_details.is_show_number_of_sales){
-        setShowTotalSales(true)
-      }
-      if(product.product_details.who_bears_fee){
-        setBuyerPaysTransactionFee(true)
-      }
+    mounted.current += 1;
+    if(product && mounted.current === 1){
 
-      if(product.check_out_details && product.check_out_details.length > 0){
-        populatePricing(product?.check_out_details)
-      }
-      if(product.product_details.is_allow_affiliate === true){
-        setAllowAffiliateMarket(true)
-        setAfiliatePercentage(product?.product_details?.affiliate_percentage_on_sales)
-      }
-      if(product.product_details.is_limited_sales === true){
-        setLimitProductSale(true)
-      }
+      setFieldValue("product_name", product?.product_details?.product_name);
+        setFieldValue('product_details', product?.product_details?.product_details)
+        setFieldValue(
+          "product_description",
+          product?.product_details?.product_description
+        );
+        setFieldValue("enable_preorder", product?.product_details?.enable_preorder);
+        setFieldValue("upload_content", product?.product_details?.upload_content);
+        setFieldValue(
+          "product_visibility_status",
+          product?.product_details?.product_visibility
+        );
+        setFieldValue("upload_preview", product?.product_details?.is_preview_only);
+        setFieldValue(
+          "preorder_details.preorder_release_date",
+          product?.product_details?.preoder_date
+        );
+        setFieldValue(
+          "preorder_details.is_preorder_downloadable",
+          product?.product_details?.is_preoder_downloadable ?? false
+        );
+        setFieldValue(
+          "kreatesell_id",
+          product?.product_details?.kreasell_product_id
+        );
+        setFieldValue("product_type_id", product?.product_details?.product_type_id);
+        setFieldValue("product_id", product?.product_details?.id);
+        setFieldValue(
+          "product_listing_status_id",
+          product?.product_details?.product_listing_status
+        );
+        setFieldValue("upload_content", product.product_details.upload_content ? product.product_details.upload_content : false);
+        // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
+        // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
+        
+        setFieldValue("cta_button", product.product_details.cta_button ? product.product_details.cta_button : ctaBtnText)
+        setCtaBtnText(product?.product_details?.cta_button)
+        if(product.product_details.is_show_number_of_sales){
+          setShowTotalSales(true)
+        }
+        if(product.product_details.who_bears_fee){
+          setBuyerPaysTransactionFee(true)
+        }
+  
+        if(product.check_out_details && product.check_out_details.length > 0){
+          populatePricing(product?.check_out_details)
+        }
+        if(product.product_details.is_allow_affiliate === true){
+          setAllowAffiliateMarket(true)
+          setAfiliatePercentage(product?.product_details?.affiliate_percentage_on_sales)
+        }
+        if(product.product_details.is_limited_sales === true){
+          setLimitProductSale(true)
+        }
+    }
   }, [product])
   
   useEffect(() => {
@@ -438,7 +450,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setAllFields()
     }
   }, [product, setAllFields]);
-
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === "Fixed Price" && (
@@ -505,19 +516,23 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
       <div>
         {priceType === "Fixed Price" && (
-          <div className="flex justify-between items-center w-full lg:w-2/4 pt-4">
-            <div className="text-black-100 font-semibold text-lg">
+          <div className={styles.aplyCpn + " flex justify-between items-center mt-3 w-full pt-4"}>
+            <div className={`${styles.cpnLabel}`}>
               Show Compare-To Price (Optional)
             </div>
-            <div className="flex">
+            <div className={styles.businessCouponNoShow +" flex"}>
               <Switch
                 onChange={(e) => {
                   setCompareToPrice((value) => !value);
                 }}
                 checked={compareToPrice}
               />
+              <span className={`${styles.cpnStatus}`}>
               <span className="pl-6 text-black-100 text-lg font-semibold">
                 {compareToPrice ? "ON" : "OFF"}
+              </span>
+              <h3>Business</h3>
+
               </span>
             </div>
           </div>
@@ -530,7 +545,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
         {priceType !== 4 && (
           <div className={styles.aplyCpn + " flex justify-between items-center mt-3 w-full pt-4"}>
-            <div className="text-black-100 font-semibold text-lg">Apply Coupon Code</div>
+            <div className={`${styles.cpnLabel}`}>Apply Coupon Code</div>
             <div className={styles.businessCoupon +" flex"}>
               <Switch
                 onChange={(e) => {
@@ -539,10 +554,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 checked={applyCoupon}
                 disabled={isCouponDiabled ? true : false}
               />
-              <span className="pl-6 text-black-100 font-semibold text-lg">
-                {isCouponDiabled ? "DISABLED": applyCoupon ? "ON" : "OFF"}
+              <span className={`${styles.cpnStatus}`}>
+                <span className="pl-6 text-black-100 font-semibold text-lg">
+                  {isCouponDiabled ? "DISABLED": applyCoupon ? "ON" : "OFF"}
+                </span>
+                <h3>Business</h3>
               </span>
-              <h3>Business</h3>
             </div>
           </div>
         )}
@@ -640,10 +657,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           </div>
         )}
 
-        <h2 className="mt-6 text-xl font-semibold">Settings</h2>
-        <div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 w-11/12">
+        <h2 className={`mt-6 ${styles.settingsLabel}`}>Settings</h2>
+        <div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 lg:w-11/12">
           <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
-            <div className="text-black-100 font-semibold">
+            <div className={`${styles.settingsSubLabel}`}>
               Allow Affiliates to Market Product
             </div>
             <div className="flex">
@@ -722,7 +739,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           )}
 
           <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
-            <div className="text-black-100 font-semibold">Limit Product Sales</div>
+            <div className={`${styles.settingsSubLabel}`}>Limit Product Sales</div>
             <div className="flex">
               <Switch
                 onChange={(e) => {
@@ -747,7 +764,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           )}
 
           <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
-            <div className="text-black-100 font-semibold">
+            <div className={`${styles.settingsSubLabel}`}>
               Publicly Show Total Sales on Store Page
             </div>
             <div className="flex">
@@ -764,7 +781,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           </div>
 
           <div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
-            <div className="text-black-100 font-semibold">Buyer Pays for Transaction Fee</div>
+            <div className={`${styles.settingsSubLabel}`}>Buyer Pays for Transaction Fee</div>
             <div className="flex">
               <Switch
                 onChange={(e) => {

@@ -22,6 +22,7 @@ import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
 import useFetchUtilities from "hooks/useFetchUtilities";
 import useFetchStore from "hooks/useFetchStore";
+import useFetchNotifications from "hooks/useFetchNotifications";
 
 const Loader = () => {
   return (
@@ -87,6 +88,7 @@ const Index = ({
 
   useFetchUtilities();
   useFetchStore();
+  useFetchNotifications();
 
   return (
     <>

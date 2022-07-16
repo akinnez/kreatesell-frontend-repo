@@ -18,46 +18,6 @@ import {
 } from "../../components";
 import {CareerSuccess, CareerFailure} from "../../utils";
 
-const responsibilities = [
-    "Manage end-to-end performance marketing across the customer lifecycle (acquisition, activation, retention, revenue, and referral)",
-    "Own paid and organic growth strategy, from concept to completion.",
-    "Understand traditional and emerging channels used for acquiring and retaining customers, including some combination of SEM, programmatic Display, Paid Social, and offline channels.",
-    "Build-out paid acquisition strategy; report on and calculate the success of (e.g. ROI), and make recommendations for improvement",
-    "Develop retention and loyalty strategy, including building-out communication touch-points across multiple channels (email, push, WhatsApp, Telegram etc) and implementing an ESP/Marketing Automation platform of choice."
-]
-
-const metrics = [
-    "Define measurements of success (KPIs) for campaigns, develop a testing framework, and analyze data to understand the impact of new channels",
-    "Define growth and performance benchmarks and establish analytics and reporting for channels",
-    "Build growth models using organic and paid growth loops",
-    "Create reporting dashboards and share relevant insights regularly with internal teams",
-    "Communicate growth performance to executive leadership to promote a shared understanding of performance marketing strategy, ROI, and opportunities."
-]
-
-const requirements = [
-    "2+ years experience in growth marketing, performance marketing, digital marketing or relevant role and must have sold or been selling a digital or physical product on the internet in whatever scale.",
-    "Experience in Google Analytics and comfortable with other analytics tools.",
-    "Project management skills with the ability to work independently and cross-collaboratively in a fast-paced environment.",
-    "Strong written and verbal communication skills with the ability to compile and present cohesive reports with clear action items and insights.",
-    "Hands-on experience with paid acquisition channels (e.g. Google Ads, Facebook Ads Manager, etc) is a plus.",
-    "Experience with SaaS products that have mobile, desktop app assets is a plus."
-]
-
-const attributes = [
-    "A public speaker with a good stage presence and can close the audience to make a decision.",
-    "Unique thinker and collaborator who can engage others.",
-    "Entrepreneurial instincts: you are a proactive self-starter with a solution-oriented attitude.",
-    "Insatiable drive to succeed.",
-    "Solicits and welcomes feedback.",
-    "You are passionate about Marketing and Marketing tech. You keep up to date with the industry, its latest trends, and platforms.",
-    "You have experience working with multiple marketing functions such as brand and content and can connect the dots between programs to. create full-funnel marketing campaigns."
-]
-
-const instructions = [
-    "Complete all the required questions.",
-    "Click the Submit Application button when done."
-]
-
 export default function Career () {
     const Router = useRouter();
     const [showModal, setShowModal] = useState(false);
@@ -71,7 +31,7 @@ export default function Career () {
                         // console.log(err)
                         })
     const {data: job, error} = useSWR(
-        `${process.env.BASE_URL}admin/SingleJobRole?jobId=${Router.query.id}`,
+        ()=> !!Router.query.id ?`${process.env.BASE_URL}admin/SingleJobRole?jobId=${Router.query.id}`:null,
         fetcher
         );
     const handleSubmit = (values, file) => {
@@ -125,7 +85,7 @@ export default function Career () {
             </Layout>
         ) 
     }
-    console.log(job);
+
     // if(error) return <h3>Error</h3>
   return (
       <>
@@ -160,43 +120,42 @@ export default function Career () {
                 <TitleDescriptionList
                     title="Benefits"
                     subtitle={null}
-                    list={["Attractive Salary","Provision of quality Health Insurance.","Access to Certification Training Materials.","Conducive Work Environment.","Flexible office time."]}
+                    list={job?.benefits||""}
                 />
             </section>
             <section className={styles.responsibilities}>
-                <TitleDescriptionList
+                {!!job.responsibilities && <TitleDescriptionList
                     title="Job Responsibilities"
                     subtitle={`As a ${job.title} at Kreatesell, you will:`}
-                    list={job.responsibilities || []}
-                />
+                    list={job?.responsibilities || ""}
+                />}
             </section>
-            {Array.isArray(job.metrics) && job.metrics.length>0 && <section className={styles.metrics}>
+            {!!job.metrics && <section className={styles.metrics}>
                 <TitleDescriptionList
                     title="Metrics, Testing and Reporting:"
                     subtitle={null}
-                    list={job.metrics ||[]}
+                    list={job.metrics ||""}
                 />
             </section>}
-            {Array.isArray(job.requirements) && job.requirements.length>0 && <section className={styles.requirements}>
+            {!!job.requirements && <section className={styles.requirements}>
                 <TitleDescriptionList
                     title={"Job Requirements"}
                     subtitle={`Our ideal ${job.title} at Kreatesell should have:`}
-                    list={job.requirements||[]}
+                    list={job.requirements}
                 />
             </section>}
-            {Array.isArray(job.attributes) && job.attributes.length>0 && <section className={styles.attributes}>
+            {job.attributes && <section className={styles.attributes}>
                 <TitleDescriptionList
                     title={"Your Attributes:"}
                     subtitle={null}
-                    list={job.attributes||[]}
+                    list={job.attributes||""}
                 />
             </section>}
-            {Array.isArray(job.instructions) && job.instructions.length>0 && <section className={styles.instructions}>
+            {!!job.instructions && <section className={styles.instructions}>
                 <TitleDescriptionList
                     title={"Important Instructions To Follow!"}
                     subtitle={null}
-                    list={job.instructions || []}
-                    isNumberList={true}
+                    list={job.instructions || ""}
                 />
             </section>}
           </div>

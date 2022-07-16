@@ -1,17 +1,10 @@
+import { useEffect } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import Image from "next/image";
-import { Layout } from "components";
-import {
-  FBLike,
-  RelatedBlog,
-  RelatedImgSmall,
-  BlogHero,
-  showToast,
-} from "utils";
-import styles from "public/css/SingleBlog.module.scss";
+
 import axios from "axios";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { IoFolderOpenSharp } from "react-icons/io5";
-import { AiOutlineClockCircle } from "react-icons/ai";
 import {
   MdOutlineShare,
   MdOutlineCancel,
@@ -20,10 +13,31 @@ import {
   MdContentCopy,
 } from "react-icons/md";
 import moment from "moment";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import { AiFillLike } from "react-icons/ai";
+import { IoFolderOpenSharp } from "react-icons/io5";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { DiscussionEmbed } from "disqus-react";
+import { useSelector,useDispatch } from "react-redux";
+
+import { Layout } from "components";
+
+import {
+  showToast,
+  Briefcase,
+  Clock,
+  LikeIcon,
+  CommentIcon,
+  ShareIconGrey,
+  CommentIconGrey,
+  LikeIconGrey,
+  checkExpiredUserToken,
+  getUser,
+  _isUserLoggedIn,
+  isAnEmpytyObject,
+} from "utils";
+import ApiService from 'utils/axios'
+import styles from "public/css/SingleBlog.module.scss";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -34,17 +48,42 @@ import {
   LinkedinIcon,
   WhatsappIcon,
 } from "react-share";
-import { DiscussionEmbed } from "disqus-react";
+import { USER } from "redux/types/auth.types";
 
 const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
+  // console.log("blog", blog);
+  // console.log("recentBlogs", recentBlogs)
+  // console.log("moreBlogs", moreBlogs)
   const router = useRouter();
-
   const genUrl =
     process.env.NODE_ENV === "production"
       ? `https://kreatesell.com${router.asPath}`
       : `http://localhost:3000${router.asPath}`;
   // const genUrl = `https://kreatesell.com${router.asPath}`;
 
+  useEffect(() => {
+    checkExpiredUserToken();
+  }, []);
+  useEffect(() => {
+    if (!_isUserLoggedIn()) {
+      showToast("Login required to view page", "info");
+      return router.push("/login");
+    }
+  }, []);
+  const {user} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const userIsEmpty = isAnEmpytyObject(user.user);
+  useEffect(() => {
+    if (userIsEmpty) {
+      dispatch({ type: USER.REQUEST });
+
+      const userStorage = getUser();
+
+      if (userStorage) {
+        dispatch({ type: USER.SUCCESS, payload: userStorage });
+      }
+    }
+  }, [dispatch, userIsEmpty]);
   const handleCopyLink = () => {
     navigator.clipboard.writeText(genUrl);
     showToast("Link Copied", "success");
@@ -61,21 +100,48 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     // }
     // return cookies;
   };
-
+  
   const handleLikePost = () => {
-    axios
-      .post(
-        `https://disqus.com/api/oauth/2.0/authorize/?client_id=6lSQoKFGTpA9fercSGt0klM60BCv7vgF2PMnPb1NqNhpo6HTmwRpkRfAs4VVMLFp&scope=read,write&response_type=code&redirect_uri=${genUrl}`
-      )
-      .then((res) => {
-        console.log("first", res);
-      })
-      .catch((err) => {
-        console.log("disqusssss", err);
-      });
+    ApiService.request(
+      'post',
+      `blogs/posts/post/like/${router.query.id}?Name=${user.full_name}&Email=${user.email}`,
+      (res) => {
+        console.log("data is", res);
+      },
+      (err)=>{
+        console.log("err is", err)
+      }
+    )
+    // axios
+    //   .post(
+    //     `https://disqus.com/api/oauth/2.0/authorize/?client_id=6lSQoKFGTpA9fercSGt0klM60BCv7vgF2PMnPb1NqNhpo6HTmwRpkRfAs4VVMLFp&scope=read,write&response_type=code&redirect_uri=${genUrl}`
+    //   )
+    //   .then((res) => {
+    //     console.log("first", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("disqusssss", err);
+    //   });
     // getCookies();
   };
 
+  const handleCommentPost = () => {
+    ApiService.request(
+      'post',
+      '',
+      (res) => {
+        console.log("data is", res);
+      },
+      (err)=>{
+        console.log("err is", err)
+      }
+    )
+    console.log("comment clicked");
+  }
+
+  const handleSharePost = () => {
+    console.log("share clicked");
+  }
   const disqusConfig = {
     url: genUrl,
     identifier: blog.id,
@@ -95,11 +161,18 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     return (
       <div className={styles.asideContainer}>
         <div className={styles.image}>
-          <Image src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
+          <Image className={styles.sideImage} src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
         </div>
         <div className={styles.content}>
           <p className={styles.date}>
-            {moment(created_at).format("MMM DD YYYY")}
+          {formatDistanceToNow(
+            new Date(
+              new Date(created_at).getFullYear(),
+              new Date(created_at).getMonth(),
+              new Date(created_at).getDay()
+            ),
+            { addSuffix: true }
+          )}
           </p>
           <Link href={`/blog/${category}/${id}`}>
             <h4 style={{ cursor: "pointer" }} className={styles.title}>
@@ -147,6 +220,10 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
         <Link href={`/blog/${category}/${id}`}>
           <h4 className={styles.singleTitle}>{title}</h4>
         </Link>
+        <div className={styles.categoryTime}>
+          <span className={styles.category}><Image src={Briefcase} alt="" width="25" />{"  "}Marketing</span>
+          <p className={styles.time}><Image src={Clock} alt="" width="15" /> 7 days ago</p>
+        </div>
         <div className={styles.excerptDiv}>
           <p className={styles.singleExcerpt}>{excerpt}</p>
         </div>
@@ -207,24 +284,6 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                   &nbsp;
                 </div>
               </div>
-              <div className={styles.author}>
-                <Image
-                  src="/images/placeholder-2.jpg"
-                  alt="admin"
-                  className={styles.adminImage}
-                  layout="fixed"
-                  width={40}
-                  height={40}
-                  style={{
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                  }}
-                />
-                <div className={styles.adminNameDiv}>
-                  <h6 className={styles.adminName}>By FARAI MUTSAKA</h6>
-                  <p className={styles.adminTitle}>Admin</p>
-                </div>
-              </div>
               <div className={styles.thumbnailDiv}>
                 <Image
                   src={blog?.thumbnail}
@@ -238,19 +297,34 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
             <div dangerouslySetInnerHTML={{ __html: blog?.description }}></div>
             <br />
             <div className={styles.blogBottomDiv}>
-              <div className={styles.likeDiv}>
-                <AiFillLike className={styles.likeIcon} /> {blog?.like_count}
-              </div>
+            <section className={styles.postActions}>
+                <div className={styles.likeIcon}><Image src={LikeIcon} alt="" width="25" /><p className={styles.count}>{blog?.like_count}</p></div>
+                <div className={styles.commentIcon}><Image src={CommentIcon} alt="" width="25" /><p className={styles.count}>5.4k</p></div>
+              </section>
+
               <section className={styles.socialsSection}>
                 <div className={styles.socialsDiv}>
                   <div
                     className={styles.likeButtonDiv}
                     onClick={() => handleLikePost()}
                   >
-                    <AiFillLike className={styles.likeIcon} /> Like
+                    <Image src={LikeIconGrey} alt="" width="25" /> Like
+                  </div>
+                  <div
+                    className={styles.likeButtonDiv}
+                    onClick={() => handleCommentPost()}
+                  >
+                    <Image src={CommentIconGrey} alt="" width="25" /> Comment
+                  </div>
+                  <div
+                    className={styles.likeButtonDiv}
+                    onClick={() => handleSharePost()}
+                  >
+                    <Image src={ShareIconGrey} alt="" width="25" /> Share
                   </div>
                 </div>
-                <div className={styles.socialDiv}>
+                {/* TODO: Move this to a popover */}
+                {/* <div className={styles.socialDiv}>
                   <ul className={styles.socialUl}>
                     <li className={styles.socialLi}>
                       <FacebookShareButton url={genUrl}>
@@ -297,7 +371,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                       <MdContentCopy className={styles.copyIcon} /> Copy Link
                     </button>
                   </div>
-                </div>
+                </div> */}
               </section>
             </div>
             <br />
@@ -314,7 +388,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
             <h3 className={styles.heading}>Latest Posts</h3>
             <div className={styles.line} />
             <div className={styles.sideBlogDiv}>
-              {recentBlogs?.data &&
+            {recentBlogs?.data &&
                 recentBlogs?.data
                   ?.filter((item) => item?.id !== blog?.id)
                   .slice(0, 6)

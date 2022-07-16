@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import { Row,Col,Form,Input as AntInput } from 'antd';
 
-import {Input,Button} from "../form-input"
+import {Input,Button, TextAreaWithExtraLabel} from "../form-input"
 import {Checkbox} from "../"
 import {DropzoneV2} from "../form-input/UploadV2";
 import styles from "../../public/css/CareersForm.module.scss";
@@ -19,6 +19,9 @@ export const CareersForm = ({submitCB, loading}) => {
     resume:""
 })
 
+  const handleTextChange = (e) => {
+    form.setFieldsValue({ [e.target.name]: e.target.value });
+  }
 
   const handleSubmit = (values) =>{
 
@@ -79,8 +82,8 @@ export const CareersForm = ({submitCB, loading}) => {
           name="phone"
           label="Phone"
           placeholder="Enter your phone number"
-          type="tel"
-          rules={[{type: "number"}]}
+          // type="tel"
+          // rules={[{type: "number"}]}
         />
         <DropzoneV2 
           variant={3} 
@@ -131,33 +134,37 @@ export const CareersForm = ({submitCB, loading}) => {
           rules={[{ required: true, message:"Location is required"}]}
         />
 
-        <Input
+        <TextAreaWithExtraLabel
           name="personality"
           CustomInput={AntInput.TextArea}
           row={5}
+          onChange={handleTextChange}
           label="Clearly, state who you are with respect to personality gems."
           subText="There are 4 personality gems — Sapphire, Pearl, Emerald, and Ruby. Google it to learn more and describe yourself in 3 or more sentences. Not more than 500 words. "
-          rules={[{ required: true, message:"Please list your achievements"}]}
+          rules={[{ required: true, message:"Please list your personality gems"}]}
         />
-        <Input
+        <TextAreaWithExtraLabel
           name="achievement"
           CustomInput={AntInput.TextArea}
           row={5}
+          onChange={handleTextChange}
           label="What's one thing you are extremely proud of or what's your greatest achievement?"
           subText="Maybe a cause you stood for, alone or while working with other people. Not more than 500 words."
           rules={[{ required: true, message:"Please list your achievements"}]}
         />
-        <Input
+        <TextAreaWithExtraLabel
           name="experience"
           CustomInput={AntInput.TextArea}
           row={5}
+          onChange={handleTextChange}
           label="Clearly state why you're a right fit for this job selling yourself with reference to your past work experience."
           subText="Not more than 500 words."
         />
-        <Input
+        <TextAreaWithExtraLabel
           name="portfolio"
           CustomInput={AntInput.TextArea}
           row={5}
+          onChange={handleTextChange}
           label="Share links to your past and current portfolios."
         />
 

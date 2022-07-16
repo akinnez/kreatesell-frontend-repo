@@ -32,7 +32,7 @@ const AffiliatePageLayout = ({
       <div className={styles["sales-stat"]}>
         Affiliate&apos;s Number of Sales: <span>{totalSales}</span>
       </div>
-      <Spin spinning={isLoading}>
+      <Spin spinning={isLoading} wrapperClassName={styles.spin__wrapper}>
         <PaginationSizeChanger
           dataSize={products.total}
           filters={filters}

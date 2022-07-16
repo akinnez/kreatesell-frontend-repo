@@ -40,7 +40,7 @@ export const TextInput = ({
 			<style jsx>{`
 				label {
 					font-weight: 500;
-					font-size: 16px;
+					font-size: 1rem;
 					line-height: 26px;
 					display: block;
 				}

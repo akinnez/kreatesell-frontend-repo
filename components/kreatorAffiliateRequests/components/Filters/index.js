@@ -52,7 +52,7 @@ const Filters = ({ setFilters, setLoading }) => {
       affiliateName: affiliate_name || "",
       sortBy: sort_by || null,
       productType: product_type || null,
-      requestDate: date_listed ? date_listed._i : "",
+      dateListed: date_listed ? date_listed._i : "",
     }));
   };
 
@@ -67,12 +67,12 @@ const Filters = ({ setFilters, setLoading }) => {
       affiliateName: "",
       sortBy: null,
       productType: null,
-      requestDate: "",
+      dateListed: "",
     }));
   };
 
   return (
-    <div className={!isFiltered && styles["lg-margin"]}>
+    <div className={isFiltered ? null : styles["lg-margin"]}>
       <Form
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}

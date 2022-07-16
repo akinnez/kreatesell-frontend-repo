@@ -6,10 +6,6 @@
   margin-bottom: 25px;
 }
 
-.product__image__overview--margin {
-  margin-bottom: 0;
-}
-
 .product__img {
   max-width: 600px;
   border-radius: 8px;
@@ -18,7 +14,7 @@
 
 .empty__image__Banner {
   @include mixins.flex(row, center, center);
-  height: calc(100vw - 40px);
+  height: calc(100vw - 60px);
   max-height: 600px;
   max-width: 600px;
   background-color: rgba(0, 0, 0, 0.05);
@@ -30,59 +26,66 @@
   }
 }
 
+.product__images__controls {
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+  gap: 10px 15px;
+}
+
 .product__images {
-  margin-bottom: 10px;
-  @include mixins.flex(row, center, center);
-  column-gap: 10px;
+  @include mixins.flex(row, flex-start, center);
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .product__image {
+  width: 82px;
+  height: 82px;
+  position: relative;
   border-radius: 8px;
   overflow: hidden;
   background-color: transparent;
-
-  > div {
-    display: block !important;
-  }
 }
 
 .product__image--active {
   border: 2px solid colors.$black-100;
 }
 
-.product__images__btns {
-  @include mixins.flex(row, center, center);
-  column-gap: 10px;
+.product__images__btns button[class^="ant-btn"] {
+  width: 32px;
+  height: 32px;
+  background-color: colors.$white-300;
+  border-radius: 6px;
+  justify-content: center;
+  color: #200e32;
 
-  > button[class^="ant-btn"] {
-    background-color: colors.$white-300;
-    border-radius: 6px;
-    justify-content: center;
-    color: #200e32;
+  &:first-child {
+    margin-right: 15px;
   }
 }
 
 @include screens.minScreen("medium-large") {
   .empty__image__Banner {
-    height: calc(100vw - 162px);
-  }
-
-  .product__images__controls {
-    @include mixins.flex(row, center, center);
-    column-gap: 25px;
-  }
-
-  .product__images {
-    margin-bottom: 0;
+    height: calc(100vw - 74px);
   }
 }
 
-@include screens.minScreen("x-large") {
+@include screens.minScreen("tablet") {
   .empty__image__Banner {
-    height: calc(100vw - 560px);
+    height: calc(100vw - 478px);
   }
 
-  .product__images__controls {
-    justify-content: flex-start;
+  .product__images {
+    gap: 8px;
+  }
+
+  .product__image {
+    width: 124px;
+    height: 124px;
+  }
+
+  .product__images__btns button[class^="ant-btn"] {
+    width: 48px;
+    height: 48px;
   }
 }

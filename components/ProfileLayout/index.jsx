@@ -15,6 +15,7 @@ import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
 import useFetchStore from "hooks/useFetchStore";
 import useFetchUtilities from "hooks/useFetchUtilities";
+import useFetchNotifications from "hooks/useFetchNotifications";
 import styles from "./index.module.scss";
 
 const Loader = () => {
@@ -43,6 +44,8 @@ const ProfileLayout = ({
   children,
   contentStyle,
   mobilePadding = false,
+  customWidth=false,
+  style
 }) => {
   const { Content } = Layout;
   const router = useRouter();
@@ -80,6 +83,7 @@ const ProfileLayout = ({
 
   useFetchUtilities();
   useFetchStore();
+  useFetchNotifications();
 
   return (
     <>
@@ -111,7 +115,7 @@ const ProfileLayout = ({
             {loading ? (
               <Loader />
             ) : (
-              <div className={styles.container}>{children}</div>
+              <div className={customWidth? styles.fullContainer : styles.container}>{children}</div>
             )}
           </Content>
           {/* <Footer>Footer</Footer> */}
