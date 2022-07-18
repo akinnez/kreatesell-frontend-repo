@@ -294,7 +294,7 @@ export const shortenDetail = (item, id, maximumAllowedLength, cutVal) => {
 
   // when id isn't a part of an object.
 
-  return id !== null && id.length > maximumAllowedLength
+  return id !== null && id?.length > maximumAllowedLength
     ? `${id.slice(0, cutVal)}...`
     : id;
 };

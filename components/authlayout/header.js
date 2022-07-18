@@ -10,7 +10,7 @@ import { MobileLogo } from "./logo";
 import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
-// import { shortenDetail } from "utils";
+import { shortenDetail } from "utils";
 
 const Profile = ({ name, avi }) => {
   return (
@@ -18,8 +18,8 @@ const Profile = ({ name, avi }) => {
       <div className="profile-wrapper">
         <div id="profile-content">
           <h4 title={name}>
-            {name}
-            {/* {shortenDetail(false, name, 28, 27) || "Undefined"} */}
+            {/* {name} */}
+            {shortenDetail(false, name, 31, 30) || "Undefined"}
           </h4>
           <p>Account</p>
         </div>
