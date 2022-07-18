@@ -65,7 +65,8 @@ const Index = ({
     }
   }, []);
 
-  const user = useSelector(state => state.auth);
+  const user = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
   const productTypes = GetProductTypes();

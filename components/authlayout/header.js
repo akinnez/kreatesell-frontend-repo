@@ -10,13 +10,17 @@ import { MobileLogo } from "./logo";
 import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
+import { shortenDetail } from "utils";
 
 const Profile = ({ name, avi }) => {
   return (
     <>
       <div className="profile-wrapper">
         <div id="profile-content">
-          <h4>{name || "Undefined"}</h4>
+          <h4 title={name}>
+            {/* {name} */}
+            {shortenDetail(false, name, 31, 30) || "Undefined"}
+          </h4>
           <p>Account</p>
         </div>
         <div className="profile">
@@ -72,8 +76,8 @@ const Profile = ({ name, avi }) => {
   );
 };
 
-const menu = logout => (
-  <Menu>
+const menu = (logout) => (
+  <Menu className={style.authMenu}>
     <Menu.Item key="prof-1">
       <Link href="/account/kreator/store/edit">
         <a className={style.edit}>
@@ -101,7 +105,7 @@ const Nav = ({ headerTitle }) => {
 
   const {
     store: { store_details },
-  } = useSelector(state => state.store);
+  } = useSelector((state) => state.store);
 
   const logout = Logout();
 
@@ -131,7 +135,7 @@ const Nav = ({ headerTitle }) => {
       <div className={style.nav_right}>
         <Button type="text" shape="circle" icon={<Cog />} />
         <NotificationsDropdown />
-        <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
+        <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
           <Button type="text" className={style.dropdown__btn}>
             <Profile
               name={info?.full_name}
