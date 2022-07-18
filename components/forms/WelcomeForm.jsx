@@ -86,6 +86,7 @@ export const WelcomeForm = () => {
 
           {formik.values.Store_Name && (
             <span className={styles.storePreviewLink}>
+              {/* regex trims out white space withing input */}
               {`https://kreatesell.com/${formik.values.Store_Name.replace(
                 /\s+/g,
                 ""
