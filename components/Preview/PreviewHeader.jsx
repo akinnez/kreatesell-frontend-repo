@@ -44,7 +44,7 @@ export default function PreviewHeader ({id}){
         
     const initialValues = {
         product_id: '',
-      "publish": "live"
+      "publish": "live",
     }
       
       const formik = useFormik({
@@ -54,7 +54,7 @@ export default function PreviewHeader ({id}){
       });
      
       const {setFieldValue, values} = formik
-
+      
     useEffect(()=>{
         setTitle( product?.product_details?.product_name)
         setLink( product?.product_details?.id)
@@ -62,7 +62,7 @@ export default function PreviewHeader ({id}){
     
     useEffect(() => {
         if(Object.keys(product).length > 0){
-          setFieldValue("product_id", product?.product_details?.id);
+          setFieldValue("product_id", product?.product_details?.kreasell_product_id);
         }
       }, [product])
 
@@ -72,6 +72,7 @@ export default function PreviewHeader ({id}){
         setDomainLink(domain_details[0].domain_url)
       }
     }, [store])
+
     return (
     <header className='flex items-center justify-between bg-white px-10 py-6 '>
         <div className='flex items-center'>
@@ -103,7 +104,7 @@ export default function PreviewHeader ({id}){
                     <Form.Item label={<h2 className="font-semibold text-sm mb-0">Product Link</h2>}>
                         <div className={styles.copyInput + " flex"}>
                             <Input readOnly bordered className="rounded-lg" placeholder={ `${domainLink}/${id}`}/>
-                            <span onClick={() => _copyToClipboard( `${domainLink}/${values.kreatesell_id}`, "Product Link Copied")} className="cursor-pointer">
+                            <span onClick={() => _copyToClipboard( `${domainLink}/${values.product_id}`, "Product Link Copied")} className="cursor-pointer">
                                 <Image src={LinkCopy} alt="copy" />
                             </span>
                         </div>

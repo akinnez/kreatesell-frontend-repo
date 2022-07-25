@@ -95,6 +95,7 @@ export const CreateProductForm = ({
   };
 
   const handleSubmit = (data) => {
+    // console.log("Data is", data)
     if (["oneTimeSubscription", "membership"].includes(productType)) {
       delete data?.contentZipFiles;
       delete data?.upload_content;
@@ -217,7 +218,7 @@ export const CreateProductForm = ({
       setFieldValue("cta_button", product?.product_details?.cta_button)
       setFieldValue("product_images.productFiles",  ...product?.product_images?.filter(images => images?.file_type !== 4)?.map(item => {
         const arr = item?.filename?.split(',')
-        return [...arr]
+        return arr.length>0 ? [...arr] : [];
       }))
       if(product.product_details.enable_preorder){
         setPreOrder(true)
@@ -295,6 +296,8 @@ export const CreateProductForm = ({
                 <p className="text-black font-medium text-xs">
                   Allowed Files: PNG, JPG | Maximum file size: 2MB
                 </p>
+                {(store?.user?.user_plan === 'Basic' && ["oneTimeSubscription","membership"].includes(productType)) && (<h2 className="text-black font-medium text-md">User needs to upgrade to business plan to add product</h2>)}
+                
                 <div className="flex flex-col-reverse sm:flex-row">
                   <div className={"relative "+ styles.uploadChart}>
                     {isImageFilled && <div className="absolute z-50 w-full h-full bg-transparent"></div>}
@@ -303,12 +306,13 @@ export const CreateProductForm = ({
                       {...getRootProps()}
                     >
                     <div className={styles.uploadCont}>
+                    
                       <Image style={{color:"#BFBFBF"}} src={CloudUpload} alt="upload image" />
-                      <input {...getInputProps()} />
+                      <input disabled={store?.user?.user_plan === 'Basic' && ["oneTimeSubscription","membership"].includes(productType)} {...getInputProps()} />
                       <h5 className="lg:block text-primary-blue text-base pt-2 font-normal text-center">
                         Drag & Drop Your Image Here <br /> -OR-
                       </h5>
-                      <Button className="font-medium" disabled={isImageFilled ? true: false} type={isImageFilled ? "default": "primary"}>
+                      <Button className="font-medium" disabled={isImageFilled || (store?.user?.user_plan === 'Basic' && ["oneTimeSubscription","membership"].includes(productType)) ? true: false} type={isImageFilled || (store?.user?.user_plan === 'Basic'&& ["oneTimeSubscription","membership"].includes(productType)) ? "default": "primary"}>
                         Browse Image
                       </Button>
                     </div>
@@ -395,6 +399,7 @@ export const CreateProductForm = ({
             )}
           </div>
         </Form.Item>
+        {/* {console.log("values.product_visibility_status", values.product_visibility_status)} */}
         <Form.Item>
           <div className="pt-4">
             <div className={styles.inputLabel}>Listing Status</div>
@@ -410,25 +415,27 @@ export const CreateProductForm = ({
                 extralable="- Your product will go live and visible to audience for a purchase once you complete the creation of your product page"
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
-                onChange={(e) =>
+                onChange={(e) =>{
+                  console.log("e is", e)
                   setFieldValue(
                     "product_visibility_status",
                     e || activateStatus[0]?.id
-                  )
+                  )}
                 }
               />
               <Radio
                 value={values.product_visibility_status}
                 content={2}
                 label="Deactivated"
-                extralable="- Your product would not be visible on your store page but anyone with its direct link can purchase it."
+                extralable="- Nobody would be able to access or purchase this product until you activate it."
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
-                onChange={(e) =>
+                onChange={(e) =>{
+                  console.log("e is", e)
                   setFieldValue(
                     "product_visibility_status",
                     e || deActivateStatus[0]?.id
-                  )
+                  )}
                 }
               />
               <Radio
@@ -438,11 +445,12 @@ export const CreateProductForm = ({
                 extralable="- Your product would not be visible on your store page but anyone with its direct link can purchase it."
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
-                onChange={(e) =>
+                onChange={(e) =>{
+                  console.log("e is", e)
                   setFieldValue(
                     "product_visibility_status",
                     e || unListStatus[0]?.id
-                  )
+                  )}
                 }
               />
             </div>

@@ -39,6 +39,24 @@
     align-items: center;
     font-weight: 600;
 }
+.titleMain{
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 32px;
+    color: #0072EF;    
+}
+.titleMain2{
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 32px;
+    color: #262626;    
+}
+.accessControl{
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 26px;
+    color: #595959;    
+}
 .miniSaveButton{
     button{
         border-radius: 8px;
@@ -118,7 +136,18 @@
 }
 .managedContent{
     padding: 15px 80px 15px 40px;
-
+    .productName{
+        font-weight: 500;
+        font-size: 1.125rem;
+        line-height: 28px;
+        color: #262626;        
+    }
+    .digitalProductSize{
+        font-weight: 500;
+        font-size: 0.875rem;
+        line-height: 24px;
+        color: #8C8C8C;        
+    }
 }
 .fileImage{
     margin-right: 12px;

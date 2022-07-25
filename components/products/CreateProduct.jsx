@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { CreateProductForm } from "components";
 import styles from "./CreateProduct.module.scss";
@@ -17,6 +17,9 @@ import { GetProductTypes } from "redux/actions";
 
 export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab}) => {
   const getProductTypes = GetProductTypes();
+
+  // 
+  const prodRef = useRef(null);
 
   const [tab, setTab] = useState(1);
   const [iconHover, setIconHover] = useState({
@@ -37,6 +40,8 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
   const [isBank, setIsBank] = useState(false)
   const [isTypeEditable, setIsTypeEditable] = useState(false)
   const [isBasic, setIsBasic] = useState(true)
+  const [productsMounted, setProductMounted] = useState(false);
+  const [mountedCount, setMountedCount] = useState(0);
 
   const router = useRouter()
   useEffect(()=>{
@@ -55,8 +60,13 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
     }
   }, [store])
 
+  // console.log("tab is", tab);
+  // console.log("isTypeEditable is", isTypeEditable);
+  // console.log("productsMounted is", productsMounted);
+  // console.log("mountedCount is", mountedCount);
+
   useEffect(()=>{
-    if(Object.keys(product).length > 0 ){
+    if(Object.keys(product).length > 0 && !!productsMounted && mountedCount === 1){
       const {product_type_details} = product
       switch(product_type_details){
         case "Digital Download":
@@ -73,7 +83,17 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
           break; 
       }
     }
+  }, [product, mountedCount,productsMounted])
+
+  useEffect(()=>{
+    setProductMounted(true);
+    setMountedCount(prev=>prev+1);
+    return () =>{
+      setProductMounted(false);
+    }
   }, [product])
+
+  
 
   useEffect(()=>{
     if(selectedTab){
@@ -117,10 +137,11 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
             } w-full`}
             key={digitalDownloadMenu[0]?.id ?? 1}
             onClick={() => {
-              if(isTypeEditable && tab !==1){
-                return
-              }
-              setTab(digitalDownloadMenu[0]?.id) ?? 1
+              // if(isTypeEditable && tab !==1){
+              //   return
+              // }
+              setSelectedTab(digitalDownloadMenu[0]?.id ?? 1)
+              setTab(digitalDownloadMenu[0]?.id ?? 1)
             }}
             onMouseEnter={() =>
               setIconHover({
@@ -162,10 +183,12 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
             } w-full`}
             key={oneTimeSubMenu[0]?.id ?? 2}
             onClick={() => {
-              if(isTypeEditable && tab !==2){
-                return
-              }
-              setTab(oneTimeSubMenu[0]?.id) ?? 2}}
+              // if(isTypeEditable && tab !==2){
+              //   return
+              // }
+              setSelectedTab(oneTimeSubMenu[0]?.id ?? 2)
+              setTab(oneTimeSubMenu[0]?.id ?? 2)
+            }}
             onMouseEnter={() =>
               setIconHover({
                 ...iconHover,
@@ -208,10 +231,12 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
             } w-full`}
             key={membershipMenu[0]?.id ?? 3}
             onClick={() => {
-              if(isTypeEditable && tab !==3){
-                return
-              }
-              setTab(membershipMenu[0]?.id) ?? 3}}
+              // if(isTypeEditable && tab !==3){
+              //   return
+              // }
+              setSelectedTab(membershipMenu[0]?.id ?? 3)
+              setTab(membershipMenu[0]?.id ?? 3)
+              }}
             onMouseEnter={() =>
               setIconHover({
                 ...iconHover,
@@ -249,7 +274,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
         </Col>
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
-      {(!isBasic && tab !== 1) ? <div className={styles.businessPlan}>
+      {(tab !== 1) ? <div className={styles.businessPlan}>
         <h2 className="text-base w-full font-normal">This action requires a business plan, click <Link href="/account/kreator/settings">here</Link> to subscribe</h2>
         </div>: <></>}
       <div className="mt-8 mb-4">
