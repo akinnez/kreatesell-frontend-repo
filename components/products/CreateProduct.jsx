@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { CreateProductForm } from "components";
 import styles from "./CreateProduct.module.scss";
@@ -17,9 +17,6 @@ import { GetProductTypes } from "redux/actions";
 
 export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab}) => {
   const getProductTypes = GetProductTypes();
-
-  // 
-  const prodRef = useRef(null);
 
   const [tab, setTab] = useState(1);
   const [iconHover, setIconHover] = useState({
@@ -137,6 +134,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
             } w-full`}
             key={digitalDownloadMenu[0]?.id ?? 1}
             onClick={() => {
+              // TODO: Investigate what this line below doing
               // if(isTypeEditable && tab !==1){
               //   return
               // }

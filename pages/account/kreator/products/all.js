@@ -45,6 +45,7 @@ const AllProducts = () => {
   const [productData, setProductData] = useState([]);
   const [productName, setProductName] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [currencyFilter, setCurrencyFilter] = useState("");
   const [productStatusId, setProductStatusId] = useState("");
   const [endDate, setEndDate] = useState("");
   const [domainLink, setDomainLink] = useState("");
@@ -67,7 +68,7 @@ const AllProducts = () => {
 					key: i+1,
 					product_image: item?.product_images?.filter(images => images?.file_type !== 4).map(item => {
 						const arr = item?.filename?.split(',')
-						return [...arr]
+						return !!arr ? [...arr]: [];
 					  })[0],
 					product_name: item?.product_details?.product_name,
 					product_type: item?.product_details?.product_type?.product_type_name,
@@ -105,7 +106,7 @@ const AllProducts = () => {
     }
   }, [store]);
   const handleSearchSubmit = () => {
-    getProducts(1, productName, startDate, endDate, () => console.log("done"));
+    getProducts(1, productName, startDate, endDate, currencyFilter, () => console.log("done"));
     console.log(productName, startDate, endDate);
   };
   const handlePaginationChange = page => getProducts(page);
@@ -237,6 +238,7 @@ const AllProducts = () => {
             // console.log(string);
             setStartDate(string);
           }}
+          handleCurrencyChange={(e)=>setCurrencyFilter(e)}
           handleEndDate={(e, string) => setEndDate(string)}
           // productStatusOptions={productStatusOptions}
           // handleProductStatus={(e) => setProductStatusId(e)}
