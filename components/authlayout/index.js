@@ -94,7 +94,7 @@ const Index = ({
     <>
       <Layout>
         <Sider
-          width={300}
+          width={250}
           theme="light"
           style={{
             height: "100vh",
@@ -106,7 +106,7 @@ const Index = ({
           breakpoint="lg"
           collapsedWidth={0}
         >
-          <div style={{ padding: "0 15px" }}>
+          <div style={{ padding: "0 5px" }}>
             <Logo />
             <Sidebar />
           </div>
