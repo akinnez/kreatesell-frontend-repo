@@ -180,8 +180,18 @@ import MobileTrashIcon from "../public/images/mobileTrashIcon.svg"
 import MobileViewSubscribers from "../public/images/mobileViewSubscribers.svg"
 import AccordionDown from "../public/images/accordionDownArrow.svg"
 import AccordionRight from "../public/images/accordionRightArrow.svg"
+import PlayIcon2 from "../public/images/playIcon.svg"
+import PlayIconBlue from "../public/images/playIcon2.svg"
+import LogoV2 from "../public/images/logoV2.svg"
+import WhiteEye from "../public/images/whiteEye.svg"
+import CheckIconGreen from "../public/images/checkIconGreen.svg"
 
 export {
+  CheckIconGreen,
+  WhiteEye,
+  LogoV2,
+  PlayIconBlue,
+  PlayIcon2,
   AccordionRight,
   AccordionDown,
   MobileCopyIcon,
