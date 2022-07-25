@@ -10,6 +10,7 @@ export const CouponHeader = ({
 	handleStartDate,
 	handleEndDate,
 	handleSearchSubmit,
+  handleCurrencyChange,
 	productStatusOptions,
 }) => {
 	const [form] = Form.useForm();
@@ -47,7 +48,7 @@ export const CouponHeader = ({
                     options={currencyOptions}
                     className={styles.selectRadius}
                     placeholder="NGN"
-                    // onChange={handleSelect("currency")}
+                    onChange={(e)=>handleCurrencyChange(e)}
                   />
                 </Form.Item>
               </Col>
