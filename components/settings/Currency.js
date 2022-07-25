@@ -4,12 +4,15 @@ import CustomerCurrency from './CustomerCurrency'
 import ApiService from '../../utils/axios'
 import Loader from '../loader'
 
+import useCurrency from 'hooks/useCurrency';
+
 
 
 const Index = ()=>{
 
     const [state, setState] = useState()
     const [loading, setLoading] = useState(false)
+    const {countriesCurrency, filterdWest, filteredCentral} = useCurrency();
 
     useEffect(()=>{
         setLoading(true)
@@ -27,8 +30,8 @@ const Index = ()=>{
         {
             loading ? <Loader />:
             <>
-            <ProductCurrency list={state}/>
-            <CustomerCurrency list={state}/>
+            <ProductCurrency list={state} {...{filteredCentral, filterdWest, countriesCurrency}}/>
+            <CustomerCurrency list={state} {...{filteredCentral, filterdWest, countriesCurrency}}/>
             </>
         }
     
