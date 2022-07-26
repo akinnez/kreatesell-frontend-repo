@@ -88,6 +88,8 @@
 
   .businessBg {
     width: 100%;
+    // max-width: 158.41px;
+    // max-height: 129px;
     margin-top: 80px;
     margin-bottom: 50px;
     // margin-left: 18.79px;
@@ -95,7 +97,36 @@
     // width: 158.41px;
     // height: 129px;
     // height: 100%;
-    border-radius: 16px;
-    background: linear-gradient(163.16deg, #0066ff 10.04%, #009435 101.52%);
+
+    // background: linear-gradient(163.16deg, #0066ff 10.04%, #009435 101.52%);
+    .iconBox {
+      // margin-left: 13.21px;
+      // margin-top: 12.29px;
+      // padding: 13px;
+      border: 1px solid red;
+      border-radius: 16px;
+      background: linear-gradient(163.16deg, #0066ff 10.04%, #009435 101.52%);
+      .icon {
+        // background-color: #fff;
+        width: unset;
+        border: 1px solid blue;
+        padding-left: 13px;
+        margin-top: 12.31px;
+        > svg {
+          background-color: #fff;
+        }
+      }
+      .text {
+        color: #fff;
+        padding-left: 13px;
+        //styleName: Body/ Body 3;
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+
+        text-align: left;
+      }
+    }
   }
 }
