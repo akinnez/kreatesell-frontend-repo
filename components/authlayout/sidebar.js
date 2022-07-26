@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Menu } from "antd";
 import style from "./sidebar.module.scss";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { SetProductDefault, SetProductID } from "redux/actions";
 import Image from "next/image";
 import {
@@ -210,7 +210,16 @@ const Sidebar = () => {
       </Menu>
       <section className={style.businessBg}>
         <div className={style.iconBox}>
-          <Image src={BusinessPlanBox} alt="business plan icon" />
+          <div className={style.icon}>
+            <Image src={BusinessPlanBox} alt="business plan icon" />
+          </div>
+          <p className={style.text}>
+            Enjoy the power of
+            <br /> premium options
+          </p>
+          <div className={style.btnCont}>
+            <button className={style.btn}>GO BUSINESS PLAN</button>
+          </div>
         </div>
       </section>
     </div>
