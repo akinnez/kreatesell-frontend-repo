@@ -112,6 +112,7 @@
         width: unset;
         border: 1px solid transparent;
         padding-left: 13px;
+
         margin-top: 12.31px;
         > div {
           background-color: #fff;
@@ -123,8 +124,9 @@
           img {
             width: 30px !important;
             height: 30px !important;
-            padding: 7px;
+            padding: 7px !important;
             margin: 7px;
+            object-fit: contain;
           }
         }
       }
@@ -136,7 +138,7 @@
         font-size: 12px;
         font-weight: 400;
         line-height: 18px;
-
+        margin-bottom: unset !important;
         text-align: left;
       }
     }
@@ -161,7 +163,7 @@
         text-align: center;
         cursor: pointer;
         border-radius: 8px;
-        margin: 1px 10.65px 12.29px 6.55px;
+        margin: 0 10.65px 12.29px 6.55px;
       }
     }
   }
