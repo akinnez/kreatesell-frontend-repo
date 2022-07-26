@@ -214,9 +214,12 @@ const Sidebar = () => {
             <Image src={BusinessPlanBox} alt="business plan icon" />
           </div>
           <p className={style.text}>
-            Enjoy the power <br />
-            of premium options
+            Enjoy the power of
+            <br /> premium options
           </p>
+          <div className={style.btnCont}>
+            <button className={style.btn}>GO BUSINESS PLAN</button>
+          </div>
         </div>
       </section>
     </div>

@@ -87,10 +87,11 @@
   }
 
   .businessBg {
-    width: 100%;
+    width: 96%;
     // max-width: 158.41px;
     // max-height: 129px;
     margin-top: 80px;
+    margin-left: 2%;
     margin-bottom: 50px;
     // margin-left: 18.79px;
     // margin-right: 16.79px;
@@ -103,17 +104,28 @@
       // margin-left: 13.21px;
       // margin-top: 12.29px;
       // padding: 13px;
-      border: 1px solid red;
+      border: 1px solid transparent;
       border-radius: 16px;
       background: linear-gradient(163.16deg, #0066ff 10.04%, #009435 101.52%);
       .icon {
         // background-color: #fff;
         width: unset;
-        border: 1px solid blue;
+        border: 1px solid transparent;
         padding-left: 13px;
         margin-top: 12.31px;
-        > svg {
+        > div {
           background-color: #fff;
+          border-radius: 6px;
+          padding: 0.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 30px !important;
+            height: 30px !important;
+            padding: 7px;
+            margin: 7px;
+          }
         }
       }
       .text {
@@ -126,6 +138,30 @@
         line-height: 18px;
 
         text-align: left;
+      }
+    }
+
+    .btnCont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .btn {
+        background-color: #fff;
+        padding: 9px 11.53px;
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: 0px;
+        text-align: left;
+        width: 100%;
+        outline: none;
+        border: none;
+        color: #0072ef;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 8px;
+        margin: 1px 10.65px 12.29px 6.55px;
       }
     }
   }
