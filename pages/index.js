@@ -690,9 +690,7 @@ export default function Home() {
           <div className={styles.footerInput}>
             <InputButton
               name="email"
-              placeholder="Enter yo
-              
-              ur email..."
+              placeholder="Enter your email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
               onChange={(e) => setEmail(e.target.value)}
