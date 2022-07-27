@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styles from "./index.module.scss";
 
 const links = [
-  { label: "All", value: "all", url: "/account/dashboard" },
+  { label: "Both", value: "both", url: "/account/dashboard" },
   { label: "Kreator", value: "kreator", url: "/account/dashboard/kreator" },
   {
     label: "Affiliate",
@@ -17,7 +17,7 @@ const DashboardLinks = () => {
 
   return (
     <div className={styles.links}>
-      {links.map(link => (
+      {links.map((link) => (
         <Link key={link.label} href={link.url}>
           <a
             className={`${styles.link} ${
