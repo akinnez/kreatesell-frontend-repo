@@ -69,7 +69,6 @@ const PreviewMembership = () => {
       return <h1>Loading...</h1>
     }
   
-    console.log("active link", activeLink);
   return (
     <>
     <Head>
