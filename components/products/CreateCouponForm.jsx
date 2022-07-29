@@ -168,14 +168,21 @@ export const CreateCouponForm = () =>{
                             <Radio className={styles.radioContent} value={false} checked={!isAllProduct ? true : false}>Choose Speific Product</Radio>
                         </Radio.Group>
                     </div>
+                    
                     <Select
+                        showSearch
+                        optionFilterProp="children"
                         name="product_id"
                         placeholder="Select Product"
                         onChange={(e)=>setFieldValue("coupon_settings.product_id", e)}
+                        filterOption={(input, option) => {
+                            return option.label.toLowerCase().includes(input.toLowerCase())
+                        }}
                         disabled={isAllProduct ? true : false}
                         options={productList}
                         className={styles.selectField}
                     />
+                    
                 </div>
 
                 <div className="flex flex-col mt-5">
