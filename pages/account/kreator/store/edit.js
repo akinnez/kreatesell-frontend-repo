@@ -77,6 +77,10 @@ const Index = ()=>{
             handlePhoneCode(form.getFieldValue("Country_Id"));
         }
     }, [countries.length])
+
+    const notNull = (val) => {
+        return !!val && val !== "null";
+    }
     
 
 
@@ -89,22 +93,23 @@ const Index = ()=>{
                     Profile_Picture:data?.store_details?.display_picture,
                     Cover_Picture:data?.store_details?.cover_page
                 })
+                console.log("data", data);
                 setLoading({...loading,fetching:false})
                 form.setFieldsValue({
-                    Brand_Name:data?.store_details?.brand_name,
-                    Store_Name:data?.store_details?.store_name, 
-                    Bio_Data:data?.store_details?.bio_data,
-                    Country_Id:data?.store_details?.country_name, 
-                    Mobile_Number:data?.store_details?.mobile_number,
-                    Facebook:data?.store_details?.facebook,
-                    Twitter:data?.store_details?.twitter,
-                    Instagram:data?.store_details?.instagram,
-                    Linkedln:data?.store_details?.linked_ln})
+                    Brand_Name:notNull(data?.store_details?.brand_name) ? data?.store_details?.brand_name : "",
+                    Store_Name: notNull(data?.store_details?.store_name)?data?.store_details?.store_name: "", 
+                    Bio_Data: notNull(data?.store_details?.bio_data)?data?.store_details?.bio_data: "",
+                    Country_Id: notNull(data?.store_details?.country_name)?data?.store_details?.country_name: "", 
+                    Mobile_Number: notNull(data?.store_details?.mobile_number)?data?.store_details?.mobile_number: "",
+                    Facebook: notNull(data?.store_details?.facebook)?data?.store_details?.facebook: "",
+                    Twitter: notNull(data?.store_details?.twitter)?data?.store_details?.twitter: "",
+                    Instagram: notNull(data?.store_details?.instagram)?data?.store_details?.instagram: "",
+                    Linkedln: notNull(data?.store_details?.linked_ln)?data?.store_details?.linked_ln: ""})
             },
             (err) => {console.log(err)},
         )
     },[])
-
+ 
     return(
         <>
         

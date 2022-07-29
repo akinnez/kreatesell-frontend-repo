@@ -12,6 +12,7 @@ import {
   CloudDownload,
   isAnEmpytyObject,
   showToast,
+  CheckIconGreen
 } from "utils";
 import styles from "../public/css/checkout.module.scss";
 import { Input, Button } from "components";
@@ -42,7 +43,7 @@ const Checkout = () => {
   const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
 
   const filterdWest = useMemo(()=> {
-    const cn = ['Benin', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
+    const cn = ['Benin Republic', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
     return countries.filter(c => cn.includes(c.name))
   }, [countries])
 
@@ -236,7 +237,7 @@ const Checkout = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full">
-          <div style={{height: "fit-content"}} className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-20">
+          <div style={{height: "fit-content"}} className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16">
               <form>
                 <div>
                   <div className="text-black-100 font-bold text-lg mb-4">Personal Info</div>
@@ -299,7 +300,7 @@ const Checkout = () => {
                   Select your preferred currency and get price equivalent
                 </p>
 
-                <div className="grid gap-4 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+                <div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
                   {
                     countriesCurrency.map((country, index)=>(
                       <div
@@ -318,8 +319,8 @@ const Checkout = () => {
                         <Image
                           src={ActiveTick}
                           alt="active"
-                          width="16"
-                          height="16"
+                          width="20"
+                          height="20"
                         />
                       </div>
                     )}
@@ -412,6 +413,7 @@ const Checkout = () => {
 											onClick={() => setPaymentMethod("Stripe")}
 										>
 											<Image src={Stripe} alt="pay with stripe" />
+                      {paymentMethod === "Stripe" && <Image src={CheckIconGreen} alt="" />}
 										</div>
 
 										<div
@@ -423,6 +425,7 @@ const Checkout = () => {
 											onClick={() => setPaymentMethod("Paypal")}
 										>
 											<Image src={Paypal} alt="pay with stripe" />
+                      {paymentMethod === "Paypal" && <Image src={CheckIconGreen} alt="" />}
 										</div>
 
 										<div
@@ -434,6 +437,7 @@ const Checkout = () => {
 											onClick={() => setPaymentMethod("Crypto")}
 										>
 											<Image src={Crypto} alt="pay with stripe" />
+                      {paymentMethod === "Crypto" && <Image src={CheckIconGreen} alt="" />}
 										</div>
 									</div>
 								</div>

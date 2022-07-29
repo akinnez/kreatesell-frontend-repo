@@ -27,7 +27,7 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, toSectio
     useEffect(()=>{
         if(Object.keys(product).length > 0){
             const {product_content} = product
-            console.log(product_content)
+            // console.log(product_content)
             setProductData(product_content)
         }
     }, [product])
@@ -52,10 +52,11 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, toSectio
             getProduct(productID)
         })
     }
+    
   return (
     <div className="flex flex-col mt-7">
             <div className={`flex items-center justify-between mb-7 ${styles.sectionContainerTitle}`}>
-                <h1 className={``} style={{color: "#0072ef"}}>How to Invest in Crypocurrency</h1>
+                <h1 className={``} style={{color: "#0072ef"}}>{product?.product_details?.product_name}</h1>
                 {fields === 'empty' && <div className={styles.miniSaveButton}>
                     <Button onClick={()=>{ 
                         addSection()
@@ -65,13 +66,13 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, toSectio
                 {fields === 'adding section' && <div className={styles.miniSaveButtons + " flex"}>
                     <Button type="default" icon={<Image src={Subscribers} alt="empty"/>} onClick={() => route.push(`/account/kreator/products/view-subscribers`)}>  View Subscribers</Button>
                     <Button type="primary" onClick={()=> toManageSection()} style={{color: "#0072ef"}}>Manage All Sections</Button>
-                    <Button type="primary">Preview Membership</Button>
+                    <Button type="primary" onClick={() => route.push(`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`)}>Preview Membership</Button>
                 </div>}
                 {/* mobile */}
                 {fields === 'adding section' && <div className={styles.miniSaveButtonsMobile + " flex"}>
-                    <Button type="default"><Image src={MobileViewSubscribers} alt="empty"/></Button>
+                    <Button type="default" onClick={() => route.push(`/account/kreator/products/view-subscribers`)}><Image src={MobileViewSubscribers} alt="empty"/></Button>
                     <Button type="primary" className="flex gap-x-2" onClick={()=> toManageSection()} icon={<Image src={MobileSettingsIcon} />} style={{color: "#0072ef"}}> {"  "}Manage All</Button>
-                    <Button type="primary">Preview</Button>
+                    <Button type="primary" onClick={() => route.push(`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`)}>Preview</Button>
                 </div>}
             </div>
            {fields === 'empty' && <> <div className={productStyles.emptyTable +" bg-white flex flex-col"}>

@@ -41,6 +41,9 @@ export const oneTimeSubscriptionAndMembershipSchema = () => {
 		),
 		product_type_id: Yup.number(),
 		cover_image: Yup.string(),
+		product_images: Yup.object().shape({
+			productFiles: Yup.array().min(1, "Please upload at least one Product Image to proceed")
+		}),
 	});
 };
 

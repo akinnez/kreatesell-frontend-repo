@@ -92,7 +92,7 @@ export default function ManageContent({setIsTabsActive, setMajorPage, content}){
 					<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">Back</h3>
 			</div>
             <div className="flex items-center justify-between mb-7">
-                <h1 className="text-2xl text-blue-600 font-bold">How to Invest in Crypocurrency</h1>
+                <h1 className={`text-2xl text-blue-600 font-bold ${style.titleMain}`}>How to Invest in Crypocurrency</h1>
             </div>
             <div className={style.contentContainer + " bg-white rounded-lg"}>
                 <div className={style.contents}>

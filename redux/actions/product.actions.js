@@ -123,6 +123,7 @@ export const GetProducts = () => {
 		product_Name = "",
 		StartDate,
 		endDate,
+		currencyFilter,
 		successCallback,
 		errorCallback
 	) => {
@@ -133,6 +134,7 @@ export const GetProducts = () => {
 			${product_Name ? `&product_name=${product_Name}` : ""}
 			${StartDate ? `&StartDate=${StartDate}` : ""}
 			${endDate ? `&endDate=${endDate}` : ""}
+			${currencyFilter ? `&Currency_Id=${currencyFilter}` : ""}
 			`,
 			(res) => {
 				const products = res?.data?.data;

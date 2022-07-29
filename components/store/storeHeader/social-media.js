@@ -1,6 +1,10 @@
 import React from "react";
+
+import {useSelector} from "react-redux";
 import { Copy, Facebook, Twitter, Instagram, LinkedIn } from "../../IconPack";
 import { Divider } from "../../grid";
+
+import {_copyToClipboard} from "utils";
 import Link from "next/link";
 
 const Social = ({
@@ -9,6 +13,8 @@ const Social = ({
   instagram = "#",
   linkedIn = "#",
 }) => {
+  const {store} = useSelector((state)=>state.store);
+
   return (
     <>
       <div className="social-wrapper">
@@ -28,7 +34,7 @@ const Social = ({
           </a>
         </div>
         <Divider />
-        <div className="copy-wrapper">
+        <div className="copy-wrapper" onClick={()=>_copyToClipboard(store?.domain_details.domain_details[0].domain_url, "Link copied successfully")}>
           <Copy /> <span>Copy link</span>
         </div>
       </div>

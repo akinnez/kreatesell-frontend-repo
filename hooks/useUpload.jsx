@@ -63,5 +63,6 @@ export const useUpload = ({fileType}) => {
 		maxSize: fileType === "image" ? 2097152: 5368709120
 	})
 
+	// note: mainFile was not a rename, we assigned files to it
 	return { mainFile: files, getRootProps, getInputProps, deleteFile, setUrl, setFiles };
 };

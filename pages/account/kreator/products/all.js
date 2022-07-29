@@ -45,6 +45,7 @@ const AllProducts = () => {
   const [productData, setProductData] = useState([]);
   const [productName, setProductName] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [currencyFilter, setCurrencyFilter] = useState("");
   const [productStatusId, setProductStatusId] = useState("");
   const [endDate, setEndDate] = useState("");
   const [domainLink, setDomainLink] = useState("");
@@ -67,7 +68,7 @@ const AllProducts = () => {
 					key: i+1,
 					product_image: item?.product_images?.filter(images => images?.file_type !== 4).map(item => {
 						const arr = item?.filename?.split(',')
-						return [...arr]
+						return !!arr ? [...arr]: [];
 					  })[0],
 					product_name: item?.product_details?.product_name,
 					product_type: item?.product_details?.product_type?.product_type_name,
@@ -105,7 +106,7 @@ const AllProducts = () => {
     }
   }, [store]);
   const handleSearchSubmit = () => {
-    getProducts(1, productName, startDate, endDate, () => console.log("done"));
+    getProducts(1, productName, startDate, endDate, currencyFilter, () => console.log("done"));
     console.log(productName, startDate, endDate);
   };
   const handlePaginationChange = page => getProducts(page);
@@ -213,6 +214,16 @@ const AllProducts = () => {
     return <p> <span>In Stock: </span><div style={{background: availablityList[status], height:"8px", width:"8px", borderRadius:"50%"}} className={`inline-block mr-2 ${styles.availabilityDot}`}></div>{status}</p>
 
   }
+
+  const resetFilters = () => {
+    // setProductData();
+    setStartDate();
+    setEndDate();
+    setCurrencyFilter();
+
+    // get products
+    getProducts();
+  }
   return (
     <AuthLayout>
       <div className={styles.allProduct + " pb-10"}>
@@ -232,12 +243,17 @@ const AllProducts = () => {
         </div>
         <CouponHeader
           handleSearchInput={e => setProductName(e.target.value)}
-          handleSearchSubmit={() => handleSearchSubmit()}
+          handleSearchSubmit={(cb) => {
+            handleSearchSubmit()
+            cb()
+            }}
           handleStartDate={(e, string) => {
             // console.log(string);
             setStartDate(string);
           }}
+          handleCurrencyChange={(e)=>setCurrencyFilter(e)}
           handleEndDate={(e, string) => setEndDate(string)}
+          {...{resetFilters}}
           // productStatusOptions={productStatusOptions}
           // handleProductStatus={(e) => setProductStatusId(e)}
         />

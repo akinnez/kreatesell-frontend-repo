@@ -1,34 +1,24 @@
-import React, {useState,useEffect} from 'react'
+import React from 'react'
 import ProductCurrency from './ProductCurrency'
 import CustomerCurrency from './CustomerCurrency'
-import ApiService from '../../utils/axios'
 import Loader from '../loader'
+
+import useCurrency from 'hooks/useCurrency';
 
 
 
 const Index = ()=>{
 
-    const [state, setState] = useState()
-    const [loading, setLoading] = useState(false)
+    const {countriesCurrency, filterdWest, filteredCentral, loading} = useCurrency();
 
-    useEffect(()=>{
-        setLoading(true)
-        ApiService.request(
-            'GET',
-            'v1/kreatesell/utils/allowed-currencies',
-            (res)=>{
-                setLoading(false)
-                const item = res?.data?.currencies?.map(({id,short_name})=>({label:short_name,value:id}))
-                setState(item)
-            })
-    },[])
+    // console.log("countriesCurrency", countriesCurrency)
     return(
         <>
         {
             loading ? <Loader />:
             <>
-            <ProductCurrency list={state}/>
-            <CustomerCurrency list={state}/>
+            <ProductCurrency  {...{filteredCentral, filterdWest, countriesCurrency}}/>
+            <CustomerCurrency {...{filteredCentral, filterdWest, countriesCurrency}}/>
             </>
         }
     

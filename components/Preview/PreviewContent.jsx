@@ -41,7 +41,7 @@ export default function PreviewContent (){
       }
     useEffect(()=>{
         if(Object.keys(product).length > 0){
-            console.log('from preview',product)
+            // console.log('from preview',product)
             setDetails(product?.product_details)
             setImages(...product?.product_images?.filter(images => images?.file_type !== 4)?.map(item => {
                 const arr = item?.filename?.split(',')
@@ -104,8 +104,8 @@ export default function PreviewContent (){
                         <div className='flex  ml-6 flex-col'>
                             {Object.keys(user).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{user?.full_name}</h2>}
                             <div className={styles.visitLink}>
-                                <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'>Visit Store</Link>
-                                <Image src={ExternalLink} alt="link" />
+                                <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'><>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></></Link>
+                                
                             </div>
                         </div>
                     </div>
