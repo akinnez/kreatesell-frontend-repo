@@ -52,7 +52,7 @@ import { SubscribeEmailSchema } from "../validation";
 import { useFormik } from "formik";
 import { GuestSubscription } from "../redux/actions";
 import { useSelector } from "react-redux";
-import { useGetBlogPosts } from "services/swrQueryHooks/blogs";
+import { useGetBlogPosts } from "services/swrQueryHooks/Blogs";
 
 export default function Home() {
   const router = useRouter();
