@@ -31,20 +31,20 @@ const Campaigns = () => {
 
   useEffect(() => {
     if (uri) {
-      setCampaigns(s => ({ ...s, loading: true }));
+      setCampaigns((s) => ({ ...s, loading: true }));
       axiosAPI.request(
         "get",
         uri,
-        res => {
-          setCampaigns(s => ({
+        (res) => {
+          setCampaigns((s) => ({
             ...s,
             data: res.data.data,
             total: res.data.total_records,
             loading: false,
           }));
         },
-        err => {
-          setCampaigns(s => ({ ...s, loading: false }));
+        (err) => {
+          setCampaigns((s) => ({ ...s, loading: false }));
           setError(err.message);
           showToast(err.message, "error");
         }
@@ -64,54 +64,62 @@ const Campaigns = () => {
 
   if (!campaigns.data) return <Spinner />;
 
-  const handlePageChange = page => {
+  const handlePageChange = (page) => {
     setFilters({ ...filters, page });
   };
 
+  const emptyCampaign = campaigns?.data?.length === 0 ? true : false;
+
   return (
-    <Card className={styles.card}>
+    <div
+      className={`${styles.campaignBox} ${
+        emptyCampaign ? styles.emptyCampaign : ""
+      }`}
+    >
       <header className={styles.header}>
         <h3>Manage All Your Email Campaigns Here.</h3>
       </header>
-      <Spin spinning={campaigns.loading}>
-        {campaigns.data.length === 0 ? (
-          <div className={styles.no__data}>
-            <Image src={Clipboard} alt="clipboard" width={200} height={200} />
-            <p>No record yet</p>
-          </div>
-        ) : (
-          <>
-            <PaginationSizeChanger
-              dataSize={campaigns.total}
-              filters={filters}
-              setFilters={setFilters}
-            />
-            <article className={styles.campaign__wrapper}>
-              <div className={styles.campaigns__container}>
-                {campaigns.data.map(campaign => (
-                  <Campaign key={campaign.id} campaign={campaign} />
-                ))}
-              </div>
-              <Link href="/account/kreator/abandoned-carts/add">
-                <a>
-                  <BsPlusLg />
-                  &nbsp; Add Email
-                </a>
-              </Link>
-            </article>
-            {campaigns.data.length > 0 && (
-              <Pagination
-                pageSize={filters.limit}
-                current={filters.page}
-                total={campaigns.total}
-                responsive={true}
-                onChange={handlePageChange}
+      <Card className={styles.card}>
+        <Spin spinning={campaigns.loading}>
+          {campaigns.data.length === 0 ? (
+            <div className={styles.no__data}>
+              <Image src={Clipboard} alt="clipboard" width={200} height={200} />
+              <p>No record yet</p>
+            </div>
+          ) : (
+            <>
+              <PaginationSizeChanger
+                dataSize={campaigns.total}
+                filters={filters}
+                setFilters={setFilters}
               />
-            )}
-          </>
-        )}
-      </Spin>
-    </Card>
+              <article className={styles.campaign__wrapper}>
+                <div className={styles.campaigns__container}>
+                  {campaigns.data.map((campaign) => (
+                    <Campaign key={campaign.id} campaign={campaign} />
+                  ))}
+                </div>
+                <Link href="/account/kreator/abandoned-carts/add">
+                  <a>
+                    <BsPlusLg />
+                    &nbsp; Add Email
+                  </a>
+                </Link>
+              </article>
+              {campaigns.data.length > 0 && (
+                <Pagination
+                  pageSize={filters.limit}
+                  current={filters.page}
+                  total={campaigns.total}
+                  responsive={true}
+                  onChange={handlePageChange}
+                />
+              )}
+            </>
+          )}
+        </Spin>
+      </Card>
+    </div>
   );
 };
 
