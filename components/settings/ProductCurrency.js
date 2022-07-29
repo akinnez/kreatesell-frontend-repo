@@ -10,7 +10,7 @@ import ApiService from '../../utils/axios'
 
 
 const Index = ({list=[], countriesCurrency, filteredCentral, filterdWest})=>{
-  
+
 
     return(
         <div className={style.wrapper}>

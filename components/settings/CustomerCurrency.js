@@ -7,7 +7,7 @@ import { Checkbox, Row, Col, Spin } from "antd";
 import { Button } from "../form-input";
 
 const Index = ({ list = [], countriesCurrency, filteredCentral, filterdWest}) => {
-  console.log("filterdWest", filterdWest);
+  // console.log("filterdWest", filterdWest);
   return (
     <div className={style.wrapper}>
       <div className={style.bordered}>
