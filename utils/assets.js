@@ -182,7 +182,7 @@ import AccordionDown from "../public/images/accordionDownArrow.svg"
 import AccordionRight from "../public/images/accordionRightArrow.svg"
 import PlayIcon2 from "../public/images/playIcon.svg"
 import PlayIconBlue from "../public/images/playIcon2.svg"
-import LogoV2 from "../public/images/logoV2.svg"
+import LogoV2 from "../public/images/logov2.svg"
 import WhiteEye from "../public/images/whiteEye.svg"
 import CheckIconGreen from "../public/images/checkIconGreen.svg"
 import YourTurn from "../public/images/yourTurn.jpeg";
