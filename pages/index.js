@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   InputButton,
   Layout,
@@ -52,13 +52,24 @@ import { SubscribeEmailSchema } from "../validation";
 import { useFormik } from "formik";
 import { GuestSubscription } from "../redux/actions";
 import { useSelector } from "react-redux";
+import { useGetBlogPosts } from "services/swrQueryHooks/blogs";
 
 export default function Home() {
   const router = useRouter();
+  const {data: blogData, error: blogError} = useGetBlogPosts(6);
+  const [blogPosts, setBlogPosts] = useState([]);
 
+  
   const [modalVisible, setVisible] = useState(false);
   const [email, setEmail] = useState("");
-
+  useEffect(() => {
+    let data = blogData?.slice(0,6)
+    setBlogPosts(data);
+    return () => {
+      
+    }
+  }, [blogData?.length])
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -588,25 +599,25 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <section className={styles.parentCard}>
+          
+          {(Array.isArray(blogPosts) && blogPosts.length>2) && <section className={styles.parentCard}>
             <div className={styles.profileAndCard}>
               {/* mobiile - section 1 */}
               <div className={styles.newsFront}>
                 <Image
-                  src={CardMain}
+                  src={blogPosts[0]?.thumbnail}
+                  width={300}
+                  height={300}
                   alt="main"
                   className={styles.cardMain}
                   layout="responsive"
                 />
                 <div className={`${styles.profileCard} ${styles.mb}`}>
                   <h5>
-                    Google I / O 2020 <br />
-                    news update
+                    {blogPosts[0]?.title}
                   </h5>
                   <p>
-                    Out of concern for the health and safety of our developers,
-                    employees, and local communities — and in line with recent
-                    ...
+                    {blogPosts[0]?.description}
                   </p>
                   <section className={styles.profile}>
                     <Image
@@ -618,17 +629,17 @@ export default function Home() {
                       layout="responsive"
                     />
                     <div className={styles.contact}>
-                      <p>Babatunde Amotekun</p>
-                      <p>CEO at Tuntek Agency</p>
+                      <p>{blogPosts[0]?.app_user?.full_name}</p>
+                      <p>Staff at {blogPosts[0]?.app_user?.store_name}</p>
                     </div>
                   </section>
                 </div>
                 <div className={styles.min}>
                   <NewsCard
-                    imgSrc={NewsCardThree}
-                    mainText={`Minimal workspace for `}
+                    imgSrc={blogPosts[1]?.thumbnail}
+                    mainText={blogPosts[1]?.title}
                     drop="inspirations"
-                    authorName="Anthony Masional"
+                    authorName={blogPosts[1]?.app_user.full_name}
                   />
                 </div>
               </div>
@@ -636,19 +647,20 @@ export default function Home() {
               {/* end of section 1 */}
 
               <div className={styles.newsCardsGridWithTopImageM}>
+              {blogPosts.slice(2,6).map((blog)=>(
                 <NewsCard
-                  imgSrc={NewsCardOne}
-                  mainText="Does productivity increase when working remotely ? "
-                  authorName="Franck Martin"
+                  key={blog.id}
+                  imgSrc={blog.thumbnail}
+                  mainText={blog.title}
+                  authorName={blog.app_user.full_name}
                 />
+              ))}
 
-                {/* <div className={styles.lgCardTwo}> */}
-                <NewsCard
+                {/* <NewsCard
                   imgSrc={NewsCardTwo}
                   mainText="Morning routine to boost your mood"
                   authorName="Elizabeth swan"
                 />
-                {/* </div> */}
                 <div className={styles.min}>
                   <NewsCard
                     imgSrc={NewsCardThree}
@@ -661,7 +673,7 @@ export default function Home() {
                   imgSrc={NewsCardFour}
                   mainText="5+ tips to find comfortable co-working space"
                   authorName="Mykola Ilschenko"
-                />
+                /> */}
               </div>
             </div>
 
@@ -674,7 +686,7 @@ export default function Home() {
                 </span>
               </div>
             </Link>
-          </section>
+          </section>}
         </section>
         <div className={styles.subFooter}>
           <h3 className={styles.subFooterTitle}>
@@ -734,7 +746,7 @@ const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
       <div className={styles.newsImage}>
         <Image
           src={imgSrc}
-          // width="207" height="132"
+          width="207" height="132"
           alt="news card"
           layout="responsive"
         />
