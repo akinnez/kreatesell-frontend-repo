@@ -3,6 +3,7 @@ import { dayOptions, currencyOptions } from "./partials";
 import styles from "../../public/css/Dashboard.module.scss";
 import { Form, Button, DatePicker, Select, Row, Col, Input } from "antd";
 import {useState} from 'react'
+import ResetFilters from "components/ResetFilters";
 
 export const CouponHeader = ({
 	handleSearchInput,
@@ -12,6 +13,7 @@ export const CouponHeader = ({
 	handleSearchSubmit,
   handleCurrencyChange,
 	productStatusOptions,
+  resetFilters
 }) => {
 	const [form] = Form.useForm();
 	const [isFiltered, setIsFiltered] = useState(false);
@@ -21,7 +23,7 @@ export const CouponHeader = ({
 	return (
 		<div>
           <Form
-            onFinish={handleSearchSubmit}
+            onFinish={()=>handleSearchSubmit(()=>setIsFiltered(true))}
             size="large"
 			      layout="vertical"
             form={form}
@@ -87,6 +89,10 @@ export const CouponHeader = ({
               </Col>
             </Row>
           </Form>
+          {isFiltered && <ResetFilters resetFilters={()=>{
+            resetFilters()
+            setIsFiltered(false)  
+          }} />}
         </div>
 	);
 };
