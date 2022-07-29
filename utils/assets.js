@@ -185,8 +185,20 @@ import PlayIconBlue from "../public/images/playIcon2.svg"
 import LogoV2 from "../public/images/logoV2.svg"
 import WhiteEye from "../public/images/whiteEye.svg"
 import CheckIconGreen from "../public/images/checkIconGreen.svg"
+import YourTurn from "../public/images/yourTurn.jpeg";
+import MeetAffiliate1 from "../public/images/meetAffiliate1.jpeg";
+import MeetAffiliate2 from "../public/images/meetAffiliate2.jpeg";
+import MeetAffiliate3 from "../public/images/meetAffiliate3.jpeg";
+import RightArrowBlue from "../public/images/rightArrowBlue.svg";
+import RightArrowWhite from "../public/images/rightArrowWhite.svg";
 
 export {
+  RightArrowBlue,
+  RightArrowWhite,
+  MeetAffiliate1,
+  MeetAffiliate2,
+  MeetAffiliate3,
+  YourTurn,
   CheckIconGreen,
   WhiteEye,
   LogoV2,
