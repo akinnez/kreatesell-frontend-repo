@@ -323,7 +323,9 @@ export const FileInput = ({
                         font-size:14px;
                         display:block;
                         text-align:left;
+                        cursor: pointer;
                 }
+                
 
                 .label{
                     font-weight: 500;
