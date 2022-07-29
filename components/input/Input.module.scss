@@ -34,10 +34,14 @@
 
 .input {
   height: 3.375rem;
+  // height: 100%;
   border: 1px solid $gray-100;
   box-sizing: border-box;
   border-radius: 0.5rem;
-  padding: 1rem;
+  // padding: 1rem;
+  padding-left: 0.5rem;
+
+  width: 100%;
   color: $base-black;
   font-size: 0.8rem;
   font-weight: 400;
@@ -55,6 +59,11 @@
   &::placeholder {
     color: $gray-200;
   }
+}
+
+.input.Password {
+  padding: 0;
+  padding-right: 0.5rem;
 }
 
 .smallHeight {

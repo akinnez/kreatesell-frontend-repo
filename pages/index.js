@@ -320,7 +320,7 @@ export default function Home() {
               />
               <h5 className={styles.howItWorksImgTitle}>Publish</h5>
               <p className={styles.howItWorksImgSubTitle}>
-                Now publish to make your store live!
+                Publish your store to make it go live.
               </p>
             </div>
           </div>
@@ -702,9 +702,7 @@ export default function Home() {
           <div className={styles.footerInput}>
             <InputButton
               name="email"
-              placeholder="Enter yo
-              
-              ur email..."
+              placeholder="Enter your email..."
               buttonText="Get Started Free"
               buttonIcon={<RightArrow />}
               onChange={(e) => setEmail(e.target.value)}

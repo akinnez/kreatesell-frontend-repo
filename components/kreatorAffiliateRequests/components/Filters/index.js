@@ -67,7 +67,7 @@ const Filters = ({ setFilters, setLoading }) => {
       affiliateName: "",
       sortBy: null,
       productType: null,
-      requestDate: "",
+      dateListed: "",
     }));
   };
 

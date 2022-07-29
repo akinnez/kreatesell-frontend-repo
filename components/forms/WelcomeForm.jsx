@@ -10,95 +10,99 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 export const WelcomeForm = () => {
-	const router = useRouter();
-	const welcomeStoreOnboarding = WelcomeStoreOnboarding();
-	const [step, setStep] = useState(1);
+  const router = useRouter();
+  const welcomeStoreOnboarding = WelcomeStoreOnboarding();
+  const [step, setStep] = useState(1);
 
-	const { loading } = useSelector((state) => state.store);
+  const { loading } = useSelector((state) => state.store);
 
-	const initialValues = {
-		Brand_Name: "",
-		Store_Name: "",
-	};
+  const initialValues = {
+    Brand_Name: "",
+    Store_Name: "",
+  };
 
-	const handleSubmit = async (data) => {
-		if (step === 1) {
-			setStep(2);
-		} else if (step === 2) {
-			await welcomeStoreOnboarding(data, () => {
-				router.push("/account/dashboard");
-			});
-		}
-	};
+  const handleSubmit = async (data) => {
+    if (step === 1) {
+      setStep(2);
+    } else if (step === 2) {
+      await welcomeStoreOnboarding(data, () => {
+        router.push("/account/dashboard");
+      });
+    }
+  };
 
-	const formik = useFormik({
-		initialValues,
-		onSubmit: handleSubmit,
-		validationSchema: step === 1 ? BusinessNameSchema : StoreNameSchema,
-		validateOnChange: false,
-	});
+  const formik = useFormik({
+    initialValues,
+    onSubmit: handleSubmit,
+    validationSchema: step === 1 ? BusinessNameSchema : StoreNameSchema,
+    validateOnChange: false,
+  });
 
-	return (
-		<form
-			className={styles.welcome}
-			onSubmit={formik.handleSubmit}
-			autoComplete="off"
-		>
-			<h5 className={styles.mobileTitle}>
-				{step === 1 && `Tell us a little about <br /> yourself`}
-				{step === 2 && `Here is what your store link looks like`}
-			</h5>
-			<h5 className={styles.webTitle}>
-				{step === 1 && `Tell us a little about yourself`}
-				{step === 2 && `Here is what your store link looks like`}
-			</h5>
-			<p className={styles.subTitle}>
-				{step === 1 &&
-					`Now that you're all signed up, let's personalize your store.`}
-				{step === 2 && `Take time to verify `}
-			</p>
+  return (
+    <form
+      className={styles.welcome}
+      onSubmit={formik.handleSubmit}
+      autoComplete="off"
+    >
+      <h5 className={styles.mobileTitle}>
+        {step === 1 && `Tell us a little about <br /> yourself`}
+        {step === 2 && `Here is what your store link looks like`}
+      </h5>
+      <h5 className={styles.webTitle}>
+        {step === 1 && `Tell us a little about yourself`}
+        {step === 2 && `Here is what your store link looks like`}
+      </h5>
+      <p className={styles.subTitle}>
+        {step === 1 &&
+          `Now that you're all signed up, let's personalize your store.`}
+        {step === 2 && `Take time to verify `}
+      </p>
 
-			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
+      {!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
 
-			<p className={styles.label}>
-				{step === 1 &&
-					`1. Your Business Name - will be displayed on your store`}
-				{step === 2 && `2. Personalize your store link.`}
-			</p>
+      <p className={styles.label}>
+        {step === 1 &&
+          `1. Your Business Name - will be displayed on your store`}
+        {step === 2 && `2. Personalize your store link.`}
+      </p>
 
-			{step === 1 && (
-				<Input
-					placeholder="Enter name here ... "
-					name="Brand_Name"
-					className={styles.input}
-					onChange={formik.handleChange}
-				/>
-			)}
+      {step === 1 && (
+        <Input
+          placeholder="Enter name here ... "
+          name="Brand_Name"
+          className={styles.input}
+          onChange={formik.handleChange}
+        />
+      )}
 
-			{step === 2 && (
-				<div className="mb-12">
-					<Input
-						placeholder="Enter name here ... "
-						name="Store_Name"
-						className={styles.input}
-						onChange={formik.handleChange}
-					/>
+      {step === 2 && (
+        <div className="mb-12">
+          <Input
+            placeholder="Enter name here ... "
+            name="Store_Name"
+            className={styles.input}
+            onChange={formik.handleChange}
+          />
 
-					{formik.values.Store_Name && (
-						<span className={styles.storePreviewLink}>
-							{`https://kreatesell.com/${formik.values.Store_Name}`}
-						</span>
-					)}
-				</div>
-			)}
+          {formik.values.Store_Name && (
+            <span className={styles.storePreviewLink}>
+              {/* regex trims out white space withing input */}
+              {`https://kreatesell.com/${formik.values.Store_Name.replace(
+                /\s+/g,
+                ""
+              )}`}
+            </span>
+          )}
+        </div>
+      )}
 
-			<Button
-				type={step === 2 ? "submit" : "click"}
-				text={step === 2 ? "Start Selling" : "Continue"}
-				bgColor="primaryBlue"
-				className={styles.button}
-				loading={loading}
-			/>
-		</form>
-	);
+      <Button
+        type={step === 2 ? "submit" : "click"}
+        text={step === 2 ? "Start Selling" : "Continue"}
+        bgColor="primaryBlue"
+        className={styles.button}
+        loading={loading}
+      />
+    </form>
+  );
 };

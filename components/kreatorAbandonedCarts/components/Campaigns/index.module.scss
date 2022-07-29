@@ -41,7 +41,7 @@
 }
 
 .campaign__wrapper {
-  border: 1px solid colors.$gray-100;
+  // border: 1px solid colors.$gray-100;
   border-radius: 8px;
   padding: 40px 20px;
   margin-bottom: 35px;
@@ -78,14 +78,47 @@
   }
 }
 
-@include screens.minScreen("medium-large") {
-  .campaign__wrapper {
-    padding: 40px;
+//? commented this out to fix bug
+// @include screens.minScreen("medium-large") {
+//   .campaign__wrapper {
+//     // padding: 40px;
+//   }
+// }
+
+// @include screens.minScreen("x-large") {
+//   .card > div[class="ant-card-body"] {
+//     // padding: 60px 80px;
+//   }
+// }
+
+.campaignBox {
+  background-color: #fff;
+  padding: 60px 80px;
+
+  .header {
+    font-family: "Inter";
+    margin-bottom: 2rem;
+    text-align: left;
+
+    h3 {
+      text-align: inherit;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+
+  .card {
+    border: 1px solid rgba(36, 53, 72, 0.1);
+    min-height: 70vh;
   }
 }
 
-@include screens.minScreen("x-large") {
-  .card > div[class="ant-card-body"] {
-    padding: 60px 80px;
+.campaignBox.emptyCampaign {
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
