@@ -2,7 +2,7 @@ import { Percentage, Radio } from "components/inputPack";
 import { Switch, Form, Input, Select, Button } from "antd";
 import styles from "./Checkout.module.scss";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { CloudUpload } from "utils";
+import { CloudUpload, FileDelete, FileZip, Audio, Video  } from "utils";
 import Image from "next/image";
 import { useFormik } from "formik";
 // import { Select } from "components/select/Select";
@@ -18,6 +18,8 @@ import CustomCheckoutSelect from "./CustomCheckout";
 import {useRouter} from "next/router";
 import { transformToFormData } from 'utils'
 
+import axios from "axios";
+
 export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
    * PriceType Values
@@ -32,6 +34,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const setProductTab = SetProductTab();
   const { store } = useSelector(state => state.store);
   const router = useRouter()
+
+  const [progress, setProgress] = useState(0)
 
   const [compareToPrice, setCompareToPrice] = useState(false);
   const [applyCoupon, setApplyCoupon] = useState(false);
@@ -115,9 +119,16 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     setCustomBillingInterval(initialBillingInput * billingIntervalDuration)
   }, [billingIntervalDuration])
 
-  const { preview, getRootProps, getInputProps } = useUpload({
+    // for the promotional content
+    const [file, setFile] = useState();
+
+  const { preview, getRootProps, getInputProps, mainFile } = useUpload({
     setFileChange: setPromotionalMaterial,
+    // should accept rar and zip
+    fileType: "image"
   });
+
+  console.log("mainFile are", mainFile);
 
   const { productID, product, billingInterval, loading } = useSelector(
     (state) => state.product
@@ -196,6 +207,37 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       getProductByID(productID);
     }
   }, [productID]);
+
+  useEffect(()=>{
+    if(mainFile.length > 0){
+        mainFile.map(async (item)=>(
+            await uploadFile(item.file, setProgress)
+        ))
+    }
+  }, [mainFile])
+
+  async function uploadFile(file, cb){
+    const formData = new FormData()
+      formData.append('upload_preset', 'kreatesell')
+      formData.append('file', file)
+      const options = {onUploadProgress: (progressEvent)=>{
+        const {loaded, total} = progressEvent
+        let percent = Math.floor(loaded * 100 / total)
+        cb(percent)
+      }}
+      try {
+        const instance = axios.create()
+        delete instance.defaults.headers.common['Authorization'];
+        const {data} = await instance.post('https://api.cloudinary.com/v1_1/salvoagency/upload', formData, options)
+        console.log(data)
+        setFile({
+            type: data?.resource_type,
+            url: data?.secure_url
+        })
+      } catch (error) {
+        console.log('ERROR',error)
+      }
+}
 
   useEffect(()=>{
     // console.log(product)
@@ -709,6 +751,30 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   </span>
                 </div>
               </div>
+
+              {/* new div */}
+              {mainFile.length > 0 && mainFile.map((item, index)=>(
+                  <div key={index} className={styles.fileUpload + " flex flex-col"}>
+                    <p className="mb-3">{progress !== 100 ? "Uploading" :"Content Uploaded Successfully"} ({progress && <>{progress}</>})%</p>
+                    <div key={index} className={styles.uploaded+" w-full rounded-md"}>
+                      {progress !== 100 && <span></span>}
+                      <div className="flex items-center">
+                        <div className="mr-4 flex items-center justify-center" style={{width: "48px", height: "48px", background: "#0072EF", borderRadius: "8px"}}>
+                          <Image src={item.file.type.includes("video") ? Video : item.file.type.includes("audio")? Audio : FileZip} alt="zip" />
+                        </div>
+                        <div className="flex flex-col">
+                          <h2 className="mb-3 text-base font-bold">{item.file.name}</h2>
+                          <p className="mb-0">{`${(item.file.size/ (1024 * 1024)).toFixed()}MB`}</p>
+                        </div>
+                      </div>
+                      <div onClick={()=> handleDeleteFile()} className={styles.deleteFile + " flex items-center justify-center"}>
+                        <Image src={FileDelete} alt="delete" />
+                      </div>
+                    </div>
+                  </div>
+                ))
+                  }
+
 
               {uploadPromotionalMaterial && (
                 <div className="pt-2 w-3/5">
