@@ -182,7 +182,6 @@ export default function AddSection ({ toSection}){
             setProductSection(product_content)
         }
     }, [product])
-    console.log("productSection", productSection)
     return(
 
         <div className={styles.allSection}>
