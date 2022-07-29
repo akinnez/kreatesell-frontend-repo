@@ -214,6 +214,16 @@ const AllProducts = () => {
     return <p> <span>In Stock: </span><div style={{background: availablityList[status], height:"8px", width:"8px", borderRadius:"50%"}} className={`inline-block mr-2 ${styles.availabilityDot}`}></div>{status}</p>
 
   }
+
+  const resetFilters = () => {
+    // setProductData();
+    setStartDate();
+    setEndDate();
+    setCurrencyFilter();
+
+    // get products
+    getProducts();
+  }
   return (
     <AuthLayout>
       <div className={styles.allProduct + " pb-10"}>
@@ -233,13 +243,17 @@ const AllProducts = () => {
         </div>
         <CouponHeader
           handleSearchInput={e => setProductName(e.target.value)}
-          handleSearchSubmit={() => handleSearchSubmit()}
+          handleSearchSubmit={(cb) => {
+            handleSearchSubmit()
+            cb()
+            }}
           handleStartDate={(e, string) => {
             // console.log(string);
             setStartDate(string);
           }}
           handleCurrencyChange={(e)=>setCurrencyFilter(e)}
           handleEndDate={(e, string) => setEndDate(string)}
+          {...{resetFilters}}
           // productStatusOptions={productStatusOptions}
           // handleProductStatus={(e) => setProductStatusId(e)}
         />
