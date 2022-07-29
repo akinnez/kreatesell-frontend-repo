@@ -52,10 +52,11 @@ export default function MembershipIndex({setIsTabsActive, setMajorPage, toSectio
             getProduct(productID)
         })
     }
+    
   return (
     <div className="flex flex-col mt-7">
             <div className={`flex items-center justify-between mb-7 ${styles.sectionContainerTitle}`}>
-                <h1 className={``} style={{color: "#0072ef"}}>{product.product_details.product_name}</h1>
+                <h1 className={``} style={{color: "#0072ef"}}>{product?.product_details?.product_name}</h1>
                 {fields === 'empty' && <div className={styles.miniSaveButton}>
                     <Button onClick={()=>{ 
                         addSection()
