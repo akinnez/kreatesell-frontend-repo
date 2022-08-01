@@ -11,4 +11,15 @@ export const notificationTypes = {
   "approve affiliate": name => {
     return `You have an affiliate request note from ${name}. Take a look!`;
   },
+
+  "added product": "You did it! Your first digital product is live.",
+
+  register:
+    "Welcome to KreateSell! You can now set up your store, register your account details for payouts, and put up your digital product(s) to start earning.",
+
+  "store setup":
+    "Hooray! Your store is live. Next is to register your account details for seamless payouts.",
+
+  payout:
+    "Congrats! Your account details registration was successful. Time to put up your first Digital product.",
 };
