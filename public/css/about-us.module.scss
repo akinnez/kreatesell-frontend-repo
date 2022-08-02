@@ -5,7 +5,62 @@
 .aboutUsContainer {
   width: 100%;
   margin: 6rem 0;
-  border: 1px solid red;
+  //   border: 1px solid red;
   background-repeat: no-repeat;
   background-image: url("../images/partial-general-bg.svg");
+
+  .imageBox {
+    margin: 0 auto;
+    max-width: 900px;
+    display: grid;
+    gap: 10.78px;
+    // grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    // padding: 1px 25.9px 1px 39.05px;
+    .merge {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      //   border: 1px solid green;
+      .blueBox {
+        position: absolute;
+        top: -20px;
+        left: -10px;
+        width: 100%;
+        height: 100%;
+        // z-index: 100;
+      }
+    }
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+    @media (min-width: 614px) {
+      grid-template-columns: repeat(2, 1fr);
+      margin: 0 auto;
+      max-width: 900px;
+    }
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .mobile {
+    margin-top: 2rem;
+    padding: 1px 25.9px 1px 25.9px;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  .storyBox {
+    padding: 30px;
+    .heading {
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 40px;
+    }
+  }
 }
