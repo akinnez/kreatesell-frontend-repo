@@ -32,6 +32,8 @@ import IntGoToWebinar from "../public/images/int-goToWebinar.svg";
 import IntGetResponse from "../public/images/int-getResponse.svg";
 import IntMailChimp from "../public/images/int-mail-chimp.svg";
 import IntAwebber from "../public/images/int-awebber.svg";
+import MainAboutImage from "../public/images/main-image.svg";
+import GreenBox from "../public/images/green-box.svg";
 import XofDefault from "../public/images/xof.svg";
 import NgFlag from "../public/images/flag-ng.png";
 import UsFlag from "../public/images/flag-us.svg";
@@ -231,6 +233,8 @@ export {
   IntZoom,
   IntCoinBase,
   IntSamsungPay,
+  MainAboutImage,
+  GreenBox,
   IntApplePay,
   IntGooglePay,
   IntFacebookPixels,
