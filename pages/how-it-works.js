@@ -328,36 +328,41 @@ const HowItWorks = () => {
           </div>
         </div>
 
-        <div className={styles.subFooter}>
-          <h3
-            className={styles.subFooterTitle}
-            // {...Animate("fade-up", 200, "ease")}
-          >
-            KreateSell solves your marketing <br /> and conversion hectic
-            processes.
-          </h3>
-          <h3
-            className={styles.mobileSubFooterTitle}
-            // {...Animate("fade-up", 200, "ease")}
-          >
-            KreateSell solves your marketing and conversion hectic processes.
-          </h3>
-          <p>
-            Rid yourself of stress. Upload more content. Make money. Enjoy your
-            choiced life to the fullest.
-          </p>
-          <Button
-            onClick={() => router.push("/signup")}
-            text="Get Started Free"
-            bgColor="blue"
-            className={styles.btn}
-            icon={<RightArrow />}
-            // {...Animate("zoom-in", 500, "ease-in")}
-          />
-        </div>
+        <SharedSubFooter />
       </div>
     </Layout>
   );
 };
 
 export default HowItWorks;
+
+export const SharedSubFooter = () => {
+  return (
+    <div className={styles.subFooter}>
+      <h3
+        className={styles.subFooterTitle}
+        // {...Animate("fade-up", 200, "ease")}
+      >
+        KreateSell solves your marketing <br /> and conversion hectic processes.
+      </h3>
+      <h3
+        className={styles.mobileSubFooterTitle}
+        // {...Animate("fade-up", 200, "ease")}
+      >
+        KreateSell solves your marketing and conversion hectic processes.
+      </h3>
+      <p>
+        Rid yourself of stress. Upload more content. Make money. Enjoy your
+        choiced life to the fullest.
+      </p>
+      <Button
+        onClick={() => router.push("/signup")}
+        text="Get Started Free"
+        bgColor="blue"
+        className={styles.btn}
+        icon={<RightArrow />}
+        // {...Animate("zoom-in", 500, "ease-in")}
+      />
+    </div>
+  );
+};

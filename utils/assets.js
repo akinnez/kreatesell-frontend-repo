@@ -32,6 +32,30 @@ import IntGoToWebinar from "../public/images/int-goToWebinar.svg";
 import IntGetResponse from "../public/images/int-getResponse.svg";
 import IntMailChimp from "../public/images/int-mail-chimp.svg";
 import IntAwebber from "../public/images/int-awebber.svg";
+import XofDefault from "../public/images/xof.svg";
+import NgFlag from "../public/images/flag-ng.png";
+import UsFlag from "../public/images/flag-us.svg";
+import UkFlag from "../public/images/flag-uk.svg";
+import GhFlag from "../public/images/flag-gh.png";
+import MoneyRain from "../public/images/money-rain.svg";
+import KenFlag from "../public/images/flag-ken.png";
+import UganFlag from "../public/images/flag-ugan.svg";
+import SouthAfricanFlag from "../public/images/flag-southAf.svg";
+import LiberianFlag from "../public/images/flag-liber.svg";
+import TanzanianFlag from "../public/images/flag-tanz.svg";
+import LeoneFlag from "../public/images/flag-seiraL.png";
+import MalawiFlag from "../public/images/flag-malawi.png";
+import WaitTimeBg from "../public/images/waitTimeBg.png";
+import BeninFlag from "../public/images/flag-benin.png";
+import GambianFlag from "../public/images/flag-gambia.png";
+import IvoryCoastFlag from "../public/images/flag-ivoryCoast.png";
+import TogoFlag from "../public/images/flag-Togo.png";
+import SenegalFlag from "../public/images/flag-senegal.png";
+import MaliFlag from "../public/images/flag-mail.png";
+import BurnkinaFasoFlag from "../public/images/flag-burkinaFaso.png";
+import ChadFlag from "../public/images/flag-chad.png";
+import GabonFlag from "../public/images/flag-gabon.png";
+import CamFlag from "../public/images/flag-cam.png";
 import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
 import RelatedBlog from "../public/images/related-blog.svg";
@@ -207,11 +231,35 @@ export {
   IntFacebookPixels,
   IntGoogleAnalytics,
   IntHoverSignal,
+  XofDefault,
   IntZapier,
   IntGoToWebinar,
+  WaitTimeBg,
   IntGetResponse,
   IntMailChimp,
   IntAwebber,
+  NgFlag,
+  ChadFlag,
+  GabonFlag,
+  CamFlag,
+  UsFlag,
+  UkFlag,
+  GhFlag,
+  KenFlag,
+  UganFlag,
+  SouthAfricanFlag,
+  LiberianFlag,
+  TanzanianFlag,
+  LeoneFlag,
+  MalawiFlag,
+  BeninFlag,
+  GambianFlag,
+  IvoryCoastFlag,
+  TogoFlag,
+  SenegalFlag,
+  MaliFlag,
+  MoneyRain,
+  BurnkinaFasoFlag,
   NewsCardTwo,
   NewsCardThree,
   NewsCardFour,
