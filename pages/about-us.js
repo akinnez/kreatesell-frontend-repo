@@ -1,7 +1,12 @@
-import React from "react";
-
+import { Layout } from "components";
+import styles from "../public/css/about-us.module.scss";
+// import Image from "next/image";
 const AboutUs = () => {
-  return <div>AboutUs</div>;
+  return (
+    <Layout subFooter={false} defaultMarginTop={true}>
+      <section className={styles.aboutUsContainer}>AboutUs</section>
+    </Layout>
+  );
 };
 
 export default AboutUs;

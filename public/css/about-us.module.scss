@@ -1,0 +1,11 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+.aboutUsContainer {
+  width: 100%;
+  margin: 6rem 0;
+  border: 1px solid red;
+  background-repeat: no-repeat;
+  background-image: url("../images/partial-general-bg.svg");
+}
