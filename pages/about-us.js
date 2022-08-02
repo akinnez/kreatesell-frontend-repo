@@ -7,6 +7,7 @@ import {
   AboutUsThree,
   AboutUsTwo,
   AboutUsOne,
+  MainAbout,
 } from "../utils/assets";
 const AboutUs = () => {
   return (
@@ -17,7 +18,12 @@ const AboutUs = () => {
             <AboutUsImages />
           </div>
 
-          <StoryTexts />
+          <StoryTexts {...first} />
+        </div>
+        <div className={styles.mainAbout}>
+          <div className={styles.merge}>
+            <Image src={MainAbout} alt="about us" />
+          </div>
         </div>
       </section>
     </Layout>
@@ -44,28 +50,48 @@ const AboutUsImages = () => {
   );
 };
 
-const StoryTexts = () => {
+const StoryTexts = ({ heading, texts }) => {
   return (
     <div className={styles.storyBox}>
-      <h1 className={styles.heading}>Our Story</h1>
+      <h1 className={styles.heading}>{heading}</h1>
       <div className={styles.storyTexts}>
-        <p>
-          It all started one bright morning, in early 2021. Some Great minds
+        {texts?.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const storyTexts = {
+  first: {
+    heading: "Our Story",
+    texts: [
+      `It all started one bright morning, in early 2021. Some Great minds
           came together to creatively brainstorm and find an Advanced & Powerful
           solution to the Loads of problems digital Kreators and entrepreneurs
-          were facing in Instantly selling their digital products online.
-        </p>
-        <p>
-          The Super Powerful solution was to provide an all-in-one platform
+          were facing in Instantly selling their digital products online.`,
+
+      `The Super Powerful solution was to provide an all-in-one platform
           where digital Kreators and entrepreneurs can uniquely display their
           digital products and market them Without A Drop Of Sweat. Where they
           can seamlessly transact business with no currency barrier, even with
           no tech skills or experience, and massively connect with buyers on a
           global scale. This platform was named Kreatesell and today, we are
-          live!
-        </p>
-        <p>This platform was named Kreatesell and today, we are live!</p>
-      </div>
-    </div>
-  );
+          live!`,
+
+      `This platform was named Kreatesell and today, we are live!`,
+    ],
+  },
+
+  second: {
+    heading: "About Kreatesell",
+    texts: [
+      `The team at Kreatesell is working tirelessly to bring Kreatesell’s vision of being the number one pan-African Edtech SaaS platform for content Kreators and digital entrepreneurs to life. Find all the support you need to sell your digital product to a wide range of target audiences on Kreatesell.`,
+      `How do we do this? You might ask. As part of our sell more-do less strategy, we created a system that enables the use of affiliate marketing or referral system to bring the right paying customers to Kreators on our platform and help affiliates earn commissions again and again!`,
+      `So, what are you waiting for? Don’t hesitate to sign up for free Now as a Kreator to experience real growth in your digital product(s) sales. And as an Affiliate to massively start earning passive and active income from referral commissions over n’ over!`,
+    ],
+  },
 };
+
+const { first, second } = storyTexts;
