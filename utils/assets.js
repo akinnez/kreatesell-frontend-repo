@@ -37,6 +37,11 @@ import NgFlag from "../public/images/flag-ng.png";
 import UsFlag from "../public/images/flag-us.svg";
 import UkFlag from "../public/images/flag-uk.svg";
 import GhFlag from "../public/images/flag-gh.png";
+import AboutUsBlueBox from "../public/images/about-us-blueBox.svg";
+import AboutUsOne from "../public/images/about-us-1.svg";
+import AboutUsTwo from "../public/images/about-us-2.svg";
+import AboutUsThree from "../public/images/about-us-3.svg";
+import AboutUsFour from "../public/images/about-us-4.svg";
 import MoneyRain from "../public/images/money-rain.svg";
 import KenFlag from "../public/images/flag-ken.png";
 import UganFlag from "../public/images/flag-ugan.svg";
@@ -196,14 +201,14 @@ import LikeIconGrey from "../public/images/LikeIconGrey.svg";
 import CommentIconGrey from "../public/images/ChatIconGrey.svg";
 import ShareIconGrey from "../public/images/shareIconGrey.svg";
 import DeleteIcon from "../public/images/DeleteIcon.svg";
-import ActionBtn from "../public/images/actionBtn.svg"
-import MobileCopyIcon from "../public/images/mobileCopyIcon.svg"
-import MobileSettingsIcon from "../public/images/mobileSettingsIcon.svg"
-import MobileSettingsIconGreen from "../public/images/mobileSettingsIconGreen.svg"
-import MobileTrashIcon from "../public/images/mobileTrashIcon.svg"
-import MobileViewSubscribers from "../public/images/mobileViewSubscribers.svg"
-import AccordionDown from "../public/images/accordionDownArrow.svg"
-import AccordionRight from "../public/images/accordionRightArrow.svg"
+import ActionBtn from "../public/images/actionBtn.svg";
+import MobileCopyIcon from "../public/images/mobileCopyIcon.svg";
+import MobileSettingsIcon from "../public/images/mobileSettingsIcon.svg";
+import MobileSettingsIconGreen from "../public/images/mobileSettingsIconGreen.svg";
+import MobileTrashIcon from "../public/images/mobileTrashIcon.svg";
+import MobileViewSubscribers from "../public/images/mobileViewSubscribers.svg";
+import AccordionDown from "../public/images/accordionDownArrow.svg";
+import AccordionRight from "../public/images/accordionRightArrow.svg";
 
 export {
   AccordionRight,
@@ -236,6 +241,11 @@ export {
   IntGoToWebinar,
   WaitTimeBg,
   IntGetResponse,
+  AboutUsBlueBox,
+  AboutUsFour,
+  AboutUsThree,
+  AboutUsTwo,
+  AboutUsOne,
   IntMailChimp,
   IntAwebber,
   NgFlag,
@@ -411,5 +421,5 @@ export {
   Briefcase,
   Clock,
   LikeIcon,
-  CommentIcon
+  CommentIcon,
 };
