@@ -7,8 +7,13 @@
   margin: 6rem 0;
   //   border: 1px solid red;
   background-repeat: no-repeat;
+  background-size: contain;
   background-image: url("../images/partial-general-bg.svg");
 
+  .body {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
   .imageBox {
     margin: 0 auto;
     max-width: 900px;
@@ -56,8 +61,64 @@
   }
 
   .mainAbout {
-    position: relative;
-    background: #e5e5e5;
+    text-align: center;
+    width: 100%;
+    .storyBox {
+      width: unset;
+      text-align: left;
+    }
+
+    .mainAboutLg {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+      // align-items: center;
+      .storyBox {
+        width: 50%;
+      }
+
+      .merge {
+        width: 50%;
+        + div {
+          width: 100%;
+          height: 100%;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 1200px) {
+      justify-content: center;
+      align-items: center;
+      .storyBox {
+        border: 1px solid red;
+        border-top-left-radius: 32px;
+        border-bottom-left-radius: 32px;
+        background: #ffffff;
+        width: 100%;
+        text-align: justify;
+        padding: 33px 120px 10px 60px;
+        box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+      }
+
+      .mainAboutLg {
+        display: block;
+        position: relative;
+        right: 80px;
+      }
+
+      .merge {
+        display: none;
+      }
+    }
   }
 
   .mobile {
@@ -65,6 +126,7 @@
     padding: 1px 25.9px 1px 25.9px;
     @media (min-width: 768px) {
       width: 50%;
+
       //   flex: 0.1;
       //   border: 1px solid red;
     }

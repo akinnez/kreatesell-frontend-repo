@@ -8,21 +8,28 @@ import {
   AboutUsTwo,
   AboutUsOne,
   MainAbout,
+  MainAboutLg,
 } from "../utils/assets";
 const AboutUs = () => {
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.aboutUsContainer}>
-        <div className={styles.mainBanner}>
-          <div className={styles.mobile}>
-            <AboutUsImages />
-          </div>
+        <div className={styles.body}>
+          <div className={styles.mainBanner}>
+            <div className={styles.mobile}>
+              <AboutUsImages />
+            </div>
 
-          <StoryTexts {...first} />
-        </div>
-        <div className={styles.mainAbout}>
-          <div className={styles.merge}>
-            <Image src={MainAbout} alt="about us" />
+            <StoryTexts {...first} />
+          </div>
+          <div className={styles.mainAbout}>
+            <div className={styles.merge}>
+              <Image src={MainAbout} alt="about us" />
+            </div>
+            <div className={styles.mainAboutLg}>
+              <Image src={MainAboutLg} alt="about us" />
+            </div>
+            <StoryTexts {...second} />
           </div>
         </div>
       </section>
@@ -77,17 +84,17 @@ const storyTexts = {
           digital products and market them Without A Drop Of Sweat. Where they
           can seamlessly transact business with no currency barrier, even with
           no tech skills or experience, and massively connect with buyers on a
-          global scale. This platform was named Kreatesell and today, we are
+          global scale. This platform was named KreateSell and today, we are
           live!`,
 
-      `This platform was named Kreatesell and today, we are live!`,
+      `This platform was named KreateSell and today, we are live!`,
     ],
   },
 
   second: {
-    heading: "About Kreatesell",
+    heading: "About KreateSell",
     texts: [
-      `The team at Kreatesell is working tirelessly to bring Kreatesell’s vision of being the number one pan-African Edtech SaaS platform for content Kreators and digital entrepreneurs to life. Find all the support you need to sell your digital product to a wide range of target audiences on Kreatesell.`,
+      `The team at KreateSell is working tirelessly to bring KreateSell’s vision of being the number one pan-African Edtech SaaS platform for content Kreators and digital entrepreneurs to life. Find all the support you need to sell your digital product to a wide range of target audiences on KreateSell.`,
       `How do we do this? You might ask. As part of our sell more-do less strategy, we created a system that enables the use of affiliate marketing or referral system to bring the right paying customers to Kreators on our platform and help affiliates earn commissions again and again!`,
       `So, what are you waiting for? Don’t hesitate to sign up for free Now as a Kreator to experience real growth in your digital product(s) sales. And as an Affiliate to massively start earning passive and active income from referral commissions over n’ over!`,
     ],
