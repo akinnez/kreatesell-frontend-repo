@@ -31,6 +31,8 @@ const AboutUs = () => {
             </div>
             <StoryTexts {...second} />
           </div>
+          {/* //* missionAndVision */}
+          <div className={styles.missionAndVision}></div>
         </div>
       </section>
     </Layout>

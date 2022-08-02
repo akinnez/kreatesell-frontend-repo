@@ -5,6 +5,7 @@
 .aboutUsContainer {
   width: 100%;
   margin: 6rem 0;
+
   //   border: 1px solid red;
   background-repeat: no-repeat;
   background-size: contain;
@@ -63,6 +64,7 @@
   .mainAbout {
     text-align: center;
     width: 100%;
+    margin-top: 40px;
     .storyBox {
       width: unset;
       text-align: left;
@@ -98,14 +100,15 @@
     @media (min-width: 1200px) {
       justify-content: center;
       align-items: center;
+      margin-top: 112px;
       .storyBox {
-        border: 1px solid red;
+        // border: 1px solid red;
         border-top-left-radius: 32px;
         border-bottom-left-radius: 32px;
         background: #ffffff;
         width: 100%;
         text-align: justify;
-        padding: 33px 120px 10px 60px;
+        padding: 33px 120px 40px 60px;
         box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
       }
 

@@ -20,6 +20,8 @@ import LeftSpiral from "../public/images/left-spiral.png";
 import RightSpiral from "../public/images/right-spiral.png";
 import IntegrationsCircle from "../public/images/integrations-image.svg";
 import IntZoom from "../public/images/int-zoom.svg";
+import VisionImage from "../public/images/vision-image.svg";
+import MissionImage from "../public/images/mission-image.svg";
 import IntCoinBase from "../public/images/int-coinBase.svg";
 import IntSamsungPay from "../public/images/int-samsungPay.svg";
 import IntApplePay from "../public/images/int-applePay.svg";
@@ -230,6 +232,8 @@ export {
   CardMain,
   NewsCardOne,
   IntegrationsCircle,
+  VisionImage,
+  MissionImage,
   IntZoom,
   IntCoinBase,
   IntSamsungPay,
