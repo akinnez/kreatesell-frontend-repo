@@ -62,7 +62,7 @@ export default function PreviewHeader ({id}){
     
     useEffect(() => {
         if(Object.keys(product).length > 0){
-          setFieldValue("product_id", product?.product_details?.kreasell_product_id);
+          setFieldValue("product_id", product?.product_details?.id);
         }
       }, [product])
 
