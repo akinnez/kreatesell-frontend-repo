@@ -14,7 +14,29 @@ import {
   MissionIcon,
   VisionIcon,
 } from "../utils/assets";
+import { useState } from "react";
 const AboutUs = () => {
+  const [cardState, setCardState] = useState({
+    isMissionCardHovered: false,
+    isVisionCardHovered: true,
+  });
+
+  const { isMissionCardHovered, isVisionCardHovered } = cardState;
+
+  const handleOver = (e) => {
+    setCardState({
+      isMissionCardHovered: false,
+      isVisionCardHovered: false,
+      [e.target.id]: true,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setCardState({
+      isMissionCardHovered: false,
+      isVisionCardHovered: true,
+    });
+  };
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.aboutUsContainer}>
@@ -69,9 +91,66 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
+
+            {/* //* cards on lg */}
             <div className={styles.onLg}>
               <div className={styles.imageSlide}>
-                <Image src={VisionImage} alt="vision " />
+                <div
+                  className={`${styles.visionBox} ${
+                    isVisionCardHovered ? styles.showVisionImage : ""
+                  }`}
+                >
+                  <Image src={VisionImage} alt="vision " />
+                </div>
+                <div
+                  className={`${styles.missionBox} ${
+                    isMissionCardHovered ? styles.showMissionImage : ""
+                  }`}
+                >
+                  <Image src={MissionImage} alt="mission " />
+                </div>
+              </div>
+              <div className={styles.slideCards}>
+                <div className={styles.cardMain}>
+                  <div
+                    className={`${styles.card} ${
+                      isMissionCardHovered
+                        ? styles.missionCardHovered
+                        : styles.missionCardInit
+                    }`}
+                    id="isMissionCardHovered"
+                    onMouseEnter={handleOver}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <h3 className={styles.heading}>
+                      <Image src={MissionIcon} alt="mission icon" />
+                      <span className={styles.title}> Mission</span>
+                    </h3>
+                    <p>
+                      Bringing ease to the buying and selling of digital
+                      products to Africans globally.
+                    </p>
+                  </div>
+                  <div
+                    className={`${styles.card} ${
+                      isVisionCardHovered
+                        ? styles.visionCardHovered
+                        : styles.visionCardInit
+                    }`}
+                    id="isVisionCardHovered"
+                    onMouseEnter={handleOver}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <h3 className={styles.heading}>
+                      <Image src={VisionIcon} alt="vision icon" />
+                      <span className={styles.title}> Vision</span>
+                    </h3>
+                    <p>
+                      To be the number one Pan-African Edtech SaaS platform for
+                      digital Kreators and entrepreneurs.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -175,6 +175,9 @@
 
   .missionAndVision {
     padding: 2rem;
+    .onLg {
+      display: none;
+    }
     .cardMain {
       margin-bottom: 72px;
       .mavBox {
@@ -190,6 +193,7 @@
         position: relative;
         top: -20px;
         padding: 20px 24px;
+        transition: all 0.2s, background-color 0.2s;
         box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
         border-radius: 8px;
         .heading {
@@ -207,11 +211,49 @@
         img {
           width: 40px !important;
           height: 40px !important;
+          // background-color: red !important;
         }
 
         @media (min-width: 768px) {
           top: 0px;
         }
+      }
+
+      // .card.missionCard {
+      //   transform: translateX(-40px);
+      // }
+      .card.missionCardInit {
+        transform: translateX(40px);
+        box-shadow: 0px 20px 200px transparent;
+        background-color: transparent;
+        // border: 1px solid red;
+      }
+
+      .card.missionCardHovered {
+        // border: 1px solid green;
+        transform: translateX(-80px);
+        background-color: #ffffff;
+
+        img,
+        svg {
+          color: green !important;
+        }
+      }
+
+      .card.visionCardHovered {
+        // border: 1px solid green;
+        transform: translateX(-80px);
+        background-color: #ffffff;
+        img,
+        svg {
+          color: green !important;
+        }
+      }
+
+      .card.visionCardInit {
+        transform: translateX(40px);
+        box-shadow: 0px 20px 200px transparent;
+        background-color: transparent;
       }
       @media (min-width: 768px) {
         margin-bottom: unset;
@@ -231,9 +273,64 @@
       .onMobile {
         display: none;
       }
+
+      .onLg {
+        display: flex;
+        position: relative;
+        width: 100%;
+        // border: 1px solid red;
+        .imageSlide {
+          // border: 1px solid blue;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 50%;
+          // position: absolute;
+          > div,
+          > div + div {
+            top: 0;
+            left: 0;
+            width: 50%;
+            position: absolute !important;
+
+            img {
+              width: 100%;
+              object-fit: contain;
+              min-height: 526px;
+            }
+          }
+
+          .missionBox,
+          .visionBox {
+            opacity: 0;
+            transition: opacity 0.5s;
+          }
+
+          .missionBox.showMissionImage {
+            opacity: 1;
+          }
+
+          .visionBox.showVisionImage {
+            opacity: 1;
+          }
+        }
+        .slideCards {
+          width: 50%;
+          .card {
+            max-width: 400px;
+            height: 282px;
+            padding: 72px 34px;
+          }
+        }
+      }
     }
     @media (min-width: 1200px) {
-      padding: 3rem 10.31rem;
+      padding: 3rem 5.31rem;
+      width: 100%;
     }
   }
 }
