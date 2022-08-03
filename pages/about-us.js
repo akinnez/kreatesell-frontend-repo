@@ -9,6 +9,10 @@ import {
   AboutUsOne,
   MainAbout,
   MainAboutLg,
+  VisionImage,
+  MissionImage,
+  MissionIcon,
+  VisionIcon,
 } from "../utils/assets";
 const AboutUs = () => {
   return (
@@ -32,7 +36,45 @@ const AboutUs = () => {
             <StoryTexts {...second} />
           </div>
           {/* //* missionAndVision */}
-          <div className={styles.missionAndVision}></div>
+          <div className={styles.missionAndVision}>
+            <div className={styles.onMobile}>
+              <div className={styles.cardMain}>
+                <div className={styles.mavBox}>
+                  <Image src={VisionImage} alt="vision " />
+                </div>
+                <div className={styles.card}>
+                  <h3 className={styles.heading}>
+                    <Image src={MissionIcon} alt="mission icon" />
+                    <span className={styles.title}> Mission</span>
+                  </h3>
+                  <p>
+                    Bringing ease to the buying and selling of digital products
+                    to Africans globally.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.cardMain}>
+                <div className={styles.mavBox}>
+                  <Image src={MissionImage} alt="mission " />
+                </div>
+                <div className={styles.card}>
+                  <h3 className={styles.heading}>
+                    <Image src={VisionIcon} alt="vision icon" />
+                    <span className={styles.title}> Vision</span>
+                  </h3>
+                  <p>
+                    To be the number one Pan-African Edtech SaaS platform for
+                    digital Kreators and entrepreneurs.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className={styles.onLg}>
+              <div className={styles.imageSlide}>
+                <Image src={VisionImage} alt="vision " />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>

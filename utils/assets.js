@@ -35,6 +35,8 @@ import IntGetResponse from "../public/images/int-getResponse.svg";
 import IntMailChimp from "../public/images/int-mail-chimp.svg";
 import IntAwebber from "../public/images/int-awebber.svg";
 import MainAboutLg from "../public/images/main-about-lg.svg";
+import MissionIcon from "../public/images/mission-icon.svg";
+import VisionIcon from "../public/images/vision-icon.svg";
 import MainAbout from "../public/images/total-about.svg";
 import XofDefault from "../public/images/xof.svg";
 import NgFlag from "../public/images/flag-ng.png";
@@ -234,6 +236,8 @@ export {
   IntegrationsCircle,
   VisionImage,
   MissionImage,
+  MissionIcon,
+  VisionIcon,
   IntZoom,
   IntCoinBase,
   IntSamsungPay,

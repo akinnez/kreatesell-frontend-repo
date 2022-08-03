@@ -173,10 +173,67 @@
     }
   }
 
-  @media (min-width: 768px) {
-    padding: 1rem 5rem;
-  }
-  @media (min-width: 1200px) {
-    padding: 3rem 10.31rem;
+  .missionAndVision {
+    padding: 2rem;
+    .cardMain {
+      margin-bottom: 72px;
+      .mavBox {
+        > div {
+          width: 100%;
+          object-fit: contain;
+          text-align: center;
+        }
+      }
+
+      .card {
+        background: #ffffff;
+        position: relative;
+        top: -20px;
+        padding: 20px 24px;
+        box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+        border-radius: 8px;
+        .heading {
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 40px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .title {
+            margin-left: 24px;
+          }
+        }
+
+        img {
+          width: 40px !important;
+          height: 40px !important;
+        }
+
+        @media (min-width: 768px) {
+          top: 0px;
+        }
+      }
+      @media (min-width: 768px) {
+        margin-bottom: unset;
+        min-height: 568px;
+        &:first-child {
+          margin-right: 1rem;
+        }
+      }
+    }
+    @media (min-width: 768px) {
+      padding: 1rem 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (min-width: 800px) {
+      .onMobile {
+        display: none;
+      }
+    }
+    @media (min-width: 1200px) {
+      padding: 3rem 10.31rem;
+    }
   }
 }
