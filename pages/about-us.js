@@ -23,11 +23,11 @@ const AboutUs = () => {
 
   const { isMissionCardHovered, isVisionCardHovered } = cardState;
 
-  const handleOver = (e) => {
+  const handleOver = (id) => {
     setCardState({
       isMissionCardHovered: false,
       isVisionCardHovered: false,
-      [e.target.id]: true,
+      [`${id}`]: true,
     });
   };
 
@@ -58,7 +58,10 @@ const AboutUs = () => {
             <StoryTexts {...second} />
           </div>
           {/* //* missionAndVision */}
-          <div className={styles.missionAndVision}>
+          <div
+            className={styles.missionAndVision}
+            onMouseLeave={() => handleOver("isVisionCardHovered")}
+          >
             <div className={styles.onMobile}>
               <div className={styles.cardMain}>
                 <div className={styles.mavBox}>
@@ -93,8 +96,14 @@ const AboutUs = () => {
             </div>
 
             {/* //* cards on lg */}
-            <div className={styles.onLg}>
-              <div className={styles.imageSlide}>
+            <div
+              className={styles.onLg}
+              onMouseEnter={() => handleOver("isVisionCardHovered")}
+            >
+              <div
+                className={styles.imageSlide}
+                onMouseEnter={() => handleOver("isVisionCardHovered")}
+              >
                 <div
                   className={`${styles.visionBox} ${
                     isVisionCardHovered ? styles.showVisionImage : ""
@@ -118,9 +127,9 @@ const AboutUs = () => {
                         ? styles.missionCardHovered
                         : styles.missionCardInit
                     }`}
-                    id="isMissionCardHovered"
-                    onMouseEnter={handleOver}
-                    onMouseLeave={handleMouseLeave}
+                    // id="isMissionCardHovered"
+                    onMouseEnter={() => handleOver("isMissionCardHovered")}
+                    // onMouseLeave={handleMouseLeave}
                   >
                     <h3 className={styles.heading}>
                       <Image src={MissionIcon} alt="mission icon" />
@@ -137,8 +146,8 @@ const AboutUs = () => {
                         ? styles.visionCardHovered
                         : styles.visionCardInit
                     }`}
-                    id="isVisionCardHovered"
-                    onMouseEnter={handleOver}
+                    // id="isVisionCardHovered"
+                    onMouseEnter={() => handleOver("isVisionCardHovered")}
                     onMouseLeave={handleMouseLeave}
                   >
                     <h3 className={styles.heading}>

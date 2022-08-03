@@ -258,9 +258,9 @@
       @media (min-width: 768px) {
         margin-bottom: unset;
         min-height: 568px;
-        &:first-child {
-          margin-right: 1rem;
-        }
+        // &:first-child {
+        //   // margin-right: 1rem;
+        // }
       }
     }
     @media (min-width: 768px) {
