@@ -20,6 +20,7 @@ const NotificationsRenderer = ({ notifications }) => {
       const jsx = (
         <NotificationsItem key={notification.id} notification={notification} />
       );
+
       list.push(jsx);
 
       return list;
