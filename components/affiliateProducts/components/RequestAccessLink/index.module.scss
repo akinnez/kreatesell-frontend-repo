@@ -1,15 +1,16 @@
 @use "public/css/colors";
 
-.request__link > a {
+.request__link {
+  width: 130px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 5px;
+  border: 1px solid colors.$base-blue;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
   color: colors.$base-blue;
-  width: 134px;
-  display: inline-flex;
-  align-items: center;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid colors.$base-blue;
 
   &[disabled] {
     border-color: #bfbfbf;
@@ -19,5 +20,6 @@
   svg {
     display: inline;
     font-size: 14px;
+    margin-bottom: 2px;
   }
 }
