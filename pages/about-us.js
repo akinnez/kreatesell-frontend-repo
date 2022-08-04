@@ -1,6 +1,7 @@
 import { Layout } from "components";
 import styles from "../public/css/about-us.module.scss";
 import Image from "next/image";
+import { Collapse } from "antd";
 import {
   AboutUsBlueBox,
   AboutUsFour,
@@ -163,6 +164,22 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
+
+          {/* //* core values */}
+          <div className={styles.coreValues}>
+            {/* //? mobile */}
+            <div className={styles.mobile}>
+              <h3 className={styles.heading}>Our Core Values</h3>
+              <p className={styles.text}>
+                At KreateSell, we have five (5) distinct values that guide us
+                daily. These values make us your go-to platform for selling
+                digital products without any hassle.
+              </p>
+              {data?.map((item) => (
+                <MobileCollapsible key={item?.headingText} {...item} />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
@@ -234,3 +251,58 @@ const storyTexts = {
 };
 
 const { first, second } = storyTexts;
+
+const MobileCollapsible = ({ headingText, content }) => {
+  const { Panel } = Collapse;
+  return (
+    <Collapse
+      expandIconPosition="right"
+      bordered={false}
+      defaultActiveKey={["0"]}
+      accordion
+      className={styles.collapse}
+      // id="collapse"
+    >
+      <Panel
+        key="0"
+        header={<CustomHeader>{headingText}</CustomHeader>}
+        className={styles.panelHeader}
+        // id="panelHeader"
+      >
+        <div className={styles.moreInfo}>{content}</div>
+      </Panel>
+    </Collapse>
+  );
+};
+
+const data = [
+  {
+    headingText: "We are customer-centric",
+    content:
+      "The happiness of our customers is what motivates us to give our best daily. Once our Users are happy and satisfied, so are we.",
+  },
+  {
+    headingText: "Teamwork is how we roll",
+    content: `We perform by leveraging one another’s strengths and rubbing minds together to give the best services to our customers. Our slogan is “Our teamwork makes our platform work…”`,
+  },
+
+  {
+    headingText: "We cherish mutual respect ",
+    content:
+      "We are aware that everyone brings something unique to the table. So, we treat one another equally and extend this respect to our esteemed customers.",
+  },
+  {
+    headingText: "Our activities are transparent",
+    content:
+      "At Kreatesell, we have no hidden agenda. We are very open about our activities. Follow our blog and social media channels for updates.",
+  },
+  {
+    headingText: "We provide excellent service",
+    content:
+      "We strive for excellence in everything we do at Kreatesell. This includes services to our valued Kreators and one another. We are always ready to help out, just reach out to us.",
+  },
+];
+
+const CustomHeader = ({ children }) => {
+  return <h3 className={styles.customHeader}>{children}</h3>;
+};
