@@ -18,7 +18,7 @@ const NotificationsDropdown = () => {
       overlay={() =>
         notificationsMenu({ notifications, error, dispatch, mutate })
       }
-      placement="bottomCenter"
+      placement="bottom"
       trigger={["click", "hover"]}
       arrow
     >
