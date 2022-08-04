@@ -128,7 +128,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     fileType: "image"
   });
 
-  console.log("mainFile are", mainFile);
+  
 
   const { productID, product, billingInterval, loading } = useSelector(
     (state) => state.product
@@ -162,6 +162,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   useEffect(() => {
     getBillingInterval();
   }, []);
+
+  useEffect(() => {
+    if(mainFile.length>0){
+      console.log("mainFile are", mainFile);
+
+    }
+  }, [mainFile])
+  
 
   useEffect(()=>{
     setInputsArray(mapNumberToArray(numberOfInputs))
@@ -264,6 +272,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 }, [])
   
   const checkArrays = (data)=>{
+    console.log("Data passed to function", data);
     const arrayLists = ["selling_prices", "minimum_prices", "original_prices", "suggested_prices", "initial_prices", "installment_prices"]
     for(let value of arrayLists){
       if (value in data){
@@ -272,10 +281,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         }
       }
     }
+    console.log("data", data);
     return data
   }
 
   const handleSubmit = (data) => {
+    console.log("Data passed to handle submit function", data);
     if (!data.enable_preorder) {
       delete data.preorder_details;
     }
@@ -300,16 +311,16 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       delete data.is_show_compare_price;
     }
     const checkedData = checkArrays(data)
-    console.log(checkedData)
+    console.log("checkedData", checkedData)
     const result = transformToFormData(checkedData)
-    createProduct(result, () =>{
-      if (priceType === "Fixed Price"){
-        router.push(`/account/kreator/products/preview/${productID}`)
-        return
-      }
-      setProductTab(2)
-    }
-    );
+    // createProduct(result, () =>{
+    //   if (priceType === "Fixed Price"){
+    //     router.push(`/account/kreator/products/preview/${productID}`)
+    //     return
+    //   }
+    //   setProductTab(2)
+    // }
+    // );
   };
 
   const initialValues = {
@@ -413,6 +424,11 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     couponVariance
   ])
 
+  useEffect(() => {
+    if(mainFile.length>0){
+      setFieldValue("promotional_items.promotional_files", mainFile);
+    }
+  }, [mainFile])
 
   // Clear outs
   useEffect(()=>{
