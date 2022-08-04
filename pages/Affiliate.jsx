@@ -6,9 +6,11 @@ import {Layout, Button} from "../components";
 import styles from "../public/css/Affiliate.module.scss";
 import Card from 'components/affiliates/AffiliateLandingPage/Card';
 import { YourTurn, MeetAffiliate1, MeetAffiliate2, MeetAffiliate3, RightArrowBlue, RightArrowWhite } from 'utils';
+import {useRouter} from 'next/router';
 
 
 const Affiliate = () => {
+  const router = useRouter();
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
     <div className={styles.container}>
@@ -25,7 +27,7 @@ const Affiliate = () => {
                 Become An Affiliate On Kreatesell Now!
             </h2>
             <br/>
-            <Button icon={<Image src={RightArrowBlue} alt=""/>} className="hidden md:block" type='default' text='Get Started Free' style={{minWidth:"150px", minHeight:"50px"}}/>
+            <Button icon={<Image src={RightArrowBlue} alt=""/>} onClick={()=>router.push("/login")} className={`hidden md:block ${styles.getStarted}`} type='default' text='Get Started Free' style={{minWidth:"150px", minHeight:"50px"}}/>
             </div>
             <div className={styles.right}>
                 Kreatesell is a Break-Through SaaS platform for Content Creators and Digital Entrepreneurs (Kreators) to instantly sell their content and digital products to a wide range of global customers.<br/><br/>
@@ -38,7 +40,7 @@ const Affiliate = () => {
 
                 Earning has Never Been Easier as it is on Kreatesell. Make Insane Amounts of passive and active income for yourself. <br/><br/>
             </div>
-            <Button icon={<Image src={RightArrowBlue} alt=""/>} className="block md:hidden" type='default' text='Get Started Free  ' style={{width:"90%", minHeight:"60px", margin:"auto", fontSize:"1.25rem"}}/>
+            <Button icon={<Image src={RightArrowBlue} alt=""/>} onClick={()=>router.push("/login")} className="block md:hidden" type='default' text='Get Started Free  ' style={{width:"90%", minHeight:"60px", margin:"auto", fontSize:"1.25rem"}}/>
         </div>
 
         {/* learn more */}
@@ -144,7 +146,7 @@ const Affiliate = () => {
             </div>
             <div className={styles.right}>
                 <p className='hidden md:block'>
-                <span>NOW IT IS YOUR TURN TO MAKE MILLIONS</span><br/> without dropping a sweat!<br/><br/>
+                <span>NOW&nbsp;&nbsp; IT&nbsp;&nbsp; IS&nbsp;&nbsp; YOUR&nbsp;&nbsp; TURN&nbsp;&nbsp; TO&nbsp;&nbsp; MAKE&nbsp;&nbsp; MILLIONS</span><br/> without dropping a sweat!<br/><br/>
 
                 It&apos;s as simple as Sign Up, Get a Unique Link,<br/> Promote and EARN!<br/><br/> 
 
@@ -181,7 +183,7 @@ const Affiliate = () => {
             Sign up as a User on Kreatesell to become an Affiliate NOW!
         </h3>
 
-        <Button bgColor="blue" icon={<Image src={RightArrowWhite} alt=""/>} text='Get Started Free' style={{minWidth:"150px"}}/>
+        <Button bgColor="blue" icon={<Image src={RightArrowWhite} alt=""/>} onClick={()=>router.push("/login")} text='Get Started Free' style={{minWidth:"150px", padding:".8rem"}}/>
         </section>
 
     </div>
