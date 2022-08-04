@@ -420,7 +420,8 @@
       max-width: 730px;
       margin: 0 2rem;
       min-height: 168px;
-
+      // justify-content: flex-start;
+      border: 1px solid red;
       background: #f0faff;
       transition: all 0.2s;
       border: 1px solid #0072ef;
@@ -440,13 +441,13 @@
     .selectBox {
       padding: unset;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start !important;
       align-items: center;
       width: 100%;
       .selectMain {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         flex-direction: column;
 
         .top {
@@ -520,6 +521,7 @@
     .txnBox {
       margin-bottom: 1rem;
       transition: all 0.2s;
+      width: 100%;
       // text-align: center !important;
       .text {
         font-weight: 500;
@@ -591,6 +593,7 @@
     @media (min-width: 600px) {
       margin-top: 15px;
       padding: 60px 115px;
+      padding: 60px 65px;
       display: flex;
       justify-content: center;
       align-items: flex-start;

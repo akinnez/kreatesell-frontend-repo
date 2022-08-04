@@ -43,8 +43,32 @@ const Payouts = () => {
   // state to track amount entered
   const [feeAmount, setFeeAmount] = useState(2000);
 
-  const handleAmountChange = (e) => {
-    setFeeAmount(e.target.value);
+  const handleAmountChange = (evt) => {
+    // var charCode = evt.charCode;
+    // if (charCode > 47 && charCode < 48) return false;
+    // else {
+    //   setFeeAmount(evt.target.value);
+    //   return true;
+    // }
+    // if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    //   //alert("Enter numerals only in this field.");
+    //   console.log("letters entered");
+    //   return false;
+    // } else {
+    //   console.log("all numbers");
+    //   setFeeAmount(evt.target.value);
+    //   return true;
+    // }
+
+    // if (typeof evt.target.value === "number") {
+    //   setFeeAmount(evt.target.value);
+    // } else {
+    //   setFeeAmount(0);
+    // }
+
+    // console.log(typeof evt.target.value);
+    console.log(/[a-zA-Z]/.test(evt.target.value));
+    setFeeAmount(evt.target.value);
   };
   // state for wait time
   const [time, setTime] = useState(getWaitTime(country, currency));
@@ -91,6 +115,7 @@ const Payouts = () => {
   }, [feeAmount, feeCurrency]);
 
   // const {rate, fee} = handleAmountChange
+
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
       <section className={styles.payoutsContainer}>
@@ -280,9 +305,14 @@ const Payouts = () => {
                       type="tel"
                       className={styles.input}
                       value={feeAmount}
-                      onChange={handleAmountChange}
+                      onChange={(e) => handleAmountChange(e)}
                       maxLength="7"
-                      pattern="[0-9]{5}"
+                      // pattern=
+                      // pattern="[0-9]{5}"
+                      // pattern="^[0-9]{0,7}$"
+                      //                 title="You can only enter numbers, with a minimal of 3 characters
+                      // upto 45 characters are accepted."
+                      //                 required="required"
                     />
                   </div>
                 </div>
@@ -295,7 +325,11 @@ const Payouts = () => {
               <p className={styles.amount}>
                 <span className={styles.currencyBox}>{feeCurrency}</span>
                 <br />
-                {(feeAmount - fee).toLocaleString("en-US")}
+                {
+                  feeAmount - fee
+                  // feeCharge
+                  // .toLocaleString("en-US")
+                }
               </p>
             </div>
             <div className={styles.txnBox}>
@@ -303,7 +337,11 @@ const Payouts = () => {
               <p className={styles.amount}>
                 <span className={styles.currencyBox}>{feeCurrency}</span>
                 <br />
-                {fee.toLocaleString("en-US")}
+                {
+                  fee
+                  // amountPaid
+                  // .toLocaleString("en-US")
+                }
               </p>
               <div className={styles.percentBox}>
                 <p className={styles.rate}>{rate}%</p>
