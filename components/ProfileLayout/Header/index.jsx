@@ -117,7 +117,7 @@ const Header = () => {
       <div className={style.nav_right}>
         <Button type="text" shape="circle" icon={<Cog />} />
         <NotificationsDropdown />
-        <Dropdown overlay={menu(logout)} placement="bottomCenter" arrow>
+        <Dropdown overlay={menu(logout)} placement="bottom" arrow>
           <Button type="text" className={style.dropdown__btn}>
             <Profile
               name={info?.full_name}

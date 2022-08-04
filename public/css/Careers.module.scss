@@ -22,6 +22,8 @@
     .header {
       text-align: center;
       min-height: 35vh;
+      margin-block: 4rem;
+      margin-block-end: 6rem;
       @include screen("tablet") {
         padding: 0rem 1rem;
       }
@@ -96,6 +98,7 @@
       text-align: center;
       position: relative;
       padding-block: 4rem;
+      border: 1px;
       .benefitsTitle {
         font-weight: 700;
         font-size: 40px;

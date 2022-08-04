@@ -31,20 +31,20 @@ const Campaigns = () => {
 
   useEffect(() => {
     if (uri) {
-      setCampaigns((s) => ({ ...s, loading: true }));
+      setCampaigns(s => ({ ...s, loading: true }));
       axiosAPI.request(
         "get",
         uri,
-        (res) => {
-          setCampaigns((s) => ({
+        res => {
+          setCampaigns(s => ({
             ...s,
             data: res.data.data,
             total: res.data.total_records,
             loading: false,
           }));
         },
-        (err) => {
-          setCampaigns((s) => ({ ...s, loading: false }));
+        err => {
+          setCampaigns(s => ({ ...s, loading: false }));
           setError(err.message);
           showToast(err.message, "error");
         }
@@ -64,7 +64,7 @@ const Campaigns = () => {
 
   if (!campaigns.data) return <Spinner />;
 
-  const handlePageChange = (page) => {
+  const handlePageChange = page => {
     setFilters({ ...filters, page });
   };
 
@@ -95,7 +95,7 @@ const Campaigns = () => {
               />
               <article className={styles.campaign__wrapper}>
                 <div className={styles.campaigns__container}>
-                  {campaigns.data.map((campaign) => (
+                  {campaigns.data.map(campaign => (
                     <Campaign key={campaign.id} campaign={campaign} />
                   ))}
                 </div>
@@ -113,6 +113,7 @@ const Campaigns = () => {
                   total={campaigns.total}
                   responsive={true}
                   onChange={handlePageChange}
+                  showSizeChanger={false}
                 />
               )}
             </>

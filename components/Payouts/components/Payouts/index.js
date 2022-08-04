@@ -98,6 +98,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
               total={payouts.total}
               responsive={true}
               onChange={handlePageChange}
+              showSizeChanger={false}
             />
           </section>
         )}

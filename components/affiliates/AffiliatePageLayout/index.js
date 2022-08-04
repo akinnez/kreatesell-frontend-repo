@@ -62,6 +62,7 @@ const AffiliatePageLayout = ({
               total={products.total}
               responsive={true}
               onChange={handlePageChange}
+              showSizeChanger={false}
             />
           </section>
         )}
