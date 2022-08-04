@@ -1,9 +1,12 @@
+import {useState, useMemo} from 'react'
 import Image from "next/image";
+
+import { Form, Button, DatePicker, Select, Row, Col, Input } from "antd";
+
 import { dayOptions, currencyOptions } from "./partials";
 import styles from "../../public/css/Dashboard.module.scss";
-import { Form, Button, DatePicker, Select, Row, Col, Input } from "antd";
-import {useState} from 'react'
 import ResetFilters from "components/ResetFilters";
+import useCurrency from 'hooks/useCurrency';
 
 export const CouponHeader = ({
 	handleSearchInput,
@@ -15,11 +18,24 @@ export const CouponHeader = ({
 	productStatusOptions,
   resetFilters
 }) => {
+  const [isFiltered, setIsFiltered] = useState(false);
+	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
 	const [form] = Form.useForm();
-	const [isFiltered, setIsFiltered] = useState(false);
+  
+  const {countriesCurrency, loading} = useCurrency();
+  // console.log("countriesCurrency", countriesCurrency);
+
+  useMemo(() => {
+    if(!!countriesCurrency){
+      let country = countriesCurrency.map((ctr)=> ({label: ctr.currency, value: ctr.currency_id}))
+      setCountriesCurrencyList(country);
+    }
+  }, [countriesCurrency])
+
   //   Email: salvoprograms@gmail.com
   // Pass: Salvo$123
   const format = 'YYYY-MM-DD'
+  // if(loading) return <h1>Loading...</h1>
 	return (
 		<div>
           <Form
@@ -47,7 +63,7 @@ export const CouponHeader = ({
               <Col xs={12} lg={4}>
                 <Form.Item label="Currency" name="currency">
                   <Select
-                    options={currencyOptions}
+                    options={countriesCurrencyList}
                     className={styles.selectRadius}
                     placeholder="NGN"
                     onChange={(e)=>handleCurrencyChange(e)}
