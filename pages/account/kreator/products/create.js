@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateProductTab, CheckoutProductTab } from "components";
 import Tab from "components/tab";
 import AuthLayout from "../../../../components/authlayout";
@@ -14,6 +14,12 @@ const CreateProduct = () => {
   const [titles, setTitles] = useState(["Product Design", "Checkout"])
   const [isTabsActive, setIsTabsActive] = useState(true)
   const [selectedTab, setSelectedTab]= useState(1)
+  useEffect(() => {
+  
+    return () => {
+      setProductTab(0);
+    }
+  }, [])
   
   return (
     <AuthLayout>
@@ -22,7 +28,6 @@ const CreateProduct = () => {
           titles={titles}
           active={productTab}
           onSelect={e =>{
-
             setProductTab(e)}}
           key={productTab}
         > 
