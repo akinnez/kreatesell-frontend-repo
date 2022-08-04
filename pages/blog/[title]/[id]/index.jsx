@@ -61,29 +61,29 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
       : `http://localhost:3000${router.asPath}`;
   // const genUrl = `https://kreatesell.com${router.asPath}`;
 
-  useEffect(() => {
-    checkExpiredUserToken();
-  }, []);
-  useEffect(() => {
-    if (!_isUserLoggedIn()) {
-      showToast("Login required to view page", "info");
-      return router.push("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   checkExpiredUserToken();
+  // }, []);
+  // useEffect(() => {
+  //   if (!_isUserLoggedIn()) {
+  //     showToast("Login required to view page", "info");
+  //     return router.push("/login");
+  //   }
+  // }, []);
   const {user} = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
-  useEffect(() => {
-    if (userIsEmpty) {
-      dispatch({ type: USER.REQUEST });
+  // useEffect(() => {
+  //   if (userIsEmpty) {
+  //     dispatch({ type: USER.REQUEST });
 
-      const userStorage = getUser();
+  //     const userStorage = getUser();
 
-      if (userStorage) {
-        dispatch({ type: USER.SUCCESS, payload: userStorage });
-      }
-    }
-  }, [dispatch, userIsEmpty]);
+  //     if (userStorage) {
+  //       dispatch({ type: USER.SUCCESS, payload: userStorage });
+  //     }
+  //   }
+  // }, [dispatch, userIsEmpty]);
   const handleCopyLink = () => {
     navigator.clipboard.writeText(genUrl);
     showToast("Link Copied", "success");

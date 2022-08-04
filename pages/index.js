@@ -56,7 +56,7 @@ import { useGetBlogPosts } from "services/swrQueryHooks/Blogs";
 
 export default function Home() {
   const router = useRouter();
-  const {data: blogData, error: blogError} = useGetBlogPosts(6);
+  const {data: blogData, error: blogError} = useGetBlogPosts(4);
   const [blogPosts, setBlogPosts] = useState([]);
 
   
@@ -647,12 +647,14 @@ export default function Home() {
               {/* end of section 1 */}
 
               <div className={styles.newsCardsGridWithTopImageM}>
-              {blogPosts.slice(2,6).map((blog)=>(
+              {blogPosts.slice(2,5).map((blog)=>(
                 <NewsCard
                   key={blog.id}
                   imgSrc={blog.thumbnail}
                   mainText={blog.title}
                   authorName={blog.app_user.full_name}
+                  postId={blog.id}
+                  category={blog.category}
                 />
               ))}
 
@@ -738,7 +740,7 @@ export default function Home() {
   );
 }
 
-const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
+const NewsCard = ({ mainText, authorName, imgSrc, drop = "", postId, category }) => {
   return (
     <div className={styles.newsCard}>
       <div className={styles.newsImage}>
@@ -751,12 +753,16 @@ const NewsCard = ({ mainText, authorName, imgSrc, drop = "" }) => {
       </div>
       <div className={styles.newsTextCont}>
         <div className={styles.newsTitle}>
-          {mainText}{" "}
-          {drop && (
-            <>
-              <br /> {drop}
-            </>
-          )}
+        <Link href={`/blog/${category}/${postId}`}>
+          <a style={{color: "black"}}>
+            {mainText}{" "}
+            {drop && (
+              <>
+                <br /> {drop}
+              </>
+            )}
+          </a>
+        </Link>
         </div>
         <div className={styles.newsAuthor}>{authorName}</div>
       </div>

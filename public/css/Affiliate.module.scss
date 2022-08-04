@@ -47,7 +47,7 @@
             width: 93%;
             display: flex;
             margin: auto;
-            padding: 3rem 9rem;
+            padding: 3rem 7rem;
             background: #0072EF;
             color: #fff;
             border-radius: 1rem;
@@ -70,13 +70,21 @@
                         font-size: 1.75rem;
                     }              
                 }
+                .getStarted{
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    line-height: 20px;   
+                    text-align: center;
+                    color: #0072EF;
+                    padding-inline: .5rem;                 
+                }
             }
             .right{
                 flex: 3;
                 text-align: left;
                 font-weight: 400;
                 font-size: 1.125rem;
-                line-height: 34px;
+                line-height: 31px;
                 color: #FFFFFF;                
             }
         }
@@ -208,12 +216,12 @@
                     margin: auto;
                 } 
                 .image{
-                    border-radius: 16px;
+                    // border-radius: 16px;
                 }
             }
             .right{
                 width: 50%;
-                padding-inline-start: 8rem;
+                padding-inline-start: 7rem;
                 padding-block-start: 1rem;
                 @include screen("tablet"){
                     width: 90%;
@@ -237,9 +245,11 @@
             @include flex(column, center, center);
             width: 100%;
             background: #E6F7FF;;
-            min-height: 150px;
+            min-height: 360px;
             padding-block: 4rem;
             padding-inline: 2rem;
+            position: relative;
+            top: -6px;
             h3{
                 text-align: center;
                 font-weight: 700;
