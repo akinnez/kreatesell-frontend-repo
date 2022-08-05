@@ -14,6 +14,12 @@ import {
   MissionImage,
   MissionIcon,
   VisionIcon,
+  CoreFive,
+  CoreFour,
+  CoreTwo,
+  CoreThree,
+  CoreOne,
+  ChevRonRight,
 } from "../utils/assets";
 import { useState } from "react";
 const AboutUs = () => {
@@ -37,6 +43,49 @@ const AboutUs = () => {
       isMissionCardHovered: false,
       isVisionCardHovered: true,
     });
+  };
+
+  // * core value
+  const [coreValue, setCoreValue] = useState({
+    customerCentric: true,
+    teamWork: false,
+    respect: false,
+    transparent: false,
+    service: false,
+  });
+
+  const { customerCentric, teamWork, respect, transparent, service } =
+    coreValue;
+
+  const handleCoreValueHover = (id) => {
+    console.log("id = ", id);
+    console.log("header hovered on");
+    setCoreValue({
+      customerCentric: false,
+      teamWork: false,
+      respect: false,
+      transparent: false,
+      service: false,
+      [`${id}`]: true,
+    });
+  };
+
+  const handleCoreValueMouseOut = () => {
+    setCoreValue({
+      customerCentric: false,
+      teamWork: false,
+      respect: false,
+      transparent: false,
+      service: false,
+    });
+  };
+
+  const isActiveCoreValue = (coreValue) => {
+    return coreValue === true;
+  };
+
+  const coreValueClass = (coreValue) => {
+    return isActiveCoreValue(coreValue) ? `${styles.isActive}` : "";
   };
   return (
     <Layout subFooter={false} defaultMarginTop={true}>
@@ -175,12 +224,81 @@ const AboutUs = () => {
                 daily. These values make us your go-to platform for selling
                 digital products without any hassle.
               </p>
-              {data?.map((item) => (
-                <MobileCollapsible key={item?.headingText} {...item} />
-              ))}
-              <div className={styles.images}></div>
+              <div className={styles.cAndI}>
+                <div className={styles.collapsibles}>
+                  {data?.map((item) => (
+                    <MobileCollapsible key={item?.headingText} {...item} />
+                  ))}
+                </div>
+                <div className={styles.images}>
+                  <Image src={CoreOne} alt="core 1" />
+                  <Image src={CoreTwo} alt="core 2" />
+                  <Image src={CoreThree} alt="core 3" />
+                  <Image src={CoreFour} alt="core 4" />
+                  <Image src={CoreFive} alt="core 5" />
+                </div>
+              </div>
+            </div>
+            <div className={styles.lg}>
+              <div className={styles.lgHeaders}>
+                {data?.map((item) => (
+                  <LgCustomHeader
+                    key={item?.headingText}
+                    onMouseEnter={() => handleCoreValueHover(item?.id)}
+                  >
+                    {item?.headingText}
+                  </LgCustomHeader>
+                ))}
+              </div>
+              <div className={styles.lgImages}>
+                <div
+                  className={`${styles.lgImgBox} ${coreValueClass(
+                    customerCentric
+                  )}`}
+                >
+                  <Image src={CoreOne} alt="core 1" />
+                </div>
+                <div
+                  className={`${styles.lgImgBox} ${coreValueClass(teamWork)}`}
+                >
+                  <Image src={CoreTwo} alt="core 2" />
+                </div>
+                <div
+                  className={`${styles.lgImgBox} ${coreValueClass(respect)}`}
+                >
+                  <Image src={CoreThree} alt="core 3" />
+                </div>
+                <div
+                  className={`${styles.lgImgBox} ${coreValueClass(
+                    transparent
+                  )}`}
+                >
+                  {" "}
+                  <Image src={CoreFour} alt="core 4" />
+                </div>
+                <div
+                  className={`${styles.lgImgBox} ${coreValueClass(service)}`}
+                >
+                  <Image src={CoreFive} alt="core 5" />
+                </div>
+              </div>
+              <div className={styles.contents}>
+                {data?.map((item) => (
+                  <div key={item?.headingText} className={styles.lgContent}>
+                    {item?.content}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+          {/* //! end of coreValues */}
+          {/* <div className={styles.mainBanner}>
+            <div className={styles.mobile}>
+              <AboutUsImages />
+            </div>
+
+            <StoryTexts {...first} />
+          </div> */}
         </div>
       </section>
     </Layout>
@@ -279,26 +397,31 @@ const MobileCollapsible = ({ headingText, content }) => {
 const data = [
   {
     headingText: "We are customer-centric",
+    id: "customerCentric",
     content:
       "The happiness of our customers is what motivates us to give our best daily. Once our Users are happy and satisfied, so are we.",
   },
   {
     headingText: "Teamwork is how we roll",
+    id: "teamWork",
     content: `We perform by leveraging one another’s strengths and rubbing minds together to give the best services to our customers. Our slogan is “Our teamwork makes our platform work…”`,
   },
 
   {
     headingText: "We cherish mutual respect ",
+    id: "respect",
     content:
       "We are aware that everyone brings something unique to the table. So, we treat one another equally and extend this respect to our esteemed customers.",
   },
   {
     headingText: "Our activities are transparent",
+    id: "transparent",
     content:
       "At Kreatesell, we have no hidden agenda. We are very open about our activities. Follow our blog and social media channels for updates.",
   },
   {
     headingText: "We provide excellent service",
+    id: "service",
     content:
       "We strive for excellence in everything we do at Kreatesell. This includes services to our valued Kreators and one another. We are always ready to help out, just reach out to us.",
   },
@@ -306,4 +429,11 @@ const data = [
 
 const CustomHeader = ({ children }) => {
   return <h3 className={styles.customHeader}>{children}</h3>;
+};
+const LgCustomHeader = ({ children, onMouseEnter }) => {
+  return (
+    <h3 className={styles.lgCustomHeader} onMouseEnter={onMouseEnter}>
+      {children} <Image src={ChevRonRight} alt="arrow" />
+    </h3>
+  );
 };

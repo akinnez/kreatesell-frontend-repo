@@ -43,8 +43,14 @@ import NgFlag from "../public/images/flag-ng.png";
 import UsFlag from "../public/images/flag-us.svg";
 import UkFlag from "../public/images/flag-uk.svg";
 import GhFlag from "../public/images/flag-gh.png";
+import ChevRonRight from "../public/images/chevron_big_right.svg";
 import AboutUsBlueBox from "../public/images/about-us-blueBox.svg";
 import AboutUsOne from "../public/images/about-us-1.svg";
+import CoreOne from "../public/images/core-1.svg";
+import CoreTwo from "../public/images/core-2.svg";
+import CoreThree from "../public/images/core-3.svg";
+import CoreFour from "../public/images/core-4.svg";
+import CoreFive from "../public/images/core-5.svg";
 import AboutUsTwo from "../public/images/about-us-2.svg";
 import AboutUsThree from "../public/images/about-us-3.svg";
 import AboutUsFour from "../public/images/about-us-4.svg";
@@ -238,6 +244,7 @@ export {
   MissionImage,
   MissionIcon,
   VisionIcon,
+  ChevRonRight,
   IntZoom,
   IntCoinBase,
   IntSamsungPay,
@@ -281,6 +288,11 @@ export {
   SenegalFlag,
   MaliFlag,
   MoneyRain,
+  CoreFive,
+  CoreFour,
+  CoreTwo,
+  CoreThree,
+  CoreOne,
   BurnkinaFasoFlag,
   NewsCardTwo,
   NewsCardThree,
