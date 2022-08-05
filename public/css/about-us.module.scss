@@ -590,12 +590,15 @@
 
     .watchFree {
       background-color: #0072ef;
-      min-height: 158px;
+      max-height: 158px;
       .heading {
         color: #fff;
         font-weight: 700;
         font-size: 13.1309px;
         line-height: 19px;
+      }
+      .videoContainer {
+        padding: 1rem;
       }
     }
   }
