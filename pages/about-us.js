@@ -21,6 +21,15 @@ import {
   CoreOne,
   ChevRonRight,
   MockVideo,
+  MnD,
+  MnGuardian,
+  MnPulse,
+  MnPunch,
+  MnTechCabal,
+  MnTechCrunch,
+  MnTechPoint,
+  MnVanguard,
+  MnTechCity,
 } from "../utils/assets";
 import { useState } from "react";
 const AboutUs = () => {
@@ -296,7 +305,6 @@ const AboutUs = () => {
               </div>
               <div className={styles.contents}>
                 {data?.map((item) => {
-                  console.log(isActiveHeader(item?.id));
                   return (
                     <div
                       key={item?.headingText}
@@ -344,7 +352,17 @@ const AboutUs = () => {
           </div>
           <div className={styles.madeTheNews}>
             <h6 className={styles.heading}>We Made The News</h6>
-            <div className={styles.featureBox}></div>
+            <div className={styles.featureBox}>
+              <Image src={MnTechCrunch} alt="news" />
+              <Image src={MnD} alt="news" />
+              <Image src={MnPulse} alt="news" />
+              <Image src={MnTechCabal} alt="news" />
+              <Image src={MnTechPoint} alt="news" />
+              <Image src={MnTechCity} alt="news" />
+              <Image src={MnPunch} alt="news" />
+              <Image src={MnGuardian} alt="news" />
+              <Image src={MnVanguard} alt="news" />
+            </div>
           </div>
         </div>
       </section>

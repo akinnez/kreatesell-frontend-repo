@@ -167,6 +167,15 @@ import Vanguard from "../public/images/vanguard.svg";
 import TechCity from "../public/images/tech-city.svg";
 import Punch from "../public/images/punch.svg";
 import TechCabal from "../public/images/tech-cabal.svg";
+import MnD from "../public/images/mn-d.svg";
+import MnGuardian from "../public/images/mn-guardian.svg";
+import MnPulse from "../public/images/mn-pulse.svg";
+import MnPunch from "../public/images/mn-punch.svg";
+import MnTechCabal from "../public/images/mn-punch.svg";
+import MnTechCity from "../public/images/mn-techcity.svg";
+import MnTechCrunch from "../public/images/mn-techcrunch.svg";
+import MnTechPoint from "../public/images/mn-techpoint.svg";
+import MnVanguard from "../public/images/mn-vanguard.svg";
 import Guardian from "../public/images/guardian.svg";
 import TechCrunch from "../public/images/tech-crunch.svg";
 import LineOne from "../public/images/line-1.svg";
@@ -258,6 +267,15 @@ export {
   IntHoverSignal,
   XofDefault,
   IntZapier,
+  MnD,
+  MnGuardian,
+  MnPulse,
+  MnPunch,
+  MnTechCabal,
+  MnTechCrunch,
+  MnTechPoint,
+  MnVanguard,
+  MnTechCity,
   IntGoToWebinar,
   WaitTimeBg,
   IntGetResponse,
