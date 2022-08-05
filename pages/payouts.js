@@ -46,7 +46,6 @@ const Payouts = () => {
   const handleAmountChange = (evt) => {
     //* to replace every other character entered which is not a number between 0 and 9
     const inputModified = evt.target.value.replace(/[^0-9]/g, "");
-
     setFeeAmount(inputModified);
   };
   // state for wait time

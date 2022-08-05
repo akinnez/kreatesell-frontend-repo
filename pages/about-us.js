@@ -20,6 +20,7 @@ import {
   CoreThree,
   CoreOne,
   ChevRonRight,
+  MockVideo,
 } from "../utils/assets";
 import { useState } from "react";
 const AboutUs = () => {
@@ -58,8 +59,6 @@ const AboutUs = () => {
     coreValue;
 
   const handleCoreValueHover = (id) => {
-    console.log("id = ", id);
-    console.log("header hovered on");
     setCoreValue({
       customerCentric: false,
       teamWork: false,
@@ -296,22 +295,35 @@ const AboutUs = () => {
                 </div>
               </div>
               <div className={styles.contents}>
-                {data?.map((item) => (
-                  <div key={item?.headingText} className={styles.lgContent}>
-                    {item?.content}
-                  </div>
-                ))}
+                {data?.map((item) => {
+                  console.log(isActiveHeader(item?.id));
+                  return (
+                    <div
+                      key={item?.headingText}
+                      className={`${styles.lgContent} ${
+                        isActiveHeader(item?.id) ? styles.isActive : ""
+                      } `}
+                    >
+                      {item?.content}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
           {/* //! end of coreValues */}
-          {/* <div className={styles.mainBanner}>
-            <div className={styles.mobile}>
-              <AboutUsImages />
+          <div className={styles.media}>
+            <h4 className={styles.heading}>Media</h4>
+            <p className={styles.text}>
+              Hello! You are welcome. Scan through to see various media about
+              Kreatesell, to get to know us better.
+            </p>
+            <div className={styles.watchFree}>
+              <h5 className={styles.heading}>
+                Watch Free Video On How To Use Kreatesell
+              </h5>
             </div>
-
-            <StoryTexts {...first} />
-          </div> */}
+          </div>
         </div>
       </section>
     </Layout>

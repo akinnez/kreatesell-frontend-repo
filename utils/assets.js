@@ -86,7 +86,7 @@ import UnitSales from "../public/images/dashboard-unit-sales.svg";
 import Visit from "../public/images/dashboard-visits.svg";
 import DownloadIcon from "../public/images/download.svg";
 import FBLike from "../public/images/fb-like.svg";
-// import AirBnBLogo from "../public/images/Airbnb-logo.svg";
+import MockVideo from "../public/images/mockVideo.svg";
 import MicrosoftLogo from "../public/images/Microsoft-logo.svg";
 import ElipseImage from "../public/images/hero-elipse-2.svg";
 import MobileElipse from "../public/images/mobile-elipse.svg";
@@ -246,6 +246,7 @@ export {
   VisionIcon,
   ChevRonRight,
   IntZoom,
+  MockVideo,
   IntCoinBase,
   IntSamsungPay,
   MainAbout,
