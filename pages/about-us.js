@@ -323,14 +323,28 @@ const AboutUs = () => {
                 Watch Free Video On How To Use Kreatesell
               </h5>
               <div className={styles.videoContainer}>
-                <Image
-                  src={MockVideo}
-                  alt="mock video"
-                  height={225}
-                  width={431}
-                />
+                <div className={styles.mobile}>
+                  <Image
+                    src={MockVideo}
+                    alt="mock video"
+                    height={225}
+                    width={431}
+                  />
+                </div>
+                <div className={styles.lg}>
+                  <Image
+                    src={MockVideo}
+                    alt="mock video"
+                    height={480}
+                    width={920}
+                  />
+                </div>
               </div>
             </div>
+          </div>
+          <div className={styles.madeTheNews}>
+            <h6 className={styles.heading}>We Made The News</h6>
+            <div className={styles.featureBox}></div>
           </div>
         </div>
       </section>

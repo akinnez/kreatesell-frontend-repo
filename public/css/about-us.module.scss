@@ -12,8 +12,8 @@
   background-image: url("../images/partial-general-bg.svg");
 
   .body {
-    max-width: 1240px;
-    margin: 0 auto;
+    // max-width: 1240px;
+    // margin: 0 auto;
     margin-bottom: 2rem;
   }
   .imageBox {
@@ -63,6 +63,8 @@
   }
 
   .mainAbout {
+    max-width: 1240px;
+    margin: 0 auto;
     text-align: center;
     width: 100%;
     margin-top: 40px;
@@ -166,6 +168,8 @@
   }
 
   .mainBanner {
+    max-width: 1240px;
+    margin: 0 auto;
     @media (min-width: 768px) {
       display: flex;
       justify-content: space-between;
@@ -175,6 +179,8 @@
   }
 
   .missionAndVision {
+    max-width: 1240px;
+    margin: 0 auto;
     padding: 2rem;
     .onLg {
       display: none;
@@ -338,6 +344,8 @@
 
   .coreValues {
     padding: 1rem;
+    max-width: 1240px;
+    margin: 0 auto;
     margin-top: 72px;
     position: relative;
     margin-bottom: 2rem;
@@ -578,6 +586,11 @@
       text-align: center;
       margin-bottom: 24px;
       padding: 1rem;
+      @media (min-width: 768px) {
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 54px;
+      }
     }
 
     .text {
@@ -586,20 +599,62 @@
       font-size: 18px;
       line-height: 28px;
       text-align: center;
+      @media (min-width: 768px) {
+        font-size: 18px;
+        line-height: 28px;
+      }
     }
 
     .watchFree {
       background-color: #0072ef;
       max-height: 158px;
+      padding-top: 28.41px;
+      margin-bottom: 2rem;
       .heading {
         color: #fff;
         font-weight: 700;
         font-size: 13.1309px;
         line-height: 19px;
+
+        margin-bottom: unset;
+        @media (min-width: 768px) {
+          font-size: 28px;
+          line-height: 40px;
+        }
       }
       .videoContainer {
         padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .lg {
+          display: none;
+          @media (min-width: 768px) {
+            display: block;
+          }
+        }
+        .mobile {
+          @media (min-width: 768px) {
+            display: none;
+          }
+        }
       }
+
+      @media (min-width: 768px) {
+        min-height: 319px;
+        max-height: 319px;
+      }
+    }
+  }
+
+  .madeTheNews {
+    margin-top: 14rem;
+    background-color: #f5f5f5;
+    .heading {
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 40px;
+      text-align: center;
     }
   }
 }
