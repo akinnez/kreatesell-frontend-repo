@@ -250,7 +250,6 @@ const AboutUs = () => {
             >
               <div className={styles.lgHeaders}>
                 {data?.map((item) => {
-                  console.log(coreValue[item?.id]);
                   return (
                     <LgCustomHeader
                       key={item?.headingText}
@@ -453,9 +452,11 @@ const LgCustomHeader = ({
 }) => {
   return (
     <h3
-      className={`${styles.lgCustomHeader} ${isActive ? styles.isActive : ""}`}
+      className={`${styles.lgCustomHeader} ${
+        isActive() ? styles.isActive : ""
+      }`}
       onMouseEnter={onMouseEnter}
-      // onMouseLeave={onMouseLeave}
+      onMouseLeave={onMouseLeave}
     >
       {children} <Image src={ChevRonRight} alt="arrow" />
     </h3>
