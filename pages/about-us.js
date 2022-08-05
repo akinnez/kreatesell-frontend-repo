@@ -72,7 +72,7 @@ const AboutUs = () => {
 
   const handleCoreValueMouseOut = () => {
     setCoreValue({
-      customerCentric: false,
+      customerCentric: true,
       teamWork: false,
       respect: false,
       transparent: false,
@@ -82,6 +82,10 @@ const AboutUs = () => {
 
   const isActiveCoreValue = (coreValue) => {
     return coreValue === true;
+  };
+
+  const isActiveHeader = (id) => {
+    return coreValue[id] === true;
   };
 
   const coreValueClass = (coreValue) => {
@@ -239,16 +243,26 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.lg}>
+            <div
+              className={styles.lg}
+              onMouseEnter={handleCoreValueMouseOut}
+              onMouseLeave={handleCoreValueMouseOut}
+            >
               <div className={styles.lgHeaders}>
-                {data?.map((item) => (
-                  <LgCustomHeader
-                    key={item?.headingText}
-                    onMouseEnter={() => handleCoreValueHover(item?.id)}
-                  >
-                    {item?.headingText}
-                  </LgCustomHeader>
-                ))}
+                {data?.map((item) => {
+                  console.log(coreValue[item?.id]);
+                  return (
+                    <LgCustomHeader
+                      key={item?.headingText}
+                      id={item?.id}
+                      onMouseEnter={() => handleCoreValueHover(item?.id)}
+                      onMouseLeave={handleCoreValueMouseOut}
+                      isActive={() => isActiveHeader(item?.id)}
+                    >
+                      {item?.headingText}
+                    </LgCustomHeader>
+                  );
+                })}
               </div>
               <div className={styles.lgImages}>
                 <div
@@ -430,9 +444,19 @@ const data = [
 const CustomHeader = ({ children }) => {
   return <h3 className={styles.customHeader}>{children}</h3>;
 };
-const LgCustomHeader = ({ children, onMouseEnter }) => {
+const LgCustomHeader = ({
+  children,
+  onMouseEnter,
+
+  isActive,
+  onMouseLeave,
+}) => {
   return (
-    <h3 className={styles.lgCustomHeader} onMouseEnter={onMouseEnter}>
+    <h3
+      className={`${styles.lgCustomHeader} ${isActive ? styles.isActive : ""}`}
+      onMouseEnter={onMouseEnter}
+      // onMouseLeave={onMouseLeave}
+    >
       {children} <Image src={ChevRonRight} alt="arrow" />
     </h3>
   );
