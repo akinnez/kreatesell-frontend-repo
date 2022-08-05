@@ -178,6 +178,7 @@ const AboutUs = () => {
               {data?.map((item) => (
                 <MobileCollapsible key={item?.headingText} {...item} />
               ))}
+              <div className={styles.images}></div>
             </div>
           </div>
         </div>
