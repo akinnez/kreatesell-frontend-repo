@@ -55,9 +55,9 @@ const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
 
     const notification = notifications[i];
     const type = notification.notification_type;
-    const typeExists = type in notificationTypes;
 
-    if (!typeExists) continue;
+    if (!type in notificationTypes) continue;
+    if (notification.is_read) continue;
 
     const name = generateName(notification.name, type);
     const productName = generateProductName(notification.product_name, type);
