@@ -4,6 +4,7 @@ import { dateString } from "utils/dateFormat";
 import formatNumber from "utils/formatNumber";
 import productPriceFn from "utils/productPriceFn";
 import GetLink from "./components/GetLink";
+import RequestStatus from "./components/RequestStatus";
 
 const requestsColumns = [
   {
@@ -45,19 +46,7 @@ const requestsColumns = [
   {
     title: "Request Status",
     dataIndex: "request_status",
-    render: status => (
-      <>
-        {status === "Approved" ? (
-          <Tags color="green">{status}</Tags>
-        ) : status === "Declined" ? (
-          <Tags color="red">{status}</Tags>
-        ) : status === "Pending" ? (
-          <Tags color="orange">{status}</Tags>
-        ) : (
-          <Tags>{status}</Tags>
-        )}
-      </>
-    ),
+    render: status => <RequestStatus status={status} />,
   },
   {
     title: "Actions",

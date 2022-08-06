@@ -18,6 +18,7 @@ const AffiliatePageLayout = ({
   columns,
   statusKey,
   productKey,
+  showStatus = false,
 }) => {
   const handlePageChange = page => {
     setFilters({ ...filters, page });
@@ -44,6 +45,7 @@ const AffiliatePageLayout = ({
             statusKey={statusKey}
             products={products.data}
             component={Component}
+            showStatus={showStatus}
           />
           <div className={styles.table__wrapper}>
             <Table
