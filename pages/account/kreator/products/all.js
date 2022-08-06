@@ -4,7 +4,7 @@ import {
   CouponHeader,
   emptyComponent,
 } from "components";
-import { format, parseISO } from "date-fns";
+import { format, parseISO, subDays } from "date-fns";
 
 import { DownloadIcon, ActionBtn, DeactvateProduct, DeleteIcon, EditProduct, ManageProduct, ViewSales, DuplicateProduct, _copyToClipboard } from "utils";
 import AuthLayout from "../../../../components/authlayout";
@@ -45,6 +45,7 @@ const AllProducts = () => {
   const [productData, setProductData] = useState([]);
   const [productName, setProductName] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [showSelect, setShowSelect] = useState("");
   const [currencyFilter, setCurrencyFilter] = useState("");
   const [productStatusId, setProductStatusId] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -105,6 +106,49 @@ const AllProducts = () => {
       setDomainLink(domain_details[0].domain_url);
     }
   }, [store]);
+  const formatDate = (date, formatArg="yyyy-MM-dd") => {
+    return format(date, formatArg);
+  }
+
+  useEffect(() => {
+    if(showSelect){
+      handleShowFilter();
+    }
+  }, [showSelect])
+  
+  const handleShowFilter = () => {
+    const day = new Date();
+      switch(showSelect){
+        case "Today":
+          setStartDate(()=>formatDate(subDays(day, 0)));
+          setEndDate(()=>formatDate(day));
+          break;
+        case "Yesterday":
+          setStartDate(formatDate(subDays(day, 1)));
+          setEndDate(formatDate(subDays(day, 1)));
+          // return [formatDate(subDays(day, 1)), formatDate(day)];
+          break;
+        case "Last 7 days":
+          setStartDate(formatDate(subDays(day, 7)));
+          setEndDate(formatDate(day));
+          break;
+        case "Last 30 days":
+          setStartDate(formatDate(subDays(day, 30)));
+          setEndDate(formatDate(day));
+          break;
+        case "This year":
+          let year = new Date().getFullYear();
+          setStartDate(`${year}-01-01`);
+          setEndDate(formatDate(day));
+          break;
+        case "All time":
+          setStartDate("");
+          setEndDate(formatDate(day));
+          break;
+        default:
+          return;
+      }
+  }
   const handleSearchSubmit = () => {
     getProducts(1, productName, startDate, endDate, currencyFilter, () => console.log("done"));
     console.log(productName, startDate, endDate);
@@ -246,13 +290,14 @@ const AllProducts = () => {
           handleSearchSubmit={(cb) => {
             handleSearchSubmit()
             cb()
-            }}
+          }}
           handleStartDate={(e, string) => {
-            // console.log(string);
             setStartDate(string);
           }}
           handleCurrencyChange={(e)=>setCurrencyFilter(e)}
           handleEndDate={(e, string) => setEndDate(string)}
+          handleShowSelect={(e)=>{
+            setShowSelect(e)}}
           {...{resetFilters}}
           // productStatusOptions={productStatusOptions}
           // handleProductStatus={(e) => setProductStatusId(e)}
