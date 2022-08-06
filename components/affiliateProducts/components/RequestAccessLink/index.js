@@ -3,21 +3,21 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import styles from "./index.module.scss";
 
 const RequestAccessLink = ({ productId, status }) => (
-  <div className={styles.request__link}>
+  <>
     {!status ? (
       <Link href={`/account/affiliate/market-place/${productId}`}>
-        <a>
-          Request Access&nbsp;
+        <a className={styles.request__link}>
+          Request Access
           <AiOutlineArrowRight />
         </a>
       </Link>
     ) : (
-      <a disabled>
-        Request Access&nbsp;
+      <a className={styles.request__link} disabled>
+        Request Access
         <AiOutlineArrowRight />
       </a>
     )}
-  </div>
+  </>
 );
 
 export default RequestAccessLink;

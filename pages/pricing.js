@@ -3,6 +3,7 @@ import { Layout, PricingCard, Select, Button } from "../components";
 import styles from "../public/css/Pricing.module.scss";
 import { Faq, Animate } from "../utils";
 import Image from "next/image";
+import router from "next/router";
 
 const Pricing = () => {
   const [activeBtn, setActiveBtn] = useState({
@@ -91,7 +92,9 @@ const Pricing = () => {
                   btnText="Start for free"
                   subTitle="All of the features you need to start selling your contents"
                   priceType="100% Free "
-                  btnOnClick={()=>handleBtnClick("basic")}
+                  btnOnClick={()=>{
+                    router.push("/login");
+                    handleBtnClick("basic")}}
                   currentPlan={selectedPlan==="basic"}
                 />
               </div>

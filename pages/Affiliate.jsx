@@ -27,7 +27,7 @@ const Affiliate = () => {
                 Become An Affiliate On Kreatesell Now!
             </h2>
             <br/>
-            <Button icon={<Image src={RightArrowBlue} alt=""/>} onClick={()=>router.push("/login")} className={`hidden md:block ${styles.getStarted}`} type='default' text='Get Started Free' style={{minWidth:"150px", minHeight:"50px"}}/>
+            <Button icon={<Image src={RightArrowBlue} alt=""/>} onClick={()=>router.push("/signup")} className={`hidden md:block ${styles.getStarted}`} type='default' text='Get Started Free' style={{minWidth:"150px", minHeight:"50px"}}/>
             </div>
             <div className={styles.right}>
                 Kreatesell is a Break-Through SaaS platform for Content Creators and Digital Entrepreneurs (Kreators) to instantly sell their content and digital products to a wide range of global customers.<br/><br/>
@@ -40,7 +40,7 @@ const Affiliate = () => {
 
                 Earning has Never Been Easier as it is on Kreatesell. Make Insane Amounts of passive and active income for yourself. <br/><br/>
             </div>
-            <Button icon={<Image src={RightArrowBlue} alt=""/>} onClick={()=>router.push("/login")} className="block md:hidden" type='default' text='Get Started Free  ' style={{width:"90%", minHeight:"60px", margin:"auto", fontSize:"1.25rem"}}/>
+            <Button icon={<Image src={RightArrowBlue} alt=""/>} onClick={()=>router.push("/signup")} className="block md:hidden" type='default' text='Get Started Free  ' style={{width:"90%", minHeight:"60px", margin:"auto", fontSize:"1.25rem"}}/>
         </div>
 
         {/* learn more */}
@@ -183,7 +183,7 @@ const Affiliate = () => {
             Sign up as a User on Kreatesell to become an Affiliate NOW!
         </h3>
 
-        <Button bgColor="blue" icon={<Image src={RightArrowWhite} alt=""/>} onClick={()=>router.push("/login")} text='Get Started Free' style={{minWidth:"150px", padding:".8rem"}}/>
+        <Button bgColor="blue" icon={<Image src={RightArrowWhite} alt=""/>} onClick={()=>router.push("/signup")} text='Get Started Free' style={{minWidth:"150px", padding:".8rem"}}/>
         </section>
 
     </div>

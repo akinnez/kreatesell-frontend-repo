@@ -16,7 +16,8 @@ export const CouponHeader = ({
 	handleSearchSubmit,
   handleCurrencyChange,
 	productStatusOptions,
-  resetFilters
+  resetFilters,
+  handleShowSelect
 }) => {
   const [isFiltered, setIsFiltered] = useState(false);
 	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
@@ -56,7 +57,7 @@ export const CouponHeader = ({
                     options={dayOptions}
                     className={styles.selectRadius}
                     placeholder="Today"
-                    // onChange={handleSelect("show")}
+                    onChange={(e)=>handleShowSelect(e)}
                   />
                 </Form.Item>
               </Col>
