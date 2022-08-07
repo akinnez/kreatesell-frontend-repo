@@ -15,7 +15,13 @@ const NotificationsDropdown = () => {
 
   return (
     <Dropdown
-      overlay={notificationsMenu({ notifications, error, dispatch, mutate })}
+      overlay={notificationsMenu({
+        notifications,
+        error,
+        count,
+        dispatch,
+        mutate,
+      })}
       placement="bottom"
       trigger={["click"]}
       arrow

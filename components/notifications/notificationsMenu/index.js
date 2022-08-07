@@ -11,8 +11,14 @@ import { notificationTime } from "utils";
 import { notificationTypes } from "utils/notificationTypes";
 import styles from "./index.module.scss";
 
-const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
-  if (error)
+const notificationsMenu = ({
+  notifications,
+  error,
+  count,
+  dispatch,
+  mutate,
+}) => {
+  if (error) {
     return (
       <Menu>
         <Menu.Item
@@ -23,8 +29,9 @@ const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
         </Menu.Item>
       </Menu>
     );
+  }
 
-  if (!notifications)
+  if (!notifications) {
     return (
       <Menu>
         <Menu.Item className={styles.menu__item} key="loading-notifications">
@@ -32,8 +39,9 @@ const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
         </Menu.Item>
       </Menu>
     );
+  }
 
-  if (notifications.length === 0)
+  if (notifications.length === 0) {
     return (
       <Menu>
         <Menu.Item className={styles.menu__item} key="empty-notifications">
@@ -41,6 +49,22 @@ const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
         </Menu.Item>
       </Menu>
     );
+  }
+
+  if (!count) {
+    return (
+      <Menu>
+        <Menu.Item className={styles.menu__item} key="no-unread-notifications">
+          <div className={styles["no-unread-notifications"]}>
+            <p>You have no new/unread notifications</p>
+            <Link href="/account/kreator/notifications">
+              <a className={styles.link}>See Notifications</a>
+            </Link>
+          </div>
+        </Menu.Item>
+      </Menu>
+    );
+  }
 
   const handleClick = notification => {
     if (!notification.is_read) {
@@ -69,7 +93,7 @@ const notificationsMenu = ({ notifications, error, dispatch, mutate }) => {
       >
         <Link href="/account/kreator/notifications">
           <a onClick={() => handleClick(notification)}>
-            <p className={notification.is_read ? null : styles.bold}>
+            <p className={styles.bold}>
               {type === "affiliate request"
                 ? notificationTypes[type](name, productName)
                 : type === "approve affiliate"
