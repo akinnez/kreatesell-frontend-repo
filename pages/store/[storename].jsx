@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { FetchSingleStoreProduct, SetCheckoutDetails } from "redux/actions";
 import { useEffect } from "react";
 import { Pagination } from "antd";
+import { Logout } from "redux/actions";
 
 const StorePage = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const StorePage = () => {
     fetchSingleStoreProduct(storename, page);
   };
 
+  const logout = Logout();
   useEffect(() => {
     if (storename !== "undefined") {
       return fetchSingleStoreProduct(storename);
@@ -52,12 +54,12 @@ const StorePage = () => {
             <Select options={currencyOptions} border="none" />
           </div>
 
-          <div className="mr-4" onClick={() => router.push("/login")}>
+          {/* <div className="mr-4" onClick={() => router.push("/login")}>
             <Button text="Login" />
-          </div>
+          </div> */}
 
-          <div onClick={() => router.push("/signup")}>
-            <Button text="Signup" bgColor="blue" />
+          <div onClick={() => logout()}>
+            <Button text="logout" bgColor="blue" />
           </div>
         </div>
       </nav>
@@ -76,15 +78,8 @@ const StorePage = () => {
             <Select options={currencyOptions} border="none" />
           </div>
 
-          <div className="mr-2" onClick={() => router.push("/login")}>
-            <Button
-              text="Login"
-              className={`${styles.login} ${styles.loginBtnStyle}`}
-            />
-          </div>
-
-          <div onClick={() => router.push("/signup")}>
-            <Button text="Signup" bgColor="blue" className={styles.login} />
+          <div onClick={() => logout()}>
+            <Button text="logout" bgColor="blue" />
           </div>
         </div>
       </nav>
