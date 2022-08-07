@@ -8,6 +8,7 @@ import DashboardFilters from "components/account-dashboard/DashboardFilters";
 import StatsHeader from "components/account-dashboard/StatsHeader";
 import styles from "public/css/DashboardPage.module.scss";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const { Text, Title } = Typography;
 
@@ -15,13 +16,27 @@ const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [_, setFiltered] = useState(null);
 
-  const hideModal = () => {
+  const user = useSelector((state) => state?.auth?.user);
+  const isFirstTimer = useSelector(
+    (state) => state?.store?.store?.user?.is_first_time
+    // (state) => state?.store?.store
+  );
+
+  // const User = localStorage.getItem("user");
+
+  const hideModal = async () => {
     setModalVisible(false);
+    try {
+      const response = await axios.get(
+        `${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
+      );
+      console.log(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const user = useSelector((state) => state?.auth?.user);
   const isAffiliate = user?.is_affiliate;
-  console.log(user);
 
   return (
     <AuthLayout>
@@ -50,39 +65,41 @@ const Dashboard = () => {
         )}
       </section>
 
-      <Modal
-        title={null}
-        footer={null}
-        closable={false}
-        onCancel={hideModal}
-        visible={modalVisible}
-        maskClosable={false}
-        width={700}
-      >
-        <div className={styles.modal__wrapper}>
-          <header className={styles.header}>
-            <Title>Thrilled to welcome you on board </Title>
-          </header>
-          <div className={styles.content}>
-            <p>
-              <Text>
-                You&apos;re few minutes away from selling your e-books, online
-                courses, templates, memberships and subscriptions on an amazing
-                all-in-one edtech platform.
-              </Text>
-            </p>
+      {isFirstTimer && (
+        <Modal
+          title={null}
+          footer={null}
+          closable={false}
+          onCancel={hideModal}
+          visible={modalVisible}
+          maskClosable={false}
+          width={700}
+        >
+          <div className={styles.modal__wrapper}>
+            <header className={styles.header}>
+              <Title>Thrilled to welcome you on board </Title>
+            </header>
+            <div className={styles.content}>
+              <p>
+                <Text>
+                  You&apos;re few minutes away from selling your e-books, online
+                  courses, templates, memberships and subscriptions on an
+                  amazing all-in-one edtech platform.
+                </Text>
+              </p>
+            </div>
+            <footer className={styles.footer}>
+              {/* {user?.percentage_completed !== 100 && ( */}
+              <Link href="/account/dashboard/affiliate">
+                <a>Tips to sell your contents</a>
+              </Link>
+              <Button size="large" type="primary" onClick={hideModal}>
+                Proceed to Dashboard
+              </Button>
+            </footer>
           </div>
-          <footer className={styles.footer}>
-            {/* {user?.percentage_completed !== 100 && ( */}
-            <Link href="/account/dashboard/affiliate">
-              <a>Tips to sell your contents</a>
-            </Link>
-            <Button size="large" type="primary" onClick={hideModal}>
-              Proceed to Dashboard
-            </Button>
-          </footer>
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </AuthLayout>
   );
 };
