@@ -45,6 +45,7 @@ export const Login = () => {
         const { token, user } = res;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
+        // sessionStorage.setItem("user", JSON.stringify(user));
         dispatch({ type: types.LOGIN.SUCCESS, payload: user });
         successCallback?.(res);
       },

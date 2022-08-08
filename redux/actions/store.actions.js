@@ -10,11 +10,11 @@ export const StoreOnboarding = () => {
     axios.request(
       `post`,
       `v1/kreatesell/store/onboarding`,
-      res => {
+      (res) => {
         dispatch({ type: types.ONBOARDING_SETUP.SUCCESS, payload: res });
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({ type: types.ONBOARDING_SETUP.FAILURE, payload: err });
         errorCallback?.();
       },
@@ -30,8 +30,9 @@ export const GetStoreDetails = () => {
     axios.request(
       `get`,
       `v1/kreatesell/store/me`,
-      res => {
+      (res) => {
         const data = res?.data;
+        // console.log("data from store/me = ", res);
         dispatch({ type: types.GET_STORE_DETAILS.SUCCESS, payload: data });
         localStorage.setItem(
           "store_details",
@@ -39,7 +40,7 @@ export const GetStoreDetails = () => {
         );
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({ type: types.GET_STORE_DETAILS.FAILURE, payload: err });
         errorCallback?.();
       }
@@ -54,7 +55,7 @@ export const WelcomeStoreOnboarding = () => {
     axios.request(
       `post`,
       `v1/kreatesell/store/inherit-name`,
-      res => {
+      (res) => {
         dispatch({
           type: types.WELCOME_STORE_ONBOARDING.SUCCESS,
           payload: res,
@@ -62,7 +63,7 @@ export const WelcomeStoreOnboarding = () => {
         showToast(res?.message, "info");
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.WELCOME_STORE_ONBOARDING.FAILURE,
           payload: err,
@@ -82,7 +83,7 @@ export const UpdateStoreSettings = () => {
     axios.request(
       `patch`,
       `v1/kreatesell/store/settings`,
-      res => {
+      (res) => {
         dispatch({
           type: types.STORE_SETTINGS.SUCCESS,
           payload: res,
@@ -90,7 +91,7 @@ export const UpdateStoreSettings = () => {
         showToast(res?.message, "info");
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.STORE_SETTINGS.FAILURE,
           payload: err,
@@ -110,7 +111,7 @@ export const UpdateCTAButton = () => {
     axios.request(
       `patch`,
       `v1/kreatesell/utils/cta-button`,
-      res => {
+      (res) => {
         dispatch({
           type: types.UPDATE_STORE_CTA_BUTTON.SUCCESS,
           payload: res,
@@ -118,7 +119,7 @@ export const UpdateCTAButton = () => {
         showToast(res?.message, "info");
         successCallback?.();
       },
-      err => {
+      (err) => {
         dispatch({
           type: types.UPDATE_STORE_CTA_BUTTON.FAILURE,
           payload: err,
@@ -176,14 +177,14 @@ export const getStoreRequest = () => ({
   type: types.GET_STORE_DETAILS.REQUEST,
 });
 
-export const getStore = info => {
+export const getStore = (info) => {
   return {
     type: types.GET_STORE_DETAILS.SUCCESS,
     payload: info,
   };
 };
 
-export const updateStore = data => ({
+export const updateStore = (data) => ({
   type: types.UPDATE_STORE_DETAILS,
   payload: data,
 });

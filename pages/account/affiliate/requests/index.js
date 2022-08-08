@@ -44,6 +44,7 @@ const AffiliateRequests = () => {
         columns={requestsColumns}
         statusKey="request_status"
         productKey="product_id"
+        showStatus
       />
     </AuthLayout>
   );

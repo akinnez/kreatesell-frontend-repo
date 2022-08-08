@@ -2,11 +2,11 @@
 @import "./screens.scss";
 
 .layoutMargin {
-	margin-top: 6rem;
-	@include screen("tablet") {
-		// margin-top: 7rem;
-		margin-top: 0rem !important;
-	}
+  margin-top: 6rem;
+  @include screen("tablet") {
+    // margin-top: 7rem;
+    margin-top: 0rem !important;
+  }
 }
 
 .footer {
