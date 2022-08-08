@@ -33,6 +33,7 @@ export const data = [
     flag: UkFlag?.src,
     fullWidth: true,
   },
+  { currency: "XAF", country: "Cameroon", flag: CamFlag?.src },
   { currency: "GHS", country: "Ghana", flag: GhFlag?.src },
   { currency: "KES", country: "Kenya", flag: KenFlag?.src },
   { currency: "UGX", country: "Uganda", flag: UganFlag?.src },
@@ -65,6 +66,7 @@ export const data = [
     fullWidth: true,
   },
   { currency: "", country: "Gambia", flag: GambianFlag?.src },
+  // { currency: "XAF", country: "Cameroon", flag: CamFlag?.src },
   {
     currency: "XOF",
     country: "Ivory Coast",
@@ -75,7 +77,7 @@ export const data = [
   { currency: "XOF", country: "Senegal", flag: SenegalFlag?.src },
   { currency: "XOF", country: "Mali", flag: MaliFlag?.src },
   { currency: "", country: "Chad", flag: ChadFlag?.src },
-  { currency: "XOF", country: "Cameroon", flag: CamFlag?.src },
+  // { currency: "XAF", country: "Cameroon", flag: CamFlag?.src },
   { currency: "", country: "Gabon", flag: GabonFlag?.src },
 ];
 
@@ -84,6 +86,7 @@ export const selectCountry = data.map((item) => ({
   value: item?.country,
   flag: item?.flag,
 }));
+// .slice(0, 20);
 
 const allCurrencies = data.map((item) => ({
   label: item?.currency,
@@ -94,7 +97,7 @@ const allCurrencies = data.map((item) => ({
 
 export const selectCurrency = allCurrencies
   .filter((item) => item.value !== "")
-  .slice(0, 10);
+  .slice(0, 11);
 
 // CUSTOM FUNCTION TO RETURN countryAndCURRENCY
 const customCurrency = (country, currency) => {

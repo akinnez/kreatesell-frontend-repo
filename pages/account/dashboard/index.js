@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { Modal, Button, Typography } from "antd";
@@ -10,11 +10,15 @@ import styles from "public/css/DashboardPage.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+// import useSWR from "swr";
+
 const { Text, Title } = Typography;
 
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [_, setFiltered] = useState(null);
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(isFirstTimeUser);
+  const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
   const user = useSelector((state) => state?.auth?.user);
   const isFirstTimer = useSelector(
@@ -31,13 +35,29 @@ const Dashboard = () => {
         `${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
       );
       console.log(response?.data);
+      // mutate(mainStoreUrl);
     } catch (error) {
       console.log(error);
     }
   };
 
   const isAffiliate = user?.is_affiliate;
+  const getUserVisitStatus = () => {
+    axios
+      .get(mainStoreUrl)
+      .then((res) => {
+        console.log(res?.data?.user?.is_first_time);
+        setIsFirstTimeUser(res?.data?.user?.is_first_time);
+      })
+      .catch((error) => console.log(error));
+  };
 
+  // const { data } = useSWR("v1/kreatesell/store/me", fetcher);
+  // console.log(data);
+
+  useEffect(() => {
+    getUserVisitStatus();
+  }, []);
   return (
     <AuthLayout>
       <Head>
@@ -64,8 +84,8 @@ const Dashboard = () => {
           </div>
         )}
       </section>
-
-      {isFirstTimer && (
+      {/* {isFirstTimer */}
+      {isFirstTimeUser && (
         <Modal
           title={null}
           footer={null}

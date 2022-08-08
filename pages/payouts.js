@@ -12,7 +12,7 @@ import { MoneyRain } from "utils";
 import { SharedSubFooter } from "./how-it-works";
 import { Form, Select } from "antd";
 import React, { useState, useEffect } from "react";
-import { XofDefault } from "utils";
+import { XofDefault, IvoryCoastFlag } from "utils";
 
 const Payouts = () => {
   const [form] = Form.useForm();
@@ -177,7 +177,7 @@ const Payouts = () => {
                 <Image
                   src={
                     currencyFlag.label === "XOF"
-                      ? XofDefault
+                      ? IvoryCoastFlag // XofDefault
                       : currencyFlag?.flag
                   }
                   alt={`Flag of ${currencyFlag?.value}`}
