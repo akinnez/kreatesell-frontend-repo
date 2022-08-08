@@ -86,7 +86,7 @@ export const Footer = () => {
               <a>Features</a>
             </Link>
 
-            <Link href="#">
+            <Link href="/Affiliate">
               <a>Affiliates</a>
             </Link>
           </div>
@@ -223,7 +223,7 @@ export const Footer = () => {
                 <a>Features</a>
               </Link>
 
-              <Link href="/affiliates">
+              <Link href="/Affiliate">
                 <a>Affiliates</a>
               </Link>
             </div>

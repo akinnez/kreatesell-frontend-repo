@@ -1,8 +1,12 @@
+import {useState, useMemo} from 'react'
 import Image from "next/image";
+
+import { Form, Button, DatePicker, Select, Row, Col, Input } from "antd";
+
 import { dayOptions, currencyOptions } from "./partials";
 import styles from "../../public/css/Dashboard.module.scss";
-import { Form, Button, DatePicker, Select, Row, Col, Input } from "antd";
-import {useState} from 'react'
+import ResetFilters from "components/ResetFilters";
+import useCurrency from 'hooks/useCurrency';
 
 export const CouponHeader = ({
 	handleSearchInput,
@@ -10,17 +14,33 @@ export const CouponHeader = ({
 	handleStartDate,
 	handleEndDate,
 	handleSearchSubmit,
+  handleCurrencyChange,
 	productStatusOptions,
+  resetFilters,
+  handleShowSelect
 }) => {
+  const [isFiltered, setIsFiltered] = useState(false);
+	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
 	const [form] = Form.useForm();
-	const [isFiltered, setIsFiltered] = useState(false);
+  
+  const {countriesCurrency, loading} = useCurrency();
+  // console.log("countriesCurrency", countriesCurrency);
+
+  useMemo(() => {
+    if(!!countriesCurrency){
+      let country = countriesCurrency.map((ctr)=> ({label: ctr.currency, value: ctr.currency_id}))
+      setCountriesCurrencyList(country);
+    }
+  }, [countriesCurrency])
+
   //   Email: salvoprograms@gmail.com
   // Pass: Salvo$123
   const format = 'YYYY-MM-DD'
+  // if(loading) return <h1>Loading...</h1>
 	return (
 		<div>
           <Form
-            onFinish={handleSearchSubmit}
+            onFinish={()=>handleSearchSubmit(()=>setIsFiltered(true))}
             size="large"
 			      layout="vertical"
             form={form}
@@ -37,17 +57,17 @@ export const CouponHeader = ({
                     options={dayOptions}
                     className={styles.selectRadius}
                     placeholder="Today"
-                    // onChange={handleSelect("show")}
+                    onChange={(e)=>handleShowSelect(e)}
                   />
                 </Form.Item>
               </Col>
               <Col xs={12} lg={4}>
                 <Form.Item label="Currency" name="currency">
                   <Select
-                    options={currencyOptions}
+                    options={countriesCurrencyList}
                     className={styles.selectRadius}
                     placeholder="NGN"
-                    // onChange={handleSelect("currency")}
+                    onChange={(e)=>handleCurrencyChange(e)}
                   />
                 </Form.Item>
               </Col>
@@ -86,6 +106,10 @@ export const CouponHeader = ({
               </Col>
             </Row>
           </Form>
+          {isFiltered && <ResetFilters resetFilters={()=>{
+            resetFilters()
+            setIsFiltered(false)  
+          }} />}
         </div>
 	);
 };

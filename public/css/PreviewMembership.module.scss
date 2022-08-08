@@ -5,16 +5,115 @@
 .container2{
     header{
         height: 90px;
-        border: 1px solid black;
+        // border: 1px solid black;
+        .left{
+            flex: 1;
+        }
+        .right{
+            flex:1;
+            .outlinedBtn{
+                border: 1px solid #0072EF;
+                color: #0072EF;
+            }
+        }
     }
 
     section{
         padding: 1rem 4rem;
         background: #E5E5E5;
         min-height: calc(100vh - 90px);
-        .left{
-            .card{
-                border-radius: 8px;
+        @include screen("x-large"){
+            padding: 1rem 2.2rem;
+        }
+        .largeScreen{
+            @include screen("inbetween"){
+                display: none;
+            }
+            .left{
+                .card{
+                    
+                    .mainTitle{
+                        font-weight: 600;
+                        font-size: 1.5rem;
+                        line-height: 32px;
+                        color: #0072EF;
+                        @include screen("x-large"){
+                            font-size: 1.4rem;
+                        }               
+                    }
+                    .accordion{
+                        padding: 1rem .5rem;
+        
+                        .accordionItem{
+        
+                            .accordionTitle{
+                                padding-block: .7rem;
+                                width: 100%;
+                                justify-content: space-between;
+                                .title{
+                                    font-weight: 600;
+                                    font-size: 24px;
+                                    line-height: 32px;
+                                    color: #262626;                            
+                                }
+                                .icon{
+        
+                                }
+                            }
+                            .accordionContent{
+        
+                                .subTextContainer{
+                                    margin-block-end: 1rem;
+                    
+                                    .subText{
+                                        font-weight: 500;
+                                        font-size: 1.25rem;
+                                        line-height: 30px;
+                                        color: #595959;                                
+                                    }
+                                }
+        
+                                .activeSublist{
+                                    background: #E6F7FF;
+                                    border-radius: 8px;
+                                    padding: .5rem;                        
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    
+            .right{
+                .card{
+                    .sectionName{
+                        font-weight: 500;
+                        font-size: 1.25rem;
+                        line-height: 30px;
+                        color: #595959;
+                    }
+                    .sectionTitle{
+                        font-weight: 600;
+                        font-size: 1.5rem;
+                        line-height: 32px;
+                        color: #262626;                    
+                    }
+                }
+            }
+    
+
+        }
+        .card{
+            border-radius: 8px;
+            padding:1rem;
+            @include screen("x-large"){
+                padding:.2rem;
+            }
+        }
+        .mobile{
+            display: none;
+            @include screen("inbetween"){
+                display: block;
             }
             .mainTitle{
                 font-weight: 600;
@@ -22,27 +121,56 @@
                 line-height: 32px;
                 color: #0072EF;                
             }
-            .accordion{
-                padding: 1rem .5rem;
-
-                .accordionItem{
-
-                    .accordionTitle{
-                        width: 100%;
-                        justify-content: space-between;
-                        .title{
-                            font-weight: 600;
-                            font-size: 24px;
-                            line-height: 32px;
-                            color: #262626;                            
-                        }
-                        .icon{
-
-                        }
+            .mainSections{
+                .title{
+                    &.active{
+                        border: 1px solid black;
+                        border-radius: 8px;
                     }
-                    .accordionContent{
-
+                    font-weight: 600;
+                    font-size: 1.5rem;
+                    line-height: 32px;
+                    color: #262626;
+                }
+            }
+            .subSection{
+                .sections{
+                    font-weight: 500;
+                    font-size: 1.25rem;
+                    line-height: 30px;
+                    color: #595959;
+                    &.active2{
+                        background: #E6F7FF;
+                        border-radius: 8px; 
+                        color: #0072EF;
                     }
+                }            
+            }
+            .card{
+                min-height: 300px;
+                h3{
+                    font-weight: 500;
+                    font-size: 1.25rem;
+                    line-height: 30px;
+                    color: #595959;
+                }
+                h2{
+                    font-weight: 600;
+                    font-size: 1.5rem;
+                    line-height: 32px;
+                    color: #262626;                    
+                }
+                h1{
+                    font-weight: 700;
+                    font-size: 1.75rem;
+                    line-height: 40px;
+                    color: #262626;
+                }
+                p{
+                    font-weight: 400;
+                    font-size: 0.875rem;
+                    line-height: 24px;
+                    color: #595959;
                 }
             }
         }

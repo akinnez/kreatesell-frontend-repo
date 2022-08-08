@@ -12,14 +12,14 @@ export const _clearData = ({ pushToLogin = true }) => {
   return false;
 };
 
-export const isAnEmpytyObject = (obj) => {
+export const isAnEmpytyObject = obj => {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
   }
   return true;
 };
 
-export const generateActions = (action) => {
+export const generateActions = action => {
   action = action.toUpperCase();
   return {
     REQUEST: `${action}_REQUEST`,
@@ -88,7 +88,7 @@ export const showToast = (message, type) => {
   }
 };
 
-export const _validateEmail = (email) => {
+export const _validateEmail = email => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
@@ -110,7 +110,7 @@ export function transformToFormData(data, exempt) {
     if (Array.isArray(data[key])) {
       data[key].forEach((obj, index) => {
         let keyList = Object.keys(obj);
-        keyList.forEach((keyItem) => {
+        keyList.forEach(keyItem => {
           let keyName = [key, "[", index, "]", ".", keyItem].join("");
           formData.append(keyName, obj[keyItem]);
         });
@@ -126,7 +126,7 @@ export function transformToFormData(data, exempt) {
   return formData;
 }
 
-export const _formatURL = (url) => url.replace(/(^\w+:|^)\/\//, "");
+export const _formatURL = url => url.replace(/(^\w+:|^)\/\//, "");
 
 export const _prependHttp = ({ url, https = true }) => {
   if (typeof url !== "string") {
@@ -160,7 +160,7 @@ export const _prependKreateSell = ({ url, https = true }) => {
   return url.replace(/^(?!(?:\w+?:)?\/\/)/, "Kreatesell.com/");
 };
 
-export const notificationTime = (timeValue) => {
+export const notificationTime = timeValue => {
   if (!timeValue) return "";
 
   const parseServerTime = Date.parse(timeValue);
@@ -181,7 +181,7 @@ export const notificationTime = (timeValue) => {
   if (weeks === 1) return "A week ago";
   if (weeks <= 3) return `${weeks} weeks ago`;
   if (months === 1) return "A month ago";
-  if (months <= 11) return `A ${months} months ago`;
+  if (months <= 11) return `${months} months ago`;
   if (years === 1) return "A year ago";
   return `${years} years ago`;
 };
@@ -231,7 +231,7 @@ export const setAuthorizationHeader = () => {
   }
 };
 
-export const downloadFile = (url) => {
+export const downloadFile = url => {
   const name1 = new Date().toISOString();
   const name2 = Math.random().toString(35);
   axios({
@@ -239,7 +239,7 @@ export const downloadFile = (url) => {
     method: "GET",
     responseType: "blob", // important
   })
-    .then((response) => {
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -247,9 +247,9 @@ export const downloadFile = (url) => {
       document.body.appendChild(link);
       link.click();
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 };
-export const downloadMultiFiles = (files) => {
+export const downloadMultiFiles = files => {
   // files must be an array of images
   for (let i of files) {
     if (typeof window !== "undefined") {

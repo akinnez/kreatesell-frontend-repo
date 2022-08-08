@@ -41,7 +41,7 @@ export default function PreviewContent (){
       }
     useEffect(()=>{
         if(Object.keys(product).length > 0){
-            console.log('from preview',product)
+            // console.log('from preview',product)
             setDetails(product?.product_details)
             setImages(...product?.product_images?.filter(images => images?.file_type !== 4)?.map(item => {
                 const arr = item?.filename?.split(',')
@@ -79,7 +79,8 @@ export default function PreviewContent (){
             <div className={`flex ${styles.previewContainer}`}>
                 <div className={styles.imageGallery}>
                     <div className={styles.mainImage}>
-                        {mainImage && <Image src={mainImage}layout='fill' objectFit="cover" alt="cover_image" />}
+
+                        {mainImage && <Image src={mainImage} layout='fill' objectFit="cover" alt="cover_image"/>}
                     </div>
                     <div className={styles.subImages}>
                         {
@@ -99,13 +100,13 @@ export default function PreviewContent (){
                     </div>
                     <div className={'flex items-center '+ styles.padBottom}>
                         <div className={styles.dp}>
-                            {Object.keys(user).length > 0 && user.business_logo && <Image src={user?.business_logo} width="100" height={100} objectFit="cover" alt="cover_image" />}
+                            {Object.keys(user).length > 0 && store.store_details?.display_picture && <Image src={store.store_details?.display_picture} width="100" height={100} objectFit="cover" alt="cover_image" />}
                         </div>
                         <div className='flex  ml-6 flex-col'>
                             {Object.keys(user).length > 0 && <h2 className='text-lg mb-0 font-semibold capitalize'>{user?.full_name}</h2>}
                             <div className={styles.visitLink}>
-                                <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'>Visit Store</Link>
-                                <Image src={ExternalLink} alt="link" />
+                            {/* <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'><a>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></a></Link> */}
+                                <Link href={domainLink} className='mb-0 font-medium'><a>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></a></Link>
                             </div>
                         </div>
                     </div>
@@ -122,8 +123,8 @@ export default function PreviewContent (){
                     </div>
                 </div>
             </div>
-            <div className='mt-10 flex flex-col'>
-                <h2 className='mb-5 pt-5 font-semibold text-lg'>More Details:</h2>
+            <div className='mt-5 flex flex-col'>
+                <h2 className='mb-7 pt-5 font-semibold text-lg'>More Details:</h2>
                 {details !== undefined && Object.keys(details)?.length > 0 && <div dangerouslySetInnerHTML={{__html: details?.product_details}}></div>}
             </div>
         </div>

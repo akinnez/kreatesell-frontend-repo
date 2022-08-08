@@ -1,6 +1,7 @@
 import { memo } from "react";
 import Image from "next/image";
 import NoData from "components/NoData";
+import RequestStatus from "components/affiliateRequests/components/RequestStatus";
 import ProductDetails from "../ProductDetails";
 import dateFormat from "utils/dateFormat";
 import Basket from "public/images/basket-grayed.png";
@@ -11,6 +12,7 @@ const MobileDataRenderer = ({
   statusKey,
   products,
   component: Component,
+  showStatus,
 }) => (
   <>
     {products.length === 0 ? (
@@ -19,6 +21,11 @@ const MobileDataRenderer = ({
       <ul className={styles.products}>
         {products.map(product => (
           <li key={product.id} className={styles.product}>
+            {showStatus && (
+              <div className={styles.status}>
+                <RequestStatus status={product.request_status} />
+              </div>
+            )}
             <div className={styles.product__header}>
               <div>
                 {product.launch_date && (

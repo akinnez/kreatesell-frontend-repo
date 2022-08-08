@@ -1,15 +1,17 @@
 @use "public/css/colors";
 
 .link {
+  width: 130px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid colors.$green-100;
   font-size: 12px;
   font-weight: bold;
   color: colors.$green-100;
-  width: 104px;
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 15px;
-  border-radius: 8px;
-  border: 1px solid colors.$green-100;
 
   &:hover {
     color: colors.$green-100;
@@ -23,5 +25,6 @@
   svg {
     display: inline;
     font-size: 20px;
+    margin-bottom: 2px;
   }
 }

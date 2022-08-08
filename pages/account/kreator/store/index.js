@@ -12,6 +12,8 @@ import Router from "next/router";
 import { ProtectedStoreHeader } from "../../../../components/store/storeHeader";
 import useSWR from "swr";
 import fetcher from "../../../../utils/fetcher";
+import {GetStoreDetails, GetProducts} from "redux/actions";
+
 
 const cardStyles = {
   borderRadius: "8px",
@@ -35,6 +37,8 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const {products} = useSelector(state=>state.product);
   const {store: {bank_details}} = useSelector(state=>state.store);
+  const getStoreDetails = GetStoreDetails();
+  const getProducts = GetProducts();
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   // useEffect(()=>{
@@ -54,7 +58,10 @@ const Index = () => {
     task_completed.AddedProducts = products.length > 0;
     return task_completed;
   }
-
+  useEffect(()=>{
+    getStoreDetails();
+    getProducts();
+  },[])
   return (
     <>
       <AuthLayout loading={loading}>

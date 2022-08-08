@@ -31,7 +31,7 @@ const Filters = ({ setFilters, setLoading }) => {
 
   const handleSubmitFilter = values => {
     const { product_name, affiliate_name, sort_by, product_type, date_listed } =
-      values;
+    values;
 
     if (
       !product_name &&
@@ -59,7 +59,7 @@ const Filters = ({ setFilters, setLoading }) => {
   const resetFilters = () => {
     form.resetFields();
     setIsFiltered(false);
-    // setLoading(true);
+    setLoading(false);
     setFilters(s => ({
       ...s,
       page: 1,

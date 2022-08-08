@@ -1,0 +1,268 @@
+@import "./colors.scss";
+@import "./mixins.scss";
+@import "./screens.scss";
+
+.container{
+    min-height: 40vh;
+    padding-top: 3rem;
+    background-repeat: no-repeat;
+    background-image: url("/images/partial-general-bg.svg");
+    background-size: contain;
+    @include screen("medium") {
+    //   background: white !important;
+      padding-top: 6rem;
+    }
+    @include screen("tablet") {
+        padding-top: 6rem;
+    }
+    .topContainer{
+        text-align: center;
+        margin: auto;
+        width: 90%;
+        @include screen("tablet") {
+            text-align: left;
+        }
+        
+        .title{
+            font-weight: 800;
+            font-size: 2.5rem;
+            line-height: 64px;
+            color: #262626;
+            @include screen("tablet"){
+                font-weight: 700;
+                font-size: 1.75rem;
+                line-height: 40px;
+                color: #262626;
+            }
+        }
+        .subTitle{
+            font-weight: 400;
+            font-size: 1.125rem;
+            line-height: 28px;
+            color: #595959;
+            margin-bottom: 1rem;
+        }
+    
+        .mainBanner{
+            width: 93%;
+            display: flex;
+            margin: auto;
+            padding: 3rem 7rem;
+            background: #0072EF;
+            color: #fff;
+            border-radius: 1rem;
+            @include screen("tablet") {
+                width: 100%;
+                @include flex(column, null, flex-start);
+                padding: 3rem 2rem;
+            }
+            .left{
+                text-align: left;
+                flex: 2;
+                @include flex(column, center, flex-start);
+                h2{
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: 2.5rem;
+                    line-height: 48px;
+                    color: #FFFFFF;
+                    @include screen("tablet") {
+                        font-size: 1.75rem;
+                    }              
+                }
+                .getStarted{
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    line-height: 20px;   
+                    text-align: center;
+                    color: #0072EF;
+                    padding-inline: .5rem;                 
+                }
+            }
+            .right{
+                flex: 3;
+                text-align: left;
+                font-weight: 400;
+                font-size: 1.125rem;
+                line-height: 31px;
+                color: #FFFFFF;                
+            }
+        }
+    
+        .learnMore{
+            width: 85%;
+            margin: auto;
+            text-align: center;
+            margin-block-start: 5rem;
+            @include screen("tablet"){
+                width: 100%;
+            } 
+            .title{
+                font-weight: 700;
+                font-size: 2.5rem;
+                line-height: 54px;
+                color: #262626;
+                @include screen("tablet"){
+                    font-weight: 600;
+                    font-size: 24px;
+                    line-height: 2rem;
+                    color: #262626;
+                }             
+            }
+    
+            .subtitle{
+                font-weight: 500;
+                font-size: 1.125rem;
+                line-height: 28px;
+                color: #595959;   
+                @include screen("tablet"){
+                    font-weight: 400;
+                    font-size: 1.125rem;
+                    line-height: 34px;
+                    color: #595959;
+                } 
+            }
+            
+            .meet{
+                margin-block-start: 6rem;
+                margin-block-end: 4rem;
+                font-weight: 700;
+                font-size: 2.5rem;
+                line-height: 54px;
+                color: #0072EF;
+                @include screen("tablet"){
+                    margin-block-start: 2rem;
+                    margin-block-end: 2rem;
+                } 
+            }
+    
+            .subSection, .subSectionV2{
+                @include flex(row, null, null);
+                // border: 1px solid;
+                min-height: 70px;
+                border-radius: 1rem;
+                margin-bottom: 8rem;
+                @include screen("tablet"){
+                    flex-direction: column-reverse;
+                    margin-bottom: 2rem;
+                } 
+                
+                .left, .right{
+                    
+                    .card{
+                        width: 80%;
+                        @include flex(column, null, null);
+                        gap: 1.3rem;
+                        @include screen("tablet"){
+                            width: 100%;
+                        } 
+                    }
+                    .imageCont{
+                        height: 80%;
+                        width: 90%;
+                        margin: auto;
+                        @include screen("tablet"){
+                            width: 100%;
+                            margin-bottom: 1.5rem;
+                        } 
+                        // border: 1px solid;
+                    }
+                }
+                .left{
+                    // border: 1px solid;
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                }
+                .right{
+                    // border: 1px solid;
+                    flex:1;
+                    display: flex;
+                    justify-content: flex-end;
+                    .card{
+                    }
+                }
+    
+                
+            }
+            .subSectionV2{
+                @include screen("tablet"){
+                    flex-direction: column;
+                } 
+            }
+            .subSection2{
+                .left{
+    
+                }
+                .right{
+                    
+                }
+            }
+        }
+
+    }
+
+    .bottomContainer{
+        .yourTurn{
+            @include flex(row, null, null);
+            @include screen("tablet"){
+                flex-direction: column;
+                padding-block-end: 2rem;
+            } 
+            .left{
+                width: 50%;
+                @include screen("tablet"){
+                    width: 90%;
+                    margin: auto;
+                } 
+                .image{
+                    // border-radius: 16px;
+                }
+            }
+            .right{
+                width: 50%;
+                padding-inline-start: 7rem;
+                padding-block-start: 1rem;
+                @include screen("tablet"){
+                    width: 90%;
+                    margin: auto;
+                    padding-inline-start: 0rem;
+                } 
+                p{
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: #262626;                    
+                    width: 100%;
+                    margin-bottom: 0px;
+                    span{
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+        .signUpSection{
+            @include flex(column, center, center);
+            width: 100%;
+            background: #E6F7FF;;
+            min-height: 360px;
+            padding-block: 4rem;
+            padding-inline: 2rem;
+            position: relative;
+            top: -6px;
+            h3{
+                text-align: center;
+                font-weight: 700;
+                font-size: 40px;
+                line-height: 54px;
+                color: #262626; 
+                @include screen("tablet"){
+                    font-weight: 700;
+                    font-size: 1.75rem;
+                    line-height: 40px;
+                    color: #262626;                    
+                }
+            }
+        }
+    }
+}

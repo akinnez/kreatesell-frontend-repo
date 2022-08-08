@@ -100,6 +100,7 @@ const Wallet = ({ bankDetails, walletInfo, storeLoading }) => {
               total={historiesTotal}
               responsive={true}
               onChange={handlePageChange}
+              showSizeChanger={false}
             />
           </section>
         )}

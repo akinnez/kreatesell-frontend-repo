@@ -26,7 +26,6 @@ export default function ContentUpload({file, setFile}){
 
       useEffect(()=>{
         if(mainFile.length > 0){
-            console.log(mainFile)
             mainFile.map(async (item)=>(
                 await uploadFile(item.file, setProgress)
             ))

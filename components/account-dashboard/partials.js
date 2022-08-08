@@ -1,5 +1,5 @@
 export const dayOptions = [
-	{ value: "Custom", label: "Custom" },
+	{ value: "", label: "Custom" },
 	{ value: "Today", label: "Today" },
 	{ value: "Yesterday", label: "Yesterday" },
 	{ value: "Last 7 days", label: "Last 7 days" },

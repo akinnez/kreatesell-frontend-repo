@@ -59,31 +59,10 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     process.env.NODE_ENV === "production"
       ? `https://kreatesell.com${router.asPath}`
       : `http://localhost:3000${router.asPath}`;
-  // const genUrl = `https://kreatesell.com${router.asPath}`;
 
-  useEffect(() => {
-    checkExpiredUserToken();
-  }, []);
-  useEffect(() => {
-    if (!_isUserLoggedIn()) {
-      showToast("Login required to view page", "info");
-      return router.push("/login");
-    }
-  }, []);
   const {user} = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
-  useEffect(() => {
-    if (userIsEmpty) {
-      dispatch({ type: USER.REQUEST });
-
-      const userStorage = getUser();
-
-      if (userStorage) {
-        dispatch({ type: USER.SUCCESS, payload: userStorage });
-      }
-    }
-  }, [dispatch, userIsEmpty]);
   const handleCopyLink = () => {
     navigator.clipboard.writeText(genUrl);
     showToast("Link Copied", "success");

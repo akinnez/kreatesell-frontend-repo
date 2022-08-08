@@ -211,6 +211,9 @@
 	}
 	.cpnStatus{
 		display: flex;
+		span{
+			width: 120px;
+		}
 	}
 	@include screen("medium-large"){
 		.cpnStatus{

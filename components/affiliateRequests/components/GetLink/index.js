@@ -7,12 +7,12 @@ const GetLink = ({ productId, status }) => (
     {status === "Approved" ? (
       <Link href={`/account/affiliate/requests/${productId}`}>
         <a className={styles.link}>
-          Get Link&nbsp; <MdOutlineLink />
+          Get Link <MdOutlineLink />
         </a>
       </Link>
     ) : (
       <a className={styles.link} disabled>
-        Get Link&nbsp; <MdOutlineLink />
+        Get Link <MdOutlineLink />
       </a>
     )}
   </>

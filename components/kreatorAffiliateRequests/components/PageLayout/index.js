@@ -67,6 +67,7 @@ const PageLayout = ({
               total={requests.total}
               responsive={true}
               onChange={handlePage}
+              showSizeChanger={false}
             />
           </section>
         )}
