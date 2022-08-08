@@ -1,5 +1,9 @@
-import { Button } from "components/button/Button";
+import {useState, useEffect} from "react";
 import Image from "next/image";
+
+import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
+
+import { Button } from "components/button/Button";
 import {
 	ActiveTick,
 	InactiveMasterCard,
@@ -8,16 +12,35 @@ import {
 } from "utils";
 import { RightArrow } from "utils/icons/RightArrow";
 
+import useCurrency from 'hooks/useCurrency';
+import Loader from "../loader";
+import styles from "../../public/css/UpgradeAccountForm.module.scss"
+
+
+
 export const UpgradeAccountForm = () => {
+	const {countriesCurrency, filterdWest, filteredCentral, loading} = useCurrency();
+	const [activeCurrency, setActiveCurrency] = useState("");
+
+	useEffect(() => {
+	  if(countriesCurrency){
+		setActiveCurrency(countriesCurrency[0]?.currency_id);
+	  }
+	}, [countriesCurrency])
+
+	const handleSelect = (id) => {
+		setActiveCurrency(id);
+	}
+	
+	if(loading) return <Loader/>;
 	return (
 		<>
-			<div className="px-0 md:px-8">
+			<div className="px-0 md:px-5">
 				<div className="text-center mb-4">
 					<h3 className="text-black-100 font-bold text-xl">
 						Upgrade Your Account
 					</h3>
 					<h4 className="text-black-100 pt-2">BUSINESS</h4>
-
 					<div className="divider"></div>
 
 					<div className="text-base-green-200 font-bold text-2xl">
@@ -26,7 +49,7 @@ export const UpgradeAccountForm = () => {
 					</div>
 				</div>
 
-				<form className="px-2 md:px-8 pt-4">
+				<form className="px-2 md:px-2 pt-4">
 					<div className="text-primary-blue font-medium text-lg">
 						Payment Details
 					</div>
@@ -40,17 +63,16 @@ export const UpgradeAccountForm = () => {
 					</div>
 
 					<div className="grid gap-4 grid-cols-3 md:grid-cols-6 pt-3">
-						<div className="activeCard px-2 flex items-center justify-between">
-							<p className="pt-2">NGN</p>
-							<div>
-								<Image src={ActiveTick} alt="active" width="16" height="16" />
-							</div>
-						</div>
-						<div className="card p-2 flex items-center">USD</div>
-						<div className="card p-2 flex items-center">GBP</div>
-						<div className="card p-2 flex items-center">KES</div>
-						<div className="card p-2 flex items-center">ZAR</div>
-						<div className="card p-2 flex items-center">GHS</div>
+					{countriesCurrency?.map(({currency,currency_id, flag}, i)=>(
+						<span key={currency_id} onClick={()=>handleSelect(currency_id)}>
+							<p className={`p-2 flex items-center ${activeCurrency === currency_id ? "activeCard":"card"}`}>
+								<div className={styles.checFlag+" mr-2"}>
+								<Image src={flag} alt="flag" layout="fill" />
+								</div> {currency}
+								{activeCurrency === currency_id && <Image src={ActiveTick} alt="active" width="16" height="16" />}
+							</p>
+						</span>
+					))}
 					</div>
 
 					<div className="pt-6">
