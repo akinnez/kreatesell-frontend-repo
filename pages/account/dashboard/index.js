@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { Modal, Button, Typography } from "antd";
@@ -9,6 +9,7 @@ import StatsHeader from "components/account-dashboard/StatsHeader";
 import styles from "public/css/DashboardPage.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { mutate } from "swr";
 
 // import useSWR from "swr";
 
@@ -17,16 +18,17 @@ const { Text, Title } = Typography;
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [_, setFiltered] = useState(null);
-  const [isFirstTimeUser, setIsFirstTimeUser] = useState(isFirstTimeUser);
-  const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-  const user = useSelector((state) => state?.auth?.user);
   const isFirstTimer = useSelector(
     (state) => state?.store?.store?.user?.is_first_time
     // (state) => state?.store?.store
   );
 
-  // const User = localStorage.getItem("user");
+  // console.log("isFirstTimer from store = ", isFirstTimer);
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
+  const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
+
+  const user = useSelector((state) => state?.auth?.user);
 
   const hideModal = async () => {
     setModalVisible(false);
@@ -35,29 +37,31 @@ const Dashboard = () => {
         `${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
       );
       console.log(response?.data);
-      // mutate(mainStoreUrl);
     } catch (error) {
       console.log(error);
     }
   };
 
   const isAffiliate = user?.is_affiliate;
-  const getUserVisitStatus = () => {
+  const getUserVisitStatus = useCallback(() => {
     axios
       .get(mainStoreUrl)
       .then((res) => {
-        console.log(res?.data?.user?.is_first_time);
+        // console.log("is_first_time = ", res?.data?.user?.is_first_time);
         setIsFirstTimeUser(res?.data?.user?.is_first_time);
+        mutate(mainStoreUrl);
       })
       .catch((error) => console.log(error));
-  };
+  }, [mainStoreUrl]);
 
   // const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   // console.log(data);
 
   useEffect(() => {
     getUserVisitStatus();
-  }, []);
+
+    console.log("isFirstTimeUser  from useEffect = ", isFirstTimeUser);
+  }, [isFirstTimeUser, getUserVisitStatus]);
   return (
     <AuthLayout>
       <Head>
