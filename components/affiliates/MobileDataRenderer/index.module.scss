@@ -16,6 +16,10 @@
   background-color: colors.$base-white;
 }
 
+.status {
+  margin-bottom: 10px;
+}
+
 .product__header {
   margin-bottom: 15px;
   @include mixins.flex(row, space-between, center);

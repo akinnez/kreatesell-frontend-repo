@@ -20,6 +20,8 @@ import LeftSpiral from "../public/images/left-spiral.png";
 import RightSpiral from "../public/images/right-spiral.png";
 import IntegrationsCircle from "../public/images/integrations-image.svg";
 import IntZoom from "../public/images/int-zoom.svg";
+import VisionImage from "../public/images/vision-image.svg";
+import MissionImage from "../public/images/mission-image.svg";
 import IntCoinBase from "../public/images/int-coinBase.svg";
 import IntSamsungPay from "../public/images/int-samsungPay.svg";
 import IntApplePay from "../public/images/int-applePay.svg";
@@ -32,6 +34,45 @@ import IntGoToWebinar from "../public/images/int-goToWebinar.svg";
 import IntGetResponse from "../public/images/int-getResponse.svg";
 import IntMailChimp from "../public/images/int-mail-chimp.svg";
 import IntAwebber from "../public/images/int-awebber.svg";
+import MainAboutLg from "../public/images/main-about-lg.svg";
+import MissionIcon from "../public/images/mission-icon.svg";
+import VisionIcon from "../public/images/vision-icon.svg";
+import MainAbout from "../public/images/total-about.svg";
+import XofDefault from "../public/images/xof.svg";
+import NgFlag from "../public/images/flag-ng.png";
+import UsFlag from "../public/images/flag-us.svg";
+import UkFlag from "../public/images/flag-uk.svg";
+import GhFlag from "../public/images/flag-gh.png";
+import ChevRonRight from "../public/images/chevron_big_right.svg";
+import AboutUsBlueBox from "../public/images/about-us-blueBox.svg";
+import AboutUsOne from "../public/images/about-us-1.svg";
+import CoreOne from "../public/images/core-1.png";
+import CoreTwo from "../public/images/core-2.png";
+import CoreThree from "../public/images/core-3.png";
+import CoreFour from "../public/images/core-4.png";
+import CoreFive from "../public/images/core-5.png";
+import AboutUsTwo from "../public/images/about-us-2.svg";
+import AboutUsThree from "../public/images/about-us-3.svg";
+import AboutUsFour from "../public/images/about-us-4.svg";
+import MoneyRain from "../public/images/money-rain.svg";
+import KenFlag from "../public/images/flag-ken.png";
+import UganFlag from "../public/images/flag-ugan.svg";
+import SouthAfricanFlag from "../public/images/flag-southAf.svg";
+import LiberianFlag from "../public/images/flag-liber.svg";
+import TanzanianFlag from "../public/images/flag-tanz.svg";
+import LeoneFlag from "../public/images/flag-seiraL.png";
+import MalawiFlag from "../public/images/flag-malawi.png";
+import WaitTimeBg from "../public/images/waitTimeBg.png";
+import BeninFlag from "../public/images/flag-benin.png";
+import GambianFlag from "../public/images/flag-gambia.png";
+import IvoryCoastFlag from "../public/images/flag-ivoryCoast.png";
+import TogoFlag from "../public/images/flag-Togo.png";
+import SenegalFlag from "../public/images/flag-senegal.png";
+import MaliFlag from "../public/images/flag-mail.png";
+import BurnkinaFasoFlag from "../public/images/flag-burkinaFaso.png";
+import ChadFlag from "../public/images/flag-chad.png";
+import GabonFlag from "../public/images/flag-gabon.png";
+import CamFlag from "../public/images/flag-cam.png";
 import BlogHero from "../public/images/blog-hero.svg";
 import SingleBlog from "../public/images/blog.svg";
 import RelatedBlog from "../public/images/related-blog.svg";
@@ -45,7 +86,7 @@ import UnitSales from "../public/images/dashboard-unit-sales.svg";
 import Visit from "../public/images/dashboard-visits.svg";
 import DownloadIcon from "../public/images/download.svg";
 import FBLike from "../public/images/fb-like.svg";
-// import AirBnBLogo from "../public/images/Airbnb-logo.svg";
+import MockVideo from "../public/images/mockVideo.svg";
 import MicrosoftLogo from "../public/images/Microsoft-logo.svg";
 import ElipseImage from "../public/images/hero-elipse-2.svg";
 import MobileElipse from "../public/images/mobile-elipse.svg";
@@ -126,6 +167,15 @@ import Vanguard from "../public/images/vanguard.svg";
 import TechCity from "../public/images/tech-city.svg";
 import Punch from "../public/images/punch.svg";
 import TechCabal from "../public/images/tech-cabal.svg";
+import MnD from "../public/images/mn-d.svg";
+import MnGuardian from "../public/images/mn-guardian.svg";
+import MnPulse from "../public/images/mn-pulse.svg";
+import MnPunch from "../public/images/mn-punch.svg";
+import MnTechCabal from "../public/images/mn-punch.svg";
+import MnTechCity from "../public/images/mn-techcity.svg";
+import MnTechCrunch from "../public/images/mn-techcrunch.svg";
+import MnTechPoint from "../public/images/mn-techpoint.svg";
+import MnVanguard from "../public/images/mn-vanguard.svg";
 import Guardian from "../public/images/guardian.svg";
 import TechCrunch from "../public/images/tech-crunch.svg";
 import LineOne from "../public/images/line-1.svg";
@@ -172,19 +222,19 @@ import LikeIconGrey from "../public/images/LikeIconGrey.svg";
 import CommentIconGrey from "../public/images/ChatIconGrey.svg";
 import ShareIconGrey from "../public/images/shareIconGrey.svg";
 import DeleteIcon from "../public/images/DeleteIcon.svg";
-import ActionBtn from "../public/images/actionBtn.svg"
-import MobileCopyIcon from "../public/images/mobileCopyIcon.svg"
-import MobileSettingsIcon from "../public/images/mobileSettingsIcon.svg"
-import MobileSettingsIconGreen from "../public/images/mobileSettingsIconGreen.svg"
-import MobileTrashIcon from "../public/images/mobileTrashIcon.svg"
-import MobileViewSubscribers from "../public/images/mobileViewSubscribers.svg"
-import AccordionDown from "../public/images/accordionDownArrow.svg"
-import AccordionRight from "../public/images/accordionRightArrow.svg"
-import PlayIcon2 from "../public/images/playIcon.svg"
-import PlayIconBlue from "../public/images/playIcon2.svg"
-import LogoV2 from "../public/images/logov2.svg"
-import WhiteEye from "../public/images/whiteEye.svg"
-import CheckIconGreen from "../public/images/checkIconGreen.svg"
+import MobileCopyIcon from "../public/images/mobileCopyIcon.svg";
+import MobileSettingsIcon from "../public/images/mobileSettingsIcon.svg";
+import MobileSettingsIconGreen from "../public/images/mobileSettingsIconGreen.svg";
+import MobileTrashIcon from "../public/images/mobileTrashIcon.svg";
+import MobileViewSubscribers from "../public/images/mobileViewSubscribers.svg";
+import AccordionDown from "../public/images/accordionDownArrow.svg";
+import AccordionRight from "../public/images/accordionRightArrow.svg";
+import ActionBtn from "../public/images/actionBtn.svg";
+import PlayIcon2 from "../public/images/playIcon.svg";
+import PlayIconBlue from "../public/images/playIcon2.svg";
+import LogoV2 from "../public/images/logov2.svg";
+import WhiteEye from "../public/images/whiteEye.svg";
+import CheckIconGreen from "../public/images/checkIconGreen.svg";
 import YourTurn from "../public/images/yourTurn.jpeg";
 import MeetAffiliate1 from "../public/images/meetAffiliate1.jpeg";
 import MeetAffiliate2 from "../public/images/meetAffiliate2.jpeg";
@@ -238,19 +288,70 @@ export {
   CardMain,
   NewsCardOne,
   IntegrationsCircle,
+  VisionImage,
+  MissionImage,
+  MissionIcon,
+  VisionIcon,
+  ChevRonRight,
   IntZoom,
+  MockVideo,
   IntCoinBase,
   IntSamsungPay,
+  MainAbout,
+  MainAboutLg,
   IntApplePay,
   IntGooglePay,
   IntFacebookPixels,
   IntGoogleAnalytics,
   IntHoverSignal,
+  XofDefault,
   IntZapier,
+  MnD,
+  MnGuardian,
+  MnPulse,
+  MnPunch,
+  MnTechCabal,
+  MnTechCrunch,
+  MnTechPoint,
+  MnVanguard,
+  MnTechCity,
   IntGoToWebinar,
+  WaitTimeBg,
   IntGetResponse,
+  AboutUsBlueBox,
+  AboutUsFour,
+  AboutUsThree,
+  AboutUsTwo,
+  AboutUsOne,
   IntMailChimp,
   IntAwebber,
+  NgFlag,
+  ChadFlag,
+  GabonFlag,
+  CamFlag,
+  UsFlag,
+  UkFlag,
+  GhFlag,
+  KenFlag,
+  UganFlag,
+  SouthAfricanFlag,
+  LiberianFlag,
+  TanzanianFlag,
+  LeoneFlag,
+  MalawiFlag,
+  BeninFlag,
+  GambianFlag,
+  IvoryCoastFlag,
+  TogoFlag,
+  SenegalFlag,
+  MaliFlag,
+  MoneyRain,
+  CoreFive,
+  CoreFour,
+  CoreTwo,
+  CoreThree,
+  CoreOne,
+  BurnkinaFasoFlag,
   NewsCardTwo,
   NewsCardThree,
   NewsCardFour,
@@ -402,5 +503,5 @@ export {
   Briefcase,
   Clock,
   LikeIcon,
-  CommentIcon
+  CommentIcon,
 };

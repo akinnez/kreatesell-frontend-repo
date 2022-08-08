@@ -4,8 +4,13 @@
 
 .container {
   width: 100%;
-  padding: 0 22px;
+  // padding: 0 22px;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  // background-color: rgba(229, 229, 229, 0.3);
+  background-image: url("../images/partial-general-bg.svg");
   .mobileHeader {
+    padding: 0 22px;
     .heading {
       color: $black-100;
       font-size: 28px;
@@ -32,6 +37,7 @@
   }
 
   .lgHeader {
+    padding: 0 22px;
     transition: all 0.2s;
     display: none;
     & * {
@@ -76,10 +82,11 @@
   // int cards
   .intCards {
     font-family: Inter;
-    background-color: #e5e5e5;
+    // background-color: #e5e5e5;
+    background-color: rgba(229, 229, 229, 0.3);
     padding: 3rem 1rem;
     margin-top: 2rem;
-    margin-bottom: 4rem;
+    padding-bottom: 4rem;
     .intCard {
       padding: 48px 40px 40px 40px;
       text-align: justify;
@@ -120,10 +127,14 @@
     }
     @media (min-width: 900px) {
       padding: 4rem 5.31rem;
+      padding-bottom: 128px;
+      padding-top: 88px;
     }
 
     @media (min-width: 1200px) {
       padding: 4rem 6.31rem;
+      padding-bottom: 128px;
+      padding-top: 88px;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
   }

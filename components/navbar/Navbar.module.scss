@@ -11,7 +11,7 @@
   top: 0;
   background-color: $base-white;
   // border-bottom: 1px solid red;
-  z-index: 1;
+  z-index: 100;
   margin-bottom: 10rem !important;
   transition: padding 0.2s;
   @media screen and (min-width: 769px) {
