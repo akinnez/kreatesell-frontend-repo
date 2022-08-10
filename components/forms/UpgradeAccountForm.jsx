@@ -1,14 +1,17 @@
 import {useState, useEffect} from "react";
 import Image from "next/image";
 
-import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
-
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+import { usePaystackPayment } from "react-paystack";
 import { Button } from "components/button/Button";
 import {
 	ActiveTick,
 	InactiveMasterCard,
 	InactivePaypal,
 	ActiveStripe,
+	AdvancedBitcoin,
+	AdvancedPaypal,
+	AdvancedStripe
 } from "utils";
 import { RightArrow } from "utils/icons/RightArrow";
 
@@ -16,20 +19,88 @@ import useCurrency from 'hooks/useCurrency';
 import Loader from "../loader";
 import styles from "../../public/css/UpgradeAccountForm.module.scss"
 
-
+const paymentMethods = [
+	{
+		type: "Stripe",
+		icon: ActiveStripe,
+		value: "stripe"
+	},
+	{
+		type: "Paypal",
+		icon: AdvancedPaypal,
+		value: "paypal"
+	},
+	{
+		type: "CryptoCurrency",
+		icon: AdvancedBitcoin,
+		value: "crypto"
+	},
+]
 
 export const UpgradeAccountForm = () => {
-	const {countriesCurrency, filterdWest, filteredCentral, loading} = useCurrency();
+	// const makePlanUpgrade = MakePlanUpgrade();
+	const {countriesCurrency,loading} = useCurrency();
 	const [activeCurrency, setActiveCurrency] = useState("");
+	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+	const [activeBtn, setActiveBtn] = useState({
+		annually: true,
+		monthly: false,
+	  });
+	  const { annually, monthly } = activeBtn;
+
+	useEffect(() => {
+	monthly ? setBusinessPrice("4,999") : setBusinessPrice("4,167");
+	monthly
+		? setPriceLabel("Billed Monthly")
+		: setPriceLabel("Billed Annually");
+	monthly ? setSubPriceType("") : setSubPriceType("NGN 9989");
+	}, [monthly]);
 
 	useEffect(() => {
 	  if(countriesCurrency){
-		setActiveCurrency(countriesCurrency[0]?.currency_id);
+		setActiveCurrency(countriesCurrency[0]);
+		setSelectedPaymentMethod(paymentMethods[0].value);
 	  }
 	}, [countriesCurrency])
 
-	const handleSelect = (id) => {
-		setActiveCurrency(id);
+	const handleSelect = (currency) => {
+		setActiveCurrency(currency);
+	}
+
+	const handlePaymentMethod = (method) => {
+		setSelectedPaymentMethod(method);
+	}
+
+	const handlePayment = (e) => {
+		e.preventDefault();
+		if(!["USD", "GBP"].includes(activeCurrency.currency)){
+			console.log("I got here");
+			setSelectedPaymentMethod(()=>"");
+		}
+		const data = {
+			fullname: "string",
+			email_address: "string",
+			mobile_number: "string",
+			datetime: "2022-08-08T14:24:41.326Z",
+			total: 0,
+			reference_id: "string",
+			purchase_details: [
+			  {
+				product_id: 0,
+				quantity: 0,
+				amount: 0
+			  }
+			],
+			status: "string",
+			card_type: "string",
+			last_four: "string",
+			currency: "string",
+			is_affiliate: true,
+			affiliate_product_link: "string"
+		  }
+		  console.log("activeCurrency: ",activeCurrency, "\nselectedPaymentMethod",selectedPaymentMethod);
+		// backend enpoint
+		// makePlanUpgrade(data, ()=>console.log("success"), ()=>console.log("error"));
 	}
 	
 	if(loading) return <Loader/>;
@@ -49,7 +120,7 @@ export const UpgradeAccountForm = () => {
 					</div>
 				</div>
 
-				<form className="px-2 md:px-2 pt-4">
+				<form className="px-2 md:px-2 pt-4" onSubmit={handlePayment}>
 					<div className="text-primary-blue font-medium text-lg">
 						Payment Details
 					</div>
@@ -61,15 +132,15 @@ export const UpgradeAccountForm = () => {
 							Select your preferred currency and get price equivalent
 						</p>
 					</div>
-
 					<div className="grid gap-4 grid-cols-3 md:grid-cols-6 pt-3">
+						{/* TODO: change this to component */}
 					{countriesCurrency?.map(({currency,currency_id, flag}, i)=>(
-						<span key={currency_id} onClick={()=>handleSelect(currency_id)}>
-							<p className={`p-2 flex items-center ${activeCurrency === currency_id ? "activeCard":"card"}`}>
+						<span key={currency_id} onClick={()=>handleSelect({currency_id, currency})}>
+							<p className={`p-2 flex items-center ${activeCurrency?.currency_id === currency_id ? "activeCard":"card"}`}>
 								<div className={styles.checFlag+" mr-2"}>
 								<Image src={flag} alt="flag" layout="fill" />
 								</div> {currency}
-								{activeCurrency === currency_id && <Image src={ActiveTick} alt="active" width="16" height="16" />}
+								{activeCurrency?.currency_id === currency_id && <Image src={ActiveTick} alt="active" width="16" height="16" />}
 							</p>
 						</span>
 					))}
@@ -81,25 +152,22 @@ export const UpgradeAccountForm = () => {
 							Select your preferred payment method
 						</p>
 					</div>
+						{/* paystack is NGN and GHS */}
 
-					<div className="grid gap-4 grid-cols-3 pt-3">
-						<div className="activeCard p-2 flex justify-between items-center">
-							<div>
-								<Image src={ActiveStripe} alt="stripe" />
+						{/* only show this section if selected currency is "USD" or "GBP" */}
+						{["USD", "GBP"].includes(activeCurrency?.currency) && (
+							<div className="grid gap-4 grid-cols-3 pt-3">
+								{paymentMethods.map(({type, icon, value})=>(
+									<div
+										key={value}
+										onClick={()=>handlePaymentMethod(value)}
+										className={`${selectedPaymentMethod === value ? "activeCard":"card"} p-2 flex justify-around items-center`}>
+											<Image src={icon} alt={type} />
+											{selectedPaymentMethod === value && <Image src={ActiveTick} alt="active" width="16" height="16" />}
+									</div>
+								))}
 							</div>
-							<div>
-								<Image src={ActiveTick} alt="active" width="16" height="16" />
-							</div>
-						</div>
-
-						<div className="flex justify-center card p-2">
-							<Image src={InactivePaypal} alt="stripe" />
-						</div>
-
-						<div className="flex justify-center card p-2">
-							<Image src={InactiveMasterCard} alt="stripe" />
-						</div>
-					</div>
+						)}
 
 					<div className="priceMenu my-6 py-3 px-8">
 						<div className="flex justify-between pt-2">
