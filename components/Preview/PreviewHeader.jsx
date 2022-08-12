@@ -29,6 +29,7 @@ export default function PreviewHeader({ id }) {
   const { store } = useSelector((state) => state.store);
   const { Option } = Select;
   const router = useRouter();
+
   const publishProduct = PublishProducts();
 
   const handleSubmit = (data) => {
@@ -59,7 +60,7 @@ export default function PreviewHeader({ id }) {
   const { setFieldValue, values } = formik;
 
   const productId = product?.product_details?.kreasell_product_id;
-
+  console.log(productId);
   useEffect(() => {
     setTitle(product?.product_details?.product_name);
     // setLink(product?.product_details?.id);

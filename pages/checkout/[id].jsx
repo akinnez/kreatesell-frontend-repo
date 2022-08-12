@@ -29,6 +29,7 @@ import LogoImg from "../../public/images/logo.svg";
 import useFetchUtilities from "hooks/useFetchUtilities";
 import useCurrency from "hooks/useCurrency";
 import Loader from "components/loader";
+import axios from "axios";
 
 const Checkout = () => {
   const [modal, setModal] = useState(false);
@@ -41,7 +42,13 @@ const Checkout = () => {
   const [email, setEmail] = useState("");
   const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
 
-  const { checkoutDetails } = useSelector((state) => state.checkout);
+  // const { checkoutDetails } = useSelector((state) => state.checkout);
+  const checkoutDetails = useSelector((state) => state.checkout);
+  // console.log("checkoutDetails = ", checkoutDetails);
+  const { product } = useSelector((state) => state.product);
+
+  // console.log("product = ", product);
+  // console.log("checkoutDetails = ", checkoutDetails);
 
   // const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
 
@@ -54,19 +61,46 @@ const Checkout = () => {
   //   const cn = ['Chad', 'Cameroon', 'Gabon']
   //   return countries.filter(c => cn.includes(c.name))
   // }, [countries])
+  const router = useRouter();
+  const productId = router.query.id;
+  // console.log("productId = ", productId);
+  const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
+  // `https://kreatesell.io/api/v1/kreatesell/product/get/KREATE-swivehub637951224545691071`;
+  // console.log(process.env.BASE_URL);
 
   const checkout = checkoutDetails?.check_out_details?.filter(
     (item) => item?.currency_name === activeCard
   );
 
   const currency_name = checkout?.[0]?.currency_name;
+  // console.log(currency_name);
   const price = checkout?.[0]?.price;
 
-  const router = useRouter();
   const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
   const openModal = () => setModal(true);
   const closeModal = () => setModal(false);
 
+  const [checkOutDetails, setCheckOutDetails] = useState([]);
+  const getProductDetails = async (productLink) => {
+    try {
+      const response = await axios.get(productLink);
+      // console.log(response?.data?.data?.check_out_details);
+      setCheckOutDetails(response?.data?.data?.check_out_details);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductDetails(productLink);
+    // console.log(productLink);
+  }, [productLink]);
+
+  const checkOutInNaira = checkOutDetails?.find(
+    (item) =>
+      item?.currency_name === "NGN" && item?.price_indicator === "Selling"
+  );
+  // console.log(checkOutInNaira);
   // const paymentStatusList = {
   //   success: "s",
   //   failed: "f",
@@ -511,7 +545,8 @@ const Checkout = () => {
                     )}
                     <p>
                       {/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-                      NGN 890
+                      {/* NGN 890 */}
+                      {checkOutInNaira?.currency_name} {checkOutInNaira?.price}
                     </p>
                   </div>
                 </div>
@@ -539,9 +574,10 @@ const Checkout = () => {
                   <p>Total</p>
                   <p className="text-primary-blue font-medium">
                     {currency_name}{" "}
-                    {new Intl.NumberFormat().format(
+                    {/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
-                    )}
+                    )} */}
+                    {checkOutInNaira?.price}
                   </p>
                 </div>
               </div>
