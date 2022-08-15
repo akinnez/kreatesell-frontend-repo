@@ -19,10 +19,10 @@ const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [_, setFiltered] = useState(null);
 
-  const isFirstTimer = useSelector(
-    (state) => state?.store?.store?.user?.is_first_time
-    // (state) => state?.store?.store
-  );
+  // const isFirstTimer = useSelector(
+  //   (state) => state?.store?.store?.user?.is_first_time
+  //   // (state) => state?.store?.store
+  // );
 
   // console.log("isFirstTimer from store = ", isFirstTimer);
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
@@ -43,6 +43,9 @@ const Dashboard = () => {
   };
 
   const isAffiliate = user?.is_affiliate;
+
+  // console.log("isAffiliate = ", isAffiliate);
+
   const getUserVisitStatus = useCallback(() => {
     axios
       .get(mainStoreUrl)
