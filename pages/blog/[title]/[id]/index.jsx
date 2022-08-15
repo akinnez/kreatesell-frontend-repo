@@ -1,25 +1,25 @@
-import { useEffect } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Image from "next/image";
+import { useEffect } from 'react'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Image from 'next/image'
 
-import axios from "axios";
+import axios from 'axios'
 import {
   MdOutlineShare,
   MdOutlineCancel,
   MdOutlineModeEdit,
   MdDeleteForever,
   MdContentCopy,
-} from "react-icons/md";
-import moment from "moment";
-import { AiFillLike } from "react-icons/ai";
-import { IoFolderOpenSharp } from "react-icons/io5";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { DiscussionEmbed } from "disqus-react";
-import { useSelector,useDispatch } from "react-redux";
+} from 'react-icons/md'
+import moment from 'moment'
+import { AiFillLike } from 'react-icons/ai'
+import { IoFolderOpenSharp } from 'react-icons/io5'
+import { AiOutlineClockCircle } from 'react-icons/ai'
+import { DiscussionEmbed } from 'disqus-react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { Layout } from "components";
+import { Layout } from 'components'
 
 import {
   showToast,
@@ -34,10 +34,10 @@ import {
   getUser,
   _isUserLoggedIn,
   isAnEmpytyObject,
-} from "utils";
+} from 'utils'
 import ApiService from 'utils/axios'
-import styles from "public/css/SingleBlog.module.scss";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import styles from 'public/css/SingleBlog.module.scss'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -47,49 +47,49 @@ import {
   TwitterIcon,
   LinkedinIcon,
   WhatsappIcon,
-} from "react-share";
-import { USER } from "redux/types/auth.types";
+} from 'react-share'
+import { USER } from 'redux/types/auth.types'
 
-const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
+const SingleBlogPost = () => {
   // console.log("blog", blog);
   // console.log("recentBlogs", recentBlogs)
   // console.log("moreBlogs", moreBlogs)
-  const router = useRouter();
+  const router = useRouter()
   const genUrl =
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === 'production'
       ? `https://kreatesell.com${router.asPath}`
-      : `http://localhost:3000${router.asPath}`;
+      : `http://localhost:3000${router.asPath}`
 
-  const {user} = useSelector(state => state.auth);
-  const dispatch = useDispatch();
-  const userIsEmpty = isAnEmpytyObject(user.user);
+  const { user } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  const userIsEmpty = isAnEmpytyObject(user.user)
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(genUrl);
-    showToast("Link Copied", "success");
-  };
+    navigator.clipboard.writeText(genUrl)
+    showToast('Link Copied', 'success')
+  }
 
   const getCookies = () => {
-    console.log("hhhhhhhhhhhhhhh", document.cookie);
-    let pairs = document.cookie.split(";");
-    console.log("ssssssssss", pairs);
-    let cookies = {};
+    console.log('hhhhhhhhhhhhhhh', document.cookie)
+    let pairs = document.cookie.split(';')
+    console.log('ssssssssss', pairs)
+    let cookies = {}
     // for (let i=0; i<pairs.length; i++){
     //   let pair = pairs[i].split("=");
     //   cookies[(pair[0]+'').trim()] = unescape(pair.slice(1).join('='));
     // }
     // return cookies;
-  };
-  
+  }
+
   const handleLikePost = () => {
     ApiService.request(
       'post',
       `blogs/posts/post/like/${router.query.id}?Name=${user.full_name}&Email=${user.email}`,
       (res) => {
-        console.log("data is", res);
+        console.log('data is', res)
       },
-      (err)=>{
-        console.log("err is", err)
-      }
+      (err) => {
+        console.log('err is', err)
+      },
     )
     // axios
     //   .post(
@@ -102,32 +102,32 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     //     console.log("disqusssss", err);
     //   });
     // getCookies();
-  };
+  }
 
   const handleCommentPost = () => {
     ApiService.request(
       'post',
       '',
       (res) => {
-        console.log("data is", res);
+        console.log('data is', res)
       },
-      (err)=>{
-        console.log("err is", err)
-      }
+      (err) => {
+        console.log('err is', err)
+      },
     )
-    console.log("comment clicked");
+    console.log('comment clicked')
   }
 
   const handleSharePost = () => {
-    console.log("share clicked");
+    console.log('share clicked')
   }
   const disqusConfig = {
     url: genUrl,
     identifier: blog.id,
     title: blog.title,
-  };
+  }
 
-  const bgStyle = { fill: "#000000" };
+  const bgStyle = { fill: '#000000' }
   const SideBlogPost = ({
     excerpt,
     title,
@@ -140,21 +140,27 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     return (
       <div className={styles.asideContainer}>
         <div className={styles.image}>
-          <Image className={styles.sideImage} src={thumbnail} width="160" height="141" alt={thumbnail_alt} />
+          <Image
+            className={styles.sideImage}
+            src={thumbnail}
+            width="160"
+            height="141"
+            alt={thumbnail_alt}
+          />
         </div>
         <div className={styles.content}>
           <p className={styles.date}>
-          {formatDistanceToNow(
-            new Date(
-              new Date(created_at).getFullYear(),
-              new Date(created_at).getMonth(),
-              new Date(created_at).getDay()
-            ),
-            { addSuffix: true }
-          )}
+            {formatDistanceToNow(
+              new Date(
+                new Date(created_at).getFullYear(),
+                new Date(created_at).getMonth(),
+                new Date(created_at).getDay(),
+              ),
+              { addSuffix: true },
+            )}
           </p>
           <Link href={`/blog/${category}/${id}`}>
-            <h4 style={{ cursor: "pointer" }} className={styles.title}>
+            <h4 style={{ cursor: 'pointer' }} className={styles.title}>
               {title}
             </h4>
           </Link>
@@ -162,8 +168,8 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
           <div className={styles.excerpt}>{excerpt}</div>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const BlogPreview = ({
     title,
@@ -171,7 +177,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
     excerpt,
     created_at,
     thumbnail,
-    thumbnail_alt = "kreatesell blog",
+    thumbnail_alt = 'kreatesell blog',
     category,
   }) => {
     return (
@@ -186,7 +192,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
           />
         </div>
         <div className={styles.singleDate}>
-          {moment(created_at).format("DD MMMM YYYY")} &nbsp;
+          {moment(created_at).format('DD MMMM YYYY')} &nbsp;
           {/* {formatDistanceToNow(
             new Date(
               new Date().getFullYear(),
@@ -200,16 +206,21 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
           <h4 className={styles.singleTitle}>{title}</h4>
         </Link>
         <div className={styles.categoryTime}>
-          <span className={styles.category}><Image src={Briefcase} alt="" width="25" />{"  "}Marketing</span>
-          <p className={styles.time}><Image src={Clock} alt="" width="15" /> 7 days ago</p>
+          <span className={styles.category}>
+            <Image src={Briefcase} alt="" width="25" />
+            {'  '}Marketing
+          </span>
+          <p className={styles.time}>
+            <Image src={Clock} alt="" width="15" /> 7 days ago
+          </p>
         </div>
         <div className={styles.excerptDiv}>
           <p className={styles.singleExcerpt}>{excerpt}</p>
         </div>
         <div className={styles.divider} />
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <Layout defaultMarginTop={true}>
@@ -218,13 +229,13 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
         <meta name="keywords" content={blog?.tags} />
         <meta name="description" content={blog?.excerpt} />
 
-        <meta property="og:site_name" content={"KreateSell"} />
+        <meta property="og:site_name" content={'KreateSell'} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={"https://kreatesell.com"} />
+        <meta property="og:url" content={'https://kreatesell.com'} />
         <meta property="og:title" content={blog?.title} />
         <meta property="og:description" content={blog?.excerpt} />
         <meta property="twitter:card" content={blog?.excerpt} />
-        <meta property="twitter:url" content={"https://kreatesell.com"} />
+        <meta property="twitter:url" content={'https://kreatesell.com'} />
         <meta property="twitter:title" content={blog?.title} />
         {/* <meta name="twitter:site" content={twitterHandle} />
 			<meta name="twitter:creator" content={twitterHandle} /> */}
@@ -250,9 +261,9 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
                       new Date(
                         new Date(blog?.created_at).getFullYear(),
                         new Date(blog?.created_at).getMonth(),
-                        new Date(blog?.created_at).getDay()
+                        new Date(blog?.created_at).getDay(),
                       ),
-                      { addSuffix: true }
+                      { addSuffix: true },
                     )}
                   </p>
                   &nbsp;
@@ -276,9 +287,15 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
             <div dangerouslySetInnerHTML={{ __html: blog?.description }}></div>
             <br />
             <div className={styles.blogBottomDiv}>
-            <section className={styles.postActions}>
-                <div className={styles.likeIcon}><Image src={LikeIcon} alt="" width="25" /><p className={styles.count}>{blog?.like_count}</p></div>
-                <div className={styles.commentIcon}><Image src={CommentIcon} alt="" width="25" /><p className={styles.count}>5.4k</p></div>
+              <section className={styles.postActions}>
+                <div className={styles.likeIcon}>
+                  <Image src={LikeIcon} alt="" width="25" />
+                  <p className={styles.count}>{blog?.like_count}</p>
+                </div>
+                <div className={styles.commentIcon}>
+                  <Image src={CommentIcon} alt="" width="25" />
+                  <p className={styles.count}>5.4k</p>
+                </div>
               </section>
 
               <section className={styles.socialsSection}>
@@ -367,7 +384,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
             <h3 className={styles.heading}>Latest Posts</h3>
             <div className={styles.line} />
             <div className={styles.sideBlogDiv}>
-            {recentBlogs?.data &&
+              {recentBlogs?.data &&
                 recentBlogs?.data
                   ?.filter((item) => item?.id !== blog?.id)
                   .slice(0, 6)
@@ -390,7 +407,7 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
               <h3 className={styles.heading}>Tags:</h3>
               <div className={styles.tagsContainer}>
                 <br />
-                {blog?.tags?.split(",").map((item, index) => (
+                {blog?.tags?.split(',').map((item, index) => (
                   <div key={`${item}mm${index}`} className={styles.blogTag}>
                     {item}
                   </div>
@@ -424,44 +441,44 @@ const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticPaths(context) {
-  let result = {};
-  let paths = [];
+  let result = {}
+  let paths = []
   try {
-    result = await axios.get(`${process.env.BASE_URL}blogs/posts/active`);
+    result = await axios.get(`${process.env.BASE_URL}blogs/posts/active`)
     paths = result?.data?.data?.map((item, index) => ({
       params: { title: item?.category || null, id: item?.id || null },
-    }));
+    }))
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 
   return {
     paths,
     fallback: false,
-  };
+  }
 }
 
 export async function getStaticProps(context) {
-  let result = {};
-  let resultTwo = {};
-  let moreBlogs = {};
+  let result = {}
+  let resultTwo = {}
+  let moreBlogs = {}
   try {
     result = await axios.get(
-      `${process.env.BASE_URL}blogs/posts/${context.params.id}`
-    );
+      `${process.env.BASE_URL}blogs/posts/${context.params.id}`,
+    )
 
     resultTwo = await axios.get(
-      `${process.env.BASE_URL}blogs/posts/active?page=${1}`
-    );
+      `${process.env.BASE_URL}blogs/posts/active?page=${1}`,
+    )
     moreBlogs = await axios.get(
-      `${process.env.BASE_URL}blogs/post-category/${context.params.title}`
-    );
+      `${process.env.BASE_URL}blogs/post-category/${context.params.title}`,
+    )
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 
   return {
@@ -470,7 +487,7 @@ export async function getStaticProps(context) {
       recentBlogs: resultTwo?.data ? resultTwo?.data : {},
       moreBlogs: moreBlogs?.data ? moreBlogs?.data : {},
     }, // will be passed to the page component as props
-  };
+  }
 }
 
-export default SingleBlogPost;
+export default SingleBlogPost
