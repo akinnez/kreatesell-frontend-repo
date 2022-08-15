@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 import AuthLayout from "../../../../components/authlayout";
 import { Card, Tabs } from "antd";
 import style from "../../../../public/css/Settings.module.scss";
@@ -7,32 +9,48 @@ import Account from "../../../../components/settings/Account";
 import StoreSettings from "components/settings/Store";
 import Billing from "components/settings/Billing";
 import Domain from "components/settings/Domain/Domain";
+import Advanced from "components/settings/Advanced";
 
 const Index = () => {
 	const { TabPane } = Tabs;
+	const router = useRouter();
+	const [activeTab, setActiveTab] = useState("currencies")
+	const path = "/account/kreator/settings";
+	const handleTabChange = (tab) =>{
+		router.push({ pathname: path, query: { activeTab: tab } }, undefined, {});
+	}
 
+	useEffect(() => {
+		if(router.query?.activeTab){
+			setActiveTab(router.query.activeTab);
+		}else{
+			router.push({ pathname: path, query: { activeTab: "currencies" } }, undefined, {});
+		}
+	}, [router.query]);
+	
+	
 	return (
 		<>
 			<AuthLayout mobilePadding={true}>
 				<Card bordered={false} className={style.card}>
-					<Tabs defaultActiveKey="1" centered size="large">
-						<TabPane tab="Currencies" key="1">
+					<Tabs activeKey={activeTab} centered size="large" onChange={handleTabChange}>
+						<TabPane tab="Currencies" key="currencies">
 							<Currency />
 						</TabPane>
-						<TabPane tab="Account" key="2">
+						<TabPane tab="Account" key="account">
 							<Account />
 						</TabPane>
-						<TabPane tab="Store" key="3">
+						<TabPane tab="Store" key="store">
 							<StoreSettings />
 						</TabPane>
-						<TabPane tab="Domain" key="4">
+						<TabPane tab="Domain" key="domain">
 							<Domain />
 						</TabPane>
-						<TabPane tab="Billing" key="5">
+						<TabPane tab="Billing" key="billing">
 							<Billing />
 						</TabPane>
-						<TabPane tab="Advanced" key="6">
-							Content of Tab Pane 3
+						<TabPane tab="Advanced" key="advanced">
+							<Advanced />
 						</TabPane>
 					</Tabs>
 				</Card>

@@ -17,12 +17,14 @@ export default function PreviewContent (){
     const [originalPrice, setOriginalPrice] = useState([])
     const [domainLink, setDomainLink] = useState('')
     
+  
     const router = useRouter()
     const {store } = useSelector((state) => state?.store);
 
     const { product } = useSelector(
         (state) => state?.product
       );
+
     const { user } = useSelector(
         (state) => state?.auth
       );
@@ -116,13 +118,16 @@ export default function PreviewContent (){
                     </div>
                     <div className={styles.priceSection}>
                         <div className="flex flex-col">
-                            {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)}
+                        {/*  */}
+                            {/* {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)} */}
+                            {sellingPrice?.length > 0 && <h1 className='text-3xl font-bold'>{`${sellingPrice[0]?.currency_name}  ${sellingPrice[0]?.price}`}</h1>}
                             {originalPrice?.length > 0 && originalPrice?.map((item, i) => <h2 key={i} className='text-xl line-through font-medium'>{`${item?.currency_name}  ${item?.price}`}</h2>)}
                         </div>
                         <Button onClick={()=> router.push('/checkout')}  type='primary' >{details !== undefined && details?.cta_button ? details?.cta_button : 'Buy Now'}</Button>
                     </div>
                 </div>
             </div>
+
             <div className='mt-5 flex flex-col'>
                 <h2 className='mb-7 pt-5 font-semibold text-lg'>More Details:</h2>
                 {details !== undefined && Object.keys(details)?.length > 0 && <div dangerouslySetInnerHTML={{__html: details?.product_details}}></div>}

@@ -273,7 +273,7 @@ export const CreateProductTab = ({setTitles, titles, setSelectedTab, selectedTab
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
       {(tab !== 1) ? <div className={styles.businessPlan}>
-        <h2 className="text-base w-full font-normal">This action requires a business plan, click <Link href="/account/kreator/settings">here</Link> to subscribe</h2>
+        <h2 className="text-base w-full font-normal">This action requires a business plan, click <Link href="/account/kreator/settings?activeTab=billing">here</Link> to subscribe</h2>
         </div>: <></>}
       <div className="mt-8 mb-4">
         <div className="divider"></div>

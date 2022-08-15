@@ -7,3 +7,4 @@ export * from "./store.types";
 export * from "./utils.types";
 export * from './coupon.types';
 export * from "./files.types";
+export * from "./planUpgrade.types";

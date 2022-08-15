@@ -7,6 +7,7 @@ import utils from "./utils.reducer";
 import product from "./product.reducer";
 import notification from "./notification.reducer";
 import coupon from "./coupon.reducer";
+import planUpgrade from "./planUpgrade.reducer";
 
 const rootReducer = combineReducers({
   auth,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   utils,
   product,
   notification,
+  planUpgrade
 });
 
 export default rootReducer;

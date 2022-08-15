@@ -27,10 +27,13 @@ import { SendPaymentCheckoutDetails } from "redux/actions";
 import crypto from "crypto";
 import LogoImg from "../public/images/logo.svg";
 import useFetchUtilities from "hooks/useFetchUtilities";
+import useCurrency from 'hooks/useCurrency';
+import Loader from "components/loader";
 
 const Checkout = () => {
   const [modal, setModal] = useState(false);
   const [activeCard, setActiveCard] = useState("NGN");
+  const {countriesCurrency, filterdWest, filteredCentral, loading} = useCurrency();
 
   //Payment methods for GBP and USD are ["Card","Stripe","Paypal","Crypto"]
   const [paymentMethod, setPaymentMethod] = useState("Card");
@@ -38,19 +41,18 @@ const Checkout = () => {
   const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
 
   const { checkoutDetails } = useSelector((state) => state.checkout);
-  const { countries } = useSelector((state) => state.utils);
 
-  const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
+  // const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
 
-  const filterdWest = useMemo(()=> {
-    const cn = ['Benin Republic', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
-    return countries.filter(c => cn.includes(c.name))
-  }, [countries])
+  // const filterdWest = useMemo(()=> {
+  //   const cn = ['Benin Republic', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
+  //   return countries.filter(c => cn.includes(c.name))
+  // }, [countries])
 
-  const filteredCentral = useMemo(()=> {
-    const cn = ['Chad', 'Cameroon', 'Gabon']
-    return countries.filter(c => cn.includes(c.name))
-  }, [countries])
+  // const filteredCentral = useMemo(()=> {
+  //   const cn = ['Chad', 'Cameroon', 'Gabon']
+  //   return countries.filter(c => cn.includes(c.name))
+  // }, [countries])
 
 
   const checkout = checkoutDetails?.check_out_details?.filter(
@@ -213,7 +215,7 @@ const Checkout = () => {
 
   useFetchUtilities();
 
-
+  if(loading) return <Loader/>;
 
   return (
     <>
@@ -302,7 +304,7 @@ const Checkout = () => {
 
                 <div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
                   {
-                    countriesCurrency.map((country, index)=>(
+                    countriesCurrency?.map((country, index)=>(
                       <div
                       key={index}
                       className={

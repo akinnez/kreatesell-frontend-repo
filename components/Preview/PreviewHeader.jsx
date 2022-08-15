@@ -55,6 +55,7 @@ export default function PreviewHeader ({id}){
      
       const {setFieldValue, values} = formik
       
+    //   console.log("product", product);
     useEffect(()=>{
         setTitle( product?.product_details?.product_name)
         setLink( product?.product_details?.id)
