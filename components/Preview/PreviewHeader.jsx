@@ -65,7 +65,6 @@ export default function PreviewHeader({ id }) {
     setTitle(product?.product_details?.product_name);
     // setLink(product?.product_details?.id);
     setLink(`http://localhost:3000/checkout/${productId}`);
-    // setLink("232");
   }, [product, productId]);
 
   useEffect(() => {
