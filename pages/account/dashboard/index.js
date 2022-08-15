@@ -7,7 +7,7 @@ import AuthLayout from "components/authlayout";
 import DashboardFilters from "components/account-dashboard/DashboardFilters";
 import StatsHeader from "components/account-dashboard/StatsHeader";
 import styles from "public/css/DashboardPage.module.scss";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import axios from "axios";
 import { mutate } from "swr";
 
@@ -28,7 +28,7 @@ const Dashboard = () => {
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
   const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-  const user = useSelector((state) => state?.auth?.user);
+  // const user = useSelector((state) => state?.auth?.user);
 
   const hideModal = async () => {
     setModalVisible(false);
@@ -42,7 +42,7 @@ const Dashboard = () => {
     }
   };
 
-  const isAffiliate = user?.is_affiliate;
+  // const isAffiliate = user?.is_affiliate;
 
   // console.log("isAffiliate = ", isAffiliate);
 
@@ -79,17 +79,12 @@ const Dashboard = () => {
           <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
         </div>
         {/* show only when user is an affiliate */}
-        {isAffiliate && (
-          <div className={styles.stats__container}>
-            <StatsHeader title="Affiliate" url="/account/dashboard/affiliate" />
-            <StatsCard
-              totalVisits="0"
-              unitSales="0"
-              grossSales="0"
-              profit="0"
-            />
-          </div>
-        )}
+        {/* {isAffiliate && ( */}
+        <div className={styles.stats__container}>
+          <StatsHeader title="Affiliate" url="/account/dashboard/affiliate" />
+          <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
+        </div>
+        {/* )} */}
       </section>
       {/* {isFirstTimer */}
       {isFirstTimeUser && (
