@@ -64,7 +64,7 @@ export default function PreviewHeader({ id }) {
   useEffect(() => {
     setTitle(product?.product_details?.product_name);
     // setLink(product?.product_details?.id);
-    setLink(`http://localhost:3000/checkout/${productId}`);
+    setLink(`http://dev.kreatesell.com/checkout/${productId}`);
   }, [product, productId]);
 
   useEffect(() => {
