@@ -17,7 +17,8 @@ import {
   KreatorsIcon,
   SalesIcon,
 } from "../IconPack";
-import { BusinessPlanBox } from "../../utils/assets";
+import { useState } from "react";
+import { BusinessPlanBox, OpenSubMenu } from "../../utils/assets";
 
 import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
 
@@ -68,14 +69,27 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
   );
 };
 
+console.log(OpenSubMenu);
+
 const Sidebar = () => {
   const { SubMenu } = Menu;
   const router = useRouter();
   const setProductId = SetProductID();
   const setProductDefault = SetProductDefault();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpenChange = () => {
+    console.log("item clicked");
+    setIsOpen((isOpen) => !isOpen);
+  };
   return (
     <div className={style.sidebar}>
-      <Menu mode="inline" theme="light" className={style.menu}>
+      <Menu
+        mode="inline"
+        theme="light"
+        className={style.menu}
+        // onClick={handleClick}
+      >
         <MenuItem
           key={1}
           Icon={Dashboard}
@@ -96,10 +110,28 @@ const Sidebar = () => {
 				/> */}
         <SubMenu
           key="sub1"
+          onOpenChange={onOpenChange}
           icon={<Product className={style.icon} height={20} width={20} />}
           title="Products"
           className={style.subMenu}
-          expandIcon={<CloseSubMenu />}
+          // onOpenChange={onOpenChange}
+          // clickevent={handleClick}
+          InlineCollapsed={isOpen}
+          // expandIcon={<CloseSubMenu />}
+          expandIcon={() => {
+            console.log("isOpen = ", isOpen);
+            return isOpen ? (
+              <CloseSubMenu className={style.closeIcon} />
+            ) : (
+              <Image
+                src={OpenSubMenu.src}
+                alt="open"
+                width={14}
+                height={14}
+                // onClick={handleClick}
+              />
+            );
+          }}
         >
           <Menu.Item key={35}>
             <Link href="/account/kreator/products/all">
