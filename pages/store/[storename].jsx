@@ -21,6 +21,7 @@ const StorePage = () => {
     query: { storename },
   } = router;
 
+  // console.log("storename = ", storename);
   const {
     singleStoreDetails,
     singleStoreProducts,
@@ -33,8 +34,12 @@ const StorePage = () => {
 
   const logout = Logout();
   useEffect(() => {
-    if (storename !== "undefined") {
+    if (storename !== undefined) {
       return fetchSingleStoreProduct(storename);
+    } else if (storename === "undefined") {
+      return;
+    } else {
+      return;
     }
   }, [storename]);
 

@@ -69,7 +69,7 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
   );
 };
 
-console.log(OpenSubMenu);
+// console.log(OpenSubMenu);
 
 const Sidebar = () => {
   const { SubMenu } = Menu;
@@ -110,16 +110,16 @@ const Sidebar = () => {
 				/> */}
         <SubMenu
           key="sub1"
-          onOpenChange={onOpenChange}
+          // onOpenChange={onOpenChange}
           icon={<Product className={style.icon} height={20} width={20} />}
           title="Products"
           className={style.subMenu}
           // onOpenChange={onOpenChange}
           // clickevent={handleClick}
-          InlineCollapsed={isOpen}
+          // InlineCollapsed={isOpen}
           // expandIcon={<CloseSubMenu />}
           expandIcon={() => {
-            console.log("isOpen = ", isOpen);
+            // console.log("isOpen = ", isOpen);
             return isOpen ? (
               <CloseSubMenu className={style.closeIcon} />
             ) : (
