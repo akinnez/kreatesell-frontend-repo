@@ -46,6 +46,7 @@ import GhFlag from "../public/images/flag-gh.png";
 import ChevRonRight from "../public/images/chevron_big_right.svg";
 import AboutUsBlueBox from "../public/images/about-us-blueBox.svg";
 import AboutUsOne from "../public/images/about-us-1.svg";
+import OpenSubMenu from "../public/images/plus-drop.svg";
 import CoreOne from "../public/images/core-1.png";
 import CoreTwo from "../public/images/core-2.png";
 import CoreThree from "../public/images/core-3.png";
@@ -242,7 +243,24 @@ import MeetAffiliate3 from "../public/images/meetAffiliate3.jpeg";
 import RightArrowBlue from "../public/images/rightArrowBlue.svg";
 import RightArrowWhite from "../public/images/rightArrowWhite.svg";
 
+import AdvancedBitcoin from "../public/images/advancedBitcoin.svg";
+import AdvancedIdCard from "../public/images/advancedIdCard.svg";
+import AdvancedPaypal from "../public/images/advancedPaypal.svg";
+import AdvancedSelfie from "../public/images/advancedSelfie.svg";
+import AdvancedSettings from "../public/images/advancedSettings.svg";
+import AdvancedStripe from "../public/images/advancedStripe.svg";
+import RightArrow2 from "../public/images/RightArrow.svg";
+import CurvedArrow from "../public/images/curvedArrow.svg";
+
 export {
+  RightArrow2,
+  CurvedArrow,
+  AdvancedBitcoin,
+  AdvancedIdCard,
+  AdvancedPaypal,
+  AdvancedSelfie,
+  AdvancedSettings,
+  AdvancedStripe,
   RightArrowBlue,
   RightArrowWhite,
   MeetAffiliate1,
@@ -269,6 +287,7 @@ export {
   ShareIconGrey,
   ProfileImage,
   CardMain,
+  OpenSubMenu,
   NewsCardOne,
   IntegrationsCircle,
   VisionImage,

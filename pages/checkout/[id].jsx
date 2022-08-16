@@ -12,9 +12,9 @@ import {
   CloudDownload,
   isAnEmpytyObject,
   showToast,
-  CheckIconGreen
+  CheckIconGreen,
 } from "utils";
-import styles from "../public/css/checkout.module.scss";
+import styles from "../../public/css/checkout.module.scss";
 import { Input, Button } from "components";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { ConsumerSalesCheckoutSchema } from "validation";
@@ -25,46 +25,82 @@ import { usePaystackPayment } from "react-paystack";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { SendPaymentCheckoutDetails } from "redux/actions";
 import crypto from "crypto";
-import LogoImg from "../public/images/logo.svg";
+import LogoImg from "../../public/images/logo.svg";
 import useFetchUtilities from "hooks/useFetchUtilities";
+import useCurrency from "hooks/useCurrency";
+import Loader from "components/loader";
+import axios from "axios";
 
 const Checkout = () => {
   const [modal, setModal] = useState(false);
   const [activeCard, setActiveCard] = useState("NGN");
+  const { countriesCurrency, filterdWest, filteredCentral, loading } =
+    useCurrency();
 
   //Payment methods for GBP and USD are ["Card","Stripe","Paypal","Crypto"]
   const [paymentMethod, setPaymentMethod] = useState("Card");
   const [email, setEmail] = useState("");
   const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
 
-  const { checkoutDetails } = useSelector((state) => state.checkout);
-  const { countries } = useSelector((state) => state.utils);
+  // const { checkoutDetails } = useSelector((state) => state.checkout);
+  const checkoutDetails = useSelector((state) => state.checkout);
+  // console.log("checkoutDetails = ", checkoutDetails);
+  const { product } = useSelector((state) => state.product);
 
-  const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
+  // console.log("product = ", product);
+  // console.log("checkoutDetails = ", checkoutDetails);
 
-  const filterdWest = useMemo(()=> {
-    const cn = ['Benin Republic', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
-    return countries.filter(c => cn.includes(c.name))
-  }, [countries])
+  // const countriesCurrency = useMemo(()=> countries?.filter(country=> country.currency_id !== null), [countries])
 
-  const filteredCentral = useMemo(()=> {
-    const cn = ['Chad', 'Cameroon', 'Gabon']
-    return countries.filter(c => cn.includes(c.name))
-  }, [countries])
+  // const filterdWest = useMemo(()=> {
+  //   const cn = ['Benin Republic', 'Burkina Faso', 'Togo', 'Ghana', 'Mali', 'Senegal', 'Ivory Coast']
+  //   return countries.filter(c => cn.includes(c.name))
+  // }, [countries])
 
+  // const filteredCentral = useMemo(()=> {
+  //   const cn = ['Chad', 'Cameroon', 'Gabon']
+  //   return countries.filter(c => cn.includes(c.name))
+  // }, [countries])
+  const router = useRouter();
+  const productId = router.query.id;
+  // console.log("productId = ", productId);
+  const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
+  // `https://kreatesell.io/api/v1/kreatesell/product/get/KREATE-swivehub637951224545691071`;
+  // console.log(process.env.BASE_URL);
 
   const checkout = checkoutDetails?.check_out_details?.filter(
     (item) => item?.currency_name === activeCard
   );
 
   const currency_name = checkout?.[0]?.currency_name;
+  // console.log(currency_name);
   const price = checkout?.[0]?.price;
 
-  const router = useRouter();
   const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
   const openModal = () => setModal(true);
   const closeModal = () => setModal(false);
 
+  const [checkOutDetails, setCheckOutDetails] = useState([]);
+  const getProductDetails = async (productLink) => {
+    try {
+      const response = await axios.get(productLink);
+      // console.log(response?.data?.data?.check_out_details);
+      setCheckOutDetails(response?.data?.data?.check_out_details);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductDetails(productLink);
+    // console.log(productLink);
+  }, [productLink]);
+
+  const checkOutInNaira = checkOutDetails?.find(
+    (item) =>
+      item?.currency_name === "NGN" && item?.price_indicator === "Selling"
+  );
+  // console.log(checkOutInNaira);
   // const paymentStatusList = {
   //   success: "s",
   //   failed: "f",
@@ -213,11 +249,16 @@ const Checkout = () => {
 
   useFetchUtilities();
 
-
+  if (loading) return <Loader />;
 
   return (
     <>
-      <nav className={styles.nav+ " white relative flex py-8 px-10 flex shadow items-center text-center"}>
+      <nav
+        className={
+          styles.nav +
+          " white relative flex py-8 px-10 flex shadow items-center text-center"
+        }
+      >
         <Image src={LogoImg} alt="logo" width={140} height={35} />
         <h2 className=" font-bold mb-0 text-lg lg:text-2xl">Checkout</h2>
       </nav>
@@ -237,52 +278,57 @@ const Checkout = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full">
-          <div style={{height: "fit-content"}} className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16">
-              <form>
-                <div>
-                  <div className="text-black-100 font-bold text-lg mb-4">Personal Info</div>
-                  <p className="text-base-gray-200">
-                    Complete your purchase by filling in the following details
-                  </p>
+          <div
+            style={{ height: "fit-content" }}
+            className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
+          >
+            <form>
+              <div>
+                <div className="text-black-100 font-bold text-lg mb-4">
+                  Personal Info
                 </div>
+                <p className="text-base-gray-200">
+                  Complete your purchase by filling in the following details
+                </p>
+              </div>
 
-                <Input
-                  name="firstName"
-                  placeholder="Enter your Name"
-                  label="First Name"
-                  height="small"
-                  onChange={formik.handleChange}
-                  errorMessage={errors.firstName}
-                />
+              <Input
+                name="firstName"
+                placeholder="Enter your Name"
+                label="First Name"
+                height="small"
+                onChange={formik.handleChange}
+                errorMessage={errors.firstName}
+              />
 
-                <Input
-                  name="lastName"
-                  placeholder="Enter your Name"
-                  label="Last Name"
-                  height="small"
-                  onChange={formik.handleChange}
-                  errorMessage={errors.lastName}
-                />
+              <Input
+                name="lastName"
+                placeholder="Enter your Name"
+                label="Last Name"
+                height="small"
+                onChange={formik.handleChange}
+                errorMessage={errors.lastName}
+              />
 
-                <Input
-                  name="email"
-                  placeholder="Enter your Email"
-                  label="Email Address"
-                  height="small"
-                  onChange={formik.handleChange}
-                  errorMessage={errors.email}
-                />
+              <Input
+                name="email"
+                placeholder="Enter your Email"
+                label="Email Address"
+                height="small"
+                onChange={formik.handleChange}
+                errorMessage={errors.email}
+              />
 
-                <Input
-                  name="phoneNo"
-                  placeholder="Enter your Phone number "
-                  label="Phone number"
-                  height="small"
-                  inputMode="numeric"
-                  onChange={formik.handleChange}
-                  errorMessage={errors.phoneNo}
-                />
-              </form>
+              <Input
+                name="phoneNo"
+                placeholder="Enter your Phone number "
+                label="Phone number"
+                height="small"
+                inputMode="numeric"
+                onChange={formik.handleChange}
+                errorMessage={errors.phoneNo}
+              />
+            </form>
           </div>
 
           <div
@@ -293,7 +339,6 @@ const Checkout = () => {
               autoComplete="off"
               className="w-full"
             >
-
               <div className="pb-4">
                 <div className="text-black-100">Select Currency</div>
                 <p className="text-base-gray-200">
@@ -301,95 +346,104 @@ const Checkout = () => {
                 </p>
 
                 <div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-                  {
-                    countriesCurrency.map((country, index)=>(
-                      <div
+                  {countriesCurrency?.map((country, index) => (
+                    <div
                       key={index}
                       className={
-                        activeCard === country.currency ? styles.activeCard : styles.card
+                        activeCard === country.currency
+                          ? styles.activeCard
+                          : styles.card
                       }
-                    onClick={() => setActiveCard(country.currency)}
-                  >
-                    <div className={styles.checFlag+" mr-2"} style={{ borderRadius: "50%", }}>
-                      <Image src={country.flag} alt="flag" layout='fill' />
-                    </div>
-                    <div className="">{country.currency}</div>
-                    {activeCard === country.currency && (
-                      <div className="pl-1 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="20"
-                          height="20"
-                        />
+                      onClick={() => setActiveCard(country.currency)}
+                    >
+                      <div
+                        className={styles.checFlag + " mr-2"}
+                        style={{ borderRadius: "50%" }}
+                      >
+                        <Image src={country.flag} alt="flag" layout="fill" />
                       </div>
-                    )}
-                  </div>
-                    ))
-                  }
+                      <div className="">{country.currency}</div>
+                      {activeCard === country.currency && (
+                        <div className="pl-1 pt-1">
+                          <Image
+                            src={ActiveTick}
+                            alt="active"
+                            width="20"
+                            height="20"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="py-7">
-                <h2>West African  CFA Franc BCEAO</h2>
+                <h2>West African CFA Franc BCEAO</h2>
                 <div className="grid gap-4 grid-cols-4 ">
-                  {
-                    filterdWest.map((country, index)=>(
-                      <div
+                  {filterdWest.map((country, index) => (
+                    <div
                       key={index}
                       className={
-                        activeCard === country.currency ? styles.activeCard : styles.card
+                        activeCard === country.currency
+                          ? styles.activeCard
+                          : styles.card
                       }
-                    onClick={() => setActiveCard(country.currency)}
-                  >
-                    <div className={styles.checFlag+" mr-2"} style={{ borderRadius: "50%", }}>
-                      <Image src={country.flag} alt="flag" layout='fill' />
-                    </div>
-                    <div className="">{country.name}</div>
-                    {activeCard === country.currency && (
-                      <div className="pl-1 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
+                      onClick={() => setActiveCard(country.currency)}
+                    >
+                      <div
+                        className={styles.checFlag + " mr-2"}
+                        style={{ borderRadius: "50%" }}
+                      >
+                        <Image src={country.flag} alt="flag" layout="fill" />
                       </div>
-                    )}
-                  </div>
-                    ))
-                  }
+                      <div className="">{country.name}</div>
+                      {activeCard === country.currency && (
+                        <div className="pl-1 pt-1">
+                          <Image
+                            src={ActiveTick}
+                            alt="active"
+                            width="16"
+                            height="16"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="py-7">
                 <h2>Central African CFA Franc BEAC</h2>
                 <div className="grid gap-4 grid-cols-4 ">
-                  {
-                    filteredCentral.map((country, index)=>(
-                      <div
+                  {filteredCentral.map((country, index) => (
+                    <div
                       key={index}
                       className={
-                        activeCard === country.currency ? styles.activeCard : styles.card
+                        activeCard === country.currency
+                          ? styles.activeCard
+                          : styles.card
                       }
-                    onClick={() => setActiveCard(country.currency)}
-                  >
-                    <div className={styles.checFlag+" mr-2"} style={{ borderRadius: "50%", }}>
-                      <Image src={country.flag} alt="flag" layout='fill' />
-                    </div>
-                    <div className="">{country.name}</div>
-                    {activeCard === country.currency && (
-                      <div className="pl-1 pt-1">
-                        <Image
-                          src={ActiveTick}
-                          alt="active"
-                          width="16"
-                          height="16"
-                        />
+                      onClick={() => setActiveCard(country.currency)}
+                    >
+                      <div
+                        className={styles.checFlag + " mr-2"}
+                        style={{ borderRadius: "50%" }}
+                      >
+                        <Image src={country.flag} alt="flag" layout="fill" />
                       </div>
-                    )}
-                  </div>
-                    ))
-                  }
+                      <div className="">{country.name}</div>
+                      {activeCard === country.currency && (
+                        <div className="pl-1 pt-1">
+                          <Image
+                            src={ActiveTick}
+                            alt="active"
+                            width="16"
+                            height="16"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -397,51 +451,57 @@ const Checkout = () => {
 
               {/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
               {["GBP", "USD"].includes(activeCard) && (
-								<div className="pb-6">
-									<div className="text-black-100">Payment Method</div>
-									<p className="text-base-gray-200">
-										Select your preferred payment method
-									</p>
+                <div className="pb-6">
+                  <div className="text-black-100">Payment Method</div>
+                  <p className="text-base-gray-200">
+                    Select your preferred payment method
+                  </p>
 
-									<div className="grid gap-4 grid-cols-3">
-										<div
-											className={
-												paymentMethod === "Stripe"
-													? styles.activePayment
-													: styles.card
-											}
-											onClick={() => setPaymentMethod("Stripe")}
-										>
-											<Image src={Stripe} alt="pay with stripe" />
-                      {paymentMethod === "Stripe" && <Image src={CheckIconGreen} alt="" />}
-										</div>
+                  <div className="grid gap-4 grid-cols-3">
+                    <div
+                      className={
+                        paymentMethod === "Stripe"
+                          ? styles.activePayment
+                          : styles.card
+                      }
+                      onClick={() => setPaymentMethod("Stripe")}
+                    >
+                      <Image src={Stripe} alt="pay with stripe" />
+                      {paymentMethod === "Stripe" && (
+                        <Image src={CheckIconGreen} alt="" />
+                      )}
+                    </div>
 
-										<div
-											className={
-												paymentMethod === "Paypal"
-													? styles.activePayment
-													: styles.card
-											}
-											onClick={() => setPaymentMethod("Paypal")}
-										>
-											<Image src={Paypal} alt="pay with stripe" />
-                      {paymentMethod === "Paypal" && <Image src={CheckIconGreen} alt="" />}
-										</div>
+                    <div
+                      className={
+                        paymentMethod === "Paypal"
+                          ? styles.activePayment
+                          : styles.card
+                      }
+                      onClick={() => setPaymentMethod("Paypal")}
+                    >
+                      <Image src={Paypal} alt="pay with stripe" />
+                      {paymentMethod === "Paypal" && (
+                        <Image src={CheckIconGreen} alt="" />
+                      )}
+                    </div>
 
-										<div
-											className={
-												paymentMethod === "Crypto"
-													? styles.activePayment
-													: styles.card
-											}
-											onClick={() => setPaymentMethod("Crypto")}
-										>
-											<Image src={Crypto} alt="pay with stripe" />
-                      {paymentMethod === "Crypto" && <Image src={CheckIconGreen} alt="" />}
-										</div>
-									</div>
-								</div>
-							)}
+                    <div
+                      className={
+                        paymentMethod === "Crypto"
+                          ? styles.activePayment
+                          : styles.card
+                      }
+                      onClick={() => setPaymentMethod("Crypto")}
+                    >
+                      <Image src={Crypto} alt="pay with stripe" />
+                      {paymentMethod === "Crypto" && (
+                        <Image src={CheckIconGreen} alt="" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/**Apply coupon feature is yet to be implemented */}
 
@@ -471,7 +531,9 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}>
+              <div
+                className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
+              >
                 <div className="flex justify-between">
                   <p>SubTotal</p>
                   <div className="flex gap-4">
@@ -483,7 +545,8 @@ const Checkout = () => {
                     )}
                     <p>
                       {/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-                      NGN 890
+                      {/* NGN 890 */}
+                      {checkOutInNaira?.currency_name} {checkOutInNaira?.price}
                     </p>
                   </div>
                 </div>
@@ -511,15 +574,17 @@ const Checkout = () => {
                   <p>Total</p>
                   <p className="text-primary-blue font-medium">
                     {currency_name}{" "}
-                    {new Intl.NumberFormat().format(
+                    {/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
-                    )}
+                    )} */}
+                    {checkOutInNaira?.price}
                   </p>
                 </div>
               </div>
 
               <p className="text-base-gray text-center py-6 text-xs md:text-sm">
-                Get instant access to this product once your payment is successful!
+                Get instant access to this product once your payment is
+                successful!
               </p>
 
               <div className=" w-full lg:w-5/6 mx-auto">

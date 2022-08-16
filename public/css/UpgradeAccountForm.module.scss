@@ -1,0 +1,15 @@
+@import "./colors.scss";
+@import "./screens.scss";
+
+
+.checFlag{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+}

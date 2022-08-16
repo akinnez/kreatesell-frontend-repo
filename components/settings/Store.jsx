@@ -78,7 +78,7 @@ const StoreSettings = () => {
 						bgColor="blue"
 						className={styles.btnStyle}
 						loading={loading}
-						onclick={handleCTAButton}
+						onClick={handleCTAButton}
 					/>
 				</div>
 			</div>
@@ -145,7 +145,7 @@ const StoreSettings = () => {
 					bgColor="blue"
 					className={styles.btnStyle}
 					loading={loading}
-					onclick={handleCTAButton}
+					onClick={handleCTAButton}
 				/>
 			</div>
 		</form>

@@ -268,7 +268,7 @@ const ActionComponent = ({ item }) => {
       <p className="mb-0 ml-3">Deactivate<br /> (Unpublish)</p>
   </Popconfirm>
   </li>
-  <li className={styles.deletePop + " flex items-center cursor-pointer"}>
+  {/* <li className={styles.deletePop + " flex items-center cursor-pointer"}>
   <Popconfirm
     title={<pre className="mb-0 text-sm ">Are you sure to <h2 className="text-base text-base-red-400 mb-0 font-semibold">Delete</h2> this product?</pre> }
     onConfirm={handleModalOk}
@@ -284,7 +284,7 @@ const ActionComponent = ({ item }) => {
     </span>
       <p className="mb-0 ml-3">Delete<br /></p>
   </Popconfirm>
-  </li>
+  </li> */}
 </ul>
 )
   return (
