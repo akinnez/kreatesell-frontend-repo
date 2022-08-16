@@ -52,6 +52,7 @@ export const ProtectedStoreHeader = ({
   publicStore = false,
   publicStoreInfo = {},
 }) => {
+  console.log("store = ", publicStoreInfo);
   return (
     <>
       <div

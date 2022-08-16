@@ -43,6 +43,8 @@ const StorePage = () => {
     }
   }, [storename]);
 
+  console.log("singleStoreProducts = ", singleStoreProducts);
+
   return (
     <div className={styles.container}>
       <nav className="bg-white hidden lg:flex items-center px-4 lg:px-40">
@@ -109,12 +111,32 @@ const StorePage = () => {
         </div>
 
         <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
-          {singleStoreProducts?.map((productDetails) => (
-            <ProductCard
-              productDetails={productDetails}
-              key={productDetails?.id}
-            />
-          ))}
+          {singleStoreProducts?.map((productDetails) => {
+            console.log("productDetails = ", productDetails);
+            const countrySale = productDetails?.check_out_details?.find(
+              (item) =>
+                item?.currency_name === "NGN" &&
+                item?.price_indicator === "Selling"
+            );
+
+            const sellingPrice = countrySale?.price;
+            const originalSetting = productDetails?.check_out_details?.find(
+              (item) =>
+                item?.currency_name === "NGN" &&
+                item?.price_indicator === "Original"
+            );
+            // console.log("countrySale = ", countrySale);
+            // console.log("sellingPrice = ", sellingPrice);
+            const originalPrice = originalSetting?.price;
+            return (
+              <ProductCard
+                productDetails={productDetails}
+                key={productDetails?.id}
+                sellingPrice={sellingPrice}
+                originalPrice={originalPrice}
+              />
+            );
+          })}
         </div>
 
         {pagination?.total_records > 12 && (
@@ -133,7 +155,7 @@ const StorePage = () => {
   );
 };
 
-const ProductCard = ({ productDetails }) => {
+const ProductCard = ({ productDetails, sellingPrice, originalPrice }) => {
   const router = useRouter();
   const setCheckoutDetails = SetCheckoutDetails();
 
@@ -157,11 +179,21 @@ const ProductCard = ({ productDetails }) => {
         <div
           className={`flex justify-between items-center pb-4 column ${styles.main}`}
         >
-          <p className="text-base-gray pt-2 text-sm md:text-base">
+          <p
+            className={`text-base-gray pt-2 text-sm md:text-base ${styles.sellingPrice}`}
+          >
             {productDetails?.default_currency}
-            {new Intl.NumberFormat().format(productDetails?.default_price) ??
-              "0.00"}
+            {new Intl.NumberFormat().format(sellingPrice) ?? "0.00"}
           </p>
+          <p
+            className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+          >
+            {productDetails?.default_currency}
+            {new Intl.NumberFormat().format(
+              originalPrice ?? productDetails?.default_price
+            ) ?? "0.00"}
+          </p>
+
           <Button
             text={productDetails?.product_details?.cta_button ?? "Buy Now"}
             className={styles.productCardBtn}
