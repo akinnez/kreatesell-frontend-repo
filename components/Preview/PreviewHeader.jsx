@@ -60,7 +60,7 @@ export default function PreviewHeader ({id}){
         setTitle( product?.product_details?.product_name)
         setLink( product?.product_details?.id)
     }, [product])
-    
+    // console.log("product", product);
     useEffect(() => {
         if(Object.keys(product).length > 0){
           setFieldValue("product_id", product?.product_details?.id);
