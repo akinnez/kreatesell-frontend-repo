@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from "react";
-import style from "./Index.module.scss";
-import { Checkbox, Row, Col, Spin, Form } from "antd";
-import { Button } from "../form-input";
-import ApiService from "../../utils/axios";
-import { Input } from "../form-input";
+import React, { useState, useEffect } from 'react'
+import style from './Index.module.scss'
+import { Checkbox, Row, Col, Spin, Form } from 'antd'
+import { Button } from '../form-input'
+import ApiService from '../../utils/axios'
+import { Input } from '../form-input'
 
-const width = "600px";
+const width = '600px'
 
 const Index = () => {
-  const [state, setState] = useState();
-  const [loading, setLoading] = useState(false);
+  // const [state, setState] = useState()
+  // const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    setLoading(true);
-    ApiService.request("GET", "v1/kreatesell/utils/allowed-currencies", res => {
-      setLoading(false);
-      const item = res?.data?.currencies?.map(({ id, short_name }) => ({
-        label: short_name,
-        value: id,
-      }));
-      setState(item);
-    });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true)
+  //   ApiService.request(
+  //     'GET',
+  //     'v1/kreatesell/utils/allowed-currencies',
+  //     (res) => {
+  //       setLoading(false)
+  //       const item = res?.data?.currencies?.map(({ id, short_name }) => ({
+  //         label: short_name,
+  //         value: id,
+  //       }))
+  //       setState(item)
+  //     },
+  //   )
+  // }, [])
 
   return (
     <div className={style.wrapper}>
+      <h3>Account Settings</h3>
       <div className={style.bordered}>
         <h4>Password</h4>
         <Form layout="vertical">
@@ -54,7 +59,7 @@ const Index = () => {
         </Form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index
