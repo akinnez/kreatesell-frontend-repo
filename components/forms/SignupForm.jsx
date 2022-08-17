@@ -1,59 +1,93 @@
-import { useEffect } from "react";
-import { Input, PasswordInput, Button, Checkbox, FormError } from "../";
-import { useFormik } from "formik";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { SignupSchema } from "../../validation";
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+
+import { useFormik } from 'formik'
+import { useSelector } from 'react-redux'
+
+import { Input, PasswordInput, Button, Checkbox, FormError } from '../'
+import { SignupSchema } from '../../validation'
 // import ReCAPTCHA from "react-google-recaptcha";
-import { isAnEmpytyObject } from "../../utils";
-import { Signup } from "../../redux/actions";
-import { useSelector } from "react-redux";
-import styles from "../../public/css/Signup.module.scss";
+import { isAnEmpytyObject } from '../../utils'
+import { Signup, Login } from '../../redux/actions'
+import styles from '../../public/css/Signup.module.scss'
 
 export const SignupForm = () => {
-  const router = useRouter();
-  const signup = Signup();
-  const email = router.query?.email;
+  const router = useRouter()
+  const signup = Signup()
+  const login = Login()
+  const email = router.query?.email
 
-  const { loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (router.query) {
+    }
+  }, [router.query])
 
   const initialValues = {
-    Email: "",
-    FullName: "",
-    Password: "",
-    phoneNo: "",
+    Email: '',
+    FullName: '',
+    Password: '',
+    phoneNo: '',
     terms: false,
     // recaptchaToken: "",
-  };
+  }
 
   const handleSubmit = async (values) => {
     /**Destructuring the values below so that data used for validation on client side not required by the endpoint isn't passed along */
-    const { Email, Password, phoneNo, FullName } = values;
-    const data = { Email, Password, phoneNo, FullName };
+    const { Email, Password, phoneNo, FullName } = values
+    const data = { Email, Password, phoneNo, FullName }
 
-    let formData = new FormData();
+    let formData = new FormData()
     for (let value in data) {
-      formData.append(value, data[value]);
+      formData.append(value, data[value])
+    }
+    // if user is from pricing page, automatically log user in
+    if (router.query) {
+      await signup(
+        formData,
+        (val) => {
+          // console.log('values from signup', val)
+          formData.delete('phoneNo')
+          formData.delete('FullName')
+          // make a login call here with signup value
+          login(
+            data,
+            (res) => {
+              console.log(res)
+              return router.push('/account/kreator/settings?activeTab=billing')
+            },
+            (err) => {
+              console.log('error is', err)
+            },
+          )
+        },
+        (err) => {
+          console.log('error is', err)
+        },
+      )
+      return
     }
 
     /**Signup endpoint is called with data */
     await signup(formData, () => {
-      return router.push("/login");
-    });
-  };
+      return router.push('/login')
+    })
+  }
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
     validationSchema: SignupSchema,
     validateOnChange: false,
-  });
+  })
 
-  const { errors, setFieldValue } = formik;
+  const { errors, setFieldValue } = formik
 
   useEffect(() => {
-    if (email) setFieldValue("Email", email);
-  }, [email]);
+    if (email) setFieldValue('Email', email)
+  }, [email])
 
   return (
     <>
@@ -109,11 +143,11 @@ export const SignupForm = () => {
       </form>
 
       <div className={styles.footer}>
-        Already have an account?{" "}
+        Already have an account?{' '}
         <Link href="/login">
           <a>Login</a>
-        </Link>{" "}
+        </Link>{' '}
       </div>
     </>
-  );
-};
+  )
+}
