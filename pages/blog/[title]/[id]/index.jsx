@@ -50,10 +50,7 @@ import {
 } from 'react-share'
 import { USER } from 'redux/types/auth.types'
 
-const SingleBlogPost = () => {
-  // console.log("blog", blog);
-  // console.log("recentBlogs", recentBlogs)
-  // console.log("moreBlogs", moreBlogs)
+const SingleBlogPost = ({ blog, recentBlogs, moreBlogs }) => {
   const router = useRouter()
   const genUrl =
     process.env.NODE_ENV === 'production'
@@ -453,7 +450,7 @@ export async function getStaticPaths(context) {
       params: { title: item?.category || null, id: item?.id || null },
     }))
   } catch (error) {
-    console.log(error)
+    console.log('error is: ', error)
   }
 
   return {
@@ -478,7 +475,7 @@ export async function getStaticProps(context) {
       `${process.env.BASE_URL}blogs/post-category/${context.params.title}`,
     )
   } catch (error) {
-    console.log(error)
+    console.log('error is', error)
   }
 
   return {
