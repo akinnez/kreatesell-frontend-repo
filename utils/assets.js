@@ -46,6 +46,7 @@ import GhFlag from "../public/images/flag-gh.png";
 import ChevRonRight from "../public/images/chevron_big_right.svg";
 import AboutUsBlueBox from "../public/images/about-us-blueBox.svg";
 import AboutUsOne from "../public/images/about-us-1.svg";
+import OpenSubMenu from "../public/images/plus-drop.svg";
 import CoreOne from "../public/images/core-1.png";
 import CoreTwo from "../public/images/core-2.png";
 import CoreThree from "../public/images/core-3.png";
@@ -286,6 +287,7 @@ export {
   ShareIconGrey,
   ProfileImage,
   CardMain,
+  OpenSubMenu,
   NewsCardOne,
   IntegrationsCircle,
   VisionImage,

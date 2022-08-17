@@ -41,7 +41,18 @@ export const CheckoutProductTab = ({ productId }) => {
         Checkout Details
       </h3>
       <Form layout="vertical" className={styles.antRadioLabel}>
-        <Form.Item label="Checkout Call-To-Action Button">
+        <Form.Item
+          label={
+            <>
+              Call-To-Action Button
+              {ctaBtnText.length === 10 && (
+                <span className={styles.charLimit}>
+                  10 characters limit reached!
+                </span>
+              )}
+            </>
+          }
+        >
           <div className="w-full md:w-2/5">
             <Input
               placeholder="Buy now"
@@ -49,6 +60,7 @@ export const CheckoutProductTab = ({ productId }) => {
               name="ctaBtnText"
               value={ctaBtnText}
               onChange={(e) => setCtaBtnText(e.target.value)}
+              maxLength={10}
             />
           </div>
           <p className="text-xs text-base-gray-200 mt-3">

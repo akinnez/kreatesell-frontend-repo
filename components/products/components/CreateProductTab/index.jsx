@@ -19,7 +19,7 @@ const iconMapper = {
 };
 
 const CreateProductTab = () => {
-  const { productTypes } = useSelector(state => state.product);
+  const { productTypes } = useSelector((state) => state.product);
   const [productType, setProductType] = useState({
     id: 1,
     name: "Digital Download",
@@ -46,7 +46,7 @@ const CreateProductTab = () => {
     // validationSchema: CreateProductSchema,
     onSubmit: handleSubmit,
   });
-  const handleProductTypeChange = type => {
+  const handleProductTypeChange = (type) => {
     setProductType(type);
   };
 
@@ -56,7 +56,7 @@ const CreateProductTab = () => {
 
   const productTypeMapper = (
     <>
-      {productTypes.map(item => {
+      {productTypes.map((item) => {
         const Icon = iconMapper[item.product_type_name];
         const obj = { id: item.id, name: item.product_type_name };
 

@@ -290,15 +290,25 @@ export const CreateProductForm = ({
 
       <Form layout="vertical" className="pt-3" onFinish={formik.handleSubmit}>
         <Form.Item
-          label={<h2 className={`${styles.label2} mb-0`}>Name</h2>}
+          label={
+            <h2 className={`${styles.label2} mb-0`}>
+              Name
+              {values?.product_name.length === 50 && (
+                <span className={styles.charLimit}>
+                  50 characters limit reached!
+                </span>
+              )}
+            </h2>
+          }
           className={styles.inputCont}
         >
           <Input
-            placeholder="Buyers see this name on the store front page; choose a simple and catchy name!"
+            placeholder="Buyers see this name on the store front page; choose a simple and catchy name, with max-length being 10!"
             className={`${styles.input}`}
             name="product_name"
             onChange={formik.handleChange}
             value={values?.product_name}
+            maxLength={50}
           />
         </Form.Item>
 
@@ -307,7 +317,15 @@ export const CreateProductForm = ({
             <h2 className={`${styles.label2} mb-0`}>Product Description</h2>
           }
         >
-          <p className="mb-2 text-xs">120 words only is allowed</p>
+          <p className="mb-2 text-xs">
+            {values?.product_description.length === 770 ? (
+              <span className={`${styles.charLimit} ${styles.normal}`}>
+                120 words limit reached!
+              </span>
+            ) : (
+              <span>120 words only is allowed</span>
+            )}
+          </p>
           <TextArea
             name="product_description"
             label="Description"
@@ -315,6 +333,7 @@ export const CreateProductForm = ({
             rows={6}
             onChange={formik.handleChange}
             value={values?.product_description}
+            maxLength={770}
           />
         </Form.Item>
         <Form.Item
