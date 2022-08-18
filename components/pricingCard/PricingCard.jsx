@@ -38,6 +38,7 @@ export const PricingCard = ({
 			{btnText && (
 				<div className={styles.button}>
 					<Button
+						type="button"
 						className={`${styles.btn} ${currentPlan && styles.selectedBtn}`}
 						text={btnText}
 						bgColor={currentPlan ?"" :"blue"}

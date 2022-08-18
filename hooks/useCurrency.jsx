@@ -6,6 +6,7 @@ import useSWR from "swr";
 import ApiService from "utils/axios";
 import Loader from "components/loader";
 
+// TODO: Make this hook cache currencies
 const useCurrency = () => {
   const [allowedCurrencies, setAllowedCurrencies] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -23,8 +23,6 @@ const Index = () => {
 	useEffect(() => {
 		if(router.query?.activeTab){
 			setActiveTab(router.query.activeTab);
-		}else{
-			router.push({ pathname: path, query: { activeTab: "currencies" } }, undefined, {});
 		}
 	}, [router.query]);
 	
