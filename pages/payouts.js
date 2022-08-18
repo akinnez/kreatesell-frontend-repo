@@ -122,7 +122,7 @@ const Payouts = () => {
                 settlements into your bank account/wallet are made based on your
                 default currency. So, you get to sell in any currency around the
                 globe and have the amount converted and credited in your
-                country&aops;s default currency.
+                country&apos;s default currency.
               </div>
             </div>
           </section>
