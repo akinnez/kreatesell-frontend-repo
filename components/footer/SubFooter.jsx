@@ -1,6 +1,7 @@
 import { RightArrow } from "../../utils";
 import { InputButton } from "../inputButton/InputButton";
 import styles from "./Footer.module.scss";
+// import { useRouter } from "next/router";
 
 export const SubFooter = ({
   withSearch = false,
@@ -8,6 +9,7 @@ export const SubFooter = ({
   secondText,
   childComp,
 }) => {
+  // const router = useRouter();
   return (
     <div className={styles.subFooter}>
       <h3>
