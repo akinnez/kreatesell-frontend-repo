@@ -18,7 +18,7 @@ export const Navbar = () => {
   // const navDropIsInView = useSelector((state) => state.)
   const { pathname } = useRouter();
   // state for navDrop
-  console.log(pathname);
+
   // .
   const [navDrop, setNavDrop] = useState({
     isVisible: false,

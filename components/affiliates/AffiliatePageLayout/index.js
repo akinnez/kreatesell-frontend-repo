@@ -4,7 +4,7 @@ import AffiliateFilters from "../AffiliateFilters";
 import MobileDataRenderer from "../MobileDataRenderer";
 import styles from "./index.module.scss";
 
-const rowKey = record => record.id;
+const rowKey = (record) => record.id;
 
 const AffiliatePageLayout = ({
   products,
@@ -20,10 +20,11 @@ const AffiliatePageLayout = ({
   productKey,
   showStatus = false,
 }) => {
-  const handlePageChange = page => {
+  const handlePageChange = (page) => {
     setFilters({ ...filters, page });
   };
 
+  console.log("data = ", products.data);
   return (
     <>
       <header className={styles.header}>
