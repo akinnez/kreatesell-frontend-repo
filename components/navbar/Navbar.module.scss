@@ -24,9 +24,19 @@
 }
 
 .navContainer.reverseMobileView {
-  @include flex(row-reverse, space-between, null);
+  // @include flex(row, flex-end, null);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  // position: relative;
+
+  .showLogin {
+    position: absolute;
+    right: 90px;
+    top: 20px;
+  }
   @media (min-width: 768px) {
-    @include flex(row, space-between, null);
+    @include flex(row, flex-end, null);
   }
 }
 
@@ -64,7 +74,8 @@
 .mobileLoginLink {
   display: none;
   // border: 1px solid red;
-  width: 100%;
+  // width: 100%;
+  align-self: flex-end;
   height: 100%;
   text-align: right;
   .loginBtn {
@@ -74,6 +85,7 @@
 
 .mobileLoginLink.showLogin {
   display: block;
+
   @media (min-width: 768px) {
     display: none;
   }
@@ -339,14 +351,29 @@
       .mobileCategoryLinks {
         list-style: none;
         font-weight: 800;
-        font-size: 28px;
+        font-size: 20px;
         line-height: 40px;
-        color: $base-blue;
+        // color: $base-blue;
+        // border: 1px solid red;
+        text-align: left;
+        padding: 1px 0px 0 0px;
         // padding-right: 13%;
-        margin-bottom: unset;
+        // margin-bottom: unset;
+        margin-bottom: 32px;
 
         li {
-          margin-bottom: 33px;
+          // margin-bottom: 33px;
+          padding: 8px 0 8px 24px;
+          color: #8c8c8c;
+          cursor: pointer;
+          transition: all 0.2s;
+          &:hover {
+            background-color: #f5f5f5;
+          }
+        }
+
+        li.activeMobileLink {
+          color: $base-blue;
         }
       }
 
