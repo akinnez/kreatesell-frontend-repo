@@ -96,7 +96,14 @@ const Dashboard = () => {
             isAnAffiliate={isAnAffiliate}
             isAffiliateCard={true}
           />
-          <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
+          <StatsCard
+            totalVisits="0"
+            isAnAffiliate={isAnAffiliate}
+            isAffiliateCard={true}
+            unitSales="0"
+            grossSales="0"
+            profit="0"
+          />
         </div>
         {/* )} */}
       </section>
