@@ -20,11 +20,6 @@ export const SignupForm = () => {
 
   const { loading } = useSelector((state) => state.auth)
 
-  useEffect(() => {
-    if (router.query) {
-    }
-  }, [router.query])
-
   const initialValues = {
     Email: '',
     FullName: '',
@@ -43,15 +38,19 @@ export const SignupForm = () => {
     for (let value in data) {
       formData.append(value, data[value])
     }
+    // console.log('router.query', router.query)
     // if user is from pricing page, automatically log user in
-    if (router.query) {
+    if (Object.keys(router.query).length > 0) {
+      console.log('router.query', router.query)
       await signup(
         formData,
         (val) => {
-          // console.log('values from signup', val)
-          formData.delete('phoneNo')
-          formData.delete('FullName')
-          // make a login call here with signup value
+          data.username = data.Email
+          data.password = data.Password
+          delete data.Password
+          delete data.Email
+          delete data.FullName
+          delete data.phoneNo
           login(
             data,
             (res) => {
