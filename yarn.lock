@@ -1721,6 +1721,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.4.tgz#48aedbf35efb3af1248e4cd4d792c730290cd5d6"
   integrity sha512-M0+G6V0Y4YV8cqzHssZpaNCqvYwlCiulmm0PwpNLF55r/+cT8Ol42CHRU1SEaYFH2rTwiiE1aYg/2g2rrtGdPA==
 
+"@types/node@>=8.1.0":
+  version "18.7.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.6.tgz#31743bc5772b6ac223845e18c3fc26f042713c83"
+  integrity sha512-EdxgKRXgYsNITy5mjjXjVE/CS8YENSdhiagGrLqjG0pvA2owgJ6i4l7wy/PFZGC0B1/H20lWKN7ONVDNYDZm7A==
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
@@ -6460,6 +6465,11 @@ os-browserify@0.3.0, os-browserify@^0.3.0:
   resolved "https://registry.yarnpkg.com/os-browserify/-/os-browserify-0.3.0.tgz#854373c7f5c2315914fc9bfc6bd8238fdda1ec27"
   integrity sha512-gjcpUc3clBf9+210TRaDWbf+rZZZEshZ+DlXMRCeAjp0xhTrnQsKHypIy1J3d5hKdUzj69t708EHtU8P6bUn0A==
 
+otp-input-react@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/otp-input-react/-/otp-input-react-0.3.0.tgz#47ad3485b923ea00cf0d4758b74dfeffb3d73cf8"
+  integrity sha512-6HDgAUp+biz18cfeX8189g6sOqA5UGmTeqkREz1MI8x92N8kU/M8YtwLtl60j3pbGkMVbrm3f4n4wtXPeVpMmg==
+
 p-each-series@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/p-each-series/-/p-each-series-2.2.0.tgz#105ab0357ce72b202a8a8b94933672657b5e2a9a"
@@ -6895,6 +6905,13 @@ purgecss@^4.0.3:
     glob "^7.1.7"
     postcss "^8.3.5"
     postcss-selector-parser "^6.0.6"
+
+qs@^6.10.3:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
+  dependencies:
+    side-channel "^1.0.4"
 
 querystring-es3@0.2.1, querystring-es3@^0.2.0:
   version "0.2.1"
@@ -8684,6 +8701,14 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+stripe@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-10.2.0.tgz#46de352f599d395a4f072b9e73f918397ee3ac7b"
+  integrity sha512-y0tW31r8rk0cGAVN+lxZUU0yqcFq7y+Kmi0SKuNPxDVKRx1aCvU1xpnVR9mZv5wNQOKpsx5C14UpeenoYu8+7A==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.10.3"
 
 style-value-types@5.0.0:
   version "5.0.0"
