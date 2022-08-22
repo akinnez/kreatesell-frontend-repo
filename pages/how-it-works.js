@@ -337,6 +337,7 @@ const HowItWorks = () => {
 export default HowItWorks;
 
 export const SharedSubFooter = () => {
+  const router = useRouter();
   return (
     <div className={styles.subFooter}>
       <h3

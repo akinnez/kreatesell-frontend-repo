@@ -115,13 +115,17 @@ export const getWaitTime = (country, currency) => {
     case customCurrency("Nigeria", "NGN"):
       time = 1;
       break;
+
     case customCurrency("Nigeria", "USD"):
     case customCurrency("Nigeria", "GBP"):
       time = 10;
       break;
 
-    // Kenya:
-    case customCurrency("Kenya", "NGN"):
+    // * Nigeria and other african currencies
+    case customCurrency("Nigeria", currency):
+      time = 5;
+      break;
+
     case customCurrency("Kenya", "KES"):
       time = 1;
       break;
@@ -129,9 +133,13 @@ export const getWaitTime = (country, currency) => {
     case customCurrency("Kenya", "GBP"):
       time = 10;
       break;
+    //* kenya and other african currencies
+    case customCurrency("Kenya", currency):
+      time = 5;
+      break;
 
-    // Ghana:
-    case customCurrency("Ghana", "NGN"):
+    //? Ghana:
+
     case customCurrency("Ghana", "GHS"):
       time = 1;
       break;
@@ -140,17 +148,29 @@ export const getWaitTime = (country, currency) => {
       time = 10;
       break;
 
+    //* Ghana and other african countries
+    case customCurrency("Ghana", currency):
+      time = 5;
+      break;
+
     //Tanzania
 
-    case customCurrency("Tanzania", "NGN"):
+    case customCurrency("Tanzania", "TZS"):
       time = 1;
       break;
+
     case customCurrency("Tanzania", "USD"):
     case customCurrency("Tanzania", "GBP"):
       time = 10;
       break;
+
+    //* Tanzania and other african countries
+    case customCurrency("Tanzania", currency):
+      time = 5;
+      break;
+
     // Uganda
-    case customCurrency("Uganda", "NGN"):
+
     case customCurrency("Uganda", "UGX"):
       time = 1;
       break;
@@ -159,8 +179,13 @@ export const getWaitTime = (country, currency) => {
       time = 10;
       break;
 
+    //* uganda and other african countries.
+    case customCurrency("Uganda", currency):
+      time = 5;
+      break;
+
     //South africa:
-    case customCurrency("South Africa", "NGN"):
+
     case customCurrency("South Africa", "ZAR"):
       time = 1;
       break;
@@ -168,9 +193,13 @@ export const getWaitTime = (country, currency) => {
     case customCurrency("South Africa", "GBP"):
       time = 10;
       break;
+    //* SA and other african countries.
+    case customCurrency("South Africa", currency):
+      time = 5;
+      break;
 
     // Seirra Leone
-    case customCurrency("Sierra Leone", "NGN"):
+
     case customCurrency("Sierra Leone", "SLL"):
       time = 1;
       break;
@@ -179,114 +208,152 @@ export const getWaitTime = (country, currency) => {
       time = 10;
       break;
 
-    // senegal
-    case customCurrency("Senegal", "NGN"):
-      time = 1;
+    //* Sierra Leone and other african countries.
+    case customCurrency("Sierra Leone", currency):
+      time = 5;
       break;
+
+    // senegal
+    // case customCurrency("Senegal", "XOF"):
+    //   time = 1;
+    //   break;
     case customCurrency("Senegal", "USD"):
     case customCurrency("Senegal", "GBP"):
       time = 10;
       break;
 
-    // burkina faso
-    case customCurrency("Burkina Faso", "NGN"):
-      time = 1;
+    //* Senegal and other african countries.
+    case customCurrency("Senegal", currency):
+      time = 5;
       break;
+
+    // burkina faso
+
     case customCurrency("Burkina Faso", "USD"):
     case customCurrency("Burkina Faso", "GBP"):
       time = 10;
       break;
+    //* BURKINA FASO other african countries.
+    case customCurrency("Burkina Faso", currency):
+      time = 5;
+      break;
 
     // IVORY COAST:
-    case customCurrency("Ivory Coast", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Ivory Coast", "USD"):
     case customCurrency("Ivory Coast", "GBP"):
       time = 10;
       break;
 
+    //* Ivory coast and other african countries.
+    case customCurrency("Ivory Coast", currency):
+      time = 5;
+      break;
+
     // Mali
 
     // default case:
-    case customCurrency("Mali", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Mali", "USD"):
     case customCurrency("Mali", "GBP"):
       time = 10;
       break;
+    //* Mali and other african countries.
+    case customCurrency("Mali", currency):
+      time = 5;
+      break;
 
     // Cameroon
-    case customCurrency("Cameroon", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Cameroon", "USD"):
     case customCurrency("Cameroon", "GBP"):
       time = 10;
       break;
+    //* Cameroon and other african countries.
+    case customCurrency("Cameroon", currency):
+      time = 5;
+      break;
 
     // liberia
-    case customCurrency("Liberia", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Liberia", "USD"):
     case customCurrency("Liberia", "GBP"):
       time = 10;
       break;
+    //* Liberia and other african countries.
+    case customCurrency("Liberia", currency):
+      time = 5;
+      break;
 
     // BENIN REPUBLIC;
-    case customCurrency("Benin Republic", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Benin Republic", "USD"):
     case customCurrency("Benin Republic", "GBP"):
       time = 10;
       break;
+    //*Benin Republic  and other african countries.
+    case customCurrency("Benin Republic", currency):
+      time = 5;
+      break;
 
     // MALAWI:
-    case customCurrency("Malawi", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Malawi", "USD"):
     case customCurrency("Malawi", "GBP"):
       time = 10;
       break;
+    //* Malawi and other african countries.
+    case customCurrency("Malawi", currency):
+      time = 5;
+      break;
 
     // GAMBIA
-    case customCurrency("Gambia", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Gambia", "USD"):
     case customCurrency("Gambia", "GBP"):
       time = 10;
       break;
+    //* Gambia and other african countries.
+    case customCurrency("Gambia", currency):
+      time = 5;
+      break;
 
     //TOGO
-    case customCurrency("Togo", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Togo", "USD"):
     case customCurrency("Togo", "GBP"):
       time = 10;
       break;
+    //* Togo and other african countries.
+    case customCurrency("Togo", currency):
+      time = 5;
+      break;
 
     // CHAD
-    case customCurrency("Chad", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Chad", "USD"):
     case customCurrency("Chad", "GBP"):
       time = 10;
       break;
+    //* Chad and other african countries.
+    case customCurrency("Chad", currency):
+      time = 5;
+      break;
 
     // GABON
-    case customCurrency("Gabon", "NGN"):
-      time = 1;
-      break;
+
     case customCurrency("Gabon", "USD"):
     case customCurrency("Gabon", "GBP"):
       time = 10;
+      break;
+    //* Gabon and other african countries.
+    case customCurrency("Gabon", currency):
+      time = 5;
+      break;
+
+    case customCurrency("USA", "USD"):
+    case customCurrency("United kingdom", "GBP"):
+      time = 1;
       break;
 
     // USA OR UK set as country and whatever currency
