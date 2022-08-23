@@ -20,7 +20,9 @@ const StatsHeader = ({
           {!isAnAffiliate ? (
             <Typography.Text>
               {title} - Ready to become an affiliate?{" "}
-              <Link href="/"> Click to get started now</Link>
+              <Link href="/account/affiliate/market-place">
+                Click to get started now
+              </Link>
             </Typography.Text>
           ) : (
             <Typography.Text>{title} </Typography.Text>
@@ -33,7 +35,10 @@ const StatsHeader = ({
       {router.pathname.endsWith("dashboard") ? (
         <>
           {title === "Affiliate" && !isAnAffiliate ? (
-            <Link href={url}>
+            <Link
+              // href={url}
+              href="/account/dashboard"
+            >
               <a className={styles.notYetAnAffiliate}>
                 {title}&#39;s Dashboard &nbsp; <AiOutlineArrowRight />
               </a>
