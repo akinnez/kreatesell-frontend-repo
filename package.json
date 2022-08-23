@@ -30,6 +30,7 @@
     "moment": "^2.29.1",
     "next": "11.0.1",
     "nprogress": "^0.2.0",
+    "otp-input-react": "^0.3.0",
     "rc-pagination": "^3.1.7",
     "react": "17.0.2",
     "react-auth-code-input": "^1.2.1",
@@ -62,6 +63,7 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.35.1",
     "slick-carousel": "^1.8.1",
+    "stripe": "^10.2.0",
     "swr": "^1.0.0",
     "use-debounce": "^7.0.0",
     "yup": "^0.32.9"

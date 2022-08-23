@@ -4,12 +4,17 @@ import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 
 import useCurrency from 'hooks/useCurrency'
 import { PricingCard, Button, UpgradeAccountForm, Select } from 'components'
+
 import styles from './Settings.module.scss'
 
 const Billing = () => {
   const [modal, setModal] = useState(false)
-  const { countriesCurrency, loading } = useCurrency()
-  // console.log("countriesCurrency",countriesCurrency)
+  const {
+    countriesCurrency,
+    loading,
+    filteredCentral,
+    filterdWest,
+  } = useCurrency()
   const [activeBtn, setActiveBtn] = useState({
     annually: true,
     monthly: false,
@@ -137,6 +142,8 @@ const Billing = () => {
                 selectedCurrency,
                 countriesCurrency,
                 loading,
+                filteredCentral,
+                filterdWest,
               }}
             />
           </DialogContent>
