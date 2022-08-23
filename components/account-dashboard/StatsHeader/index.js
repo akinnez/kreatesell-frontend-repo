@@ -35,10 +35,7 @@ const StatsHeader = ({
       {router.pathname.endsWith("dashboard") ? (
         <>
           {title === "Affiliate" && !isAnAffiliate ? (
-            <Link
-              // href={url}
-              href="/account/dashboard"
-            >
+            <Link href="#">
               <a className={styles.notYetAnAffiliate}>
                 {title}&#39;s Dashboard &nbsp; <AiOutlineArrowRight />
               </a>
