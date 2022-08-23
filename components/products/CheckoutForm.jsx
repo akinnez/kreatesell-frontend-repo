@@ -552,7 +552,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   }, [product, setAllFields]);
 
   useEffect(() => {
-    console.log(fixedSellingPrice, fixedOriginalPrice);
+    console.log(fixedSellingPrice[0], fixedOriginalPrice[0]);
   }, [fixedOriginalPrice, fixedSellingPrice]);
   return (
     <Form onFinish={formik.handleSubmit}>
