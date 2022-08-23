@@ -840,13 +840,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                       type="tel"
                       placeholder="0"
                       value={afiliatePercentage}
-                      pattern="/^([0-1]?[0-9]|100)$/"
+                      // pattern="/^([0-1]?[0-9]|100)$/"
                       max={100}
                       min={1}
                       maxLength={3}
                       onChange={(e) => {
                         const commisionAllowed =
-                          e.target.value < 100 && !e.target.value.startsWith(0)
+                          e.target.value < 101 && !e.target.value.startsWith(0)
                             ? e.target.value.replace(/[^0-9]/g, "")
                             : "";
                         setAfiliatePercentage(commisionAllowed);

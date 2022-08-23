@@ -18,11 +18,11 @@ const requestsColumns = [
   {
     title: "Launch Date",
     dataIndex: "launch_date",
-    render: dateStr => dateString(dateStr),
+    render: (dateStr) => dateString(dateStr),
   },
   {
     title: "Sales Price",
-    render: record => {
+    render: (record) => {
       const priceDetails = productPriceFn(record.kreator_product_price_details);
       return !priceDetails
         ? 0
@@ -31,7 +31,7 @@ const requestsColumns = [
   },
   {
     title: "Performance",
-    render: record => (
+    render: (record) => (
       <Performance
         sold={record.total_sold}
         visits={record.total_product_visits}
@@ -41,16 +41,16 @@ const requestsColumns = [
   {
     title: "Commission (%)",
     dataIndex: "affiliate_percentage_on_sales",
-    render: commission => `${commission}%`,
+    render: (commission) => `${Math.abs(commission)}%`,
   },
   {
     title: "Request Status",
     dataIndex: "request_status",
-    render: status => <RequestStatus status={status} />,
+    render: (status) => <RequestStatus status={status} />,
   },
   {
     title: "Actions",
-    render: record => (
+    render: (record) => (
       <GetLink status={record.request_status} productId={record.product_id} />
     ),
     width: "97px",

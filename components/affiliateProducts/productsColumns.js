@@ -11,7 +11,7 @@ const productsColumns = [
   {
     title: "Kreator",
     dataIndex: "kreator_name",
-    render: name => `${name || ""}`,
+    render: (name) => `${name || ""}`,
   },
   {
     title: "Product Type",
@@ -20,16 +20,16 @@ const productsColumns = [
   {
     title: "Launch Date",
     dataIndex: "launch_date",
-    render: dateStr => dateString(dateStr),
+    render: (dateStr) => dateString(dateStr),
   },
   {
     title: "No of Sales",
     dataIndex: "total_affiliate_sales",
-    render: sales => formatNumber(sales),
+    render: (sales) => formatNumber(sales),
   },
   {
     title: "Performance",
-    render: record => (
+    render: (record) => (
       <Performance
         sold={record.total_sold}
         visits={record.total_product_visits}
@@ -39,11 +39,11 @@ const productsColumns = [
   {
     title: "Commission (%)",
     dataIndex: "affiliate_percentage_on_sales",
-    render: percent => `${percent}%`,
+    render: (percent) => `${Math.abs(percent)}%`,
   },
   {
     title: "Action",
-    render: record => (
+    render: (record) => (
       <RequestAccessLink
         productId={record.id}
         status={record.has_requested_access}

@@ -19,7 +19,7 @@ const MobileDataRenderer = ({
       <NoData />
     ) : (
       <ul className={styles.products}>
-        {products.map(product => (
+        {products.map((product) => (
           <li key={product.id} className={styles.product}>
             {showStatus && (
               <div className={styles.status}>
@@ -57,7 +57,9 @@ const MobileDataRenderer = ({
               price="4,000"
               sold={product.total_sold}
               visits={product.total_product_visits}
-              commission={product.affiliate_percentage_on_sales}
+              commission={Math.abs(
+                Number(product.affiliate_percentage_on_sales)
+              )}
             />
           </li>
         ))}
