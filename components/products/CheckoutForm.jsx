@@ -854,6 +854,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                     />
                     <span>%</span>
                   </div>
+
+                  <p
+                    className={`${styles.commisionAllowed} ${
+                      afiliatePercentage === "" ? styles.show : ""
+                    }`}
+                  >
+                    (Commission Percentage value should be between 1 and 100)
+                  </p>
                 </div>
               </div>
               <div className="flex justify-between items-center w-full lg:w-3/5 pt-4">

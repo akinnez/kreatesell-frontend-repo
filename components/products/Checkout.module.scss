@@ -86,11 +86,14 @@
       color: $gray-200;
       flex: 1;
     }
+    > div {
+      position: relative;
+    }
   }
   .affilateInput {
     width: 15%;
     position: relative;
-
+    // border: 1px solid blue;
     input {
       width: 100%;
     }
@@ -262,4 +265,20 @@
     margin-left: unset;
     font-size: unset;
   }
+}
+
+.commisionAllowed {
+  position: absolute;
+  opacity: 0;
+  color: red;
+  bottom: -27px;
+  font-weight: 700;
+  right: 2px;
+  left: 0;
+  transition: opacity 0.2s;
+  font-size: 0.75rem;
+}
+
+.commisionAllowed.show {
+  opacity: 1;
 }
