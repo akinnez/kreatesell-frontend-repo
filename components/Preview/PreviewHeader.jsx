@@ -18,7 +18,7 @@ import Link from 'next/link'
 
 import * as ROUTES from 'routes'
 
-export default function PreviewHeader({ id }) {
+export default function PreviewHeader({ id, showNavLinks = true }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isResponse, setIsResponse] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -94,21 +94,26 @@ export default function PreviewHeader({ id }) {
         </div>
         <p className="mb-0 capitalize">{title}</p>
       </div>
-      <div className={styles.miniSaveButtons + ' flex self-end'}>
-        <Button
-          type="default"
-          icon={<Image src={CopyLink} alt="copy" />}
-          onClick={() => _copyToClipboard(link, 'Product Link Copied')}
-        >
-          Copy Link
-        </Button>
-        <Button onClick={() => router.push(ROUTES.ALL_PRODUCTS)} type="primary">
-          Exit Preview
-        </Button>
-        <Button type="primary" onClick={() => setIsOpen(true)}>
-          Publish
-        </Button>
-      </div>
+      {showNavLinks && (
+        <div className={styles.miniSaveButtons + ' flex self-end'}>
+          <Button
+            type="default"
+            icon={<Image src={CopyLink} alt="copy" />}
+            onClick={() => _copyToClipboard(link, 'Product Link Copied')}
+          >
+            Copy Link
+          </Button>
+          <Button
+            onClick={() => router.push(ROUTES.ALL_PRODUCTS)}
+            type="primary"
+          >
+            Exit Preview
+          </Button>
+          <Button type="primary" onClick={() => setIsOpen(true)}>
+            Publish
+          </Button>
+        </div>
+      )}
       {isOpen && (
         <Modal
           title={null}

@@ -43,11 +43,15 @@ export const Login = () => {
       `post`,
       `auth/signin/EmailConfirm`,
       (res) => {
-        const { token, user } = res
-        localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(user))
-        // sessionStorage.setItem("user", JSON.stringify(user));
-        dispatch({ type: types.LOGIN.SUCCESS, payload: user })
+        // console.log('res is', res)
+        // check if the login request has 2FA enabled
+        if (!res.data?.is2_fa_set) {
+          const { token, user } = res
+          localStorage.setItem('token', token)
+          localStorage.setItem('user', JSON.stringify(user))
+          // sessionStorage.setItem("user", JSON.stringify(user));
+          dispatch({ type: types.LOGIN.SUCCESS, payload: user })
+        }
         successCallback?.(res)
       },
       (err) => {

@@ -123,7 +123,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   // for the promotional content
   const [file, setFile] = useState()
 
-  const { preview, getRootProps, getInputProps, mainFile } = useUpload({
+  const {
+    preview,
+    getRootProps,
+    getInputProps,
+    mainFile,
+    deleteFile,
+  } = useUpload({
     setFileChange: setPromotionalMaterial,
     // should accept rar and zip
     fileType: 'image',
@@ -249,6 +255,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     } catch (error) {
       console.log('ERROR', error)
     }
+  }
+
+  const handleDeleteFile = () => {
+    deleteFile(mainFile[0].file)
   }
 
   useEffect(() => {
@@ -906,7 +916,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                         </div>
                       </div>
                       <div
-                        onClick={() => handleDeleteFile()}
+                        onClick={() => handleDeleteFile(index)}
                         className={
                           styles.deleteFile +
                           ' flex items-center justify-center'
