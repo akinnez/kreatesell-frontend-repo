@@ -860,7 +860,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                       afiliatePercentage === "" ? styles.show : ""
                     }`}
                   >
-                    (Commission Percentage value should be between 1 and 100)
+                    Commission Percentage value should be between 1 and 100
                   </p>
                 </div>
               </div>
