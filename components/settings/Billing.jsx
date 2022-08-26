@@ -4,12 +4,17 @@ import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 
 import useCurrency from 'hooks/useCurrency'
 import { PricingCard, Button, UpgradeAccountForm, Select } from 'components'
+
 import styles from './Settings.module.scss'
 
 const Billing = () => {
   const [modal, setModal] = useState(false)
-  const { countriesCurrency, loading } = useCurrency()
-  // console.log("countriesCurrency",countriesCurrency)
+  const {
+    countriesCurrency,
+    loading,
+    filteredCentral,
+    filterdWest,
+  } = useCurrency()
   const [activeBtn, setActiveBtn] = useState({
     annually: true,
     monthly: false,
@@ -103,7 +108,7 @@ const Billing = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center my-12">
+        <div className="flex flex-col md:flex-row justify-center my-6">
           <div className="md:pr-4">
             <PricingCard
               title="basic"
@@ -129,6 +134,11 @@ const Billing = () => {
           </div>
         </div>
 
+        <div className={styles.cancelSubscription}>
+          To disable any further automatic autorenewal attempts, please click{' '}
+          <span onClick={() => {}}>&nbsp; Cancel Subscription Autorenewal</span>
+        </div>
+
         <DialogOverlay isOpen={modal} onDismiss={closeModal} className="pt-12 ">
           <DialogContent className={styles.modal} aria-label="modal">
             <UpgradeAccountForm
@@ -137,6 +147,9 @@ const Billing = () => {
                 selectedCurrency,
                 countriesCurrency,
                 loading,
+                filteredCentral,
+                filterdWest,
+                setModal,
               }}
             />
           </DialogContent>

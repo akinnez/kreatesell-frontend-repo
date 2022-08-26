@@ -1,24 +1,24 @@
-import { Input, Button, Checkbox, FormError, PasswordInput } from "../";
-import { useFormik } from "formik";
-import Link from "next/link";
-import { LoginSchema } from "../../validation";
-import { isAnEmpytyObject } from "../../utils";
-import { Login, GetStoreDetails } from "../../redux/actions";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import styles from "../../public/css/Login.module.scss";
+import { Input, Button, Checkbox, FormError, PasswordInput } from '../'
+import { useFormik } from 'formik'
+import Link from 'next/link'
+import { LoginSchema } from '../../validation'
+import { isAnEmpytyObject } from '../../utils'
+import { Login, GetStoreDetails } from '../../redux/actions'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import styles from '../../public/css/Login.module.scss'
 
 export const LoginForm = () => {
-  const login = Login();
-  const getStoreDetails = GetStoreDetails();
-  const router = useRouter();
+  const login = Login()
+  const getStoreDetails = GetStoreDetails()
+  const router = useRouter()
 
-  const { loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth)
 
   const initialValues = {
-    username: "",
-    password: "",
-  };
+    username: '',
+    password: '',
+  }
 
   const handleSubmit = (data) => {
     /**Login endpoint is called with data */
@@ -31,35 +31,35 @@ export const LoginForm = () => {
             .includes(`kindly verify token sent to your email`)
         ) {
           return router.push({
-            pathname: "/verify-account",
+            pathname: '/verify-account',
             query: { email: res?.data?.email },
-          });
+          })
         }
         if (res?.message?.toLowerCase().includes(`has not been confirmed`)) {
-          return router.push("/resend-email");
+          return router.push('/resend-email')
         }
         if (!res?.user?.business_name || !res?.user?.shop_name) {
-          return router.push("/welcome");
+          return router.push('/welcome')
         }
-        getStoreDetails();
-        return router.push("/account/dashboard");
+        getStoreDetails()
+        return router.push('/account/dashboard')
       },
       (err) => {
         if (err?.message?.toLowerCase().includes(`has not been confirmed`)) {
-          return router.push("/resend-email");
+          return router.push('/resend-email')
         }
-      }
-    );
-  };
+      },
+    )
+  }
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
     validationSchema: LoginSchema,
     validateOnChange: false,
-  });
+  })
 
-  const { errors } = formik;
+  const { errors } = formik
 
   return (
     <>
@@ -101,11 +101,11 @@ export const LoginForm = () => {
       </form>
 
       <div className={styles.footer}>
-        Don’t have an account?{" "}
+        Don’t have an account?{' '}
         <Link href="/signup">
           <a>Get Started</a>
-        </Link>{" "}
+        </Link>{' '}
       </div>
     </>
-  );
-};
+  )
+}

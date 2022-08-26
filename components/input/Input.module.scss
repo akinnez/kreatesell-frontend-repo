@@ -63,7 +63,9 @@
 
 .input.Password {
   padding: 0;
-  padding-inline: 0.5rem;
+  input{
+    padding-left: .5rem;
+  }
 }
 
 .smallHeight {

@@ -29,6 +29,7 @@ import Loader from '../loader'
 import styles from '../../public/css/UpgradeAccountForm.module.scss'
 import CurrencyCard from 'components/settings/CurrencyCard'
 import { useSelector } from 'react-redux'
+import { Input } from 'components'
 
 const paymentMethods = [
   {
@@ -47,12 +48,6 @@ const paymentMethods = [
     value: 'crypto',
   },
 ]
-const values = {
-  email: 'tundevafolayan@gmail.com',
-  lastName: 'Olatunde',
-  firstName: 'Afolayan',
-  phoneNo: '08033288142',
-}
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -64,6 +59,9 @@ export const UpgradeAccountForm = ({
   selectedCurrency,
   countriesCurrency,
   loading,
+  filteredCentral,
+  filterdWest,
+  setModal,
 }) => {
   // const makePlanUpgrade = MakePlanUpgrade();
   const { user } = useSelector((state) => state.auth)
@@ -72,7 +70,7 @@ export const UpgradeAccountForm = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
   const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails()
 
-  // for stripe
+  // // for stripe
   // const [clientSecret, setClientSecret] = useState('')
 
   // const stripe = useStripe()
@@ -90,29 +88,34 @@ export const UpgradeAccountForm = ({
   const paymentDetails = ({ reference = '', status = '' }) => {
     const statusValue = paymentStatusList[status]
     const value = {
-      fullname: `${values?.lastName} ${values?.firstName}`,
+      fullname: user?.full_name,
+      email_address: user?.email,
+      mobile_number: user?.mobile,
       datetime: new Date().toISOString(),
-      email_address: values?.email,
-      mobile_number: values?.phoneNo,
-      reference_id: reference,
       total: price,
+      reference_id: reference,
+      purchase_details: [],
       status: statusValue,
       card_type: '',
       last_four: '',
       currency: activeCurrency?.currency,
-      purchase_details: null,
-      paymenttype: 'subscription',
+      payment_type: 'subscription',
+      is_affiliate: user?.is_affiliate,
+      affiliate_product_link: '',
     }
     return value
   }
 
   // Flutterwave configurations
   const flutterConfig = {
-    public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
+    public_key:
+      activeCurrency?.currency === 'GHS'
+        ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
+        : process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
     amount: price,
     currency: `${activeCurrency?.currency}`,
-    payment_options: 'card, mobilemoney, ussd', //mobile_money_ghana
+    payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
     customer: {
       email: user?.email,
       phonenumber: user?.mobile,
@@ -251,6 +254,7 @@ export const UpgradeAccountForm = ({
 
     /** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
     if (!['NGN', 'GHS', 'GBP', 'USD'].includes(activeCurrency.currency)) {
+      setModal(false)
       // console.log('I got here')
       handleFlutterPayment({
         callback: async (response) => {
@@ -290,20 +294,23 @@ export const UpgradeAccountForm = ({
     if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
       setSelectedPaymentMethod('')
     }
-  }, [activeCurrency.currency])
+  }, [activeCurrency?.currency])
+  // console.log('activeCurrency', activeCurrency)
 
-  useEffect(() => {
-    //TODO: change to our own API
-    // Create PaymentIntent as soon as the page loads
-    // fetch('/api/create-payment-intent', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => setClientSecret(data.clientSecret))
-  }, [])
+  // useEffect(() => {
+  //   // Create PaymentIntent as soon as the page loads
+  //   if(['USD', 'GBP'].includes(activeCurrency.currency)){
+  //     fetch('/api/create-payment-intent', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ items: [], type: "subscription", price: price }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => setClientSecret(data.clientSecret))
+  //   }
+  // }, [activeCurrency.currency])
 
+  // console.log("client secret is", clientSecret);
   const handleSelect = (currency) => {
     setActiveCurrency(currency)
   }
@@ -501,38 +508,126 @@ export const UpgradeAccountForm = ({
             ))}
           </div>
 
-          <div className="pt-6">
-            <div>Payment Method</div>
-            <p className="text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm">
-              Select your preferred payment method
-            </p>
-          </div>
-          {/* paystack is NGN and GHS */}
-
-          {/* only show this section if selected currency is "USD" or "GBP" */}
-          {['USD', 'GBP'].includes(activeCurrency?.currency) && (
-            <div className="grid gap-4 grid-cols-3 pt-3">
-              {paymentMethods.map(({ type, icon, value }) => (
+          <div className="py-7">
+            <h2>West African CFA Franc BCEAO</h2>
+            <div className="grid gap-4 grid-cols-4 ">
+              {filterdWest.map((country, index) => (
                 <div
-                  key={value}
-                  onClick={() => handlePaymentMethod(value)}
-                  className={`${
-                    selectedPaymentMethod === value ? 'activeCard' : 'card'
-                  } p-2 flex justify-around items-center`}
+                  key={index}
+                  className={false ? styles.activeCard : styles.card}
+                  onClick={() => setActiveCurrency(country.currency)}
                 >
-                  <Image src={icon} alt={type} />
-                  {selectedPaymentMethod === value && (
-                    <Image
-                      src={ActiveTick}
-                      alt="active"
-                      width="16"
-                      height="16"
-                    />
+                  <div
+                    className={styles.checFlag + ' mr-2'}
+                    style={{ borderRadius: '50%' }}
+                  >
+                    <Image src={country.flag} alt="flag" layout="fill" />
+                  </div>
+                  <div className="">{country.name}</div>
+                  {false && (
+                    <div className="pl-1 pt-1">
+                      <Image
+                        src={ActiveTick}
+                        alt="active"
+                        width="16"
+                        height="16"
+                      />
+                    </div>
                   )}
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="py-7">
+            <h2>Central African CFA Franc BEAC</h2>
+            <div className="grid gap-4 grid-cols-4 ">
+              {filteredCentral.map((country, index) => (
+                <div
+                  key={index}
+                  className={false ? styles.activeCard : styles.card}
+                  onClick={() => setActiveCurrency(country.currency)}
+                >
+                  <div
+                    className={styles.checFlag + ' mr-2'}
+                    style={{ borderRadius: '50%' }}
+                  >
+                    <Image src={country.flag} alt="flag" layout="fill" />
+                  </div>
+                  <div className="">{country.name}</div>
+                  {false && (
+                    <div className="pl-1 pt-1">
+                      <Image
+                        src={ActiveTick}
+                        alt="active"
+                        width="16"
+                        height="16"
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* only show this section if selected currency is "USD" or "GBP" */}
+          {['USD', 'GBP'].includes(activeCurrency?.currency) && (
+            <>
+              <div className="pt-6">
+                <div>Payment Method</div>
+                <p className="text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm">
+                  Select your preferred payment method
+                </p>
+              </div>
+              <div className="grid gap-4 grid-cols-3 pt-3">
+                {paymentMethods.map(({ type, icon, value }) => (
+                  <div
+                    key={value}
+                    onClick={() => handlePaymentMethod(value)}
+                    className={`${
+                      selectedPaymentMethod === value ? 'activeCard' : 'card'
+                    } p-2 flex justify-around items-center`}
+                  >
+                    <Image src={icon} alt={type} />
+                    {selectedPaymentMethod === value && (
+                      <Image
+                        src={ActiveTick}
+                        alt="active"
+                        width="16"
+                        height="16"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
           )}
+
+          <div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+            <div className="w-3/5 xs:w-3/4 md:w-4/5">
+              <Input
+                placeholder="Coupon Code"
+                name="couponCode"
+                // onChange={formik.handleChange}
+              />
+            </div>
+            <div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+              <Button text="Apply Coupon" className={styles.couponBtn} />
+            </div>
+          </div>
+
+          <div className="w-full lg:w-6/6 mt-5 mx-auto hidden lg:flex gap-4 items-center">
+            <div className="w-4/5">
+              <Input
+                placeholder=" Enter Coupon Code lg"
+                name="couponCode"
+                // onChange={formik.handleChange}
+              />
+            </div>
+            <div className="w-1/5 ">
+              <Button text="Apply Coupon" className={styles.couponBtn} />
+            </div>
+          </div>
 
           <div className="priceMenu my-6 py-3 px-8">
             <div className="flex justify-between pt-2">

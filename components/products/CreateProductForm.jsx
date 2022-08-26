@@ -115,7 +115,9 @@ export const CreateProductForm = ({
     // console.log(data)
     const result = transformToFormData(data, 'contentZipFiles')
     createProduct(result, async () => {
-      await getProductByID(productId)
+      if (productId) {
+        await getProductByID(productId)
+      }
       setProductTab(1)
     })
   }
