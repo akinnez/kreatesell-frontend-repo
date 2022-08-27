@@ -35,9 +35,15 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const { store } = useSelector((state) => state.store);
   const router = useRouter();
 
+  const { productID, product, billingInterval, loading } = useSelector(
+    (state) => state.product
+  );
+
   const [progress, setProgress] = useState(0);
 
-  const [compareToPrice, setCompareToPrice] = useState(false);
+  const [compareToPrice, setCompareToPrice] = useState(
+    product?.product_details?.is_show_compare_price ?? false
+  );
   const [applyCoupon, setApplyCoupon] = useState(false);
   const [isCouponDiabled, setIsCouponDisabled] = useState(true);
   const [couponType, setCouponType] = useState(0);
@@ -122,21 +128,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   // for the promotional content
   const [file, setFile] = useState();
 
-  const {
-    preview,
-    getRootProps,
-    getInputProps,
-    mainFile,
-    deleteFile,
-  } = useUpload({
-    setFileChange: setPromotionalMaterial,
-    // should accept rar and zip
-    fileType: "image",
-  });
+  const { preview, getRootProps, getInputProps, mainFile, deleteFile } =
+    useUpload({
+      setFileChange: setPromotionalMaterial,
+      // should accept rar and zip
+      fileType: "image",
+    });
 
-  const { productID, product, billingInterval, loading } = useSelector(
-    (state) => state.product
-  );
+  // console.log("product = ", product);
 
   const customBillingIntervals = [
     { label: "Day(s)", value: 1 },
@@ -257,8 +256,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   }
 
   const handleDeleteFile = () => {
-    deleteFile(mainFile[0].file)
-  }
+    deleteFile(mainFile[0].file);
+  };
 
   useEffect(() => {
     // console.log(product)
@@ -309,6 +308,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   };
 
   const handleSubmit = (data) => {
+    console.log("data from submit = ", data);
+    // const dataWithCompare = {
+    //   ...data,
+    //   is_show_compare_price: compareToPrice,
+    // };
+
+    // console.log("dataWithCompare = ", dataWithCompare);
     // console.log("Data passed to handle submit function", data);
     if (!data.enable_preorder) {
       delete data.preorder_details;
@@ -334,8 +340,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       delete data.is_show_compare_price;
     }
     const checkedData = checkArrays(data);
+    // const checkedData = checkArrays(dataWithCompare);
     // console.log("checkedData", checkedData)
     const result = transformToFormData(checkedData);
+    console.log("result = ", result);
     createProduct(result, () => {
       if (priceType === "Fixed Price") {
         router.push(`/account/kreator/products/preview/${productID}`);
@@ -344,6 +352,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setProductTab(2);
     });
   };
+
+  console.log(
+    "is_show_compare = ",
+    product?.product_details?.is_show_compare_price
+    // ??
+    // compareToPrice
+  );
 
   const initialValues = {
     action: "e",
@@ -451,6 +466,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     suggestedPrice,
     numberOfInputs,
     couponVariance,
+    setFieldValue,
   ]);
 
   useEffect(() => {
@@ -516,6 +532,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setFieldValue(
         "product_listing_status_id",
         product?.product_details?.product_listing_status
+      );
+      setFieldValue(
+        "is_show_compare_price",
+        product?.product_details?.is_show_compare_price
       );
       setFieldValue(
         "upload_content",
@@ -669,7 +689,11 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 onChange={(e) => {
                   setCompareToPrice((value) => !value);
                 }}
-                checked={compareToPrice}
+                checked={
+                  product?.product_details?.is_show_compare_price
+                    ? product?.product_details?.is_show_compare_price
+                    : compareToPrice
+                }
               />
               <span className={`${styles.cpnStatus}`}>
                 <span className="pl-6 text-black-100 text-lg font-semibold">

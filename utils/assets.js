@@ -172,7 +172,7 @@ import MnD from "../public/images/mn-d.svg";
 import MnGuardian from "../public/images/mn-guardian.svg";
 import MnPulse from "../public/images/mn-pulse.svg";
 import MnPunch from "../public/images/mn-punch.svg";
-import MnTechCabal from "../public/images/mn-punch.svg";
+import MnTechCabal from "../public/images/mn-techcabal.svg";
 import MnTechCity from "../public/images/mn-techcity.svg";
 import MnTechCrunch from "../public/images/mn-techcrunch.svg";
 import MnTechPoint from "../public/images/mn-techpoint.svg";
