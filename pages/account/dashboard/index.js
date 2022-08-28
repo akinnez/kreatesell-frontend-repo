@@ -10,6 +10,8 @@ import styles from "public/css/DashboardPage.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { mutate } from "swr";
+import { PromptInfoIcon } from "utils";
+import Image from "next/image";
 
 // import useSWR from "swr";
 
@@ -70,8 +72,9 @@ const Dashboard = () => {
       <Head>
         <title>KreateSell | Dashboard</title>
       </Head>
-      <header>
+      <header className={styles.boardSection}>
         <DashboardFilters data={[]} setFiltered={setFiltered} />
+        <SetUpPrompt />
       </header>
       <section>
         <div className={styles.stats__container}>
@@ -148,3 +151,18 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const SetUpPrompt = () => {
+  return (
+    <div className={styles.setUpPrompt}>
+      <div className={styles.promptHeader}>
+        <Image src={PromptInfoIcon} alt="prompt info" />
+        <h4> Finish your store set up</h4>
+      </div>
+      <p>
+        Provide all the required information for your store to be fully setup
+        and activated. <Link href="/">Click here to proceed</Link>.
+      </p>
+    </div>
+  );
+};
