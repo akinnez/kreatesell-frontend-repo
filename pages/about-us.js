@@ -353,15 +353,77 @@ const AboutUs = () => {
           <div className={styles.madeTheNews}>
             <h6 className={styles.heading}>We Made The News</h6>
             <div className={styles.featureBox}>
-              <Image src={MnTechCrunch} alt="news" />
-              <Image src={MnD} alt="news" />
-              <Image src={MnPulse} alt="news" />
-              <Image src={MnTechCabal} alt="news" />
-              <Image src={MnTechPoint} alt="news" />
-              <Image src={MnTechCity} alt="news" />
-              <Image src={MnPunch} alt="news" />
-              <Image src={MnGuardian} alt="news" />
-              <Image src={MnVanguard} alt="news" />
+              <div className={styles.mobile}>
+                <div className={styles.imgBox}>
+                  <Image src={MnD} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnTechCrunch} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnPulse} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnTechCabal} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnTechPoint} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  {" "}
+                  <Image src={MnTechCity} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnPunch} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnGuardian} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnVanguard} alt="news" />
+                </div>
+              </div>
+
+              {/* //* larger screens */}
+              <div className={styles.lg}>
+                <div className="container">
+                  <div className={styles.imgBox}>
+                    <Image src={MnTechCrunch} alt="news" />
+                  </div>
+                </div>
+                <div className="container right">
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnD} alt="news" />
+                  </div>
+                  <div className={styles.imgBox}>
+                    <Image src={MnPulse} alt="news" />
+                  </div>
+                </div>
+                <div className="container right">
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnTechCabal} alt="news" />
+                  </div>
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnTechPoint} alt="news" />
+                  </div>
+                  <div className={styles.imgBox}>
+                    <Image src={MnTechCity} alt="news" />
+                  </div>
+                </div>
+                <div className="container right">
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnPunch} alt="news" />
+                  </div>
+                  <div className={styles.imgBox}>
+                    <Image src={MnGuardian} alt="news" />
+                  </div>
+                </div>
+                <div className="container">
+                  <div className={styles.imgBox}>
+                    <Image src={MnVanguard} alt="news" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
