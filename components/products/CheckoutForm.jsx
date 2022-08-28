@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { transformToFormData } from "utils";
 
 import axios from "axios";
+import { addItem } from "networking/redux/slices";
 
 export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
@@ -581,8 +582,31 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     }
   }, [product, setAllFields]);
 
+  const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
+  const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
   useEffect(() => {
-    console.log(fixedSellingPrice[0], fixedOriginalPrice[0]);
+    fixedOriginalPrice?.map((OpItem) => {
+      //* Op = Original Price and Sp = SellingPrice
+      const OpItemCurrency = OpItem?.currency_name;
+      const OpItemPrice = OpItem?.currency_value;
+
+      const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
+        return SpItem?.currency_name === OpItemCurrency;
+      });
+
+      // console.log(OpItemPrice > matchingSpItem?.currency_value);
+      if (OpItemPrice > matchingSpItem?.currency_value) {
+        setIsOpMoreThanSp(true);
+        setNoMatchingCurrency(false);
+      } else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
+        setNoMatchingCurrency(true);
+      } else {
+        setIsOpMoreThanSp(false);
+        setNoMatchingCurrency(false);
+      }
+
+      // console.log("isOpMore ? = ", isOpMoreThanSp);
+    });
   }, [fixedOriginalPrice, fixedSellingPrice]);
   return (
     <Form onFinish={formik.handleSubmit}>
@@ -710,6 +734,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
               title={"Original price (NGN)"}
               field={fixedOriginalPrice}
               setField={setFixedOriginalPrice}
+              withCustomFeedBack={true}
+              showFeedBack={!isOpMoreThanSp}
+              noMatchFound={noMatchingCurrency}
             />
           </div>
         )}
@@ -1074,7 +1101,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         </div>
 
         <div className={styles.digitalBtn}>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            disabled={!isOpMoreThanSp || noMatchingCurrency}
+          >
             Save and Preview
           </Button>
         </div>

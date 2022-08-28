@@ -74,7 +74,7 @@ const Dashboard = () => {
       </Head>
       <header className={styles.boardSection}>
         <DashboardFilters data={[]} setFiltered={setFiltered} />
-        <SetUpPrompt />
+        {isFirstTimeUser && <SetUpPrompt />}
       </header>
       <section>
         <div className={styles.stats__container}>
