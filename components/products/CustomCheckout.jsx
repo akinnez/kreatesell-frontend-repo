@@ -76,7 +76,7 @@ export default function CustomCheckoutSelect({
             )}
           {noMatchFound && (
             <span className={styles.charLimit}>
-              Kindly set a matching currency
+              Kindly set matching currencies
             </span>
           )}
         </>
