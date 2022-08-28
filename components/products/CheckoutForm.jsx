@@ -42,9 +42,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   const [progress, setProgress] = useState(0);
 
-  const [compareToPrice, setCompareToPrice] = useState(
-    product?.product_details?.is_show_compare_price ?? false
-  );
+  const [compareToPrice, setCompareToPrice] = useState(false);
   const [applyCoupon, setApplyCoupon] = useState(false);
   const [isCouponDiabled, setIsCouponDisabled] = useState(true);
   const [couponType, setCouponType] = useState(0);
@@ -356,7 +354,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   console.log(
     "is_show_compare = ",
-    product?.product_details?.is_show_compare_price
+    compareToPrice
     // ??
     // compareToPrice
   );
@@ -593,21 +591,62 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
         return SpItem?.currency_name === OpItemCurrency;
       });
-
-      // console.log(OpItemPrice > matchingSpItem?.currency_value);
-      if (OpItemPrice > matchingSpItem?.currency_value) {
+      console.log("fixedOriginalPrice = ", fixedOriginalPrice);
+      console.log("fixedSellingPrice = ", fixedSellingPrice);
+      if (fixedSellingPrice.length === 0 || fixedOriginalPrice.length === 0) {
+        setIsOpMoreThanSp(false);
+      } else if (compareToPrice === true && fixedOriginalPrice.length === 0) {
+        setIsOpMoreThanSp(false);
+      } else if (OpItemPrice > matchingSpItem?.currency_value) {
         setIsOpMoreThanSp(true);
+        setNoMatchingCurrency(false);
+      } else if (OpItemPrice < matchingSpItem?.currency_value) {
+        setIsOpMoreThanSp(false);
         setNoMatchingCurrency(false);
       } else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
         setNoMatchingCurrency(true);
+        setIsOpMoreThanSp(false);
       } else {
         setIsOpMoreThanSp(false);
         setNoMatchingCurrency(false);
       }
 
+      return isOpMoreThanSp && noMatchingCurrency;
       // console.log("isOpMore ? = ", isOpMoreThanSp);
     });
-  }, [fixedOriginalPrice, fixedSellingPrice]);
+  }, [
+    fixedOriginalPrice,
+    fixedSellingPrice,
+    isOpMoreThanSp,
+    noMatchingCurrency,
+    compareToPrice,
+  ]);
+
+  const disableButton = useCallback(() => {
+    // console.log("compareToPrice = ", compareToPrice);
+
+    if (!compareToPrice && !isOpMoreThanSp) {
+      console.log("condition 1");
+      return false;
+    }
+
+    if (compareToPrice && !isOpMoreThanSp) {
+      console.log("condition 1.1");
+      return true;
+    }
+    if (!compareToPrice && noMatchingCurrency) {
+      console.log("condition 2");
+      return false;
+    }
+    if (!isOpMoreThanSp) {
+      console.log("condition 3");
+      return true;
+    }
+
+    return false;
+  }, [compareToPrice, isOpMoreThanSp, noMatchingCurrency]);
+
+  console.log("disableButton = ", disableButton());
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === "Fixed Price" && (
@@ -714,9 +753,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   setCompareToPrice((value) => !value);
                 }}
                 checked={
-                  product?.product_details?.is_show_compare_price
-                    ? product?.product_details?.is_show_compare_price
-                    : compareToPrice
+                  // product?.product_details?.is_show_compare_price
+                  //   ? product?.product_details?.is_show_compare_price
+                  compareToPrice
                 }
               />
               <span className={`${styles.cpnStatus}`}>
@@ -1105,7 +1144,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             type="primary"
             htmlType="submit"
             loading={loading}
-            disabled={!isOpMoreThanSp || noMatchingCurrency}
+            // disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
+            disabled={disableButton()}
           >
             Save and Preview
           </Button>

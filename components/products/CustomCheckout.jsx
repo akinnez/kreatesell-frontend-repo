@@ -103,13 +103,25 @@ export default function CustomCheckoutSelect({
             </Option>
           ))}
         </Select>
+
+        {/* const commisionAllowed =
+                          e.target.value < 101 && !e.target.value.startsWith(0)
+                            ? e.target.value.replace(/[^0-9]/g, "")
+                            : ""; */}
         <div className={styles.inputButton}>
           <Input
             type="number"
             value={newCurrency.currency_value}
-            onChange={(e) =>
-              setNewCurrency({ ...newCurrency, currency_value: e.target.value })
-            }
+            onChange={(e) => {
+              const valueModified =
+                typeof e.target.value !== "number"
+                  ? e.target.value.replace(/[^0-9]/g, "")
+                  : "";
+              return setNewCurrency({
+                ...newCurrency,
+                currency_value: valueModified,
+              });
+            }}
             className="w-24"
             placeholder="0"
           />
