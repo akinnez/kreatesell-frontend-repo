@@ -465,6 +465,17 @@ const StoryTexts = ({ heading, texts }) => {
   );
 };
 
+/*
+Prior to launching KreateSell, we were your everyday Africans trying to make legitimate income for ourselves on the internet. So, we decided to start selling digital products to people wherever they were in the world.
+And like many talented Africans, we had our digital products ready in no time. But alas! There was a big issue— finding how and where we could sell the digital products to buyers around the globe and receive payment without stress!
+
+We searched far and wide across the internet for a solution, but there was none! There was no platform to help us reach people across the globe who were in need of our different ideas made into digital products, quickly sell to them and receive our payment to our local bank account, so that we could start enjoying the rewards of our hard work. This was quite frustrating! And after rubbing minds together with fellow African content creators and digital entrepreneurs across the internet, we found that this problem was common to us all.
+
+So, in 2020, an idea that would positively transform the digital creator economy for Africans was born— a hassle-free all-in-one solution for African content creators, digital entrepreneurs and everyone who has a digital product to sell. It’ll completely solve the problems they face in trying to sell their digital products across borders!
+That solution was named KreateSell. And today, we’re live!
+
+*/
+
 const storyTexts = {
   first: {
     heading: "Our Story",

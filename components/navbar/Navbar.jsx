@@ -108,11 +108,11 @@ export const Navbar = () => {
             <Logo />
           </a>
         </Link>
-        {!openMobileNav && (
-          <div className={styles.MobileLogo} onClick={() => router.push("/")}>
-            <MobileLogo />
-          </div>
-        )}
+        {/* {!openMobileNav && ( */}
+        <div className={styles.MobileLogo} onClick={() => router.push("/")}>
+          <MobileLogo />
+        </div>
+        {/* )} */}
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
