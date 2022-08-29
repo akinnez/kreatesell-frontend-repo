@@ -315,6 +315,7 @@
     }
 
     .mobileNavLinks {
+      border: 1px solid red;
       display: block;
       position: absolute;
       inset: 0;
@@ -323,12 +324,13 @@
       height: fit-content;
       height: 100vh;
       max-width: 348px;
-      // height: 100%;
+      left: auto;
       text-align: center;
       padding: 5rem 1rem;
       padding-top: 1rem;
       padding-bottom: 3rem;
       margin-top: 4rem;
+      // right: 20px;
       // overflow-y: scroll;
 
       .inner {
