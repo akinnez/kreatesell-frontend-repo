@@ -76,6 +76,12 @@ export const Navbar = () => {
 
   return (
     <>
+      {openMobileNav && (
+        <div
+          className={styles.backDrop}
+          onClick={() => setOpenMobileNav(false)}
+        ></div>
+      )}
       <nav
         className={`${styles.navContainer} ${navBg && styles.navBg} ${
           openMobileNav ? styles.reverseMobileView : ""
@@ -139,6 +145,14 @@ export const Navbar = () => {
         </div>
 
         <div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
+          <div className={styles.navClose}>
+            <div
+              className={styles.loginBtnOnNav}
+              onClick={() => router.push("/login")}
+            >
+              <Button text="Login" className={styles.loginBtnStyle} />
+            </div>
+          </div>
           <div className={styles.inner}>
             <div className={styles.innerBox}>
               <ul className={styles.mobileCategoryLinks}>
