@@ -353,15 +353,77 @@ const AboutUs = () => {
           <div className={styles.madeTheNews}>
             <h6 className={styles.heading}>We Made The News</h6>
             <div className={styles.featureBox}>
-              <Image src={MnTechCrunch} alt="news" />
-              <Image src={MnD} alt="news" />
-              <Image src={MnPulse} alt="news" />
-              <Image src={MnTechCabal} alt="news" />
-              <Image src={MnTechPoint} alt="news" />
-              <Image src={MnTechCity} alt="news" />
-              <Image src={MnPunch} alt="news" />
-              <Image src={MnGuardian} alt="news" />
-              <Image src={MnVanguard} alt="news" />
+              <div className={styles.mobile}>
+                <div className={styles.imgBox}>
+                  <Image src={MnD} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnTechCrunch} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnPulse} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnTechCabal} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnTechPoint} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  {" "}
+                  <Image src={MnTechCity} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnPunch} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnGuardian} alt="news" />
+                </div>
+                <div className={styles.imgBox}>
+                  <Image src={MnVanguard} alt="news" />
+                </div>
+              </div>
+
+              {/* //* larger screens */}
+              <div className={styles.lg}>
+                <div className="container">
+                  <div className={styles.imgBox}>
+                    <Image src={MnTechCrunch} alt="news" />
+                  </div>
+                </div>
+                <div className="container right">
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnD} alt="news" />
+                  </div>
+                  <div className={styles.imgBox}>
+                    <Image src={MnPulse} alt="news" />
+                  </div>
+                </div>
+                <div className="container right">
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnTechCabal} alt="news" />
+                  </div>
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnTechPoint} alt="news" />
+                  </div>
+                  <div className={styles.imgBox}>
+                    <Image src={MnTechCity} alt="news" />
+                  </div>
+                </div>
+                <div className="container right">
+                  <div className={`${styles.imgBox} ${styles.drop}`}>
+                    <Image src={MnPunch} alt="news" />
+                  </div>
+                  <div className={styles.imgBox}>
+                    <Image src={MnGuardian} alt="news" />
+                  </div>
+                </div>
+                <div className="container">
+                  <div className={styles.imgBox}>
+                    <Image src={MnVanguard} alt="news" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -402,6 +464,17 @@ const StoryTexts = ({ heading, texts }) => {
     </div>
   );
 };
+
+/*
+Prior to launching KreateSell, we were your everyday Africans trying to make legitimate income for ourselves on the internet. So, we decided to start selling digital products to people wherever they were in the world.
+And like many talented Africans, we had our digital products ready in no time. But alas! There was a big issue— finding how and where we could sell the digital products to buyers around the globe and receive payment without stress!
+
+We searched far and wide across the internet for a solution, but there was none! There was no platform to help us reach people across the globe who were in need of our different ideas made into digital products, quickly sell to them and receive our payment to our local bank account, so that we could start enjoying the rewards of our hard work. This was quite frustrating! And after rubbing minds together with fellow African content creators and digital entrepreneurs across the internet, we found that this problem was common to us all.
+
+So, in 2020, an idea that would positively transform the digital creator economy for Africans was born— a hassle-free all-in-one solution for African content creators, digital entrepreneurs and everyone who has a digital product to sell. It’ll completely solve the problems they face in trying to sell their digital products across borders!
+That solution was named KreateSell. And today, we’re live!
+
+*/
 
 const storyTexts = {
   first: {

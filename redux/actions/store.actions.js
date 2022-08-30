@@ -88,7 +88,7 @@ export const UpdateStoreSettings = () => {
           type: types.STORE_SETTINGS.SUCCESS,
           payload: res,
         });
-        showToast(res?.message, "info");
+
         successCallback?.();
       },
       (err) => {

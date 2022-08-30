@@ -61,6 +61,7 @@ export const UpgradeAccountForm = ({
   loading,
   filteredCentral,
   filterdWest,
+  setModal,
 }) => {
   // const makePlanUpgrade = MakePlanUpgrade();
   const { user } = useSelector((state) => state.auth)
@@ -109,7 +110,7 @@ export const UpgradeAccountForm = ({
   const flutterConfig = {
     public_key:
       activeCurrency?.currency === 'GHS'
-        ? NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
+        ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
         : process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
     amount: price,
@@ -253,6 +254,7 @@ export const UpgradeAccountForm = ({
 
     /** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
     if (!['NGN', 'GHS', 'GBP', 'USD'].includes(activeCurrency.currency)) {
+      setModal(false)
       // console.log('I got here')
       handleFlutterPayment({
         callback: async (response) => {

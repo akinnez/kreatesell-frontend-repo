@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Row, Col, Switch } from 'antd'
 import ApiService from '../../utils/axios'
 
 const TwoFactor = () => {
   const [loading, setLoading] = useState(false)
   const [checked, setChecked] = useState(false)
-
+  const {
+    store: { user },
+  } = useSelector((state) => state.store)
   // useEffect(() => {
   //   setLoading(true)
   //     ApiService.request(
@@ -17,11 +20,21 @@ const TwoFactor = () => {
   //     );
   // }, [])
 
+  useEffect(() => {
+    if (user?.is2_fa_set) {
+      setChecked(true)
+    }
+  }, [user])
+
   const handleChange = () => {
     setLoading(true)
     ApiService.request('post', 'Seller/Activate/De-Activate2FA', (res) => {
       setLoading(false)
-      setChecked(true)
+      if (res.message.includes('successfully activated 2fa')) {
+        setChecked(true)
+      } else {
+        setChecked(false)
+      }
     })
   }
 

@@ -71,9 +71,9 @@ const AffiliateRequestLinK = () => {
               product.affiliate_kreator_product.product_description
             }
             productPriceDetails={product.kreator_product_price_details}
-            productAffiliateCommission={
+            productAffiliateCommission={Math.abs(
               product.affiliate_kreator_product.affiliate_percentage_on_sales
-            }
+            )}
             kreatorName={product.kreator_user_details.full_name}
             kreatorImage={product.kreator_user_details.profile_image}
             kreatorBio={product.kreator_user_details.store_description}

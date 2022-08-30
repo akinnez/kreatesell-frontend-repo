@@ -2,10 +2,21 @@ import Image from "next/image";
 import { GrossSales, Profit, UnitSales, Visit } from "../../utils";
 import styles from "../../public/css/Dashboard.module.scss";
 
-export const StatsCard = ({ totalVisits, unitSales, grossSales, profit }) => {
+export const StatsCard = ({
+  totalVisits,
+  unitSales,
+  grossSales,
+  profit,
+  isAffiliateCard = false,
+  isAnAffiliate = false,
+}) => {
   return (
     <div className={styles.container}>
-      <div className={styles.midSection}>
+      <div
+        className={`${styles.midSection} ${
+          isAffiliateCard && !isAnAffiliate ? styles.notYetAnAffiliate : ""
+        }`}
+      >
         <div className={styles.cardContainer}>
           <div className={styles.firstCard}>
             <div className={styles.iconCont}>

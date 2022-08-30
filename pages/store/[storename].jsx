@@ -1,49 +1,49 @@
-import { Button, Select } from "components";
-import Logo, { MobileLogo } from "components/authlayout/logo";
-import Image from "next/image";
-import { ArrowLeft, StoryTellingPNG } from "utils";
-import styles from "../../public/css/product-store.module.scss";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { currencyOptions } from "components/account-dashboard/partials";
-import { ProtectedStoreHeader } from "components/store/storeHeader";
-import { useSelector } from "react-redux";
-import { FetchSingleStoreProduct, SetCheckoutDetails } from "redux/actions";
-import { useEffect } from "react";
-import { Pagination } from "antd";
-import { Logout } from "redux/actions";
+import { Button, Select } from 'components'
+import Logo, { MobileLogo } from 'components/authlayout/logo'
+import Image from 'next/image'
+import { ArrowLeft, StoryTellingPNG } from 'utils'
+import styles from '../../public/css/product-store.module.scss'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { currencyOptions } from 'components/account-dashboard/partials'
+import { ProtectedStoreHeader } from 'components/store/storeHeader'
+import { useSelector } from 'react-redux'
+import { FetchSingleStoreProduct, SetCheckoutDetails } from 'redux/actions'
+import { useEffect } from 'react'
+import { Pagination } from 'antd'
+import { Logout } from 'redux/actions'
 
 const StorePage = () => {
-  const router = useRouter();
-  const fetchSingleStoreProduct = FetchSingleStoreProduct();
+  const router = useRouter()
+  const fetchSingleStoreProduct = FetchSingleStoreProduct()
 
   const {
     query: { storename },
-  } = router;
+  } = router
 
   // console.log("storename = ", storename);
   const {
     singleStoreDetails,
     singleStoreProducts,
     singleStorePaginationDetails: pagination,
-  } = useSelector((state) => state.product);
+  } = useSelector((state) => state.product)
 
   const handlePaginationChange = (page) => {
-    fetchSingleStoreProduct(storename, page);
-  };
+    fetchSingleStoreProduct(storename, page)
+  }
 
-  const logout = Logout();
+  const logout = Logout()
   useEffect(() => {
     if (storename !== undefined) {
-      return fetchSingleStoreProduct(storename);
-    } else if (storename === "undefined") {
-      return;
+      return fetchSingleStoreProduct(storename)
+    } else if (storename === 'undefined') {
+      return
     } else {
-      return;
+      return
     }
-  }, [storename]);
+  }, [storename])
 
-  console.log("singleStoreProducts = ", singleStoreProducts);
+  // console.log('singleStoreProducts = ', singleStoreProducts)
 
   return (
     <div className={styles.container}>
@@ -94,7 +94,7 @@ const StorePage = () => {
       <div className="px-4 lg:px-40">
         <div className="flex items-center py-10">
           <div className="mr-auto cursor-pointer" onClick={() => router.back()}>
-            <Image src={ArrowLeft} alt="go back" />{" "}
+            <Image src={ArrowLeft} alt="go back" />{' '}
             <span className="pl-2 font-semibold text-primary-blue">BACK</span>
           </div>
         </div>
@@ -112,30 +112,33 @@ const StorePage = () => {
 
         <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
           {singleStoreProducts?.map((productDetails) => {
-            console.log("productDetails = ", productDetails);
+            {
+              /* console.log('productDetails = ', productDetails) */
+            }
             const countrySale = productDetails?.check_out_details?.find(
               (item) =>
-                item?.currency_name === "NGN" &&
-                item?.price_indicator === "Selling"
-            );
+                item?.currency_name === 'NGN' &&
+                item?.price_indicator === 'Selling',
+            )
 
-            const sellingPrice = countrySale?.price;
+            const sellingPrice = countrySale?.price
             const originalSetting = productDetails?.check_out_details?.find(
               (item) =>
-                item?.currency_name === "NGN" &&
-                item?.price_indicator === "Original"
-            );
+                item?.currency_name === 'NGN' &&
+                item?.price_indicator === 'Original',
+            )
             // console.log("countrySale = ", countrySale);
             // console.log("sellingPrice = ", sellingPrice);
-            const originalPrice = originalSetting?.price;
+            const originalPrice = originalSetting?.price
             return (
               <ProductCard
                 productDetails={productDetails}
                 key={productDetails?.id}
                 sellingPrice={sellingPrice}
                 originalPrice={originalPrice}
+                {...{ storename }}
               />
-            );
+            )
           })}
         </div>
 
@@ -152,15 +155,28 @@ const StorePage = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-const ProductCard = ({ productDetails, sellingPrice, originalPrice }) => {
-  const router = useRouter();
-  const setCheckoutDetails = SetCheckoutDetails();
+const ProductCard = ({
+  productDetails,
+  sellingPrice,
+  originalPrice,
+  storename,
+}) => {
+  const router = useRouter()
+  const setCheckoutDetails = SetCheckoutDetails()
 
   return (
-    <div className="bg-white w-full rounded-lg">
+    <div
+      className="bg-white w-full rounded-lg"
+      style={{ cursor: 'pointer' }}
+      onClick={() =>
+        router.push(
+          `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`,
+        )
+      }
+    >
       <div>
         <Image
           src={productDetails?.product_images?.[0]?.filename || StoryTellingPNG}
@@ -183,29 +199,29 @@ const ProductCard = ({ productDetails, sellingPrice, originalPrice }) => {
             className={`text-base-gray pt-2 text-sm md:text-base ${styles.sellingPrice}`}
           >
             {productDetails?.default_currency}
-            {new Intl.NumberFormat().format(sellingPrice) ?? "0.00"}
+            {new Intl.NumberFormat().format(sellingPrice) ?? '0.00'}
           </p>
           <p
             className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
           >
             {productDetails?.default_currency}
             {new Intl.NumberFormat().format(
-              originalPrice ?? productDetails?.default_price
-            ) ?? "0.00"}
+              originalPrice ?? productDetails?.default_price,
+            ) ?? '0.00'}
           </p>
 
           <Button
-            text={productDetails?.product_details?.cta_button ?? "Buy Now"}
+            text={productDetails?.product_details?.cta_button ?? 'Buy Now'}
             className={styles.productCardBtn}
             onClick={() => {
-              router.push("/checkout");
-              setCheckoutDetails(productDetails);
+              router.push('/checkout')
+              setCheckoutDetails(productDetails)
             }}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default StorePage;
+export default StorePage

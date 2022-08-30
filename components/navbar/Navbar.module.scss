@@ -10,7 +10,7 @@
   position: fixed;
   top: 0;
   background-color: $base-white;
-  // border-bottom: 1px solid red;
+  // border-bottom: 1px solid green;
   z-index: 100;
   margin-bottom: 10rem !important;
   transition: padding 0.2s;
@@ -24,9 +24,20 @@
 }
 
 .navContainer.reverseMobileView {
-  @include flex(row-reverse, space-between, null);
+  // @include flex(row, flex-end, null);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  // position: relative;
+
+  .showLogin {
+    position: absolute;
+    right: 90px;
+    top: 20px;
+    // border: 1px solid blue;
+  }
   @media (min-width: 768px) {
-    @include flex(row, space-between, null);
+    @include flex(row, flex-end, null);
   }
 }
 
@@ -64,7 +75,8 @@
 .mobileLoginLink {
   display: none;
   // border: 1px solid red;
-  width: 100%;
+  // width: 100%;
+  align-self: flex-end;
   height: 100%;
   text-align: right;
   .loginBtn {
@@ -74,6 +86,7 @@
 
 .mobileLoginLink.showLogin {
   display: block;
+
   @media (min-width: 768px) {
     display: none;
   }
@@ -130,6 +143,16 @@
   width: 20%;
   // here
   // margin-right: 2rem;
+}
+
+.navClose {
+  display: flex;
+  // flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  .loginBtnOnNav {
+    margin-right: 90px;
+  }
 }
 
 .mobileBtnLinks {
@@ -207,8 +230,11 @@
       padding: 0.1rem;
 
       .hamburgerDefault {
-        width: 1.875rem;
+        // width: 1.875rem;
         height: 3px;
+        // * initial width: 1.875rem and height: 3px;
+        width: 26.67px;
+        // height: 18.67px;
         background: $base-gray;
         border-radius: 5px;
         transition: all 0.5s ease-in-out;
@@ -245,7 +271,7 @@
         transform: translateX(-50px);
         background: transparent;
         box-shadow: none;
-        // transition: all 0.2s;
+        margin-bottom: 0.7rem;
       }
 
       &.open .hamburger::before {
@@ -269,7 +295,7 @@
     }
 
     .imgCont.mobileView {
-      display: none;
+      display: block;
     }
 
     .navLinks {
@@ -306,16 +332,21 @@
       display: block;
       position: absolute;
       inset: 0;
-      background: $base-white;
+      z-index: 400 !important;
+      top: -65px;
+      opacity: 1;
+      background: $base-white !important;
       width: 100%;
       height: fit-content;
       height: 100vh;
-      // height: 100%;
+      max-width: 321px;
+      left: auto;
       text-align: center;
       padding: 5rem 1rem;
       padding-top: 1rem;
       padding-bottom: 3rem;
       margin-top: 4rem;
+      // right: 20px;
       // overflow-y: scroll;
 
       .inner {
@@ -326,6 +357,7 @@
           overflow: auto;
           height: 100%;
           padding-bottom: 3.5rem;
+          margin-top: 24px;
           // border: 1px solid blue;
           //hide the scrollbar
           ::-webkit-scrollbar {
@@ -339,14 +371,29 @@
       .mobileCategoryLinks {
         list-style: none;
         font-weight: 800;
-        font-size: 28px;
+        font-size: 20px;
         line-height: 40px;
-        color: $base-blue;
+        // color: $base-blue;
+        // border: 1px solid red;
+        text-align: left;
+        padding: 1px 0px 0 0px;
         // padding-right: 13%;
-        margin-bottom: unset;
+        // margin-bottom: unset;
+        margin-bottom: 32px;
 
         li {
-          margin-bottom: 33px;
+          // margin-bottom: 33px;
+          padding: 8px 0 8px 24px;
+          color: #8c8c8c;
+          cursor: pointer;
+          transition: all 0.2s;
+          &:hover {
+            background-color: #f5f5f5;
+          }
+        }
+
+        li.activeMobileLink {
+          color: $base-blue;
         }
       }
 
@@ -412,6 +459,24 @@
   @media (min-width: 768px) {
     @include flex(row, null, center);
     // border: 1px solid red;
+  }
+}
+
+.backDrop {
+  position: absolute;
+  border: 1px solid blue;
+  left: 0;
+  right: 321px;
+  top: -90px;
+  bottom: 0;
+  /* height: 100vh; */
+  background: #262626;
+  opacity: 0.2;
+  z-index: 200;
+  height: 100%;
+  cursor: pointer;
+  @media (min-width: 768px) {
+    display: none;
   }
 }
 
