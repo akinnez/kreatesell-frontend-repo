@@ -32,6 +32,7 @@ import {
   MnTechCity,
 } from "../utils/assets";
 import { useState } from "react";
+import Link from "next/link";
 const AboutUs = () => {
   const [cardState, setCardState] = useState({
     isMissionCardHovered: false,
@@ -117,7 +118,23 @@ const AboutUs = () => {
             <div className={styles.mainAboutLg}>
               <Image src={MainAboutLg} alt="about us" />
             </div>
-            <StoryTexts {...second} />
+            <div>
+              <div className={styles.storyBox}>
+                <h1 className={styles.heading}>About KreateSell</h1>
+                <div className={styles.storyTexts}>
+                  {second?.texts?.map((item, index) => (
+                    <p key={index}>{item}</p>
+                  ))}
+                </div>
+                <div className={styles.storyTexts}>
+                  So, what are you waiting for? Don’t hesitate to{" "}
+                  <Link href="/signup">sign up for free</Link> Now as a Kreator
+                  to experience real growth in your digital product(s) sales.
+                  And as an Affiliate to massively start earning passive and
+                  active income from referral commissions over n’ over!
+                </div>
+              </div>
+            </div>
           </div>
           {/* //* missionAndVision */}
           <div
@@ -480,20 +497,23 @@ const storyTexts = {
   first: {
     heading: "Our Story",
     texts: [
-      `It all started one bright morning, in early 2021. Some Great minds
-          came together to creatively brainstorm and find an Advanced & Powerful
-          solution to the Loads of problems digital Kreators and entrepreneurs
-          were facing in Instantly selling their digital products online.`,
+      `Prior to launching KreateSell, we were your everyday Africans trying to make legitimate income for ourselves on the internet. 
+      So, we decided to start selling digital products to people wherever they were in the world.
+And like many talented Africans, we had our digital products ready in no time.
+ But alas! There was a big issue— finding how and where we could sell the digital products to buyers around
+  the globe and receive payment without stress!`,
+      `We searched far and wide across the internet for a solution, but there was none! 
+There was no platform to help us reach people across the globe who were in need of our
+ different ideas made into digital products, quickly sell to them and receive our payment
+  to our local bank account, so that we could start enjoying the rewards of our hard work. 
+  This was quite frustrating! And after rubbing minds together with fellow African content
+   creators and digital entrepreneurs across the internet, we found that this problem was common to us all.`,
 
-      `The Super Powerful solution was to provide an all-in-one platform
-          where digital Kreators and entrepreneurs can uniquely display their
-          digital products and market them Without A Drop Of Sweat. Where they
-          can seamlessly transact business with no currency barrier, even with
-          no tech skills or experience, and massively connect with buyers on a
-          global scale. This platform was named KreateSell and today, we are
-          live!`,
-
-      `This platform was named KreateSell and today, we are live!`,
+      `So, in 2020, an idea that would positively transform the digital creator economy for Africans 
+was born— a hassle-free all-in-one solution for African content creators, digital entrepreneurs and 
+everyone who has a digital product to sell. It’ll completely solve the problems they face in trying 
+to sell their digital products across borders!
+That solution was named KreateSell. And today, we’re live!`,
     ],
   },
 
@@ -502,7 +522,6 @@ const storyTexts = {
     texts: [
       `The team at KreateSell is working tirelessly to bring KreateSell’s vision of being the number one pan-African Edtech SaaS platform for content Kreators and digital entrepreneurs to life. Find all the support you need to sell your digital product to a wide range of target audiences on KreateSell.`,
       `How do we do this? You might ask. As part of our sell more-do less strategy, we created a system that enables the use of affiliate marketing or referral system to bring the right paying customers to Kreators on our platform and help affiliates earn commissions again and again!`,
-      `So, what are you waiting for? Don’t hesitate to sign up for free Now as a Kreator to experience real growth in your digital product(s) sales. And as an Affiliate to massively start earning passive and active income from referral commissions over n’ over!`,
     ],
   },
 };
