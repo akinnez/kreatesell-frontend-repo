@@ -1,24 +1,25 @@
-import { Percentage, Radio } from 'components/inputPack'
-import { Switch, Form, Input, Select, Button } from 'antd'
-import styles from './Checkout.module.scss'
-import { useState, useEffect, useCallback, useRef } from 'react'
-import { CloudUpload, FileDelete, FileZip, Audio, Video } from 'utils'
-import Image from 'next/image'
-import { useFormik } from 'formik'
+import { Percentage, Radio } from "components/inputPack";
+import { Switch, Form, Input, Select, Button } from "antd";
+import styles from "./Checkout.module.scss";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { CloudUpload, FileDelete, FileZip, Audio, Video } from "utils";
+import Image from "next/image";
+import { useFormik } from "formik";
 // import { Select } from "components/select/Select";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import {
   GetProductByID,
   GetBillingInterval,
   CreateProduct,
   SetProductTab,
-} from 'redux/actions'
-import { useUpload } from 'hooks'
-import CustomCheckoutSelect from './CustomCheckout'
-import { useRouter } from 'next/router'
-import { transformToFormData } from 'utils'
+} from "redux/actions";
+import { useUpload } from "hooks";
+import CustomCheckoutSelect from "./CustomCheckout";
+import { useRouter } from "next/router";
+import { transformToFormData } from "utils";
 
-import axios from 'axios'
+import axios from "axios";
+import { addItem } from "networking/redux/slices";
 
 export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
@@ -28,180 +29,176 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
    * Installment Payment: 3
    * Make It Free: 4
    */
-  const getProductByID = GetProductByID()
-  const getBillingInterval = GetBillingInterval()
-  const createProduct = CreateProduct()
-  const setProductTab = SetProductTab()
-  const { store } = useSelector((state) => state.store)
-  const router = useRouter()
+  const getProductByID = GetProductByID();
+  const getBillingInterval = GetBillingInterval();
+  const createProduct = CreateProduct();
+  const setProductTab = SetProductTab();
+  const { store } = useSelector((state) => state.store);
+  const router = useRouter();
 
-  const [progress, setProgress] = useState(0)
+  const { productID, product, billingInterval, loading } = useSelector(
+    (state) => state.product
+  );
 
-  const [compareToPrice, setCompareToPrice] = useState(false)
-  const [applyCoupon, setApplyCoupon] = useState(false)
-  const [isCouponDiabled, setIsCouponDisabled] = useState(true)
-  const [couponType, setCouponType] = useState(0)
-  const [promotionalMaterial, setPromotionalMaterial] = useState([])
-  const [frequencyOptions, setFrequencyOptions] = useState([])
-  const [numberOfInputs, setNumberOfInputs] = useState(1)
-  const [inputsArray, setInputsArray] = useState([])
-  const [initialPayment, setInitialPayment] = useState([])
-  const [firstPayment, setFirstPayment] = useState([])
-  const [secondPayment, setSecondPayment] = useState([])
-  const [thirdPayment, setThirdPayment] = useState([])
-  const [billingIntervalDuration, setBillingIntervalDuration] = useState(7)
-  const [initialBillingInput, setInitialBillingInput] = useState(0)
-  const [custombillingInterval, setCustomBillingInterval] = useState(0)
-  const [isBasic, setIsBasic] = useState(true)
-  const mounted = useRef(null)
-  const { Option } = Select
+  const [progress, setProgress] = useState(0);
+
+  const [compareToPrice, setCompareToPrice] = useState(false);
+  const [applyCoupon, setApplyCoupon] = useState(false);
+  const [isCouponDiabled, setIsCouponDisabled] = useState(true);
+  const [couponType, setCouponType] = useState(0);
+  const [promotionalMaterial, setPromotionalMaterial] = useState([]);
+  const [frequencyOptions, setFrequencyOptions] = useState([]);
+  const [numberOfInputs, setNumberOfInputs] = useState(1);
+  const [inputsArray, setInputsArray] = useState([]);
+  const [initialPayment, setInitialPayment] = useState([]);
+  const [firstPayment, setFirstPayment] = useState([]);
+  const [secondPayment, setSecondPayment] = useState([]);
+  const [thirdPayment, setThirdPayment] = useState([]);
+  const [billingIntervalDuration, setBillingIntervalDuration] = useState(7);
+  const [initialBillingInput, setInitialBillingInput] = useState(0);
+  const [custombillingInterval, setCustomBillingInterval] = useState(0);
+  const [isBasic, setIsBasic] = useState(true);
+  const mounted = useRef(null);
+  const { Option } = Select;
 
   // guards agains price duplication
   useEffect(() => {
     if (!mounted.current) {
-      mounted.current = 0
+      mounted.current = 0;
     }
     return () => {
-      mounted.current = null
-    }
-  }, [])
+      mounted.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     if (Object.keys(store).length > 0) {
-      const { user } = store
-      if (user.user_plan === 'Business') {
-        setIsCouponDisabled(false)
+      const { user } = store;
+      if (user.user_plan === "Business") {
+        setIsCouponDisabled(false);
       } else {
-        setIsCouponDisabled(true)
+        setIsCouponDisabled(true);
       }
       return () => {
-        setIsCouponDisabled(true)
-      }
+        setIsCouponDisabled(true);
+      };
     }
-  }, [store])
+  }, [store]);
 
   const [couponVariance, setCouponVariance] = useState({
     isPercentage: true,
     is_fixed_amount: false,
-  })
+  });
   // Fixed Price Inputs
-  const [fixedSellingPrice, setFixedSellingPrice] = useState([])
-  const [fixedOriginalPrice, setFixedOriginalPrice] = useState([])
+  const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
+  const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
 
   // Pay What You Want
-  const [minimumPrice, setMinimumPrice] = useState([])
-  const [suggestedPrice, setSuggestedPrice] = useState([])
+  const [minimumPrice, setMinimumPrice] = useState([]);
+  const [suggestedPrice, setSuggestedPrice] = useState([]);
 
   // Settings Controlled Inputs
-  const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false)
-  const [afiliatePercentage, setAfiliatePercentage] = useState(0)
-  const [uploadPromotionalMaterial, setUploadPromotionalMaterial] = useState(
-    false,
-  )
-  const [limitProductSale, setLimitProductSale] = useState(false)
-  const [numberOfLimit, setNumberOfLimit] = useState(0)
-  const [showTotalSales, setShowTotalSales] = useState(false)
-  const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false)
+  const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
+  const [afiliatePercentage, setAfiliatePercentage] = useState(0);
+  const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
+    useState(false);
+  const [limitProductSale, setLimitProductSale] = useState(false);
+  const [numberOfLimit, setNumberOfLimit] = useState(0);
+  const [showTotalSales, setShowTotalSales] = useState(false);
+  const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(false);
 
-  const [totalSelling, setTotalSelling] = useState([])
+  const [totalSelling, setTotalSelling] = useState([]);
   const mapNumberToArray = (number) => {
-    const arrayNumbers = []
+    const arrayNumbers = [];
     for (let i = 0; i < number; i++) {
-      arrayNumbers.push(i)
+      arrayNumbers.push(i);
     }
-    return arrayNumbers
-  }
+    return arrayNumbers;
+  };
   const handleBillingIntervalChange = (e) => {
-    setInitialBillingInput(e)
-    setCustomBillingInterval(e * billingIntervalDuration)
-  }
+    setInitialBillingInput(e);
+    setCustomBillingInterval(e * billingIntervalDuration);
+  };
 
   useEffect(() => {
-    setCustomBillingInterval(initialBillingInput * billingIntervalDuration)
-  }, [billingIntervalDuration])
+    setCustomBillingInterval(initialBillingInput * billingIntervalDuration);
+  }, [billingIntervalDuration]);
 
   // for the promotional content
-  const [file, setFile] = useState()
+  const [file, setFile] = useState();
 
-  const {
-    preview,
-    getRootProps,
-    getInputProps,
-    mainFile,
-    deleteFile,
-  } = useUpload({
-    setFileChange: setPromotionalMaterial,
-    // should accept rar and zip
-    fileType: 'image',
-  })
+  const { preview, getRootProps, getInputProps, mainFile, deleteFile } =
+    useUpload({
+      setFileChange: setPromotionalMaterial,
+      // should accept rar and zip
+      fileType: "image",
+    });
 
-  const { productID, product, billingInterval, loading } = useSelector(
-    (state) => state.product,
-  )
+  // console.log("product = ", product);
 
   const customBillingIntervals = [
-    { label: 'Day(s)', value: 1 },
-    { label: 'Week(s)', value: 7 },
-    { label: 'Month(s)', value: 30 },
-  ]
+    { label: "Day(s)", value: 1 },
+    { label: "Week(s)", value: 7 },
+    { label: "Month(s)", value: 30 },
+  ];
   const mappedBillingInterval = billingInterval?.map((billing) => ({
     label: billing.billing_types,
     value: billing.billing_durations,
-  }))
+  }));
 
   const paymentFrequencyOptions = async () => {
-    let opt = []
+    let opt = [];
     for (let i = 1; i < 10; i++) {
-      opt.push(i)
-      const values = opt.map((item) => ({ label: item, value: item }))
-      setFrequencyOptions(values)
+      opt.push(i);
+      const values = opt.map((item) => ({ label: item, value: item }));
+      setFrequencyOptions(values);
     }
-  }
+  };
 
   useEffect(() => {
-    paymentFrequencyOptions()
-  }, [])
+    paymentFrequencyOptions();
+  }, []);
 
   useEffect(() => {
-    getBillingInterval()
-  }, [])
+    getBillingInterval();
+  }, []);
 
   useEffect(() => {
     if (mainFile.length > 0) {
-      console.log('mainFile are', mainFile)
+      console.log("mainFile are", mainFile);
     }
-  }, [mainFile])
+  }, [mainFile]);
 
   useEffect(() => {
-    setInputsArray(mapNumberToArray(numberOfInputs))
-  }, [numberOfInputs])
+    setInputsArray(mapNumberToArray(numberOfInputs));
+  }, [numberOfInputs]);
 
   const createCustomCurrencyField = (array) => {
-    let title = ''
-    let field = []
-    let setField = () => {}
+    let title = "";
+    let field = [];
+    let setField = () => {};
     return array.map((value, index) => {
       switch (value) {
         case 0:
-          title = 'Initial Payment at Checkout'
-          field = initialPayment
-          setField = setInitialPayment
-          break
+          title = "Initial Payment at Checkout";
+          field = initialPayment;
+          setField = setInitialPayment;
+          break;
         case 1:
-          title = 'Second Payment'
-          field = firstPayment
-          setField = setFirstPayment
-          break
+          title = "Second Payment";
+          field = firstPayment;
+          setField = setFirstPayment;
+          break;
         case 2:
-          title = 'Third Payment'
-          field = secondPayment
-          setField = setSecondPayment
-          break
+          title = "Third Payment";
+          field = secondPayment;
+          setField = setSecondPayment;
+          break;
         case 3:
-          title = 'Fourth Payment'
-          field = thirdPayment
-          setField = setThirdPayment
-          break
+          title = "Fourth Payment";
+          field = thirdPayment;
+          setField = setThirdPayment;
+          break;
       }
 
       return (
@@ -212,142 +209,158 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             setField={setField}
           />
         </div>
-      )
-    })
-  }
+      );
+    });
+  };
   useEffect(() => {
     if (productID) {
-      console.log('checkout mounted')
-      getProductByID(productID)
+      console.log("checkout mounted");
+      getProductByID(productID);
     }
-  }, [productID])
+  }, [productID]);
 
   useEffect(() => {
     if (mainFile.length > 0) {
-      mainFile.map(async (item) => await uploadFile(item.file, setProgress))
+      mainFile.map(async (item) => await uploadFile(item.file, setProgress));
     }
-  }, [mainFile])
+  }, [mainFile]);
 
   async function uploadFile(file, cb) {
-    const formData = new FormData()
-    formData.append('upload_preset', 'kreatesell')
-    formData.append('file', file)
+    const formData = new FormData();
+    formData.append("upload_preset", "kreatesell");
+    formData.append("file", file);
     const options = {
       onUploadProgress: (progressEvent) => {
-        const { loaded, total } = progressEvent
-        let percent = Math.floor((loaded * 100) / total)
-        cb(percent)
+        const { loaded, total } = progressEvent;
+        let percent = Math.floor((loaded * 100) / total);
+        cb(percent);
       },
-    }
+    };
     try {
-      const instance = axios.create()
-      delete instance.defaults.headers.common['Authorization']
+      const instance = axios.create();
+      delete instance.defaults.headers.common["Authorization"];
       const { data } = await instance.post(
-        'https://api.cloudinary.com/v1_1/salvoagency/upload',
+        "https://api.cloudinary.com/v1_1/salvoagency/upload",
         formData,
-        options,
-      )
-      console.log(data)
+        options
+      );
+      console.log(data);
       setFile({
         type: data?.resource_type,
         url: data?.secure_url,
-      })
+      });
     } catch (error) {
-      console.log('ERROR', error)
+      console.log("ERROR", error);
     }
   }
 
   const handleDeleteFile = () => {
-    deleteFile(mainFile[0].file)
-  }
+    deleteFile(mainFile[0].file);
+  };
 
   useEffect(() => {
     // console.log(product)
-  }, [product])
+  }, [product]);
 
   const populatePricingObject = (currency, price) => {
     const prices = {
       currency_value: price,
       currency_name: currency,
-    }
-    return prices
-  }
+    };
+    return prices;
+  };
   const populatePricing = useCallback((array) => {
     for (let values of array) {
       switch (values.price_indicator) {
-        case 'Selling':
+        case "Selling":
           const registeredPrice = populatePricingObject(
             values.currency_name,
-            values.price,
-          )
-          setFixedSellingPrice((prev) => [...prev, registeredPrice])
-          break
+            values.price
+          );
+          setFixedSellingPrice((prev) => [...prev, registeredPrice]);
+          break;
         default:
-          break
+          break;
       }
     }
-  }, [])
+  }, []);
 
   const checkArrays = (data) => {
     // console.log("Data passed to function", data);
     const arrayLists = [
-      'selling_prices',
-      'minimum_prices',
-      'original_prices',
-      'suggested_prices',
-      'initial_prices',
-      'installment_prices',
-    ]
+      "selling_prices",
+      "minimum_prices",
+      "original_prices",
+      "suggested_prices",
+      "initial_prices",
+      "installment_prices",
+    ];
     for (let value of arrayLists) {
       if (value in data) {
-        if (typeof data[value] === 'object' && data[value].length < 1) {
-          delete data[value]
+        if (typeof data[value] === "object" && data[value].length < 1) {
+          delete data[value];
         }
       }
     }
     // console.log("data", data);
-    return data
-  }
+    return data;
+  };
 
   const handleSubmit = (data) => {
+    console.log("data from submit = ", data);
+    // const dataWithCompare = {
+    //   ...data,
+    //   is_show_compare_price: compareToPrice,
+    // };
+
+    // console.log("dataWithCompare = ", dataWithCompare);
     // console.log("Data passed to handle submit function", data);
     if (!data.enable_preorder) {
-      delete data.preorder_details
+      delete data.preorder_details;
     }
     if (!data.upload_content) {
-      delete data.upload_content
-      delete data.contentZipFiles
+      delete data.upload_content;
+      delete data.contentZipFiles;
     }
     if (promotionalMaterial.length < 1) {
-      delete data?.promotional_items
+      delete data?.promotional_items;
     }
     if (!data.cta_button) {
-      delete data.cta_button
+      delete data.cta_button;
     }
     if (!applyCoupon) {
-      delete data.coupon_settings
-      delete data.checkout
+      delete data.coupon_settings;
+      delete data.checkout;
     }
     if (!data.product_settings.allow_affiliates) {
-      delete data.product_settings.affiliate_percentage_on_sales
+      delete data.product_settings.affiliate_percentage_on_sales;
     }
     if (!data.is_show_compare_price) {
-      delete data.is_show_compare_price
+      delete data.is_show_compare_price;
     }
-    const checkedData = checkArrays(data)
+    const checkedData = checkArrays(data);
+    // const checkedData = checkArrays(dataWithCompare);
     // console.log("checkedData", checkedData)
-    const result = transformToFormData(checkedData)
+    const result = transformToFormData(checkedData);
+    console.log("result = ", result);
     createProduct(result, () => {
-      if (priceType === 'Fixed Price') {
-        router.push(`/account/kreator/products/preview/${productID}`)
-        return
+      if (priceType === "Fixed Price") {
+        router.push(`/account/kreator/products/preview/${productID}`);
+        return;
       }
-      setProductTab(2)
-    })
-  }
+      setProductTab(2);
+    });
+  };
+
+  console.log(
+    "is_show_compare = ",
+    compareToPrice
+    // ??
+    // compareToPrice
+  );
 
   const initialValues = {
-    action: 'e',
+    action: "e",
     minimum_price: 0,
     is_minimum_price: true,
     is_show_compare_price: compareToPrice,
@@ -361,10 +374,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     minimum_prices: [],
 
     coupon_settings: {
-      coupon_code: 'string',
+      coupon_code: "string",
       is_coupon: true,
-      start_date: '',
-      end_date: '',
+      start_date: "",
+      end_date: "",
       fixed_amount_value: 0,
       percentage_value: 0,
       is_percentage: true,
@@ -377,7 +390,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       promotional_files: [],
     },
     set_price: true,
-    cta_button: '',
+    cta_button: "",
     number_of_limited_product: 0,
     who_bear_fee: buyerPaysTransactionFee,
     product_settings: {
@@ -386,56 +399,56 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       is_limited_sales: limitProductSale,
       show_number_of_sales: showTotalSales,
     },
-  }
+  };
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
     // validationSchema: "",
     validateOnChange: false,
-  })
+  });
 
-  const { errors, setFieldValue, values } = formik
+  const { errors, setFieldValue, values } = formik;
 
   //Updating Formik values
   useEffect(() => {
     switch (priceType) {
-      case 'Fixed Price':
-        return setFieldValue('pricing_type_id', 1)
-      case 'Pay What You Want':
-        return setFieldValue('pricing_type_id', 2)
-      case 'Installment Payment':
-        return setFieldValue('pricing_type_id', 3)
-      case 'Make It Free':
-        return setFieldValue('pricing_type_id', 4)
+      case "Fixed Price":
+        return setFieldValue("pricing_type_id", 1);
+      case "Pay What You Want":
+        return setFieldValue("pricing_type_id", 2);
+      case "Installment Payment":
+        return setFieldValue("pricing_type_id", 3);
+      case "Make It Free":
+        return setFieldValue("pricing_type_id", 4);
     }
-  }, [priceType])
+  }, [priceType]);
   useEffect(() => {
-    setFieldValue('cta_button', ctaBtnText)
-    setFieldValue('selling_prices', [...fixedSellingPrice])
-    setFieldValue('is_show_compare_price', compareToPrice)
-    setFieldValue('original_prices', [...fixedOriginalPrice])
-    setFieldValue('product_settings.allow_affiliates', allowAffiliateMarket)
+    setFieldValue("cta_button", ctaBtnText);
+    setFieldValue("selling_prices", [...fixedSellingPrice]);
+    setFieldValue("is_show_compare_price", compareToPrice);
+    setFieldValue("original_prices", [...fixedOriginalPrice]);
+    setFieldValue("product_settings.allow_affiliates", allowAffiliateMarket);
     setFieldValue(
-      'product_settings.affiliate_percentage_on_sales',
-      afiliatePercentage,
-    )
+      "product_settings.affiliate_percentage_on_sales",
+      afiliatePercentage
+    );
     setFieldValue(
-      'promotional_items.allow_promotional_items',
-      uploadPromotionalMaterial,
-    )
-    setFieldValue('product_settings.show_number_of_sales', showTotalSales)
-    setFieldValue('who_bear_fee', buyerPaysTransactionFee)
-    setFieldValue('product_settings.is_limited_sales', limitProductSale)
-    setFieldValue('number_of_limited_product', +numberOfLimit)
-    setFieldValue('minimum_prices', [...minimumPrice])
-    setFieldValue('suggested_prices', [...suggestedPrice])
-    setFieldValue('billing_frequency', numberOfInputs)
-    setFieldValue('coupon_settings.is_percentage', couponVariance.isPercentage)
+      "promotional_items.allow_promotional_items",
+      uploadPromotionalMaterial
+    );
+    setFieldValue("product_settings.show_number_of_sales", showTotalSales);
+    setFieldValue("who_bear_fee", buyerPaysTransactionFee);
+    setFieldValue("product_settings.is_limited_sales", limitProductSale);
+    setFieldValue("number_of_limited_product", +numberOfLimit);
+    setFieldValue("minimum_prices", [...minimumPrice]);
+    setFieldValue("suggested_prices", [...suggestedPrice]);
+    setFieldValue("billing_frequency", numberOfInputs);
+    setFieldValue("coupon_settings.is_percentage", couponVariance.isPercentage);
     setFieldValue(
-      'coupon_settings.is_fixed_amount',
-      couponVariance.is_fixed_amount,
-    )
+      "coupon_settings.is_fixed_amount",
+      couponVariance.is_fixed_amount
+    );
   }, [
     ctaBtnText,
     fixedSellingPrice,
@@ -452,118 +465,194 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     suggestedPrice,
     numberOfInputs,
     couponVariance,
-  ])
+    setFieldValue,
+  ]);
 
   useEffect(() => {
     if (mainFile.length > 0) {
-      setFieldValue('promotional_items.promotional_files', mainFile)
+      setFieldValue("promotional_items.promotional_files", mainFile);
     }
-  }, [mainFile])
+  }, [mainFile]);
 
   // Clear outs
   useEffect(() => {
     if (compareToPrice === false) {
-      setFixedOriginalPrice([])
+      setFixedOriginalPrice([]);
     }
     if (allowAffiliateMarket === false) {
-      setAfiliatePercentage(0)
+      setAfiliatePercentage(0);
     }
     if (limitProductSale === false) {
-      setNumberOfLimit(0)
+      setNumberOfLimit(0);
     }
-  }, [compareToPrice, allowAffiliateMarket, limitProductSale])
+  }, [compareToPrice, allowAffiliateMarket, limitProductSale]);
   const setAllFields = useCallback(() => {
-    mounted.current += 1
+    mounted.current += 1;
     if (product && mounted.current === 1) {
-      setFieldValue('product_name', product?.product_details?.product_name)
+      setFieldValue("product_name", product?.product_details?.product_name);
       setFieldValue(
-        'product_details',
-        product?.product_details?.product_details,
-      )
+        "product_details",
+        product?.product_details?.product_details
+      );
       setFieldValue(
-        'product_description',
-        product?.product_details?.product_description,
-      )
+        "product_description",
+        product?.product_details?.product_description
+      );
       setFieldValue(
-        'enable_preorder',
-        product?.product_details?.enable_preorder,
-      )
-      setFieldValue('upload_content', product?.product_details?.upload_content)
+        "enable_preorder",
+        product?.product_details?.enable_preorder
+      );
+      setFieldValue("upload_content", product?.product_details?.upload_content);
       setFieldValue(
-        'product_visibility_status',
-        product?.product_details?.product_visibility,
-      )
-      setFieldValue('upload_preview', product?.product_details?.is_preview_only)
+        "product_visibility_status",
+        product?.product_details?.product_visibility
+      );
       setFieldValue(
-        'preorder_details.preorder_release_date',
-        product?.product_details?.preoder_date,
-      )
+        "upload_preview",
+        product?.product_details?.is_preview_only
+      );
       setFieldValue(
-        'preorder_details.is_preorder_downloadable',
-        product?.product_details?.is_preoder_downloadable ?? false,
-      )
+        "preorder_details.preorder_release_date",
+        product?.product_details?.preoder_date
+      );
       setFieldValue(
-        'kreatesell_id',
-        product?.product_details?.kreasell_product_id,
-      )
+        "preorder_details.is_preorder_downloadable",
+        product?.product_details?.is_preoder_downloadable ?? false
+      );
       setFieldValue(
-        'product_type_id',
-        product?.product_details?.product_type_id,
-      )
-      setFieldValue('product_id', product?.product_details?.id)
+        "kreatesell_id",
+        product?.product_details?.kreasell_product_id
+      );
       setFieldValue(
-        'product_listing_status_id',
-        product?.product_details?.product_listing_status,
-      )
+        "product_type_id",
+        product?.product_details?.product_type_id
+      );
+      setFieldValue("product_id", product?.product_details?.id);
       setFieldValue(
-        'upload_content',
+        "product_listing_status_id",
+        product?.product_details?.product_listing_status
+      );
+      setFieldValue(
+        "is_show_compare_price",
+        product?.product_details?.is_show_compare_price
+      );
+      setFieldValue(
+        "upload_content",
         product.product_details.upload_content
           ? product.product_details.upload_content
-          : false,
-      )
+          : false
+      );
       // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
       // setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
 
       setFieldValue(
-        'cta_button',
+        "cta_button",
         product.product_details.cta_button
           ? product.product_details.cta_button
-          : ctaBtnText,
-      )
-      setCtaBtnText(product?.product_details?.cta_button)
+          : ctaBtnText
+      );
+      setCtaBtnText(product?.product_details?.cta_button);
       if (product.product_details.is_show_number_of_sales) {
-        setShowTotalSales(true)
+        setShowTotalSales(true);
       }
       if (product.product_details.who_bears_fee) {
-        setBuyerPaysTransactionFee(true)
+        setBuyerPaysTransactionFee(true);
       }
 
       if (product.check_out_details && product.check_out_details.length > 0) {
-        populatePricing(product?.check_out_details)
+        populatePricing(product?.check_out_details);
       }
       if (product.product_details.is_allow_affiliate === true) {
-        setAllowAffiliateMarket(true)
+        setAllowAffiliateMarket(true);
         setAfiliatePercentage(
-          product?.product_details?.affiliate_percentage_on_sales,
-        )
+          product?.product_details?.affiliate_percentage_on_sales
+        );
       }
       if (product.product_details.is_limited_sales === true) {
-        setLimitProductSale(true)
+        setLimitProductSale(true);
       }
     }
-  }, [product])
+  }, [product]);
 
   useEffect(() => {
     if (Object.keys(product).length > 0) {
-      setAllFields()
+      setAllFields();
     }
-  }, [product, setAllFields])
+  }, [product, setAllFields]);
+
+  const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
+  const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
+  useEffect(() => {
+    fixedOriginalPrice?.map((OpItem) => {
+      //* Op = Original Price and Sp = SellingPrice
+      const OpItemCurrency = OpItem?.currency_name;
+      const OpItemPrice = OpItem?.currency_value;
+
+      const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
+        return SpItem?.currency_name === OpItemCurrency;
+      });
+      console.log("fixedOriginalPrice = ", fixedOriginalPrice);
+      console.log("fixedSellingPrice = ", fixedSellingPrice);
+      if (fixedSellingPrice.length === 0 || fixedOriginalPrice.length === 0) {
+        setIsOpMoreThanSp(false);
+      } else if (compareToPrice === true && fixedOriginalPrice.length === 0) {
+        setIsOpMoreThanSp(false);
+      } else if (OpItemPrice > matchingSpItem?.currency_value) {
+        setIsOpMoreThanSp(true);
+        setNoMatchingCurrency(false);
+      } else if (OpItemPrice < matchingSpItem?.currency_value) {
+        setIsOpMoreThanSp(false);
+        setNoMatchingCurrency(false);
+      } else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
+        setNoMatchingCurrency(true);
+        setIsOpMoreThanSp(false);
+      } else {
+        setIsOpMoreThanSp(false);
+        setNoMatchingCurrency(false);
+      }
+
+      return isOpMoreThanSp && noMatchingCurrency;
+      // console.log("isOpMore ? = ", isOpMoreThanSp);
+    });
+  }, [
+    fixedOriginalPrice,
+    fixedSellingPrice,
+    isOpMoreThanSp,
+    noMatchingCurrency,
+    compareToPrice,
+  ]);
+
+  const disableButton = useCallback(() => {
+    // console.log("compareToPrice = ", compareToPrice);
+
+    if (!compareToPrice && !isOpMoreThanSp) {
+      console.log("condition 1");
+      return false;
+    }
+
+    if (compareToPrice && !isOpMoreThanSp) {
+      console.log("condition 1.1");
+      return true;
+    }
+    if (!compareToPrice && noMatchingCurrency) {
+      console.log("condition 2");
+      return false;
+    }
+    if (!isOpMoreThanSp) {
+      console.log("condition 3");
+      return true;
+    }
+
+    return false;
+  }, [compareToPrice, isOpMoreThanSp, noMatchingCurrency]);
+
+  console.log("disableButton = ", disableButton());
   return (
     <Form onFinish={formik.handleSubmit}>
-      {priceType === 'Fixed Price' && (
+      {priceType === "Fixed Price" && (
         <div className="flex flex-col">
           <CustomCheckoutSelect
-            title={'Selling Price'}
+            title={"Selling Price"}
             field={fixedSellingPrice}
             setField={setFixedSellingPrice}
           />
@@ -574,18 +663,18 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           </p>
         </div>
       )}
-      {priceType === 'Pay What You Want' && (
+      {priceType === "Pay What You Want" && (
         <div className="flex flex-col">
           <div className="mt-1">
             <CustomCheckoutSelect
-              title={'Minimum Amount'}
+              title={"Minimum Amount"}
               field={minimumPrice}
               setField={setMinimumPrice}
             />
           </div>
           <div className="mt-4">
             <CustomCheckoutSelect
-              title={'Suggested Amount'}
+              title={"Suggested Amount"}
               field={suggestedPrice}
               setField={setSuggestedPrice}
             />
@@ -593,21 +682,21 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         </div>
       )}
 
-      {priceType === 'Installment Payment' && (
+      {priceType === "Installment Payment" && (
         <div>
           <p className="text-base mb-2"></p>
           <CustomCheckoutSelect
-            title={'Total Selling Price'}
+            title={"Total Selling Price"}
             field={totalSelling}
             setField={setTotalSelling}
           />
           <div className="mt-3 w-full">
             <p className="text-base mb-2">Select Frequency of payments</p>
-            <div className={'w-full lg:w-1/5 ' + styles.selectBorder}>
+            <div className={"w-full lg:w-1/5 " + styles.selectBorder}>
               <Select
                 defaultValue={numberOfInputs}
                 onChange={(e) => setNumberOfInputs(e)}
-                style={{ width: '100%', borderRadius: '8px' }}
+                style={{ width: "100%", borderRadius: "8px" }}
               >
                 <Option value="1">1</Option>
                 <Option value="2">2</Option>
@@ -624,16 +713,16 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             <h2 className="text-base font-medium mb-2">
               Interval Between Each Payment
             </h2>
-            <div className={'w-full flex lg:w-2/5 ' + styles.billingContainer}>
+            <div className={"w-full flex lg:w-2/5 " + styles.billingContainer}>
               <Input
                 type="number"
                 onChange={(e) => handleBillingIntervalChange(e.target.value)}
-                style={{ paddingLeft: '10px' }}
+                style={{ paddingLeft: "10px" }}
               />
               <Select
                 onChange={(e) => setBillingIntervalDuration(e)}
                 defaultValue={customBillingIntervals[1].value}
-                style={{ width: '30%' }}
+                style={{ width: "30%" }}
               >
                 {customBillingIntervals &&
                   customBillingIntervals.map((item, index) => (
@@ -648,38 +737,45 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       )}
 
       <div>
-        {priceType === 'Fixed Price' && (
+        {priceType === "Fixed Price" && (
           <div
             className={
               styles.aplyCpn +
-              ' flex justify-between items-center mt-3 w-full pt-4'
+              " flex justify-between items-center mt-3 w-full pt-4"
             }
           >
             <div className={`${styles.cpnLabel}`}>
               Show Compare-To Price (Optional)
             </div>
-            <div className={styles.businessCouponNoShow + ' flex'}>
+            <div className={styles.businessCouponNoShow + " flex"}>
               <Switch
                 onChange={(e) => {
-                  setCompareToPrice((value) => !value)
+                  setCompareToPrice((value) => !value);
                 }}
-                checked={compareToPrice}
+                checked={
+                  // product?.product_details?.is_show_compare_price
+                  //   ? product?.product_details?.is_show_compare_price
+                  compareToPrice
+                }
               />
               <span className={`${styles.cpnStatus}`}>
                 <span className="pl-6 text-black-100 text-lg font-semibold">
-                  {compareToPrice ? 'ON' : 'OFF'}
+                  {compareToPrice ? "ON" : "OFF"}
                 </span>
                 <h3>Business</h3>
               </span>
             </div>
           </div>
         )}
-        {priceType === 'Fixed Price' && compareToPrice && (
+        {priceType === "Fixed Price" && compareToPrice && (
           <div className="mt-4">
             <CustomCheckoutSelect
-              title={'Original price (NGN)'}
+              title={"Original price (NGN)"}
               field={fixedOriginalPrice}
               setField={setFixedOriginalPrice}
+              withCustomFeedBack={true}
+              showFeedBack={!isOpMoreThanSp}
+              noMatchFound={noMatchingCurrency}
             />
           </div>
         )}
@@ -688,21 +784,21 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           <div
             className={
               styles.aplyCpn +
-              ' flex justify-between items-center mt-3 w-full pt-4'
+              " flex justify-between items-center mt-3 w-full pt-4"
             }
           >
             <div className={`${styles.cpnLabel}`}>Apply Coupon Code</div>
-            <div className={styles.businessCoupon + ' flex'}>
+            <div className={styles.businessCoupon + " flex"}>
               <Switch
                 onChange={(e) => {
-                  setApplyCoupon((value) => !value)
+                  setApplyCoupon((value) => !value);
                 }}
                 checked={applyCoupon}
                 disabled={isCouponDiabled ? true : false}
               />
               <span className={`${styles.cpnStatus}`}>
                 <span className="pl-6 text-black-100 font-semibold text-lg">
-                  {isCouponDiabled ? 'DISABLED' : applyCoupon ? 'ON' : 'OFF'}
+                  {isCouponDiabled ? "DISABLED" : applyCoupon ? "ON" : "OFF"}
                 </span>
                 <h3>Business</h3>
               </span>
@@ -728,12 +824,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   content={0}
                   label="Percentage(%)"
                   onChange={(e) => {
-                    setCouponType(e)
+                    setCouponType(e);
                     setCouponVariance((value) => ({
                       ...value,
                       isPercentage: !value.isPercentage,
                       is_fixed_amount: !value.is_fixed_amount,
-                    }))
+                    }));
                   }}
                   labelStyle={styles.radioLabelStyle}
                 />
@@ -757,12 +853,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   content={1}
                   label="Fixed Amount(NGN)"
                   onChange={(e) => {
-                    setCouponType(e)
+                    setCouponType(e);
                     setCouponVariance((value) => ({
                       ...value,
                       isPercentage: !value.isPercentage,
                       is_fixed_amount: !value.is_fixed_amount,
-                    }))
+                    }));
                   }}
                   labelStyle={styles.radioLabelStyle}
                 />
@@ -790,7 +886,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
                   onChange={(e) => {
-                    setFieldValue('coupon_settings.start_date', e.target.value)
+                    setFieldValue("coupon_settings.start_date", e.target.value);
                   }}
                 />
               </div>
@@ -803,7 +899,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
                   onChange={(e) => {
-                    setFieldValue('coupon_settings.end_date', e.target.value)
+                    setFieldValue("coupon_settings.end_date", e.target.value);
                   }}
                 />
               </div>
@@ -820,12 +916,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             <div className="flex">
               <Switch
                 onChange={(e) => {
-                  setAllowAffiliateMarket((value) => !value)
+                  setAllowAffiliateMarket((value) => !value);
                 }}
                 checked={allowAffiliateMarket}
               />
               <span className="pl-6 font-semibold text-black-100">
-                {allowAffiliateMarket ? 'ON' : 'OFF'}
+                {allowAffiliateMarket ? "ON" : "OFF"}
               </span>
             </div>
           </div>
@@ -835,18 +931,37 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
               <div className={styles.affilateUpload}>
                 <div className="flex items-center justify-between">
                   <h2 className="mb-0 text-base">
-                    {' '}
+                    {" "}
                     How much percentage are you willing to pay affiliate
                   </h2>
                   <div className={styles.affilateInput}>
                     <Input
-                      type="number"
+                      // type="number"
+                      type="tel"
                       placeholder="0"
                       value={afiliatePercentage}
-                      onChange={(e) => setAfiliatePercentage(e.target.value)}
+                      // pattern="/^([0-1]?[0-9]|100)$/"
+                      max={100}
+                      min={1}
+                      maxLength={3}
+                      onChange={(e) => {
+                        const commisionAllowed =
+                          e.target.value < 101 && !e.target.value.startsWith(0)
+                            ? e.target.value.replace(/[^0-9]/g, "")
+                            : "";
+                        setAfiliatePercentage(commisionAllowed);
+                      }}
                     />
                     <span>%</span>
                   </div>
+
+                  <p
+                    className={`${styles.commisionAllowed} ${
+                      afiliatePercentage === "" ? styles.show : ""
+                    }`}
+                  >
+                    Commission Percentage value should be between 1 and 100
+                  </p>
                 </div>
               </div>
               <div className="flex justify-between items-center w-full lg:w-3/5 pt-4">
@@ -856,12 +971,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 <div className="flex">
                   <Switch
                     onChange={(e) => {
-                      setUploadPromotionalMaterial((value) => !value)
+                      setUploadPromotionalMaterial((value) => !value);
                     }}
                     checked={uploadPromotionalMaterial}
                   />
                   <span className="pl-6 font-semibold text-black-100">
-                    {uploadPromotionalMaterial ? 'ON' : 'OFF'}
+                    {uploadPromotionalMaterial ? "ON" : "OFF"}
                   </span>
                 </div>
               </div>
@@ -871,34 +986,34 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 mainFile.map((item, index) => (
                   <div
                     key={index}
-                    className={styles.fileUpload + ' flex flex-col'}
+                    className={styles.fileUpload + " flex flex-col"}
                   >
                     <p className="mb-3">
                       {progress !== 100
-                        ? 'Uploading'
-                        : 'Content Uploaded Successfully'}{' '}
+                        ? "Uploading"
+                        : "Content Uploaded Successfully"}{" "}
                       ({progress && <>{progress}</>})%
                     </p>
                     <div
                       key={index}
-                      className={styles.uploaded + ' w-full rounded-md'}
+                      className={styles.uploaded + " w-full rounded-md"}
                     >
                       {progress !== 100 && <span></span>}
                       <div className="flex items-center">
                         <div
                           className="mr-4 flex items-center justify-center"
                           style={{
-                            width: '48px',
-                            height: '48px',
-                            background: '#0072EF',
-                            borderRadius: '8px',
+                            width: "48px",
+                            height: "48px",
+                            background: "#0072EF",
+                            borderRadius: "8px",
                           }}
                         >
                           <Image
                             src={
-                              item.file.type.includes('video')
+                              item.file.type.includes("video")
                                 ? Video
-                                : item.file.type.includes('audio')
+                                : item.file.type.includes("audio")
                                 ? Audio
                                 : FileZip
                             }
@@ -919,7 +1034,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                         onClick={() => handleDeleteFile(index)}
                         className={
                           styles.deleteFile +
-                          ' flex items-center justify-center'
+                          " flex items-center justify-center"
                         }
                       >
                         <Image src={FileDelete} alt="delete" />
@@ -963,19 +1078,19 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             <div className="flex">
               <Switch
                 onChange={(e) => {
-                  setLimitProductSale((value) => !value)
+                  setLimitProductSale((value) => !value);
                 }}
                 checked={limitProductSale}
               />
               <span className="pl-6 font-semibold text-black-100">
-                {limitProductSale ? 'ON' : 'OFF'}
+                {limitProductSale ? "ON" : "OFF"}
               </span>
             </div>
           </div>
 
           {limitProductSale && (
             <div
-              className={'items-center mt-2 flex justify-between pt-3 w-2/3'}
+              className={"items-center mt-2 flex justify-between pt-3 w-2/3"}
             >
               <h2 className="text-base-gray-200 mb-0 font-medium text-base">
                 Product Sales Limit
@@ -996,12 +1111,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             <div className="flex">
               <Switch
                 onChange={(e) => {
-                  setShowTotalSales((value) => !value)
+                  setShowTotalSales((value) => !value);
                 }}
                 checked={showTotalSales}
               />
               <span className="pl-6 font-semibold text-black-100">
-                {showTotalSales ? 'ON' : 'OFF'}
+                {showTotalSales ? "ON" : "OFF"}
               </span>
             </div>
           </div>
@@ -1013,23 +1128,29 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
             <div className="flex">
               <Switch
                 onChange={(e) => {
-                  setBuyerPaysTransactionFee((value) => !value)
+                  setBuyerPaysTransactionFee((value) => !value);
                 }}
                 checked={buyerPaysTransactionFee}
               />
               <span className="pl-6 font-semibold text-black-100">
-                {buyerPaysTransactionFee ? 'ON' : 'OFF'}
+                {buyerPaysTransactionFee ? "ON" : "OFF"}
               </span>
             </div>
           </div>
         </div>
 
         <div className={styles.digitalBtn}>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            // disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
+            disabled={disableButton()}
+          >
             Save and Preview
           </Button>
         </div>
       </div>
     </Form>
-  )
-}
+  );
+};

@@ -7,9 +7,11 @@ import AuthLayout from "components/authlayout";
 import DashboardFilters from "components/account-dashboard/DashboardFilters";
 import StatsHeader from "components/account-dashboard/StatsHeader";
 import styles from "public/css/DashboardPage.module.scss";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { mutate } from "swr";
+import { PromptInfoIcon } from "utils";
+import Image from "next/image";
 
 // import useSWR from "swr";
 
@@ -28,7 +30,7 @@ const Dashboard = () => {
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
   const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-  // const user = useSelector((state) => state?.auth?.user);
+  const user = useSelector((state) => state?.auth?.user);
 
   const hideModal = async () => {
     setModalVisible(false);
@@ -42,9 +44,9 @@ const Dashboard = () => {
     }
   };
 
-  // const isAffiliate = user?.is_affiliate;
+  const isAnAffiliate = user?.is_affiliate;
 
-  // console.log("isAffiliate = ", isAffiliate);
+  console.log("isAffiliate = ", isAnAffiliate);
 
   const getUserVisitStatus = useCallback(() => {
     axios
@@ -70,19 +72,41 @@ const Dashboard = () => {
       <Head>
         <title>KreateSell | Dashboard</title>
       </Head>
-      <header>
+      <header className={styles.boardSection}>
         <DashboardFilters data={[]} setFiltered={setFiltered} />
+        {isFirstTimeUser && <SetUpPrompt />}
       </header>
       <section>
         <div className={styles.stats__container}>
-          <StatsHeader title="Kreator" url="/account/dashboard/kreator" />
+          <StatsHeader
+            title="Kreator"
+            url="/account/dashboard/kreator"
+            isAffiliateCard={false}
+            isAnAffiliate={isAnAffiliate}
+          />
           <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
         </div>
         {/* show only when user is an affiliate */}
         {/* {isAffiliate && ( */}
-        <div className={styles.stats__container}>
-          <StatsHeader title="Affiliate" url="/account/dashboard/affiliate" />
-          <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
+        <div
+          className={`${styles.stats__container} ${
+            isAnAffiliate ? styles.isAnAffiliate : ""
+          }`}
+        >
+          <StatsHeader
+            title="Affiliate"
+            url="/account/dashboard/affiliate"
+            isAnAffiliate={isAnAffiliate}
+            isAffiliateCard={true}
+          />
+          <StatsCard
+            totalVisits="0"
+            isAnAffiliate={isAnAffiliate}
+            isAffiliateCard={true}
+            unitSales="0"
+            grossSales="0"
+            profit="0"
+          />
         </div>
         {/* )} */}
       </section>
@@ -127,3 +151,18 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const SetUpPrompt = () => {
+  return (
+    <div className={styles.setUpPrompt}>
+      <div className={styles.promptHeader}>
+        <Image src={PromptInfoIcon} alt="prompt info" />
+        <h4> Finish your store set up</h4>
+      </div>
+      <p>
+        Provide all the required information for your store to be fully setup
+        and activated. <Link href="/">Click here to proceed</Link>.
+      </p>
+    </div>
+  );
+};

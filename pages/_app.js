@@ -42,6 +42,7 @@ function MyApp({ Component, pageProps }) {
         async
       />
       <ChatScript />
+
       <Component {...pageProps} />
     </Provider>
   );

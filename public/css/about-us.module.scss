@@ -5,17 +5,13 @@
 .aboutUsContainer {
   width: 100%;
   margin: 6rem 0;
+  margin-bottom: unset;
 
   //   border: 1px solid red;
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../images/partial-general-bg.svg");
 
-  .body {
-    // max-width: 1240px;
-    // margin: 0 auto;
-    margin-bottom: 2rem;
-  }
   .imageBox {
     margin: 0 auto;
     max-width: 900px;
@@ -82,14 +78,14 @@
       justify-content: flex-start;
       flex-direction: row-reverse;
       // align-items: center;
-      .storyBox {
-        width: 50%;
-      }
+      // .storyBox {
+      //   width: 50%;
+      // }
 
       .merge {
         width: 50%;
         + div {
-          width: 100%;
+          // width: 100%;
           height: 100%;
           img {
             width: 100%;
@@ -112,6 +108,7 @@
         width: 100%;
         text-align: justify;
         padding: 33px 120px 40px 60px;
+
         box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
       }
 
@@ -156,6 +153,8 @@
       font-weight: 400;
       font-size: 18px;
       line-height: 34px;
+      // border: 1px solid red;
+      max-width: 453px;
       @media (min-width: 768px) {
         line-height: 28px;
       }
@@ -399,17 +398,22 @@
       }
 
       .customHeader {
-        background-color: $blue-200 !important;
+        // background-color: $blue-200 !important;
         width: 100%;
-        margin-bottom: unset;
-        position: absolute !important;
+        // margin-bottom: unset;
+        // position: absolute !important;
+        // border: 1px solid red;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 50px;
         min-height: 40px;
         padding-left: 1rem;
-        padding-top: 0.2rem;
+        // padding-top: 0.2rem;
+        // margin-bottom: 0.4rem;
 
         // height: 100%;
         // padding: 0.5rem 0;
@@ -430,6 +434,10 @@
     .collapsibles {
       @media (min-width: 768px) {
         width: 50%;
+      }
+
+      .ant-collapse-header {
+        border: 1px solid red !important;
       }
     }
     .images {
@@ -655,6 +663,89 @@
       font-size: 28px;
       line-height: 40px;
       text-align: center;
+      padding-top: 2rem;
+      @media (min-width: 1000px) {
+        padding-top: 40px;
+        margin-bottom: 40px;
+        font-size: 40px;
+        line-height: 54px;
+      }
+    }
+
+    .featureBox {
+      // border: 1px solid red;
+      padding: 1rem;
+      padding-bottom: 60px;
+      .mobile {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        @media (min-width: 650px) {
+          display: none;
+        }
+      }
+
+      .lg {
+        display: none;
+        // .container.right {
+        //   @media (min-width: 1100px) {
+        //     margin-right: 98px;
+        //     margin-left: 98px;
+        //   }
+        // }
+        @media (min-width: 650px) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 23px;
+          max-width: 646px;
+          margin: 0 auto;
+        }
+
+        @media (min-width: 1100px) {
+          .imgBox {
+            // transform: scale(1.5);
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+      .imgBox {
+        // border: 1px solid blue;
+        padding: 3.75px 31.79px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 71.98px;
+        // transform: scale(1.1);
+        background-color: #fff;
+        box-shadow: 0px 14.9965px 149.965px rgba(34, 34, 34, 0.1);
+        border-radius: 11.9972px;
+        @media (min-width: 500px) {
+          min-width: 127.47px;
+          max-width: 170px;
+          max-height: 96px;
+        }
+        &.drop {
+          margin-bottom: 24px;
+          // @media (min-width: 1100px) {
+          //   margin-bottom: 48px;
+          //   margin-left: 20px;
+          // }
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    @media (min-width: 600px) {
+      margin-top: 18rem;
     }
   }
 }

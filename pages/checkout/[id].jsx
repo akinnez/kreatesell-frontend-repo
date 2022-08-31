@@ -18,7 +18,7 @@ import styles from "../../public/css/checkout.module.scss";
 import { Input, Button } from "components";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { ConsumerSalesCheckoutSchema } from "validation";
-import { useFormik } from "formik";
+import { useFormik, Formik } from "formik";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { usePaystackPayment } from "react-paystack";
@@ -155,7 +155,7 @@ const Checkout = () => {
     initialValues,
     onSubmit: handleSubmit,
     validationSchema: ConsumerSalesCheckoutSchema,
-    validateOnChange: false,
+    validateOnChange: true,
   });
 
   const { errors, setFieldValue, values } = formik;
@@ -299,6 +299,7 @@ const Checkout = () => {
                 height="small"
                 onChange={formik.handleChange}
                 errorMessage={errors.firstName}
+                // validateOnChange
               />
 
               <Input
@@ -308,6 +309,7 @@ const Checkout = () => {
                 height="small"
                 onChange={formik.handleChange}
                 errorMessage={errors.lastName}
+                // validateOnChange
               />
 
               <Input
@@ -335,6 +337,7 @@ const Checkout = () => {
             className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8`}
           >
             <form
+              // validateOnChange
               onSubmit={formik.handleSubmit}
               autoComplete="off"
               className="w-full"

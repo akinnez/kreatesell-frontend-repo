@@ -18,6 +18,7 @@ export const Navbar = () => {
   // const navDropIsInView = useSelector((state) => state.)
   const { pathname } = useRouter();
   // state for navDrop
+
   // .
   const [navDrop, setNavDrop] = useState({
     isVisible: false,
@@ -69,8 +70,18 @@ export const Navbar = () => {
     router.push(path);
   };
 
+  const isActiveMobileNavLink = (navLink) => {
+    return navLink === pathname;
+  };
+
   return (
     <>
+      {openMobileNav && (
+        <div
+          className={styles.backDrop}
+          onClick={() => setOpenMobileNav(false)}
+        ></div>
+      )}
       <nav
         className={`${styles.navContainer} ${navBg && styles.navBg} ${
           openMobileNav ? styles.reverseMobileView : ""
@@ -97,11 +108,11 @@ export const Navbar = () => {
             <Logo />
           </a>
         </Link>
-        {!openMobileNav && (
-          <div className={styles.MobileLogo} onClick={() => router.push("/")}>
-            <MobileLogo />
-          </div>
-        )}
+        {/* {!openMobileNav && ( */}
+        <div className={styles.MobileLogo} onClick={() => router.push("/")}>
+          <MobileLogo />
+        </div>
+        {/* )} */}
 
         <div className={styles.navLinks}>
           <ul className={styles.categoryLinks}>
@@ -134,29 +145,95 @@ export const Navbar = () => {
         </div>
 
         <div className={`${openMobileNav ? styles.mobileNavLinks : `hidden`}`}>
+          <div className={styles.navClose}>
+            <div
+              className={styles.loginBtnOnNav}
+              onClick={() => router.push("/login")}
+            >
+              <Button text="Login" className={styles.loginBtnStyle} />
+            </div>
+          </div>
           <div className={styles.inner}>
             <div className={styles.innerBox}>
               <ul className={styles.mobileCategoryLinks}>
-                <li onClick={() => handleMobileNavLinkClick("/")}>Home</li>
-                <li onClick={() => handleMobileNavLinkClick("about-us")}>
+                <li
+                  className={
+                    isActiveMobileNavLink("/") ? styles.activeMobileLink : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/")}
+                >
+                  Home
+                </li>
+                <li
+                  className={
+                    isActiveMobileNavLink("/about-us")
+                      ? styles.activeMobileLink
+                      : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("about-us")}
+                >
                   About Us
                 </li>
 
-                {/* <li onClick={() => handleMobileNavLinkClick("")}></li> */}
-                <li onClick={() => handleMobileNavLinkClick("/how-it-works")}>
+                {/* <li className={isActiveMobileNavLink("") ? styles.activeMobileLink : ""} onClick={() => handleMobileNavLinkClick("")}></li> */}
+                <li
+                  className={
+                    isActiveMobileNavLink("/how-it-works")
+                      ? styles.activeMobileLink
+                      : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/how-it-works")}
+                >
                   How it works
                 </li>
-                <li onClick={() => handleMobileNavLinkClick("/features")}>
+                <li
+                  className={
+                    isActiveMobileNavLink("/features")
+                      ? styles.activeMobileLink
+                      : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/features")}
+                >
                   Features
                 </li>
-                <li onClick={() => handleMobileNavLinkClick("/pricing")}>
+                <li
+                  className={
+                    isActiveMobileNavLink("/pricing")
+                      ? styles.activeMobileLink
+                      : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/pricing")}
+                >
                   Pricing
                 </li>
-                <li onClick={() => handleMobileNavLinkClick("/blog")}>Blog</li>
-                <li onClick={() => handleMobileNavLinkClick("/payouts")}>
+                <li
+                  className={
+                    isActiveMobileNavLink("/blog")
+                      ? styles.activeMobileLink
+                      : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/blog")}
+                >
+                  Blog
+                </li>
+                <li
+                  className={
+                    isActiveMobileNavLink("/payouts")
+                      ? styles.activeMobileLink
+                      : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/payouts")}
+                >
                   Payments
                 </li>
-                <li onClick={() => handleMobileNavLinkClick("/faq")}>FAQs</li>
+                <li
+                  className={
+                    isActiveMobileNavLink("/faq") ? styles.activeMobileLink : ""
+                  }
+                  onClick={() => handleMobileNavLinkClick("/faq")}
+                >
+                  FAQs
+                </li>
               </ul>
               <div className={styles.mobileInput}>
                 <Input type="" placeholder="Enter your email.." />
