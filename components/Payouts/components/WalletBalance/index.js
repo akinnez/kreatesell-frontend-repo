@@ -1,44 +1,44 @@
-import { useState } from "react";
-import useSWR from "swr";
-import { Typography, Row, Col, Button } from "antd";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import Spinner from "components/Spinner";
-import SuccessModalBox from "components/SuccessModalBox";
-import WithdrawModal from "../WithdrawModal";
-import WalletInfo from "../WalletInfo";
-import axiosApi from "utils/axios";
-import { showToast } from "utils";
-import styles from "./index.module.scss";
+import { useState } from 'react'
+import useSWR from 'swr'
+import { Typography, Row, Col, Button } from 'antd'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
+import Spinner from 'components/Spinner'
+import SuccessModalBox from 'components/SuccessModalBox'
+import WithdrawModal from '../WithdrawModal'
+import WalletInfo from '../WalletInfo'
+import axiosApi from 'utils/axios'
+import { showToast } from 'utils'
+import styles from './index.module.scss'
 
-const { Text } = Typography;
+const { Text } = Typography
 const breakPoints = {
   xs: { span: 24 },
   md: { span: 12 },
-};
+}
 
 const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
-  const [withdrawModal, setWithdrawModal] = useState(false);
-  const [successModal, setSuccessModal] = useState(false);
+  const [withdrawModal, setWithdrawModal] = useState(false)
+  const [successModal, setSuccessModal] = useState(false)
 
   const { data: affiliateBalance } = useSWR(
     `${process.env.BASE_URL}affiliate/get-wallet-account-balance`,
-    url => {
+    (url) => {
       return axiosApi.request(
-        "get",
+        'get',
         url,
-        res => res.data,
+        (res) => res.data,
         () => {
-          showToast("An error occurred fetching your account balance", "error");
-        }
-      );
-    }
-  );
+          showToast('An error occurred fetching your account balance', 'error')
+        },
+      )
+    },
+  )
 
   const handleClicks = (setter, value) => () => {
-    setter(value);
-  };
+    setter(value)
+  }
 
-  const { currency, available_balance: kreatorBalance } = walletInfo[0];
+  const { currency, available_balance: kreatorBalance } = walletInfo[0]
 
   return (
     <header className={styles.header}>
@@ -116,7 +116,7 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
         </SuccessModalBox>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default WalletBalance;
+export default WalletBalance

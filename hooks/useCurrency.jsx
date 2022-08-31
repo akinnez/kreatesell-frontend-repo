@@ -12,28 +12,28 @@ const useCurrency = () => {
   const [loading, setLoading] = useState(false)
   const { countries } = useSelector((state) => state.utils)
 
-  useSWR(
-    `${process.env.BASE_URL}v1/kreatesell/utils/allowed-currencies`,
-    (url) => {
-      // setLoading(true)
-      ApiService.request(
-        'GET',
-        'v1/kreatesell/utils/allowed-currencies',
-        (res) => {
-          setLoading(false)
-          const item = res?.data?.currencies?.map(({ id, short_name }) => ({
-            label: short_name,
-            value: id,
-          }))
-          setAllowedCurrencies(item)
-        },
-      ),
-        (err) => {
-          setLoading(false)
-          console.log('err is', err)
-        }
-    },
-  )
+  // useSWR(
+  //   `${process.env.BASE_URL}v1/kreatesell/utils/allowed-currencies`,
+  //   (url) => {
+  //     // setLoading(true)
+  //     ApiService.request(
+  //       'GET',
+  //       'v1/kreatesell/utils/allowed-currencies',
+  //       (res) => {
+  //         setLoading(false)
+  //         const item = res?.data?.currencies?.map(({ id, short_name }) => ({
+  //           label: short_name,
+  //           value: id,
+  //         }))
+  //         setAllowedCurrencies(item)
+  //       },
+  //     ),
+  //       (err) => {
+  //         setLoading(false)
+  //         console.log('err is', err)
+  //       }
+  //   },
+  // )
   useEffect(() => {
     setLoading(true)
     ApiService.request(
@@ -76,15 +76,6 @@ const useCurrency = () => {
   // // console.log("countriesCurrency", countriesCurrency);
   // console.log("allowedCurrencies", allowedCurrencies);
   const filterdWest = useMemo(() => {
-    // const cn = [
-    //   'Benin Republic',
-    //   'Burkina Faso',
-    //   'Togo',
-    //   'Mali',
-    //   'Senegal',
-    //   'Ivory Coast',
-    // ]
-    // return countries.filter((c) => cn.includes(c.name))
     return countries.filter((c) => c.currency === 'XOF')
   }, [countries])
 
@@ -93,7 +84,13 @@ const useCurrency = () => {
     return countries.filter((c) => cn.includes(c.name))
   }, [countries])
 
-  return { countriesCurrency, filterdWest, filteredCentral, loading }
+  return {
+    countriesCurrency,
+    filterdWest,
+    filteredCentral,
+    loading,
+    allowedCurrencies,
+  }
 }
 
 export default useCurrency

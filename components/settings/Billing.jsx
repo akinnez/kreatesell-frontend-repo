@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 
@@ -27,6 +28,7 @@ const Billing = () => {
   const [countryOptions, setCountryOptions] = useState([])
   const [subscriptionMode, setSubscriptionMode] = useState(null)
   const [selectedCurrency, setSelectedCurrency] = useState({})
+  const { store } = useSelector((state) => state.store)
 
   useEffect(() => {
     monthly ? setBusinessPrice('4,999') : setBusinessPrice('4,167')
@@ -49,6 +51,13 @@ const Billing = () => {
       setSubscriptionMode({ mode: 'monthly', price: 4999 })
     }
   }, [annually, monthly])
+
+  // useEffect to check if current plan
+  useEffect(() => {
+    if (store?.user?.user_plan && store?.user?.user_plan === 'Business') {
+      setSelectedPlan(store?.user?.user_plan)
+    }
+  }, [store?.user?.user_plan])
 
   // change
   useMemo(() => {
@@ -129,7 +138,7 @@ const Billing = () => {
               priceType={priceLabel}
               subPriceType={subPriceType}
               btnOnClick={openModal}
-              currentPlan={selectedPlan === 'business'}
+              currentPlan={selectedPlan === 'Business'}
             />
           </div>
         </div>

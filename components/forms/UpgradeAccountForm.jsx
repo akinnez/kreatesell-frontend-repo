@@ -102,16 +102,15 @@ export const UpgradeAccountForm = ({
       payment_type: 'subscription',
       is_affiliate: user?.is_affiliate,
       affiliate_product_link: '',
+      user_identifier: user?.id,
     }
     return value
   }
 
   // Flutterwave configurations
+  // console.log('active currency', activeCurrency?.currency)
   const flutterConfig = {
-    public_key:
-      activeCurrency?.currency === 'GHS'
-        ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
-        : process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
+    public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
     amount: price,
     currency: `${activeCurrency?.currency}`,
@@ -140,7 +139,10 @@ export const UpgradeAccountForm = ({
     reference: randomId,
     email: user?.email,
     amount: price * 100,
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    publicKey:
+      activeCurrency?.currency === 'GHS'
+        ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
+        : process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
     firstName: splitFullName(user?.full_name, 'arr')?.[0],
     lastname: splitFullName(user?.full_name, 'arr')?.[1],
     phone: user?.mobile,
@@ -319,42 +321,42 @@ export const UpgradeAccountForm = ({
     setSelectedPaymentMethod(method)
   }
 
-  const handlePayment = (e) => {
-    e.preventDefault()
-    if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
-      // console.log('I got here')
-      setSelectedPaymentMethod(() => '')
-    }
-    const data = {
-      fullname: 'string',
-      email_address: 'string',
-      mobile_number: 'string',
-      datetime: '2022-08-08T14:24:41.326Z',
-      total: 0,
-      reference_id: 'string',
-      purchase_details: [
-        {
-          product_id: 0,
-          quantity: 0,
-          amount: 0,
-        },
-      ],
-      status: 'string',
-      card_type: 'string',
-      last_four: 'string',
-      currency: 'string',
-      is_affiliate: true,
-      affiliate_product_link: 'string',
-    }
-    console.log(
-      'activeCurrency: ',
-      activeCurrency,
-      '\nselectedPaymentMethod',
-      selectedPaymentMethod,
-    )
-    // backend enpoint
-    // makePlanUpgrade(data, ()=>console.log("success"), ()=>console.log("error"));
-  }
+  // const handlePayment = (e) => {
+  //   e.preventDefault()
+  //   if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
+  //     // console.log('I got here')
+  //     setSelectedPaymentMethod(() => '')
+  //   }
+  //   const data = {
+  //     fullname: 'string',
+  //     email_address: 'string',
+  //     mobile_number: 'string',
+  //     datetime: '2022-08-08T14:24:41.326Z',
+  //     total: 0,
+  //     reference_id: 'string',
+  //     purchase_details: [
+  //       {
+  //         product_id: 0,
+  //         quantity: 0,
+  //         amount: 0,
+  //       },
+  //     ],
+  //     status: 'string',
+  //     card_type: 'string',
+  //     last_four: 'string',
+  //     currency: 'string',
+  //     is_affiliate: true,
+  //     affiliate_product_link: 'string',
+  //   }
+  //   console.log(
+  //     'activeCurrency: ',
+  //     activeCurrency,
+  //     '\nselectedPaymentMethod',
+  //     selectedPaymentMethod,
+  //   )
+  //   // backend enpoint
+  //   // makePlanUpgrade(data, ()=>console.log("success"), ()=>console.log("error"));
+  // }
 
   if (loading) return <Loader />
 
@@ -509,22 +511,25 @@ export const UpgradeAccountForm = ({
           </div>
 
           <div className="py-7">
-            <h2>West African CFA Franc BCEAO</h2>
-            <div className="grid gap-4 grid-cols-4 ">
-              {filterdWest.map((country, index) => (
+            <h2>West African CFA Franc BCEAO(XOF)</h2>
+            <div className="grid gap-2 grid-cols-4 ">
+              {filterdWest.map(({ id, currency, flag, name }, index) => (
                 <div
                   key={index}
-                  className={false ? styles.activeCard : styles.card}
-                  onClick={() => setActiveCurrency(country.currency)}
+                  className={
+                    activeCurrency.id === id ? styles.activeCard : styles.card
+                  }
+                  // onClick={() => setActiveCurrency(country)}
+                  onClick={() => handleSelect({ id, currency })}
                 >
                   <div
                     className={styles.checFlag + ' mr-2'}
                     style={{ borderRadius: '50%' }}
                   >
-                    <Image src={country.flag} alt="flag" layout="fill" />
+                    <Image src={flag} alt="flag" layout="fill" />
                   </div>
-                  <div className="">{country.name}</div>
-                  {false && (
+                  <div className="">{name}</div>
+                  {activeCurrency.id === id && (
                     <div className="pl-1 pt-1">
                       <Image
                         src={ActiveTick}
@@ -538,24 +543,26 @@ export const UpgradeAccountForm = ({
               ))}
             </div>
           </div>
-
           <div className="py-7">
-            <h2>Central African CFA Franc BEAC</h2>
-            <div className="grid gap-4 grid-cols-4 ">
-              {filteredCentral.map((country, index) => (
+            <h2>Central African CFA Franc BEAC(XAF)</h2>
+            <div className="grid gap-1 grid-cols-4 ">
+              {filteredCentral.map(({ id, currency, name, flag }, index) => (
                 <div
                   key={index}
-                  className={false ? styles.activeCard : styles.card}
-                  onClick={() => setActiveCurrency(country.currency)}
+                  className={
+                    activeCurrency.id === id ? styles.activeCard : styles.card
+                  }
+                  // onClick={() => setActiveCurrency(country)}
+                  onClick={() => handleSelect({ id, currency })}
                 >
                   <div
                     className={styles.checFlag + ' mr-2'}
                     style={{ borderRadius: '50%' }}
                   >
-                    <Image src={country.flag} alt="flag" layout="fill" />
+                    <Image src={flag} alt="flag" layout="fill" />
                   </div>
-                  <div className="">{country.name}</div>
-                  {false && (
+                  <div className="">{name}</div>
+                  {activeCurrency.id === id && (
                     <div className="pl-1 pt-1">
                       <Image
                         src={ActiveTick}

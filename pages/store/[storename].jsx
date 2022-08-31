@@ -61,10 +61,6 @@ const StorePage = () => {
             <Select options={currencyOptions} border="none" />
           </div>
 
-          {/* <div className="mr-4" onClick={() => router.push("/login")}>
-            <Button text="Login" />
-          </div> */}
-
           <div onClick={() => logout()}>
             <Button text="logout" bgColor="blue" />
           </div>
