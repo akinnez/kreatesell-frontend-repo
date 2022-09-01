@@ -56,6 +56,8 @@ const Billing = () => {
   useEffect(() => {
     if (store?.user?.user_plan && store?.user?.user_plan === 'Business') {
       setSelectedPlan(store?.user?.user_plan)
+    } else {
+      setSelectedPlan(store?.user?.user_plan)
     }
   }, [store?.user?.user_plan])
 
@@ -116,7 +118,7 @@ const Billing = () => {
             </div>
           </div>
         </div>
-
+        {console.log('Selected plan', selectedPlan)}
         <div className="flex flex-col md:flex-row justify-center my-6">
           <div className="md:pr-4">
             <PricingCard
@@ -125,7 +127,7 @@ const Billing = () => {
               btnText=""
               subTitle="All of the features you need to start selling your contents"
               priceType="100% Free"
-              currentPlan={selectedPlan === 'basic'}
+              currentPlan={selectedPlan === 'Basic'}
             />
           </div>
 
