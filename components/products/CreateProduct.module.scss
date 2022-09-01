@@ -16,7 +16,7 @@
 }
 
 .container {
-  .productTypeTab {
+  .productTypeTab, .productTypeTabDisabled {
     border-radius: 0.5rem;
     font-weight: 400;
     font-size: 1rem;
@@ -72,7 +72,27 @@
         }
       }
     }
+  }
 
+  .productTypeTabDisabled{
+    cursor: not-allowed;
+    color: $gray-100;
+    border: 2px solid $gray-100;
+    span {
+      color: $gray-200;
+    }
+    h3 {
+      background-color: $green-200;
+      color: $base-white;
+      border: 1px solid $green-200;
+    }
+    h2{
+      color: $gray-200;
+    }
+
+    
+  }
+  .productTypeTab{
     &.active {
       border: 2px solid $base-blue;
       color: $base-blue;

@@ -47,10 +47,12 @@ export const Login = () => {
         // check if the login request has 2FA enabled
         if (!res.data?.is2_fa_set) {
           const { token, user } = res
+          dispatch({ type: types.LOGIN.SUCCESS, payload: user })
           localStorage.setItem('token', token)
           localStorage.setItem('user', JSON.stringify(user))
           // sessionStorage.setItem("user", JSON.stringify(user));
-          dispatch({ type: types.LOGIN.SUCCESS, payload: user })
+        } else if (res.data?.is2_fa_set) {
+          dispatch({ type: types.STOP_LOADING })
         }
         successCallback?.(res)
       },

@@ -273,13 +273,6 @@ export const UpgradeAccountForm = ({
         onClose: () => {},
       })
     }
-
-    // console.log(
-    //   'activeCurrency: ',
-    //   activeCurrency,
-    //   '\nselectedPaymentMethod',
-    //   selectedPaymentMethod,
-    // )
   }
 
   // set currency on mount
