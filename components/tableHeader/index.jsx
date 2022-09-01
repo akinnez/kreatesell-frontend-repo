@@ -320,7 +320,7 @@ const ActionComponent = ({ item }, all) => {
         <p className="mb-0 ml-3">Duplicate</p>
       </li>
 
-      {[1, 2].includes(all?.status) && (
+      {[2].includes(all?.status) && (
         <li
           className={styles.deletePop + ` flex items-center cursor-pointer`}
           style={{
