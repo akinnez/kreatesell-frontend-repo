@@ -61,7 +61,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const mounted = useRef(null)
   const { Option } = Select
 
-  // guards agains price duplication
+  // guards against price duplication
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = 0
@@ -349,13 +349,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     // console.log("checkedData", checkedData)
     const result = transformToFormData(checkedData)
     console.log('result = ', result)
-    // createProduct(result, () => {
-    //   if (priceType === 'Fixed Price') {
-    //     router.push(`/account/kreator/products/preview/${productID}`)
-    //     return
-    //   }
-    //   setProductTab(2)
-    // })
+    createProduct(result, () => {
+      if (priceType === 'Fixed Price') {
+        router.push(`/account/kreator/products/preview/${productID}`)
+        return
+      }
+      setProductTab(2)
+    })
   }
 
   // console.log(
@@ -406,6 +406,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       show_number_of_sales: showTotalSales,
     },
   }
+
+  // console.log('initialValues', initialValues)
 
   const formik = useFormik({
     initialValues,
@@ -492,6 +494,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setNumberOfLimit(0)
     }
   }, [compareToPrice, allowAffiliateMarket, limitProductSale])
+
+  // console.log('product', product)
   const setAllFields = useCallback(() => {
     mounted.current += 1
     if (product && mounted.current === 1) {
