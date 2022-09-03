@@ -92,6 +92,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   // Fixed Price Inputs
   const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
   const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
+  const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] =
+    useState(fixedOriginalPrice);
 
   // Pay What You Want
   const [minimumPrice, setMinimumPrice] = useState([]);
@@ -279,12 +281,31 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           );
           setFixedSellingPrice((prev) => [...prev, registeredPrice]);
           break;
+
+        // * populate and show fixed original price
+        case "Original":
+          const registeredOriginalPrice = populatePricingObject(
+            values.currency_name,
+            values.price
+          );
+          setFixedOriginalPrice((prev) => {
+            setSavedFixedOriginalPrice([...prev, registeredOriginalPrice]);
+            return [...prev, registeredOriginalPrice];
+          });
+        //* save in here for toggle
+        // fixedOriginalPrice);
+        // console.log("fixedOriginalPrice from switch = ", fixedOriginalPrice);
+        // localStorage.setItem(
+        //   "originalPrice",
+        //   JSON.stringify(fixedOriginalPrice)
+        // );
         default:
           break;
       }
     }
   }, []);
 
+  // console.log("localstorage = ", localStorage.getItem("originalPrice"));
   const checkArrays = (data) => {
     // console.log("Data passed to function", data);
     const arrayLists = [
@@ -561,6 +582,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
       if (product.check_out_details && product.check_out_details.length > 0) {
         populatePricing(product?.check_out_details);
+        // setFixedOriginalPrice(fixedOriginalPrice);
       }
       if (product.product_details.is_allow_affiliate === true) {
         setAllowAffiliateMarket(true);
@@ -575,6 +597,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   }, [product]);
 
   useEffect(() => {
+    if (compareToPrice) {
+      setFixedOriginalPrice(savedFixedOriginalPrice);
+    }
+  }, [compareToPrice, fixedOriginalPrice, savedFixedOriginalPrice]);
+
+  useEffect(() => {
     if (Object.keys(product).length > 0) {
       setAllFields();
     }
@@ -583,6 +611,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
   const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
   useEffect(() => {
+    // console.log("fixedOriginalPrice = ", fixedOriginalPrice);
     fixedOriginalPrice?.map((OpItem) => {
       //* Op = Original Price and Sp = SellingPrice
       const OpItemCurrency = OpItem?.currency_name;
@@ -591,8 +620,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
         return SpItem?.currency_name === OpItemCurrency;
       });
-      console.log("fixedOriginalPrice = ", fixedOriginalPrice);
-      console.log("fixedSellingPrice = ", fixedSellingPrice);
+
       if (fixedSellingPrice.length === 0 || fixedOriginalPrice.length === 0) {
         setIsOpMoreThanSp(false);
       } else if (compareToPrice === true && fixedOriginalPrice.length === 0) {
@@ -626,27 +654,27 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     // console.log("compareToPrice = ", compareToPrice);
 
     if (!compareToPrice && !isOpMoreThanSp) {
-      console.log("condition 1");
+      // console.log("condition 1");
       return false;
     }
 
     if (compareToPrice && !isOpMoreThanSp) {
-      console.log("condition 1.1");
+      // console.log("condition 1.1");
       return true;
     }
     if (!compareToPrice && noMatchingCurrency) {
-      console.log("condition 2");
+      // console.log("condition 2");
       return false;
     }
     if (!isOpMoreThanSp) {
-      console.log("condition 3");
+      // console.log("condition 3");
       return true;
     }
 
     return false;
   }, [compareToPrice, isOpMoreThanSp, noMatchingCurrency]);
 
-  console.log("disableButton = ", disableButton());
+  // console.log("disableButton = ", disableButton());
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === "Fixed Price" && (
@@ -771,8 +799,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
           <div className="mt-4">
             <CustomCheckoutSelect
               title={"Original price (NGN)"}
-              field={fixedOriginalPrice}
-              setField={setFixedOriginalPrice}
+              // * buggy
+              // field={fixedOriginalPrice}
+              // setField={setFixedOriginalPrice}
+              //* bug fix
+              field={savedFixedOriginalPrice}
+              setField={setSavedFixedOriginalPrice}
               withCustomFeedBack={true}
               showFeedBack={!isOpMoreThanSp}
               noMatchFound={noMatchingCurrency}
