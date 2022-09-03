@@ -85,3 +85,15 @@
   // border: 1px solid red;
   margin-left: auto;
 }
+
+.mobileHeader {
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+
+.lg {
+  @media (max-width: 992px) {
+    display: none;
+  }
+}

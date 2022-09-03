@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import jwtDecode from "jwt-decode";
+import React, { useEffect, useState } from "react";
+import styles from "./sidebar.module.scss";
 import { Layout } from "antd";
 import Sidebar from "./sidebar";
 import Logo from "./logo";
@@ -91,6 +91,9 @@ const Index = ({
   useFetchStore();
   useFetchNotifications();
 
+  const [isMobileSideBarOpen, setIsMobileSideBarOpen] = useState(false);
+  const toggleView = () => setIsMobileSideBarOpen(!isMobileSideBarOpen);
+
   return (
     <>
       <Layout>
@@ -112,8 +115,15 @@ const Index = ({
             <Sidebar />
           </div>
         </Sider>
+        {/* <div className={styles.mobileSideBar}>
+          <Sidebar isMobileView={true} />
+        </div> */}
         <Layout>
-          <Nav headerTitle={headerTitle} />
+          <Nav
+            headerTitle={headerTitle}
+            toggleView={toggleView}
+            isMobileSideBarOpen={isMobileSideBarOpen}
+          />
           <Content
             // style={{
             // 	backgroundColor: "rgba(245, 245, 245, 1)",

@@ -78,7 +78,7 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 
 // console.log(OpenSubMenu);
 
-const Sidebar = () => {
+const Sidebar = ({ isMobileView = false }) => {
   const { SubMenu } = Menu;
   const router = useRouter();
   const setProductId = SetProductID();
@@ -248,20 +248,22 @@ const Sidebar = () => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-      <section className={style.businessBg}>
-        <div className={style.iconBox}>
-          <div className={style.icon}>
-            <Image src={BusinessPlanBox} alt="business plan icon" />
+      {!isMobileView && (
+        <section className={style.businessBg}>
+          <div className={style.iconBox}>
+            <div className={style.icon}>
+              <Image src={BusinessPlanBox} alt="business plan icon" />
+            </div>
+            <p className={style.text}>
+              Enjoy the power of
+              <br /> premium options
+            </p>
+            <div className={style.btnCont}>
+              <button className={style.btn}>GO BUSINESS PLAN</button>
+            </div>
           </div>
-          <p className={style.text}>
-            Enjoy the power of
-            <br /> premium options
-          </p>
-          <div className={style.btnCont}>
-            <button className={style.btn}>GO BUSINESS PLAN</button>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };

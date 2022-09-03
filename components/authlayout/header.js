@@ -96,7 +96,7 @@ const menu = (logout) => (
   </Menu>
 );
 
-const Nav = ({ headerTitle }) => {
+const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
   const { Header } = Layout;
 
   const [info, setInfo] = useState({});
@@ -122,30 +122,75 @@ const Nav = ({ headerTitle }) => {
   }, []);
 
   return (
-    <Header className={style.header}>
-      <div className={style.nav_left}>
-        <div className={style.mobileMenu}>
-          <Button type="text" shape="circle" icon={<MdOutlineMenu />} />
-          <MobileLogo />
-        </div>
-        <div className={style.pageDot}>
-          <PageDot />
-          <h1>{headerTitle || title}</h1>
-        </div>
+    <section>
+      <div className={style.mobileHeader}>
+        <>
+          {!isMobileSideBarOpen ? (
+            <Header className={style.header}>
+              <div className={style.nav_left}>
+                <div className={style.mobileMenu}>
+                  <Button
+                    type="text"
+                    shape="circle"
+                    icon={<MdOutlineMenu onClick={toggleView} />}
+                  />
+                  <MobileLogo />
+                </div>
+                <div className={style.pageDot}>
+                  <PageDot />
+                  <h1>{headerTitle || title}</h1>
+                </div>
+              </div>
+              <div className={style.nav_right}>
+                <Button type="text" shape="circle" icon={<Cog />} />
+                <NotificationsDropdown />
+                <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
+                  <Button type="text" className={style.dropdown__btn}>
+                    <Profile
+                      name={info?.full_name}
+                      avi={store_details?.display_picture}
+                    />
+                  </Button>
+                </Dropdown>
+              </div>
+            </Header>
+          ) : (
+            <div onClick={toggleView}>hello</div>
+          )}
+        </>
       </div>
-      <div className={style.nav_right}>
-        <Button type="text" shape="circle" icon={<Cog />} />
-        <NotificationsDropdown />
-        <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
-          <Button type="text" className={style.dropdown__btn}>
-            <Profile
-              name={info?.full_name}
-              avi={store_details?.display_picture}
-            />
-          </Button>
-        </Dropdown>
+
+      <div className={style.lg}>
+        <Header className={style.header}>
+          <div className={style.nav_left}>
+            <div className={style.mobileMenu}>
+              <Button
+                type="text"
+                shape="circle"
+                icon={<MdOutlineMenu onClick={toggleView} />}
+              />
+              <MobileLogo />
+            </div>
+            <div className={style.pageDot}>
+              <PageDot />
+              <h1>{headerTitle || title}</h1>
+            </div>
+          </div>
+          <div className={style.nav_right}>
+            <Button type="text" shape="circle" icon={<Cog />} />
+            <NotificationsDropdown />
+            <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
+              <Button type="text" className={style.dropdown__btn}>
+                <Profile
+                  name={info?.full_name}
+                  avi={store_details?.display_picture}
+                />
+              </Button>
+            </Dropdown>
+          </div>
+        </Header>
       </div>
-    </Header>
+    </section>
   );
 };
 
