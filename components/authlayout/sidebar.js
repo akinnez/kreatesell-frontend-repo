@@ -10,6 +10,7 @@ import {
   Product,
   Wallet,
   Ticket,
+  Help,
   Setting,
   Logout,
   CloseSubMenu,
@@ -27,7 +28,13 @@ const menuItemStyle = {
   alignItems: "center",
 };
 
-const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
+const MenuItem = ({
+  Icon = () => <></>,
+  title,
+  target = "#",
+
+  ...rest
+}) => {
   const { pathname } = useRouter();
   const isPath = target.split("/")[3] == pathname.split("/")[3];
 
@@ -222,16 +229,17 @@ const Sidebar = () => {
         </SubMenu>
         <MenuItem
           key={5}
+          Icon={Help}
+          isHelp={true}
+          title="Help"
+          target="/account/kreator/help"
+        />
+        <MenuItem
+          key={6}
           Icon={Ticket}
           title="Integrations"
           target="/account/kreator/integrations"
         />{" "}
-        <MenuItem
-          key={6}
-          Icon={Ticket}
-          title="Help"
-          target="/account/kreator/help"
-        />
         <MenuItem
           key={7}
           Icon={Setting}
