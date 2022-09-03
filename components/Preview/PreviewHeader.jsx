@@ -1,81 +1,88 @@
-import { Button, Form, Input, Modal, Select } from 'antd'
-import Image from 'next/image'
+import { Button, Form, Input, Modal, Select } from "antd";
+import Image from "next/image";
 import {
   ProductHeaderLogo,
   CopyLink,
   _copyToClipboard,
   transformToFormData,
-} from 'utils'
-import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { ArrowLeft, PublishProduct, UnPublishProduct, LinkCopy } from 'utils'
-import styles from './PreviewHeader.module.scss'
-import CloseIcon from 'components/affiliates/CloseIcon'
-import { useRouter } from 'next/router'
-import { useFormik } from 'formik'
-import { PublishProducts } from 'redux/actions'
-import Link from 'next/link'
+} from "utils";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { ArrowLeft, PublishProduct, UnPublishProduct, LinkCopy } from "utils";
+import styles from "./PreviewHeader.module.scss";
+import CloseIcon from "components/affiliates/CloseIcon";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
+import { PublishProducts } from "redux/actions";
+import Link from "next/link";
 
-import * as ROUTES from 'routes'
+import * as ROUTES from "routes";
 
 export default function PreviewHeader({ id, showNavLinks = true }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isResponse, setIsResponse] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [title, setTitle] = useState('')
-  const [link, setLink] = useState('')
-  const { product, loading } = useSelector((state) => state.product)
-  const [domainLink, setDomainLink] = useState('')
-  const { store } = useSelector((state) => state.store)
-  const { Option } = Select
-  const router = useRouter()
-  const publishProduct = PublishProducts()
+  const [isOpen, setIsOpen] = useState(false);
+  const [isResponse, setIsResponse] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [title, setTitle] = useState("");
+  const [link, setLink] = useState("");
+  const { product, loading } = useSelector((state) => state.product);
+  const [domainLink, setDomainLink] = useState("");
+  const { store } = useSelector((state) => state.store);
+  const { Option } = Select;
+  const router = useRouter();
+  const publishProduct = PublishProducts();
+
+  const storeName = store?.store_details?.store_name;
 
   const handleSubmit = (data) => {
     publishProduct(
       data,
       () => {
-        setIsOpen(false)
-        setIsResponse(true)
+        setIsOpen(false);
+        setIsResponse(true);
       },
       () => {
-        setIsOpen(false)
-        setIsError(true)
-      },
-    )
-  }
+        setIsOpen(false);
+        setIsError(true);
+      }
+    );
+  };
 
   const initialValues = {
-    product_id: '',
-    publish: 'live',
-  }
+    product_id: "",
+    publish: "live",
+  };
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
     validateOnChange: false,
-  })
+  });
 
-  const { setFieldValue, values } = formik
-  const productId = product?.product_details?.kreasell_product_id
+  const { setFieldValue, values } = formik;
+  const productId = product?.product_details?.kreasell_product_id;
+  console.log("product = ", product);
   //   console.log("product", product);
   useEffect(() => {
-    setTitle(product?.product_details?.product_name)
-    setLink(`http://dev.kreatesell.com/checkout/${productId}`)
-  }, [product, productId])
+    setTitle(product?.product_details?.product_name);
+    // setLink(`http://dev.kreatesell.com/checkout/${productId}`)
+    setLink(`http://dev.kreatesell.com/store/${productId}`);
+    // * try this
+
+    // setLink(`http://dev.kreatesell.com/store/${storeName}/${productId}`);
+  }, [product, productId, storeName]);
 
   useEffect(() => {
     if (Object.keys(product).length > 0) {
-      setFieldValue('product_id', product?.product_details?.id)
+      setFieldValue("product_id", product?.product_details?.id);
     }
-  }, [product])
+  }, [product]);
 
   useEffect(() => {
     if (Object.keys(store).length > 0) {
-      const { domain_details } = store.domain_details
-      setDomainLink(domain_details[0].domain_url)
+      const { domain_details } = store.domain_details;
+      setDomainLink(domain_details[0].domain_url);
     }
-  }, [store])
+  }, [store]);
 
   return (
     <header className="flex items-center justify-between bg-white px-10 py-6 ">
@@ -95,11 +102,11 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
         <p className="mb-0 capitalize">{title}</p>
       </div>
       {showNavLinks && (
-        <div className={styles.miniSaveButtons + ' flex self-end'}>
+        <div className={styles.miniSaveButtons + " flex self-end"}>
           <Button
             type="default"
             icon={<Image src={CopyLink} alt="copy" />}
-            onClick={() => _copyToClipboard(link, 'Product Link Copied')}
+            onClick={() => _copyToClipboard(link, "Product Link Copied")}
           >
             Copy Link
           </Button>
@@ -124,7 +131,7 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
           closeIcon={<CloseIcon />}
           // className={styles.affiliate__modal}
         >
-          <div className={styles.publishModal + ' p-5'}>
+          <div className={styles.publishModal + " p-5"}>
             <h2 className="mb-4 text-lg font-semibold">Publish</h2>
             <Form layout="vertical" onFinish={formik.handleSubmit}>
               <Form.Item
@@ -132,7 +139,7 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
                   <h2 className="font-semibold text-sm mb-0">Product Link</h2>
                 }
               >
-                <div className={styles.copyInput + ' flex'}>
+                <div className={styles.copyInput + " flex"}>
                   <Input
                     readOnly
                     bordered
@@ -143,7 +150,7 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
                     onClick={() =>
                       _copyToClipboard(
                         `${domainLink}/${values.product_id}`,
-                        'Product Link Copied',
+                        "Product Link Copied"
                       )
                     }
                     className="cursor-pointer"
@@ -161,9 +168,9 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
                   <Option value={domainLink}>{domainLink}</Option>
                 </Select>
               </Form.Item>
-              <p style={{ marginTop: '-10px' }} className="text-xs font-normal">
-                Will you like to customize your domain? You can do that{' '}
-                <Link href="/account/kreator/settings">here</Link>{' '}
+              <p style={{ marginTop: "-10px" }} className="text-xs font-normal">
+                Will you like to customize your domain? You can do that{" "}
+                <Link href="/account/kreator/settings">here</Link>{" "}
               </p>
               <div className={styles.submitBtn}>
                 <Button loading={loading} type="primary" htmlType="submit">
@@ -180,14 +187,14 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
           footer={null}
           visible={isResponse}
           onCancel={() => {
-            setIsResponse(false)
-            router.push('/account/kreator/products/all')
+            setIsResponse(false);
+            router.push("/account/kreator/products/all");
           }}
           closable={false}
         >
-          <div className={styles.publishModal + ' p-5'}>
+          <div className={styles.publishModal + " p-5"}>
             <div className="flex flex-col">
-              <div className={styles.publishImage + ' mx-auto'}>
+              <div className={styles.publishImage + " mx-auto"}>
                 <Image layout="fill" src={PublishProduct} alt="publish" />
               </div>
               <h1 className="text-2xl text-center my-3 font-bold">
@@ -195,16 +202,16 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
               </h1>
               <p className="text-sm text-center my-2 font-normal">
                 {
-                  'Congratulations! Your digital product is now live. You can now start earning massively from it.'
+                  "Congratulations! Your digital product is now live. You can now start earning massively from it."
                 }
               </p>
               <div className={styles.submitBtn}>
                 <Button
-                  onClick={() => router.push('/account/kreator/products/all')}
+                  onClick={() => router.push("/account/kreator/products/all")}
                   className="text-lg h-12"
-                  type={'primary'}
+                  type={"primary"}
                 >
-                  {'See Product Listing'}
+                  {"See Product Listing"}
                 </Button>
               </div>
             </div>
@@ -219,17 +226,17 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
           onCancel={() => setIsError(false)}
           closable={false}
         >
-          <div className={styles.publishModal + ' p-5'}>
+          <div className={styles.publishModal + " p-5"}>
             <div className="flex flex-col">
-              <div className={styles.publishImage + ' mx-auto'}>
+              <div className={styles.publishImage + " mx-auto"}>
                 <Image layout="fill" src={UnPublishProduct} alt="publish" />
               </div>
               <h1 className="text-2xl text-center my-3 font-bold">
-                {'Publishing Failed'}
+                {"Publishing Failed"}
               </h1>
               <p className="text-sm text-center my-2 font-normal">
                 {
-                  'Oops! We encountered a problem while publishing your product. Please, try again.'
+                  "Oops! We encountered a problem while publishing your product. Please, try again."
                 }
               </p>
               <div className={styles.failedBtn}>
@@ -237,9 +244,9 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
                   loading={loading}
                   onClick={() => formik.handleSubmit()}
                   className="text-lg h-12"
-                  type={'danger'}
+                  type={"danger"}
                 >
-                  {'Try Again'}
+                  {"Try Again"}
                 </Button>
               </div>
             </div>
@@ -247,5 +254,5 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
         </Modal>
       )}
     </header>
-  )
+  );
 }
