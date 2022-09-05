@@ -21,7 +21,7 @@ export default function PreviewProduct() {
   }
 
   return (
-    <AuthLayout>
+    <>
       <div
         style={{
           position: 'absolute',
@@ -34,7 +34,7 @@ export default function PreviewProduct() {
         <PreviewHeader id={router.query.id} showNavLinks={false} />
         <PreviewContent />
       </div>
-    </AuthLayout>
+    </>
   )
 }
 

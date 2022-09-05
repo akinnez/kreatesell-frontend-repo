@@ -68,6 +68,7 @@ const useCurrency = () => {
         })
       })
     }
+    return []
   }, [countries, allowedCurrencies.length])
 
   // console.log('countries', countries)

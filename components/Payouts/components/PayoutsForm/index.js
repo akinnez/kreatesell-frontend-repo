@@ -1,9 +1,9 @@
-import { useState } from "react";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { Typography, Form, Select, Input, Button } from "antd";
-import { Formik } from "formik";
-import PayoutsFormWarning from "../PayoutsFormWarning";
+import { useState } from 'react'
+import Image from 'next/image'
+import { useDispatch } from 'react-redux'
+import { Typography, Form, Select, Input, Button } from 'antd'
+import { Formik } from 'formik'
+import PayoutsFormWarning from '../PayoutsFormWarning'
 import {
   accountNumberHandler,
   bankHandler,
@@ -13,12 +13,12 @@ import {
   isValidCB,
   paypalCB,
   validateAccountOnBlur,
-} from "components/Payouts/utils/payoutsFormCBs";
-import { PayoutFormValidator } from "validation/PayoutForm.validation";
-import styles from "./index.module.scss";
+} from 'components/Payouts/utils/payoutsFormCBs'
+import { PayoutFormValidator } from 'validation/PayoutForm.validation'
+import styles from './index.module.scss'
 
-const { Text } = Typography;
-const { Option } = Select;
+const { Text } = Typography
+const { Option } = Select
 
 const PayoutsForm = ({
   hideModal,
@@ -27,16 +27,16 @@ const PayoutsForm = ({
   banksByCountryId,
   bankDetails,
 }) => {
-  const [banksLoading, setBanksLoading] = useState(false);
-  const [validating, setValidating] = useState(false);
+  const [banksLoading, setBanksLoading] = useState(false)
+  const [validating, setValidating] = useState(false)
   // const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
-  const [paypal, setPaypal] = useState(() => paypalCB(bankDetails));
+  const [paypal, setPaypal] = useState(() => paypalCB(bankDetails))
   const [banks, setBanks] = useState(() => {
-    return banksCB(bankDetails, banksByCountryId);
-  });
+    return banksCB(bankDetails, banksByCountryId)
+  })
 
-  const dispatch = useDispatch();
-  const [form] = Form.useForm();
+  const dispatch = useDispatch()
+  const [form] = Form.useForm()
 
   const submitHandler = createSubmitHandler({
     dispatch,
@@ -44,22 +44,22 @@ const PayoutsForm = ({
     banks,
     hideModal,
     showSuccessModal,
-  });
+  })
 
   return (
     <Formik
       initialValues={{
         country: bankDetails ? +bankDetails.country_id : 0,
-        paypal_email: bankDetails?.account_name || "",
+        paypal_email: bankDetails?.account_name || '',
         bank: bankDetails ? +bankDetails.bank_id : 0,
-        account_number: bankDetails?.account_number || "",
-        account_name: bankDetails?.account_name || "",
-        password: "",
+        account_number: bankDetails?.account_number || '',
+        account_name: bankDetails?.account_name || '',
+        password: '',
       }}
       validationSchema={PayoutFormValidator}
       onSubmit={submitHandler}
     >
-      {formik => (
+      {(formik) => (
         <Form
           form={form}
           className={styles.form}
@@ -78,14 +78,15 @@ const PayoutsForm = ({
             name="country"
             label="Select Country"
             validateStatus={
-              formik.touched.country && formik.errors.country && "error"
+              formik.touched.country && formik.errors.country && 'error'
             }
             help={formik.touched.country && formik.errors.country}
           >
             <Select
+              showSearch
               autoComplete="country"
               placeholder="Nigeria"
-              onChange={value =>
+              onChange={(value) =>
                 countryHandler({
                   value,
                   formik,
@@ -96,11 +97,20 @@ const PayoutsForm = ({
                   dispatch,
                 })
               }
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.title.toLowerCase().includes(input.toLowerCase())
+              }
+              filterSort={(optionA, optionB) =>
+                optionA.title
+                  .toLowerCase()
+                  .localeCompare(optionB.title.toLowerCase())
+              }
               onBlur={formik.handleBlur}
               value={formik.values.country}
               disabled={!!bankDetails}
             >
-              {countries.map(country => (
+              {countries.map((country) => (
                 <Option
                   key={country.id}
                   value={country.id}
@@ -129,7 +139,7 @@ const PayoutsForm = ({
               validateStatus={
                 formik.touched.paypal_email &&
                 formik.errors.paypal_email &&
-                "error"
+                'error'
               }
               help={formik.touched.paypal_email && formik.errors.paypal_email}
             >
@@ -137,7 +147,7 @@ const PayoutsForm = ({
                 autoComplete="off"
                 type="email"
                 placeholder="Enter PayPal email"
-                {...formik.getFieldProps("paypal_email")}
+                {...formik.getFieldProps('paypal_email')}
               />
             </Form.Item>
           ) : (
@@ -146,14 +156,14 @@ const PayoutsForm = ({
                 name="bank"
                 label="Select Bank"
                 validateStatus={
-                  formik.touched.bank && formik.errors.bank && "error"
+                  formik.touched.bank && formik.errors.bank && 'error'
                 }
                 help={formik.touched.bank && formik.errors.bank}
               >
                 <Select
                   placeholder="Choose bank"
-                  onChange={value => bankHandler(value, formik)}
-                  onBlur={e => {
+                  onChange={(value) => bankHandler(value, formik)}
+                  onBlur={(e) => {
                     validateAccountOnBlur({
                       e,
                       formik,
@@ -161,13 +171,13 @@ const PayoutsForm = ({
                       banks,
                       setValidating,
                       // setIsValid,
-                    });
+                    })
                   }}
                   value={formik.values.bank}
                   loading={banksLoading}
                   disabled={banksLoading}
                 >
-                  {banks.map(bank => (
+                  {banks.map((bank) => (
                     <Option key={bank.id} value={bank.id}>
                       {bank.name}
                     </Option>
@@ -180,7 +190,7 @@ const PayoutsForm = ({
                 validateStatus={
                   formik.touched.account_number &&
                   formik.errors.account_number &&
-                  "error"
+                  'error'
                 }
                 help={
                   formik.touched.account_number && formik.errors.account_number
@@ -189,8 +199,8 @@ const PayoutsForm = ({
                 <Input
                   autoComplete="off"
                   placeholder="Enter account number"
-                  onChange={e => accountNumberHandler(e, formik, form)}
-                  onBlur={e => {
+                  onChange={(e) => accountNumberHandler(e, formik, form)}
+                  onBlur={(e) => {
                     validateAccountOnBlur({
                       e,
                       formik,
@@ -198,7 +208,7 @@ const PayoutsForm = ({
                       banks,
                       setValidating,
                       // setIsValid,
-                    });
+                    })
                   }}
                   value={formik.values.account_number}
                 />
@@ -208,10 +218,10 @@ const PayoutsForm = ({
                 label="Account Name"
                 validateStatus={
                   formik.touched.account_name && formik.errors.account_name
-                    ? "error"
+                    ? 'error'
                     : validating
-                    ? "validating"
-                    : "success"
+                    ? 'validating'
+                    : 'success'
                 }
                 hasFeedback={validating}
                 help={formik.touched.account_name && formik.errors.account_name}
@@ -220,7 +230,7 @@ const PayoutsForm = ({
                   autoComplete="off"
                   placeholder="Enter account name"
                   // disabled={isValid}
-                  {...formik.getFieldProps("account_name")}
+                  {...formik.getFieldProps('account_name')}
                 />
               </Form.Item>
             </>
@@ -230,7 +240,7 @@ const PayoutsForm = ({
             name="password"
             label="Enter Your Current Password"
             validateStatus={
-              formik.touched.password && formik.errors.password && "error"
+              formik.touched.password && formik.errors.password && 'error'
             }
             help={formik.touched.password && formik.errors.password}
           >
@@ -238,7 +248,7 @@ const PayoutsForm = ({
               type="password"
               autoComplete="new-password"
               placeholder="****************"
-              {...formik.getFieldProps("password")}
+              {...formik.getFieldProps('password')}
             />
           </Form.Item>
           <div className={styles.text}>
@@ -250,13 +260,13 @@ const PayoutsForm = ({
               htmlType="submit"
               loading={formik.isSubmitting}
             >
-              {bankDetails ? "Edit" : "Save"} Bank Info
+              {bankDetails ? 'Edit' : 'Save'} Bank Info
             </Button>
           </Form.Item>
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default PayoutsForm;
+export default PayoutsForm

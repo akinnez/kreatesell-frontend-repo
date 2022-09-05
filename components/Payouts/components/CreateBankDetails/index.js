@@ -1,11 +1,12 @@
-import { useSelector } from "react-redux";
-import { Modal, Typography } from "antd";
-import CloseIcon from "components/affiliates/CloseIcon";
-import Spinner from "components/Spinner";
-import PayoutsForm from "../PayoutsForm";
-import styles from "./index.module.scss";
+import { useSelector } from 'react-redux'
+import { Modal, Typography } from 'antd'
+import CloseIcon from 'components/affiliates/CloseIcon'
+import Spinner from 'components/Spinner'
+import PayoutsForm from '../PayoutsForm'
+import styles from './index.module.scss'
+import useCurrency from 'hooks/useCurrency'
 
-const { Text, Title } = Typography;
+const { Text, Title } = Typography
 
 const CreateBankDetails = ({
   createModal,
@@ -13,9 +14,12 @@ const CreateBankDetails = ({
   showSuccessModal,
 }) => {
   const { countries, banksByCountryId, loading } = useSelector(
-    state => state.utils
-  );
+    (state) => state.utils,
+  )
 
+  const { countriesCurrency, loading: countriesLoading } = useCurrency()
+
+  if (countriesLoading) return <Spinner />
   return (
     <Modal
       title={null}
@@ -32,7 +36,7 @@ const CreateBankDetails = ({
           <Text>We pay your money into this account</Text>
         </p>
       </header>
-      {loading ? (
+      {loading || countriesLoading ? (
         <Spinner />
       ) : countries.length === 0 ? (
         <div>
@@ -43,13 +47,13 @@ const CreateBankDetails = ({
           <PayoutsForm
             hideModal={hideCreateModal}
             showSuccessModal={showSuccessModal}
-            countries={countries}
+            countries={countriesCurrency}
             banksByCountryId={banksByCountryId}
           />
         </section>
       )}
     </Modal>
-  );
-};
+  )
+}
 
-export default CreateBankDetails;
+export default CreateBankDetails

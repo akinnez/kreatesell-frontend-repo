@@ -1,49 +1,49 @@
-import { useState, useEffect } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { Typography, Card, Button, Row, Col } from "antd";
-import ProfileLayout from "components/ProfileLayout";
-import BackButton from "components/BackButton";
-import Spinner from "components/Spinner";
-import SuccessModalBox from "components/SuccessModalBox";
-import CreateBankDetails from "components/Payouts/components/CreateBankDetails";
-import AffiliateImg from "public/images/payouts-affiliate-icon.png";
-import KreatorImg from "public/images/payouts-kreator-icon.png";
-import AffiliateIllustration from "public/images/affiliate-illustration.png";
-import KreatorIllustration from "public/images/kreator-illustration.png";
-import styles from "public/css/SetupBankDetails.module.scss";
+import { useState, useEffect } from 'react'
+import Head from 'next/head'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { Typography, Card, Button, Row, Col } from 'antd'
+import ProfileLayout from 'components/ProfileLayout'
+import BackButton from 'components/BackButton'
+import Spinner from 'components/Spinner'
+import SuccessModalBox from 'components/SuccessModalBox'
+import CreateBankDetails from 'components/Payouts/components/CreateBankDetails'
+import AffiliateImg from 'public/images/payouts-affiliate-icon.png'
+import KreatorImg from 'public/images/payouts-kreator-icon.png'
+import AffiliateIllustration from 'public/images/affiliate-illustration.png'
+import KreatorIllustration from 'public/images/kreator-illustration.png'
+import styles from 'public/css/SetupBankDetails.module.scss'
 
-const { Title, Text } = Typography;
+const { Title, Text } = Typography
 
 const breakPoints = {
   xs: { span: 24 },
   sm: { span: 24 },
-};
+}
 
 const SetupBankDetails = () => {
-  const [createModal, setCreateModal] = useState(false);
-  const [successModal, setSuccessModal] = useState(false);
+  const [createModal, setCreateModal] = useState(false)
+  const [successModal, setSuccessModal] = useState(false)
 
-  const router = useRouter();
+  const router = useRouter()
 
-  const { store, loading } = useSelector(state => state.store);
-  const { bank_details: bankDetails } = store;
+  const { store, loading } = useSelector((state) => state.store)
+  const { bank_details: bankDetails } = store
 
   useEffect(() => {
     if (bankDetails) {
-      router.push("/account/sales/payouts?redirect=true");
+      router.push('/account/sales/payouts?redirect=true')
     }
-  }, [bankDetails, router]);
+  }, [bankDetails, router])
 
   const handleClicks = (setter, value) => () => {
-    setter(value);
-  };
+    setter(value)
+  }
 
   const goBack = () => {
-    router.back();
-  };
+    router.back()
+  }
 
   if (loading || bankDetails) {
     return (
@@ -53,7 +53,7 @@ const SetupBankDetails = () => {
         </Head>
         <Spinner />
       </ProfileLayout>
-    );
+    )
   }
 
   return (
@@ -172,7 +172,7 @@ const SetupBankDetails = () => {
         </SuccessModalBox>
       )}
     </ProfileLayout>
-  );
-};
+  )
+}
 
-export default SetupBankDetails;
+export default SetupBankDetails
