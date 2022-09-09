@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import AuthLayout from "../../../../components/authlayout";
 import { Row, Col, Card, Form, Input as AntInput } from "antd";
+
 import {
   Input,
   Dropzone,
@@ -29,19 +30,17 @@ const Index = () => {
     fetching: true,
   });
   const [countryCode, setCountryCode] = useState("");
+  const [countryId, setCountryId] = useState(null);
   const [country, setCountry] = useState("");
 
   const [form] = Form.useForm();
 
-  //   console.log("form = ", form?.getFieldValues());
-
   const handleFinish = async (info) => {
-    console.log("info = ", info);
     setLoading({ ...loading, updating: true });
     const formData = new FormData();
     formData.append("Brand_Name", info.Brand_Name);
     formData.append("Bio_Data", info.Bio_Data);
-    formData.append("Country_Id", 1);
+    formData.append("Country_Id", countryId);
     formData.append("Cover_Picture", file.Cover_Picture);
     formData.append("Profile_Picture", file.Profile_Picture);
     formData.append("Mobile_Number", info.Mobile_Number);
@@ -72,6 +71,7 @@ const Index = () => {
   const handlePhoneCode = (countryParam) => {
     let phoneCode = countries.find((country) => country.name === countryParam);
     setCountryCode(phoneCode?.country_code);
+    setCountryId(phoneCode?.id);
   };
 
   // prefill the country code when the user selects another country
@@ -139,7 +139,6 @@ const Index = () => {
     );
   }, []);
 
-  //   console.log("file from edit = ", file);
   return (
     <>
       <AuthLayout loading={loading.fetching}>

@@ -188,32 +188,42 @@ export const CreateProductTab = ({
 
         <Col xs={24} md={8}>
           <div
-            className={`${styles.productTypeTab} ${
-              tab === 2 && styles.active
-            } w-full`}
+            className={`${
+              isBasic ? styles.productTypeTabDisabled : styles.productTypeTab
+            } ${tab === 2 && styles.active} w-full`}
             key={oneTimeSubMenu[0]?.id ?? 2}
             onClick={() => {
               // if(isTypeEditable && tab !==2){
               //   return
               // }
-              setSelectedTab(oneTimeSubMenu[0]?.id ?? 2)
-              setTab(oneTimeSubMenu[0]?.id ?? 2)
+              if (!isBasic) {
+                setSelectedTab(oneTimeSubMenu[0]?.id ?? 2)
+                setTab(oneTimeSubMenu[0]?.id ?? 2)
+              }
             }}
-            onMouseEnter={() =>
-              setIconHover({
-                ...iconHover,
-                tab1: false,
-                tab2: true,
-                tab3: false,
-              })
+            onMouseEnter={
+              !isBasic
+                ? () => {
+                    return setIconHover({
+                      ...iconHover,
+                      tab1: false,
+                      tab2: true,
+                      tab3: false,
+                    })
+                  }
+                : null
             }
-            onMouseLeave={() =>
-              setIconHover({
-                ...iconHover,
-                tab1: false,
-                tab2: false,
-                tab3: false,
-              })
+            onMouseLeave={
+              !isBasic
+                ? () => {
+                    return setIconHover({
+                      ...iconHover,
+                      tab1: false,
+                      tab2: false,
+                      tab3: false,
+                    })
+                  }
+                : null
             }
           >
             <h3>BUSINESS</h3>
@@ -238,33 +248,39 @@ export const CreateProductTab = ({
 
         <Col xs={24} md={8}>
           <div
-            className={`${styles.productTypeTab} ${
-              tab === 3 && styles.active
-            } w-full`}
+            className={`${
+              isBasic ? styles.productTypeTabDisabled : styles.productTypeTab
+            } ${tab === 3 && styles.active} w-full`}
             key={membershipMenu[0]?.id ?? 3}
             onClick={() => {
               // if(isTypeEditable && tab !==3){
               //   return
               // }
-              setSelectedTab(membershipMenu[0]?.id ?? 3)
-              setTab(membershipMenu[0]?.id ?? 3)
+              if (!isBasic) {
+                setSelectedTab(membershipMenu[0]?.id ?? 3)
+                setTab(membershipMenu[0]?.id ?? 3)
+              }
             }}
-            onMouseEnter={() =>
-              setIconHover({
-                ...iconHover,
-                tab1: false,
-                tab2: false,
-                tab3: true,
-              })
-            }
-            onMouseLeave={() =>
-              setIconHover({
-                ...iconHover,
-                tab1: false,
-                tab2: false,
-                tab3: false,
-              })
-            }
+            onMouseEnter={() => {
+              if (!isBasic) {
+                return setIconHover({
+                  ...iconHover,
+                  tab1: false,
+                  tab2: false,
+                  tab3: true,
+                })
+              }
+            }}
+            onMouseLeave={() => {
+              if (!isBasic) {
+                return setIconHover({
+                  ...iconHover,
+                  tab1: false,
+                  tab2: false,
+                  tab3: false,
+                })
+              }
+            }}
           >
             <h3>BUSINESS</h3>
             <span>

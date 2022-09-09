@@ -231,7 +231,7 @@ const CouponStatusComponent = (item) => {
   )
 }
 
-const ActionComponent = ({ item }) => {
+const ActionComponent = ({ item }, all) => {
   const router = useRouter()
   const duplicateProduct = DuplicateProductAction()
   const getProducts = GetProducts()
@@ -241,6 +241,12 @@ const ActionComponent = ({ item }) => {
   const id = item?.product_details?.id
   const kreasell_product_id = item?.product_details?.kreasell_product_id
   const productLink = item?.product_details?.product_link
+
+  // console.log('all is', all)
+
+  // TODO: if draft, disable deactivate/activate link
+  // if deactivated, activate
+  // if activated, deactivate
 
   /**Used to delete and deactivate product */
   const handleModalOk = (action) => {
@@ -314,34 +320,78 @@ const ActionComponent = ({ item }) => {
         <p className="mb-0 ml-3">Duplicate</p>
       </li>
 
-      <li className={styles.deletePop + ' flex items-center cursor-pointer'}>
-        <Popconfirm
-          title={
-            <pre className="mb-0 text-sm ">
-              Are you sure to{' '}
-              <h2 className="text-base text-base-gray-400 mb-0 font-semibold">
-                Deactivate
-              </h2>{' '}
-              this product?
-            </pre>
-          }
-          onConfirm={() => handleModalOk('d')}
-          // onCancel={cancel}
-          okText="`Deactivate`"
-          cancelText="Cancel"
-          icon={<></>}
-          placement="bottom"
-          overlayClassName={styles.popConfirm}
+      {[2].includes(all?.status) && (
+        <li
+          className={styles.deletePop + ` flex items-center cursor-pointer`}
+          style={{
+            color: all?.status === 1 && '#a1a1a1',
+            cursor: all?.status === 1 && 'auto',
+          }}
         >
-          <span>
-            <Image alt="" src={DeactvateProduct} />
-          </span>
-          <p className="mb-0 ml-3">
-            Deactivate
-            <br /> (Unpublish)
-          </p>
-        </Popconfirm>
-      </li>
+          <Popconfirm
+            title={
+              <pre className="mb-0 text-sm ">
+                Are you sure to{' '}
+                <h2 className="text-base text-base-gray-400 mb-0 font-semibold">
+                  Deactivate
+                </h2>{' '}
+                this product?
+              </pre>
+            }
+            onConfirm={() => (all?.status === 1 ? {} : handleModalOk('d'))}
+            // onCancel={cancel}
+            okText="Deactivate"
+            cancelText="Cancel"
+            icon={<></>}
+            placement="bottom"
+            overlayClassName={styles.popConfirm}
+          >
+            <span>
+              <Image alt="" src={DeactvateProduct} />
+            </span>
+            <p className="mb-0 ml-3">
+              Deactivate
+              <br /> (Unpublish)
+            </p>
+          </Popconfirm>
+        </li>
+      )}
+      {[3].includes(all?.status) && (
+        <li
+          className={styles.deletePop + ` flex items-center cursor-pointer`}
+          style={{
+            color: all?.status === 1 && '#a1a1a1',
+            cursor: all?.status === 1 && 'auto',
+          }}
+        >
+          <Popconfirm
+            title={
+              <pre className="mb-0 text-sm ">
+                Are you sure to{' '}
+                <h2 className="text-base text-base-gray-400 mb-0 font-semibold">
+                  Activate
+                </h2>{' '}
+                this product?
+              </pre>
+            }
+            onConfirm={() => handleModalOk('a')}
+            // onCancel={cancel}
+            okText="Activate"
+            cancelText="Cancel"
+            icon={<></>}
+            placement="bottom"
+            overlayClassName={styles.popConfirm}
+          >
+            <span>
+              <Image alt="" src={DeactvateProduct} />
+            </span>
+            <p className="mb-0 ml-3">
+              Activate
+              <br /> (Publish)
+            </p>
+          </Popconfirm>
+        </li>
+      )}
       <li className={styles.deletePop + ' flex items-center cursor-pointer'}>
         <Popconfirm
           title={
@@ -562,7 +612,7 @@ export const AllProductsTableHeader = [
   {
     title: 'Actions',
     dataIndex: 'actions',
-    render: (item) => ActionComponent({ item }),
+    render: (item, all) => ActionComponent({ item }, all),
     width: 100,
     fixed: 'right',
   },

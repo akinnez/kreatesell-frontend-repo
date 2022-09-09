@@ -1,90 +1,91 @@
-import styles from "./PreviewHeader.module.scss";
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "antd";
-import { useRouter } from "next/router";
-import { RightPreviewArrow, LeftPreviewArrow, ExternalLink } from "utils";
+import styles from './PreviewHeader.module.scss'
+import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from 'antd'
+import { useRouter } from 'next/router'
+import { RightPreviewArrow, LeftPreviewArrow, ExternalLink } from 'utils'
 
 export default function PreviewContent() {
-  const [details, setDetails] = useState({});
-  const [images, setImages] = useState([]);
-  const [mainImage, setMainImage] = useState("");
-  const [activeImage, setActiveImage] = useState(0);
-  const [checkout, setCheckout] = useState(null);
-  const [sellingPrice, setSellingPrice] = useState([]);
-  const [originalPrice, setOriginalPrice] = useState([]);
-  const [domainLink, setDomainLink] = useState("");
+  const [details, setDetails] = useState({})
+  const [images, setImages] = useState([])
+  const [mainImage, setMainImage] = useState('')
+  const [activeImage, setActiveImage] = useState(0)
+  const [checkout, setCheckout] = useState(null)
+  const [sellingPrice, setSellingPrice] = useState([])
+  const [originalPrice, setOriginalPrice] = useState([])
+  const [domainLink, setDomainLink] = useState('')
 
-  const router = useRouter();
-  const { store } = useSelector((state) => state?.store);
+  const router = useRouter()
+  const { store } = useSelector((state) => state?.store)
 
-  const { product } = useSelector((state) => state?.product);
+  const { product } = useSelector((state) => state?.product)
 
-  const productId = product?.product_details?.kreasell_product_id;
+  const productId = product?.product_details?.kreasell_product_id
 
-  const { user } = useSelector((state) => state?.auth);
+  const { user } = useSelector((state) => state?.auth)
 
   const increase = () => {
     if (activeImage === images?.length - 1) {
-      return setActiveImage(0);
+      return setActiveImage(0)
     }
-    return setActiveImage(activeImage + 1);
-  };
+    return setActiveImage(activeImage + 1)
+  }
   const decrease = () => {
     if (activeImage === 0) {
-      return setActiveImage(images?.length - 1);
+      return setActiveImage(images?.length - 1)
     }
-    return setActiveImage(activeImage - 1);
-  };
+    return setActiveImage(activeImage - 1)
+  }
   useEffect(() => {
     if (Object.keys(product).length > 0) {
       // console.log('from preview',product)
-      setDetails(product?.product_details);
+      setDetails(product?.product_details)
       setImages(
         ...product?.product_images
           ?.filter((images) => images?.file_type !== 4)
           ?.map((item) => {
-            const arr = item?.filename?.split(",");
+            const arr = item?.filename?.split(',')
             const truc = arr?.map((item) => {
               return {
                 filename: item,
-              };
-            });
-            return truc;
-          })
-      );
-      setCheckout(product?.check_out_details);
+              }
+            })
+            return truc
+          }),
+      )
+      setCheckout(product?.check_out_details)
     }
     if (checkout && checkout?.length > 0) {
-      const defaultPrice = product?.default_currency;
+      const defaultPrice = product?.default_currency
       const prices = checkout?.filter(
-        (item) => item?.currency_name === defaultPrice
-      );
+        (item) => item?.currency_name === defaultPrice,
+      )
       setSellingPrice(
-        prices?.filter((item) => item?.price_indicator === "Selling")
-      );
+        prices?.filter((item) => item?.price_indicator === 'Selling'),
+      )
+      console.log('product?', product)
       setOriginalPrice(
-        prices?.filter((item) => item?.price_indicator === "Original")
-      );
+        prices?.filter((item) => item?.price_indicator === 'Original'),
+      )
     }
-  }, [product, checkout]);
+  }, [product, checkout?.length])
   useEffect(() => {
     if (images !== undefined && images?.length > 0) {
-      setMainImage(images[activeImage]?.filename);
+      setMainImage(images[activeImage]?.filename)
     }
-  }, [images, activeImage]);
+  }, [images, activeImage])
   useEffect(() => {
     if (Object.keys(store)?.length > 0) {
-      const { domain_details } = store?.domain_details;
-      setDomainLink(domain_details[0]?.domain_url);
+      const { domain_details } = store?.domain_details
+      setDomainLink(domain_details[0]?.domain_url)
     }
-  }, [store]);
+  }, [store])
 
   return (
     <div
-      className={styles.contentContainer + " flex flex-col bg-white rounded-lg"}
+      className={styles.contentContainer + ' flex flex-col bg-white rounded-lg'}
     >
       <div className={`flex ${styles.previewContainer}`}>
         <div className={styles.imageGallery}>
@@ -114,11 +115,11 @@ export default function PreviewContent() {
             {images !== undefined && images.length > 1 && (
               <div className={styles.imageControl}>
                 <span onClick={() => decrease()}>
-                  {" "}
-                  <Image src={RightPreviewArrow} alt="arrow" />{" "}
+                  {' '}
+                  <Image src={RightPreviewArrow} alt="arrow" />{' '}
                 </span>
                 <span onClick={() => increase()}>
-                  {" "}
+                  {' '}
                   <Image src={LeftPreviewArrow} alt="arrow" />
                 </span>
               </div>
@@ -133,7 +134,7 @@ export default function PreviewContent() {
               </h2>
             )}
           </div>
-          <div className={"flex items-center " + styles.padBottom}>
+          <div className={'flex items-center ' + styles.padBottom}>
             <div className={styles.dp}>
               {Object.keys(user).length > 0 &&
                 store.store_details?.display_picture && (
@@ -169,6 +170,14 @@ export default function PreviewContent() {
               <p className="text-left">{details.product_description}</p>
             )}
           </div>
+
+          <div className={styles.preorderInfo}>
+            Please note that this product is to be preordered and the expected
+            release date is Mar 31, 2022 9:00 AM
+          </div>
+
+          {console.log('checkout', checkout)}
+          <div className={styles.padBottom1}></div>
           <div className={styles.priceSection}>
             <div className="flex flex-col">
               {/*  */}
@@ -190,7 +199,7 @@ export default function PreviewContent() {
             >
               {details !== undefined && details?.cta_button
                 ? details?.cta_button
-                : "Buy Now"}
+                : 'Buy Now'}
             </Button>
           </div>
         </div>
@@ -205,5 +214,5 @@ export default function PreviewContent() {
         )}
       </div>
     </div>
-  );
+  )
 }

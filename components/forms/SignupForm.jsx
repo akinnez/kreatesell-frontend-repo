@@ -40,8 +40,11 @@ export const SignupForm = () => {
     }
     // console.log('router.query', router.query)
     // if user is from pricing page, automatically log user in
-    if (Object.keys(router.query).length > 0) {
-      console.log('router.query', router.query)
+    if (
+      Object.keys(router.query).length > 0 &&
+      Object.keys(router.query).includes('fromPricing')
+    ) {
+      // console.log('router.query', router.query)
       await signup(
         formData,
         (val) => {

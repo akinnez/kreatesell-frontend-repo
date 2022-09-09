@@ -61,7 +61,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const mounted = useRef(null);
   const { Option } = Select;
 
-  // guards agains price duplication
+  // guards against price duplication
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = 0;
@@ -216,7 +216,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   };
   useEffect(() => {
     if (productID) {
-      console.log("checkout mounted");
+      // console.log("checkout mounted");
       getProductByID(productID);
     }
   }, [productID]);
@@ -373,12 +373,12 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     });
   };
 
-  console.log(
-    "is_show_compare = ",
-    compareToPrice
-    // ??
-    // compareToPrice
-  );
+  // console.log(
+  //   "is_show_compare = ",
+  //   compareToPrice
+  //   // ??
+  //   // compareToPrice
+  // );
 
   const initialValues = {
     action: "e",
@@ -421,6 +421,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       show_number_of_sales: showTotalSales,
     },
   };
+
+  // console.log('initialValues', initialValues)
 
   const formik = useFormik({
     initialValues,
@@ -507,6 +509,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       setNumberOfLimit(0);
     }
   }, [compareToPrice, allowAffiliateMarket, limitProductSale]);
+
+  // console.log('product', product)
   const setAllFields = useCallback(() => {
     mounted.current += 1;
     if (product && mounted.current === 1) {

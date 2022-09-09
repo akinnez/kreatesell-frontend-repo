@@ -6,6 +6,8 @@ import {
   _copyToClipboard,
   transformToFormData,
 } from "utils";
+
+import { Button as CButton, Select as CSelect } from "components";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ArrowLeft, PublishProduct, UnPublishProduct, LinkCopy } from "utils";
@@ -13,8 +15,9 @@ import styles from "./PreviewHeader.module.scss";
 import CloseIcon from "components/affiliates/CloseIcon";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { PublishProducts } from "redux/actions";
+import { PublishProducts, Logout } from "redux/actions";
 import Link from "next/link";
+import useCurrency from "hooks/useCurrency";
 
 import * as ROUTES from "routes";
 
@@ -33,6 +36,10 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
 
   const storeName = store?.store_details?.store_name;
 
+  const { allowedCurrencies: currencyOptions, loading: currencyLoading } =
+    useCurrency();
+
+  const logout = Logout();
   const handleSubmit = (data) => {
     publishProduct(
       data,
@@ -101,7 +108,7 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
         </div>
         <p className="mb-0 capitalize">{title}</p>
       </div>
-      {showNavLinks && (
+      {showNavLinks ? (
         <div className={styles.miniSaveButtons + " flex self-end"}>
           <Button
             type="default"
@@ -119,6 +126,23 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
           <Button type="primary" onClick={() => setIsOpen(true)}>
             Publish
           </Button>
+        </div>
+      ) : (
+        <div className="flex justify-end">
+          <div className="w-20  mr-4">
+            <CSelect
+              options={[
+                // ...[{ label: 'Select currency', value: '' }],
+                ...currencyOptions,
+              ]}
+              border="none"
+              loading={currencyLoading}
+              defaultValue={"NGN"}
+            />
+          </div>
+          <div onClick={() => logout()}>
+            <CButton text="logout" bgColor="blue" />
+          </div>
         </div>
       )}
       {isOpen && (

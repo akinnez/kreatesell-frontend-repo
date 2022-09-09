@@ -1,10 +1,10 @@
-import * as types from "../types";
+import * as types from '../types'
 
 const initialState = {
   loading: false,
   user: {},
   error: {},
-};
+}
 
 const AuthReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -20,13 +20,13 @@ const AuthReducer = (state = initialState, { type, payload }) => {
     case types.SUPER_ADMIN_RESET_PASSWORD.REQUEST:
     case types.RESEND_2FA.REQUEST:
     case types.USER.REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true }
 
     case types.LOGIN.SUCCESS:
     case types.SIGNUP.SUCCESS:
     case types.SUPER_ADMIN_LOGIN.SUCCESS:
     case types.USER.SUCCESS:
-      return { ...state, loading: false, user: payload };
+      return { ...state, loading: false, user: payload }
 
     case types.INITIATE_PASSWORD_RESET.SUCCESS:
     case types.VALIDATE_PASSWORD_RESET_TOKEN.SUCCESS:
@@ -36,7 +36,7 @@ const AuthReducer = (state = initialState, { type, payload }) => {
     case types.RESEND_CONFIRMATION_EMAIL.SUCCESS:
     case types.SUPER_ADMIN_RESET_PASSWORD.SUCCESS:
     case types.RESEND_2FA.SUCCESS:
-      return { ...state, loading: false, ...payload };
+      return { ...state, loading: false, ...payload }
 
     case types.SIGNUP.FAILURE:
     case types.LOGIN.FAILURE:
@@ -50,14 +50,16 @@ const AuthReducer = (state = initialState, { type, payload }) => {
     case types.SUPER_ADMIN_RESET_PASSWORD.FAILURE:
     case types.RESEND_2FA.FAILURE:
     case types.USER.FAILURE:
-      return { ...state, loading: false, error: payload };
+      return { ...state, loading: false, error: payload }
 
     case types.UPDATE_USER_AFFILIATE_STATUS:
-      return { ...state, user: { ...state.user, is_affiliate: true } };
+      return { ...state, user: { ...state.user, is_affiliate: true } }
 
+    case types.STOP_LOADING:
+      return { ...state, loading: false }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default AuthReducer;
+export default AuthReducer

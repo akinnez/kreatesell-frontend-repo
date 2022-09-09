@@ -1,61 +1,62 @@
-import { useState } from "react";
-import useSWR from "swr";
-import { Table, Pagination, Spin } from "antd";
-import SyncDataToCSV from "components/DataToCSV/SyncDataToCSV";
-import PaginationSizeChanger from "components/PaginationSizeChanger";
-import WalletBalance from "../WalletBalance";
-import WalletHistoryMobileView from "../WalletHistoryMobileView";
-import Filters from "../Filters";
-import { walletColumns } from "../../columns/walletColumns";
-import { walletHeaders } from "../../utils/walletHeaders";
-import useFilters from "../../useFilters";
-import axiosApi from "utils/axios";
-import { showToast } from "utils";
-import styles from "./index.module.scss";
+import { useState } from 'react'
+import useSWR from 'swr'
+import { Table, Pagination, Spin } from 'antd'
+import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV'
+import PaginationSizeChanger from 'components/PaginationSizeChanger'
+import WalletBalance from '../WalletBalance'
+import WalletHistoryMobileView from '../WalletHistoryMobileView'
+import Filters from '../Filters'
+import { walletColumns } from '../../columns/walletColumns'
+import { walletHeaders } from '../../utils/walletHeaders'
+import useFilters from '../../useFilters'
+import axiosApi from 'utils/axios'
+import { showToast } from 'utils'
+import styles from './index.module.scss'
 
-const rowKey = record => record.id;
+const rowKey = (record) => record.id
 
 const Wallet = ({ bankDetails, walletInfo, storeLoading }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const { url, filters, setFilters } = useFilters(
-    "affiliate/get-wallet-history"
-  );
+    'affiliate/get-wallet-history',
+  )
 
-  const { data, error, isValidating } = useSWR(url, url => {
+  const { data, error, isValidating } = useSWR(url, (url) => {
     return axiosApi.request(
-      "get",
+      'get',
       url,
-      res => {
-        setLoading(false);
-        return res.data;
+      (res) => {
+        setLoading(false)
+        return res.data
       },
-      err => {
-        setLoading(false);
-        showToast("Error fetching your wallet history", "error");
-        return err;
-      }
-    );
-  });
+      (err) => {
+        setLoading(false)
+        showToast('Error fetching your wallet history', 'error')
+        return err
+      },
+    )
+  })
+  console.log('data is', data)
 
-  const histories = data || [];
-  const historiesTotal = data?.total_records || 0;
+  const histories = data || []
+  const historiesTotal = data?.total_records || 0
 
-  let isLoading;
+  let isLoading
 
   if (loading) {
-    isLoading = true;
+    isLoading = true
   } else if (!data && !error) {
-    isLoading = true;
+    isLoading = true
   } else if (histories.length === 0 && !isValidating) {
-    isLoading = false;
+    isLoading = false
   } else {
-    isLoading = false;
+    isLoading = false
   }
 
-  const handlePageChange = page => {
-    setFilters({ ...filters, page });
-  };
+  const handlePageChange = (page) => {
+    setFilters({ ...filters, page })
+  }
 
   return (
     <>
@@ -106,7 +107,7 @@ const Wallet = ({ bankDetails, walletInfo, storeLoading }) => {
         )}
       </Spin>
     </>
-  );
-};
+  )
+}
 
-export default Wallet;
+export default Wallet

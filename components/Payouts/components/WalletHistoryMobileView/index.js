@@ -1,9 +1,9 @@
-import { memo } from "react";
-import NoData from "components/NoData";
-import HistoryTag from "../HistoryTag";
-import formatAccountNumber from "../../utils/formatAccountNumber";
-import dateFormat from "utils/dateFormat";
-import styles from "./index.module.scss";
+import { memo } from 'react'
+import NoData from 'components/NoData'
+import HistoryTag from '../HistoryTag'
+import formatAccountNumber from '../../utils/formatAccountNumber'
+import dateFormat from 'utils/dateFormat'
+import styles from './index.module.scss'
 
 const WalletHistoryMobileView = ({ histories }) => (
   <>
@@ -11,11 +11,11 @@ const WalletHistoryMobileView = ({ histories }) => (
       <NoData />
     ) : (
       <ul className={styles.histories}>
-        {histories.map(history => (
+        {histories?.map((history) => (
           <li key={history.id} className={styles.history}>
             <div className={styles.history__header}>
               <HistoryTag status={history.status} />
-              <div className={styles["history__withdrawal-date"]}>
+              <div className={styles['history__withdrawal-date']}>
                 <span>Withdrawal Date</span>
                 <p>{dateFormat(history.withdrawal_date)}</p>
               </div>
@@ -30,7 +30,7 @@ const WalletHistoryMobileView = ({ histories }) => (
               <li className={styles.history__detail}>
                 <strong>Description</strong>
                 <span>
-                  {history.bank_name}{" "}
+                  {history.bank_name}{' '}
                   {`(${formatAccountNumber(history.bank_account)})`}
                 </span>
               </li>
@@ -40,6 +40,6 @@ const WalletHistoryMobileView = ({ histories }) => (
       </ul>
     )}
   </>
-);
+)
 
-export default memo(WalletHistoryMobileView);
+export default memo(WalletHistoryMobileView)

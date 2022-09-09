@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 
@@ -27,6 +28,7 @@ const Billing = () => {
   const [countryOptions, setCountryOptions] = useState([])
   const [subscriptionMode, setSubscriptionMode] = useState(null)
   const [selectedCurrency, setSelectedCurrency] = useState({})
+  const { store } = useSelector((state) => state.store)
 
   useEffect(() => {
     monthly ? setBusinessPrice('4,999') : setBusinessPrice('4,167')
@@ -49,6 +51,15 @@ const Billing = () => {
       setSubscriptionMode({ mode: 'monthly', price: 4999 })
     }
   }, [annually, monthly])
+
+  // useEffect to check if current plan
+  useEffect(() => {
+    if (store?.user?.user_plan && store?.user?.user_plan === 'Business') {
+      setSelectedPlan(store?.user?.user_plan)
+    } else {
+      setSelectedPlan(store?.user?.user_plan)
+    }
+  }, [store?.user?.user_plan])
 
   // change
   useMemo(() => {
@@ -107,7 +118,7 @@ const Billing = () => {
             </div>
           </div>
         </div>
-
+        {console.log('Selected plan', selectedPlan)}
         <div className="flex flex-col md:flex-row justify-center my-6">
           <div className="md:pr-4">
             <PricingCard
@@ -116,7 +127,7 @@ const Billing = () => {
               btnText=""
               subTitle="All of the features you need to start selling your contents"
               priceType="100% Free"
-              currentPlan={selectedPlan === 'basic'}
+              currentPlan={selectedPlan === 'Basic'}
             />
           </div>
 
@@ -129,7 +140,7 @@ const Billing = () => {
               priceType={priceLabel}
               subPriceType={subPriceType}
               btnOnClick={openModal}
-              currentPlan={selectedPlan === 'business'}
+              currentPlan={selectedPlan === 'Business'}
             />
           </div>
         </div>
