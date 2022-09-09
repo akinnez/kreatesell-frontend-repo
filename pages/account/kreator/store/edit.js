@@ -32,7 +32,8 @@ const Index = () => {
   const [countryCode, setCountryCode] = useState("");
   const [countryId, setCountryId] = useState(null);
   const [country, setCountry] = useState("");
-
+  const [isStoreSetUp, SetIsStorSetup] = useState(false);
+  const [isFirstTimeUser, SetIsFirstTimeUser] = useState(false);
   const [form] = Form.useForm();
 
   const handleFinish = async (info) => {
@@ -97,6 +98,31 @@ const Index = () => {
       "get",
       "v1/kreatesell/store/me",
       ({ data }) => {
+        //* user has setup store details
+
+        console.log("data = ", data?.store_details);
+
+        const {
+          brand_name,
+          country_name,
+          mobile_number,
+          store_name,
+          // linked_ln,
+        } = data?.store_details;
+        // console.log("store name = ", store_name);
+
+        const hasBeganSettingUpStore =
+          brand_name && country_name && mobile_number && store_name;
+
+        // && linked_ln;
+
+        //* here
+        if (hasBeganSettingUpStore) {
+          SetIsStorSetup(true);
+          SetIsFirstTimeUser(false);
+        } else {
+          SetIsFirstTimeUser(true);
+        }
         setFile({
           Profile_Picture: data?.store_details?.display_picture,
           Cover_Picture: data?.store_details?.cover_page,
@@ -138,6 +164,12 @@ const Index = () => {
       }
     );
   }, []);
+
+  const enableAddProduct = () => {
+    // if(is)
+    // SetIsStorSetup(false);
+    return isFirstTimeUser ? SetIsStorSetup(false) : SetIsStorSetup(true);
+  };
 
   return (
     <>
@@ -271,12 +303,14 @@ const Index = () => {
                 </h4>
                 <div className={style.submitButtons}>
                   <Button
+                    onClick={enableAddProduct}
                     className={style.outlinedBtn}
                     loading={loading?.updating}
                     htmlType="submit"
                     label="Save and Preview"
                   />
                   <Button
+                    disabled={!isStoreSetUp}
                     type="primary"
                     onClick={() =>
                       Router.push("/account/kreator/products/create")
