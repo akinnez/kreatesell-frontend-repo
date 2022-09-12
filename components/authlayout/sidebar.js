@@ -10,6 +10,7 @@ import {
   Product,
   Wallet,
   Ticket,
+  Help,
   Setting,
   Logout,
   CloseSubMenu,
@@ -27,7 +28,13 @@ const menuItemStyle = {
   alignItems: "center",
 };
 
-const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
+const MenuItem = ({
+  Icon = () => <></>,
+  title,
+  target = "#",
+
+  ...rest
+}) => {
   const { pathname } = useRouter();
   const isPath = target.split("/")[3] == pathname.split("/")[3];
 
@@ -71,16 +78,25 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
 
 // console.log(OpenSubMenu);
 
-const Sidebar = () => {
+const Sidebar = ({ isMobileView = false }) => {
   const { SubMenu } = Menu;
   const router = useRouter();
   const setProductId = SetProductID();
   const setProductDefault = SetProductDefault();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const onOpenChange = () => {
+  // const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState({
+    isProductOpen: false,
+    isKreatorOpen: false,
+    isAffiliateOpen: false,
+    isSalesOpen: false,
+  });
+
+  const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
+  const onOpenChange = (id) => {
     console.log("item clicked");
-    setIsOpen((isOpen) => !isOpen);
+    // setIsOpen((isOpen) => !isOpen);
+    setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
   };
   return (
     <div className={style.sidebar}>
@@ -110,17 +126,13 @@ const Sidebar = () => {
 				/> */}
         <SubMenu
           key="sub1"
-          // onOpenChange={onOpenChange}
+          onTitleClick={() => onOpenChange("isProductOpen")}
           icon={<Product className={style.icon} height={20} width={20} />}
           title="Products"
           className={style.subMenu}
-          // onOpenChange={onOpenChange}
-          // clickevent={handleClick}
-          // InlineCollapsed={isOpen}
-          // expandIcon={<CloseSubMenu />}
+          id="isProductOpen"
           expandIcon={() => {
-            // console.log("isOpen = ", isOpen);
-            return isOpen ? (
+            return isProductOpen ? (
               <CloseSubMenu className={style.closeIcon} />
             ) : (
               <Image
@@ -164,7 +176,21 @@ const Sidebar = () => {
           icon={<KreatorsIcon className={style.icon} height={20} width={20} />}
           title="Kreators"
           className={style.subMenu}
-          expandIcon={<CloseSubMenu />}
+          onTitleClick={() => onOpenChange("isKreatorOpen")}
+          id="isKreatorOpen"
+          expandIcon={() => {
+            return isKreatorOpen ? (
+              <CloseSubMenu className={style.closeIcon} />
+            ) : (
+              <Image
+                src={OpenSubMenu.src}
+                alt="open"
+                width={14}
+                height={14}
+                // onClick={handleClick}
+              />
+            );
+          }}
         >
           <Menu.Item key={41}>
             <Link href="/account/kreator/affiliates-requests">
@@ -184,7 +210,21 @@ const Sidebar = () => {
           }
           title="Affiliates"
           className={style.subMenu}
-          expandIcon={<CloseSubMenu />}
+          onTitleClick={() => onOpenChange("isAffiliateOpen")}
+          id="iisAffiliateOpen"
+          expandIcon={() => {
+            return isAffiliateOpen ? (
+              <CloseSubMenu className={style.closeIcon} />
+            ) : (
+              <Image
+                src={OpenSubMenu.src}
+                alt="open"
+                width={14}
+                height={14}
+                // onClick={handleClick}
+              />
+            );
+          }}
         >
           <Menu.Item key={38}>
             <Link href="/account/affiliate/market-place">
@@ -202,7 +242,21 @@ const Sidebar = () => {
           icon={<SalesIcon className={style.icon} height={20} width={20} />}
           title="Sales"
           className={style.subMenu}
-          expandIcon={<CloseSubMenu />}
+          onTitleClick={() => onOpenChange("isSalesOpen")}
+          id="isSalesOpen"
+          expandIcon={() => {
+            return isSalesOpen ? (
+              <CloseSubMenu className={style.closeIcon} />
+            ) : (
+              <Image
+                src={OpenSubMenu.src}
+                alt="open"
+                width={14}
+                height={14}
+                // onClick={handleClick}
+              />
+            );
+          }}
         >
           <Menu.Item key="sales-payouts">
             <Link href="/account/sales/payouts">
@@ -222,16 +276,17 @@ const Sidebar = () => {
         </SubMenu>
         <MenuItem
           key={5}
+          Icon={Help}
+          isHelp={true}
+          title="Help"
+          target="/account/kreator/help"
+        />
+        <MenuItem
+          key={6}
           Icon={Ticket}
           title="Integrations"
           target="/account/kreator/integrations"
         />{" "}
-        <MenuItem
-          key={6}
-          Icon={Ticket}
-          title="Help"
-          target="/account/kreator/help"
-        />
         <MenuItem
           key={7}
           Icon={Setting}
@@ -240,20 +295,22 @@ const Sidebar = () => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-      <section className={style.businessBg}>
-        <div className={style.iconBox}>
-          <div className={style.icon}>
-            <Image src={BusinessPlanBox} alt="business plan icon" />
+      {!isMobileView && (
+        <section className={style.businessBg}>
+          <div className={style.iconBox}>
+            <div className={style.icon}>
+              <Image src={BusinessPlanBox} alt="business plan icon" />
+            </div>
+            <p className={style.text}>
+              Enjoy the power of
+              <br /> premium options
+            </p>
+            <div className={style.btnCont}>
+              <button className={style.btn}>GO BUSINESS PLAN</button>
+            </div>
           </div>
-          <p className={style.text}>
-            Enjoy the power of
-            <br /> premium options
-          </p>
-          <div className={style.btnCont}>
-            <button className={style.btn}>GO BUSINESS PLAN</button>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };

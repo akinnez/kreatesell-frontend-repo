@@ -16,6 +16,9 @@
       .icon {
         margin-right: 0.6rem;
       }
+      .icon.helpIcon {
+        border: 1px solid red;
+      }
 
       &:hover {
         box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
@@ -27,14 +30,18 @@
           padding: 0.5rem 0;
           margin-right: 0.6rem;
         }
-        svg {
-          path {
-            fill: white;
-          }
-        }
+        // * removed disappearing icons on hover
+        // svg {
+        //   path {
+        //     fill: white;
+        //   }
+        // }
       }
     }
 
+    // .closeIcon {
+    //   color: red !important;
+    // }
     .menuitem {
       border-radius: 8px;
       display: flex;
@@ -62,6 +69,23 @@
       }
     }
 
+    .menuItem:hover .iconWrapper.isHelpIconCont {
+      background-color: #0072ef !important;
+      transition: all 0.3s linear;
+      padding: 0.5rem 0;
+      // margin-right: 0.6rem;
+
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+
+    // .iconWrapper + span + svg {
+    //   color: red !important;
+    // }
+
     .active {
       box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
       color: rgba(0, 114, 239, 1);
@@ -84,6 +108,13 @@
         }
       }
     }
+
+    // .ant-menu-item .ant-menu-item-icon + span,
+    // .ant-menu-submenu-title .ant-menu-item-icon + span,
+    // .ant-menu-item .anticon + span,
+    // .ant-menu-submenu-title .anticon + span {
+    //   margin-left: unset !important;
+    // }
   }
 
   .businessBg {
@@ -168,3 +199,11 @@
     }
   }
 }
+
+// .mobileSideBar {
+//   border: 1px solid red;
+// }
+
+// .closeIcon {
+//   color: red !important;
+// }

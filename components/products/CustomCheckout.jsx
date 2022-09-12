@@ -71,7 +71,7 @@ export default function CustomCheckoutSelect({
             showFeedBack &&
             title === "Original price (NGN)" && (
               <span className={styles.charLimit}>
-                Original Price should be more than Selling Price
+                Original price should be more than selling price
               </span>
             )}
           {noMatchFound && (
@@ -104,10 +104,6 @@ export default function CustomCheckoutSelect({
           ))}
         </Select>
 
-        {/* const commisionAllowed =
-                          e.target.value < 101 && !e.target.value.startsWith(0)
-                            ? e.target.value.replace(/[^0-9]/g, "")
-                            : ""; */}
         <div className={styles.inputButton}>
           <Input
             type="number"
