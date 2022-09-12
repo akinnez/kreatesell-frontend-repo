@@ -1,13 +1,14 @@
-import { combineReducers } from "redux";
-import auth from "./auth.reducer";
-import checkout from "./checkout.reducer";
-import domain from "./domain.reducer";
-import store from "./store.reducer";
-import utils from "./utils.reducer";
-import product from "./product.reducer";
-import notification from "./notification.reducer";
-import coupon from "./coupon.reducer";
-import planUpgrade from "./planUpgrade.reducer";
+import { combineReducers } from 'redux'
+import auth from './auth.reducer'
+import checkout from './checkout.reducer'
+import domain from './domain.reducer'
+import store from './store.reducer'
+import utils from './utils.reducer'
+import product from './product.reducer'
+import notification from './notification.reducer'
+import coupon from './coupon.reducer'
+import planUpgrade from './planUpgrade.reducer'
+import currencyConverter from './currencyConverter.reducer'
 
 const rootReducer = combineReducers({
   auth,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   utils,
   product,
   notification,
-  planUpgrade
-});
+  planUpgrade,
+  currencyConverter,
+})
 
-export default rootReducer;
+export default rootReducer
