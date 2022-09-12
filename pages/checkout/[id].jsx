@@ -66,9 +66,7 @@ const Checkout = () => {
     loading,
   } = useCurrency()
 
-  console.log('countriesCurrency', countriesCurrency)
   const checkoutDetails = useSelector((state) => state.checkout)
-  const { product } = useSelector((state) => state.product)
   const { convertedCurrency } = useSelector((state) => state.currencyConverter)
 
   const [activeCurrency, setActiveCurrency] = useState({})
@@ -120,13 +118,13 @@ const Checkout = () => {
       email_address: values?.email,
       mobile_number: values?.phoneNo,
       datetime: new Date().toISOString(),
-      total: price,
+      total: getCurrency('price'),
       reference_id: reference,
       purchase_details: [],
       status: statusValue,
       card_type: '',
       last_four: '',
-      currency: activeCurrency?.currency,
+      currency: getCurrency('currency'),
       payment_type: 'purchase',
       is_affiliate: values?.is_affiliate || false,
       affiliate_product_link: '',
@@ -236,8 +234,8 @@ const Checkout = () => {
   const flutterConfig = {
     public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
-    amount: price ?? checkoutDetails?.default_price,
-    currency: `${activeCurrency?.currency}`,
+    amount: getCurrency('price'),
+    currency: getCurrency('currency'),
     payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
     customer: {
       email: values?.email,
