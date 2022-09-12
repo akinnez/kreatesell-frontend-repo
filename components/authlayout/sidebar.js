@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { Menu } from "antd";
-import style from "./sidebar.module.scss";
-import { useRouter } from "next/router";
-import { SetProductDefault, SetProductID } from "redux/actions";
-import Image from "next/image";
+import Link from 'next/link'
+import { Menu } from 'antd'
+import style from './sidebar.module.scss'
+import { useRouter } from 'next/router'
+import { SetProductDefault, SetProductID } from 'redux/actions'
+import Image from 'next/image'
 import {
   Shop,
   Dashboard,
@@ -17,53 +17,51 @@ import {
   AffiliatesIcon,
   KreatorsIcon,
   SalesIcon,
-} from "../IconPack";
-import { useState } from "react";
-import { BusinessPlanBox, OpenSubMenu } from "../../utils/assets";
+} from '../IconPack'
+import { useState, memo } from 'react'
+import { BusinessPlanBox, OpenSubMenu } from '../../utils/assets'
 
-import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
+import { Logout as LogoutAction } from '../../redux/actions/auth.actions'
+import Timer from './Timer'
 
 const menuItemStyle = {
-  display: "flex",
-  alignItems: "center",
-};
+  display: 'flex',
+  alignItems: 'center',
+}
 
-const MenuItem = ({
-  Icon = () => <></>,
-  title,
-  target = "#",
+const MenuItem = memo(
+  ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+    const { pathname } = useRouter()
+    const isPath = target.split('/')[3] == pathname.split('/')[3]
 
-  ...rest
-}) => {
-  const { pathname } = useRouter();
-  const isPath = target.split("/")[3] == pathname.split("/")[3];
+    return (
+      <Menu.Item
+        {...rest}
+        style={menuItemStyle}
+        icon={
+          <Icon className={style.icon} active={isPath} height={20} width={20} />
+        }
+        title={title}
+        className={isPath ? style.active : style.menuitem}
+      >
+        <Link href={target}>
+          <a>{title}</a>
+        </Link>
+      </Menu.Item>
+    )
+  },
+)
+MenuItem.displayName = 'MenuItem'
 
-  return (
-    <Menu.Item
-      {...rest}
-      style={menuItemStyle}
-      icon={
-        <Icon className={style.icon} active={isPath} height={20} width={20} />
-      }
-      title={title}
-      className={isPath ? style.active : style.menuitem}
-    >
-      <Link href={target}>
-        <a>{title}</a>
-      </Link>
-    </Menu.Item>
-  );
-};
-
-const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
-  const { pathname } = useRouter();
-  const logout = LogoutAction();
-  const isPath = target.split("/")[3] == pathname.split("/")[3];
+const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+  const { pathname } = useRouter()
+  const logout = LogoutAction()
+  const isPath = target.split('/')[3] == pathname.split('/')[3]
 
   return (
     <Menu.Item
       {...rest}
-      style={{ background: "#0072EF", color: "white", ...menuItemStyle }}
+      style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
       icon={
         <Icon className={style.icon} active={true} height={20} width={20} />
       }
@@ -73,16 +71,16 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
     >
       {title}
     </Menu.Item>
-  );
-};
+  )
+}
 
 // console.log(OpenSubMenu);
 
 const Sidebar = ({ isMobileView = false }) => {
-  const { SubMenu } = Menu;
-  const router = useRouter();
-  const setProductId = SetProductID();
-  const setProductDefault = SetProductDefault();
+  const { SubMenu } = Menu
+  const router = useRouter()
+  const setProductId = SetProductID()
+  const setProductDefault = SetProductDefault()
 
   // const [isOpen, setIsOpen] = useState(false);
   const [isOpen, setIsOpen] = useState({
@@ -90,14 +88,14 @@ const Sidebar = ({ isMobileView = false }) => {
     isKreatorOpen: false,
     isAffiliateOpen: false,
     isSalesOpen: false,
-  });
+  })
 
-  const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
+  const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen
   const onOpenChange = (id) => {
-    console.log("item clicked");
+    console.log('item clicked')
     // setIsOpen((isOpen) => !isOpen);
-    setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
-  };
+    setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }))
+  }
   return (
     <div className={style.sidebar}>
       <Menu
@@ -126,7 +124,7 @@ const Sidebar = ({ isMobileView = false }) => {
 				/> */}
         <SubMenu
           key="sub1"
-          onTitleClick={() => onOpenChange("isProductOpen")}
+          onTitleClick={() => onOpenChange('isProductOpen')}
           icon={<Product className={style.icon} height={20} width={20} />}
           title="Products"
           className={style.subMenu}
@@ -142,7 +140,7 @@ const Sidebar = ({ isMobileView = false }) => {
                 height={14}
                 // onClick={handleClick}
               />
-            );
+            )
           }}
         >
           <Menu.Item key={35}>
@@ -154,11 +152,11 @@ const Sidebar = ({ isMobileView = false }) => {
             <Link href="/account/kreator/products/create">
               <a
                 onClick={(e) => {
-                  e.preventDefault();
-                  setProductId("");
-                  setProductDefault();
-                  console.log("ytrfghjuytrdfgh");
-                  router.push("/account/kreator/products/create");
+                  e.preventDefault()
+                  setProductId('')
+                  setProductDefault()
+                  console.log('ytrfghjuytrdfgh')
+                  router.push('/account/kreator/products/create')
                 }}
               >
                 Create Product
@@ -176,7 +174,7 @@ const Sidebar = ({ isMobileView = false }) => {
           icon={<KreatorsIcon className={style.icon} height={20} width={20} />}
           title="Kreators"
           className={style.subMenu}
-          onTitleClick={() => onOpenChange("isKreatorOpen")}
+          onTitleClick={() => onOpenChange('isKreatorOpen')}
           id="isKreatorOpen"
           expandIcon={() => {
             return isKreatorOpen ? (
@@ -189,7 +187,7 @@ const Sidebar = ({ isMobileView = false }) => {
                 height={14}
                 // onClick={handleClick}
               />
-            );
+            )
           }}
         >
           <Menu.Item key={41}>
@@ -210,7 +208,7 @@ const Sidebar = ({ isMobileView = false }) => {
           }
           title="Affiliates"
           className={style.subMenu}
-          onTitleClick={() => onOpenChange("isAffiliateOpen")}
+          onTitleClick={() => onOpenChange('isAffiliateOpen')}
           id="iisAffiliateOpen"
           expandIcon={() => {
             return isAffiliateOpen ? (
@@ -223,7 +221,7 @@ const Sidebar = ({ isMobileView = false }) => {
                 height={14}
                 // onClick={handleClick}
               />
-            );
+            )
           }}
         >
           <Menu.Item key={38}>
@@ -242,7 +240,7 @@ const Sidebar = ({ isMobileView = false }) => {
           icon={<SalesIcon className={style.icon} height={20} width={20} />}
           title="Sales"
           className={style.subMenu}
-          onTitleClick={() => onOpenChange("isSalesOpen")}
+          onTitleClick={() => onOpenChange('isSalesOpen')}
           id="isSalesOpen"
           expandIcon={() => {
             return isSalesOpen ? (
@@ -255,7 +253,7 @@ const Sidebar = ({ isMobileView = false }) => {
                 height={14}
                 // onClick={handleClick}
               />
-            );
+            )
           }}
         >
           <Menu.Item key="sales-payouts">
@@ -286,7 +284,7 @@ const Sidebar = ({ isMobileView = false }) => {
           Icon={Ticket}
           title="Integrations"
           target="/account/kreator/integrations"
-        />{" "}
+        />{' '}
         <MenuItem
           key={7}
           Icon={Setting}
@@ -295,24 +293,9 @@ const Sidebar = ({ isMobileView = false }) => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-      {!isMobileView && (
-        <section className={style.businessBg}>
-          <div className={style.iconBox}>
-            <div className={style.icon}>
-              <Image src={BusinessPlanBox} alt="business plan icon" />
-            </div>
-            <p className={style.text}>
-              Enjoy the power of
-              <br /> premium options
-            </p>
-            <div className={style.btnCont}>
-              <button className={style.btn}>GO BUSINESS PLAN</button>
-            </div>
-          </div>
-        </section>
-      )}
+      {!isMobileView && <Timer />}
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
