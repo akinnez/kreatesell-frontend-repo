@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { Menu } from "antd";
-import style from "./sidebar.module.scss";
-import { useRouter } from "next/router";
-import { SetProductDefault, SetProductID } from "redux/actions";
-import Image from "next/image";
+import Link from 'next/link'
+import { Menu } from 'antd'
+import style from './sidebar.module.scss'
+import { useRouter } from 'next/router'
+import { SetProductDefault, SetProductID } from 'redux/actions'
+import Image from 'next/image'
 import {
   Shop,
   Dashboard,
@@ -16,47 +16,51 @@ import {
   AffiliatesIcon,
   KreatorsIcon,
   SalesIcon,
-} from "../IconPack";
-import { useState } from "react";
-import { BusinessPlanBox, OpenSubMenu } from "../../utils/assets";
+} from '../IconPack'
+import { useState, memo } from 'react'
+import { BusinessPlanBox, OpenSubMenu } from '../../utils/assets'
 
-import { Logout as LogoutAction } from "../../redux/actions/auth.actions";
+import { Logout as LogoutAction } from '../../redux/actions/auth.actions'
+import Timer from './Timer'
 
 const menuItemStyle = {
-  display: "flex",
-  alignItems: "center",
-};
+  display: 'flex',
+  alignItems: 'center',
+}
 
-const MenuItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
-  const { pathname } = useRouter();
-  const isPath = target.split("/")[3] == pathname.split("/")[3];
+const MenuItem = memo(
+  ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+    const { pathname } = useRouter()
+    const isPath = target.split('/')[3] == pathname.split('/')[3]
+
+    return (
+      <Menu.Item
+        {...rest}
+        style={menuItemStyle}
+        icon={
+          <Icon className={style.icon} active={isPath} height={20} width={20} />
+        }
+        title={title}
+        className={isPath ? style.active : style.menuitem}
+      >
+        <Link href={target}>
+          <a>{title}</a>
+        </Link>
+      </Menu.Item>
+    )
+  },
+)
+MenuItem.displayName = 'MenuItem'
+
+const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+  const { pathname } = useRouter()
+  const logout = LogoutAction()
+  const isPath = target.split('/')[3] == pathname.split('/')[3]
 
   return (
     <Menu.Item
       {...rest}
-      style={menuItemStyle}
-      icon={
-        <Icon className={style.icon} active={isPath} height={20} width={20} />
-      }
-      title={title}
-      className={isPath ? style.active : style.menuitem}
-    >
-      <Link href={target}>
-        <a>{title}</a>
-      </Link>
-    </Menu.Item>
-  );
-};
-
-const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
-  const { pathname } = useRouter();
-  const logout = LogoutAction();
-  const isPath = target.split("/")[3] == pathname.split("/")[3];
-
-  return (
-    <Menu.Item
-      {...rest}
-      style={{ background: "#0072EF", color: "white", ...menuItemStyle }}
+      style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
       icon={
         <Icon className={style.icon} active={true} height={20} width={20} />
       }
@@ -66,22 +70,23 @@ const LogoutItem = ({ Icon = () => <></>, title, target = "#", ...rest }) => {
     >
       {title}
     </Menu.Item>
-  );
-};
+  )
+}
 
 // console.log(OpenSubMenu);
 
 const Sidebar = () => {
-  const { SubMenu } = Menu;
-  const router = useRouter();
-  const setProductId = SetProductID();
-  const setProductDefault = SetProductDefault();
+  const { SubMenu } = Menu
+  const router = useRouter()
+  const setProductId = SetProductID()
+  const setProductDefault = SetProductDefault()
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
   const onOpenChange = () => {
-    console.log("item clicked");
-    setIsOpen((isOpen) => !isOpen);
-  };
+    console.log('item clicked')
+    setIsOpen((isOpen) => !isOpen)
+  }
+
   return (
     <div className={style.sidebar}>
       <Menu
@@ -130,7 +135,7 @@ const Sidebar = () => {
                 height={14}
                 // onClick={handleClick}
               />
-            );
+            )
           }}
         >
           <Menu.Item key={35}>
@@ -142,11 +147,11 @@ const Sidebar = () => {
             <Link href="/account/kreator/products/create">
               <a
                 onClick={(e) => {
-                  e.preventDefault();
-                  setProductId("");
-                  setProductDefault();
-                  console.log("ytrfghjuytrdfgh");
-                  router.push("/account/kreator/products/create");
+                  e.preventDefault()
+                  setProductId('')
+                  setProductDefault()
+                  console.log('ytrfghjuytrdfgh')
+                  router.push('/account/kreator/products/create')
                 }}
               >
                 Create Product
@@ -225,7 +230,7 @@ const Sidebar = () => {
           Icon={Ticket}
           title="Integrations"
           target="/account/kreator/integrations"
-        />{" "}
+        />{' '}
         <MenuItem
           key={6}
           Icon={Ticket}
@@ -240,22 +245,9 @@ const Sidebar = () => {
         />
         <LogoutItem key={8} Icon={Logout} title="Logout" />
       </Menu>
-      <section className={style.businessBg}>
-        <div className={style.iconBox}>
-          <div className={style.icon}>
-            <Image src={BusinessPlanBox} alt="business plan icon" />
-          </div>
-          <p className={style.text}>
-            Enjoy the power of
-            <br /> premium options
-          </p>
-          <div className={style.btnCont}>
-            <button className={style.btn}>GO BUSINESS PLAN</button>
-          </div>
-        </div>
-      </section>
+      <Timer />
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
