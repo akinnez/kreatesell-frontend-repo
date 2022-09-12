@@ -24,7 +24,7 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { usePaystackPayment } from 'react-paystack'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
-import { SendPaymentCheckoutDetails } from 'redux/actions'
+import { SendPaymentCheckoutDetails, ConvertCurrency } from 'redux/actions'
 import crypto from 'crypto'
 import LogoImg from '../../public/images/logo.svg'
 import useFetchUtilities from 'hooks/useFetchUtilities'
@@ -55,8 +55,10 @@ const paymentMethods = [
   },
 ]
 const Checkout = () => {
+  const router = useRouter()
+  const productId = router.query.id
+  const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`
   const [modal, setModal] = useState(false)
-  const [activeCard, setActiveCard] = useState('NGN')
   const {
     countriesCurrency,
     filterdWest,
@@ -64,16 +66,16 @@ const Checkout = () => {
     loading,
   } = useCurrency()
 
+  console.log('countriesCurrency', countriesCurrency)
   const checkoutDetails = useSelector((state) => state.checkout)
   const { product } = useSelector((state) => state.product)
+  const { convertedCurrency } = useSelector((state) => state.currencyConverter)
 
   const [activeCurrency, setActiveCurrency] = useState({})
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
-  const router = useRouter()
-  const productId = router.query.id
-  const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`
 
   const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails()
+  const convertCurrency = ConvertCurrency()
 
   const closeModal = () => setModal(false)
 
@@ -84,14 +86,24 @@ const Checkout = () => {
   )
   const currency_name = checkout?.[0]?.currency_name
   const price = checkout?.[0]?.price
-  console.log('checkOutDetails', checkOutDetails)
-  console.log('checkout', checkout)
+
   const getProductDetails = async (productLink) => {
     try {
       const response = await axios.get(productLink)
       setCheckOutDetails(response?.data?.data?.check_out_details)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const getCurrency = (priceOrName) => {
+    if (priceOrName === 'currency') {
+      return activeCurrency?.currency || activeCurrency?.currency_name
+    } else if (priceOrName === 'price') {
+      return (
+        convertedCurrency?.buy_rate * checkOutInNaira?.price ||
+        checkOutInNaira?.price
+      )
     }
   }
 
@@ -128,17 +140,26 @@ const Checkout = () => {
   }, [productLink])
 
   // set currency on mount
+  // TODO: set to the base currency
   useEffect(() => {
-    if (countriesCurrency) {
-      setActiveCurrency(countriesCurrency[0])
+    // if (countriesCurrency) {
+    //   setActiveCurrency(countriesCurrency[0])
+    //   setSelectedPaymentMethod(paymentMethods[0].value)
+    // }
+    if (checkOutDetails.length) {
+      setActiveCurrency(checkOutDetails[0])
       setSelectedPaymentMethod(paymentMethods[0].value)
     }
-  }, [countriesCurrency])
+  }, [checkOutDetails.length])
 
   useEffect(() => {
     if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
       setSelectedPaymentMethod('')
     }
+    // if the active currency is equal to the base currency, no need to convert
+    // if (  !activeCurrency?.currency === 'NGN') {
+    handleCurrencyConversion(activeCurrency.currency)
+    // }
   }, [activeCurrency?.currency])
   const checkOutInNaira = checkOutDetails?.find(
     (item) =>
@@ -178,6 +199,21 @@ const Checkout = () => {
     }
   }
 
+  const handleCurrencyConversion = (toCurrency) => {
+    if (price && toCurrency) {
+      const data = {
+        amount: price,
+        from_currency_name: currency_name,
+        to_currency_name: toCurrency,
+      }
+      convertCurrency(
+        data,
+        () => console.log('success'),
+        () => console.log('error'),
+      )
+    }
+  }
+
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -197,7 +233,6 @@ const Checkout = () => {
   const { errors, setFieldValue, values } = formik
 
   // Flutterwave configurations
-  // console.log('active currency', activeCurrency?.currency)
   const flutterConfig = {
     public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
@@ -218,7 +253,6 @@ const Checkout = () => {
     },
   }
 
-  // console.log('activeCurrency?.currency', activeCurrency?.currency)
   const handleFlutterPayment = useFlutterwave(flutterConfig)
 
   // Flutterwave configurations end here
@@ -366,15 +400,17 @@ const Checkout = () => {
 
                 <div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
                   {countriesCurrency?.map(
-                    ({ currency, currency_id, flag }, index) => (
-                      <CurrencyCard
-                        key={currency_id}
-                        handleSelect={() =>
-                          handleSelect({ currency_id, currency })
-                        }
-                        {...{ currency, currency_id, flag, activeCurrency }}
-                      />
-                    ),
+                    ({ currency, currency_id, flag }, index) =>
+                      currency !== 'XOF' &&
+                      currency !== 'XAF' && (
+                        <CurrencyCard
+                          key={currency_id}
+                          handleSelect={() =>
+                            handleSelect({ currency_id, currency })
+                          }
+                          {...{ currency, currency_id, flag, activeCurrency }}
+                        />
+                      ),
                   )}
                 </div>
               </div>
@@ -520,26 +556,19 @@ const Checkout = () => {
                 <div className="flex justify-between">
                   <p>SubTotal</p>
                   <div className="flex gap-4">
-                    {checkoutDetails?.product_details
+                    {/* {checkoutDetails?.product_details
                       ?.is_strike_original_price && (
                       <s className="text-base-gray-200">
                         {currency_name} 10000
                       </s>
-                    )}
+                    )} */}
                     <p>
                       {/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-                      {/* NGN 890 */}
-                      {checkOutInNaira?.currency_name} {checkOutInNaira?.price}
+                      {/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+                      {getCurrency('currency')} {getCurrency('price')}
                     </p>
                   </div>
                 </div>
-
-                {checkoutDetails?.product_details?.coupon_settings && (
-                  <div className="flex justify-between">
-                    <p>Coupon</p>
-                    <p>NGN 200</p>
-                  </div>
-                )}
 
                 <div className="flex justify-between">
                   <p>Transaction Fee</p>
@@ -556,11 +585,12 @@ const Checkout = () => {
                 <div className="flex justify-between">
                   <p>Total</p>
                   <p className="text-primary-blue font-medium">
-                    {currency_name}{' '}
+                    {/* {currency_name}{' '} */}
+                    {getCurrency('currency')}{' '}
                     {/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
                     )} */}
-                    {checkOutInNaira?.price}
+                    {getCurrency('price')}
                   </p>
                 </div>
               </div>
