@@ -1,11 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import { useSelector } from 'react-redux'
 import { useCountdown } from 'hooks/useCountdownTimer'
 
 import style from './Timer.module.scss'
+
 const Timer = () => {
+  const router = useRouter()
   const {
     store: { plan_expiry_date },
   } = useSelector((state) => state.store)
@@ -37,21 +40,33 @@ const Timer = () => {
                         <h3>{days}</h3>
                         <p style={{ color: '#fff' }}>Days</p>
                       </div>
+                      <span className={style.semicolon}>:</span>
                       <div className={style.timer}>
                         <h3>{hours}</h3>
                         <p style={{ color: '#fff' }}>Hours</p>
                       </div>
+                      <span className={style.semicolon}>:</span>
                       <div className={style.timer}>
                         <h3>{minutes}</h3>
                         <p style={{ color: '#fff' }}>Mins</p>
                       </div>
+                      <span className={style.semicolon}>:</span>
                       <div className={style.timer}>
                         <h3>{seconds}</h3>
                         <p style={{ color: '#fff' }}>Secs</p>
                       </div>
                     </div>
                     <div className={style.btnCont}>
-                      <button className={style.btn}>Renew Business Plan</button>
+                      <button
+                        className={style.btn}
+                        onClick={() =>
+                          router.push(
+                            '/account/kreator/settings?activeTab=billing',
+                          )
+                        }
+                      >
+                        Renew Business Plan
+                      </button>
                     </div>
                   </>
                 )}
@@ -67,7 +82,14 @@ const Timer = () => {
                   </p>
                 </div>
                 <div className={style.btnCont}>
-                  <button className={style.btn}>Renew Business Plan</button>
+                  <button
+                    className={style.btn}
+                    onClick={() =>
+                      router.push('/account/kreator/settings?activeTab=billing')
+                    }
+                  >
+                    Renew Business Plan
+                  </button>
                 </div>
               </>
             ) : (
