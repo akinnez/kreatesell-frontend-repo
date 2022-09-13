@@ -230,6 +230,7 @@ const Index = () => {
                   label="Description"
                   placeholder="Tell us more about your business. 
                             Buyers are also interested in knowing more about your business uniqueness."
+                  maxLength={700}
                 />
 
                 <Row gutter={{ xs: 0, sm: 0, md: 8 }}>
