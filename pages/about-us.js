@@ -543,7 +543,7 @@ const MobileCollapsible = ({ headingText, content }) => {
         key="0"
         header={<CustomHeader>{headingText}</CustomHeader>}
         className={styles.panelHeader}
-        // id="panelHeader"
+        id="panelHeader"
       >
         <div className={styles.moreInfo}>{content}</div>
       </Panel>
