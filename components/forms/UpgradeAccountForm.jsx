@@ -160,6 +160,7 @@ export const UpgradeAccountForm = ({
     const status = paymentStatusList[reference?.status]
     sendPaymentCheckoutDetails(
       paymentDetails({ reference: reference?.reference, status }),
+      (res) => console.log('res is', res),
     )
   }
 
@@ -369,13 +370,16 @@ export const UpgradeAccountForm = ({
             </p>
           </div>
           <div className="grid gap-4 grid-cols-3 md:grid-cols-6 pt-3">
-            {countriesCurrency?.map(({ currency, currency_id, flag }, i) => (
-              <CurrencyCard
-                key={currency_id}
-                handleSelect={() => handleSelect({ currency_id, currency })}
-                {...{ currency, currency_id, flag, activeCurrency }}
-              />
-            ))}
+            {countriesCurrency?.map(
+              ({ currency, currency_id, flag }, i) =>
+                !['XOF', 'XAF'].includes(currency) && (
+                  <CurrencyCard
+                    key={currency_id}
+                    handleSelect={() => handleSelect({ currency_id, currency })}
+                    {...{ currency, currency_id, flag, activeCurrency }}
+                  />
+                ),
+            )}
           </div>
 
           <div className="py-7">

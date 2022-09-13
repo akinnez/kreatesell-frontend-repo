@@ -63,7 +63,8 @@ const useCurrency = () => {
           }
           return (
             country.currency_id === allowedCurrency.value &&
-            allowedCurrency.label !== 'USD'
+            allowedCurrency.label !== 'USD' &&
+            !['XOF', 'XAF'].includes(allowedCurrency.label)
           )
         })
       })

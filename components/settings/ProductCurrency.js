@@ -15,14 +15,13 @@ const Index = ({
   filterdWest,
 }) => {
   const updateProductCurrencies = UpdateProductCurrencies()
-  const [currencies, setCurrencies] = useState({
-    product_id: 0,
-    currencies: [],
-  })
+  const [currencies, setCurrencies] = useState({ currencies_id: [] })
+  const [XOFCurrency, setXOFCurrency] = useState({ currencies_id: [] })
+  const [XAFCurrency, setXAFCurrency] = useState({ currencies_id: [] })
   const handleSelect = (currency_id) => {
     setCurrencies((prev) => ({
       ...prev,
-      currencies: currency_id?.map((id) => {
+      currencies_id: currency_id?.map((id) => {
         return {
           currency_id: id,
           status: true,
@@ -31,15 +30,65 @@ const Index = ({
     }))
   }
 
+  const handleXOF = (country_id) => {
+    if (country_id.length <= 1) {
+      const currencies = [...filterdWest, ...filteredCentral]
+      const country = country_id
+        .map((ctr) => currencies.filter((cur) => cur.id === ctr))
+        .map((cur) => cur[0]?.currency_id)
+
+      setXOFCurrency((prev) => ({
+        currencies_id: [
+          ...country?.map((cur) => {
+            return {
+              currency_id: cur,
+              status: true,
+            }
+          }),
+        ],
+      }))
+    }
+  }
+
+  const handleXAF = (country_id) => {
+    if (country_id.length <= 1) {
+      const currencies = [...filterdWest, ...filteredCentral]
+      const country = country_id
+        .map((ctr) => currencies.filter((cur) => cur.id === ctr))
+        .map((cur) => cur[0]?.currency_id)
+
+      setXAFCurrency((prev) => ({
+        currencies_id: [
+          ...country?.map((cur) => {
+            return {
+              currency_id: cur,
+              status: true,
+            }
+          }),
+        ],
+      }))
+    }
+  }
+
+  const formatCurrency = () => {
+    const data = {
+      currencies_id: [
+        ...currencies.currencies_id,
+        ...XOFCurrency.currencies_id,
+        ...XAFCurrency.currencies_id,
+      ],
+    }
+    return data
+  }
+
   const handleSubmit = () => {
     updateProductCurrencies(
-      currencies,
+      formatCurrency(),
       () => console.log('successful'),
       () => console.log('error occured'),
     )
   }
 
-  // console.log('currencies', currencies)
   return (
     <div className={style.wrapper}>
       <h3>Store Currency Settings</h3>
@@ -65,7 +114,10 @@ const Index = ({
                 <Checkbox value={currency_id}>
                   <span
                     className={`p-2 flex`}
-                    style={{ border: '1px solid #D9D9D9', borderRadius: '8px' }}
+                    style={{
+                      border: '1px solid #D9D9D9',
+                      borderRadius: '8px',
+                    }}
                   >
                     <div className={style.checFlag + ' mr-2'}>
                       <Image src={flag} alt="flag" layout="fill" />
@@ -78,15 +130,17 @@ const Index = ({
           </Row>
         </Checkbox.Group>
 
-        <h4>West African CFA Franc BCEAO</h4>
+        {/* {console.log('filterdWest', filterdWest)} */}
+        <h4>West African CFA Franc BCEAO(XOF)</h4>
         <Checkbox.Group
           style={{ width: '100%' }}
           // onChange={e => console.log(e)}
+          onChange={handleXOF}
         >
           <Row>
-            {filterdWest?.map(({ name, currency_id, flag }, i) => (
+            {filterdWest?.map(({ name, flag, id }, i) => (
               <Col key={i} md={5} sm={8} style={{ marginBlockEnd: '1rem' }}>
-                <Checkbox value={currency_id}>
+                <Checkbox value={id}>
                   <span
                     className={`p-2 flex`}
                     style={{ border: '1px solid #D9D9D9', borderRadius: '8px' }}
@@ -101,15 +155,16 @@ const Index = ({
             ))}
           </Row>
         </Checkbox.Group>
-        <h4>Central African CFA Franc BEAC</h4>
+        <h4>Central African CFA Franc BEAC(XAF)</h4>
         <Checkbox.Group
           style={{ width: '100%' }}
           // onChange={e => console.log(e)}
+          onChange={handleXAF}
         >
           <Row>
-            {filteredCentral?.map(({ name, currency_id, flag }, i) => (
+            {filteredCentral?.map(({ name, flag, id }, i) => (
               <Col key={i} md={4} sm={6} style={{ marginBlockEnd: '1rem' }}>
-                <Checkbox value={currency_id}>
+                <Checkbox value={id}>
                   <span
                     className={`p-2 flex`}
                     style={{ border: '1px solid #D9D9D9', borderRadius: '8px' }}
