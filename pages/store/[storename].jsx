@@ -101,9 +101,11 @@ const StorePage = () => {
             publicStoreInfo={singleStoreDetails}
           />
 
-          <p className="px-2 md:px-6 lg:px-32 mt-4 md:mt-16 text-base-gray-200 text-sm text-center">
-            {singleStoreDetails?.bio_data}
-          </p>
+          <div className={styles.bioData}>
+            <p className="px-2 md:px-6 lg:px-32 mt-4 md:mt-16 text-base-gray-200 text-sm text-center">
+              {singleStoreDetails?.bio_data}
+            </p>
+          </div>
         </div>
 
         <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
