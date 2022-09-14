@@ -64,12 +64,18 @@ const Billing = () => {
   // change
   useMemo(() => {
     if (countriesCurrency?.length > 0) {
-      let currency = countriesCurrency.map((ctr) => ({
-        ...ctr,
-        value: ctr.name,
-        label: ctr.currency,
-      }))
-      setCountryOptions(currency)
+      const cur = [
+        // { value: 161, label: 'XOF' },
+        // { value: 162, label: 'XAF' },
+      ]
+      let currency = countriesCurrency
+        .filter((ctr) => !['XAF', 'XOF'].includes(ctr.currency))
+        .map((ctr) => ({
+          ...ctr,
+          value: ctr.name,
+          label: ctr.currency,
+        }))
+      setCountryOptions([...currency, ...cur])
     }
   }, [countriesCurrency?.length])
 
@@ -118,7 +124,6 @@ const Billing = () => {
             </div>
           </div>
         </div>
-        {console.log('Selected plan', selectedPlan)}
         <div className="flex flex-col md:flex-row justify-center my-6">
           <div className="md:pr-4">
             <PricingCard
@@ -140,7 +145,7 @@ const Billing = () => {
               priceType={priceLabel}
               subPriceType={subPriceType}
               btnOnClick={openModal}
-              currentPlan={selectedPlan === 'Business'}
+              // currentPlan={selectedPlan === 'Business'}
             />
           </div>
         </div>
