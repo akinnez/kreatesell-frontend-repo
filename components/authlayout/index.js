@@ -16,6 +16,8 @@ import {
   showToast,
   _isUserLoggedIn,
   isAnEmpytyObject,
+  NavCloseDropdownIcon,
+  SideBarLoginProfile,
 } from "utils";
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
@@ -95,7 +97,7 @@ const Index = ({
   const toggleView = () => setIsMobileSideBarOpen(!isMobileSideBarOpen);
 
   return (
-    <>
+    <section className={styles.layoutMain}>
       <Layout>
         <Sider
           width={250}
@@ -115,15 +117,20 @@ const Index = ({
             <Sidebar />
           </div>
         </Sider>
-        {/* <div className={styles.mobileSideBar}>
-          <Sidebar isMobileView={true} />
-        </div> */}
+        {isMobileSideBarOpen && (
+          <div className={styles.mobileSideBar}>
+            <Sidebar isMobileView={true} />
+          </div>
+        )}
         <Layout>
           <Nav
             headerTitle={headerTitle}
             toggleView={toggleView}
             isMobileSideBarOpen={isMobileSideBarOpen}
           />
+          {/* <div className={styles.mobileLoginSideBar}>
+            <Sidebar />
+          </div> */}
           <Content
             // style={{
             // 	backgroundColor: "rgba(245, 245, 245, 1)",
@@ -158,7 +165,7 @@ const Index = ({
           padding: 50px 30px 10px 30px;
         }
       `}</style>
-    </>
+    </section>
   );
 };
 

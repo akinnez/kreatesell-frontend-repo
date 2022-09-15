@@ -10,18 +10,8 @@ import { MobileLogo } from "./logo";
 import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
-import {
-  shortenDetail,
-  NavCloseIcon,
-  NavCloseLogo,
-  NavCloseDropdownIcon,
-  SideBarLoginProfile,
-} from "utils";
+import { shortenDetail, NavCloseIcon, NavCloseLogo } from "utils";
 
-// import {NavCloseIcon,
-//   NavCloseLogo,
-//   NavCloseDropdownIcon,
-//   SideBarLoginProfile} from '../../'
 const Profile = ({ name, avi }) => {
   return (
     <>

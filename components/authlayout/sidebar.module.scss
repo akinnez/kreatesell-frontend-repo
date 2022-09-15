@@ -116,14 +116,21 @@
     //   margin-left: unset !important;
     // }
   }
-
-
 }
 
-// .mobileSideBar {
-//   border: 1px solid red;
-// }
+.layoutMain {
+  position: relative;
+}
 
-// .closeIcon {
-//   color: red !important;
-// }
+.mobileSideBar {
+  border: 1px solid red;
+  width: 372px;
+  height: 100%;
+  margin-top: 6rem;
+  background-color: #ffffff;
+  z-index: 300;
+  position: absolute;
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
