@@ -72,10 +72,12 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
   useEffect(() => {
     setTitle(product?.product_details?.product_name);
     // setLink(`http://dev.kreatesell.com/checkout/${productId}`)
-    setLink(`http://dev.kreatesell.com/store/${productId}`);
+    // setLink(`http://dev.kreatesell.com/store/${productId}`);
     // * try this
 
-    // setLink(`http://dev.kreatesell.com/store/${storeName}/${productId}`);
+    setLink(
+      `http://dev.kreatesell.com/store/${storeName}/product/${productId}`
+    );
   }, [product, productId, storeName]);
 
   useEffect(() => {
