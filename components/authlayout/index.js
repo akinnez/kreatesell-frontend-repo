@@ -69,7 +69,7 @@ const Index = ({
   }, []);
 
   const user = useSelector((state) => state.auth);
-
+  const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
   const productTypes = GetProductTypes();
@@ -79,6 +79,8 @@ const Index = ({
       dispatch({ type: USER.REQUEST });
 
       const userStorage = getUser();
+
+      setUserName(userStorage?.full_name);
 
       if (userStorage) {
         dispatch({ type: USER.SUCCESS, payload: userStorage });
@@ -123,6 +125,13 @@ const Index = ({
             <div className={styles.profile}>
               <div className={styles.profileImgBox}>
                 <Image src={SideBarLoginProfile} alt="profile" />
+              </div>
+              <div className={styles.details}>
+                <p>{userName ? userName : "User"}</p>
+                <div>Business Account</div>
+              </div>
+              <div className={styles.dropDown}>
+                <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
               </div>
             </div>
             <Sidebar isMobileView={true} />
