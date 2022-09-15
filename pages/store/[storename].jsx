@@ -169,11 +169,11 @@ const ProductCard = ({
     <div
       className="bg-white w-full rounded-lg"
       style={{ cursor: "pointer" }}
-      onClick={() =>
-        router.push(
-          `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
-        )
-      }
+      // onClick={() =>
+      //   router.push(
+      //     `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
+      //   )
+      // }
     >
       <div>
         <Image
@@ -213,7 +213,7 @@ const ProductCard = ({
             className={styles.productCardBtn}
             onClick={() => {
               // router.push('/checkout')
-              // console.log("CTA Clicked!");
+              console.log("CTA Clicked!");
               router.push(
                 `/checkout/${productDetails?.product_details?.kreasell_product_id}`
               );

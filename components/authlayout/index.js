@@ -127,7 +127,7 @@ const Index = ({
                 <Image src={SideBarLoginProfile} alt="profile" />
               </div>
               <div className={styles.details}>
-                <p>{userName ? userName : "User"}</p>
+                <p>{userName ? userName : ""}</p>
                 <div>Business Account</div>
               </div>
               <div className={styles.dropDown}>
