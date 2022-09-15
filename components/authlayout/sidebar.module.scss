@@ -130,6 +130,13 @@
   background-color: #ffffff;
   z-index: 300;
   position: absolute;
+
+  .profile {
+    border: 1px solid black;
+    padding: 2rem;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
   @media (min-width: 992px) {
     display: none;
   }

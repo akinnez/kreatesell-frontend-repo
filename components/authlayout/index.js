@@ -19,6 +19,7 @@ import {
   NavCloseDropdownIcon,
   SideBarLoginProfile,
 } from "utils";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
@@ -119,6 +120,11 @@ const Index = ({
         </Sider>
         {isMobileSideBarOpen && (
           <div className={styles.mobileSideBar}>
+            <div className={styles.profile}>
+              <div className={styles.profileImgBox}>
+                <Image src={SideBarLoginProfile} alt="profile" />
+              </div>
+            </div>
             <Sidebar isMobileView={true} />
           </div>
         )}
