@@ -99,7 +99,7 @@ export const CreateProductForm = ({
   }
 
   const handleSubmit = (data) => {
-    // console.log("Data is", data)
+    // console.log('Data is', data)
     if (['oneTimeSubscription', 'membership'].includes(productType)) {
       delete data?.contentZipFiles
       delete data?.upload_content
@@ -114,12 +114,12 @@ export const CreateProductForm = ({
     delete data.isBasicPlan
     // console.log(data)
     const result = transformToFormData(data, 'contentZipFiles')
-    createProduct(result, async () => {
-      if (productId) {
-        await getProductByID(productId)
-      }
-      setProductTab(1)
-    })
+    // createProduct(result, async () => {
+    //   if (productId) {
+    //     await getProductByID(productId)
+    //   }
+    //   setProductTab(1)
+    // })
   }
   const imageIsEdits = (files) => {
     const mapped = files?.map((items, i) => {
@@ -361,7 +361,10 @@ export const CreateProductForm = ({
                   </h2>
                 )}
 
-              <div className="flex flex-col-reverse sm:flex-row">
+              <div
+                className="flex flex-col-reverse sm:flex-row"
+                // style={{ border: '1px solid' }}
+              >
                 <div className={'relative ' + styles.uploadChart}>
                   {isImageFilled && (
                     <div className="absolute z-50 w-full h-full bg-transparent"></div>
@@ -421,6 +424,7 @@ export const CreateProductForm = ({
                       : styles.noImage + ' ml-3'
                   }
                 >
+                  {/* {console.log('imageUploads', imageUploads)} */}
                   <ul className="flex flex-col mb-0">
                     {imageUploads.map((fileWrap, indx) => {
                       if (!(fileWrap.errors.length > 0)) {
