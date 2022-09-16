@@ -34,7 +34,6 @@ const ProductReducer = (state = initialState, { type, payload }) => {
     case types.FETCH_SINGLE_STORE_PRODUCT.REQUEST:
     case types.FETCH_SINGLE_STORE_PRODUCT.REQUEST:
     case types.FETCH_COUPON_PRODUCT.REQUEST:
-    case types.UPDATE_PRODUCT_CURRENCY.REQUEST:
       return { ...state, loading: true }
 
     case types.GET_ALL_PRODUCTS.SUCCESS:
@@ -45,7 +44,6 @@ const ProductReducer = (state = initialState, { type, payload }) => {
     case types.PUBLISH_PRODUCT.SUCCESS:
     case types.CREATE_SECTION.SUCCESS:
     case types.CREATE_CONTENT.SUCCESS:
-    case types.UPDATE_PRODUCT_CURRENCY.SUCCESS:
       return { ...state, loading: false }
 
     case types.CREATE_PRODUCT.SUCCESS:
@@ -85,7 +83,6 @@ const ProductReducer = (state = initialState, { type, payload }) => {
     case types.GET_BILLING_INTERVAL.FAILURE:
     case types.FETCH_SINGLE_STORE_PRODUCT.FAILURE:
     case types.FETCH_SINGLE_STORE_PRODUCT.FAILURE:
-    case types.UPDATE_PRODUCT_CURRENCY.FAILURE:
       return { ...state, loading: false, error: payload }
 
     case types.SET_PRODUCT_TAB.REQUEST:

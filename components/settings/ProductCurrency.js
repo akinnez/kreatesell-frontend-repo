@@ -1,93 +1,86 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-import { Checkbox, Row, Col, Spin } from 'antd'
+import { useSelector } from 'react-redux'
 
+import { Row, Col, Spin } from 'antd'
+
+import { Checkbox as CustomCheck } from 'components/checkbox/Checkbox'
 import style from './Index.module.scss'
 import { Button } from '../form-input'
-import ApiService from '../../utils/axios'
-import { UpdateProductCurrencies } from 'redux/actions'
+import { UpdateStoreCurrencies, GetStoreCurrencies } from 'redux/actions'
 
 const Index = ({
-  list = [],
   countriesCurrency,
   filteredCentral,
   filterdWest,
+  loading,
 }) => {
-  const updateProductCurrencies = UpdateProductCurrencies()
-  const [currencies, setCurrencies] = useState({ currencies_id: [] })
-  const [XOFCurrency, setXOFCurrency] = useState({ currencies_id: [] })
-  const [XAFCurrency, setXAFCurrency] = useState({ currencies_id: [] })
-  const handleSelect = (currency_id) => {
-    setCurrencies((prev) => ({
-      ...prev,
-      currencies_id: currency_id?.map((id) => {
-        return {
-          currency_id: id,
-          status: true,
-        }
-      }),
-    }))
-  }
+  const { storeCurrencies } = useSelector((state) => state.store)
+  const updateStoreCurrencies = UpdateStoreCurrencies()
+  const getStoreCurrencies = GetStoreCurrencies()
+  const [selectedCurrencies, setSelectedCurrencies] = useState([])
 
-  const handleXOF = (country_id) => {
-    if (country_id.length <= 1) {
-      const currencies = [...filterdWest, ...filteredCentral]
-      const country = country_id
-        .map((ctr) => currencies.filter((cur) => cur.id === ctr))
-        .map((cur) => cur[0]?.currency_id)
+  // make request to get currency
+  useEffect(() => {
+    getStoreCurrencies()
+    return () => {}
+  }, [])
 
-      setXOFCurrency((prev) => ({
-        currencies_id: [
-          ...country?.map((cur) => {
-            return {
-              currency_id: cur,
-              status: true,
-            }
-          }),
-        ],
-      }))
+  // set currencies on mount
+  useEffect(() => {
+    if (storeCurrencies?.length > 0) {
+      getSelected()
     }
-  }
+    return () => {}
+  }, [storeCurrencies?.length])
 
-  const handleXAF = (country_id) => {
-    if (country_id.length <= 1) {
-      const currencies = [...filterdWest, ...filteredCentral]
-      const country = country_id
-        .map((ctr) => currencies.filter((cur) => cur.id === ctr))
-        .map((cur) => cur[0]?.currency_id)
-
-      setXAFCurrency((prev) => ({
-        currencies_id: [
-          ...country?.map((cur) => {
-            return {
-              currency_id: cur,
-              status: true,
-            }
-          }),
-        ],
-      }))
+  const handleSelect = (currency) => {
+    if (
+      selectedCurrencies.some((cry) => cry.currency_id === currency.currency_id)
+    ) {
+      // console.log('exist')
+      setSelectedCurrencies((prev) => {
+        const newList = prev.filter(
+          (val) => val.currency_id !== currency?.currency_id,
+        )
+        // console.log('newList', newList)
+        return newList
+      })
+    } else {
+      // console.log('does not exists')
+      setSelectedCurrencies((prev) => {
+        return [...prev, currency]
+      })
     }
   }
 
   const formatCurrency = () => {
     const data = {
       currencies_id: [
-        ...currencies.currencies_id,
-        ...XOFCurrency.currencies_id,
-        ...XAFCurrency.currencies_id,
+        ...selectedCurrencies.map((cur) => ({
+          currency_id: cur?.currency_id,
+          status: true,
+        })),
       ],
     }
     return data
   }
 
   const handleSubmit = () => {
-    updateProductCurrencies(
+    // console.log('formatCurrency', formatCurrency())
+    updateStoreCurrencies(
       formatCurrency(),
       () => console.log('successful'),
       () => console.log('error occured'),
     )
   }
+
+  function getSelected() {
+    setSelectedCurrencies(storeCurrencies)
+  }
+
+  if (loading) return <Spin />
 
   return (
     <div className={style.wrapper}>
@@ -103,15 +96,17 @@ const Index = ({
         </p>
         <h4>Customize the amount you can set when adding a product</h4>
 
-        <Checkbox.Group
-          style={{ width: '100%' }}
-          onChange={handleSelect}
-          // onChange={e => console.log(e)}
-        >
+        <div style={{ width: '100%' }}>
           <Row>
-            {countriesCurrency?.map(({ currency, currency_id, flag }, i) => (
+            {countriesCurrency?.map((cur, i) => (
               <Col key={i} md={4} sm={8} style={{ marginBlockEnd: '1rem' }}>
-                <Checkbox value={currency_id}>
+                <CustomCheck
+                  defaultChecked={selectedCurrencies.some(
+                    (cry) => cur.currency_id === cry.currency_id,
+                  )}
+                  onChange={() => handleSelect(cur)}
+                  name="countries"
+                >
                   <span
                     className={`p-2 flex`}
                     style={{
@@ -120,65 +115,68 @@ const Index = ({
                     }}
                   >
                     <div className={style.checFlag + ' mr-2'}>
-                      <Image src={flag} alt="flag" layout="fill" />
+                      <Image src={cur.flag} alt="flag" layout="fill" />
                     </div>
-                    {currency}
+                    {cur.currency}
                   </span>
-                </Checkbox>
+                </CustomCheck>
               </Col>
             ))}
           </Row>
-        </Checkbox.Group>
+        </div>
 
-        {/* {console.log('filterdWest', filterdWest)} */}
         <h4>West African CFA Franc BCEAO(XOF)</h4>
-        <Checkbox.Group
-          style={{ width: '100%' }}
-          // onChange={e => console.log(e)}
-          onChange={handleXOF}
-        >
+        <div style={{ width: '100%' }}>
           <Row>
-            {filterdWest?.map(({ name, flag, id }, i) => (
+            {filterdWest?.map((cur, i) => (
               <Col key={i} md={5} sm={8} style={{ marginBlockEnd: '1rem' }}>
-                <Checkbox value={id}>
+                <CustomCheck
+                  defaultChecked={selectedCurrencies.some(
+                    (cry) => cur.currency_id === cry.currency_id,
+                  )}
+                  onChange={() => handleSelect(cur)}
+                  name="countries"
+                >
                   <span
                     className={`p-2 flex`}
                     style={{ border: '1px solid #D9D9D9', borderRadius: '8px' }}
                   >
                     <div className={style.checFlag + ' mr-2'}>
-                      <Image src={flag} alt="flag" layout="fill" />
+                      <Image src={cur?.flag} alt="flag" layout="fill" />
                     </div>
-                    {name}
+                    {cur?.name}
                   </span>
-                </Checkbox>
+                </CustomCheck>
               </Col>
             ))}
           </Row>
-        </Checkbox.Group>
+        </div>
         <h4>Central African CFA Franc BEAC(XAF)</h4>
-        <Checkbox.Group
-          style={{ width: '100%' }}
-          // onChange={e => console.log(e)}
-          onChange={handleXAF}
-        >
+        <div style={{ width: '100%' }}>
           <Row>
-            {filteredCentral?.map(({ name, flag, id }, i) => (
+            {filteredCentral?.map((cur, i) => (
               <Col key={i} md={4} sm={6} style={{ marginBlockEnd: '1rem' }}>
-                <Checkbox value={id}>
+                <CustomCheck
+                  defaultChecked={selectedCurrencies.some(
+                    (cry) => cur.currency_id === cry.currency_id,
+                  )}
+                  onChange={() => handleSelect(cur)}
+                  name="countries"
+                >
                   <span
                     className={`p-2 flex`}
                     style={{ border: '1px solid #D9D9D9', borderRadius: '8px' }}
                   >
                     <div className={style.checFlag + ' mr-2'}>
-                      <Image src={flag} alt="flag" layout="fill" />
+                      <Image src={cur?.flag} alt="flag" layout="fill" />
                     </div>
-                    {name}
+                    {cur?.name}
                   </span>
-                </Checkbox>
+                </CustomCheck>
               </Col>
             ))}
           </Row>
-        </Checkbox.Group>
+        </div>
         <Button
           onClick={handleSubmit}
           type="primary"
