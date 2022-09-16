@@ -72,9 +72,6 @@ const Dashboard = () => {
       </Head>
       <header className={styles.boardSection}>
         <DashboardFilters data={[]} setFiltered={setFiltered} />
-        {/* {isFirstTimeUser && */}
-        {/* <SetUpPrompt /> */}
-        {/* } */}
       </header>
       <section>
         <div className={styles.stats__container}>
@@ -151,18 +148,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// const SetUpPrompt = () => {
-//   return (
-//     <div className={styles.setUpPrompt}>
-//       <div className={styles.promptHeader}>
-//         <Image src={PromptInfoIcon} alt="prompt info" />
-//         <h4> Finish your store set up</h4>
-//       </div>
-//       <p>
-//         Provide all the required information for your store to be fully setup
-//         and activated. <Link href="/">Click here to proceed</Link>.
-//       </p>
-//     </div>
-//   );
-// };

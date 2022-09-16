@@ -204,7 +204,8 @@ const SetUpPrompt = () => {
       </div>
       <p>
         Provide all the required information for your store to be fully setup
-        and activated. <Link href="/">Click here to proceed</Link>.
+        and activated.{" "}
+        <Link href="/account/kreator/store/edit">Click here to proceed</Link>.
       </p>
     </div>
   );
