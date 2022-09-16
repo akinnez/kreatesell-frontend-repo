@@ -16,7 +16,10 @@ import {
   showToast,
   _isUserLoggedIn,
   isAnEmpytyObject,
+  NavCloseDropdownIcon,
+  SideBarLoginProfile,
 } from "utils";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
@@ -66,7 +69,7 @@ const Index = ({
   }, []);
 
   const user = useSelector((state) => state.auth);
-
+  const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
   const productTypes = GetProductTypes();
@@ -76,6 +79,8 @@ const Index = ({
       dispatch({ type: USER.REQUEST });
 
       const userStorage = getUser();
+
+      setUserName(userStorage?.full_name);
 
       if (userStorage) {
         dispatch({ type: USER.SUCCESS, payload: userStorage });
@@ -95,7 +100,7 @@ const Index = ({
   const toggleView = () => setIsMobileSideBarOpen(!isMobileSideBarOpen);
 
   return (
-    <>
+    <section className={styles.layoutMain}>
       <Layout>
         <Sider
           width={250}
@@ -115,15 +120,32 @@ const Index = ({
             <Sidebar />
           </div>
         </Sider>
-        {/* <div className={styles.mobileSideBar}>
-          <Sidebar isMobileView={true} />
-        </div> */}
+        {isMobileSideBarOpen && (
+          <div className={styles.mobileSideBar}>
+            <div className={styles.profile}>
+              <div className={styles.profileImgBox}>
+                <Image src={SideBarLoginProfile} alt="profile" />
+              </div>
+              <div className={styles.details}>
+                <p>{userName ? userName : ""}</p>
+                <div>Business Account</div>
+              </div>
+              <div className={styles.dropDown}>
+                <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
+              </div>
+            </div>
+            <Sidebar isMobileView={true} />
+          </div>
+        )}
         <Layout>
           <Nav
             headerTitle={headerTitle}
             toggleView={toggleView}
             isMobileSideBarOpen={isMobileSideBarOpen}
           />
+          {/* <div className={styles.mobileLoginSideBar}>
+            <Sidebar />
+          </div> */}
           <Content
             // style={{
             // 	backgroundColor: "rgba(245, 245, 245, 1)",
@@ -158,7 +180,7 @@ const Index = ({
           padding: 50px 30px 10px 30px;
         }
       `}</style>
-    </>
+    </section>
   );
 };
 
