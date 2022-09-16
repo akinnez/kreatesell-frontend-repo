@@ -6,10 +6,13 @@ import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 import useCurrency from 'hooks/useCurrency'
 import { PricingCard, Button, UpgradeAccountForm, Select } from 'components'
 
+import { PaymentUnsubscribe } from 'redux/actions'
+
 import styles from './Settings.module.scss'
 
 const Billing = () => {
   const [modal, setModal] = useState(false)
+  const paymentUnsubscribe = PaymentUnsubscribe()
   const {
     countriesCurrency,
     loading,
@@ -54,9 +57,7 @@ const Billing = () => {
 
   // useEffect to check if current plan
   useEffect(() => {
-    if (store?.user?.user_plan && store?.user?.user_plan === 'Business') {
-      setSelectedPlan(store?.user?.user_plan)
-    } else {
+    if (store?.user?.user_plan) {
       setSelectedPlan(store?.user?.user_plan)
     }
   }, [store?.user?.user_plan])
@@ -145,14 +146,16 @@ const Billing = () => {
               priceType={priceLabel}
               subPriceType={subPriceType}
               btnOnClick={openModal}
-              // currentPlan={selectedPlan === 'Business'}
+              currentPlan={selectedPlan === 'Business'}
             />
           </div>
         </div>
 
         <div className={styles.cancelSubscription}>
           To disable any further automatic autorenewal attempts, please click{' '}
-          <span onClick={() => {}}>&nbsp; Cancel Subscription Autorenewal</span>
+          <span onClick={() => paymentUnsubscribe()}>
+            &nbsp; Cancel Subscription Autorenewal
+          </span>
         </div>
 
         <DialogOverlay isOpen={modal} onDismiss={closeModal} className="pt-12 ">
@@ -166,6 +169,7 @@ const Billing = () => {
                 filteredCentral,
                 filterdWest,
                 setModal,
+                setSelectedPlan,
               }}
             />
           </DialogContent>
