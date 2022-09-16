@@ -9,16 +9,6 @@ const TwoFactor = () => {
   const {
     store: { user },
   } = useSelector((state) => state.store)
-  // useEffect(() => {
-  //   setLoading(true)
-  //     ApiService.request(
-  //         'post',
-  //         'Seller/Activate/De-Activate2FA',
-  //         (res)=>{
-  //             setLoading(false)
-  //         }
-  //     );
-  // }, [])
 
   useEffect(() => {
     if (user?.is2_fa_set) {
