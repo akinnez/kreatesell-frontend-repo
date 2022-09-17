@@ -223,7 +223,7 @@ const ProductCard = ({
           // src={imageRendered || StoryTellingPNG}
           // * works for taslim and taslim1 and shows default for PM
           // src={imageShown === undefined ? StoryTellingPNG : imageShown}
-          //* works for all
+          //* works for ALL
           src={
             imageShown === undefined
               ? imageRendered || StoryTellingPNG
