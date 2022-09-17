@@ -304,7 +304,7 @@ export const CreateProductTab = ({
         </Col>
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
-      {tab !== 1 ? (
+      {tab !== 1 && store?.user?.user_plan !== 'Business' ? (
         <div className={styles.businessPlan}>
           <h2 className="text-base w-full font-normal">
             This action requires a business plan, click{' '}

@@ -19,6 +19,3 @@ export const FETCH_SINGLE_STORE_PRODUCT = generateActions(
 )
 export const FETCH_PRODUCT_STATUS = generateActions('FETCH_PRODUCT_STATUS')
 export const FETCH_COUPON_PRODUCT = generateActions('FETCH_COUPON_PRODUCT')
-export const UPDATE_PRODUCT_CURRENCY = generateActions(
-  'UPDATE_PRODUCT_CURRENCY',
-)

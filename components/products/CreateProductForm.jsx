@@ -1,66 +1,66 @@
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import {
   CloudUpload,
   ErrorIcon,
   isAnEmpytyObject,
   transformToFormData,
-} from "utils";
-import styles from "./CreateProduct.module.scss";
-import { Radio } from "components/inputPack";
-import { Switch } from "antd";
-import { useFormik } from "formik";
-import { Form, Input, Button } from "antd";
+} from 'utils'
+import styles from './CreateProduct.module.scss'
+import { Radio } from 'components/inputPack'
+import { Switch } from 'antd'
+import { useFormik } from 'formik'
+import { Form, Input, Button } from 'antd'
 import {
   DigitalProductSchema,
   // oneTimeSubscriptionSchema,
   oneTimeSubscriptionAndMembershipSchema,
   // membershipProductSchema,
-} from "validation";
+} from 'validation'
 import {
   SetProductTab,
   GetListingStatus,
   CreateProduct,
   GetProductByID,
   SetProductID,
-} from "redux/actions";
-import { useSelector } from "react-redux";
-import { useUpload } from "hooks";
-import ImageUpload from "./ImageUpload";
-import ProductEditor from "./ProductEditor";
-import ImageError from "./ImageError";
-import { useRouter } from "next/router";
-import FileUpload from "./FileUpload";
+} from 'redux/actions'
+import { useSelector } from 'react-redux'
+import { useUpload } from 'hooks'
+import ImageUpload from './ImageUpload'
+import ProductEditor from './ProductEditor'
+import ImageError from './ImageError'
+import { useRouter } from 'next/router'
+import FileUpload from './FileUpload'
 
 export const CreateProductForm = ({
-  productType = "digitalDownload",
+  productType = 'digitalDownload',
   productTypeId,
   productId,
 }) => {
-  const setProductTab = SetProductTab();
-  const getListingStatus = GetListingStatus();
-  const createProduct = CreateProduct();
-  const getProductByID = GetProductByID();
-  const setProductID = SetProductID();
-  const router = useRouter();
-  const { TextArea } = Input;
-  const [preOrder, setPreOrder] = useState(false);
-  const [contentFiles, setContentFiles] = useState(false);
-  const [isImageFilled, setIsImageFilled] = useState(false);
-  const [contents, setContents] = useState("");
+  const setProductTab = SetProductTab()
+  const getListingStatus = GetListingStatus()
+  const createProduct = CreateProduct()
+  const getProductByID = GetProductByID()
+  const setProductID = SetProductID()
+  const router = useRouter()
+  const { TextArea } = Input
+  const [preOrder, setPreOrder] = useState(false)
+  const [contentFiles, setContentFiles] = useState(false)
+  const [isImageFilled, setIsImageFilled] = useState(false)
+  const [contents, setContents] = useState('')
   /**product is for single product fetched by ID */
   const { listingStatus, loading, productID, product } = useSelector(
-    (state) => state.product
-  );
-  const { store } = useSelector((state) => state.store);
-  const [productFile, setProductFile] = useState(null);
-  const [initialProduct, setInitialProduct] = useState(null);
+    (state) => state.product,
+  )
+  const { store } = useSelector((state) => state.store)
+  const [productFile, setProductFile] = useState(null)
+  const [initialProduct, setInitialProduct] = useState(null)
   const filterListingStatus = (id) =>
-    listingStatus?.filter((item) => item.id === id);
+    listingStatus?.filter((item) => item.id === id)
 
-  const activateStatus = filterListingStatus(1);
-  const deActivateStatus = filterListingStatus(2);
-  const unListStatus = filterListingStatus(3);
+  const activateStatus = filterListingStatus(1)
+  const deActivateStatus = filterListingStatus(2)
+  const unListStatus = filterListingStatus(3)
   const {
     mainFile: imageUploads,
     getRootProps,
@@ -69,228 +69,225 @@ export const CreateProductForm = ({
     setUrl,
     setFiles,
   } = useUpload({
-    fileType: "image",
-  });
+    fileType: 'image',
+  })
 
   const initialValues = {
-    product_name: "",
-    product_description: "",
+    product_name: '',
+    product_description: '',
     enable_preorder: false,
     upload_content: false,
     product_visibility_status: 1,
     upload_preview: false,
     preorder_details: {
-      preorder_release_date: "",
+      preorder_release_date: '',
       is_preorder_downloadable: true,
     },
-    contentZipFiles: "",
-    action: !isAnEmpytyObject(product) ? "e" : "c",
-    kreatesell_id: "",
+    contentZipFiles: '',
+    action: !isAnEmpytyObject(product) ? 'e' : 'c',
+    kreatesell_id: '',
     product_type_id: 1,
     product_listing_status_id: 0,
     product_status: 0,
-    cta_button: "",
+    cta_button: '',
     product_id: 0,
     product_images: {
       productFiles: [],
     },
-    product_details: "",
+    product_details: '',
     isBasicPlan: false,
-  };
+  }
 
   const handleSubmit = (data) => {
     // console.log("Data is", data)
-    if (["oneTimeSubscription", "membership"].includes(productType)) {
-      delete data?.contentZipFiles;
-      delete data?.upload_content;
-      delete data?.upload_preview;
+    if (['oneTimeSubscription', 'membership'].includes(productType)) {
+      delete data?.contentZipFiles
+      delete data?.upload_content
+      delete data?.upload_preview
     }
     if (!data.enable_preorder) {
-      delete data.preorder_details;
+      delete data.preorder_details
     }
     if (!data.upload_content) {
-      delete data.contentZipFiles;
+      delete data.contentZipFiles
     }
-    delete data.isBasicPlan;
+    delete data.isBasicPlan
     // console.log(data)
-    const result = transformToFormData(data, "contentZipFiles");
+    const result = transformToFormData(data, 'contentZipFiles')
     createProduct(result, async () => {
       if (productId) {
-        await getProductByID(productId);
+        await getProductByID(productId)
       }
-      setProductTab(1);
-    });
-  };
+      setProductTab(1)
+    })
+  }
   const imageIsEdits = (files) => {
     const mapped = files?.map((items, i) => {
-      items.isEdits = true;
+      items.isEdits = true
       const fileMapped = {
         file: { ...items, name: `image${i + 1}` },
         errors: [],
-      };
-      return fileMapped;
-    });
-    return mapped;
-  };
+      }
+      return fileMapped
+    })
+    return mapped
+  }
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
     validationSchema:
-      productType === "digitalDownload"
+      productType === 'digitalDownload'
         ? DigitalProductSchema
         : oneTimeSubscriptionAndMembershipSchema,
     validateOnChange: false,
-  });
+  })
 
-  const { errors, setFieldValue, values } = formik;
+  const { errors, setFieldValue, values } = formik
 
   useEffect(() => {
-    getListingStatus();
-  }, []);
+    getListingStatus()
+  }, [])
 
   useEffect(() => {
     if (productID || productId) {
-      getProductByID(productID || productId);
+      getProductByID(productID || productId)
     }
-  }, [productID, productId]);
+  }, [productID, productId])
 
   useEffect(() => {
     if (preOrder) {
-      const { user } = store;
-      if (user.user_plan === "Basic") {
-        setFieldValue("isBasicPlan", true);
+      const { user } = store
+      if (user.user_plan === 'Basic') {
+        setFieldValue('isBasicPlan', true)
       } else {
-        setFieldValue("isBasicPlan", false);
+        setFieldValue('isBasicPlan', false)
       }
     }
     return () => {
-      setFieldValue("isBasicPlan", false);
-    };
-  }, [preOrder, store]);
+      setFieldValue('isBasicPlan', false)
+    }
+  }, [preOrder, store])
   useEffect(() => {
     // console.log('here', product)
-  }, [product]);
+  }, [product])
 
   useEffect(() => {
     if (imageUploads.length >= 3) {
-      setIsImageFilled(true);
-      return;
+      setIsImageFilled(true)
+      return
     }
-    return setIsImageFilled(false);
-  }, [imageUploads]);
+    return setIsImageFilled(false)
+  }, [imageUploads])
 
   useEffect(() => {
-    setFieldValue("product_details", contents);
-    setFieldValue("product_images.productFiles", [
+    setFieldValue('product_details', contents)
+    setFieldValue('product_images.productFiles', [
       ...imageUploads.map((file) => (file.url ? file.url : file.file.filename)),
-    ]);
-    setFieldValue("product_type_id", productTypeId);
-    setFieldValue("contentZipFiles", productFile);
-  }, [productTypeId, productFile, contents, imageUploads]);
+    ])
+    setFieldValue('product_type_id', productTypeId)
+    setFieldValue('contentZipFiles', productFile)
+  }, [productTypeId, productFile, contents, imageUploads])
 
   useEffect(() => {
     if (Object.keys(product).length > 0) {
-      setFieldValue("product_name", product?.product_details?.product_name);
+      setFieldValue('product_name', product?.product_details?.product_name)
       setFieldValue(
-        "product_description",
-        product?.product_details?.product_description
-      );
+        'product_description',
+        product?.product_details?.product_description,
+      )
       setFieldValue(
-        "enable_preorder",
-        product?.product_details?.enable_preorder ?? false
-      );
+        'enable_preorder',
+        product?.product_details?.enable_preorder ?? false,
+      )
       setFieldValue(
-        "upload_content",
+        'upload_content',
         product.product_details.upload_content
           ? product.product_details.upload_content
-          : false
-      );
+          : false,
+      )
       setFieldValue(
-        "product_visibility_status",
-        product?.product_details?.product_visibility
-      );
+        'product_visibility_status',
+        product?.product_details?.product_visibility,
+      )
+      setFieldValue('upload_preview', product?.product_details?.is_preview_only)
+      setFieldValue('action', 'e')
       setFieldValue(
-        "upload_preview",
-        product?.product_details?.is_preview_only
-      );
-      setFieldValue("action", "e");
+        'preorder_details.preorder_release_date',
+        product?.product_details?.preoder_date ?? '',
+      )
       setFieldValue(
-        "preorder_details.preorder_release_date",
-        product?.product_details?.preoder_date ?? ""
-      );
+        'preorder_details.is_preorder_downloadable',
+        product?.product_details?.is_preoder_downloadable ?? false,
+      )
       setFieldValue(
-        "preorder_details.is_preorder_downloadable",
-        product?.product_details?.is_preoder_downloadable ?? false
-      );
+        'kreatesell_id',
+        product?.product_details?.kreasell_product_id,
+      )
       setFieldValue(
-        "kreatesell_id",
-        product?.product_details?.kreasell_product_id
-      );
+        'product_type_id',
+        product?.product_details?.product_type_id,
+      )
+      setFieldValue('product_id', product?.product_details?.id)
       setFieldValue(
-        "product_type_id",
-        product?.product_details?.product_type_id
-      );
-      setFieldValue("product_id", product?.product_details?.id);
+        'product_listing_status',
+        product?.product_details?.product_listing_status,
+      )
+      setFieldValue('cta_button', product?.product_details?.cta_button)
       setFieldValue(
-        "product_listing_status",
-        product?.product_details?.product_listing_status
-      );
-      setFieldValue("cta_button", product?.product_details?.cta_button);
-      setFieldValue(
-        "product_images.productFiles",
+        'product_images.productFiles',
         ...product?.product_images
           ?.filter((images) => images?.file_type !== 4)
           ?.map((item) => {
-            const arr = item?.filename?.split(",");
-            return arr.length > 0 ? [...arr] : [];
-          })
-      );
+            const arr = item?.filename?.split(',')
+            return arr.length > 0 ? [...arr] : []
+          }),
+      )
       if (product.product_details.enable_preorder) {
-        setPreOrder(true);
+        setPreOrder(true)
       }
       setFiles(
         imageIsEdits(
           ...product?.product_images
             ?.filter((images) => images?.file_type !== 4)
             ?.map((item) => {
-              const arr = item?.filename?.split(",");
+              const arr = item?.filename?.split(',')
               const truc = arr?.map((item) => {
                 return {
                   filename: item,
-                };
-              });
-              return truc;
-            })
-        )
-      );
-      setContents(product?.product_details?.product_details);
+                }
+              })
+              return truc
+            }),
+        ),
+      )
+      setContents(product?.product_details?.product_details)
       if (product?.product_details.upload_content) {
-        setContentFiles(product?.product_details.upload_content);
+        setContentFiles(product?.product_details.upload_content)
         setInitialProduct(
-          product?.product_images?.filter((images) => images?.file_type === 4)
-        );
+          product?.product_images?.filter((images) => images?.file_type === 4),
+        )
       }
       if (product?.product_price_type) {
         switch (product?.product_price_type) {
-          case "Fixed Price":
-            return setFieldValue("pricing_type_id", 1);
-          case "Pay What You Want":
-            return setFieldValue("pricing_type_id", 2);
-          case "Installment Payment":
-            return setFieldValue("pricing_type_id", 3);
-          case "Make It Free":
-            return setFieldValue("pricing_type_id", 4);
+          case 'Fixed Price':
+            return setFieldValue('pricing_type_id', 1)
+          case 'Pay What You Want':
+            return setFieldValue('pricing_type_id', 2)
+          case 'Installment Payment':
+            return setFieldValue('pricing_type_id', 3)
+          case 'Make It Free':
+            return setFieldValue('pricing_type_id', 4)
         }
       }
     }
-  }, [product]);
+  }, [product])
 
   return (
     <div className={styles.digitalDownload}>
       <h5 className="text-primary-blue font-semibold text-2xl">
-        {productType === "digitalDownload" && "DIGITAL DOWNLOAD"}
-        {productType === "oneTimeSubscription" && "ONE-TIME SUBSCRIPTION"}
-        {productType === "membership" && "MEMBERSHIP "}
+        {productType === 'digitalDownload' && 'DIGITAL DOWNLOAD'}
+        {productType === 'oneTimeSubscription' && 'ONE-TIME SUBSCRIPTION'}
+        {productType === 'membership' && 'MEMBERSHIP '}
       </h5>
 
       <Form layout="vertical" className="pt-3" onFinish={formik.handleSubmit}>
@@ -357,15 +354,15 @@ export const CreateProductForm = ({
               <p className="text-black font-medium text-xs">
                 Allowed Files: PNG, JPG | Maximum file size: 2MB
               </p>
-              {store?.user?.user_plan === "Basic" &&
-                ["oneTimeSubscription", "membership"].includes(productType) && (
+              {store?.user?.user_plan === 'Basic' &&
+                ['oneTimeSubscription', 'membership'].includes(productType) && (
                   <h2 className="text-black font-medium text-md">
                     User needs to upgrade to business plan to add product
                   </h2>
                 )}
 
               <div className="flex flex-col-reverse sm:flex-row">
-                <div className={"relative " + styles.uploadChart}>
+                <div className={'relative ' + styles.uploadChart}>
                   {isImageFilled && (
                     <div className="absolute z-50 w-full h-full bg-transparent"></div>
                   )}
@@ -375,15 +372,15 @@ export const CreateProductForm = ({
                   >
                     <div className={styles.uploadCont}>
                       <Image
-                        style={{ color: "#BFBFBF" }}
+                        style={{ color: '#BFBFBF' }}
                         src={CloudUpload}
                         alt="upload image"
                       />
                       <input
                         disabled={
-                          store?.user?.user_plan === "Basic" &&
-                          ["oneTimeSubscription", "membership"].includes(
-                            productType
+                          store?.user?.user_plan === 'Basic' &&
+                          ['oneTimeSubscription', 'membership'].includes(
+                            productType,
                           )
                         }
                         {...getInputProps()}
@@ -395,21 +392,21 @@ export const CreateProductForm = ({
                         className="font-medium"
                         disabled={
                           isImageFilled ||
-                          (store?.user?.user_plan === "Basic" &&
-                            ["oneTimeSubscription", "membership"].includes(
-                              productType
+                          (store?.user?.user_plan === 'Basic' &&
+                            ['oneTimeSubscription', 'membership'].includes(
+                              productType,
                             ))
                             ? true
                             : false
                         }
                         type={
                           isImageFilled ||
-                          (store?.user?.user_plan === "Basic" &&
-                            ["oneTimeSubscription", "membership"].includes(
-                              productType
+                          (store?.user?.user_plan === 'Basic' &&
+                            ['oneTimeSubscription', 'membership'].includes(
+                              productType,
                             ))
-                            ? "default"
-                            : "primary"
+                            ? 'default'
+                            : 'primary'
                         }
                       >
                         Browse Image
@@ -421,9 +418,10 @@ export const CreateProductForm = ({
                   className={
                     imageUploads.length > 0
                       ? styles.isImage
-                      : styles.noImage + " ml-3"
+                      : styles.noImage + ' ml-3'
                   }
                 >
+                  {/* {console.log('imageUploads', imageUploads)} */}
                   <ul className="flex flex-col mb-0">
                     {imageUploads.map((fileWrap, indx) => {
                       if (!(fileWrap.errors.length > 0)) {
@@ -434,7 +432,7 @@ export const CreateProductForm = ({
                             setUrl={setUrl}
                             deleteFile={deleteFile}
                           />
-                        );
+                        )
                       } else {
                         return (
                           <ImageError
@@ -443,7 +441,7 @@ export const CreateProductForm = ({
                             errors={fileWrap.errors}
                             deleteFile={deleteFile}
                           />
-                        );
+                        )
                       }
                     })}
                   </ul>
@@ -455,7 +453,7 @@ export const CreateProductForm = ({
 
         <Form.Item>
           <div className="mt-6 w-full lg:w-3/4">
-            {productType === "digitalDownload" && (
+            {productType === 'digitalDownload' && (
               <div className="flex justify-between items-center w-full lg:w-2/4">
                 <h2 className="text-black-100 font-semibold text-lg">
                   Enable pre-orders
@@ -463,13 +461,13 @@ export const CreateProductForm = ({
                 <div className="flex">
                   <Switch
                     onChange={(e) => {
-                      setPreOrder((value) => !value);
-                      setFieldValue("enable_preorder", e);
+                      setPreOrder((value) => !value)
+                      setFieldValue('enable_preorder', e)
                     }}
                     checked={preOrder}
                   />
                   <h2 className="pl-6 font-semibold text-medium text-black-100">
-                    {preOrder ? "ON" : "OFF"}
+                    {preOrder ? 'ON' : 'OFF'}
                   </h2>
                 </div>
               </div>
@@ -484,16 +482,16 @@ export const CreateProductForm = ({
                   className={styles.inputHeight}
                   onChange={(e) => {
                     setFieldValue(
-                      "preorder_details.preorder_release_date",
-                      e.target.value
-                    );
+                      'preorder_details.preorder_release_date',
+                      e.target.value,
+                    )
                   }}
                   value={values?.preorder_details?.preorder_release_date}
                 />
               </div>
             )}
 
-            {productType === "digitalDownload" && (
+            {productType === 'digitalDownload' && (
               <div className="flex justify-between items-center mt-5 w-full lg:w-2/4 pt-4">
                 <h2 className="text-black-100 font-semibold text-lg">
                   Content File
@@ -502,12 +500,12 @@ export const CreateProductForm = ({
                   <Switch
                     checked={contentFiles ? true : false}
                     onChange={(e) => {
-                      setContentFiles((value) => !value);
-                      setFieldValue("upload_content", e);
+                      setContentFiles((value) => !value)
+                      setFieldValue('upload_content', e)
                     }}
                   />
                   <h2 className="pl-6 font-semibold text-medium text-black-100">
-                    {contentFiles ? "ON" : "OFF"}
+                    {contentFiles ? 'ON' : 'OFF'}
                   </h2>
                 </div>
               </div>
@@ -541,11 +539,11 @@ export const CreateProductForm = ({
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) => {
-                  console.log("e is", e);
+                  console.log('e is', e)
                   setFieldValue(
-                    "product_visibility_status",
-                    e || activateStatus[0]?.id
-                  );
+                    'product_visibility_status',
+                    e || activateStatus[0]?.id,
+                  )
                 }}
               />
               <Radio
@@ -556,11 +554,11 @@ export const CreateProductForm = ({
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) => {
-                  console.log("e is", e);
+                  console.log('e is', e)
                   setFieldValue(
-                    "product_visibility_status",
-                    e || deActivateStatus[0]?.id
-                  );
+                    'product_visibility_status',
+                    e || deActivateStatus[0]?.id,
+                  )
                 }}
               />
               <Radio
@@ -571,11 +569,11 @@ export const CreateProductForm = ({
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) => {
-                  console.log("e is", e);
+                  console.log('e is', e)
                   setFieldValue(
-                    "product_visibility_status",
-                    e || unListStatus[0]?.id
-                  );
+                    'product_visibility_status',
+                    e || unListStatus[0]?.id,
+                  )
                 }}
               />
             </div>
@@ -584,10 +582,10 @@ export const CreateProductForm = ({
         <Form.Item>
           {Object.keys(errors).length > 0 &&
             Object.entries(errors).map((items, index) => {
-              if (typeof items[1] === "string") {
+              if (typeof items[1] === 'string') {
                 return (
-                  <div key={index} className={styles.errorContent + " h-10"}>
-                    <div style={{ width: "25px", height: "25px" }}>
+                  <div key={index} className={styles.errorContent + ' h-10'}>
+                    <div style={{ width: '25px', height: '25px' }}>
                       <Image
                         width={100}
                         height={100}
@@ -597,12 +595,12 @@ export const CreateProductForm = ({
                     </div>
                     <h2 className="text-base font-medium ">{items[1]}</h2>
                   </div>
-                );
+                )
               }
               for (let values in items[1]) {
                 return (
-                  <div key={index} className={styles.errorContent + " h-10"}>
-                    <div style={{ width: "25px", height: "25px" }}>
+                  <div key={index} className={styles.errorContent + ' h-10'}>
+                    <div style={{ width: '25px', height: '25px' }}>
                       <Image
                         width={100}
                         height={100}
@@ -614,7 +612,7 @@ export const CreateProductForm = ({
                       {items[1][values]}
                     </h2>
                   </div>
-                );
+                )
               }
             })}
         </Form.Item>
@@ -625,5 +623,5 @@ export const CreateProductForm = ({
         </div>
       </Form>
     </div>
-  );
-};
+  )
+}

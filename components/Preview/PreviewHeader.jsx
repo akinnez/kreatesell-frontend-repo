@@ -67,7 +67,7 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
 
   const { setFieldValue, values } = formik;
   const productId = product?.product_details?.kreasell_product_id;
-  console.log("product = ", product);
+  // console.log("product = ", product);
   //   console.log("product", product);
   useEffect(() => {
     setTitle(product?.product_details?.product_name);

@@ -1,9 +1,11 @@
-import { Row, Col, Input, Select, Button } from "antd";
-import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
-import styles from "./CustomCheckout.module.scss";
-import { GetAllowedCurrencies } from "redux/actions";
+import { Row, Col, Input, Select, Button, Spin } from 'antd'
+import Image from 'next/image'
+import { useEffect, useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import styles from './CustomCheckout.module.scss'
+import { GetAllowedCurrencies, GetStoreCurrencies } from 'redux/actions'
+
+import useCurrency from 'hooks/useCurrency'
 
 export default function CustomCheckoutSelect({
   title,
@@ -13,55 +15,60 @@ export default function CustomCheckoutSelect({
   showFeedBack = false,
   noMatchFound = false,
 }) {
-  const { countries } = useSelector((state) => state.utils);
-  const { currency } = useSelector((state) => state.utils);
-  const getAllowedCurrencies = GetAllowedCurrencies();
-  const { Option } = Select;
+  const { countriesCurrency, loading } = useCurrency()
+  const { countries, currency } = useSelector((state) => state.utils)
+  const { storeCurrencies } = useSelector((state) => state.store)
+  // const { currency } = useSelector((state) => state.utils)
+  const getStoreCurrencies = GetStoreCurrencies()
+  // const getAllowedCurrencies = GetAllowedCurrencies()
+  const { Option } = Select
   const removeCurrency = (item) => {
-    const filtered = field.filter((i) => i !== item);
-    setField(filtered);
-  };
+    const filtered = field.filter((i) => i !== item)
+    setField(filtered)
+  }
   const [newCurrency, setNewCurrency] = useState({
-    currency_name: "NGN",
-    currency_value: "",
-  });
-  const filterCurrency = useMemo(
-    () => currency?.map((cur) => cur.short_name),
-    [currency]
-  );
-  const countriesCurrency = useMemo(
-    () =>
-      countries?.filter(
-        (country) =>
-          country.currency_id !== null &&
-          filterCurrency?.includes(country.currency)
-      ),
-    [countries, filterCurrency]
-  );
+    currency_name: 'NGN',
+    currency_value: '',
+  })
+  const filterCurrency = useMemo(() => currency?.map((cur) => cur.short_name), [
+    currency,
+  ])
+  // const countriesCurrency = useMemo(
+  //   () =>
+  //     countries?.filter(
+  //       (country) =>
+  //         country.currency_id !== null &&
+  //         filterCurrency?.includes(country.currency)
+  //     ),
+  //   [countries, filterCurrency]
+  // );
   const addCurrency = () => {
-    console.log("add currency");
-    const { currency_name, currency_value } = newCurrency;
+    console.log('add currency')
+    const { currency_name, currency_value } = newCurrency
     if (!currency_name || !currency_value) {
-      return;
+      return
     }
     for (let value of field) {
       if (value.currency_name === currency_name) {
-        value.currency_value = currency_value;
-        return setField([...field]);
+        value.currency_value = currency_value
+        return setField([...field])
       }
     }
-    setField([...field, { currency_name, currency_value }]);
+    setField([...field, { currency_name, currency_value }])
     setNewCurrency({
-      currency_value: "",
+      currency_value: '',
       currency_name,
-    });
-  };
+    })
+  }
 
   // console.log("countriesCurrency cur", countriesCurrency);
   useEffect(() => {
-    getAllowedCurrencies();
-  }, []);
+    // getAllowedCurrencies()
+    getStoreCurrencies()
+  }, [])
 
+  // if (loading) return <Spin />
+  console.log('storeCurrencies', storeCurrencies)
   return (
     <div className="">
       <p className="text-base mb-3 font-medium">
@@ -69,7 +76,7 @@ export default function CustomCheckoutSelect({
         <>
           {withCustomFeedBack &&
             showFeedBack &&
-            title === "Original price (NGN)" && (
+            title === 'Original price (NGN)' && (
               <span className={styles.charLimit}>
                 Original price should be more than selling price
               </span>
@@ -88,17 +95,17 @@ export default function CustomCheckoutSelect({
           defaultValue="NGN"
           className={styles.selectButton}
         >
-          {countriesCurrency.map((country, index) => (
+          {storeCurrencies.map((country, index) => (
             <Option
               className={styles.optionField}
               key={index}
-              value={country.currency}
+              value={country.currency_short_name}
             >
               <div className="flex items-center">
-                <div className={styles.countriesFlag}>
+                {/* <div className={styles.countriesFlag}>
                   <Image src={country.flag} alt="flag" layout="fill" />
-                </div>
-                <h2 className="mb-0 ml-1">{country.currency}</h2>
+                </div> */}
+                <h2 className="mb-0 ml-1">{country.currency_short_name}</h2>
               </div>
             </Option>
           ))}
@@ -110,13 +117,13 @@ export default function CustomCheckoutSelect({
             value={newCurrency.currency_value}
             onChange={(e) => {
               const valueModified =
-                typeof e.target.value !== "number"
-                  ? e.target.value.replace(/[^0-9]/g, "")
-                  : "";
+                typeof e.target.value !== 'number'
+                  ? e.target.value.replace(/[^0-9]/g, '')
+                  : ''
               return setNewCurrency({
                 ...newCurrency,
                 currency_value: valueModified,
-              });
+              })
             }}
             className="w-24"
             placeholder="0"
@@ -156,5 +163,5 @@ export default function CustomCheckoutSelect({
         </Row>
       </div>
     </div>
-  );
+  )
 }
