@@ -9,7 +9,7 @@ import { currencyOptions } from "components/account-dashboard/partials";
 import { ProtectedStoreHeader } from "components/store/storeHeader";
 import { useSelector } from "react-redux";
 import { FetchSingleStoreProduct, SetCheckoutDetails } from "redux/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import { Logout } from "redux/actions";
 
@@ -165,6 +165,67 @@ const ProductCard = ({
   const router = useRouter();
   const setCheckoutDetails = SetCheckoutDetails();
 
+  const [imageShown, setImageShown] = useState("");
+
+  const productImage = (index = 0) => {
+    productDetails?.product_images?.[index]?.filename;
+    // .replaceAll("...", "");
+    // console.log("productDetails=", productDetails);
+    // console.log("productImages refactored =", productImage());
+  };
+
+  const imageOne = productDetails?.product_images?.[0]?.filename;
+  const imageTwo = productDetails?.product_images?.[1]?.filename;
+
+  // console.log("productDetails=", productDetails);
+  console.log("imageOne = ", imageOne?.split(",")[0]);
+  console.log("contains , === ", imageOne?.includes(","));
+
+  if (imageOne?.includes(",")) {
+    setImageShown(imageOne?.split(",")[0]);
+  }
+
+  if (imageOne?.includes(",") === false) {
+    setImageShown(imageOne);
+  }
+  // console.log(imageTwo);
+
+  // const isOfAllowedType = (productImageUrl, type) => {
+  //   return (
+  //     typeof productImageUrl === "string" && productImageUrl.endsWith(type)
+  //   );
+  // };
+
+  // // // console.log(isOfAllowedType(".rar"));
+
+  // const isOfInvalidFormat = (imgUrl) => {
+  //   return (
+  //     !isOfAllowedType(imgUrl, ".jpg") ||
+  //     !isOfAllowedType(imgUrl, ".gif") ||
+  //     !isOfAllowedType(imgUrl, ".png") ||
+  //     !isOfAllowedType(imgUrl, ".tiff") ||
+  //     !isOfAllowedType(imgUrl, ".psd") ||
+  //     !isOfAllowedType(imgUrl, ".svg")
+  //   );
+  // };
+
+  // function isImage(url) {
+  //   return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+  // }
+
+  // const getImageShown = (imgOne, imgTwo) => {
+  //   let imageUrl = "";
+  //   switch ((imgOne, imgTwo)) {
+  //     case imgOne === undefined:
+  //       imageUrl = imgOne;
+  //     default:
+  //       imageUrl = StoryTellingPNG;
+  //   }
+  //   return imageUrl;
+  // };
+
+  // console.log("image at index 1 is invalid = ", isOfInvalidFormat(imageOne));
+
   return (
     <div
       className="bg-white w-full rounded-lg"
@@ -178,6 +239,9 @@ const ProductCard = ({
       <div>
         <Image
           src={productDetails?.product_images?.[0]?.filename || StoryTellingPNG}
+          // * if format of first image is invalide , show second image with index 1, if second image format is also invalid, show default!
+          // src={StoryTellingPNG}
+          // src={imageShown}
           width="320"
           height="300"
           className="rounded-t-lg"
