@@ -335,7 +335,7 @@ export const CreateProductForm = ({
             rows={6}
             onChange={formik.handleChange}
             value={values?.product_description}
-            maxLength={770}
+            maxLength={700}
           />
         </Form.Item>
         <Form.Item
@@ -421,6 +421,7 @@ export const CreateProductForm = ({
                       : styles.noImage + ' ml-3'
                   }
                 >
+                  {/* {console.log('imageUploads', imageUploads)} */}
                   <ul className="flex flex-col mb-0">
                     {imageUploads.map((fileWrap, indx) => {
                       if (!(fileWrap.errors.length > 0)) {

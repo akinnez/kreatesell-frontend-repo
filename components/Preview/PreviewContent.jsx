@@ -171,10 +171,12 @@ export default function PreviewContent() {
             )}
           </div>
 
-          <div className={styles.preorderInfo}>
-            Please note that this product is to be preordered and the expected
-            release date is Mar 31, 2022 9:00 AM
-          </div>
+          {product?.product_details?.enable_preorder && (
+            <div className={styles.preorderInfo}>
+              Please note that this product is to be preordered and the expected
+              release date is Mar 31, 2022 9:00 AM
+            </div>
+          )}
 
           {console.log('checkout', checkout)}
           <div className={styles.padBottom1}></div>

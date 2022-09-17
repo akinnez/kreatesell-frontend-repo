@@ -256,7 +256,11 @@ const AboutUs = () => {
               <div className={styles.cAndI}>
                 <div className={styles.collapsibles}>
                   {data?.map((item) => (
-                    <MobileCollapsible key={item?.headingText} {...item} />
+                    <MobileCollapsible
+                      key={item?.headingText}
+                      {...item}
+                      itemId={item?.id}
+                    />
                   ))}
                 </div>
                 <div className={styles.images}>
@@ -528,13 +532,15 @@ That solution was named KreateSell. And today, we’re live!`,
 
 const { first, second } = storyTexts;
 
-const MobileCollapsible = ({ headingText, content }) => {
+const MobileCollapsible = ({ headingText, content, itemId }) => {
+  console.log("itemIndex = ", itemId);
   const { Panel } = Collapse;
   return (
     <Collapse
       expandIconPosition="right"
       bordered={false}
-      defaultActiveKey={["0"]}
+      // defaultActiveKey={["0"]}
+      // defaultActiveKey={["0", "1", "2"]}
       accordion
       className={styles.collapse}
       // id="collapse"
@@ -543,7 +549,9 @@ const MobileCollapsible = ({ headingText, content }) => {
         key="0"
         header={<CustomHeader>{headingText}</CustomHeader>}
         className={styles.panelHeader}
-        // id="panelHeader"
+        style={{ background: "red !important;" }}
+        // className={`${styles.panelHeader} Collapse-${itemId}`}
+        // id={`panelHeader-${itemId}`}
       >
         <div className={styles.moreInfo}>{content}</div>
       </Panel>

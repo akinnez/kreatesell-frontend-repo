@@ -63,3 +63,16 @@
   font-weight: 0.6rem;
   text-decoration: line-through;
 }
+
+.bioData {
+  p {
+    // border: 1px solid red !important;
+    background: rgba(255, 255, 255, 0.80059);
+    padding: 1rem;
+    text-align: justify;
+    border-radius: 10px;
+    max-width: 1050px;
+    margin: 4rem auto;
+    box-shadow: 0px 20px 27px rgb(0 0 0 / 5%);
+  }
+}

@@ -10,7 +10,7 @@ import { MobileLogo } from "./logo";
 import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
-import { shortenDetail } from "utils";
+import { shortenDetail, NavCloseIcon, NavCloseLogo } from "utils";
 
 const Profile = ({ name, avi }) => {
   return (
@@ -155,7 +155,10 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
               </div>
             </Header>
           ) : (
-            <div onClick={toggleView}>hello</div>
+            <div onClick={toggleView} className={style.navClose}>
+              <Image src={NavCloseLogo} alt="navClose logo" />
+              <Image src={NavCloseIcon} alt="close icon" />
+            </div>
           )}
         </>
       </div>

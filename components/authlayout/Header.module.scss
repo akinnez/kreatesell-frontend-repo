@@ -97,3 +97,15 @@
     display: none;
   }
 }
+
+.navClose {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // padding: 13px 16px 13px 24px;
+  padding: 25px 16px 25px 10px;
+  // background: #ffffff;
+  /* NAV */
+
+  box-shadow: 0px 1px 0px rgba(34, 34, 34, 0.05);
+}

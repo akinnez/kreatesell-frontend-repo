@@ -101,9 +101,11 @@ const StorePage = () => {
             publicStoreInfo={singleStoreDetails}
           />
 
-          <p className="px-2 md:px-6 lg:px-32 mt-4 md:mt-16 text-base-gray-200 text-sm text-center">
-            {singleStoreDetails?.bio_data}
-          </p>
+          <div className={styles.bioData}>
+            <p className="px-2 md:px-6 lg:px-32 mt-4 md:mt-16 text-base-gray-200 text-sm text-center">
+              {singleStoreDetails?.bio_data}
+            </p>
+          </div>
         </div>
 
         <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
@@ -167,11 +169,11 @@ const ProductCard = ({
     <div
       className="bg-white w-full rounded-lg"
       style={{ cursor: "pointer" }}
-      onClick={() =>
-        router.push(
-          `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
-        )
-      }
+      // onClick={() =>
+      //   router.push(
+      //     `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
+      //   )
+      // }
     >
       <div>
         <Image
@@ -211,7 +213,7 @@ const ProductCard = ({
             className={styles.productCardBtn}
             onClick={() => {
               // router.push('/checkout')
-              // console.log("CTA Clicked!");
+              console.log("CTA Clicked!");
               router.push(
                 `/checkout/${productDetails?.product_details?.kreasell_product_id}`
               );

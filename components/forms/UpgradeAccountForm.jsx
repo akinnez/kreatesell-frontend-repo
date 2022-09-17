@@ -67,6 +67,7 @@ export const UpgradeAccountForm = ({
   filteredCentral,
   filterdWest,
   setModal,
+  setSelectedPlan,
 }) => {
   // const makePlanUpgrade = MakePlanUpgrade();
   const { user } = useSelector((state) => state.auth)
@@ -160,7 +161,11 @@ export const UpgradeAccountForm = ({
     const status = paymentStatusList[reference?.status]
     sendPaymentCheckoutDetails(
       paymentDetails({ reference: reference?.reference, status }),
-      (res) => console.log('res is', res),
+      (res) => {
+        console.log('res is', res)
+        setSelectedPlan('Business')
+        //
+      },
     )
   }
 
@@ -273,6 +278,7 @@ export const UpgradeAccountForm = ({
       handleFlutterPayment({
         callback: async (response) => {
           // console.log('response ', response)
+          setSelectedPlan('Business')
           await sendPaymentCheckoutDetails(
             paymentDetails({
               reference: response?.tx_ref,

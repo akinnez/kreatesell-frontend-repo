@@ -161,6 +161,8 @@ const PayoutsForm = ({
                 help={formik.touched.bank && formik.errors.bank}
               >
                 <Select
+                  showSearch
+                  autoComplete="bank"
                   placeholder="Choose bank"
                   onChange={(value) => bankHandler(value, formik)}
                   onBlur={(e) => {
@@ -176,6 +178,15 @@ const PayoutsForm = ({
                   value={formik.values.bank}
                   loading={banksLoading}
                   disabled={banksLoading}
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children.toLowerCase().includes(input.toLowerCase())
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
                 >
                   {banks.map((bank) => (
                     <Option key={bank.id} value={bank.id}>
