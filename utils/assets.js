@@ -52,6 +52,7 @@ import CoreTwo from "../public/images/core-2.png";
 import CoreThree from "../public/images/core-3.png";
 import CoreFour from "../public/images/core-4.png";
 import CoreFive from "../public/images/core-5.png";
+import MobileBackArrow from "../public/images/mobile-back-arrow.svg";
 import AboutUsTwo from "../public/images/about-us-2.svg";
 import AboutUsThree from "../public/images/about-us-3.svg";
 import AboutUsFour from "../public/images/about-us-4.svg";
@@ -363,6 +364,7 @@ export {
   CoreFive,
   CoreFour,
   CoreTwo,
+  MobileBackArrow,
   CoreThree,
   CoreOne,
   BurnkinaFasoFlag,
