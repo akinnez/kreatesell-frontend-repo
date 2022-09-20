@@ -11,6 +11,7 @@ import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
 import { shortenDetail, NavCloseIcon, NavCloseLogo } from "utils";
+import { PromptInfoIcon } from "utils";
 
 const Profile = ({ name, avi }) => {
   return (
@@ -122,7 +123,8 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
   }, []);
 
   return (
-    <section>
+    <section className={style.mainNav}>
+      <SetUpPrompt />
       <div className={style.mobileHeader}>
         <>
           {!isMobileSideBarOpen ? (
@@ -174,6 +176,7 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
               />
               <MobileLogo />
             </div>
+
             <div className={style.pageDot}>
               <PageDot />
               <h1>{headerTitle || title}</h1>
@@ -198,3 +201,18 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
 };
 
 export default Nav;
+
+const SetUpPrompt = () => {
+  return (
+    <div className={style.setUpPrompt}>
+      <div className={style.promptHeader}>
+        <Image src={PromptInfoIcon} alt="prompt info" />
+        <h4> Finish your store set up</h4>
+      </div>
+      <p>
+        Provide all the required information for your store to be fully setup
+        and activated. <Link href="/">Click here to proceed</Link>.
+      </p>
+    </div>
+  );
+};
