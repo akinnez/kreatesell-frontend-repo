@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./sidebar.module.scss";
 import { Layout } from "antd";
 import Sidebar from "./sidebar";
 import Logo from "./logo";
 import Nav from "./header";
+import useSWR from "swr";
 import { Spin } from "antd";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
 import Image from "next/image";
 import Link from "next/link";
+import fetcher from "../../utils/fetcher";
 import {
   checkExpiredUserToken,
   getUser,
@@ -63,8 +65,16 @@ const Index = ({
 
   const pathname = router.pathname;
 
-  const storeSetupPromptIsShown =
-    pathname === "/account/kreator/store" || pathname === "/account/dashboard";
+  const { data } = useSWR("v1/kreatesell/store/me", fetcher);
+  const percentageCompleted = data?.percentage_completed;
+
+  const storeSetupPromptIsShown = useCallback(() => {
+    return (
+      percentageCompleted !== 100 &&
+      (pathname === "/account/kreator/store" ||
+        pathname === "/account/dashboard")
+    );
+  }, [percentageCompleted, pathname]);
 
   // console.log("prompt is Visible = ", storeSetupPromptIsShown);
 
@@ -111,7 +121,9 @@ const Index = ({
 
   return (
     <section className={styles.layoutMain}>
-      {storeSetupPromptIsShown && <SetUpPrompt />}
+      {storeSetupPromptIsShown() && (
+        <SetUpPrompt show={storeSetupPromptIsShown()} />
+      )}
       <Layout>
         <Sider
           width={250}
@@ -195,9 +207,9 @@ const Index = ({
   );
 };
 
-const SetUpPrompt = () => {
+const SetUpPrompt = ({ show }) => {
   return (
-    <div className={styles.setUpPrompt}>
+    <div className={`${styles.setUpPrompt} ${show ? styles.show : ""}`}>
       <div className={styles.promptHeader}>
         <Image src={PromptInfoIcon} alt="prompt info" />
         <h4> Finish your store set up</h4>

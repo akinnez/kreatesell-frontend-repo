@@ -12,8 +12,7 @@ import Router from "next/router";
 import { ProtectedStoreHeader } from "../../../../components/store/storeHeader";
 import useSWR from "swr";
 import fetcher from "../../../../utils/fetcher";
-import {GetStoreDetails, GetProducts} from "redux/actions";
-
+import { GetStoreDetails, GetProducts } from "redux/actions";
 
 const cardStyles = {
   borderRadius: "8px",
@@ -31,12 +30,12 @@ const progressbarStyles = buildStyles({
   trailColor: "#E6F7FF",
 });
 
-
-
 const Index = () => {
   const [loading, setLoading] = useState(false);
-  const {products} = useSelector(state=>state.product);
-  const {store: {bank_details}} = useSelector(state=>state.store);
+  const { products } = useSelector((state) => state.product);
+  const {
+    store: { bank_details },
+  } = useSelector((state) => state.store);
   const getStoreDetails = GetStoreDetails();
   const getProducts = GetProducts();
 
@@ -52,16 +51,18 @@ const Index = () => {
   //     })
   // },[])
 
-  function calculatePercentageComplete(){
+  function calculatePercentageComplete() {
     let task_completed = {};
-    task_completed.bankAccount = bank_details?? bank_details;
+    task_completed.bankAccount = bank_details ?? bank_details;
     task_completed.AddedProducts = products.length > 0;
     return task_completed;
   }
-  useEffect(()=>{
+
+  console.log("data = ", data);
+  useEffect(() => {
     getStoreDetails();
     getProducts();
-  },[])
+  }, []);
   return (
     <>
       <AuthLayout loading={loading}>
@@ -78,7 +79,7 @@ const Index = () => {
           }}
         />
         <Row style={{ marginTop: "100px" }}>
-          <Column m="7" s="12" >
+          <Column m="7" s="12">
             <Card style={cardStyles}>
               <div className={styles.bio_info}>
                 <h5>Bio</h5>
@@ -86,7 +87,7 @@ const Index = () => {
               </div>
             </Card>
           </Column>
-          <Column m="5" >
+          <Column m="5">
             <Card style={{ ...cardStyles }}>
               <div className={styles.progress_wrapper}>
                 <div className={styles.progress}>
@@ -117,9 +118,21 @@ const Index = () => {
                     : 3
                 }
                 list={[
-                  {text: "Complete your store profile details", route: "/account/kreator/store/edit", completed:true},
-                  {text: "Add your bank account details to receive your payments", route:"/account/sales/payouts", completed:calculatePercentageComplete().bankAccount},
-                  {text: "Add your first product to increase your store completion", route:"/account/kreator/products/create", completed: calculatePercentageComplete().AddedProducts},
+                  {
+                    text: "Complete your store profile details",
+                    route: "/account/kreator/store/edit",
+                    completed: true,
+                  },
+                  {
+                    text: "Add your bank account details to receive your payments",
+                    route: "/account/sales/payouts",
+                    completed: calculatePercentageComplete().bankAccount,
+                  },
+                  {
+                    text: "Add your first product to increase your store completion",
+                    route: "/account/kreator/products/create",
+                    completed: calculatePercentageComplete().AddedProducts,
+                  },
                 ]}
               />
             </Card>

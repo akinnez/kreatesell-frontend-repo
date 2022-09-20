@@ -190,6 +190,7 @@
   max-width: 453px;
   margin: 0 auto;
   position: absolute;
+  opacity: 0;
   // top: -130px;
   top: 0px;
   left: 120px;
@@ -220,4 +221,8 @@
   @media (min-width: 768px) {
     max-height: 140px;
   }
+}
+
+.setUpPrompt.show {
+  opacity: 1;
 }
