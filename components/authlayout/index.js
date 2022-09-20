@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
+import Image from "next/image";
+import Link from "next/link";
 import {
   checkExpiredUserToken,
   getUser,
@@ -18,8 +20,9 @@ import {
   isAnEmpytyObject,
   NavCloseDropdownIcon,
   SideBarLoginProfile,
+  PromptInfoIcon,
 } from "utils";
-import Image from "next/image";
+
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
@@ -57,6 +60,13 @@ const Index = ({
 }) => {
   const { Header, Footer, Sider, Content } = Layout;
   const router = useRouter();
+
+  const pathname = router.pathname;
+
+  const storeSetupPromptIsShown =
+    pathname === "/account/kreator/store" || pathname === "/account/dashboard";
+
+  // console.log("prompt is Visible = ", storeSetupPromptIsShown);
 
   useEffect(() => {
     checkExpiredUserToken();
@@ -101,6 +111,7 @@ const Index = ({
 
   return (
     <section className={styles.layoutMain}>
+      {storeSetupPromptIsShown && <SetUpPrompt />}
       <Layout>
         <Sider
           width={250}
@@ -181,6 +192,22 @@ const Index = ({
         }
       `}</style>
     </section>
+  );
+};
+
+const SetUpPrompt = () => {
+  return (
+    <div className={styles.setUpPrompt}>
+      <div className={styles.promptHeader}>
+        <Image src={PromptInfoIcon} alt="prompt info" />
+        <h4> Finish your store set up</h4>
+      </div>
+      <p>
+        Provide all the required information for your store to be fully setup
+        and activated.{" "}
+        <Link href="/account/kreator/store/edit">Click here to proceed</Link>.
+      </p>
+    </div>
   );
 };
 

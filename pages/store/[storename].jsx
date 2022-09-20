@@ -9,7 +9,7 @@ import { currencyOptions } from "components/account-dashboard/partials";
 import { ProtectedStoreHeader } from "components/store/storeHeader";
 import { useSelector } from "react-redux";
 import { FetchSingleStoreProduct, SetCheckoutDetails } from "redux/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import { Logout } from "redux/actions";
 
@@ -165,47 +165,66 @@ const ProductCard = ({
   const router = useRouter();
   const setCheckoutDetails = SetCheckoutDetails();
 
-  // const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-  //   ","
-  // )
-  //   ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-  //   : productDetails?.product_images?.[0]?.filename;
+  const [imageShown, setImageShown] = useState("");
 
-  // const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-  //   ","
-  // )
-  //   ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-  //   : productDetails?.product_images?.[0]?.filename?.endsWith(".rar") ||
-  //     productDetails?.product_images?.[0]?.filename?.endsWith(".zip")
-  //   ? productDetails?.product_images?.[1]?.filename
-  //     : productDetails?.product_images?.[0]?.filename;
+  const productImage = (index = 0) => {
+    productDetails?.product_images?.[index]?.filename;
+    // .replaceAll("...", "");
+    // console.log("productDetails=", productDetails);
+    // console.log("productImages refactored =", productImage());
+  };
 
-  const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-    ","
-  )
-    ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-    : productDetails?.product_images?.[0]?.filename?.endsWith(".rar") ||
-      productDetails?.product_images?.[0]?.filename?.endsWith(".zip")
-    ? productDetails?.product_images?.[1]?.filename
-    : productDetails?.product_images?.[1]?.filename?.includes(",")
-    ? productDetails?.product_images?.[1]?.filename?.split(",")[1]
-    : productDetails?.product_images?.[1]?.filename;
+  const imageOne = productDetails?.product_images?.[0]?.filename;
+  const imageTwo = productDetails?.product_images?.[1]?.filename;
 
-  const initImage = productDetails?.product_images?.[0]?.filename?.includes(",")
-    ? // * show full array
-      productDetails?.product_images?.[0]?.filename?.split(",")
-    : // * show first item
-      productDetails?.product_images?.[0]?.filename;
+  // console.log("productDetails=", productDetails);
+  console.log("imageOne = ", imageOne?.split(",")[0]);
+  console.log("contains , === ", imageOne?.includes(","));
 
-  console.log("imageFrom backend  = ", initImage);
+  if (imageOne?.includes(",")) {
+    setImageShown(imageOne?.split(",")[0]);
+  }
 
-  const imageRendered =
-    productDetails?.product_images?.[1]?.filename ||
-    productDetails?.product_images?.[0]?.filename ||
-    (productDetails?.product_images?.[1]?.filename?.includes(",") &&
-      productDetails?.product_images?.[1]?.filename?.split(",")[0]) ||
-    (productDetails?.product_images?.[0]?.filename?.includes(",") &&
-      productDetails?.product_images?.[0]?.filename?.split(",")[0]);
+  if (imageOne?.includes(",") === false) {
+    setImageShown(imageOne);
+  }
+  // console.log(imageTwo);
+
+  // const isOfAllowedType = (productImageUrl, type) => {
+  //   return (
+  //     typeof productImageUrl === "string" && productImageUrl.endsWith(type)
+  //   );
+  // };
+
+  // // // console.log(isOfAllowedType(".rar"));
+
+  // const isOfInvalidFormat = (imgUrl) => {
+  //   return (
+  //     !isOfAllowedType(imgUrl, ".jpg") ||
+  //     !isOfAllowedType(imgUrl, ".gif") ||
+  //     !isOfAllowedType(imgUrl, ".png") ||
+  //     !isOfAllowedType(imgUrl, ".tiff") ||
+  //     !isOfAllowedType(imgUrl, ".psd") ||
+  //     !isOfAllowedType(imgUrl, ".svg")
+  //   );
+  // };
+
+  // function isImage(url) {
+  //   return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+  // }
+
+  // const getImageShown = (imgOne, imgTwo) => {
+  //   let imageUrl = "";
+  //   switch ((imgOne, imgTwo)) {
+  //     case imgOne === undefined:
+  //       imageUrl = imgOne;
+  //     default:
+  //       imageUrl = StoryTellingPNG;
+  //   }
+  //   return imageUrl;
+  // };
+
+  // console.log("image at index 1 is invalid = ", isOfInvalidFormat(imageOne));
 
   return (
     <div
