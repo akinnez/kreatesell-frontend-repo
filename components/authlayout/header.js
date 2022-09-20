@@ -124,7 +124,7 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
 
   return (
     <section className={style.mainNav}>
-      <SetUpPrompt />
+      {/* <SetUpPrompt /> */}
       <div className={style.mobileHeader}>
         <>
           {!isMobileSideBarOpen ? (
@@ -201,18 +201,3 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
 };
 
 export default Nav;
-
-const SetUpPrompt = () => {
-  return (
-    <div className={style.setUpPrompt}>
-      <div className={style.promptHeader}>
-        <Image src={PromptInfoIcon} alt="prompt info" />
-        <h4> Finish your store set up</h4>
-      </div>
-      <p>
-        Provide all the required information for your store to be fully setup
-        and activated. <Link href="/">Click here to proceed</Link>.
-      </p>
-    </div>
-  );
-};
