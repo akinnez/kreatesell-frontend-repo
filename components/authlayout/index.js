@@ -66,11 +66,12 @@ const Index = ({
   const pathname = router.pathname;
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
+  // console.log("data = ", data);
   const percentageCompleted = data?.percentage_completed;
 
   const storeSetupPromptIsShown = useCallback(() => {
     return (
-      percentageCompleted !== 100 &&
+      percentageCompleted <= 80 &&
       (pathname === "/account/kreator/store" ||
         pathname === "/account/dashboard")
     );
