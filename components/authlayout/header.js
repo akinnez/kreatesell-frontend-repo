@@ -11,7 +11,6 @@ import { PageDot, ProfileIcon, Cog, EditPen2 } from "../IconPack";
 import { Logout } from "../../redux/actions";
 import style from "./Header.module.scss";
 import { shortenDetail, NavCloseIcon, NavCloseLogo } from "utils";
-import { PromptInfoIcon } from "utils";
 
 const Profile = ({ name, avi }) => {
   return (

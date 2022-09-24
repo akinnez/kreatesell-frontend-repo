@@ -71,7 +71,7 @@ const Index = ({
   } = useSelector((state) => state.store);
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
-  console.log("data from store = ", data?.user);
+  // console.log("data from store = ", data?.user);
 
   const userPlan = data?.user?.user_plan;
   const percentageCompleted = data?.percentage_completed;
