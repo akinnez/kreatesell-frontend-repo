@@ -166,10 +166,22 @@
         color: #0072ef;
 
         & + div {
-          background: #00b140;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           border-radius: 8px;
           padding: 4px 8px;
+        }
+
+        & + div.businessPlan {
+          background: #00b140;
           color: #ffffff;
+        }
+
+        & + div.basicPlan {
+          border: 1px solid #00b140;
+          color: #00b140;
+          background: unset;
         }
       }
     }
@@ -177,6 +189,7 @@
       margin-left: 32px;
       position: relative;
       top: -15px;
+      cursor: pointer;
     }
   }
   @media (min-width: 992px) {

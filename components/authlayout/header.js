@@ -77,7 +77,7 @@ const Profile = ({ name, avi }) => {
   );
 };
 
-const menu = (logout) => (
+export const menu = (logout) => (
   <Menu className={style.authMenu}>
     <Menu.Item key="prof-1">
       <Link href="/account/kreator/store/edit">

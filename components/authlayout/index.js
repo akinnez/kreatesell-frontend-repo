@@ -5,7 +5,7 @@ import Sidebar from "./sidebar";
 import Logo from "./logo";
 import Nav from "./header";
 import useSWR from "swr";
-import { Spin } from "antd";
+import { Spin, Dropdown } from "antd";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import ApiService from "../../utils/axios";
@@ -24,13 +24,14 @@ import {
   SideBarLoginProfile,
   PromptInfoIcon,
 } from "utils";
-
+import { Logout } from "../../redux/actions";
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
 import useFetchUtilities from "hooks/useFetchUtilities";
 import useFetchStore from "hooks/useFetchStore";
 import useFetchNotifications from "hooks/useFetchNotifications";
+import { menu } from "./header";
 
 const Loader = () => {
   return (
@@ -70,7 +71,9 @@ const Index = ({
   } = useSelector((state) => state.store);
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
-  // console.log("data = ", data);
+  console.log("data from store = ", data?.user);
+
+  const userPlan = data?.user?.user_plan;
   const percentageCompleted = data?.percentage_completed;
 
   const storeSetupPromptIsShown = useCallback(() => {
@@ -93,8 +96,8 @@ const Index = ({
     setInfo(user);
   }, []);
 
-  console.log("info = ", info);
-  console.log("store details = ", store_details);
+  // console.log("info = ", info);
+  // console.log("store details = ", store_details);
 
   useEffect(() => {
     if (!_isUserLoggedIn()) {
@@ -108,7 +111,7 @@ const Index = ({
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
   const productTypes = GetProductTypes();
-
+  const logout = Logout();
   useEffect(() => {
     if (userIsEmpty) {
       dispatch({ type: USER.REQUEST });
@@ -176,11 +179,23 @@ const Index = ({
               </div>
               <div className={styles.details}>
                 <p>{info?.full_name ? info.full_name : ""}</p>
-                <div>Business Account</div>
+                <div
+                  className={
+                    userPlan === "Business"
+                      ? styles.businessPlan
+                      : styles.basicPlan
+                  }
+                >
+                  {userPlan === "Business"
+                    ? "Business Account"
+                    : "Basic Account"}
+                </div>
               </div>
-              <div className={styles.dropDown}>
-                <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
-              </div>
+              <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
+                <div className={styles.dropDown}>
+                  <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
+                </div>
+              </Dropdown>
             </div>
             <Sidebar isMobileView={true} />
           </div>
