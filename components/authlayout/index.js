@@ -62,8 +62,12 @@ const Index = ({
 }) => {
   const { Header, Footer, Sider, Content } = Layout;
   const router = useRouter();
-
+  const [info, setInfo] = useState("");
   const pathname = router.pathname;
+
+  const {
+    store: { store_details },
+  } = useSelector((state) => state.store);
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   // console.log("data = ", data);
@@ -82,6 +86,16 @@ const Index = ({
   useEffect(() => {
     checkExpiredUserToken();
   }, []);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    // const user = JSON.parse(sessionStorage.getItem("user"));
+    setInfo(user);
+  }, []);
+
+  console.log("info = ", info);
+  console.log("store details = ", store_details);
+
   useEffect(() => {
     if (!_isUserLoggedIn()) {
       showToast("Login required to view page", "info");
@@ -148,10 +162,20 @@ const Index = ({
           <div className={styles.mobileSideBar}>
             <div className={styles.profile}>
               <div className={styles.profileImgBox}>
-                <Image src={SideBarLoginProfile} alt="profile" />
+                {store_details?.display_picture ? (
+                  <Image
+                    src={store_details?.display_picture}
+                    alt="profile"
+                    width={"100%"}
+                    height={"100%"}
+                    objectFit="cover"
+                  />
+                ) : (
+                  <Image src={SideBarLoginProfile} alt="profile" />
+                )}
               </div>
               <div className={styles.details}>
-                <p>{userName ? userName : ""}</p>
+                <p>{info?.full_name ? info.full_name : ""}</p>
                 <div>Business Account</div>
               </div>
               <div className={styles.dropDown}>

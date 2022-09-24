@@ -29,6 +29,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
    * Installment Payment: 3
    * Make It Free: 4
    */
+
+  const [productID, setProductID] = useState("");
   const getProductByID = GetProductByID();
   const getBillingInterval = GetBillingInterval();
   const createProduct = CreateProduct();
@@ -36,9 +38,11 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   const { store } = useSelector((state) => state.store);
   const router = useRouter();
 
-  const { productID, product, billingInterval, loading } = useSelector(
+  const { product, billingInterval, loading } = useSelector(
     (state) => state.product
   );
+
+  console.log("productId = ", productID);
 
   const [progress, setProgress] = useState(0);
 
@@ -246,7 +250,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
         formData,
         options
       );
-      console.log(data);
+      // console.log(data);
       setFile({
         type: data?.resource_type,
         url: data?.secure_url,
@@ -328,7 +332,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   };
 
   const handleSubmit = (data) => {
-    console.log("data from submit = ", data);
+    // console.log("data from submit = ", data);
+    setProductID(productID);
     // const dataWithCompare = {
     //   ...data,
     //   is_show_compare_price: compareToPrice,
@@ -361,9 +366,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     }
     const checkedData = checkArrays(data);
     // const checkedData = checkArrays(dataWithCompare);
-    // console.log("checkedData", checkedData)
+    // console.log("checkedData", checkedData);
     const result = transformToFormData(checkedData);
-    console.log("result = ", result);
+    // console.log("result = ", result);
     createProduct(result, () => {
       if (priceType === "Fixed Price") {
         router.push(`/account/kreator/products/preview/${productID}`);
@@ -679,6 +684,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   }, [compareToPrice, isOpMoreThanSp, noMatchingCurrency]);
 
   // console.log("disableButton = ", disableButton());
+
+  // console.log("showCompare is enabled = ", product?.product_details);
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === "Fixed Price" && (
@@ -787,6 +794,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 checked={
                   // product?.product_details?.is_show_compare_price
                   //   ? product?.product_details?.is_show_compare_price
+                  // :
+                  // product?.product_details?.is_show_compare_price ??
                   compareToPrice
                 }
               />
