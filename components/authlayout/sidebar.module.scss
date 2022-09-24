@@ -196,6 +196,7 @@
   left: 120px;
   right: 90px;
   padding: 24px;
+  z-index: 300;
   .promptHeader {
     display: flex;
     align-items: center;
@@ -216,7 +217,11 @@
     }
   }
   @media (max-width: 768px) {
-    display: none;
+    // max-width: 600px;
+    max-width: 348px;
+    padding: 0.8rem;
+    left: 30px;
+    right: 10px;
   }
   @media (min-width: 768px) {
     max-height: 140px;
