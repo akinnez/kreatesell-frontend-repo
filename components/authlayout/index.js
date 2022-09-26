@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./sidebar.module.scss";
 import { Layout } from "antd";
 import Sidebar from "./sidebar";
 import Logo from "./logo";
 import Nav from "./header";
-import { Spin } from "antd";
+import useSWR from "swr";
+import { Spin, Dropdown } from "antd";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import ApiService from "../../utils/axios";
 import * as types from "../../redux/types";
+import Image from "next/image";
+import Link from "next/link";
+import fetcher from "../../utils/fetcher";
 import {
   checkExpiredUserToken,
   getUser,
@@ -18,14 +22,16 @@ import {
   isAnEmpytyObject,
   NavCloseDropdownIcon,
   SideBarLoginProfile,
+  PromptInfoIcon,
 } from "utils";
-import Image from "next/image";
+import { Logout } from "../../redux/actions";
 import { useRouter } from "next/router";
 import { USER } from "redux/types/auth.types";
 import { GetProductTypes } from "redux/actions/product.actions";
 import useFetchUtilities from "hooks/useFetchUtilities";
 import useFetchStore from "hooks/useFetchStore";
 import useFetchNotifications from "hooks/useFetchNotifications";
+import { menu } from "./header";
 
 const Loader = () => {
   return (
@@ -57,10 +63,42 @@ const Index = ({
 }) => {
   const { Header, Footer, Sider, Content } = Layout;
   const router = useRouter();
+  const [info, setInfo] = useState("");
+  const pathname = router.pathname;
+
+  const {
+    store: { store_details },
+  } = useSelector((state) => state.store);
+
+  const { data } = useSWR("v1/kreatesell/store/me", fetcher);
+  // console.log("data from store = ", data?.user);
+
+  const userPlan = data?.user?.user_plan;
+  const percentageCompleted = data?.percentage_completed;
+
+  const storeSetupPromptIsShown = useCallback(() => {
+    return (
+      percentageCompleted <= 80 &&
+      (pathname === "/account/kreator/store" ||
+        pathname === "/account/dashboard")
+    );
+  }, [percentageCompleted, pathname]);
+
+  // console.log("prompt is Visible = ", storeSetupPromptIsShown);
 
   useEffect(() => {
     checkExpiredUserToken();
   }, []);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    // const user = JSON.parse(sessionStorage.getItem("user"));
+    setInfo(user);
+  }, []);
+
+  // console.log("info = ", info);
+  // console.log("store details = ", store_details);
+
   useEffect(() => {
     if (!_isUserLoggedIn()) {
       showToast("Login required to view page", "info");
@@ -73,7 +111,7 @@ const Index = ({
   const dispatch = useDispatch();
   const userIsEmpty = isAnEmpytyObject(user.user);
   const productTypes = GetProductTypes();
-
+  const logout = Logout();
   useEffect(() => {
     if (userIsEmpty) {
       dispatch({ type: USER.REQUEST });
@@ -101,6 +139,9 @@ const Index = ({
 
   return (
     <section className={styles.layoutMain}>
+      {storeSetupPromptIsShown() && (
+        <SetUpPrompt show={storeSetupPromptIsShown()} />
+      )}
       <Layout>
         <Sider
           width={250}
@@ -124,15 +165,37 @@ const Index = ({
           <div className={styles.mobileSideBar}>
             <div className={styles.profile}>
               <div className={styles.profileImgBox}>
-                <Image src={SideBarLoginProfile} alt="profile" />
+                {store_details?.display_picture ? (
+                  <Image
+                    src={store_details?.display_picture}
+                    alt="profile"
+                    width={"100%"}
+                    height={"100%"}
+                    objectFit="cover"
+                  />
+                ) : (
+                  <Image src={SideBarLoginProfile} alt="profile" />
+                )}
               </div>
               <div className={styles.details}>
-                <p>{userName ? userName : ""}</p>
-                <div>Business Account</div>
+                <p>{info?.full_name ? info.full_name : ""}</p>
+                <div
+                  className={
+                    userPlan === "Business"
+                      ? styles.businessPlan
+                      : styles.basicPlan
+                  }
+                >
+                  {userPlan === "Business"
+                    ? "Business Account"
+                    : "Basic Account"}
+                </div>
               </div>
-              <div className={styles.dropDown}>
-                <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
-              </div>
+              <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
+                <div className={styles.dropDown}>
+                  <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
+                </div>
+              </Dropdown>
             </div>
             <Sidebar isMobileView={true} />
           </div>
@@ -181,6 +244,22 @@ const Index = ({
         }
       `}</style>
     </section>
+  );
+};
+
+const SetUpPrompt = ({ show }) => {
+  return (
+    <div className={`${styles.setUpPrompt} ${show ? styles.show : ""}`}>
+      <div className={styles.promptHeader}>
+        <Image src={PromptInfoIcon} alt="prompt info" />
+        <h4> Finish your store set up</h4>
+      </div>
+      <p>
+        Provide all the required information for your store to be fully setup
+        and activated.{" "}
+        <Link href="/account/kreator/store/edit">Click here to proceed</Link>.
+      </p>
+    </div>
   );
 };
 
