@@ -12,6 +12,7 @@ export const PricingCard = ({
   subPriceType = '',
   btnOnClick,
   currentPlan = false,
+  selectedCurrency,
 }) => {
   const Features = title === 'basic' ? BasicFeatures : BusinessFeatures
 
@@ -24,15 +25,24 @@ export const PricingCard = ({
       </div>
 
       <div className={styles.price}>
-        <p className={styles.currency}>NGN</p>{' '}
-        <p className={styles.price2}>{price} </p>
+        <p className={styles.currency}>{selectedCurrency?.currency}</p>{' '}
+        <p className={styles.price2}>
+          {price !== '0' ? Number(price).toFixed(2) : price}{' '}
+        </p>
         <p className={styles.month}>/ Month</p>
       </div>
 
       <h5 className={styles.priceType}>
         {priceType}{' '}
         {subPriceType && (
-          <span className={styles.subPriceType}>- Save {subPriceType}</span>
+          <span className={styles.subPriceType}>
+            - Save{' '}
+            {`${selectedCurrency?.currency} ${
+              subPriceType !== '0'
+                ? Number(subPriceType).toFixed(2)
+                : subPriceType
+            }`}
+          </span>
         )}
       </h5>
 

@@ -4,14 +4,27 @@ import { useSelector } from 'react-redux'
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
 
 import useCurrency from 'hooks/useCurrency'
+import useConvertRates from 'hooks/useConvertRates'
+
 import { PricingCard, Button, UpgradeAccountForm, Select } from 'components'
 
 import { PaymentUnsubscribe } from 'redux/actions'
+import { useGetUpgradePlansPrices } from 'services/swrQueryHooks/UpgradePlansQuery'
+import { toSpecifiedDecimalPlaces } from 'utils'
 
 import styles from './Settings.module.scss'
+import Spinner from 'components/Spinner'
 
 const Billing = () => {
   const [modal, setModal] = useState(false)
+
+  const { store } = useSelector((state) => state.store)
+  const { convertedCurrency } = useSelector((state) => state.currencyConverter)
+
+  const {
+    data: upgradePlanPrices,
+    error: upgradePlanErrors,
+  } = useGetUpgradePlansPrices()
   const paymentUnsubscribe = PaymentUnsubscribe()
   const {
     countriesCurrency,
@@ -19,25 +32,72 @@ const Billing = () => {
     filteredCentral,
     filterdWest,
   } = useCurrency()
+
+  // console.log
+  // return either monthly or annual upgrade price
+  const getUpgradePrice = (type = 'monthly') => {
+    if (type === 'monthly') {
+      return upgradePlanPrices?.filter(
+        (price) => price.configuration_value === 'Business',
+      )[0].monthly_value
+    } else {
+      return upgradePlanPrices?.filter(
+        (price) => price.configuration_value === 'Business',
+      )[0].annually_value
+    }
+  }
   const [activeBtn, setActiveBtn] = useState({
     annually: true,
     monthly: false,
   })
   const { annually, monthly } = activeBtn
-  const [businessPrice, setBusinessPrice] = useState('4,999')
+  const [businessPrice, setBusinessPrice] = useState(getUpgradePrice('monthly'))
   const [priceLabel, setPriceLabel] = useState('Billed Monthly')
-  const [subPriceType, setSubPriceType] = useState('NGN 9989')
+  const [subPriceType, setSubPriceType] = useState()
+
   const [selectedPlan, setSelectedPlan] = useState('')
   const [countryOptions, setCountryOptions] = useState([])
   const [subscriptionMode, setSubscriptionMode] = useState(null)
   const [selectedCurrency, setSelectedCurrency] = useState({})
-  const { store } = useSelector((state) => state.store)
+
+  const { handleCurrencyConversion, getCurrency } = useConvertRates(
+    'NGN',
+    selectedCurrency?.currency,
+  )
 
   useEffect(() => {
-    monthly ? setBusinessPrice('4,999') : setBusinessPrice('4,167')
+    if (upgradePlanPrices) {
+      setSubPriceType(
+        getUpgradePrice('monthly') * 12 - getUpgradePrice('annually') * 12,
+      )
+    }
+  }, [upgradePlanPrices])
+
+  useEffect(() => {
+    if (upgradePlanPrices) {
+      setBusinessPrice(getUpgradePrice('monthly'))
+    }
+  }, [upgradePlanPrices])
+
+  useEffect(() => {
+    monthly
+      ? setBusinessPrice(getUpgradePrice('monthly'))
+      : setBusinessPrice(getUpgradePrice('annually'))
     monthly ? setPriceLabel('Billed Monthly') : setPriceLabel('Billed Annually')
-    monthly ? setSubPriceType('') : setSubPriceType('NGN 9989')
+    monthly
+      ? setSubPriceType('')
+      : setSubPriceType(
+          `${
+            getUpgradePrice('monthly') * 12 - getUpgradePrice('annually') * 12
+          }`,
+        )
   }, [monthly])
+
+  useEffect(() => {
+    if (upgradePlanPrices) {
+      setBusinessPrice(getUpgradePrice())
+    }
+  }, [upgradePlanPrices])
 
   // useEffect to default to a currency
   useEffect(() => {
@@ -49,11 +109,17 @@ const Billing = () => {
   //   useEffect to calculate price
   useEffect(() => {
     if (annually) {
-      setSubscriptionMode({ mode: 'annually', price: 4167 * 12 })
+      setSubscriptionMode({
+        mode: 'annually',
+        price: getUpgradePrice('annually') * 12,
+      })
     } else if (monthly) {
-      setSubscriptionMode({ mode: 'monthly', price: 4999 })
+      setSubscriptionMode({
+        mode: 'monthly',
+        price: getUpgradePrice('monthly'),
+      })
     }
-  }, [annually, monthly])
+  }, [annually, monthly, upgradePlanPrices])
 
   // useEffect to check if current plan
   useEffect(() => {
@@ -61,6 +127,11 @@ const Billing = () => {
       setSelectedPlan(store?.user?.user_plan)
     }
   }, [store?.user?.user_plan])
+
+  // to convert a currency based on when selected currency changes
+  useEffect(() => {
+    handleCurrencyConversion(selectedCurrency?.currency)
+  }, [selectedCurrency])
 
   // change
   useMemo(() => {
@@ -84,6 +155,13 @@ const Billing = () => {
 
   const openModal = () => setModal(true)
   const closeModal = () => setModal(false)
+
+  if ((!upgradePlanErrors && !upgradePlanPrices) || !selectedCurrency)
+    return (
+      <>
+        <Spinner />{' '}
+      </>
+    )
 
   return (
     <>
@@ -134,6 +212,7 @@ const Billing = () => {
               subTitle="All of the features you need to start selling your contents"
               priceType="100% Free"
               currentPlan={selectedPlan === 'Basic'}
+              selectedCurrency={selectedCurrency}
             />
           </div>
 
@@ -141,22 +220,33 @@ const Billing = () => {
             <PricingCard
               title="business"
               subTitle="The combination of core tools, custom options, and automated events for professional course creators looking for the growing of their businesses."
-              price={businessPrice}
+              price={
+                Object.keys(convertedCurrency).length > 0
+                  ? businessPrice * convertedCurrency?.buy_rate
+                  : businessPrice
+              }
               btnText="Select This Plan"
               priceType={priceLabel}
-              subPriceType={subPriceType}
+              subPriceType={
+                Object.keys(convertedCurrency).length > 0
+                  ? subPriceType * convertedCurrency?.buy_rate
+                  : subPriceType
+              }
               btnOnClick={openModal}
               currentPlan={selectedPlan === 'Business'}
+              selectedCurrency={selectedCurrency}
             />
           </div>
         </div>
 
-        <div className={styles.cancelSubscription}>
-          To disable any further automatic autorenewal attempts, please click{' '}
-          <span onClick={() => paymentUnsubscribe()}>
-            &nbsp; Cancel Subscription Autorenewal
-          </span>
-        </div>
+        {store?.is_plan_auto_renewed && (
+          <div className={styles.cancelSubscription}>
+            To disable any further automatic autorenewal attempts, please click{' '}
+            <span onClick={() => paymentUnsubscribe()}>
+              &nbsp; Cancel Subscription Autorenewal
+            </span>
+          </div>
+        )}
 
         <DialogOverlay isOpen={modal} onDismiss={closeModal} className="pt-12 ">
           <DialogContent className={styles.modal} aria-label="modal">
@@ -170,6 +260,7 @@ const Billing = () => {
                 filterdWest,
                 setModal,
                 setSelectedPlan,
+                convertedCurrency,
               }}
             />
           </DialogContent>

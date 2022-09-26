@@ -15,9 +15,10 @@ export default function CustomCheckoutSelect({
   showFeedBack = false,
   noMatchFound = false,
 }) {
-  const { countriesCurrency, loading } = useCurrency()
-  const { countries, currency } = useSelector((state) => state.utils)
+  // const { countriesCurrency, loading } = useCurrency()
+  const { currency } = useSelector((state) => state.utils)
   const { storeCurrencies } = useSelector((state) => state.store)
+  const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState([])
   // const { currency } = useSelector((state) => state.utils)
   const getStoreCurrencies = GetStoreCurrencies()
   // const getAllowedCurrencies = GetAllowedCurrencies()
@@ -33,17 +34,9 @@ export default function CustomCheckoutSelect({
   const filterCurrency = useMemo(() => currency?.map((cur) => cur.short_name), [
     currency,
   ])
-  // const countriesCurrency = useMemo(
-  //   () =>
-  //     countries?.filter(
-  //       (country) =>
-  //         country.currency_id !== null &&
-  //         filterCurrency?.includes(country.currency)
-  //     ),
-  //   [countries, filterCurrency]
-  // );
+
   const addCurrency = () => {
-    console.log('add currency')
+    // console.log('add currency')
     const { currency_name, currency_value } = newCurrency
     if (!currency_name || !currency_value) {
       return
@@ -61,14 +54,28 @@ export default function CustomCheckoutSelect({
     })
   }
 
-  // console.log("countriesCurrency cur", countriesCurrency);
+  const formatCurrencies = () => {
+    let newArr = storeCurrencies.filter((currency) => {
+      return !['XOF', 'XAF'].includes(currency.currency_short_name)
+    })
+    // TODO: Check for XOF and XAF duplicates in currency
+    setFormattedStoreCurrencies(newArr)
+  }
+
+  // useEffect for formatting currencies
+  useEffect(() => {
+    if (Array.isArray(storeCurrencies) && storeCurrencies?.length > 0) {
+      formatCurrencies()
+    }
+  }, [storeCurrencies.length])
+
   useEffect(() => {
     // getAllowedCurrencies()
     getStoreCurrencies()
   }, [])
 
   // if (loading) return <Spin />
-  console.log('storeCurrencies', storeCurrencies)
+  // console.log('storeCurrencies', storeCurrencies)
   return (
     <div className="">
       <p className="text-base mb-3 font-medium">
@@ -92,10 +99,10 @@ export default function CustomCheckoutSelect({
       <div className="w-4/5 flex">
         <Select
           onChange={(e) => setNewCurrency({ ...newCurrency, currency_name: e })}
-          defaultValue="NGN"
+          defaultValue={formattedStoreCurrencies[0] || 'NGN'}
           className={styles.selectButton}
         >
-          {storeCurrencies.map((country, index) => (
+          {formattedStoreCurrencies.map((country, index) => (
             <Option
               className={styles.optionField}
               key={index}

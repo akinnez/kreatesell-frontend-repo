@@ -23,7 +23,7 @@ const CurrencyCard = ({
           }`}
         >
           <div className={styles.checFlag + ' mr-2'}>
-            <Image src={flag} alt="flag" layout="fill" />
+            {flag && <Image src={flag} alt="flag" layout="fill" />}
           </div>{' '}
           {currency}
           {activeCurrency?.currency_id === currency_id && (
