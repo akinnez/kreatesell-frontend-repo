@@ -191,8 +191,6 @@ const Checkout = () => {
 
     /** Currencies using PayStack are listed here */
     if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
-      console.log('typeof getCurr', typeof getCurrency('price'))
-      console.log('getCurr', getCurrency('price'))
       return initializePaystackPayment(onPaystackSuccess, onPaystackClose)
     }
 
