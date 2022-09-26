@@ -109,3 +109,41 @@
 
   box-shadow: 0px 1px 0px rgba(34, 34, 34, 0.05);
 }
+
+.mainNav {
+  position: relative;
+}
+
+.setUpPrompt {
+  background: #f1fcf8;
+  border-radius: 8px;
+  max-width: 453px;
+  margin: 0 auto;
+  position: absolute;
+  // top: -130px;
+  left: 60px;
+  right: 200px;
+  padding: 24px;
+  .promptHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    h4 {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      margin-left: 10px;
+      margin-bottom: unset;
+      color: #595959;
+    }
+
+    & + p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 24px;
+    }
+  }
+  @media (min-width: 768px) {
+    max-height: 140px;
+  }
+}

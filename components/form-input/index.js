@@ -13,7 +13,7 @@ import { UploaderIcon, ProfileInputIcon } from "../../components/IconPack";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md";
 import NImg from "next/image";
-import { deleteImage } from "../../redux/actions";
+import { DeleteImage } from "../../redux/actions";
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -285,11 +285,11 @@ export const Dropzone = ({
   ...rest
 }) => {
   const [showDeletePopover, setShowDeletePopover] = useState(false);
-  const DeleteImage = deleteImage();
+  const deleteImage = DeleteImage();
   const [imgUrl, setImgUrl] = useState();
 
   const handleDelete = () => {
-    DeleteImage(name, () => {
+    deleteImage(name, () => {
       onChange(null);
       setTimeout(() => {
         setShowDeletePopover(false);
@@ -397,13 +397,13 @@ export const FileInput = ({
   extralable = "- Your profile picture",
   name,
 }) => {
-  const DeleteImage = deleteImage();
+  const deleteImage = DeleteImage();
   const [file, setFile] = useState("");
   const [showDeletePopover, setShowDeletePopover] = useState(false);
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const handleDelete = () => {
-    DeleteImage(name, () => {
+    deleteImage(name, () => {
       setFile(null);
       onChange(null);
       setFileDataURL(null);

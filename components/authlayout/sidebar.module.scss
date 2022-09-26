@@ -166,10 +166,22 @@
         color: #0072ef;
 
         & + div {
-          background: #00b140;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           border-radius: 8px;
           padding: 4px 8px;
+        }
+
+        & + div.businessPlan {
+          background: #00b140;
           color: #ffffff;
+        }
+
+        & + div.basicPlan {
+          border: 1px solid #00b140;
+          color: #00b140;
+          background: unset;
         }
       }
     }
@@ -177,9 +189,58 @@
       margin-left: 32px;
       position: relative;
       top: -15px;
+      cursor: pointer;
     }
   }
   @media (min-width: 992px) {
     display: none;
   }
+}
+
+.setUpPrompt {
+  background: #f1fcf8;
+  border-radius: 8px;
+  max-width: 453px;
+  margin: 0 auto;
+  position: absolute;
+  opacity: 0;
+  // top: -130px;
+  top: 0px;
+  left: 120px;
+  right: 90px;
+  padding: 24px;
+  z-index: 300;
+  .promptHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    h4 {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      margin-left: 10px;
+      margin-bottom: unset;
+      color: #595959;
+    }
+
+    & + p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 24px;
+    }
+  }
+  @media (max-width: 768px) {
+    // max-width: 600px;
+    max-width: 348px;
+    padding: 0.8rem;
+    left: 30px;
+    right: 10px;
+  }
+  @media (min-width: 768px) {
+    max-height: 140px;
+  }
+}
+
+.setUpPrompt.show {
+  opacity: 1;
 }

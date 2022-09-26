@@ -76,7 +76,7 @@ const Profile = ({ name, avi }) => {
   );
 };
 
-const menu = (logout) => (
+export const menu = (logout) => (
   <Menu className={style.authMenu}>
     <Menu.Item key="prof-1">
       <Link href="/account/kreator/store/edit">
@@ -122,7 +122,8 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
   }, []);
 
   return (
-    <section>
+    <section className={style.mainNav}>
+      {/* <SetUpPrompt /> */}
       <div className={style.mobileHeader}>
         <>
           {!isMobileSideBarOpen ? (
@@ -174,6 +175,7 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
               />
               <MobileLogo />
             </div>
+
             <div className={style.pageDot}>
               <PageDot />
               <h1>{headerTitle || title}</h1>

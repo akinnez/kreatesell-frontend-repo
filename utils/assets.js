@@ -379,6 +379,7 @@ export {
   CoreFive,
   CoreFour,
   CoreTwo,
+  MobileBackArrow,
   CoreThree,
   CoreOne,
   BurnkinaFasoFlag,
