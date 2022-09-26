@@ -24,13 +24,18 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { usePaystackPayment } from 'react-paystack'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
-import { SendPaymentCheckoutDetails, ConvertCurrency } from 'redux/actions'
+import {
+  SendPaymentCheckoutDetails,
+  ConvertCurrency,
+  GetStoreCheckoutCurrencies,
+} from 'redux/actions'
 import crypto from 'crypto'
 import LogoImg from '../../public/images/logo.svg'
 import useFetchUtilities from 'hooks/useFetchUtilities'
 import useCurrency from 'hooks/useCurrency'
 import Loader from 'components/loader'
 import axios from 'axios'
+import useCheckoutCurrency from 'hooks/useCheckoutCurrencies'
 
 const paymentMethods = [
   {
@@ -60,14 +65,23 @@ const Checkout = () => {
   const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`
   const [modal, setModal] = useState(false)
   const {
-    countriesCurrency,
-    filterdWest,
+    // countriesCurrency,
+    // filterdWest,
     filteredCentral,
     loading,
   } = useCurrency()
 
+  const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies()
   const checkoutDetails = useSelector((state) => state.checkout)
-  const { convertedCurrency } = useSelector((state) => state.currencyConverter)
+  const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
+    (state) => state.currencyConverter,
+  )
+  const {
+    storeCheckoutCurrencies,
+    loading: storeCheckoutCurrenciesLoading,
+  } = useSelector((state) => state.store)
+
+  const { countriesCurrency, filterdWest } = useCheckoutCurrency()
 
   const [activeCurrency, setActiveCurrency] = useState({})
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
@@ -78,6 +92,7 @@ const Checkout = () => {
   const closeModal = () => setModal(false)
 
   const [checkOutDetails, setCheckOutDetails] = useState([])
+  const [storeId, setStoreId] = useState()
   const checkout = checkOutDetails?.filter(
     // (item) => item?.currency_name === activeCurrency?.currency,
     (item) => item?.price_indicator === 'Selling',
@@ -89,10 +104,13 @@ const Checkout = () => {
     try {
       const response = await axios.get(productLink)
       setCheckOutDetails(response?.data?.data?.check_out_details)
+      setStoreId(response?.data?.data?.store_id)
     } catch (error) {
       console.log(error)
     }
   }
+
+  let val = storeCheckoutCurrencies.map(() => {})
 
   const getCurrency = (priceOrName) => {
     if (priceOrName === 'currency') {
@@ -134,16 +152,20 @@ const Checkout = () => {
   }
 
   useEffect(() => {
-    getProductDetails(productLink)
+    if (!!productLink) {
+      getProductDetails(productLink)
+    }
   }, [productLink])
+
+  useEffect(() => {
+    if (!!storeId) {
+      getStoreCheckoutCurrencies(storeId)
+    }
+  }, [storeId])
 
   // set currency on mount
   // TODO: set to the base currency
   useEffect(() => {
-    // if (countriesCurrency) {
-    //   setActiveCurrency(countriesCurrency[0])
-    //   setSelectedPaymentMethod(paymentMethods[0].value)
-    // }
     if (checkOutDetails.length) {
       setActiveCurrency(checkOutDetails[0])
       setSelectedPaymentMethod(paymentMethods[0].value)
@@ -169,6 +191,8 @@ const Checkout = () => {
 
     /** Currencies using PayStack are listed here */
     if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
+      console.log('typeof getCurr', typeof getCurrency('price'))
+      console.log('getCurr', getCurrency('price'))
       return initializePaystackPayment(onPaystackSuccess, onPaystackClose)
     }
 
@@ -259,7 +283,7 @@ const Checkout = () => {
   const payStackConfig = {
     reference: randomId,
     email: values?.email,
-    amount: price * 100,
+    amount: getCurrency('price').toFixed() * 100,
     publicKey:
       activeCurrency?.currency === 'GHS'
         ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
@@ -267,7 +291,7 @@ const Checkout = () => {
     firstName: values?.firstName,
     lastname: values?.lastName,
     phone: values?.phoneNo,
-    currency: `${activeCurrency?.currency}`,
+    currency: getCurrency('currency'), //`${activeCurrency?.currency}`,
     channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'],
   }
   const onPaystackSuccess = (reference) => {
@@ -297,7 +321,7 @@ const Checkout = () => {
 
   useFetchUtilities()
 
-  if (loading) return <Loader />
+  if (loading || storeCheckoutCurrenciesLoading) return <Loader />
 
   return (
     <>
@@ -397,19 +421,15 @@ const Checkout = () => {
                 </p>
 
                 <div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-                  {countriesCurrency?.map(
-                    ({ currency, currency_id, flag }, index) =>
-                      currency !== 'XOF' &&
-                      currency !== 'XAF' && (
-                        <CurrencyCard
-                          key={currency_id}
-                          handleSelect={() =>
-                            handleSelect({ currency_id, currency })
-                          }
-                          {...{ currency, currency_id, flag, activeCurrency }}
-                        />
-                      ),
-                  )}
+                  {countriesCurrency?.map(({ currency, currency_id, flag }) => (
+                    <CurrencyCard
+                      key={currency_id}
+                      handleSelect={() =>
+                        handleSelect({ currency_id, currency })
+                      }
+                      {...{ currency, currency_id, flag, activeCurrency }}
+                    />
+                  ))}
                 </div>
               </div>
               <div className="py-7">
@@ -423,7 +443,6 @@ const Checkout = () => {
                           ? styles.activeCard
                           : styles.card
                       }
-                      // onClick={() => setActiveCurrency(country)}
                       onClick={() => handleSelect({ id, currency })}
                     >
                       <div
@@ -563,7 +582,8 @@ const Checkout = () => {
                     <p>
                       {/* {currency_name} {price ?? checkoutDetails?.default_price} */}
                       {/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
-                      {getCurrency('currency')} {getCurrency('price')}
+                      {getCurrency('currency')}{' '}
+                      {Number(getCurrency('price')).toFixed(2)}
                     </p>
                   </div>
                 </div>
@@ -588,7 +608,7 @@ const Checkout = () => {
                     {/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
                     )} */}
-                    {getCurrency('price')}
+                    {Number(getCurrency('price')).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -604,6 +624,7 @@ const Checkout = () => {
                   bgColor="blue"
                   className={styles.btnCont}
                   icon={<RightArrow />}
+                  disabled={currencyConverterLoading}
                 />
               </div>
             </form>

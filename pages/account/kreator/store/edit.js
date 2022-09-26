@@ -52,22 +52,22 @@ const Index = () => {
     formData.append('Store_Name', info.Store_Name)
 
     // console.log('info', info)
-    // ApiService.request(
-    //   'post',
-    //   'v1/kreatesell/store/onboarding',
-    //   ({ data }) => {
-    //     setLoading({ ...loading, updating: false })
-    //     toast.success('Successful')
-    //     setTimeout(() => {
-    //       Router.push('/account/kreator/store')
-    //     }, 3000)
-    //   },
-    //   (err) => {
-    //     setLoading({ ...loading, updating: false })
-    //     toast.error(err)
-    //   },
-    //   formData,
-    // )
+    ApiService.request(
+      'post',
+      'v1/kreatesell/store/onboarding',
+      ({ data }) => {
+        setLoading({ ...loading, updating: false })
+        toast.success('Successful')
+        setTimeout(() => {
+          Router.push('/account/kreator/store')
+        }, 3000)
+      },
+      (err) => {
+        setLoading({ ...loading, updating: false })
+        toast.error(err)
+      },
+      formData,
+    )
   }
 
   const handlePhoneCode = (countryParam) => {
