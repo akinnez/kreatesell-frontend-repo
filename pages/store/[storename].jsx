@@ -172,91 +172,32 @@ const ProductCard = ({
 }) => {
   const router = useRouter()
   const setCheckoutDetails = SetCheckoutDetails()
-
-  // const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-  //   ","
-  // )
-  //   ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-  //   : productDetails?.product_images?.[0]?.filename;
-
-  // const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-  //   ","
-  // )
-  //   ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-  //   : productDetails?.product_images?.[0]?.filename?.endsWith(".rar") ||
-  //     productDetails?.product_images?.[0]?.filename?.endsWith(".zip")
-  //   ? productDetails?.product_images?.[1]?.filename
-  //     : productDetails?.product_images?.[0]?.filename;
-
   const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-    ","
+    ',',
   )
-    ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-    : productDetails?.product_images?.[0]?.filename?.endsWith(".rar") ||
-      productDetails?.product_images?.[0]?.filename?.endsWith(".zip")
+    ? productDetails?.product_images?.[0]?.filename?.split(',')[0]
+    : productDetails?.product_images?.[0]?.filename?.endsWith('.rar') ||
+      productDetails?.product_images?.[0]?.filename?.endsWith('.zip')
     ? productDetails?.product_images?.[1]?.filename
-    : productDetails?.product_images?.[1]?.filename?.includes(",")
-    ? productDetails?.product_images?.[1]?.filename?.split(",")[1]
-    : productDetails?.product_images?.[1]?.filename;
+    : productDetails?.product_images?.[1]?.filename?.includes(',')
+    ? productDetails?.product_images?.[1]?.filename?.split(',')[1]
+    : productDetails?.product_images?.[1]?.filename
 
-  const initImage = productDetails?.product_images?.[0]?.filename?.includes(",")
+  const initImage = productDetails?.product_images?.[0]?.filename?.includes(',')
     ? // * show full array
-      productDetails?.product_images?.[0]?.filename?.split(",")
+      productDetails?.product_images?.[0]?.filename?.split(',')
     : // * show first item
-      productDetails?.product_images?.[0]?.filename;
+      productDetails?.product_images?.[0]?.filename
 
-  console.log("imageFrom backend  = ", initImage);
+  console.log('imageFrom backend  = ', initImage)
 
   const imageRendered =
     productDetails?.product_images?.[1]?.filename ||
     productDetails?.product_images?.[0]?.filename ||
-    (productDetails?.product_images?.[1]?.filename?.includes(",") &&
-      productDetails?.product_images?.[1]?.filename?.split(",")[0]) ||
-    (productDetails?.product_images?.[0]?.filename?.includes(",") &&
-      productDetails?.product_images?.[0]?.filename?.split(",")[0]);
-
-  // const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-  //   ","
-  // )
-  //   ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-  //   : productDetails?.product_images?.[0]?.filename;
-
-  // const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-  //   ","
-  // )
-  //   ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-  //   : productDetails?.product_images?.[0]?.filename?.endsWith(".rar") ||
-  //     productDetails?.product_images?.[0]?.filename?.endsWith(".zip")
-  //   ? productDetails?.product_images?.[1]?.filename
-  //     : productDetails?.product_images?.[0]?.filename;
-
-  const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-    ","
-  )
-    ? productDetails?.product_images?.[0]?.filename?.split(",")[0]
-    : productDetails?.product_images?.[0]?.filename?.endsWith(".rar") ||
-      productDetails?.product_images?.[0]?.filename?.endsWith(".zip")
-    ? productDetails?.product_images?.[1]?.filename
-    : productDetails?.product_images?.[1]?.filename?.includes(",")
-    ? productDetails?.product_images?.[1]?.filename?.split(",")[1]
-    : productDetails?.product_images?.[1]?.filename;
-
-  const initImage = productDetails?.product_images?.[0]?.filename?.includes(",")
-    ? // * show full array
-      productDetails?.product_images?.[0]?.filename?.split(",")
-    : // * show first item
-      productDetails?.product_images?.[0]?.filename;
-
-  console.log("imageFrom backend  = ", initImage);
-
-  const imageRendered =
-    productDetails?.product_images?.[1]?.filename ||
-    productDetails?.product_images?.[0]?.filename ||
-    (productDetails?.product_images?.[1]?.filename?.includes(",") &&
-      productDetails?.product_images?.[1]?.filename?.split(",")[0]) ||
-    (productDetails?.product_images?.[0]?.filename?.includes(",") &&
-      productDetails?.product_images?.[0]?.filename?.split(",")[0]);
-
+    (productDetails?.product_images?.[1]?.filename?.includes(',') &&
+      productDetails?.product_images?.[1]?.filename?.split(',')[0]) ||
+    (productDetails?.product_images?.[0]?.filename?.includes(',') &&
+      productDetails?.product_images?.[0]?.filename?.split(',')[0])
   return (
     <div
       className="bg-white w-full rounded-lg"
