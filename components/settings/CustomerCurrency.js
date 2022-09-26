@@ -45,18 +45,18 @@ const Index = ({
 
   const handleSelect = (currency) => {
     if (
-      selectedCurrencies.some((cry) => cry.currency_id === currency.currency_id)
+      selectedCurrencies.some((cry) =>
+        [cry?.short_name, cry.country].includes(currency.short_name),
+      )
     ) {
-      console.log('exist')
       setSelectedCurrencies((prev) => {
         const newList = prev.filter(
-          (val) => val.currency_id !== currency?.currency_id,
+          (val) =>
+            ![val.country, val.short_name].includes(currency?.short_name),
         )
-        // console.log('newList', newList)
         return newList
       })
     } else {
-      console.log('does not exists')
       setSelectedCurrencies((prev) => {
         return [...prev, currency]
       })
@@ -67,23 +67,24 @@ const Index = ({
     const data = {
       currencies_id: [
         ...selectedCurrencies.map((cur) => ({
-          currency_id: cur?.currency_id,
+          country: cur?.country || cur?.short_name,
           status: true,
+          currency: cur?.currency_short_name || cur?.currency,
         })),
       ],
     }
     return data
   }
 
+  // console.log('selected currencies', selectedCurrencies)
   const handleSubmit = () => {
+    // console.log('currencies', formatCurrency())
     updateStoreCheckoutCurrencies(
       formatCurrency(),
       () => console.log('successful'),
       () => console.log('error occured'),
     )
   }
-  // console.log('checkout selected currencies', selectedCurrencies)
-  // console.log('countriesCurrency', countriesCurrency)
 
   function getSelected() {
     setSelectedCurrencies(storeCheckoutCurrencies)
@@ -102,21 +103,13 @@ const Index = ({
           here. Customers can pay in their local currency.
         </p>
 
-        {/* {console.log('countriesCurrency', countriesCurrency)}
-        {console.log('selectedCurrencies', selectedCurrencies)} */}
         <div style={{ width: '100%' }}>
           <Row>
             {countriesCurrency?.map((cur, i) => (
               <Col key={i} md={4} sm={8} style={{ marginBlockEnd: '1rem' }}>
-                {/* {console.log(
-                  '',
-                  selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
-                  ),
-                )} */}
                 <CustomCheck
-                  defaultChecked={selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
+                  checked={selectedCurrencies.some((cry) =>
+                    [cry?.short_name, cry.country].includes(cur.short_name),
                   )}
                   onChange={() => handleSelect(cur)}
                   name="countries-2"
@@ -139,14 +132,14 @@ const Index = ({
           </Row>
         </div>
 
-        <h4>West African CFA Franc BCEAO</h4>
+        <h4>West African CFA Franc BCEAO(XOF)</h4>
         <div style={{ width: '100%' }}>
           <Row>
             {filterdWest?.map((cur, i) => (
               <Col key={i} md={5} sm={8} style={{ marginBlockEnd: '1rem' }}>
                 <CustomCheck
-                  defaultChecked={selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
+                  checked={selectedCurrencies.some((cry) =>
+                    [cry.short_name, cry.country].includes(cur.short_name),
                   )}
                   onChange={() => handleSelect(cur)}
                   name="countries-2"
@@ -165,14 +158,14 @@ const Index = ({
             ))}
           </Row>
         </div>
-        <h4>Central African CFA Franc BEAC</h4>
+        <h4>Central African CFA Franc BEAC(XAF)</h4>
         <div style={{ width: '100%' }}>
           <Row>
             {filteredCentral?.map((cur, i) => (
               <Col key={i} md={4} sm={6} style={{ marginBlockEnd: '1rem' }}>
                 <CustomCheck
-                  defaultChecked={selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
+                  checked={selectedCurrencies.some((cry) =>
+                    [cry?.short_name, cry.country].includes(cur.short_name),
                   )}
                   onChange={() => handleSelect(cur)}
                   name="countries-2"

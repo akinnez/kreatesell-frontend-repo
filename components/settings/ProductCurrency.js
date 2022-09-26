@@ -37,12 +37,15 @@ const Index = ({
 
   const handleSelect = (currency) => {
     if (
-      selectedCurrencies.some((cry) => cry.currency_id === currency.currency_id)
+      selectedCurrencies.some((cry) =>
+        [cry?.short_name, cry.country].includes(currency.short_name),
+      )
     ) {
       // console.log('exist')
       setSelectedCurrencies((prev) => {
         const newList = prev.filter(
-          (val) => val.currency_id !== currency?.currency_id,
+          (val) =>
+            ![val.country, val.short_name].includes(currency?.short_name),
         )
         // console.log('newList', newList)
         return newList
@@ -55,12 +58,14 @@ const Index = ({
     }
   }
 
+  // console.log('selectedCurrencies', selectedCurrencies)
   const formatCurrency = () => {
     const data = {
       currencies_id: [
         ...selectedCurrencies.map((cur) => ({
-          currency_id: cur?.currency_id,
+          country: cur?.country || cur?.short_name,
           status: true,
+          currency: cur?.currency_short_name || cur?.currency,
         })),
       ],
     }
@@ -68,7 +73,7 @@ const Index = ({
   }
 
   const handleSubmit = () => {
-    // console.log('formatCurrency', formatCurrency())
+    // console.log(formatCurrency())
     updateStoreCurrencies(
       formatCurrency(),
       () => console.log('successful'),
@@ -81,7 +86,9 @@ const Index = ({
   }
 
   if (loading) return <Spin />
-
+  // console.log('countriesCurrency', countriesCurrency)
+  // console.log('filterdWest', filterdWest)
+  // console.log('selectedCurrencies', selectedCurrencies)
   return (
     <div className={style.wrapper}>
       <h3>Store Currency Settings</h3>
@@ -101,8 +108,8 @@ const Index = ({
             {countriesCurrency?.map((cur, i) => (
               <Col key={i} md={4} sm={8} style={{ marginBlockEnd: '1rem' }}>
                 <CustomCheck
-                  defaultChecked={selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
+                  checked={selectedCurrencies.some((cry) =>
+                    [cry?.short_name, cry.country].includes(cur.short_name),
                   )}
                   onChange={() => handleSelect(cur)}
                   name="countries"
@@ -131,8 +138,8 @@ const Index = ({
             {filterdWest?.map((cur, i) => (
               <Col key={i} md={5} sm={8} style={{ marginBlockEnd: '1rem' }}>
                 <CustomCheck
-                  defaultChecked={selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
+                  checked={selectedCurrencies.some((cry) =>
+                    [cry.short_name, cry.country].includes(cur.short_name),
                   )}
                   onChange={() => handleSelect(cur)}
                   name="countries"
@@ -157,8 +164,8 @@ const Index = ({
             {filteredCentral?.map((cur, i) => (
               <Col key={i} md={4} sm={6} style={{ marginBlockEnd: '1rem' }}>
                 <CustomCheck
-                  defaultChecked={selectedCurrencies.some(
-                    (cry) => cur.currency_id === cry.currency_id,
+                  checked={selectedCurrencies.some((cry) =>
+                    [cry?.short_name, cry.country].includes(cur.short_name),
                   )}
                   onChange={() => handleSelect(cur)}
                   name="countries"

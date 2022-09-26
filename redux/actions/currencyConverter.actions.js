@@ -12,14 +12,14 @@ export const ConvertCurrency = () => {
       `v1/kreatesell/rates/convert`,
       (res) => {
         dispatch({ type: types.CONVERT_CURRENCY.SUCCESS, payload: res?.rate })
-        showToast(res?.message, 'info')
+        // showToast(res?.message, 'info')
         // console.log('responsse is', res)
         successCallback?.()
       },
       (err) => {
         dispatch({ type: types.CONVERT_CURRENCY.FAILURE, payload: err })
         // console.log('error is', err)
-        showToast(err.message || err.message.data)
+        showToast(err.message || err.message.data, 'error')
         errorCallback?.()
       },
       data,

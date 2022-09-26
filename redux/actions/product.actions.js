@@ -373,7 +373,7 @@ export const GetStoreCurrencies = () => {
           payload: res?.data?.store_product_currencies,
         })
         console.log('res', res)
-        showToast(res?.data?.message, 'info')
+        // showToast(res?.data?.message, 'info')
         successCallback?.()
       },
       (err) => {
@@ -401,8 +401,8 @@ export const UpdateStoreCheckoutCurrencies = () => {
           type: types.UPDATE_STORE_CHECKOUT_CURRENCY.SUCCESS,
           payload: res,
         })
-        // console.log('res', res)
-        showToast(res?.message, 'info')
+        console.log('res', res?.data)
+        // showToast(res?.message, 'info')
         successCallback?.()
       },
       (err) => {
@@ -430,8 +430,8 @@ export const GetStoreCheckoutCurrencies = () => {
           type: types.GET_STORE_CHECKOUT_CURRENCY.SUCCESS,
           payload: res?.data?.store_product_currencies,
         })
-        console.log('res', res)
-        showToast(res?.data?.message, 'info')
+        // console.log('res get currencies checkout', res.data)
+        // showToast(res?.data?.message, 'info')
         successCallback?.()
       },
       (err) => {

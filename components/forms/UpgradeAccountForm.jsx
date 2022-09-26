@@ -7,9 +7,6 @@ import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
 import { usePaystackPayment } from 'react-paystack'
 
 import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-
-import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
 import crypto from 'crypto'
 
@@ -25,11 +22,13 @@ import {
 } from 'utils'
 import { RightArrow } from 'utils/icons/RightArrow'
 import useCurrency from 'hooks/useCurrency'
+import useConvertRates from 'hooks/useConvertRates'
 import Loader from '../loader'
 import styles from '../../public/css/UpgradeAccountForm.module.scss'
 import CurrencyCard from 'components/settings/CurrencyCard'
 import { useSelector } from 'react-redux'
 import { Input } from 'components'
+import axios from 'axios'
 
 const paymentMethods = [
   {
@@ -57,7 +56,7 @@ const paymentMethods = [
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 export const UpgradeAccountForm = ({
   subscriptionMode: { mode, price },
@@ -68,22 +67,21 @@ export const UpgradeAccountForm = ({
   filterdWest,
   setModal,
   setSelectedPlan,
+  convertedCurrency,
 }) => {
   // const makePlanUpgrade = MakePlanUpgrade();
   const { user } = useSelector((state) => state.auth)
 
   const [activeCurrency, setActiveCurrency] = useState('')
+  const [convertedPrice, setConvertedPrice] = useState(price)
+
+  const { handleCurrencyConversion } = useConvertRates(
+    'NGN',
+    activeCurrency?.currency || selectedCurrency?.currency,
+  )
+
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
   const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails()
-
-  // // for stripe
-  // const [clientSecret, setClientSecret] = useState('')
-
-  // const stripe = useStripe()
-  // const elements = useElements()
-
-  // const [message, setMessage] = useState(null)
-  // const [isLoading, setIsLoading] = useState(false)
 
   const randomId = `kreate-sell-${crypto.randomBytes(16).toString('hex')}`
   const paymentStatusList = {
@@ -98,7 +96,7 @@ export const UpgradeAccountForm = ({
       email_address: user?.email,
       mobile_number: user?.mobile,
       datetime: new Date().toISOString(),
-      total: price,
+      total: convertedPrice,
       reference_id: reference,
       purchase_details: [],
       status: statusValue,
@@ -118,7 +116,7 @@ export const UpgradeAccountForm = ({
   const flutterConfig = {
     public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
-    amount: price,
+    amount: convertedPrice,
     currency: `${activeCurrency?.currency}`,
     payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
     customer: {
@@ -135,7 +133,6 @@ export const UpgradeAccountForm = ({
     },
   }
 
-  // console.log('activeCurrency?.currency', activeCurrency?.currency)
   const handleFlutterPayment = useFlutterwave(flutterConfig)
 
   // Flutterwave configurations end here
@@ -144,7 +141,7 @@ export const UpgradeAccountForm = ({
   const payStackConfig = {
     reference: randomId,
     email: user?.email,
-    amount: price * 100,
+    amount: convertedPrice * 100,
     publicKey:
       activeCurrency?.currency === 'GHS'
         ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
@@ -177,87 +174,22 @@ export const UpgradeAccountForm = ({
   const initializePaystackPayment = usePaystackPayment(payStackConfig)
   // paystack config ends here
 
-  // stripe configirations
-  // const appearance = {
-  //   theme: 'stripe', //night | flat | stripe
-  //   // variables: {
-  //   //   colorPrimary: '#4b8657',
-  //   //   colorBackground: '#434770',
-  //   //   colorText: '#a25757',
-  //   // },
-  // }
-  // const options = {
-  //   clientSecret,
-  //   appearance,
-  // }
-
-  // useEffect(() => {
-  //   if (!stripe) {
-  //     return
-  //   }
-
-  //   const clientSecret = new URLSearchParams(window.location.search).get(
-  //     'payment_intent_client_secret',
-  //   )
-
-  //   if (!clientSecret) {
-  //     return
-  //   }
-
-  //   stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-  //     switch (paymentIntent.status) {
-  //       case 'succeeded':
-  //         setMessage('Payment succeeded!')
-  //         break
-  //       case 'processing':
-  //         setMessage('Your payment is processing.')
-  //         break
-  //       case 'requires_payment_method':
-  //         setMessage('Your payment was not successful, please try again.')
-  //         break
-  //       default:
-  //         setMessage('Something went wrong.')
-  //         break
-  //     }
-  //   })
-  // }, [stripe])
-
-  const handleSubmitStripe = async (e) => {
-    e.preventDefault()
-
-    if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return
-    }
-
-    setIsLoading(true)
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000',
-      },
-    })
-
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error.type === 'card_error' || error.type === 'validation_error') {
-      setMessage(error.message)
-    } else {
-      setMessage('An unexpected error occurred.')
-    }
-
-    setIsLoading(false)
-  }
-  // stripe configuration ends here
-
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    // if selected currency is stripe
+    if (selectedPaymentMethod === 'stripe') {
+      axios
+        .post('/api/checkout_sessions')
+        .then((res) => {
+          console.log('the call was successful')
+          console.log('res is ', res)
+        })
+        .catch((err) => {
+          console.log('error error error', err)
+        })
+      return
+    }
 
     // if we are using paypal
 
@@ -308,20 +240,17 @@ export const UpgradeAccountForm = ({
       setSelectedPaymentMethod('')
     }
   }, [activeCurrency?.currency])
-  // console.log('activeCurrency', activeCurrency)
 
-  // useEffect(() => {
-  //   // Create PaymentIntent as soon as the page loads
-  //   if(['USD', 'GBP'].includes(activeCurrency.currency)){
-  //     fetch('/api/create-payment-intent', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ items: [], type: "subscription", price: price }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => setClientSecret(data.clientSecret))
-  //   }
-  // }, [activeCurrency.currency])
+  useEffect(() => {
+    handleCurrencyConversion(activeCurrency?.currency)
+  }, [activeCurrency?.currency])
+
+  // useEffect to convert currency
+  useEffect(() => {
+    if (Object.keys(convertedCurrency).length > 0) {
+      setConvertedPrice(price * convertedCurrency?.buy_rate)
+    }
+  }, [convertedCurrency])
 
   // console.log("client secret is", clientSecret);
   const handleSelect = (currency) => {
@@ -358,7 +287,10 @@ export const UpgradeAccountForm = ({
           <div className="divider"></div>
 
           <div className="text-base-green-200 font-bold text-2xl">
-            <sup className="font-normal text-xs text-black-100">NGN</sup> 4,167
+            <sup className="font-normal text-xs text-black-100">
+              {activeCurrency?.currency || selectedCurrency.currency}
+            </sup>{' '}
+            {Number(convertedPrice).toFixed(2)}
             <sub className="font-normal text-xs text-black-100">/ Month</sub>
           </div>
         </div>
@@ -504,12 +436,12 @@ export const UpgradeAccountForm = ({
           <div className="w-full lg:w-6/6 mt-5 mx-auto hidden lg:flex gap-4 items-center">
             <div className="w-4/5">
               <Input
-                placeholder=" Enter Coupon Code lg"
+                placeholder=" Enter Coupon Code"
                 name="couponCode"
                 // onChange={formik.handleChange}
               />
             </div>
-            <div className="w-1/5 ">
+            <div className="w-1/5 mb-5">
               <Button text="Apply Coupon" className={styles.couponBtn} />
             </div>
           </div>
@@ -517,22 +449,32 @@ export const UpgradeAccountForm = ({
           <div className="priceMenu my-6 py-3 px-8">
             <div className="flex justify-between pt-2">
               <p>SubTotal</p>
-              <p>NGN 4,167</p>
+              <p>
+                {activeCurrency?.currency || selectedCurrency.currency}{' '}
+                {Number(convertedPrice).toFixed(2)}
+              </p>
             </div>
             <div className="divider"> </div>
             <div className="flex justify-between">
               <p>Total</p>
-              <p className="text-primary-blue font-medium">NGN 4,167</p>
+              <p className="text-primary-blue font-medium">
+                {activeCurrency?.currency || selectedCurrency.currency}{' '}
+                {Number(convertedPrice).toFixed(2)}
+              </p>
             </div>
           </div>
 
           <div className="w-full">
-            <Button
-              text="Pay NGN 4,167"
-              bgColor="blue"
-              style={{ width: '100%' }}
-              icon={<RightArrow />}
-            />
+            {
+              <Button
+                text={`Pay ${
+                  activeCurrency?.currency || selectedCurrency.currency
+                } ${Number(convertedPrice).toFixed(2)}`}
+                bgColor="blue"
+                style={{ width: '100%' }}
+                icon={<RightArrow />}
+              />
+            }
           </div>
         </form>
       </div>

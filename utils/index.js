@@ -310,3 +310,14 @@ export const splitFullName = (fullName = '', type = 'string') => {
     return [fullName?.split(' ')[0], fullName?.split(' ')[1]]
   }
 }
+
+/**
+ *
+ * @param {*} decimalPlaces
+ * @param {*} num
+ * @returns number
+ */
+export const toSpecifiedDecimalPlaces = (num, decimalPlaces = 2) => {
+  if (typeof num !== 'number') throw new Error('Type of num has to be number')
+  return (Math.round(num * 100) / 100).toFixed(decimalPlaces)
+}
