@@ -331,6 +331,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     return data;
   };
 
+  console.log("productId = ", productID);
+
   const handleSubmit = (data) => {
     // console.log("data from submit = ", data);
     setProductID(productID);
