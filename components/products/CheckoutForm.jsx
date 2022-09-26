@@ -30,7 +30,6 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
    * Make It Free: 4
    */
 
-  const [productID, setProductID] = useState("");
   const getProductByID = GetProductByID();
   const getBillingInterval = GetBillingInterval();
   const createProduct = CreateProduct();
@@ -42,7 +41,14 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     (state) => state.product
   );
 
-  console.log("productId = ", productID);
+  const [productID] = useState(product?.product_details?.kreasell_product_id);
+
+  // console.log("product = ", product?.product_details?.kreasell_product_id);
+  // setProductID(product?.product_details?.kreasell_product_id);
+
+  // if (product) {
+  //   setProductID(product?.product_details?.kreasell_product_id);
+  // }
 
   const [progress, setProgress] = useState(0);
 
@@ -222,6 +228,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     if (productID) {
       // console.log("checkout mounted");
       getProductByID(productID);
+      console.log("PRODUCT = ", getProductByID(productID));
     }
   }, [productID]);
 
@@ -335,7 +342,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   const handleSubmit = (data) => {
     // console.log("data from submit = ", data);
-    setProductID(productID);
+    // setProductID(productID);
     // const dataWithCompare = {
     //   ...data,
     //   is_show_compare_price: compareToPrice,
@@ -367,8 +374,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       delete data.is_show_compare_price;
     }
     const checkedData = checkArrays(data);
-    // const checkedData = checkArrays(dataWithCompare);
-    // console.log("checkedData", checkedData);
+
     const result = transformToFormData(checkedData);
     // console.log("result = ", result);
     createProduct(result, () => {

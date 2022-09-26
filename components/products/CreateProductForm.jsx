@@ -179,12 +179,12 @@ export const CreateProductForm = ({
     return setIsImageFilled(false);
   }, [imageUploads]);
 
-  console.log("imageUploads = ", imageUploads);
+  // console.log("imageUploads = ", imageUploads);
 
   const findUnsupportedFileFormat = imageUploads.find((item) =>
     item?.file?.name.includes(".png")
   );
-  console.log("fileFormat = ", findUnsupportedFileFormat);
+  // console.log("fileFormat = ", findUnsupportedFileFormat);
 
   useEffect(() => {
     setFieldValue("product_details", contents);
@@ -549,7 +549,7 @@ export const CreateProductForm = ({
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) => {
-                  console.log("e is", e);
+                  // console.log("e is", e);
                   setFieldValue(
                     "product_visibility_status",
                     e || activateStatus[0]?.id
@@ -564,7 +564,7 @@ export const CreateProductForm = ({
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) => {
-                  console.log("e is", e);
+                  // console.log("e is", e);
                   setFieldValue(
                     "product_visibility_status",
                     e || deActivateStatus[0]?.id
@@ -579,7 +579,7 @@ export const CreateProductForm = ({
                 labelStyle={styles.radioLabel}
                 extralableStyle={styles.extralableStyle}
                 onChange={(e) => {
-                  console.log("e is", e);
+                  // console.log("e is", e);
                   setFieldValue(
                     "product_visibility_status",
                     e || unListStatus[0]?.id
