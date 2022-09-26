@@ -281,7 +281,7 @@ const Checkout = () => {
   const payStackConfig = {
     reference: randomId,
     email: values?.email,
-    amount: getCurrency('price').toFixed() * 100,
+    amount: Number(getCurrency('price')).toFixed() * 100,
     publicKey:
       activeCurrency?.currency === 'GHS'
         ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY

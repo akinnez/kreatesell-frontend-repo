@@ -10,7 +10,13 @@ import {
 import { Button as CButton, Select as CSelect } from 'components'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, PublishProduct, UnPublishProduct, LinkCopy } from 'utils'
+import {
+  ArrowLeft,
+  PublishProduct,
+  UnPublishProduct,
+  LinkCopy,
+  MobileBackArrow,
+} from 'utils'
 import styles from './PreviewHeader.module.scss'
 import CloseIcon from 'components/affiliates/CloseIcon'
 import { useRouter } from 'next/router'
@@ -74,10 +80,10 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
   useEffect(() => {
     setTitle(product?.product_details?.product_name)
     // setLink(`http://dev.kreatesell.com/checkout/${productId}`)
-    setLink(`http://dev.kreatesell.com/store/${storeName}/product/${productId}`)
+    // setLink(`http://dev.kreatesell.com/store/${productId}`);
     // * try this
 
-    // setLink(`http://dev.kreatesell.com/store/${storeName}/${productId}`);
+    setLink(`http://dev.kreatesell.com/store/${storeName}/product/${productId}`)
   }, [product, productId, storeName])
 
   useEffect(() => {
@@ -95,7 +101,7 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
 
   return (
     <header className="flex items-center justify-between bg-white px-10 py-6 ">
-      <div className="flex items-center">
+      <div className={`${styles.lgLeft} flex items-center`}>
         <div className="flex">
           <Image src={ProductHeaderLogo} alt="logo" />
         </div>
@@ -109,6 +115,27 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
           </h3>
         </div>
         <p className="mb-0 capitalize">{title}</p>
+      </div>
+
+      {/* // * Mobile  */}
+      <div className={styles.mobileLeft}>
+        <Image
+          src={MobileBackArrow}
+          alt="back arrow"
+          onClick={() => router.back()}
+        />
+        <p className="mb-0 capitalize">{title}</p>
+        <div className={styles.btns}>
+          <Button
+            className={styles.btnOne}
+            type="default"
+            icon={<Image src={CopyLink} alt="copy" />}
+            onClick={() => _copyToClipboard(link, 'Product Link Copied')}
+          />
+          <Button type="primary" onClick={() => setIsOpen(true)}>
+            Publish
+          </Button>
+        </div>
       </div>
       {showNavLinks ? (
         <div className={styles.miniSaveButtons + ' flex self-end'}>

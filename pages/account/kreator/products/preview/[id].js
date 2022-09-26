@@ -4,6 +4,7 @@ import { GetProductByID } from "redux/actions";
 import { useEffect } from "react";
 import PreviewContent from "components/Preview/PreviewContent";
 import AuthLayout from "../../../../../components/authlayout";
+import styles from "../../../../../components/Preview/PreviewHeader.module.scss";
 
 // export default function PreviewProduct ({id}){
 export default function PreviewProduct() {
@@ -30,6 +31,7 @@ export default function PreviewProduct() {
           top: 0,
           width: "100%",
         }}
+        className={styles.previewPageContainer}
       >
         <PreviewHeader id={router.query.id} />
         <PreviewContent />
