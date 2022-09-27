@@ -1,7 +1,7 @@
 import { Button, Select } from 'components'
 import Logo, { MobileLogo } from 'components/authlayout/logo'
 import Image from 'next/image'
-import { ArrowLeft, StoryTellingPNG } from 'utils'
+import { ArrowLeft, StoryTellingPNG, ExternalLink } from 'utils'
 import styles from '../../public/css/product-store.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -189,7 +189,7 @@ const ProductCard = ({
     : // * show first item
       productDetails?.product_images?.[0]?.filename
 
-  console.log('imageFrom backend  = ', initImage)
+  console.log('productDetails  = ', productDetails)
 
   const imageRendered =
     productDetails?.product_images?.[1]?.filename ||
@@ -200,7 +200,7 @@ const ProductCard = ({
       productDetails?.product_images?.[0]?.filename?.split(',')[0])
   return (
     <div
-      className="bg-white w-full rounded-lg"
+      className={`bg-white w-full rounded-lg ${styles.productCardCtn}`}
       style={{ cursor: 'pointer' }}
       // onClick={() =>
       //   router.push(
@@ -228,7 +228,7 @@ const ProductCard = ({
       </div>
 
       <div className="w-full px-2 md:px-4">
-        <p className="pt-2 text-sm md:text-base">
+        <p className={`pt-2 text-sm md:text-base ${styles.productName}`}>
           {productDetails?.product_details?.product_name}
         </p>
 
@@ -236,23 +236,35 @@ const ProductCard = ({
           className={`flex justify-between items-center pb-4 column ${styles.main}`}
         >
           <p
-            className={`text-base-gray pt-2 text-sm md:text-base ${styles.sellingPrice}`}
+            className={`text-base-gray text-sm md:text-base ${styles.sellingPrice}`}
           >
             {productDetails?.default_currency}
             {new Intl.NumberFormat().format(sellingPrice) ?? '0.00'}
           </p>
-          <p
+          {/* <p
             className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
           >
             {productDetails?.default_currency}
             {new Intl.NumberFormat().format(
               originalPrice ?? productDetails?.default_price,
             ) ?? '0.00'}
-          </p>
+          </p> */}
 
-          <Button
+          {/* <Button
             text={productDetails?.product_details?.cta_button ?? 'Buy Now'}
             className={styles.productCardBtn}
+            onClick={() => {
+              // router.push('/checkout')
+              console.log('CTA Clicked!')
+              router.push(
+                `/checkout/${productDetails?.product_details?.kreasell_product_id}`,
+              )
+              setCheckoutDetails(productDetails)
+            }}
+          /> */}
+          <Image
+            alt=""
+            src={ExternalLink}
             onClick={() => {
               // router.push('/checkout')
               console.log('CTA Clicked!')

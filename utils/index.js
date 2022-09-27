@@ -59,6 +59,7 @@ export const _isUserLoggedIn = () => {
   return false
 }
 
+// TODO: Optimize the toast so that same messages don't show multiple times
 export const showToast = (message, type) => {
   if (type) type = type.toLowerCase()
 

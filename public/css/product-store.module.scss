@@ -28,6 +28,20 @@
   // }
 }
 
+.productCardCtn{
+  color: #262626;
+  .productName{
+    font-weight: 700;
+    font-size: 18px;
+  }
+  &:hover{
+    border: 1px solid #0072EF;
+    box-shadow: 0px 10px 30px rgba(0, 114, 239, 0.2);
+    color: #0072EF;
+    
+  }
+}
+
 .productCardBtn {
   height: 2rem;
 
@@ -48,15 +62,17 @@
 
 .main {
   display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
 }
 
 .sellingPrice {
-  font-size: 1.2rem !important;
-  font-weight: bold;
-  margin-bottom: 0.2rem;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 30px;
+  color: #8C8C8C;
+  margin-bottom: 0;
 }
 
 .originalPrice {

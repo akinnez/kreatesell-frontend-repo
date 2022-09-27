@@ -55,10 +55,12 @@ export default function CustomCheckoutSelect({
   }
 
   const formatCurrencies = () => {
-    let newArr = storeCurrencies.filter((currency) => {
-      return !['XOF', 'XAF'].includes(currency.currency_short_name)
+    // Checks for XOF and XAF duplicates in currency
+    let newArr = storeCurrencies.filter((currency, index, self) => {
+      return (
+        index === self.findIndex((t) => currency.currency_id === t.currency_id)
+      )
     })
-    // TODO: Check for XOF and XAF duplicates in currency
     setFormattedStoreCurrencies(newArr)
   }
 
