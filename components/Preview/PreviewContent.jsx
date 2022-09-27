@@ -82,7 +82,7 @@ export default function PreviewContent() {
       setDomainLink(domain_details[0]?.domain_url)
     }
   }, [store])
-
+  // console.log('product', product)
   return (
     <div
       className={styles.contentContainer + ' flex flex-col bg-white rounded-lg'}
@@ -171,6 +171,7 @@ export default function PreviewContent() {
             )}
           </div>
 
+          {/* TODO: make the date dynamic */}
           {product?.product_details?.enable_preorder && (
             <div className={styles.preorderInfo}>
               Please note that this product is to be preordered and the expected
@@ -178,7 +179,7 @@ export default function PreviewContent() {
             </div>
           )}
 
-          {console.log('checkout', checkout)}
+          {/* {console.log('details', details)} */}
           <div className={styles.padBottom1}></div>
           <div className={styles.priceSection}>
             <div className="flex flex-col">

@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/router'
+
 import { useSelector } from 'react-redux'
 
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
@@ -17,6 +19,7 @@ import Spinner from 'components/Spinner'
 
 const Billing = () => {
   const [modal, setModal] = useState(false)
+  const Router = useRouter()
 
   const { store } = useSelector((state) => state.store)
   const { convertedCurrency } = useSelector((state) => state.currencyConverter)
@@ -242,7 +245,7 @@ const Billing = () => {
         {store?.is_plan_auto_renewed && (
           <div className={styles.cancelSubscription}>
             To disable any further automatic autorenewal attempts, please click{' '}
-            <span onClick={() => paymentUnsubscribe()}>
+            <span onClick={() => paymentUnsubscribe(() => Router.reload())}>
               &nbsp; Cancel Subscription Autorenewal
             </span>
           </div>

@@ -1,12 +1,12 @@
-import React from "react";
-import { components } from "react-select";
-import style from "./icon.module.scss";
+import React from 'react'
+import { components } from 'react-select'
+import style from './icon.module.scss'
 
 export const Shop = ({ primaryColor, className, active }) => {
   return (
     <div
-      className={style.iconwrapper + " " + className}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      className={style.iconwrapper + ' ' + className}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="18"
@@ -18,16 +18,16 @@ export const Shop = ({ primaryColor, className, active }) => {
         <path
           opacity="0.598982"
           d="M17.8927 4.15064L15.6427 0.367012C15.5072 0.139342 15.2632 0 15 0H3C2.73677 0 2.49282 0.139342 2.35726 0.367012L0.107259 4.15064C0.0371268 4.26832 4.70335e-06 4.40304 4.70335e-06 4.54035C-0.00289371 6.20825 1.33418 7.56308 2.98725 7.56725H2.99325C3.73406 7.56916 4.44902 7.29264 4.99875 6.79161C6.13423 7.82706 7.86227 7.82706 8.99774 6.79161C10.1338 7.82934 11.8644 7.82934 13.0005 6.79161C13.88 7.59215 15.1445 7.79428 16.2262 7.30721C17.3078 6.82014 18.0032 5.73546 18 4.54035C18 4.40304 17.9629 4.26832 17.8927 4.15064Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           d="M15.012 8.69084C14.3148 8.69143 13.627 8.50677 13.0027 8.15137L12.9915 8.15738C11.9271 8.76524 10.6949 8.8611 9.56849 8.42368C9.37341 8.34855 9.18297 8.25844 8.99849 8.15394L8.99024 8.15824C7.92619 8.76652 6.69393 8.86209 5.56799 8.42368C5.37316 8.34855 5.18297 8.25844 4.99874 8.15394C4.37556 8.50837 3.68903 8.69217 2.99325 8.69084C2.74408 8.68811 2.49552 8.66226 2.25 8.61352V17.2811C2.25 17.7555 2.58579 18.1401 3 18.1401H7.49999V12.986H10.5V18.1401H15C15.4142 18.1401 15.75 17.7555 15.75 17.2811V8.61009C15.5063 8.66008 15.2595 8.68708 15.012 8.69084Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const OneTimeSubscriptionIcon = ({ active, onHover }) => {
   return (
@@ -40,17 +40,17 @@ export const OneTimeSubscriptionIcon = ({ active, onHover }) => {
     >
       <path
         d="M9.00033 0.666992C4.40033 0.666992 0.666992 4.40033 0.666992 9.00033C0.666992 13.6003 4.40033 17.3337 9.00033 17.3337C13.6003 17.3337 17.3337 13.6003 17.3337 9.00033C17.3337 4.40033 13.6003 0.666992 9.00033 0.666992ZM9.00033 15.667C5.32533 15.667 2.33366 12.6753 2.33366 9.00033C2.33366 5.32533 5.32533 2.33366 9.00033 2.33366C12.6753 2.33366 15.667 5.32533 15.667 9.00033C15.667 12.6753 12.6753 15.667 9.00033 15.667ZM9.25866 8.28366C7.78366 7.90866 7.30866 7.50033 7.30866 6.89199C7.30866 6.19199 7.96699 5.70033 9.05866 5.70033C10.2087 5.70033 10.642 6.25033 10.6753 7.06699H12.1003C12.0587 5.95033 11.3753 4.92533 10.0253 4.59199V3.16699H8.08366V4.57533C6.82533 4.84199 5.81699 5.65866 5.81699 6.91699C5.81699 8.40866 7.05866 9.15866 8.86699 9.59199C10.492 9.97533 10.817 10.5503 10.817 11.1503C10.817 11.592 10.492 12.3087 9.06699 12.3087C7.73366 12.3087 7.20866 11.7087 7.13366 10.942H5.70033C5.78366 12.3587 6.83366 13.1587 8.08366 13.417V14.8337H10.0337V13.442C11.3003 13.2003 12.3003 12.4753 12.3087 11.1337C12.3003 9.30033 10.7253 8.66699 9.25866 8.28366Z"
-        fill={active || onHover ? "#0072EF" : "#323232"}
+        fill={active || onHover ? '#0072EF' : '#323232'}
       />
     </svg>
-  );
-};
+  )
+}
 
-export const DeleteIcon = ({ color = "#595959", width, height }) => {
+export const DeleteIcon = ({ color = '#595959', width, height }) => {
   return (
     <svg
-      width={width ? width : "20"}
-      height={height ? height : "20"}
+      width={width ? width : '20'}
+      height={height ? height : '20'}
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -64,8 +64,8 @@ export const DeleteIcon = ({ color = "#595959", width, height }) => {
         fill="#8c8c8c"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const MembershipSubscriptionIcon = ({ active, onHover }) => {
   return (
@@ -78,11 +78,11 @@ export const MembershipSubscriptionIcon = ({ active, onHover }) => {
     >
       <path
         d="M15.667 0.666992H2.33366C1.40866 0.666992 0.666992 1.40866 0.666992 2.33366V11.5003C0.666992 12.4253 1.40866 13.167 2.33366 13.167H5.66699V17.3337L9.00033 15.667L12.3337 17.3337V13.167H15.667C16.592 13.167 17.3337 12.4253 17.3337 11.5003V2.33366C17.3337 1.40866 16.592 0.666992 15.667 0.666992ZM15.667 11.5003H2.33366V9.83366H15.667V11.5003ZM15.667 7.33366H2.33366V2.33366H15.667V7.33366Z"
-        fill={active || onHover ? "#0072EF" : "#323232"}
+        fill={active || onHover ? '#0072EF' : '#323232'}
       />
     </svg>
-  );
-};
+  )
+}
 
 export const DigitalDownloadIcon = ({ active, onHover }) => {
   return (
@@ -95,23 +95,23 @@ export const DigitalDownloadIcon = ({ active, onHover }) => {
     >
       <path
         d="M11.9997 0.666992H1.99967C1.08301 0.666992 0.333008 1.41699 0.333008 2.33366V15.667C0.333008 16.5837 1.08301 17.3337 1.99967 17.3337H11.9997C12.9163 17.3337 13.6663 16.5837 13.6663 15.667V2.33366C13.6663 1.41699 12.9163 0.666992 11.9997 0.666992ZM4.49967 2.33366H6.16634V6.50033L5.33301 5.87533L4.49967 6.50033V2.33366ZM11.9997 15.667H1.99967V2.33366H2.83301V9.83366L5.33301 7.95866L7.83301 9.83366V2.33366H11.9997V15.667Z"
-        fill={active || onHover ? "#0072EF" : "#323232"}
+        fill={active || onHover ? '#0072EF' : '#323232'}
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Dashboard = ({
   primaryColor,
-  width = "20",
-  height = "20",
+  width = '20',
+  height = '20',
   className,
   active,
 }) => {
   return (
     <div
-      className={style.iconwrapper + " " + className}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      className={style.iconwrapper + ' ' + className}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width={width}
@@ -123,24 +123,24 @@ export const Dashboard = ({
         <path
           opacity="0.4"
           d="M13.3947 1.66699H16.2164C17.3849 1.66699 18.3318 2.62187 18.3318 3.80029V6.64576C18.3318 7.82419 17.3849 8.77907 16.2164 8.77907H13.3947C12.2262 8.77907 11.2793 7.82419 11.2793 6.64576V3.80029C11.2793 2.62187 12.2262 1.66699 13.3947 1.66699Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
           d="M3.78145 1.66699H6.60309C7.77165 1.66699 8.71853 2.62187 8.71853 3.80029V6.64576C8.71853 7.82419 7.77165 8.77907 6.60309 8.77907H3.78145C2.6129 8.77907 1.66602 7.82419 1.66602 6.64576V3.80029C1.66602 2.62187 2.6129 1.66699 3.78145 1.66699ZM3.78145 11.2216H6.60309C7.77165 11.2216 8.71853 12.1765 8.71853 13.3549V16.2003C8.71853 17.378 7.77165 18.3336 6.60309 18.3336H3.78145C2.6129 18.3336 1.66602 17.378 1.66602 16.2003V13.3549C1.66602 12.1765 2.6129 11.2216 3.78145 11.2216ZM16.2172 11.2216H13.3956C12.227 11.2216 11.2801 12.1765 11.2801 13.3549V16.2003C11.2801 17.378 12.227 18.3336 13.3956 18.3336H16.2172C17.3858 18.3336 18.3327 17.378 18.3327 16.2003V13.3549C18.3327 12.1765 17.3858 11.2216 16.2172 11.2216Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const Product = ({ primaryColor, className, active }) => {
   return (
     <div
-      className={style.iconwrapper + " " + className}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      className={style.iconwrapper + ' ' + className}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="20"
@@ -154,24 +154,24 @@ export const Product = ({ primaryColor, className, active }) => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M4.41797 16.8728C4.41797 16.1028 5.0413 15.4795 5.8113 15.4795C6.57214 15.4795 7.19547 16.1028 7.19547 16.8728C7.19547 17.6337 6.57214 18.257 5.8113 18.257C5.0413 18.257 4.41797 17.6337 4.41797 16.8728ZM14.7305 16.8728C14.7305 16.1028 15.3538 15.4795 16.1238 15.4795C16.8846 15.4795 17.508 16.1028 17.508 16.8728C17.508 17.6337 16.8846 18.257 16.1238 18.257C15.3538 18.257 14.7305 17.6337 14.7305 16.8728Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
           d="M17.5088 3.81957C18.068 3.81957 18.4347 4.01207 18.8013 4.43374C19.168 4.8554 19.2322 5.4604 19.1497 6.00949L18.2788 12.0228C18.1138 13.1787 17.1238 14.0303 15.9597 14.0303H5.95883C4.73966 14.0303 3.73133 13.0953 3.6305 11.8862L2.78716 1.89365L1.403 1.65532C1.03633 1.59115 0.779665 1.23365 0.843831 0.866985C0.907998 0.491152 1.2655 0.243652 1.64133 0.298652L3.82758 0.628652C4.13925 0.684569 4.36841 0.940319 4.39591 1.25199L4.57008 3.30532C4.59758 3.59957 4.83592 3.81957 5.12925 3.81957H17.5088ZM11.9538 8.58532H14.493C14.878 8.58532 15.1805 8.27365 15.1805 7.89782C15.1805 7.51282 14.878 7.21032 14.493 7.21032H11.9538C11.5688 7.21032 11.2663 7.51282 11.2663 7.89782C11.2663 8.27365 11.5688 8.58532 11.9538 8.58532Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const Chart = ({ primaryColor, active }) => {
   return (
     <div
       className={style.iconwrapper}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="24"
@@ -182,18 +182,18 @@ export const Chart = ({ primaryColor, active }) => {
       >
         <path
           d="M5 9.2H8V19H5V9.2ZM10.6 5H13.4V19H10.6V5ZM16.2 13H19V19H16.2V13Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const Wallet = ({ primaryColor, className, active }) => {
   return (
     <div
-      className={style.iconwrapper + " " + className}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      className={style.iconwrapper + ' ' + className}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="18"
@@ -206,12 +206,12 @@ export const Wallet = ({ primaryColor, className, active }) => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M17.3297 4.97927H13.8008C12.1586 4.98216 10.8282 6.27929 10.8253 7.88047C10.8231 9.48527 12.1549 10.7882 13.8008 10.7903H17.3327V11.0453C17.3327 13.8446 15.6356 15.5 12.7638 15.5H5.23565C2.36305 15.5 0.666016 13.8446 0.666016 11.0453V4.94822C0.666016 2.14885 2.36305 0.5 5.23565 0.5H12.7608C15.6327 0.5 17.3297 2.14885 17.3297 4.94822V4.97927ZM4.61568 4.97275H9.31568H9.31865H9.32457C9.67642 4.97131 9.96087 4.69181 9.95939 4.34803C9.9579 4.00497 9.6705 3.72763 9.31865 3.72908H4.61568C4.26605 3.73052 3.98235 4.00713 3.98087 4.34875C3.97939 4.69181 4.26383 4.97131 4.61568 4.97275Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           opacity="0.4"
           d="M12.3632 8.24722C12.5375 9.03987 13.2324 9.59756 14.0259 9.58306H16.7341C17.0642 9.58306 17.332 9.30965 17.332 8.97171V6.86208C17.3313 6.52485 17.0642 6.25073 16.7341 6.25H13.9621C13.0596 6.2529 12.3306 7.00204 12.332 7.92523C12.332 8.03329 12.3427 8.14134 12.3632 8.24722Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <ellipse
           cx="13.9993"
@@ -222,8 +222,8 @@ export const Wallet = ({ primaryColor, className, active }) => {
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const AddUser = ({ primaryColor, active }) => {
   return (
@@ -238,21 +238,21 @@ export const AddUser = ({ primaryColor, active }) => {
         <path
           opacity="0.4"
           d="M16.5829 5.98989H15.5803V5.00968C15.5803 4.59121 15.2447 4.25 14.8312 4.25C14.4185 4.25 14.082 4.59121 14.082 5.00968V5.98989H13.0812C12.6676 5.98989 12.332 6.33109 12.332 6.74957C12.332 7.16804 12.6676 7.50925 13.0812 7.50925H14.082V8.49032C14.082 8.90879 14.4185 9.25 14.8312 9.25C15.2447 9.25 15.5803 8.90879 15.5803 8.49032V7.50925H16.5829C16.9956 7.50925 17.332 7.16804 17.332 6.74957C17.332 6.33109 16.9956 5.98989 16.5829 5.98989Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           d="M6.91602 10.5127C3.54454 10.5127 0.666016 11.0517 0.666016 13.2053C0.666016 15.358 3.52702 15.9164 6.91602 15.9164C10.2867 15.9164 13.166 15.3774 13.166 13.2239C13.166 11.0703 10.305 10.5127 6.91602 10.5127Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           opacity="0.4"
           d="M6.91678 8.46152C9.21225 8.46152 11.0523 6.59775 11.0523 4.27269C11.0523 1.94762 9.21225 0.0830078 6.91678 0.0830078C4.6213 0.0830078 2.78125 1.94762 2.78125 4.27269C2.78125 6.59775 4.6213 8.46152 6.91678 8.46152Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const Dollar = ({ primaryColor, active }) => {
   return (
@@ -266,18 +266,18 @@ export const Dollar = ({ primaryColor, active }) => {
       >
         <path
           d="M11.8003 10.9C9.53031 10.31 8.80031 9.7 8.80031 8.75C8.80031 7.66 9.81031 6.9 11.5003 6.9C13.2803 6.9 13.9403 7.75 14.0003 9H16.2103C16.1403 7.28 15.0903 5.7 13.0003 5.19V3H10.0003V5.16C8.06031 5.58 6.50031 6.84 6.50031 8.77C6.50031 11.08 8.41031 12.23 11.2003 12.9C13.7003 13.5 14.2003 14.38 14.2003 15.31C14.2003 16 13.7103 17.1 11.5003 17.1C9.44031 17.1 8.63031 16.18 8.52031 15H6.32031C6.44031 17.19 8.08031 18.42 10.0003 18.83V21H13.0003V18.85C14.9503 18.48 16.5003 17.35 16.5003 15.3C16.5003 12.46 14.0703 11.49 11.8003 10.9Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const Ticket = ({ primaryColor, className, active }) => {
   return (
     <div
-      className={style.iconwrapper + " " + className}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      className={style.iconwrapper + ' ' + className}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="20"
@@ -289,22 +289,22 @@ export const Ticket = ({ primaryColor, className, active }) => {
         <path
           opacity="0.4"
           d="M11.7505 5.70254V3.6827C11.354 3.6827 11.0251 3.36328 11.0251 2.9781V0.573073C11.0251 0.252716 10.764 0 10.4352 0H3.7911C1.70213 0 0 1.65252 0 3.6827V6.11497C0 6.3038 0.0773694 6.4823 0.212766 6.61382C0.348162 6.74441 0.531915 6.81956 0.725339 6.81956C1.46035 6.81956 2.02128 7.32687 2.02128 7.99389C2.02128 8.69004 1.45068 9.24432 0.73501 9.25277C0.338491 9.25277 0 9.52522 0 9.91979V12.3258C0 14.355 1.70213 15.9991 3.78143 15.9991H10.4352C10.764 15.9991 11.0251 15.7445 11.0251 15.426V13.3958C11.0251 13.0022 11.354 12.6912 11.7505 12.6912V10.8696C11.354 10.8696 11.0251 10.5492 11.0251 10.165V6.40714C11.0251 6.02196 11.354 5.70254 11.7505 5.70254Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           d="M17.9782 7.99483C17.9782 8.69004 18.5585 9.24432 19.2645 9.25371C19.661 9.25371 19.9995 9.52616 19.9995 9.91134V12.3258C19.9995 14.3559 18.3071 16 16.2181 16H13.0653C12.7461 16 12.4753 15.7454 12.4753 15.426V13.3967C12.4753 13.0022 12.1562 12.6921 11.75 12.6921V10.8705C12.1562 10.8705 12.4753 10.5502 12.4753 10.1659V6.40808C12.4753 6.02196 12.1562 5.70348 11.75 5.70348V3.6827C12.1562 3.6827 12.4753 3.36328 12.4753 2.9781V0.574012C12.4753 0.253655 12.7461 0 13.0653 0H16.2181C18.3071 0 19.9995 1.64406 19.9995 3.6733V6.04075C19.9995 6.22864 19.9221 6.40808 19.7868 6.53866C19.6514 6.67019 19.4676 6.74535 19.2742 6.74535C18.5585 6.74535 17.9782 7.30996 17.9782 7.99483Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const Help = ({ className, active }) => {
   return (
     <div
       className={`${style.iconwrapper} ${style.isHelpIconCont}`}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         className={style.helpIconSvg}
@@ -312,23 +312,23 @@ export const Help = ({ className, active }) => {
         height="31"
         viewBox="0 0 31 31"
         // fill="none"
-        fill={active ? "#ffffff" : "#3A416F"}
+        fill={active ? '#ffffff' : '#3A416F'}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M15.8154 0.121094C7.49069 0.121094 0.734375 6.81735 0.734375 15.0681C0.734375 23.3188 7.49069 30.0151 15.8154 30.0151C24.1402 30.0151 30.8965 23.3188 30.8965 15.0681C30.8965 6.81735 24.1402 0.121094 15.8154 0.121094ZM17.3235 25.531H14.3073V22.5416H17.3235V25.531ZM20.4453 13.9471L19.088 15.3222C18.0022 16.4133 17.3235 17.3101 17.3235 19.5522H14.3073V18.8048C14.3073 17.1607 14.986 15.666 16.0718 14.5748L17.9419 12.6915C18.4999 12.1534 18.8316 11.4061 18.8316 10.584C18.8316 8.93982 17.4743 7.59459 15.8154 7.59459C14.1565 7.59459 12.7992 8.93982 12.7992 10.584H9.783C9.783 7.28071 12.4825 4.60519 15.8154 4.60519C19.1483 4.60519 21.8478 7.28071 21.8478 10.584C21.8478 11.8993 21.3049 13.0951 20.4453 13.9471Z"
           // fill="#8C8C8C"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 export const Setting = ({ primaryColor, className, active }) => {
   return (
     <div
-      className={style.iconwrapper + " " + className}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      className={style.iconwrapper + ' ' + className}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="15"
@@ -340,27 +340,27 @@ export const Setting = ({ primaryColor, className, active }) => {
         <path
           opacity="0.596982"
           d="M7 6.23154L4.3259 3.49439L5.15986 2.64076L2.57993 0L0 2.64076L2.57993 5.28152L3.41389 4.4279L5.92675 7L7 6.23154Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           opacity="0.596982"
           d="M11.6433 9C11.4384 9.02147 11.2308 9.03579 11.0199 9.03579C10.8176 9.03579 10.6166 9.02505 10.415 9.00418L8 11.6875L10.9967 14.3822C11.9126 15.2059 13.397 15.2059 14.313 14.3822C15.229 13.5586 15.229 12.2237 14.313 11.4001L11.6433 9Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
         <path
           d="M12.6694 4.23187L10.7681 2.33063L12.7731 0.325625C12.3075 0.118125 11.7931 0 11.25 0C9.17877 0 7.50002 1.67875 7.50002 3.75C7.50002 4.12125 7.55565 4.47875 7.65627 4.8175L0.913165 10.2738C0.356291 10.7656 0.0237924 11.4731 0.00129243 12.215C-0.0218325 12.9575 0.266292 13.6844 0.79129 14.2087C1.30129 14.7194 1.97941 15 2.70066 15C3.47503 15 4.21378 14.6675 4.72628 14.0869L10.1825 7.34375C10.5213 7.44438 10.8788 7.5 11.25 7.5C13.3213 7.5 15 5.82125 15 3.75C15 3.20688 14.8819 2.6925 14.6744 2.22625L12.6694 4.23187Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const Card = ({ primaryColor, active }) => {
   return (
     <div
       className={style.iconwrapper}
-      style={{ backgroundColor: active ? "#0072EF" : "" }}
+      style={{ backgroundColor: active ? '#0072EF' : '' }}
     >
       <svg
         width="16"
@@ -372,18 +372,18 @@ export const Card = ({ primaryColor, active }) => {
         <path
           opacity="0.593634"
           d="M16 3.55556V1.18538C16 0.530459 15.4033 0 14.6667 0H1.33333C0.596667 0 0 0.530459 0 1.18538V3.55556H16Z"
-          fill={primaryColor || "#130F26"}
+          fill={primaryColor || '#130F26'}
         />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
           d="M0 6.22266V12.0408C0 12.7552 0.596667 13.3338 1.33333 13.3338H14.6667C15.4033 13.3338 16 12.7552 16 12.0408V6.22266H0ZM7.33333 10.1014H2.66667V8.80851H7.33333V10.1014ZM10.6667 10.1014H13.3333V8.80851H10.6667V10.1014Z"
-          fill={active ? "#ffffff" : "#3A416F"}
+          fill={active ? '#ffffff' : '#3A416F'}
         />
       </svg>
     </div>
-  );
-};
+  )
+}
 
 export const Dash = () => {
   return (
@@ -398,8 +398,8 @@ export const Dash = () => {
         <path d="M5.71484 13V11H19.7148V13H5.71484Z" fill="#3A416F" />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const Logout = () => {
   return (
@@ -497,8 +497,8 @@ export const Logout = () => {
         </defs>
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const Diamond = () => {
   return (
@@ -596,8 +596,8 @@ export const Diamond = () => {
         </defs>
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const PageDot = () => {
   return (
@@ -642,8 +642,8 @@ export const PageDot = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const Cog = () => {
   return (
@@ -661,8 +661,8 @@ export const Cog = () => {
         fill="#BFBFBF"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Bell = () => {
   return (
@@ -682,8 +682,8 @@ export const Bell = () => {
         fill="#BFBFBF"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const DropdownIndicator = (props) => {
   return (
@@ -699,8 +699,8 @@ export const DropdownIndicator = (props) => {
         <path d="M0.5 5.5L5.5 0.5L10.5 5.5H0.5Z" fill="#595959" />
       </svg>
     </components.DropdownIndicator>
-  );
-};
+  )
+}
 
 export const ProfileInputIcon = () => {
   return (
@@ -718,8 +718,8 @@ export const ProfileInputIcon = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const UploaderIcon = () => {
   return (
@@ -752,8 +752,8 @@ export const UploaderIcon = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const ExportIcon = () => {
   return (
@@ -771,8 +771,8 @@ export const ExportIcon = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const AttachIcon = () => {
   return (
@@ -790,8 +790,8 @@ export const AttachIcon = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const EditIcon = () => {
   return (
@@ -812,8 +812,8 @@ export const EditIcon = () => {
         fill="#262626"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const ShareIcon = () => {
   return (
@@ -830,8 +830,8 @@ export const ShareIcon = () => {
         fill="#262626"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const CheckMark = () => {
   return (
@@ -851,8 +851,8 @@ export const CheckMark = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const ViewAs = () => {
   return (
@@ -871,8 +871,8 @@ export const ViewAs = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const FilterIcon = () => {
   return (
@@ -890,8 +890,8 @@ export const FilterIcon = () => {
         />
       </svg>
     </>
-  );
-};
+  )
+}
 
 export const Twitter = () => {
   return (
@@ -907,8 +907,8 @@ export const Twitter = () => {
         fill="#262626"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Facebook = () => {
   return (
@@ -924,8 +924,8 @@ export const Facebook = () => {
         fill="#262626"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Instagram = () => {
   return (
@@ -941,8 +941,8 @@ export const Instagram = () => {
         fill="#262626"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const LinkedIn = () => {
   return (
@@ -958,8 +958,8 @@ export const LinkedIn = () => {
         fill="#262626"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Copy = () => {
   return (
@@ -975,8 +975,8 @@ export const Copy = () => {
         fill="#323232"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const ProfileIcon = () => {
   return (
@@ -1006,8 +1006,8 @@ export const ProfileIcon = () => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const CloseSubMenu = () => {
   return (
@@ -1023,8 +1023,8 @@ export const CloseSubMenu = () => {
         fill="#67748E"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const AffiliatesIcon = ({
   primaryColor,
@@ -1034,8 +1034,8 @@ export const AffiliatesIcon = ({
   width,
 }) => (
   <div
-    className={style.iconwrapper + " " + className}
-    style={{ backgroundColor: active ? "#0072EF" : "" }}
+    className={style.iconwrapper + ' ' + className}
+    style={{ backgroundColor: active ? '#0072EF' : '' }}
   >
     <svg
       // width="23"
@@ -1124,7 +1124,7 @@ export const AffiliatesIcon = ({
       />
     </svg>
   </div>
-);
+)
 
 export const KreatorsIcon = ({
   primaryColor,
@@ -1134,8 +1134,8 @@ export const KreatorsIcon = ({
   width,
 }) => (
   <div
-    className={style.iconwrapper + " " + className}
-    style={{ backgroundColor: active ? "#0072EF" : "" }}
+    className={style.iconwrapper + ' ' + className}
+    style={{ backgroundColor: active ? '#0072EF' : '' }}
   >
     <svg
       // width="25"
@@ -1175,7 +1175,7 @@ export const KreatorsIcon = ({
       />
     </svg>
   </div>
-);
+)
 
 export const SalesIcon = ({
   primaryColor,
@@ -1185,8 +1185,8 @@ export const SalesIcon = ({
   width,
 }) => (
   <div
-    className={style.iconwrapper + " " + className}
-    style={{ backgroundColor: active ? "#0072EF" : "" }}
+    className={style.iconwrapper + ' ' + className}
+    style={{ backgroundColor: active ? '#0072EF' : '' }}
   >
     <svg
       // width="19"
@@ -1216,7 +1216,7 @@ export const SalesIcon = ({
       />
     </svg>
   </div>
-);
+)
 
 // export const FilterIcon = ()=>{
 // 	return(
@@ -1226,6 +1226,22 @@ export const SalesIcon = ({
 
 // 	)
 // }
+export const ExternalLinkIcon = () => {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M17.6673 21.6478H3.00065C1.52789 21.6478 0.333984 20.4539 0.333984 18.9811V4.31445C0.333984 2.84169 1.52789 1.64779 3.00065 1.64779H8.33398V4.31445H3.00065V18.9811H17.6673V13.6478H20.334V18.9811C20.334 20.4539 19.1401 21.6478 17.6673 21.6478ZM10.6007 13.2571L8.72065 11.3718L17.1113 2.98112H12.334V0.314453H21.6673V9.64779H19.0007V4.86779L10.6007 13.2571Z"
+        fill="#BFBFBF"
+      />
+    </svg>
+  )
+}
 
 export const EditPen2 = () => {
   return (
@@ -1241,8 +1257,8 @@ export const EditPen2 = () => {
         fill="#8C8C8C"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const LogoutIcon2 = () => {
   return (
@@ -1308,5 +1324,5 @@ export const LogoutIcon2 = () => {
         />
       </g>
     </svg>
-  );
-};
+  )
+}

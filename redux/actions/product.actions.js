@@ -401,8 +401,8 @@ export const UpdateStoreCheckoutCurrencies = () => {
           type: types.UPDATE_STORE_CHECKOUT_CURRENCY.SUCCESS,
           payload: res,
         })
-        console.log('res', res?.data)
-        // showToast(res?.message, 'info')
+        // console.log('res', res)
+        showToast(res?.message, 'info')
         successCallback?.()
       },
       (err) => {
@@ -411,7 +411,7 @@ export const UpdateStoreCheckoutCurrencies = () => {
           payload: err,
         })
         showToast(err?.message, 'error')
-        console.log('err', err)
+        // console.log('err', err)
         errorCallback?.()
       },
       data,
