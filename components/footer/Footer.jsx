@@ -49,13 +49,14 @@ export const Footer = () => {
               className="text"
               rel="noopener noreferrer"
               target="blank"
-              href="tel:+2347019875432"
+              // href="tel:+2349062002777"
+              href="https://wa.me/+2349062002777"
             >
-              +2347019875432
+              +2349062002777
             </a>
           </div>
 
-          <div className={styles.brandContact}>
+          {/* <div className={styles.brandContact}>
             <div className={styles.brandContactIcon}>
               <Image src={Location} alt="location" />
             </div>
@@ -67,7 +68,7 @@ export const Footer = () => {
             >
               Cocoa house Dugbe, Ibadan
             </a>
-          </div>
+          </div> */}
         </div>
 
         <div>
@@ -342,7 +343,7 @@ export const Footer = () => {
               />
             </a>
             <a
-              href="https://wa.me/+2349016324945"
+              href="https://wa.me/+2349062002777"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -366,7 +367,7 @@ export const Footer = () => {
             </a>
           </div>
 
-          <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div>
+          {/* <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div> */}
 
           <div className={styles.mobileCopyright}>
             Copyright &copy; {new Date().getFullYear()} Kreatesell. All Rights
