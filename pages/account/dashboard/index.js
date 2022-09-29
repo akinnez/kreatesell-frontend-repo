@@ -45,7 +45,10 @@ const Dashboard = () => {
     axios
       .get(mainStoreUrl)
       .then((res) => {
-        // console.log("res = ", res?.data?.user?.is_affiliate);
+        console.log(
+          "isAffiliate from endpoint = ",
+          res?.data?.user?.is_affiliate
+        );
         setIsAnAffiliate(res?.data?.user?.is_affiliate);
         setIsFirstTimeUser(res?.data?.user?.is_first_time);
         mutate(mainStoreUrl);
