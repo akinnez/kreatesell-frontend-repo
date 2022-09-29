@@ -282,36 +282,20 @@ export const Dropzone = ({
   onChange = () => {},
   extraLabel,
   name,
-  updateCoverImageUiOnDelete,
   ...rest
 }) => {
   const [showDeletePopover, setShowDeletePopover] = useState(false);
   const deleteImage = DeleteImage();
   const [imgUrl, setImgUrl] = useState();
 
-  // const [imgSrc, setImgSrc] = useState(imgUrl || value);
-
   const handleDelete = () => {
     deleteImage(name, () => {
-      console.log("name = ", name);
       onChange(null);
-      // onChange();
-      // if (name) {
-      //   console.log("name exists!");
-      //   updateCoverImageUiOnDelete();
-      //   setImgSrc("");
-      // }
-
       setTimeout(() => {
         setShowDeletePopover(false);
       }, 1000);
     });
   };
-
-  // useEffect(() => {
-  //   console.log("value from dropzone = ", value);
-  //   // console.log("imageUrl = ", imgUrl);
-  // }, [value]);
 
   const handleBeforeUpload = (info, inp) => {
     const isImage = info?.type?.split("/")[0] == "image";
@@ -387,31 +371,6 @@ export const Dropzone = ({
         ) : (
           <UploadPlaceholder />
         )}
-
-        {/* //* second go */}
-
-        {/* {imgSrc || imgUrl || value ? (
-          <Image
-            src={imgSrcimgUrl || value}
-            alt="avatar"
-            height={300}
-            preview={false}
-          />
-        ) : (
-          <UploadPlaceholder />
-        )} */}
-
-        {/* {value ||
-          (imgUrl && (
-            <Image
-              src={imgUrl || value}
-              alt="avatar"
-              height={300}
-              preview={false}
-            />
-          ))}
-
-        {(value === null || imgUrl === undefined) && <UploadPlaceholder />} */}
       </AntUpload.Dragger>
     </div>
   );
