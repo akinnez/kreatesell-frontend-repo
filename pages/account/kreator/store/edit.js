@@ -104,8 +104,7 @@ const Index = () => {
       ({ data }) => {
         //* user has setup store details
 
-        // console.log("data = ", data?.store_details);
-        // console.log("coverImage = ", data?.store_details?.cover_page);
+        console.log("data = ", data?.store_details);
 
         const {
           brand_name,
@@ -132,7 +131,6 @@ const Index = () => {
           Profile_Picture: data?.store_details?.display_picture,
           Cover_Picture: data?.store_details?.cover_page,
         });
-        // console.log("coverPicture = ", file?.Cover_Picture);
         setCountryId(
           notNull(data?.store_details?.country_name)
             ? data?.store_details?.country_id
@@ -173,20 +171,13 @@ const Index = () => {
         console.log(err);
       }
     );
-  }, [form, loading]);
+  }, []);
 
   const enableAddProduct = () => {
     // if(is)
     // SetIsStorSetup(false);
     return isFirstTimeUser ? SetIsStorSetup(false) : SetIsStorSetup(true);
   };
-
-  const updateCoverImageUiOnDelete = () =>
-    setFile({ ...file, Cover_Picture: "" });
-
-  // useEffect(() => {
-
-  // }, [file]);
 
   return (
     <>
@@ -199,16 +190,12 @@ const Index = () => {
 
               <Form layout="vertical" form={form} onFinish={handleFinish}>
                 <Dropzone
-                  onChange={(e) => {
-                    console.log("e = ", e);
-                    setFile({ ...file, Cover_Picture: e });
-                  }}
+                  onChange={(e) => setFile({ ...file, Cover_Picture: e })}
                   label="Cover"
                   accept="image/*"
                   name="cover"
                   value={file?.Cover_Picture}
                   extraLabel="- Add image on your cover page"
-                  updateCoverImageUiOnDelete={updateCoverImageUiOnDelete}
                 />
                 <FileInput
                   name="profile"
