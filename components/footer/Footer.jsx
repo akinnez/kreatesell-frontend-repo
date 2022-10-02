@@ -43,7 +43,7 @@ export const Footer = () => {
 
           <div className={styles.brandContact}>
             <div className={styles.brandContactIcon}>
-              <Image src={Mobile} alt="mobile" />
+              <Image src={WhatsappIcon} alt="mobile" />
             </div>
             <a
               className="text"
@@ -52,7 +52,7 @@ export const Footer = () => {
               // href="tel:+2349062002777"
               href="https://wa.me/+2349062002777"
             >
-              +2349062002777
+              Contact Us
             </a>
           </div>
 
