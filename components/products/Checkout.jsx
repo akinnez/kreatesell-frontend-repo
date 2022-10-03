@@ -50,7 +50,7 @@ export const CheckoutProductTab = ({ productId }) => {
           label={
             <>
               Call-To-Action Button
-              {ctaBtnText.length === 10 && (
+              {ctaBtnText?.length === 10 && (
                 <span className={styles.charLimit}>
                   10 characters limit reached!
                 </span>
