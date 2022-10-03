@@ -112,6 +112,9 @@
 
 .mainNav {
   position: relative;
+  &.hide {
+    display: none;
+  }
 }
 
 .setUpPrompt {

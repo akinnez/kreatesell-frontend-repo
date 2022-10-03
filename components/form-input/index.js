@@ -289,21 +289,16 @@ export const Dropzone = ({
   const deleteImage = DeleteImage();
   const [imgUrl, setImgUrl] = useState();
 
-  // const [isDeleted, setIsDeleted] = useState(false);
-
   const handleDelete = () => {
     deleteImage(name, () => {
       onChange(null);
       updateUiOnDelete();
-      // setIsDeleted(true);
+
       setTimeout(() => {
         setShowDeletePopover(false);
       }, 1000);
     });
   };
-
-  console.log("imageUrl = ", imgUrl);
-  console.log("val = ", value);
 
   const handleBeforeUpload = (info, inp) => {
     const isImage = info?.type?.split("/")[0] == "image";
