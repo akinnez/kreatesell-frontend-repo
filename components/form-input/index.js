@@ -282,20 +282,28 @@ export const Dropzone = ({
   onChange = () => {},
   extraLabel,
   name,
+  updateUiOnDelete,
   ...rest
 }) => {
   const [showDeletePopover, setShowDeletePopover] = useState(false);
   const deleteImage = DeleteImage();
   const [imgUrl, setImgUrl] = useState();
 
+  // const [isDeleted, setIsDeleted] = useState(false);
+
   const handleDelete = () => {
     deleteImage(name, () => {
       onChange(null);
+      updateUiOnDelete();
+      // setIsDeleted(true);
       setTimeout(() => {
         setShowDeletePopover(false);
       }, 1000);
     });
   };
+
+  console.log("imageUrl = ", imgUrl);
+  console.log("val = ", value);
 
   const handleBeforeUpload = (info, inp) => {
     const isImage = info?.type?.split("/")[0] == "image";
@@ -331,7 +339,8 @@ export const Dropzone = ({
 
   return (
     <div className={style.dragger_wrapper}>
-      {(imgUrl || value) && (
+      {/* {(imgUrl || value) && ( */}
+      {value && (
         <div className={style.deleteContainer}>
           <Popover
             trigger="click"
@@ -361,7 +370,8 @@ export const Dropzone = ({
         listType="picture-card"
         showUploadList={false}
       >
-        {imgUrl || value ? (
+        {/* {imgUrl || value ? (/ */}
+        {value ? (
           <Image
             src={imgUrl || value}
             alt="avatar"

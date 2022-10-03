@@ -179,6 +179,13 @@ const Index = () => {
     return isFirstTimeUser ? SetIsStorSetup(false) : SetIsStorSetup(true);
   };
 
+  const updateUiOnDelete = () => {
+    console.log("delete Option updated !");
+
+    setFile({ ...file, Cover_Picture: null });
+    console.log("coverPicture = ", file?.Cover_Picture);
+  };
+
   return (
     <>
       <AuthLayout loading={loading.fetching}>
@@ -195,6 +202,7 @@ const Index = () => {
                   accept="image/*"
                   name="cover"
                   value={file?.Cover_Picture}
+                  updateUiOnDelete={updateUiOnDelete}
                   extraLabel="- Add image on your cover page"
                 />
                 <FileInput
