@@ -268,7 +268,7 @@
   border: 1px solid red;
 
   @media (min-width: 320px) {
-    transform: translateX(20%);
+    // transform: translateX(20%);
   }
 
   @media (min-width: 433px) {
@@ -325,5 +325,14 @@
 .lgLeft {
   @media (max-width: 650px) {
     display: none;
+  }
+}
+
+.more {
+  h2 {
+    margin-top: 4rem !important;
+  }
+  .moreDetails {
+    margin-bottom: 6rem !important;
   }
 }
