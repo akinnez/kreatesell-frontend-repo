@@ -50,7 +50,7 @@ const Index = () => {
     formData.append('Linkedln', info.Linkedln)
     formData.append('Twitter', info.Twitter)
     formData.append('Store_Name', info.Store_Name)
-
+    // console.log('file', file)
     // console.log('info', info)
     ApiService.request(
       'post',

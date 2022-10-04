@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 
@@ -64,12 +64,6 @@ const Checkout = () => {
   const productId = router.query.id
   const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`
   const [modal, setModal] = useState(false)
-  const {
-    // countriesCurrency,
-    // filterdWest,
-    filteredCentral,
-    loading,
-  } = useCurrency()
 
   const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies()
   const checkoutDetails = useSelector((state) => state.checkout)
@@ -81,8 +75,17 @@ const Checkout = () => {
     loading: storeCheckoutCurrenciesLoading,
   } = useSelector((state) => state.store)
 
-  const { countriesCurrency, filterdWest } = useCheckoutCurrency()
+  const {
+    countriesCurrency,
+    filterdWest,
+    filteredCentral,
+  } = useCheckoutCurrency()
 
+  console.log('router', router)
+  const [
+    storecheckoutCurrencyLoading,
+    setStorecheckoutCurrencyLoading,
+  ] = useState(true)
   const [activeCurrency, setActiveCurrency] = useState({})
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
 
@@ -103,8 +106,9 @@ const Checkout = () => {
   const getProductDetails = async (productLink) => {
     try {
       const response = await axios.get(productLink)
+      console.log('respinse', response)
       setCheckOutDetails(response?.data?.data?.check_out_details)
-      setStoreId(response?.data?.data?.store_id)
+      setStoreId(response?.data?.data?.store_dto?.store_id)
     } catch (error) {
       console.log(error)
     }
@@ -152,14 +156,17 @@ const Checkout = () => {
   }
 
   useEffect(() => {
-    if (!!productLink) {
+    if (!!productId) {
       getProductDetails(productLink)
     }
-  }, [productLink])
+  }, [productId])
 
   useEffect(() => {
     if (!!storeId) {
-      getStoreCheckoutCurrencies(storeId)
+      getStoreCheckoutCurrencies(
+        storeId,
+        setStorecheckoutCurrencyLoading(false),
+      )
     }
   }, [storeId])
 
@@ -219,6 +226,8 @@ const Checkout = () => {
     }
   }
 
+  // TODO: check if price in a particular currency has been specified before,
+  // if it has, use that instead of converting
   const handleCurrencyConversion = (toCurrency) => {
     if (price && toCurrency) {
       const data = {
@@ -319,7 +328,19 @@ const Checkout = () => {
 
   useFetchUtilities()
 
-  if (loading || storeCheckoutCurrenciesLoading) return <Loader />
+  if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader />
+      </div>
+    )
 
   return (
     <>

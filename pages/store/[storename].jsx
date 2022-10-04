@@ -202,11 +202,11 @@ const ProductCard = ({
     <div
       className={`bg-white w-full rounded-lg ${styles.productCardCtn}`}
       style={{ cursor: 'pointer' }}
-      // onClick={() =>
-      //   router.push(
-      //     `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
-      //   )
-      // }
+      onClick={() =>
+        router.push(
+          `/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`,
+        )
+      }
     >
       <div>
         <Image
@@ -228,7 +228,8 @@ const ProductCard = ({
       </div>
 
       <div className="w-full px-2 md:px-4">
-        <p className={`pt-2 text-sm md:text-base ${styles.productName}`}>
+        {/* <p className={`pt-2 text-sm md:text-base ${styles.productName}`}> */}
+        <p className={`pt-2 text-sm md:text-base `}>
           {productDetails?.product_details?.product_name}
         </p>
 
@@ -241,16 +242,16 @@ const ProductCard = ({
             {productDetails?.default_currency}
             {new Intl.NumberFormat().format(sellingPrice) ?? '0.00'}
           </p>
-          {/* <p
+          <p
             className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
           >
             {productDetails?.default_currency}
             {new Intl.NumberFormat().format(
               originalPrice ?? productDetails?.default_price,
             ) ?? '0.00'}
-          </p> */}
+          </p>
 
-          {/* <Button
+          <Button
             text={productDetails?.product_details?.cta_button ?? 'Buy Now'}
             className={styles.productCardBtn}
             onClick={() => {
@@ -261,8 +262,8 @@ const ProductCard = ({
               )
               setCheckoutDetails(productDetails)
             }}
-          /> */}
-          <Image
+          />
+          {/* <Image
             alt=""
             src={ExternalLink}
             onClick={() => {
@@ -273,7 +274,7 @@ const ProductCard = ({
               )
               setCheckoutDetails(productDetails)
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>
