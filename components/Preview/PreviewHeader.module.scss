@@ -86,8 +86,13 @@
   display: flex;
   flex-direction: column;
   padding: 2.5em 2em;
+
+  // @media (max-width: 400px) {
+
+  // }
   @include screen("medium") {
     width: 100%;
+    // border-bottom: 2px solid transparent;
   }
   @media (min-width: 1300px) {
     margin-left: 21px;
@@ -143,6 +148,7 @@
 .desc {
   flex: 1;
   margin-top: 3rem;
+  overflow-y: auto;
 
   p {
     color: $base-gray;
@@ -185,11 +191,30 @@
   align-items: center;
   border-top: 2px solid $white-300;
   padding-top: 1.5em;
+  // overflow-y: auto;
+  min-height: 80px;
+  // border: 1px solid red;
+
   button {
     padding: 1.5rem;
     border-radius: 8px;
     font-weight: 600;
   }
+
+  // h1 {
+  //   font-size: 0.9rem;
+  // }
+  // h2 {
+  //   font-size: 0.8rem;
+  // }
+  // @media (min-width: 400px) {
+  //   h1 {
+  //     font-size: unset;
+  //   }
+  //   h2 {
+  //     font-size: unset;
+  //   }
+  // }
 }
 .publishModal {
   margin: 0 auto;
@@ -265,7 +290,7 @@
   // right: 0;
   // bottom: 0;
   min-width: 100vw !important;
-  border: 1px solid red;
+  // border: 1px solid red;
 
   @media (min-width: 320px) {
     // transform: translateX(20%);
@@ -334,5 +359,6 @@
   }
   .moreDetails {
     margin-bottom: 6rem !important;
+    // border: 1px solid red !important;
   }
 }
