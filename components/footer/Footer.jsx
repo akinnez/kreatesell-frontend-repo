@@ -11,9 +11,12 @@ import {
   LinkedIcon,
   TwitterIcon,
   WhatsappIcon,
+  FooterTelegram,
+  // FooterLogo,
 } from "../../utils";
 import styles from "./Footer.module.scss";
 import { useState } from "react";
+// import { TelegramIcon } from "react-share";
 
 export const Footer = () => {
   const router = useRouter();
@@ -200,6 +203,18 @@ export const Footer = () => {
                 src={TwitterIcon}
                 alt="kreatesell twitter"
                 className="cursor"
+              />
+            </a>
+            <a
+              href="https://t.me/+zIT2wru_Ha8zOWY0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.gramContainer}
+            >
+              <Image
+                src={FooterTelegram}
+                alt="kreatesell twitter"
+                className="cursor telegram"
               />
             </a>
           </div>

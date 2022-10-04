@@ -235,3 +235,29 @@
     }
   }
 }
+
+.gramContainer {
+  // border: 1px solid #fff !important;
+  // display: block;
+  width: 30px !important;
+  height: 30px !important;
+
+  img {
+    width: 30px !important;
+    height: 30px !important;
+    //   width: 100%;
+    //   height: 100%;
+  }
+
+  @media (max-width: 1035px) {
+    width: 27px !important;
+    height: 27px !important;
+
+    img {
+      width: 27px !important;
+      height: 27px !important;
+      //   width: 100%;
+      //   height: 100%;
+    }
+  }
+}
