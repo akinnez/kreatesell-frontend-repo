@@ -7,7 +7,7 @@ import { Button } from "antd";
 import { useRouter } from "next/router";
 import { RightPreviewArrow, LeftPreviewArrow, ExternalLink } from "utils";
 
-export default function PreviewContent() {
+export default function PreviewContent({ activeCurrency }) {
   const [details, setDetails] = useState({});
   const [images, setImages] = useState([]);
   const [mainImage, setMainImage] = useState("");
@@ -21,11 +21,16 @@ export default function PreviewContent() {
   const { store } = useSelector((state) => state?.store);
 
   const { product } = useSelector((state) => state?.product);
+  const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
+    (state) => state.currencyConverter
+  );
 
   const productId = product?.product_details?.kreasell_product_id;
 
   const { user } = useSelector((state) => state?.auth);
 
+  const formatPrice = (amount, decimalPlaces = 2) =>
+    Number(amount).toFixed(decimalPlaces);
   const increase = () => {
     if (activeImage === images?.length - 1) {
       return setActiveImage(0);
@@ -65,7 +70,7 @@ export default function PreviewContent() {
       setSellingPrice(
         prices?.filter((item) => item?.price_indicator === "Selling")
       );
-      console.log("product?", product);
+      // console.log('product?', product)
       setOriginalPrice(
         prices?.filter((item) => item?.price_indicator === "Original")
       );
@@ -82,6 +87,7 @@ export default function PreviewContent() {
       setDomainLink(domain_details[0]?.domain_url);
     }
   }, [store]);
+
   // console.log('product', product)
   return (
     <div
@@ -136,16 +142,15 @@ export default function PreviewContent() {
           </div>
           <div className={"flex items-center " + styles.padBottom}>
             <div className={styles.dp}>
-              {Object.keys(user).length > 0 &&
-                store.store_details?.display_picture && (
-                  <Image
-                    src={store.store_details?.display_picture}
-                    width="100"
-                    height={100}
-                    objectFit="cover"
-                    alt="cover_image"
-                  />
-                )}
+              {product?.store_dto?.store_image && (
+                <Image
+                  src={product?.store_dto?.store_image}
+                  width="100"
+                  height={100}
+                  objectFit="cover"
+                  alt="cover_image"
+                />
+              )}
             </div>
             <div className="flex  ml-6 flex-col">
               {Object.keys(user).length > 0 && (
@@ -179,25 +184,48 @@ export default function PreviewContent() {
             </div>
           )}
 
-          {/* {console.log('details', details)} */}
           <div className={styles.padBottom1}></div>
           <div className={styles.priceSection}>
             <div className="flex flex-col">
               {/*  */}
               {/* {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)} */}
               {sellingPrice?.length > 0 && (
-                <h1 className="text-3xl font-bold">{`${sellingPrice[0]?.currency_name}  ${sellingPrice[0]?.price}`}</h1>
+                <h1 className="text-3xl font-bold">{`${
+                  convertedCurrency?.to_currency_name ||
+                  sellingPrice[0]?.currency_name
+                }  ${
+                  convertedCurrency?.buy_rate
+                    ? formatPrice(
+                        convertedCurrency?.buy_rate * sellingPrice[0]?.price
+                      )
+                    : formatPrice(sellingPrice[0]?.price)
+                }`}</h1>
               )}
-              {originalPrice?.length > 0 &&
-                originalPrice?.map((item, i) => (
-                  <h2
-                    key={i}
-                    className="text-xl line-through font-medium"
-                  >{`${item?.currency_name}  ${item?.price}`}</h2>
-                ))}
+              {originalPrice?.length > 0 && (
+                <h2 className="text-xl line-through font-medium">{`${
+                  convertedCurrency?.to_currency_name ||
+                  originalPrice[0]?.currency_name
+                }  ${
+                  convertedCurrency?.buy_rate
+                    ? formatPrice(
+                        convertedCurrency?.buy_rate * originalPrice[0]?.price
+                      )
+                    : originalPrice[0]?.price
+                }`}</h2>
+              )}
             </div>
+
             <Button
-              onClick={() => router.push(`/checkout/${productId}`)}
+              onClick={() => {
+                console.log("clicked");
+                router.push(
+                  {
+                    pathname: `/checkout/${productId}`,
+                    query: { selectedCurrecy: "activeCurrency" },
+                  },
+                  `/checkout/${productId}`
+                );
+              }}
               type="primary"
             >
               {details !== undefined && details?.cta_button

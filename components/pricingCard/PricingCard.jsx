@@ -34,7 +34,7 @@ export const PricingCard = ({
 
       <h5 className={styles.priceType}>
         {priceType}{' '}
-        {subPriceType && (
+        {![0, '0'].includes(subPriceType) && subPriceType && (
           <span className={styles.subPriceType}>
             - Save{' '}
             {`${selectedCurrency?.currency} ${

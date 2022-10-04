@@ -95,6 +95,7 @@ const PayoutsForm = ({
                   setBanks,
                   setBanksLoading,
                   dispatch,
+                  countries,
                 })
               }
               optionFilterProp="children"
@@ -108,7 +109,7 @@ const PayoutsForm = ({
               }
               onBlur={formik.handleBlur}
               value={formik.values.country}
-              disabled={!!bankDetails}
+              // disabled={!!bankDetails}
             >
               {countries.map((country) => (
                 <Option

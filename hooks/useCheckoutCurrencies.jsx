@@ -1,14 +1,8 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import useSWR from 'swr'
-
-import ApiService from 'utils/axios'
-import Loader from 'components/loader'
-
 // TODO: Make this hook cache currencies
 const useCheckoutCurrency = () => {
-  const [allowedCurrencies, setAllowedCurrencies] = useState([])
   const [loading, setLoading] = useState(false)
   const { countries } = useSelector((state) => state.utils)
   const {
@@ -22,8 +16,17 @@ const useCheckoutCurrency = () => {
     if (storeCheckoutCurrencies.length > 0) {
       return countries?.filter((country) => {
         return storeCheckoutCurrencies.some((checkoutCurrency) => {
+          // there are some countries spending USD and are not US
+          // to prevent duplication of USD being stored
+          if (
+            checkoutCurrency.currency_short_name === 'USD' &&
+            country.short_name === 'US'
+          ) {
+            return true
+          }
           return (
             country.currency_id === checkoutCurrency.currency_id &&
+            checkoutCurrency.currency_short_name !== 'USD' &&
             !['XOF', 'XAF'].includes(checkoutCurrency.currency_short_name)
           )
         })
@@ -67,7 +70,7 @@ const useCheckoutCurrency = () => {
     filterdWest,
     filteredCentral,
     loading,
-    allowedCurrencies,
+    storeCheckoutCurrenciesLoading,
   }
 }
 

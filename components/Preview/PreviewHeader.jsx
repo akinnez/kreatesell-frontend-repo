@@ -27,7 +27,12 @@ import useCurrency from "hooks/useCurrency";
 
 import * as ROUTES from "routes";
 
-export default function PreviewHeader({ id, showNavLinks = true }) {
+export default function PreviewHeader({
+  id,
+  showNavLinks = true,
+  formattedCurrencies,
+  setActiveCurrency,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isResponse, setIsResponse] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -42,8 +47,10 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
 
   const storeName = store?.store_details?.store_name;
 
-  const { allowedCurrencies: currencyOptions, loading: currencyLoading } =
-    useCurrency();
+  const {
+    // allowedCurrencies: currencyOptions,
+    loading: currencyLoading,
+  } = useCurrency();
 
   const logout = Logout();
   const handleSubmit = (data) => {
@@ -73,12 +80,8 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
 
   const { setFieldValue, values } = formik;
   const productId = product?.product_details?.kreasell_product_id;
-  // console.log("product = ", product);
-  //   console.log("product", product);
   useEffect(() => {
     setTitle(product?.product_details?.product_name);
-    // setLink(`http://dev.kreatesell.com/checkout/${productId}`)
-    // setLink(`http://dev.kreatesell.com/store/${productId}`);
     // * try this
 
     setLink(
@@ -162,11 +165,12 @@ export default function PreviewHeader({ id, showNavLinks = true }) {
             <CSelect
               options={[
                 // ...[{ label: 'Select currency', value: '' }],
-                ...currencyOptions,
+                ...formattedCurrencies,
               ]}
               border="none"
               loading={currencyLoading}
               defaultValue={"NGN"}
+              onChange={(e) => setActiveCurrency(e)}
             />
           </div>
           <div onClick={() => logout()}>

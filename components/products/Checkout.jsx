@@ -35,11 +35,12 @@ export const CheckoutProductTab = ({ productId }) => {
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   const defaultCtaBtnTextSet = data?.store_details?.cta_button;
-  // console.log("data = ", defaultCtaBtnTextSet);
   const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || "");
   const changeField = (field) => {
     setPriceType(field.target.value);
   };
+  // console.log('defaultCtaBtnTextSet = ', defaultCtaBtnTextSet)
+  // console.log('ctaBtnText = ', ctaBtnText)
   return (
     <div className={`px-0 lg:px-8 ${styles.container}`}>
       <h3 className="text-black-100 font-semibold text-2xl">
