@@ -11,9 +11,12 @@ import {
   LinkedIcon,
   TwitterIcon,
   WhatsappIcon,
+  FooterTelegram,
+  // FooterLogo,
 } from "../../utils";
 import styles from "./Footer.module.scss";
 import { useState } from "react";
+// import { TelegramIcon } from "react-share";
 
 export const Footer = () => {
   const router = useRouter();
@@ -43,19 +46,20 @@ export const Footer = () => {
 
           <div className={styles.brandContact}>
             <div className={styles.brandContactIcon}>
-              <Image src={Mobile} alt="mobile" />
+              <Image src={WhatsappIcon} alt="mobile" />
             </div>
             <a
               className="text"
               rel="noopener noreferrer"
               target="blank"
-              href="tel:+2347019875432"
+              // href="tel:+2349062002777"
+              href="https://wa.me/+2349062002777"
             >
-              +2347019875432
+              Contact Us
             </a>
           </div>
 
-          <div className={styles.brandContact}>
+          {/* <div className={styles.brandContact}>
             <div className={styles.brandContactIcon}>
               <Image src={Location} alt="location" />
             </div>
@@ -67,7 +71,7 @@ export const Footer = () => {
             >
               Cocoa house Dugbe, Ibadan
             </a>
-          </div>
+          </div> */}
         </div>
 
         <div>
@@ -199,6 +203,18 @@ export const Footer = () => {
                 src={TwitterIcon}
                 alt="kreatesell twitter"
                 className="cursor"
+              />
+            </a>
+            <a
+              href="https://t.me/+zIT2wru_Ha8zOWY0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.gramContainer}
+            >
+              <Image
+                src={FooterTelegram}
+                alt="kreatesell twitter"
+                className="cursor telegram"
               />
             </a>
           </div>
@@ -342,7 +358,7 @@ export const Footer = () => {
               />
             </a>
             <a
-              href="https://wa.me/+2349016324945"
+              href="https://wa.me/+2349062002777"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -366,7 +382,7 @@ export const Footer = () => {
             </a>
           </div>
 
-          <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div>
+          {/* <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div> */}
 
           <div className={styles.mobileCopyright}>
             Copyright &copy; {new Date().getFullYear()} Kreatesell. All Rights

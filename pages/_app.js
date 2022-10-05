@@ -1,38 +1,39 @@
-import { useEffect } from "react";
-import { Provider } from "react-redux";
-import { useStore } from "../redux/store";
-import Script from "next/script";
-import "../public/css/global.scss";
-import "react-dates/initialize";
-import "antd/dist/antd.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Router from "next/router";
+import { useEffect } from 'react'
+import { Provider } from 'react-redux'
+import { useStore } from '../redux/store'
+import Script from 'next/script'
+import '../public/css/global.scss'
+import 'react-dates/initialize'
+import 'antd/dist/antd.css'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Router from 'next/router'
 // aos animations
-import AOS from "aos";
-import "aos/dist/aos.css";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
-import "react-toastify/dist/ReactToastify.css";
-import "@reach/dialog/styles.css";
-import { setAuthorizationHeader } from "../utils/index";
-import ChatScript from "../components/ChatWidgetScript";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import 'react-toastify/dist/ReactToastify.css'
+import '@reach/dialog/styles.css'
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
+import { setAuthorizationHeader } from '../utils/index'
+import ChatScript from '../components/ChatWidgetScript'
 
-Router.events.on("routeChangeStart", () => NProgress.start());
-Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
+Router.events.on('routeChangeStart', () => NProgress.start())
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialReduxState);
+  const store = useStore(pageProps.initialReduxState)
   useEffect(() => {
-    setAuthorizationHeader();
-  }, []);
+    setAuthorizationHeader()
+  }, [])
 
   // run animation once page finishes loading
   useEffect(() => {
-    AOS.init({ duration: 2000 });
-    AOS.refresh();
-  }, []);
+    AOS.init({ duration: 2000 })
+    AOS.refresh()
+  }, [])
 
   return (
     <Provider store={store}>
@@ -45,7 +46,7 @@ function MyApp({ Component, pageProps }) {
 
       <Component {...pageProps} />
     </Provider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

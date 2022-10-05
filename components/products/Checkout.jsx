@@ -35,11 +35,12 @@ export const CheckoutProductTab = ({ productId }) => {
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   const defaultCtaBtnTextSet = data?.store_details?.cta_button;
-  // console.log("data = ", defaultCtaBtnTextSet);
   const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || "");
   const changeField = (field) => {
     setPriceType(field.target.value);
   };
+  // console.log('defaultCtaBtnTextSet = ', defaultCtaBtnTextSet)
+  // console.log('ctaBtnText = ', ctaBtnText)
   return (
     <div className={`px-0 lg:px-8 ${styles.container}`}>
       <h3 className="text-black-100 font-semibold text-2xl">
@@ -50,7 +51,7 @@ export const CheckoutProductTab = ({ productId }) => {
           label={
             <>
               Call-To-Action Button
-              {ctaBtnText.length === 10 && (
+              {ctaBtnText?.length === 10 && (
                 <span className={styles.charLimit}>
                   10 characters limit reached!
                 </span>
@@ -71,7 +72,8 @@ export const CheckoutProductTab = ({ productId }) => {
           <p className="text-xs text-base-gray-200 mt-3">
             Leave blank if you want the default{" "}
             <span className="text-black-100 font-semibold">
-              {ctaBtnText ? ctaBtnText : "BUY NOW"}
+              {/* {ctaBtnText ? ctaBtnText : "BUY NOW"} */}
+              BUY NOW
             </span>
             . Else, change it to best action request of your taste.
           </p>

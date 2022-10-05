@@ -60,6 +60,13 @@ const StoreSettings = () => {
       <div className="lg:productBorder w-full lg:w-9/12">
         <p className="text-black-100 text-sm md:text-base mb-0">
           Store Checkout Button CTA (Call To Action)
+          <>
+            {ctaBtnValue?.cta_button?.length === 10 && (
+              <span className={styles.charLimit}>
+                10 characters limit reached!
+              </span>
+            )}
+          </>
         </p>
         <div className="w-full lg:w-1/2">
           <Input
@@ -72,6 +79,7 @@ const StoreSettings = () => {
               }));
             }}
             required
+            maxLength={10}
           />
         </div>
         <p className="text-base-gray-200 text-xs">

@@ -137,6 +137,8 @@ const Index = ({
   const [isMobileSideBarOpen, setIsMobileSideBarOpen] = useState(false);
   const toggleView = () => setIsMobileSideBarOpen(!isMobileSideBarOpen);
 
+  const [showOverlayOnClick, setShowOverlayOnClick] = useState(false);
+
   return (
     <section className={styles.layoutMain}>
       {storeSetupPromptIsShown() && (
@@ -191,7 +193,20 @@ const Index = ({
                     : "Basic Account"}
                 </div>
               </div>
-              <Dropdown overlay={menu(logout)} placement="bottomRight" arrow>
+              <Dropdown
+                overlay={menu(logout)}
+                placement="bottomRight"
+                arrow
+                visible={showOverlayOnClick}
+                // onMouseOut={() => setShowOverlayOnClick(false)}
+                onClick={() => {
+                  setShowOverlayOnClick(true);
+                  // * close after 5 seconds
+                  setTimeout(() => {
+                    setShowOverlayOnClick(false);
+                  }, 5000);
+                }}
+              >
                 <div className={styles.dropDown}>
                   <Image src={NavCloseDropdownIcon} alt="closeDropdownIcon" />
                 </div>

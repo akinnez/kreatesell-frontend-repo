@@ -32,6 +32,7 @@ const useCurrency = () => {
       }
   }, [])
 
+  // without XAF and XOF
   const countriesCurrency = useMemo(() => {
     if (allowedCurrencies.length > 0) {
       return countries?.filter((country) => {
@@ -52,11 +53,25 @@ const useCurrency = () => {
     return []
   }, [countries, allowedCurrencies.length])
 
-  // console.log('countries', countries)
-  // console.log("country USD", countries.filter((ctr)=> ctr.currency === "USD"))
-  // console.log("countries GMD", countries.filter((ctr)=> ctr.currency === "GMD"))
-  // // console.log("countriesCurrency", countriesCurrency);
-  // console.log('allowedCurrencies', allowedCurrencies)
+  const allAllowedCurrencies = useMemo(() => {
+    if (allowedCurrencies.length > 0) {
+      return countries?.filter((country) => {
+        return allowedCurrencies.some((allowedCurrency) => {
+          // there are some countries spending USD and are not US
+          // to prevent duplication of USD being stored
+          if (allowedCurrency.label === 'USD' && country.short_name === 'US') {
+            return true
+          }
+          return (
+            country.currency_id === allowedCurrency.value &&
+            allowedCurrency.label !== 'USD'
+          )
+        })
+      })
+    }
+    return []
+  }, [countries, allowedCurrencies.length])
+
   const filterdWest = useMemo(() => {
     return countries.filter((c) => c.currency === 'XOF')
   }, [countries])
@@ -65,6 +80,8 @@ const useCurrency = () => {
     const cn = ['Chad', 'Cameroon', 'Gabon']
     return countries.filter((c) => cn.includes(c.name))
   }, [countries])
+  console.log('countriesCurrency', countriesCurrency)
+  console.log('allowedCurrencies', allowedCurrencies)
 
   return {
     countriesCurrency,
@@ -72,6 +89,7 @@ const useCurrency = () => {
     filteredCentral,
     loading,
     allowedCurrencies,
+    allAllowedCurrencies,
   }
 }
 

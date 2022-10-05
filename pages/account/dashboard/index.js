@@ -18,17 +18,12 @@ const { Text, Title } = Typography;
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [_, setFiltered] = useState(null);
+  const [isAnAffiliate, setIsAnAffiliate] = useState(false);
 
-  // const isFirstTimer = useSelector(
-  //   (state) => state?.store?.store?.user?.is_first_time
-  //   // (state) => state?.store?.store
-  // );
-
-  // console.log("isFirstTimer from store = ", isFirstTimer);
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
   const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-  const user = useSelector((state) => state?.auth?.user);
+  // const user = useSelector((state) => state?.auth?.user);
 
   const hideModal = async () => {
     setModalVisible(false);
@@ -42,7 +37,7 @@ const Dashboard = () => {
     }
   };
 
-  const isAnAffiliate = user?.is_affiliate;
+  // console.log('isAn')
 
   console.log("isAffiliate = ", isAnAffiliate);
 
@@ -50,7 +45,11 @@ const Dashboard = () => {
     axios
       .get(mainStoreUrl)
       .then((res) => {
-        // console.log("is_first_time = ", res?.data?.user?.is_first_time);
+        console.log(
+          "isAffiliate from endpoint = ",
+          res?.data?.user?.is_affiliate
+        );
+        setIsAnAffiliate(res?.data?.user?.is_affiliate);
         setIsFirstTimeUser(res?.data?.user?.is_first_time);
         mutate(mainStoreUrl);
       })

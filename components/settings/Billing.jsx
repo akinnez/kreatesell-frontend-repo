@@ -12,7 +12,6 @@ import { PricingCard, Button, UpgradeAccountForm, Select } from 'components'
 
 import { PaymentUnsubscribe } from 'redux/actions'
 import { useGetUpgradePlansPrices } from 'services/swrQueryHooks/UpgradePlansQuery'
-import { toSpecifiedDecimalPlaces } from 'utils'
 
 import styles from './Settings.module.scss'
 import Spinner from 'components/Spinner'
@@ -35,7 +34,6 @@ const Billing = () => {
     filteredCentral,
     filterdWest,
   } = useCurrency()
-
   // console.log
   // return either monthly or annual upgrade price
   const getUpgradePrice = (type = 'monthly') => {

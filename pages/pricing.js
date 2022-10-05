@@ -1,58 +1,159 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 
+import { useSelector } from 'react-redux'
 import { Layout, PricingCard, Select, Button } from '../components'
 import styles from '../public/css/Pricing.module.scss'
 import { Faq, Animate } from '../utils'
 import Image from 'next/image'
-import router from 'next/router'
+
+import { useGetUpgradePlansPrices } from 'services/swrQueryHooks/UpgradePlansQuery'
+import useCurrency from 'hooks/useCurrency'
+import useConvertRates from 'hooks/useConvertRates'
+import useFetchUtilities from 'hooks/useFetchUtilities'
+import Spinner from 'components/Spinner'
 
 const Pricing = () => {
   const router = useRouter()
+  const {
+    data: upgradePlanPrices,
+    error: upgradePlanErrors,
+  } = useGetUpgradePlansPrices()
+  const {
+    countriesCurrency,
+    loading,
+    filteredCentral,
+    filterdWest,
+  } = useCurrency()
+  const { store } = useSelector((state) => state.store)
+  const { convertedCurrency } = useSelector((state) => state.currencyConverter)
+
+  // console.log
+  // return either monthly or annual upgrade price
+  const getUpgradePrice = (type = 'monthly') => {
+    if (type === 'monthly') {
+      return upgradePlanPrices?.filter(
+        (price) => price.configuration_value === 'Business',
+      )[0].monthly_value
+    } else {
+      return upgradePlanPrices?.filter(
+        (price) => price.configuration_value === 'Business',
+      )[0].annually_value
+    }
+  }
   const [activeBtn, setActiveBtn] = useState({
     annually: true,
     monthly: false,
   })
   const { annually, monthly } = activeBtn
-
-  const [businessPrice, setBusinessPrice] = useState('4,999')
+  const [businessPrice, setBusinessPrice] = useState(getUpgradePrice('monthly'))
   const [priceLabel, setPriceLabel] = useState('Billed Monthly')
-  const [subPriceType, setSubPriceType] = useState('NGN 9989')
+  const [subPriceType, setSubPriceType] = useState()
+
   const [selectedPlan, setSelectedPlan] = useState('')
+  const [countryOptions, setCountryOptions] = useState([])
+  const [subscriptionMode, setSubscriptionMode] = useState(null)
+  const [selectedCurrency, setSelectedCurrency] = useState({})
+
+  const { handleCurrencyConversion, getCurrency } = useConvertRates(
+    'NGN',
+    selectedCurrency?.currency,
+  )
 
   useEffect(() => {
-    monthly ? setBusinessPrice('4,999') : setBusinessPrice('4,150')
+    if (upgradePlanPrices) {
+      setSubPriceType(
+        getUpgradePrice('monthly') * 12 - getUpgradePrice('annually') * 12,
+      )
+    }
+  }, [upgradePlanPrices])
+
+  useEffect(() => {
+    if (upgradePlanPrices) {
+      setBusinessPrice(getUpgradePrice('monthly'))
+    }
+  }, [upgradePlanPrices])
+
+  useEffect(() => {
+    monthly
+      ? setBusinessPrice(getUpgradePrice('monthly'))
+      : setBusinessPrice(getUpgradePrice('annually'))
     monthly ? setPriceLabel('Billed Monthly') : setPriceLabel('Billed Annually')
-    monthly ? setSubPriceType('') : setSubPriceType('NGN 9989')
+    monthly
+      ? setSubPriceType('')
+      : setSubPriceType(
+          `${
+            getUpgradePrice('monthly') * 12 - getUpgradePrice('annually') * 12
+          }`,
+        )
   }, [monthly])
 
-  const countryOptions = [
-    { value: 'Nigeria', label: 'NGN' },
-    { value: 'USA', label: 'USD' },
-    { value: 'United Kingdom', label: 'GBP' },
-    { value: 'Kenya', label: 'KES' },
-    { value: 'South Africa', label: 'ZAR' },
-    { value: 'Tanzania', label: 'TZC' },
-    { value: 'Uganda', label: 'UGX' },
-  ]
+  useEffect(() => {
+    if (upgradePlanPrices) {
+      setBusinessPrice(getUpgradePrice())
+    }
+  }, [upgradePlanPrices])
 
-  const handleBtnClick = (plan) => {
-    // do nothing for now.
-    // redirect to signup page, while passing a value to history state
-    // sign up user and login immediately and then go to payment page
-    setSelectedPlan(plan)
+  // useEffect to default to a currency
+  useEffect(() => {
+    if (countryOptions.length > 0) {
+      setSelectedCurrency(countryOptions[0])
+    }
+  }, [countryOptions.length])
 
-    router.push(
-      {
-        pathname: '/signup',
-        query: {
-          fromPricing: true,
-        },
-      },
-      '/signup',
+  //   useEffect to calculate price
+  useEffect(() => {
+    if (annually) {
+      setSubscriptionMode({
+        mode: 'annually',
+        price: getUpgradePrice('annually') * 12,
+      })
+    } else if (monthly) {
+      setSubscriptionMode({
+        mode: 'monthly',
+        price: getUpgradePrice('monthly'),
+      })
+    }
+  }, [annually, monthly, upgradePlanPrices])
+
+  // useEffect to check if current plan
+  useEffect(() => {
+    if (store?.user?.user_plan) {
+      setSelectedPlan(store?.user?.user_plan)
+    }
+  }, [store?.user?.user_plan])
+
+  // to convert a currency based on when selected currency changes
+  useEffect(() => {
+    handleCurrencyConversion(selectedCurrency?.currency)
+  }, [selectedCurrency])
+
+  // change
+  useMemo(() => {
+    if (countriesCurrency?.length > 0) {
+      const cur = [
+        // { value: 161, label: 'XOF' },
+        // { value: 162, label: 'XAF' },
+      ]
+      let currency = countriesCurrency
+        .filter((ctr) => !['XAF', 'XOF'].includes(ctr.currency))
+        .map((ctr) => ({
+          ...ctr,
+          value: ctr.name,
+          label: ctr.currency,
+        }))
+      setCountryOptions([...currency, ...cur])
+    }
+  }, [countriesCurrency?.length])
+
+  useFetchUtilities()
+
+  if ((!upgradePlanErrors && !upgradePlanPrices) || !selectedCurrency)
+    return (
+      <>
+        <Spinner />{' '}
+      </>
     )
-    // return;
-  }
 
   return (
     <Layout defaultMarginTop={true}>
@@ -90,7 +191,7 @@ const Pricing = () => {
                   options={countryOptions}
                   arrowIconColor="#0072EF"
                   borderColor="#40A9FF"
-                  // onChange={(e) => setSelect(e.target.value)}
+                  onChange={(e) => setSelectedCurrency(e)}
                 />
               </div>
             </div>
@@ -117,12 +218,21 @@ const Pricing = () => {
                 <PricingCard
                   title="business"
                   subTitle="Get the combination of core tools, custom options, and automated events for professional digital product Kreators looking to massively grow their businesses."
-                  price={businessPrice}
+                  price={
+                    Object.keys(convertedCurrency).length > 0
+                      ? businessPrice * convertedCurrency?.buy_rate
+                      : businessPrice
+                  }
                   btnText="Select this plan"
                   priceType={priceLabel}
-                  subPriceType={subPriceType}
+                  subPriceType={
+                    Object.keys(convertedCurrency).length > 0
+                      ? subPriceType * convertedCurrency?.buy_rate
+                      : subPriceType
+                  }
                   btnOnClick={() => handleBtnClick('business')}
                   currentPlan={selectedPlan === 'business'}
+                  selectedCurrency={selectedCurrency}
                 />
               </div>
             </div>

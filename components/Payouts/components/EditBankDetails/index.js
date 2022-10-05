@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
-import { Divider, Modal, Typography } from "antd";
-import CloseIcon from "components/affiliates/CloseIcon";
-import Spinner from "components/Spinner";
-import BankInformation from "../BankInformation";
-import PayoutsForm from "../PayoutsForm";
-import styles from "./index.module.scss";
+import { useSelector } from 'react-redux'
+import { Divider, Modal, Typography } from 'antd'
+import CloseIcon from 'components/affiliates/CloseIcon'
+import Spinner from 'components/Spinner'
+import BankInformation from '../BankInformation'
+import PayoutsForm from '../PayoutsForm'
+import styles from './index.module.scss'
+import useCurrency from 'hooks/useCurrency'
 
-const { Title, Text } = Typography;
+const { Title, Text } = Typography
 
 const EditBankDetails = ({
   editModal,
@@ -15,9 +16,9 @@ const EditBankDetails = ({
   showSuccessModal,
 }) => {
   const { countries, banksByCountryId, loading } = useSelector(
-    state => state.utils
-  );
-
+    (state) => state.utils,
+  )
+  const { allAllowedCurrencies } = useCurrency()
   return (
     <Modal
       title={null}
@@ -50,14 +51,14 @@ const EditBankDetails = ({
           <PayoutsForm
             hideModal={hideEditModal}
             showSuccessModal={showSuccessModal}
-            countries={countries}
+            countries={allAllowedCurrencies}
             banksByCountryId={banksByCountryId}
             bankDetails={bankDetails}
           />
         </section>
       )}
     </Modal>
-  );
-};
+  )
+}
 
-export default EditBankDetails;
+export default EditBankDetails

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import AuthLayout from '../../../../components/authlayout'
-import { Row, Col, Card, Form, Input as AntInput } from 'antd'
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import AuthLayout from "../../../../components/authlayout";
+import { Row, Col, Card, Form, Input as AntInput } from "antd";
 
 import {
   Input,
@@ -11,100 +11,100 @@ import {
   FileInput,
   InputV2,
   SelectV2,
-} from '../../../../components/form-input'
-import style from '../../../../public/css/Store.module.scss'
-import ApiService from '../../../../utils/axios'
-import { toast } from 'react-toastify'
+} from "../../../../components/form-input";
+import style from "../../../../public/css/Store.module.scss";
+import ApiService from "../../../../utils/axios";
+import { toast } from "react-toastify";
 
 const Index = () => {
-  const store = useSelector((state) => state.store)
-  const { countries } = useSelector((state) => state.utils)
-  const Router = useRouter()
+  const store = useSelector((state) => state.store);
+  const { countries } = useSelector((state) => state.utils);
+  const Router = useRouter();
   const [file, setFile] = useState({
-    Profile_Picture: '',
-    Cover_Picture: '',
-  })
+    Profile_Picture: "",
+    Cover_Picture: "",
+  });
 
   const [loading, setLoading] = useState({
     updating: false,
     fetching: true,
-  })
-  const [countryCode, setCountryCode] = useState('')
-  const [countryId, setCountryId] = useState(null)
-  const [country, setCountry] = useState('')
-  const [isStoreSetUp, SetIsStorSetup] = useState(false)
-  const [isFirstTimeUser, SetIsFirstTimeUser] = useState(false)
-  const [form] = Form.useForm()
+  });
+  const [countryCode, setCountryCode] = useState("");
+  const [countryId, setCountryId] = useState(null);
+  const [country, setCountry] = useState("");
+  const [isStoreSetUp, SetIsStorSetup] = useState(false);
+  const [isFirstTimeUser, SetIsFirstTimeUser] = useState(false);
+  const [form] = Form.useForm();
 
   const handleFinish = async (info) => {
-    setLoading({ ...loading, updating: true })
-    const formData = new FormData()
-    formData.append('Brand_Name', info.Brand_Name)
-    formData.append('Bio_Data', info.Bio_Data)
-    formData.append('Country_Id', countryId)
-    formData.append('Cover_Picture', file.Cover_Picture)
-    formData.append('Profile_Picture', file.Profile_Picture)
-    formData.append('Mobile_Number', info.Mobile_Number)
-    formData.append('Facebook', info.Facebook)
-    formData.append('Instagram', info.Instagram)
-    formData.append('Linkedln', info.Linkedln)
-    formData.append('Twitter', info.Twitter)
-    formData.append('Store_Name', info.Store_Name)
-
+    setLoading({ ...loading, updating: true });
+    const formData = new FormData();
+    formData.append("Brand_Name", info.Brand_Name);
+    formData.append("Bio_Data", info.Bio_Data);
+    formData.append("Country_Id", countryId);
+    formData.append("Cover_Picture", file.Cover_Picture);
+    formData.append("Profile_Picture", file.Profile_Picture);
+    formData.append("Mobile_Number", info.Mobile_Number);
+    formData.append("Facebook", info.Facebook);
+    formData.append("Instagram", info.Instagram);
+    formData.append("Linkedln", info.Linkedln);
+    formData.append("Twitter", info.Twitter);
+    formData.append("Store_Name", info.Store_Name);
+    // console.log('file', file)
     // console.log('info', info)
     ApiService.request(
-      'post',
-      'v1/kreatesell/store/onboarding',
+      "post",
+      "v1/kreatesell/store/onboarding",
       ({ data }) => {
-        setLoading({ ...loading, updating: false })
-        toast.success('Successful')
+        setLoading({ ...loading, updating: false });
+        toast.success("Successful");
         setTimeout(() => {
-          Router.push('/account/kreator/store')
-        }, 3000)
+          Router.push("/account/kreator/store");
+        }, 3000);
       },
       (err) => {
-        setLoading({ ...loading, updating: false })
-        toast.error(err)
+        setLoading({ ...loading, updating: false });
+        toast.error(err);
       },
-      formData,
-    )
-  }
+      formData
+    );
+  };
 
   const handlePhoneCode = (countryParam) => {
-    let phoneCode = countries.find((country) => country.name === countryParam)
-    setCountryCode(phoneCode?.country_code)
-    setCountryId(phoneCode?.id)
+    let phoneCode = countries.find((country) => country.name === countryParam);
+    setCountryCode(phoneCode?.country_code);
+    setCountryId(phoneCode?.id);
     // setCountryId(phoneCode?.id)
-  }
+  };
   // console.log('country is', country)
   // console.log('country ID is', countryId)
 
   // prefill the country code when the user selects another country
   useEffect(() => {
     if (country) {
-      handlePhoneCode(country)
+      handlePhoneCode(country);
     }
-  }, [country])
+  }, [country]);
 
   // prefill the country code on page mount
   useEffect(() => {
     if (countries.length > 0) {
-      handlePhoneCode(form.getFieldValue('Country_Id'))
+      handlePhoneCode(form.getFieldValue("Country_Id"));
     }
-  }, [countries.length])
+  }, [countries.length]);
 
   const notNull = (val) => {
-    return !!val && val !== 'null'
-  }
+    return !!val && val !== "null";
+  };
 
   useEffect(() => {
     ApiService.request(
-      'get',
-      'v1/kreatesell/store/me',
+      "get",
+      "v1/kreatesell/store/me",
       ({ data }) => {
         //* user has setup store details
 
-        console.log('data = ', data?.store_details)
+        console.log("data = ", data?.store_details);
 
         const {
           brand_name,
@@ -112,72 +112,79 @@ const Index = () => {
           mobile_number,
           store_name,
           // linked_ln,
-        } = data?.store_details
+        } = data?.store_details;
         // console.log("store name = ", store_name);
 
         const hasBeganSettingUpStore =
-          brand_name && country_name && mobile_number && store_name
+          brand_name && country_name && mobile_number && store_name;
 
         // && linked_ln;
 
         //* here
         if (hasBeganSettingUpStore) {
-          SetIsStorSetup(true)
-          SetIsFirstTimeUser(false)
+          SetIsStorSetup(true);
+          SetIsFirstTimeUser(false);
         } else {
-          SetIsFirstTimeUser(true)
+          SetIsFirstTimeUser(true);
         }
         setFile({
           Profile_Picture: data?.store_details?.display_picture,
           Cover_Picture: data?.store_details?.cover_page,
-        })
+        });
         setCountryId(
           notNull(data?.store_details?.country_name)
             ? data?.store_details?.country_id
-            : '',
-        )
-        setLoading({ ...loading, fetching: false })
+            : ""
+        );
+        setLoading({ ...loading, fetching: false });
         form.setFieldsValue({
           Brand_Name: notNull(data?.store_details?.brand_name)
             ? data?.store_details?.brand_name
-            : '',
+            : "",
           Store_Name: notNull(data?.store_details?.store_name)
             ? data?.store_details?.store_name
-            : '',
+            : "",
           Bio_Data: notNull(data?.store_details?.bio_data)
             ? data?.store_details?.bio_data
-            : '',
+            : "",
           Country_Id: notNull(data?.store_details?.country_name)
             ? data?.store_details?.country_name
-            : '',
+            : "",
           Mobile_Number: notNull(data?.store_details?.mobile_number)
             ? data?.store_details?.mobile_number
-            : '',
+            : "",
           Facebook: notNull(data?.store_details?.facebook)
             ? data?.store_details?.facebook
-            : '',
+            : "",
           Twitter: notNull(data?.store_details?.twitter)
             ? data?.store_details?.twitter
-            : '',
+            : "",
           Instagram: notNull(data?.store_details?.instagram)
             ? data?.store_details?.instagram
-            : '',
+            : "",
           Linkedln: notNull(data?.store_details?.linked_ln)
             ? data?.store_details?.linked_ln
-            : '',
-        })
+            : "",
+        });
       },
       (err) => {
-        console.log(err)
-      },
-    )
-  }, [])
+        console.log(err);
+      }
+    );
+  }, []);
 
   const enableAddProduct = () => {
     // if(is)
     // SetIsStorSetup(false);
-    return isFirstTimeUser ? SetIsStorSetup(false) : SetIsStorSetup(true)
-  }
+    return isFirstTimeUser ? SetIsStorSetup(false) : SetIsStorSetup(true);
+  };
+
+  const updateUiOnDelete = () => {
+    console.log("delete Option updated !");
+
+    setFile({ ...file, Cover_Picture: null });
+    console.log("coverPicture = ", file?.Cover_Picture);
+  };
 
   return (
     <>
@@ -195,6 +202,7 @@ const Index = () => {
                   accept="image/*"
                   name="cover"
                   value={file?.Cover_Picture}
+                  updateUiOnDelete={updateUiOnDelete}
                   extraLabel="- Add image on your cover page"
                 />
                 <FileInput
@@ -212,7 +220,7 @@ const Index = () => {
                     {
                       required: true,
                       min: 4,
-                      message: 'Brand name is a required field',
+                      message: "Brand name is a required field",
                     },
                   ]}
                 />
@@ -226,7 +234,7 @@ const Index = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Store name is a required field',
+                      message: "Store name is a required field",
                     },
                   ]}
                 />
@@ -253,21 +261,21 @@ const Index = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Country is a required field',
+                          message: "Country is a required field",
                         },
                       ]}
                     />
                   </Col>
                   <Col xs={24} md={12}>
                     <Input
-                      addonBefore={countryCode || ''}
+                      addonBefore={countryCode || ""}
                       type="tel"
                       label="Phone Number"
                       placeholder={countryCode}
                       rules={[
                         {
                           required: true,
-                          message: 'Valid phone number is required',
+                          message: "Valid phone number is required",
                           min: 11,
                           max: 14,
                         },
@@ -322,7 +330,7 @@ const Index = () => {
                     disabled={!isStoreSetUp}
                     type="primary"
                     onClick={() =>
-                      Router.push('/account/kreator/products/create')
+                      Router.push("/account/kreator/products/create")
                     }
                     htmlType="button"
                     label="Add Product"
@@ -358,7 +366,7 @@ const Index = () => {
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

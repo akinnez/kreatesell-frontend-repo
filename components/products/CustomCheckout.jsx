@@ -5,8 +5,9 @@ import { useSelector } from 'react-redux'
 import styles from './CustomCheckout.module.scss'
 import { GetAllowedCurrencies, GetStoreCurrencies } from 'redux/actions'
 
-import useCurrency from 'hooks/useCurrency'
+import useStoreCurrency from 'hooks/useStoreCurrencies'
 
+const { Option } = Select
 export default function CustomCheckoutSelect({
   title,
   field,
@@ -15,14 +16,12 @@ export default function CustomCheckoutSelect({
   showFeedBack = false,
   noMatchFound = false,
 }) {
-  // const { countriesCurrency, loading } = useCurrency()
-  const { currency } = useSelector((state) => state.utils)
-  const { storeCurrencies } = useSelector((state) => state.store)
+  const { selectedStoreCurrencies, storeCurrenciesLoading } = useStoreCurrency()
   const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState([])
-  // const { currency } = useSelector((state) => state.utils)
+
+  // console.log('selectedStoreCurrencies', selectedStoreCurrencies)
   const getStoreCurrencies = GetStoreCurrencies()
-  // const getAllowedCurrencies = GetAllowedCurrencies()
-  const { Option } = Select
+
   const removeCurrency = (item) => {
     const filtered = field.filter((i) => i !== item)
     setField(filtered)
@@ -31,9 +30,6 @@ export default function CustomCheckoutSelect({
     currency_name: 'NGN',
     currency_value: '',
   })
-  const filterCurrency = useMemo(() => currency?.map((cur) => cur.short_name), [
-    currency,
-  ])
 
   const addCurrency = () => {
     // console.log('add currency')
@@ -56,7 +52,7 @@ export default function CustomCheckoutSelect({
 
   const formatCurrencies = () => {
     // Checks for XOF and XAF duplicates in currency
-    let newArr = storeCurrencies.filter((currency, index, self) => {
+    let newArr = selectedStoreCurrencies.filter((currency, index, self) => {
       return (
         index === self.findIndex((t) => currency.currency_id === t.currency_id)
       )
@@ -66,10 +62,13 @@ export default function CustomCheckoutSelect({
 
   // useEffect for formatting currencies
   useEffect(() => {
-    if (Array.isArray(storeCurrencies) && storeCurrencies?.length > 0) {
+    if (
+      Array.isArray(selectedStoreCurrencies) &&
+      selectedStoreCurrencies?.length > 0
+    ) {
       formatCurrencies()
     }
-  }, [storeCurrencies.length])
+  }, [selectedStoreCurrencies.length])
 
   useEffect(() => {
     // getAllowedCurrencies()
@@ -77,7 +76,6 @@ export default function CustomCheckoutSelect({
   }, [])
 
   // if (loading) return <Spin />
-  // console.log('storeCurrencies', storeCurrencies)
   return (
     <div className="">
       <p className="text-base mb-3 font-medium">
@@ -97,24 +95,26 @@ export default function CustomCheckoutSelect({
           )}
         </>
       </p>
-
+      {/* {console.log('formattedStoreCurrencies', formattedStoreCurrencies)} */}
       <div className="w-4/5 flex">
         <Select
           onChange={(e) => setNewCurrency({ ...newCurrency, currency_name: e })}
-          defaultValue={formattedStoreCurrencies[0] || 'NGN'}
+          defaultValue={
+            formattedStoreCurrencies[0]?.currency_short_name || 'NGN'
+          }
           className={styles.selectButton}
         >
           {formattedStoreCurrencies.map((country, index) => (
             <Option
               className={styles.optionField}
               key={index}
-              value={country.currency_short_name}
+              value={country.currency}
             >
               <div className="flex items-center">
-                {/* <div className={styles.countriesFlag}>
+                <div className={styles.countriesFlag}>
                   <Image src={country.flag} alt="flag" layout="fill" />
-                </div> */}
-                <h2 className="mb-0 ml-1">{country.currency_short_name}</h2>
+                </div>
+                <h2 className="mb-0 ml-1">{country.currency}</h2>
               </div>
             </Option>
           ))}
