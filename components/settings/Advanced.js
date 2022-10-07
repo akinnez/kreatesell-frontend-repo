@@ -20,7 +20,10 @@ import {
   AdvancedStripe,
   RightArrow2,
   CurvedArrow,
+  DownArrow,
 } from 'utils'
+
+import { SubmitPaymentOptions } from 'redux/actions'
 
 function dataURLtoFile(dataurl, filename) {
   var arr = dataurl.split(','),
@@ -34,6 +37,19 @@ function dataURLtoFile(dataurl, filename) {
   }
 
   return new File([u8arr], filename, { type: mime })
+}
+
+function FiletoDataURL(file) {
+  // Encode the file using the FileReader API
+  const reader = new FileReader()
+  reader.onloadend = () => {
+    // Use a regex to remove data url part
+    const base64String = reader.result.replace('data:', '').replace(/^.+,/, '')
+
+    console.log('base64String', base64String)
+    // Logs wL2dvYWwgbW9yZ...
+  }
+  reader.readAsDataURL(file)
 }
 
 const videoConstraints = {
@@ -70,13 +86,15 @@ const Advanced = () => {
   } = useMyDropzone()
   const [checked, setChecked] = useState(false)
   const [webcamImgSrc, setWebcamImgSrc] = useState(null)
+  const [fileUploadImageSrc, setFileUploadImageSrc] = useState(null)
   const [showWebcamModal, setShowWebcamModal] = useState(false)
   const [activePaymentMode, setActivePaymentMode] = useState(paymentModes[0].id)
-
   const [files, setFiles] = useState({
     webcamFile: null,
     validIdCard: null,
   })
+
+  const submitPaymentOptions = SubmitPaymentOptions()
 
   const openModal = () => setShowWebcamModal(true)
   const closeModal = () => setShowWebcamModal(false)
@@ -94,6 +112,7 @@ const Advanced = () => {
   }
 
   const handleWebcam = (imgSrc) => {
+    console.log('imgSrc', imgSrc)
     // convert to file object
     setWebcamImgSrc(imgSrc)
     const file = dataURLtoFile(imgSrc, 'selfie.jpeg')
@@ -109,18 +128,22 @@ const Advanced = () => {
     formData.append('Selfie', files.webcamFile)
     formData.append('Valid_Card', files.validIdCard)
     formData.append('Id_Number', e.Id_Number)
-    formData.append('Payment_Option_Id', activePaymentMode)
+    // formData.append('Payment_Option_Id', activePaymentMode)
+
+    submitPaymentOptions(formData, () => console.log('success'))
   }
 
   useEffect(() => {
     if (dropZoneFiles.length > 0) {
+      const file = URL.createObjectURL(dropZoneFiles[0])
+      setFileUploadImageSrc(file)
       setFiles((prev) => ({ ...prev, validIdCard: dropZoneFiles[0] }))
     }
   }, [dropZoneFiles?.length])
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    return () => URL.revokeObjectURL(dropZoneFilePreview.preview)
+    return () => URL.revokeObjectURL(dropZoneFilePreview?.preview)
   }, [])
 
   console.log('files is', files)
@@ -156,7 +179,7 @@ const Advanced = () => {
                 </div>
               ))}
             </div>
-            <span className={styles.status}>Request under Review</span>
+            <span className={styles.status}>Denied</span>
             <h3 className={styles.reasonsHeader}>
               Reasons for rejecting second level verification
             </h3>
@@ -228,12 +251,26 @@ const Advanced = () => {
                   </>
                 )}
               </div>
+              {/* show this arrow for tablet view */}
+              <div className={styles.downArrow}>
+                <Image src={DownArrow} alt="" height={50} width={50} />
+              </div>
               <span>
                 <Image src={RightArrow2} alt="" />
               </span>
               <div {...getRootProps()} className={styles.advancedCardContainer}>
                 <input {...getInputProps({ multiple: false })} />
 
+                {/* {fileUploadImageSrc ? (
+                  <div style={{ border: '1px solid' }}>
+                    <Image
+                      src={fileUploadImageSrc}
+                      alt=""
+                      width={230}
+                      height={200}
+                    />
+                  </div>
+                ) : ( */}
                 <>
                   <h1 className={styles.title}>Step 2</h1>
                   <div className={styles.card}>
@@ -241,6 +278,17 @@ const Advanced = () => {
                     <p>Upload Valid ID Card</p>
                   </div>
                 </>
+                {/* )} */}
+              </div>
+              {/* show this arrow for tablet view */}
+              <div className={styles.downArrow}>
+                <Image
+                  src={DownArrow}
+                  className={styles.downArrow}
+                  alt=""
+                  height={50}
+                  width={50}
+                />
               </div>
             </div>
             <div className={styles.bottom}>
@@ -251,12 +299,12 @@ const Advanced = () => {
                   extraLabel="Enter a Valid Identification Number"
                   placeholder="Enter the id number of the uploaded card"
                   type="text"
-                  style={{ width: '80%', marginBottom: '0px', margin: 'auto' }}
+                  className={styles.input}
                   name="Id_Number"
                 />
                 <Checkbox
                   onChange={handleChange}
-                  style={{ width: '80%', margin: 'auto' }}
+                  className={styles.checkbox}
                   {...{ checked }}
                 >
                   <span className={styles.checkboxLabel}>
