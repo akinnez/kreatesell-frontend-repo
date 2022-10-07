@@ -7,7 +7,10 @@ import { Button } from 'antd'
 import { useRouter } from 'next/router'
 import { RightPreviewArrow, LeftPreviewArrow, ExternalLink } from 'utils'
 
-export default function PreviewContent({ activeCurrency }) {
+export default function PreviewContent({
+  alreadyDefinedPrice,
+  alreadyDefinedOriginalPrice,
+}) {
   const [details, setDetails] = useState({})
   const [images, setImages] = useState([])
   const [mainImage, setMainImage] = useState('')
@@ -142,9 +145,9 @@ export default function PreviewContent({ activeCurrency }) {
           </div>
           <div className={'flex items-center ' + styles.padBottom}>
             <div className={styles.dp}>
-              {product?.store_dto?.store_image && (
+              {product?.store_dto?.profile_pix && (
                 <Image
-                  src={product?.store_dto?.store_image}
+                  src={product?.store_dto?.profile_pix}
                   width="100"
                   height={100}
                   objectFit="cover"
@@ -183,7 +186,6 @@ export default function PreviewContent({ activeCurrency }) {
               release date is Mar 31, 2022 9:00 AM
             </div>
           )}
-
           <div className={styles.padBottom1}></div>
           <div className={styles.priceSection}>
             <div className="flex flex-col">
@@ -191,10 +193,13 @@ export default function PreviewContent({ activeCurrency }) {
               {/* {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)} */}
               {sellingPrice?.length > 0 && (
                 <h1 className="text-3xl font-bold">{`${
+                  alreadyDefinedPrice?.currency_name ||
                   convertedCurrency?.to_currency_name ||
                   sellingPrice[0]?.currency_name
                 }  ${
-                  convertedCurrency?.buy_rate
+                  alreadyDefinedPrice?.price
+                    ? alreadyDefinedPrice?.price
+                    : convertedCurrency?.buy_rate
                     ? formatPrice(
                         convertedCurrency?.buy_rate * sellingPrice[0]?.price,
                       )
@@ -203,10 +208,13 @@ export default function PreviewContent({ activeCurrency }) {
               )}
               {originalPrice?.length > 0 && (
                 <h2 className="text-xl line-through font-medium">{`${
+                  alreadyDefinedOriginalPrice?.currency_name ||
                   convertedCurrency?.to_currency_name ||
                   originalPrice[0]?.currency_name
                 }  ${
-                  convertedCurrency?.buy_rate
+                  alreadyDefinedOriginalPrice?.price
+                    ? alreadyDefinedOriginalPrice?.price
+                    : convertedCurrency?.buy_rate
                     ? formatPrice(
                         convertedCurrency?.buy_rate * originalPrice[0]?.price,
                       )
