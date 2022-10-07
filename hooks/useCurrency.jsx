@@ -80,8 +80,8 @@ const useCurrency = () => {
     const cn = ['Chad', 'Cameroon', 'Gabon']
     return countries.filter((c) => cn.includes(c.name))
   }, [countries])
-  console.log('countriesCurrency', countriesCurrency)
-  console.log('allowedCurrencies', allowedCurrencies)
+  // console.log('countriesCurrency', countriesCurrency)
+  // console.log('allowedCurrencies', allowedCurrencies)
 
   return {
     countriesCurrency,

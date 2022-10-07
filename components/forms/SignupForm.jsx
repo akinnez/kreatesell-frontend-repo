@@ -33,7 +33,13 @@ export const SignupForm = () => {
     /**Destructuring the values below so that data used for validation on client side not required by the endpoint isn't passed along */
     const { Email, Password, phoneNo, FullName } = values
     const data = { Email, Password, phoneNo, FullName }
-
+    data.isTracked = false
+    if (
+      Object.keys(router.query).length > 0 &&
+      Object.keys(router.query).includes('fromPricing')
+    ) {
+      data.isTracked = true
+    }
     let formData = new FormData()
     for (let value in data) {
       formData.append(value, data[value])

@@ -29,6 +29,7 @@
             flex: 3;
             .paymentMethods{
                 @include flex(row, null, null);
+                flex-wrap: wrap;
                 gap: 1rem;
                 margin-block-end: 1rem;
                 .paymentMethodCard{
@@ -47,6 +48,7 @@
             }
             .status{
                 text-transform: uppercase;
+                margin-bottom: 1.5rem;
             }
             .reasonsHeader{
                 font-weight: 700;
@@ -60,10 +62,14 @@
                 width: 65%;
                 min-height: 290px;
                 padding: 2.5rem 2rem;
+                @include screen("tablet"){
+                  width: 95%;
+                  padding: 1.5rem;
+                }
                 .reasons{
                     .reason{
                         @include flex(row, null, center);
-                        padding: .5rem;
+                        padding-block: .5rem;
                         gap: .5rem;
                         font-weight: 400;
                         font-size: 0.875rem;
@@ -86,6 +92,11 @@
         }
         .right{
             flex: 2;
+        }
+        @include screen("tablet"){
+          @include flex(column-reverse, null, center);
+          gap: 3rem;
+          padding: 1rem;
         }
     }
 
@@ -115,6 +126,9 @@
                         }
                     }
                 }
+                .downArrow{
+                  display: none !important;
+                }
                 span{
                 }
             }
@@ -122,6 +136,15 @@
                 width: 100%;
                 h1{
                     text-align: center;
+                }
+                .input{
+                  width: 80%;
+                  margin-bottom: 0px;
+                  margin: auto;
+                }
+                .checkbox{
+                  width: 80%;
+                  margin: auto;
                 }
                 .checkboxLabel{
                     font-weight: 500;
@@ -138,12 +161,40 @@
                     display: block;
                 }
             }
+            @include screen("tablet"){
+              .top{
+                @include flex(column, center, null);
+                .downArrow{
+                  display: block;
+                }
+                &>span{
+                  display: none;
+                }
+              }
+              .bottom{
+                .input{
+                  width: 100%;
+                }
+                .checkbox{
+                  width: 100%;
+                }
+                .submitBtn{
+                  left: 19%;
+              }
+              }
+            }
         }
+        
         .stepsRight{
             .arrowContainer{
                 position: relative;
                 top: 8rem;                
             }
+        }
+        @include screen("tablet"){
+          .stepsRight{
+            display: none;
+          }
         }
     }
 }

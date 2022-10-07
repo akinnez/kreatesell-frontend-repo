@@ -9,6 +9,7 @@ import notification from './notification.reducer'
 import coupon from './coupon.reducer'
 import planUpgrade from './planUpgrade.reducer'
 import currencyConverter from './currencyConverter.reducer'
+import submitPaymentOptions from './paymentOptions.reducer'
 
 const rootReducer = combineReducers({
   auth,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   notification,
   planUpgrade,
   currencyConverter,
+  submitPaymentOptions,
 })
 
 export default rootReducer

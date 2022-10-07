@@ -20,8 +20,13 @@ module.exports = {
       'pk_test_51KHkOkEiRwUsDs0AJ15ufHXXYL7Zbs26ZpKiqiSuWjnjeDtYkMaMPAdL4eEBVwQtzrZs12abo0UxtNdNzXFiywsQ005dNpADpb',
     NEXT_SECRET_STRIPE_PUBLISHABLE_KEY:
       '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',
+
+    //  kreatesell paypal
+    // NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY:
+    //   'AW7u10uJYBenaA-igO_LE3kZFljEyvqIQtl_gI7NM8bsl8ItY6m4g8mHaYl41FJHgvjZiJ2RnoOQkKcf',
+
     NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY:
-      'AW7u10uJYBenaA-igO_LE3kZFljEyvqIQtl_gI7NM8bsl8ItY6m4g8mHaYl41FJHgvjZiJ2RnoOQkKcf',
+      'AQWU0_H74bp7gktmP1olCxUqoXxweGxkGxGl8jE-Pw-_8p_OtQUumWjdyP2boRwcBtSHebPXY1LKv2vP',
   },
   images: {
     domains: [
