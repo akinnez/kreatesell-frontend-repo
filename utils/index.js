@@ -59,33 +59,56 @@ export const _isUserLoggedIn = () => {
   return false
 }
 
-// TODO: Optimize the toast so that same messages don't show multiple times
+let listOfAlertMessages = []
 export const showToast = (message, type) => {
   if (type) type = type.toLowerCase()
 
-  const errorMessagePosition = {
+  const options = {
     position: 'top-center',
+    hideAfter: 3,
   }
-  switch (type) {
-    case 'success':
-      cogoToast.success(message, errorMessagePosition)
-      break
-    case 'info':
-      cogoToast.info(message, errorMessagePosition)
-      break
-    case 'loading':
-      cogoToast.loading(message, errorMessagePosition)
-      break
-    case 'warn':
-      cogoToast.warn(message, errorMessagePosition)
-      break
-    case 'error':
-      cogoToast.error(message, errorMessagePosition)
-      break
 
-    default:
-      cogoToast.info(message, errorMessagePosition)
-      break
+  const pushMessageIntoArr = (value) => {
+    listOfAlertMessages.push({
+      value: value,
+      time: Date.now(),
+    })
+  }
+
+  let toastListInterval = setInterval(function () {
+    var time = Date.now()
+    listOfAlertMessages = listOfAlertMessages.filter(function (item) {
+      return time < item.time + options.hideAfter * 1000
+    })
+    if (listOfAlertMessages.length === 0) clearInterval(toastListInterval)
+  }, 200)
+
+  // check if message exists in array
+  if (!listOfAlertMessages.some((msg) => msg.value === message)) {
+    pushMessageIntoArr(message)
+    switch (type) {
+      case 'success':
+        cogoToast.success(message, options)
+        break
+      case 'info':
+        cogoToast.info(message, options)
+        break
+      case 'loading':
+        cogoToast.loading(message, options)
+        break
+      case 'warn':
+        cogoToast.warn(message, options)
+        break
+      case 'error':
+        cogoToast.error(message, options)
+        break
+
+      default:
+        cogoToast.info(message, options)
+        break
+    }
+  } else {
+    console.log('exists')
   }
 }
 
