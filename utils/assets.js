@@ -266,8 +266,10 @@ import CurvedArrow from '../public/images/curvedArrow.svg'
 import FlutterwaveLogo from '../public/images/Flutterwave-logo.svg'
 import ZipFile from '../public/images/ZipFile.svg'
 import DownloadIcon2 from '../public/images/downloadIcon.svg'
+import DownArrow from '../public/images/downArrow.svg'
 
 export {
+  DownArrow,
   UserPicture,
   SuccessKreatesellLogo,
   DownloadIcon2,
