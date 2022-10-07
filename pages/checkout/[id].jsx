@@ -32,7 +32,6 @@ import {
 import crypto from 'crypto'
 import LogoImg from '../../public/images/logo.svg'
 import useFetchUtilities from 'hooks/useFetchUtilities'
-import useCurrency from 'hooks/useCurrency'
 import Loader from 'components/loader'
 import axios from 'axios'
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies'
@@ -70,10 +69,9 @@ const Checkout = () => {
   const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
     (state) => state.currencyConverter,
   )
-  const {
-    storeCheckoutCurrencies,
-    loading: storeCheckoutCurrenciesLoading,
-  } = useSelector((state) => state.store)
+  const { loading: storeCheckoutCurrenciesLoading } = useSelector(
+    (state) => state.store,
+  )
 
   const {
     countriesCurrency,
@@ -81,7 +79,7 @@ const Checkout = () => {
     filteredCentral,
   } = useCheckoutCurrency()
 
-  console.log('router', router)
+  // console.log('router', router)
   const [
     storecheckoutCurrencyLoading,
     setStorecheckoutCurrencyLoading,
@@ -89,6 +87,9 @@ const Checkout = () => {
   const [activeCurrency, setActiveCurrency] = useState({})
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
 
+  // this is the product details for a product whose price has been defined by
+  // kreator and is also the active currency selected
+  const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null)
   const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails()
   const convertCurrency = ConvertCurrency()
 
@@ -106,7 +107,6 @@ const Checkout = () => {
   const getProductDetails = async (productLink) => {
     try {
       const response = await axios.get(productLink)
-      console.log('respinse', response)
       setCheckOutDetails(response?.data?.data?.check_out_details)
       setStoreId(response?.data?.data?.store_dto?.store_id)
     } catch (error) {
@@ -114,13 +114,14 @@ const Checkout = () => {
     }
   }
 
-  let val = storeCheckoutCurrencies.map(() => {})
+  // console.log('checkOutDetails', checkOutDetails)
 
   const getCurrency = (priceOrName) => {
     if (priceOrName === 'currency') {
       return activeCurrency?.currency || activeCurrency?.currency_name
     } else if (priceOrName === 'price') {
       return (
+        alreadyDefinedPrice?.price ||
         convertedCurrency?.buy_rate * checkOutInNaira?.price ||
         checkOutInNaira?.price
       )
@@ -227,9 +228,17 @@ const Checkout = () => {
   }
 
   // TODO: check if price in a particular currency has been specified before,
-  // if it has, use that instead of converting
+  // if it has, use that instead of converting, just use the specified value
   const handleCurrencyConversion = (toCurrency) => {
-    if (price && toCurrency) {
+    let index = checkOutDetails.findIndex(
+      (detail) =>
+        detail?.currency_name === toCurrency &&
+        detail?.price_indicator === 'Selling',
+    )
+    if (index !== -1) {
+      setAlreadyDefinedPrice(checkOutDetails[index])
+    } else if (price && toCurrency) {
+      setAlreadyDefinedPrice(null)
       const data = {
         amount: price,
         from_currency_name: currency_name,
@@ -651,7 +660,6 @@ const Checkout = () => {
         </div>
       </div>
 
-      {/* TODO: check here */}
       <DialogOverlay isOpen={modal} onDismiss={closeModal} className="pt-12 ">
         <DialogContent className={styles.modal} aria-label="modal">
           <SuccessfulCheckoutModal
