@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+import { useSelector } from 'react-redux'
+
 import { CreateProductForm } from 'components'
 import styles from './CreateProduct.module.scss'
 import { Row, Col, Modal } from 'antd'
@@ -12,8 +15,8 @@ import {
   MembershipSubscriptionIcon,
   DigitalDownloadIcon,
 } from 'components/IconPack'
-import { useSelector } from 'react-redux'
 import { GetProductTypes } from 'redux/actions'
+import { Popover } from 'components/popover/Popover'
 
 export const CreateProductTab = ({
   setTitles,
@@ -187,120 +190,130 @@ export const CreateProductTab = ({
         </Col>
 
         <Col xs={24} md={8}>
-          <div
-            className={`${
-              isBasic ? styles.productTypeTabDisabled : styles.productTypeTab
-            } ${tab === 2 && styles.active} w-full`}
-            key={oneTimeSubMenu[0]?.id ?? 2}
-            onClick={() => {
-              // if(isTypeEditable && tab !==2){
-              //   return
-              // }
-              if (!isBasic) {
-                setSelectedTab(oneTimeSubMenu[0]?.id ?? 2)
-                setTab(oneTimeSubMenu[0]?.id ?? 2)
-              }
-            }}
-            onMouseEnter={
-              !isBasic
-                ? () => {
-                    return setIconHover({
-                      ...iconHover,
-                      tab1: false,
-                      tab2: true,
-                      tab3: false,
-                    })
-                  }
-                : null
-            }
-            onMouseLeave={
-              !isBasic
-                ? () => {
-                    return setIconHover({
-                      ...iconHover,
-                      tab1: false,
-                      tab2: false,
-                      tab3: false,
-                    })
-                  }
-                : null
-            }
+          <Popover
+            content="This action can only be performed by a business plan"
+            trigger="hover"
           >
-            <h3>BUSINESS</h3>
-            <span>
-              <OneTimeSubscriptionIcon active={tab === 2} onHover={tab2} />
-            </span>
-            <div className="hidden lg:block">
-              <h2 className="text-lg font-bold">One-Time Subscription</h2>
-              <span>Pay only once</span>
-            </div>
             <div
-              className={`lg:hidden font-semibold ${styles.mobileContainer}`}
+              className={`${
+                isBasic ? styles.productTypeTabDisabled : styles.productTypeTab
+              } ${tab === 2 && styles.active} w-full`}
+              key={oneTimeSubMenu[0]?.id ?? 2}
+              onClick={() => {
+                // if(isTypeEditable && tab !==2){
+                //   return
+                // }
+                if (!isBasic) {
+                  setSelectedTab(oneTimeSubMenu[0]?.id ?? 2)
+                  setTab(oneTimeSubMenu[0]?.id ?? 2)
+                }
+              }}
+              onMouseEnter={
+                !isBasic
+                  ? () => {
+                      return setIconHover({
+                        ...iconHover,
+                        tab1: false,
+                        tab2: true,
+                        tab3: false,
+                      })
+                    }
+                  : null
+              }
+              onMouseLeave={
+                !isBasic
+                  ? () => {
+                      return setIconHover({
+                        ...iconHover,
+                        tab1: false,
+                        tab2: false,
+                        tab3: false,
+                      })
+                    }
+                  : null
+              }
             >
-              One-Time Subscription
-              <span className={`font-medium ${styles.mobileSubTitle}`}>
-                {' '}
-                - Pay only once
+              <h3>BUSINESS</h3>
+              <span>
+                <OneTimeSubscriptionIcon active={tab === 2} onHover={tab2} />
               </span>
+              <div className="hidden lg:block">
+                <h2 className="text-lg font-bold">One-Time Subscription</h2>
+                <span>Pay only once</span>
+              </div>
+              <div
+                className={`lg:hidden font-semibold ${styles.mobileContainer}`}
+              >
+                One-Time Subscription
+                <span className={`font-medium ${styles.mobileSubTitle}`}>
+                  {' '}
+                  - Pay only once
+                </span>
+              </div>
             </div>
-          </div>
+          </Popover>
         </Col>
 
         <Col xs={24} md={8}>
-          <div
-            className={`${
-              isBasic ? styles.productTypeTabDisabled : styles.productTypeTab
-            } ${tab === 3 && styles.active} w-full`}
-            key={membershipMenu[0]?.id ?? 3}
-            onClick={() => {
-              // if(isTypeEditable && tab !==3){
-              //   return
-              // }
-              if (!isBasic) {
-                setSelectedTab(membershipMenu[0]?.id ?? 3)
-                setTab(membershipMenu[0]?.id ?? 3)
-              }
-            }}
-            onMouseEnter={() => {
-              if (!isBasic) {
-                return setIconHover({
-                  ...iconHover,
-                  tab1: false,
-                  tab2: false,
-                  tab3: true,
-                })
-              }
-            }}
-            onMouseLeave={() => {
-              if (!isBasic) {
-                return setIconHover({
-                  ...iconHover,
-                  tab1: false,
-                  tab2: false,
-                  tab3: false,
-                })
-              }
-            }}
+          <Popover
+            content="This action can only be performed by a business plan"
+            trigger="hover"
           >
-            <h3>BUSINESS</h3>
-            <span>
-              <MembershipSubscriptionIcon active={tab === 3} onHover={tab3} />
-            </span>
-
-            <div className="hidden lg:block">
-              <h2 className="text-lg font-bold">Membership</h2>
-              <span>Charge on recurring basis</span>
-            </div>
             <div
-              className={`lg:hidden font-semibold ${styles.mobileContainer}`}
+              className={`${
+                isBasic ? styles.productTypeTabDisabled : styles.productTypeTab
+              } ${tab === 3 && styles.active} w-full`}
+              key={membershipMenu[0]?.id ?? 3}
+              onClick={() => {
+                // if(isTypeEditable && tab !==3){
+                //   return
+                // }
+                if (!isBasic) {
+                  setSelectedTab(membershipMenu[0]?.id ?? 3)
+                  setTab(membershipMenu[0]?.id ?? 3)
+                }
+              }}
+              onMouseEnter={() => {
+                if (!isBasic) {
+                  return setIconHover({
+                    ...iconHover,
+                    tab1: false,
+                    tab2: false,
+                    tab3: true,
+                  })
+                }
+              }}
+              onMouseLeave={() => {
+                if (!isBasic) {
+                  return setIconHover({
+                    ...iconHover,
+                    tab1: false,
+                    tab2: false,
+                    tab3: false,
+                  })
+                }
+              }}
             >
-              Membership
-              <span className={`font-medium ${styles.mobileSubTitle}`}>
-                {' '}
-                - Charge on recurring basis
+              <h3>BUSINESS</h3>
+              <span>
+                <MembershipSubscriptionIcon active={tab === 3} onHover={tab3} />
               </span>
+
+              <div className="hidden lg:block">
+                <h2 className="text-lg font-bold">Membership</h2>
+                <span>Charge on recurring basis</span>
+              </div>
+              <div
+                className={`lg:hidden font-semibold ${styles.mobileContainer}`}
+              >
+                Membership
+                <span className={`font-medium ${styles.mobileSubTitle}`}>
+                  {' '}
+                  - Charge on recurring basis
+                </span>
+              </div>
             </div>
-          </div>
+          </Popover>
         </Col>
       </Row>
       {/* {(tab === 2 || tab === 3) && } */}
