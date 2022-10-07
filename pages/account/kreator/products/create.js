@@ -1,54 +1,60 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-import { CreateProductTab, CheckoutProductTab } from 'components'
-import Tab from 'components/tab'
-import AuthLayout from '../../../../components/authlayout'
-import { Card } from 'components/card'
-import { useSelector } from 'react-redux'
-import { SetProductTab } from 'redux/actions'
-import MembershipTab from 'components/products/BusinessSection/MembershipTab'
-import styles from '../../../../public/css/CreateProducts.module.scss'
+import { CreateProductTab, CheckoutProductTab } from "components";
+import Tab from "components/tab";
+import AuthLayout from "../../../../components/authlayout";
+import { Card } from "components/card";
+import { useSelector } from "react-redux";
+import { SetProductTab } from "redux/actions";
+import MembershipTab from "components/products/BusinessSection/MembershipTab";
+import styles from "../../../../public/css/CreateProducts.module.scss";
 
 const CreateProduct = () => {
-  const router = useRouter()
-  const setProductTab = SetProductTab()
-  const { productTab } = useSelector((state) => state.product)
-  const [titles, setTitles] = useState(['Product Design', 'Checkout'])
-  const [isTabsActive, setIsTabsActive] = useState(true)
-  const [selectedTab, setSelectedTab] = useState(1)
-  const [productId, setProductId] = useState(null)
+  const router = useRouter();
+  const setProductTab = SetProductTab();
+  const { productTab, productID } = useSelector((state) => state.product);
+  // const state = useSelector((state) => state.product);
+  const [titles, setTitles] = useState(["Product Design", "Checkout"]);
+  const [isTabsActive, setIsTabsActive] = useState(true);
+  const [selectedTab, setSelectedTab] = useState(1);
+  const [productId, setProductId] = useState(null);
   useEffect(() => {
     return () => {
-      setProductTab(0)
-    }
-  }, [])
+      setProductTab(0);
+    };
+  }, []);
 
+  console.log("productTab = ", productTab);
+  console.log("state = ", productID);
+
+  const productNotYetCreated = productID === "";
   useEffect(() => {
     if (router.query) {
-      setProductId(router.query.productId)
+      setProductId(router.query.productId);
     }
-  }, [router.query])
+  }, [router.query]);
 
   return (
     <AuthLayout>
       {isTabsActive && (
         <Card
-          style={{ padding: '5px 2px 0', marginBottom: '1em' }}
+          style={{ padding: "5px 2px 0", marginBottom: "1em" }}
           className={styles.cardContainer}
         >
           <Tab
             titles={titles}
+            disableCheckout={productNotYetCreated}
             active={productTab}
             onSelect={(e) => {
-              setProductTab(e)
+              setProductTab(e);
             }}
             key={productTab}
           ></Tab>
         </Card>
       )}
       {productTab === 0 && (
-        <Card style={{ padding: '60px 1.5rem 60px 1.5rem ' }}>
+        <Card style={{ padding: "60px 1.5rem 60px 1.5rem " }}>
           <CreateProductTab
             setSelectedTab={setSelectedTab}
             titles={titles}
@@ -58,7 +64,7 @@ const CreateProduct = () => {
         </Card>
       )}
       {productTab === 1 && (
-        <Card style={{ padding: '60px 48px 60px 48px ' }}>
+        <Card style={{ padding: "60px 48px 60px 48px " }}>
           <CheckoutProductTab {...{ productId }} />
         </Card>
       )}
@@ -66,7 +72,7 @@ const CreateProduct = () => {
         <MembershipTab setIsTabsActive={setIsTabsActive} {...{ productId }} />
       )}
     </AuthLayout>
-  )
-}
+  );
+};
 
-export default CreateProduct
+export default CreateProduct;

@@ -244,14 +244,17 @@ export default function PreviewContent({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-col">
-        <h2 className="mb-7 pt-5 font-semibold text-lg">More Details:</h2>
-        {details !== undefined && Object.keys(details)?.length > 0 && (
-          <div
-            dangerouslySetInnerHTML={{ __html: details?.product_details }}
-          ></div>
-        )}
-      </div>
+      <section className={styles.more}>
+        <div className="mt-5 flex flex-col ">
+          <h2 className="mb-7 pt-5 font-semibold text-lg">More Details:</h2>
+          {details !== undefined && Object.keys(details)?.length > 0 && (
+            <div
+              className={styles.moreDetails}
+              dangerouslySetInnerHTML={{ __html: details?.product_details }}
+            ></div>
+          )}
+        </div>
+      </section>
     </div>
   )
 }

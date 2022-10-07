@@ -36,6 +36,7 @@ import IntMailChimp from '../public/images/int-mail-chimp.svg'
 import IntAwebber from '../public/images/int-awebber.svg'
 import MainAboutLg from '../public/images/main-about-lg.svg'
 import MissionIcon from '../public/images/mission-icon.svg'
+import FooterTelegram from '../public/images/footer-telgram.svg'
 import VisionIcon from '../public/images/vision-icon.svg'
 import MainAbout from '../public/images/total-about.svg'
 import XofDefault from '../public/images/xof.svg'
@@ -368,6 +369,7 @@ export {
   UganFlag,
   SouthAfricanFlag,
   LiberianFlag,
+  FooterTelegram,
   TanzanianFlag,
   LeoneFlag,
   MalawiFlag,

@@ -1,44 +1,44 @@
-import { CheckoutForm } from 'components'
+import { CheckoutForm } from "components";
 // import { Radio } from "components/inputPack";
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { GetPricingTypes } from 'redux/actions'
-import { Input, Radio, Form } from 'antd'
-import styles from './Checkout.module.scss'
-import fetcher from '../../utils/fetcher'
-import useSWR from 'swr'
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { GetPricingTypes } from "redux/actions";
+import { Input, Radio, Form } from "antd";
+import styles from "./Checkout.module.scss";
+import fetcher from "../../utils/fetcher";
+import useSWR from "swr";
 
 export const CheckoutProductTab = ({ productId }) => {
-  const [priceType, setPriceType] = useState('Fixed Price')
-  const getPricingTypes = GetPricingTypes()
-  const { product } = useSelector((state) => state.product)
-  const { store } = useSelector((state) => state.store)
+  const [priceType, setPriceType] = useState("Fixed Price");
+  const getPricingTypes = GetPricingTypes();
+  const { product } = useSelector((state) => state.product);
+  const { store } = useSelector((state) => state.store);
   useEffect(() => {
-    getPricingTypes()
-  }, [])
+    getPricingTypes();
+  }, []);
 
   useEffect(() => {
     if (Object.keys(product).length > 0) {
       if (product.product_price_type) {
-        setPriceType(product.product_price_type)
+        setPriceType(product.product_price_type);
       }
     }
-  }, [product])
+  }, [product]);
   // const filterPriceType = (id) =>
   // 	pricingTypes?.filter((item) => item.pricing_type_id === id);
   const options = [
-    { label: 'Fixed Price', value: 'Fixed Price' },
-    { label: 'Pay What You Want', value: 'Pay What You Want' },
-    { label: 'Installment Payment', value: 'Installment Payment' },
-    { label: 'Make It Free', value: 'Make It Free' },
-  ]
+    { label: "Fixed Price", value: "Fixed Price" },
+    { label: "Pay What You Want", value: "Pay What You Want" },
+    { label: "Installment Payment", value: "Installment Payment" },
+    { label: "Make It Free", value: "Make It Free" },
+  ];
 
-  const { data } = useSWR('v1/kreatesell/store/me', fetcher)
-  const defaultCtaBtnTextSet = data?.store_details?.cta_button
-  const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || '')
+  const { data } = useSWR("v1/kreatesell/store/me", fetcher);
+  const defaultCtaBtnTextSet = data?.store_details?.cta_button;
+  const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || "");
   const changeField = (field) => {
-    setPriceType(field.target.value)
-  }
+    setPriceType(field.target.value);
+  };
   // console.log('defaultCtaBtnTextSet = ', defaultCtaBtnTextSet)
   // console.log('ctaBtnText = ', ctaBtnText)
   return (
@@ -51,7 +51,7 @@ export const CheckoutProductTab = ({ productId }) => {
           label={
             <>
               Call-To-Action Button
-              {ctaBtnText.length === 10 && (
+              {ctaBtnText?.length === 10 && (
                 <span className={styles.charLimit}>
                   10 characters limit reached!
                 </span>
@@ -70,14 +70,15 @@ export const CheckoutProductTab = ({ productId }) => {
             />
           </div>
           <p className="text-xs text-base-gray-200 mt-3">
-            Leave blank if you want the default{' '}
+            Leave blank if you want the default{" "}
             <span className="text-black-100 font-semibold">
-              {ctaBtnText ? ctaBtnText : 'BUY NOW'}
+              {/* {ctaBtnText ? ctaBtnText : "BUY NOW"} */}
+              BUY NOW
             </span>
             . Else, change it to best action request of your taste.
           </p>
         </Form.Item>
-        <div className={styles.antRadioLabel + ' mb-3'}>
+        <div className={styles.antRadioLabel + " mb-3"}>
           {/* <Radio.Group
 						options={options}
 						
@@ -93,9 +94,9 @@ export const CheckoutProductTab = ({ productId }) => {
             <Radio value="Pay What You Want">Pay What You Want</Radio>
             <Radio value="Installment Payment">Installment Payment</Radio>
             <Radio
-              disabled={store?.user?.user_plan !== 'Business'}
+              disabled={store?.user?.user_plan !== "Business"}
               className={
-                store?.user?.user_plan === 'Business'
+                store?.user?.user_plan === "Business"
                   ? styles.businessButton
                   : styles.freeButton
               }
@@ -112,5 +113,5 @@ export const CheckoutProductTab = ({ productId }) => {
         ctaBtnText={ctaBtnText}
       />
     </div>
-  )
-}
+  );
+};

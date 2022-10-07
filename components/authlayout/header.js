@@ -102,6 +102,9 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
   const [info, setInfo] = useState({});
 
   const { pathname } = useRouter();
+  console.log("pathname = ", pathname);
+
+  const isOverLayView = pathname === "/account/kreator/products/preview/[id]";
 
   const {
     store: { store_details },
@@ -122,7 +125,7 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
   }, []);
 
   return (
-    <section className={style.mainNav}>
+    <section className={`${style.mainNav} ${isOverLayView ? style.hide : ""}`}>
       {/* <SetUpPrompt /> */}
       <div className={style.mobileHeader}>
         <>

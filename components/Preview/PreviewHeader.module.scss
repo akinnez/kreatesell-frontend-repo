@@ -86,8 +86,13 @@
   display: flex;
   flex-direction: column;
   padding: 2.5em 2em;
+
+  // @media (max-width: 400px) {
+
+  // }
   @include screen("medium") {
     width: 100%;
+    // border-bottom: 2px solid transparent;
   }
   @media (min-width: 1300px) {
     margin-left: 21px;
@@ -143,6 +148,7 @@
 .desc {
   flex: 1;
   margin-top: 3rem;
+  overflow-y: auto;
 
   p {
     color: $base-gray;
@@ -185,11 +191,30 @@
   align-items: center;
   border-top: 2px solid $white-300;
   padding-top: 1.5em;
+  // overflow-y: auto;
+  min-height: 80px;
+  // border: 1px solid red;
+
   button {
     padding: 1.5rem;
     border-radius: 8px;
     font-weight: 600;
   }
+
+  // h1 {
+  //   font-size: 0.9rem;
+  // }
+  // h2 {
+  //   font-size: 0.8rem;
+  // }
+  // @media (min-width: 400px) {
+  //   h1 {
+  //     font-size: unset;
+  //   }
+  //   h2 {
+  //     font-size: unset;
+  //   }
+  // }
 }
 .publishModal {
   margin: 0 auto;
@@ -254,6 +279,27 @@
 
 .previewPageContainer {
   min-width: 100% !important;
+  // box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+  // width: 100%;
+
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  min-width: 100vw !important;
+  // border: 1px solid red;
+
+  @media (min-width: 320px) {
+    // transform: translateX(20%);
+  }
+
+  @media (min-width: 433px) {
+    transform: translateX(0%);
+  }
+
   .previewContainer {
     display: flex;
     flex-direction: column;
@@ -271,6 +317,10 @@
   p {
     margin-left: 37.33px;
     margin-right: 1rem;
+    text-overflow: ellipsis;
+    max-width: 290px;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .btns {
@@ -280,6 +330,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 0.5rem !important;
+      @media (min-width: 507px) {
+        margin-bottom: unset;
+      }
     }
   }
   @media (min-width: 650px) {
@@ -296,5 +350,15 @@
 .lgLeft {
   @media (max-width: 650px) {
     display: none;
+  }
+}
+
+.more {
+  h2 {
+    margin-top: 4rem !important;
+  }
+  .moreDetails {
+    margin-bottom: 6rem !important;
+    // border: 1px solid red !important;
   }
 }
