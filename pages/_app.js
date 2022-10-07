@@ -15,7 +15,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import 'react-toastify/dist/ReactToastify.css'
 import '@reach/dialog/styles.css'
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { setAuthorizationHeader } from '../utils/index'
 import ChatScript from '../components/ChatWidgetScript'
 
@@ -43,8 +43,13 @@ function MyApp({ Component, pageProps }) {
         async
       />
       <ChatScript />
-
-      <Component {...pageProps} />
+      <PayPalScriptProvider
+        options={{
+          'client-id': process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
+        }}
+      >
+        <Component {...pageProps} />
+      </PayPalScriptProvider>
     </Provider>
   )
 }

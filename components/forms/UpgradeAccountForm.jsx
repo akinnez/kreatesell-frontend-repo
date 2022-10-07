@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 // import Script from 'next/script'
 
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
+import { PayPalButtons } from '@paypal/react-paypal-js'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
 import { usePaystackPayment } from 'react-paystack'
 
@@ -69,6 +69,10 @@ export const UpgradeAccountForm = ({
   setSelectedPlan,
   convertedCurrency,
 }) => {
+  // for paypal
+  // get the state for the sdk script and the dispatch method
+  // const [{ options }, dispatch] = usePayPalScriptReducer();
+
   // const makePlanUpgrade = MakePlanUpgrade();
   const { user } = useSelector((state) => state.auth)
 
@@ -263,21 +267,32 @@ export const UpgradeAccountForm = ({
 
   if (loading) return <Loader />
 
-  if (selectedPaymentMethod === 'paypal' && true)
+  if (selectedPaymentMethod === 'paypal')
     return (
-      <PayPalScriptProvider options={{ 'client-id': 'test' }}>
-        <PayPalButtons style={{ layout: 'horizontal' }} />
-      </PayPalScriptProvider>
+      <PayPalButtons
+        style={{ layout: 'horizontal' }}
+        createOrder={(data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: 'customDescription',
+                amount: {
+                  value: '5000',
+                  currency: 'USD',
+                },
+              },
+            ],
+          })
+        }}
+        onApprove={(data, actions) => {
+          console.log('data is', data)
+          console.log('actions is', actions)
+          alert('You have successfully completed the transaction')
+        }}
+      />
     )
   return (
     <>
-      {/* <Script
-        id="paypal"
-        src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"
-        onLoad={() => {
-          setStripe({ stripe: window.Stripe('pk_test_12345') })
-        }}
-      /> */}
       <div className="px-0 md:px-5">
         <div className="text-center mb-4">
           <h3 className="text-black-100 font-bold text-xl">
