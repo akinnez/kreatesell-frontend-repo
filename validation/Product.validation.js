@@ -22,7 +22,7 @@ export const DigitalProductSchema = () => {
     }),
     product_type_id: Yup.number(),
     content_file_details: Yup.object().shape({
-      product_files: Yup.array(),
+      product_files: Yup.array().required("Please upload a file to continue"),
       file_access_type: Yup.number(),
     }),
     // upload_preview: true,

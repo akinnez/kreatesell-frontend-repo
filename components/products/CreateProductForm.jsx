@@ -143,6 +143,7 @@ export const CreateProductForm = ({
   });
 
   const { errors, setFieldValue, values } = formik;
+  console.log("errors = ", errors);
 
   useEffect(() => {
     getListingStatus();
