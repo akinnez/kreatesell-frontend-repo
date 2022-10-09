@@ -35,6 +35,7 @@ export const CheckoutProductTab = ({ productId }) => {
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   const defaultCtaBtnTextSet = data?.store_details?.cta_button;
+
   const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || "");
   const changeField = (field) => {
     setPriceType(field.target.value);

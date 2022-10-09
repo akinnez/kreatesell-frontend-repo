@@ -10,6 +10,7 @@ export const Input = ({
   name,
   labelStyle,
   errorMessage,
+  value,
   height = "default", //default or small
   ...rest
 }) => {
@@ -25,6 +26,7 @@ export const Input = ({
         type={type}
         placeholder={placeholder}
         name={name}
+        value={value}
         className={`${rest.className} ${
           height === "small" && styles.smallHeight
         } ${type === "search" && styles.search} ${styles.input}`}

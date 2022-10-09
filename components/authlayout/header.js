@@ -102,7 +102,7 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
   const [info, setInfo] = useState({});
 
   const { pathname } = useRouter();
-  console.log("pathname = ", pathname);
+  // console.log("pathname = ", pathname);
 
   const isOverLayView = pathname === "/account/kreator/products/preview/[id]";
 
