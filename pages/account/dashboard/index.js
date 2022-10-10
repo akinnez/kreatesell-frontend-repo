@@ -10,6 +10,7 @@ import styles from "public/css/DashboardPage.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { mutate } from "swr";
+import axiosAPI from "utils/axios";
 
 // import useSWR from "swr";
 
@@ -37,23 +38,22 @@ const Dashboard = () => {
     }
   };
 
-  // console.log('isAn')
-
-  console.log("isAffiliate = ", isAnAffiliate);
-
   const getUserVisitStatus = useCallback(() => {
-    axios
-      .get(mainStoreUrl)
-      .then((res) => {
+    axiosAPI.request(
+      "get",
+      mainStoreUrl,
+      (res) => {
         console.log(
-          "isAffiliate from endpoint = ",
+          "isAnAffiliate from endpoint = ",
           res?.data?.user?.is_affiliate
         );
         setIsAnAffiliate(res?.data?.user?.is_affiliate);
         setIsFirstTimeUser(res?.data?.user?.is_first_time);
-        mutate(mainStoreUrl);
-      })
-      .catch((error) => console.log(error));
+      },
+      (err) => {
+        console.log("error = ", err);
+      }
+    );
   }, [mainStoreUrl]);
 
   // const { data } = useSWR("v1/kreatesell/store/me", fetcher);
