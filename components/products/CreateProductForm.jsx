@@ -98,6 +98,8 @@ export const CreateProductForm = ({
     isBasicPlan: false,
   };
 
+  console.log("contentzipFiles = ", productFile);
+
   const handleSubmit = (data) => {
     // console.log("Data is", data)
     if (["oneTimeSubscription", "membership"].includes(productType)) {
@@ -114,6 +116,7 @@ export const CreateProductForm = ({
     delete data.isBasicPlan;
     // console.log(data)
     const result = transformToFormData(data, "contentZipFiles");
+    console.log("result = ", result);
     createProduct(result, async () => {
       if (productId) {
         await getProductByID(productId);

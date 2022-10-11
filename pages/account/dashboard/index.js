@@ -24,8 +24,6 @@ const Dashboard = () => {
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
   const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-  // const user = useSelector((state) => state?.auth?.user);
-
   const hideModal = async () => {
     setModalVisible(false);
     try {

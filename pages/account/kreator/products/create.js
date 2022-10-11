@@ -25,8 +25,8 @@ const CreateProduct = () => {
     };
   }, []);
 
-  console.log("productTab = ", productTab);
-  console.log("state = ", productID);
+  // console.log("productTab = ", productTab);
+  // console.log("state = ", productID);
 
   const productNotYetCreated = productID === "";
   useEffect(() => {
