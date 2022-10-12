@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 // import Script from 'next/script'
 
-import { PayPalButtons } from '@paypal/react-paypal-js'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
 import { usePaystackPayment } from 'react-paystack'
 
@@ -71,7 +71,7 @@ export const UpgradeAccountForm = ({
 }) => {
   // for paypal
   // get the state for the sdk script and the dispatch method
-  // const [{ options }, dispatch] = usePayPalScriptReducer();
+  const [{ options }, dispatch] = usePayPalScriptReducer()
 
   // const makePlanUpgrade = MakePlanUpgrade();
   const { user } = useSelector((state) => state.auth)
@@ -253,10 +253,11 @@ export const UpgradeAccountForm = ({
   useEffect(() => {
     if (Object.keys(convertedCurrency).length > 0) {
       setConvertedPrice(price * convertedCurrency?.buy_rate)
+      onCurrencyChange()
     }
   }, [convertedCurrency])
 
-  // console.log("client secret is", clientSecret);
+  console.log('active', activeCurrency.currency)
   const handleSelect = (currency) => {
     setActiveCurrency(currency)
   }
@@ -265,32 +266,45 @@ export const UpgradeAccountForm = ({
     setSelectedPaymentMethod(method)
   }
 
+  // this is to trigger rerender for paypal options
+  function onCurrencyChange() {
+    if (['USD', 'GBP'].includes(activeCurrency?.currency)) {
+      dispatch({
+        type: 'resetOptions',
+        value: {
+          ...options,
+          currency: activeCurrency.currency,
+        },
+      })
+    }
+  }
+
   if (loading) return <Loader />
 
-  if (selectedPaymentMethod === 'paypal')
-    return (
-      <PayPalButtons
-        style={{ layout: 'horizontal' }}
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: 'customDescription',
-                amount: {
-                  value: '5000',
-                  currency: 'USD',
-                },
-              },
-            ],
-          })
-        }}
-        onApprove={(data, actions) => {
-          console.log('data is', data)
-          console.log('actions is', actions)
-          alert('You have successfully completed the transaction')
-        }}
-      />
-    )
+  // if (selectedPaymentMethod === 'paypal')
+  //   return (
+  //     <PayPalButtons
+  //       style={{ layout: 'horizontal' }}
+  //       createOrder={(data, actions) => {
+  //         return actions.order.create({
+  //           purchase_units: [
+  //             {
+  //               description: 'customDescription',
+  //               amount: {
+  //                 value: '5000',
+  //                 currency: 'USD',
+  //               },
+  //             },
+  //           ],
+  //         })
+  //       }}
+  //       onApprove={(data, actions) => {
+  //         console.log('data is', data)
+  //         console.log('actions is', actions)
+  //         alert('You have successfully completed the transaction')
+  //       }}
+  //     />
+  //   )
   return (
     <>
       <div className="px-0 md:px-5">
@@ -412,25 +426,51 @@ export const UpgradeAccountForm = ({
                 </p>
               </div>
               <div className="grid gap-4 grid-cols-3 pt-3">
-                {paymentMethods.map(({ type, icon, value }) => (
-                  <div
-                    key={value}
-                    onClick={() => handlePaymentMethod(value)}
-                    className={`${
-                      selectedPaymentMethod === value ? 'activeCard' : 'card'
-                    } p-2 flex justify-around items-center`}
-                  >
-                    <Image src={icon} alt={type} />
-                    {selectedPaymentMethod === value && (
-                      <Image
-                        src={ActiveTick}
-                        alt="active"
-                        width="16"
-                        height="16"
-                      />
-                    )}
-                  </div>
-                ))}
+                {paymentMethods
+                  ?.filter(({ value }) => value !== 'paypal')
+                  .map(({ type, icon, value }) => (
+                    <div
+                      key={value}
+                      onClick={() => handlePaymentMethod(value)}
+                      className={`${
+                        selectedPaymentMethod === value ? 'activeCard' : 'card'
+                      } p-2 flex justify-around items-center`}
+                    >
+                      <Image src={icon} alt={type} />
+                      {selectedPaymentMethod === value && (
+                        <Image
+                          src={ActiveTick}
+                          alt="active"
+                          width="16"
+                          height="16"
+                        />
+                      )}
+                    </div>
+                  ))}
+                <PayPalButtons
+                  style={{ layout: 'horizontal', label: 'pay' }}
+                  className={`flex justify-around items-center`}
+                  createOrder={(data, actions) => {
+                    return actions.order.create({
+                      purchase_units: [
+                        {
+                          description: 'customDescription',
+                          amount: {
+                            value: Number(convertedPrice).toFixed(2),
+                            currency:
+                              activeCurrency?.currency ||
+                              selectedCurrency.currency,
+                          },
+                        },
+                      ],
+                    })
+                  }}
+                  onApprove={(data, actions) => {
+                    console.log('data is', data)
+                    console.log('actions is', actions)
+                    alert('You have successfully completed the transaction')
+                  }}
+                />
               </div>
             </>
           )}
