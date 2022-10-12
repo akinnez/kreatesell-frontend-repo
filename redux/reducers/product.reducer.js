@@ -50,7 +50,7 @@ const ProductReducer = (state = initialState, { type, payload }) => {
     //   return { ...state, loading: false };
 
     case types.CREATE_PRODUCT.SUCCESS:
-      if (payload.token) {
+      if (payload?.token) {
         return { ...state, loading: false, productID: payload.token }
       }
       return { ...state, loading: false, ...payload }
