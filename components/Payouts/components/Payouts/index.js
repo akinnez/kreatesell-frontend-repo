@@ -1,63 +1,61 @@
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Typography, Button, Table, Pagination, Spin } from "antd";
-import AsyncDataToCSV from "components/DataToCSV/AsyncDataToCSV";
-import PaginationSizeChanger from "components/PaginationSizeChanger";
-import Filters from "../Filters";
-import PayoutsMobileView from "../PayoutsMobileView";
-import { payoutsColumns } from "../../columns/payoutsColumns";
-import { payoutsHeaders } from "../../utils/payoutsHeaders";
-import useFilters from "../../useFilters";
-import axiosApi from "utils/axios";
-import { showToast } from "utils";
-import styles from "./index.module.scss";
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Typography, Button, Table, Pagination, Spin } from 'antd'
+import AsyncDataToCSV from 'components/DataToCSV/AsyncDataToCSV'
+import PaginationSizeChanger from 'components/PaginationSizeChanger'
+import Filters from '../Filters'
+import PayoutsMobileView from '../PayoutsMobileView'
+import { payoutsColumns } from '../../columns/payoutsColumns'
+import { payoutsHeaders } from '../../utils/payoutsHeaders'
+import useFilters from '../../useFilters'
+import axiosApi from 'utils/axios'
+import { showToast } from 'utils'
+import styles from './index.module.scss'
 
-const { Title, Text } = Typography;
-const rowKey = record => record.id;
+const { Title, Text } = Typography
+const rowKey = (record) => record.id
 
 const Payouts = ({ bankDetails, handleClick }) => {
-  const [loading, setLoading] = useState(false);
-  const [payouts, setPayouts] = useState({ data: [], total: 0 });
+  const [loading, setLoading] = useState(false)
+  const [payouts, setPayouts] = useState({ data: [], total: 0 })
 
-  const { url, filters, setFilters } = useFilters(
-    "v1/kreatesell/store/payouts"
-  );
+  const { url, filters, setFilters } = useFilters('v1/kreatesell/store/payouts')
 
   useEffect(() => {
     if (bankDetails) {
-      setLoading(true);
+      setLoading(true)
 
       axiosApi.request(
-        "get",
+        'get',
         url,
-        res => {
-          setLoading(false);
-          setPayouts(s => ({
+        (res) => {
+          setLoading(false)
+          setPayouts((s) => ({
             ...s,
             data: res.data.data,
             total: res.data.total_records,
-          }));
+          }))
         },
         () => {
-          setLoading(false);
+          setLoading(false)
           showToast(
-            "An error has occurred and we cant fetch your payouts right now. Please try again later",
-            "error"
-          );
-        }
-      );
+            'An error has occurred and we cant fetch your payouts right now. Please try again later',
+            'error',
+          )
+        },
+      )
     }
-  }, [bankDetails, url]);
+  }, [bankDetails, url])
 
-  const handlePageChange = page => {
-    setFilters({ ...filters, page });
-  };
+  const handlePageChange = (page) => {
+    setFilters({ ...filters, page })
+  }
 
   return (
     <>
       <header className={styles.header}>
         <Title level={2}>Payouts</Title>
-        <Button type="primary" size="large" onClick={() => handleClick("2")}>
+        <Button type="primary" size="large" onClick={() => handleClick('2')}>
           Payout Setting
         </Button>
       </header>
@@ -79,6 +77,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
             setFilters={setFilters}
           />
         </section>
+        {/* {console.log('payouts', payouts)} */}
         <section className={styles.data__section}>
           <PayoutsMobileView payouts={payouts.data} />
           <div className={styles.table__wrapper}>
@@ -104,7 +103,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
         )}
       </Spin>
       {!bankDetails && (
-        <section className={styles["payout__set-up"]}>
+        <section className={styles['payout__set-up']}>
           <p>
             <Text>
               To start receiving money from your sales ensure you setup your
@@ -117,7 +116,7 @@ const Payouts = ({ bankDetails, handleClick }) => {
         </section>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Payouts;
+export default Payouts
