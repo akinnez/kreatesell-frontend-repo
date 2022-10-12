@@ -13,7 +13,7 @@ export const CreateProduct = () => {
       (res) => {
         dispatch({ type: types.CREATE_PRODUCT.SUCCESS, payload: res })
         showToast(res?.message, 'info')
-        successCallback?.()
+        successCallback?.(res)
       },
       (err) => {
         dispatch({ type: types.CREATE_PRODUCT.FAILURE, payload: err })

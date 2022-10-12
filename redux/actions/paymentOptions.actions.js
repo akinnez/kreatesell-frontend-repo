@@ -11,7 +11,7 @@ export const SubmitPaymentOptions = () => {
       `post`,
       `v1/kreatesell/payment/request/payment-option`,
       (res) => {
-        dispatch({ type: types.ENABLE_PAYMENT_METHODS.SUCCESS, payload: user })
+        dispatch({ type: types.ENABLE_PAYMENT_METHODS.SUCCESS })
         showToast(res?.message || 'Generic message')
         successCallback?.(res)
       },

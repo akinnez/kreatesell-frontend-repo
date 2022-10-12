@@ -10,16 +10,23 @@ export const Popover = ({
   placement,
   visible,
   width,
+  popoverActive = true,
   ...rest
 }) => {
   return (
-    <AntDPopover
-      className={styles.popOverButtonContainer}
-      style={{ width: width }}
-      {...{ content, trigger, placement, visible }}
-      {...rest}
-    >
-      {children}
-    </AntDPopover>
+    <>
+      {popoverActive ? (
+        <AntDPopover
+          className={styles.popOverButtonContainer}
+          style={{ width: width }}
+          {...{ content, trigger, placement, visible }}
+          {...rest}
+        >
+          {children}
+        </AntDPopover>
+      ) : (
+        <>{children}</>
+      )}
+    </>
   )
 }

@@ -46,37 +46,38 @@ export const SignupForm = () => {
     }
     // console.log('router.query', router.query)
     // if user is from pricing page, automatically log user in
-    if (
-      Object.keys(router.query).length > 0 &&
-      Object.keys(router.query).includes('fromPricing')
-    ) {
-      // console.log('router.query', router.query)
-      await signup(
-        formData,
-        (val) => {
-          data.username = data.Email
-          data.password = data.Password
-          delete data.Password
-          delete data.Email
-          delete data.FullName
-          delete data.phoneNo
-          login(
-            data,
-            (res) => {
-              console.log(res)
-              return router.push('/account/kreator/settings?activeTab=billing')
-            },
-            (err) => {
-              console.log('error is', err)
-            },
-          )
-        },
-        (err) => {
-          console.log('error is', err)
-        },
-      )
-      return
-    }
+    // this was the former flow
+    // if (
+    //   Object.keys(router.query).length > 0 &&
+    //   Object.keys(router.query).includes('fromPricing')
+    // ) {
+    //   // console.log('router.query', router.query)
+    //   await signup(
+    //     formData,
+    //     (val) => {
+    //       data.username = data.Email
+    //       data.password = data.Password
+    //       delete data.Password
+    //       delete data.Email
+    //       delete data.FullName
+    //       delete data.phoneNo
+    //       login(
+    //         data,
+    //         (res) => {
+    //           console.log(res)
+    //           return router.push('/account/kreator/settings?activeTab=billing')
+    //         },
+    //         (err) => {
+    //           console.log('error is', err)
+    //         },
+    //       )
+    //     },
+    //     (err) => {
+    //       console.log('error is', err)
+    //     },
+    //   )
+    //   return
+    // }
 
     /**Signup endpoint is called with data */
     await signup(formData, () => {

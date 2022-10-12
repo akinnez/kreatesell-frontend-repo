@@ -1,10 +1,10 @@
-import { Button, Divider, Modal, Typography } from "antd";
-import { showToast } from "utils";
-import axiosApi from "utils/axios";
-import styles from "./index.module.scss";
+import { Button, Divider, Modal, Typography } from 'antd'
+import { showToast } from 'utils'
+import axiosApi from 'utils/axios'
+import styles from './index.module.scss'
 
-const { Text } = Typography;
-const fee = 2;
+const { Text } = Typography
+const fee = 2
 
 const WithdrawModal = ({
   withdrawModal,
@@ -22,22 +22,22 @@ const WithdrawModal = ({
       narration: `Payout transaction for ${bankDetails.account_name}`,
       currency: bankDetails.currency_name,
       debit_currency: bankDetails.currency_name,
-    };
+    }
 
     axiosApi.request(
-      "post",
+      'post',
       `${process.env.BASE_URL}v1/kreatesell/payment/transfer`,
       () => {
-        showSuccess();
-        hideModal();
+        showSuccess()
+        hideModal()
       },
-      err => {
-        showToast(err.message, "error");
-        hideModal();
+      (err) => {
+        showToast(err.message, 'error')
+        hideModal()
       },
-      data
-    );
-  };
+      data,
+    )
+  }
 
   return (
     <Modal
@@ -62,8 +62,8 @@ const WithdrawModal = ({
             </p>
           </div>
           <div className={styles.bank__info}>
-            {bankDetails.country_id === "1" ||
-            bankDetails.country_id === "72" ? (
+            {bankDetails.country_id === '1' ||
+            bankDetails.country_id === '72' ? (
               <>
                 <p>
                   <Text>Account Number:</Text>
@@ -108,7 +108,7 @@ const WithdrawModal = ({
         </footer>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default WithdrawModal;
+export default WithdrawModal

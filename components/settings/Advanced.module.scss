@@ -97,6 +97,7 @@
           @include flex(column-reverse, null, center);
           gap: 3rem;
           padding: 1rem;
+          background: #fff;
         }
     }
 
@@ -165,7 +166,7 @@
               .top{
                 @include flex(column, center, null);
                 .downArrow{
-                  display: block;
+                  display: block !important;
                 }
                 &>span{
                   display: none;
@@ -195,6 +196,7 @@
           .stepsRight{
             display: none;
           }
+          background: #fff;
         }
     }
 }
