@@ -132,6 +132,10 @@ export const CreateProductTab = ({
     }
   }, [tab])
 
+  function isPlanBusiness() {
+    return store?.user?.user_plan.toLowerCase() === 'business'
+  }
+
   return (
     <div className={`px-0 lg:px-8 ${styles.container}`}>
       <h3 className="text-black-100 font-bold text-2xl">Add a New Product</h3>
@@ -193,6 +197,7 @@ export const CreateProductTab = ({
           <Popover
             content="This action can only be performed by a business plan"
             trigger="hover"
+            popoverActive={!isPlanBusiness()}
           >
             <div
               className={`${
@@ -258,6 +263,7 @@ export const CreateProductTab = ({
           <Popover
             content="This action can only be performed by a business plan"
             trigger="hover"
+            popoverActive={!isPlanBusiness()}
           >
             <div
               className={`${
