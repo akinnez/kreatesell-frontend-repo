@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone'
 
 function useMyDropzone() {
   const [files, setFiles] = useState([])
-  const [filePreview, setFilePreview] = useState(null)
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     // console.log('rejectedFiles', rejectedFiles)
     // console.log('acceptedFiles', acceptedFiles)
@@ -15,13 +14,7 @@ function useMyDropzone() {
       reader.onload = () => {
         // console.log("file upload started")
         // Do whatever you want with the file contents
-        // console.log('file is', file)
         setFiles((prev) => [...prev, file])
-        setFilePreview(
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          }),
-        )
         const binaryStr = reader.result
         // console.log(binaryStr)
       }
@@ -36,7 +29,7 @@ function useMyDropzone() {
     // },
   })
 
-  return { getInputProps, getRootProps, isDragActive, files, filePreview }
+  return { getInputProps, getRootProps, isDragActive, files }
 }
 
 export default useMyDropzone
