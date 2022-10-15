@@ -13,7 +13,7 @@ import styles from "../../../../public/css/CreateProducts.module.scss";
 const CreateProduct = () => {
   const router = useRouter();
   const setProductTab = SetProductTab();
-  const { productTab, productID } = useSelector((state) => state.product);
+  const { productTab, product } = useSelector((state) => state.product);
   // const state = useSelector((state) => state.product);
   const [titles, setTitles] = useState(["Product Design", "Checkout"]);
   const [isTabsActive, setIsTabsActive] = useState(true);
@@ -26,9 +26,10 @@ const CreateProduct = () => {
   }, []);
 
   // console.log("productTab = ", productTab);
-  // console.log("state = ", productID);
+  const productName = product?.product_details?.product_name;
 
-  const productNotYetCreated = productID === "";
+  // const productCreationNotComplete = productName === undefined || productName === "";
+  const productCreationNotComplete = !productName;
   useEffect(() => {
     if (router.query) {
       setProductId(router.query.productId);
@@ -44,7 +45,7 @@ const CreateProduct = () => {
         >
           <Tab
             titles={titles}
-            disableCheckout={productNotYetCreated}
+            disableCheckout={productCreationNotComplete}
             active={productTab}
             onSelect={(e) => {
               setProductTab(e);

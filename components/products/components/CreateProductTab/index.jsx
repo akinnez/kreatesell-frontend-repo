@@ -83,7 +83,7 @@ const CreateProductTab = () => {
   return (
     <>
       <header className={styles.header}>
-        <Title level={2}>Add a New Product</Title>
+        <Title level={2}> Product</Title>
         <Text>Product Type</Text>
         <div className={styles.productTypes}>{productTypeMapper}</div>
       </header>
