@@ -98,7 +98,7 @@ export const CreateProductForm = ({
     isBasicPlan: false,
   };
 
-  console.log("contentzipFiles = ", productFile);
+  // console.log("isImageFilled = ", isImageFilled);
 
   const handleSubmit = (data) => {
     // console.log("Data is", data)
@@ -188,7 +188,7 @@ export const CreateProductForm = ({
   const findUnsupportedFileFormat = imageUploads.find((item) =>
     item?.file?.name.includes(".png")
   );
-  // console.log("fileFormat = ", findUnsupportedFileFormat);
+  // console.log("imageUploads = ", imageUploads);
 
   useEffect(() => {
     setFieldValue("product_details", contents);
