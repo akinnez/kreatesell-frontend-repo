@@ -7,11 +7,10 @@ export const DigitalProductSchema = () => {
       "Product description is required"
     ),
     enable_preorder: Yup.boolean(),
-    // upload_content: Yup.boolean().oneOf(
-    //   [true],
-    //   "Please upload a file to proceed"
-    // ),
 
+    contentZipFiles: Yup.mixed()
+      .nullable()
+      .required("Please upload a file to proceed"),
     product_visibility_status: Yup.number(),
     preorder_details: Yup.object().shape({
       preorder_release_date: Yup.date(),
