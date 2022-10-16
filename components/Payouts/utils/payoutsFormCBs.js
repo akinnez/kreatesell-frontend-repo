@@ -132,41 +132,44 @@ export const validateAccountOnBlur = ({
   setValidating,
   // setIsValid,
 }) => {
+  // console.log('formik.values', formik.values)
   formik.handleBlur(e)
-
+  // only validate if country is Nigeria
   const bankId = formik.values.bank
   const accountNumber = formik.values.account_number.trim()
+  // only validate if country is Nigeria
+  if (formik.values.country === 1) {
+    if (!accountNumber || !bankId) return
 
-  if (!accountNumber || !bankId) return
+    setValidating(true)
+    // setIsValid(true);
 
-  setValidating(true)
-  // setIsValid(true);
+    axiosApi.request(
+      'post',
+      `${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
+      (res) => {
+        setValidating(false)
 
-  axiosApi.request(
-    'post',
-    `${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
-    (res) => {
-      setValidating(false)
+        if (res.status === 'error') {
+          showToast(res.message, 'warn')
+          // setIsValid(false);
+          return
+        }
 
-      if (res.status === 'error') {
-        showToast(res.message, 'warn')
+        formik.setFieldValue('account_name', res.data.account_name)
+        form.setFieldsValue({ account_name: res.data.account_name })
+      },
+      () => {
+        setValidating(false)
         // setIsValid(false);
-        return
-      }
-
-      formik.setFieldValue('account_name', res.data.account_name)
-      form.setFieldsValue({ account_name: res.data.account_name })
-    },
-    () => {
-      setValidating(false)
-      // setIsValid(false);
-      showToast('Unable to verify bank account number', 'error')
-    },
-    {
-      account_number: accountNumber,
-      account_bank: getData(banks, bankId)?.bank_code,
-    },
-  )
+        showToast('Unable to verify bank account number', 'error')
+      },
+      {
+        account_number: accountNumber,
+        account_bank: getData(banks, bankId)?.bank_code,
+      },
+    )
+  }
 }
 
 export const createSubmitHandler = ({

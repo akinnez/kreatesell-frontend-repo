@@ -41,6 +41,23 @@ const Pricing = () => {
       )[0].annually_value
     }
   }
+  const handleBtnClick = (plan) => {
+    // redirect to signup page, while passing a value to history state
+    // sign up user and login immediately and then go to payment page
+    setSelectedPlan(plan)
+
+    router.push(
+      {
+        pathname: '/signup',
+        query: {
+          fromPricing: true,
+        },
+      },
+      '/signup',
+    )
+    // return;
+  }
+
   const [activeBtn, setActiveBtn] = useState({
     annually: true,
     monthly: false,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { useSelector } from 'react-redux'
 import Webcam from 'react-webcam'
 
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
@@ -39,17 +40,15 @@ function dataURLtoFile(dataurl, filename) {
   return new File([u8arr], filename, { type: mime })
 }
 
-function FiletoDataURL(file) {
-  // Encode the file using the FileReader API
-  const reader = new FileReader()
-  reader.onloadend = () => {
-    // Use a regex to remove data url part
-    const base64String = reader.result.replace('data:', '').replace(/^.+,/, '')
-
-    console.log('base64String', base64String)
-    // Logs wL2dvYWwgbW9yZ...
-  }
+function FiletoDataURL(file, setter) {
+  var reader = new FileReader()
   reader.readAsDataURL(file)
+  reader.onload = function () {
+    setter(reader.result)
+  }
+  reader.onerror = function (error) {
+    console.log('Error: ', error)
+  }
 }
 
 const videoConstraints = {
@@ -76,15 +75,25 @@ const paymentModes = [
   },
 ]
 
+const status = {
+  Denied: 'Denied',
+  Pending: 'REQUEST UNDER REVIEW',
+  Approved: 'REQUEST APPROVED',
+  // request will be removed eventually
+  Request: 'REQUEST UNDER REVIEW',
+}
+
+// the 3 kyc status are: Pending, Approved, Denied
 const Advanced = () => {
   const {
     getInputProps,
     getRootProps,
     isDragActive,
     files: dropZoneFiles,
-    filePreview: dropZoneFilePreview,
   } = useMyDropzone()
+  const { store } = useSelector((state) => state.store)
   const [checked, setChecked] = useState(false)
+  const [statusStyle, setStatusStyle] = useState('')
   const [webcamImgSrc, setWebcamImgSrc] = useState(null)
   const [fileUploadImageSrc, setFileUploadImageSrc] = useState(null)
   const [showWebcamModal, setShowWebcamModal] = useState(false)
@@ -93,6 +102,13 @@ const Advanced = () => {
     webcamFile: null,
     validIdCard: null,
   })
+
+  // this will be used for setting the className for kyc status div
+  useEffect(() => {
+    if (store?.kyc_status) {
+      setStatusStyle(`statEllipse${store?.kyc_status}`)
+    }
+  }, [store?.kyc_status])
 
   const submitPaymentOptions = SubmitPaymentOptions()
 
@@ -112,18 +128,16 @@ const Advanced = () => {
   }
 
   const handleWebcam = (imgSrc) => {
-    console.log('imgSrc', imgSrc)
     // convert to file object
     setWebcamImgSrc(imgSrc)
     const file = dataURLtoFile(imgSrc, 'selfie.jpeg')
-    // console.log('file is', file)
     setFiles((prev) => ({ ...prev, webcamFile: file }))
     // close the modal
     closeModal()
   }
 
   const handleSubmit = (e) => {
-    // do validations to make sure each fields have been uploaded or filled
+    //TODO: do validations to make sure each fields have been uploaded or filled
     const formData = new FormData()
     formData.append('Selfie', files.webcamFile)
     formData.append('Valid_Card', files.validIdCard)
@@ -135,19 +149,10 @@ const Advanced = () => {
 
   useEffect(() => {
     if (dropZoneFiles.length > 0) {
-      const file = URL.createObjectURL(dropZoneFiles[0])
-      setFileUploadImageSrc(file)
+      FiletoDataURL(dropZoneFiles[0], setFileUploadImageSrc)
       setFiles((prev) => ({ ...prev, validIdCard: dropZoneFiles[0] }))
     }
   }, [dropZoneFiles?.length])
-
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    return () => URL.revokeObjectURL(dropZoneFilePreview?.preview)
-  }, [])
-
-  console.log('files is', files)
-  console.log('dropZoneFilePreview is', dropZoneFilePreview)
 
   return (
     <>
@@ -179,156 +184,179 @@ const Advanced = () => {
                 </div>
               ))}
             </div>
-            <span className={styles.status}>Denied</span>
-            <h3 className={styles.reasonsHeader}>
-              Reasons for rejecting second level verification
-            </h3>
-            <div className={styles.reasonsContainer}>
-              <div className={styles.reasonsHeader}>Identity Card/Slip</div>
-              <div className={styles.reasons}>
-                <div className={styles.reason}>
-                  <span className={styles.number}>1</span>The document uploaded
-                  is not a valid identity card/slip
-                </div>
-                <div className={styles.reason}>
-                  <span className={styles.number}>2</span>Your name does not
-                  match with the name on your identity card/slip
-                </div>
-                <div className={styles.reason}>
-                  <span className={styles.number}>3</span>Your identity number
-                  does not match with the number on your Identity card/slip
-                </div>
-                <div className={styles.reason}>
-                  <span className={styles.number}>4</span>Your identity
-                  card/slip is expired
-                </div>
+            {store?.kyc_status && (
+              <div className={styles.status}>
+                <div className={styles[statusStyle]}>{'  '}</div>
+                {status[store?.kyc_status]}
               </div>
-            </div>
+            )}
+
+            {/* only show this section for rejected requests */}
+            {store?.kyc_status === 'Denied' && (
+              <>
+                <h3 className={styles.reasonsHeader}>
+                  Reasons for rejecting second level verification
+                </h3>
+                <div className={styles.reasonsContainer}>
+                  <div className={styles.reasonsHeader}>Identity Card/Slip</div>
+                  <div className={styles.reasons}>
+                    <div className={styles.reason}>
+                      <span className={styles.number}>1</span>The document
+                      uploaded is not a valid identity card/slip
+                    </div>
+                    <div className={styles.reason}>
+                      <span className={styles.number}>2</span>Your name does not
+                      match with the name on your identity card/slip
+                    </div>
+                    <div className={styles.reason}>
+                      <span className={styles.number}>3</span>Your identity
+                      number does not match with the number on your Identity
+                      card/slip
+                    </div>
+                    <div className={styles.reason}>
+                      <span className={styles.number}>4</span>Your identity
+                      card/slip is expired
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <div className={styles.right}>
             <Image src={AdvancedSettings} alt="" />
           </div>
         </section>
-        <section className={styles.steps}>
-          <div className={styles.stepsLeft}>
-            <div className={styles.top}>
-              {/* 1st card */}
-              <div
-                className={styles.advancedCardContainer}
-                onClick={() => openSelfieModal()}
-              >
-                {true && (
-                  <>
-                    <h1 className={styles.title}>Step 1</h1>
-                    <div className={styles.card}>
-                      {webcamImgSrc ? (
-                        <div style={{ position: 'relative' }}>
-                          <h3
-                            style={{
-                              position: 'absolute',
-                              top: '50%',
-                              zIndex: '100',
-                              color: '#0072EF',
-                            }}
-                          >
-                            Take another selfie
-                          </h3>
+        {/* only show this section for when kyc status is null or Denied */}
+        {[null, 'Denied', 'Request'].includes(store?.kyc_status) && (
+          <section className={styles.steps}>
+            <div className={styles.stepsLeft}>
+              <div className={styles.top}>
+                {/* 1st card */}
+                <div
+                  className={styles.advancedCardContainer}
+                  onClick={() => openSelfieModal()}
+                >
+                  {true && (
+                    <>
+                      <h1 className={styles.title}>Step 1</h1>
+                      <div
+                        className={`${styles.card} ${
+                          !!webcamImgSrc && styles.filled
+                        }`}
+                      >
+                        {webcamImgSrc ? (
+                          <div className={styles.filledText}>
+                            <h3>Take another selfie</h3>
+                            <div className={styles.imageWrapper}>
+                              <Image
+                                src={webcamImgSrc}
+                                alt=""
+                                width={230}
+                                height={200}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <Image src={AdvancedSelfie} alt="" />
+                            <p>Take a selfie</p>
+                          </>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* show this arrow for tablet view */}
+                <div className={styles.downArrow}>
+                  <Image src={DownArrow} alt="" height={50} width={50} />
+                </div>
+                <span>
+                  <Image src={RightArrow2} alt="" />
+                </span>
+                <div
+                  {...getRootProps()}
+                  className={styles.advancedCardContainer}
+                >
+                  <h1 className={styles.title}>Step 2</h1>
+                  <div
+                    className={`${styles.card} ${
+                      !!fileUploadImageSrc && styles.filled
+                    }`}
+                  >
+                    <input {...getInputProps({ multiple: false })} />
+                    {fileUploadImageSrc ? (
+                      <div className={styles.filledText}>
+                        <h3>Change ID Card</h3>
+                        <div className={styles.imageWrapper}>
                           <Image
-                            src={webcamImgSrc}
+                            src={fileUploadImageSrc}
                             alt=""
                             width={230}
                             height={200}
-                            // layout="fill"
                           />
                         </div>
-                      ) : (
+                      </div>
+                    ) : (
+                      <>
                         <>
-                          <Image src={AdvancedSelfie} alt="" />
-                          <p>Take a selfie</p>
+                          <Image src={AdvancedIdCard} alt="" />
+                          <p>Upload Valid ID Card</p>
                         </>
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-              {/* show this arrow for tablet view */}
-              <div className={styles.downArrow}>
-                <Image src={DownArrow} alt="" height={50} width={50} />
-              </div>
-              <span>
-                <Image src={RightArrow2} alt="" />
-              </span>
-              <div {...getRootProps()} className={styles.advancedCardContainer}>
-                <input {...getInputProps({ multiple: false })} />
-
-                {/* {fileUploadImageSrc ? (
-                  <div style={{ border: '1px solid' }}>
-                    <Image
-                      src={fileUploadImageSrc}
-                      alt=""
-                      width={230}
-                      height={200}
-                    />
+                      </>
+                    )}
                   </div>
-                ) : ( */}
-                <>
-                  <h1 className={styles.title}>Step 2</h1>
-                  <div className={styles.card}>
-                    <Image src={AdvancedIdCard} alt="" />
-                    <p>Upload Valid ID Card</p>
-                  </div>
-                </>
-                {/* )} */}
+                </div>
+                {/* show this arrow for tablet view */}
+                <div className={styles.downArrow}>
+                  <Image
+                    src={DownArrow}
+                    className={styles.downArrow}
+                    alt=""
+                    height={50}
+                    width={50}
+                  />
+                </div>
               </div>
-              {/* show this arrow for tablet view */}
-              <div className={styles.downArrow}>
-                <Image
-                  src={DownArrow}
-                  className={styles.downArrow}
-                  alt=""
-                  height={50}
-                  width={50}
-                />
+              <div className={styles.bottom}>
+                <h1 className={styles.title}>Step 3</h1>
+                <Form layout="vertical" onFinish={handleSubmit}>
+                  <Input
+                    // placeholder=""
+                    extraLabel="Enter a Valid Identification Number"
+                    placeholder="Enter the id number of the uploaded card"
+                    type="text"
+                    className={styles.input}
+                    name="Id_Number"
+                  />
+                  <Checkbox
+                    onChange={handleChange}
+                    className={styles.checkbox}
+                    {...{ checked }}
+                  >
+                    <span className={styles.checkboxLabel}>
+                      I agree to the terms of service and{' '}
+                      <Link href="#">privacy policy</Link>
+                    </span>
+                  </Checkbox>
+                  <br />
+                  <Button
+                    disabled={!checked}
+                    type="primary"
+                    htmlType="submit"
+                    label="Submit"
+                    className={styles.submitBtn}
+                  />
+                </Form>
               </div>
             </div>
-            <div className={styles.bottom}>
-              <h1 className={styles.title}>Step 3</h1>
-              <Form layout="vertical" onFinish={handleSubmit}>
-                <Input
-                  // placeholder=""
-                  extraLabel="Enter a Valid Identification Number"
-                  placeholder="Enter the id number of the uploaded card"
-                  type="text"
-                  className={styles.input}
-                  name="Id_Number"
-                />
-                <Checkbox
-                  onChange={handleChange}
-                  className={styles.checkbox}
-                  {...{ checked }}
-                >
-                  <span className={styles.checkboxLabel}>
-                    I agree to the terms of service and{' '}
-                    <Link href="#">privacy policy</Link>
-                  </span>
-                </Checkbox>
-                <br />
-                <Button
-                  disabled={!checked}
-                  type="primary"
-                  htmlType="submit"
-                  label="Submit"
-                  className={styles.submitBtn}
-                />
-              </Form>
+            <div className={styles.stepsRight}>
+              <div className={styles.arrowContainer}>
+                <Image src={CurvedArrow} alt="" />
+              </div>
             </div>
-          </div>
-          <div className={styles.stepsRight}>
-            <div className={styles.arrowContainer}>
-              <Image src={CurvedArrow} alt="" />
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
       </div>
       <DialogOverlay
         isOpen={showWebcamModal}

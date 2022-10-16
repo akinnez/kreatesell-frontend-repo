@@ -47,8 +47,30 @@
                 }
             }
             .status{
+                margin-bottom: .5rem;
+                font-weight: 600;
+                font-size: 0.875rem;
+                line-height: 18px;
+                letter-spacing: 2px;
                 text-transform: uppercase;
-                margin-bottom: 1.5rem;
+                color: #262626;
+                @include flex(row, null, center);
+                &>div{
+                  height: 14px;
+                  width: 14px;
+                  border-radius: 50%;
+                  display: inline-block;
+                  margin-right: .3rem;
+                }
+                .statEllipseDenied{
+                  background: #FF4D4F;
+                }
+                .statEllipsePending, .statEllipseRequest{
+                  background: #FBB500;
+                }
+                .statEllipseApproved{
+                  background: #2DC071;
+                }
             }
             .reasonsHeader{
                 font-weight: 700;
@@ -97,6 +119,7 @@
           @include flex(column-reverse, null, center);
           gap: 3rem;
           padding: 1rem;
+          background: #fff;
         }
     }
 
@@ -115,14 +138,39 @@
                     .card{
                         @extend .bordered;
                         width: 230px;
+                        height: 180px;
                         padding: 2rem 1rem;
                         text-align: center;
-                        p{
+                        .imageWrapper{
+                          &>div{
+                            border-radius: 8px;
+                            width: 230px;
+                        height: 180px;
+                          }
+                        }
+                        .filledText{
+                          position: relative;
+                          h3{
+                            position: absolute;
+                            bottom: 10%;
+                            z-index: 1;
                             font-weight: 500;
                             font-size: 1rem;
                             line-height: 26px;
                             color: #0072EF;
-                            margin-top: 1rem;                         
+                            left: 18%;
+                          }
+                        }
+                        p{
+                          font-weight: 500;
+                          font-size: 1rem;
+                          line-height: 26px;
+                          color: #0072EF;
+                          margin-top: 1rem;                         
+                        }
+
+                        &.filled{
+                          padding: 0px;
                         }
                     }
                 }
@@ -165,7 +213,7 @@
               .top{
                 @include flex(column, center, null);
                 .downArrow{
-                  display: block;
+                  display: block !important;
                 }
                 &>span{
                   display: none;
@@ -195,6 +243,7 @@
           .stepsRight{
             display: none;
           }
+          background: #fff;
         }
     }
 }

@@ -382,7 +382,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
     const result = transformToFormData(checkedData);
     // console.log("result = ", result);
-    createProduct(result, () => {
+    createProduct(result, (res) => {
+      // console.log('res', res)
       if (priceType === "Fixed Price") {
         router.push(`/account/kreator/products/preview/${productID}`);
         return;

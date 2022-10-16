@@ -26,6 +26,13 @@ export const LoginForm = () => {
       data,
       (res) => {
         if (
+          Object.keys(router.query).length > 0 &&
+          Object.keys(router.query).includes('showpricing') &&
+          Boolean(router.query?.showpricing)
+        ) {
+          return router.push('/account/kreator/settings?activeTab=billing')
+        }
+        if (
           res?.message
             ?.toLowerCase()
             .includes(`kindly verify token sent to your email`)

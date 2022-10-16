@@ -270,27 +270,37 @@ select {
     padding-inline: 0px !important;
     .ant-tabs-nav{
       background-color: #fff;
+      margin-bottom: 5px;
 
       .ant-tabs-nav-wrap{
         .ant-tabs-nav-list{
+          .ant-tabs-tab + .ant-tabs-tab {
+            margin: 0 0 0 10px;
+        }
           .ant-tabs-tab{
             padding: 6px 0;
+            .ant-tabs-tab-btn{
+              font-weight: 400;
+              font-size: .65rem;
+              line-height: 26px;
+              text-align: center;
+              color: #595959;
+              background-color: #F5F5F5;
+              padding: .3rem;
+              border-radius: .5rem;
+            }
+            &.ant-tabs-tab-active{
+              .ant-tabs-tab-btn{
+                color: #0072EF;
+                background-color: #E6F7FF;
+              }
+            }
           }
         }
       }
-      .ant-tabs-tab-btn{
-        font-weight: 500;
-        font-size: .7rem;
-        line-height: 26px;
-        text-align: center;
-        color: #595959;
-        background-color: #F5F5F5;
-        padding: .4rem;
-        border-radius: .5rem;
-      }
     }
     .ant-tabs-content-holder{
-      padding: 20px !important;
+      padding: 10px 20px 20px 20px  !important;
     }
   }
 }
