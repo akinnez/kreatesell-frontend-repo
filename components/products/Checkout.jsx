@@ -34,6 +34,7 @@ export const CheckoutProductTab = ({ productId }) => {
   ];
 
   const { data } = useSWR("v1/kreatesell/store/me", fetcher);
+  // console.log("data from /me = ", data);
   const defaultCtaBtnTextSet = data?.store_details?.cta_button;
 
   const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || "");

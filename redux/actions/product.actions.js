@@ -112,7 +112,7 @@ export const GetProductByID = () => {
       `get`,
       `v1/kreatesell/product/get/${productID}`,
       (res) => {
-        // console.log("productById = ", res);
+        console.log(" response from getproductById = ", res);
         dispatch({
           type: types.GET_PRODUCT_BY_ID.SUCCESS,
           payload: res?.data?.data,
@@ -373,7 +373,7 @@ export const GetStoreCurrencies = () => {
           type: types.GET_STORE_CURRENCY.SUCCESS,
           payload: res?.data?.store_product_currencies,
         });
-        // console.log("res", res);
+        console.log("res", res);
         // showToast(res?.data?.message, 'info')
         successCallback?.();
       },

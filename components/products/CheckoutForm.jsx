@@ -340,10 +340,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     return data;
   };
 
-  // console.log('productId = ', productID)
+  console.log("product  = ", product);
 
   const handleSubmit = (data) => {
-    console.log("data from submit = ", data);
+    console.log(
+      "isShow compare data from submit = ",
+      data.is_show_compare_price
+    );
     // setProductID(productID);
     // const dataWithCompare = {
     //   ...data,
@@ -372,9 +375,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     if (!data.product_settings.allow_affiliates) {
       delete data.product_settings.affiliate_percentage_on_sales;
     }
-    if (!data.is_show_compare_price) {
-      delete data.is_show_compare_price;
-    }
+    // if (!data.is_show_compare_price) {
+    //   delete data.is_show_compare_price;
+    // }
     const checkedData = checkArrays(data);
 
     const result = transformToFormData(checkedData);
@@ -600,6 +603,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       if (product.product_details.who_bears_fee) {
         setBuyerPaysTransactionFee(true);
       }
+      //* here
+      if (product.product_details.is_show_compare_price) {
+        setCompareToPrice(true);
+      }
 
       if (product.check_out_details && product.check_out_details.length > 0) {
         populatePricing(product?.check_out_details);
@@ -697,7 +704,11 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   // console.log("disableButton = ", disableButton());
 
-  // console.log("showCompare is enabled = ", product?.product_details);
+  console.log(
+    "showCompare details from redux enabled = ",
+    product?.product_details
+  );
+
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === "Fixed Price" && (
@@ -804,11 +815,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   setCompareToPrice((value) => !value);
                 }}
                 checked={
-                  // product?.product_details?.is_show_compare_price
-                  //   ? product?.product_details?.is_show_compare_price
-                  // :
-                  // product?.product_details?.is_show_compare_price ??
-                  compareToPrice
+                  product?.product_details?.is_show_compare_price
+                    ? product?.product_details?.is_show_compare_price
+                    : compareToPrice
                 }
               />
               <span className={`${styles.cpnStatus}`}>
