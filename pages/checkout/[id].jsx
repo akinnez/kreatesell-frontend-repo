@@ -18,6 +18,7 @@ import {
   splitFullName,
   FlutterwaveLogo,
 } from "utils";
+import { SelectV2 } from "components/form-input";
 
 import styles from "../../public/css/checkout.module.scss";
 import { Input, Button } from "components";
@@ -77,10 +78,14 @@ const Checkout = () => {
     (state) => state.store
   );
 
+  const [country, setCountry] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+  const [countryId, setCountryId] = useState(null);
+  const { countries } = useSelector((state) => state.utils);
   const { countriesCurrency, filterdWest, filteredCentral } =
     useCheckoutCurrency();
 
-  // console.log('router', router)
+  console.log("countries = ", countries);
   const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
     useState(true);
   const [activeCurrency, setActiveCurrency] = useState({});
@@ -125,6 +130,13 @@ const Checkout = () => {
         checkOutInNaira?.price
       );
     }
+  };
+
+  const handlePhoneCode = (countryParam) => {
+    let phoneCode = countries.find((country) => country.name === countryParam);
+    setCountryCode(phoneCode?.country_code);
+    setCountryId(phoneCode?.id);
+    // setCountryId(phoneCode?.id)
   };
 
   const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
@@ -192,6 +204,12 @@ const Checkout = () => {
     (item) =>
       item?.currency_name === "NGN" && item?.price_indicator === "Selling"
   );
+
+  useEffect(() => {
+    if (country) {
+      handlePhoneCode(country);
+    }
+  }, [country]);
 
   const handleSubmit = () => {
     // if we are using paypal
@@ -426,19 +444,34 @@ const Checkout = () => {
 
                 <div className={styles.phoneCode}>
                   <Col xs={24} md={12}>
-                    hello
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Input
-                      name="phoneNo"
-                      placeholder="Enter your Phone number "
-                      // label="Phone number"
-                      height="small"
-                      inputMode="numeric"
-                      onChange={formik.handleChange}
-                      errorMessage={errors.phoneNo}
+                    <SelectV2
+                      // label=""
+                      size="large"
+                      setCountry={setCountry}
+                      list={countries}
+                      placeholder="Nigeria (+234)"
+                      name="Country_Id"
+                      isCheckout={true}
+                      // rules={[
+                      //   {
+                      //     required: true,
+                      //     message: "Country is a required field",
+                      //   },
+                      // ]}
                     />
                   </Col>
+                  <div className={styles.phoneBox}>
+                    <Col>
+                      <Input
+                        type="tel"
+                        placeholder={"Enter your phone number"}
+                        height="small"
+                        inputMode="numeric"
+                        onChange={formik.handleChange}
+                        errorMessage={errors.phoneNo}
+                      />
+                    </Col>
+                  </div>
                 </div>
               </Row>
             </form>

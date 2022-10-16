@@ -1,5 +1,6 @@
 import styles from "./Input.module.scss";
 import { Input as AntInput } from "antd";
+import { useState } from "react";
 
 const { Password } = AntInput;
 
@@ -10,10 +11,12 @@ export const Input = ({
   name,
   labelStyle,
   errorMessage,
-  value,
+  value = "",
   height = "default", //default or small
   ...rest
 }) => {
+  const [val, setVal] = useState(value);
+  const inputVal = type === "tel" ? value.replace(/[^0-9]/g, "") : value;
   return (
     <div className={`${rest.containerstyle} ${styles.inputContainer}`}>
       {label && (
@@ -26,7 +29,16 @@ export const Input = ({
         type={type}
         placeholder={placeholder}
         name={name}
-        value={value}
+        onChange={(e) => {
+          const valueModified =
+            typeof e.target.value !== "number"
+              ? e.target.value.replace(/[^0-9]/g, "")
+              : "";
+
+          setVal(valueModified);
+        }}
+        // value={ value}
+        value={val}
         className={`${rest.className} ${
           height === "small" && styles.smallHeight
         } ${type === "search" && styles.search} ${styles.input}`}
