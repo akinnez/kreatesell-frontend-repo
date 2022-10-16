@@ -85,7 +85,6 @@ const Checkout = () => {
   const { countriesCurrency, filterdWest, filteredCentral } =
     useCheckoutCurrency();
 
-  console.log("countries = ", countries);
   const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
     useState(true);
   const [activeCurrency, setActiveCurrency] = useState({});
@@ -445,12 +444,12 @@ const Checkout = () => {
                 <div className={styles.phoneCode}>
                   <Col xs={24} md={12}>
                     <SelectV2
-                      // label=""
+                      // label="here"
                       size="large"
                       setCountry={setCountry}
                       list={countries}
                       placeholder="Nigeria (+234)"
-                      name="Country_Id"
+                      // name="Country_Id"
                       isCheckout={true}
                       // rules={[
                       //   {
