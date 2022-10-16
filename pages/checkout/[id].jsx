@@ -19,7 +19,7 @@ import {
   FlutterwaveLogo,
 } from "utils";
 import { SelectV2 } from "components/form-input";
-
+import { PhoneNumberInput } from "components";
 import styles from "../../public/css/checkout.module.scss";
 import { Input, Button } from "components";
 import CurrencyCard from "components/settings/CurrencyCard";
@@ -461,7 +461,7 @@ const Checkout = () => {
                   </Col>
                   <div className={styles.phoneBox}>
                     <Col>
-                      <Input
+                      <PhoneNumberInput
                         type="tel"
                         placeholder={"Enter your phone number"}
                         height="small"
