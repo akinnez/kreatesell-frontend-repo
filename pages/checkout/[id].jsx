@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { DialogOverlay, DialogContent } from '@reach/dialog'
-
-import Logo from 'components/authlayout/logo'
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
+import {
+  Row,
+  Col,
+  // Card, Form, Input as AntInput
+} from "antd";
+import Logo from "components/authlayout/logo";
 import {
   ActiveTick,
   ArrowLeft,
@@ -13,202 +17,197 @@ import {
   AdvancedPaypal,
   splitFullName,
   FlutterwaveLogo,
-} from 'utils'
+} from "utils";
 
-import styles from '../../public/css/checkout.module.scss'
-import { Input, Button } from 'components'
-import CurrencyCard from 'components/settings/CurrencyCard'
-import { ConsumerSalesCheckoutSchema } from 'validation'
-import { useFormik, Formik } from 'formik'
-import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import { usePaystackPayment } from 'react-paystack'
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'
+import styles from "../../public/css/checkout.module.scss";
+import { Input, Button } from "components";
+import CurrencyCard from "components/settings/CurrencyCard";
+import { ConsumerSalesCheckoutSchema } from "validation";
+import { useFormik, Formik } from "formik";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { usePaystackPayment } from "react-paystack";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import {
   SendPaymentCheckoutDetails,
   ConvertCurrency,
   GetStoreCheckoutCurrencies,
-} from 'redux/actions'
-import crypto from 'crypto'
-import LogoImg from '../../public/images/logo.svg'
-import useFetchUtilities from 'hooks/useFetchUtilities'
-import Loader from 'components/loader'
-import axios from 'axios'
-import useCheckoutCurrency from 'hooks/useCheckoutCurrencies'
+} from "redux/actions";
+import crypto from "crypto";
+import LogoImg from "../../public/images/logo.svg";
+import useFetchUtilities from "hooks/useFetchUtilities";
+import Loader from "components/loader";
+import axios from "axios";
+import useCheckoutCurrency from "hooks/useCheckoutCurrencies";
 
 const paymentMethods = [
   {
-    type: 'Stripe',
+    type: "Stripe",
     icon: ActiveStripe,
-    value: 'stripe',
+    value: "stripe",
   },
   {
-    type: 'Paypal',
+    type: "Paypal",
     icon: AdvancedPaypal,
-    value: 'paypal',
+    value: "paypal",
   },
   {
-    type: 'Flutterwave',
+    type: "Flutterwave",
     icon: FlutterwaveLogo,
-    value: 'flutterwave',
+    value: "flutterwave",
   },
   {
-    type: 'CryptoCurrency',
+    type: "CryptoCurrency",
     icon: AdvancedBitcoin,
-    value: 'crypto',
+    value: "crypto",
   },
-]
+];
 const Checkout = () => {
-  const router = useRouter()
-  const productId = router.query.id
-  const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`
-  const [modal, setModal] = useState(false)
+  const router = useRouter();
+  const productId = router.query.id;
+  const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
+  const [modal, setModal] = useState(false);
 
-  const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies()
-  const checkoutDetails = useSelector((state) => state.checkout)
+  const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
+  const checkoutDetails = useSelector((state) => state.checkout);
   const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
-    (state) => state.currencyConverter,
-  )
+    (state) => state.currencyConverter
+  );
   const { loading: storeCheckoutCurrenciesLoading } = useSelector(
-    (state) => state.store,
-  )
+    (state) => state.store
+  );
 
-  const {
-    countriesCurrency,
-    filterdWest,
-    filteredCentral,
-  } = useCheckoutCurrency()
+  const { countriesCurrency, filterdWest, filteredCentral } =
+    useCheckoutCurrency();
 
   // console.log('router', router)
-  const [
-    storecheckoutCurrencyLoading,
-    setStorecheckoutCurrencyLoading,
-  ] = useState(true)
-  const [activeCurrency, setActiveCurrency] = useState({})
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
+  const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
+    useState(true);
+  const [activeCurrency, setActiveCurrency] = useState({});
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
   // this is the product details for a product whose price has been defined by
   // kreator and is also the active currency selected
-  const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null)
-  const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails()
-  const convertCurrency = ConvertCurrency()
+  const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
+  const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
+  const convertCurrency = ConvertCurrency();
 
-  const closeModal = () => setModal(false)
+  const closeModal = () => setModal(false);
 
-  const [checkOutDetails, setCheckOutDetails] = useState([])
-  const [storeId, setStoreId] = useState()
+  const [checkOutDetails, setCheckOutDetails] = useState([]);
+  const [storeId, setStoreId] = useState();
   const checkout = checkOutDetails?.filter(
     // (item) => item?.currency_name === activeCurrency?.currency,
-    (item) => item?.price_indicator === 'Selling',
-  )
-  const currency_name = checkout?.[0]?.currency_name
-  const price = checkout?.[0]?.price
+    (item) => item?.price_indicator === "Selling"
+  );
+  const currency_name = checkout?.[0]?.currency_name;
+  const price = checkout?.[0]?.price;
 
   const getProductDetails = async (productLink) => {
     try {
-      const response = await axios.get(productLink)
-      setCheckOutDetails(response?.data?.data?.check_out_details)
-      setStoreId(response?.data?.data?.store_dto?.store_id)
+      const response = await axios.get(productLink);
+      setCheckOutDetails(response?.data?.data?.check_out_details);
+      setStoreId(response?.data?.data?.store_dto?.store_id);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   // console.log('checkOutDetails', checkOutDetails)
 
   const getCurrency = (priceOrName) => {
-    if (priceOrName === 'currency') {
-      return activeCurrency?.currency || activeCurrency?.currency_name
-    } else if (priceOrName === 'price') {
+    if (priceOrName === "currency") {
+      return activeCurrency?.currency || activeCurrency?.currency_name;
+    } else if (priceOrName === "price") {
       return (
         alreadyDefinedPrice?.price ||
         convertedCurrency?.buy_rate * checkOutInNaira?.price ||
         checkOutInNaira?.price
-      )
+      );
     }
-  }
+  };
 
-  const randomId = `kreate-sell-${crypto.randomBytes(16).toString('hex')}`
+  const randomId = `kreate-sell-${crypto.randomBytes(16).toString("hex")}`;
   const paymentStatusList = {
-    success: 's',
-    failed: 'f',
+    success: "s",
+    failed: "f",
     // abandoned: "a"
-  }
-  const paymentDetails = ({ reference = '', status = '' }) => {
-    const statusValue = paymentStatusList[status]
+  };
+  const paymentDetails = ({ reference = "", status = "" }) => {
+    const statusValue = paymentStatusList[status];
     const value = {
       fullname: `${values?.firstName} ${values?.lastName}`,
       email_address: values?.email,
       mobile_number: values?.phoneNo,
       datetime: new Date().toISOString(),
-      total: getCurrency('price'),
+      total: getCurrency("price"),
       reference_id: reference,
       purchase_details: [],
       status: statusValue,
-      card_type: '',
-      last_four: '',
-      currency: getCurrency('currency'),
-      payment_type: 'purchase',
+      card_type: "",
+      last_four: "",
+      currency: getCurrency("currency"),
+      payment_type: "purchase",
       is_affiliate: values?.is_affiliate || false,
-      affiliate_product_link: '',
-      user_identifier: values?.id || '',
-    }
-    return value
-  }
+      affiliate_product_link: "",
+      user_identifier: values?.id || "",
+    };
+    return value;
+  };
 
   useEffect(() => {
     if (!!productId) {
-      getProductDetails(productLink)
+      getProductDetails(productLink);
     }
-  }, [productId])
+  }, [productId]);
 
   useEffect(() => {
     if (!!storeId) {
       getStoreCheckoutCurrencies(
         storeId,
-        setStorecheckoutCurrencyLoading(false),
-      )
+        setStorecheckoutCurrencyLoading(false)
+      );
     }
-  }, [storeId])
+  }, [storeId]);
 
   // set currency on mount
   // TODO: set to the base currency
   useEffect(() => {
     if (checkOutDetails.length) {
-      setActiveCurrency(checkOutDetails[0])
-      setSelectedPaymentMethod(paymentMethods[0].value)
+      setActiveCurrency(checkOutDetails[0]);
+      setSelectedPaymentMethod(paymentMethods[0].value);
     }
-  }, [checkOutDetails.length])
+  }, [checkOutDetails.length]);
 
   useEffect(() => {
-    if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
-      setSelectedPaymentMethod('')
+    if (!["USD", "GBP"].includes(activeCurrency.currency)) {
+      setSelectedPaymentMethod("");
     }
     // if the active currency is equal to the base currency, no need to convert
     // if (  !activeCurrency?.currency === 'NGN') {
-    handleCurrencyConversion(activeCurrency.currency)
+    handleCurrencyConversion(activeCurrency.currency);
     // }
-  }, [activeCurrency?.currency])
+  }, [activeCurrency?.currency]);
   const checkOutInNaira = checkOutDetails?.find(
     (item) =>
-      item?.currency_name === 'NGN' && item?.price_indicator === 'Selling',
-  )
+      item?.currency_name === "NGN" && item?.price_indicator === "Selling"
+  );
 
   const handleSubmit = () => {
     // if we are using paypal
 
     /** Currencies using PayStack are listed here */
-    if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
-      return initializePaystackPayment(onPaystackSuccess, onPaystackClose)
+    if (["GHS", "NGN"].includes(activeCurrency.currency)) {
+      return initializePaystackPayment(onPaystackSuccess, onPaystackClose);
     }
 
     // currencies using stripe
 
     /** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
     if (
-      (!['NGN', 'GHS'].includes(activeCurrency.currency) ||
-        selectedPaymentMethod === 'flutterwave') &&
-      !['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
+      (!["NGN", "GHS"].includes(activeCurrency.currency) ||
+        selectedPaymentMethod === "flutterwave") &&
+      !["paypal", "stripe", "crypto"].includes(selectedPaymentMethod)
     ) {
       handleFlutterPayment({
         callback: async (response) => {
@@ -217,15 +216,15 @@ const Checkout = () => {
             paymentDetails({
               reference: response?.tx_ref,
               status: response?.status,
-            }),
-          )
-          closePaymentModal()
+            })
+          );
+          closePaymentModal();
           //   openModal();
         },
         onClose: () => {},
-      })
+      });
     }
-  }
+  };
 
   // TODO: check if price in a particular currency has been specified before,
   // if it has, use that instead of converting, just use the specified value
@@ -233,65 +232,64 @@ const Checkout = () => {
     let index = checkOutDetails.findIndex(
       (detail) =>
         detail?.currency_name === toCurrency &&
-        detail?.price_indicator === 'Selling',
-    )
+        detail?.price_indicator === "Selling"
+    );
     if (index !== -1) {
-      setAlreadyDefinedPrice(checkOutDetails[index])
+      setAlreadyDefinedPrice(checkOutDetails[index]);
     } else if (price && toCurrency) {
-      setAlreadyDefinedPrice(null)
+      setAlreadyDefinedPrice(null);
       const data = {
         amount: price,
         from_currency_name: currency_name,
         to_currency_name: toCurrency,
-      }
+      };
       convertCurrency(
         data,
-        () => console.log('success'),
-        () => console.log('error'),
-      )
+        () => console.log("success"),
+        () => console.log("error")
+      );
     }
-  }
+  };
 
   const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNo: '',
-    currency: 'NGN',
-    couponCode: '',
-  }
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNo: "",
+    currency: "NGN",
+    couponCode: "",
+  };
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
     validationSchema: ConsumerSalesCheckoutSchema,
     validateOnChange: true,
-  })
+  });
 
-  const { errors, setFieldValue, values } = formik
+  const { errors, setFieldValue, values } = formik;
 
   // Flutterwave configurations
   const flutterConfig = {
     public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: randomId,
-    amount: getCurrency('price'),
-    currency: getCurrency('currency'),
-    payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
+    amount: getCurrency("price"),
+    currency: getCurrency("currency"),
+    payment_options: "card, mobilemoney, ussd, mobile_money_ghana",
     customer: {
       email: values?.email,
       phonenumber: values?.phoneNo,
       name: `${values?.firstName} ${values?.lastName}`,
     },
-    type: '',
+    type: "",
     customizations: {
-      title: 'Kreatesell Title',
-      description: 'Kreatesell description',
-      logo:
-        'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+      title: "Kreatesell Title",
+      description: "Kreatesell description",
+      logo: "https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png",
     },
-  }
+  };
 
-  const handleFlutterPayment = useFlutterwave(flutterConfig)
+  const handleFlutterPayment = useFlutterwave(flutterConfig);
 
   // Flutterwave configurations end here
 
@@ -299,64 +297,64 @@ const Checkout = () => {
   const payStackConfig = {
     reference: randomId,
     email: values?.email,
-    amount: Number(getCurrency('price')).toFixed() * 100,
+    amount: Number(getCurrency("price")).toFixed() * 100,
     publicKey:
-      activeCurrency?.currency === 'GHS'
+      activeCurrency?.currency === "GHS"
         ? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
         : process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
     firstName: values?.firstName,
     lastname: values?.lastName,
     phone: values?.phoneNo,
-    currency: getCurrency('currency'), //`${activeCurrency?.currency}`,
-    channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'],
-  }
+    currency: getCurrency("currency"), //`${activeCurrency?.currency}`,
+    channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"],
+  };
   const onPaystackSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
     // console.log(reference)
-    const status = paymentStatusList[reference?.status]
+    const status = paymentStatusList[reference?.status];
     sendPaymentCheckoutDetails(
-      paymentDetails({ reference: reference?.reference, status }),
-    )
-  }
+      paymentDetails({ reference: reference?.reference, status })
+    );
+  };
 
   const onPaystackClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log('closed')
-  }
+    console.log("closed");
+  };
 
-  const initializePaystackPayment = usePaystackPayment(payStackConfig)
+  const initializePaystackPayment = usePaystackPayment(payStackConfig);
   // paystack config ends here
 
   const handleSelect = (currency) => {
-    setActiveCurrency(currency)
-  }
+    setActiveCurrency(currency);
+  };
 
   const handlePaymentMethod = (method) => {
-    setSelectedPaymentMethod(method)
-  }
+    setSelectedPaymentMethod(method);
+  };
 
-  useFetchUtilities()
+  useFetchUtilities();
 
   if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
     return (
       <div
         style={{
-          minHeight: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Loader />
       </div>
-    )
+    );
 
   return (
     <>
       <nav
         className={
           styles.nav +
-          ' white relative flex py-8 px-10 flex shadow items-center text-center'
+          " white relative flex py-8 px-10 flex shadow items-center text-center"
         }
       >
         <Image src={LogoImg} alt="logo" width={140} height={35} />
@@ -367,7 +365,7 @@ const Checkout = () => {
         <div className="flex py-6 items-center">
           <div className="flex cursor-pointer" onClick={() => router.back()}>
             <div>
-              <Image src={ArrowLeft} alt="go back" />{' '}
+              <Image src={ArrowLeft} alt="go back" />{" "}
             </div>
             <span className="pl-2 font-semibold text-primary-blue">BACK</span>
           </div>
@@ -379,7 +377,7 @@ const Checkout = () => {
 
         <div className="flex flex-col md:flex-row gap-6 w-full">
           <div
-            style={{ height: 'fit-content' }}
+            style={{ height: "fit-content" }}
             className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
           >
             <form>
@@ -421,15 +419,28 @@ const Checkout = () => {
                 errorMessage={errors.email}
               />
 
-              <Input
-                name="phoneNo"
-                placeholder="Enter your Phone number "
-                label="Phone number"
-                height="small"
-                inputMode="numeric"
-                onChange={formik.handleChange}
-                errorMessage={errors.phoneNo}
-              />
+              <Row gutter={{ xs: 0, sm: 0, md: 8 }}>
+                <Col xs={24} md={12} className={styles.phoneNumberLabel}>
+                  Phone Number
+                </Col>
+
+                <div className={styles.phoneCode}>
+                  <Col xs={24} md={12}>
+                    hello
+                  </Col>
+                  <Col xs={24} md={12}>
+                    <Input
+                      name="phoneNo"
+                      placeholder="Enter your Phone number "
+                      // label="Phone number"
+                      height="small"
+                      inputMode="numeric"
+                      onChange={formik.handleChange}
+                      errorMessage={errors.phoneNo}
+                    />
+                  </Col>
+                </div>
+              </Row>
             </form>
           </div>
 
@@ -474,8 +485,8 @@ const Checkout = () => {
                       onClick={() => handleSelect({ id, currency })}
                     >
                       <div
-                        className={styles.checFlag + ' mr-2'}
-                        style={{ borderRadius: '50%' }}
+                        className={styles.checFlag + " mr-2"}
+                        style={{ borderRadius: "50%" }}
                       >
                         <Image src={flag} alt="flag" layout="fill" />
                       </div>
@@ -510,8 +521,8 @@ const Checkout = () => {
                         onClick={() => handleSelect({ id, currency })}
                       >
                         <div
-                          className={styles.checFlag + ' mr-2'}
-                          style={{ borderRadius: '50%' }}
+                          className={styles.checFlag + " mr-2"}
+                          style={{ borderRadius: "50%" }}
                         >
                           <Image src={flag} alt="flag" layout="fill" />
                         </div>
@@ -527,14 +538,14 @@ const Checkout = () => {
                           </div>
                         )}
                       </div>
-                    ),
+                    )
                   )}
                 </div>
               </div>
 
               <div className="divider"></div>
               {/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
-              {['GBP', 'USD'].includes(activeCurrency?.currency) && (
+              {["GBP", "USD"].includes(activeCurrency?.currency) && (
                 <div className="pb-6">
                   <div className="text-black-100">Payment Method</div>
                   <p className="text-base-gray-200">
@@ -548,8 +559,8 @@ const Checkout = () => {
                         onClick={() => handlePaymentMethod(value)}
                         className={`${
                           selectedPaymentMethod === value
-                            ? 'activeCard'
-                            : 'card'
+                            ? "activeCard"
+                            : "card"
                         } p-2 flex justify-around items-center`}
                       >
                         <Image src={icon} alt={type} />
@@ -610,8 +621,8 @@ const Checkout = () => {
                     <p>
                       {/* {currency_name} {price ?? checkoutDetails?.default_price} */}
                       {/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
-                      {getCurrency('currency')}{' '}
-                      {Number(getCurrency('price')).toFixed(2)}
+                      {getCurrency("currency")}{" "}
+                      {Number(getCurrency("price")).toFixed(2)}
                     </p>
                   </div>
                 </div>
@@ -632,11 +643,11 @@ const Checkout = () => {
                   <p>Total</p>
                   <p className="text-primary-blue font-medium">
                     {/* {currency_name}{' '} */}
-                    {getCurrency('currency')}{' '}
+                    {getCurrency("currency")}{" "}
                     {/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
                     )} */}
-                    {Number(getCurrency('price')).toFixed(2)}
+                    {Number(getCurrency("price")).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -693,8 +704,8 @@ const Checkout = () => {
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
 const SuccessfulCheckoutModal = ({ productDetails, price, currency }) => {
   return (
@@ -729,7 +740,7 @@ const SuccessfulCheckoutModal = ({ productDetails, price, currency }) => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Checkout
+export default Checkout;
