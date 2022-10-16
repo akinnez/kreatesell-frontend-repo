@@ -16,7 +16,7 @@ export const Input = ({
   ...rest
 }) => {
   const [val, setVal] = useState(value);
-  const inputVal = type === "tel" ? value.replace(/[^0-9]/g, "") : value;
+  // const inputVal = type === "tel" ? value.replace(/[^0-9]/g, "") : value;
   return (
     <div className={`${rest.containerstyle} ${styles.inputContainer}`}>
       {label && (
@@ -29,16 +29,16 @@ export const Input = ({
         type={type}
         placeholder={placeholder}
         name={name}
-        onChange={(e) => {
-          const valueModified =
-            typeof e.target.value !== "number"
-              ? e.target.value.replace(/[^0-9]/g, "")
-              : "";
+        // onChange={(e) => {
+        //   const valueModified =
+        //     typeof e.target.value !== "number"
+        //       ? e.target.value.replace(/[^0-9]/g, "")
+        //       : "";
 
-          setVal(valueModified);
-        }}
-        // value={ value}
-        value={val}
+        //   setVal(valueModified);
+        // }}
+        value={value}
+        // value={val}
         className={`${rest.className} ${
           height === "small" && styles.smallHeight
         } ${type === "search" && styles.search} ${styles.input}`}
