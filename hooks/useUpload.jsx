@@ -25,8 +25,10 @@ export const useUpload = ({ fileType }) => {
       const filesInAcceptedFormats = fileMatched.filter(
         (file) =>
           !file?.file?.name.toLowerCase().endsWith(".png") ||
-          !file?.file?.name.toLowerCase().endsWith(".jpg")
+          !file?.file?.name.toLowerCase().endsWith(".jpg") ||
+          !file?.file?.name.toLowerCase().endsWith(".jpeg")
       );
+
       if (fileType === "image") {
         setFiles((prev) => [
           ...prev,

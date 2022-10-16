@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const { Password } = AntInput;
 
-export const Input = ({
+export const PhoneNumberInput = ({
   type,
   placeholder,
   label,
@@ -16,7 +16,7 @@ export const Input = ({
   ...rest
 }) => {
   const [val, setVal] = useState(value);
-  const inputVal = type === "tel" ? value.replace(/[^0-9]/g, "") : value;
+  // const inputVal = type === "tel" ? value.replace(/[^0-9]/g, "") : value;
   return (
     <div className={`${rest.containerstyle} ${styles.inputContainer}`}>
       {label && (
@@ -37,7 +37,7 @@ export const Input = ({
 
           setVal(valueModified);
         }}
-        // value={ value}
+        // value={value}
         value={val}
         className={`${rest.className} ${
           height === "small" && styles.smallHeight
@@ -62,6 +62,39 @@ export const PasswordInput = ({ type, placeholder, label, name, ...rest }) => {
         name={name}
         className={`${rest.className} ${styles.input} ${styles.Password}`}
       />
+    </div>
+  );
+};
+
+export const Input = ({
+  type,
+  placeholder,
+  label,
+  name,
+  labelStyle,
+  errorMessage,
+  height = "default", //default or small
+  ...rest
+}) => {
+  return (
+    <div className={`${rest.containerstyle} ${styles.inputContainer}`}>
+      {label && (
+        <label htmlFor={name} className={`${styles.label} ${labelStyle}`}>
+          {label}
+        </label>
+      )}
+      <input
+        {...rest}
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        className={`${rest.className} ${
+          height === "small" && styles.smallHeight
+        } ${type === "search" && styles.search} ${styles.input}`}
+      />
+      {errorMessage && (
+        <p className="text-red-600 text-sm pt-2">{errorMessage}</p>
+      )}
     </div>
   );
 };
