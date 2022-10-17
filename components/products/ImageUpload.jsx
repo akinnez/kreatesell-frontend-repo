@@ -48,7 +48,8 @@ export default function ImageUpload({ file, deleteFile, setUrl }) {
     // * file name must end in .jpg or png
     if (
       file.name.toLowerCase().endsWith(".jpg") ||
-      file.name.toLowerCase().endsWith(".png")
+      file.name.toLowerCase().endsWith(".png") ||
+      file.name.toLowerCase().endsWith(".jpeg")
     ) {
       const formData = new FormData();
       formData.append("upload_preset", "kreatesell");
@@ -78,24 +79,42 @@ export default function ImageUpload({ file, deleteFile, setUrl }) {
     return;
   }
   return (
-    <li
-      className={
-        styles.imageContent +
-        " bg-white flex justify-between w-full rounded-lg p-1"
-      }
-    >
-      <div className={styles.imageWrap}>
-        {image && (
-          <Image
-            width="100"
-            height="100"
-            objectFit="cover"
-            src={image}
-            alt="user"
-          />
-        )}
-      </div>
-      <div className="w-2/3">
+    <>
+      {image && (
+        <li
+          className={
+            styles.imageContent +
+            " bg-white flex justify-between w-full rounded-lg p-1"
+          }
+        >
+          <div className={styles.imageWrap}>
+            {image && (
+              <Image
+                width="100"
+                height="100"
+                objectFit="cover"
+                src={image}
+                alt="user"
+              />
+            )}
+          </div>
+          {image && (
+            <>
+              <div className="w-2/3">
+                <ImageLoad
+                  imageName={`${file.name} (${progress}%)`}
+                  progress={progress}
+                />
+              </div>
+              <div
+                className="w-1/6 flex justify-center cursor-pointer"
+                onClick={() => deleteFile(file)}
+              >
+                <DeleteIcon color="#F5F5F5" width="40" height="40" />
+              </div>
+            </>
+          )}
+          {/* <div className="w-2/3">
         <ImageLoad
           imageName={`${file.name} (${progress}%)`}
           progress={progress}
@@ -106,7 +125,9 @@ export default function ImageUpload({ file, deleteFile, setUrl }) {
         onClick={() => deleteFile(file)}
       >
         <DeleteIcon color="#F5F5F5" width="40" height="40" />
-      </div>
-    </li>
+      </div> */}
+        </li>
+      )}
+    </>
   );
 }

@@ -22,3 +22,6 @@ export const GET_STORE_CHECKOUT_CURRENCY = generateActions(
 export const UPDATE_STORE_CHECKOUT_CURRENCY = generateActions(
   'UPDATE_STORE_CHECKOUT_CURRENCY',
 )
+
+export const GET_SALES_STATISTICS = generateActions("GET_SALES_STATISTICS"); 
+export const GET_AFFILIATES_SALES_STATISTICS = generateActions("GET_AFFILIATES_SALES_STATISTICS");

@@ -98,6 +98,8 @@ export const CreateProductForm = ({
     isBasicPlan: false,
   };
 
+  // console.log("isImageFilled = ", isImageFilled);
+
   const handleSubmit = (data) => {
     // console.log("Data is", data)
     if (["oneTimeSubscription", "membership"].includes(productType)) {
@@ -114,6 +116,7 @@ export const CreateProductForm = ({
     delete data.isBasicPlan;
     // console.log(data)
     const result = transformToFormData(data, "contentZipFiles");
+    console.log("result = ", result);
     createProduct(result, async () => {
       if (productId) {
         await getProductByID(productId);
@@ -143,6 +146,7 @@ export const CreateProductForm = ({
   });
 
   const { errors, setFieldValue, values } = formik;
+  console.log("errors = ", errors);
 
   useEffect(() => {
     getListingStatus();
@@ -184,7 +188,7 @@ export const CreateProductForm = ({
   const findUnsupportedFileFormat = imageUploads.find((item) =>
     item?.file?.name.includes(".png")
   );
-  // console.log("fileFormat = ", findUnsupportedFileFormat);
+  // console.log("imageUploads = ", imageUploads);
 
   useEffect(() => {
     setFieldValue("product_details", contents);
