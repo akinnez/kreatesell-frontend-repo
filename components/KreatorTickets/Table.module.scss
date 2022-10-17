@@ -30,6 +30,10 @@
         &:first-child {
           border-top: none;
         }
+
+        &:nth-child(2){
+          width: 30%;
+        }
         &:last-child {
           border-bottom: none;
         }
@@ -39,6 +43,8 @@
         td {
           width: auto;
         }
+        
+
       }
     }
 
@@ -56,6 +62,9 @@
 
           &:last-child {
             padding-right: 1.5rem;
+          }
+          &:nth-child(2){
+            width: 30%;
           }
         }
       }

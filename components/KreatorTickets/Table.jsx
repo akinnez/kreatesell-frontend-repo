@@ -1,102 +1,102 @@
-import { EmptyDataTable } from "utils";
-import styles from "./Table.module.scss";
-import Image from "next/image";
-import { IoEllipsisHorizontal } from "react-icons/io5";
-import { Popover } from "antd";
-import { useState } from "react";
-import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
-import { BsReplyFill } from "react-icons/bs";
-import moment from "moment";
+import { EmptyDataTable } from 'utils'
+import styles from './Table.module.scss'
+import Image from 'next/image'
+import { IoEllipsisHorizontal } from 'react-icons/io5'
+import { Popover } from 'antd'
+import { useState } from 'react'
+import { AiOutlineClose, AiOutlineEye } from 'react-icons/ai'
+import { BsReplyFill } from 'react-icons/bs'
+import moment from 'moment'
 
 const SuccessDiv = ({ text }) => {
   return (
     <div
       style={{
-        background: "#4bf71625",
-        borderRadius: "5px",
-        width: "80px",
-        textAlign: "center",
+        background: '#4bf71625',
+        borderRadius: '5px',
+        width: '80px',
+        textAlign: 'center',
       }}
     >
-      <p style={{ color: "#176300" }}>{text}</p>
+      <p style={{ color: '#176300' }}>{text}</p>
     </div>
-  );
-};
+  )
+}
 
 const ErrorDiv = ({ text }) => {
   return (
     <div
       style={{
-        background: "#f7211622",
-        borderRadius: "5px",
-        width: "80px",
-        textAlign: "center",
+        background: '#f7211622',
+        borderRadius: '5px',
+        width: '80px',
+        textAlign: 'center',
       }}
     >
-      <p style={{ color: "#f5222d" }}>{text}</p>
+      <p style={{ color: '#f5222d' }}>{text}</p>
     </div>
-  );
-};
+  )
+}
 const PendingDiv = ({ text }) => {
   return (
     <div
       style={{
-        background: "#f8cb0028",
-        color: "#e9be00",
-        borderRadius: "5px",
-        width: "80px",
-        textAlign: "center",
+        background: '#f8cb0028',
+        color: '#e9be00',
+        borderRadius: '5px',
+        width: '80px',
+        textAlign: 'center',
       }}
     >
-      <p style={{ color: "#e9be00" }}>{text}</p>
+      <p style={{ color: '#e9be00' }}>{text}</p>
     </div>
-  );
-};
+  )
+}
 
 const header = [
   {
-    title: "Ticket ID",
-    key: "ticket_id",
+    title: 'Ticket ID',
+    key: 'ticket_id',
   },
 
   {
-    title: "Subject",
-    key: "subject",
+    title: 'Subject',
+    key: 'subject',
   },
   {
-    title: "Date",
-    key: "date_created",
+    title: 'Department',
+    key: 'department',
   },
   {
-    title: "Department",
-    key: "department",
+    title: 'Date',
+    key: 'date_created',
   },
 
   {
-    title: "Status",
-    key: "status",
+    title: 'Status',
+    key: 'status',
   },
-  // {
-  //   title: "Actions",
-  //   key: "actions",
-  // },
-];
+  {
+    title: 'Actions',
+    key: 'actions',
+  },
+]
 export const Table = ({ data }) => {
-  const [openPopOver, setOpenPopOver] = useState(false);
+  const [openPopOver, setOpenPopOver] = useState(false)
 
   const switchStatus = (value) => {
-    if (value?.toLowerCase() === "pending") {
-      return <PendingDiv text="Pending" />;
+    if (value?.toLowerCase() === 'pending') {
+      return <PendingDiv text="Pending" />
     }
-    if (value?.toLowerCase() === "answered") {
-      return <SuccessDiv text="Answered" />;
+    if (value?.toLowerCase() === 'answered') {
+      return <SuccessDiv text="Answered" />
     }
-    if (value?.toLowerCase() === "closed") {
-      return <SuccessDiv text="Closed" />;
+    if (value?.toLowerCase() === 'closed') {
+      return <SuccessDiv text="Closed" />
     }
 
-    return <ErrorDiv text="Error" />;
-  };
+    return <ErrorDiv text="Error" />
+  }
   return (
     <div className={styles.tableContainer}>
       <table className={styles.table}>
@@ -114,11 +114,11 @@ export const Table = ({ data }) => {
               <tr key={item?.id || i}>
                 <td>{item.id}</td>
                 <td>{item.heading}</td>
-                <td>{moment(item.date).format("YYYY-MM-DD HH:mm:ss")}</td>
                 <td>{item.department}</td>
+                <td>{moment(item.date).format('YYYY-MM-DD HH:mm:ss')}</td>
 
                 <td>{switchStatus(item?.status)}</td>
-                {/* <td>
+                <td>
                   <Popover
                     placement="bottomRight"
                     title={null}
@@ -142,7 +142,7 @@ export const Table = ({ data }) => {
                   >
                     {<IoEllipsisHorizontal className={styles.horizButton} />}
                   </Popover>
-                </td> */}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -157,5 +157,5 @@ export const Table = ({ data }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
