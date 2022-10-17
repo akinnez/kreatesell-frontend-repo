@@ -61,6 +61,7 @@ const Dashboard = () => {
         )
         setIsAnAffiliate(res?.data?.user?.is_affiliate)
         setIsFirstTimeUser(res?.data?.user?.is_first_time)
+        mutate(mainStoreUrl)
       },
       (err) => {
         console.log('error = ', err)
