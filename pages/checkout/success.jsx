@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 
 import { Row, Col } from 'antd'
+
 import styles from '../../public/css/checkoutSuccess.module.scss'
 import { Button } from 'components'
 import {
@@ -20,10 +21,9 @@ const success = () => {
     <div className={styles.successContainer}>
       <nav>
         <span>Think Fast and Slow</span>
-        <div>
-          <>
-            <Image src={UserPicture} width="70" height="70" /> Jon Doe
-          </>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Image src={UserPicture} width={50} height={50} />
+          Jon Doe
         </div>
       </nav>
       <div className={styles.body}>

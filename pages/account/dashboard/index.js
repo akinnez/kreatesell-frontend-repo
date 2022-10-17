@@ -1,69 +1,69 @@
-import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
-import Head from "next/head";
-import { Modal, Button, Typography } from "antd";
-import { StatsCard } from "components/account-dashboard/StatsCard";
-import AuthLayout from "components/authlayout";
-import DashboardFilters from "components/account-dashboard/DashboardFilters";
-import StatsHeader from "components/account-dashboard/StatsHeader";
-import styles from "public/css/DashboardPage.module.scss";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { mutate } from "swr";
+import { useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
+import Head from 'next/head'
+import { Modal, Button, Typography } from 'antd'
+import { StatsCard } from 'components/account-dashboard/StatsCard'
+import AuthLayout from 'components/authlayout'
+import DashboardFilters from 'components/account-dashboard/DashboardFilters'
+import StatsHeader from 'components/account-dashboard/StatsHeader'
+import styles from 'public/css/DashboardPage.module.scss'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
+import { mutate } from 'swr'
 
 // import useSWR from "swr";
 
-const { Text, Title } = Typography;
+const { Text, Title } = Typography
 
 const Dashboard = () => {
-  const [modalVisible, setModalVisible] = useState(true);
-  const [_, setFiltered] = useState(null);
-  const [isAnAffiliate, setIsAnAffiliate] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true)
+  const [_, setFiltered] = useState(null)
+  const [isAnAffiliate, setIsAnAffiliate] = useState(false)
 
-  const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
-  const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(false)
+  const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`
 
   // const user = useSelector((state) => state?.auth?.user);
 
   const hideModal = async () => {
-    setModalVisible(false);
+    setModalVisible(false)
     try {
       const response = await axios.get(
-        `${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
-      );
-      console.log(response?.data);
+        `${process.env.BASE_URL}v1/kreatesell/store/welcome-message`,
+      )
+      console.log(response?.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   // console.log('isAn')
 
-  console.log("isAffiliate = ", isAnAffiliate);
+  // console.log("isAffiliate = ", isAnAffiliate);
 
   const getUserVisitStatus = useCallback(() => {
     axios
       .get(mainStoreUrl)
       .then((res) => {
         console.log(
-          "isAffiliate from endpoint = ",
-          res?.data?.user?.is_affiliate
-        );
-        setIsAnAffiliate(res?.data?.user?.is_affiliate);
-        setIsFirstTimeUser(res?.data?.user?.is_first_time);
-        mutate(mainStoreUrl);
+          'isAffiliate from endpoint = ',
+          res?.data?.user?.is_affiliate,
+        )
+        setIsAnAffiliate(res?.data?.user?.is_affiliate)
+        setIsFirstTimeUser(res?.data?.user?.is_first_time)
+        mutate(mainStoreUrl)
       })
-      .catch((error) => console.log(error));
-  }, [mainStoreUrl]);
+      .catch((error) => console.log(error))
+  }, [mainStoreUrl])
 
   // const { data } = useSWR("v1/kreatesell/store/me", fetcher);
   // console.log(data);
 
   useEffect(() => {
-    getUserVisitStatus();
+    getUserVisitStatus()
 
-    console.log("isFirstTimeUser  from useEffect = ", isFirstTimeUser);
-  }, [isFirstTimeUser, getUserVisitStatus]);
+    console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser)
+  }, [isFirstTimeUser, getUserVisitStatus])
   return (
     <AuthLayout>
       <Head>
@@ -86,7 +86,7 @@ const Dashboard = () => {
         {/* {isAffiliate && ( */}
         <div
           className={`${styles.stats__container} ${
-            isAnAffiliate ? styles.isAnAffiliate : ""
+            isAnAffiliate ? styles.isAnAffiliate : ''
           }`}
         >
           <StatsHeader
@@ -143,7 +143,7 @@ const Dashboard = () => {
         </Modal>
       )}
     </AuthLayout>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
