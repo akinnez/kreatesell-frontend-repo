@@ -225,6 +225,7 @@ export const SelectV2 = ({
   extraLabel,
   list = [],
   setCountry,
+  isCheckout = false,
   ...rest
 }) => {
   return (
@@ -253,7 +254,7 @@ export const SelectV2 = ({
             size={size}
             placeholder={placeholder}
           >
-            {list?.map(({ name, flag }, i) => (
+            {list?.map(({ name, flag, country_code }, i) => (
               <AntSelect.Option key={i} value={name}>
                 <div className={style.select}>
                   {label === "Country" && (
@@ -266,6 +267,7 @@ export const SelectV2 = ({
                     />
                   )}
                   {name}
+                  {isCheckout && <span>({country_code})</span>}
                 </div>
               </AntSelect.Option>
             ))}

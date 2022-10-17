@@ -19,6 +19,9 @@ const StoreSettings = () => {
 
   const { loading } = useSelector((state) => state.store);
 
+  // console.log("store  = ", store?.cta_button);
+  const defaultCTA = store?.cta_button;
+
   const [userStoreSettings, setUserStoreSettings] = useState(() => ({
     enable_disable_tax: store?.customer_pay_tax,
     is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
@@ -28,7 +31,7 @@ const StoreSettings = () => {
     userStoreSettings;
   const [ctaBtnValue, setCtaBtnValue] = useState({
     option: "store",
-    cta_button: "",
+    cta_button: defaultCTA || "",
   });
 
   const handleCTAButton = (e) => {
@@ -72,6 +75,7 @@ const StoreSettings = () => {
           <Input
             placeholder="Checkout Page CTA Button"
             height="small"
+            value={ctaBtnValue?.cta_button}
             onChange={(e) => {
               setCtaBtnValue((value) => ({
                 ...value,

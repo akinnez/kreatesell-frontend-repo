@@ -19,7 +19,6 @@ import { useRouter } from 'next/router'
 import { transformToFormData } from 'utils'
 
 import axios from 'axios'
-import { addItem } from 'networking/redux/slices'
 
 export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
@@ -49,6 +48,8 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   // if (product) {
   //   setProductID(product?.product_details?.kreasell_product_id);
   // }
+
+  // console.log("productID from redux = ", productID);
 
   const [progress, setProgress] = useState(0)
 
@@ -172,6 +173,15 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       const values = opt.map((item) => ({ label: item, value: item }))
       setFrequencyOptions(values)
     }
+  }
+
+  function getDateFunc() {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0')
+    let yyyy = today.getFullYear()
+
+    return `${yyyy}-${mm}-${dd}T00:00`
   }
 
   useEffect(() => {
@@ -345,10 +355,13 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     return data
   }
 
-  // console.log('productId = ', productID)
+  console.log('product  = ', product)
 
   const handleSubmit = (data) => {
-    // console.log("data from submit = ", data);
+    console.log(
+      'isShow compare data from submit = ',
+      data.is_show_compare_price,
+    )
     // setProductID(productID);
     // const dataWithCompare = {
     //   ...data,
@@ -377,9 +390,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     if (!data.product_settings.allow_affiliates) {
       delete data.product_settings.affiliate_percentage_on_sales
     }
-    if (!data.is_show_compare_price) {
-      delete data.is_show_compare_price
-    }
+    // if (!data.is_show_compare_price) {
+    //   delete data.is_show_compare_price;
+    // }
     const checkedData = checkArrays(data)
 
     const result = transformToFormData(checkedData)
@@ -603,6 +616,10 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       if (product.product_details.who_bears_fee) {
         setBuyerPaysTransactionFee(true)
       }
+      //* here
+      if (product.product_details.is_show_compare_price) {
+        setCompareToPrice(true)
+      }
 
       if (product.check_out_details && product.check_out_details.length > 0) {
         populatePricing(product?.check_out_details)
@@ -700,7 +717,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   // console.log("disableButton = ", disableButton());
 
-  // console.log("showCompare is enabled = ", product?.product_details);
+  // console.log('getDateFunc ', getDateFunc())
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === 'Fixed Price' && (
@@ -807,11 +824,9 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                   setCompareToPrice((value) => !value)
                 }}
                 checked={
-                  // product?.product_details?.is_show_compare_price
-                  //   ? product?.product_details?.is_show_compare_price
-                  // :
-                  // product?.product_details?.is_show_compare_price ??
-                  compareToPrice
+                  product?.product_details?.is_show_compare_price
+                    ? product?.product_details?.is_show_compare_price
+                    : compareToPrice
                 }
               />
               <span className={`${styles.cpnStatus}`}>
@@ -945,6 +960,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
+                  min={getDateFunc()}
                   onChange={(e) => {
                     setFieldValue('coupon_settings.start_date', e.target.value)
                   }}
@@ -958,6 +974,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
+                  min={getDateFunc()}
                   onChange={(e) => {
                     setFieldValue('coupon_settings.end_date', e.target.value)
                   }}
