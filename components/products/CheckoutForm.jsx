@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { CloudUpload, FileDelete, FileZip, Audio, Video } from 'utils'
 import Image from 'next/image'
 import { useFormik } from 'formik'
-// import { Select } from "components/select/Select";
+
 import { useSelector } from 'react-redux'
 import {
   GetProductByID,
@@ -19,7 +19,6 @@ import { useRouter } from 'next/router'
 import { transformToFormData } from 'utils'
 
 import axios from 'axios'
-import { addItem } from 'networking/redux/slices'
 
 export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
   /**
@@ -172,6 +171,15 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
       const values = opt.map((item) => ({ label: item, value: item }))
       setFrequencyOptions(values)
     }
+  }
+
+  function getDateFunc() {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0')
+    let yyyy = today.getFullYear()
+
+    return `${yyyy}-${mm}-${dd}T00:00`
   }
 
   useEffect(() => {
@@ -700,7 +708,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 
   // console.log("disableButton = ", disableButton());
 
-  // console.log("showCompare is enabled = ", product?.product_details);
+  // console.log('getDateFunc ', getDateFunc())
   return (
     <Form onFinish={formik.handleSubmit}>
       {priceType === 'Fixed Price' && (
@@ -945,6 +953,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
+                  min={getDateFunc()}
                   onChange={(e) => {
                     setFieldValue('coupon_settings.start_date', e.target.value)
                   }}
@@ -958,6 +967,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
                 <Input
                   type="datetime-local"
                   className={styles.couponDateTimeLocaleContInput}
+                  min={getDateFunc()}
                   onChange={(e) => {
                     setFieldValue('coupon_settings.end_date', e.target.value)
                   }}
