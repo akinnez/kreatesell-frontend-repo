@@ -43,3 +43,122 @@
 .modalContent {
 	padding: 2.875rem;
 }
+
+//onboarding guide modals 
+
+.onboardingGuideModal {
+	z-index: 1500;
+	position: fixed;
+	background: $modal-bg;
+	inset: 0;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	height: 100vh;
+	width: 85vw;
+	left: 17%;
+	@include screen("medium") {
+		left: 0;
+		width: 100vw;
+	}
+}
+
+.onboardingTooltip {
+	position: absolute;
+	// left:16px;
+	// top:10%;
+	width: 427px;
+	// height: 196px;
+	padding: 24px;
+	border-radius: 8px;
+	background-color: #F1FCF8;
+	transition: all 0.5s linear;
+	@include screen("medium") {
+		display: none;
+	}
+}
+.onboardingTooltipMobile {
+	position: absolute;
+	// left:16px;
+	// top:10%;
+	width: 354px;
+	// height: 196px;
+	padding: 24px;
+	border-radius: 8px;
+	background-color: #F1FCF8;
+	transition: all 0.5s linear;
+    display: none;
+	@include screen("medium") {
+	 display: block;
+	}
+}
+
+.toolTipTitleContainer {
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.toolTipModalTitle {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 28px;
+	text-align: center;
+	color: #595959;
+}
+
+.toolTipText {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 24px;
+	color: #595959;
+}
+
+.toolTipBtnContainer {
+	display: flex;
+	align-content: center;
+}
+
+.toolTipBtnText {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 28px;
+	color: #595959;
+}
+
+.toolTipBtn {
+	padding: 6px 20px;
+	background: #FFFFFF;
+	border: 0.5px solid #0072EF;
+	border-radius: 8px;
+	margin-right: 8px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	color: #0072EF;
+}
+
+.toolTipNextBtn {
+	padding: 6px 20px;
+	background: #0072EF;
+	border: 0.5px solid #0072EF;
+	border-radius: 8px;
+	margin-right: 8px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	color: #FFFFFF;
+}
+
+.toolTipCloseIcon {
+	cursor: pointer;
+}

@@ -10,6 +10,8 @@ const initialState = {
   singleStoreProducts: [],
   storeCurrencies: [],
   storeCheckoutCurrencies: [],
+  salesStatistics: {},
+	affiliateSalesStatistics:{}
 }
 
 const StoreReducer = (state = initialState, { type, payload }) => {
@@ -25,6 +27,10 @@ const StoreReducer = (state = initialState, { type, payload }) => {
     case types.UPDATE_STORE_CURRENCY.REQUEST:
     case types.UPDATE_STORE_CHECKOUT_CURRENCY.REQUEST:
       return { ...state, loading: true }
+    case types.GET_SALES_STATISTICS.REQUEST:
+      return { ...state, loading: true };
+    case types.GET_AFFILIATES_SALES_STATISTICS.REQUEST:
+      return { ...state, loading: true };
 
     case types.UPDATE_STORE_CURRENCY.SUCCESS:
     case types.UPDATE_STORE_CHECKOUT_CURRENCY.SUCCESS:
@@ -50,6 +56,12 @@ const StoreReducer = (state = initialState, { type, payload }) => {
     case types.LIST_SINGLE_STORE_PRODUCT.SUCCESS:
       return { ...state, loading: false, ...payload }
 
+    case types.GET_SALES_STATISTICS.SUCCESS:
+      return { ...state, loading: false, salesStatistics: payload };
+
+    case types.GET_AFFILIATES_SALES_STATISTICS.SUCCESS:
+      return { ...state, loading: false, affiliateSalesStatistics: payload };
+
     case types.ONBOARDING_SETUP.FAILURE:
     case types.WELCOME_STORE_ONBOARDING.FAILURE:
     case types.STORE_SETTINGS.FAILURE:
@@ -66,6 +78,10 @@ const StoreReducer = (state = initialState, { type, payload }) => {
 
     case types.UPDATE_STORE_DETAILS:
       return { ...state, store: { ...state.store, bank_details: payload } }
+    case types.GET_SALES_STATISTICS.FAILURE:
+      return { ...state, loading: false, error: payload };
+    case types.GET_AFFILIATES_SALES_STATISTICS.FAILURE:
+      return { ...state, loading: false, error: payload };
 
     default:
       return state
