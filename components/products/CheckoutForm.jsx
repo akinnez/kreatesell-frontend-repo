@@ -355,13 +355,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     return data
   }
 
-  console.log('product  = ', product)
-
   const handleSubmit = (data) => {
-    console.log(
-      'isShow compare data from submit = ',
-      data.is_show_compare_price,
-    )
     // setProductID(productID);
     // const dataWithCompare = {
     //   ...data,
@@ -400,7 +394,7 @@ export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
     createProduct(result, (res) => {
       // console.log('res', res)
       if (priceType === 'Fixed Price') {
-        router.push(`/account/kreator/products/preview/${productID}`)
+        router.push(`/account/kreator/products/preview/${res?.product_id}`)
         return
       }
       setProductTab(2)
