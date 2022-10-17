@@ -118,13 +118,11 @@ export const ProtectedStoreHeader = ({
 
             {!publicStore && (
               <div className={styles.cta_link_wrapper}>
-                <ul>
-                  <li
-                    onClick={() => Router.push("/account/kreator/store/edit")}
-                  >
+                <div>
+                  <p onClick={() => Router.push("/account/kreator/store/edit")}>
                     <CtaButton Icon={EditIcon} label="Edit Profile" active />
-                  </li>
-                  <li>
+                  </p>
+                  <p>
                     <Dropdown
                       Button={<CtaButton Icon={ShareIcon} label="Share Link" />}
                     >
@@ -135,11 +133,11 @@ export const ProtectedStoreHeader = ({
                         linkedIn={social?.linkedIn}
                       />
                     </Dropdown>
-                  </li>
-                  <li>
+                  </p>
+                  <p>
                     <CtaButton Icon={ViewAs} label="View As" />
-                  </li>
-                </ul>
+                  </p>
+                </div>
               </div>
             )}
 
@@ -209,19 +207,21 @@ export const StoreHeader = () => {
               </div>
             </div>
             <div className={styles.cta_link_wrapper}>
-              <ul>
-                <li onClick={() => Router.push("/account/store/edit")}>
-                  <CtaButton Icon={EditIcon} label="Edit Profile" active />
-                </li>
-                <li>
-                  <Dropdown
-                    Button={<CtaButton Icon={ShareIcon} label="Share Link" />}
-                  />
-                </li>
-                <li>
+              <div>
+                <div className={styles.firstTwo}>
+                  <p onClick={() => Router.push("/account/store/edit")}>
+                    <CtaButton Icon={EditIcon} label="Edit Profile" active />
+                  </p>
+                  <p>
+                    <Dropdown
+                      Button={<CtaButton Icon={ShareIcon} label="Share Link" />}
+                    />
+                  </p>
+                </div>
+                <p>
                   <CtaButton Icon={ViewAs} label="View As" />
-                </li>
-              </ul>
+                </p>
+              </div>
             </div>
           </div>
         </div>

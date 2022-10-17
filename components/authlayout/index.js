@@ -198,13 +198,8 @@ const Index = ({
                 placement="bottomRight"
                 arrow
                 visible={showOverlayOnClick}
-                // onMouseOut={() => setShowOverlayOnClick(false)}
                 onClick={() => {
-                  setShowOverlayOnClick(true);
-                  // * close after 5 seconds
-                  setTimeout(() => {
-                    setShowOverlayOnClick(false);
-                  }, 5000);
+                  setShowOverlayOnClick(!showOverlayOnClick);
                 }}
               >
                 <div className={styles.dropDown}>
