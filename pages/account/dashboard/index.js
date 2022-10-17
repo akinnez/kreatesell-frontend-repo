@@ -7,10 +7,12 @@ import AuthLayout from "components/authlayout";
 import DashboardFilters from "components/account-dashboard/DashboardFilters";
 import StatsHeader from "components/account-dashboard/StatsHeader";
 import styles from "public/css/DashboardPage.module.scss";
+import { GetSalesStatistics, GetAffiliateSalesStatistics } from "../../../redux/actions";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { mutate } from "swr";
 import axiosAPI from "utils/axios";
+import OnboardingGuide from './OnboardingGuide'
 
 // import useSWR from "swr";
 
@@ -20,6 +22,15 @@ const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const [_, setFiltered] = useState(null);
   const [isAnAffiliate, setIsAnAffiliate] = useState(false);
+
+  const getSalesStatistics = GetSalesStatistics();
+  const getAffiliateSalesStatistics = GetAffiliateSalesStatistics();
+
+  const [proceedToOnboard, setProceedToOnboard] = useState(false)
+  const [guideModalVisible, setGuideModalVisible] = useState(false)
+
+  const { salesStatistics } = useSelector((state) => state.store);
+  const { affiliateSalesStatistics } = useSelector((state) => state.store)
 
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
   const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
@@ -58,10 +69,18 @@ const Dashboard = () => {
   // console.log(data);
 
   useEffect(() => {
+    getSalesStatistics();
+    getAffiliateSalesStatistics();
+  }, [])
+
+  useEffect(() => {
     getUserVisitStatus();
+
 
     console.log("isFirstTimeUser  from useEffect = ", isFirstTimeUser);
   }, [isFirstTimeUser, getUserVisitStatus]);
+
+
   return (
     <AuthLayout>
       <Head>
@@ -78,14 +97,18 @@ const Dashboard = () => {
             isAffiliateCard={false}
             isAnAffiliate={isAnAffiliate}
           />
-          <StatsCard totalVisits="0" unitSales="0" grossSales="0" profit="0" />
+          <StatsCard
+            totalVisits={salesStatistics.total_visits}
+            unitSales={salesStatistics.total_sales}
+            grossSales={salesStatistics.gross_sales}
+            profit={salesStatistics.profits}
+          />
         </div>
         {/* show only when user is an affiliate */}
         {/* {isAffiliate && ( */}
         <div
-          className={`${styles.stats__container} ${
-            isAnAffiliate ? styles.isAnAffiliate : ""
-          }`}
+          className={`${styles.stats__container} ${isAnAffiliate ? styles.isAnAffiliate : ""
+            }`}
         >
           <StatsHeader
             title="Affiliate"
@@ -94,18 +117,18 @@ const Dashboard = () => {
             isAffiliateCard={true}
           />
           <StatsCard
-            totalVisits="0"
             isAnAffiliate={isAnAffiliate}
             isAffiliateCard={true}
-            unitSales="0"
-            grossSales="0"
-            profit="0"
+            totalVisits={affiliateSalesStatistics.total_visits === null ? 0 : affiliateSalesStatistics.total_visits}
+            unitSales={affiliateSalesStatistics.total_sales === null ? 0 : affiliateSalesStatistics.total_sales}
+            grossSales={affiliateSalesStatistics.gross_sales === null ? 0 : affiliateSalesStatistics.gross_sales}
+            profit={affiliateSalesStatistics.profits === null ? 0 : affiliateSalesStatistics.profits}
           />
         </div>
         {/* )} */}
       </section>
       {/* {isFirstTimer */}
-      {isFirstTimeUser && (
+      {proceedToOnboard && (
         <Modal
           title={null}
           footer={null}
@@ -140,6 +163,10 @@ const Dashboard = () => {
           </div>
         </Modal>
       )}
+
+      {!guideModalVisible && isFirstTimeUser && (
+        <OnboardingGuide visible={modalVisible} setProceedToOnboard={setProceedToOnboard} setGuideModalVisible={setGuideModalVisible} />
+       )}
     </AuthLayout>
   );
 };
