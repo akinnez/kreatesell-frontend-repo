@@ -445,7 +445,7 @@ const Checkout = () => {
                 <div className={styles.phoneCode}>
                   <Col xs={24} md={12}>
                     <SelectV2
-                      // label="here"
+                      label=""
                       size="large"
                       setCountry={setCountry}
                       list={countries}
