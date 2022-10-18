@@ -1,7 +1,7 @@
-import Legal from "../../components/legal-docs";
+import Legal from '../../components/legal-docs';
 
 const PrivacyPolicyPage = () => {
-  return <Legal defaultActiveKey="2" />;
+	return <Legal defaultActiveKey="2" />;
 };
 
 export default PrivacyPolicyPage;

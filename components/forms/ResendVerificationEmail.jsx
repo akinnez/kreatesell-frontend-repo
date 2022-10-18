@@ -1,26 +1,26 @@
-import { Input, Button, FormError } from "../";
-import { useFormik } from "formik";
-import Link from "next/link";
-import { EmailSchema } from "../../validation";
-import { isAnEmpytyObject } from "../../utils";
-import { ResendConfirmationEmail } from "../../redux/actions";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import styles from "../../public/css/Login.module.scss";
+import {Input, Button, FormError} from '../';
+import {useFormik} from 'formik';
+import Link from 'next/link';
+import {EmailSchema} from '../../validation';
+import {isAnEmpytyObject} from '../../utils';
+import {ResendConfirmationEmail} from '../../redux/actions';
+import {useRouter} from 'next/router';
+import {useSelector} from 'react-redux';
+import styles from '../../public/css/Login.module.scss';
 
 export const ResendVerificationEmailForm = () => {
 	const resendEmail = ResendConfirmationEmail();
 	const router = useRouter();
 
-	const { loading } = useSelector((state) => state.auth);
+	const {loading} = useSelector((state) => state.auth);
 
 	const initialValues = {
-		email: "",
+		email: '',
 	};
 
 	const handleSubmit = (data) => {
 		resendEmail(data?.email, () => {
-			router.push("/login");
+			router.push('/login');
 		});
 	};
 
@@ -31,7 +31,7 @@ export const ResendVerificationEmailForm = () => {
 		validateOnChange: false,
 	});
 
-	const { errors } = formik;
+	const {errors} = formik;
 
 	return (
 		<>
@@ -60,10 +60,10 @@ export const ResendVerificationEmailForm = () => {
 			</form>
 
 			<div className={styles.footer}>
-				Don’t have an account?{" "}
+				Don’t have an account?{' '}
 				<Link href="/signup">
 					<a>Get Started</a>
-				</Link>{" "}
+				</Link>{' '}
 			</div>
 		</>
 	);

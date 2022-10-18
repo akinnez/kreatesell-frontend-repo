@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { Button } from "../";
-import { KreateSellBrand } from "../../utils";
-import styles from "../../public/css/ResetSuccess.module.scss";
+import Image from 'next/image';
+import {useRouter} from 'next/router';
+import {Button} from '../';
+import {KreateSellBrand} from '../../utils';
+import styles from '../../public/css/ResetSuccess.module.scss';
 
 export const ResetPasswordSuccesModal = () => {
 	const router = useRouter();
@@ -15,17 +15,17 @@ export const ResetPasswordSuccesModal = () => {
 			<h5>Password Successfully Reset</h5>
 
 			<p className={styles.webParagraph}>
-				You have successfully changed your password. You can now use <br /> your
-				new set password to login into your account. 🙌
+				You have successfully changed your password. You can now use{' '}
+				<br /> your new set password to login into your account. 🙌
 			</p>
 			<p className={styles.mobileParagraph}>
-				You have successfully changed your password. You can now use your new
-				set password to login into your account. 🙌
+				You have successfully changed your password. You can now use
+				your new set password to login into your account. 🙌
 			</p>
 			<Button
 				text="Login"
 				bgColor="primaryBlue"
-				onClick={() => router.push("/login")}
+				onClick={() => router.push('/login')}
 				className={styles.button}
 			/>
 		</div>

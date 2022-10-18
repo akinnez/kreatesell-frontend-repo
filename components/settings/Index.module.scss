@@ -1,4 +1,4 @@
-@import "../../public//css/screens.scss";
+@import '../../public//css/screens.scss';
 
 .wrapper {
 	h3 {
@@ -14,7 +14,7 @@
 		min-height: 200px;
 		padding: 25px 100px 25px 25px;
 		margin-top: 20px;
-		@include screen("medium") {
+		@include screen('medium') {
 			border: none;
 			border-radius: 0.5rem;
 			padding: 1.5rem 0.75rem;
@@ -34,12 +34,12 @@
 			line-height: 26px;
 			color: #8c8c8c;
 		}
-		.checFlag{
+		.checFlag {
 			position: relative;
 			width: 20px;
 			height: 20px;
 			display: inline-block;
-			img{
+			img {
 				width: 100%;
 				height: 100%;
 				border-radius: 50%;

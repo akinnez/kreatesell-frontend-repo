@@ -1,7 +1,7 @@
-import { UpgradeAccountForm } from "../UpgradeAccountForm";
-import renderer from "react-test-renderer";
+import {UpgradeAccountForm} from '../UpgradeAccountForm';
+import renderer from 'react-test-renderer';
 
-it("renders a snapshot of <UpgradeAccountForm />", () => {
-  const form = renderer.create(<UpgradeAccountForm />).toJSON();
-  expect(form).toMatchSnapshot();
+it('renders a snapshot of <UpgradeAccountForm />', () => {
+	const form = renderer.create(<UpgradeAccountForm />).toJSON();
+	expect(form).toMatchSnapshot();
 });

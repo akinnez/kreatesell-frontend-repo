@@ -1,63 +1,63 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .section {
-  padding: 45px 10px;
-  background-color: colors.$base-white;
-  border-radius: 8px;
+	padding: 45px 10px;
+	background-color: colors.$base-white;
+	border-radius: 8px;
 }
 
 .label {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 
-  & > span {
-    font-weight: 500;
-    font-size: 16px;
-    color: colors.$black-100;
-  }
+	& > span {
+		font-weight: 500;
+		font-size: 16px;
+		color: colors.$black-100;
+	}
 }
 
 .link__container {
-  max-width: 790px;
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
-  gap: 15px;
+	max-width: 790px;
+	@include mixins.flex(row, flex-start, center);
+	flex-wrap: wrap;
+	gap: 15px;
 }
 
 .link {
-  height: 45px;
-  width: 100%;
-  max-width: 670px;
-  padding: 10px 15px;
-  border: 1px dashed colors.$base-blue;
-  border-radius: 8px;
-  background-color: colors.$base-green-300;
-  white-space: nowrap;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
+	height: 45px;
+	width: 100%;
+	max-width: 670px;
+	padding: 10px 15px;
+	border: 1px dashed colors.$base-blue;
+	border-radius: 8px;
+	background-color: colors.$base-green-300;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 
-  & > span {
-    color: colors.$black-100;
-    font-size: 18px;
-    line-height: 1;
-  }
+	& > span {
+		color: colors.$black-100;
+		font-size: 18px;
+		line-height: 1;
+	}
 }
 
 .link__btn {
-  height: 45px;
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid colors.$base-blue;
-  color: colors.$base-blue;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 1;
+	height: 45px;
+	padding: 10px 15px;
+	border-radius: 8px;
+	border: 1px solid colors.$base-blue;
+	color: colors.$base-blue;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 1;
 }
 
-@include screens.minScreen("medium") {
-  .section {
-    padding-left: 50px;
-    padding-right: 50px;
-  }
+@include screens.minScreen('medium') {
+	.section {
+		padding-left: 50px;
+		padding-right: 50px;
+	}
 }

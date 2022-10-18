@@ -1,7 +1,7 @@
-import Legal from "../../components/legal-docs";
+import Legal from '../../components/legal-docs';
 
 const CookiePolicyPage = () => {
-  return <Legal defaultActiveKey="1" />;
+	return <Legal defaultActiveKey="1" />;
 };
 
 export default CookiePolicyPage;

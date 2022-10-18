@@ -1,11 +1,11 @@
-@use "public/css/colors";
+@use 'public/css/colors';
 
 .sold {
-  font-weight: bold;
-  color: colors.$base-blue;
+	font-weight: bold;
+	color: colors.$base-blue;
 }
 
 .visits {
-  font-weight: bold;
-  color: colors.$green-100;
+	font-weight: bold;
+	color: colors.$green-100;
 }

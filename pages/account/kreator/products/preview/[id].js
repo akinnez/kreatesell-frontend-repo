@@ -1,43 +1,43 @@
-import { useRouter } from "next/router";
-import PreviewHeader from "components/Preview/PreviewHeader";
-import { GetProductByID } from "redux/actions";
-import { useEffect } from "react";
-import PreviewContent from "components/Preview/PreviewContent";
-import AuthLayout from "../../../../../components/authlayout";
-import styles from "../../../../../components/Preview/PreviewHeader.module.scss";
+import {useRouter} from 'next/router';
+import PreviewHeader from 'components/Preview/PreviewHeader';
+import {GetProductByID} from 'redux/actions';
+import {useEffect} from 'react';
+import PreviewContent from 'components/Preview/PreviewContent';
+import AuthLayout from '../../../../../components/authlayout';
+import styles from '../../../../../components/Preview/PreviewHeader.module.scss';
 
 // export default function PreviewProduct ({id}){
 export default function PreviewProduct() {
-  const router = useRouter();
-  const getProductByID = GetProductByID();
+	const router = useRouter();
+	const getProductByID = GetProductByID();
 
-  useEffect(() => {
-    if (router.query.id) {
-      getProductByID(router.query.id);
-    }
-  }, [router.query.id]);
+	useEffect(() => {
+		if (router.query.id) {
+			getProductByID(router.query.id);
+		}
+	}, [router.query.id]);
 
-  if (!router.query.id) {
-    return null;
-  }
+	if (!router.query.id) {
+		return null;
+	}
 
-  return (
-    <AuthLayout>
-      <div
-        style={{
-          position: "absolute",
-          background: "#e5e5e5",
-          left: 0,
-          top: 0,
-          width: "100%",
-        }}
-        className={styles.previewPageContainer}
-      >
-        <PreviewHeader id={router.query.id} />
-        <PreviewContent />
-      </div>
-    </AuthLayout>
-  );
+	return (
+		<AuthLayout>
+			<div
+				style={{
+					position: 'absolute',
+					background: '#e5e5e5',
+					left: 0,
+					top: 0,
+					width: '100%',
+				}}
+				className={styles.previewPageContainer}
+			>
+				<PreviewHeader id={router.query.id} />
+				<PreviewContent />
+			</div>
+		</AuthLayout>
+	);
 }
 
 // export async function getServerSideProps({query: {id}}){

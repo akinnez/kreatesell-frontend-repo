@@ -1,5 +1,5 @@
-import { GeneralLayout, VerifyResetPasswordTokenForm } from "../../components";
-import styles from "../../public/css/ForgotPassword.module.scss";
+import {GeneralLayout, VerifyResetPasswordTokenForm} from '../../components';
+import styles from '../../public/css/ForgotPassword.module.scss';
 
 const VerifyResetPasswordToken = () => {
 	return (

@@ -1,8 +1,8 @@
-import { EmptyDataTable } from "utils";
-import styles from "./Table.module.scss";
-import Image from "next/image";
+import {EmptyDataTable} from 'utils';
+import styles from './Table.module.scss';
+import Image from 'next/image';
 
-export const Table = ({ header, data, loading }) => {
+export const Table = ({header, data, loading}) => {
 	return (
 		<div className={styles.tableContainer}>
 			<table className={styles.table}>
@@ -21,7 +21,10 @@ export const Table = ({ header, data, loading }) => {
 								{header?.map((item, i) =>
 									item?.component ? (
 										<td key={i}>
-											{item.component({ item: data[item?.key], data })}
+											{item.component({
+												item: data[item?.key],
+												data,
+											})}
 										</td>
 									) : (
 										<td key={i}>{data[item?.key]}</td>
@@ -41,7 +44,9 @@ export const Table = ({ header, data, loading }) => {
 					{loading ? (
 						<div>Loading Data ...</div>
 					) : (
-						<div className="text-center mt-3 bolder">No available data</div>
+						<div className="text-center mt-3 bolder">
+							No available data
+						</div>
 					)}
 				</div>
 			)}

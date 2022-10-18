@@ -1,18 +1,18 @@
-import React, { useState, useRef } from "react";
-import Select from "react-select";
+import React, {useState, useRef} from 'react';
+import Select from 'react-select';
 import {
 	DropdownIndicator,
 	ProfileInputIcon,
 	UploaderIcon,
 	CheckMark,
-} from "../IconPack";
-import Calendar from "../calendar";
+} from '../IconPack';
+import Calendar from '../calendar';
 
 export const TextInput = ({
 	disabled,
 	labelStyle,
 	name,
-	type = "text",
+	type = 'text',
 	value,
 	onChange = () => {},
 	onBlur = () => {},
@@ -75,7 +75,7 @@ export const TextInput = ({
 export const TextArea = ({
 	disabled,
 	name,
-	type = "text",
+	type = 'text',
 	value,
 	onChange = () => {},
 	onBlur = () => {},
@@ -125,7 +125,7 @@ export const TextArea = ({
 					color: #8c8c8c;
 					font-size: 14px;
 					resize: none;
-					font-family: "Inter";
+					font-family: 'Inter';
 				}
 
 				@media screen and (max-width: 600px) {
@@ -141,7 +141,7 @@ export const TextArea = ({
 export const CustomSelect = ({
 	label,
 	width,
-	margin = "8px 0px",
+	margin = '8px 0px',
 	labelStyle,
 	disabled,
 	onChange = () => {},
@@ -157,10 +157,10 @@ export const CustomSelect = ({
 			...base,
 			height: 45,
 			minHeight: 45,
-			border: "1px solid #D9D9D9",
-			fontSize: "14px",
-			color: "#8C8C8C",
-			background: "#fff",
+			border: '1px solid #D9D9D9',
+			fontSize: '14px',
+			color: '#8C8C8C',
+			background: '#fff',
 			borderRadius: 8,
 			margin,
 		}),
@@ -169,7 +169,7 @@ export const CustomSelect = ({
 
 	const handleChange = (v) => {
 		if (isMultiple) {
-			const val = v?.map(({ value }) => value);
+			const val = v?.map(({value}) => value);
 			onChange(val);
 		} else {
 			onChange(v?.value);
@@ -181,16 +181,16 @@ export const CustomSelect = ({
 			const arr = [];
 			value?.forEach((item) => {
 				const index = list?.findIndex((el) => el.value == item);
-				arr.push({ label: list[index].label, value: item });
+				arr.push({label: list[index].label, value: item});
 			});
 			return arr;
 		} else {
 			const index = list?.findIndex((el) => el.value == value);
 
 			if (index > -1) {
-				return { label: list[index].label, value };
+				return {label: list[index].label, value};
 			}
-			return "";
+			return '';
 		}
 	};
 
@@ -206,12 +206,12 @@ export const CustomSelect = ({
 						placeholder={placeholder}
 						options={list}
 						value={handleLabel()}
-						components={{ DropdownIndicator }}
+						components={{DropdownIndicator}}
 						getOptionLabel={(opt) => opt.label}
 						getOptionValue={(opt) => opt.value}
 						onChange={(value) => handleChange(value)}
 					/>
-					<span className={error ? "error" : null}>{error}</span>
+					<span className={error ? 'error' : null}>{error}</span>
 				</div>
 			</div>
 
@@ -240,7 +240,7 @@ export const CustomSelect = ({
 export const Button = ({
 	onClick = () => {},
 	Icon = () => <></>,
-	label = "Submit",
+	label = 'Submit',
 	disabled,
 	loading,
 	...rest
@@ -253,7 +253,7 @@ export const Button = ({
 				disabled={disabled || loading}
 			>
 				{loading ? (
-					"Loading..."
+					'Loading...'
 				) : (
 					<>
 						<Icon /> {label}
@@ -290,9 +290,9 @@ export const FileInput = ({
 	onChange,
 	value,
 	placeholder,
-	label = "Profile picture",
+	label = 'Profile picture',
 	disabled,
-	extralable = "- Your profile picture",
+	extralable = '- Your profile picture',
 }) => {
 	const handleChange = (e) => {
 		onChange(e.target.value);
@@ -301,7 +301,7 @@ export const FileInput = ({
 	return (
 		<>
 			<div className="label"></div>
-			<span className="label-text">{label}</span>{" "}
+			<span className="label-text">{label}</span>{' '}
 			<span className="extralable">{extralable}</span>
 			<div className="input-group-wrapper">
 				<div className="profile-input-icon">
@@ -313,11 +313,12 @@ export const FileInput = ({
 						accept="image/*"
 						onChange={(e) => handleChange(e)}
 					/>
-					{value != "" ? (
+					{value != '' ? (
 						value
 					) : (
 						<span>
-							upload a profile picture of 300 X 300 pixel not exceed 300KB
+							upload a profile picture of 300 X 300 pixel not
+							exceed 300KB
 						</span>
 					)}
 				</label>
@@ -347,7 +348,7 @@ export const FileInput = ({
 					color: #8c8c8c;
 				}
 
-				.file-input-label input[type="file"] {
+				.file-input-label input[type='file'] {
 					display: none;
 				}
 
@@ -385,7 +386,7 @@ export const Uploader = ({
 	onChange = () => {},
 	onBlur = () => {},
 }) => {
-	const [file, setFile] = useState("");
+	const [file, setFile] = useState('');
 	const inputFileRef = useRef(null);
 
 	const handleChange = (e) => {
@@ -393,7 +394,7 @@ export const Uploader = ({
 		if (file !== undefined) {
 			const reader = new FileReader();
 			reader.readAsDataURL(file);
-			reader.onload = ({ currentTarget }) => {
+			reader.onload = ({currentTarget}) => {
 				setFile(currentTarget?.result);
 			};
 		}
@@ -406,11 +407,11 @@ export const Uploader = ({
 	return (
 		<>
 			<div className="label"></div>
-			<span className="label-text">{label}</span>{" "}
+			<span className="label-text">{label}</span>{' '}
 			<span className="extralable">{extralable}</span>
 			<label
-				className={`uploader-wrapper ${file ? "filled" : ""}`}
-				style={{ backgroundImage: `url(${file})` }}
+				className={`uploader-wrapper ${file ? 'filled' : ''}`}
+				style={{backgroundImage: `url(${file})`}}
 			>
 				<input
 					type="file"
@@ -423,8 +424,8 @@ export const Uploader = ({
 					Upload Cover
 				</button>
 				<span className="info-text">
-					Recommended minimum image ratio is 400 x 800 pixels and not exceed
-					500kb
+					Recommended minimum image ratio is 400 x 800 pixels and not
+					exceed 500kb
 				</span>
 			</label>
 			<style jsx>{`
@@ -443,7 +444,7 @@ export const Uploader = ({
 					padding: 10px;
 				}
 
-				.uploader-wrapper input[type="file"] {
+				.uploader-wrapper input[type='file'] {
 					display: none;
 				}
 
@@ -483,12 +484,12 @@ export const Uploader = ({
 	);
 };
 
-export const Checkbox = ({ value, onChange = () => {}, label, extralable }) => {
+export const Checkbox = ({value, onChange = () => {}, label, extralable}) => {
 	return (
 		<>
 			<div className="checkbox-wrapper">
 				<span
-					className={`indicator ${value ? "checked" : ""}`}
+					className={`indicator ${value ? 'checked' : ''}`}
 					onClick={() => onChange(!value)}
 				>
 					<CheckMark />
@@ -549,14 +550,16 @@ export const Radio = ({
 		<>
 			<div className="radio-wrapper">
 				<div
-					className={`radio ${value === content ? "checked" : ""}`}
+					className={`radio ${value === content ? 'checked' : ''}`}
 					onClick={() => onChange(content)}
 				>
 					{value == content ? <div className="indicator" /> : null}
 				</div>
 				<span className={`label ${labelStyle}`}>
-					{label}{" "}
-					<span className={`extra ${extralableStyle}`}>{extralable}</span>
+					{label}{' '}
+					<span className={`extra ${extralableStyle}`}>
+						{extralable}
+					</span>
 				</span>
 			</div>
 
@@ -609,7 +612,7 @@ export const Radio = ({
 	);
 };
 
-export const DatePicker = ({ onChange = () => {}, value, format }) => {
+export const DatePicker = ({onChange = () => {}, value, format}) => {
 	return (
 		<>
 			<Calendar
@@ -622,7 +625,7 @@ export const DatePicker = ({ onChange = () => {}, value, format }) => {
 	);
 };
 
-export const Switch = ({ value, onChange = () => {}, label }) => {
+export const Switch = ({value, onChange = () => {}, label}) => {
 	return (
 		<>
 			<div className="switch-wrapper">
@@ -669,7 +672,7 @@ export const Switch = ({ value, onChange = () => {}, label }) => {
 
 				.slider:before {
 					position: absolute;
-					content: "";
+					content: '';
 					height: 28px;
 					width: 28px;
 					left: 0;
@@ -712,11 +715,13 @@ export const Switch = ({ value, onChange = () => {}, label }) => {
 	);
 };
 
-export const Percentage = ({ value, onChange = () => {}, name }) => {
+export const Percentage = ({value, onChange = () => {}, name}) => {
 	return (
 		<>
 			<div className="perc-wrapper">
-				<label>How much percentage are you willing to pay affiliate</label>
+				<label>
+					How much percentage are you willing to pay affiliate
+				</label>
 				<div className="perc-input-wrapper">
 					<input
 						type="number"
@@ -752,7 +757,7 @@ export const Percentage = ({ value, onChange = () => {}, name }) => {
 					display: flex;
 				}
 
-				.perc-input-wrapper input[type="number"] {
+				.perc-input-wrapper input[type='number'] {
 					width: 50%;
 					outline: none;
 					border: none;
@@ -760,8 +765,8 @@ export const Percentage = ({ value, onChange = () => {}, name }) => {
 					color: #8c8c8c;
 				}
 
-				input[type="number"]::-webkit-outer-spin-button,
-				input[type="number"]::-webkit-inner-spin-button {
+				input[type='number']::-webkit-outer-spin-button,
+				input[type='number']::-webkit-inner-spin-button {
 					-webkit-appearance: none;
 					margin: 0;
 					-moz-appearance: textfield;

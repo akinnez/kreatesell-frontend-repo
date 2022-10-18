@@ -1,9 +1,9 @@
-import { Select, Input } from "components";
-import { SVGFilter } from "../../utils";
-import Image from "next/image";
-import { dayOptions } from "./partials";
-import styles from "../../public/css/Dashboard.module.scss";
-import { format } from "date-fns";
+import {Select, Input} from 'components';
+import {SVGFilter} from '../../utils';
+import Image from 'next/image';
+import {dayOptions} from './partials';
+import styles from '../../public/css/Dashboard.module.scss';
+import {format} from 'date-fns';
 // import { useEffect } from "react";
 
 export const ProductHeader = ({

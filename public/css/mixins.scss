@@ -1,4 +1,4 @@
-@import "./screens.scss";
+@import './screens.scss';
 
 @mixin flex($direction, $justify, $align) {
 	display: flex;
@@ -21,7 +21,7 @@
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
 
-	@include screen("tablet") {
+	@include screen('tablet') {
 		font-size: 14px;
 	}
 }

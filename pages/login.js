@@ -1,4 +1,4 @@
-import { GeneralLayout, LoginForm } from "../components";
+import {GeneralLayout, LoginForm} from '../components';
 
 const Login = () => {
 	return (

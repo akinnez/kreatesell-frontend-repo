@@ -1,28 +1,28 @@
-import { useState } from "react";
+import {useState} from 'react';
 import {
 	Button,
 	FormError,
 	Modal,
 	ResetPasswordSuccesModal,
 	PasswordInput,
-} from "../../";
-import Link from "next/link";
-import { useFormik } from "formik";
-import { ResetPasswordSchema } from "../../../validation";
-import { isAnEmpytyObject } from "../../../utils";
-import { SuperAdminResetPassword } from "../../../redux/actions";
-import { useSelector } from "react-redux";
-import styles from "../../../public/css/ForgotPassword.module.scss";
+} from '../../';
+import Link from 'next/link';
+import {useFormik} from 'formik';
+import {ResetPasswordSchema} from '../../../validation';
+import {isAnEmpytyObject} from '../../../utils';
+import {SuperAdminResetPassword} from '../../../redux/actions';
+import {useSelector} from 'react-redux';
+import styles from '../../../public/css/ForgotPassword.module.scss';
 
 export const AdminResetPasswordForm = () => {
 	const resetPassword = SuperAdminResetPassword();
-	const { loading } = useSelector((state) => state.auth);
+	const {loading} = useSelector((state) => state.auth);
 
 	const [modalVisible, setVisible] = useState(false);
 
 	const initialValues = {
-		password: "",
-		confirm_password: "",
+		password: '',
+		confirm_password: '',
 	};
 
 	const handleSubmit = (data) => {
@@ -41,7 +41,9 @@ export const AdminResetPasswordForm = () => {
 
 	return (
 		<>
-			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
+			{!isAnEmpytyObject(formik.errors) && (
+				<FormError errors={formik.errors} />
+			)}
 
 			<form
 				onSubmit={formik.handleSubmit}
@@ -64,14 +66,18 @@ export const AdminResetPasswordForm = () => {
 					type="password"
 				/>
 
-				<Button text="Reset password" bgColor="primaryBlue" loading={loading} />
+				<Button
+					text="Reset password"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>
-				Already have an account?{" "}
+				Already have an account?{' '}
 				<Link href="/admin/theaccess">
 					<a>Login here</a>
-				</Link>{" "}
+				</Link>{' '}
 			</div>
 
 			<Modal

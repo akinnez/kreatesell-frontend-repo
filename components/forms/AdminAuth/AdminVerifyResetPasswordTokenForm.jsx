@@ -1,26 +1,26 @@
-import { Input, Button, FormError } from "../../";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { VerifyPasswordTokenSchema } from "../../../validation";
-import { isAnEmpytyObject } from "../../../utils";
-import { ValidateResetToken } from "../../../redux/actions";
-import { useSelector } from "react-redux";
-import styles from "../../../public/css/ForgotPassword.module.scss";
+import {Input, Button, FormError} from '../../';
+import Link from 'next/link';
+import {useRouter} from 'next/router';
+import {useFormik} from 'formik';
+import {VerifyPasswordTokenSchema} from '../../../validation';
+import {isAnEmpytyObject} from '../../../utils';
+import {ValidateResetToken} from '../../../redux/actions';
+import {useSelector} from 'react-redux';
+import styles from '../../../public/css/ForgotPassword.module.scss';
 
 export const AdminVerifyResetPasswordTokenForm = () => {
 	const router = useRouter();
 	const validateToken = ValidateResetToken();
 
-	const { loading } = useSelector((state) => state.auth);
+	const {loading} = useSelector((state) => state.auth);
 
 	const initialValues = {
-		token: "",
+		token: '',
 	};
 
 	const handleSubmit = (data) => {
 		validateToken(data, () => {
-			router.push("/admin/theaccess/forgot-password/reset-password");
+			router.push('/admin/theaccess/forgot-password/reset-password');
 		});
 	};
 
@@ -33,7 +33,9 @@ export const AdminVerifyResetPasswordTokenForm = () => {
 
 	return (
 		<div className={styles.body}>
-			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
+			{!isAnEmpytyObject(formik.errors) && (
+				<FormError errors={formik.errors} />
+			)}
 
 			<form
 				onSubmit={formik.handleSubmit}
@@ -47,14 +49,18 @@ export const AdminVerifyResetPasswordTokenForm = () => {
 					onChange={formik.handleChange}
 				/>
 
-				<Button text="Verify Token" bgColor="primaryBlue" loading={loading} />
+				<Button
+					text="Verify Token"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>
-				Already have an account?{" "}
+				Already have an account?{' '}
 				<Link href="/admin/theaccess">
 					<a>Login here</a>
-				</Link>{" "}
+				</Link>{' '}
 			</div>
 		</div>
 	);

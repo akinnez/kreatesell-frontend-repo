@@ -1,59 +1,59 @@
-import React, { useState, useEffect } from 'react'
-import AuthLayout from 'components/authlayout'
-import { Card, Tabs } from 'antd'
-import style from 'public/css/card.module.scss'
-import HelpHeader from 'components/HelpComponents/header'
-import useSWR from 'swr'
-import axios from 'axios'
-import Loader from 'components/loader'
-import { getUserToken } from 'utils'
-import TicketTable from 'components/KreatorTickets/TicketTable'
-import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage'
+import React, {useState, useEffect} from 'react';
+import AuthLayout from 'components/authlayout';
+import {Card, Tabs} from 'antd';
+import style from 'public/css/card.module.scss';
+import HelpHeader from 'components/HelpComponents/header';
+import useSWR from 'swr';
+import axios from 'axios';
+import Loader from 'components/loader';
+import {getUserToken} from 'utils';
+import TicketTable from 'components/KreatorTickets/TicketTable';
+import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 
 const Index = (props) => {
-  const ticketsURL = `${process.env.BASE_URL}auth/KreatorTickets`
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [tickets, setTickets] = useState([])
+	const ticketsURL = `${process.env.BASE_URL}auth/KreatorTickets`;
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
+	const [tickets, setTickets] = useState([]);
 
-  const getUsertTickets = async () => {
-    const token = await getUserToken()
-    try {
-      const res = await axios.get(ticketsURL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+	const getUsertTickets = async () => {
+		const token = await getUserToken();
+		try {
+			const res = await axios.get(ticketsURL, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 
-      setTickets(res?.data?.data)
-      setLoading(false)
-    } catch (error) {
-      console.log(error)
+			setTickets(res?.data?.data);
+			setLoading(false);
+		} catch (error) {
+			console.log(error);
 
-      setError(true)
-    }
-  }
+			setError(true);
+		}
+	};
 
-  useEffect(() => {
-    // getUsertTickets();
-  }, [])
+	useEffect(() => {
+		// getUsertTickets();
+	}, []);
 
-  if (error) {
-    return <CustomErrorPage />
-  }
+	if (error) {
+		return <CustomErrorPage />;
+	}
 
-  if (loading) {
-    return <Loader />
-  }
+	if (loading) {
+		return <Loader />;
+	}
 
-  return (
-    <>
-      <AuthLayout>
-        <HelpHeader />
-        <TicketTable tickets={tickets} />
-      </AuthLayout>
-    </>
-  )
-}
+	return (
+		<>
+			<AuthLayout>
+				<HelpHeader />
+				<TicketTable tickets={tickets} />
+			</AuthLayout>
+		</>
+	);
+};
 
-export default Index
+export default Index;

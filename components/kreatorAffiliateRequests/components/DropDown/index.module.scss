@@ -1,28 +1,28 @@
-@use "public/css/colors";
-@use "public/css/mixins";
+@use 'public/css/colors';
+@use 'public/css/mixins';
 
-.menu span[class="ant-dropdown-menu-title-content"] {
-  @include mixins.flex(row, flex-start, center);
+.menu span[class='ant-dropdown-menu-title-content'] {
+	@include mixins.flex(row, flex-start, center);
 }
 
 .image__wrapper {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  margin-right: 10px;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin-right: 10px;
 }
 
 .btn {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  justify-content: center;
-  border: none;
-  border-radius: 8px;
-  box-shadow: none;
-  background-color: transparent;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	justify-content: center;
+	border: none;
+	border-radius: 8px;
+	box-shadow: none;
+	background-color: transparent;
 
-  &:hover {
-    background-color: colors.$white-200;
-  }
+	&:hover {
+		background-color: colors.$white-200;
+	}
 }

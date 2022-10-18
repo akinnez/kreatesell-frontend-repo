@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Button, Input } from "components";
-import { useFormik } from "formik";
-import { CreateEditDomain, SetDomainScreen, GetDomains } from "redux/actions";
-import { CreateDomainSchema } from "validation";
-import { _prependKreateSell } from "utils";
-import styles from "../Domain.module.scss";
+import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {Button, Input} from 'components';
+import {useFormik} from 'formik';
+import {CreateEditDomain, SetDomainScreen, GetDomains} from 'redux/actions';
+import {CreateDomainSchema} from 'validation';
+import {_prependKreateSell} from 'utils';
+import styles from '../Domain.module.scss';
 
 export const CreateSubDomain = () => {
 	const setDomainScreen = SetDomainScreen();
 	const createDomain = CreateEditDomain();
 	const getDomains = GetDomains();
 
-	const { loading } = useSelector((state) => state.domain);
-	const [domainName, setDomainName] = useState("");
+	const {loading} = useSelector((state) => state.domain);
+	const [domainName, setDomainName] = useState('');
 
 	const initialValues = {
-		domain_name: "",
+		domain_name: '',
 		is_kreate_sell_url: true,
 	};
 
@@ -34,10 +34,10 @@ export const CreateSubDomain = () => {
 		validateOnChange: false,
 	});
 
-	const { errors, setFieldValue } = formik;
+	const {errors, setFieldValue} = formik;
 
 	useEffect(() => {
-		setFieldValue("domain_name", _prependKreateSell({ url: domainName }));
+		setFieldValue('domain_name', _prependKreateSell({url: domainName}));
 	}, [domainName]);
 
 	return (
@@ -56,14 +56,17 @@ export const CreateSubDomain = () => {
 				</div>
 
 				<div className="text-base-gray-200 text-sm">
-					This is your free KreateSell store URL. If you change this subdomain,
-					your store URL will be updated to the new set subdomain..
+					This is your free KreateSell store URL. If you change this
+					subdomain, your store URL will be updated to the new set
+					subdomain..
 				</div>
 
 				<div className="pt-3">
 					<p className="text-black-100">Subdomain</p>
 					<div className="bg-base-white-200 px-4 pt-2 flex items-center w-full lg:w-9/12">
-						<div className="pr-6 text-base-gray pb-2">Kreatesell.com/</div>
+						<div className="pr-6 text-base-gray pb-2">
+							Kreatesell.com/
+						</div>
 						<div className="w-4/5">
 							<Input
 								height="small"

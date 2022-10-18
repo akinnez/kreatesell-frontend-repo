@@ -1,72 +1,72 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .form {
-  div[class~="ant-form-item"] {
-    margin-bottom: 15px;
+	div[class~='ant-form-item'] {
+		margin-bottom: 15px;
 
-    &:first-child
-      div[class^="ant-select"]
-      span[class="ant-select-selection-item"] {
-      @include mixins.flex(row, flex-start, center);
-    }
+		&:first-child
+			div[class^='ant-select']
+			span[class='ant-select-selection-item'] {
+			@include mixins.flex(row, flex-start, center);
+		}
 
-    &:last-child div[class="ant-form-item-control-input-content"] {
-      text-align: center;
+		&:last-child div[class='ant-form-item-control-input-content'] {
+			text-align: center;
 
-      > button {
-        font-weight: bold;
-        font-size: 14px;
-      }
-    }
-  }
+			> button {
+				font-weight: bold;
+				font-size: 14px;
+			}
+		}
+	}
 
-  div[class$="ant-form-item-has-error"] {
-    margin-bottom: 12px;
+	div[class$='ant-form-item-has-error'] {
+		margin-bottom: 12px;
 
-    div[class$="ant-form-item-explain-connected"] {
-      line-height: 1;
-      min-height: inherit;
-      margin-top: 4px;
-    }
-  }
+		div[class$='ant-form-item-explain-connected'] {
+			line-height: 1;
+			min-height: inherit;
+			margin-top: 4px;
+		}
+	}
 
-  div[class$="ant-form-item-label"] > label[for] {
-    height: auto;
-    font-weight: 500;
-    font-size: 16px;
-    color: colors.$black-100;
-    line-height: 1;
-  }
+	div[class$='ant-form-item-label'] > label[for] {
+		height: auto;
+		font-weight: 500;
+		font-size: 16px;
+		color: colors.$black-100;
+		line-height: 1;
+	}
 
-  div[class^="ant-select"] > div[class="ant-select-selector"] {
-    border-radius: 8px;
-  }
+	div[class^='ant-select'] > div[class='ant-select-selector'] {
+		border-radius: 8px;
+	}
 }
 
-.countries__options > div[class="ant-select-item-option-content"] {
-  @include mixins.flex(row, flex-start, center);
+.countries__options > div[class='ant-select-item-option-content'] {
+	@include mixins.flex(row, flex-start, center);
 }
 
 .option__icon {
-  border-radius: 8px;
+	border-radius: 8px;
 }
 
 .text {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  text-align: center;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	text-align: center;
 
-  > span[class="ant-typography"] {
-    font-weight: 500;
-    font-size: 16px;
-    color: colors.$base-gray;
-  }
+	> span[class='ant-typography'] {
+		font-weight: 500;
+		font-size: 16px;
+		color: colors.$base-gray;
+	}
 }
 
-@include screens.minScreen("medium-large") {
-  .payouts__form__modal div[class="ant-modal-body"] {
-    padding: 45px;
-  }
+@include screens.minScreen('medium-large') {
+	.payouts__form__modal div[class='ant-modal-body'] {
+		padding: 45px;
+	}
 }

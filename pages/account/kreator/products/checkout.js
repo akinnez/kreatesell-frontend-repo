@@ -1,7 +1,7 @@
-import React from "react";
-import AuthLayout from "../../../../components/authlayout";
-import Topbar from "../../../../components/topbar";
-import { Card } from "../../../../components/card";
+import React from 'react';
+import AuthLayout from '../../../../components/authlayout';
+import Topbar from '../../../../components/topbar';
+import {Card} from '../../../../components/card';
 import {
 	TextInput,
 	Button,
@@ -12,8 +12,8 @@ import {
 	FileInput,
 	Uploader,
 	Checkbox,
-} from "../../../../components/inputPack";
-import { Formik, Form } from "formik";
+} from '../../../../components/inputPack';
+import {Formik, Form} from 'formik';
 
 const Index = () => {
 	return (

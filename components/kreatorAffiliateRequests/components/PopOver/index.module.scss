@@ -1,89 +1,89 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .content__container {
-  max-width: 360px;
-  position: relative;
-  padding: 25px 45px 15px;
+	max-width: 360px;
+	position: relative;
+	padding: 25px 45px 15px;
 }
 
 .close__btn {
-  position: absolute;
-  top: 15px;
-  right: 0;
+	position: absolute;
+	top: 15px;
+	right: 0;
 
-  > button[class^="ant-btn"] {
-    justify-content: center;
-    border-radius: 50%;
-    border: none;
-    box-shadow: none;
+	> button[class^='ant-btn'] {
+		justify-content: center;
+		border-radius: 50%;
+		border: none;
+		box-shadow: none;
 
-    > svg {
-      font-size: 25px;
-      color: colors.$base-gray;
-    }
-  }
+		> svg {
+			font-size: 25px;
+			color: colors.$base-gray;
+		}
+	}
 }
 
 .affiliate__info {
-  text-align: center;
+	text-align: center;
 
-  p {
-    margin-bottom: 0;
+	p {
+		margin-bottom: 0;
 
-    &:not(:last-child) {
-      margin-bottom: 8px;
+		&:not(:last-child) {
+			margin-bottom: 8px;
 
-      > [class="ant-typography"] {
-        font-weight: 500;
-        font-size: 20px;
-        color: colors.$black-100;
-      }
-    }
+			> [class='ant-typography'] {
+				font-weight: 500;
+				font-size: 20px;
+				color: colors.$black-100;
+			}
+		}
 
-    &:last-child > [class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$base-gray;
-    }
-  }
+		&:last-child > [class='ant-typography'] {
+			font-weight: 500;
+			font-size: 16px;
+			color: colors.$base-gray;
+		}
+	}
 }
 
 .divider {
-  background-color: #d9d9d9;
+	background-color: #d9d9d9;
 }
 
 .btn {
-  padding: 0;
-  color: colors.$base-blue;
+	padding: 0;
+	color: colors.$base-blue;
 
-  > span:first-child {
-    margin-right: 8px;
-  }
+	> span:first-child {
+		margin-right: 8px;
+	}
 }
 
-@include screens.screen("x-large") {
-  .btn {
-    font: {
-      size: 18px;
-      weight: bold;
-    }
+@include screens.screen('x-large') {
+	.btn {
+		font: {
+			size: 18px;
+			weight: bold;
+		}
 
-    &:hover {
-      color: colors.$base-blue;
+		&:hover {
+			color: colors.$base-blue;
 
-      > span:first-child {
-        background-color: colors.$blue-100;
-      }
-    }
+			> span:first-child {
+				background-color: colors.$blue-100;
+			}
+		}
 
-    > span:first-child {
-      width: 40px;
-      height: 40px;
-      margin-right: 8px;
-      border-radius: 8px;
-      @include mixins.flex(row, center, center);
-    }
-  }
+		> span:first-child {
+			width: 40px;
+			height: 40px;
+			margin-right: 8px;
+			border-radius: 8px;
+			@include mixins.flex(row, center, center);
+		}
+	}
 }

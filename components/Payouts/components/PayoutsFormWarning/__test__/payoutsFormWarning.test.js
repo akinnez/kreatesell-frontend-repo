@@ -1,7 +1,7 @@
-import PayoutsFormWarning from "..";
-import renderer from "react-test-renderer";
+import PayoutsFormWarning from '..';
+import renderer from 'react-test-renderer';
 
-it("renders a snapshot of <PayoutsFormWarning />", () => {
-  const warning = renderer.create(<PayoutsFormWarning />).toJSON();
-  expect(warning).toMatchSnapshot();
+it('renders a snapshot of <PayoutsFormWarning />', () => {
+	const warning = renderer.create(<PayoutsFormWarning />).toJSON();
+	expect(warning).toMatchSnapshot();
 });

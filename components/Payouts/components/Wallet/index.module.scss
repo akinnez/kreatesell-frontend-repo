@@ -1,51 +1,51 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .heading {
-  font-weight: 700;
-  font-size: 20px;
-  color: colors.$black-100;
-  margin-bottom: 30px;
+	font-weight: 700;
+	font-size: 20px;
+	color: colors.$black-100;
+	margin-bottom: 30px;
 }
 
 .spin__wrapper section:last-child {
-  margin-bottom: 100px;
+	margin-bottom: 100px;
 }
 
 .data__section + section {
-  margin-top: 40px;
+	margin-top: 40px;
 
-  ul {
-    @include mixins.flex(row, flex-end, center);
-  }
+	ul {
+		@include mixins.flex(row, flex-end, center);
+	}
 }
 
 .table__wrapper {
-  display: none;
+	display: none;
 }
 
-@include screens.minScreen("x-large") {
-  .heading {
-    font-size: 24px;
-  }
+@include screens.minScreen('x-large') {
+	.heading {
+		font-size: 24px;
+	}
 
-  .data__section {
-    ul,
-    div[class*="no__data"] {
-      display: none;
-    }
+	.data__section {
+		ul,
+		div[class*='no__data'] {
+			display: none;
+		}
 
-    & + section ul {
-      justify-content: flex-start;
-    }
-  }
+		& + section ul {
+			justify-content: flex-start;
+		}
+	}
 
-  .table__wrapper {
-    display: block;
+	.table__wrapper {
+		display: block;
 
-    [class="ant-table-content"] {
-      overflow-x: auto;
-    }
-  }
+		[class='ant-table-content'] {
+			overflow-x: auto;
+		}
+	}
 }

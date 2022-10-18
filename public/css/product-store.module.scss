@@ -1,63 +1,62 @@
-@import "./colors.scss";
-@import "./screens.scss";
+@import './colors.scss';
+@import './screens.scss';
 
 .container {
-  background-color: $white-200;
-  min-height: 100vh;
-  // padding: 1rem 10.31rem;
+	background-color: $white-200;
+	min-height: 100vh;
+	// padding: 1rem 10.31rem;
 
-  .login {
-    width: 100%;
-    padding: 0 1rem;
+	.login {
+		width: 100%;
+		padding: 0 1rem;
 
-    &.loginBtnStyle {
-      border: none;
-      color: #8c8c8c;
-    }
-  }
+		&.loginBtnStyle {
+			border: none;
+			color: #8c8c8c;
+		}
+	}
 
-  .select {
-    width: 15%;
-    @include screen("medium") {
-      width: 30%;
-    }
-  }
+	.select {
+		width: 15%;
+		@include screen('medium') {
+			width: 30%;
+		}
+	}
 
-  // nav {
-  //   border: 1px solid red;
-  // }
+	// nav {
+	//   border: 1px solid red;
+	// }
 }
 
-.productCardCtn{
-  color: #262626;
-  .productName{
-    font-weight: 700;
-    font-size: 18px;
-  }
-  &:hover{
-    border: 1px solid #0072EF;
-    box-shadow: 0px 10px 30px rgba(0, 114, 239, 0.2);
-    color: #0072EF;
-    
-  }
+.productCardCtn {
+	color: #262626;
+	.productName {
+		font-weight: 700;
+		font-size: 18px;
+	}
+	&:hover {
+		border: 1px solid #0072ef;
+		box-shadow: 0px 10px 30px rgba(0, 114, 239, 0.2);
+		color: #0072ef;
+	}
 }
 
 .productCardBtn {
-  height: 2rem;
+	height: 2rem;
 
-  @include screen("small") {
-    height: 1.5rem;
-    width: 60%;
-  }
+	@include screen('small') {
+		height: 1.5rem;
+		width: 60%;
+	}
 
-  @include screen("x-small") {
-    height: 1.5rem;
-    width: 55%;
-  }
+	@include screen('x-small') {
+		height: 1.5rem;
+		width: 55%;
+	}
 }
 
 .productImg {
-  border-radius: 0.5rem;
+	border-radius: 0.5rem;
 }
 
 // .main {
@@ -67,10 +66,10 @@
 //   align-items: center;
 // }
 .main {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
 // .sellingPrice {
@@ -81,25 +80,25 @@
 //   margin-bottom: 0;
 // }
 .sellingPrice {
-  font-weight: bold;
-  font-size: 1.2rem !important;
-  margin-bottom: 0.2rem;
+	font-weight: bold;
+	font-size: 1.2rem !important;
+	margin-bottom: 0.2rem;
 }
 
 .originalPrice {
-  font-weight: 0.6rem;
-  text-decoration: line-through;
+	font-weight: 0.6rem;
+	text-decoration: line-through;
 }
 
 .bioData {
-  p {
-    // border: 1px solid red !important;
-    background: rgba(255, 255, 255, 0.80059);
-    padding: 1rem;
-    text-align: justify;
-    border-radius: 10px;
-    max-width: 1050px;
-    margin: 4rem auto;
-    box-shadow: 0px 20px 27px rgb(0 0 0 / 5%);
-  }
+	p {
+		// border: 1px solid red !important;
+		background: rgba(255, 255, 255, 0.80059);
+		padding: 1rem;
+		text-align: justify;
+		border-radius: 10px;
+		max-width: 1050px;
+		margin: 4rem auto;
+		box-shadow: 0px 20px 27px rgb(0 0 0 / 5%);
+	}
 }

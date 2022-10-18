@@ -1,4 +1,4 @@
-import { AdminLoginForm, GeneralLayout } from "../../../components";
+import {AdminLoginForm, GeneralLayout} from '../../../components';
 
 const AdminLogin = () => {
 	return (

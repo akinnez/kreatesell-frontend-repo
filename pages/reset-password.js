@@ -1,4 +1,4 @@
-import { GeneralLayout, ResetPasswordForm } from "../components";
+import {GeneralLayout, ResetPasswordForm} from '../components';
 
 const ResetPassword = () => {
 	return (

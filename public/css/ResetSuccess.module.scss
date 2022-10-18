@@ -1,19 +1,19 @@
-@import "./mixins.scss";
-@import "./colors.scss";
-@import "../../public/css/screens.scss";
+@import './mixins.scss';
+@import './colors.scss';
+@import '../../public/css/screens.scss';
 
 .resetPasswordModal {
 	@include flex(column, center, center);
 	padding: 0 12rem;
 
-	@include screen("tablet") {
+	@include screen('tablet') {
 		padding: 0;
 	}
 
 	.image {
 		cursor: pointer;
 		margin-bottom: 1rem;
-		@include screen("medium") {
+		@include screen('medium') {
 			display: none;
 		}
 	}
@@ -27,7 +27,7 @@
 		line-height: 2rem;
 		color: $black-100;
 		text-align: center;
-		@include screen("medium") {
+		@include screen('medium') {
 			font-weight: 600;
 		}
 	}
@@ -46,7 +46,7 @@
 
 	.webParagraph {
 		@extend .modalParagraph;
-		@include screen("medium") {
+		@include screen('medium') {
 			display: none;
 		}
 	}
@@ -54,14 +54,14 @@
 	.mobileParagraph {
 		display: none;
 		@extend .modalParagraph;
-		@include screen("medium") {
+		@include screen('medium') {
 			display: block;
 		}
 	}
 
 	.button {
 		margin-left: 2rem;
-		@include screen("tablet") {
+		@include screen('tablet') {
 			margin: 0;
 		}
 	}

@@ -1,10 +1,10 @@
-import React from "react";
-import { Button } from "antd";
-import axios from "axios";
-import { CSVLink } from "react-csv";
-import { BsDownload } from "react-icons/bs";
-import { showToast } from "utils";
-import styles from "./index.module.scss";
+import React from 'react';
+import {Button} from 'antd';
+import axios from 'axios';
+import {CSVLink} from 'react-csv';
+import {BsDownload} from 'react-icons/bs';
+import {showToast} from 'utils';
+import styles from './index.module.scss';
 
 /*  AsyncDataToCSV Component receives 3.props:
   1 - this.props.url = link to the resource, an array of data, to be converted to downloadable CSV
@@ -21,64 +21,68 @@ import styles from "./index.module.scss";
 */
 
 export default class AsyncDataToCSV extends React.Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      data: [],
-      loading: false,
-    };
+		this.state = {
+			data: [],
+			loading: false,
+		};
 
-    this.csvRef = React.createRef();
-  }
+		this.csvRef = React.createRef();
+	}
 
-  getData = async link => {
-    try {
-      this.setState({ loading: true });
+	getData = async (link) => {
+		try {
+			this.setState({loading: true});
 
-      const response = await axios.get(link);
-      return response.data;
-    } catch {
-      return null;
-    } finally {
-      this.setState({ loading: false });
-    }
-  };
+			const response = await axios.get(link);
+			return response.data;
+		} catch {
+			return null;
+		} finally {
+			this.setState({loading: false});
+		}
+	};
 
-  downloadCSV = async () => {
-    const data = await this.getData(this.props.url);
+	downloadCSV = async () => {
+		const data = await this.getData(this.props.url);
 
-    if (!data) {
-      showToast("Could not download CSV. Try again later", "error");
-      return;
-    }
+		if (!data) {
+			showToast('Could not download CSV. Try again later', 'error');
+			return;
+		}
 
-    this.setState({ data: data.data }, () => {
-      setTimeout(() => {
-        this.csvRef.current.link.click();
-      });
-    });
-  };
+		this.setState({data: data.data}, () => {
+			setTimeout(() => {
+				this.csvRef.current.link.click();
+			});
+		});
+	};
 
-  render() {
-    const { data, loading } = this.state;
-    const { headers, filename } = this.props;
+	render() {
+		const {data, loading} = this.state;
+		const {headers, filename} = this.props;
 
-    return (
-      <>
-        <div className={styles.csvDataDownload}>
-          <Button type="link" onClick={this.downloadCSV} loading={loading}>
-            Export data in CSV &nbsp;
-            <BsDownload />
-          </Button>
-        </div>
-        <CSVLink
-          headers={headers}
-          filename={`${filename}.csv`}
-          data={data}
-          ref={this.csvRef}
-        />
-      </>
-    );
-  }
+		return (
+			<>
+				<div className={styles.csvDataDownload}>
+					<Button
+						type="link"
+						onClick={this.downloadCSV}
+						loading={loading}
+					>
+						Export data in CSV &nbsp;
+						<BsDownload />
+					</Button>
+				</div>
+				<CSVLink
+					headers={headers}
+					filename={`${filename}.csv`}
+					data={data}
+					ref={this.csvRef}
+				/>
+			</>
+		);
+	}
 }

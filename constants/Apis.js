@@ -1,15 +1,9 @@
-export const POST = {
+export const POST = {};
 
-} 
-
-export const GET = {
-
-}
+export const GET = {};
 
 export const PATCH = {
-    deleteImage : "v1/kreatesell/store/delete-image"
-}
+	deleteImage: 'v1/kreatesell/store/delete-image',
+};
 
-export const DELETE = {
-    
-}
+export const DELETE = {};
