@@ -105,10 +105,10 @@ const Advanced = () => {
 
   // this will be used for setting the className for kyc status div
   useEffect(() => {
-    if (store?.kyc_status) {
-      setStatusStyle(`statEllipse${store?.kyc_status}`)
+    if (store?.kyc_status?.kyc_status) {
+      setStatusStyle(`statEllipse${store?.kyc_status?.kyc_status}`)
     }
-  }, [store?.kyc_status])
+  }, [store?.kyc_status?.kyc_status])
 
   const submitPaymentOptions = SubmitPaymentOptions()
 
@@ -184,15 +184,15 @@ const Advanced = () => {
                 </div>
               ))}
             </div>
-            {store?.kyc_status && (
+            {store?.kyc_status?.kyc_status && (
               <div className={styles.status}>
                 <div className={styles[statusStyle]}>{'  '}</div>
-                {status[store?.kyc_status]}
+                {status[store?.kyc_status?.kyc_status]}
               </div>
             )}
 
             {/* only show this section for rejected requests */}
-            {store?.kyc_status === 'Denied' && (
+            {store?.kyc_status?.kyc_status === 'Denied' && (
               <>
                 <h3 className={styles.reasonsHeader}>
                   Reasons for rejecting second level verification
@@ -227,7 +227,9 @@ const Advanced = () => {
           </div>
         </section>
         {/* only show this section for when kyc status is null or Denied */}
-        {[null, 'Denied', 'Request'].includes(store?.kyc_status) && (
+        {[null, 'Denied', 'Request'].includes(
+          store?.kyc_status?.kyc_status,
+        ) && (
           <section className={styles.steps}>
             <div className={styles.stepsLeft}>
               <div className={styles.top}>

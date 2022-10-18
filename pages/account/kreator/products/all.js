@@ -357,7 +357,6 @@ const AllProducts = () => {
             onClick={() => {
               setProductId('')
               setProductDefault()
-              // console.log("settes");
               router.push('/account/kreator/products/create')
             }}
           />
