@@ -270,15 +270,14 @@ export default function PreviewContent({
 					<h2 className="mb-7 pt-5 font-semibold text-lg">
 						More Details:
 					</h2>
-					{details !== undefined &&
-						Object.keys(details)?.length > 0 && (
-							<div
-								className={styles.moreDetails}
-								dangerouslySetInnerHTML={{
-									__html: details?.product_details,
-								}}
-							></div>
-						)}
+					{details !== undefined && Object.keys(details)?.length > 0 && (
+						<div
+							className={styles.moreDetails}
+							dangerouslySetInnerHTML={{
+								__html: details?.product_details,
+							}}
+						></div>
+					)}
 				</div>
 			</section>
 		</div>
