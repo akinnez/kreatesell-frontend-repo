@@ -1,2 +1,2 @@
-export * from './PreviewHeader'
-export * from './PreviewContent'
+export * from './PreviewHeader';
+export * from './PreviewContent';

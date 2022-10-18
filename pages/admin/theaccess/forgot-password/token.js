@@ -1,8 +1,8 @@
 import {
 	AdminVerifyResetPasswordTokenForm,
 	GeneralLayout,
-} from "../../../../components";
-import styles from "../../../../public/css/ForgotPassword.module.scss";
+} from '../../../../components';
+import styles from '../../../../public/css/ForgotPassword.module.scss';
 
 const AdminVerifyResetPasswordToken = () => {
 	return (

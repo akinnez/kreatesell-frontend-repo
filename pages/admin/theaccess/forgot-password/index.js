@@ -1,5 +1,5 @@
-import { AdminForgotPasswordForm, GeneralLayout } from "../../../../components";
-import styles from "../../../../public/css/ForgotPassword.module.scss";
+import {AdminForgotPasswordForm, GeneralLayout} from '../../../../components';
+import styles from '../../../../public/css/ForgotPassword.module.scss';
 
 const AdminForgotPassword = () => {
 	return (

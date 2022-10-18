@@ -1,5 +1,5 @@
-import { payoutsHeaders } from "../payoutsHeaders";
+import {payoutsHeaders} from '../payoutsHeaders';
 
-it("renders a snapshot of payoutsHeaders data", () => {
-  expect(payoutsHeaders).toMatchSnapshot();
+it('renders a snapshot of payoutsHeaders data', () => {
+	expect(payoutsHeaders).toMatchSnapshot();
 });

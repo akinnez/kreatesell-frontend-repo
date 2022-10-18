@@ -1,34 +1,34 @@
-@use "public/css/colors";
-@use "public/css/mixins";
+@use 'public/css/colors';
+@use 'public/css/mixins';
 
 .bank__info__details > p {
-  margin-bottom: 20px;
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
+	margin-bottom: 20px;
+	@include mixins.flex(row, flex-start, center);
+	flex-wrap: wrap;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+	&:last-child {
+		margin-bottom: 0;
+	}
 
-  > [class="ant-typography"] {
-    font-weight: 500;
-    font-size: 16px;
+	> [class='ant-typography'] {
+		font-weight: 500;
+		font-size: 16px;
 
-    &:first-child {
-      color: colors.$gray-200;
-    }
+		&:first-child {
+			color: colors.$gray-200;
+		}
 
-    &:last-child {
-      color: colors.$black-100;
-      word-break: break-all;
-    }
-  }
+		&:last-child {
+			color: colors.$black-100;
+			word-break: break-all;
+		}
+	}
 }
 
-.bank__info > p > [class="ant-typography"]:first-child {
-  width: 170px;
+.bank__info > p > [class='ant-typography']:first-child {
+	width: 170px;
 }
 
-.paypal__info > p > [class="ant-typography"]:first-child {
-  width: 130px;
+.paypal__info > p > [class='ant-typography']:first-child {
+	width: 130px;
 }

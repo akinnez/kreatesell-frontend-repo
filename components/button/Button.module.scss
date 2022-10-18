@@ -1,4 +1,4 @@
-@import "../../public/css/colors.scss";
+@import '../../public/css/colors.scss';
 
 .button {
 	min-width: 6.25rem;
@@ -18,8 +18,8 @@
 			align-items: center;
 		}
 	}
-	&:hover{
-		opacity: .9;
+	&:hover {
+		opacity: 0.9;
 	}
 	&:disabled {
 		opacity: 0.7;

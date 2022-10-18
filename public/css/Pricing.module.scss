@@ -1,20 +1,20 @@
-@import "./colors.scss";
-@import "./mixins.scss";
-@import "./screens.scss";
+@import './colors.scss';
+@import './mixins.scss';
+@import './screens.scss';
 
 .container {
 	background-repeat: no-repeat;
-	background-image: url("/images/partial-general-bg.svg");
+	background-image: url('/images/partial-general-bg.svg');
 	background-size: contain;
 
-	@include screen("medium") {
-		background-image: url("/images/mobile-general-bg.svg");
+	@include screen('medium') {
+		background-image: url('/images/mobile-general-bg.svg');
 	}
 
 	.body {
 		padding: 0rem 7.31rem 0 7.31rem;
 
-		@include screen("tablet") {
+		@include screen('tablet') {
 			padding: 0rem 1rem;
 		}
 
@@ -37,14 +37,14 @@
 				color: $base-gray;
 				opacity: 0.8;
 			}
-			@include screen("tablet") {
+			@include screen('tablet') {
 				h2 {
 					font-weight: 600;
 					font-size: 2rem;
 				}
 			}
 
-			@include screen("medium") {
+			@include screen('medium') {
 				h2 {
 					font-weight: 600;
 					font-size: 1.5rem;
@@ -66,7 +66,7 @@
 			display: flex;
 			justify-content: space-between;
 			margin-top: 3.187rem;
-			@include screen("medium") {
+			@include screen('medium') {
 				flex-direction: column;
 			}
 
@@ -104,7 +104,7 @@
 			.select {
 				margin-left: 3.75rem;
 				width: 5rem;
-				@include screen("medium") {
+				@include screen('medium') {
 					padding-top: 1.5rem;
 					margin: auto;
 				}
@@ -115,11 +115,11 @@
 			padding-top: 5rem;
 			padding-bottom: 5rem;
 
-			@include screen("tablet") {
+			@include screen('tablet') {
 				padding-top: 0;
 				margin: 0 1rem;
 			}
-			@include screen("medium") {
+			@include screen('medium') {
 				padding-top: 0;
 			}
 
@@ -131,7 +131,7 @@
 					&:first-child {
 						margin-right: 1.5rem;
 					}
-					@include screen("medium") {
+					@include screen('medium') {
 						&:first-child {
 							margin-right: 0;
 						}
@@ -142,7 +142,7 @@
 					margin-right: 1rem;
 				}
 
-				@include screen("tablet") {
+				@include screen('tablet') {
 					display: flex;
 					flex-direction: column;
 
@@ -154,7 +154,7 @@
 						}
 					}
 				}
-				@include screen("medium") {
+				@include screen('medium') {
 					flex-direction: column;
 				}
 			}
@@ -195,7 +195,7 @@
 			}
 		}
 
-		@include screen("medium") {
+		@include screen('medium') {
 			padding: 1rem 0.8rem;
 
 			h3 {
@@ -219,7 +219,7 @@
 		padding: 6.8125rem 10.31rem 5rem 10.31rem;
 		display: flex;
 		width: 100%;
-		@include screen("tablet") {
+		@include screen('tablet') {
 			padding: 2rem;
 			flex-direction: column;
 			margin-top: 3rem;
@@ -244,7 +244,7 @@
 				padding-top: 2rem;
 			}
 
-			@include screen("tablet") {
+			@include screen('tablet') {
 				width: 100%;
 
 				.title {
@@ -285,10 +285,10 @@
 					br {
 						padding-bottom: 1rem;
 					}
-					ol{
+					ol {
 						// padding-inline-start: 1rem;
 						list-style: decimal;
-						li{
+						li {
 							line-height: 1.9rem;
 							list-style-position: inside;
 						}
@@ -296,7 +296,7 @@
 				}
 			}
 
-			@include screen("tablet") {
+			@include screen('tablet') {
 				margin: 0;
 				width: 100%;
 

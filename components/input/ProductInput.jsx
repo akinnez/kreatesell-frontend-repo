@@ -1,7 +1,7 @@
-import styles from "./ProductInput.module.scss";
+import styles from './ProductInput.module.scss';
 
 export const ProductInput = ({
-	type = "text",
+	type = 'text',
 	prefix,
 	placeholder,
 	name,

@@ -1,5 +1,5 @@
-import productColumns from "../productsColumns";
+import productColumns from '../productsColumns';
 
-it("renders a snapshot of productColumns data", () => {
-  expect(productColumns()).toMatchSnapshot();
+it('renders a snapshot of productColumns data', () => {
+	expect(productColumns()).toMatchSnapshot();
 });

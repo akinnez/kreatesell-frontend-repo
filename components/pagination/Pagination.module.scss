@@ -1,5 +1,5 @@
-@import "../../public/css/colors.scss";
-@import "../../public/css/mixins.scss";
+@import '../../public/css/colors.scss';
+@import '../../public/css/mixins.scss';
 
 .paginationContainer {
 	display: flex;
@@ -37,7 +37,7 @@
 		.arrow {
 			&::before {
 				position: relative;
-				content: "";
+				content: '';
 				display: inline-block;
 				width: 0.4em;
 				height: 0.4em;

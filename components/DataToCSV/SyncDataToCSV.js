@@ -1,9 +1,9 @@
-import React from "react";
-import { Button } from "antd";
-import { CSVLink } from "react-csv";
-import { BsDownload } from "react-icons/bs";
-import { showToast } from "utils";
-import styles from "./index.module.scss";
+import React from 'react';
+import {Button} from 'antd';
+import {CSVLink} from 'react-csv';
+import {BsDownload} from 'react-icons/bs';
+import {showToast} from 'utils';
+import styles from './index.module.scss';
 
 /*  DataToCSV Component receives 3.props:
   1 - this.props.data = an array of all data to be converted to downloadable CSV
@@ -20,39 +20,39 @@ import styles from "./index.module.scss";
 */
 
 export default class SyncDataToCSV extends React.Component {
-  handleClick = () => {
-    showToast("Could not download CSV. Try again later", "error");
-  };
+	handleClick = () => {
+		showToast('Could not download CSV. Try again later', 'error');
+	};
 
-  render() {
-    const { data, headers, filename } = this.props;
+	render() {
+		const {data, headers, filename} = this.props;
 
-    const csvReport = {
-      data,
-      headers,
-      filename: filename ? `${filename}.csv` : "data.csv",
-    };
+		const csvReport = {
+			data,
+			headers,
+			filename: filename ? `${filename}.csv` : 'data.csv',
+		};
 
-    if (!headers) {
-      return (
-        <div className={styles.csvDataDownload}>
-          <Button type="link" onClick={this.handleClick}>
-            Export data in CSV &nbsp;
-            <BsDownload />
-          </Button>
-        </div>
-      );
-    }
+		if (!headers) {
+			return (
+				<div className={styles.csvDataDownload}>
+					<Button type="link" onClick={this.handleClick}>
+						Export data in CSV &nbsp;
+						<BsDownload />
+					</Button>
+				</div>
+			);
+		}
 
-    return (
-      <div className={styles.csvDataDownload}>
-        <Button type="link">
-          <CSVLink {...csvReport}>
-            Export data in CSV &nbsp;
-            <BsDownload />
-          </CSVLink>
-        </Button>
-      </div>
-    );
-  }
+		return (
+			<div className={styles.csvDataDownload}>
+				<Button type="link">
+					<CSVLink {...csvReport}>
+						Export data in CSV &nbsp;
+						<BsDownload />
+					</CSVLink>
+				</Button>
+			</div>
+		);
+	}
 }

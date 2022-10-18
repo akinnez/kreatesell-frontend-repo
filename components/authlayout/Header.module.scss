@@ -1,152 +1,152 @@
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .header {
-  @include mixins.flex(row, space-between, center);
-  background-color: transparent;
-  padding: 25px 10px;
-  height: auto;
+	@include mixins.flex(row, space-between, center);
+	background-color: transparent;
+	padding: 25px 10px;
+	height: auto;
 }
 
 .nav_left {
-  @include mixins.flex(row, flex-start, center);
+	@include mixins.flex(row, flex-start, center);
 }
 
 .edit {
-  @include mixins.flex(row, null, center);
-  gap: 10px !important;
+	@include mixins.flex(row, null, center);
+	gap: 10px !important;
 }
 
 .mobileMenu {
-  @include mixins.flex(row, flex-start, center);
+	@include mixins.flex(row, flex-start, center);
 
-  button {
-    margin-right: 10px;
+	button {
+		margin-right: 10px;
 
-    svg {
-      font-size: 30px;
-    }
-  }
+		svg {
+			font-size: 30px;
+		}
+	}
 }
 
 .pageDot {
-  display: none;
+	display: none;
 }
 
 .nav_right {
-  @include mixins.flex(row, flex-end, center);
-  column-gap: 35px;
+	@include mixins.flex(row, flex-end, center);
+	column-gap: 35px;
 
-  > button {
-    justify-content: center;
-    height: auto;
+	> button {
+		justify-content: center;
+		height: auto;
 
-    &:first-of-type {
-      display: none !important;
-    }
-  }
+		&:first-of-type {
+			display: none !important;
+		}
+	}
 }
 
 .dropdown__btn {
-  padding: 0;
+	padding: 0;
 }
 
-@include screens.minScreen("x-large") {
-  .header {
-    padding: 25px;
-  }
+@include screens.minScreen('x-large') {
+	.header {
+		padding: 25px;
+	}
 
-  .mobileMenu {
-    display: none;
-  }
+	.mobileMenu {
+		display: none;
+	}
 
-  .pageDot {
-    @include mixins.flex(row, space-between, center);
-    gap: 10px;
+	.pageDot {
+		@include mixins.flex(row, space-between, center);
+		gap: 10px;
 
-    h1 {
-      color: rgba(0, 114, 239, 1);
-      font-size: 20px;
-      font-weight: bold;
-      margin: 0;
-      line-height: 1;
-    }
-  }
+		h1 {
+			color: rgba(0, 114, 239, 1);
+			font-size: 20px;
+			font-weight: bold;
+			margin: 0;
+			line-height: 1;
+		}
+	}
 
-  .nav_right button {
-    &:first-of-type {
-      display: flex !important;
-    }
-  }
+	.nav_right button {
+		&:first-of-type {
+			display: flex !important;
+		}
+	}
 }
 
 .authMenu {
-  max-width: 200px !important;
-  // border: 1px solid red;
-  margin-left: auto;
+	max-width: 200px !important;
+	// border: 1px solid red;
+	margin-left: auto;
 }
 
 .mobileHeader {
-  @media (min-width: 992px) {
-    display: none;
-  }
+	@media (min-width: 992px) {
+		display: none;
+	}
 }
 
 .lg {
-  @media (max-width: 992px) {
-    display: none;
-  }
+	@media (max-width: 992px) {
+		display: none;
+	}
 }
 
 .navClose {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  // padding: 13px 16px 13px 24px;
-  padding: 25px 16px 25px 10px;
-  // background: #ffffff;
-  /* NAV */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	// padding: 13px 16px 13px 24px;
+	padding: 25px 16px 25px 10px;
+	// background: #ffffff;
+	/* NAV */
 
-  box-shadow: 0px 1px 0px rgba(34, 34, 34, 0.05);
+	box-shadow: 0px 1px 0px rgba(34, 34, 34, 0.05);
 }
 
 .mainNav {
-  position: relative;
-  &.hide {
-    display: none;
-  }
+	position: relative;
+	&.hide {
+		display: none;
+	}
 }
 
 .setUpPrompt {
-  background: #f1fcf8;
-  border-radius: 8px;
-  max-width: 453px;
-  margin: 0 auto;
-  position: absolute;
-  // top: -130px;
-  left: 60px;
-  right: 200px;
-  padding: 24px;
-  .promptHeader {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    h4 {
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 28px;
-      margin-left: 10px;
-      margin-bottom: unset;
-      color: #595959;
-    }
+	background: #f1fcf8;
+	border-radius: 8px;
+	max-width: 453px;
+	margin: 0 auto;
+	position: absolute;
+	// top: -130px;
+	left: 60px;
+	right: 200px;
+	padding: 24px;
+	.promptHeader {
+		display: flex;
+		align-items: center;
+		margin-bottom: 16px;
+		h4 {
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 28px;
+			margin-left: 10px;
+			margin-bottom: unset;
+			color: #595959;
+		}
 
-    & + p {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 24px;
-    }
-  }
-  @media (min-width: 768px) {
-    max-height: 140px;
-  }
+		& + p {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 24px;
+		}
+	}
+	@media (min-width: 768px) {
+		max-height: 140px;
+	}
 }

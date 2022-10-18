@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import {useState} from 'react';
+import {useDebouncedCallback} from 'use-debounce';
 
 export const useHandleProductInputDebounce = () => {
 	const [data, setData] = useState([]);
 
 	const handleDebounce = useDebouncedCallback((e) => {
-		const { name, value } = e.target;
+		const {name, value} = e.target;
 		setData((data) => [
 			...data,
 			{
@@ -15,5 +15,5 @@ export const useHandleProductInputDebounce = () => {
 		]);
 	}, 1000);
 
-	return { data, handleDebounce };
+	return {data, handleDebounce};
 };

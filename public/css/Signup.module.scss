@@ -1,61 +1,61 @@
-@import "./colors.scss";
-@import "./screens.scss";
+@import './colors.scss';
+@import './screens.scss';
 
 .layoutMargin {
-  margin-top: 6rem;
-  @include screen("tablet") {
-    // margin-top: 7rem;
-    margin-top: 0rem !important;
-  }
+	margin-top: 6rem;
+	@include screen('tablet') {
+		// margin-top: 7rem;
+		margin-top: 0rem !important;
+	}
 }
 
 .footer {
-  font-size: 0.8rem;
-  line-height: 26px;
-  color: $base-gray;
-  margin-top: 1.25rem;
-  a {
-    text-decoration: none;
-    color: $base-blue;
-    font-weight: 400;
-  }
+	font-size: 0.8rem;
+	line-height: 26px;
+	color: $base-gray;
+	margin-top: 1.25rem;
+	a {
+		text-decoration: none;
+		color: $base-blue;
+		font-weight: 400;
+	}
 }
 
 .terms {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 
-  p {
-    padding-left: 0.5rem;
-    padding-top: 0.6rem;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 0.8rem;
-    line-height: 1.625rem;
-    color: $gray-200;
-  }
+	p {
+		padding-left: 0.5rem;
+		padding-top: 0.6rem;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.8rem;
+		line-height: 1.625rem;
+		color: $gray-200;
+	}
 }
 
 .whatsApp {
-  //   margin-top: 5rem;
-  //   width: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #00b140;
-  color: #fff !important;
-  border-radius: 100px;
-  padding: 0.6rem 0.6rem;
-  text-decoration: none;
-  position: fixed;
-  left: 20px;
-  bottom: 25px;
-  z-index: 100;
-  & > svg {
-    font-size: 2.5rem;
-  }
+	//   margin-top: 5rem;
+	//   width: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #00b140;
+	color: #fff !important;
+	border-radius: 100px;
+	padding: 0.6rem 0.6rem;
+	text-decoration: none;
+	position: fixed;
+	left: 20px;
+	bottom: 25px;
+	z-index: 100;
+	& > svg {
+		font-size: 2.5rem;
+	}
 }
 
 .layout {
-  position: relative;
+	position: relative;
 }

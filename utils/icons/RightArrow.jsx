@@ -1,4 +1,4 @@
-export const RightArrow = ({ color = "white" }) => {
+export const RightArrow = ({color = 'white'}) => {
 	return (
 		<svg
 			width="13"

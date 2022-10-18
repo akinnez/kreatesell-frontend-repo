@@ -1,6 +1,6 @@
-@import "../../public/css/colors.scss";
-@import "../../public/css/mixins.scss";
-@import "../../public/css/screens.scss";
+@import '../../public/css/colors.scss';
+@import '../../public/css/mixins.scss';
+@import '../../public/css/screens.scss';
 
 .tableContainer {
 	overflow-x: scroll;
@@ -10,7 +10,7 @@
 		border-collapse: collapse;
 		border-spacing: 0;
 
-		@include screen("medium") {
+		@include screen('medium') {
 			width: 100%;
 		}
 
@@ -68,7 +68,7 @@
 		td {
 			padding-left: 2.81rem;
 		}
-		@include screen("medium") {
+		@include screen('medium') {
 			th {
 				padding: 0.937rem;
 				white-space: nowrap;

@@ -1,4 +1,4 @@
-import { AdminResetPasswordForm, GeneralLayout } from "../../../components";
+import {AdminResetPasswordForm, GeneralLayout} from '../../../components';
 
 const AdminResetPassword = () => {
 	return (

@@ -1,5 +1,5 @@
-import { GeneralLayout, WelcomeForm } from "../components";
-import styles from "../public/css/Welcome.module.scss";
+import {GeneralLayout, WelcomeForm} from '../components';
+import styles from '../public/css/Welcome.module.scss';
 
 const WelcomeOnboarding = () => {
 	return (

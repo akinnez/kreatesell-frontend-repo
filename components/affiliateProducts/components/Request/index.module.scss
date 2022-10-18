@@ -1,90 +1,90 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
-.form__wrapper > form[class^="ant-form"] {
-  max-width: 645px;
-  label[for] {
-    font-weight: 500;
-    font-size: 16px;
-    color: colors.$black-100;
-  }
+.form__wrapper > form[class^='ant-form'] {
+	max-width: 645px;
+	label[for] {
+		font-weight: 500;
+		font-size: 16px;
+		color: colors.$black-100;
+	}
 
-  textarea {
-    line-height: 30px;
-    font-size: 14px;
-    overflow: hidden;
+	textarea {
+		line-height: 30px;
+		font-size: 14px;
+		overflow: hidden;
 
-    &[disabled] {
-      background-color: colors.$white-200;
-      color: colors.$gray-200;
-    }
-  }
+		&[disabled] {
+			background-color: colors.$white-200;
+			color: colors.$gray-200;
+		}
+	}
 
-  div[class$="ant-form-item-label"] {
-    padding: 0;
-    font-weight: 500;
-    font-size: 16px;
-    color: colors.$black-100;
-  }
+	div[class$='ant-form-item-label'] {
+		padding: 0;
+		font-weight: 500;
+		font-size: 16px;
+		color: colors.$black-100;
+	}
 }
 
 .text {
-  margin-top: 25px;
-  margin-bottom: 20px;
+	margin-top: 25px;
+	margin-bottom: 20px;
 
-  p {
-    margin-bottom: 0;
+	p {
+		margin-bottom: 0;
 
-    & > [class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$base-gray;
-    }
-  }
+		& > [class='ant-typography'] {
+			font-weight: 500;
+			font-size: 16px;
+			color: colors.$base-gray;
+		}
+	}
 }
 
 .submit__btn {
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 14px;
+	border-radius: 8px;
+	font-weight: 700;
+	font-size: 14px;
 
-  &[disabled] {
-    background-color: colors.$gray-700 !important;
-    color: colors.$base-white;
+	&[disabled] {
+		background-color: colors.$gray-700 !important;
+		color: colors.$base-white;
 
-    &:hover {
-      color: colors.$base-white;
-    }
-  }
+		&:hover {
+			color: colors.$base-white;
+		}
+	}
 }
 
 .content {
-  margin-bottom: 40px;
-  text-align: center;
+	margin-bottom: 40px;
+	text-align: center;
 
-  p {
-    margin-bottom: 0;
+	p {
+		margin-bottom: 0;
 
-    &:first-child > span[class="ant-typography"] {
-      font-size: 30px;
-      font-weight: 600;
-      color: colors.$black-100;
-    }
+		&:first-child > span[class='ant-typography'] {
+			font-size: 30px;
+			font-weight: 600;
+			color: colors.$black-100;
+		}
 
-    &:last-child > span[class="ant-typography"] {
-      font-size: 16px;
-      font-weight: 500;
-      color: colors.$gray-200;
-    }
-  }
+		&:last-child > span[class='ant-typography'] {
+			font-size: 16px;
+			font-weight: 500;
+			color: colors.$gray-200;
+		}
+	}
 }
 
-@include screens.screen("x-large") {
-  .form__wrapper {
-    padding: 24px 24px;
-    background-color: #fff;
-    box-shadow: 0px 20px 100px rgba(36, 53, 72, 0.05);
-    border-radius: 8px;
-  }
+@include screens.screen('x-large') {
+	.form__wrapper {
+		padding: 24px 24px;
+		background-color: #fff;
+		box-shadow: 0px 20px 100px rgba(36, 53, 72, 0.05);
+		border-radius: 8px;
+	}
 }

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { GetDomains, SetDomainScreen } from "redux/actions";
-import { EmptyDomain, AllDomains, CustomDomain } from "./";
+import {useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {GetDomains, SetDomainScreen} from 'redux/actions';
+import {EmptyDomain, AllDomains, CustomDomain} from './';
 
 const Domain = () => {
 	/**
@@ -13,7 +13,7 @@ const Domain = () => {
 	const getDomains = GetDomains();
 	const setDomainScreen = SetDomainScreen();
 
-	const { domains, domainScreen, loading } = useSelector(
+	const {domains, domainScreen, loading} = useSelector(
 		(state) => state.domain
 	);
 

@@ -1,107 +1,109 @@
-@use "colors";
-@use "mixins";
-@use "screens";
+@use 'colors';
+@use 'mixins';
+@use 'screens';
 
 .header {
-  margin-bottom: 40px;
-  @include mixins.flex(row, space-between, center);
-  flex-wrap: wrap;
-  gap: 15px 25px;
+	margin-bottom: 40px;
+	@include mixins.flex(row, space-between, center);
+	flex-wrap: wrap;
+	gap: 15px 25px;
 
-  > div {
-    flex: 1 1 254px;
+	> div {
+		flex: 1 1 254px;
 
-    h2 {
-      margin-bottom: 5px;
-      font-size: 20px;
-      font-weight: 600;
-      color: colors.$black-100;
-    }
+		h2 {
+			margin-bottom: 5px;
+			font-size: 20px;
+			font-weight: 600;
+			color: colors.$black-100;
+		}
 
-    p {
-      margin-bottom: 0;
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$gray-200;
-    }
-  }
+		p {
+			margin-bottom: 0;
+			font-weight: 500;
+			font-size: 16px;
+			color: colors.$gray-200;
+		}
+	}
 
-  > a {
-    display: inline-flex;
-    padding: 13px 23px;
-    background-color: colors.$base-blue;
-    border-radius: 8px;
-    color: colors.$base-white;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 1;
-  }
+	> a {
+		display: inline-flex;
+		padding: 13px 23px;
+		background-color: colors.$base-blue;
+		border-radius: 8px;
+		color: colors.$base-white;
+		font-weight: bold;
+		font-size: 12px;
+		line-height: 1;
+	}
 
-  svg {
-    display: inline;
-    font-size: 14px;
-  }
+	svg {
+		display: inline;
+		font-size: 14px;
+	}
 }
 
 .tabs {
-  div[class="ant-tabs-nav"] {
-    margin-bottom: 16px;
-    border-radius: 8px;
-    background-color: colors.$base-white;
+	div[class='ant-tabs-nav'] {
+		margin-bottom: 16px;
+		border-radius: 8px;
+		background-color: colors.$base-white;
 
-    &::before {
-      border: none;
-    }
+		&::before {
+			border: none;
+		}
 
-    div[class^="ant-tabs-ink-bar"]:last-child {
-      height: 4px;
-    }
-  }
+		div[class^='ant-tabs-ink-bar']:last-child {
+			height: 4px;
+		}
+	}
 
-  div[class="ant-tabs-tab-btn"] {
-    color: colors.$base-gray;
-    font: {
-      weight: 500;
-      size: 16px;
-    }
-  }
+	div[class='ant-tabs-tab-btn'] {
+		color: colors.$base-gray;
+		font: {
+			weight: 500;
+			size: 16px;
+		}
+	}
 
-  div[class$="ant-tabs-tab-active"] div[class="ant-tabs-tab-btn"] {
-    color: colors.$base-blue;
-  }
+	div[class$='ant-tabs-tab-active'] div[class='ant-tabs-tab-btn'] {
+		color: colors.$base-blue;
+	}
 }
 
-@include screens.screen("x-large") {
-  .tabs {
-    div[class="ant-tabs-nav"] {
-      padding-left: 7px;
-      padding-right: 7px;
+@include screens.screen('x-large') {
+	.tabs {
+		div[class='ant-tabs-nav'] {
+			padding-left: 7px;
+			padding-right: 7px;
 
-      div[class="ant-tabs-nav-wrap"]:first-child {
-        justify-content: flex-start;
-      }
-    }
+			div[class='ant-tabs-nav-wrap']:first-child {
+				justify-content: flex-start;
+			}
+		}
 
-    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab"],
-    div[class="ant-tabs-tab ant-tabs-tab-active"] + div[class="ant-tabs-tab"],
-    div[class="ant-tabs-tab"] + div[class="ant-tabs-tab ant-tabs-tab-active"] {
-      margin-left: 5px;
-    }
+		div[class='ant-tabs-tab'] + div[class='ant-tabs-tab'],
+		div[class='ant-tabs-tab ant-tabs-tab-active']
+			+ div[class='ant-tabs-tab'],
+		div[class='ant-tabs-tab']
+			+ div[class='ant-tabs-tab ant-tabs-tab-active'] {
+			margin-left: 5px;
+		}
 
-    div[class="ant-tabs-tab-btn"] {
-      padding: 8px;
-      border-radius: 8px;
-      background-color: colors.$white-200;
-    }
+		div[class='ant-tabs-tab-btn'] {
+			padding: 8px;
+			border-radius: 8px;
+			background-color: colors.$white-200;
+		}
 
-    div[class$="ant-tabs-tab-active"] div[class="ant-tabs-tab-btn"] {
-      background-color: colors.$blue-100;
-    }
-  }
+		div[class$='ant-tabs-tab-active'] div[class='ant-tabs-tab-btn'] {
+			background-color: colors.$blue-100;
+		}
+	}
 }
 
-@include screens.minScreen("x-large") {
-  .header > div h2 {
-    font-size: 24px;
-  }
+@include screens.minScreen('x-large') {
+	.header > div h2 {
+		font-size: 24px;
+	}
 }

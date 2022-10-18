@@ -1,5 +1,5 @@
-import { GeneralLayout, ResendVerificationEmailForm } from "../components";
-import styles from "../public/css/ForgotPassword.module.scss";
+import {GeneralLayout, ResendVerificationEmailForm} from '../components';
+import styles from '../public/css/ForgotPassword.module.scss';
 
 const ResendVerificationEmailCode = () => {
 	return (

@@ -1,64 +1,64 @@
-@import "public//css/colors.scss";
-@import "public//css/mixins.scss";
-@import "public//css/screens.scss";
+@import 'public//css/colors.scss';
+@import 'public//css/mixins.scss';
+@import 'public//css/screens.scss';
 
 .tabWrapper {
-  li {
-    @include screen("inbetween") {
-      padding: 10px 2px !important;
-    }
-  }
-  .Completed {
-    @include screen("inbetween") {
-      span {
-        background: #f5f5f5;
-        border-radius: 8px;
-        padding: 0.6rem 0.4rem;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
-        width: fit-content;
-        // cursor: not-allowed !important;
-      }
-    }
-  }
-  .InCompleted {
-    @include screen("inbetween") {
-      span {
-        background: #f5f5f5;
-        // background: red;
-        border-radius: 8px;
-        padding: 0.6rem 0.4rem;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
-        width: fit-content;
-      }
-    }
-  }
-  .disableCheckout {
-    cursor: not-allowed !important;
-    @include screen("inbetween") {
-      span {
-        background: #f5f5f5;
-        // background: red;
-        border-radius: 8px;
-        padding: 0.6rem 0.4rem;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
-        width: fit-content;
-        cursor: not-allowed !important;
-      }
-    }
-  }
-  .activeContainer {
-    @include screen("inbetween") {
-      .active {
-        background: #e6f7ff;
-        border-radius: 8px;
-        padding: 0.6rem 0.4rem;
-        margin-bottom: 1rem;
-        font-size: 0.8rem;
-        width: fit-content;
-      }
-    }
-  }
+	li {
+		@include screen('inbetween') {
+			padding: 10px 2px !important;
+		}
+	}
+	.Completed {
+		@include screen('inbetween') {
+			span {
+				background: #f5f5f5;
+				border-radius: 8px;
+				padding: 0.6rem 0.4rem;
+				margin-bottom: 1rem;
+				font-size: 0.8rem;
+				width: fit-content;
+				// cursor: not-allowed !important;
+			}
+		}
+	}
+	.InCompleted {
+		@include screen('inbetween') {
+			span {
+				background: #f5f5f5;
+				// background: red;
+				border-radius: 8px;
+				padding: 0.6rem 0.4rem;
+				margin-bottom: 1rem;
+				font-size: 0.8rem;
+				width: fit-content;
+			}
+		}
+	}
+	.disableCheckout {
+		cursor: not-allowed !important;
+		@include screen('inbetween') {
+			span {
+				background: #f5f5f5;
+				// background: red;
+				border-radius: 8px;
+				padding: 0.6rem 0.4rem;
+				margin-bottom: 1rem;
+				font-size: 0.8rem;
+				width: fit-content;
+				cursor: not-allowed !important;
+			}
+		}
+	}
+	.activeContainer {
+		@include screen('inbetween') {
+			.active {
+				background: #e6f7ff;
+				border-radius: 8px;
+				padding: 0.6rem 0.4rem;
+				margin-bottom: 1rem;
+				font-size: 0.8rem;
+				width: fit-content;
+			}
+		}
+	}
 }

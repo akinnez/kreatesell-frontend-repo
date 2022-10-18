@@ -1,26 +1,26 @@
-import { Input, Button, FormError } from "../../";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { isAnEmpytyObject } from "../../../utils";
-import { InitiatePasswordReset } from "../../../redux/actions";
-import { useSelector } from "react-redux";
-import { ForgotPasswordSchema } from "../../../validation";
-import styles from "../../../public/css/ForgotPassword.module.scss";
+import {Input, Button, FormError} from '../../';
+import Link from 'next/link';
+import {useRouter} from 'next/router';
+import {useFormik} from 'formik';
+import {isAnEmpytyObject} from '../../../utils';
+import {InitiatePasswordReset} from '../../../redux/actions';
+import {useSelector} from 'react-redux';
+import {ForgotPasswordSchema} from '../../../validation';
+import styles from '../../../public/css/ForgotPassword.module.scss';
 
 export const AdminForgotPasswordForm = () => {
 	const router = useRouter();
 	const initiatePasswordReset = InitiatePasswordReset();
 
-	const { loading } = useSelector((state) => state.auth);
+	const {loading} = useSelector((state) => state.auth);
 
 	const initialValues = {
-		username: "",
+		username: '',
 	};
 
 	const handleSubmit = (data) => {
 		initiatePasswordReset(data, () => {
-			router.push("/admin/theaccess/forgot-password/token");
+			router.push('/admin/theaccess/forgot-password/token');
 		});
 	};
 
@@ -33,7 +33,9 @@ export const AdminForgotPasswordForm = () => {
 
 	return (
 		<div className={styles.body}>
-			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
+			{!isAnEmpytyObject(formik.errors) && (
+				<FormError errors={formik.errors} />
+			)}
 
 			<form
 				onSubmit={formik.handleSubmit}
@@ -47,14 +49,18 @@ export const AdminForgotPasswordForm = () => {
 					onChange={formik.handleChange}
 				/>
 
-				<Button text="Reset password" bgColor="primaryBlue" loading={loading} />
+				<Button
+					text="Reset password"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>
-				Already have an account?{" "}
+				Already have an account?{' '}
 				<Link href="/admin/theaccess">
 					<a>Login here</a>
-				</Link>{" "}
+				</Link>{' '}
 			</div>
 		</div>
 	);

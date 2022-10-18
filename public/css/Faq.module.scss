@@ -1,16 +1,16 @@
-@import "./colors.scss";
-@import "./mixins.scss";
-@import "./screens.scss";
+@import './colors.scss';
+@import './mixins.scss';
+@import './screens.scss';
 
 .container {
 	box-sizing: border-box;
 	padding: 0rem 10.31rem;
 
-	@include screen("tablet") {
+	@include screen('tablet') {
 		padding: 0 1rem;
 	}
-	@include screen("medium") {
-		background-image: url("/images/mobile-general-bg.svg");
+	@include screen('medium') {
+		background-image: url('/images/mobile-general-bg.svg');
 		background-repeat: no-repeat;
 	}
 
@@ -44,7 +44,7 @@
 			width: 30%;
 		}
 
-		@include screen("tablet") {
+		@include screen('tablet') {
 			flex-direction: column;
 			text-align: center;
 			.heroText {
@@ -66,7 +66,7 @@
 	.backToTop {
 		display: none;
 
-		@include screen("tablet") {
+		@include screen('tablet') {
 			display: block;
 		}
 	}
@@ -82,7 +82,7 @@
 			margin-right: 5rem;
 			padding: 1.125rem 0 1.125rem 1.5rem;
 			border-radius: 0.5rem;
-			@include screen("tablet") {
+			@include screen('tablet') {
 				display: none;
 			}
 
@@ -106,7 +106,8 @@
 
 						.arrowStyle {
 							margin-right: 1.219rem;
-							transition: all 0.5s cubic-bezier(0.93, -0.01, 0.36, 0.99);
+							transition: all 0.5s
+								cubic-bezier(0.93, -0.01, 0.36, 0.99);
 						}
 
 						.arrow {
@@ -175,7 +176,7 @@
 				}
 			}
 
-			@include screen("tablet") {
+			@include screen('tablet') {
 				width: 100%;
 
 				h1 {

@@ -1,77 +1,77 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .header {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 
-  h2 {
-    margin-bottom: 0;
-    font: {
-      size: 24px;
-      weight: 600;
-    }
-    color: colors.$black-100;
-  }
+	h2 {
+		margin-bottom: 0;
+		font: {
+			size: 24px;
+			weight: 600;
+		}
+		color: colors.$black-100;
+	}
 }
 
 .sales-stat {
-  margin-bottom: 40px;
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
-  gap: 10px 15px;
-  font-size: 16px;
-  color: colors.$black-100;
+	margin-bottom: 40px;
+	@include mixins.flex(row, flex-start, center);
+	flex-wrap: wrap;
+	gap: 10px 15px;
+	font-size: 16px;
+	color: colors.$black-100;
 
-  span {
-    display: inline-block;
-    min-width: 105px;
-    text-align: center;
-    background-color: colors.$base-green-300;
-    border-radius: 8px;
-    color: colors.$base-green-100;
-    font-weight: 500;
-    font-size: 18px;
-  }
+	span {
+		display: inline-block;
+		min-width: 105px;
+		text-align: center;
+		background-color: colors.$base-green-300;
+		border-radius: 8px;
+		color: colors.$base-green-100;
+		font-weight: 500;
+		font-size: 18px;
+	}
 }
 
 .spin__wrapper section:last-child {
-  margin-bottom: 100px;
+	margin-bottom: 100px;
 }
 
 .data__section + section {
-  margin-top: 65px;
+	margin-top: 65px;
 
-  ul {
-    @include mixins.flex(row, flex-end, center);
-  }
+	ul {
+		@include mixins.flex(row, flex-end, center);
+	}
 }
 
 .table__wrapper {
-  display: none;
+	display: none;
 }
 
-@include screens.minScreen("x-large") {
-  .sales-stat {
-    display: none;
-  }
+@include screens.minScreen('x-large') {
+	.sales-stat {
+		display: none;
+	}
 
-  .data__section {
-    ul,
-    div[class*="no__data"] {
-      display: none;
-    }
+	.data__section {
+		ul,
+		div[class*='no__data'] {
+			display: none;
+		}
 
-    & + section ul {
-      justify-content: flex-start;
-    }
-  }
+		& + section ul {
+			justify-content: flex-start;
+		}
+	}
 
-  .table__wrapper {
-    display: block;
+	.table__wrapper {
+		display: block;
 
-    [class="ant-table-content"] {
-      overflow-x: auto;
-    }
-  }
+		[class='ant-table-content'] {
+			overflow-x: auto;
+		}
+	}
 }

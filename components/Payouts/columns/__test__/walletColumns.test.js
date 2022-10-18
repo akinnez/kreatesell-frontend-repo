@@ -1,5 +1,5 @@
-import { walletColumns } from "../walletColumns";
+import {walletColumns} from '../walletColumns';
 
-it("renders a snapshot of walletColumns data", () => {
-  expect(walletColumns).toMatchSnapshot();
+it('renders a snapshot of walletColumns data', () => {
+	expect(walletColumns).toMatchSnapshot();
 });

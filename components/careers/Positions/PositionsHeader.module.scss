@@ -1,28 +1,28 @@
-@import "../../../public/css/colors.scss";
-@import "../../../public/css/mixins.scss";
-@import "../../../public/css/screens.scss";
+@import '../../../public/css/colors.scss';
+@import '../../../public/css/mixins.scss';
+@import '../../../public/css/screens.scss';
 
-.container{
-    @include flex(row, space-between, null);
-    .left{
-        font-weight: 700;
-        font-size: 40px;
-        line-height: 54px;
-        color: #262626;
-        margin-bottom: 0;
-    }
-    .right{
-        width: fit-content;
-        color: #2DC071;
-        border: 1px solid #2DC071;
-        font-size: 0.7rem;
-    }
+.container {
+	@include flex(row, space-between, null);
+	.left {
+		font-weight: 700;
+		font-size: 40px;
+		line-height: 54px;
+		color: #262626;
+		margin-bottom: 0;
+	}
+	.right {
+		width: fit-content;
+		color: #2dc071;
+		border: 1px solid #2dc071;
+		font-size: 0.7rem;
+	}
 }
-.dividerContainer{
-    width: 100%;
-    margin: auto;
-    .divider{
-        margin-top: 20px;
-        color: #F0F0F0;
-    }
+.dividerContainer {
+	width: 100%;
+	margin: auto;
+	.divider {
+		margin-top: 20px;
+		color: #f0f0f0;
+	}
 }

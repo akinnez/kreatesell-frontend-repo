@@ -1,4 +1,4 @@
-import { GeneralLayout, SignupForm } from "../components";
+import {GeneralLayout, SignupForm} from '../components';
 
 const Signup = () => {
 	return (

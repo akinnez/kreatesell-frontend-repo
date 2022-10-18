@@ -1,4 +1,4 @@
-import { CreateDomain, CreateSubDomain } from "./";
+import {CreateDomain, CreateSubDomain} from './';
 
 export const CustomDomain = () => {
 	return (

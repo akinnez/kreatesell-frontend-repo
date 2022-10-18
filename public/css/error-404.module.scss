@@ -1,4 +1,4 @@
-@import "./screens.scss";
+@import './screens.scss';
 
 .error404 {
 	position: absolute;
@@ -14,7 +14,7 @@
 		width: 60%;
 		padding-top: 1rem;
 
-		@include screen("medium") {
+		@include screen('medium') {
 			width: 100%;
 		}
 		.btn {

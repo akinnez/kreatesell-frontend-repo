@@ -1,5 +1,5 @@
-import requestsColumns from "../requestsColumns";
+import requestsColumns from '../requestsColumns';
 
-it("renders a snapshot of the requestsColumns", () => {
-  expect(requestsColumns()).toMatchSnapshot();
+it('renders a snapshot of the requestsColumns', () => {
+	expect(requestsColumns()).toMatchSnapshot();
 });

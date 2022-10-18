@@ -1,5 +1,5 @@
-import { walletHeaders } from "../walletHeaders";
+import {walletHeaders} from '../walletHeaders';
 
-it("renders a snapshot of walletHeaders data", () => {
-  expect(walletHeaders).toMatchSnapshot();
+it('renders a snapshot of walletHeaders data', () => {
+	expect(walletHeaders).toMatchSnapshot();
 });

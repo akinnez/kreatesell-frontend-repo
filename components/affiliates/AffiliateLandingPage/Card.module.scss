@@ -1,32 +1,30 @@
-@import "../../../public/css/colors.scss";
-@import "../../../public/css/mixins.scss";
-@import "../../../public/css/screens.scss";
+@import '../../../public/css/colors.scss';
+@import '../../../public/css/mixins.scss';
+@import '../../../public/css/screens.scss';
 
+.cardContainer {
+	border-radius: 1rem;
+	width: 100%;
+	min-height: 100px;
+	padding: 2rem;
+	@include flex(row, center, center);
+	text-align: left;
 
-.cardContainer{
-    border-radius: 1rem;
-    width: 100%;
-    min-height: 100px;
-    padding: 2rem;
-    @include flex(row, center, center);
-    text-align: left;
+	.cardContent {
+	}
 
-    .cardContent{
+	&.peachBackground {
+		background: rgba(255, 77, 79, 0.1);
+		color: #595959;
+	}
 
-    }
+	&.greenBackground {
+		background: #f1fcf8;
+		color: #595959;
+	}
 
-    &.peachBackground{
-        background: rgba(255, 77, 79, 0.1);
-        color: #595959;;
-    }
-
-    &.greenBackground{
-        background: #F1FCF8;
-        color: #595959;
-    }
-
-    &.blueBackground{
-        background: #0072EF;
-        color: #fff;
-    }
+	&.blueBackground {
+		background: #0072ef;
+		color: #fff;
+	}
 }

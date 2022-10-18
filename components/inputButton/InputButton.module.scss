@@ -1,100 +1,100 @@
-@import "../../public/css/colors.scss";
-@import "../../public/css/mixins.scss";
-@import "../../public/css/screens.scss";
+@import '../../public/css/colors.scss';
+@import '../../public/css/mixins.scss';
+@import '../../public/css/screens.scss';
 
 .container {
-  @include flex(row, center, center);
-  input {
-    height: 3.25rem;
-    width: 21.25rem;
-    border: 1px solid $gray-100;
-    box-sizing: border-box;
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    padding: 1rem;
-    color: $gray-200;
-    font-size: 0.875rem;
-    font-weight: 400;
-    outline: none;
-    @media (min-width: 478px) {
-      & {
-        min-width: 134px;
-      }
-    }
+	@include flex(row, center, center);
+	input {
+		height: 3.25rem;
+		width: 21.25rem;
+		border: 1px solid $gray-100;
+		box-sizing: border-box;
+		border-top-left-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		padding: 1rem;
+		color: $gray-200;
+		font-size: 0.875rem;
+		font-weight: 400;
+		outline: none;
+		@media (min-width: 478px) {
+			& {
+				min-width: 134px;
+			}
+		}
 
-    &::placeholder {
-      color: $gray-200;
-    }
-  }
+		&::placeholder {
+			color: $gray-200;
+		}
+	}
 
-  button {
-    @include flex(row, center, center);
-    height: 3.25rem;
-    background-color: $base-blue;
-    color: $base-white;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    cursor: pointer;
-    border: none;
-    padding: 0 0.2rem;
-    outline: none;
-    min-width: 134px;
-    &:disabled {
-      opacity: 0.7;
-    }
+	button {
+		@include flex(row, center, center);
+		height: 3.25rem;
+		background-color: $base-blue;
+		color: $base-white;
+		border-top-right-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+		cursor: pointer;
+		border: none;
+		padding: 0 0.2rem;
+		outline: none;
+		min-width: 134px;
+		&:disabled {
+			opacity: 0.7;
+		}
 
-    .btnText {
-      font-weight: bold;
-      //   font-size: 0.875rem;
-      font-size: 14px;
-      line-height: 20px;
-      padding-top: 10%;
-      @media (min-width: 1277px) {
-        margin-left: 0.5rem;
-        // padding-right: 0.3rem;
-      }
-    }
+		.btnText {
+			font-weight: bold;
+			//   font-size: 0.875rem;
+			font-size: 14px;
+			line-height: 20px;
+			padding-top: 10%;
+			@media (min-width: 1277px) {
+				margin-left: 0.5rem;
+				// padding-right: 0.3rem;
+			}
+		}
 
-    .btnIcon {
-      padding-left: 0.8rem;
-      display: none;
-      @media (min-width: 1277px) {
-        display: block;
-        margin-right: 0.5rem;
-        // padding-right: 0.3rem;
-      }
-    }
-  }
+		.btnIcon {
+			padding-left: 0.8rem;
+			display: none;
+			@media (min-width: 1277px) {
+				display: block;
+				margin-right: 0.5rem;
+				// padding-right: 0.3rem;
+			}
+		}
+	}
 
-  @include screen("medium") {
-    width: 100%;
-    input {
-      width: 60%;
-    }
-    button {
-      width: 40%;
+	@include screen('medium') {
+		width: 100%;
+		input {
+			width: 60%;
+		}
+		button {
+			width: 40%;
 
-      //   .btnText {
-      //     font-size: 0.7rem;
-      //   }
+			//   .btnText {
+			//     font-size: 0.7rem;
+			//   }
 
-      // .btnIcon {
-      // 	display: none;
-      // }
-    }
-  }
+			// .btnIcon {
+			// 	display: none;
+			// }
+		}
+	}
 
-  //   @include screen("small") {
-  //     button {
-  //       .btnText {
-  //         font-size: 0.6rem;
-  //       }
-  //     }
-  //   }
+	//   @include screen("small") {
+	//     button {
+	//       .btnText {
+	//         font-size: 0.6rem;
+	//       }
+	//     }
+	//   }
 
-  @media (min-width: 768px) {
-    padding: 0 1rem;
-  }
+	@media (min-width: 768px) {
+		padding: 0 1rem;
+	}
 }

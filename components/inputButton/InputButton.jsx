@@ -1,4 +1,4 @@
-import styles from "./InputButton.module.scss";
+import styles from './InputButton.module.scss';
 
 export const InputButton = ({
 	name,

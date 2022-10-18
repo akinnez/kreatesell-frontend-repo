@@ -1,11 +1,11 @@
-@use "public/css/screens";
+@use 'public/css/screens';
 
 .logoContainer {
-  width: 130px;
+	width: 130px;
 }
 
-@include screens.minScreen("tablet") {
-  .logoContainer {
-    width: 170px;
-  }
+@include screens.minScreen('tablet') {
+	.logoContainer {
+		width: 170px;
+	}
 }

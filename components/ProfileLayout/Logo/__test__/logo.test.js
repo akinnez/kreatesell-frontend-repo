@@ -1,7 +1,7 @@
-import Logo from "../index";
-import renderer from "react-test-renderer";
+import Logo from '../index';
+import renderer from 'react-test-renderer';
 
-it("renders a snapshot of <Logo />", () => {
-  const logo = renderer.create(<Logo />).toJSON();
-  expect(logo).toMatchSnapshot();
+it('renders a snapshot of <Logo />', () => {
+	const logo = renderer.create(<Logo />).toJSON();
+	expect(logo).toMatchSnapshot();
 });

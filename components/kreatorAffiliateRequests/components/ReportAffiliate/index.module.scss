@@ -1,150 +1,150 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
-.modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
-  font-size: 25px;
-  color: colors.$black-100;
+.modal span[class='ant-modal-close-x'] > span[class^='anticon'] > svg {
+	font-size: 25px;
+	color: colors.$black-100;
 }
 
 .form {
-  margin-top: 20px;
+	margin-top: 20px;
 
-  div[class$="ant-form-item-label"] > label[for] {
-    font-weight: 600;
-    font-size: 24px;
-    color: colors.$black-100;
-  }
+	div[class$='ant-form-item-label'] > label[for] {
+		font-weight: 600;
+		font-size: 24px;
+		color: colors.$black-100;
+	}
 
-  textarea {
-    line-height: 26px;
-    font-size: 16px;
-    overflow: hidden;
-  }
+	textarea {
+		line-height: 26px;
+		font-size: 16px;
+		overflow: hidden;
+	}
 }
 
 .actions {
-  margin-top: 20px;
-  @include mixins.flex(row, space-between, center);
-  gap: 20px 10px;
-  flex-wrap: wrap;
+	margin-top: 20px;
+	@include mixins.flex(row, space-between, center);
+	gap: 20px 10px;
+	flex-wrap: wrap;
 }
 
 .image__preview__container {
-  flex-basis: 100%;
+	flex-basis: 100%;
 }
 
 .image__preview {
-  list-style: none;
-  margin-bottom: 0;
+	list-style: none;
+	margin-bottom: 0;
 }
 
 .image__container {
-  @include mixins.flex(row, space-between, center);
-  column-gap: 10px;
+	@include mixins.flex(row, space-between, center);
+	column-gap: 10px;
 
-  > p {
-    margin-bottom: 0;
-    white-space: nowrap;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	> p {
+		margin-bottom: 0;
+		white-space: nowrap;
+		max-width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
 
-    > [class="ant-typography"] {
-      font-weight: bold;
-      color: colors.$black-100;
-    }
-  }
+		> [class='ant-typography'] {
+			font-weight: bold;
+			color: colors.$black-100;
+		}
+	}
 
-  > button[class^="ant-btn"] {
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 50% !important;
-    border: none;
-    box-shadow: none;
-    justify-content: center;
-    color: colors.$gray-200;
+	> button[class^='ant-btn'] {
+		width: 30px;
+		height: 30px;
+		padding: 0;
+		border-radius: 50% !important;
+		border: none;
+		box-shadow: none;
+		justify-content: center;
+		color: colors.$gray-200;
 
-    &:hover {
-      color: colors.$gray-200;
-      background-color: colors.$gray-500;
-    }
+		&:hover {
+			color: colors.$gray-200;
+			background-color: colors.$gray-500;
+		}
 
-    svg {
-      font-size: 14px;
-    }
-  }
+		svg {
+			font-size: 14px;
+		}
+	}
 }
 
 .image__upload {
-  > button[class^="ant-btn"] {
-    border: none;
-    border-radius: 50% !important;
-    color: colors.$black-100;
-    background-color: #f0f0f0;
-    width: 35px;
-    height: 35px;
-    padding: 0;
-    margin-right: 10px;
-    @include mixins.flex(row, center, center);
+	> button[class^='ant-btn'] {
+		border: none;
+		border-radius: 50% !important;
+		color: colors.$black-100;
+		background-color: #f0f0f0;
+		width: 35px;
+		height: 35px;
+		padding: 0;
+		margin-right: 10px;
+		@include mixins.flex(row, center, center);
 
-    &:hover {
-      color: colors.$black-100;
-      background-color: #f0f0f0;
-    }
+		&:hover {
+			color: colors.$black-100;
+			background-color: #f0f0f0;
+		}
 
-    svg {
-      font-size: 18px;
-    }
-  }
+		svg {
+			font-size: 18px;
+		}
+	}
 
-  > button[disabled] {
-    color: colors.$text-gray;
+	> button[disabled] {
+		color: colors.$text-gray;
 
-    &:hover {
-      color: colors.$text-gray;
-    }
-  }
+		&:hover {
+			color: colors.$text-gray;
+		}
+	}
 
-  > [class="ant-typography"] {
-    font-weight: 400;
-    font-size: 12px;
-    color: colors.$base-gray;
-  }
+	> [class='ant-typography'] {
+		font-weight: 400;
+		font-size: 12px;
+		color: colors.$base-gray;
+	}
 
-  > input[type="file"] {
-    width: 0;
-    height: 0;
-    padding: 0;
-    border: none;
-    opacity: 0;
-    line-height: 0;
-  }
+	> input[type='file'] {
+		width: 0;
+		height: 0;
+		padding: 0;
+		border: none;
+		opacity: 0;
+		line-height: 0;
+	}
 }
 
 .submit__btn > button {
-  padding-left: 25px;
-  padding-right: 25px;
-  border: 1px solid colors.$base-blue;
-  border-radius: 8px;
-  color: colors.$base-blue;
-  font-weight: 700;
-  font-size: 12px;
+	padding-left: 25px;
+	padding-right: 25px;
+	border: 1px solid colors.$base-blue;
+	border-radius: 8px;
+	color: colors.$base-blue;
+	font-weight: 700;
+	font-size: 12px;
 
-  &:hover {
-    color: colors.$base-blue;
-    border-color: colors.$base-blue;
-  }
+	&:hover {
+		color: colors.$base-blue;
+		border-color: colors.$base-blue;
+	}
 }
 
-@include screens.minScreen("medium-large") {
-  .image__container {
-    @include mixins.flex(row, space-between, center);
-    column-gap: 10px;
+@include screens.minScreen('medium-large') {
+	.image__container {
+		@include mixins.flex(row, space-between, center);
+		column-gap: 10px;
 
-    > p {
-      max-width: 395px;
-    }
-  }
+		> p {
+			max-width: 395px;
+		}
+	}
 }

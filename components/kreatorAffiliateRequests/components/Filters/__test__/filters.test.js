@@ -16,12 +16,12 @@
 
 // const mockState = { auth: "", domain: "", store: "", utils: "", product: "" };
 
-it("renders a snapshot of <Filters /> when notes is false", () => {
-  //   const el = mount(
-  //     <Provider store={initializeStore(mockState)}>
-  //       <Filters {...mockProps} />
-  //     </Provider>
-  //   );
-  //   expect(EnzymeToJson(el)).toMatchSnapshot();
-  expect(2 + 2).toBe(4);
+it('renders a snapshot of <Filters /> when notes is false', () => {
+	//   const el = mount(
+	//     <Provider store={initializeStore(mockState)}>
+	//       <Filters {...mockProps} />
+	//     </Provider>
+	//   );
+	//   expect(EnzymeToJson(el)).toMatchSnapshot();
+	expect(2 + 2).toBe(4);
 });

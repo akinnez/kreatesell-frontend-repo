@@ -1,3 +1,3 @@
-import { generateActions } from '../../utils'
+import {generateActions} from '../../utils';
 
-export const ENABLE_PAYMENT_METHODS = generateActions('ENABLE_PAYMENT_METHODS')
+export const ENABLE_PAYMENT_METHODS = generateActions('ENABLE_PAYMENT_METHODS');
