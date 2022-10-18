@@ -285,6 +285,7 @@ const Checkout = () => {
   });
 
   const { errors, setFieldValue, values } = formik;
+  console.log("values = ", values);
 
   // Flutterwave configurations
   const flutterConfig = {
@@ -465,6 +466,9 @@ const Checkout = () => {
                         type="tel"
                         placeholder={"Enter your phone number"}
                         height="small"
+                        name="phoneNo"
+                        // value={values.phoneNo}
+                        maxLength={11}
                         inputMode="numeric"
                         onChange={formik.handleChange}
                         errorMessage={errors.phoneNo}

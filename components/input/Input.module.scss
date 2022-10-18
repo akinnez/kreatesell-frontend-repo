@@ -20,6 +20,22 @@
     color: $gray-200;
     background: white;
   }
+
+  &.phoneNumberInput {
+    // margin-bottom: unset !important;
+    position: relative;
+    .errorMsg {
+      // border: 1px solid red;
+      margin-bottom: unset !important;
+      position: absolute;
+      top: -20px;
+
+      // & + input {
+      //   position: relative;
+      //   top: -18px;
+      // }
+    }
+  }
 }
 
 .label {
@@ -63,8 +79,8 @@
 
 .input.Password {
   padding: 0;
-  input{
-    padding-left: .5rem;
+  input {
+    padding-left: 0.5rem;
   }
 }
 
