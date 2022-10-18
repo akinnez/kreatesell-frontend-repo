@@ -1,176 +1,176 @@
-@import "../../public/css/colors.scss";
-@import "../../public/css/mixins.scss";
-@import "../../public/css/screens.scss";
+@import '../../public/css/colors.scss';
+@import '../../public/css/mixins.scss';
+@import '../../public/css/screens.scss';
 
 .chargeBackCarouselContainer {
-  position: relative;
+	position: relative;
 
-  .leftIconDiv {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: #ffffff;
-    box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    transform: translateX(-40px);
-    cursor: pointer;
-    .leftIcon {
-      font-size: 22px;
-      color: $base-blue;
-    }
-  }
-  .rightIconDiv {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: $base-blue;
-    box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    right: 0px;
-    transform: translateX(47px);
-    cursor: pointer;
-    .rightIcon {
-      font-size: 22px;
-      color: #ffffff;
-    }
-  }
+	.leftIconDiv {
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		background: #ffffff;
+		box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: 50%;
+		transform: translateX(-40px);
+		cursor: pointer;
+		.leftIcon {
+			font-size: 22px;
+			color: $base-blue;
+		}
+	}
+	.rightIconDiv {
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		background: $base-blue;
+		box-shadow: 2px 2px 4px rgba(27, 27, 27, 0.349);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: 50%;
+		right: 0px;
+		transform: translateX(47px);
+		cursor: pointer;
+		.rightIcon {
+			font-size: 22px;
+			color: #ffffff;
+		}
+	}
 }
 
 .chargeBackWrapper {
-  padding: 10px 5px;
+	padding: 10px 5px;
 }
 .cashbackTopSection {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 7px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-bottom: 7px;
 
-  .chargeBackHeading {
-    font-weight: 600;
-  }
+	.chargeBackHeading {
+		font-weight: 600;
+	}
 }
 
 .cashbackReasonSection {
-  padding: 5px 3px;
-  background: #f0efef;
-  border-radius: 3px;
+	padding: 5px 3px;
+	background: #f0efef;
+	border-radius: 3px;
 }
 
 .logDateSection {
-  margin: 15px 0px;
-  @include screen("tablet") {
-    margin: 5px 0px;
-  }
+	margin: 15px 0px;
+	@include screen('tablet') {
+		margin: 5px 0px;
+	}
 }
 
 .logDateDiv {
-  text-overflow: wrap;
-  overflow-wrap: break-word;
+	text-overflow: wrap;
+	overflow-wrap: break-word;
 
-  p {
-    font-size: 13.3px;
-    color: $base-gray;
-    margin-bottom: -1px;
-  }
-  h4 {
-    font-weight: 600;
-    text-overflow: wrap;
-  }
+	p {
+		font-size: 13.3px;
+		color: $base-gray;
+		margin-bottom: -1px;
+	}
+	h4 {
+		font-weight: 600;
+		text-overflow: wrap;
+	}
 }
 
 .chargebackAmonunt {
-  color: $base-blue;
-  font-weight: 600;
+	color: $base-blue;
+	font-weight: 600;
 }
 
 .warning {
-  color: $notification-bg;
-  margin-top: 5px;
-  margin-bottom: 15px;
+	color: $notification-bg;
+	margin-top: 5px;
+	margin-bottom: 15px;
 }
 
 .buttonSection {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
 
-  .aceptBtn {
-    width: 140px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-  }
-  .accessBtn {
-    background: $notification-bg;
-    color: $base-white;
-    border-color: $notification-bg;
-    width: 140px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-  }
-  .viewKreatorBtn {
-    color: $base-gray;
-    width: 130px;
-    border-color: $base-gray;
-    margin-bottom: 5px;
+	.aceptBtn {
+		width: 140px;
+		margin-right: 20px;
+		margin-bottom: 5px;
+	}
+	.accessBtn {
+		background: $notification-bg;
+		color: $base-white;
+		border-color: $notification-bg;
+		width: 140px;
+		margin-right: 20px;
+		margin-bottom: 5px;
+	}
+	.viewKreatorBtn {
+		color: $base-gray;
+		width: 130px;
+		border-color: $base-gray;
+		margin-bottom: 5px;
 
-    .viewIcon {
-      font-size: 18px;
-    }
-  }
+		.viewIcon {
+			font-size: 18px;
+		}
+	}
 }
 ////
 .successDiv {
-  background: #4bf71625;
-  color: #003809;
-  border-radius: 8px;
-  width: 70px;
-  padding: 2px 5px;
-  margin: 2px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	background: #4bf71625;
+	color: #003809;
+	border-radius: 8px;
+	width: 70px;
+	padding: 2px 5px;
+	margin: 2px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .errorDiv {
-  background: #e0030325;
-  color: $notification-bg;
-  border-radius: 8px;
-  font-size: 12px;
-  width: 70px;
-  margin: 2px 0px;
-  padding: 2px 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	background: #e0030325;
+	color: $notification-bg;
+	border-radius: 8px;
+	font-size: 12px;
+	width: 70px;
+	margin: 2px 0px;
+	padding: 2px 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .pendingDiv {
-  background: #f8cb002a;
-  color: #e9be00;
-  border-radius: 8px;
-  font-size: 12px;
-  width: 70px;
-  padding: 2px 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	background: #f8cb002a;
+	color: #e9be00;
+	border-radius: 8px;
+	font-size: 12px;
+	width: 70px;
+	padding: 2px 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .chargePendingDiv {
-  background: #ebc0002a;
-  color: #e9be00;
-  border-radius: 8px;
-  font-size: 13.5px;
-  width: 70px;
-  padding: 3px 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	background: #ebc0002a;
+	color: #e9be00;
+	border-radius: 8px;
+	font-size: 13.5px;
+	width: 70px;
+	padding: 3px 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

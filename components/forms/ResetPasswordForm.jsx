@@ -1,28 +1,28 @@
-import { useState } from "react";
+import {useState} from 'react';
 import {
 	PasswordInput,
 	Button,
 	FormError,
 	Modal,
 	ResetPasswordSuccesModal,
-} from "../";
-import Link from "next/link";
-import { useFormik } from "formik";
-import { ResetPasswordSchema } from "../../validation";
-import { isAnEmpytyObject } from "../../utils";
-import styles from "../../public/css/ForgotPassword.module.scss";
-import { ResetPassword } from "../../redux/actions";
-import { useSelector } from "react-redux";
+} from '../';
+import Link from 'next/link';
+import {useFormik} from 'formik';
+import {ResetPasswordSchema} from '../../validation';
+import {isAnEmpytyObject} from '../../utils';
+import styles from '../../public/css/ForgotPassword.module.scss';
+import {ResetPassword} from '../../redux/actions';
+import {useSelector} from 'react-redux';
 
 export const ResetPasswordForm = () => {
 	const resetPassword = ResetPassword();
-	const { loading } = useSelector((state) => state.store);
+	const {loading} = useSelector((state) => state.store);
 
 	const [modalVisible, setVisible] = useState(false);
 
 	const initialValues = {
-		password: "",
-		confirm_password: "",
+		password: '',
+		confirm_password: '',
 	};
 
 	const handleSubmit = (data) => {
@@ -41,7 +41,9 @@ export const ResetPasswordForm = () => {
 
 	return (
 		<>
-			{!isAnEmpytyObject(formik.errors) && <FormError errors={formik.errors} />}
+			{!isAnEmpytyObject(formik.errors) && (
+				<FormError errors={formik.errors} />
+			)}
 
 			<form
 				onSubmit={formik.handleSubmit}
@@ -64,14 +66,18 @@ export const ResetPasswordForm = () => {
 					type="password"
 				/>
 
-				<Button text="Reset password" bgColor="primaryBlue" loading={loading} />
+				<Button
+					text="Reset password"
+					bgColor="primaryBlue"
+					loading={loading}
+				/>
 			</form>
 
 			<div className={styles.footer}>
-				Already have an account?{" "}
+				Already have an account?{' '}
 				<Link href="/login">
 					<a>Login here</a>
-				</Link>{" "}
+				</Link>{' '}
 			</div>
 
 			<Modal

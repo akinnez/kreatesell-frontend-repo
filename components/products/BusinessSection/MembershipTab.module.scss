@@ -1,231 +1,230 @@
-@import "../../../public//css/colors.scss";
-@import "../../../public//css/mixins.scss";
-@import "../../../public//css/screens.scss";
+@import '../../../public//css/colors.scss';
+@import '../../../public//css/mixins.scss';
+@import '../../../public//css/screens.scss';
 
-.sectionContainerTitle{
-    @include screen("inbetween"){
-        flex-direction: column;
-    }
-    h1{
-        font-size: 1.5rem;
-        @include screen("inbetween"){
-            font-weight: 600;
-            font-size: 1.3rem;
-            line-height: 32px;
-            color: #0072EF;
-            
-        }
-    }
+.sectionContainerTitle {
+	@include screen('inbetween') {
+		flex-direction: column;
+	}
+	h1 {
+		font-size: 1.5rem;
+		@include screen('inbetween') {
+			font-weight: 600;
+			font-size: 1.3rem;
+			line-height: 32px;
+			color: #0072ef;
+		}
+	}
 }
-.saveButton{
-    margin: 24px auto 0;
-    width: 10%;
+.saveButton {
+	margin: 24px auto 0;
+	width: 10%;
 
-    button{
-        width: 180px;
-        height: 52px;
-        border-radius: 8px;
-        text-align: center;
-        font-weight: 700;
-        justify-content: center;
-        background-color: $base-blue;
-    }
+	button {
+		width: 180px;
+		height: 52px;
+		border-radius: 8px;
+		text-align: center;
+		font-weight: 700;
+		justify-content: center;
+		background-color: $base-blue;
+	}
 }
-.addSectionBtn{
-    height: 2.5rem;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
+.addSectionBtn {
+	height: 2.5rem;
+	border-radius: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
 }
-.titleMain{
-    font-weight: 600;
-    font-size: 1.5rem;
-    line-height: 32px;
-    color: #0072EF;    
+.titleMain {
+	font-weight: 600;
+	font-size: 1.5rem;
+	line-height: 32px;
+	color: #0072ef;
 }
-.titleMain2{
-    font-weight: 600;
-    font-size: 1.5rem;
-    line-height: 32px;
-    color: #262626;    
+.titleMain2 {
+	font-weight: 600;
+	font-size: 1.5rem;
+	line-height: 32px;
+	color: #262626;
 }
-.accessControl{
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 26px;
-    color: #595959;    
+.accessControl {
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 26px;
+	color: #595959;
 }
-.miniSaveButton{
-    button{
-        border-radius: 8px;
-        text-align: center;
-        font-weight: 500;
-        padding: 1.5em;
-    }
+.miniSaveButton {
+	button {
+		border-radius: 8px;
+		text-align: center;
+		font-weight: 500;
+		padding: 1.5em;
+	}
 }
-.miniSaveButtons, .miniSaveButtonsMobile{
-    & > button:first-child{
-        & > span{
-            margin-left: 5px !important;
-        }
-    }
-    button{
-        border-radius: 8px;
-        text-align: center;
-        font-weight: 500;
-        padding: 1.5em 1em;
-    }
-    button:not(:last-child) {
-        margin-right: 13px;
-        background-color: transparent !important;
-    }
+.miniSaveButtons,
+.miniSaveButtonsMobile {
+	& > button:first-child {
+		& > span {
+			margin-left: 5px !important;
+		}
+	}
+	button {
+		border-radius: 8px;
+		text-align: center;
+		font-weight: 500;
+		padding: 1.5em 1em;
+	}
+	button:not(:last-child) {
+		margin-right: 13px;
+		background-color: transparent !important;
+	}
 }
-.miniSaveButtons{
-    @include screen("inbetween"){
-        display: none;
-    }
+.miniSaveButtons {
+	@include screen('inbetween') {
+		display: none;
+	}
 }
-.miniSaveButtonsMobile{
-    display: none;
-    @include screen("inbetween"){
-        display: flex;
-    }
+.miniSaveButtonsMobile {
+	display: none;
+	@include screen('inbetween') {
+		display: flex;
+	}
 }
-.section{
-    background-color: $base-white;
-    min-height: 150px;
-    border-radius: 8px;
-    padding: 3em;
-    margin-bottom: 5px;
-    @include screen("inbetween"){
-        padding: 3rem 1rem;
-    }
+.section {
+	background-color: $base-white;
+	min-height: 150px;
+	border-radius: 8px;
+	padding: 3em;
+	margin-bottom: 5px;
+	@include screen('inbetween') {
+		padding: 3rem 1rem;
+	}
 }
-.manageButton{
-    button{
-        border-radius: 8px;
-        text-align: center;
-        font-weight: 500;
-        background-color: transparent !important;
-    }
-    @include screen("inbetween"){
-        display: none;
-    }
+.manageButton {
+	button {
+		border-radius: 8px;
+		text-align: center;
+		font-weight: 500;
+		background-color: transparent !important;
+	}
+	@include screen('inbetween') {
+		display: none;
+	}
 }
-.mobileManageButton{
-    button{
-        text-align: center;
-        font-weight: 500;
-        background-color: transparent !important;
-    }
-    display: none;
-    @include screen("inbetween"){
-        display: inline-block;
-    }
+.mobileManageButton {
+	button {
+		text-align: center;
+		font-weight: 500;
+		background-color: transparent !important;
+	}
+	display: none;
+	@include screen('inbetween') {
+		display: inline-block;
+	}
 }
-.manageIcon{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+.manageIcon {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
-.toolTip{
-    background-color: $base-white !important;
-    color: $black-100;
+.toolTip {
+	background-color: $base-white !important;
+	color: $black-100;
 }
-.managedContent{
-    padding: 15px 80px 15px 40px;
-    .productName{
-        font-weight: 500;
-        font-size: 1.125rem;
-        line-height: 28px;
-        color: #262626;        
-    }
-    .digitalProductSize{
-        font-weight: 500;
-        font-size: 0.875rem;
-        line-height: 24px;
-        color: #8C8C8C;        
-    }
+.managedContent {
+	padding: 15px 80px 15px 40px;
+	.productName {
+		font-weight: 500;
+		font-size: 1.125rem;
+		line-height: 28px;
+		color: #262626;
+	}
+	.digitalProductSize {
+		font-weight: 500;
+		font-size: 0.875rem;
+		line-height: 24px;
+		color: #8c8c8c;
+	}
 }
-.fileImage{
-    margin-right: 12px;
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    background-color: $base-blue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img{
-        border-radius: 8px;
-    }
+.fileImage {
+	margin-right: 12px;
+	width: 50px;
+	height: 50px;
+	border-radius: 8px;
+	background-color: $base-blue;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	img {
+		border-radius: 8px;
+	}
 }
-.managedControls{
-    display: flex;
-    &>div{
-        width: 40px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 2px solid #ccc;
-        border-radius: 4px;
-        padding: .3em;
-        cursor: pointer;
-    }
-    div:not(:last-child){
-        margin-right: 5px;
-    }
+.managedControls {
+	display: flex;
+	& > div {
+		width: 40px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid #ccc;
+		border-radius: 4px;
+		padding: 0.3em;
+		cursor: pointer;
+	}
+	div:not(:last-child) {
+		margin-right: 5px;
+	}
 }
-.contentContainer{
-    padding: 80px;
+.contentContainer {
+	padding: 80px;
 }
-.contents{
-    width: 85%;
-    display: flex;
-    flex-direction: column;
+.contents {
+	width: 85%;
+	display: flex;
+	flex-direction: column;
+}
+.rad {
+	label {
+		align-items: baseline !important;
+		span {
+			font-size: 18px;
+		}
+	}
+}
+.in {
+	input {
+		height: 2.5rem;
+	}
+}
 
-}
-.rad{
-    label{
-        align-items: baseline !important;
-        span{
-            font-size: 18px;
-        }
-    }
-}
-.in{
-    input{
-        height: 2.5rem;
-    }
-}
-
-.popConfirm{
-	div{
-		& > div:last-child{
-			div{
-				padding: .8em;
-				& > div:first-child{
-					div{
+.popConfirm {
+	div {
+		& > div:last-child {
+			div {
+				padding: 0.8em;
+				& > div:first-child {
+					div {
 						font-size: 16px;
 						color: $gray-200;
 						padding: 0;
 						pre {
 							font-family: inherit;
 							width: 80%;
-                            margin-bottom: 0;
-                            white-space: wrap;
+							margin-bottom: 0;
+							white-space: wrap;
 							text-align: center;
 						}
 					}
 				}
-				& > div:last-child{
+				& > div:last-child {
 					display: flex;
 					justify-content: space-between;
-					
-					button{
+
+					button {
 						border-radius: 8px;
 						// padding: 1.3em 1em;
 					}
@@ -244,21 +243,21 @@
 		}
 	}
 }
-.addContentButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2em;
+.addContentButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2em;
 
-    button{
-        padding: 1.5em;
-        height: 2.5rem;
-        border-radius: 8px;
-        width: 20%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 600;
-        font-size: 17px;
-    }
+	button {
+		padding: 1.5em;
+		height: 2.5rem;
+		border-radius: 8px;
+		width: 20%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-weight: 600;
+		font-size: 17px;
+	}
 }

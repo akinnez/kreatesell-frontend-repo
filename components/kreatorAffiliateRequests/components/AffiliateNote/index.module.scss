@@ -1,41 +1,41 @@
-@use "public/css/colors";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/screens';
 
-.modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
-  font-size: 25px;
-  color: colors.$black-100;
+.modal span[class='ant-modal-close-x'] > span[class^='anticon'] > svg {
+	font-size: 25px;
+	color: colors.$black-100;
 }
 
 .header {
-  margin-top: 50px;
-  margin-bottom: 20px;
+	margin-top: 50px;
+	margin-bottom: 20px;
 
-  h2 {
-    margin-bottom: 0;
-    font-weight: 600;
-    font-size: 24px;
-    color: colors.$black-100;
-  }
+	h2 {
+		margin-bottom: 0;
+		font-weight: 600;
+		font-size: 24px;
+		color: colors.$black-100;
+	}
 }
 
 .note {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 
-  > p {
-    margin-bottom: 0;
-    white-space: pre-wrap;
+	> p {
+		margin-bottom: 0;
+		white-space: pre-wrap;
 
-    > [class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$gray-200;
-    }
-  }
+		> [class='ant-typography'] {
+			font-weight: 500;
+			font-size: 16px;
+			color: colors.$gray-200;
+		}
+	}
 }
 
-@include screens.minScreen("medium-large") {
-  .modal div[class^="ant-modal-body"] {
-    padding-left: 60px;
-    padding-right: 60px;
-  }
+@include screens.minScreen('medium-large') {
+	.modal div[class^='ant-modal-body'] {
+		padding-left: 60px;
+		padding-right: 60px;
+	}
 }

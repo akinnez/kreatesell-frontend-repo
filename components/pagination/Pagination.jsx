@@ -1,5 +1,5 @@
-import { usePagination, DOTS } from "../../hooks";
-import styles from "./Pagination.module.scss";
+import {usePagination, DOTS} from '../../hooks';
+import styles from './Pagination.module.scss';
 
 export const Pagination = ({
 	onPageChange,
@@ -9,7 +9,7 @@ export const Pagination = ({
 	pageSize,
 	className,
 }) => {
-	const { paginationRange } = usePagination({
+	const {paginationRange} = usePagination({
 		currentPage,
 		totalCount,
 		siblingCount,
@@ -41,7 +41,10 @@ export const Pagination = ({
 			{paginationRange?.map((pageNumber, i) => {
 				if (pageNumber === DOTS) {
 					return (
-						<li key={i} className={`${styles.paginationItem} ${styles.dots}`}>
+						<li
+							key={i}
+							className={`${styles.paginationItem} ${styles.dots}`}
+						>
 							&#8230;
 						</li>
 					);

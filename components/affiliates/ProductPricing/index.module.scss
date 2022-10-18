@@ -1,18 +1,18 @@
-@use "public/css/colors";
-@use "public/css/mixins";
+@use 'public/css/colors';
+@use 'public/css/mixins';
 
 .product__overview__pricing {
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
-  gap: 20px 25px;
+	@include mixins.flex(row, flex-start, center);
+	flex-wrap: wrap;
+	gap: 20px 25px;
 
-  p {
-    font-size: 24px;
-    margin-bottom: 0;
-    color: colors.$black-100;
-  }
+	p {
+		font-size: 24px;
+		margin-bottom: 0;
+		color: colors.$black-100;
+	}
 
-  p:last-child {
-    font-size: 16px;
-  }
+	p:last-child {
+		font-size: 16px;
+	}
 }

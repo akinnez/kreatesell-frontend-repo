@@ -1,32 +1,32 @@
-@import "../../public/css/colors.scss";
-@import "../../public/css/mixins.scss";
-@import "../../public/css/screens.scss";
+@import '../../public/css/colors.scss';
+@import '../../public/css/mixins.scss';
+@import '../../public/css/screens.scss';
 
 .tableHeading {
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .table {
-  width: 100%;
+	width: 100%;
 
-  .tableHead {
-    text-align: left;
+	.tableHead {
+		text-align: left;
 
-    .tableRow {
-      font-size: 12px;
-      color: $base-gray;
-    }
-  }
-  .tbody {
-    font-size: 14px;
-  }
-  .trow {
-    margin-bottom: 3px;
-    .td {
-      width: 157px;
-      padding-right: 4px;
-      text-overflow: break-word;
-      word-break: break-all;
-    }
-  }
+		.tableRow {
+			font-size: 12px;
+			color: $base-gray;
+		}
+	}
+	.tbody {
+		font-size: 14px;
+	}
+	.trow {
+		margin-bottom: 3px;
+		.td {
+			width: 157px;
+			padding-right: 4px;
+			text-overflow: break-word;
+			word-break: break-all;
+		}
+	}
 }

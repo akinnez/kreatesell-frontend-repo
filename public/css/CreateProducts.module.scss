@@ -1,10 +1,10 @@
-@import "../css//mixins.scss";
-@import "../css//colors.scss";
-@import "../css//screens.scss";
+@import '../css//mixins.scss';
+@import '../css//colors.scss';
+@import '../css//screens.scss';
 
-.cardContainer{
-    @include screen("tablet"){
-        padding: 5px 5px 0px;
-        margin-bottom: 1em;
-    }
+.cardContainer {
+	@include screen('tablet') {
+		padding: 5px 5px 0px;
+		margin-bottom: 1em;
+	}
 }

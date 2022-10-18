@@ -1,27 +1,27 @@
-@use "screens.scss";
+@use 'screens.scss';
 
 .header {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 .content {
-  margin-bottom: 70px;
+	margin-bottom: 70px;
 }
 
 .card {
-  border-radius: 8px;
+	border-radius: 8px;
 
-  > div[class="ant-card-body"] {
-    padding: 80px 60px;
-  }
+	> div[class='ant-card-body'] {
+		padding: 80px 60px;
+	}
 }
 
-@include screens.screen("medium-large") {
-  .card {
-    background-color: transparent;
+@include screens.screen('medium-large') {
+	.card {
+		background-color: transparent;
 
-    > div[class="ant-card-body"] {
-      padding: 0;
-    }
-  }
+		> div[class='ant-card-body'] {
+			padding: 0;
+		}
+	}
 }

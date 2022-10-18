@@ -1,7 +1,7 @@
-import Billing from "../Billing";
-import renderer from "react-test-renderer";
+import Billing from '../Billing';
+import renderer from 'react-test-renderer';
 
-it("renders a snapshot of <Billing />", () => {
-  const billing = renderer.create(<Billing />).toJSON();
-  expect(billing).toMatchSnapshot();
+it('renders a snapshot of <Billing />', () => {
+	const billing = renderer.create(<Billing />).toJSON();
+	expect(billing).toMatchSnapshot();
 });

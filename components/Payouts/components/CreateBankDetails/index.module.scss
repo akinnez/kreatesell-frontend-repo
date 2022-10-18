@@ -1,26 +1,26 @@
-@use "public/css/colors";
+@use 'public/css/colors';
 
-.modal span[class="ant-modal-close-x"] > span[class^="anticon"] > svg {
-  font-size: 25px;
+.modal span[class='ant-modal-close-x'] > span[class^='anticon'] > svg {
+	font-size: 25px;
 }
 
 .header {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 35px;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 35px;
 
-  > h2 {
-    font-size: 24px;
-    color: colors.$black-100;
-  }
+	> h2 {
+		font-size: 24px;
+		color: colors.$black-100;
+	}
 
-  > p {
-    margin-bottom: 0;
+	> p {
+		margin-bottom: 0;
 
-    > span[class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$gray-200;
-    }
-  }
+		> span[class='ant-typography'] {
+			font-weight: 500;
+			font-size: 16px;
+			color: colors.$gray-200;
+		}
+	}
 }

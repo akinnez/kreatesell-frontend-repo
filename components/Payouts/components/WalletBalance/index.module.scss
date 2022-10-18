@@ -1,88 +1,88 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .header {
-  margin-bottom: 32px;
+	margin-bottom: 32px;
 }
 
 .card {
-  max-width: 960px;
-  margin: 0 auto;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 .withdraw__btn {
-  text-align: center;
+	text-align: center;
 
-  > button {
-    height: auto;
-    border-radius: 8px;
-    background-color: colors.$base-white;
-    color: colors.$base-blue;
-    font-weight: 700;
-    font-size: 14px;
+	> button {
+		height: auto;
+		border-radius: 8px;
+		background-color: colors.$base-white;
+		color: colors.$base-blue;
+		font-weight: 700;
+		font-size: 14px;
 
-    &:hover {
-      color: colors.$base-blue;
-    }
-  }
+		&:hover {
+			color: colors.$base-blue;
+		}
+	}
 }
 
 .affiliate__info {
-  @include mixins.flex(row, center, flex-start);
-  column-gap: 5px;
+	@include mixins.flex(row, center, flex-start);
+	column-gap: 5px;
 
-  > span:first-child {
-    margin-top: 3px;
-    color: colors.$base-white;
-    font-size: 14px;
-  }
+	> span:first-child {
+		margin-top: 3px;
+		color: colors.$base-white;
+		font-size: 14px;
+	}
 
-  > span:last-child {
-    color: colors.$base-white;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.5;
-  }
+	> span:last-child {
+		color: colors.$base-white;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1.5;
+	}
 }
 
 .content {
-  margin-bottom: 40px;
+	margin-bottom: 40px;
 
-  p {
-    margin-bottom: 0;
-    text-align: center;
+	p {
+		margin-bottom: 0;
+		text-align: center;
 
-    &:first-child [class="ant-typography"] {
-      font-weight: 600;
-      font-size: 30px;
-      color: colors.$black-100;
-    }
+		&:first-child [class='ant-typography'] {
+			font-weight: 600;
+			font-size: 30px;
+			color: colors.$black-100;
+		}
 
-    &:last-child [class="ant-typography"] {
-      font-weight: 500;
-      font-size: 16px;
-      color: colors.$gray-200;
-    }
-  }
+		&:last-child [class='ant-typography'] {
+			font-weight: 500;
+			font-size: 16px;
+			color: colors.$gray-200;
+		}
+	}
 }
 
-@include screens.minScreen("tablet") {
-  .header {
-    padding: 30px;
-    border-radius: 8px;
-    background-color: colors.$base-white;
-  }
+@include screens.minScreen('tablet') {
+	.header {
+		padding: 30px;
+		border-radius: 8px;
+		background-color: colors.$base-white;
+	}
 }
 
-@include screens.minScreen("xx-large") {
-  .header {
-    padding-left: 60px;
-    padding-right: 60px;
-  }
+@include screens.minScreen('xx-large') {
+	.header {
+		padding-left: 60px;
+		padding-right: 60px;
+	}
 
-  .withdraw__btn > button {
-    padding-right: 50px;
-    padding-left: 50px;
-  }
+	.withdraw__btn > button {
+		padding-right: 50px;
+		padding-left: 50px;
+	}
 }

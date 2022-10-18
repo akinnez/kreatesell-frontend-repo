@@ -1,5 +1,5 @@
-import RSelect from "react-select";
-import styles from "./Select.module.scss";
+import RSelect from 'react-select';
+import styles from './Select.module.scss';
 
 export const Select = ({
 	options,
@@ -7,12 +7,12 @@ export const Select = ({
 	placeholder,
 	arrowIconColor,
 	border,
-	borderColor = "#d9dbe1",
+	borderColor = '#d9dbe1',
 	transparentBg,
 	placeholderStyle,
-	bgColor = "#ffffff",
+	bgColor = '#ffffff',
 	placeHolderColor,
-	height = "38px",
+	height = '38px',
 	label,
 	...rest
 }) => {
@@ -20,14 +20,14 @@ export const Select = ({
 		control: (provided, state) => ({
 			...provided,
 			borderColor,
-			border: border === `none` ? "none" : `1px solid ${borderColor}`,
-			borderRadius: "8px",
-			background: transparentBg ? "transparent" : bgColor,
+			border: border === `none` ? 'none' : `1px solid ${borderColor}`,
+			borderRadius: '8px',
+			background: transparentBg ? 'transparent' : bgColor,
 			minHeight: height,
 		}),
 		indicatorSeparator: (provided, state) => ({
 			...provided,
-			display: "none",
+			display: 'none',
 		}),
 		placeholder: (provided, state) => ({
 			...provided,

@@ -1,3 +1,3 @@
-const { generateActions } = require('utils')
+const {generateActions} = require('utils');
 
-export const CONVERT_CURRENCY = generateActions('CONVERT_CURRENCY')
+export const CONVERT_CURRENCY = generateActions('CONVERT_CURRENCY');

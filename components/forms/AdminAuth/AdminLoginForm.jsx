@@ -1,28 +1,28 @@
-import { Input, Button, Checkbox, FormError, PasswordInput } from "../..";
-import { useFormik } from "formik";
-import Link from "next/link";
-import { isAnEmpytyObject } from "../../../utils";
-import { SuperAdminLogin } from "../../../redux/actions";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { LoginSchema } from "../../../validation";
-import styles from "../../../public/css/Login.module.scss";
+import {Input, Button, Checkbox, FormError, PasswordInput} from '../..';
+import {useFormik} from 'formik';
+import Link from 'next/link';
+import {isAnEmpytyObject} from '../../../utils';
+import {SuperAdminLogin} from '../../../redux/actions';
+import {useRouter} from 'next/router';
+import {useSelector} from 'react-redux';
+import {LoginSchema} from '../../../validation';
+import styles from '../../../public/css/Login.module.scss';
 
 export const AdminLoginForm = () => {
 	const adminLogin = SuperAdminLogin();
 	const router = useRouter();
 
-	const { loading } = useSelector((state) => state.auth);
+	const {loading} = useSelector((state) => state.auth);
 
 	const initialValues = {
-		username: "",
-		password: "",
+		username: '',
+		password: '',
 	};
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
 		adminLogin(data, () => {
-			router.push("/account/dashboard");
+			router.push('/account/dashboard');
 		});
 	};
 
@@ -33,7 +33,7 @@ export const AdminLoginForm = () => {
 		validateOnChange: false,
 	});
 
-	const { errors } = formik;
+	const {errors} = formik;
 
 	return (
 		<>
@@ -57,7 +57,10 @@ export const AdminLoginForm = () => {
 
 				<div className={styles.terms}>
 					<div className={styles.checkbox}>
-						<Checkbox name="rememberMe" onChange={formik.handleChange} />
+						<Checkbox
+							name="rememberMe"
+							onChange={formik.handleChange}
+						/>
 						<p>Remember Me</p>
 					</div>
 
@@ -75,10 +78,10 @@ export const AdminLoginForm = () => {
 			</form>
 
 			<div className={styles.footer}>
-				Don’t have an account?{" "}
+				Don’t have an account?{' '}
 				<Link href="/signup">
 					<a>Get Started</a>
-				</Link>{" "}
+				</Link>{' '}
 			</div>
 		</>
 	);

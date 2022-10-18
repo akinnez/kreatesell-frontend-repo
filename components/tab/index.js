@@ -1,52 +1,52 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./Tab.module.scss";
+import styles from './Tab.module.scss';
 
-export const TabItem = ({ children }) => {
-  return children;
+export const TabItem = ({children}) => {
+	return children;
 };
 
 const Index = ({
-  children,
-  active = 0,
-  titles = [],
-  onSelect = () => {},
-  disableCheckout,
+	children,
+	active = 0,
+	titles = [],
+	onSelect = () => {},
+	disableCheckout,
 }) => {
-  return (
-    <>
-      <ul className={`tab-wrapper ${styles.tabWrapper}`}>
-        {titles?.map((item, i) => (
-          <li
-            key={i}
-            onClick={() => {
-              if (disableCheckout && item === "Checkout") {
-                return;
-              }
-              onSelect(i);
-            }}
-            className={`${
-              active == i
-                ? //   active === 0
-                  `active ${styles.activeContainer}`
-                : active > i
-                ? `completed ${styles.Completed}`
-                : disableCheckout && item === "Checkout"
-                ? styles.disableCheckout
-                : ` ${styles.InCompleted}`
-            }`}
-          >
-            <span className={styles.active}>{item}</span>
-          </li>
-        ))}
-      </ul>
-      {React.Children.map(children, (child, i) => {
-        if (child.type.name == "TabItem" && active == i) {
-          return child;
-        }
-      })}
+	return (
+		<>
+			<ul className={`tab-wrapper ${styles.tabWrapper}`}>
+				{titles?.map((item, i) => (
+					<li
+						key={i}
+						onClick={() => {
+							if (disableCheckout && item === 'Checkout') {
+								return;
+							}
+							onSelect(i);
+						}}
+						className={`${
+							active == i
+								? //   active === 0
+								  `active ${styles.activeContainer}`
+								: active > i
+								? `completed ${styles.Completed}`
+								: disableCheckout && item === 'Checkout'
+								? styles.disableCheckout
+								: ` ${styles.InCompleted}`
+						}`}
+					>
+						<span className={styles.active}>{item}</span>
+					</li>
+				))}
+			</ul>
+			{React.Children.map(children, (child, i) => {
+				if (child.type.name == 'TabItem' && active == i) {
+					return child;
+				}
+			})}
 
-      <style jsx>{`
+			<style jsx>{`
             .tab-wrapper{
                 list-style-type:none;
                 display:flex;
@@ -82,8 +82,8 @@ const Index = ({
 
         
         `}</style>
-    </>
-  );
+		</>
+	);
 };
 
 export default Index;

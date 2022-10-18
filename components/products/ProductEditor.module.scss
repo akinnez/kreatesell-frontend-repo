@@ -1,25 +1,25 @@
-.quillEditor{
-    position: relative;
-    & > div:last-child{
-        top: 0;
-        right: 0;
-        height: 42px;
+.quillEditor {
+	position: relative;
+	& > div:last-child {
+		top: 0;
+		right: 0;
+		height: 42px;
 
-        button{
-            height: 100%;
-        }
-    }
-    & > div {
-    & > div{
-        border-radius: 8px;
-        min-height: 250px;
-    & > div:first-child{
-        border-radius: 8px 8px 0 0;
-    }
-    & div:last-child{
-        height: 240px;
-        border-radius: 0 0 8px 8px;
-    }
-    }
-    }
+		button {
+			height: 100%;
+		}
+	}
+	& > div {
+		& > div {
+			border-radius: 8px;
+			min-height: 250px;
+			& > div:first-child {
+				border-radius: 8px 8px 0 0;
+			}
+			& div:last-child {
+				height: 240px;
+				border-radius: 0 0 8px 8px;
+			}
+		}
+	}
 }

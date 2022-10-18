@@ -1,17 +1,17 @@
-@use "../../public/css/colors";
-@use "../../public/css/mixins";
+@use '../../public/css/colors';
+@use '../../public/css/mixins';
 
 .csvDataDownload {
-  @include mixins.flex(row, flex-end, center);
-  margin-bottom: 20px;
+	@include mixins.flex(row, flex-end, center);
+	margin-bottom: 20px;
 
-  button {
-    font-weight: 700;
-    font-size: 12px;
-    color: colors.$base-blue;
+	button {
+		font-weight: 700;
+		font-size: 12px;
+		color: colors.$base-blue;
 
-    svg {
-      display: inline;
-    }
-  }
+		svg {
+			display: inline;
+		}
+	}
 }

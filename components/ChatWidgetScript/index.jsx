@@ -1,11 +1,11 @@
-import Script from "next/script";
+import Script from 'next/script';
 
 const ChatScript = () => {
-  return (
-    <Script
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{
-        __html: `
+	return (
+		<Script
+			strategy="afterInteractive"
+			dangerouslySetInnerHTML={{
+				__html: `
     window.WhelpConfig = {
 		app_id: '78b9de75570f6c27d81813acb7fd0500'
 	};
@@ -26,9 +26,9 @@ const ChatScript = () => {
 		else{w.addEventListener('load', l, false);}
 	})(window, document);
   `,
-      }}
-    />
-  );
+			}}
+		/>
+	);
 };
 
 export default ChatScript;

@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Button, Input } from "components";
-import { useFormik } from "formik";
-import { CreateEditDomain, SetDomainScreen, GetDomains } from "redux/actions";
-import { CreateDomainSchema } from "validation";
-import { _prependHttp } from "utils";
-import styles from "../Domain.module.scss";
+import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {Button, Input} from 'components';
+import {useFormik} from 'formik';
+import {CreateEditDomain, SetDomainScreen, GetDomains} from 'redux/actions';
+import {CreateDomainSchema} from 'validation';
+import {_prependHttp} from 'utils';
+import styles from '../Domain.module.scss';
 
 export const CreateDomain = () => {
 	const setDomainScreen = SetDomainScreen();
 	const createDomain = CreateEditDomain();
 	const getDomains = GetDomains();
 
-	const { loading } = useSelector((state) => state.domain);
-	const [domainName, setDomainName] = useState("");
+	const {loading} = useSelector((state) => state.domain);
+	const [domainName, setDomainName] = useState('');
 
 	const initialValues = {
-		domain_name: "",
+		domain_name: '',
 		is_kreate_sell_url: false,
 	};
 
@@ -34,10 +34,10 @@ export const CreateDomain = () => {
 		validateOnChange: false,
 	});
 
-	const { errors, setFieldValue } = formik;
+	const {errors, setFieldValue} = formik;
 
 	useEffect(() => {
-		setFieldValue("domain_name", _prependHttp({ url: domainName }));
+		setFieldValue('domain_name', _prependHttp({url: domainName}));
 	}, [domainName]);
 
 	return (
@@ -57,10 +57,10 @@ export const CreateDomain = () => {
 
 				<div className="text-base-gray-200 text-sm">
 					If you own a domain name , you can overwrite the default
-					KreateSell.com domain by pointing your preferred domain to your
-					KreateSell store. You can also use a subdomain like
-					buy.yourdomain.com. Your custom domain should point directly to a
-					CNAME of KreateSell. <a href="#">Learn More</a>
+					KreateSell.com domain by pointing your preferred domain to
+					your KreateSell store. You can also use a subdomain like
+					buy.yourdomain.com. Your custom domain should point directly
+					to a CNAME of KreateSell. <a href="#">Learn More</a>
 				</div>
 
 				<div className="pt-3">

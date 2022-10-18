@@ -1,16 +1,16 @@
-import { Select, Input } from "../";
-import styles from "../../public/css/Dashboard.module.scss";
-import { SVGFilter } from "../../utils";
-import Image from "next/image";
+import {Select, Input} from '../';
+import styles from '../../public/css/Dashboard.module.scss';
+import {SVGFilter} from '../../utils';
+import Image from 'next/image';
 import {
 	dayOptions,
 	kreatorsOptions,
 	affiliateOptions,
 	currencyOptions,
-} from "./partials";
+} from './partials';
 // import { format } from "date-fns";
 
-export const DateHeader = ({ showSelect = true }) => {
+export const DateHeader = ({showSelect = true}) => {
 	return (
 		<div className={styles.container}>
 			{showSelect && (
@@ -84,7 +84,12 @@ export const DateHeader = ({ showSelect = true }) => {
 				</div>
 
 				<div className={styles.filterCont}>
-					<Image src={SVGFilter} alt="filter" width="80" height="44" />
+					<Image
+						src={SVGFilter}
+						alt="filter"
+						width="80"
+						height="44"
+					/>
 				</div>
 			</div>
 		</div>

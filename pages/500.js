@@ -1,4 +1,4 @@
-import CustomErrorPage from "./404";
+import CustomErrorPage from './404';
 
 const ServerErrorComponent = () => {
 	return <CustomErrorPage />;

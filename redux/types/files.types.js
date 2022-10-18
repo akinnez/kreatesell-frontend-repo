@@ -1,3 +1,3 @@
-import { generateActions } from "../../utils";
+import {generateActions} from '../../utils';
 
-export const DELETE_IMAGE = generateActions("DELETE_IMAGE");
+export const DELETE_IMAGE = generateActions('DELETE_IMAGE');

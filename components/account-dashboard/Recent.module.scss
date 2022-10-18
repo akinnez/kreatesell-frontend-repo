@@ -1,6 +1,6 @@
-@import "../../public//css//mixins.scss";
-@import "../../public//css//colors.scss";
-@import "../../public//css//screens.scss";
+@import '../../public//css//mixins.scss';
+@import '../../public//css//colors.scss';
+@import '../../public//css//screens.scss';
 
 .container {
 	margin-top: 1rem;
@@ -25,7 +25,7 @@
 		width: 100%;
 		@include flex(row, null, center);
 
-		@include screen("tablet") {
+		@include screen('tablet') {
 			width: 100%;
 			@include flex(column, null, center);
 		}
@@ -50,7 +50,7 @@
 			margin-right: 1.562rem;
 			@extend .cardStyle;
 
-			@include screen("tablet") {
+			@include screen('tablet') {
 				width: 100%;
 				margin-right: 0;
 				height: 20%;
@@ -82,7 +82,7 @@
 						letter-spacing: 0.3px;
 						text-transform: uppercase;
 						color: $gray-600;
-						@include screen("medium") {
+						@include screen('medium') {
 							padding-top: 0.5rem;
 						}
 					}
@@ -94,13 +94,13 @@
 			width: 35%;
 			@include flex(column, null, null);
 
-			@include screen("tablet") {
+			@include screen('tablet') {
 				width: 100%;
 				@include flex(row, space-between, null);
 				margin-top: 1rem;
 			}
 
-			@include screen("medium") {
+			@include screen('medium') {
 				@include flex(column, null, null);
 
 				width: 100%;
@@ -113,10 +113,10 @@
 				margin-bottom: 1.25rem;
 				@extend .cardStyle;
 
-				@include screen("tablet") {
+				@include screen('tablet') {
 					width: 50%;
 				}
-				@include screen("medium") {
+				@include screen('medium') {
 					width: 100%;
 				}
 
@@ -171,12 +171,12 @@
 
 				@extend .cardStyle;
 
-				@include screen("tablet") {
+				@include screen('tablet') {
 					width: 50%;
 					margin-left: 1rem;
 					height: 10.7rem;
 				}
-				@include screen("medium") {
+				@include screen('medium') {
 					width: 100%;
 					margin-left: 0;
 				}
@@ -195,7 +195,7 @@
 					line-height: 4rem;
 					color: $base-blue;
 
-					@include screen("tablet") {
+					@include screen('tablet') {
 						line-height: 2rem;
 					}
 

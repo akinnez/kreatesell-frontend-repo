@@ -1,4 +1,4 @@
-import styles from "./TextArea.module.scss";
+import styles from './TextArea.module.scss';
 
 export const TextArea = ({
 	name,

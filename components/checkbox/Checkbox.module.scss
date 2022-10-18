@@ -1,8 +1,8 @@
-@import "../../public/css/colors.scss";
+@import '../../public/css/colors.scss';
 
 .checkbox {
-  display: flex;
-  gap: 5px;
+	display: flex;
+	gap: 5px;
 	.input {
 		border: 1px solid $gray-100;
 	}

@@ -1,169 +1,169 @@
-@import "../../public/css/colors.scss";
-@import "../../public/css/mixins.scss";
-@import "../../public/css/screens.scss";
+@import '../../public/css/colors.scss';
+@import '../../public/css/mixins.scss';
+@import '../../public/css/screens.scss';
 
 .priceCard {
-  width: 30rem;
-  height: 100%;
-  background: $base-white;
-  border: 0.5px solid $border-gray-100;
-  box-sizing: border-box;
-  border-radius: 0.5rem;
-  text-align: center;
-  box-shadow: 0px 10px 30px transparent;
-  transition: all 0.2s;
-  padding-inline: 3rem;
+	width: 30rem;
+	height: 100%;
+	background: $base-white;
+	border: 0.5px solid $border-gray-100;
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	text-align: center;
+	box-shadow: 0px 10px 30px transparent;
+	transition: all 0.2s;
+	padding-inline: 3rem;
 
-  @include screen("medium") {
-    width: 100%;
-    box-shadow: 0px 10px 30px $form-shadow;
-    border-radius: 0.5rem;
-  }
+	@include screen('medium') {
+		width: 100%;
+		box-shadow: 0px 10px 30px $form-shadow;
+		border-radius: 0.5rem;
+	}
 
-  .header {
-    .title {
-      text-transform: uppercase;
-      padding-top: 2.5rem;
-      font-weight: 500;
-      font-size: 1.375rem;
-      line-height: 2rem;
-      color: $black-100;
-    }
-    .subTitle {
-      padding-top: 0.437rem;
-      font-weight: 400;
-      font-size: 0.9rem;
-      line-height: 1.3rem;
-      color: $gray-200;
-      min-height: 4.5rem;
-    }
-    hr {
-      border: 0;
-      height: 1px;
-      background: $border-gray-100;
-      margin: 0 1rem;
-      margin-top: 1rem;
-    }
+	.header {
+		.title {
+			text-transform: uppercase;
+			padding-top: 2.5rem;
+			font-weight: 500;
+			font-size: 1.375rem;
+			line-height: 2rem;
+			color: $black-100;
+		}
+		.subTitle {
+			padding-top: 0.437rem;
+			font-weight: 400;
+			font-size: 0.9rem;
+			line-height: 1.3rem;
+			color: $gray-200;
+			min-height: 4.5rem;
+		}
+		hr {
+			border: 0;
+			height: 1px;
+			background: $border-gray-100;
+			margin: 0 1rem;
+			margin-top: 1rem;
+		}
 
-    @include screen("tablet") {
-      .title {
-        font-weight: 630;
-        font-size: 1.5rem;
-        line-height: 2.5rem;
-      }
-      .subTitle {
-        padding-left: 2rem;
-        padding-right: 2rem;
-        height: 4rem;
-      }
-    }
-  }
+		@include screen('tablet') {
+			.title {
+				font-weight: 630;
+				font-size: 1.5rem;
+				line-height: 2.5rem;
+			}
+			.subTitle {
+				padding-left: 2rem;
+				padding-right: 2rem;
+				height: 4rem;
+			}
+		}
+	}
 
-  .price {
-    padding-top: 2.5rem;
-    font-weight: 800;
-    font-size: 3rem;
-    line-height: 4rem;
-    color: $black-100;
-    
-    @include flex(row, center, flex-start);
-    @include screen("medium") {
-      font-size: 2rem;
-      line-height: 3.375rem;
-    }
-    p{
-      margin-bottom: 0px;
-    }
-    .currency {
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.625rem;
-      align-self: flex-start;
-    }
+	.price {
+		padding-top: 2.5rem;
+		font-weight: 800;
+		font-size: 3rem;
+		line-height: 4rem;
+		color: $black-100;
 
-    .month {
-      font-weight: 500;
-      font-size: 0.875rem;
-      line-height: 1.5rem;
-      align-self: flex-end;
-    }
-  }
+		@include flex(row, center, flex-start);
+		@include screen('medium') {
+			font-size: 2rem;
+			line-height: 3.375rem;
+		}
+		p {
+			margin-bottom: 0px;
+		}
+		.currency {
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 1.625rem;
+			align-self: flex-start;
+		}
 
-  .priceType {
-    padding-top: 1rem;
-    font-weight: 800;
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-    color: $green-100;
+		.month {
+			font-weight: 500;
+			font-size: 0.875rem;
+			line-height: 1.5rem;
+			align-self: flex-end;
+		}
+	}
 
-    .subPriceType {
-      color: $gray-200;
-      font-size: 1rem;
-      font-weight: 400;
-    }
-    @include screen("medium") {
-      font-weight: 600;
-      font-size: 1.375rem;
-      line-height: 2rem;
-    }
-  }
+	.priceType {
+		padding-top: 1rem;
+		font-weight: 800;
+		font-size: 1.75rem;
+		line-height: 2.5rem;
+		color: $green-100;
 
-  .featuresCont {
-    padding: 2rem 1.9rem 5rem 1.9rem;
-    @include flex(column, null, center);
+		.subPriceType {
+			color: $gray-200;
+			font-size: 1rem;
+			font-weight: 400;
+		}
+		@include screen('medium') {
+			font-weight: 600;
+			font-size: 1.375rem;
+			line-height: 2rem;
+		}
+	}
 
-    .features {
-      width: 85%;
-      display: flex;
-      padding-bottom: 0.5rem;
+	.featuresCont {
+		padding: 2rem 1.9rem 5rem 1.9rem;
+		@include flex(column, null, center);
 
-      .featuresContent {
-        padding-left: 0.625rem;
-        font-weight: 500;
-        font-size: 0.75rem;
-        line-height: 1.5rem;
-        color: $black-200;
-      }
-    }
-  }
+		.features {
+			width: 85%;
+			display: flex;
+			padding-bottom: 0.5rem;
 
-  .button {
-    padding-top: 2.75rem;
-    padding-bottom: 1rem;
-    .btn {
-      width: 80%;
-      height: 3.75rem;
-      font-weight: bold;
-      font-size: 1rem;
-      line-height: 1.875rem;
-      transition: background-color 0.5s;
-    }
-    .selectedBtn{
-      color: #8C8C8C;
-      border: 1px solid #8C8C8C;
-      border-radius: 8px;
-    }
-    @include screen("medium") {
-      padding: 1rem 0;
-      .btn {
-        width: 90%;
-        height: 3rem;
-      }
-    }
-  }
+			.featuresContent {
+				padding-left: 0.625rem;
+				font-weight: 500;
+				font-size: 0.75rem;
+				line-height: 1.5rem;
+				color: $black-200;
+			}
+		}
+	}
 
-  &:hover {
-    border: none;
-    box-shadow: 0px 10px 30px $form-shadow;
-    // cursor: pointer;
-    // transform: scale(1.02);
-	border: 0.5px solid transparent;
+	.button {
+		padding-top: 2.75rem;
+		padding-bottom: 1rem;
+		.btn {
+			width: 80%;
+			height: 3.75rem;
+			font-weight: bold;
+			font-size: 1rem;
+			line-height: 1.875rem;
+			transition: background-color 0.5s;
+		}
+		.selectedBtn {
+			color: #8c8c8c;
+			border: 1px solid #8c8c8c;
+			border-radius: 8px;
+		}
+		@include screen('medium') {
+			padding: 1rem 0;
+			.btn {
+				width: 90%;
+				height: 3rem;
+			}
+		}
+	}
 
-    .button {
-      .btn {
-        // background-color: $green-100;
-        // border: none;
-      }
-    }
-  }
+	&:hover {
+		border: none;
+		box-shadow: 0px 10px 30px $form-shadow;
+		// cursor: pointer;
+		// transform: scale(1.02);
+		border: 0.5px solid transparent;
+
+		.button {
+			.btn {
+				// background-color: $green-100;
+				// border: none;
+			}
+		}
+	}
 }

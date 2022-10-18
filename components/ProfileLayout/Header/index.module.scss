@@ -1,42 +1,42 @@
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .header {
-  @include mixins.flex(row, space-between, center);
-  background-color: #fff;
-  padding: 25px 10px;
-  height: auto;
+	@include mixins.flex(row, space-between, center);
+	background-color: #fff;
+	padding: 25px 10px;
+	height: auto;
 }
 
 .edit {
-  @include mixins.flex(row, null, center);
-  gap: 10px !important;
+	@include mixins.flex(row, null, center);
+	gap: 10px !important;
 }
 
 .nav_right {
-  @include mixins.flex(row, flex-end, center);
-  column-gap: 35px;
+	@include mixins.flex(row, flex-end, center);
+	column-gap: 35px;
 
-  > button {
-    justify-content: center;
-    height: auto;
+	> button {
+		justify-content: center;
+		height: auto;
 
-    &:first-child {
-      display: none !important;
-    }
-  }
+		&:first-child {
+			display: none !important;
+		}
+	}
 }
 
 .dropdown__btn {
-  padding: 0;
+	padding: 0;
 }
 
-@include screens.minScreen("tablet") {
-  .header {
-    padding: 25px;
-  }
+@include screens.minScreen('tablet') {
+	.header {
+		padding: 25px;
+	}
 
-  .nav_right > button:first-child {
-    display: flex !important;
-  }
+	.nav_right > button:first-child {
+		display: flex !important;
+	}
 }

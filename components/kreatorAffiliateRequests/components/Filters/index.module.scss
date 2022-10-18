@@ -1,35 +1,35 @@
-@use "public/css/colors";
+@use 'public/css/colors';
 
 .lg-margin {
-  margin-bottom: 35px;
+	margin-bottom: 35px;
 }
 
 .input__wrapper {
-  div[class~="ant-form-item"] {
-    margin-bottom: 0;
-  }
+	div[class~='ant-form-item'] {
+		margin-bottom: 0;
+	}
 
-  div[class$="ant-form-item-label"] {
-    padding: 0;
-  }
+	div[class$='ant-form-item-label'] {
+		padding: 0;
+	}
 
-  > [class~="ant-form-item"] div[class="ant-select-selector"] {
-    border-radius: 8px;
-  }
+	> [class~='ant-form-item'] div[class='ant-select-selector'] {
+		border-radius: 8px;
+	}
 
-  label[for] {
-    font-weight: 500;
-    color: colors.$gray-200;
-    font-size: 16px;
-    line-height: 26px;
-    height: auto;
-  }
+	label[for] {
+		font-weight: 500;
+		color: colors.$gray-200;
+		font-size: 16px;
+		line-height: 26px;
+		height: auto;
+	}
 
-  & div[class^="ant-picker"] {
-    width: 100%;
-  }
+	& div[class^='ant-picker'] {
+		width: 100%;
+	}
 }
 
 .filter__btn button {
-  border-radius: 8px;
+	border-radius: 8px;
 }

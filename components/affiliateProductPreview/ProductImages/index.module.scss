@@ -1,91 +1,91 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .product__image__overview {
-  margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
 .product__img {
-  max-width: 600px;
-  border-radius: 8px;
-  overflow: hidden;
+	max-width: 600px;
+	border-radius: 8px;
+	overflow: hidden;
 }
 
 .empty__image__Banner {
-  @include mixins.flex(row, center, center);
-  height: calc(100vw - 60px);
-  max-height: 600px;
-  max-width: 600px;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+	@include mixins.flex(row, center, center);
+	height: calc(100vw - 60px);
+	max-height: 600px;
+	max-width: 600px;
+	background-color: rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
 
-  svg {
-    font-size: 40px;
-    color: #808080;
-  }
+	svg {
+		font-size: 40px;
+		color: #808080;
+	}
 }
 
 .product__images__controls {
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
-  gap: 10px 15px;
+	@include mixins.flex(row, flex-start, center);
+	flex-wrap: wrap;
+	gap: 10px 15px;
 }
 
 .product__images {
-  @include mixins.flex(row, flex-start, center);
-  flex-wrap: wrap;
-  gap: 5px;
+	@include mixins.flex(row, flex-start, center);
+	flex-wrap: wrap;
+	gap: 5px;
 }
 
 .product__image {
-  width: 82px;
-  height: 82px;
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: transparent;
+	width: 82px;
+	height: 82px;
+	position: relative;
+	border-radius: 8px;
+	overflow: hidden;
+	background-color: transparent;
 }
 
 .product__image--active {
-  border: 2px solid colors.$black-100;
+	border: 2px solid colors.$black-100;
 }
 
-.product__images__btns button[class^="ant-btn"] {
-  width: 32px;
-  height: 32px;
-  background-color: colors.$white-300;
-  border-radius: 6px;
-  justify-content: center;
-  color: #200e32;
+.product__images__btns button[class^='ant-btn'] {
+	width: 32px;
+	height: 32px;
+	background-color: colors.$white-300;
+	border-radius: 6px;
+	justify-content: center;
+	color: #200e32;
 
-  &:first-child {
-    margin-right: 15px;
-  }
+	&:first-child {
+		margin-right: 15px;
+	}
 }
 
-@include screens.minScreen("medium-large") {
-  .empty__image__Banner {
-    height: calc(100vw - 74px);
-  }
+@include screens.minScreen('medium-large') {
+	.empty__image__Banner {
+		height: calc(100vw - 74px);
+	}
 }
 
-@include screens.minScreen("tablet") {
-  .empty__image__Banner {
-    height: calc(100vw - 478px);
-  }
+@include screens.minScreen('tablet') {
+	.empty__image__Banner {
+		height: calc(100vw - 478px);
+	}
 
-  .product__images {
-    gap: 8px;
-  }
+	.product__images {
+		gap: 8px;
+	}
 
-  .product__image {
-    width: 124px;
-    height: 124px;
-  }
+	.product__image {
+		width: 124px;
+		height: 124px;
+	}
 
-  .product__images__btns button[class^="ant-btn"] {
-    width: 48px;
-    height: 48px;
-  }
+	.product__images__btns button[class^='ant-btn'] {
+		width: 48px;
+		height: 48px;
+	}
 }

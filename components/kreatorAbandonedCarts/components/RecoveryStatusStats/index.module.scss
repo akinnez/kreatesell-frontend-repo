@@ -1,65 +1,65 @@
-@use "public/css/colors";
-@use "public/css/mixins";
-@use "public/css/screens";
+@use 'public/css/colors';
+@use 'public/css/mixins';
+@use 'public/css/screens';
 
 .card__wrapper {
-  box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+	box-shadow: 0px 20px 27px rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
 
-  div[class="ant-card-body"] {
-    padding: 20px;
-  }
+	div[class='ant-card-body'] {
+		padding: 20px;
+	}
 }
 
 .stats__content {
-  @include mixins.flex(row, flex-start, center);
+	@include mixins.flex(row, flex-start, center);
 }
 
 .image__wrapper {
-  @include mixins.flex(row, center, center);
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
-  margin-right: 20px;
-  border-radius: 50%;
+	@include mixins.flex(row, center, center);
+	flex: 0 0 60px;
+	width: 60px;
+	height: 60px;
+	margin-right: 20px;
+	border-radius: 50%;
 }
 
 .recovery__img {
-  background-color: #f5f5ff;
+	background-color: #f5f5ff;
 }
 
 .abandoned__img {
-  background-color: #fff6f7;
+	background-color: #fff6f7;
 }
 
 .recovered__img {
-  background-color: colors.$base-green-300;
+	background-color: colors.$base-green-300;
 }
 
 .image {
-  width: 23px;
-  padding-top: 5px;
+	width: 23px;
+	padding-top: 5px;
 }
 
 .stats p {
-  margin-bottom: 0;
+	margin-bottom: 0;
 
-  &:first-child {
-    font-weight: 600;
-    font-size: 18px;
+	&:first-child {
+		font-weight: 600;
+		font-size: 18px;
 
-    > span[class="ant-typography"] {
-      color: colors.$black-300;
-      word-break: break-word;
-    }
-  }
+		> span[class='ant-typography'] {
+			color: colors.$black-300;
+			word-break: break-word;
+		}
+	}
 
-  &:last-child {
-    font-weight: 500;
-    font-size: 14px;
-  }
+	&:last-child {
+		font-weight: 500;
+		font-size: 14px;
+	}
 
-  > span[class="ant-typography"] {
-    color: colors.$gray-600;
-  }
+	> span[class='ant-typography'] {
+		color: colors.$gray-600;
+	}
 }

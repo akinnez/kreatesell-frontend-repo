@@ -1,15 +1,17 @@
-import { Button } from "components";
-import { CreateEditDomain, SetDomainScreen, GetDomains } from "redux/actions";
-import styles from "./Domain.module.scss";
+import {Button} from 'components';
+import {CreateEditDomain, SetDomainScreen, GetDomains} from 'redux/actions';
+import styles from './Domain.module.scss';
 
-export const EmptyDomain = ({ showHeader = true }) => {
+export const EmptyDomain = ({showHeader = true}) => {
 	const setDomainScreen = SetDomainScreen();
 
 	return (
 		<div>
 			{showHeader && (
 				<div className="flex justify-between items-center pt-2">
-					<h3 className="text-black-100 font-medium text-2xl">Domains</h3>
+					<h3 className="text-black-100 font-medium text-2xl">
+						Domains
+					</h3>
 					<div>
 						<Button
 							text="Connect a domain"

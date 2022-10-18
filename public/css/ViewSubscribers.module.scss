@@ -1,18 +1,17 @@
-@use "mixins";
-@use "colors";
+@use 'mixins';
+@use 'colors';
 
 .header {
-  @include mixins.flex(row, space-between, center);
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+	@include mixins.flex(row, space-between, center);
+	flex-wrap: wrap;
+	margin-bottom: 20px;
 }
 
-.tableWrapper{
-    margin-block: 1rem;
+.tableWrapper {
+	margin-block: 1rem;
 }
 
-.exportDiv{
-    margin-block-start: 2.7rem;
-    margin-block-end: 1rem;
+.exportDiv {
+	margin-block-start: 2.7rem;
+	margin-block-end: 1rem;
 }
-
