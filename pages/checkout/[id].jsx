@@ -290,7 +290,7 @@ const Checkout = () => {
 	});
 
   const { errors, setFieldValue, values } = formik;
-  console.log("values = ", values);
+  // console.log("values = ", values);
 
 	// Flutterwave configurations
 	const flutterConfig = {
