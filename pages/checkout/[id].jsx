@@ -289,7 +289,8 @@ const Checkout = () => {
 		validateOnChange: true,
 	});
 
-	const {errors, setFieldValue, values} = formik;
+  const { errors, setFieldValue, values } = formik;
+  // console.log("values = ", values);
 
 	// Flutterwave configurations
 	const flutterConfig = {
@@ -465,42 +466,43 @@ const Checkout = () => {
 									Phone Number
 								</Col>
 
-								<div className={styles.phoneCode}>
-									<Col xs={24} md={12}>
-										<SelectV2
-											// label="here"
-											size="large"
-											setCountry={setCountry}
-											list={countries}
-											placeholder="Nigeria (+234)"
-											// name="Country_Id"
-											isCheckout={true}
-											// rules={[
-											//   {
-											//     required: true,
-											//     message: "Country is a required field",
-											//   },
-											// ]}
-										/>
-									</Col>
-									<div className={styles.phoneBox}>
-										<Col>
-											<PhoneNumberInput
-												type="tel"
-												placeholder={
-													'Enter your phone number'
-												}
-												height="small"
-												inputMode="numeric"
-												onChange={formik.handleChange}
-												errorMessage={errors.phoneNo}
-											/>
-										</Col>
-									</div>
-								</div>
-							</Row>
-						</form>
-					</div>
+                <div className={styles.phoneCode}>
+                  <Col xs={24} md={12}>
+                    <SelectV2
+                      label=""
+                      size="large"
+                      setCountry={setCountry}
+                      list={countries}
+                      placeholder="Nigeria (+234)"
+                      // name="Country_Id"
+                      isCheckout={true}
+                      // rules={[
+                      //   {
+                      //     required: true,
+                      //     message: "Country is a required field",
+                      //   },
+                      // ]}
+                    />
+                  </Col>
+                  <div className={styles.phoneBox}>
+                    <Col>
+                      <PhoneNumberInput
+                        type="tel"
+                        placeholder={"Enter your phone number"}
+                        height="small"
+                        name="phoneNo"
+                        // value={values.phoneNo}
+                        maxLength={11}
+                        inputMode="numeric"
+                        onChange={formik.handleChange}
+                        errorMessage={errors.phoneNo}
+                      />
+                    </Col>
+                  </div>
+                </div>
+              </Row>
+            </form>
+          </div>
 
 					<div
 						className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8`}

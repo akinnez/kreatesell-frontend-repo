@@ -67,19 +67,17 @@ export const CheckoutProductSchema = () => {
 };
 
 export const ConsumerSalesCheckoutSchema = () => {
-	return Yup.object().shape({
-		firstName: Yup.string().required('First name is required'),
-		lastName: Yup.string().required('Last name is required'),
-		email: Yup.string()
-			.email()
-			.required('Please input a valid email address'),
-		phoneNo: Yup.string()
-			.required('Phone Number is Required')
-			.length(11) // * add maxLength property to field to restrict maximum
-			.matches(
-				/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-				'Phone number is not valid'
-			),
+  return Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    email: Yup.string().email().required("Please input a valid email address"),
+    phoneNo: Yup.string()
+      .required("Phone Number is Required")
+      .max(11) // * add maxLength property to field to restrict maximum
+      .matches(
+        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+        "Phone number is not valid"
+      ),
 
 		// 	  Yup.number("Phone number must be a number").required(
 		//   "Phone number is required"
