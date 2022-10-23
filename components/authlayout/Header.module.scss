@@ -112,6 +112,12 @@
 
 .mainNav {
 	position: relative;
+	// position:sticky;
+	// top:0;
+	// left:0;
+	// right: 0;
+	// border: 2px solid red;
+	// margin-top: 17rem;
 	&.hide {
 		display: none;
 	}
