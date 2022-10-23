@@ -30,6 +30,7 @@
 
 .productCardCtn {
 	color: #262626;
+	
 	.productName {
 		font-weight: 700;
 		font-size: 18px;
@@ -43,6 +44,7 @@
 
 .productCardBtn {
 	height: 2rem;
+	text-transform: uppercase;
 
 	@include screen('small') {
 		height: 1.5rem;
