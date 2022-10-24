@@ -11,7 +11,8 @@ import {useSelector} from 'react-redux';
 import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
 import {useEffect} from 'react';
 import {Pagination} from 'antd';
-import {Logout} from 'redux/actions';
+import { Logout } from 'redux/actions';
+import { PoweredByKS } from 'components/PoweredByKs';
 
 const StorePage = () => {
 	const router = useRouter();
@@ -164,6 +165,7 @@ const StorePage = () => {
 					</div>
 				)}
 			</div>
+			<PoweredByKS />
 		</div>
 	);
 };
@@ -205,6 +207,7 @@ const ProductCard = ({
 		(productDetails?.product_images?.[0]?.filename?.includes(',') &&
 			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
 	return (
+		
 		<div
 			className={`bg-white w-full rounded-lg ${styles.productCardCtn}`}
 			style={{cursor: 'pointer'}}
@@ -286,7 +289,10 @@ const ProductCard = ({
           /> */}
 				</div>
 			</div>
+			
 		</div>
+			
+			
 	);
 };
 

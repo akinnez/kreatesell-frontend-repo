@@ -164,7 +164,7 @@ export const ProtectedStoreHeader = ({
 									>
 										<CtaButton
 											Icon={ViewAs}
-											label="View As"
+											label="Preview"
 										/>
 									</p>
 								</div>
@@ -264,7 +264,7 @@ export const StoreHeader = () => {
 									</p>
 								</div>
 								<p>
-									<CtaButton Icon={ViewAs} label="View As" />
+									<CtaButton Icon={ViewAs} label="Preview" />
 								</p>
 							</div>
 						</div>

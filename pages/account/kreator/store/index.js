@@ -12,7 +12,8 @@ import Router from 'next/router';
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader';
 import useSWR from 'swr';
 import fetcher from '../../../../utils/fetcher';
-import {GetStoreDetails, GetProducts} from 'redux/actions';
+import { GetStoreDetails, GetProducts } from 'redux/actions';
+
 
 const cardStyles = {
 	borderRadius: '8px',
@@ -167,6 +168,7 @@ const Index = () => {
 						/>
 					</Column>
 				</Row>
+				
 			</AuthLayout>
 		</>
 	);
