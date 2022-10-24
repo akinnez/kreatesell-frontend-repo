@@ -792,6 +792,9 @@ const Checkout = () => {
 						</form>
 					</div>
 				</div>
+				<div className={styles.poweredTop}>
+					<PoweredByKS />
+				</div>
 			</div>
 
 			<DialogOverlay
