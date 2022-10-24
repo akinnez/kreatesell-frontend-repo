@@ -75,11 +75,8 @@ const success = () => {
 					</Row>
 				</section>
 			</div>
-			<footer>
-				<p>
-					Powered by&nbsp; <Image src={SuccessKreatesellLogo} />
-				</p>
-			</footer>
+			
+			<PoweredByKS />
 		</div>
 	);
 };
@@ -160,4 +157,16 @@ const PurchaseSummaryCard = ({}) => {
 	);
 };
 
+
+
+
+export const PoweredByKS = () => {
+	return (
+		<footer className={styles.PoweredByKS}>
+				<p>
+					Powered by&nbsp; <Image src={SuccessKreatesellLogo} alt="powered by KreateSell" />
+				</p>
+		</footer>
+	)
+}
 export default success;
