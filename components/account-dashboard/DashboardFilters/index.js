@@ -142,7 +142,7 @@ const DashboardFilters = ({data, setFiltered}) => {
 						>
 							<Col
 								// xs={{span: 24}}
-								xs={{span: 10}}
+								xs={{span: 11}}
 								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
@@ -156,7 +156,7 @@ const DashboardFilters = ({data, setFiltered}) => {
 							</Col>
 							<Col
 								// xs={{span: 24}}
-								xs={{span: 10}}
+								xs={{span: 12}}
 								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
