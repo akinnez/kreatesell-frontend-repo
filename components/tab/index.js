@@ -51,11 +51,11 @@ const Index = ({
                 list-style-type:none;
                 display:flex;
                 gap:10px;
-				position: fixed;
+				/* position: fixed;
 				width: 78.5%;
-	top:80px;
-	background-color:#fff;
-	z-index:200;
+	top:80px; */
+	/* background-color:#fff;
+	z-index:200; */
 	/* bottom: 0; */
                 padding:0;
                 justify-content:center;
