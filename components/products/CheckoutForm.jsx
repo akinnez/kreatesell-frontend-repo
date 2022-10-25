@@ -49,8 +49,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	//   setProductID(product?.product_details?.kreasell_product_id);
 	// }
 
-	// console.log("productID from redux = ", productID);
-
 	const [progress, setProgress] = useState(0);
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
@@ -103,8 +101,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	// Fixed Price Inputs
 	const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
 	const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
-	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] =
-		useState(fixedOriginalPrice);
+	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] = useState(
+		fixedOriginalPrice
+	);
 
 	// Pay What You Want
 	const [minimumPrice, setMinimumPrice] = useState([]);
@@ -113,13 +112,15 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
-	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
-		useState(false);
+	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] = useState(
+		false
+	);
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [numberOfLimit, setNumberOfLimit] = useState(0);
 	const [showTotalSales, setShowTotalSales] = useState(false);
-	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] =
-		useState(false);
+	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(
+		false
+	);
 
 	const [totalSelling, setTotalSelling] = useState([]);
 	const mapNumberToArray = (number) => {
@@ -141,12 +142,17 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
-		useUpload({
-			setFileChange: setPromotionalMaterial,
-			// should accept rar and zip
-			fileType: 'image',
-		});
+	const {
+		preview,
+		getRootProps,
+		getInputProps,
+		mainFile,
+		deleteFile,
+	} = useUpload({
+		setFileChange: setPromotionalMaterial,
+		// should accept rar and zip
+		fileType: 'image',
+	});
 
 	// console.log("product = ", product);
 
@@ -169,15 +175,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		}
 	};
 
-	function getDateFunc() {
-		let today = new Date();
-		let dd = String(today.getDate()).padStart(2, '0');
-		let mm = String(today.getMonth() + 1).padStart(2, '0');
-		let yyyy = today.getFullYear();
-
-		return `${yyyy}-${mm}-${dd}T00:00`;
-	}
-
 	useEffect(() => {
 		paymentFrequencyOptions();
 	}, []);
@@ -186,11 +183,19 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		getBillingInterval();
 	}, []);
 
+	console.log('mainFile', mainFile);
+
 	useEffect(() => {
+		setFieldValue(
+			'Promotional_Items.Allow_Promotional_Items',
+			uploadPromotionalMaterial
+		);
 		if (mainFile.length > 0) {
-			console.log('mainFile are', mainFile);
+			setFieldValue('Promotional_Items.PromotionalFiles', [
+				...mainFile.map((file) => (file.url ? file.url : file.file)),
+			]);
 		}
-	}, [mainFile]);
+	}, [mainFile, uploadPromotionalMaterial]);
 
 	useEffect(() => {
 		setInputsArray(mapNumberToArray(numberOfInputs));
@@ -354,7 +359,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		return data;
 	};
 
+	// console.log('productId = ', productID)
+
 	const handleSubmit = (data) => {
+		// console.log("data from submit = ", data);
 		// setProductID(productID);
 		// const dataWithCompare = {
 		//   ...data,
@@ -370,8 +378,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			delete data.upload_content;
 			delete data.contentZipFiles;
 		}
+		console.log('promotionalMaterial', promotionalMaterial);
 		if (promotionalMaterial.length < 1) {
-			delete data?.promotional_items;
+			delete data?.Promotional_Items;
 		}
 		if (!data.cta_button) {
 			delete data.cta_button;
@@ -383,9 +392,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		if (!data.product_settings.allow_affiliates) {
 			delete data.product_settings.affiliate_percentage_on_sales;
 		}
-		// if (!data.is_show_compare_price) {
-		//   delete data.is_show_compare_price;
-		// }
+		if (!data.is_show_compare_price) {
+			delete data.is_show_compare_price;
+		}
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
@@ -393,14 +402,13 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		createProduct(result, (res) => {
 			// console.log('res', res)
 			if (priceType === 'Fixed Price') {
-				router.push(
-					`/account/kreator/products/preview/${res?.product_id}`
-				);
+				router.push(`/account/kreator/products/preview/${productID}`);
 				return;
 			}
 			setProductTab(2);
 		});
 	};
+	console.log('promotionalMaterial', promotionalMaterial);
 
 	// console.log(
 	//   "is_show_compare = ",
@@ -435,9 +443,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			// "product_id": 0
 		},
 		installment_prices: [],
-		promotional_items: {
-			allow_promotional_items: uploadPromotionalMaterial,
-			promotional_files: [],
+		Promotional_Items: {
+			Allow_Promotional_Items: uploadPromotionalMaterial,
+			PromotionalFiles: [],
 		},
 		set_price: true,
 		cta_button: '',
@@ -451,8 +459,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		},
 	};
 
-	// console.log('initialValues', initialValues)
-
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
@@ -461,6 +467,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	});
 
 	const {errors, setFieldValue, values} = formik;
+	console.log('formik values', values);
 
 	//Updating Formik values
 	useEffect(() => {
@@ -489,7 +496,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			afiliatePercentage
 		);
 		setFieldValue(
-			'promotional_items.allow_promotional_items',
+			'Promotional_Items.Allow_Promotional_Items',
 			uploadPromotionalMaterial
 		);
 		setFieldValue('product_settings.show_number_of_sales', showTotalSales);
@@ -526,11 +533,11 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		setFieldValue,
 	]);
 
-	useEffect(() => {
-		if (mainFile.length > 0) {
-			setFieldValue('promotional_items.promotional_files', mainFile);
-		}
-	}, [mainFile]);
+	// useEffect(() => {
+	// 	if (mainFile.length > 0) {
+	// 		setFieldValue('promotional_items.promotional_files', mainFile);
+	// 	}
+	// }, [mainFile]);
 
 	// Clear outs
 	useEffect(() => {
@@ -626,10 +633,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			if (product.product_details.who_bears_fee) {
 				setBuyerPaysTransactionFee(true);
 			}
-			//* here
-			if (product.product_details.is_show_compare_price) {
-				setCompareToPrice(true);
-			}
 
 			if (
 				product.check_out_details &&
@@ -647,6 +650,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			if (product.product_details.is_limited_sales === true) {
 				setLimitProductSale(true);
 			}
+			// if(product.)
 		}
 	}, [product]);
 
@@ -736,7 +740,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 	// console.log("disableButton = ", disableButton());
 
-	// console.log('getDateFunc ', getDateFunc())
+	// console.log("showCompare is enabled = ", product?.product_details);
 	return (
 		<Form onFinish={formik.handleSubmit}>
 			{priceType === 'Fixed Price' && (
@@ -860,11 +864,11 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									setCompareToPrice((value) => !value);
 								}}
 								checked={
-									product?.product_details
-										?.is_show_compare_price
-										? product?.product_details
-												?.is_show_compare_price
-										: compareToPrice
+									// product?.product_details?.is_show_compare_price
+									//   ? product?.product_details?.is_show_compare_price
+									// :
+									// product?.product_details?.is_show_compare_price ??
+									compareToPrice
 								}
 							/>
 							<span className={`${styles.cpnStatus}`}>
@@ -947,8 +951,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -979,8 +982,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -1013,7 +1015,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									className={
 										styles.couponDateTimeLocaleContInput
 									}
-									min={getDateFunc()}
 									onChange={(e) => {
 										setFieldValue(
 											'coupon_settings.start_date',
@@ -1032,7 +1033,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									className={
 										styles.couponDateTimeLocaleContInput
 									}
-									min={getDateFunc()}
 									onChange={(e) => {
 										setFieldValue(
 											'coupon_settings.end_date',
@@ -1143,7 +1143,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									<div
 										key={index}
 										className={
-											styles.fileUpload + ' flex flex-col'
+											styles.fileUpload +
+											' flex flex-col my-3'
 										}
 									>
 										<p className="mb-3">
@@ -1189,25 +1190,31 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 													<h2 className="mb-3 text-base font-bold">
 														{item.file.name}
 													</h2>
-													<p className="mb-0">{`${(
-														item.file.size /
-														(1024 * 1024)
-													).toFixed()}MB`}</p>
+													<div className="flex justify-between pr-5">
+														<p className="mb-0">{`${(
+															item.file.size /
+															(1024 * 1024)
+														).toFixed()}MB`}</p>
+														<span
+															onClick={() =>
+																handleDeleteFile(
+																	index
+																)
+															}
+															className={
+																styles.deleteFile +
+																' flex items-center justify-center cursor-pointer'
+															}
+														>
+															<Image
+																src={FileDelete}
+																alt="delete"
+																width={20}
+																height={20}
+															/>
+														</span>
+													</div>
 												</div>
-											</div>
-											<div
-												onClick={() =>
-													handleDeleteFile(index)
-												}
-												className={
-													styles.deleteFile +
-													' flex items-center justify-center'
-												}
-											>
-												<Image
-													src={FileDelete}
-													alt="delete"
-												/>
 											</div>
 										</div>
 									</div>
