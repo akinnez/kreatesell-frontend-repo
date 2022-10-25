@@ -1047,7 +1047,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 				<h2 className={`mt-6 ${styles.settingsLabel}`}>Settings</h2>
 				<div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg mt-3 lg:w-11/12">
-					<div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+					<div className={`flex justify-between items-center w-full lg:w-3/4 pt-4 `}>
 						<div className={`${styles.settingsSubLabel}`}>
 							Allow Affiliates to Market Product
 						</div>
