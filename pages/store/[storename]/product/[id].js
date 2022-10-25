@@ -6,7 +6,7 @@ import PreviewHeader from 'components/Preview/PreviewHeader';
 import {GetProductByID} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
-
+import {PoweredByKS} from 'components/PoweredByKs';
 // export default function PreviewProduct ({id}){
 export default function PreviewProduct() {
 	const router = useRouter();
@@ -142,6 +142,7 @@ export default function PreviewProduct() {
 				<PreviewContent
 					{...{alreadyDefinedPrice, alreadyDefinedOriginalPrice}}
 				/>
+				<PoweredByKS />
 			</div>
 		</>
 	);

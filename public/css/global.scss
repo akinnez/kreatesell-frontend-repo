@@ -264,6 +264,10 @@ select {
 	}
 }
 
+.ant-popover-title {
+	border: 0px;
+}
+
 // antd tab style
 @include screen('tablet') {
 	.ant-card-body {

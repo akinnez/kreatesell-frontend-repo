@@ -85,3 +85,17 @@
 	margin-left: unset;
 	font-size: unset;
 }
+
+.selectAndInput {
+	& > div {
+		margin-bottom: 0.5rem;
+	}
+	@media (min-width: 450px) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		& > div {
+			margin-bottom: unset;
+		}
+	}
+}

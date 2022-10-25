@@ -14,7 +14,7 @@ const Social = ({
 	linkedIn = '#',
 }) => {
 	const {store} = useSelector((state) => state.store);
-
+	// console.log('storePage = ', store?.domain_details.domain_details[0].domain_url,)
 	return (
 		<>
 			<div className="social-wrapper">

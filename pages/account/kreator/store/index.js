@@ -58,7 +58,9 @@ const Index = () => {
 		return task_completed;
 	}
 
-	console.log('data = ', data);
+	const hasAddedProduct = calculatePercentageComplete().AddedProducts;
+	// console.log('hasAddedProduct = ', hasAddedProduct)
+
 	useEffect(() => {
 		getStoreDetails();
 		getProducts();
@@ -152,10 +154,12 @@ const Index = () => {
 						align="center"
 						style={{marginTop: '20px'}}
 					>
-						<p>
-							Almost there, now click the button to add your
-							product
-						</p>
+						{!hasAddedProduct && (
+							<p>
+								Almost there, now click the button to add your
+								product
+							</p>
+						)}
 						<Button
 							label="+ Add Product"
 							style={{marginTop: '20px'}}

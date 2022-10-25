@@ -4,8 +4,9 @@ import DashboardLinks from 'components/account-dashboard/DashboardLinks';
 import StatsHeader from 'components/account-dashboard/StatsHeader';
 import {RecentAnalytics} from 'components/account-dashboard/Recent';
 import {StatsCard} from 'components/account-dashboard/StatsCard';
-
+import {useSelector} from 'react-redux';
 const KreatorDashboard = () => {
+	const {salesStatistics} = useSelector((state) => state.store);
 	const [_, setFiltered] = useState(null);
 
 	return (
@@ -19,10 +20,10 @@ const KreatorDashboard = () => {
 				orderUrl="/account/sales/transactions"
 			/>
 			<StatsCard
-				totalVisits="0"
-				unitSales="0"
-				grossSales="0"
-				profit="0"
+				totalVisits={salesStatistics.total_visits}
+				unitSales={salesStatistics.total_sales}
+				grossSales={salesStatistics.gross_sales}
+				profit={salesStatistics.profits}
 			/>
 			<RecentAnalytics />
 		</div>

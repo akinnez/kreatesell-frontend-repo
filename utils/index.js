@@ -2,6 +2,7 @@ import cogoToast from 'cogo-toast';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 export const pathName = typeof window !== 'undefined' && window;
+import {subDays, format} from 'date-fns';
 
 export const _clearData = ({pushToLogin = true}) => {
 	pathName && localStorage.clear();
@@ -347,4 +348,50 @@ export const toSpecifiedDecimalPlaces = (num, decimalPlaces = 2) => {
 	if (typeof num !== 'number')
 		throw new Error('Type of num has to be number');
 	return (Math.round(num * 100) / 100).toFixed(decimalPlaces);
+};
+
+/**
+ *
+ * @param {*} showSelect
+ * @param {*} setFilter
+ * @returns
+ */
+export const handleShowFilter = (showSelect, setFilter) => {
+	const day = new Date();
+	switch (showSelect) {
+		case 'Today':
+			setFilter((prev) => ({...prev, from: formatDate(subDays(day, 0))}));
+			setFilter((prev) => ({...prev, to: formatDate(subDays(day, 0))}));
+			break;
+		case 'Yesterday':
+			setFilter((prev) => ({...prev, from: formatDate(subDays(day, 1))}));
+			setFilter((prev) => ({...prev, to: formatDate(subDays(day, 1))}));
+			break;
+		case 'Last 7 days':
+			setFilter((prev) => ({...prev, from: formatDate(subDays(day, 7))}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
+			break;
+		case 'Last 30 days':
+			setFilter((prev) => ({
+				...prev,
+				from: formatDate(subDays(day, 30)),
+			}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
+			break;
+		case 'This year':
+			let year = new Date().getFullYear();
+			setFilter((prev) => ({...prev, from: `${year}-01-01`}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
+			break;
+		case 'All time':
+			setFilter((prev) => ({...prev, from: ''}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
+			break;
+		default:
+			return;
+	}
+};
+
+export const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
+	return format(date, formatArg);
 };

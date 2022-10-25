@@ -15,7 +15,7 @@ import {
 	SuccessKreatesellLogo,
 	UserPicture,
 } from 'utils';
-
+import {PoweredByKS} from 'components/PoweredByKs';
 const success = () => {
 	return (
 		<div className={styles.successContainer}>
@@ -75,11 +75,8 @@ const success = () => {
 					</Row>
 				</section>
 			</div>
-			<footer>
-				<p>
-					Powered by&nbsp; <Image src={SuccessKreatesellLogo} />
-				</p>
-			</footer>
+
+			<PoweredByKS />
 		</div>
 	);
 };

@@ -109,10 +109,10 @@ const DashboardFilters = ({data, setFiltered}) => {
 	return (
 		<>
 			<div className={styles.filterToggle}>
-				<Button shape="round" onClick={handleShowFilter}>
+				{/* <Button shape="round" onClick={handleShowFilter}>
 					Show Filters...
 				</Button>
-				{isFiltered && <ResetBtn resetFilters={resetFilters} />}
+				{isFiltered && <ResetBtn resetFilters={resetFilters} />} */}
 			</div>
 			<div
 				className={
@@ -121,13 +121,13 @@ const DashboardFilters = ({data, setFiltered}) => {
 						: `${styles.filtersContainer}`
 				}
 			>
-				<Button
+				{/* <Button
 					shape="circle"
 					type="text"
 					icon={<MdOutlineCancel />}
 					onClick={handleHideFilter}
 					className={styles.closeFilter}
-				/>
+				/> */}
 				<div className={isFiltered ? styles.mdMargin : styles.lgMargin}>
 					<Form
 						labelCol={{span: 24}}
@@ -136,9 +136,10 @@ const DashboardFilters = ({data, setFiltered}) => {
 						size="large"
 						form={form}
 					>
-						<Row gutter={20} align="bottom" justify="space-between">
+						<Row gutter={0} align="bottom" justify="space-between">
 							<Col
-								xs={{span: 24}}
+								// xs={{span: 24}}
+								xs={{span: 11}}
 								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
@@ -151,7 +152,8 @@ const DashboardFilters = ({data, setFiltered}) => {
 								</Form.Item>
 							</Col>
 							<Col
-								xs={{span: 24}}
+								// xs={{span: 24}}
+								xs={{span: 12}}
 								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
@@ -164,8 +166,9 @@ const DashboardFilters = ({data, setFiltered}) => {
 								</Form.Item>
 							</Col>
 							<Col
-								xs={{span: 24}}
-								lg={{span: 5}}
+								// xs={{span: 24}}
+								xs={{span: 8}}
+								lg={{span: 4}}
 								className={styles.input__wrapper}
 							>
 								<Form.Item label="From" name="from">
@@ -177,8 +180,9 @@ const DashboardFilters = ({data, setFiltered}) => {
 								</Form.Item>
 							</Col>
 							<Col
-								xs={{span: 24}}
-								lg={{span: 5}}
+								// xs={{span: 24}}
+								xs={{span: 8}}
+								lg={{span: 4}}
 								className={styles.input__wrapper}
 							>
 								<Form.Item label="To" name="to">
@@ -190,8 +194,8 @@ const DashboardFilters = ({data, setFiltered}) => {
 								</Form.Item>
 							</Col>
 							<Col
-								xs={{span: 24}}
-								lg={{span: 3}}
+								// xs={{span: 1}}
+								lg={{span: 4}}
 								className={styles.filter__btn}
 							>
 								<Form.Item>

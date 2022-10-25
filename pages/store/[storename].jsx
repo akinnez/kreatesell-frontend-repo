@@ -12,6 +12,7 @@ import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
 import {useEffect} from 'react';
 import {Pagination} from 'antd';
 import {Logout} from 'redux/actions';
+import {PoweredByKS} from 'components/PoweredByKs';
 
 const StorePage = () => {
 	const router = useRouter();
@@ -164,6 +165,7 @@ const StorePage = () => {
 					</div>
 				)}
 			</div>
+			<PoweredByKS />
 		</div>
 	);
 };

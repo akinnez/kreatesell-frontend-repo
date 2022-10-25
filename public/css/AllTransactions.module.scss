@@ -1,0 +1,48 @@
+@import '../css//mixins.scss';
+@import '../css//colors.scss';
+@import '../css//screens.scss';
+
+.tags {
+	padding: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+.icon {
+	cursor: pointer;
+}
+.mainHeader {
+	font-weight: 600;
+	font-size: 1.527rem;
+	text-align: center;
+	color: #262626;
+	margin-bottom: 0px;
+}
+.ActionComponentSection {
+	margin-block-end: 1rem;
+	.title {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 0.875rem;
+		line-height: 1rem;
+		color: #8c8c8c;
+		margin-block-end: 0.4rem;
+	}
+	.subtitle {
+		font-weight: 700;
+		font-size: 1rem;
+		line-height: 1.625rem;
+		color: #262626;
+	}
+}
+
+.dataSection {
+	.table__wrapper {
+		display: block;
+	}
+	@include screen('x-large') {
+		.table__wrapper {
+			display: none;
+		}
+	}
+}

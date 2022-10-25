@@ -1,11 +1,8 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 import {Table} from 'antd';
 // import { Table } from './Table'
-import {DownloadIcon, RightArrow} from 'utils';
 import styles from './TicketsTable.module.scss';
-import Image from 'next/image';
-// import { Pagination } from "antd";
 import {useRouter} from 'next/router';
 
 const tableHeader = [

@@ -40,6 +40,7 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
+import {PoweredByKS} from 'components/PoweredByKs';
 
 const paymentMethods = [
 	{
@@ -216,7 +217,11 @@ const Checkout = () => {
 		// if we are using paypal
 
 		/** Currencies using PayStack are listed here */
-		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
+		if (
+			['GHS', 'NGN'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			)
+		) {
 			return initializePaystackPayment(
 				onPaystackSuccess,
 				onPaystackClose
@@ -227,7 +232,9 @@ const Checkout = () => {
 
 		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
 		if (
-			(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
+			(!['NGN', 'GHS'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			) ||
 				selectedPaymentMethod === 'flutterwave') &&
 			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
 		) {
@@ -289,8 +296,8 @@ const Checkout = () => {
 		validateOnChange: true,
 	});
 
-  const { errors, setFieldValue, values } = formik;
-  // console.log("values = ", values);
+	const {errors, setFieldValue, values} = formik;
+	// console.log("values = ", values);
 
 	// Flutterwave configurations
 	const flutterConfig = {
@@ -466,43 +473,45 @@ const Checkout = () => {
 									Phone Number
 								</Col>
 
-                <div className={styles.phoneCode}>
-                  <Col xs={24} md={12}>
-                    <SelectV2
-                      label=""
-                      size="large"
-                      setCountry={setCountry}
-                      list={countries}
-                      placeholder="Nigeria (+234)"
-                      // name="Country_Id"
-                      isCheckout={true}
-                      // rules={[
-                      //   {
-                      //     required: true,
-                      //     message: "Country is a required field",
-                      //   },
-                      // ]}
-                    />
-                  </Col>
-                  <div className={styles.phoneBox}>
-                    <Col>
-                      <PhoneNumberInput
-                        type="tel"
-                        placeholder={"Enter your phone number"}
-                        height="small"
-                        name="phoneNo"
-                        // value={values.phoneNo}
-                        maxLength={11}
-                        inputMode="numeric"
-                        onChange={formik.handleChange}
-                        errorMessage={errors.phoneNo}
-                      />
-                    </Col>
-                  </div>
-                </div>
-              </Row>
-            </form>
-          </div>
+								<div className={styles.phoneCode}>
+									<Col xs={24} md={12}>
+										<SelectV2
+											label=""
+											size="large"
+											setCountry={setCountry}
+											list={countries}
+											placeholder="Nigeria (+234)"
+											// name="Country_Id"
+											isCheckout={true}
+											// rules={[
+											//   {
+											//     required: true,
+											//     message: "Country is a required field",
+											//   },
+											// ]}
+										/>
+									</Col>
+									<div className={styles.phoneBox}>
+										<Col>
+											<PhoneNumberInput
+												type="tel"
+												placeholder={
+													'Enter your phone number'
+												}
+												height="small"
+												name="phoneNo"
+												// value={values.phoneNo}
+												maxLength={11}
+												inputMode="numeric"
+												onChange={formik.handleChange}
+												errorMessage={errors.phoneNo}
+											/>
+										</Col>
+									</div>
+								</div>
+							</Row>
+						</form>
+					</div>
 
 					<div
 						className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8`}
@@ -790,6 +799,9 @@ const Checkout = () => {
 							</div>
 						</form>
 					</div>
+				</div>
+				<div className={styles.poweredTop}>
+					<PoweredByKS />
 				</div>
 			</div>
 

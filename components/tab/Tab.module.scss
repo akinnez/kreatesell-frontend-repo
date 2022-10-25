@@ -3,6 +3,11 @@
 @import 'public//css/screens.scss';
 
 .tabWrapper {
+	// border: 1px solid red;
+	// position: fixed;
+	// top:0;
+	// bottom: 0;
+
 	li {
 		@include screen('inbetween') {
 			padding: 10px 2px !important;

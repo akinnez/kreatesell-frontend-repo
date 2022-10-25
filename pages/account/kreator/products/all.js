@@ -20,7 +20,7 @@ import {
 import AuthLayout from '../../../../components/authlayout';
 import styles from '../../../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
-import {Popover, Table, Popconfirm} from 'antd';
+import {Popover, Table, Popconfirm, Pagination} from 'antd';
 import {useRouter} from 'next/router';
 import {
 	GetProducts,
@@ -126,7 +126,6 @@ const AllProducts = () => {
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
 			const domain_details = store.domain_details;
-			console.log('domain details', domain_details);
 			setDomainLink(domain_details?.domain_details?.[0]?.domain_url);
 		}
 	}, [store]);
@@ -516,6 +515,17 @@ const AllProducts = () => {
 						/>
 					</div>
 				)}
+
+				<div className={styles.mobilePagination}>
+					<Pagination
+						position={['none', 'bottomLeft']}
+						total={total_records}
+						defaultCurrent={1}
+						onChange={handlePaginationChange}
+						current={page}
+						defaultPageSize={limit}
+					/>
+				</div>
 			</div>
 		</AuthLayout>
 	);

@@ -101,56 +101,59 @@ export default function CustomCheckoutSelect({
 			</p>
 			{/* {console.log('formattedStoreCurrencies', formattedStoreCurrencies)} */}
 			<div className="w-4/5 flex">
-				<Select
-					onChange={(e) =>
-						setNewCurrency({...newCurrency, currency_name: e})
-					}
-					defaultValue={
-						formattedStoreCurrencies[0]?.currency_short_name ||
-						'NGN'
-					}
-					className={styles.selectButton}
-				>
-					{formattedStoreCurrencies.map((country, index) => (
-						<Option
-							className={styles.optionField}
-							key={index}
-							value={country.currency}
-						>
-							<div className="flex items-center">
-								<div className={styles.countriesFlag}>
-									<Image
-										src={country.flag}
-										alt="flag"
-										layout="fill"
-									/>
+				<div className={styles.selectAndInput}>
+					<Select
+						onChange={(e) =>
+							setNewCurrency({...newCurrency, currency_name: e})
+						}
+						defaultValue={
+							formattedStoreCurrencies[0]?.currency_short_name ||
+							'NGN'
+						}
+						className={styles.selectButton}
+					>
+						{formattedStoreCurrencies.map((country, index) => (
+							<Option
+								className={styles.optionField}
+								key={index}
+								value={country.currency}
+							>
+								<div className="flex items-center">
+									<div className={styles.countriesFlag}>
+										<Image
+											src={country.flag}
+											alt="flag"
+											layout="fill"
+										/>
+									</div>
+									<h2 className="mb-0 ml-1">
+										{country.currency}
+									</h2>
 								</div>
-								<h2 className="mb-0 ml-1">
-									{country.currency}
-								</h2>
-							</div>
-						</Option>
-					))}
-				</Select>
+							</Option>
+						))}
+					</Select>
 
-				<div className={styles.inputButton}>
-					<Input
-						type="number"
-						value={newCurrency.currency_value}
-						onChange={(e) => {
-							const valueModified =
-								typeof e.target.value !== 'number'
-									? e.target.value.replace(/[^0-9]/g, '')
-									: '';
-							return setNewCurrency({
-								...newCurrency,
-								currency_value: valueModified,
-							});
-						}}
-						className="w-24"
-						placeholder="0"
-					/>
+					<div className={styles.inputButton}>
+						<Input
+							type="number"
+							value={newCurrency.currency_value}
+							onChange={(e) => {
+								const valueModified =
+									typeof e.target.value !== 'number'
+										? e.target.value.replace(/[^0-9]/g, '')
+										: '';
+								return setNewCurrency({
+									...newCurrency,
+									currency_value: valueModified,
+								});
+							}}
+							className="w-24"
+							placeholder="0"
+						/>
+					</div>
 				</div>
+
 				<Button
 					onClick={addCurrency}
 					className={styles.addCurrency}
