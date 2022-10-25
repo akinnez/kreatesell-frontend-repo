@@ -216,7 +216,11 @@ const Checkout = () => {
 		// if we are using paypal
 
 		/** Currencies using PayStack are listed here */
-		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
+		if (
+			['GHS', 'NGN'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			)
+		) {
 			return initializePaystackPayment(
 				onPaystackSuccess,
 				onPaystackClose
@@ -227,7 +231,9 @@ const Checkout = () => {
 
 		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
 		if (
-			(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
+			(!['NGN', 'GHS'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			) ||
 				selectedPaymentMethod === 'flutterwave') &&
 			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
 		) {
