@@ -478,18 +478,6 @@ const ActionComponent = ({item}, all) => {
 const CouponActionComponent = ({item}) => {
 	const router = useRouter();
 	const id = item?.id;
-	/**Used to delete and deactivate product */
-	// const handleModalOk = () => {
-	//   return new Promise(resolve => {
-	//     const formdata = new FormData()
-	//     formdata.append('product_id', id)
-	//     formdata.append('action', 'd')
-	//     createEditDeleteProduct(formdata, () => {
-	//       getProducts();
-	//       resolve()
-	//     });
-	//   });
-	// };
 	let content = (
 		<ul>
 			<li

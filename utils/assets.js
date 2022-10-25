@@ -268,8 +268,10 @@ import FlutterwaveLogo from '../public/images/Flutterwave-logo.svg';
 import ZipFile from '../public/images/ZipFile.svg';
 import DownloadIcon2 from '../public/images/downloadIcon.svg';
 import DownArrow from '../public/images/downArrow.svg';
+import EyesClosed from '../public/images/eye-closed-icon.svg';
 
 export {
+	EyesClosed,
 	DownArrow,
 	UserPicture,
 	SuccessKreatesellLogo,

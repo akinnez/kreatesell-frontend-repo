@@ -3,18 +3,6 @@ import {useDropzone} from 'react-dropzone';
 
 export const useUpload = ({fileType}) => {
 	const [files, setFiles] = useState([]);
-	// const onDrop = useCallback(
-	//   (acceptedFiles, rejectedFiles) => {
-	//     console.log("onDrop");
-	//     const fileMatched = acceptedFiles.map((file) => ({ file, errors: [] }));
-	//     if (fileType === "image") {
-	//       setFiles((prev) => [...prev, ...fileMatched, ...rejectedFiles]);
-	//       return;
-	//     }
-	//     return setFiles([...fileMatched, ...rejectedFiles]);
-	//   },
-	//   [fileType]
-	// );
 
 	//* edits
 	const onDrop = useCallback(
