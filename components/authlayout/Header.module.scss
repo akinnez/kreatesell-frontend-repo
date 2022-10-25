@@ -111,7 +111,17 @@
 }
 
 .mainNav {
-	position: relative;
+	// position: relative;
+	@media (max-width: 768px){
+		position:sticky;
+	top:0;
+	left:0;
+	right: 0;
+	z-index:200;
+	// border: 2px solid red;
+	background-color: #fff;
+	}
+	// margin-top: 17rem;
 	&.hide {
 		display: none;
 	}

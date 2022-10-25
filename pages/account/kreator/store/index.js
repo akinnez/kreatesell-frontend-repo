@@ -12,7 +12,8 @@ import Router from 'next/router';
 import {ProtectedStoreHeader} from '../../../../components/store/storeHeader';
 import useSWR from 'swr';
 import fetcher from '../../../../utils/fetcher';
-import {GetStoreDetails, GetProducts} from 'redux/actions';
+import { GetStoreDetails, GetProducts } from 'redux/actions';
+
 
 const cardStyles = {
 	borderRadius: '8px',
@@ -58,7 +59,9 @@ const Index = () => {
 		return task_completed;
 	}
 
-	console.log('data = ', data);
+	const hasAddedProduct = calculatePercentageComplete().AddedProducts;
+	// console.log('hasAddedProduct = ', hasAddedProduct)
+												
 	useEffect(() => {
 		getStoreDetails();
 		getProducts();
@@ -152,10 +155,10 @@ const Index = () => {
 						align="center"
 						style={{marginTop: '20px'}}
 					>
-						<p>
+						{!hasAddedProduct && <p>
 							Almost there, now click the button to add your
 							product
-						</p>
+						</p>}
 						<Button
 							label="+ Add Product"
 							style={{marginTop: '20px'}}
@@ -165,6 +168,7 @@ const Index = () => {
 						/>
 					</Column>
 				</Row>
+				
 			</AuthLayout>
 		</>
 	);

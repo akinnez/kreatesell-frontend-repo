@@ -52,7 +52,10 @@ export const ProtectedStoreHeader = ({
 	publicStore = false,
 	publicStoreInfo = {},
 }) => {
-	console.log('store = ', publicStoreInfo);
+	// console.log('store = ', publicStoreInfo);
+	// const { store } = useSelector((state) => state.store);
+	// console.log('store  = ', store)
+	// console.log('storeName = ', store?.user?.store_name)
 	return (
 		<>
 			<div
@@ -153,10 +156,15 @@ export const ProtectedStoreHeader = ({
 											/>
 										</Dropdown>
 									</p>
-									<p>
+									<p onClick={() =>
+											Router.push(
+												`/store/${storeName}`
+											)
+										}
+									>
 										<CtaButton
 											Icon={ViewAs}
-											label="View As"
+											label="Preview"
 										/>
 									</p>
 								</div>
@@ -256,7 +264,7 @@ export const StoreHeader = () => {
 									</p>
 								</div>
 								<p>
-									<CtaButton Icon={ViewAs} label="View As" />
+									<CtaButton Icon={ViewAs} label="Preview" />
 								</p>
 							</div>
 						</div>

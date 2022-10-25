@@ -25,7 +25,7 @@ const Affiliate = () => {
 				</section>
 				<StatsHeader
 					title="Affiliate"
-					orderUrl="/account/sales/transactions"
+					orderUrl="/account/sales/revenue"
 				/>
 				<StatsCard
 					totalVisits="0"

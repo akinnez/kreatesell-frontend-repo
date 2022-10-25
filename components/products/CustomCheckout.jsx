@@ -101,7 +101,8 @@ export default function CustomCheckoutSelect({
 			</p>
 			{/* {console.log('formattedStoreCurrencies', formattedStoreCurrencies)} */}
 			<div className="w-4/5 flex">
-				<Select
+				<div className={styles.selectAndInput}>
+					<Select
 					onChange={(e) =>
 						setNewCurrency({...newCurrency, currency_name: e})
 					}
@@ -151,6 +152,8 @@ export default function CustomCheckoutSelect({
 						placeholder="0"
 					/>
 				</div>
+				</div>
+				
 				<Button
 					onClick={addCurrency}
 					className={styles.addCurrency}

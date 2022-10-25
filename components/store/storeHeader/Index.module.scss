@@ -27,6 +27,9 @@
 			@media (max-width: 500px) {
 				bottom: -190px;
 			}
+			@media (min-width: 768px) {
+				bottom: -60px;
+			}
 			.profile_wrapper {
 				display: flex;
 				gap: 10px;
@@ -116,6 +119,7 @@
 	background-size: cover;
 	border-radius: 12px;
 	position: relative;
+	// border: 1px solid red;
 }
 .empty_bg_wrapper {
 	background: #f5f5f5;
@@ -142,5 +146,6 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 10px;
+		// bottom:-100px;
 	}
 }

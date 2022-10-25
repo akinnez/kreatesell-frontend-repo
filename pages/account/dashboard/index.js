@@ -55,10 +55,10 @@ const Dashboard = () => {
 			'get',
 			mainStoreUrl,
 			(res) => {
-				console.log(
-					'isAnAffiliate from endpoint = ',
-					res?.data?.user?.is_affiliate
-				);
+				// console.log(
+				// 	'isAnAffiliate from endpoint = ',
+				// 	res?.data?.user?.is_affiliate
+				// );
 				setIsAnAffiliate(res?.data?.user?.is_affiliate);
 				setIsFirstTimeUser(res?.data?.user?.is_first_time);
 				mutate(mainStoreUrl);
