@@ -126,7 +126,6 @@ const AllProducts = () => {
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
 			const domain_details = store.domain_details;
-			console.log('domain details', domain_details);
 			setDomainLink(domain_details?.domain_details?.[0]?.domain_url);
 		}
 	}, [store]);
