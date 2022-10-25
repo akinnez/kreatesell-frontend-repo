@@ -40,7 +40,7 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
-import { PoweredByKS } from 'components/PoweredByKs';
+import {PoweredByKS} from 'components/PoweredByKs';
 
 const paymentMethods = [
 	{

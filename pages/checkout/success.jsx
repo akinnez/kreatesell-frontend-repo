@@ -15,7 +15,7 @@ import {
 	SuccessKreatesellLogo,
 	UserPicture,
 } from 'utils';
-import { PoweredByKS } from 'components/PoweredByKs';
+import {PoweredByKS} from 'components/PoweredByKs';
 const success = () => {
 	return (
 		<div className={styles.successContainer}>
@@ -75,7 +75,7 @@ const success = () => {
 					</Row>
 				</section>
 			</div>
-			
+
 			<PoweredByKS />
 		</div>
 	);
@@ -156,9 +156,5 @@ const PurchaseSummaryCard = ({}) => {
 		</div>
 	);
 };
-
-
-
-
 
 export default success;

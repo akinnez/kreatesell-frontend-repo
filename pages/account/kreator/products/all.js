@@ -516,17 +516,14 @@ const AllProducts = () => {
 					</div>
 				)}
 
-				<div 
-				className={styles.mobilePagination} 
-				>
+				<div className={styles.mobilePagination}>
 					<Pagination
-					position= {['none', 'bottomLeft']}
-							total= {total_records}
-							defaultCurrent= {1}
-							onChange={handlePaginationChange}
-							current={page}
-							defaultPageSize={limit}
-						
+						position={['none', 'bottomLeft']}
+						total={total_records}
+						defaultCurrent={1}
+						onChange={handlePaginationChange}
+						current={page}
+						defaultPageSize={limit}
 					/>
 				</div>
 			</div>
