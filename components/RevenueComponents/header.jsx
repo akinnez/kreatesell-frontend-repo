@@ -6,7 +6,7 @@ import {DatePicker, Select, Form, Input, Row, Col} from 'antd';
 import moment from 'moment';
 
 import {Button} from '../form-input';
-import StatusButtons from './StatusButtons';
+import StatusButtons from './statusButtons';
 import styles from './header.module.scss';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
 import {StatsCard} from 'components/RevenueComponents/StatsCard';
