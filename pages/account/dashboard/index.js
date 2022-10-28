@@ -15,7 +15,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
-import OnboardingGuide from './OnboardingGuide';
+import OnboardingGuide, {DashboardGuide} from './OnboardingGuide';
 
 // import useSWR from "swr";
 
@@ -31,6 +31,8 @@ const Dashboard = () => {
 
 	const [proceedToOnboard, setProceedToOnboard] = useState(false);
 	const [guideModalVisible, setGuideModalVisible] = useState(false);
+	const [hideDahboardGuideModal, setHideDahboardGuideModal] = useState(false);
+	const [isMobile, setIsmobile] = useState(false);
 
 	const {salesStatistics} = useSelector((state) => state.store);
 	const {affiliateSalesStatistics} = useSelector((state) => state.store);
@@ -45,11 +47,13 @@ const Dashboard = () => {
 				`${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
 			);
 			console.log(response?.data);
+			isMobile
+				? setHideDahboardGuideModal(false)
+				: setHideDahboardGuideModal(true);
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
 	const getUserVisitStatus = useCallback(() => {
 		axiosAPI.request(
 			'get',
@@ -193,6 +197,13 @@ const Dashboard = () => {
 					visible={modalVisible}
 					setProceedToOnboard={setProceedToOnboard}
 					setGuideModalVisible={setGuideModalVisible}
+					setIsmobile={setIsmobile}
+				/>
+			)}
+
+			{hideDahboardGuideModal && (
+				<DashboardGuide
+					setHideDahboardGuideModal={setHideDahboardGuideModal}
 				/>
 			)}
 		</AuthLayout>

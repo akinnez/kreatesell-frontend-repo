@@ -162,3 +162,31 @@
 .toolTipCloseIcon {
 	cursor: pointer;
 }
+.guideArrow {
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-right-color: #f1fcf8;
+	position: absolute;
+	top: 5%;
+	left: -6%;
+}
+.dashboardGuideArrow {
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-bottom-color: #f1fcf8;
+	position: absolute;
+	top: -12%;
+	left: 85%;
+}
+
+.guideArrowMobile {
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-bottom-color: #f1fcf8;
+	position: absolute;
+	top: -13%;
+	left: 3%;
+}

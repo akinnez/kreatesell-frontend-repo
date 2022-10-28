@@ -5,6 +5,7 @@ import {
 	FormError,
 	Modal,
 	ResetPasswordSuccesModal,
+	Input,
 } from '../';
 import Link from 'next/link';
 import {useFormik} from 'formik';
@@ -13,6 +14,7 @@ import {isAnEmpytyObject} from '../../utils';
 import styles from '../../public/css/ForgotPassword.module.scss';
 import {ResetPassword} from '../../redux/actions';
 import {useSelector} from 'react-redux';
+export const pathName = typeof window !== 'undefined' && window;
 
 export const ResetPasswordForm = () => {
 	const resetPassword = ResetPassword();
@@ -20,7 +22,10 @@ export const ResetPasswordForm = () => {
 
 	const [modalVisible, setVisible] = useState(false);
 
+	const userEmail = pathName.localStorage?.getItem('userEmail');
+
 	const initialValues = {
+		username: userEmail,
 		password: '',
 		confirm_password: '',
 	};

@@ -1,19 +1,22 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from '../../../components/modal/Modal.module.scss';
-import {CloseIcon} from '../../../utils';
+import { CloseIcon } from '../../../utils';
 import {
 	guideDataObject,
 	guideDataObjectMobiles,
+	dashboardGuideData,
 } from '../../../Models/onboardingGuideData';
 
 const OnboardingGuide = ({
 	visible,
 	setProceedToOnboard,
 	setGuideModalVisible,
+	setIsmobile,
 }) => {
 	const [index, setIndex] = useState(0);
 	const [mindex, setMIndex] = useState(0);
+	const [toogleMobile, setToogleMobile] = useState(false);
 
 	const changeContents = () => {
 		setIndex(index + 1);
@@ -25,6 +28,7 @@ const OnboardingGuide = ({
 
 	const setPreviousContents = () => {
 		setIndex(index - 1);
+		setToogleMobile(true);
 	};
 	const setPreviousMobile = () => {
 		setMIndex(mindex - 1);
@@ -33,6 +37,7 @@ const OnboardingGuide = ({
 	const proceedToDashboard = () => {
 		setProceedToOnboard(true);
 		setGuideModalVisible(true);
+		toogleMobile ? setIsmobile(true) : setIsmobile(false);
 	};
 
 	const guideInfoObject = guideDataObject[index];
@@ -59,15 +64,18 @@ const OnboardingGuide = ({
 					top: guideInfoObject.positionTop,
 				}}
 			>
+				<div className={styles.guideArrow}></div>
 				<div className={styles.toolTipTitleContainer}>
 					<p className={styles.toolTipModalTitle}>
 						{guideInfoObject.modalTitle}
 					</p>
-					<Image
-						src={CloseIcon}
-						className={styles.toolTipCloseIcon}
-						onClick={proceedToDashboard}
-					/>
+					<div>
+						<Image
+							src={CloseIcon}
+							className={styles.toolTipCloseIcon}
+							onClick={proceedToDashboard}
+						/>
+					</div>
 				</div>
 				<p className={styles.toolTipText}>
 					{guideInfoObject.modalText}
@@ -111,15 +119,18 @@ const OnboardingGuide = ({
 					top: guideInfoObjectMobile.positionTop,
 				}}
 			>
+				<div className={styles.guideArrowMobile}></div>
 				<div className={styles.toolTipTitleContainer}>
 					<p className={styles.toolTipModalTitle}>
 						{guideInfoObjectMobile.modalTitle}
 					</p>
-					<Image
-						src={CloseIcon}
-						className={styles.toolTipCloseIcon}
-						onClick={proceedToDashboard}
-					/>
+					<div>
+						<Image
+							src={CloseIcon}
+							className={styles.toolTipCloseIcon}
+							onClick={proceedToDashboard}
+						/>
+					</div>
 				</div>
 				<p className={styles.toolTipText}>
 					{guideInfoObjectMobile.modalText}
@@ -161,3 +172,92 @@ const OnboardingGuide = ({
 };
 
 export default OnboardingGuide;
+
+export const DashboardGuide = ({ setHideDahboardGuideModal }) => {
+	// const [_visible, setVisible] = useState(false);
+	const [index, setIndex] = useState(0);
+
+	// useEffect(() => {
+	// 	setVisible(visible);
+	// }, [visible]);
+
+	const hideDashboardGuideModal = () => {
+		setHideDahboardGuideModal(false);
+	};
+
+	const changeContents = () => {
+		setIndex(index + 1);
+	};
+
+	const setPreviousContents = () => {
+		setIndex(index - 1);
+	};
+
+	const dashboardGuideObject = dashboardGuideData[index];
+
+	return (
+		// desktop
+		<div
+			className={`
+			${styles.onboardingGuideModal}
+			
+			`}
+		>
+			<div
+				className={styles.onboardingTooltip}
+				style={{
+					left: dashboardGuideObject.positionLeft,
+					top: dashboardGuideObject.positionTop,
+				}}
+			>
+				<div className={styles.dashboardGuideArrow}></div>
+				<div className={styles.toolTipTitleContainer}>
+					<p className={styles.toolTipModalTitle}>
+						{dashboardGuideObject.modalTitle}
+					</p>
+					<div>
+						<Image
+							src={CloseIcon}
+							className={styles.toolTipCloseIcon}
+							onClick={hideDashboardGuideModal}
+						/>
+					</div>
+				</div>
+				<p className={styles.toolTipText}>
+					{dashboardGuideObject.modalText}
+				</p>
+				<div className={styles.toolTipTitleContainer}>
+					<p className={styles.toolTipBtnText}>{index + 1}/3</p>
+					<div className={styles.toolTipBtnContainer}>
+						<button
+							disabled={index === 0}
+							className={styles.toolTipBtn}
+							onClick={setPreviousContents}
+						>
+							Prev
+						</button>
+						{index !== dashboardGuideData.length - 1 && (
+							<button
+								disabled={
+									index === dashboardGuideData.length - 1
+								}
+								className={styles.toolTipNextBtn}
+								onClick={changeContents}
+							>
+								Next
+							</button>
+						)}
+						{index === dashboardGuideData.length - 1 && (
+							<button
+								className={styles.toolTipNextBtn}
+								onClick={hideDashboardGuideModal}
+							>
+								Got it
+							</button>
+						)}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};

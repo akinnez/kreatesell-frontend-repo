@@ -1,11 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Index.module.scss';
-import {Checkbox, Row, Col, Spin, Form} from 'antd';
-import {Button} from '../form-input';
+// import { Checkbox, Row, Col, Spin, Form } from 'antd';
+// import {Button} from '../form-input';
 import ApiService from '../../utils/axios';
-import {Input} from '../form-input';
+import { ChangePassword } from '../../redux/actions';
 
-const width = '600px';
+
+import {
+	Button,
+	FormError,
+	Modal,
+	PasswordInput,
+	ChangePasswordSuccessModal
+} from '../';
 
 const Index = () => {
 	// const [state, setState] = useState()
@@ -27,36 +34,80 @@ const Index = () => {
 	//   )
 	// }, [])
 
+	const [modalVisible, setVisible] = useState(false);
+	const changePassword = ChangePassword();
+
+	const [currentPassword, setCurrentPassword] = useState("")
+	const [newPassword, setNewPassword] = useState("")
+	const [confirmPassword, setConfirmPassword] = useState("")
+
+	const passwordData = {
+		current_password: currentPassword,
+		new_password: newPassword,
+		confirm_password: confirmPassword
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		try {
+			await changePassword(passwordData, () => {
+				setVisible(true);
+				localStorage.clear();
+			});
+		} catch (err) {
+            console.log(err)
+		}
+	};
+
+
 	return (
 		<div className={style.wrapper}>
 			<h3>Account Settings</h3>
 			<div className={style.bordered}>
 				<h4>Password</h4>
-				<Form layout="vertical">
-					<Input
-						// placeholder=""
+				<form
+					onSubmit={handleSubmit}
+					autoComplete="off"
+					className={style.container}
+				>
+					<PasswordInput
 						label="Current Password"
-						extraLabel="- Enter current password to set a new password"
-						placeholder="******"
+						name="password"
+						placeholder="Enter current password"
+						onChange={(e) => setCurrentPassword(e.target.value)}
 						type="password"
-						style={{width}}
 					/>
-					<Input
-						// placeholder=""
+
+					<PasswordInput
 						label="New Password"
-						placeholder="Choose new password"
+						name="password"
+						placeholder="Create new password"
+						onChange={(e) => setNewPassword(e.target.value)}
 						type="password"
-						style={{width}}
 					/>
-					<Input
-						// placeholder=""
-						label="Repeat Password"
-						placeholder="Re-enter password"
+
+					<PasswordInput
+						label="Confirm New Password"
+						name="confirm_password"
+						placeholder="Confirm new password"
+						onChange={(e) => setConfirmPassword(e.target.value)}
 						type="password"
-						style={{width}}
 					/>
-					<Button type="primary" label="Save Changes" />
-				</Form>
+
+					<Button
+						text="Reset password"
+						bgColor="primaryBlue"
+					// loading={loading}
+					/>
+				</form>
+
+				<Modal
+					onClose={() => setVisible(false)}
+					visible={modalVisible}
+					cancelPropagation={true}
+				>
+					<ChangePasswordSuccessModal />
+				</Modal>
 			</div>
 		</div>
 	);
