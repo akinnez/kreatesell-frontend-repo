@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './Index.module.scss';
 // import { Checkbox, Row, Col, Spin, Form } from 'antd';
 // import {Button} from '../form-input';
 import ApiService from '../../utils/axios';
-import { ChangePassword } from '../../redux/actions';
-
+import {ChangePassword} from '../../redux/actions';
 
 import {
 	Button,
 	FormError,
 	Modal,
 	PasswordInput,
-	ChangePasswordSuccessModal
+	ChangePasswordSuccessModal,
 } from '../';
 
 const Index = () => {
@@ -37,28 +36,27 @@ const Index = () => {
 	const [modalVisible, setVisible] = useState(false);
 	const changePassword = ChangePassword();
 
-	const [currentPassword, setCurrentPassword] = useState("")
-	const [newPassword, setNewPassword] = useState("")
-	const [confirmPassword, setConfirmPassword] = useState("")
+	const [currentPassword, setCurrentPassword] = useState('');
+	const [newPassword, setNewPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const passwordData = {
 		current_password: currentPassword,
 		new_password: newPassword,
-		confirm_password: confirmPassword
+		confirm_password: confirmPassword,
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 		try {
 			await changePassword(passwordData, () => {
 				setVisible(true);
 				localStorage.clear();
 			});
 		} catch (err) {
-            console.log(err)
+			console.log(err);
 		}
 	};
-
 
 	return (
 		<div className={style.wrapper}>
@@ -97,7 +95,7 @@ const Index = () => {
 					<Button
 						text="Reset password"
 						bgColor="primaryBlue"
-					// loading={loading}
+						// loading={loading}
 					/>
 				</form>
 

@@ -241,7 +241,7 @@ export const ChangePassword = () => {
 		dispatch({type: types.CHANGE_PASSWORD.REQUEST}),
 		axios.request(
 			`post`,
-			`auth/auth/change_password`, 
+			`auth/auth/change_password`,
 			(res) => {
 				dispatch({
 					type: types.CHANGE_PASSWORD.SUCCESS,

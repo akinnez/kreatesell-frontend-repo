@@ -83,8 +83,8 @@ const Checkout = () => {
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const {countries} = useSelector((state) => state.utils);
-  
-	const [isFree, setIsFree] = useState(true);  //temporary state control
+
+	const [isFree, setIsFree] = useState(true); //temporary state control
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
@@ -170,7 +170,7 @@ const Checkout = () => {
 			is_affiliate: values?.is_affiliate || false,
 			affiliate_product_link: '',
 			user_identifier: values?.id || '',
-      is_free_flow:true
+			is_free_flow: true,
 		};
 		return value;
 	};
@@ -374,11 +374,11 @@ const Checkout = () => {
 
 	useFetchUtilities();
 
-	const handleMakeItFreePayment = async() => {
-	    await sendPaymentCheckoutDetails(
-	      paymentDetails({total: null, reference:''})
-	    )
-	}
+	const handleMakeItFreePayment = async () => {
+		await sendPaymentCheckoutDetails(
+			paymentDetails({total: null, reference: ''})
+		);
+	};
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (

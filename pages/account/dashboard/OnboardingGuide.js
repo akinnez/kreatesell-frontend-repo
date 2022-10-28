@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
 import styles from '../../../components/modal/Modal.module.scss';
-import { CloseIcon } from '../../../utils';
+import {CloseIcon} from '../../../utils';
 import {
 	guideDataObject,
 	guideDataObjectMobiles,
@@ -173,7 +173,7 @@ const OnboardingGuide = ({
 
 export default OnboardingGuide;
 
-export const DashboardGuide = ({ setHideDahboardGuideModal }) => {
+export const DashboardGuide = ({setHideDahboardGuideModal}) => {
 	// const [_visible, setVisible] = useState(false);
 	const [index, setIndex] = useState(0);
 
