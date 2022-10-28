@@ -7,8 +7,6 @@ import {ChangePassword} from '../../redux/actions';
 import {useSelector} from 'react-redux';
 // import {useRouter} from 'next/router';
 
-
-
 import {
 	Button,
 	FormError,
@@ -36,13 +34,13 @@ const Index = () => {
 	//     },
 	//   )
 	// }, [])
-  
+
 	// const router = useRouter();
 
 	const {loading} = useSelector((state) => state.auth);
 
 	const [modalVisible, setVisible] = useState(false);
-	
+
 	const changePassword = ChangePassword();
 
 	const [currentPassword, setCurrentPassword] = useState('');
