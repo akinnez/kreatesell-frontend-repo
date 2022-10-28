@@ -4,6 +4,10 @@ import style from './Index.module.scss';
 // import {Button} from '../form-input';
 import ApiService from '../../utils/axios';
 import {ChangePassword} from '../../redux/actions';
+import {useSelector} from 'react-redux';
+// import {useRouter} from 'next/router';
+
+
 
 import {
 	Button,
@@ -32,8 +36,13 @@ const Index = () => {
 	//     },
 	//   )
 	// }, [])
+  
+	// const router = useRouter();
+
+	const {loading} = useSelector((state) => state.auth);
 
 	const [modalVisible, setVisible] = useState(false);
+	
 	const changePassword = ChangePassword();
 
 	const [currentPassword, setCurrentPassword] = useState('');
@@ -51,6 +60,7 @@ const Index = () => {
 		try {
 			await changePassword(passwordData, () => {
 				setVisible(true);
+				// router.push('/login');
 				localStorage.clear();
 			});
 		} catch (err) {
@@ -95,7 +105,7 @@ const Index = () => {
 					<Button
 						text="Reset password"
 						bgColor="primaryBlue"
-						// loading={loading}
+						loading={loading}
 					/>
 				</form>
 
