@@ -31,6 +31,8 @@ export default function PreviewProduct() {
 					left: 0,
 					top: 0,
 					width: '100%',
+					
+					
 				}}
 				className={styles.previewPageContainer}
 			>
