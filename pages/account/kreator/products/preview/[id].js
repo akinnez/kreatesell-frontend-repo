@@ -5,7 +5,7 @@ import {useEffect} from 'react';
 import PreviewContent from 'components/Preview/PreviewContent';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../components/Preview/PreviewHeader.module.scss';
-import { PoweredByKS } from 'components/PoweredByKs';
+import {PoweredByKS} from 'components/PoweredByKs';
 
 // export default function PreviewProduct ({id}){
 export default function PreviewProduct() {

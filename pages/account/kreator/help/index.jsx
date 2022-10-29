@@ -35,7 +35,7 @@ const Index = (props) => {
 	};
 
 	useEffect(() => {
-		// getUsertTickets();
+		getUsertTickets();
 	}, []);
 
 	if (error) {

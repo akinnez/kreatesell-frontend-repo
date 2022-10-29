@@ -93,3 +93,27 @@ export const guideDataObjectMobiles = [
 			'This allows you to choose and view specific information on your dashboard. Click to experience.',
 	},
 ];
+
+export const dashboardGuideData = [
+	{
+		positionTop: '37%',
+		positionLeft: '60%',
+		modalTitle: 'Check out your Kreator’s Dashboard',
+		modalText:
+			'Click here to start exploring all your Kreator privileges. View your products, live analytics of engagements with your products, how much you have made and much more.',
+	},
+	{
+		positionTop: '63%',
+		positionLeft: '60%',
+		modalTitle: 'Explore your Affiliate’s Dashboard',
+		modalText:
+			'Click here to see how far you have come as an Affiliate on KreateSell. From your earnings to sales records, and everything in between.',
+	},
+	{
+		positionTop: '30%',
+		positionLeft: '58%',
+		modalTitle: 'Explore better with Filter',
+		modalText:
+			'This allows you to choose and view specific information on your dashboard. Click to experience.',
+	},
+];

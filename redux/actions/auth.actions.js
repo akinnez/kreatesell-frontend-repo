@@ -235,6 +235,33 @@ export const ResetPassword = () => {
 	);
 };
 
+export const ChangePassword = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({type: types.CHANGE_PASSWORD.REQUEST}),
+		axios.request(
+			`post`,
+			`auth/change_password`,
+			(res) => {
+				dispatch({
+					type: types.CHANGE_PASSWORD.SUCCESS,
+					payload: res,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.CHANGE_PASSWORD.FAILURE,
+					payload: err,
+				});
+				showToast(err?.error, 'error');
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
 export const SuperAdminResetPassword = () => {
 	const dispatch = useDispatch();
 	return (data, successCallback, errorCallback) => (

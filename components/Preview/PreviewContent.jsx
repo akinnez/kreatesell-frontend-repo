@@ -29,7 +29,7 @@ export default function PreviewContent({
 	);
 
 	const productId = product?.product_details?.kreasell_product_id;
-
+	console.log('product', product.product_details);
 	const {user} = useSelector((state) => state?.auth);
 
 	const formatPrice = (amount, decimalPlaces = 2) =>
@@ -67,6 +67,9 @@ export default function PreviewContent({
 		}
 		if (checkout && checkout?.length > 0) {
 			const defaultPrice = product?.default_currency;
+			// if(!defaultPrice){
+			//   defaultPrice =
+			// }
 			const prices = checkout?.filter(
 				(item) => item?.currency_name === defaultPrice
 			);

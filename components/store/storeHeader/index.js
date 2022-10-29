@@ -156,10 +156,9 @@ export const ProtectedStoreHeader = ({
 											/>
 										</Dropdown>
 									</p>
-									<p onClick={() =>
-											Router.push(
-												`/store/${storeName}`
-											)
+									<p
+										onClick={() =>
+											Router.push(`/store/${storeName}`)
 										}
 									>
 										<CtaButton

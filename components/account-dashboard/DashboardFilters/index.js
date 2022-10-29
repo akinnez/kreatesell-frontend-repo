@@ -136,10 +136,7 @@ const DashboardFilters = ({data, setFiltered}) => {
 						size="large"
 						form={form}
 					>
-						<Row gutter={0}
-							align="bottom"
-							justify="space-between"
-						>
+						<Row gutter={0} align="bottom" justify="space-between">
 							<Col
 								// xs={{span: 24}}
 								xs={{span: 11}}
