@@ -77,7 +77,7 @@ const Index = () => {
 					className={style.container}
 				>
 					<PasswordInput
-						label="Current Password"
+						label={<MainPassWordLabel />}
 						name="password"
 						placeholder="Enter current password"
 						onChange={(e) => setCurrentPassword(e.target.value)}
@@ -87,15 +87,15 @@ const Index = () => {
 					<PasswordInput
 						label="New Password"
 						name="password"
-						placeholder="Create new password"
+						placeholder="Choose new password"
 						onChange={(e) => setNewPassword(e.target.value)}
 						type="password"
 					/>
 
 					<PasswordInput
-						label="Confirm New Password"
+						label="Repeat New Password"
 						name="confirm_password"
-						placeholder="Confirm new password"
+						placeholder="Repeat new password"
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						type="password"
 					/>
@@ -119,4 +119,11 @@ const Index = () => {
 	);
 };
 
+
+
+const MainPassWordLabel = () => {
+	return (
+		<p className={style.mainText}>Current Password - <span>Enter current password to set a new password</span></p>
+	)
+}
 export default Index;

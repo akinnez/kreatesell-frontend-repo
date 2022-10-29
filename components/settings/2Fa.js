@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {Row, Col, Switch} from 'antd';
 import ApiService from '../../utils/axios';
+import styles from './2fa.module.scss'
 
 const TwoFactor = () => {
 	const [loading, setLoading] = useState(false);
@@ -30,20 +31,25 @@ const TwoFactor = () => {
 
 	return (
 		<>
-			<Row style={{marginTop: '50px'}}>
-				<Col md={18} sm={24}>
-					<h2>Enable Two-Factor Authentication using email</h2>
+			<Row style={{marginTop: '50px', width:'100%',display: 'flex', justifyContent: 'space-between',}}>
+				<Col md={1} sm={12}>
+					<div className={styles.Text}>
+						<h2>Enable Two-Factor Authentication using email</h2>
 					<p style={{color: '#8C8C8C'}}>
 						Two-factor Authentication is an additional security
 						layer to secure your account.
 					</p>
+					</div>
 				</Col>
 				<Col
 					md={6}
-					sm={24}
-					style={{display: 'flex', justifyContent: 'flex-end'}}
+					sm={12}
+					style={{display: 'flex', justifyContent: 'flex-end', flex: 1}}
 				>
-					<Switch onChange={handleChange} {...{checked, loading}} />
+					<div className={styles.Switch}>
+						<Switch onChange={handleChange} {...{ checked, loading }} />
+						<span className={styles.SwitchText}>{checked ? 'ON' : 'OFF'}</span>
+					</div>
 				</Col>
 			</Row>
 		</>

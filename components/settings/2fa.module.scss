@@ -1,0 +1,18 @@
+.Text{
+   
+    @media (max-width: 768px){
+        // border: 1px solid red;
+        max-width: 280px;
+    }
+    @media (min-width: 768px){
+       flex:unset;
+        max-width: unset
+    }
+}
+
+.Switch{
+    .SwitchText{
+        margin-left: 32px;
+        display: inline-block;
+    }
+}
