@@ -301,7 +301,7 @@ export const CreateCouponForm = () => {
 					</div>
 				</div>
 
-				<div className="flex items-center mt-8 mb-3">
+				<div className={`flex items-center mt-8 mb-3 ${styles.wrap}`}>
 					<div className={`pt-1 w-full flex items-center`}>
 						<h2 className={styles.label}>From</h2>
 						<div className={styles.inputGroup /*+"  w-3/5"*/}>
@@ -319,7 +319,7 @@ export const CreateCouponForm = () => {
 					</div>
 					<div className={`pt-1 w-full flex items-center`}>
 						<h2 className={styles.label}>To</h2>
-						<div className={styles.inputGroup /*+" w-3/5"*/}>
+						<div className={`${styles.inputGroup} ${styles.group2} `}>
 							<Input
 								type="datetime-local"
 								onChange={(e) =>
