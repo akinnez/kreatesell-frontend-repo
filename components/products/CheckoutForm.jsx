@@ -908,12 +908,14 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								disabled={isCouponDiabled ? true : false}
 							/>
 							<span className={`${styles.cpnStatus}`}>
-								<span className="pl-6 text-black-100 font-semibold text-lg">
+								<span className="pl-1 text-black-100 font-semibold text-lg">
 									{isCouponDiabled
 										? 'DISABLED'
 										: applyCoupon
-										? 'ON'
-										: 'OFF'}
+										? "ENABLED": "DISABLED"
+										// ? 'ON'
+										// 	: 'OFF'
+									}
 								</span>
 								<h3>Business</h3>
 							</span>
