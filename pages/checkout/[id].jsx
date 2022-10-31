@@ -17,6 +17,7 @@ import {
 	AdvancedPaypal,
 	splitFullName,
 	FlutterwaveLogo,
+	ErrorIcon,
 } from 'utils';
 import {SelectV2} from 'components/form-input';
 import {PhoneNumberInput} from 'components';
@@ -40,7 +41,6 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
-import {PoweredByKS} from 'components/PoweredByKs';
 
 const paymentMethods = [
 	{
@@ -83,12 +83,17 @@ const Checkout = () => {
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const {countries} = useSelector((state) => state.utils);
+
+	const [isFree, setIsFree] = useState(true); //temporary state control
+
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
 
 	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
 		useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
+	const [desiredAmount, setDesiredAmount] = useState('');
+
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
 	// this is the product details for a product whose price has been defined by
@@ -165,6 +170,7 @@ const Checkout = () => {
 			is_affiliate: values?.is_affiliate || false,
 			affiliate_product_link: '',
 			user_identifier: values?.id || '',
+			is_free_flow: true,
 		};
 		return value;
 	};
@@ -217,11 +223,7 @@ const Checkout = () => {
 		// if we are using paypal
 
 		/** Currencies using PayStack are listed here */
-		if (
-			['GHS', 'NGN'].includes(
-				activeCurrency.currency || activeCurrency.currency_name
-			)
-		) {
+		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
 			return initializePaystackPayment(
 				onPaystackSuccess,
 				onPaystackClose
@@ -232,9 +234,7 @@ const Checkout = () => {
 
 		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
 		if (
-			(!['NGN', 'GHS'].includes(
-				activeCurrency.currency || activeCurrency.currency_name
-			) ||
+			(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
 				selectedPaymentMethod === 'flutterwave') &&
 			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
 		) {
@@ -303,7 +303,7 @@ const Checkout = () => {
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
-		amount: getCurrency('price'),
+		amount: desiredAmount ? desiredAmount : getCurrency('price'),
 		currency: getCurrency('currency'),
 		payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
 		customer: {
@@ -327,7 +327,9 @@ const Checkout = () => {
 	const payStackConfig = {
 		reference: randomId,
 		email: values?.email,
-		amount: Number(getCurrency('price')).toFixed() * 100,
+		amount: desiredAmount
+			? desiredAmount
+			: Number(getCurrency('price')).toFixed() * 100,
 		publicKey:
 			activeCurrency?.currency === 'GHS'
 				? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
@@ -372,6 +374,12 @@ const Checkout = () => {
 
 	useFetchUtilities();
 
+	const handleMakeItFreePayment = async () => {
+		await sendPaymentCheckoutDetails(
+			paymentDetails({total: null, reference: ''})
+		);
+	};
+
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
 			<div
@@ -391,7 +399,7 @@ const Checkout = () => {
 			<nav
 				className={
 					styles.nav +
-					' white relative flex py-8 px-10 flex shadow items-center text-center'
+					' white relative py-8 px-10 flex shadow items-center text-center'
 				}
 			>
 				<Image src={LogoImg} alt="logo" width={140} height={35} />
@@ -649,6 +657,71 @@ const Checkout = () => {
 								</div>
 							</div>
 
+							{/* start the pay as you want  */}
+							{isFree && (
+								<div className="">
+									<h2 className={styles.desiredPayTitle}>
+										Pay what you want
+									</h2>
+									<p className={styles.desiredPayText}>
+										For this product, you can pay any price
+										above the minimum amount.
+									</p>
+									<div
+										className={styles.minimumPriceContainer}
+									>
+										<div
+											className={styles.minimumPriceText}
+										>
+											Minimum price:{' '}
+											{convertedCurrency.to_currency_name}{' '}
+											{Number(
+												convertedCurrency.total_amount
+											).toFixed(2)}
+										</div>
+									</div>
+									{desiredAmount &&
+										desiredAmount <
+											convertedCurrency.total_amount && (
+											<div
+												className={
+													styles.desiredAmountError
+												}
+											>
+												<Image
+													src={ErrorIcon}
+													alt="error_icon"
+												/>
+												<p className={styles.errorText}>
+													Please read carefully <br />
+													Your desired amount is too
+													low. The minimum amount for
+													this product is GBP 1000.
+												</p>
+											</div>
+										)}
+									<div className={styles.desiredPayContainer}>
+										<p className={styles.desiredPayText}>
+											Desired Amount
+										</p>
+										<div className="w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
+											<Input
+												placeholder={`Suggested Amount: ${
+													convertedCurrency.to_currency_name
+												} ${Number(
+													convertedCurrency.total_amount
+												).toFixed(2)}`}
+												onChange={(e) =>
+													setDesiredAmount(
+														e.target.value
+													)
+												}
+											/>
+										</div>
+									</div>
+								</div>
+							)}
+
 							<div className="divider"></div>
 							{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 							{['GBP', 'USD'].includes(
@@ -700,108 +773,159 @@ const Checkout = () => {
 							)}
 
 							{/**Apply coupon feature is yet to be implemented */}
+							{isFree && (
+								<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+									<div className="w-3/5 xs:w-3/4 md:w-4/5">
+										<Input
+											placeholder="Coupon Code"
+											name="couponCode"
+											onChange={formik.handleChange}
+										/>
+									</div>
+									<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+										<Button
+											text="Apply Coupon"
+											className={styles.couponBtn}
+										/>
+									</div>
+								</div>
+							)}
 
-							<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
-								<div className="w-3/5 xs:w-3/4 md:w-4/5">
-									<Input
-										placeholder="Coupon Code"
-										name="couponCode"
-										onChange={formik.handleChange}
-									/>
+							{isFree && (
+								<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
+									<div className="w-4/5">
+										<Input
+											placeholder=" Enter Coupon Code"
+											name="couponCode"
+											onChange={formik.handleChange}
+										/>
+									</div>
+									<div className="w-1/5 pb-2">
+										<Button
+											text="Apply Coupon"
+											className={styles.couponBtn}
+										/>
+									</div>
 								</div>
-								<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
-									<Button
-										text="Apply Coupon"
-										className={styles.couponBtn}
-									/>
-								</div>
-							</div>
+							)}
 
-							<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
-								<div className="w-4/5">
-									<Input
-										placeholder=" Enter Coupon Code"
-										name="couponCode"
-										onChange={formik.handleChange}
-									/>
-								</div>
-								<div className="w-1/5 pb-2">
-									<Button
-										text="Apply Coupon"
-										className={styles.couponBtn}
-									/>
-								</div>
-							</div>
-
-							<div
-								className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
-							>
-								<div className="flex justify-between">
-									<p>SubTotal</p>
-									<div className="flex gap-4">
-										{/* {checkoutDetails?.product_details
+							{isFree && (
+								<div
+									className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
+								>
+									<div className="flex justify-between">
+										<p>SubTotal</p>
+										<div className="flex gap-4">
+											{/* {checkoutDetails?.product_details
                       ?.is_strike_original_price && (
                       <s className="text-base-gray-200">
                         {currency_name} 10000
                       </s>
                     )} */}
-										<p>
-											{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-											{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+											<p>
+												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
+												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+												{getCurrency('currency')}{' '}
+												{desiredAmount
+													? desiredAmount
+													: Number(
+															getCurrency('price')
+													  ).toFixed(2)}
+											</p>
+										</div>
+									</div>
+
+									<div className="flex justify-between">
+										<p>Transaction Fee</p>
+										<p>0</p>
+									</div>
+
+									<div className="flex justify-between">
+										<p>Tax</p>
+										<p>0</p>
+									</div>
+
+									<div className="divider"></div>
+
+									<div className="flex justify-between">
+										<p>Total</p>
+										<p className="text-primary-blue font-medium">
+											{/* {currency_name}{' '} */}
 											{getCurrency('currency')}{' '}
-											{Number(
-												getCurrency('price')
-											).toFixed(2)}
+											{/* {new Intl.NumberFormat().format(
+                      price ?? checkoutDetails?.default_price
+                    )} */}
+											{desiredAmount
+												? desiredAmount
+												: Number(
+														getCurrency('price')
+												  ).toFixed(2)}
 										</p>
 									</div>
 								</div>
+							)}
 
-								<div className="flex justify-between">
-									<p>Transaction Fee</p>
-									<p>0</p>
-								</div>
-
-								<div className="flex justify-between">
-									<p>Tax</p>
-									<p>0</p>
-								</div>
-
-								<div className="divider"></div>
-
-								<div className="flex justify-between">
-									<p>Total</p>
-									<p className="text-primary-blue font-medium">
-										{/* {currency_name}{' '} */}
-										{getCurrency('currency')}{' '}
-										{/* {new Intl.NumberFormat().format(
-                      price ?? checkoutDetails?.default_price
-                    )} */}
-										{Number(getCurrency('price')).toFixed(
-											2
-										)}
+							{isFree ? (
+								<p className="text-base-gray text-center py-6 text-xs md:text-sm">
+									Get instant access to this product once your
+									payment is successful!
+								</p>
+							) : (
+								<>
+									<p className="text-base-gray text-center py-6 text-xs md:text-sm">
+										<span className="text-base text-gray-700">
+											You are getting this product for
+											free!
+										</span>
+										<br /> Get instantly access this product
+										once your click the button
 									</p>
+								</>
+							)}
+
+							{isFree && (
+								<div className=" w-full lg:w-5/6 mx-auto">
+									<Button
+										text={`Pay Now`}
+										bgColor="blue"
+										className={styles.btnCont}
+										icon={<RightArrow />}
+										disabled={currencyConverterLoading}
+									/>
 								</div>
-							</div>
+							)}
 
-							<p className="text-base-gray text-center py-6 text-xs md:text-sm">
-								Get instant access to this product once your
-								payment is successful!
-							</p>
-
+							{/* {isFree ? (
+                <div className=" w-full lg:w-5/6 mx-auto">
+                  <Button
+                    text={`Pay Now`}
+                    bgColor="blue"
+                    className={styles.btnCont}
+                    icon={<RightArrow />}
+                    disabled={currencyConverterLoading}
+                  />
+                </div>
+              ) : (
+                <div className=" w-full lg:w-5/6 mx-auto">
+                  <Button
+                    text={`Get Now`}
+                    bgColor="blue" 
+                    className={styles.btnCont}
+                  />
+                </div>
+              )} */}
+						</form>
+						{!isFree && (
 							<div className=" w-full lg:w-5/6 mx-auto">
 								<Button
-									text={`Pay Now`}
+									text={`Get Now`}
 									bgColor="blue"
 									className={styles.btnCont}
-									icon={<RightArrow />}
-									disabled={currencyConverterLoading}
+									onClick={handleMakeItFreePayment}
 								/>
 							</div>
-						</form>
+						)}
 					</div>
-				</div>
-				<div className={styles.poweredTop}>
-					<PoweredByKS />
 				</div>
 			</div>
 

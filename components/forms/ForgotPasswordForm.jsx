@@ -20,6 +20,8 @@ export const ForgotPasswordForm = () => {
 
 	const handleSubmit = (data) => {
 		initiatePasswordReset(data, () => {
+			//temporary fix top track user email on reset password page
+			localStorage.setItem('userEmail', data.username);
 			router.push('/forgot-password/token');
 		});
 	};
