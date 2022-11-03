@@ -282,3 +282,19 @@
 .commisionAllowed.show {
 	opacity: 1;
 }
+
+.radioContent {
+	align-items: baseline !important;
+	font-size: 1rem;
+	color: #595959;
+	span:last-child {
+		font-weight: 500;
+		font-size: 1rem;
+	}
+}
+
+.inputGroup {
+	input {
+		height: 2.5rem;
+	}
+}

@@ -22,7 +22,7 @@ const AbandonedCarts = () => {
 			<Head>
 				<title>KreateSell | Abandoned Carts</title>
 			</Head>
-			<header className={styles.header}>
+			{/* <header className={styles.header}>
 				<div>
 					<h2>
 						{activeKey === '1' ? 'Send Mail' : 'Recovery Status'}
@@ -56,7 +56,7 @@ const AbandonedCarts = () => {
 						<RecoveryStatus />
 					</TabPane>
 				</Tabs>
-			</section>
+			</section> */}
 		</AuthLayout>
 	);
 };
