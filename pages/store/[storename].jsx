@@ -1,16 +1,19 @@
-import {Button, Select} from 'components';
-import Logo, {MobileLogo} from 'components/authlayout/logo';
-import Image from 'next/image';
-import {ArrowLeft, StoryTellingPNG, ExternalLink} from 'utils';
-import styles from '../../public/css/product-store.module.scss';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import Image from 'next/image';
+import {useEffect} from 'react';
+
+import {Pagination, Input} from 'antd';
+import {useSelector} from 'react-redux';
+import {MdSearch} from 'react-icons/md';
+
+import styles from '../../public/css/product-store.module.scss';
+import {ArrowLeft, StoryTellingPNG, ExternalLink} from 'utils';
+import {Button, Select} from 'components';
+import Logo, {MobileLogo} from 'components/authlayout/logo';
 import {currencyOptions} from 'components/account-dashboard/partials';
 import {ProtectedStoreHeader} from 'components/store/storeHeader';
-import {useSelector} from 'react-redux';
 import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
-import {useEffect} from 'react';
-import {Pagination} from 'antd';
 import {Logout} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 
@@ -36,11 +39,7 @@ const StorePage = () => {
 	const logout = Logout();
 	useEffect(() => {
 		if (storename !== undefined) {
-			return fetchSingleStoreProduct(storename);
-		} else if (storename === 'undefined') {
-			return;
-		} else {
-			return;
+			fetchSingleStoreProduct(storename);
 		}
 	}, [storename]);
 
@@ -58,6 +57,14 @@ const StorePage = () => {
 				</div>
 
 				<div className="w-4/5 flex justify-end">
+					<div className="w-30 mr-4">
+						<Input
+							style={{borderRadius: '8px', height: '100%'}}
+							prefix={<MdSearch />}
+							placeholder="Click here to Search"
+							onChange={() => {}}
+						/>
+					</div>
 					<div className="w-20 mr-4">
 						<Select options={currencyOptions} border="none" />
 					</div>
