@@ -44,7 +44,7 @@
 }
 .imageGallery {
 	border-radius: 8px;
-	
+
 	max-width: 678px;
 	height: 780px;
 	border: 2px solid $white-300;
@@ -117,7 +117,7 @@
 		min-height: 100%;
 		img {
 			object-fit: cover !important;
-			overflow:hidden;
+			overflow: hidden;
 		}
 	}
 }
@@ -361,7 +361,6 @@
 	h2 {
 		margin-top: 4rem !important;
 	}
-	
 
 	.moreDetails {
 		margin-bottom: 6rem !important;

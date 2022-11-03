@@ -909,10 +909,12 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 							/>
 							<span className={`${styles.cpnStatus}`}>
 								<span className="pl-1 text-black-100 font-semibold text-lg">
-									{isCouponDiabled
-										? 'DISABLED'
-										: applyCoupon
-										? "ENABLED": "DISABLED"
+									{
+										isCouponDiabled
+											? 'DISABLED'
+											: applyCoupon
+											? 'ENABLED'
+											: 'DISABLED'
 										// ? 'ON'
 										// 	: 'OFF'
 									}

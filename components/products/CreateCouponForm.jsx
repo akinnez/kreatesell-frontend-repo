@@ -319,7 +319,9 @@ export const CreateCouponForm = () => {
 					</div>
 					<div className={`pt-1 w-full flex items-center`}>
 						<h2 className={styles.label}>To</h2>
-						<div className={`${styles.inputGroup} ${styles.group2} `}>
+						<div
+							className={`${styles.inputGroup} ${styles.group2} `}
+						>
 							<Input
 								type="datetime-local"
 								onChange={(e) =>

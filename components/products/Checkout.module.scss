@@ -217,8 +217,8 @@
 		display: flex;
 		position: relative;
 		// border: 1px solid red;
-		@media (max-width: 576px){
-			top:-12px;
+		@media (max-width: 576px) {
+			top: -12px;
 			left: 20px;
 		}
 		span {

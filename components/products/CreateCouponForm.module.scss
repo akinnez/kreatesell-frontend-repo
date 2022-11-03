@@ -21,7 +21,6 @@
 		color: #8c8c8c;
 	}
 	.formContent {
-		
 		margin: 1em 0;
 		.labelV2 {
 			font-weight: 500;
@@ -33,7 +32,7 @@
 			margin: 0;
 			padding: 0;
 			padding-right: 0.75rem;
-margin-right: 10px !important;
+			margin-right: 10px !important;
 			font-weight: 500;
 			font-size: 16px;
 			line-height: 26px;
@@ -46,7 +45,7 @@ margin-right: 10px !important;
 			}
 		}
 
-		@media (min-width: 768px){
+		@media (min-width: 768px) {
 			width: 75%;
 		}
 
@@ -76,7 +75,6 @@ margin-right: 10px !important;
 			input {
 				height: 2.5rem;
 			}
-			
 		}
 		.selectField {
 			margin-top: 8px;
@@ -120,18 +118,17 @@ margin-right: 10px !important;
 	}
 }
 
-
-.wrap{
+.wrap {
 	width: 100%;
 	// border: 1px solid red;
-	
-	& > div:first-child{
-			margin-bottom:unset;
-		}
-	@media (max-width: 500px){
+
+	& > div:first-child {
+		margin-bottom: unset;
+	}
+	@media (max-width: 500px) {
 		flex-wrap: wrap;
-		& > div:first-child{
-			margin-bottom:.5rem;
+		& > div:first-child {
+			margin-bottom: 0.5rem;
 		}
 	}
 }

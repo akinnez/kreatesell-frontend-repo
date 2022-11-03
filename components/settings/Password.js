@@ -119,11 +119,12 @@ const Index = () => {
 	);
 };
 
-
-
 const MainPassWordLabel = () => {
 	return (
-		<p className={style.mainText}>Current Password - <span>Enter current password to set a new password</span></p>
-	)
-}
+		<p className={style.mainText}>
+			Current Password -{' '}
+			<span>Enter current password to set a new password</span>
+		</p>
+	);
+};
 export default Index;
