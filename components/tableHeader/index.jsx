@@ -268,11 +268,6 @@ const ActionComponent = ({item}, all) => {
 		}
 	}, [store]);
 
-	// console.log("domainLink = ", domainLink);
-	// TODO: if draft, disable deactivate/activate link
-	// if deactivated, activate
-	// if activated, deactivate
-
 	/**Used to delete and deactivate product */
 	const handleModalOk = (action) => {
 		return new Promise((resolve) => {

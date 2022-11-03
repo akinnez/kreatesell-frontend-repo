@@ -9,6 +9,7 @@ import {Button} from '../form-input';
 import StatusButtons from './StatusButtons';
 import styles from './header.module.scss';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
+import {SVGFilter} from 'utils';
 
 const TransactionHeader = ({
 	setFilters,
@@ -141,10 +142,11 @@ const TransactionHeader = ({
 												<Image
 													src="/images/FilterIcon.png"
 													alt="Filter icon"
-													width={19}
-													height={16}
+													width={14}
+													height={14}
 												/>
-												&nbsp; Filter
+												{'  '}
+												Filter
 											</>
 										}
 									/>
