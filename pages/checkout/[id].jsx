@@ -86,11 +86,16 @@ const Checkout = () => {
 
 	const [isFree, setIsFree] = useState(true); //temporary state control
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -223,7 +228,11 @@ const Checkout = () => {
 		// if we are using paypal
 
 		/** Currencies using PayStack are listed here */
-		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
+		if (
+			['GHS', 'NGN'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			)
+		) {
 			return initializePaystackPayment(
 				onPaystackSuccess,
 				onPaystackClose
@@ -234,7 +243,9 @@ const Checkout = () => {
 
 		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
 		if (
-			(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
+			(!['NGN', 'GHS'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			) ||
 				selectedPaymentMethod === 'flutterwave') &&
 			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
 		) {
@@ -315,7 +326,8 @@ const Checkout = () => {
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
