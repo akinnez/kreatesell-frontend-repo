@@ -24,7 +24,7 @@ import {
 	DownArrow,
 } from 'utils';
 
-import {SubmitPaymentOptions} from 'redux/actions';
+import {SubmitPaymentOptions, GetStoreDetails} from 'redux/actions';
 
 function dataURLtoFile(dataurl, filename) {
 	var arr = dataurl.split(','),
@@ -104,6 +104,7 @@ const Advanced = () => {
 		webcamFile: null,
 		validIdCard: null,
 	});
+	const getStoreDetails = GetStoreDetails();
 
 	// this will be used for setting the className for kyc status div
 	useEffect(() => {
@@ -146,7 +147,10 @@ const Advanced = () => {
 		formData.append('Id_Number', e.Id_Number);
 		// formData.append('Payment_Option_Id', activePaymentMode)
 
-		submitPaymentOptions(formData, () => console.log('success'));
+		submitPaymentOptions(formData, () => {
+			getStoreDetails(() => console.log('success getting store details'));
+			console.log('success');
+		});
 	};
 
 	useEffect(() => {
@@ -215,34 +219,24 @@ const Advanced = () => {
 										Identity Card/Slip
 									</div>
 									<div className={styles.reasons}>
-										<div className={styles.reason}>
-											<span className={styles.number}>
-												1
-											</span>
-											The document uploaded is not a valid
-											identity card/slip
-										</div>
-										<div className={styles.reason}>
-											<span className={styles.number}>
-												2
-											</span>
-											Your name does not match with the
-											name on your identity card/slip
-										</div>
-										<div className={styles.reason}>
-											<span className={styles.number}>
-												3
-											</span>
-											Your identity number does not match
-											with the number on your Identity
-											card/slip
-										</div>
-										<div className={styles.reason}>
-											<span className={styles.number}>
-												4
-											</span>
-											Your identity card/slip is expired
-										</div>
+										{store?.kyc_status?.reasons.map(
+											({reason}, idx) => (
+												<div
+													key={idx}
+													className={styles.reason}
+												>
+													<span
+														className={
+															styles.number
+														}
+													>
+														{idx + 1}
+													</span>
+
+													{reason}
+												</div>
+											)
+										)}
 									</div>
 								</div>
 							</>

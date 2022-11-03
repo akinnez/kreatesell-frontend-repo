@@ -151,6 +151,9 @@ const Index = () => {
 				dataSource={requests.data}
 				loading={!response && !error}
 				locale={tableLocale}
+				scroll={{
+					x: 1000,
+				}}
 			/>
 		</AuthLayout>
 	);

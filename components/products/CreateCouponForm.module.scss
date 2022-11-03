@@ -21,7 +21,6 @@
 		color: #8c8c8c;
 	}
 	.formContent {
-		width: 75%;
 		margin: 1em 0;
 		.labelV2 {
 			font-weight: 500;
@@ -33,7 +32,7 @@
 			margin: 0;
 			padding: 0;
 			padding-right: 0.75rem;
-
+			margin-right: 10px !important;
 			font-weight: 500;
 			font-size: 16px;
 			line-height: 26px;
@@ -41,8 +40,13 @@
 
 			@include screen('tablet') {
 				padding-right: 0 !important;
-				margin-right: 0 !important;
+				// margin-right: 0 !important;
+				margin-right: 10px !important;
 			}
+		}
+
+		@media (min-width: 768px) {
+			width: 75%;
 		}
 
 		.radioContent {
@@ -67,6 +71,7 @@
 			}
 		}
 		.inputGroup {
+			// border: 1px solid red;
 			input {
 				height: 2.5rem;
 			}
@@ -109,6 +114,21 @@
 				border-radius: 8px;
 				margin: 0 auto;
 			}
+		}
+	}
+}
+
+.wrap {
+	width: 100%;
+	// border: 1px solid red;
+
+	& > div:first-child {
+		margin-bottom: unset;
+	}
+	@media (max-width: 500px) {
+		flex-wrap: wrap;
+		& > div:first-child {
+			margin-bottom: 0.5rem;
 		}
 	}
 }

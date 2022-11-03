@@ -140,7 +140,7 @@ const Coupon = () => {
 					</div>
 				</div>
 
-				<div className="hidden lg:block mb-16 mt-8">
+				<div className="lg:block mb-16 mt-8">
 					<Table
 						columns={AllCouponTableHeader}
 						locale={tableLocale}

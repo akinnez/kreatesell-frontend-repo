@@ -8,9 +8,9 @@ export const DigitalProductSchema = () => {
 		),
 		enable_preorder: Yup.boolean(),
 
-		contentZipFiles: Yup.mixed()
-			.nullable()
-			.required('Please upload a file to proceed'),
+		// contentZipFiles: Yup.mixed()
+		// 	.nullable()
+		// 	.required('Please upload a file to proceed'),
 		product_visibility_status: Yup.number(),
 		preorder_details: Yup.object().shape({
 			preorder_release_date: Yup.date(),

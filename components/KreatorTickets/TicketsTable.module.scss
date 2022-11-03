@@ -2,6 +2,12 @@
 @import '../../public/css/colors.scss';
 @import '../../public/css/screens.scss';
 
+.tags {
+	padding: 5px;
+	text-align: center;
+	cursor: pointer;
+	width: fit-content;
+}
 .ticketsContainer {
 	// margin-top: 12px;
 	.ticketsTopSection {
@@ -155,5 +161,234 @@
 	@include screen('tablet') {
 		padding-right: 0 !important;
 		margin-right: 0 !important;
+	}
+}
+
+.action2 {
+	cursor: pointer;
+
+	div {
+		& > div:last-child {
+			& > div:first-child {
+				padding: 0;
+			}
+		}
+	}
+	ul {
+		li {
+			height: 44px;
+			border-bottom: 0.5px solid $gray-100;
+			padding-bottom: 0.5rem;
+			padding-top: 0.5rem;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			color: $gray-200;
+			padding-left: 1em;
+
+			&:last-child {
+				border-bottom: none;
+			}
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}
+
+.tableData {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 24px;
+	color: #595959;
+	margin-bottom: 0px;
+}
+
+.dataSection {
+	.table__wrapper {
+		display: block;
+	}
+	.mobile__wrapper {
+		display: none;
+	}
+	@include screen('x-large') {
+		.table__wrapper {
+			display: none;
+		}
+		.mobile__wrapper {
+			display: block;
+		}
+	}
+}
+
+.body {
+	.ticketDetails {
+		border-bottom: 1px solid #d9d9d9;
+		.ticketDetail {
+			.title {
+				margin-bottom: 0px;
+				font-weight: 400;
+				font-size: 0.875rem;
+				line-height: 24px;
+				color: #8c8c8c;
+			}
+			.value,
+			.value2 {
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #262626;
+			}
+			.value2 {
+				color: #595959;
+			}
+			.status {
+				border-radius: 0.5rem;
+				background: #f1fcf8;
+				font-weight: 400;
+				font-size: 1rem;
+				line-height: 24px;
+				color: #2dc071;
+				padding: 0.3rem 1rem;
+			}
+		}
+	}
+	.complainContainer {
+		background: #f5f5f5;
+		border-radius: 8px;
+		padding: 30px;
+		.complain {
+			font-weight: 600;
+			font-size: 1.5rem;
+			line-height: 32px;
+			color: #595959;
+		}
+
+		.complainDescription {
+			transition: max-height 1s, opacity 0.1s;
+			-webkit-transition: max-height 1s, opacity 0.1s;
+			-moz-transition: max-height 1s, opacity 0.1s;
+			-ms-transition: max-height 1s, opacity 0.1s;
+			-o-transition: max-height 1s, opacity 0.1s;
+			.description {
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #8c8c8c;
+			}
+			&.block {
+				// opacity: 1;
+				max-height: 400px;
+				overflow: hidden;
+			}
+			&.hidden {
+				// opacity: 0;
+				max-height: 0;
+				overflow: hidden;
+			}
+		}
+	}
+	.adminResponse {
+		.title {
+			font-weight: 600;
+			font-size: 1.5rem;
+			line-height: 32px;
+			color: #262626;
+		}
+		.response {
+			font-weight: 500;
+			font-size: 1.25rem;
+			line-height: 30px;
+			color: #595959;
+		}
+	}
+	.attachments {
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 30px;
+		color: #595959;
+		.files {
+			.fileName {
+				font-weight: 500;
+				font-size: 20px;
+				line-height: 30px;
+				color: #0072ef;
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+// for the card component
+.cardContainer {
+	margin-block-end: 1.5rem;
+	.card {
+		@include flex(column, null, null);
+		border-radius: 8px;
+		padding: 1rem;
+		.statusBtnContainer {
+			.status {
+			}
+			.actionBtns {
+				.btn {
+					padding: 0.6rem;
+					border: 1px solid #8c8c8c;
+					border-radius: 8px;
+					height: 50px;
+					width: fit-content;
+				}
+				p {
+					font-weight: 400;
+					font-size: 12px;
+					line-height: 24px;
+					color: #8c8c8c;
+				}
+			}
+		}
+		.date {
+		}
+		.ticketDetails {
+			margin-block: 1rem;
+			.ticketDetail {
+				margin-block-end: 0.5rem;
+				padding: 0.5rem 0.8rem;
+				@include flex(row, space-between, null);
+				.key {
+					font-weight: 700;
+					font-size: 0.875rem;
+					line-height: 20px;
+					color: #262626;
+				}
+				.value {
+					font-weight: 400;
+					font-size: 0.875rem;
+					line-height: 24px;
+					color: #595959;
+				}
+			}
+			.ticketDetail:nth-child(even) {
+				background: #f5f5f5;
+				border-radius: 8px;
+			}
+		}
+		.ticketSubjectContainer {
+			.ticketTitle {
+				font-weight: 700;
+				font-size: 14px;
+				line-height: 20px;
+				color: #262626;
+				padding-left: 0.8rem;
+			}
+			.ticketReason {
+				font-weight: 400;
+				font-size: 16px;
+				line-height: 26px;
+				color: #595959;
+				background: #f5f5f5;
+				border: 1px solid #d9d9d9;
+				border-radius: 8px;
+				padding: 0.8rem;
+			}
+		}
 	}
 }

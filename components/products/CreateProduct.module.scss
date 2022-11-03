@@ -157,11 +157,20 @@
 }
 .uploadChart {
 	width: 280px;
+	border: 1px solid red;
 	height: 240px;
+
 	margin-right: 8px;
 	@include screen('tablet') {
 		min-width: 100%;
 	}
+
+	// @media (min-width: 768px){
+	// 	// position: relative;
+	// 	// top: -79px;
+	// 	// height: 100%;
+	// 	height: 240px;
+	// }
 }
 .uploadCont {
 	flex-direction: column;
@@ -270,6 +279,7 @@
 	width: 435px;
 	background: white;
 	flex: 1;
+	display: none;
 	max-height: 240px;
 	@include screen('laptop') {
 		min-height: 20vh;

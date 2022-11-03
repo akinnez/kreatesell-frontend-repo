@@ -110,12 +110,12 @@ function FileUpload({files, setFiles, uploadingFiles, setUploadingFiles}) {
 								/>
 							)}
 							{files?.length > 5 ? (
-								<p className={styles.dragTextRed}>
-									You have excedded themaximum number of files
-									to be uploaded
+								<p className={`my-0 ${styles.dragTextRed}`}>
+									You have exceeded the maximum number of
+									files to be uploaded
 								</p>
 							) : (
-								<p className={styles.dragText}>
+								<p className={`my-0 ${styles.dragText}`}>
 									Drag and drop or click to upload files,
 									maximum number of files (5) five
 								</p>

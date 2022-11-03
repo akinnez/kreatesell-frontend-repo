@@ -41,11 +41,24 @@
 .label {
 	font-family: Inter;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 500;
 	font-size: 0.8rem;
 	line-height: 1rem;
 	color: $base-gray;
 	margin-bottom: 0.5rem;
+	p {
+		font-family: Inter;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 0.8rem !important;
+		line-height: 1rem;
+		color: #595959 !important;
+		margin-bottom: 0.5rem;
+		span {
+			font-weight: normal !important;
+			color: $base-gray !important;
+		}
+	}
 }
 
 .input {
