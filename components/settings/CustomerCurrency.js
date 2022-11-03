@@ -21,6 +21,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 	const updateStoreCheckoutCurrencies = UpdateStoreCheckoutCurrencies();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const [selectedCurrencies, setSelectedCurrencies] = useState([]);
+	const [allSelected, setAllSelected] = useState({
+		allCountriesCurrencies: false,
+		westCountries: false,
+		centralCountries: false,
+	});
 
 	// make request to get currency
 	useEffect(() => {
@@ -31,6 +36,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 	}, [store_details?.store_id]);
 
 	// set currencies on mount
+	// TODO: check for if each section's all currencies are checked by default
 	useEffect(() => {
 		if (storeCheckoutCurrencies?.length > 0) {
 			getSelected();
@@ -73,6 +79,106 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 		return data;
 	};
 
+	const handleCheckAll = (field) => {
+		switch (field) {
+			case 'allCountriesCurrencies':
+				// if all currencies are selected from this section
+				if (allSelected.allCountriesCurrencies) {
+					setAllSelected((prev) => ({
+						...prev,
+						allCountriesCurrencies: !prev.allCountriesCurrencies,
+					}));
+					setSelectedCurrencies((prev) => [
+						...prev.filter(
+							(prv) =>
+								['XOF', 'XAF'].includes(
+									prv.currency_short_name
+								) || ['XOF', 'XAF'].includes(prv.currency)
+						),
+					]);
+				} else {
+					setAllSelected((prev) => ({
+						...prev,
+						allCountriesCurrencies: !prev.allCountriesCurrencies,
+					}));
+					setSelectedCurrencies((prev) => [
+						...prev.filter(
+							(prv) =>
+								['XOF', 'XAF'].includes(
+									prv.currency_short_name
+								) || ['XOF', 'XAF'].includes(prv.currency)
+						),
+						...countriesCurrency,
+					]);
+				}
+				break;
+			case 'westCountries':
+				if (allSelected.westCountries) {
+					setAllSelected((prev) => ({
+						...prev,
+						westCountries: !prev.westCountries,
+					}));
+					setSelectedCurrencies((prev) => [
+						...prev.filter(
+							(prv) =>
+								![
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('XOF')
+						),
+					]);
+				} else {
+					setAllSelected((prev) => ({
+						...prev,
+						westCountries: !prev.westCountries,
+					}));
+					setSelectedCurrencies((prev) => [
+						...prev.filter(
+							(prv) =>
+								![
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('XOF')
+						),
+						...filterdWest,
+					]);
+				}
+				break;
+			case 'centralCountries':
+				if (allSelected.centralCountries) {
+					setAllSelected((prev) => ({
+						...prev,
+						centralCountries: !prev.centralCountries,
+					}));
+					setSelectedCurrencies((prev) => [
+						...prev.filter(
+							(prv) =>
+								![
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('XAF')
+						),
+					]);
+				} else {
+					setAllSelected((prev) => ({
+						...prev,
+						centralCountries: !prev.centralCountries,
+					}));
+					setSelectedCurrencies((prev) => [
+						...prev.filter(
+							(prv) =>
+								![
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('XAF')
+						),
+						...filteredCentral,
+					]);
+				}
+				break;
+		}
+	};
+
 	// console.log('selected currencies', selectedCurrencies)
 	const handleSubmit = () => {
 		// console.log('currencies', formatCurrency())
@@ -91,7 +197,19 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 	return (
 		<div className={style.wrapper}>
 			<div className={style.bordered}>
-				<h4>Customer&#39;s Currency Options</h4>
+				<div className={`flex justify-between`}>
+					<h4>Customer&#39;s Currency Options</h4>
+					<CustomCheck
+						checked={allSelected.allCountriesCurrencies}
+						onChange={() =>
+							handleCheckAll('allCountriesCurrencies')
+						}
+						name="countries"
+						labelStyle={'flex items-center'}
+					>
+						<p className="mb-0">Select All</p>
+					</CustomCheck>
+				</div>
 				<p>
 					{' '}
 					These are the currencies that your customers get to see and
@@ -143,7 +261,17 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 					</Row>
 				</div>
 
-				<h4>West African CFA Franc BCEAO(XOF)</h4>
+				<div className={`flex justify-between`}>
+					<h4>West African CFA Franc BCEAO(XOF)</h4>
+					<CustomCheck
+						checked={allSelected.westCountries}
+						onChange={() => handleCheckAll('westCountries')}
+						name="countries"
+						labelStyle={'flex items-center'}
+					>
+						<p className="mb-0">Select All</p>
+					</CustomCheck>
+				</div>
 				<div style={{width: '100%'}}>
 					<Row>
 						{filterdWest?.map((cur, i) => (
@@ -185,7 +313,17 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 						))}
 					</Row>
 				</div>
-				<h4>Central African CFA Franc BEAC(XAF)</h4>
+				<div className={`flex justify-between`}>
+					<h4>Central African CFA Franc BEAC(XAF)</h4>
+					<CustomCheck
+						checked={allSelected.centralCountries}
+						onChange={() => handleCheckAll('centralCountries')}
+						name="countries"
+						labelStyle={'flex items-center'}
+					>
+						<p className="mb-0">Select All</p>
+					</CustomCheck>
+				</div>
 				<div style={{width: '100%'}}>
 					<Row>
 						{filteredCentral?.map((cur, i) => (
