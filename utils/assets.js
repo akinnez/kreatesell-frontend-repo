@@ -269,8 +269,22 @@ import ZipFile from '../public/images/ZipFile.svg';
 import DownloadIcon2 from '../public/images/downloadIcon.svg';
 import DownArrow from '../public/images/downArrow.svg';
 import EyesClosed from '../public/images/eye-closed-icon.svg';
+import DropDownUpIcon from '../public/images/dropdownup.svg';
+import DropDownIcon from '../public/images/dropdown.svg';
+import CollapseArrowDown from '../public/images/collapseArrowDown.svg';
+import CollapseArrowRight from '../public/images/collapseArrowRight.svg';
+import Folder from '../public/images/folder.svg';
+import MessageIcon from '../public/images/messageIcon.svg';
+import OpenTicketIcon from '../public/images/openTicketIcon.svg';
 
 export {
+	MessageIcon,
+	OpenTicketIcon,
+	Folder,
+	CollapseArrowDown,
+	CollapseArrowRight,
+	DropDownUpIcon,
+	DropDownIcon,
 	EyesClosed,
 	DownArrow,
 	UserPicture,

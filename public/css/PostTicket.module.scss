@@ -56,12 +56,17 @@
 			height: 60px;
 			margin-right: 12px;
 			position: relative;
+			border: 1px solid;
+			box-shadow: -30px 52px 151px 2px rgba(0, 0, 0, 0.66);
+			-webkit-box-shadow: -30px 52px 151px 2px rgba(0, 0, 0, 0.66);
+			-moz-box-shadow: -30px 52px 151px 2px rgba(0, 0, 0, 0.66);
 
 			.userImage {
 				border-radius: 50%;
 				// width: 100%;
 				// height: 100%;
 				object-fit: cover;
+				border: 1px solid;
 			}
 
 			.checkedImage {
@@ -76,10 +81,19 @@
 		.userInfoDiv {
 			.userName {
 				font-weight: 500;
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #262626;
+				margin-bottom: 0px;
 			}
 			.userRole {
 				color: $base-gray;
 				font-size: 13px;
+				font-weight: 500;
+				font-size: 1.125rem;
+				line-height: 28px;
+				margin-bottom: 0px;
 			}
 		}
 	}
@@ -102,6 +116,54 @@
 
 .cardResponsDiv {
 	margin: 15px 0px 10px 0px;
+	background: white;
+	border-radius: 0.5rem;
+	padding: 2rem;
+	.ticketDetails {
+		border-bottom: 1px solid #d9d9d9;
+		.ticketDetail {
+			.title {
+				margin-bottom: 0px;
+				font-weight: 400;
+				font-size: 0.875rem;
+				line-height: 24px;
+				color: #8c8c8c;
+			}
+			.value,
+			.value2 {
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #262626;
+			}
+			.value2 {
+				color: #595959;
+			}
+			.status {
+				border-radius: 0.5rem;
+				background: #f1fcf8;
+				font-weight: 400;
+				font-size: 1rem;
+				line-height: 24px;
+				color: #2dc071;
+				padding: 0.3rem 1rem;
+			}
+		}
+	}
+	.formContainer {
+		position: relative;
+		z-index: 1;
+		padding: 3rem;
+		margin-top: 1.5rem;
+		background: #fff;
+		border-radius: 0.5rem;
+		.labelStyle {
+			font-weight: 500;
+			font-size: 1rem;
+			line-height: 26px;
+			color: #262626;
+		}
+	}
 }
 .error {
 	color: $notification-bg;
@@ -116,10 +178,43 @@
 }
 .container {
 	width: 100%;
-	background: $white-100;
+	// background: $white-100;
 	margin: 5px 0px;
 	padding: 15px;
+	.headerDiv {
+		.header {
+			font-weight: 600;
+			font-size: 1.5rem;
+			line-height: 32px;
+			color: #262626;
+		}
+		.subHeader {
+			font-weight: 500;
+			font-size: 1rem;
+			line-height: 26px;
+
+			color: #8c8c8c;
+		}
+	}
 	@include screen('medium') {
 		padding: 7px;
+	}
+}
+
+// success modal
+.body {
+	.imageContainer {
+	}
+	.mainText {
+		font-weight: 600;
+		font-size: 1.875rem;
+		line-height: 33px;
+		color: #262626;
+	}
+	.subTitle {
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 26px;
+		color: #8c8c8c;
 	}
 }
