@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
 import styles from '../../../components/modal/Modal.module.scss';
-import { CloseIcon } from '../../../utils';
+import {CloseIcon} from '../../../utils';
 import {
 	guideDataObject,
 	guideDataObjectMobiles,
@@ -57,7 +57,7 @@ const OnboardingGuide = ({
 			${_visible && styles.styleDisplay}`}
 		>
 			{/* desktop view */}
-			<div style={{ postion: 'relative', width: '100%', height: '100%' }}>
+			<div style={{postion: 'relative', width: '100%', height: '100%'}}>
 				<div
 					className={styles.onboardingTooltip}
 					style={{
@@ -93,7 +93,9 @@ const OnboardingGuide = ({
 							</button>
 							{index !== guideDataObject.length - 1 && (
 								<button
-									disabled={index === guideDataObject.length - 1}
+									disabled={
+										index === guideDataObject.length - 1
+									}
 									className={styles.toolTipNextBtn}
 									onClick={changeContents}
 								>
@@ -175,7 +177,7 @@ const OnboardingGuide = ({
 
 export default OnboardingGuide;
 
-export const DashboardGuide = ({ setHideDahboardGuideModal }) => {
+export const DashboardGuide = ({setHideDahboardGuideModal}) => {
 	// const [_visible, setVisible] = useState(false);
 	const [index, setIndex] = useState(0);
 
@@ -205,7 +207,7 @@ export const DashboardGuide = ({ setHideDahboardGuideModal }) => {
 			
 			`}
 		>
-			<div style={{ postion: 'relative', width: '100%', height:'100%' }}>
+			<div style={{postion: 'relative', width: '100%', height: '100%'}}>
 				<div
 					className={styles.onboardingTooltip}
 					style={{
