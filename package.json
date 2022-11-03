@@ -43,6 +43,7 @@
 		"react-chartjs-2": "^3.0.4",
 		"react-circle-progress-bar": "^0.1.4",
 		"react-circular-progressbar": "^2.0.4",
+		"react-coinbase-commerce": "^1.6.0",
 		"react-csv": "^2.2.2",
 		"react-date-picker": "^8.2.0",
 		"react-dates": "^21.8.0",
@@ -87,13 +88,13 @@
 		"enzyme-to-json": "^3.6.2",
 		"eslint": "7.30.0",
 		"eslint-config-next": "11.0.1",
+		"husky": "^8.0.0",
 		"identity-obj-proxy": "^3.0.0",
 		"jest": "^26.4.2",
 		"postcss": "^8.3.6",
 		"prettier": "2.7.1",
 		"react-test-renderer": "^17.0.2",
 		"redux-mock-store": "^1.5.4",
-		"tailwindcss": "^2.2.15",
-		"husky": "^8.0.0"
+		"tailwindcss": "^2.2.15"
 	}
 }

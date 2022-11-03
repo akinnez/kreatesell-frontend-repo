@@ -10,15 +10,21 @@
 		line-height: 32px;
 	}
 	p {
-		font-size: 15px;
+		font-weight: 500;
+		font-size: 1rem;
+		line-height: 26px;
+		color: #8c8c8c;
 	}
 }
 
 .card {
+	border-radius: 8px;
 	.title {
 		text-align: center;
-		font-size: 19px;
-		font-weight: 500;
+		font-weight: 600;
+		font-size: 1.53rem;
+		line-height: 33px;
+		color: #595959;
 	}
 	.openTicketBtn {
 		display: block;

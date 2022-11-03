@@ -8,36 +8,57 @@ import useSWR from 'swr';
 import {IoMdAdd} from 'react-icons/io';
 import {Button} from 'components/button/Button';
 import axios from 'axios';
+import BackButton from 'components/BackButton';
 
-const OpenTicket = ({department}) => {
+const OpenTicket = ({}) => {
+	const department = [
+		{
+			id: '12',
+			name: 'Technical',
+		},
+		{
+			id: '123',
+			name: 'Affiliates',
+		},
+		{
+			id: '124',
+			name: 'Billing',
+		},
+		{
+			id: '1254',
+			name: 'General',
+		},
+	];
 	const router = useRouter();
 
 	return (
 		<>
 			<AuthLayout>
+				<div className="mb-10">
+					<BackButton />
+				</div>
 				<div className={style.openTicketTop}>
 					<h3 className={style.header}>Open Ticket</h3>
-					<p>
-						A role provides access to predefined features so that
-						depending on the assinged role an administrator can have
-						access to what he needs
+					<p className={`mb-10`}>
+						This helps the assigned support team to quickly and
+						efficiently attend to you without any mix up.
 					</p>
 				</div>
 				<div>
-					<Row gutter={[5, 5]}>
+					<Row gutter={[30, 20]}>
 						{department &&
 							department?.length > 0 &&
 							department?.map((dept) => (
 								<Col
-									xs={{span: 12}}
-									md={{span: 8}}
+									xs={{span: 24}}
+									md={{span: 12}}
 									lg={{span: 6}}
 									xl={{span: 6}}
 									key={dept.id}
 								>
 									<Card
 										bordered={false}
-										className={style.card}
+										className={`flex justify-center ${style.card}`}
 									>
 										<h4 className={style.title}>
 											{dept.name}
@@ -46,7 +67,7 @@ const OpenTicket = ({department}) => {
 											src="/images/testimg.png"
 											alt="departments"
 											width={250}
-											height={290}
+											height={200}
 										/>
 										<br />
 										<Button
