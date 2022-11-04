@@ -39,7 +39,7 @@ const TwoFactor = () => {
 					justifyContent: 'space-between',
 				}}
 			>
-				<Col md={1} sm={12}>
+				<Col md={12} sm={12}>
 					<div className={styles.Text}>
 						<h2>Enable Two-Factor Authentication using email</h2>
 						<p style={{color: '#8C8C8C'}}>
