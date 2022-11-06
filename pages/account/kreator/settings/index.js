@@ -35,6 +35,7 @@ const Index = () => {
 						centered
 						size="large"
 						onChange={handleTabChange}
+						className={style.tabsBox}
 					>
 						<TabPane tab="Currencies" key="currencies">
 							<Currency />
