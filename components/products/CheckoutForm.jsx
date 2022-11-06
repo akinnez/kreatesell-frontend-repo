@@ -908,7 +908,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								disabled={isCouponDiabled ? true : false}
 							/>
 							<span className={`${styles.cpnStatus}`}>
-								<span className="pl-1 text-black-100 font-semibold text-lg">
+								<span className="pl-1 text-black-100 font-semibold text-lg ">
 									{
 										isCouponDiabled
 											? 'DISABLED'
@@ -919,7 +919,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										// 	: 'OFF'
 									}
 								</span>
-								<h3>Business</h3>
+								<h3 className="text-center">Business</h3>
 							</span>
 						</div>
 					</div>
@@ -1067,11 +1067,23 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 					{allowAffiliateMarket && (
 						<>
 							<div className={styles.affilateUpload}>
-								<div className="flex items-center justify-between">
+								<div className="flex items-start justify-between">
 									<h2 className="mb-0 text-base">
 										{' '}
 										How much percentage are you willing to
 										pay affiliate
+										<p
+											className={`${
+												styles.commisionAllowed
+											} ${
+												afiliatePercentage === ''
+													? styles.show
+													: ''
+											}`}
+										>
+											Commission Percentage value should
+											be between 1 and 100
+										</p>
 									</h2>
 									<div className={styles.affilateInput}>
 										<Input
@@ -1102,7 +1114,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										<span>%</span>
 									</div>
 
-									<p
+									{/* <p
 										className={`${
 											styles.commisionAllowed
 										} ${
@@ -1113,7 +1125,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									>
 										Commission Percentage value should be
 										between 1 and 100
-									</p>
+									</p> */}
 								</div>
 							</div>
 							<div className="flex justify-between items-center w-full lg:w-3/5 pt-4">

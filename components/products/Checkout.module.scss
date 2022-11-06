@@ -88,6 +88,14 @@
 		}
 		> div {
 			position: relative;
+			// border: 1px solid red;
+		}
+
+		@media (max-width: 500px) {
+			width: 100%;
+			& > div {
+				flex-direction: column;
+			}
 		}
 	}
 	.affilateInput {
@@ -216,6 +224,10 @@
 	.cpnStatus {
 		display: flex;
 		position: relative;
+
+		h3 {
+			max-width: 100px;
+		}
 		// border: 1px solid red;
 		@media (max-width: 576px) {
 			top: -12px;
@@ -276,17 +288,23 @@
 }
 
 .commisionAllowed {
-	position: absolute;
+	// position: absolute;
 	opacity: 0;
+	height: 0px;
 	color: red;
-	bottom: -27px;
+	// bottom: -27px;
 	font-weight: 700;
 	right: 2px;
 	left: 0;
-	transition: opacity 0.2s;
+	transition: all 0.2s;
 	font-size: 0.75rem;
+	@media (max-width: 500px) {
+		// bottom: -10px;
+		position: relative;
+	}
 }
 
 .commisionAllowed.show {
 	opacity: 1;
+	height: 100%;
 }
