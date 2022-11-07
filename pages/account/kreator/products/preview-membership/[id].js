@@ -1,32 +1,35 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import {useSelector} from 'react-redux';
-import {Card, Row, Col} from 'antd';
+import { useSelector } from 'react-redux';
+import { Card, Row, Col } from 'antd';
 
-import {PlayIcon2, PlayIconBlue, LogoV2} from 'utils';
-import {Button} from 'components/form-input';
+import { PlayIcon2, PlayIconBlue, LogoV2 } from 'utils';
+import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
 import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {GetProductByID} from 'redux/actions';
+import { GetProductByID } from 'redux/actions';
 
 const PreviewMembership = () => {
 	const router = useRouter();
 	const getProduct = GetProductByID();
 
 	const {
-		product: {product_content},
+		product,
+		product: { product_content },
 	} = useSelector((state) => state.product);
 
 	const [activeLink, setActiveLink] = useState({});
+
+	console.log(activeLink, 'activeLink')
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
-	// console.log("product_content", product_content);
+
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -111,13 +114,13 @@ const PreviewMembership = () => {
 						<Col span={9} className={styles.left}>
 							<Card className={styles.card}>
 								<h1 className={styles.mainTitle}>
-									How to Invest in cryptocurrency
+									{product?.product_details?.product_name}
 								</h1>
 								<hr />
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList}, idx) => (
+											({ title, subList }, idx) => (
 												<Accordion
 													key={idx}
 													{...{
@@ -135,31 +138,39 @@ const PreviewMembership = () => {
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
-								<h3 className={styles.sectionName}>
+								<h1 className={styles.sectionName}>
 									{activeLink?.product_section_name}
-								</h3>
-								<h1 className={styles.sectionTitle}>
-									How To Invest In Cryptocurrency
 								</h1>
-								{activeLink?.id}
+								{/* <h1 className={styles.sectionTitle}>
+									How To Invest In Cryptocurrency
+								</h1> */}
+								{/* {activeLink?.id} */}
+
+							</Card>
+							<div style={{padding:'20px', backgroundColor:'white'}}>
+								{/* <Image src={activeLink?.files[1]?.filename} alt="" width={700} height={450}/> */}
+							</div>
+							<Card>
+								<p className={styles.sectionName}>
+									{activeLink?.product_section_description} 
+								</p>
 							</Card>
 						</Col>
 					</Row>
 					{/* mobile */}
 					<div className={`${styles.mobile}`}>
 						<h2 className={`text-left ${styles.mainTitle}`}>
-							How to invest in cryptocurrency
+							{product?.product_details?.product_name}
 						</h2>
 						<div
 							className={`flex justify-evenly ${styles.mainSections}`}
 						>
-							{accordionData.map(({title, id, subList}, idx) => (
+							{accordionData.map(({ title, id, subList }, idx) => (
 								<div
 									key={idx}
-									className={`p-2 ${styles.title} ${
-										id === activeSelectedSectionId &&
+									className={`p-2 ${styles.title} ${id === activeSelectedSectionId &&
 										styles.active
-									}`}
+										}`}
 									onClick={() => {
 										setSelectedSection(subList);
 										setActiveSelectedSectionId(id);
@@ -178,12 +189,10 @@ const PreviewMembership = () => {
 									{selectedSection.map((sec, idx) => (
 										<div
 											key={idx}
-											className={`p-3 ${
-												styles.sections
-											} ${
-												activeLink?.id === sec.id &&
+											className={`p-3 ${styles.sections
+												} ${activeLink?.id === sec.id &&
 												styles.active2
-											}`}
+												}`}
 											onClick={() => {
 												setActiveLink(sec);
 											}}
@@ -207,7 +216,7 @@ const PreviewMembership = () => {
 										<div>
 											<h3>Lecture 1</h3>
 											<h2>
-												How To Invest In Cryptocurrency
+												{product?.product_details?.product_name}
 											</h2>
 											<h1>
 												How Cryptocurrency Came To Be

@@ -1,12 +1,13 @@
 import Image from 'next/image';
-import {useState, useEffect} from 'react';
-import {ArrowLeft, WhiteEye} from 'utils';
-import {Button} from 'antd';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, WhiteEye } from 'utils';
+import { Button } from 'antd';
 import styles from './MembershipTab.module.scss';
 import PlayMedia from './PlayMedia';
-import {useSelector} from 'react-redux';
-import {useFormik} from 'formik';
-import {CreateSection, GetProductByID, CreateContent} from 'redux/actions';
+import { useSelector } from 'react-redux';
+import {useRouter} from 'next/router';
+import { useFormik } from 'formik';
+import { CreateSection, GetProductByID, CreateContent } from 'redux/actions';
 
 import ManageSectionSegment from 'components/products/components/ManageSection/ManageSection';
 
@@ -17,7 +18,7 @@ export default function ManageSection({
 }) {
 	const [mediaContent, setMediaContent] = useState(null);
 	const [productSection, setProductSection] = useState(null);
-	const {product, productID} = useSelector((state) => state.product);
+	const { product, productID } = useSelector((state) => state.product);
 	const getProduct = GetProductByID();
 	const createContent = CreateContent();
 	const [play, setPlay] = useState(false);
@@ -30,6 +31,8 @@ export default function ManageSection({
 		setPlay(true);
 	};
 
+	const route = useRouter();
+
 	const initialValues = {
 		product_id: 0,
 		kreatesell_id: '',
@@ -40,7 +43,7 @@ export default function ManageSection({
 		is_available_to_all_subscriber: true,
 	};
 
-	const handleSubmit = (data) => {};
+	const handleSubmit = (data) => { };
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
@@ -48,10 +51,10 @@ export default function ManageSection({
 		validateOnChange: false,
 	});
 
-	const {setFieldValue} = formik;
+	const { setFieldValue } = formik;
 	useEffect(() => {
 		if (Object.keys(product).length > 0) {
-			const {product_content} = product;
+			const { product_content } = product;
 			setProductSection(product_content);
 		}
 	}, [product]);
@@ -92,30 +95,38 @@ export default function ManageSection({
 					closePlay={setPlay}
 				/>
 			)}
-			<div
-				onClick={() => goBack()}
-				className="inline-flex justify-start cursor-pointer items-center mb-4"
-			>
-				<Image alt="" src={ArrowLeft} />
-				<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">
-					Back
-				</h3>
-			</div>
-			<div className="flex items-center justify-between mb-7">
-				<h1
+
+			<div className='flex justify-between'>
+				<div
+					onClick={() => goBack()}
+					className="inline-flex justify-start cursor-pointer items-center mb-4"
+				>
+					<Image alt="" src={ArrowLeft} />
+					<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">
+						Back
+					</h3>
+
+					<div className="flex items-center justify-between mb-7">
+						{/* <h1
 					className={`text-2xl text-blue-600 font-bold ${styles.titleMain}`}
 				>
 					How to Invest in Crypocurrency
-				</h1>
-
+				</h1> */}
+					</div>
+				</div>
 				<div className={styles.miniSaveButtons + ' flex'}>
-					<Button type="primary" style={{color: '#0072ef'}}>
+					<Button type="primary" style={{ color: '#0072ef' }}>
 						+ Add Section
 					</Button>
 					<Button
 						type="primary"
 						icon={
 							<Image color="white" src={WhiteEye} alt="empty" />
+						}
+						onClick={() =>
+							route.push(
+								`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`
+							)
 						}
 					>
 						{' '}
