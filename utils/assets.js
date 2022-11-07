@@ -543,5 +543,5 @@ export {
 	Clock,
 	LikeIcon,
 	CommentIcon,
-	ComingSoon
+	ComingSoon,
 };

@@ -21,7 +21,7 @@ export default function AddSection({toSection}) {
 	const [productSection, setProductSection] = useState(null);
 	const {product, productID} = useSelector((state) => state.product);
 
-	console.log(productID, productID)
+	console.log(productID, productID);
 
 	const createSection = CreateSection();
 	const getProduct = GetProductByID();

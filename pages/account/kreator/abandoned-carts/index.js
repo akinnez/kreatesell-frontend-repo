@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { BsPlusLg } from 'react-icons/bs';
-import { Tabs } from 'antd';
+import {BsPlusLg} from 'react-icons/bs';
+import {Tabs} from 'antd';
 import AuthLayout from 'components/authlayout';
 import Campaigns from 'components/kreatorAbandonedCarts/components/Campaigns';
 import RecoveryStatus from 'components/kreatorAbandonedCarts/components/RecoveryStatus';
 import styles from 'public/css/AbandonedCarts.module.scss';
-import Image from 'next/image'
-import { ComingSoon } from 'utils';
+import Image from 'next/image';
+import {ComingSoon} from 'utils';
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 
 const AbandonedCarts = () => {
 	const [activeKey, setActiveKey] = useState('1');
@@ -26,20 +26,26 @@ const AbandonedCarts = () => {
 			</Head>
 
 			<div className="w-full h-5/6 bg-white flex items-center justify-center">
-				<div className='bg-white'>
-					<div className='ml-36'>
-					<Image
-						src={ComingSoon}
-						alt="commingsoonicon"
-						width={105}
-						height={120}
-						// className='ml-5'
-					/>
+				<div className="bg-white">
+					<div className="ml-36">
+						<Image
+							src={ComingSoon}
+							alt="commingsoonicon"
+							width={105}
+							height={120}
+							// className='ml-5'
+						/>
 					</div>
 					<h1 className={styles.abadonedCartText}>Coming Soon!</h1>
-					<p className={styles.abadonedCartP}>Remind your customers when they fail to make</p>
-					<p className={styles.abadonedCartP}>payments for products they like. Use your own words </p>
-					<p className={styles.abadonedCartP}>and content to reach your audience.</p>
+					<p className={styles.abadonedCartP}>
+						Remind your customers when they fail to make
+					</p>
+					<p className={styles.abadonedCartP}>
+						payments for products they like. Use your own words{' '}
+					</p>
+					<p className={styles.abadonedCartP}>
+						and content to reach your audience.
+					</p>
 				</div>
 			</div>
 

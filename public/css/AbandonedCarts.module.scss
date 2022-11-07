@@ -8,7 +8,7 @@
 	flex-wrap: wrap;
 	gap: 15px 25px;
 
-	>div {
+	> div {
 		flex: 1 1 254px;
 
 		h2 {
@@ -26,7 +26,7 @@
 		}
 	}
 
-	>a {
+	> a {
 		display: inline-flex;
 		padding: 13px 23px;
 		background-color: colors.$base-blue;
@@ -83,9 +83,11 @@
 			}
 		}
 
-		div[class='ant-tabs-tab']+div[class='ant-tabs-tab'],
-		div[class='ant-tabs-tab ant-tabs-tab-active']+div[class='ant-tabs-tab'],
-		div[class='ant-tabs-tab']+div[class='ant-tabs-tab ant-tabs-tab-active'] {
+		div[class='ant-tabs-tab'] + div[class='ant-tabs-tab'],
+		div[class='ant-tabs-tab ant-tabs-tab-active']
+			+ div[class='ant-tabs-tab'],
+		div[class='ant-tabs-tab']
+			+ div[class='ant-tabs-tab ant-tabs-tab-active'] {
 			margin-left: 5px;
 		}
 
@@ -102,7 +104,7 @@
 }
 
 @include screens.minScreen('x-large') {
-	.header>div h2 {
+	.header > div h2 {
 		font-size: 24px;
 	}
 }
@@ -114,7 +116,7 @@
 	line-height: 33px;
 	letter-spacing: 0em;
 	text-align: center;
-	color: #262626
+	color: #262626;
 }
 
 .abadonedCartP {
@@ -122,7 +124,7 @@
 	font-style: normal;
 	font-weight: 500;
 	font-size: 16px;
-	color: #8C8C8C;
+	color: #8c8c8c;
 	/* or 162% */
 	line-height: 5px;
 	text-align: center;

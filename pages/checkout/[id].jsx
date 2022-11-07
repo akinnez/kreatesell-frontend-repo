@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {
 	Row,
 	Col,
@@ -19,22 +19,22 @@ import {
 	FlutterwaveLogo,
 	ErrorIcon,
 } from 'utils';
-import { SelectV2 } from 'components/form-input';
-import { PhoneNumberInput } from 'components';
+import {SelectV2} from 'components/form-input';
+import {PhoneNumberInput} from 'components';
 import styles from '../../public/css/checkout.module.scss';
-import { Input, Button } from 'components';
+import {Input, Button} from 'components';
 import CurrencyCard from 'components/settings/CurrencyCard';
-import { ConsumerSalesCheckoutSchema } from 'validation';
-import { useFormik, Formik } from 'formik';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import { usePaystackPayment } from 'react-paystack';
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+import {ConsumerSalesCheckoutSchema} from 'validation';
+import {useFormik, Formik} from 'formik';
+import {useSelector} from 'react-redux';
+import {useRouter} from 'next/router';
+import {usePaystackPayment} from 'react-paystack';
+import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
 import {
 	SendPaymentCheckoutDetails,
 	ConvertCurrency,
 	GetStoreCheckoutCurrencies,
-	ApplyCoupon
+	ApplyCoupon,
 } from 'redux/actions';
 import crypto from 'crypto';
 import LogoImg from '../../public/images/logo.svg';
@@ -74,25 +74,23 @@ const Checkout = () => {
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
-	const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
+	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
-	const { loading: storeCheckoutCurrenciesLoading } = useSelector(
+	const {loading: storeCheckoutCurrenciesLoading} = useSelector(
 		(state) => state.store
 	);
 
-	const { loading, applyCouponResponse } = useSelector(
-		(state) => state.coupon
-	)
+	const {loading, applyCouponResponse} = useSelector((state) => state.coupon);
 
-	console.log(applyCouponResponse, 'applyCouponResponse')
+	console.log(applyCouponResponse, 'applyCouponResponse');
 
 	const [country, setCountry] = useState('');
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
-	const { countries } = useSelector((state) => state.utils);
+	const {countries} = useSelector((state) => state.utils);
 
-	const { countriesCurrency, filterdWest, filteredCentral } =
+	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
 
 	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
@@ -114,12 +112,12 @@ const Checkout = () => {
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
 	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
 
-	const [couponCode, setCouponCode] = useState("");
-	const [couponDetails, setCouponDetails] = useState({})
+	const [couponCode, setCouponCode] = useState('');
+	const [couponDetails, setCouponDetails] = useState({});
 
-	console.log(couponCode, 'couponCode')
+	console.log(couponCode, 'couponCode');
 
-	console.log(pricingTypeDetails, 'pricingTypeDetails')
+	console.log(pricingTypeDetails, 'pricingTypeDetails');
 
 	const [storeId, setStoreId] = useState();
 	const checkout = checkOutDetails?.filter(
@@ -132,7 +130,9 @@ const Checkout = () => {
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
-			setPricingTypeDetails(response.data?.data?.product_details?.pricing_type)
+			setPricingTypeDetails(
+				response.data?.data?.product_details?.pricing_type
+			);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 		} catch (error) {
@@ -169,7 +169,7 @@ const Checkout = () => {
 		failed: 'f',
 		// abandoned: "a"
 	};
-	const paymentDetails = ({ reference = '', status = '' }) => {
+	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
 		const value = {
 			fullname: `${values?.firstName} ${values?.lastName}`,
@@ -261,13 +261,13 @@ const Checkout = () => {
 					await sendPaymentCheckoutDetails(
 						paymentDetails({
 							reference: response?.tx_ref,
-							status: "success",
+							status: 'success',
 						})
 					);
 					closePaymentModal();
 					//   openModal();
 				},
-				onClose: () => { },
+				onClose: () => {},
 			});
 		}
 	};
@@ -313,7 +313,7 @@ const Checkout = () => {
 		validateOnChange: true,
 	});
 
-	const { errors, setFieldValue, values } = formik;
+	const {errors, setFieldValue, values} = formik;
 	// console.log("values = ", values);
 
 	// Flutterwave configurations
@@ -368,9 +368,9 @@ const Checkout = () => {
 		// Implementation for whatever you want to do with reference and after success call.
 		// console.log(reference)
 		// const status = paymentStatusList[reference?.status];
-		const status = "success"
+		const status = 'success';
 		sendPaymentCheckoutDetails(
-			paymentDetails({ reference: reference?.reference, status: status })
+			paymentDetails({reference: reference?.reference, status: status})
 		);
 	};
 
@@ -394,22 +394,21 @@ const Checkout = () => {
 
 	const handleMakeItFreePayment = async () => {
 		await sendPaymentCheckoutDetails(
-			paymentDetails({ total: null, reference: '' })
+			paymentDetails({total: null, reference: ''})
 		);
 	};
 
 	const couponData = {
 		coupon_code: couponCode,
-		product_kreator_id: productId
-	}
-
-	const handleApplyCoupon = async (e) => {
-		e.preventDefault()
-		await applyCoupon(couponData, (res) => {
-			setCouponDetails(res)
-		});
+		product_kreator_id: productId,
 	};
 
+	const handleApplyCoupon = async (e) => {
+		e.preventDefault();
+		await applyCoupon(couponData, (res) => {
+			setCouponDetails(res);
+		});
+	};
 
 	// 	If coupon being sent is in percentage, say 20%
 
@@ -419,13 +418,21 @@ const Checkout = () => {
 
 	// EEEVV455
 
-	const standardPrice = desiredAmount ? desiredAmount : Number(getCurrency('price')).toFixed(2)
-	const percentagePrice = standardPrice - (Number(couponDetails.value) / 100) * standardPrice
-	const actualPrice = standardPrice - Number(couponDetails.value)
-	const basicSubtotal = couponDetails.indicator === "IsPercentage" ? percentagePrice : actualPrice
-	const subTotal = couponDetails.indicator === "IsPercentage" || couponDetails.indicator === "IsFixedAmount" ? basicSubtotal : standardPrice
-
-
+	const standardPrice = desiredAmount
+		? desiredAmount
+		: Number(getCurrency('price')).toFixed(2);
+	const percentagePrice =
+		standardPrice - (Number(couponDetails.value) / 100) * standardPrice;
+	const actualPrice = standardPrice - Number(couponDetails.value);
+	const basicSubtotal =
+		couponDetails.indicator === 'IsPercentage'
+			? percentagePrice
+			: actualPrice;
+	const subTotal =
+		couponDetails.indicator === 'IsPercentage' ||
+		couponDetails.indicator === 'IsFixedAmount'
+			? basicSubtotal
+			: standardPrice;
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -476,7 +483,7 @@ const Checkout = () => {
 
 				<div className="flex flex-col md:flex-row gap-6 w-full">
 					<div
-						style={{ height: 'fit-content' }}
+						style={{height: 'fit-content'}}
 						className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
 					>
 						<form>
@@ -497,7 +504,7 @@ const Checkout = () => {
 								height="small"
 								onChange={formik.handleChange}
 								errorMessage={errors.firstName}
-							// validateOnChange
+								// validateOnChange
 							/>
 
 							<Input
@@ -507,7 +514,7 @@ const Checkout = () => {
 								height="small"
 								onChange={formik.handleChange}
 								errorMessage={errors.lastName}
-							// validateOnChange
+								// validateOnChange
 							/>
 
 							<Input
@@ -519,7 +526,7 @@ const Checkout = () => {
 								errorMessage={errors.email}
 							/>
 
-							<Row gutter={{ xs: 0, sm: 0, md: 8 }}>
+							<Row gutter={{xs: 0, sm: 0, md: 8}}>
 								<Col
 									xs={24}
 									md={12}
@@ -538,12 +545,12 @@ const Checkout = () => {
 											placeholder="Nigeria (+234)"
 											// name="Country_Id"
 											isCheckout={true}
-										// rules={[
-										//   {
-										//     required: true,
-										//     message: "Country is a required field",
-										//   },
-										// ]}
+											// rules={[
+											//   {
+											//     required: true,
+											//     message: "Country is a required field",
+											//   },
+											// ]}
 										/>
 									</Col>
 									<div className={styles.phoneBox}>
@@ -588,7 +595,7 @@ const Checkout = () => {
 
 								<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
 									{countriesCurrency?.map(
-										({ currency, currency_id, flag }) => (
+										({currency, currency_id, flag}) => (
 											<CurrencyCard
 												key={currency_id}
 												handleSelect={() =>
@@ -612,7 +619,7 @@ const Checkout = () => {
 								<h2>West African CFA Franc BCEAO(XOF)</h2>
 								<div className="grid gap-4 grid-cols-4 ">
 									{filterdWest.map(
-										({ id, currency, flag, name }, index) => (
+										({id, currency, flag, name}, index) => (
 											<div
 												key={index}
 												className={
@@ -621,7 +628,7 @@ const Checkout = () => {
 														: styles.card
 												}
 												onClick={() =>
-													handleSelect({ id, currency })
+													handleSelect({id, currency})
 												}
 											>
 												<div
@@ -660,7 +667,7 @@ const Checkout = () => {
 								<h2>Central African CFA Franc BEAC(XAF)</h2>
 								<div className="grid gap-4 grid-cols-4 ">
 									{filteredCentral.map(
-										({ id, currency, name, flag }, index) => (
+										({id, currency, name, flag}, index) => (
 											<div
 												key={index}
 												className={
@@ -669,7 +676,7 @@ const Checkout = () => {
 														: styles.card
 												}
 												onClick={() =>
-													handleSelect({ id, currency })
+													handleSelect({id, currency})
 												}
 											>
 												<div
@@ -705,7 +712,8 @@ const Checkout = () => {
 							</div>
 
 							{/* start the pay as you want  */}
-							{pricingTypeDetails?.price_type === "Pay What You Want" && (
+							{pricingTypeDetails?.price_type ===
+								'Pay What You Want' && (
 								<div className="">
 									<h2 className={styles.desiredPayTitle}>
 										Pay what you want
@@ -722,12 +730,16 @@ const Checkout = () => {
 										>
 											Minimum price:{' '}
 											{getCurrency('currency')}{' '}
-											{Number(getCurrency('price')).toFixed(2)}
+											{Number(
+												getCurrency('price')
+											).toFixed(2)}
 										</div>
 									</div>
 									{desiredAmount &&
 										Number(desiredAmount) <
-										Number(getCurrency('price')).toFixed(2) && (
+											Number(
+												getCurrency('price')
+											).toFixed(2) && (
 											<div
 												className={
 													styles.desiredAmountError
@@ -741,7 +753,14 @@ const Checkout = () => {
 													Please read carefully <br />
 													Your desired amount is too
 													low. The minimum amount for
-													this product is {getCurrency('currency')}{' '} {Number(getCurrency('price')).toFixed(2)}.
+													this product is{' '}
+													{getCurrency(
+														'currency'
+													)}{' '}
+													{Number(
+														getCurrency('price')
+													).toFixed(2)}
+													.
 												</p>
 											</div>
 										)}
@@ -751,7 +770,11 @@ const Checkout = () => {
 										</p>
 										<div className="w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
 											<Input
-												placeholder={`Suggested Amount: ${getCurrency('currency')} ${Number(getCurrency('price')).toFixed(2)} `}
+												placeholder={`Suggested Amount: ${getCurrency(
+													'currency'
+												)} ${Number(
+													getCurrency('price')
+												).toFixed(2)} `}
 												onChange={(e) =>
 													setDesiredAmount(
 														e.target.value
@@ -768,63 +791,71 @@ const Checkout = () => {
 							{['GBP', 'USD'].includes(
 								activeCurrency?.currency
 							) && (
-									<div className="pb-6">
-										<div className="text-black-100">
-											Payment Method
-										</div>
-										<p className="text-base-gray-200">
-											Select your preferred payment method
-										</p>
+								<div className="pb-6">
+									<div className="text-black-100">
+										Payment Method
+									</div>
+									<p className="text-base-gray-200">
+										Select your preferred payment method
+									</p>
 
-										<div className="grid gap-4 grid-cols-3">
-											{paymentMethods.map(
-												({ type, icon, value }) => (
-													<div
-														key={value}
-														onClick={() =>
-															handlePaymentMethod(
-																value
-															)
-														}
-														className={`${selectedPaymentMethod ===
+									<div className="grid gap-4 grid-cols-3">
+										{paymentMethods.map(
+											({type, icon, value}) => (
+												<div
+													key={value}
+													onClick={() =>
+														handlePaymentMethod(
 															value
+														)
+													}
+													className={`${
+														selectedPaymentMethod ===
+														value
 															? 'activeCard'
 															: 'card'
-															} p-2 flex justify-around items-center`}
-													>
+													} p-2 flex justify-around items-center`}
+												>
+													<Image
+														src={icon}
+														alt={type}
+													/>
+													{selectedPaymentMethod ===
+														value && (
 														<Image
-															src={icon}
-															alt={type}
+															src={ActiveTick}
+															alt="active"
+															width="16"
+															height="16"
 														/>
-														{selectedPaymentMethod ===
-															value && (
-																<Image
-																	src={ActiveTick}
-																	alt="active"
-																	width="16"
-																	height="16"
-																/>
-															)}
-													</div>
-												)
-											)}
-										</div>
+													)}
+												</div>
+											)
+										)}
 									</div>
-								)}
+								</div>
+							)}
 
 							{/**Apply coupon feature is yet to be implemented */}
-							{pricingTypeDetails?.price_type !== "Make it Free" && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 									<div className="w-3/5 xs:w-3/4 md:w-4/5">
 										<Input
 											placeholder="Coupon Code"
 											name="couponCode"
-											onChange={(e) => setCouponCode(e.target.value)}
+											onChange={(e) =>
+												setCouponCode(e.target.value)
+											}
 										/>
 									</div>
 									<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
 										<Button
-											text={loading ? "wait" : "Apply Coupon"}
+											text={
+												loading
+													? 'wait'
+													: 'Apply Coupon'
+											}
 											className={styles.couponBtn}
 											onClick={handleApplyCoupon}
 										/>
@@ -832,18 +863,25 @@ const Checkout = () => {
 								</div>
 							)}
 
-							{pricingTypeDetails?.price_type !== "Make it Free" && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
 									<div className="w-4/5">
 										<Input
 											placeholder=" Enter Coupon Code"
 											name="couponCode"
-											onChange={(e) => setCouponCode(e.target.value)}
+											onChange={(e) =>
+												setCouponCode(e.target.value)
+											}
 										/>
 									</div>
 									<div className="w-1/5 pb-2">
 										<Button
-											text={loading ? "wait" : "Apply Coupon"}
+											text={
+												loading
+													? 'wait'
+													: 'Apply Coupon'
+											}
 											className={styles.couponBtn}
 											onClick={handleApplyCoupon}
 										/>
@@ -851,7 +889,8 @@ const Checkout = () => {
 								</div>
 							)}
 
-							{pricingTypeDetails?.price_type !== "Make it Free" && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div
 									className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
 								>
@@ -867,7 +906,6 @@ const Checkout = () => {
 											<p>
 												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
 												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
-
 												{getCurrency('currency')}{' '}
 												{subTotal}
 												{/* {basicSubtotal} || {desiredAmount
@@ -898,14 +936,14 @@ const Checkout = () => {
 											{/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
 											)} */}
-											{getCurrency('currency')}{' '}
-											{subTotal}
+											{getCurrency('currency')} {subTotal}
 										</p>
 									</div>
 								</div>
 							)}
 
-							{pricingTypeDetails?.price_type !== "Make it Free" ? (
+							{pricingTypeDetails?.price_type !==
+							'Make it Free' ? (
 								<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 									Get instant access to this product once your
 									payment is successful!
@@ -923,7 +961,8 @@ const Checkout = () => {
 								</>
 							)}
 
-							{pricingTypeDetails?.price_type !== "Make it Free" && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className=" w-full lg:w-5/6 mx-auto">
 									<Button
 										text={`Pay Now`}
@@ -955,7 +994,7 @@ const Checkout = () => {
                 </div>
               )} */}
 						</form>
-						{pricingTypeDetails?.price_type === "Make it Free" && (
+						{pricingTypeDetails?.price_type === 'Make it Free' && (
 							<div className=" w-full lg:w-5/6 mx-auto">
 								<Button
 									text={`Get Now`}
@@ -1009,7 +1048,7 @@ const Checkout = () => {
 	);
 };
 
-const SuccessfulCheckoutModal = ({ productDetails, price, currency }) => {
+const SuccessfulCheckoutModal = ({productDetails, price, currency}) => {
 	return (
 		<div className="p-0 md:p-6 lg:p-12 text-center">
 			<Image src={ActiveTick} width="45" height="45" />

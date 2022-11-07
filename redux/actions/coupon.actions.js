@@ -71,7 +71,6 @@ export const GetCoupons = () => {
 	};
 };
 
-
 export const ApplyCoupon = () => {
 	const dispatch = useDispatch();
 	return (data, successCallback, errorCallback) => (

@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { ArrowLeft, WhiteEye } from 'utils';
-import { Button } from 'antd';
+import {useState, useEffect} from 'react';
+import {ArrowLeft, WhiteEye} from 'utils';
+import {Button} from 'antd';
 import styles from './MembershipTab.module.scss';
 import PlayMedia from './PlayMedia';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
-import { useFormik } from 'formik';
-import { CreateSection, GetProductByID, CreateContent } from 'redux/actions';
+import {useFormik} from 'formik';
+import {CreateSection, GetProductByID, CreateContent} from 'redux/actions';
 
 import ManageSectionSegment from 'components/products/components/ManageSection/ManageSection';
 
@@ -18,7 +18,7 @@ export default function ManageSection({
 }) {
 	const [mediaContent, setMediaContent] = useState(null);
 	const [productSection, setProductSection] = useState(null);
-	const { product, productID } = useSelector((state) => state.product);
+	const {product, productID} = useSelector((state) => state.product);
 	const getProduct = GetProductByID();
 	const createContent = CreateContent();
 	const [play, setPlay] = useState(false);
@@ -43,7 +43,7 @@ export default function ManageSection({
 		is_available_to_all_subscriber: true,
 	};
 
-	const handleSubmit = (data) => { };
+	const handleSubmit = (data) => {};
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
@@ -51,10 +51,10 @@ export default function ManageSection({
 		validateOnChange: false,
 	});
 
-	const { setFieldValue } = formik;
+	const {setFieldValue} = formik;
 	useEffect(() => {
 		if (Object.keys(product).length > 0) {
-			const { product_content } = product;
+			const {product_content} = product;
 			setProductSection(product_content);
 		}
 	}, [product]);
@@ -96,7 +96,7 @@ export default function ManageSection({
 				/>
 			)}
 
-			<div className='flex justify-between'>
+			<div className="flex justify-between">
 				<div
 					onClick={() => goBack()}
 					className="inline-flex justify-start cursor-pointer items-center mb-4"
@@ -115,7 +115,7 @@ export default function ManageSection({
 					</div>
 				</div>
 				<div className={styles.miniSaveButtons + ' flex'}>
-					<Button type="primary" style={{ color: '#0072ef' }}>
+					<Button type="primary" style={{color: '#0072ef'}}>
 						+ Add Section
 					</Button>
 					<Button

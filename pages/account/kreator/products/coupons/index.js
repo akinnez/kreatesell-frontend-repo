@@ -27,14 +27,13 @@ const Coupon = () => {
 		setCouponData(coupons);
 	}, [coupons]);
 
-	const memoisedCouponData = useMemo( 
+	const memoisedCouponData = useMemo(
 		() =>
 			couponData
 				?.sort((a, b) =>
 					a.coupons?.date_created < b.coupons?.date_created ? 1 : -1
 				)
 				?.map((item, i) => ({
-					
 					...item,
 					key: i + 1,
 					numbers: i + 1,

@@ -20,7 +20,7 @@ const ManageSection = ({
 	const [isTitleEditable, setIsTitleEditable] = useState(false);
 	const [sectionName, setSectionName] = useState(items.section_name);
 
-	console.log(items?.product_subsection[0],'items')
+	console.log(items?.product_subsection[0], 'items');
 
 	return (
 		<div className="flex flex-col mt-7">

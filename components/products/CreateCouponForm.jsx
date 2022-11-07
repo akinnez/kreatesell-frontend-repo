@@ -433,7 +433,7 @@ export const CreateCouponForm = () => {
 							placeholder="1"
 							name="no_of_usage"
 							value={no_of_usage}
-							disabled={isUsage ? false : true} 
+							disabled={isUsage ? false : true}
 							onChange={(e) =>
 								setFieldValue(
 									'coupon_settings.no_of_usage',

@@ -1,6 +1,6 @@
 import {Modal} from 'antd';
 import {useEffect, useState} from 'react';
-import Image from 'next/image'
+import Image from 'next/image';
 
 export default function PlayMedia({type, open, source, closePlay}) {
 	const [isOpen, setIsOpen] = useState(open);
@@ -19,7 +19,7 @@ export default function PlayMedia({type, open, source, closePlay}) {
 			closable={false}
 		>
 			{/* <div>Hello There {source}</div> */}
-			<Image src={source} alt="" width={800} height={500}/> 
+			<Image src={source} alt="" width={800} height={500} />
 
 			{/* {type === "audio" && <audio src={source} controls />} */}
 		</Modal>
