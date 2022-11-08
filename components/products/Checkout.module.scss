@@ -193,6 +193,7 @@
 				font-weight: 500;
 				font-size: 1rem;
 				line-height: 26px;
+				margin-right: 32px;
 				color: #262626;
 			}
 		}
@@ -210,9 +211,16 @@
 		font-size: 1rem;
 		line-height: 26px;
 		color: #262626;
+		margin-right: 25px;
 	}
 	.cpnStatus {
 		display: flex;
+		position: relative;
+		// border: 1px solid red;
+		@media (max-width: 576px) {
+			top: -12px;
+			left: 20px;
+		}
 		span {
 			width: 120px;
 		}

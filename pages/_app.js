@@ -15,6 +15,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '@reach/dialog/styles.css';
+import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 import {PayPalScriptProvider} from '@paypal/react-paypal-js';
 import {setAuthorizationHeader} from '../utils/index';
 import ChatScript from '../components/ChatWidgetScript';

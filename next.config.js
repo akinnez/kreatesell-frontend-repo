@@ -26,9 +26,10 @@ module.exports = {
 		//  kreatesell paypal
 		// NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY:
 		//   'AW7u10uJYBenaA-igO_LE3kZFljEyvqIQtl_gI7NM8bsl8ItY6m4g8mHaYl41FJHgvjZiJ2RnoOQkKcf',
-
+		// TODO: this should be changed to Kreate sell's paypal
 		NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY:
 			'AQWU0_H74bp7gktmP1olCxUqoXxweGxkGxGl8jE-Pw-_8p_OtQUumWjdyP2boRwcBtSHebPXY1LKv2vP',
+		NEXT_COINBASE_API_KEY: 'f623b9a9-26ad-42b9-ad02-b9a05f252997',
 	},
 	images: {
 		domains: [

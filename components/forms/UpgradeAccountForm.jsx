@@ -5,6 +5,7 @@ import Image from 'next/image';
 import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
 import {usePaystackPayment} from 'react-paystack';
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
 
 import {loadStripe} from '@stripe/stripe-js';
 
@@ -77,6 +78,7 @@ export const UpgradeAccountForm = ({
 
 	// const makePlanUpgrade = MakePlanUpgrade();
 	const {user} = useSelector((state) => state.auth);
+	const {store} = useSelector((state) => state.store);
 
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [convertedPrice, setConvertedPrice] = useState(price);
@@ -189,6 +191,10 @@ export const UpgradeAccountForm = ({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		// if selected is crypto
+		if (selectedCurrency === 'crypto') {
+		}
+
 		// if selected currency is stripe
 		if (selectedPaymentMethod === 'stripe') {
 			axios
@@ -268,7 +274,7 @@ export const UpgradeAccountForm = ({
 		}
 	}, [convertedCurrency]);
 
-	console.log('active', activeCurrency.currency);
+	// console.log('active', activeCurrency.currency);
 	const handleSelect = (currency) => {
 		setActiveCurrency(currency);
 	};
@@ -292,30 +298,6 @@ export const UpgradeAccountForm = ({
 
 	if (loading) return <Loader />;
 
-	// if (selectedPaymentMethod === 'paypal')
-	//   return (
-	//     <PayPalButtons
-	//       style={{ layout: 'horizontal' }}
-	//       createOrder={(data, actions) => {
-	//         return actions.order.create({
-	//           purchase_units: [
-	//             {
-	//               description: 'customDescription',
-	//               amount: {
-	//                 value: '5000',
-	//                 currency: 'USD',
-	//               },
-	//             },
-	//           ],
-	//         })
-	//       }}
-	//       onApprove={(data, actions) => {
-	//         console.log('data is', data)
-	//         console.log('actions is', actions)
-	//         alert('You have successfully completed the transaction')
-	//       }}
-	//     />
-	//   )
 	return (
 		<>
 			<div className="px-0 md:px-5">
@@ -476,7 +458,14 @@ export const UpgradeAccountForm = ({
 							</div>
 							<div className="grid gap-4 grid-cols-3 pt-3">
 								{paymentMethods
-									?.filter(({value}) => value !== 'paypal')
+									?.filter(({value}) => {
+										return value === 'flutterwave' ||
+											(store?.kyc_status
+												?.is_kyc_verified &&
+												value !== 'paypal')
+											? true
+											: false;
+									})
 									.map(({type, icon, value}) => (
 										<div
 											key={value}
@@ -490,44 +479,69 @@ export const UpgradeAccountForm = ({
 											} p-2 flex justify-around items-center`}
 										>
 											<Image src={icon} alt={type} />
-											{selectedPaymentMethod ===
-												value && (
-												<Image
-													src={ActiveTick}
-													alt="active"
-													width="16"
-													height="16"
-												/>
-											)}
+											{store?.kyc_status
+												?.is_kyc_verified &&
+												selectedPaymentMethod ===
+													value && (
+													<Image
+														src={ActiveTick}
+														alt="active"
+														width="16"
+														height="16"
+													/>
+												)}
 										</div>
 									))}
-								<PayPalButtons
-									style={{layout: 'horizontal', label: 'pay'}}
-									className={`flex justify-around items-center`}
-									createOrder={(data, actions) => {
-										return actions.order.create({
-											purchase_units: [
-												{
-													description:
-														'customDescription',
-													amount: {
-														value: Number(
-															convertedPrice
-														).toFixed(2),
-														currency:
-															activeCurrency?.currency ||
-															selectedCurrency.currency,
+								<RenderIf
+									condition={
+										store?.kyc_status?.is_kyc_verified
+									}
+								>
+									<PayPalButtons
+										style={{
+											layout: 'horizontal',
+											label: 'pay',
+										}}
+										className={`flex justify-around items-center`}
+										createOrder={(data, actions) => {
+											return actions.order.create({
+												purchase_units: [
+													{
+														description:
+															'customDescription',
+														amount: {
+															value: Number(
+																convertedPrice
+															).toFixed(2),
+															currency:
+																activeCurrency?.currency ||
+																selectedCurrency.currency,
+														},
 													},
-												},
-											],
-										});
-									}}
-									onApprove={(data, actions) => {
-										console.log('data is', data);
-										console.log('actions is', actions);
-										alert(
-											'You have successfully completed the transaction'
-										);
+												],
+											});
+										}}
+										onApprove={(data, actions) => {
+											console.log('data is', data);
+											console.log('actions is', actions);
+											alert(
+												'You have successfully completed the transaction'
+											);
+										}}
+									/>
+								</RenderIf>
+								<CoinbaseCommerceButton
+									checkoutId={'My checkout ID'}
+									styled={false}
+									// chargeId={nil}
+									onLoad={() => {}}
+									onChargeSuccess={() => {}}
+									onChargeFailure={() => {}}
+									onPaymentDetected={() => {}}
+									onModalClosed={() => {}}
+									disableCaching={false}
+									customMetadata={{
+										custom: 'This is custom Meta data',
 									}}
 								/>
 							</div>
@@ -627,4 +641,8 @@ export const UpgradeAccountForm = ({
 			`}</style>
 		</>
 	);
+};
+
+const RenderIf = ({condition, children}) => {
+	return condition ? children : null;
 };

@@ -82,7 +82,7 @@
 			.reasonsContainer {
 				@extend .bordered;
 				width: 65%;
-				min-height: 290px;
+				// min-height: 290px;
 				padding: 2.5rem 2rem;
 				@include screen('tablet') {
 					width: 95%;

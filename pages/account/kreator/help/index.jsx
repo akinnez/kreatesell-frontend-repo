@@ -16,7 +16,7 @@ const Index = (props) => {
 	const [error, setError] = useState(false);
 	const [tickets, setTickets] = useState([]);
 
-	const getUsertTickets = async () => {
+	const getUserTickets = async () => {
 		const token = await getUserToken();
 		try {
 			const res = await axios.get(ticketsURL, {
@@ -35,7 +35,7 @@ const Index = (props) => {
 	};
 
 	useEffect(() => {
-		getUsertTickets();
+		getUserTickets();
 	}, []);
 
 	if (error) {

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 import Image from 'next/image';
 
 import useSWR from 'swr';
-import {Table, Tooltip, Popover} from 'antd';
+import {Table, Tooltip, Popover, Card} from 'antd';
 
 import styles from '../../../../public/css/AllTransactions.module.scss';
 import TransactionHeader from 'components/TransactionComponents/header';
@@ -12,7 +12,12 @@ import useFilters from 'components/TransactionComponents/useFilters';
 import axiosAPI from 'utils/axios';
 import {dateString} from 'utils/dateFormat';
 import {emptyComponent} from 'components';
-import {EyesClosed, handleShowFilter, formatDate} from 'utils';
+import {
+	EyesClosed,
+	handleShowFilter,
+	DropDownIcon,
+	DropDownUpIcon,
+} from 'utils';
 
 const statusComponent = (item) => {
 	const statusTextList = {
@@ -195,6 +200,92 @@ const tableLocale = {
 	emptyText: emptyComponent('No record yet'),
 };
 
+const formatNumberToLocaleString = (number) => {
+	return number.toLocaleString(undefined, {maximumFractionDigits: 2});
+};
+
+const CardComponent = ({data}) => {
+	const [showCustomer, setShowCustomer] = useState(false);
+	return (
+		<div className={styles.cardContainer}>
+			<Card className={styles.card}>
+				<p className={styles.date}>{dateString(data.date_created)}</p>
+				<div className={styles.statusContainer}>
+					<div className={styles.status}>
+						{statusComponent(data.transaction_status)}
+					</div>
+				</div>
+				<div className={styles.heading}>
+					{/* <Image /> */}
+					<h1 className={styles.title}>
+						{data.product || 'UI Design Introduction'}
+					</h1>
+				</div>
+				<ul className={styles.orderDetails}>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Order ID</h1>
+						<p className={`${styles.value} mb-0`}>
+							#{data.order_id}
+						</p>
+					</li>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Product Price</h1>
+						<p className={`${styles.value} mb-0`}>
+							{data.currency}{' '}
+							{formatNumberToLocaleString(data.price)}
+						</p>
+					</li>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Clearance Date</h1>
+						<p className={`${styles.value} mb-0`}>
+							Jun 12th 2021, 3:50PM
+						</p>
+					</li>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Payment Method</h1>
+						<p className={`${styles.value} mb-0`}></p>
+					</li>
+				</ul>
+				<section className={styles.customerDetailsSection}>
+					<h2 className={styles.customerDetailsHeading}>
+						See Customer Details{' '}
+						<span onClick={() => setShowCustomer((prev) => !prev)}>
+							{showCustomer ? (
+								<Image src={DropDownUpIcon} alt="icon" />
+							) : (
+								<Image src={DropDownIcon} alt="" />
+							)}
+						</span>
+					</h2>
+					{/* <Image/> */}
+
+					<ul
+						className={`${styles.customerDetails} ${
+							showCustomer ? styles.show : styles.hide
+						}`}
+					>
+						<li className={styles.customerDetail}>
+							<h1 className={`${styles.key} mb-0`}>Order ID</h1>
+							<p className={`${styles.value} mb-0`}>
+								#{data.order_id}
+							</p>
+						</li>
+						<li className={styles.customerDetail}>
+							<h1 className={`${styles.key} mb-0`}>
+								Product Price
+							</h1>
+							<p className={`${styles.value} mb-0`}>
+								{data.currency}{' '}
+								{formatNumberToLocaleString(data.price)}
+							</p>
+						</li>
+					</ul>
+				</section>
+			</Card>
+		</div>
+	);
+};
+
 const Index = () => {
 	const [loading, setLoading] = useState(false);
 	const [requests, setRequests] = useState({data: [], total: 0});
@@ -263,12 +354,20 @@ const Index = () => {
 				}}
 			/>
 			<div className={styles.dataSection}>
+				<div className={styles.mobile__wrapper}>
+					{requests.data.map((request) => (
+						<CardComponent key={request.order_id} data={request} />
+					))}
+				</div>
 				<div className={styles.table__wrapper}>
 					<Table
 						columns={columns}
 						dataSource={requests.data}
 						loading={!response && !error}
 						locale={tableLocale}
+						scroll={{
+							x: 1000,
+						}}
 					/>
 				</div>
 			</div>
