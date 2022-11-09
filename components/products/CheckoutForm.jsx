@@ -29,6 +29,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	 * Make It Free: 4
 	 */
 
+	console.log(priceType, 'priceType');
+
 	const getProductByID = GetProductByID();
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
@@ -50,6 +52,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	// }
 
 	const [progress, setProgress] = useState(0);
+	const [isLimited, setIsLimited] = useState(false);
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
 	const [applyCoupon, setApplyCoupon] = useState(false);
@@ -393,10 +396,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		// console.log("result = ", result);
 		createProduct(result, (res) => {
 			// console.log('res', res)
-			if (priceType === 'Fixed Price') {
-				router.push(`/account/kreator/products/preview/${productID}`);
-				return;
-			}
+			// if (priceType === 'Fixed Price') {
+			// 	router.push(`/account/kreator/products/preview/${productID}`);
+			// 	return;
+			// }
 			setProductTab(2);
 		});
 	};
@@ -422,6 +425,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		suggested_prices: [],
 		billing_frequency: 0,
 		minimum_prices: [],
+		// no_of_frequency: '',
 
 		coupon_settings: {
 			coupon_code: 'string',
@@ -468,8 +472,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 				return setFieldValue('pricing_type_id', 1);
 			case 'Pay What You Want':
 				return setFieldValue('pricing_type_id', 2);
-			case 'Installment Payment':
-				return setFieldValue('pricing_type_id', 3);
+			// case 'Installment Payment':
+			// 	return setFieldValue('pricing_type_id', 3);
 			case 'Make It Free':
 				return setFieldValue('pricing_type_id', 4);
 		}
@@ -769,7 +773,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 				</div>
 			)}
 
-			{priceType === 'Installment Payment' && (
+			{/* {priceType === 'Installment Payment' && (
 				<div>
 					<p className="text-base mb-2"></p>
 					<CustomCheckoutSelect
@@ -837,7 +841,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 						</div>
 					</div>
 				</div>
-			)}
+			)} */}
 
 			<div>
 				{priceType === 'Fixed Price' && (
@@ -889,7 +893,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 					</div>
 				)}
 
-				{priceType !== 4 && (
+				{priceType !== 'Make It Free' && (
 					<div
 						className={
 							styles.aplyCpn +
@@ -1338,7 +1342,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
 						disabled={disableButton()}
 					>
-						Save and Preview
+						Save and Continue
 					</Button>
 				</div>
 			</div>

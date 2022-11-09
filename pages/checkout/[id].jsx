@@ -34,6 +34,7 @@ import {
 	SendPaymentCheckoutDetails,
 	ConvertCurrency,
 	GetStoreCheckoutCurrencies,
+	ApplyCoupon,
 } from 'redux/actions';
 import crypto from 'crypto';
 import LogoImg from '../../public/images/logo.svg';
@@ -68,6 +69,7 @@ const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
+
 	const [modal, setModal] = useState(false);
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
@@ -79,12 +81,14 @@ const Checkout = () => {
 		(state) => state.store
 	);
 
+	const {loading, applyCouponResponse} = useSelector((state) => state.coupon);
+
+	console.log(applyCouponResponse, 'applyCouponResponse');
+
 	const [country, setCountry] = useState('');
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const {countries} = useSelector((state) => state.utils);
-
-	const [isFree, setIsFree] = useState(true); //temporary state control
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
@@ -101,10 +105,20 @@ const Checkout = () => {
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
 	const convertCurrency = ConvertCurrency();
+	const applyCoupon = ApplyCoupon();
 
 	const closeModal = () => setModal(false);
 
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
+	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
+
+	const [couponCode, setCouponCode] = useState('');
+	const [couponDetails, setCouponDetails] = useState({});
+
+	console.log(couponCode, 'couponCode');
+
+	console.log(pricingTypeDetails, 'pricingTypeDetails');
+
 	const [storeId, setStoreId] = useState();
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency,
@@ -116,6 +130,9 @@ const Checkout = () => {
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
+			setPricingTypeDetails(
+				response.data?.data?.product_details?.pricing_type
+			);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 		} catch (error) {
@@ -250,7 +267,7 @@ const Checkout = () => {
 					await sendPaymentCheckoutDetails(
 						paymentDetails({
 							reference: response?.tx_ref,
-							status: response?.status,
+							status: 'success',
 						})
 					);
 					closePaymentModal();
@@ -356,9 +373,10 @@ const Checkout = () => {
 	const onPaystackSuccess = (reference) => {
 		// Implementation for whatever you want to do with reference and after success call.
 		// console.log(reference)
-		const status = paymentStatusList[reference?.status];
+		// const status = paymentStatusList[reference?.status];
+		const status = 'success';
 		sendPaymentCheckoutDetails(
-			paymentDetails({reference: reference?.reference, status})
+			paymentDetails({reference: reference?.reference, status: status})
 		);
 	};
 
@@ -385,6 +403,42 @@ const Checkout = () => {
 			paymentDetails({total: null, reference: ''})
 		);
 	};
+
+	const couponData = {
+		coupon_code: couponCode,
+		product_kreator_id: productId,
+	};
+
+	const handleApplyCoupon = async (e) => {
+		e.preventDefault();
+		await applyCoupon(couponData, (res) => {
+			setCouponDetails(res);
+		});
+	};
+
+	// 	If coupon being sent is in percentage, say 20%
+
+	// Subtotal - (20/100) x Subtotal
+
+	// KREATE-swivehub638004903313753835
+
+	// EEEVV455
+
+	const standardPrice = desiredAmount
+		? desiredAmount
+		: Number(getCurrency('price')).toFixed(2);
+	const percentagePrice =
+		standardPrice - (Number(couponDetails.value) / 100) * standardPrice;
+	const actualPrice = standardPrice - Number(couponDetails.value);
+	const basicSubtotal =
+		couponDetails.indicator === 'IsPercentage'
+			? percentagePrice
+			: actualPrice;
+	const subTotal =
+		couponDetails.indicator === 'IsPercentage' ||
+		couponDetails.indicator === 'IsFixedAmount'
+			? basicSubtotal
+			: standardPrice;
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -664,7 +718,8 @@ const Checkout = () => {
 							</div>
 
 							{/* start the pay as you want  */}
-							{isFree && (
+							{pricingTypeDetails?.price_type ===
+								'Pay What You Want' && (
 								<div className="">
 									<h2 className={styles.desiredPayTitle}>
 										Pay what you want
@@ -680,15 +735,17 @@ const Checkout = () => {
 											className={styles.minimumPriceText}
 										>
 											Minimum price:{' '}
-											{convertedCurrency.to_currency_name}{' '}
+											{getCurrency('currency')}{' '}
 											{Number(
-												convertedCurrency.total_amount
+												getCurrency('price')
 											).toFixed(2)}
 										</div>
 									</div>
 									{desiredAmount &&
-										desiredAmount <
-											convertedCurrency.total_amount && (
+										Number(desiredAmount) <
+											Number(
+												getCurrency('price')
+											).toFixed(2) && (
 											<div
 												className={
 													styles.desiredAmountError
@@ -702,7 +759,14 @@ const Checkout = () => {
 													Please read carefully <br />
 													Your desired amount is too
 													low. The minimum amount for
-													this product is GBP 1000.
+													this product is{' '}
+													{getCurrency(
+														'currency'
+													)}{' '}
+													{Number(
+														getCurrency('price')
+													).toFixed(2)}
+													.
 												</p>
 											</div>
 										)}
@@ -712,11 +776,11 @@ const Checkout = () => {
 										</p>
 										<div className="w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
 											<Input
-												placeholder={`Suggested Amount: ${
-													convertedCurrency.to_currency_name
-												} ${Number(
-													convertedCurrency.total_amount
-												).toFixed(2)}`}
+												placeholder={`Suggested Amount: ${getCurrency(
+													'currency'
+												)} ${Number(
+													getCurrency('price')
+												).toFixed(2)} `}
 												onChange={(e) =>
 													setDesiredAmount(
 														e.target.value
@@ -779,43 +843,60 @@ const Checkout = () => {
 							)}
 
 							{/**Apply coupon feature is yet to be implemented */}
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 									<div className="w-3/5 xs:w-3/4 md:w-4/5">
 										<Input
 											placeholder="Coupon Code"
 											name="couponCode"
-											onChange={formik.handleChange}
+											onChange={(e) =>
+												setCouponCode(e.target.value)
+											}
 										/>
 									</div>
 									<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
 										<Button
-											text="Apply Coupon"
+											text={
+												loading
+													? 'wait'
+													: 'Apply Coupon'
+											}
 											className={styles.couponBtn}
+											onClick={handleApplyCoupon}
 										/>
 									</div>
 								</div>
 							)}
 
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
 									<div className="w-4/5">
 										<Input
 											placeholder=" Enter Coupon Code"
 											name="couponCode"
-											onChange={formik.handleChange}
+											onChange={(e) =>
+												setCouponCode(e.target.value)
+											}
 										/>
 									</div>
 									<div className="w-1/5 pb-2">
 										<Button
-											text="Apply Coupon"
+											text={
+												loading
+													? 'wait'
+													: 'Apply Coupon'
+											}
 											className={styles.couponBtn}
+											onClick={handleApplyCoupon}
 										/>
 									</div>
 								</div>
 							)}
 
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div
 									className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
 								>
@@ -832,11 +913,12 @@ const Checkout = () => {
 												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
 												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
 												{getCurrency('currency')}{' '}
-												{desiredAmount
+												{subTotal}
+												{/* {basicSubtotal} || {desiredAmount
 													? desiredAmount
 													: Number(
-															getCurrency('price')
-													  ).toFixed(2)}
+														getCurrency('price')
+													).toFixed(2)} */}
 											</p>
 										</div>
 									</div>
@@ -857,21 +939,17 @@ const Checkout = () => {
 										<p>Total</p>
 										<p className="text-primary-blue font-medium">
 											{/* {currency_name}{' '} */}
-											{getCurrency('currency')}{' '}
 											{/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
-                    )} */}
-											{desiredAmount
-												? desiredAmount
-												: Number(
-														getCurrency('price')
-												  ).toFixed(2)}
+											)} */}
+											{getCurrency('currency')} {subTotal}
 										</p>
 									</div>
 								</div>
 							)}
 
-							{isFree ? (
+							{pricingTypeDetails?.price_type !==
+							'Make it Free' ? (
 								<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 									Get instant access to this product once your
 									payment is successful!
@@ -889,7 +967,8 @@ const Checkout = () => {
 								</>
 							)}
 
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className=" w-full lg:w-5/6 mx-auto">
 									<Button
 										text={`Pay Now`}
@@ -921,7 +1000,7 @@ const Checkout = () => {
                 </div>
               )} */}
 						</form>
-						{!isFree && (
+						{pricingTypeDetails?.price_type === 'Make it Free' && (
 							<div className=" w-full lg:w-5/6 mx-auto">
 								<Button
 									text={`Get Now`}

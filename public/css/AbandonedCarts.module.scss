@@ -60,6 +60,7 @@
 
 	div[class='ant-tabs-tab-btn'] {
 		color: colors.$base-gray;
+
 		font: {
 			weight: 500;
 			size: 16px;
@@ -106,4 +107,25 @@
 	.header > div h2 {
 		font-size: 24px;
 	}
+}
+
+.abadonedCartText {
+	font-family: Inter;
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 33px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #262626;
+}
+
+.abadonedCartP {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	color: #8c8c8c;
+	/* or 162% */
+	line-height: 5px;
+	text-align: center;
 }
