@@ -536,11 +536,10 @@ const CouponActionComponent = ({item}) => {
 			<li
 				className="flex items-center cursor-pointer"
 				onClick={() => {
-					router.push(
-						'/account/kreator/products/coupons/create',
-						'',
-						{id}
-					);
+					localStorage.setItem('couponId', id);
+					router.push('/account/kreator/products/coupons/edit', '', {
+						id,
+					});
 				}}
 			>
 				<span>

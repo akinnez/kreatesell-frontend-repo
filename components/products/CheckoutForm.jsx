@@ -29,8 +29,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	 * Make It Free: 4
 	 */
 
-	console.log(priceType, 'priceType');
-
 	const getProductByID = GetProductByID();
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
@@ -41,6 +39,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const {product, billingInterval, loading} = useSelector(
 		(state) => state.product
 	);
+
+	const productType =
+		product?.product_details?.product_type?.product_type_name;
 
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
@@ -58,6 +59,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);
+	const [frequencyType, setFrequencyType] = useState(0);
+	const [usageType, setUsageType] = useState(0);
 	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
 	const [frequencyOptions, setFrequencyOptions] = useState([]);
 	const [numberOfInputs, setNumberOfInputs] = useState(1);
@@ -70,6 +73,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const [initialBillingInput, setInitialBillingInput] = useState(0);
 	const [custombillingInterval, setCustomBillingInterval] = useState(0);
 	const [isBasic, setIsBasic] = useState(true);
+	const [isApplied, setIsApplied] = useState(false);
+	const [isUsage, setIsUsage] = useState(false);
+
 	const mounted = useRef(null);
 	const {Option} = Select;
 
@@ -396,10 +402,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		// console.log("result = ", result);
 		createProduct(result, (res) => {
 			// console.log('res', res)
-			// if (priceType === 'Fixed Price') {
-			// 	router.push(`/account/kreator/products/preview/${productID}`);
-			// 	return;
-			// }
+			if (productType === 'Digital Download') {
+				router.push(`/account/kreator/products/preview/${productID}`);
+				return;
+			}
 			setProductTab(2);
 		});
 	};
@@ -425,7 +431,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		suggested_prices: [],
 		billing_frequency: 0,
 		minimum_prices: [],
-		// no_of_frequency: '',
 
 		coupon_settings: {
 			coupon_code: 'string',
@@ -436,6 +441,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			percentage_value: 0,
 			is_percentage: true,
 			is_fixed_amount: true,
+			no_of_frequency: '',
+			no_of_usage: '',
 			// "product_id": 0
 		},
 		installment_prices: [],
@@ -548,7 +555,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		}
 	}, [compareToPrice, allowAffiliateMarket, limitProductSale]);
 
-	// console.log('product', product)
 	const setAllFields = useCallback(() => {
 		mounted.current += 1;
 		if (product && mounted.current === 1) {
@@ -1044,6 +1050,151 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								/>
 							</div>
 						</div>
+
+						{/* start of implementation */}
+						<div className="flex flex-col mt-8">
+							<h2 className="font-semib5old text-base">
+								Limit the Frequency of the Coupon
+							</h2>
+							<div className="flex items-center mb-1">
+								<div>
+									<Radio
+										value={frequencyType}
+										label="Unlimited"
+										content={0}
+										onChange={(e) => {
+											setIsLimited(false);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												false
+											);
+										}}
+										checked={!isLimited ? true : false}
+										labelStyle={styles.radioLabelStyle}
+									></Radio>
+								</div>
+								<div className="ml-5">
+									<Radio
+										// className={styles.radioLabelStyle}
+										value={frequencyType}
+										label="Limited"
+										content={1}
+										onChange={(e) => {
+											setIsLimited(true);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												true
+											);
+										}}
+										checked={isLimited ? true : false}
+										labelStyle={styles.radioLabelStyle}
+									></Radio>
+								</div>
+							</div>
+							<div className={styles.inputGroup + ' w-3/4'}>
+								<h2 className="text-lg text-base-black-100">
+									Number of Times
+								</h2>
+								<Input
+									type="number"
+									label="Number of Times"
+									disabled={!isLimited ? true : false}
+									name="no_of_frequency"
+									// value={no_of_frequency}
+									onChange={(e) =>
+										setFieldValue(
+											'coupon_settings.no_of_frequency',
+											e.target.value
+										)
+									}
+								/>
+							</div>
+						</div>
+
+						<div className="flex flex-col mt-8">
+							<h2 className="font-semibold text-base">
+								Limit the Usage per Customer
+							</h2>
+							<div className="flex items-center mb-1">
+								<div>
+									<Radio
+										// className={styles.radioContent}
+										value={usageType}
+										label="Unlimited use per Customer"
+										content={0}
+										onChange={(e) => {
+											setIsUsage(false);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												false
+											);
+										}}
+										checked={!isUsage ? true : false}
+									>
+										Unlimited use per Customer
+									</Radio>
+								</div>
+								<div className="ml-5">
+									<Radio
+										// className={styles.radioContent}
+										value={usageType}
+										label="Coupon can be used how many times by a customer"
+										content={1}
+										onChange={(e) => {
+											setIsUsage(true);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												true
+											);
+										}}
+										checked={isUsage ? true : false}
+									>
+										Coupon can be used how many times by a
+										customer
+									</Radio>
+								</div>
+							</div>
+							<div className={styles.inputGroup + ' w-3/4 mt-2'}>
+								<h2 className="text-lg text-base-black-100">
+									Number of times coupon can be used per
+									customer
+								</h2>
+								<Input
+									type="number"
+									placeholder="1"
+									name="no_of_usage"
+									// value={no_of_usage}
+									disabled={isUsage ? false : true}
+									onChange={(e) =>
+										setFieldValue(
+											'coupon_settings.no_of_usage',
+											e.target.value
+										)
+									}
+								/>
+							</div>
+						</div>
+
+						<div className={styles.switchContent}>
+							<h2 className={styles.label}>
+								Allow Discount to be Applied for Recurring
+								Purchases
+							</h2>
+							<span className="flex items-center gap-3">
+								<Switch
+									onChange={(e) =>
+										setIsApplied((value) => !value)
+									}
+								/>{' '}
+								<h3 className="mb-0">
+									{isApplied ? 'ON' : 'OFF'}
+								</h3>
+							</span>
+						</div>
 					</div>
 				)}
 
@@ -1342,7 +1493,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
 						disabled={disableButton()}
 					>
-						Save and Continue
+						{productType === 'Digital Download'
+							? 'Save and Preview'
+							: 'Save and Continue'}
 					</Button>
 				</div>
 			</div>

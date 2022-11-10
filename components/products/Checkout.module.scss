@@ -306,3 +306,17 @@
 		height: 2.5rem;
 	}
 }
+
+.switchContent {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 30px;
+	width: 70%;
+	.label {
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 26px;
+		color: #595959;
+	}
+}

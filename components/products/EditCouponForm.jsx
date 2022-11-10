@@ -13,15 +13,17 @@ import {ErrorIcon} from 'utils';
 import {CreateCoupon, GetCoupons} from 'redux/actions';
 import {useRouter} from 'next/router';
 
-export const CreateCouponForm = () => {
+export const pathName = typeof window !== 'undefined' && window;
+
+export const EditCouponForm = () => {
 	const [isPercentage, setIsPercentage] = useState(true);
 	const [isLimited, setIsLimited] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
-	const [isAllProduct, setIsAllProduct] = useState(true);
+	const [isAllProduct, setIsAllProduct] = useState();
 	const [productData, setProductData] = useState([]);
 	const [isApplied, setIsApplied] = useState(false);
 	const {couponProducts} = useSelector((state) => state.product);
-	const {loading} = useSelector((state) => state.coupon);
+	const {loading, coupons} = useSelector((state) => state.coupon);
 
 	const {store} = useSelector((state) => state.store);
 	const router = useRouter();
@@ -29,15 +31,24 @@ export const CreateCouponForm = () => {
 	const createCoupon = CreateCoupon();
 	const getCoupon = GetCoupons();
 
+	const couponId = pathName.localStorage?.getItem('couponId');
+
+	const updateCouponData = coupons.filter(
+		(item) => item.coupons.id == couponId
+	);
+
+	const isdefaultRadioValue =
+		updateCouponData[0]?.coupons?.is_for_all_product;
+
 	const initialValues = {
 		coupon_settings: {
-			coupon_code: '',
+			coupon_code: updateCouponData[0]?.coupons?.coupon_code,
 			is_coupon: true,
 			start_date: '',
-			is_for_all_product: true,
+			// is_for_all_product: true,
 			end_date: '',
 			fixed_amount_value: '',
-			product_id: '',
+			// product_id: '',
 			percentage_value: '',
 			is_percentage: true,
 			is_fixed_amount: false,
@@ -47,14 +58,14 @@ export const CreateCouponForm = () => {
 			no_of_usage: '',
 			is_apply_to_recurring: false,
 		},
-		action: 'c',
+		action: 'e',
 		coupon_id: 0,
 		isBasicPlan: false,
 	};
 	const handleSubmit = (data) => {
-		if (data?.coupon_settings.is_for_all_product) {
-			delete data.coupon_settings.product_id;
-		}
+		// if (data?.coupon_settings.is_for_all_product) {
+		// 	delete data.coupon_settings.product_id;
+		// }
 		if (data?.coupon_settings.is_percentage) {
 			delete data.coupon_settings.fixed_amount_value;
 		} else if (data.coupon_settings.is_fixed_amount) {
@@ -83,14 +94,14 @@ export const CreateCouponForm = () => {
 		);
 	};
 
-	const productList = useMemo(
-		() =>
-			productData?.map((item) => ({
-				value: item?.id,
-				label: item?.product_name,
-			})),
-		[productData]
-	);
+	// const productList = useMemo(
+	// 	() =>
+	// 		productData?.map((item) => ({
+	// 			value: item?.id,
+	// 			label: item?.product_name,
+	// 		})),
+	// 	[productData]
+	// );
 
 	const formik = useFormik({
 		initialValues,
@@ -108,19 +119,23 @@ export const CreateCouponForm = () => {
 		start_date,
 		end_date,
 	} = values.coupon_settings;
-	const handleRadioChange = (e) => {
-		if (e.target.value === true) {
-			setFieldValue('coupon_settings.is_for_all_product', true);
-			setFieldValue('coupon_settings.product_id', 0);
-			setIsAllProduct(true);
-			return;
-		}
-		setFieldValue('coupon_settings.is_for_all_product', false);
-		setIsAllProduct(false);
-	};
+	// const handleRadioChange = (e) => {
+	// 	if (e.target.value === true) {
+	// 		setFieldValue('coupon_settings.is_for_all_product', true);
+	// 		setFieldValue('coupon_settings.product_id', 0);
+	// 		setIsAllProduct(true);
+	// 		return;
+	// 	}
+	// 	setFieldValue('coupon_settings.is_for_all_product', false);
+	// 	setIsAllProduct(false);
+	// };
 	useEffect(() => {
 		getCouponProducts();
 		getCoupon();
+		setFieldValue(
+			'coupon_settings.coupon_code',
+			updateCouponData[0]?.coupons?.coupon_code
+		);
 	}, []);
 
 	useEffect(() => {
@@ -149,7 +164,7 @@ export const CreateCouponForm = () => {
 				<h1
 					className={`font-bold text-center text-2xl ${styles.title}`}
 				>
-					Create New Coupon
+					Update your coupon
 				</h1>
 				<h3
 					className={
@@ -157,8 +172,7 @@ export const CreateCouponForm = () => {
 						` font-semibold text-center text-base ${styles.subtitle}`
 					}
 				>
-					Generate a new coupon that drives more sales to your
-					product(s).
+					Make little tweaks to change how your coupon is used.
 				</h3>
 			</div>
 			<form
@@ -171,8 +185,9 @@ export const CreateCouponForm = () => {
 						label="Coupon Code"
 						labelExtra=" Letters and Numbers only!."
 						style={{width: '100%'}}
-						placeholder="EX: EMBER100"
+						placeholder={updateCouponData[0]?.coupons?.coupon_code}
 						name="coupon_code"
+						disabled
 						onChange={(e) =>
 							setFieldValue(
 								'coupon_settings.coupon_code',
@@ -188,20 +203,24 @@ export const CreateCouponForm = () => {
 					</h2>
 					<div className="flex items-center">
 						<Radio.Group
-							defaultValue={true}
-							onChange={handleRadioChange}
+							defaultValue={
+								isdefaultRadioValue === true ? true : false
+							}
+							// onChange={handleRadioChange}
 						>
 							<Radio
 								className={styles.radioContent}
 								value={true}
-								checked={isAllProduct ? true : false}
+								disabled
+								// checked={isAllProduct ? true : false}
 							>
 								All Products
 							</Radio>
 							<Radio
 								className={styles.radioContent}
 								value={false}
-								checked={!isAllProduct ? true : false}
+								disabled
+								// checked={!isAllProduct ? true : false}
 							>
 								Choose Speific Product
 							</Radio>
@@ -212,17 +231,21 @@ export const CreateCouponForm = () => {
 						showSearch
 						optionFilterProp="children"
 						name="product_id"
-						placeholder="Select Product"
-						onChange={(e) =>
-							setFieldValue('coupon_settings.product_id', e)
+						placeholder={
+							updateCouponData[0]?.coupons?.product_name ||
+							'All products'
 						}
-						filterOption={(input, option) => {
-							return option.label
-								.toLowerCase()
-								.includes(input.toLowerCase());
-						}}
-						disabled={isAllProduct ? true : false}
-						options={productList}
+						disabled
+						// onChange={(e) =>
+						// 	setFieldValue('coupon_settings.product_id', e)
+						// }
+						// filterOption={(input, option) => {
+						// 	return option.label
+						// 		.toLowerCase()
+						// 		.includes(input.toLowerCase());
+						// }}
+						// disabled={isAllProduct ? true : false}
+						// options={productList}
 						className={styles.selectField}
 					/>
 				</div>
