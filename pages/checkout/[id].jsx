@@ -140,8 +140,6 @@ const Checkout = () => {
 		}
 	};
 
-	// console.log('checkOutDetails', checkOutDetails)
-
 	const getCurrency = (priceOrName) => {
 		if (priceOrName === 'currency') {
 			return activeCurrency?.currency || activeCurrency?.currency_name;
@@ -326,7 +324,7 @@ const Checkout = () => {
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
-		amount: desiredAmount ? desiredAmount : getCurrency('price'),
+		amount: totalFee ? totalFee : getCurrency('price'),
 		currency: getCurrency('currency'),
 		payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
 		customer: {
@@ -350,8 +348,8 @@ const Checkout = () => {
 	const payStackConfig = {
 		reference: randomId,
 		email: values?.email,
-		amount: desiredAmount
-			? desiredAmount
+		amount: totalFee
+			? totalFee
 			: Number(getCurrency('price')).toFixed() * 100,
 		publicKey:
 			activeCurrency?.currency === 'GHS'
@@ -416,20 +414,12 @@ const Checkout = () => {
 		});
 	};
 
-	// 	If coupon being sent is in percentage, say 20%
-
-	// Subtotal - (20/100) x Subtotal
-
-	// KREATE-swivehub638004903313753835
-
-	// EEEVV455
-
 	const standardPrice = desiredAmount
 		? desiredAmount
 		: Number(getCurrency('price')).toFixed(2);
 	const percentagePrice =
-		standardPrice - (Number(couponDetails.value) / 100) * standardPrice;
-	const actualPrice = standardPrice - Number(couponDetails.value);
+		standardPrice - (Number(couponDetails?.value) / 100) * standardPrice;
+	const actualPrice = standardPrice - Number(couponDetails?.value);
 	const basicSubtotal =
 		couponDetails.indicator === 'IsPercentage'
 			? percentagePrice
@@ -439,6 +429,34 @@ const Checkout = () => {
 		couponDetails.indicator === 'IsFixedAmount'
 			? basicSubtotal
 			: standardPrice;
+
+	// const calcNgN = 5 / 100 * subTotal
+	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	if (
+		[
+			'KES',
+			'GHS',
+			'MWK',
+			'SLL',
+			'ZAR',
+			'TZS',
+			'UGX',
+			'XOF',
+			'XAF',
+		].includes(activeCurrency.currency || activeCurrency.currency_name)
+	) {
+		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
+	} else if (
+		['USD', 'GDP'].includes(
+			activeCurrency.currency || activeCurrency.currency_name
+		)
+	) {
+		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
+	} else {
+		transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	}
+
+	const totalFee = Number(subTotal) + transactionFee;
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -925,7 +943,7 @@ const Checkout = () => {
 
 									<div className="flex justify-between">
 										<p>Transaction Fee</p>
-										<p>0</p>
+										<p>{transactionFee}</p>
 									</div>
 
 									<div className="flex justify-between">
@@ -942,7 +960,7 @@ const Checkout = () => {
 											{/* {new Intl.NumberFormat().format(
                       price ?? checkoutDetails?.default_price
 											)} */}
-											{getCurrency('currency')} {subTotal}
+											{getCurrency('currency')} {totalFee}
 										</p>
 									</div>
 								</div>

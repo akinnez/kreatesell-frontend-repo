@@ -3,10 +3,10 @@ import * as Yup from 'yup';
 export const CreateCouponSchema = () => {
 	return Yup.object().shape({
 		coupon_settings: Yup.object().shape({
-			coupon_code: Yup.string()
-				.required('Coupon code is required')
-				.min(8, 'Coupon Code must be exactly 8 characters')
-				.max(8, 'Coupon Code must be exactly 8 characters'),
+			// coupon_code: Yup.string()
+			// 	.required('Coupon code is required')
+			// 	.min(8, 'Coupon Code must be exactly 8 characters')
+			// 	.max(8, 'Coupon Code must be exactly 8 characters'),
 			is_percentage: Yup.boolean(),
 			percentage_value: Yup.number().when('is_percentage', {
 				is: true,

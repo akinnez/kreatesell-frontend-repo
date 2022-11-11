@@ -146,7 +146,7 @@ export default function PreviewContent({
 					</div>
 				</div>
 				<div className={styles.description}>
-					<div className="flex flex-col mb-5 ">
+					<div className="flex flex-col mb-5">
 						{details !== undefined &&
 							Object.keys(details).length > 0 && (
 								<h2 className="mb-0 text-left text-3xl text-base-black-100 font-bold capitalize">
