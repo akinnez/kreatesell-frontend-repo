@@ -309,3 +309,51 @@
 	opacity: 1;
 	height: 100%;
 }
+
+.couponLimit {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	.radioLabelStyle {
+		margin-right: 1rem;
+	}
+}
+
+.usageLimit {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: column;
+	font-weight: 400;
+
+	& * {
+		font-weight: inherit !important;
+	}
+	.radioLabelStyle {
+		margin-right: 1rem;
+	}
+}
+
+.discount {
+	display: flex;
+	width: 100%;
+	// border: 1px solid red;
+	align-items: center;
+	.settingsSubLabel {
+		width: 100%;
+	}
+}
+
+.textMain {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 26px;
+
+	color: #262626;
+}
+
+.box {
+	margin-bottom: 0.5rem;
+}

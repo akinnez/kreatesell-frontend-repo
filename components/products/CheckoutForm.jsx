@@ -1040,8 +1040,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								/>
 							</div>
 							<div>
-								<p>Limit the frequency of the coupon</p>
-								<div>
+								<p className={styles.textMain}>
+									Limit the frequency of the coupon
+								</p>
+								<div className={styles.couponLimit}>
 									<Radio
 										value={''}
 										content={1}
@@ -1054,11 +1056,91 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										label="Limited"
 										labelStyle={styles.radioLabelStyle}
 									/>
-									<Select
-										title={'Selling Price'}
-										field={fixedSellingPrice}
-										setField={setFixedSellingPrice}
+								</div>
+							</div>
+						</div>
+						<div>
+							<div className={styles.box}>
+								{/* <Select
+									title={'Number of Times'}
+									field={fixedSellingPric
+									setField={setFixedSellingPrice}
+								/> */}
+								<div
+									className={`${styles.cpnLabel} ${styles.textMain}`}
+								>
+									Number of times
+								</div>
+								<div className="w-full md:w-4/5">
+									<Input
+										placeholder="1"
+										className={styles.ctaBtn}
+										name="no_of_times"
+										onChange={formik.handleChange}
 									/>
+								</div>
+							</div>
+							<div>
+								<p className={styles.textMain}>
+									Limit the usage per customer
+								</p>
+								<div className={styles.usageLimit}>
+									<Radio
+										value={''}
+										content={1}
+										label="Unlimited Use per customer"
+										labelStyle={styles.radioLabelStyle}
+									/>
+									<Radio
+										value={''}
+										content={1}
+										label="Coupon can be used how many times by a customer"
+										labelStyle={styles.radioLabelStyle}
+									/>
+								</div>
+							</div>
+							<div className={styles.box}>
+								<p className={styles.textMain}>
+									Number of times coupon can be used per
+									customer
+								</p>
+								<div className="w-full md:w-3/5">
+									<Select
+										field={''}
+										setField={''}
+										defaultValue={'1'}
+										placeholder="1"
+										onChange={(e) => ''}
+										style={{
+											width: '100%',
+											borderRadius: '8px',
+										}}
+									>
+										<Option value="1">1</Option>
+										<Option value="2">2</Option>
+										<Option value="3">3</Option>
+										<Option value="4">4</Option>
+									</Select>
+								</div>
+							</div>
+						</div>
+						<div className=" w-full md:w-4/5">
+							<div className={`${styles.discount}`}>
+								<div className={`${styles.settingsSubLabel}`}>
+									Also apply the Discount when the
+									SUBSCRIPTION is renewed for a membership
+									digital product(s) bought with the coupon
+								</div>
+								<div className="flex">
+									<Switch
+										// onChange={(e) => {
+										//
+										// }}
+										checked={false}
+									/>
+									<span className="pl-6 font-semibold text-black-100">
+										{'OFF'}
+									</span>
 								</div>
 							</div>
 						</div>
