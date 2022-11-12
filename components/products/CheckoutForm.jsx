@@ -1039,6 +1039,28 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									}}
 								/>
 							</div>
+							<div>
+								<p>Limit the frequency of the coupon</p>
+								<div>
+									<Radio
+										value={''}
+										content={1}
+										label="Unlimited"
+										labelStyle={styles.radioLabelStyle}
+									/>
+									<Radio
+										value={''}
+										content={1}
+										label="Limited"
+										labelStyle={styles.radioLabelStyle}
+									/>
+									<Select
+										title={'Selling Price'}
+										field={fixedSellingPrice}
+										setField={setFixedSellingPrice}
+									/>
+								</div>
+							</div>
 						</div>
 					</div>
 				)}
