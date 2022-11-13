@@ -70,3 +70,32 @@ export const GetCoupons = () => {
 			);
 	};
 };
+
+export const ApplyCoupon = () => {
+	const dispatch = useDispatch();
+	return (data, successCallback, errorCallback) => (
+		dispatch({type: types.APPLY_COUPON.REQUEST}),
+		axios.request(
+			`post`,
+			`v1/kreatesell/payment/apply-coupon`,
+			(res) => {
+				console.log('apply coupon res', res);
+				dispatch({type: types.APPLY_COUPON.SUCCESS, payload: res});
+				showToast('Coupon successfully added');
+				successCallback?.(res);
+			},
+			(err) => {
+				console.log('the err', err);
+				dispatch({type: types.APPLY_COUPON.FAILURE, payload: err});
+				showToast(
+					err.message
+						? err.message
+						: 'Network Error, Check your Connection',
+					'error'
+				);
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};

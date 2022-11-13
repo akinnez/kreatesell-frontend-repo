@@ -6,15 +6,20 @@ const initialState = {
 	coupon: {},
 	error: {},
 	couponID: '',
+	applyCouponResponse: {},
 };
 const CouponReducer = (state = initialState, {type, payload}) => {
 	switch (type) {
 		case types.GET_ALL_COUPONS.REQUEST:
 		case types.CREATE_COUPON.REQUEST:
+		case types.APPLY_COUPON.REQUEST:
 			return {...state, loading: true};
 
 		case types.GET_ALL_COUPONS.SUCCESS:
 			return {...state, loading: false, ...payload};
+
+		case types.APPLY_COUPON.SUCCESS:
+			return {...state, loading: false, applyCouponResponse: payload};
 
 		case types.CREATE_COUPON.SUCCESS:
 			if (payload.token) {

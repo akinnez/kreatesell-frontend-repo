@@ -357,3 +357,33 @@
 .box {
 	margin-bottom: 0.5rem;
 }
+
+.radioContent {
+	align-items: baseline !important;
+	font-size: 1rem;
+	color: #595959;
+	span:last-child {
+		font-weight: 500;
+		font-size: 1rem;
+	}
+}
+
+.inputGroup {
+	input {
+		height: 2.5rem;
+	}
+}
+
+.switchContent {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 30px;
+	width: 70%;
+	.label {
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 26px;
+		color: #595959;
+	}
+}

@@ -5,6 +5,7 @@ import {Button} from 'antd';
 import styles from './MembershipTab.module.scss';
 import PlayMedia from './PlayMedia';
 import {useSelector} from 'react-redux';
+import {useRouter} from 'next/router';
 import {useFormik} from 'formik';
 import {CreateSection, GetProductByID, CreateContent} from 'redux/actions';
 
@@ -29,6 +30,8 @@ export default function ManageSection({
 		setMediaContent(media);
 		setPlay(true);
 	};
+
+	const route = useRouter();
 
 	const initialValues = {
 		product_id: 0,
@@ -92,22 +95,25 @@ export default function ManageSection({
 					closePlay={setPlay}
 				/>
 			)}
-			<div
-				onClick={() => goBack()}
-				className="inline-flex justify-start cursor-pointer items-center mb-4"
-			>
-				<Image alt="" src={ArrowLeft} />
-				<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">
-					Back
-				</h3>
-			</div>
-			<div className="flex items-center justify-between mb-7">
-				<h1
+
+			<div className="flex justify-between">
+				<div
+					onClick={() => goBack()}
+					className="inline-flex justify-start cursor-pointer items-center mb-4"
+				>
+					<Image alt="" src={ArrowLeft} />
+					<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">
+						Back
+					</h3>
+
+					<div className="flex items-center justify-between mb-7">
+						{/* <h1
 					className={`text-2xl text-blue-600 font-bold ${styles.titleMain}`}
 				>
 					How to Invest in Crypocurrency
-				</h1>
-
+				</h1> */}
+					</div>
+				</div>
 				<div className={styles.miniSaveButtons + ' flex'}>
 					<Button type="primary" style={{color: '#0072ef'}}>
 						+ Add Section
@@ -116,6 +122,11 @@ export default function ManageSection({
 						type="primary"
 						icon={
 							<Image color="white" src={WhiteEye} alt="empty" />
+						}
+						onClick={() =>
+							route.push(
+								`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`
+							)
 						}
 					>
 						{' '}

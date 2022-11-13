@@ -243,7 +243,7 @@ const ProductCard = ({
 					}
 					width="320"
 					height="300"
-					className="rounded-t-lg"
+					className="rounded-t-lg object-cover"
 					alt=""
 				/>
 			</div>
