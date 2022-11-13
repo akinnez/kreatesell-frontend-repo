@@ -3,6 +3,9 @@
 @import '../css//screens.scss';
 
 .container2 {
+	@media (max-width: 500px) {
+		width: 100vh;
+	}
 	header {
 		height: 90px;
 		// border: 1px solid black;
