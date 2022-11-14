@@ -8,26 +8,31 @@
 	// box-shadow: 0 0 4px rgba(0, 0, 0, 0.45);
 	min-height: 500px;
 	padding: 3em 4rem;
+
 	.title {
 		font-weight: 600;
 		font-size: 1.5rem;
 		line-height: 32px;
 		color: #262626;
 	}
+
 	.subtitle {
 		font-weight: 500;
 		font-size: 1rem;
 		line-height: 26px;
 		color: #8c8c8c;
 	}
+
 	.formContent {
 		margin: 1em 0;
+
 		.labelV2 {
 			font-weight: 500;
 			font-size: 1rem;
 			line-height: 26px;
 			color: #262626;
 		}
+
 		.label {
 			margin: 0;
 			padding: 0;
@@ -53,57 +58,71 @@
 			align-items: baseline !important;
 			font-size: 1rem;
 			color: #595959;
+
 			span:last-child {
 				font-weight: 500;
 				font-size: 1rem;
 			}
 		}
+
 		.switchContent {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			margin-top: 20px;
+
 			.label {
 				font-weight: 500;
 				font-size: 16px;
 				line-height: 26px;
 				color: #595959;
+				font-family: 'Inter';
+				font-style: normal;
 			}
 		}
+
 		.inputGroup {
+
 			// border: 1px solid red;
 			input {
 				height: 2.5rem;
 			}
 		}
+
 		.selectField {
 			margin-top: 8px;
-			& > div {
+
+			&>div {
 				border-radius: 8px;
 				height: 3rem;
 				align-items: center;
 			}
+
 			input {
 				height: 100% !important;
 			}
 		}
+
 		.errorContent {
 			background-color: $error-bg;
 			margin: 24px 0;
 			display: flex;
 			padding: 8px 8px 8px 32px;
 			align-items: center;
+
 			h2 {
 				color: $error-main;
 				margin-left: 24px;
 				margin-bottom: 0;
 			}
 		}
+
 		.submitBtn {
 			width: 100%;
 			display: flex;
 			align-items: center;
 			margin-top: 10px;
+
 			button {
 				width: 40%;
 				height: 3rem;
@@ -122,12 +141,14 @@
 	width: 100%;
 	// border: 1px solid red;
 
-	& > div:first-child {
+	&>div:first-child {
 		margin-bottom: unset;
 	}
+
 	@media (max-width: 500px) {
 		flex-wrap: wrap;
-		& > div:first-child {
+
+		&>div:first-child {
 			margin-bottom: 0.5rem;
 		}
 	}

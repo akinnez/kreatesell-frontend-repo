@@ -1,17 +1,17 @@
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import styles from './CreateCouponForm.module.scss';
 import style from '../../public/css/AllProducts.module.scss';
-import {TextInput} from '../../components/inputPack';
-import {CreateCouponSchema} from '../../validation/CreateCoupon.validation';
-import {Radio} from 'antd';
-import {useState, useEffect, useMemo} from 'react';
-import {Input, Switch, Select, Button} from 'antd';
-import {useSelector} from 'react-redux';
-import {GetCouponProducts} from 'redux/actions';
+import { TextInput } from '../../components/inputPack';
+import { CreateCouponSchema } from '../../validation/CreateCoupon.validation';
+import { Radio } from 'antd';
+import { useState, useEffect, useMemo } from 'react';
+import { Input, Switch, Select, Button } from 'antd';
+import { useSelector } from 'react-redux';
+import { GetCouponProducts } from 'redux/actions';
 import Image from 'next/image';
-import {ErrorIcon} from 'utils';
-import {CreateCoupon, GetCoupons} from 'redux/actions';
-import {useRouter} from 'next/router';
+import { ErrorIcon } from 'utils';
+import { CreateCoupon, GetCoupons } from 'redux/actions';
+import { useRouter } from 'next/router';
 
 export const CreateCouponForm = () => {
 	const [isPercentage, setIsPercentage] = useState(true);
@@ -20,10 +20,10 @@ export const CreateCouponForm = () => {
 	const [isAllProduct, setIsAllProduct] = useState(true);
 	const [productData, setProductData] = useState([]);
 	const [isApplied, setIsApplied] = useState(false);
-	const {couponProducts} = useSelector((state) => state.product);
-	const {loading} = useSelector((state) => state.coupon);
+	const { couponProducts } = useSelector((state) => state.product);
+	const { loading } = useSelector((state) => state.coupon);
 
-	const {store} = useSelector((state) => state.store);
+	const { store } = useSelector((state) => state.store);
 	const router = useRouter();
 	const getCouponProducts = GetCouponProducts();
 	const createCoupon = CreateCoupon();
@@ -98,7 +98,7 @@ export const CreateCouponForm = () => {
 		validationSchema: CreateCouponSchema,
 		validateOnChange: false,
 	});
-	const {errors, values, setFieldValue} = formik;
+	const { errors, values, setFieldValue } = formik;
 	const {
 		coupon_code,
 		fixed_amount_value,
@@ -133,7 +133,7 @@ export const CreateCouponForm = () => {
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
-			const {user} = store;
+			const { user } = store;
 			if (user.user_plan === 'Basic') {
 				setFieldValue('isBasicPlan', true);
 			}
@@ -170,7 +170,7 @@ export const CreateCouponForm = () => {
 						type="text"
 						label="Coupon Code"
 						labelExtra=" Letters and Numbers only!."
-						style={{width: '100%'}}
+						style={{ width: '100%' }}
 						placeholder="EX: EMBER100"
 						name="coupon_code"
 						onChange={(e) =>
@@ -449,7 +449,7 @@ export const CreateCouponForm = () => {
 				</div>
 				<div className={styles.switchContent}>
 					<h2 className={styles.label}>
-						Allow Discount to be Applied for Recurring Purchases
+						Also apply the Discount when the SUBSCRIPTION is renewed for any membership digital product(s) bought with the coupon
 					</h2>
 					<span className="flex items-center gap-3">
 						<Switch
