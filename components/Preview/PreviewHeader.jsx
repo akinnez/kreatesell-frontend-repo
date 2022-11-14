@@ -6,7 +6,8 @@ import {
 	_copyToClipboard,
 	transformToFormData,
 } from 'utils';
-
+import {MdOutlineMenu} from 'react-icons/md';
+import {MobileLogo} from 'components/authlayout/logo';
 import {Button as CButton, Select as CSelect} from 'components';
 import {useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
@@ -102,6 +103,8 @@ export default function PreviewHeader({
 		}
 	}, [store]);
 
+	const toggleView = () => 'toggle';
+
 	return (
 		<header className="flex items-center justify-between bg-white px-10 py-6 ">
 			<div className={`${styles.lgLeft} flex items-center`}>
@@ -122,24 +125,13 @@ export default function PreviewHeader({
 
 			{/* // * Mobile  */}
 			<div className={styles.mobileLeft}>
-				<Image
-					src={MobileBackArrow}
-					alt="back arrow"
-					onClick={() => router.back()}
-				/>
-				<p className="mb-0 capitalize title">{title}</p>
-				<div className={styles.btns}>
+				<div className={styles.mobileMenu}>
 					<Button
-						className={styles.btnOne}
-						type="default"
-						icon={<Image src={CopyLink} alt="copy" />}
-						onClick={() =>
-							_copyToClipboard(link, 'Product Link Copied')
-						}
+						type="text"
+						shape="circle"
+						icon={<MdOutlineMenu onClick={toggleView} />}
 					/>
-					<Button type="primary" onClick={() => setIsOpen(true)}>
-						Publish
-					</Button>
+					<MobileLogo />
 				</div>
 			</div>
 			{showNavLinks ? (
@@ -177,9 +169,9 @@ export default function PreviewHeader({
 							onChange={(e) => setActiveCurrency(e)}
 						/>
 					</div>
-					<div onClick={() => logout()}>
+					{/* <div onClick={() => logout()}>
 						<CButton text="logout" bgColor="blue" />
-					</div>
+					</div> */}
 				</div>
 			)}
 			{isOpen && (

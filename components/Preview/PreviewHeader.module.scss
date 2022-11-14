@@ -367,3 +367,15 @@
 		// border: 1px solid red !important;
 	}
 }
+
+.mobileMenu {
+	@include flex(row, flex-start, center);
+
+	button {
+		margin-right: 10px;
+
+		svg {
+			font-size: 30px;
+		}
+	}
+}
