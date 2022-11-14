@@ -278,6 +278,7 @@ import CollapseArrowRight from '../public/images/collapseArrowRight.svg';
 import Folder from '../public/images/folder.svg';
 import MessageIcon from '../public/images/messageIcon.svg';
 import OpenTicketIcon from '../public/images/openTicketIcon.svg';
+import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 
 export {
 	MessageIcon,
@@ -560,4 +561,5 @@ export {
 	LikeIcon,
 	CommentIcon,
 	ComingSoon,
+	MakeItFreeIcon,
 };

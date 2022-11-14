@@ -449,7 +449,9 @@ export const CreateCouponForm = () => {
 				</div>
 				<div className={styles.switchContent}>
 					<h2 className={styles.label}>
-						Allow Discount to be Applied for Recurring Purchases
+						Also apply the Discount when the SUBSCRIPTION is renewed
+						for any membership digital product(s) bought with the
+						coupon
 					</h2>
 					<span className="flex items-center gap-3">
 						<Switch

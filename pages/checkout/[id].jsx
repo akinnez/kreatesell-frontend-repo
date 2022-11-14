@@ -18,6 +18,7 @@ import {
 	splitFullName,
 	FlutterwaveLogo,
 	ErrorIcon,
+	MakeItFreeIcon,
 } from 'utils';
 import {SelectV2} from 'components/form-input';
 import {PhoneNumberInput} from 'components';
@@ -74,6 +75,7 @@ const Checkout = () => {
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
+
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
@@ -82,8 +84,6 @@ const Checkout = () => {
 	);
 
 	const {loading, applyCouponResponse} = useSelector((state) => state.coupon);
-
-	console.log(applyCouponResponse, 'applyCouponResponse');
 
 	const [country, setCountry] = useState('');
 	const [countryCode, setCountryCode] = useState('');
@@ -110,14 +110,26 @@ const Checkout = () => {
 	const closeModal = () => setModal(false);
 
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
+
 	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
 
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
 
-	console.log(couponCode, 'couponCode');
+	const testCurrency = activeCurrency?.currency
+		? activeCurrency?.currency
+		: activeCurrency?.currency_name;
 
-	console.log(pricingTypeDetails, 'pricingTypeDetails');
+	const MinimumPrices = checkOutDetails.find(
+		(item) =>
+			item.price_indicator === 'Minimum' &&
+			item.currency_name === testCurrency
+	);
+	const SuggestedPrices = checkOutDetails.find(
+		(item) =>
+			item.price_indicator === 'Suggested' &&
+			item.currency_name === testCurrency
+	);
 
 	const [storeId, setStoreId] = useState();
 	const checkout = checkOutDetails?.filter(
@@ -149,9 +161,21 @@ const Checkout = () => {
 				convertedCurrency?.buy_rate * checkOutInNaira?.price ||
 				checkOutInNaira?.price
 			);
+		} else if (priceOrName === 'total') {
+			return totalFee;
+		} else if (priceOrName === 'minimum') {
+			return (
+				MinimumPrices?.price || Number(getCurrency('price')).toFixed(2)
+			);
+		} else if (priceOrName === 'suggested') {
+			return (
+				SuggestedPrices?.price ||
+				Number(getCurrency('price')).toFixed(2)
+			);
 		}
 	};
 
+	console.log(activeCurrency, 'active me');
 	const handlePhoneCode = (countryParam) => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
@@ -301,6 +325,50 @@ const Checkout = () => {
 		}
 	};
 
+	const standardPrice = desiredAmount
+		? desiredAmount
+		: getCurrency('minimum');
+	const percentagePrice =
+		standardPrice - (Number(couponDetails?.value) / 100) * standardPrice;
+	const actualPrice = standardPrice - Number(couponDetails?.value);
+	const basicSubtotal =
+		couponDetails.indicator === 'IsPercentage'
+			? percentagePrice
+			: actualPrice;
+	const subTotal =
+		couponDetails.indicator === 'IsPercentage' ||
+		couponDetails.indicator === 'IsFixedAmount'
+			? basicSubtotal
+			: standardPrice;
+
+	// const calcNgN = 5 / 100 * subTotal
+	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	if (
+		[
+			'KES',
+			'GHS',
+			'MWK',
+			'SLL',
+			'ZAR',
+			'TZS',
+			'UGX',
+			'XOF',
+			'XAF',
+		].includes(activeCurrency.currency || activeCurrency.currency_name)
+	) {
+		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
+	} else if (
+		['USD', 'GDP'].includes(
+			activeCurrency.currency || activeCurrency.currency_name
+		)
+	) {
+		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
+	} else {
+		transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	}
+
+	const totalFee = Number(subTotal) + transactionFee;
+
 	const initialValues = {
 		firstName: '',
 		lastName: '',
@@ -324,7 +392,7 @@ const Checkout = () => {
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
-		amount: totalFee ? totalFee : getCurrency('price'),
+		amount: totalFee ? getCurrency('total') : getCurrency('price'),
 		currency: getCurrency('currency'),
 		payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
 		customer: {
@@ -349,7 +417,7 @@ const Checkout = () => {
 		reference: randomId,
 		email: values?.email,
 		amount: totalFee
-			? totalFee
+			? Number(getCurrency('total')).toFixed() * 100
 			: Number(getCurrency('price')).toFixed() * 100,
 		publicKey:
 			activeCurrency?.currency === 'GHS'
@@ -413,50 +481,6 @@ const Checkout = () => {
 			setCouponDetails(res);
 		});
 	};
-
-	const standardPrice = desiredAmount
-		? desiredAmount
-		: Number(getCurrency('price')).toFixed(2);
-	const percentagePrice =
-		standardPrice - (Number(couponDetails?.value) / 100) * standardPrice;
-	const actualPrice = standardPrice - Number(couponDetails?.value);
-	const basicSubtotal =
-		couponDetails.indicator === 'IsPercentage'
-			? percentagePrice
-			: actualPrice;
-	const subTotal =
-		couponDetails.indicator === 'IsPercentage' ||
-		couponDetails.indicator === 'IsFixedAmount'
-			? basicSubtotal
-			: standardPrice;
-
-	// const calcNgN = 5 / 100 * subTotal
-	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
-	if (
-		[
-			'KES',
-			'GHS',
-			'MWK',
-			'SLL',
-			'ZAR',
-			'TZS',
-			'UGX',
-			'XOF',
-			'XAF',
-		].includes(activeCurrency.currency || activeCurrency.currency_name)
-	) {
-		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
-	} else if (
-		['USD', 'GDP'].includes(
-			activeCurrency.currency || activeCurrency.currency_name
-		)
-	) {
-		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
-	} else {
-		transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
-	}
-
-	const totalFee = Number(subTotal) + transactionFee;
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -608,132 +632,160 @@ const Checkout = () => {
 							autoComplete="off"
 							className="w-full"
 						>
-							<div className="pb-4">
-								<div className="text-black-100">
-									Select Currency
-								</div>
-								<p className="text-base-gray-200">
-									Select your preferred currency and get price
-									equivalent
-								</p>
+							{pricingTypeDetails.price_type !==
+								'Make it Free' && (
+								<div className="pb-4">
+									<div className="text-black-100">
+										Select Currency
+									</div>
+									<p className="text-base-gray-200">
+										Select your preferred currency and get
+										price equivalent
+									</p>
 
-								<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-									{countriesCurrency?.map(
-										({currency, currency_id, flag}) => (
-											<CurrencyCard
-												key={currency_id}
-												handleSelect={() =>
-													handleSelect({
-														currency_id,
+									<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+										{countriesCurrency?.map(
+											({currency, currency_id, flag}) => (
+												<CurrencyCard
+													key={currency_id}
+													handleSelect={() =>
+														handleSelect({
+															currency_id,
+															currency,
+														})
+													}
+													{...{
 														currency,
-													})
-												}
-												{...{
-													currency,
-													currency_id,
-													flag,
-													activeCurrency,
-												}}
-											/>
-										)
-									)}
-								</div>
-							</div>
-							<div className="py-7">
-								<h2>West African CFA Franc BCEAO(XOF)</h2>
-								<div className="grid gap-4 grid-cols-4 ">
-									{filterdWest.map(
-										({id, currency, flag, name}, index) => (
-											<div
-												key={index}
-												className={
-													activeCurrency?.id === id
-														? styles.activeCard
-														: styles.card
-												}
-												onClick={() =>
-													handleSelect({id, currency})
-												}
-											>
-												<div
-													className={
-														styles.checFlag +
-														' mr-2'
-													}
-													style={{
-														borderRadius: '50%',
+														currency_id,
+														flag,
+														activeCurrency,
 													}}
+												/>
+											)
+										)}
+									</div>
+								</div>
+							)}
+							{pricingTypeDetails.price_type !==
+								'Make it Free' && (
+								<div className="py-7">
+									<h2>West African CFA Franc BCEAO(XOF)</h2>
+									<div className="grid gap-4 grid-cols-4 ">
+										{filterdWest.map(
+											(
+												{id, currency, flag, name},
+												index
+											) => (
+												<div
+													key={index}
+													className={
+														activeCurrency?.id ===
+														id
+															? styles.activeCard
+															: styles.card
+													}
+													onClick={() =>
+														handleSelect({
+															id,
+															currency,
+														})
+													}
 												>
-													<Image
-														src={flag}
-														alt="flag"
-														layout="fill"
-													/>
-												</div>
-												<div className="">{name}</div>
-												{activeCurrency?.id === id && (
-													<div className="pl-1 pt-1">
+													<div
+														className={
+															styles.checFlag +
+															' mr-2'
+														}
+														style={{
+															borderRadius: '50%',
+														}}
+													>
 														<Image
-															src={ActiveTick}
-															alt="active"
-															width="16"
-															height="16"
+															src={flag}
+															alt="flag"
+															layout="fill"
 														/>
 													</div>
-												)}
-											</div>
-										)
-									)}
-								</div>
-							</div>
-
-							<div className="py-7">
-								<h2>Central African CFA Franc BEAC(XAF)</h2>
-								<div className="grid gap-4 grid-cols-4 ">
-									{filteredCentral.map(
-										({id, currency, name, flag}, index) => (
-											<div
-												key={index}
-												className={
-													activeCurrency?.id === id
-														? styles.activeCard
-														: styles.card
-												}
-												onClick={() =>
-													handleSelect({id, currency})
-												}
-											>
-												<div
-													className={
-														styles.checFlag +
-														' mr-2'
-													}
-													style={{
-														borderRadius: '50%',
-													}}
-												>
-													<Image
-														src={flag}
-														alt="flag"
-														layout="fill"
-													/>
+													<div className="">
+														{name}
+													</div>
+													{activeCurrency?.id ===
+														id && (
+														<div className="pl-1 pt-1">
+															<Image
+																src={ActiveTick}
+																alt="active"
+																width="16"
+																height="16"
+															/>
+														</div>
+													)}
 												</div>
-												<div className="">{name}</div>
-												{activeCurrency?.id === id && (
-													<div className="pl-1 pt-1">
+											)
+										)}
+									</div>
+								</div>
+							)}
+							{pricingTypeDetails.price_type !==
+								'Make it Free' && (
+								<div className="py-7">
+									<h2>Central African CFA Franc BEAC(XAF)</h2>
+									<div className="grid gap-4 grid-cols-4 ">
+										{filteredCentral.map(
+											(
+												{id, currency, name, flag},
+												index
+											) => (
+												<div
+													key={index}
+													className={
+														activeCurrency?.id ===
+														id
+															? styles.activeCard
+															: styles.card
+													}
+													onClick={() =>
+														handleSelect({
+															id,
+															currency,
+														})
+													}
+												>
+													<div
+														className={
+															styles.checFlag +
+															' mr-2'
+														}
+														style={{
+															borderRadius: '50%',
+														}}
+													>
 														<Image
-															src={ActiveTick}
-															alt="active"
-															width="16"
-															height="16"
+															src={flag}
+															alt="flag"
+															layout="fill"
 														/>
 													</div>
-												)}
-											</div>
-										)
-									)}
+													<div className="">
+														{name}
+													</div>
+													{activeCurrency?.id ===
+														id && (
+														<div className="pl-1 pt-1">
+															<Image
+																src={ActiveTick}
+																alt="active"
+																width="16"
+																height="16"
+															/>
+														</div>
+													)}
+												</div>
+											)
+										)}
+									</div>
 								</div>
-							</div>
+							)}
 
 							{/* start the pay as you want  */}
 							{pricingTypeDetails?.price_type ===
@@ -754,9 +806,11 @@ const Checkout = () => {
 										>
 											Minimum price:{' '}
 											{getCurrency('currency')}{' '}
-											{Number(
-												getCurrency('price')
-											).toFixed(2)}
+											{getCurrency('minimum')}
+											{/* {MinimumPrices ? getCurrency('minimum'): getCurrency('price').toFixed(2)} */}
+											{/* {Number( 
+													
+												).toFixed(2)} */}
 										</div>
 									</div>
 									{desiredAmount &&
@@ -796,9 +850,9 @@ const Checkout = () => {
 											<Input
 												placeholder={`Suggested Amount: ${getCurrency(
 													'currency'
-												)} ${Number(
-													getCurrency('price')
-												).toFixed(2)} `}
+												)} ${getCurrency(
+													'suggested'
+												)}.00 `}
 												onChange={(e) =>
 													setDesiredAmount(
 														e.target.value
@@ -903,7 +957,7 @@ const Checkout = () => {
 										<Button
 											text={
 												loading
-													? 'wait'
+													? 'please wait..'
 													: 'Apply Coupon'
 											}
 											className={styles.couponBtn}
@@ -963,6 +1017,17 @@ const Checkout = () => {
 											{getCurrency('currency')} {totalFee}
 										</p>
 									</div>
+								</div>
+							)}
+
+							{pricingTypeDetails?.price_type ===
+								'Make it Free' && (
+								<div className="flex items-center justify-center">
+									<Image
+										src={MakeItFreeIcon}
+										width="240"
+										height="294"
+									/>
 								</div>
 							)}
 
