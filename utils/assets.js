@@ -277,7 +277,12 @@ import Folder from '../public/images/folder.svg';
 import MessageIcon from '../public/images/messageIcon.svg';
 import OpenTicketIcon from '../public/images/openTicketIcon.svg';
 
+import PaystackLogo from '../public/images/paystack-logo.svg';
+import InfoIcon from '../public/images/info-icon.svg';
+
 export {
+	InfoIcon,
+	PaystackLogo,
 	MessageIcon,
 	OpenTicketIcon,
 	Folder,

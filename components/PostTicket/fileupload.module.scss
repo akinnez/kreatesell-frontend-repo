@@ -4,6 +4,12 @@
 
 .fileUploadWrapper {
 	@include flex(row, space-between, center);
+	@include screen('tablet') {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
 	.fileUploadContainer {
 		width: calc(100% - 160px);
 		border-width: 1.3px;
@@ -13,7 +19,7 @@
 		cursor: pointer;
 
 		@include screen('tablet') {
-			width: 70%;
+			width: 100%;
 		}
 		@include screen('medium') {
 			width: 100%;
@@ -37,7 +43,25 @@
 			}
 			.dragText {
 				color: $base-blue;
+				display: block;
 				// margin-top: 8px;
+			}
+			.dragTextMobile {
+				display: none;
+				color: $base-blue;
+				// margin-top: 8px;
+			}
+			@include screen('tablet') {
+				.dragText {
+					color: $base-blue;
+					display: none;
+					// margin-top: 8px;
+				}
+				.dragTextMobile {
+					display: block;
+					color: $base-blue;
+					// margin-top: 8px;
+				}
 			}
 			.dragTextRed {
 				color: $notification-bg;

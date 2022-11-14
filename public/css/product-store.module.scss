@@ -31,6 +31,20 @@
 .productCardCtn {
 	color: #262626;
 
+	.productStatus {
+		.status {
+			&.inStock {
+			}
+			&.outOfStock {
+			}
+		}
+		.amountSold {
+			font-weight: 400;
+			font-size: 1rem;
+			line-height: 26px;
+			color: #8c8c8c;
+		}
+	}
 	.productName {
 		font-weight: 700;
 		font-size: 18px;

@@ -123,11 +123,39 @@
 		}
 	}
 
+	.upgradeYourAccountInfo {
+		background: #ffffff;
+		box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.05);
+		border-radius: 8px;
+		margin-block: 1rem;
+		padding: 1rem;
+		.info {
+			font-weight: 500;
+			font-size: 0.94rem;
+			line-height: 40px;
+			color: #f90005;
+		}
+	}
+
 	.steps {
 		@extend .bordered;
 		padding: 2.5rem 2rem;
 		@include flex(row, center, null);
 		position: relative;
+		&.greyed {
+			-moz-filter: grayscale(100%);
+			-webkit-filter: grayscale(100%);
+			filter: gray; /* IE6-9 */
+			filter: grayscale(100%);
+		}
+		.overlay {
+			position: absolute;
+			z-index: 1;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+		}
 		.stepsLeft {
 			.top {
 				@include flex(row, center, center);

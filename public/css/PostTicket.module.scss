@@ -60,7 +60,11 @@
 			box-shadow: -30px 52px 151px 2px rgba(0, 0, 0, 0.66);
 			-webkit-box-shadow: -30px 52px 151px 2px rgba(0, 0, 0, 0.66);
 			-moz-box-shadow: -30px 52px 151px 2px rgba(0, 0, 0, 0.66);
-
+			@include screen('tablet') {
+				box-shadow: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+			}
 			.userImage {
 				border-radius: 50%;
 				// width: 100%;
@@ -97,6 +101,7 @@
 			}
 		}
 	}
+
 	.ticketDetailsDiv {
 		margin-top: 15px;
 		.ticketTitle {
@@ -150,6 +155,46 @@
 			}
 		}
 	}
+	.ticketDetailsMobile {
+		display: none;
+		border-bottom: 1px solid #d9d9d9;
+		.ticketDetail {
+			.title {
+				margin-bottom: 0px;
+				font-weight: 400;
+				font-size: 0.875rem;
+				line-height: 24px;
+				color: #8c8c8c;
+			}
+			.value,
+			.value2 {
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #262626;
+			}
+			.value2 {
+				color: #595959;
+			}
+			.status {
+				border-radius: 0.5rem;
+				background: #f1fcf8;
+				font-weight: 400;
+				font-size: 1rem;
+				line-height: 24px;
+				color: #2dc071;
+				padding: 0.3rem 1rem;
+			}
+		}
+	}
+	@include screen('tablet') {
+		.ticketDetails {
+			display: none;
+		}
+		.ticketDetailsMobile {
+			display: block;
+		}
+	}
 	.formContainer {
 		position: relative;
 		z-index: 1;
@@ -162,6 +207,9 @@
 			font-size: 1rem;
 			line-height: 26px;
 			color: #262626;
+		}
+		@include screen('tablet') {
+			padding: 1rem;
 		}
 	}
 }
