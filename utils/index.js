@@ -4,6 +4,12 @@ import axios from 'axios';
 export const pathName = typeof window !== 'undefined' && window;
 import {subDays, format} from 'date-fns';
 
+export const transactionFees = {
+	NGN: 5,
+	Others: 6,
+	USD: 10,
+	GBP: 10,
+};
 export const _clearData = ({pushToLogin = true}) => {
 	pathName && localStorage.clear();
 	pathName && sessionStorage.clear();
@@ -394,4 +400,8 @@ export const handleShowFilter = (showSelect, setFilter) => {
 
 export const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
 	return format(date, formatArg);
+};
+
+export const RenderIf = ({condition, children}) => {
+	return condition ? children : null;
 };

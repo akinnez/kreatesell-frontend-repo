@@ -137,10 +137,6 @@ const Billing = () => {
 	// change
 	useMemo(() => {
 		if (countriesCurrency?.length > 0) {
-			const cur = [
-				// { value: 161, label: 'XOF' },
-				// { value: 162, label: 'XAF' },
-			];
 			let currency = countriesCurrency
 				.filter((ctr) => !['XAF', 'XOF'].includes(ctr.currency))
 				.map((ctr) => ({
@@ -148,11 +144,9 @@ const Billing = () => {
 					value: ctr.name,
 					label: ctr.currency,
 				}));
-			setCountryOptions([...currency, ...cur]);
+			setCountryOptions([...currency]);
 		}
 	}, [countriesCurrency?.length]);
-
-	// console.log("countryOptions", countryOptions)
 
 	const openModal = () => setModal(true);
 	const closeModal = () => setModal(false);
@@ -250,7 +244,7 @@ const Billing = () => {
 									: subPriceType
 							}
 							btnOnClick={openModal}
-							currentPlan={selectedPlan === 'Business'}
+							// currentPlan={selectedPlan === 'Business'}
 							selectedCurrency={selectedCurrency}
 						/>
 					</div>

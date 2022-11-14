@@ -30,6 +30,7 @@ module.exports = {
 		NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY:
 			'AQWU0_H74bp7gktmP1olCxUqoXxweGxkGxGl8jE-Pw-_8p_OtQUumWjdyP2boRwcBtSHebPXY1LKv2vP',
 		NEXT_COINBASE_API_KEY: 'f623b9a9-26ad-42b9-ad02-b9a05f252997',
+		NEXT_COINBASE_SECRET_KEY: '5095cd73-2074-4c63-a772-dba4a8601886',
 	},
 	images: {
 		domains: [

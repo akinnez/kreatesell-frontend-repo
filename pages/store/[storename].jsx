@@ -213,15 +213,24 @@ const ProductCard = ({
 			productDetails?.product_images?.[1]?.filename?.split(',')[0]) ||
 		(productDetails?.product_images?.[0]?.filename?.includes(',') &&
 			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
+
+	const statusLabel = {
+		'In Stock': {color: '#2DC071'},
+		'Out of Stock': {color: '#FF4D4F'},
+	};
+
+	const outOfStock = () => {
+		return productDetails.number_sold >= productDetails.total;
+	};
 	return (
 		<div
 			className={`bg-white w-full rounded-lg ${styles.productCardCtn}`}
 			style={{cursor: 'pointer'}}
-			onClick={() =>
+			onClick={() => {
 				router.push(
 					`/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
-				)
-			}
+				);
+			}}
 		>
 			<div>
 				<Image
@@ -241,58 +250,83 @@ const ProductCard = ({
 					alt=""
 				/>
 			</div>
-
+			<div className={`flex justify-between p-2 ${styles.productStatus}`}>
+				<p
+					className={`mb-0 ${styles.status}`}
+					style={{
+						color: statusLabel[
+							outOfStock()
+								? 'Out of Stock'
+								: productDetails.status
+						].color,
+					}}
+				>
+					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
+					{outOfStock() ? 'Out of Stock' : productDetails.status}
+				</p>
+				{productDetails.product_details?.is_show_number_of_sales && (
+					<p className={`mb-0 ${styles.amountSold}`}>
+						{' '}
+						{productDetails?.number_sold} sold
+					</p>
+				)}
+			</div>
 			<div className="w-full px-2 md:px-4">
 				{/* <p className={`pt-2 text-sm md:text-base ${styles.productName}`}> */}
-				<p className={`pt-2 text-sm md:text-base `}>
+				<p className={`pt-2 mb-1 text-sm md:text-base `}>
 					{productDetails?.product_details?.product_name}
 				</p>
 
-				<div
-					className={`flex justify-between items-center pb-4 column ${styles.main}`}
-				>
-					<p
-						className={`text-base-gray text-sm md:text-base ${styles.sellingPrice}`}
+				<div className={`flex justify-between items-center pb-4`}>
+					<div
+						className={`flex justify-between items-center pb-4 column ${styles.main}`}
 					>
-						{productDetails?.default_currency}
-						{new Intl.NumberFormat().format(sellingPrice) ?? '0.00'}
-					</p>
-					<p
-						className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
-					>
-						{productDetails?.default_currency}
-						{new Intl.NumberFormat().format(
-							originalPrice ?? productDetails?.default_price
-						) ?? '0.00'}
-					</p>
+						<p
+							className={`text-base-gray text-sm md:text-base mb-0 ${styles.sellingPrice}`}
+						>
+							{productDetails?.default_currency}
+							{new Intl.NumberFormat().format(sellingPrice) ??
+								'0.00'}
+						</p>
+						<p
+							className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+						>
+							{productDetails?.default_currency}
+							{new Intl.NumberFormat().format(
+								originalPrice ?? productDetails?.default_price
+							) ?? '0.00'}
+						</p>
+					</div>
 
-					<Button
+					{/* <Button
 						text={
 							productDetails?.product_details?.cta_button ??
 							'Buy Now'
 						}
 						className={styles.productCardBtn}
-						onClick={() => {
+						onClick={(e) => {
+							e.stopPropagation();
 							// router.push('/checkout')
-							console.log('CTA Clicked!');
+							// console.log('CTA Clicked!');
 							router.push(
 								`/checkout/${productDetails?.product_details?.kreasell_product_id}`
 							);
 							setCheckoutDetails(productDetails);
 						}}
+					/> */}
+					<Image
+						alt=""
+						src={ExternalLink}
+						onClick={(e) => {
+							if (!outOfStock()) {
+								e.stopPropagation();
+								router.push(
+									`/checkout/${productDetails?.product_details?.kreasell_product_id}`
+								);
+								setCheckoutDetails(productDetails);
+							}
+						}}
 					/>
-					{/* <Image
-            alt=""
-            src={ExternalLink}
-            onClick={() => {
-              // router.push('/checkout')
-              console.log('CTA Clicked!')
-              router.push(
-                `/checkout/${productDetails?.product_details?.kreasell_product_id}`,
-              )
-              setCheckoutDetails(productDetails)
-            }}
-          /> */}
 				</div>
 			</div>
 		</div>

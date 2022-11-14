@@ -6,6 +6,8 @@ import {
 	Col,
 	// Card, Form, Input as AntInput
 } from 'antd';
+import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
+
 import Logo from 'components/authlayout/logo';
 import {
 	ActiveTick,
@@ -18,7 +20,11 @@ import {
 	splitFullName,
 	FlutterwaveLogo,
 	ErrorIcon,
+	transactionFees,
+	PaystackLogo,
+	RenderIf,
 } from 'utils';
+import {Tooltip} from 'antd';
 import {SelectV2} from 'components/form-input';
 import {PhoneNumberInput} from 'components';
 import styles from '../../public/css/checkout.module.scss';
@@ -42,28 +48,168 @@ import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
 
-const paymentMethods = [
-	{
-		type: 'Stripe',
-		icon: ActiveStripe,
-		value: 'stripe',
-	},
-	{
-		type: 'Paypal',
-		icon: AdvancedPaypal,
-		value: 'paypal',
-	},
-	{
-		type: 'Flutterwave',
-		icon: FlutterwaveLogo,
-		value: 'flutterwave',
-	},
-	{
-		type: 'CryptoCurrency',
-		icon: AdvancedBitcoin,
-		value: 'crypto',
-	},
-];
+const countryPayments = {
+	NGN: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
+			type: 'Paystack',
+			icon: PaystackLogo,
+			value: 'paystack',
+		},
+	],
+	GHS: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
+			type: 'Paystack',
+			icon: PaystackLogo,
+			value: 'paystack',
+		},
+	],
+	USD: [
+		{
+			type: 'Stripe',
+			icon: ActiveStripe,
+			value: 'stripe',
+		},
+		{
+			type: 'Paypal',
+			icon: AdvancedPaypal,
+			value: 'paypal',
+		},
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
+	],
+	GBP: [
+		{
+			type: 'Stripe',
+			icon: ActiveStripe,
+			value: 'stripe',
+		},
+		{
+			type: 'Paypal',
+			icon: AdvancedPaypal,
+			value: 'paypal',
+		},
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
+	],
+	CAD: [
+		{
+			type: 'Stripe',
+			icon: ActiveStripe,
+			value: 'stripe',
+		},
+		{
+			type: 'Paypal',
+			icon: AdvancedPaypal,
+			value: 'paypal',
+		},
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
+	],
+	XAF: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	XOF: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	GMD: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	KES: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	LRD: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	MWK: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	SLL: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	ZAR: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	TZS: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+	UGX: [
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+	],
+};
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
@@ -86,6 +232,8 @@ const Checkout = () => {
 
 	const [isFree, setIsFree] = useState(true); //temporary state control
 
+	const [{options}, dispatch] = usePayPalScriptReducer();
+
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
 
@@ -96,6 +244,9 @@ const Checkout = () => {
 
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
+	// converted price + transaction fees
+	const [totalPrice, setTotalPrice] = useState();
+
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
@@ -104,26 +255,25 @@ const Checkout = () => {
 
 	const closeModal = () => setModal(false);
 
+	const [storeDetails, setStoreDetails] = useState(null);
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
 	const [storeId, setStoreId] = useState();
 	const checkout = checkOutDetails?.filter(
-		// (item) => item?.currency_name === activeCurrency?.currency,
 		(item) => item?.price_indicator === 'Selling'
 	);
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price;
-
+	console.log('storeDetails', storeDetails);
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
+			setStoreDetails(response.data.data);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
-	// console.log('checkOutDetails', checkOutDetails)
 
 	const getCurrency = (priceOrName) => {
 		if (priceOrName === 'currency') {
@@ -159,7 +309,8 @@ const Checkout = () => {
 			email_address: values?.email,
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
-			total: getCurrency('price'),
+			// total: getCurrency('price'),
+			total: totalPrice,
 			reference_id: reference,
 			purchase_details: [],
 			status: statusValue,
@@ -173,6 +324,26 @@ const Checkout = () => {
 			is_free_flow: true,
 		};
 		return value;
+	};
+
+	const calculatePriceWithFees = () => {
+		let feePercentage;
+		switch (activeCurrency?.currency) {
+			case 'NGN':
+				feePercentage = transactionFees[activeCurrency?.currency];
+				break;
+			case 'USD':
+				feePercentage = transactionFees[activeCurrency?.currency];
+			case 'GBP':
+				feePercentage = transactionFees[activeCurrency?.currency];
+			default:
+				feePercentage = transactionFees['Others'];
+				break;
+		}
+		setTotalPrice(
+			(feePercentage / 100) * getCurrency('price') + getCurrency('price')
+		);
+		return totalPrice;
 	};
 
 	useEffect(() => {
@@ -195,71 +366,46 @@ const Checkout = () => {
 	useEffect(() => {
 		if (checkOutDetails.length) {
 			setActiveCurrency(checkOutDetails[0]);
-			setSelectedPaymentMethod(paymentMethods[0].value);
 		}
 	}, [checkOutDetails.length]);
 
 	useEffect(() => {
-		if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
-			setSelectedPaymentMethod('');
+		// TODO: if the active currency is equal to the base currency, no need to convert
+		if (activeCurrency?.currency || activeCurrency?.currency_name) {
+			setSelectedPaymentMethod(
+				countryPayments[
+					activeCurrency?.currency || activeCurrency.currency_name
+				][0].value
+			);
 		}
-		// if the active currency is equal to the base currency, no need to convert
-		// if (  !activeCurrency?.currency === 'NGN') {
 		handleCurrencyConversion(activeCurrency.currency);
 		// }
-	}, [activeCurrency?.currency]);
+	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 	const checkOutInNaira = checkOutDetails?.find(
 		(item) =>
 			item?.currency_name === 'NGN' && item?.price_indicator === 'Selling'
 	);
+
+	// calculate price + fees
+	useEffect(() => {
+		if (
+			alreadyDefinedPrice?.price ||
+			convertedCurrency?.buy_rate ||
+			checkOutInNaira?.price
+		) {
+			calculatePriceWithFees();
+		}
+	}, [
+		alreadyDefinedPrice?.price,
+		convertedCurrency?.buy_rate,
+		checkOutInNaira?.price,
+	]);
 
 	useEffect(() => {
 		if (country) {
 			handlePhoneCode(country);
 		}
 	}, [country]);
-
-	const handleSubmit = () => {
-		// if we are using paypal
-
-		/** Currencies using PayStack are listed here */
-		if (
-			['GHS', 'NGN'].includes(
-				activeCurrency.currency || activeCurrency.currency_name
-			)
-		) {
-			return initializePaystackPayment(
-				onPaystackSuccess,
-				onPaystackClose
-			);
-		}
-
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		if (
-			(!['NGN', 'GHS'].includes(
-				activeCurrency.currency || activeCurrency.currency_name
-			) ||
-				selectedPaymentMethod === 'flutterwave') &&
-			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		) {
-			handleFlutterPayment({
-				callback: async (response) => {
-					// console.log('response ', response)
-					await sendPaymentCheckoutDetails(
-						paymentDetails({
-							reference: response?.tx_ref,
-							status: response?.status,
-						})
-					);
-					closePaymentModal();
-					//   openModal();
-				},
-				onClose: () => {},
-			});
-		}
-	};
 
 	// TODO: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
@@ -295,6 +441,62 @@ const Checkout = () => {
 		couponCode: '',
 	};
 
+	const handleSubmit = () => {
+		// console.log('price with fees is', calculatePriceWithFees());
+		// console.log('price without fees is', getCurrency('price'));
+		// if we are using paypal
+		console.log('form submitted');
+
+		if (selectedPaymentMethod === 'flutterwave') {
+			handleFlutterPayment({
+				callback: async (response) => {
+					await sendPaymentCheckoutDetails(
+						paymentDetails({
+							reference: response?.tx_ref,
+							status: response?.status,
+						})
+					);
+					closePaymentModal();
+					//   openModal();
+				},
+				onClose: () => {},
+			});
+		}
+		if (selectedPaymentMethod === 'paystack') {
+			return initializePaystackPayment(
+				onPaystackSuccess,
+				onPaystackClose
+			);
+		}
+		/** Currencies using PayStack are listed here */
+
+		// currencies using stripe
+
+		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
+		// if (
+		// 	(!['NGN', 'GHS'].includes(
+		// 		activeCurrency.currency || activeCurrency.currency_name
+		// 	) ||
+		// 		selectedPaymentMethod === 'flutterwave') &&
+		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
+		// ) {
+		// 	handleFlutterPayment({
+		// 		callback: async (response) => {
+		// 			// console.log('response ', response)
+		// 			await sendPaymentCheckoutDetails(
+		// 				paymentDetails({
+		// 					reference: response?.tx_ref,
+		// 					status: response?.status,
+		// 				})
+		// 			);
+		// 			closePaymentModal();
+		// 			//   openModal();
+		// 		},
+		// 		onClose: () => {},
+		// 	});
+		// }
+	};
+
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
@@ -303,13 +505,16 @@ const Checkout = () => {
 	});
 
 	const {errors, setFieldValue, values} = formik;
-	// console.log("values = ", values);
 
+	// ====================================================================================
+	//              PAYMENT CONFIG STARTS HERE
+	// ===================================================================================
 	// Flutterwave configurations
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
-		amount: desiredAmount ? desiredAmount : getCurrency('price'),
+		// amount: desiredAmount ? desiredAmount : getCurrency('price'),
+		amount: desiredAmount ? desiredAmount : totalPrice,
 		currency: getCurrency('currency'),
 		payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
 		customer: {
@@ -333,9 +538,12 @@ const Checkout = () => {
 	const payStackConfig = {
 		reference: randomId,
 		email: values?.email,
+		// amount: desiredAmount
+		// 	? desiredAmount
+		// 	: Number(getCurrency('price')).toFixed() * 100,
 		amount: desiredAmount
 			? desiredAmount
-			: Number(getCurrency('price')).toFixed() * 100,
+			: Number(totalPrice).toFixed() * 100,
 		publicKey:
 			activeCurrency?.currency === 'GHS'
 				? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
@@ -355,7 +563,6 @@ const Checkout = () => {
 	};
 	const onPaystackSuccess = (reference) => {
 		// Implementation for whatever you want to do with reference and after success call.
-		// console.log(reference)
 		const status = paymentStatusList[reference?.status];
 		sendPaymentCheckoutDetails(
 			paymentDetails({reference: reference?.reference, status})
@@ -369,6 +576,10 @@ const Checkout = () => {
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
+
+	// ===================================================================================
+	//              PAYMENT CONFIG ENDS HERE
+	// ===================================================================================
 
 	const handleSelect = (currency) => {
 		setActiveCurrency(currency);
@@ -385,6 +596,19 @@ const Checkout = () => {
 			paymentDetails({total: null, reference: ''})
 		);
 	};
+
+	// this is to trigger rerender for paypal options
+	function onCurrencyChange() {
+		if (['USD', 'GBP'].includes(activeCurrency?.currency)) {
+			dispatch({
+				type: 'resetOptions',
+				value: {
+					...options,
+					currency: activeCurrency.currency,
+				},
+			});
+		}
+	}
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -727,56 +951,188 @@ const Checkout = () => {
 									</div>
 								</div>
 							)}
-
 							<div className="divider"></div>
-							{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
-							{['GBP', 'USD'].includes(
-								activeCurrency?.currency
-							) && (
-								<div className="pb-6">
-									<div className="text-black-100">
-										Payment Method
-									</div>
-									<p className="text-base-gray-200">
-										Select your preferred payment method
-									</p>
-
-									<div className="grid gap-4 grid-cols-3">
-										{paymentMethods.map(
-											({type, icon, value}) => (
-												<div
-													key={value}
-													onClick={() =>
-														handlePaymentMethod(
-															value
-														)
-													}
-													className={`${
-														selectedPaymentMethod ===
-														value
-															? 'activeCard'
-															: 'card'
-													} p-2 flex justify-around items-center`}
-												>
-													<Image
-														src={icon}
-														alt={type}
-													/>
-													{selectedPaymentMethod ===
-														value && (
-														<Image
-															src={ActiveTick}
-															alt="active"
-															width="16"
-															height="16"
-														/>
-													)}
-												</div>
-											)
-										)}
-									</div>
+							<div className="pb-6">
+								<div className="text-black-100">
+									Payment Method
 								</div>
-							)}
+								<p className="text-base-gray-200">
+									Select your preferred payment method
+								</p>
+
+								<div className="grid gap-4 grid-cols-3">
+									{countryPayments[
+										activeCurrency?.currency ||
+											activeCurrency.currency_name
+									]
+										?.filter(({value}) => {
+											if (value !== 'paypal') {
+												return true;
+											}
+											{
+												/* check that the user has upgraded and has done KYC */
+											}
+											if (
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
+													'approved' &&
+												storeDetails?.user_plan?.toLowerCase() ===
+													'business' &&
+												value !== 'paypal'
+											) {
+												return true;
+											} else if (
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+													'approved' &&
+												storeDetails?.user_plan?.toLowerCase() !==
+													'business'
+											) {
+												{
+													/* return false if currency is cad, usd or gbp */
+												}
+												if (
+													[
+														activeCurrency?.currency,
+														activeCurrency.currency_name,
+													].includes('USD') ||
+													[
+														activeCurrency?.currency,
+														activeCurrency.currency_name,
+													].includes('GBP') ||
+													[
+														activeCurrency?.currency,
+														activeCurrency.currency_name,
+													].includes('CAD')
+												) {
+													return false;
+												}
+											}
+										})
+										.map(({type, icon, value}) => (
+											<div
+												key={value}
+												onClick={() =>
+													handlePaymentMethod(value)
+												}
+												className={`${
+													selectedPaymentMethod ===
+													value
+														? 'activeCard'
+														: 'card'
+												} p-2 flex justify-around items-center`}
+											>
+												<Image
+													src={icon}
+													alt={type}
+													height="26"
+												/>
+												{selectedPaymentMethod ===
+													value && (
+													<Image
+														src={ActiveTick}
+														alt="active"
+														width="16"
+														height="16"
+													/>
+												)}
+											</div>
+										))}
+									{/* active currency */}
+									{/* */}
+									<RenderIf
+										condition={
+											[
+												activeCurrency?.currency,
+												activeCurrency.currency_name,
+											].includes('USD') ||
+											[
+												activeCurrency?.currency,
+												activeCurrency.currency_name,
+											].includes('GBP') ||
+											[
+												activeCurrency?.currency,
+												activeCurrency.currency_name,
+											].includes('CAD')
+										}
+									>
+										<Tooltip
+											title={
+												(!formik.values.firstName ||
+													!formik.values.lastName ||
+													!formik.values.email ||
+													!formik.values.phoneNo) &&
+												'Fill in all Customer Details to be able to select paypal'
+											}
+										>
+											<div>
+												<PayPalButtons
+													style={{
+														layout: 'horizontal',
+														label: 'pay',
+													}}
+													disabled={
+														!formik.values
+															.firstName ||
+														!formik.values
+															.lastName ||
+														!formik.values.email ||
+														!formik.values.phoneNo
+													}
+													className={`flex justify-around items-center`}
+													createOrder={(
+														data,
+														actions
+													) => {
+														return actions.order.create(
+															{
+																purchase_units:
+																	[
+																		{
+																			description:
+																				'customDescription',
+																			amount: {
+																				// value: Number(
+																				// 	convertedPrice
+																				// ).toFixed(2),
+																				value: Number(
+																					getCurrency(
+																						'price'
+																					)
+																				).toFixed(
+																					2
+																				),
+																				currency:
+																					getCurrency(
+																						'currency'
+																					),
+																			},
+																		},
+																	],
+															}
+														);
+													}}
+													onApprove={(
+														data,
+														actions
+													) => {
+														console.log(
+															'data is',
+															data
+														);
+														console.log(
+															'actions is',
+															actions
+														);
+														alert(
+															'You have successfully completed the transaction'
+														);
+													}}
+												/>
+											</div>
+										</Tooltip>
+									</RenderIf>
+								</div>
+							</div>
+							{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
 							{/**Apply coupon feature is yet to be implemented */}
 							{isFree && (
