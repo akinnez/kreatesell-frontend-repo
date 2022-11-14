@@ -559,5 +559,5 @@ export {
 	LikeIcon,
 	CommentIcon,
 	ComingSoon,
-	MakeItFreeIcon
+	MakeItFreeIcon,
 };
