@@ -379,3 +379,68 @@
 		}
 	}
 }
+
+.mobileLoginLink {
+	display: block;
+	// border: 1px solid red;
+	// width: 100%;
+	align-self: flex-end;
+	height: 100%;
+	text-align: right;
+	.loginBtn {
+		width: 100%;
+		// border: 1px solid red;
+		display: block;
+	}
+}
+
+.mobileLoginLink.showLogin {
+	display: block;
+
+	@media (min-width: 651px) {
+		display: none;
+	}
+}
+
+.selectAndButtons {
+	display: flex;
+	align-items: center;
+	.btns {
+		display: flex;
+		align-items: center;
+		& button:first-child {
+			margin-right: 0.5rem;
+		}
+		@media (max-width: 768px) {
+			display: none;
+		}
+	}
+}
+
+.desktopSearch {
+	// border: 1px solid red;
+	display: flex;
+	padding: 5px 19px;
+	width: 324px;
+	align-items: center;
+	background: #ffffff;
+	/* Gray / gray-5 BORDER */
+
+	border: 1px solid #d9d9d9;
+	border-radius: 8px;
+	svg {
+		font-size: 1.3rem !important;
+	}
+	input {
+		margin-left: 11.51px;
+	}
+	@media (max-width: 650px) {
+		display: none;
+	}
+}
+
+.mobileSearch {
+	@media (min-width: 650px) {
+		display: none;
+	}
+}
