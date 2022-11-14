@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
 import {usePaystackPayment} from 'react-paystack';
-import CoinbaseCommerceButton from 'react-coinbase-commerce';
+// import CoinbaseCommerceButton from 'react-coinbase-commerce';
 
 import {loadStripe} from '@stripe/stripe-js';
 
@@ -20,6 +20,8 @@ import {
 	AdvancedPaypal,
 	splitFullName,
 	FlutterwaveLogo,
+	transactionFees,
+	RenderIf,
 } from 'utils';
 import {RightArrow} from 'utils/icons/RightArrow';
 import useCurrency from 'hooks/useCurrency';
@@ -83,6 +85,9 @@ export const UpgradeAccountForm = ({
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [convertedPrice, setConvertedPrice] = useState(price);
 
+	// converted price + transaction fees
+	const [totalPrice, setTotalPrice] = useState();
+
 	const {handleCurrencyConversion} = useConvertRates(
 		'NGN',
 		activeCurrency?.currency || selectedCurrency?.currency
@@ -104,7 +109,8 @@ export const UpgradeAccountForm = ({
 			email_address: user?.email,
 			mobile_number: user?.mobile,
 			datetime: new Date().toISOString(),
-			total: convertedPrice,
+			// total: convertedPrice,
+			total: totalPrice,
 			reference_id: reference,
 			purchase_details: [],
 			status: statusValue,
@@ -124,7 +130,8 @@ export const UpgradeAccountForm = ({
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
-		amount: convertedPrice,
+		// amount: convertedPrice,
+		amount: totalPrice,
 		currency: `${activeCurrency?.currency}`,
 		payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
 		customer: {
@@ -148,7 +155,8 @@ export const UpgradeAccountForm = ({
 	const payStackConfig = {
 		reference: randomId,
 		email: user?.email,
-		amount: convertedPrice * 100,
+		// amount: convertedPrice * 100,
+		amount: totalPrice * 100,
 		publicKey:
 			activeCurrency?.currency === 'GHS'
 				? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
@@ -188,25 +196,53 @@ export const UpgradeAccountForm = ({
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
 
-	const handleSubmit = (e) => {
+	const calculatePriceWithFees = () => {
+		let feePercentage;
+		switch (activeCurrency?.currency) {
+			case 'NGN':
+				feePercentage = transactionFees[activeCurrency?.currency];
+				break;
+			case 'USD':
+				feePercentage = transactionFees[activeCurrency?.currency];
+			case 'GBP':
+				feePercentage = transactionFees[activeCurrency?.currency];
+			default:
+				feePercentage = transactionFees['Others'];
+				break;
+		}
+		setTotalPrice((feePercentage / 100) * convertedPrice + convertedPrice);
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		// if selected is crypto
-		if (selectedCurrency === 'crypto') {
+		if (selectedPaymentMethod === 'crypto') {
+			console.log('crypto');
+			try {
+				const data = await axios.post('/api/init', {
+					id: 'id_test',
+					price: totalPrice,
+				});
+				console.log('data is', data);
+				window.open(data.data.hosted_url, '_blank');
+			} catch (e) {
+				console.error(e);
+			}
 		}
 
 		// if selected currency is stripe
 		if (selectedPaymentMethod === 'stripe') {
-			axios
-				.post('/api/checkout_sessions')
-				.then((res) => {
-					console.log('the call was successful');
-					console.log('res is ', res);
-				})
-				.catch((err) => {
-					console.log('error error error', err);
-				});
-			return;
+			// axios
+			// 	.post('/api/checkout_sessions')
+			// 	.then((res) => {
+			// 		console.log('the call was successful');
+			// 		console.log('res is ', res);
+			// 	})
+			// 	.catch((err) => {
+			// 		console.log('error error error', err);
+			// 	});
+			// return;
 		}
 
 		// if we are using paypal
@@ -274,6 +310,13 @@ export const UpgradeAccountForm = ({
 		}
 	}, [convertedCurrency]);
 
+	// calculate price + fees
+	useEffect(() => {
+		if (convertedPrice) {
+			calculatePriceWithFees();
+		}
+	}, [convertedPrice]);
+
 	// console.log('active', activeCurrency.currency);
 	const handleSelect = (currency) => {
 		setActiveCurrency(currency);
@@ -314,6 +357,7 @@ export const UpgradeAccountForm = ({
 								selectedCurrency.currency}
 						</sup>{' '}
 						{Number(convertedPrice).toFixed(2)}
+						{/* {Number(totalPrice).toFixed(2)} */}
 						<sub className="font-normal text-xs text-black-100">
 							/ Month
 						</sub>
@@ -503,15 +547,18 @@ export const UpgradeAccountForm = ({
 											label: 'pay',
 										}}
 										className={`flex justify-around items-center`}
-										createOrder={(data, actions) => {
+										createOrder={async (data, actions) => {
 											return actions.order.create({
 												purchase_units: [
 													{
 														description:
 															'customDescription',
 														amount: {
+															// value: Number(
+															// 	convertedPrice
+															// ).toFixed(2),
 															value: Number(
-																convertedPrice
+																totalPrice
 															).toFixed(2),
 															currency:
 																activeCurrency?.currency ||
@@ -530,20 +577,6 @@ export const UpgradeAccountForm = ({
 										}}
 									/>
 								</RenderIf>
-								<CoinbaseCommerceButton
-									checkoutId={'My checkout ID'}
-									styled={false}
-									// chargeId={nil}
-									onLoad={() => {}}
-									onChargeSuccess={() => {}}
-									onChargeFailure={() => {}}
-									onPaymentDetected={() => {}}
-									onModalClosed={() => {}}
-									disableCaching={false}
-									customMetadata={{
-										custom: 'This is custom Meta data',
-									}}
-								/>
 							</div>
 						</>
 					)}
@@ -591,11 +624,12 @@ export const UpgradeAccountForm = ({
 						</div>
 						<div className="divider"> </div>
 						<div className="flex justify-between">
-							<p>Total</p>
+							<p>Total with Fees</p>
 							<p className="text-primary-blue font-medium">
 								{activeCurrency?.currency ||
 									selectedCurrency.currency}{' '}
-								{Number(convertedPrice).toFixed(2)}
+								{/* {Number(convertedPrice).toFixed(2)} */}
+								{Number(totalPrice).toFixed(2)}
 							</p>
 						</div>
 					</div>
@@ -606,7 +640,8 @@ export const UpgradeAccountForm = ({
 								text={`Pay ${
 									activeCurrency?.currency ||
 									selectedCurrency.currency
-								} ${Number(convertedPrice).toFixed(2)}`}
+									// } ${Number(convertedPrice).toFixed(2)}`}
+								} ${Number(totalPrice).toFixed(2)}`}
 								bgColor="blue"
 								style={{width: '100%'}}
 								icon={<RightArrow />}
@@ -641,8 +676,4 @@ export const UpgradeAccountForm = ({
 			`}</style>
 		</>
 	);
-};
-
-const RenderIf = ({condition, children}) => {
-	return condition ? children : null;
 };
