@@ -173,6 +173,7 @@ import NavCloseDropdownIcon from '../public/images/login-nav-drop.svg';
 import SideBarLoginProfile from '../public/images/login-Profile.svg';
 import TechCity from '../public/images/tech-city.svg';
 import Punch from '../public/images/punch.svg';
+import SearchIcon from '../public/images/search-icon-2.svg';
 import TechCabal from '../public/images/tech-cabal.svg';
 import MnD from '../public/images/mn-d.svg';
 import MnGuardian from '../public/images/mn-guardian.svg';
@@ -277,6 +278,7 @@ import CollapseArrowRight from '../public/images/collapseArrowRight.svg';
 import Folder from '../public/images/folder.svg';
 import MessageIcon from '../public/images/messageIcon.svg';
 import OpenTicketIcon from '../public/images/openTicketIcon.svg';
+import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 
 export {
 	MessageIcon,
@@ -335,6 +337,7 @@ export {
 	NewsCardOne,
 	IntegrationsCircle,
 	VisionImage,
+	SearchIcon,
 	MissionImage,
 	MissionIcon,
 	VisionIcon,
@@ -558,4 +561,5 @@ export {
 	LikeIcon,
 	CommentIcon,
 	ComingSoon,
+	MakeItFreeIcon,
 };

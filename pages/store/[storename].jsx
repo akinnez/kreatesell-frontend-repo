@@ -92,8 +92,14 @@ const StorePage = () => {
 						<Select options={currencyOptions} border="none" />
 					</div>
 
-					<div onClick={() => logout()}>
+					{/* <div onClick={() => logout()}>
 						<Button text="logout" bgColor="blue" />
+					</div> */}
+					<div onClick={() => router.push('/login')} className="pr-5">
+						<Button text="Login" bgColor="white" />
+					</div>
+					<div onClick={() => router.push('/signup')}>
+						<Button text="Signup" bgColor="blue" />
 					</div>
 				</div>
 			</nav>
@@ -242,7 +248,7 @@ const ProductCard = ({
 				/>
 			</div>
 
-			<div className="w-full px-2 md:px-4">
+			<div className={`w-full px-2 md:px-4 ${styles.cardBox}`}>
 				{/* <p className={`pt-2 text-sm md:text-base ${styles.productName}`}> */}
 				<p className={`pt-2 text-sm md:text-base `}>
 					{productDetails?.product_details?.product_name}

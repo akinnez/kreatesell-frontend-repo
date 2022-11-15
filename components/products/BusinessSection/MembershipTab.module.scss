@@ -3,8 +3,9 @@
 @import '../../../public//css/screens.scss';
 
 .sectionContainerTitle {
+	align-items: flex-start;
 	@include screen('inbetween') {
-		flex-direction: column;
+		flex-direction: row;
 	}
 	h1 {
 		font-size: 1.5rem;
@@ -88,9 +89,12 @@
 	}
 }
 .miniSaveButtonsMobile {
+	// border: 1px solid red;
+	margin-left: 2rem;
 	display: none;
 	@include screen('inbetween') {
 		display: flex;
+		align-items: flex-start;
 	}
 }
 .section {
@@ -180,12 +184,14 @@
 	}
 }
 .contentContainer {
-	padding: 80px;
+	padding: 30px;
 }
 .contents {
-	width: 85%;
+	// width: 85%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	// border: 1px solid red;
 }
 .rad {
 	label {
