@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import useSWR from 'swr';
-import {Table, Pagination, Spin} from 'antd';
+import {useRouter} from 'next/router';
+import {Table, Pagination, Spin, Modal, Button} from 'antd';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
 import PaginationSizeChanger from 'components/PaginationSizeChanger';
 import WalletBalance from '../WalletBalance';
@@ -12,11 +13,14 @@ import useFilters from '../../useFilters';
 import axiosApi from 'utils/axios';
 import {showToast} from 'utils';
 import styles from './index.module.scss';
+import Loader from 'components/loader';
+import CloseIcon from 'components/affiliates/CloseIcon';
 
 const rowKey = (record) => record.id;
 
 const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const [loading, setLoading] = useState(false);
+	const Router = useRouter();
 
 	const {url, filters, setFilters} = useFilters(
 		'affiliate/get-wallet-history'
@@ -57,6 +61,49 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
 	};
+	if (!data && !error) {
+		return <Loader />;
+	}
+
+	if (
+		typeof data === 'string' &&
+		data.includes(
+			'is not an affiliate yet, accept the Affiliate terms and conditions first to proceed.'
+		)
+	) {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible
+				centered
+				maskClosable={false}
+				style={{textAlign: 'center'}}
+			>
+				<div style={{marginBlockStart: '2rem', marginBlockEnd: '1rem'}}>
+					<h1 style={{fontSize: '1.5rem', fontWeight: '500'}}>
+						User is not yet an affiliate, accept the Affiliate Terms
+						and conditions
+					</h1>
+					<Button
+						disabled={false}
+						type={'primary'}
+						onCancel={() =>
+							Router.push('/account/affiliate/market-place')
+						}
+						onClick={() =>
+							Router.push('/account/affiliate/market-place')
+						}
+						loading={false}
+						closeIcon={<CloseIcon />}
+						style={{padding: '1rem'}}
+					>
+						Go to Terms and conditions page
+					</Button>
+				</div>
+			</Modal>
+		);
+	}
 
 	return (
 		<>
@@ -83,17 +130,19 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 					setFilters={setFilters}
 				/>
 				<section className={styles.data__section}>
-					<WalletHistoryMobileView histories={histories} />
+					<WalletHistoryMobileView
+						histories={histories ? histories : []}
+					/>
 					<div className={styles.table__wrapper}>
 						<Table
-							dataSource={histories}
+							dataSource={histories || []}
 							columns={walletColumns}
 							pagination={false}
 							rowKey={rowKey}
 						/>
 					</div>
 				</section>
-				{histories.length > 0 && (
+				{histories?.length > 0 && (
 					<section>
 						<Pagination
 							pageSize={filters.limit}
