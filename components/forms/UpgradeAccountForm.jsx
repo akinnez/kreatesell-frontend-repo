@@ -218,7 +218,7 @@ export const UpgradeAccountForm = ({
 
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
-			console.log('crypto');
+			// console.log('crypto');
 			try {
 				const data = await axios.post('/api/init', {
 					id: 'id_test',
@@ -408,7 +408,7 @@ export const UpgradeAccountForm = ({
 									<div
 										key={index}
 										className={
-											activeCurrency.id === id
+											activeCurrency?.id === id
 												? styles.activeCard
 												: styles.card
 										}
@@ -430,7 +430,7 @@ export const UpgradeAccountForm = ({
 											/>
 										</div>
 										<div className="">{name}</div>
-										{activeCurrency.id === id && (
+										{activeCurrency?.id === id && (
 											<div className="pl-1 pt-1">
 												<Image
 													src={ActiveTick}
@@ -453,7 +453,7 @@ export const UpgradeAccountForm = ({
 									<div
 										key={index}
 										className={
-											activeCurrency.id === id
+											activeCurrency?.id === id
 												? styles.activeCard
 												: styles.card
 										}
@@ -475,7 +475,7 @@ export const UpgradeAccountForm = ({
 											/>
 										</div>
 										<div className="">{name}</div>
-										{activeCurrency.id === id && (
+										{activeCurrency?.id === id && (
 											<div className="pl-1 pt-1">
 												<Image
 													src={ActiveTick}

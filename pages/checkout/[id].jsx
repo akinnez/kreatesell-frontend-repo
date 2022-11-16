@@ -970,6 +970,7 @@ const Checkout = () => {
 												return true;
 											} */
 											}
+
 											{
 												/* check that the user has upgraded and has done KYC */
 											}
