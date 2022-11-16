@@ -247,7 +247,7 @@ export const CreateProductForm = ({
 			);
 			setFieldValue('product_id', product?.product_details?.id);
 			setFieldValue(
-				'product_listing_status',
+				'product_listing_status_id',
 				product?.product_details?.product_listing_status
 			);
 			setFieldValue('cta_button', product?.product_details?.cta_button);
@@ -583,9 +583,10 @@ export const CreateProductForm = ({
 							Choose whether product should be available on your
 							store and audience dashboard.
 						</p>
+
 						<div className="grey-bg bg-base-white-100 px-6 py-8 rounded-lg">
 							<Radio
-								value={values.product_visibility_status}
+								value={values.product_listing_status_id}
 								content={1}
 								label="Activated"
 								extralable="- Your product will go live and visible to audience for a purchase once you complete the creation of your product page"
@@ -594,13 +595,13 @@ export const CreateProductForm = ({
 								onChange={(e) => {
 									// console.log("e is", e);
 									setFieldValue(
-										'product_visibility_status',
+										'product_listing_status_id',
 										e || activateStatus[0]?.id
 									);
 								}}
 							/>
 							<Radio
-								value={values.product_visibility_status}
+								value={values.product_listing_status_id}
 								content={2}
 								label="Deactivated"
 								extralable="- Nobody would be able to access or purchase this product until you activate it."
@@ -609,13 +610,13 @@ export const CreateProductForm = ({
 								onChange={(e) => {
 									// console.log("e is", e);
 									setFieldValue(
-										'product_visibility_status',
+										'product_listing_status_id',
 										e || deActivateStatus[0]?.id
 									);
 								}}
 							/>
 							<Radio
-								value={values.product_visibility_status}
+								value={values.product_listing_status_id}
 								content={3}
 								label="Unlisted"
 								extralable="- Your product would not be visible on your store page but anyone with its direct link can purchase it."
@@ -624,7 +625,7 @@ export const CreateProductForm = ({
 								onChange={(e) => {
 									// console.log("e is", e);
 									setFieldValue(
-										'product_visibility_status',
+										'product_listing_status_id',
 										e || unListStatus[0]?.id
 									);
 								}}
