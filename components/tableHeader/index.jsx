@@ -233,6 +233,10 @@ const CouponStatusComponent = (item) => {
 			type: 'Finished',
 			styles: {background: 'rgba(255, 77, 79, 0.1)', color: '#F90005'},
 		},
+		Expired: {
+			type: 'Expired',
+			styles: {background: 'rgba(255, 77, 79, 0.1)', color: '#F90005'},
+		},
 	};
 
 	let tagStyles = statusTextList[item].styles;
@@ -246,6 +250,8 @@ const CouponStatusComponent = (item) => {
 
 const ActionComponent = ({item}, all) => {
 	const router = useRouter();
+	// const [domainLink, setDomainLink] = useState('');
+	// const {store} = useSelector((state) => state.store);
 	const duplicateProduct = DuplicateProductAction();
 	const getProducts = GetProducts();
 	const createEditDeleteProduct = CreateProduct();
@@ -257,16 +263,13 @@ const ActionComponent = ({item}, all) => {
 	// const productLink = "scam";
 
 	// console.log('all is', all)
-	const [domainLink, setDomainLink] = useState('');
 
-	const {store} = useSelector((state) => state.store);
-
-	useEffect(() => {
-		if (Object.keys(store).length > 0) {
-			const {domain_details} = store.domain_details;
-			setDomainLink(domain_details[0].domain_url);
-		}
-	}, [store]);
+	// useEffect(() => {
+	// 	if (Object.keys(store).length > 0) {
+	// 		const {domain_details} = store.domain_details;
+	// 		setDomainLink(domain_details[0].domain_url);
+	// 	}
+	// }, [store]);
 
 	/**Used to delete and deactivate product */
 	const handleModalOk = (action) => {
@@ -306,7 +309,7 @@ const ActionComponent = ({item}, all) => {
 				<p className="mb-0 ml-3">Edit Product</p>
 			</li>
 
-			<li
+			{/* <li
 				className="flex items-center cursor-pointer"
 				onClick={() =>
 					_copyToClipboard(
@@ -319,7 +322,7 @@ const ActionComponent = ({item}, all) => {
 					<Image alt="" src={ManageProduct} />
 				</span>
 				<p className="mb-0 ml-3">Copy Link</p>
-			</li>
+			</li> */}
 
 			<li
 				onClick={() =>
