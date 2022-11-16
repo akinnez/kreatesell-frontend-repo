@@ -263,7 +263,6 @@ const Checkout = () => {
 	);
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price;
-	console.log('storeDetails', storeDetails);
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
@@ -966,8 +965,10 @@ const Checkout = () => {
 											activeCurrency.currency_name
 									]
 										?.filter(({value}) => {
-											if (value !== 'paypal') {
+											{
+												/* if (value !== 'paypal') {
 												return true;
+											} */
 											}
 											{
 												/* check that the user has upgraded and has done KYC */
