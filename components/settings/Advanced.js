@@ -99,9 +99,6 @@ const Advanced = () => {
 	const [webcamImgSrc, setWebcamImgSrc] = useState(null);
 	const [fileUploadImageSrc, setFileUploadImageSrc] = useState(null);
 	const [showWebcamModal, setShowWebcamModal] = useState(false);
-	const [activePaymentMode, setActivePaymentMode] = useState(
-		paymentModes[0].id
-	);
 	const [files, setFiles] = useState({
 		webcamFile: null,
 		validIdCard: null,
@@ -126,10 +123,6 @@ const Advanced = () => {
 
 	const openSelfieModal = () => {
 		openModal();
-	};
-
-	const handlePaymentModeSelection = (mode) => {
-		setActivePaymentMode(mode);
 	};
 
 	const handleWebcam = (imgSrc) => {
@@ -185,13 +178,7 @@ const Advanced = () => {
 							{paymentModes.map(({id, image}) => (
 								<div
 									key={id}
-									className={`${styles.paymentMethodCard} ${
-										activePaymentMode === id &&
-										styles.active
-									}`}
-									onClick={() =>
-										handlePaymentModeSelection(id)
-									}
+									className={`${styles.paymentMethodCard}`}
 								>
 									<Image src={image} alt="" />{' '}
 									{id === 'cryptocurrency' && (
