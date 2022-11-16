@@ -211,13 +211,16 @@ export default function PreviewContent({
 					{product?.product_details?.enable_preorder && (
 						<div className={styles.preorderInfo}>
 							Please note that this product is to be preordered
-							and the expected release date is{' '}
-							{new Date(
-								product?.product_details?.preoder_date
-							).toLocaleDateString('en-US', options)}{' '}
-							{new Date(
-								product?.product_details?.preoder_date
-							).toLocaleString('en-US', timeOptions)}
+							and{' '}
+							<p style={{fontWeight: '700', color: '#000'}}>
+								the expected release date is{' '}
+								{new Date(
+									product?.product_details?.preoder_date
+								).toLocaleDateString('en-US', options)}{' '}
+								{new Date(
+									product?.product_details?.preoder_date
+								).toLocaleString('en-US', timeOptions)}
+							</p>
 						</div>
 					)}
 					<div className={styles.padBottom1}></div>
