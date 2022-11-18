@@ -233,6 +233,10 @@ const CouponStatusComponent = (item) => {
 			type: 'Finished',
 			styles: {background: 'rgba(255, 77, 79, 0.1)', color: '#F90005'},
 		},
+		Expired: {
+			type: 'Finished',
+			styles: {background: 'rgba(255, 77, 79, 0.1)', color: '#F90005'},
+		},
 	};
 
 	let tagStyles = statusTextList[item].styles;

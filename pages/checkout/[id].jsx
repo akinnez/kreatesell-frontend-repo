@@ -89,6 +89,7 @@ const Checkout = () => {
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const {countries} = useSelector((state) => state.utils);
+	const [defaultCurrency, setDefaultCurrency] = useState('');
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
@@ -131,17 +132,37 @@ const Checkout = () => {
 			item.currency_name === testCurrency
 	);
 
+	const OriginalPrices = checkOutDetails.find(
+		(item) =>
+			item.price_indicator === 'Original' &&
+			item.currency_name === testCurrency
+	);
+
 	const [storeId, setStoreId] = useState();
+
+	// TODO: set to the base currency
+	const baseCurrencyObbject = checkOutDetails.find(
+		(item) => item.currency_name === defaultCurrency
+	);
+
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency,
-		(item) => item?.price_indicator === 'Selling'
+		(item) =>
+			(item?.price_indicator === pricingTypeDetails.price_type) ===
+			'Pay What You Want'
+				? 'Minimum'
+				: 'Selling' &&
+				  item?.currency_name === baseCurrencyObbject.currency_name
 	);
+
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price;
 
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
+			console.log(response, 'response');
+			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(
 				response.data?.data?.product_details?.pricing_type
 			);
@@ -172,10 +193,13 @@ const Checkout = () => {
 				SuggestedPrices?.price ||
 				Number(getCurrency('price')).toFixed(2)
 			);
+		} else if (priceOrName === 'original') {
+			return (
+				OriginalPrices?.price || null
+				// Number(getCurrency('price')).toFixed(2)
+			);
 		}
 	};
-
-	console.log(activeCurrency, 'active me');
 	const handlePhoneCode = (countryParam) => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
@@ -191,6 +215,17 @@ const Checkout = () => {
 		failed: 'f',
 		// abandoned: "a"
 	};
+
+	const getPurchaseDetails = () => {
+		return [
+			{
+				product_id: productId,
+				quantity: 1,
+				amount: totalFee,
+			},
+		];
+	};
+
 	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
 		const value = {
@@ -198,9 +233,9 @@ const Checkout = () => {
 			email_address: values?.email,
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
-			total: getCurrency('price'),
+			total: getCurrency('total'),
 			reference_id: reference,
-			purchase_details: [],
+			purchase_details: getPurchaseDetails(),
 			status: statusValue,
 			card_type: '',
 			last_four: '',
@@ -209,7 +244,8 @@ const Checkout = () => {
 			is_affiliate: values?.is_affiliate || false,
 			affiliate_product_link: '',
 			user_identifier: values?.id || '',
-			is_free_flow: true,
+			is_free_flow:
+				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 		};
 		return value;
 	};
@@ -230,10 +266,11 @@ const Checkout = () => {
 	}, [storeId]);
 
 	// set currency on mount
-	// TODO: set to the base currency
+
 	useEffect(() => {
 		if (checkOutDetails.length) {
-			setActiveCurrency(checkOutDetails[0]);
+			// we need to check for the default currency here
+			setActiveCurrency(baseCurrencyObbject);
 			setSelectedPaymentMethod(paymentMethods[0].value);
 		}
 	}, [checkOutDetails.length]);
@@ -343,6 +380,7 @@ const Checkout = () => {
 
 	// const calcNgN = 5 / 100 * subTotal
 	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+
 	if (
 		[
 			'KES',
@@ -386,7 +424,6 @@ const Checkout = () => {
 	});
 
 	const {errors, setFieldValue, values} = formik;
-	// console.log("values = ", values);
 
 	// Flutterwave configurations
 	const flutterConfig = {
@@ -473,6 +510,7 @@ const Checkout = () => {
 	const couponData = {
 		coupon_code: couponCode,
 		product_kreator_id: productId,
+		customer_email: values.email,
 	};
 
 	const handleApplyCoupon = async (e) => {
@@ -816,7 +854,7 @@ const Checkout = () => {
 									{desiredAmount &&
 										Number(desiredAmount) <
 											Number(
-												getCurrency('price')
+												getCurrency('minimum')
 											).toFixed(2) && (
 											<div
 												className={
@@ -984,6 +1022,31 @@ const Checkout = () => {
 											<p>
 												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
 												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+												{OriginalPrices && (
+													<span
+														style={{
+															fontSize: '15px',
+															color: '#8C8C8C',
+															textDecoration:
+																'line-through',
+														}}
+													>
+														{getCurrency(
+															'currency'
+														)}{' '}
+													</span>
+												)}
+												<span
+													style={{
+														fontSize: '15px',
+														color: '#8C8C8C',
+														textDecoration:
+															'line-through',
+														marginRight: '7px',
+													}}
+												>
+													{getCurrency('original')}
+												</span>
 												{getCurrency('currency')}{' '}
 												{subTotal}
 												{/* {basicSubtotal} || {desiredAmount
@@ -1012,9 +1075,10 @@ const Checkout = () => {
 										<p className="text-primary-blue font-medium">
 											{/* {currency_name}{' '} */}
 											{/* {new Intl.NumberFormat().format(
-                      price ?? checkoutDetails?.default_price
+                                            price ?? checkoutDetails?.default_price
 											)} */}
-											{getCurrency('currency')} {totalFee}
+											{getCurrency('currency')}{' '}
+											{Number(totalFee).toFixed(2)}
 										</p>
 									</div>
 								</div>

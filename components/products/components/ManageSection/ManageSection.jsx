@@ -20,7 +20,7 @@ const ManageSection = ({
 	const [isTitleEditable, setIsTitleEditable] = useState(false);
 	const [sectionName, setSectionName] = useState(items.section_name);
 
-	console.log(items?.product_subsection[0], 'items');
+	console.log(items, 'items');
 
 	return (
 		<div className="flex flex-col mt-7">
@@ -153,7 +153,7 @@ const ManageSection = ({
 							<div
 								className="p-4"
 								onClick={() =>
-									openMedia(item?.files[1].filename)
+									openMedia(item?.files[0].filename)
 								}
 							>
 								<Image
