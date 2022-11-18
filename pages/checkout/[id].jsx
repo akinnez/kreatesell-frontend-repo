@@ -276,7 +276,9 @@ const Checkout = () => {
 
 	const getCurrency = (priceOrName) => {
 		if (priceOrName === 'currency') {
-			return activeCurrency?.currency || activeCurrency?.currency_name;
+			return selectedPaymentMethod === 'crypto'
+				? 'USDT'
+				: activeCurrency?.currency || activeCurrency?.currency_name;
 		} else if (priceOrName === 'price') {
 			return (
 				alreadyDefinedPrice?.price ||
@@ -370,6 +372,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		// TODO: if the active currency is equal to the base currency, no need to convert
+
 		if (activeCurrency?.currency || activeCurrency?.currency_name) {
 			setSelectedPaymentMethod(
 				countryPayments[
@@ -380,6 +383,13 @@ const Checkout = () => {
 		handleCurrencyConversion(activeCurrency.currency);
 		// }
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
+
+	useEffect(() => {
+		if (selectedPaymentMethod && selectedPaymentMethod === 'crypto') {
+			handleCurrencyConversion('USD');
+		}
+	}, [selectedPaymentMethod]);
+
 	const checkOutInNaira = checkOutDetails?.find(
 		(item) =>
 			item?.currency_name === 'NGN' && item?.price_indicator === 'Selling'
@@ -440,11 +450,37 @@ const Checkout = () => {
 		couponCode: '',
 	};
 
-	const handleSubmit = () => {
-		// console.log('price with fees is', calculatePriceWithFees());
-		// console.log('price without fees is', getCurrency('price'));
-		// if we are using paypal
-		console.log('form submitted');
+	// console.log('storeDetails', storeDetails);
+	const handleSubmit = async () => {
+		// if selected is crypto
+		if (selectedPaymentMethod === 'crypto') {
+			// console.log('crypto');
+			try {
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
+					{
+						name: storeDetails?.product_details?.product_name,
+						description:
+							'storeDetails?.product_details?.product_description',
+						pricing_type: 'fixed_price',
+						local_price: {
+							amount: getCurrency('price'),
+							currency: 'USDT',
+						},
+						metadata: {
+							customer_id: '342',
+							customer_name: 1,
+						},
+					}
+				);
+				// console.log('data is', data);
+				window.open(data.data.data.hosted_url, '_blank');
+			} catch (e) {
+				console.error(e);
+			} finally {
+				return;
+			}
+		}
 
 		if (selectedPaymentMethod === 'flutterwave') {
 			handleFlutterPayment({
@@ -903,7 +939,7 @@ const Checkout = () => {
 											className={styles.minimumPriceText}
 										>
 											Minimum price:{' '}
-											{convertedCurrency.to_currency_name}{' '}
+											{getCurrency('currency')}{' '}
 											{Number(
 												convertedCurrency.total_amount
 											).toFixed(2)}
