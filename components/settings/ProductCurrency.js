@@ -74,11 +74,13 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 	};
 
 	// TODO: check for if each section's all currencies are checked by default
+	// TODO: don't check if it is the default currency
 	const handleCheckAll = (field) => {
 		switch (field) {
 			case 'allCountriesCurrencies':
 				// if all currencies are selected from this section
 				if (allSelected.allCountriesCurrencies) {
+					// this helps us set that "select all" checkbox's state
 					setAllSelected((prev) => ({
 						...prev,
 						allCountriesCurrencies: !prev.allCountriesCurrencies,
@@ -88,7 +90,13 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 							(prv) =>
 								['XOF', 'XAF'].includes(
 									prv.currency_short_name
-								) || ['XOF', 'XAF'].includes(prv.currency)
+								) ||
+								['XOF', 'XAF'].includes(prv.currency) ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('NGN')
+							// TODO: change NGN to default currency for each sections
 						),
 					]);
 				} else {
@@ -101,7 +109,12 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 							(prv) =>
 								['XOF', 'XAF'].includes(
 									prv.currency_short_name
-								) || ['XOF', 'XAF'].includes(prv.currency)
+								) ||
+								['XOF', 'XAF'].includes(prv.currency) ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('NGN')
 						),
 						...countriesCurrency,
 					]);
@@ -120,7 +133,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XOF')
+								].includes('XOF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('NGN')
 						),
 					]);
 				} else {
@@ -134,7 +151,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XOF')
+								].includes('XOF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('NGN')
 						),
 						...filterdWest,
 					]);
@@ -152,7 +173,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XAF')
+								].includes('XAF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('NGN')
 						),
 					]);
 				} else {
@@ -166,7 +191,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XAF')
+								].includes('XAF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes('NGN')
 						),
 						...filteredCentral,
 					]);
@@ -237,6 +266,8 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries"
+									// TODO: disabled if its the current base currency
+									disabled={cur?.currency === 'NGN'}
 								>
 									<span
 										className={`p-2 flex`}
@@ -290,6 +321,8 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries"
+									// TODO: disabled if its the current base currency
+									disabled={cur?.currency === 'NGN'}
 								>
 									<span
 										className={`p-2 flex`}
@@ -343,6 +376,8 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries"
+									// TODO: disabled if its the current base currency
+									disabled={cur?.currency === 'NGN'}
 								>
 									<span
 										className={`p-2 flex`}

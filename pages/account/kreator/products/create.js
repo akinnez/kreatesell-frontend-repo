@@ -14,7 +14,7 @@ const CreateProduct = () => {
 	const router = useRouter();
 	const setProductTab = SetProductTab();
 	const {productTab, product} = useSelector((state) => state.product);
-	// const state = useSelector((state) => state.product);
+
 	const [titles, setTitles] = useState(['Product Design', 'Checkout']);
 	const [isTabsActive, setIsTabsActive] = useState(true);
 	const [selectedTab, setSelectedTab] = useState(1);
