@@ -7,8 +7,6 @@ import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
 import {usePaystackPayment} from 'react-paystack';
 // import CoinbaseCommerceButton from 'react-coinbase-commerce';
 
-import {loadStripe} from '@stripe/stripe-js';
-
 import crypto from 'crypto';
 
 import {SendPaymentCheckoutDetails} from 'redux/actions';
@@ -24,7 +22,6 @@ import {
 	RenderIf,
 } from 'utils';
 import {RightArrow} from 'utils/icons/RightArrow';
-import useCurrency from 'hooks/useCurrency';
 import useConvertRates from 'hooks/useConvertRates';
 import Loader from '../loader';
 import styles from '../../public/css/UpgradeAccountForm.module.scss';
@@ -32,6 +29,7 @@ import CurrencyCard from 'components/settings/CurrencyCard';
 import {useSelector} from 'react-redux';
 import {Input} from 'components';
 import axios from 'axios';
+import axiosApi from 'utils/axios';
 
 const paymentMethods = [
 	{
@@ -55,13 +53,6 @@ const paymentMethods = [
 		value: 'crypto',
 	},
 ];
-
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = loadStripe(
-	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
 
 export const UpgradeAccountForm = ({
 	subscriptionMode: {mode, price},
@@ -220,11 +211,16 @@ export const UpgradeAccountForm = ({
 		if (selectedPaymentMethod === 'crypto') {
 			// console.log('crypto');
 			try {
-				const data = await axios.post('/api/init', {
-					id: 'id_test',
-					price: totalPrice,
-				});
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
+					{
+						id: 'id_test',
+						price: totalPrice,
+						name: 'Tunde Afo',
+					}
+				);
 				console.log('data is', data);
+				// console.log('data is', data);
 				window.open(data.data.hosted_url, '_blank');
 			} catch (e) {
 				console.error(e);
@@ -232,20 +228,6 @@ export const UpgradeAccountForm = ({
 		}
 
 		// if selected currency is stripe
-		if (selectedPaymentMethod === 'stripe') {
-			// axios
-			// 	.post('/api/checkout_sessions')
-			// 	.then((res) => {
-			// 		console.log('the call was successful');
-			// 		console.log('res is ', res);
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log('error error error', err);
-			// 	});
-			// return;
-		}
-
-		// if we are using paypal
 
 		/** Currencies using PayStack are listed here */
 		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
