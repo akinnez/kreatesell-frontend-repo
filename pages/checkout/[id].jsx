@@ -93,7 +93,7 @@ const Checkout = () => {
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
-
+                    
 	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
 		useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
@@ -141,9 +141,11 @@ const Checkout = () => {
 	const [storeId, setStoreId] = useState();
 
 	// TODO: set to the base currency
-	const baseCurrencyObbject = checkOutDetails.find(
-		(item) => item.currency_name === defaultCurrency
+
+	const baseCurrencyObbject = checkOutDetails?.find(
+		(item) => item?.currency_name === defaultCurrency?.currency
 	);
+
 
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency,
@@ -152,7 +154,7 @@ const Checkout = () => {
 			'Pay What You Want'
 				? 'Minimum'
 				: 'Selling' &&
-				  item?.currency_name === baseCurrencyObbject.currency_name
+				  item?.currency_name === baseCurrencyObbject?.currency_name
 	);
 
 	const currency_name = checkout?.[0]?.currency_name;
@@ -221,7 +223,7 @@ const Checkout = () => {
 			{
 				product_id: productId,
 				quantity: 1,
-				amount: totalFee,
+				amount: pricingTypeDetails.price_type === 'Make it Free' ? 0 : totalFee,
 			},
 		];
 	};
@@ -379,6 +381,8 @@ const Checkout = () => {
 			: standardPrice;
 
 	// const calcNgN = 5 / 100 * subTotal
+
+
 	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
 
 	if (
@@ -392,12 +396,12 @@ const Checkout = () => {
 			'UGX',
 			'XOF',
 			'XAF',
-		].includes(activeCurrency.currency || activeCurrency.currency_name)
+		].includes(activeCurrency?.currency || activeCurrency?.currency_name)
 	) {
 		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
 	} else if (
-		['USD', 'GDP'].includes(
-			activeCurrency.currency || activeCurrency.currency_name
+		['USD', 'GBP'].includes(
+			activeCurrency?.currency || activeCurrency?.currency_name
 		)
 	) {
 		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
@@ -502,8 +506,9 @@ const Checkout = () => {
 	useFetchUtilities();
 
 	const handleMakeItFreePayment = async () => {
+		const status = 'success';
 		await sendPaymentCheckoutDetails(
-			paymentDetails({total: null, reference: ''})
+			paymentDetails({total: null, reference: '', status: status})
 		);
 	};
 
@@ -874,7 +879,7 @@ const Checkout = () => {
 														'currency'
 													)}{' '}
 													{Number(
-														getCurrency('price')
+														getCurrency('minimum')
 													).toFixed(2)}
 													.
 												</p>
