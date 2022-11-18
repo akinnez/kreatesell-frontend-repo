@@ -25,6 +25,7 @@
 		"axios": "^0.21.1",
 		"chart.js": "^3.5.0",
 		"cogo-toast": "^4.2.3",
+		"coinbase-commerce-node": "^1.0.4",
 		"date-fns": "^2.23.0",
 		"disqus-react": "^1.1.2",
 		"filesize": "^8.0.3",

@@ -280,7 +280,12 @@ import MessageIcon from '../public/images/messageIcon.svg';
 import OpenTicketIcon from '../public/images/openTicketIcon.svg';
 import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 
+import PaystackLogo from '../public/images/paystack-logo.svg';
+import InfoIcon from '../public/images/info-icon.svg';
+
 export {
+	InfoIcon,
+	PaystackLogo,
 	MessageIcon,
 	OpenTicketIcon,
 	Folder,

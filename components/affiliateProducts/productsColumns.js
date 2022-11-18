@@ -2,6 +2,7 @@ import Performance from 'components/affiliates/Performance';
 import RequestAccessLink from './components/RequestAccessLink';
 import {dateString} from 'utils/dateFormat';
 import formatNumber from 'utils/formatNumber';
+import GetLink from '../affiliateRequests/components/GetLink';
 
 const productsColumns = [
 	{
@@ -43,12 +44,22 @@ const productsColumns = [
 	},
 	{
 		title: 'Action',
-		render: (record) => (
-			<RequestAccessLink
-				productId={record.id}
-				status={record.has_requested_access}
-			/>
-		),
+		render: (record) => {
+			if (record?.total_affiliate_sales >= 5) {
+				return (
+					<GetLink
+						status={record.request_status}
+						productId={record.product_id}
+					/>
+				);
+			}
+			return (
+				<RequestAccessLink
+					productId={record.id}
+					status={record.has_requested_access}
+				/>
+			);
+		},
 		width: '130px',
 	},
 ];

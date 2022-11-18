@@ -22,7 +22,9 @@ import {
 	RightArrow2,
 	CurvedArrow,
 	DownArrow,
+	InfoIcon,
 } from 'utils';
+import {RenderIf} from 'utils';
 
 import {SubmitPaymentOptions, GetStoreDetails} from 'redux/actions';
 
@@ -97,9 +99,6 @@ const Advanced = () => {
 	const [webcamImgSrc, setWebcamImgSrc] = useState(null);
 	const [fileUploadImageSrc, setFileUploadImageSrc] = useState(null);
 	const [showWebcamModal, setShowWebcamModal] = useState(false);
-	const [activePaymentMode, setActivePaymentMode] = useState(
-		paymentModes[0].id
-	);
 	const [files, setFiles] = useState({
 		webcamFile: null,
 		validIdCard: null,
@@ -124,10 +123,6 @@ const Advanced = () => {
 
 	const openSelfieModal = () => {
 		openModal();
-	};
-
-	const handlePaymentModeSelection = (mode) => {
-		setActivePaymentMode(mode);
 	};
 
 	const handleWebcam = (imgSrc) => {
@@ -183,13 +178,7 @@ const Advanced = () => {
 							{paymentModes.map(({id, image}) => (
 								<div
 									key={id}
-									className={`${styles.paymentMethodCard} ${
-										activePaymentMode === id &&
-										styles.active
-									}`}
-									onClick={() =>
-										handlePaymentModeSelection(id)
-									}
+									className={`${styles.paymentMethodCard}`}
 								>
 									<Image src={image} alt="" />{' '}
 									{id === 'cryptocurrency' && (
@@ -246,11 +235,32 @@ const Advanced = () => {
 						<Image src={AdvancedSettings} alt="" />
 					</div>
 				</section>
+				<RenderIf condition={store?.user?.user_plan !== 'Business'}>
+					<div
+						className={`flex gap-5 ${styles.upgradeYourAccountInfo}`}
+					>
+						{/* icon comes here */}
+						<Image src={InfoIcon} alt="" height={50} width={50} />
+						<p className={styles.info}>
+							Sorry, you don’t yet have access to this premium
+							feature. You need to upgrade your account to
+							BUSINESS, then submit your credentials to activate
+							these global payment methods and get paid by anyone,
+							anywhere in the world.
+						</p>
+					</div>
+				</RenderIf>
 				{/* only show this section for when kyc status is null or Denied */}
 				{[null, 'Denied', 'Request'].includes(
 					store?.kyc_status?.kyc_status
 				) && (
-					<section className={styles.steps}>
+					<section
+						className={`${styles.steps}  ${
+							store?.user?.user_plan !== 'Business' &&
+							styles.greyed
+						}`}
+					>
+						<div className={styles.overlay}></div>
 						<div className={styles.stepsLeft}>
 							<div className={styles.top}>
 								{/* 1st card */}

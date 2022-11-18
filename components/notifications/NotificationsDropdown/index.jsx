@@ -26,15 +26,17 @@ const NotificationsDropdown = () => {
 			trigger={['click']}
 			arrow
 		>
-			<Badge
-				className={styles.badge}
-				count={count}
-				color="#f5222d"
-				overflowCount={10}
-				offset={count > 10 ? [5, 5] : [-2, 5]}
-			>
-				<Button type="text" shape="circle" icon={<Bell />} />
-			</Badge>
+			<div>
+				<Badge
+					className={styles.badge}
+					count={count}
+					color="#f5222d"
+					overflowCount={10}
+					offset={count > 10 ? [5, 5] : [-2, 5]}
+				>
+					<Button type="text" shape="circle" icon={<Bell />} />
+				</Badge>
+			</div>
 		</Dropdown>
 	);
 };

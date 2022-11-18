@@ -22,6 +22,8 @@ const PreviewMembership = () => {
 		product: {product_content},
 	} = useSelector((state) => state.product);
 
+	console.log(product_content, 'product_content');
+
 	const [activeLink, setActiveLink] = useState({});
 
 	console.log(activeLink, 'activeLink');
@@ -58,6 +60,9 @@ const PreviewMembership = () => {
 		});
 		setAccordionData(products);
 	};
+
+	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
+	console.log(activeLink, 'ctiveLink');
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -151,7 +156,14 @@ const PreviewMembership = () => {
 									backgroundColor: 'white',
 								}}
 							>
-								{/* <Image src={activeLink?.files[1]?.filename} alt="" width={700} height={450}/> */}
+								{activeLink?.files && (
+									<Image
+										src={fileMedia}
+										alt="media"
+										width={700}
+										height={450}
+									/>
+								)}
 							</div>
 							<Card>
 								<p className={styles.sectionName}>

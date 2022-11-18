@@ -40,8 +40,12 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 	const handleClicks = (setter, value) => () => {
 		setter(value);
 	};
+	if (!walletInfo[0]?.currency) {
+		// console.log('Currency does not exist');
+		return null;
+	}
 
-	const {currency, available_balance: kreatorBalance} = walletInfo[0];
+	const {available_balance: kreatorBalance} = walletInfo[0];
 
 	return (
 		<header className={styles.header}>
@@ -55,7 +59,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 						<Col {...breakPoints}>
 							<WalletInfo
 								title="Kreator"
-								currency={currency}
+								currency={walletInfo[0]?.currency}
 								balance={kreatorBalance}
 							>
 								<div className={styles.withdraw__btn}>
@@ -77,7 +81,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 						<Col {...breakPoints}>
 							<WalletInfo
 								title="Affiliate"
-								currency={currency}
+								currency={walletInfo[0]?.currency}
 								balance={affiliateBalance.toFixed(2)}
 							>
 								<div className={styles.affiliate__info}>
@@ -100,7 +104,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 					withdrawModal={withdrawModal}
 					hideModal={handleClicks(setWithdrawModal, false)}
 					showSuccess={handleClicks(setSuccessModal, true)}
-					currency={currency}
+					currency={walletInfo[0]?.currency}
 					balance={kreatorBalance}
 					bankDetails={bankDetails}
 				/>

@@ -408,7 +408,10 @@ export const CreateProductTab = ({
 								Set Up Bank Details
 							</h2>
 							<p className="text-base-gray-300 text-center text-sm">
-								In order
+								In order to start accepting payments from your
+								sales as a Kreator or/and commissions as an
+								Affiliate, kindly setup your bank account,
+								mobile money wallet or PayPal address.
 							</p>
 							<div className="flex justify-between">
 								<div

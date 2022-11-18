@@ -96,6 +96,28 @@ const CardBody = (props) => {
 						<p className={styles.value2}>Jun 12th 2021, 3:50 PM</p>
 					</div>
 				</div>
+				<div
+					className={`mb-5 flex justify-between ${styles.ticketDetailsMobile}`}
+				>
+					<div className={`flex justify-between`}>
+						<div className={styles.ticketDetail}>
+							<p className={styles.title}>Ticket ID</p>
+							<p className={styles.value}>#456789</p>
+						</div>
+						<div className={styles.ticketDetail}>
+							<p className={styles.title}>Status</p>
+							<span className={styles.status}>Open</span>
+						</div>
+						<div className={styles.ticketDetail}>
+							<p className={styles.title}>Department</p>
+							<p className={styles.value2}>Technical</p>
+						</div>
+					</div>
+					<div className={styles.ticketDetail}>
+						<p className={styles.title}>Submitted Date</p>
+						<p className={styles.value2}>Jun 12th 2021, 3:50 PM</p>
+					</div>
+				</div>
 				<CardProfile />
 				<div className={styles.formContainer}>
 					<div className={styles.inputDiv}>

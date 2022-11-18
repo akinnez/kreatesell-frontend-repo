@@ -3,7 +3,7 @@ import {Switch, Form, Input, Button, Select} from 'antd';
 import styles from './Checkout.module.scss';
 // import { Select } from 'components/form-input';
 import {useState, useEffect, useCallback, useRef} from 'react';
-import {CloudUpload, FileDelete, FileZip, Audio, Video} from 'utils';
+import {CloudUpload, FileDelete, FileZip, Audio, Video, showToast} from 'utils';
 import Image from 'next/image';
 import {useFormik} from 'formik';
 // import { Select } from "components/select/Select";
@@ -13,15 +13,22 @@ import {
 	GetBillingInterval,
 	CreateProduct,
 	SetProductTab,
+	GetStoreCurrencies,
 } from 'redux/actions';
 import {useUpload} from 'hooks';
+import useStoreCurrency from 'hooks/useStoreCurrencies';
 import CustomCheckoutSelect from './CustomCheckout';
 import {useRouter} from 'next/router';
 import {transformToFormData} from 'utils';
 
 import axios from 'axios';
 
-export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
+export const CheckoutForm = ({
+	ctaBtnText,
+	priceType,
+	setCtaBtnText,
+	defaultCurrency,
+}) => {
 	/**
 	 * PriceType Values
 	 * FixedPrice: 1
@@ -30,6 +37,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	 * Make It Free: 4
 	 */
 
+	const getStoreCurrencies = GetStoreCurrencies();
 	const getProductByID = GetProductByID();
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
@@ -52,7 +60,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	// if (product) {
 	//   setProductID(product?.product_details?.kreasell_product_id);
 	// }
-
+	const [errorForNotMatchedCurrency, setErrorForNotMatchedCurrency] =
+		useState(false);
 	const [progress, setProgress] = useState(0);
 	const [isLimited, setIsLimited] = useState(false);
 
@@ -147,6 +156,13 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
+	const {selectedStoreCurrencies, storeCurrenciesLoading} =
+		useStoreCurrency();
+
+	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
+		[]
+	);
+
 	useEffect(() => {
 		setCustomBillingInterval(initialBillingInput * billingIntervalDuration);
 	}, [billingIntervalDuration]);
@@ -207,8 +223,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	useEffect(() => {
 		getBillingInterval();
 	}, []);
-
-	console.log('mainFile', mainFile);
 
 	useEffect(() => {
 		setFieldValue(
@@ -380,7 +394,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		}
 	}, []);
 
-	// console.log("localstorage = ", localStorage.getItem("originalPrice"));
 	const checkArrays = (data) => {
 		// console.log("Data passed to function", data);
 		const arrayLists = [
@@ -402,9 +415,58 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		return data;
 	};
 
-	// console.log('productId = ', productID)
+	// ========================================================
+	const formatCurrencies = () => {
+		// Checks for XOF and XAF duplicates in currency
+		let newArr = selectedStoreCurrencies.filter((currency, index, self) => {
+			return (
+				index ===
+				self.findIndex((t) => currency.currency_id === t.currency_id)
+			);
+		});
+		setFormattedStoreCurrencies(newArr);
+	};
+
+	// useEffect for formatting currencies
+	useEffect(() => {
+		if (
+			Array.isArray(selectedStoreCurrencies) &&
+			selectedStoreCurrencies?.length > 0
+		) {
+			formatCurrencies();
+		}
+	}, [selectedStoreCurrencies.length]);
+
+	useEffect(() => {
+		// getAllowedCurrencies()
+		getStoreCurrencies();
+	}, []);
+
+	// function to check that all product currencies have been defined before submission is possible
+	const validateDefinedCurrencies = () => {
+		setErrorForNotMatchedCurrency(false);
+		if (formattedStoreCurrencies.length !== fixedSellingPrice.length) {
+			setErrorForNotMatchedCurrency(true);
+			return true;
+		}
+		const results = formattedStoreCurrencies.filter(
+			({currency: id1}) =>
+				!fixedSellingPrice.some(({currency_name: id2}) => id2 === id1)
+		);
+		if (results.length > 0) {
+			setErrorForNotMatchedCurrency(true);
+			return true;
+		}
+		return false;
+	};
+
+	// ========================================================
 
 	const handleSubmit = (data) => {
+		if (validateDefinedCurrencies()) {
+			showToast('Please define prices for all currencies', 'error');
+			return;
+		}
 		// console.log("data from submit = ", data);
 		// setProductID(productID);
 		// const dataWithCompare = {
@@ -421,7 +483,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			delete data.upload_content;
 			delete data.contentZipFiles;
 		}
-		console.log('promotionalMaterial', promotionalMaterial);
+		// console.log('promotionalMaterial', promotionalMaterial);
 		if (promotionalMaterial.length < 1) {
 			delete data?.Promotional_Items;
 		}
@@ -451,14 +513,6 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			setProductTab(2);
 		});
 	};
-	console.log('promotionalMaterial', promotionalMaterial);
-
-	// console.log(
-	//   "is_show_compare = ",
-	//   compareToPrice
-	//   // ??
-	//   // compareToPrice
-	// );
 
 	const initialValues = {
 		action: 'e',
@@ -526,7 +580,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	});
 
 	const {errors, setFieldValue, values} = formik;
-	console.log('formik values', values);
+	// console.log('formik values', values);
 
 	//Updating Formik values
 	useEffect(() => {
@@ -807,6 +861,12 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 						title={'Selling Price'}
 						field={fixedSellingPrice}
 						setField={setFixedSellingPrice}
+						error={errorForNotMatchedCurrency}
+						{...{
+							selectedStoreCurrencies,
+							setFormattedStoreCurrencies,
+							formattedStoreCurrencies,
+						}}
 					/>
 					<p className="text-base-gray-200 text-xs pt-2">
 						Set the equivalent price of your product in the
@@ -951,6 +1011,12 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 							withCustomFeedBack={true}
 							showFeedBack={!isOpMoreThanSp}
 							noMatchFound={noMatchingCurrency}
+							error={errorForNotMatchedCurrency}
+							{...{
+								selectedStoreCurrencies,
+								setFormattedStoreCurrencies,
+								formattedStoreCurrencies,
+							}}
 						/>
 					</div>
 				)}

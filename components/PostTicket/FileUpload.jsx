@@ -115,10 +115,17 @@ function FileUpload({files, setFiles, uploadingFiles, setUploadingFiles}) {
 									files to be uploaded
 								</p>
 							) : (
-								<p className={`my-0 ${styles.dragText}`}>
-									Drag and drop or click to upload files,
-									maximum number of files (5) five
-								</p>
+								<>
+									<p
+										className={`my-0 ${styles.dragTextMobile}`}
+									>
+										Drag and Drop or Upload files
+									</p>
+									<p className={`my-0 ${styles.dragText}`}>
+										Drag and drop or click to upload files,
+										maximum number of files (5) five
+									</p>
+								</>
 							)}
 						</div>
 					)}

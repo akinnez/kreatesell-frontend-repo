@@ -7,6 +7,18 @@ import {Button} from 'antd';
 import {useRouter} from 'next/router';
 import {RightPreviewArrow, LeftPreviewArrow, ExternalLink} from 'utils';
 
+var options = {
+	weekday: 'long',
+	year: 'numeric',
+	month: 'short',
+	day: 'numeric',
+};
+var timeOptions = {
+	hour: 'numeric',
+	minute: 'numeric',
+	hour12: true,
+};
+
 export default function PreviewContent({
 	alreadyDefinedPrice,
 	alreadyDefinedOriginalPrice,
@@ -29,7 +41,6 @@ export default function PreviewContent({
 	);
 
 	const productId = product?.product_details?.kreasell_product_id;
-	console.log('product', product.product_details);
 	const {user} = useSelector((state) => state?.auth);
 
 	const formatPrice = (amount, decimalPlaces = 2) =>
@@ -48,7 +59,6 @@ export default function PreviewContent({
 	};
 	useEffect(() => {
 		if (Object.keys(product).length > 0) {
-			// console.log('from preview',product)
 			setDetails(product?.product_details);
 			setImages(
 				...product?.product_images
@@ -76,7 +86,6 @@ export default function PreviewContent({
 			setSellingPrice(
 				prices?.filter((item) => item?.price_indicator === 'Selling')
 			);
-			// console.log('product?', product)
 			setOriginalPrice(
 				prices?.filter((item) => item?.price_indicator === 'Original')
 			);
@@ -202,8 +211,16 @@ export default function PreviewContent({
 					{product?.product_details?.enable_preorder && (
 						<div className={styles.preorderInfo}>
 							Please note that this product is to be preordered
-							and the expected release date is Mar 31, 2022 9:00
-							AM
+							and{' '}
+							<p style={{fontWeight: '700', color: '#000'}}>
+								the expected release date is{' '}
+								{new Date(
+									product?.product_details?.preoder_date
+								).toLocaleDateString('en-US', options)}{' '}
+								{new Date(
+									product?.product_details?.preoder_date
+								).toLocaleString('en-US', timeOptions)}
+							</p>
 						</div>
 					)}
 					<div className={styles.padBottom1}></div>
@@ -247,7 +264,6 @@ export default function PreviewContent({
 
 						<Button
 							onClick={() => {
-								console.log('clicked');
 								router.push(
 									{
 										pathname: `/checkout/${productId}`,

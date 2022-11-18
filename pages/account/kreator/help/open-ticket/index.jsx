@@ -15,18 +15,22 @@ const OpenTicket = ({}) => {
 		{
 			id: '12',
 			name: 'Technical',
+			icon: 'technical.svg',
 		},
 		{
 			id: '123',
 			name: 'Affiliates',
+			icon: 'Affiliates.svg',
 		},
 		{
 			id: '124',
 			name: 'Billing',
+			icon: 'Billing.svg',
 		},
 		{
 			id: '1254',
 			name: 'General',
+			icon: 'testimg.png',
 		},
 	];
 	const router = useRouter();
@@ -64,7 +68,7 @@ const OpenTicket = ({}) => {
 											{dept.name}
 										</h4>
 										<Image
-											src="/images/testimg.png"
+											src={`/images/${dept.icon}`}
 											alt="departments"
 											width={250}
 											height={200}
