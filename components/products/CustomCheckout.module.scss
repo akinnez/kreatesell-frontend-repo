@@ -37,6 +37,9 @@
 	border-radius: 8px;
 	min-height: 150px;
 	padding: 14px 2em;
+	&.errorBorder {
+		border: 2px solid #ff4d4f;
+	}
 
 	.currencyButtons {
 		background-color: $white-200;
