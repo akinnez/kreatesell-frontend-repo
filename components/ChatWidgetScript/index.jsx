@@ -6,25 +6,15 @@ const ChatScript = () => {
 			strategy="afterInteractive"
 			dangerouslySetInnerHTML={{
 				__html: `
-    window.WhelpConfig = {
-		app_id: '78b9de75570f6c27d81813acb7fd0500'
-	};
-
-	(function(w, d){
-		function l(){
-			var s = d.createElement('script');
-			s.type = 'text/javascript';
-			s.async = true;
-			s.src = 'https://widget.getwhelp.com/widget.js';
-			s.onload = function () {
-				Whelp.Init();
-			};
-			var x = d.getElementsByTagName('script')[0];
-			x.parentNode.insertBefore(s, x);
-		}
-		if(w.attachEvent){w.attachEvent('onload', l);}
-		else{w.addEventListener('load', l, false);}
-	})(window, document);
+				var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+				(function(){
+				var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+				s1.async=true;
+				s1.src='https://embed.tawk.to/635fd218daff0e1306d4ea11/1ggn4pcnt';
+				s1.charset='UTF-8';
+				s1.setAttribute('crossorigin','*');
+				s0.parentNode.insertBefore(s1,s0);
+				})(); 
   `,
 			}}
 		/>

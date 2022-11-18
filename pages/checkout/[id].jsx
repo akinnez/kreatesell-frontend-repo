@@ -293,8 +293,9 @@ const Checkout = () => {
 	const [storeId, setStoreId] = useState();
 
 	// TODO: set to the base currency
-	const baseCurrencyObbject = checkOutDetails.find(
-		(item) => item.currency_name === defaultCurrency
+
+	const baseCurrencyObbject = checkOutDetails?.find(
+		(item) => item?.currency_name === defaultCurrency?.currency
 	);
 
 	const checkout = checkOutDetails?.filter(
@@ -375,7 +376,10 @@ const Checkout = () => {
 			{
 				product_id: productId,
 				quantity: 1,
-				amount: totalFee,
+				amount:
+					pricingTypeDetails.price_type === 'Make it Free'
+						? 0
+						: totalFee,
 			},
 		];
 	};
@@ -578,6 +582,7 @@ const Checkout = () => {
 			: standardPrice;
 
 	// const calcNgN = 5 / 100 * subTotal
+
 	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
 
 	if (
@@ -595,7 +600,7 @@ const Checkout = () => {
 	) {
 		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
 	} else if (
-		['USD', 'GDP'].includes(
+		['USD', 'GBP'].includes(
 			activeCurrency?.currency || activeCurrency?.currency_name
 		)
 	) {
@@ -790,8 +795,9 @@ const Checkout = () => {
 	useFetchUtilities();
 
 	const handleMakeItFreePayment = async () => {
+		const status = 'success';
 		await sendPaymentCheckoutDetails(
-			paymentDetails({total: null, reference: ''})
+			paymentDetails({total: null, reference: '', status: status})
 		);
 	};
 
@@ -1162,7 +1168,7 @@ const Checkout = () => {
 														'currency'
 													)}{' '}
 													{Number(
-														getCurrency('price')
+														getCurrency('minimum')
 													).toFixed(2)}
 													.
 												</p>
