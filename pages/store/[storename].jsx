@@ -131,20 +131,18 @@ const StorePage = () => {
 						{
 							/* console.log('productDetails = ', productDetails) */
 						}
-						const countrySale =
-							productDetails?.check_out_details?.find(
-								(item) =>
-									item?.currency_name === 'NGN' &&
-									item?.price_indicator === 'Selling'
-							);
+						const countrySale = productDetails?.check_out_details?.find(
+							(item) =>
+								item?.currency_name === 'NGN' &&
+								item?.price_indicator === 'Selling'
+						);
 
 						const sellingPrice = countrySale?.price;
-						const originalSetting =
-							productDetails?.check_out_details?.find(
-								(item) =>
-									item?.currency_name === 'NGN' &&
-									item?.price_indicator === 'Original'
-							);
+						const originalSetting = productDetails?.check_out_details?.find(
+							(item) =>
+								item?.currency_name === 'NGN' &&
+								item?.price_indicator === 'Original'
+						);
 						// console.log("countrySale = ", countrySale);
 						// console.log("sellingPrice = ", sellingPrice);
 						const originalPrice = originalSetting?.price;
@@ -222,6 +220,16 @@ const ProductCard = ({
 	const outOfStock = () => {
 		return productDetails.number_sold >= productDetails.total;
 	};
+
+	const showItemsLeftOrAmtSold = () => {
+		let itemsLeft = productDetails?.total - productDetails?.number_sold;
+		if (itemsLeft <= 10) {
+			return `${itemsLeft} left`;
+		}
+		if (productDetails.product_details?.is_show_number_of_sales) {
+			return `${productDetails?.number_sold} sold`;
+		}
+	};
 	return (
 		<div
 			className={`bg-white w-full rounded-lg ${styles.productCardCtn}`}
@@ -254,22 +262,21 @@ const ProductCard = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color: statusLabel[
-							outOfStock()
-								? 'Out of Stock'
-								: productDetails.status
-						].color,
+						color:
+							statusLabel[
+								outOfStock()
+									? 'Out of Stock'
+									: productDetails.status
+							].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
 					{outOfStock() ? 'Out of Stock' : productDetails.status}
 				</p>
-				{productDetails.product_details?.is_show_number_of_sales && (
-					<p className={`mb-0 ${styles.amountSold}`}>
-						{' '}
-						{productDetails?.number_sold} sold
-					</p>
-				)}
+				<p className={`mb-0 ${styles.amountSold}`}>
+					{' '}
+					{showItemsLeftOrAmtSold()}
+				</p>
 			</div>
 			<div className="w-full px-2 md:px-4">
 				{/* <p className={`pt-2 text-sm md:text-base ${styles.productName}`}> */}
