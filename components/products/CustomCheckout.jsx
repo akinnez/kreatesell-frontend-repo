@@ -1,11 +1,7 @@
-import {Row, Col, Input, Select, Button, Spin} from 'antd';
+import {Row, Input, Select, Button} from 'antd';
 import Image from 'next/image';
-import {useEffect, useMemo, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useState} from 'react';
 import styles from './CustomCheckout.module.scss';
-import {GetAllowedCurrencies, GetStoreCurrencies} from 'redux/actions';
-
-import useStoreCurrency from 'hooks/useStoreCurrencies';
 
 const {Option} = Select;
 export default function CustomCheckoutSelect({
@@ -15,16 +11,9 @@ export default function CustomCheckoutSelect({
 	withCustomFeedBack = false,
 	showFeedBack = false,
 	noMatchFound = false,
+	error,
+	formattedStoreCurrencies,
 }) {
-	const {selectedStoreCurrencies, storeCurrenciesLoading} =
-		useStoreCurrency();
-	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
-		[]
-	);
-
-	// console.log('selectedStoreCurrencies', selectedStoreCurrencies)
-	const getStoreCurrencies = GetStoreCurrencies();
-
 	const removeCurrency = (item) => {
 		const filtered = field.filter((i) => i !== item);
 		setField(filtered);
@@ -52,32 +41,6 @@ export default function CustomCheckoutSelect({
 			currency_name,
 		});
 	};
-
-	const formatCurrencies = () => {
-		// Checks for XOF and XAF duplicates in currency
-		let newArr = selectedStoreCurrencies.filter((currency, index, self) => {
-			return (
-				index ===
-				self.findIndex((t) => currency.currency_id === t.currency_id)
-			);
-		});
-		setFormattedStoreCurrencies(newArr);
-	};
-
-	// useEffect for formatting currencies
-	useEffect(() => {
-		if (
-			Array.isArray(selectedStoreCurrencies) &&
-			selectedStoreCurrencies?.length > 0
-		) {
-			formatCurrencies();
-		}
-	}, [selectedStoreCurrencies.length]);
-
-	useEffect(() => {
-		// getAllowedCurrencies()
-		getStoreCurrencies();
-	}, []);
 
 	// if (loading) return <Spin />
 	return (
@@ -165,7 +128,14 @@ export default function CustomCheckoutSelect({
 			<h2 className={`${styles.currencyHeader} mt-3 mb-3`}>
 				Selected Currencies
 			</h2>
-			<div className={styles.currencyField}>
+			{/* {console.log('field', field)} */}
+
+			{/* check that all product currencies have been defined before submission is possible*/}
+			<div
+				className={`${styles.currencyField} ${
+					error && styles.errorBorder
+				}`}
+			>
 				<Row gutter={[24, 16]}>
 					{field.length > 0 ? (
 						field.map((f, i) => (

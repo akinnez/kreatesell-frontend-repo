@@ -42,7 +42,7 @@ export const CheckoutProductTab = ({productId}) => {
 		setPriceType(field.target.value);
 	};
 	// console.log('defaultCtaBtnTextSet = ', defaultCtaBtnTextSet)
-	// console.log('ctaBtnText = ', ctaBtnText)
+	// console.log('defaultCurrency ', defaultCurrency);
 	return (
 		<div className={`px-0 lg:px-8 ${styles.container}`}>
 			<h3 className="text-black-100 font-semibold text-2xl">
@@ -117,6 +117,7 @@ export const CheckoutProductTab = ({productId}) => {
 				setCtaBtnText={setCtaBtnText}
 				priceType={priceType}
 				ctaBtnText={ctaBtnText}
+				defaultCurrency={store?.bank_details?.currency_name}
 			/>
 		</div>
 	);
