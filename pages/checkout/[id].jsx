@@ -93,7 +93,7 @@ const Checkout = () => {
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
-                    
+
 	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
 		useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
@@ -145,7 +145,6 @@ const Checkout = () => {
 	const baseCurrencyObbject = checkOutDetails?.find(
 		(item) => item?.currency_name === defaultCurrency?.currency
 	);
-
 
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency,
@@ -223,7 +222,10 @@ const Checkout = () => {
 			{
 				product_id: productId,
 				quantity: 1,
-				amount: pricingTypeDetails.price_type === 'Make it Free' ? 0 : totalFee,
+				amount:
+					pricingTypeDetails.price_type === 'Make it Free'
+						? 0
+						: totalFee,
 			},
 		];
 	};
@@ -381,7 +383,6 @@ const Checkout = () => {
 			: standardPrice;
 
 	// const calcNgN = 5 / 100 * subTotal
-
 
 	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
 
