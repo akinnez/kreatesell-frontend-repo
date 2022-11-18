@@ -92,8 +92,14 @@ const StorePage = () => {
 						<Select options={currencyOptions} border="none" />
 					</div>
 
-					<div onClick={() => logout()}>
+					{/* <div onClick={() => logout()}>
 						<Button text="logout" bgColor="blue" />
+					</div> */}
+					<div onClick={() => router.push('/login')} className="pr-5">
+						<Button text="Login" bgColor="white" />
+					</div>
+					<div onClick={() => router.push('/signup')}>
+						<Button text="Signup" bgColor="blue" />
 					</div>
 				</div>
 			</nav>
@@ -131,20 +137,18 @@ const StorePage = () => {
 						{
 							/* console.log('productDetails = ', productDetails) */
 						}
-						const countrySale =
-							productDetails?.check_out_details?.find(
-								(item) =>
-									item?.currency_name === 'NGN' &&
-									item?.price_indicator === 'Selling'
-							);
+						const countrySale = productDetails?.check_out_details?.find(
+							(item) =>
+								item?.currency_name === 'NGN' &&
+								item?.price_indicator === 'Selling'
+						);
 
 						const sellingPrice = countrySale?.price;
-						const originalSetting =
-							productDetails?.check_out_details?.find(
-								(item) =>
-									item?.currency_name === 'NGN' &&
-									item?.price_indicator === 'Original'
-							);
+						const originalSetting = productDetails?.check_out_details?.find(
+							(item) =>
+								item?.currency_name === 'NGN' &&
+								item?.price_indicator === 'Original'
+						);
 						// console.log("countrySale = ", countrySale);
 						// console.log("sellingPrice = ", sellingPrice);
 						const originalPrice = originalSetting?.price;
@@ -256,7 +260,7 @@ const ProductCard = ({
 					}
 					width="320"
 					height="300"
-					className="rounded-t-lg"
+					className="rounded-t-lg object-cover"
 					alt=""
 				/>
 			</div>
@@ -264,11 +268,12 @@ const ProductCard = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color: statusLabel[
-							outOfStock()
-								? 'Out of Stock'
-								: productDetails.status
-						].color,
+						color:
+							statusLabel[
+								outOfStock()
+									? 'Out of Stock'
+									: productDetails.status
+							].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
@@ -279,7 +284,7 @@ const ProductCard = ({
 					{showItemsLeftOrAmtSold()}
 				</p>
 			</div>
-			<div className="w-full px-2 md:px-4">
+			<div className={`w-full px-2 md:px-4 ${styles.cardBox}`}>
 				{/* <p className={`pt-2 text-sm md:text-base ${styles.productName}`}> */}
 				<p className={`pt-2 mb-1 text-sm md:text-base `}>
 					{productDetails?.product_details?.product_name}

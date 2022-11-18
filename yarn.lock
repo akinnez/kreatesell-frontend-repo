@@ -4709,7 +4709,7 @@ human-signals@^1.1.1:
 
 husky@^8.0.0:
   version "8.0.1"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.1.tgz#511cb3e57de3e3190514ae49ed50f6bc3f50b3e9"
+  resolved "https://registry.npmjs.org/husky/-/husky-8.0.1.tgz"
   integrity sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==
 
 iconv-lite@0.4.24:
@@ -6825,7 +6825,7 @@ prelude-ls@~1.1.2:
 
 prettier@2.7.1:
   version "2.7.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-2.7.1.tgz"
   integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
 
 pretty-format@^26.6.2:
@@ -7572,7 +7572,7 @@ react-clock@^3.0.0:
 
 react-coinbase-commerce@^1.6.0:
   version "1.6.0"
-  resolved "https://registry.yarnpkg.com/react-coinbase-commerce/-/react-coinbase-commerce-1.6.0.tgz#1b3bde9178c028cded2070b31a57ae110bb7b62b"
+  resolved "https://registry.npmjs.org/react-coinbase-commerce/-/react-coinbase-commerce-1.6.0.tgz"
   integrity sha512-FFN4wD4e5jA6BQIb5tHm74p9Fzei5FecPG3NQuOhUtVRuL65J9aDeBirgv9/KmUdepqjzZgVktxfFvo9vTkcBQ==
 
 react-csv@^2.2.2:

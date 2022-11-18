@@ -120,6 +120,10 @@
 
 .layoutMain {
 	position: relative;
+	width: 100%;
+	@media (max-width: 900px) {
+		width: 140vw;
+	}
 }
 
 .mobileSideBar {

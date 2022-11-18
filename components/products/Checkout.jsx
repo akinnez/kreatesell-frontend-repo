@@ -29,7 +29,7 @@ export const CheckoutProductTab = ({productId}) => {
 	const options = [
 		{label: 'Fixed Price', value: 'Fixed Price'},
 		{label: 'Pay What You Want', value: 'Pay What You Want'},
-		{label: 'Installment Payment', value: 'Installment Payment'},
+		// {label: 'Installment Payment', value: 'Installment Payment'},
 		{label: 'Make It Free', value: 'Make It Free'},
 	];
 
@@ -96,9 +96,9 @@ export const CheckoutProductTab = ({productId}) => {
 						<Radio value="Pay What You Want">
 							Pay What You Want
 						</Radio>
-						<Radio value="Installment Payment">
+						{/* <Radio value="Installment Payment">
 							Installment Payment
-						</Radio>
+						</Radio> */}
 						<Radio
 							disabled={store?.user?.user_plan !== 'Business'}
 							className={

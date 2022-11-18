@@ -37,9 +37,7 @@ const Coupon = () => {
 					...item,
 					key: i + 1,
 					numbers: i + 1,
-					product_name: item.coupons.is_for_all_product
-						? 'All Products'
-						: 'Item',
+					product_name: item.coupons.product_name,
 					code: item?.coupons?.coupon_code,
 					start_date: item?.coupons?.date_created,
 					end_date: item?.coupons?.end_date,
@@ -140,7 +138,7 @@ const Coupon = () => {
 					</div>
 				</div>
 
-				<div className="hidden lg:block mb-16 mt-8">
+				<div className="lg:block mb-16 mt-8">
 					<Table
 						columns={AllCouponTableHeader}
 						locale={tableLocale}

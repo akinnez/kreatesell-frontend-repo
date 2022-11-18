@@ -19,6 +19,9 @@ const ManageSection = ({
 }) => {
 	const [isTitleEditable, setIsTitleEditable] = useState(false);
 	const [sectionName, setSectionName] = useState(items.section_name);
+
+	console.log(items, 'items');
+
 	return (
 		<div className="flex flex-col mt-7">
 			<div className="flex justify-between items-center">
@@ -150,7 +153,7 @@ const ManageSection = ({
 							<div
 								className="p-4"
 								onClick={() =>
-									openMedia(item.product_section_name)
+									openMedia(item?.files[0].filename)
 								}
 							>
 								<Image

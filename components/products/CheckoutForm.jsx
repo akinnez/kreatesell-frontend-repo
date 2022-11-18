@@ -1,6 +1,7 @@
 import {Percentage, Radio} from 'components/inputPack';
-import {Switch, Form, Input, Select, Button} from 'antd';
+import {Switch, Form, Input, Button, Select} from 'antd';
 import styles from './Checkout.module.scss';
+// import { Select } from 'components/form-input';
 import {useState, useEffect, useCallback, useRef} from 'react';
 import {CloudUpload, FileDelete, FileZip, Audio, Video, showToast} from 'utils';
 import Image from 'next/image';
@@ -48,6 +49,9 @@ export const CheckoutForm = ({
 		(state) => state.product
 	);
 
+	const productType =
+		product?.product_details?.product_type?.product_type_name;
+
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
 	// console.log("product = ", product?.product_details?.kreasell_product_id);
@@ -56,14 +60,24 @@ export const CheckoutForm = ({
 	// if (product) {
 	//   setProductID(product?.product_details?.kreasell_product_id);
 	// }
-	const [errorForNotMatchedCurrency, setErrorForNotMatchedCurrency] =
-		useState(false);
+	const [
+		errorForNotMatchedCurrency,
+		setErrorForNotMatchedCurrency,
+	] = useState(false);
 	const [progress, setProgress] = useState(0);
+	const [isLimited, setIsLimited] = useState(false);
 
 	const [compareToPrice, setCompareToPrice] = useState(false);
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);
+	const [frequencyType, setFrequencyType] = useState(0);
+	const [billingFrequency, setBillingFrequency] = useState(0);
+	const [billed, setBilled] = useState(false);
+	const [customBillingDuration, setCustomBillingDuration] = useState('');
+	const [duration, setDuration] = useState('custom');
+
+	const [usageType, setUsageType] = useState(0);
 	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
 	const [frequencyOptions, setFrequencyOptions] = useState([]);
 	const [numberOfInputs, setNumberOfInputs] = useState(1);
@@ -76,6 +90,9 @@ export const CheckoutForm = ({
 	const [initialBillingInput, setInitialBillingInput] = useState(0);
 	const [custombillingInterval, setCustomBillingInterval] = useState(0);
 	const [isBasic, setIsBasic] = useState(true);
+	const [isApplied, setIsApplied] = useState(false);
+	const [isUsage, setIsUsage] = useState(false);
+
 	const mounted = useRef(null);
 	const {Option} = Select;
 
@@ -110,8 +127,9 @@ export const CheckoutForm = ({
 	// Fixed Price Inputs
 	const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
 	const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
-	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] =
-		useState(fixedOriginalPrice);
+	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] = useState(
+		fixedOriginalPrice
+	);
 
 	// Pay What You Want
 	const [minimumPrice, setMinimumPrice] = useState([]);
@@ -120,13 +138,15 @@ export const CheckoutForm = ({
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
-	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
-		useState(false);
+	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] = useState(
+		false
+	);
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [numberOfLimit, setNumberOfLimit] = useState(0);
 	const [showTotalSales, setShowTotalSales] = useState(false);
-	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] =
-		useState(false);
+	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(
+		false
+	);
 
 	const [totalSelling, setTotalSelling] = useState([]);
 	const mapNumberToArray = (number) => {
@@ -141,8 +161,10 @@ export const CheckoutForm = ({
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
-	const {selectedStoreCurrencies, storeCurrenciesLoading} =
-		useStoreCurrency();
+	const {
+		selectedStoreCurrencies,
+		storeCurrenciesLoading,
+	} = useStoreCurrency();
 
 	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
 		[]
@@ -155,12 +177,37 @@ export const CheckoutForm = ({
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
-		useUpload({
-			setFileChange: setPromotionalMaterial,
-			// should accept rar and zip
-			fileType: 'image',
-		});
+	const {
+		preview,
+		getRootProps,
+		getInputProps,
+		mainFile,
+		deleteFile,
+	} = useUpload({
+		setFileChange: setPromotionalMaterial,
+		// should accept rar and zip
+		fileType: 'image',
+	});
+
+	// console.log("product = ", product);
+
+	console.log(duration, 'duration');
+
+	const durationOptions = [
+		{label: 'Daily', value: 'aaily'},
+		{label: 'Weekly', value: 'weekly'},
+		{label: 'Monthly', value: 'monthly'},
+		{label: 'Every 3 Months', value: 'every_3_Months'},
+		{label: 'Every 6 Months', value: 'every_6_Months'},
+		{label: 'Yearly', value: 'yearly'},
+		{label: 'Custom', value: 'custom'},
+	];
+
+	const billedEveryDuration = [
+		{label: 'Days(s)', value: 'days'},
+		{label: 'Weeks(s)', value: 'weeks'},
+		{label: 'Month(s)', value: 'months'},
+	];
 
 	const customBillingIntervals = [
 		{label: 'Day(s)', value: 1},
@@ -315,6 +362,24 @@ export const CheckoutForm = ({
 					setFixedSellingPrice((prev) => [...prev, registeredPrice]);
 					break;
 
+				//pay what you want prices
+
+				case 'Minimum':
+					const minimumPrices = populatePricingObject(
+						values.currency_name,
+						values.price
+					);
+					setMinimumPrice((prev) => [...prev, minimumPrices]);
+					break;
+
+				case 'Suggested':
+					const suggestedPrices = populatePricingObject(
+						values.currency_name,
+						values.price
+					);
+					setSuggestedPrice((prev) => [...prev, suggestedPrices]);
+					break;
+
 				// * populate and show fixed original price
 				case 'Original':
 					const registeredOriginalPrice = populatePricingObject(
@@ -358,7 +423,7 @@ export const CheckoutForm = ({
 				}
 			}
 		}
-		// console.log("data", data);
+		console.log('data', data);
 		return data;
 	};
 
@@ -453,7 +518,7 @@ export const CheckoutForm = ({
 		// console.log("result = ", result);
 		createProduct(result, (res) => {
 			// console.log('res', res)
-			if (priceType === 'Fixed Price') {
+			if (productType === 'Digital Download') {
 				router.push(`/account/kreator/products/preview/${productID}`);
 				return;
 			}
@@ -474,6 +539,10 @@ export const CheckoutForm = ({
 		suggested_prices: [],
 		billing_frequency: 0,
 		minimum_prices: [],
+		no_of_subcription_length_times: '',
+		custom_billing_duration: '',
+		custom_billing_interval_times: customBillingDuration,
+		billing_frequency_duration: duration,
 
 		coupon_settings: {
 			coupon_code: 'string',
@@ -484,6 +553,8 @@ export const CheckoutForm = ({
 			percentage_value: 0,
 			is_percentage: true,
 			is_fixed_amount: true,
+			no_of_frequency: '',
+			no_of_usage: '',
 			// "product_id": 0
 		},
 		installment_prices: [],
@@ -503,6 +574,16 @@ export const CheckoutForm = ({
 		},
 	};
 
+	const handleSelect = (field) => (value) => {
+		setDuration(value);
+		setFieldValue({[field]: value});
+	};
+
+	const handleBilledSelect = (field) => (value) => {
+		setCustomBillingDuration(value);
+		setFieldValue({[field]: value});
+	};
+
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
@@ -520,8 +601,8 @@ export const CheckoutForm = ({
 				return setFieldValue('pricing_type_id', 1);
 			case 'Pay What You Want':
 				return setFieldValue('pricing_type_id', 2);
-			case 'Installment Payment':
-				return setFieldValue('pricing_type_id', 3);
+			// case 'Installment Payment':
+			// 	return setFieldValue('pricing_type_id', 3);
 			case 'Make It Free':
 				return setFieldValue('pricing_type_id', 4);
 		}
@@ -596,7 +677,6 @@ export const CheckoutForm = ({
 		}
 	}, [compareToPrice, allowAffiliateMarket, limitProductSale]);
 
-	// console.log('product', product)
 	const setAllFields = useCallback(() => {
 		mounted.current += 1;
 		if (product && mounted.current === 1) {
@@ -827,7 +907,7 @@ export const CheckoutForm = ({
 				</div>
 			)}
 
-			{priceType === 'Installment Payment' && (
+			{/* {priceType === 'Installment Payment' && (
 				<div>
 					<p className="text-base mb-2"></p>
 					<CustomCheckoutSelect
@@ -895,7 +975,7 @@ export const CheckoutForm = ({
 						</div>
 					</div>
 				</div>
-			)}
+			)} */}
 
 			<div>
 				{priceType === 'Fixed Price' && (
@@ -953,7 +1033,7 @@ export const CheckoutForm = ({
 					</div>
 				)}
 
-				{priceType !== 4 && (
+				{priceType !== 'Make It Free' && (
 					<div
 						className={
 							styles.aplyCpn +
@@ -972,14 +1052,18 @@ export const CheckoutForm = ({
 								disabled={isCouponDiabled ? true : false}
 							/>
 							<span className={`${styles.cpnStatus}`}>
-								<span className="pl-6 text-black-100 font-semibold text-lg">
-									{isCouponDiabled
-										? 'DISABLED'
-										: applyCoupon
-										? 'ON'
-										: 'OFF'}
+								<span className="pl-1 text-black-100 font-semibold text-lg ">
+									{
+										isCouponDiabled
+											? 'DISABLED'
+											: applyCoupon
+											? 'ENABLED'
+											: 'DISABLED'
+										// ? 'ON'
+										// 	: 'OFF'
+									}
 								</span>
-								<h3>Business</h3>
+								<h3 className="text-center">Business</h3>
 							</span>
 						</div>
 					</div>
@@ -1007,8 +1091,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -1039,8 +1122,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -1099,6 +1181,381 @@ export const CheckoutForm = ({
 									}}
 								/>
 							</div>
+							<div>
+								<p className={styles.textMain}>
+									Limit the frequency of the coupon
+								</p>
+								<div className={styles.couponLimit}>
+									<Radio
+										value={''}
+										content={1}
+										label="Unlimited"
+										labelStyle={styles.radioLabelStyle}
+									/>
+									<Radio
+										value={''}
+										content={1}
+										label="Limited"
+										labelStyle={styles.radioLabelStyle}
+									/>
+								</div>
+							</div>
+						</div>
+						<div>
+							<div className={styles.box}>
+								{/* <Select
+									title={'Number of Times'}
+									field={fixedSellingPric
+									setField={setFixedSellingPrice}
+								/> */}
+								<div
+									className={`${styles.cpnLabel} ${styles.textMain}`}
+								>
+									Number of times
+								</div>
+								<div className="w-full md:w-4/5">
+									<Input
+										placeholder="1"
+										className={styles.ctaBtn}
+										name="no_of_times"
+										onChange={formik.handleChange}
+									/>
+								</div>
+							</div>
+							<div>
+								<p className={styles.textMain}>
+									Limit the usage per customer
+								</p>
+								<div className={styles.usageLimit}>
+									<Radio
+										value={''}
+										content={1}
+										label="Unlimited Use per customer"
+										labelStyle={styles.radioLabelStyle}
+									/>
+									<Radio
+										value={''}
+										content={1}
+										label="Coupon can be used how many times by a customer"
+										labelStyle={styles.radioLabelStyle}
+									/>
+								</div>
+							</div>
+							<div className={styles.box}>
+								<p className={styles.textMain}>
+									Number of times coupon can be used per
+									customer
+								</p>
+								<div className="w-full md:w-3/5">
+									<Select
+										field={''}
+										setField={''}
+										defaultValue={'1'}
+										placeholder="1"
+										onChange={(e) => ''}
+										style={{
+											width: '100%',
+											borderRadius: '8px',
+										}}
+									>
+										<Option value="1">1</Option>
+										<Option value="2">2</Option>
+										<Option value="3">3</Option>
+										<Option value="4">4</Option>
+									</Select>
+								</div>
+							</div>
+						</div>
+						<div className=" w-full md:w-4/5">
+							<div className={`${styles.discount}`}>
+								<div className={`${styles.settingsSubLabel}`}>
+									Also apply the Discount when the
+									SUBSCRIPTION is renewed for a membership
+									digital product(s) bought with the coupon
+								</div>
+								<div className="flex">
+									<Switch
+										// onChange={(e) => {
+										//
+										// }}
+										checked={false}
+									/>
+									<span className="pl-6 font-semibold text-black-100">
+										{'OFF'}
+									</span>
+								</div>
+							</div>
+						</div>
+
+						{/* start of implementation */}
+						<div className="flex flex-col mt-8">
+							<h2 className="font-semib5old text-base">
+								Limit the Frequency of the Coupon
+							</h2>
+							<div className="flex items-center mb-1">
+								<div>
+									<Radio
+										value={frequencyType}
+										label="Unlimited"
+										content={0}
+										onChange={(e) => {
+											setIsLimited(false);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												false
+											);
+										}}
+										checked={!isLimited ? true : false}
+										labelStyle={styles.radioLabelStyle}
+									></Radio>
+								</div>
+								<div className="ml-5">
+									<Radio
+										// className={styles.radioLabelStyle}
+										value={frequencyType}
+										label="Limited"
+										content={1}
+										onChange={(e) => {
+											setIsLimited(true);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												true
+											);
+										}}
+										checked={isLimited ? true : false}
+										labelStyle={styles.radioLabelStyle}
+									></Radio>
+								</div>
+							</div>
+							<div className={styles.inputGroup + ' w-3/4'}>
+								<h2 className="text-lg text-base-black-100">
+									Number of Times
+								</h2>
+								<Input
+									type="number"
+									label="Number of Times"
+									disabled={!isLimited ? true : false}
+									name="no_of_frequency"
+									// value={no_of_frequency}
+									onChange={(e) =>
+										setFieldValue(
+											'coupon_settings.no_of_frequency',
+											e.target.value
+										)
+									}
+								/>
+							</div>
+						</div>
+
+						<div className="flex flex-col mt-8">
+							<h2 className="font-semibold text-base">
+								Limit the Usage per Customer
+							</h2>
+							<div className="flex items-center mb-1">
+								<div>
+									<Radio
+										// className={styles.radioContent}
+										value={usageType}
+										label="Unlimited use per Customer"
+										content={0}
+										onChange={(e) => {
+											setIsUsage(false);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												false
+											);
+										}}
+										checked={!isUsage ? true : false}
+									>
+										Unlimited use per Customer
+									</Radio>
+								</div>
+								<div className="ml-5">
+									<Radio
+										// className={styles.radioContent}
+										value={usageType}
+										label="Coupon can be used how many times by a customer"
+										content={1}
+										onChange={(e) => {
+											setIsUsage(true);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												true
+											);
+										}}
+										checked={isUsage ? true : false}
+									>
+										Coupon can be used how many times by a
+										customer
+									</Radio>
+								</div>
+							</div>
+							<div className={styles.inputGroup + ' w-3/4 mt-2'}>
+								<h2 className="text-lg text-base-black-100">
+									Number of times coupon can be used per
+									customer
+								</h2>
+								<Input
+									type="number"
+									placeholder="1"
+									name="no_of_usage"
+									// value={no_of_usage}
+									disabled={isUsage ? false : true}
+									onChange={(e) =>
+										setFieldValue(
+											'coupon_settings.no_of_usage',
+											e.target.value
+										)
+									}
+								/>
+							</div>
+						</div>
+
+						<div className={styles.switchContent}>
+							<h2 className={styles.label}>
+								Also apply the Discount when the SUBSCRIPTION is
+								renewed for any membership digital product(s)
+								bought with the coupon
+							</h2>
+							<span className="flex items-center gap-3">
+								<Switch
+									onChange={(e) =>
+										setIsApplied((value) => !value)
+									}
+								/>{' '}
+								<h3 className="mb-0">
+									{isApplied ? 'ON' : 'OFF'}
+								</h3>
+							</span>
+						</div>
+					</div>
+				)}
+
+				{productType === 'Membership' && (
+					<div>
+						<div className="mt-4 flex items-center">
+							<h1 className="text-base">Billing Frequency</h1>
+							<p className="text-gray-400 ml-4 mt-2">
+								Set how frequently customers should be charged
+								for this membership.
+							</p>
+						</div>
+						{/* <Select
+							placeholder='custom'
+							className='w-1/2'
+						/> */}
+						<Select
+							defaultValue="custom"
+							size="large"
+							className="w-1/2 text-lg mb-2 rounded-lg"
+							value={duration}
+							options={durationOptions}
+							onChange={handleSelect(
+								'billing_frequency_duration'
+							)}
+						/>
+
+						{duration === 'custom' && (
+							<div className="py-4 px-2 bg-gray-50 w-full">
+								<h1 className="text-lg">
+									Custom Billing interval
+								</h1>
+								<div className="flex items-center">
+									<p className="text-gray-400 text-base mt-2">
+										Billed Every
+									</p>
+									<Input
+										type="number"
+										placeholder="0"
+										// className="w-24"
+										name="custom_billing_duration"
+										onChange={formik.handleChange}
+										style={{
+											width: '60px',
+											marginLeft: '10px',
+											marginRight: '5px',
+										}}
+									/>
+									<Select
+										defaultValue="days"
+										className="w-24"
+										options={billedEveryDuration}
+										onChange={handleBilledSelect(
+											'billed_every_duration_length'
+										)}
+									/>
+								</div>
+							</div>
+						)}
+
+						<div className="mt-4 flex items-center">
+							<h1 className="text-base">Subscription Length</h1>
+							<p className="text-gray-400 ml-4 mt-2">
+								Set number of times subscribers will be charged
+								for this membership.
+							</p>
+						</div>
+
+						<div className="flex items-center mb-1">
+							<div>
+								<Radio
+									value={billingFrequency}
+									label="Until the subscriber cancels"
+									content={0}
+									onChange={(e) => {
+										setBilled(false);
+										setBillingFrequency(e);
+										setFieldValue(
+											'isUnlimited_billing',
+											false
+										);
+									}}
+									checked={!billed ? true : false}
+									labelStyle={styles.radioLabelStyle}
+								></Radio>
+							</div>
+							<div className="ml-5">
+								<Radio
+									// className={styles.radioLabelStyle}
+									value={billingFrequency}
+									label="Fixed number of payments"
+									content={1}
+									onChange={(e) => {
+										setBilled(true);
+										setBillingFrequency(e);
+										setFieldValue(
+											'is_fixed_number_of_payments',
+											true
+										);
+									}}
+									checked={billed ? true : false}
+									labelStyle={styles.radioLabelStyle}
+								></Radio>
+							</div>
+						</div>
+
+						<div className={styles.inputGroup + ' w-3/4'}>
+							<h2 className="text-lg text-base-black-100">
+								Number of Times
+							</h2>
+							<Input
+								type="number"
+								label="no_of_subcription_length_times"
+								disabled={!billed ? true : false}
+								name="no_of_subcription_length_times"
+								className="w-3/4"
+								// value={no_of_billed_times}
+								onChange={(e) =>
+									setFieldValue(
+										'no_of_subcription_length_times',
+										e.target.value
+									)
+								}
+							/>
 						</div>
 					</div>
 				)}
@@ -1127,11 +1584,23 @@ export const CheckoutForm = ({
 					{allowAffiliateMarket && (
 						<>
 							<div className={styles.affilateUpload}>
-								<div className="flex items-center justify-between">
+								<div className="flex items-start justify-between">
 									<h2 className="mb-0 text-base">
 										{' '}
 										How much percentage are you willing to
 										pay affiliate
+										<p
+											className={`${
+												styles.commisionAllowed
+											} ${
+												afiliatePercentage === ''
+													? styles.show
+													: ''
+											}`}
+										>
+											Commission Percentage value should
+											be between 1 and 100
+										</p>
 									</h2>
 									<div className={styles.affilateInput}>
 										<Input
@@ -1162,7 +1631,7 @@ export const CheckoutForm = ({
 										<span>%</span>
 									</div>
 
-									<p
+									{/* <p
 										className={`${
 											styles.commisionAllowed
 										} ${
@@ -1173,7 +1642,7 @@ export const CheckoutForm = ({
 									>
 										Commission Percentage value should be
 										between 1 and 100
-									</p>
+									</p> */}
 								</div>
 							</div>
 							<div className="flex justify-between items-center w-full lg:w-3/5 pt-4">
@@ -1398,7 +1867,9 @@ export const CheckoutForm = ({
 						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
 						disabled={disableButton()}
 					>
-						Save and Preview
+						{productType === 'Digital Download'
+							? 'Save and Preview'
+							: 'Save and Continue'}
 					</Button>
 				</div>
 			</div>

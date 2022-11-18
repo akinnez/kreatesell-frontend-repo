@@ -103,13 +103,13 @@ export default function ManageContent({
 					Back
 				</h3>
 			</div>
-			<div className="flex items-center justify-between mb-7">
+			{/* <div className="flex items-center justify-between mb-7">
 				<h1
 					className={`text-2xl text-blue-600 font-bold ${style.titleMain}`}
 				>
 					How to Invest in Crypocurrency
 				</h1>
-			</div>
+			</div> */}
 			<div className={style.contentContainer + ' bg-white rounded-lg'}>
 				<div className={style.contents}>
 					<h1 className="text-2xl mb-5 font-semibold">

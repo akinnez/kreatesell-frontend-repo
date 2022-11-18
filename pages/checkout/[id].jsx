@@ -23,6 +23,7 @@ import {
 	transactionFees,
 	PaystackLogo,
 	RenderIf,
+	MakeItFreeIcon,
 } from 'utils';
 import {Tooltip} from 'antd';
 import {SelectV2} from 'components/form-input';
@@ -40,6 +41,7 @@ import {
 	SendPaymentCheckoutDetails,
 	ConvertCurrency,
 	GetStoreCheckoutCurrencies,
+	ApplyCoupon,
 } from 'redux/actions';
 import crypto from 'crypto';
 import LogoImg from '../../public/images/logo.svg';
@@ -214,10 +216,12 @@ const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
+
 	const [modal, setModal] = useState(false);
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
+
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
@@ -225,20 +229,26 @@ const Checkout = () => {
 		(state) => state.store
 	);
 
+	const {loading, applyCouponResponse} = useSelector((state) => state.coupon);
+
 	const [country, setCountry] = useState('');
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const {countries} = useSelector((state) => state.utils);
-
-	const [isFree, setIsFree] = useState(true); //temporary state control
+	const [defaultCurrency, setDefaultCurrency] = useState('');
 
 	const [{options}, dispatch] = usePayPalScriptReducer();
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -252,21 +262,67 @@ const Checkout = () => {
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
 	const convertCurrency = ConvertCurrency();
+	const applyCoupon = ApplyCoupon();
 
 	const closeModal = () => setModal(false);
 
 	const [storeDetails, setStoreDetails] = useState(null);
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
-	const [storeId, setStoreId] = useState();
-	const checkout = checkOutDetails?.filter(
-		(item) => item?.price_indicator === 'Selling'
+
+	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
+
+	const [couponCode, setCouponCode] = useState('');
+	const [couponDetails, setCouponDetails] = useState({});
+
+	const testCurrency = activeCurrency?.currency
+		? activeCurrency?.currency
+		: activeCurrency?.currency_name;
+
+	const MinimumPrices = checkOutDetails.find(
+		(item) =>
+			item.price_indicator === 'Minimum' &&
+			item.currency_name === testCurrency
 	);
+	const SuggestedPrices = checkOutDetails.find(
+		(item) =>
+			item.price_indicator === 'Suggested' &&
+			item.currency_name === testCurrency
+	);
+
+	const OriginalPrices = checkOutDetails.find(
+		(item) =>
+			item.price_indicator === 'Original' &&
+			item.currency_name === testCurrency
+	);
+
+	const [storeId, setStoreId] = useState();
+
+	// TODO: set to the base currency
+	const baseCurrencyObbject = checkOutDetails.find(
+		(item) => item.currency_name === defaultCurrency
+	);
+
+	const checkout = checkOutDetails?.filter(
+		// (item) => item?.currency_name === activeCurrency?.currency,
+		(item) =>
+			(item?.price_indicator === pricingTypeDetails.price_type) ===
+			'Pay What You Want'
+				? 'Minimum'
+				: 'Selling' &&
+				  item?.currency_name === baseCurrencyObbject.currency_name
+	);
+
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price;
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
 			setStoreDetails(response.data.data);
+			console.log(response, 'response');
+			setDefaultCurrency(response.data?.data?.default_currency);
+			setPricingTypeDetails(
+				response.data?.data?.product_details?.pricing_type
+			);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 		} catch (error) {
@@ -285,9 +341,24 @@ const Checkout = () => {
 				convertedCurrency?.buy_rate * checkOutInNaira?.price ||
 				checkOutInNaira?.price
 			);
+		} else if (priceOrName === 'total') {
+			return totalFee;
+		} else if (priceOrName === 'minimum') {
+			return (
+				MinimumPrices?.price || Number(getCurrency('price')).toFixed(2)
+			);
+		} else if (priceOrName === 'suggested') {
+			return (
+				SuggestedPrices?.price ||
+				Number(getCurrency('price')).toFixed(2)
+			);
+		} else if (priceOrName === 'original') {
+			return (
+				OriginalPrices?.price || null
+				// Number(getCurrency('price')).toFixed(2)
+			);
 		}
 	};
-
 	const handlePhoneCode = (countryParam) => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
@@ -303,6 +374,17 @@ const Checkout = () => {
 		failed: 'f',
 		// abandoned: "a"
 	};
+
+	const getPurchaseDetails = () => {
+		return [
+			{
+				product_id: productId,
+				quantity: 1,
+				amount: totalFee,
+			},
+		];
+	};
+
 	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
 		const value = {
@@ -310,10 +392,9 @@ const Checkout = () => {
 			email_address: values?.email,
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
-			// total: getCurrency('price'),
-			total: totalPrice,
+			total: getCurrency('total'),
 			reference_id: reference,
-			purchase_details: [],
+			purchase_details: getPurchaseDetails(),
 			status: statusValue,
 			card_type: '',
 			last_four: '',
@@ -322,7 +403,8 @@ const Checkout = () => {
 			is_affiliate: values?.is_affiliate || false,
 			affiliate_product_link: '',
 			user_identifier: values?.id || '',
-			is_free_flow: true,
+			is_free_flow:
+				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 		};
 		return value;
 	};
@@ -363,10 +445,12 @@ const Checkout = () => {
 	}, [storeId]);
 
 	// set currency on mount
-	// TODO: set to the base currency
+
 	useEffect(() => {
 		if (checkOutDetails.length) {
-			setActiveCurrency(checkOutDetails[0]);
+			// we need to check for the default currency here
+			setActiveCurrency(baseCurrencyObbject);
+			setSelectedPaymentMethod(paymentMethods[0].value);
 		}
 	}, [checkOutDetails.length]);
 
@@ -416,6 +500,48 @@ const Checkout = () => {
 		}
 	}, [country]);
 
+	const handleSubmit = () => {
+		// if we are using paypal
+
+		/** Currencies using PayStack are listed here */
+		if (
+			['GHS', 'NGN'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			)
+		) {
+			return initializePaystackPayment(
+				onPaystackSuccess,
+				onPaystackClose
+			);
+		}
+
+		// currencies using stripe
+
+		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
+		if (
+			(!['NGN', 'GHS'].includes(
+				activeCurrency.currency || activeCurrency.currency_name
+			) ||
+				selectedPaymentMethod === 'flutterwave') &&
+			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
+		) {
+			handleFlutterPayment({
+				callback: async (response) => {
+					// console.log('response ', response)
+					await sendPaymentCheckoutDetails(
+						paymentDetails({
+							reference: response?.tx_ref,
+							status: 'success',
+						})
+					);
+					closePaymentModal();
+					//   openModal();
+				},
+				onClose: () => {},
+			});
+		}
+	};
+
 	// TODO: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
 	const handleCurrencyConversion = (toCurrency) => {
@@ -440,6 +566,51 @@ const Checkout = () => {
 			);
 		}
 	};
+
+	const standardPrice = desiredAmount
+		? desiredAmount
+		: getCurrency('minimum');
+	const percentagePrice =
+		standardPrice - (Number(couponDetails?.value) / 100) * standardPrice;
+	const actualPrice = standardPrice - Number(couponDetails?.value);
+	const basicSubtotal =
+		couponDetails.indicator === 'IsPercentage'
+			? percentagePrice
+			: actualPrice;
+	const subTotal =
+		couponDetails.indicator === 'IsPercentage' ||
+		couponDetails.indicator === 'IsFixedAmount'
+			? basicSubtotal
+			: standardPrice;
+
+	// const calcNgN = 5 / 100 * subTotal
+	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+
+	if (
+		[
+			'KES',
+			'GHS',
+			'MWK',
+			'SLL',
+			'ZAR',
+			'TZS',
+			'UGX',
+			'XOF',
+			'XAF',
+		].includes(activeCurrency.currency || activeCurrency.currency_name)
+	) {
+		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
+	} else if (
+		['USD', 'GDP'].includes(
+			activeCurrency.currency || activeCurrency.currency_name
+		)
+	) {
+		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
+	} else {
+		transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	}
+
+	const totalFee = Number(subTotal) + transactionFee;
 
 	const initialValues = {
 		firstName: '',
@@ -548,8 +719,7 @@ const Checkout = () => {
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
-		// amount: desiredAmount ? desiredAmount : getCurrency('price'),
-		amount: desiredAmount ? desiredAmount : totalPrice,
+		amount: totalFee ? getCurrency('total') : getCurrency('price'),
 		currency: getCurrency('currency'),
 		payment_options: 'card, mobilemoney, ussd, mobile_money_ghana',
 		customer: {
@@ -561,7 +731,8 @@ const Checkout = () => {
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -573,12 +744,9 @@ const Checkout = () => {
 	const payStackConfig = {
 		reference: randomId,
 		email: values?.email,
-		// amount: desiredAmount
-		// 	? desiredAmount
-		// 	: Number(getCurrency('price')).toFixed() * 100,
-		amount: desiredAmount
-			? desiredAmount
-			: Number(totalPrice).toFixed() * 100,
+		amount: totalFee
+			? Number(getCurrency('total')).toFixed() * 100
+			: Number(getCurrency('price')).toFixed() * 100,
 		publicKey:
 			activeCurrency?.currency === 'GHS'
 				? process.env.NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY
@@ -598,9 +766,11 @@ const Checkout = () => {
 	};
 	const onPaystackSuccess = (reference) => {
 		// Implementation for whatever you want to do with reference and after success call.
-		const status = paymentStatusList[reference?.status];
+		// console.log(reference)
+		// const status = paymentStatusList[reference?.status];
+		const status = 'success';
 		sendPaymentCheckoutDetails(
-			paymentDetails({reference: reference?.reference, status})
+			paymentDetails({reference: reference?.reference, status: status})
 		);
 	};
 
@@ -632,18 +802,18 @@ const Checkout = () => {
 		);
 	};
 
-	// this is to trigger rerender for paypal options
-	function onCurrencyChange() {
-		if (['USD', 'GBP'].includes(activeCurrency?.currency)) {
-			dispatch({
-				type: 'resetOptions',
-				value: {
-					...options,
-					currency: activeCurrency.currency,
-				},
-			});
-		}
-	}
+	const couponData = {
+		coupon_code: couponCode,
+		product_kreator_id: productId,
+		customer_email: values.email,
+	};
+
+	const handleApplyCoupon = async (e) => {
+		e.preventDefault();
+		await applyCoupon(couponData, (res) => {
+			setCouponDetails(res);
+		});
+	};
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -795,135 +965,164 @@ const Checkout = () => {
 							autoComplete="off"
 							className="w-full"
 						>
-							<div className="pb-4">
-								<div className="text-black-100">
-									Select Currency
-								</div>
-								<p className="text-base-gray-200">
-									Select your preferred currency and get price
-									equivalent
-								</p>
+							{pricingTypeDetails.price_type !==
+								'Make it Free' && (
+								<div className="pb-4">
+									<div className="text-black-100">
+										Select Currency
+									</div>
+									<p className="text-base-gray-200">
+										Select your preferred currency and get
+										price equivalent
+									</p>
 
-								<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-									{countriesCurrency?.map(
-										({currency, currency_id, flag}) => (
-											<CurrencyCard
-												key={currency_id}
-												handleSelect={() =>
-													handleSelect({
-														currency_id,
+									<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+										{countriesCurrency?.map(
+											({currency, currency_id, flag}) => (
+												<CurrencyCard
+													key={currency_id}
+													handleSelect={() =>
+														handleSelect({
+															currency_id,
+															currency,
+														})
+													}
+													{...{
 														currency,
-													})
-												}
-												{...{
-													currency,
-													currency_id,
-													flag,
-													activeCurrency,
-												}}
-											/>
-										)
-									)}
-								</div>
-							</div>
-							<div className="py-7">
-								<h2>West African CFA Franc BCEAO(XOF)</h2>
-								<div className="grid gap-4 grid-cols-4 ">
-									{filterdWest.map(
-										({id, currency, flag, name}, index) => (
-											<div
-												key={index}
-												className={
-													activeCurrency?.id === id
-														? styles.activeCard
-														: styles.card
-												}
-												onClick={() =>
-													handleSelect({id, currency})
-												}
-											>
-												<div
-													className={
-														styles.checFlag +
-														' mr-2'
-													}
-													style={{
-														borderRadius: '50%',
+														currency_id,
+														flag,
+														activeCurrency,
 													}}
+												/>
+											)
+										)}
+									</div>
+								</div>
+							)}
+							{pricingTypeDetails.price_type !==
+								'Make it Free' && (
+								<div className="py-7">
+									<h2>West African CFA Franc BCEAO(XOF)</h2>
+									<div className="grid gap-4 grid-cols-4 ">
+										{filterdWest.map(
+											(
+												{id, currency, flag, name},
+												index
+											) => (
+												<div
+													key={index}
+													className={
+														activeCurrency?.id ===
+														id
+															? styles.activeCard
+															: styles.card
+													}
+													onClick={() =>
+														handleSelect({
+															id,
+															currency,
+														})
+													}
 												>
-													<Image
-														src={flag}
-														alt="flag"
-														layout="fill"
-													/>
-												</div>
-												<div className="">{name}</div>
-												{activeCurrency?.id === id && (
-													<div className="pl-1 pt-1">
+													<div
+														className={
+															styles.checFlag +
+															' mr-2'
+														}
+														style={{
+															borderRadius: '50%',
+														}}
+													>
 														<Image
-															src={ActiveTick}
-															alt="active"
-															width="16"
-															height="16"
+															src={flag}
+															alt="flag"
+															layout="fill"
 														/>
 													</div>
-												)}
-											</div>
-										)
-									)}
-								</div>
-							</div>
-
-							<div className="py-7">
-								<h2>Central African CFA Franc BEAC(XAF)</h2>
-								<div className="grid gap-4 grid-cols-4 ">
-									{filteredCentral.map(
-										({id, currency, name, flag}, index) => (
-											<div
-												key={index}
-												className={
-													activeCurrency?.id === id
-														? styles.activeCard
-														: styles.card
-												}
-												onClick={() =>
-													handleSelect({id, currency})
-												}
-											>
-												<div
-													className={
-														styles.checFlag +
-														' mr-2'
-													}
-													style={{
-														borderRadius: '50%',
-													}}
-												>
-													<Image
-														src={flag}
-														alt="flag"
-														layout="fill"
-													/>
+													<div className="">
+														{name}
+													</div>
+													{activeCurrency?.id ===
+														id && (
+														<div className="pl-1 pt-1">
+															<Image
+																src={ActiveTick}
+																alt="active"
+																width="16"
+																height="16"
+															/>
+														</div>
+													)}
 												</div>
-												<div className="">{name}</div>
-												{activeCurrency?.id === id && (
-													<div className="pl-1 pt-1">
+											)
+										)}
+									</div>
+								</div>
+							)}
+							{pricingTypeDetails.price_type !==
+								'Make it Free' && (
+								<div className="py-7">
+									<h2>Central African CFA Franc BEAC(XAF)</h2>
+									<div className="grid gap-4 grid-cols-4 ">
+										{filteredCentral.map(
+											(
+												{id, currency, name, flag},
+												index
+											) => (
+												<div
+													key={index}
+													className={
+														activeCurrency?.id ===
+														id
+															? styles.activeCard
+															: styles.card
+													}
+													onClick={() =>
+														handleSelect({
+															id,
+															currency,
+														})
+													}
+												>
+													<div
+														className={
+															styles.checFlag +
+															' mr-2'
+														}
+														style={{
+															borderRadius: '50%',
+														}}
+													>
 														<Image
-															src={ActiveTick}
-															alt="active"
-															width="16"
-															height="16"
+															src={flag}
+															alt="flag"
+															layout="fill"
 														/>
 													</div>
-												)}
-											</div>
-										)
-									)}
+													<div className="">
+														{name}
+													</div>
+													{activeCurrency?.id ===
+														id && (
+														<div className="pl-1 pt-1">
+															<Image
+																src={ActiveTick}
+																alt="active"
+																width="16"
+																height="16"
+															/>
+														</div>
+													)}
+												</div>
+											)
+										)}
+									</div>
 								</div>
-							</div>
+							)}
 
 							{/* start the pay as you want  */}
-							{isFree && (
+							{pricingTypeDetails?.price_type ===
+								'Pay What You Want' && (
 								<div className="">
 									<h2 className={styles.desiredPayTitle}>
 										Pay what you want
@@ -940,14 +1139,18 @@ const Checkout = () => {
 										>
 											Minimum price:{' '}
 											{getCurrency('currency')}{' '}
-											{Number(
-												convertedCurrency.total_amount
-											).toFixed(2)}
+											{getCurrency('minimum')}
+											{/* {MinimumPrices ? getCurrency('minimum'): getCurrency('price').toFixed(2)} */}
+											{/* {Number( 
+													
+												).toFixed(2)} */}
 										</div>
 									</div>
 									{desiredAmount &&
-										desiredAmount <
-											convertedCurrency.total_amount && (
+										Number(desiredAmount) <
+											Number(
+												getCurrency('minimum')
+											).toFixed(2) && (
 											<div
 												className={
 													styles.desiredAmountError
@@ -961,7 +1164,14 @@ const Checkout = () => {
 													Please read carefully <br />
 													Your desired amount is too
 													low. The minimum amount for
-													this product is GBP 1000.
+													this product is{' '}
+													{getCurrency(
+														'currency'
+													)}{' '}
+													{Number(
+														getCurrency('price')
+													).toFixed(2)}
+													.
 												</p>
 											</div>
 										)}
@@ -971,11 +1181,11 @@ const Checkout = () => {
 										</p>
 										<div className="w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
 											<Input
-												placeholder={`Suggested Amount: ${
-													convertedCurrency.to_currency_name
-												} ${Number(
-													convertedCurrency.total_amount
-												).toFixed(2)}`}
+												placeholder={`Suggested Amount: ${getCurrency(
+													'currency'
+												)} ${getCurrency(
+													'suggested'
+												)}.00 `}
 												onChange={(e) =>
 													setDesiredAmount(
 														e.target.value
@@ -1122,29 +1332,27 @@ const Checkout = () => {
 													) => {
 														return actions.order.create(
 															{
-																purchase_units:
-																	[
-																		{
-																			description:
-																				'customDescription',
-																			amount: {
-																				// value: Number(
-																				// 	convertedPrice
-																				// ).toFixed(2),
-																				value: Number(
-																					getCurrency(
-																						'price'
-																					)
-																				).toFixed(
-																					2
-																				),
-																				currency:
-																					getCurrency(
-																						'currency'
-																					),
-																			},
+																purchase_units: [
+																	{
+																		description:
+																			'customDescription',
+																		amount: {
+																			// value: Number(
+																			// 	convertedPrice
+																			// ).toFixed(2),
+																			value: Number(
+																				getCurrency(
+																					'price'
+																				)
+																			).toFixed(
+																				2
+																			),
+																			currency: getCurrency(
+																				'currency'
+																			),
 																		},
-																	],
+																	},
+																],
 															}
 														);
 													}}
@@ -1173,43 +1381,60 @@ const Checkout = () => {
 							{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
 							{/**Apply coupon feature is yet to be implemented */}
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 									<div className="w-3/5 xs:w-3/4 md:w-4/5">
 										<Input
 											placeholder="Coupon Code"
 											name="couponCode"
-											onChange={formik.handleChange}
+											onChange={(e) =>
+												setCouponCode(e.target.value)
+											}
 										/>
 									</div>
 									<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
 										<Button
-											text="Apply Coupon"
+											text={
+												loading
+													? 'wait'
+													: 'Apply Coupon'
+											}
 											className={styles.couponBtn}
+											onClick={handleApplyCoupon}
 										/>
 									</div>
 								</div>
 							)}
 
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
 									<div className="w-4/5">
 										<Input
 											placeholder=" Enter Coupon Code"
 											name="couponCode"
-											onChange={formik.handleChange}
+											onChange={(e) =>
+												setCouponCode(e.target.value)
+											}
 										/>
 									</div>
 									<div className="w-1/5 pb-2">
 										<Button
-											text="Apply Coupon"
+											text={
+												loading
+													? 'please wait..'
+													: 'Apply Coupon'
+											}
 											className={styles.couponBtn}
+											onClick={handleApplyCoupon}
 										/>
 									</div>
 								</div>
 							)}
 
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div
 									className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
 								>
@@ -1225,19 +1450,45 @@ const Checkout = () => {
 											<p>
 												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
 												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+												{OriginalPrices && (
+													<span
+														style={{
+															fontSize: '15px',
+															color: '#8C8C8C',
+															textDecoration:
+																'line-through',
+														}}
+													>
+														{getCurrency(
+															'currency'
+														)}{' '}
+													</span>
+												)}
+												<span
+													style={{
+														fontSize: '15px',
+														color: '#8C8C8C',
+														textDecoration:
+															'line-through',
+														marginRight: '7px',
+													}}
+												>
+													{getCurrency('original')}
+												</span>
 												{getCurrency('currency')}{' '}
-												{desiredAmount
+												{subTotal}
+												{/* {basicSubtotal} || {desiredAmount
 													? desiredAmount
 													: Number(
-															getCurrency('price')
-													  ).toFixed(2)}
+														getCurrency('price')
+													).toFixed(2)} */}
 											</p>
 										</div>
 									</div>
 
 									<div className="flex justify-between">
 										<p>Transaction Fee</p>
-										<p>0</p>
+										<p>{transactionFee}</p>
 									</div>
 
 									<div className="flex justify-between">
@@ -1251,21 +1502,29 @@ const Checkout = () => {
 										<p>Total</p>
 										<p className="text-primary-blue font-medium">
 											{/* {currency_name}{' '} */}
-											{getCurrency('currency')}{' '}
 											{/* {new Intl.NumberFormat().format(
-                      price ?? checkoutDetails?.default_price
-                    )} */}
-											{desiredAmount
-												? desiredAmount
-												: Number(
-														getCurrency('price')
-												  ).toFixed(2)}
+                                            price ?? checkoutDetails?.default_price
+											)} */}
+											{getCurrency('currency')}{' '}
+											{Number(totalFee).toFixed(2)}
 										</p>
 									</div>
 								</div>
 							)}
 
-							{isFree ? (
+							{pricingTypeDetails?.price_type ===
+								'Make it Free' && (
+								<div className="flex items-center justify-center">
+									<Image
+										src={MakeItFreeIcon}
+										width="240"
+										height="294"
+									/>
+								</div>
+							)}
+
+							{pricingTypeDetails?.price_type !==
+							'Make it Free' ? (
 								<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 									Get instant access to this product once your
 									payment is successful!
@@ -1283,7 +1542,8 @@ const Checkout = () => {
 								</>
 							)}
 
-							{isFree && (
+							{pricingTypeDetails?.price_type !==
+								'Make it Free' && (
 								<div className=" w-full lg:w-5/6 mx-auto">
 									<Button
 										text={`Pay Now`}
@@ -1315,7 +1575,7 @@ const Checkout = () => {
                 </div>
               )} */}
 						</form>
-						{!isFree && (
+						{pricingTypeDetails?.price_type === 'Make it Free' && (
 							<div className=" w-full lg:w-5/6 mx-auto">
 								<Button
 									text={`Get Now`}

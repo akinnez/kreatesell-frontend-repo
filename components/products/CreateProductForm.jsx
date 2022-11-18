@@ -293,8 +293,8 @@ export const CreateProductForm = ({
 						return setFieldValue('pricing_type_id', 1);
 					case 'Pay What You Want':
 						return setFieldValue('pricing_type_id', 2);
-					case 'Installment Payment':
-						return setFieldValue('pricing_type_id', 3);
+					// case 'Installment Payment':
+					// 	return setFieldValue('pricing_type_id', 3);
 					case 'Make It Free':
 						return setFieldValue('pricing_type_id', 4);
 				}

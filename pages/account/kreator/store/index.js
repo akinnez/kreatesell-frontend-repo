@@ -61,6 +61,8 @@ const Index = () => {
 	const hasAddedProduct = calculatePercentageComplete().AddedProducts;
 	// console.log('hasAddedProduct = ', hasAddedProduct)
 
+	// console.log('hasAddedProduct = ', hasAddedProduct)
+
 	useEffect(() => {
 		getStoreDetails();
 		getProducts();

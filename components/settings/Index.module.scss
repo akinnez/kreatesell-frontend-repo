@@ -1,4 +1,5 @@
 @import '../../public//css/screens.scss';
+@import '../../public/css/colors.scss';
 
 .wrapper {
 	h3 {
@@ -52,4 +53,19 @@
 	margin-top: 2rem;
 	width: 60%;
 	padding-bottom: 2rem;
+}
+
+.mainText {
+	// border: 1px solid red;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.8rem;
+	line-height: 1rem;
+	color: $base-gray;
+	margin-bottom: 0.5rem;
+
+	span {
+		font-weight: normal;
+	}
 }

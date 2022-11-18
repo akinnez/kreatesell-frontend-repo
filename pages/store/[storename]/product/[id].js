@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-
+import styles from '../../../../public/css/storeName-product-id.module.scss';
 import {useSelector} from 'react-redux';
 import PreviewHeader from 'components/Preview/PreviewHeader';
 import {GetProductByID} from 'redux/actions';
@@ -126,12 +126,13 @@ export default function PreviewProduct() {
 	return (
 		<>
 			<div
+				className={styles.container}
 				style={{
-					position: 'absolute',
+					// position: 'absolute',
 					background: '#e5e5e5',
-					left: 0,
-					top: 0,
-					width: '100%',
+					// left: 0,
+					// top: 0,
+					// width: '100%',
 				}}
 			>
 				<PreviewHeader

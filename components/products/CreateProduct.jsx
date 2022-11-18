@@ -270,7 +270,7 @@ export const CreateProductTab = ({
 									className={`font-medium ${styles.mobileSubTitle}`}
 								>
 									{' '}
-									- Pay only once
+									Pay only once
 								</span>
 							</div>
 						</div>
@@ -342,7 +342,7 @@ export const CreateProductTab = ({
 									className={`font-medium ${styles.mobileSubTitle}`}
 								>
 									{' '}
-									- Charge on recurring basis
+									Charge on recurring basis
 								</span>
 							</div>
 						</div>

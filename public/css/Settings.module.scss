@@ -10,3 +10,31 @@
 		background: rgb(245, 245, 245);
 	}
 }
+
+.tabsBox {
+	// border: 1px solid red !important;
+	> div:first-child {
+		// border: 1px solid green;
+		@media (min-width: 768px) {
+			// display: flex;
+			// justify-content: space-between;
+			& > div > div {
+				font-size: 3rem !important;
+				margin: unset !important;
+			}
+		}
+	}
+
+	& div[role='tablist'] {
+		> div {
+			div {
+				@media (max-width: 768px) {
+					font-size: 1rem !important;
+				}
+				@media (max-width: 900px) {
+					font-size: 1.5rem !important;
+				}
+			}
+		}
+	}
+}

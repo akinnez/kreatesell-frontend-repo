@@ -18,8 +18,10 @@ export const SignupSchema = () => {
 			),
 		phoneNo: Yup.string()
 			.required('Phone number is required')
-			.matches(/^[0-9]+$/, 'Phone number can only be digits')
-			.length(11, 'Phone number must be 11 digits'),
+			// .matches(/^[0-9]+$/, 'Phone number can only be digits')
+			.matches(/^[\+\d]?(?:[\d-.\s()]*)$/, 'Invalid character supplied')
+			// .length(11, 'Phone number must be 11 digits'),
+			.max(15, "Phone number can't be more than 15 characters"),
 		terms: Yup.bool().oneOf(
 			[true],
 			'Terms and conditions must be accepted'

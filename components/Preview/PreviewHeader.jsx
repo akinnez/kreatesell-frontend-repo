@@ -1,12 +1,15 @@
 import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button as NormalButton} from 'components';
 import Image from 'next/image';
 import {
 	ProductHeaderLogo,
 	CopyLink,
 	_copyToClipboard,
 	transformToFormData,
+	NavCloseIcon,
 } from 'utils';
-
+import {MdOutlineMenu} from 'react-icons/md';
+import {MobileLogo} from 'components/authlayout/logo';
 import {Button as CButton, Select as CSelect} from 'components';
 import {useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
@@ -14,6 +17,7 @@ import {
 	ArrowLeft,
 	PublishProduct,
 	UnPublishProduct,
+	SearchIcon,
 	LinkCopy,
 	MobileBackArrow,
 } from 'utils';
@@ -38,6 +42,7 @@ export default function PreviewHeader({
 	const [isError, setIsError] = useState(false);
 	const [title, setTitle] = useState('');
 	const [link, setLink] = useState('');
+	const [mobileSideBarIsOpen, setMobileSidebarIsOpen] = useState(false);
 	const {product, loading} = useSelector((state) => state.product);
 	const [domainLink, setDomainLink] = useState('');
 	const {store} = useSelector((state) => state.store);
@@ -102,44 +107,35 @@ export default function PreviewHeader({
 		}
 	}, [store]);
 
+	const toggleView = () => setMobileSidebarIsOpen(!mobileSideBarIsOpen);
+
 	return (
 		<header className="flex items-center justify-between bg-white px-10 py-6 ">
 			<div className={`${styles.lgLeft} flex items-center`}>
 				<div className="flex">
-					<Image src={ProductHeaderLogo} alt="logo" />
+					<MobileLogo />
 				</div>
-				<div
-					onClick={() => router.back()}
-					className="inline-flex ml-8 mr-10 justify-start cursor-pointer items-center"
-				>
-					<Image alt="" src={ArrowLeft} />
-					<h3 className="uppercase text-blue-600 font-semibold text-base mb-0 ml-3">
-						Back
-					</h3>
-				</div>
-				<p className="mb-0 capitalize">{title}</p>
 			</div>
 
 			{/* // * Mobile  */}
 			<div className={styles.mobileLeft}>
-				<Image
-					src={MobileBackArrow}
-					alt="back arrow"
-					onClick={() => router.back()}
-				/>
-				<p className="mb-0 capitalize title">{title}</p>
-				<div className={styles.btns}>
-					<Button
-						className={styles.btnOne}
-						type="default"
-						icon={<Image src={CopyLink} alt="copy" />}
-						onClick={() =>
-							_copyToClipboard(link, 'Product Link Copied')
-						}
-					/>
-					<Button type="primary" onClick={() => setIsOpen(true)}>
-						Publish
-					</Button>
+				<div className={styles.mobileMenu}>
+					{mobileSideBarIsOpen ? (
+						<Image
+							src={NavCloseIcon}
+							alt="navClose"
+							onClick={() => setMobileSidebarIsOpen(false)}
+						/>
+					) : (
+						<>
+							<Button
+								type="text"
+								shape="circle"
+								icon={<MdOutlineMenu onClick={toggleView} />}
+							/>
+							<MobileLogo />
+						</>
+					)}
 				</div>
 			</div>
 			{showNavLinks ? (
@@ -164,22 +160,74 @@ export default function PreviewHeader({
 					</Button>
 				</div>
 			) : (
-				<div className="flex justify-end">
-					<div className="w-20  mr-4">
-						<CSelect
-							options={[
-								// ...[{ label: 'Select currency', value: '' }],
-								...formattedCurrencies,
-							]}
-							border="none"
-							loading={currencyLoading}
-							defaultValue={'NGN'}
-							onChange={(e) => setActiveCurrency(e)}
-						/>
-					</div>
-					<div onClick={() => logout()}>
-						<CButton text="logout" bgColor="blue" />
-					</div>
+				<div className="flex justify-end items-center">
+					{mobileSideBarIsOpen ? (
+						<div
+							className={`${styles.mobileLoginLink} ${
+								mobileSideBarIsOpen ? styles.showLogin : ''
+							}`}
+						>
+							<div
+								className={styles.loginBtn}
+								onClick={() => router.push('/login')}
+							>
+								<NormalButton
+									text="Login"
+									className={styles.loginBtnStyle}
+								/>
+							</div>
+						</div>
+					) : (
+						<>
+							<div className={styles.mobileSearch}>
+								<div className="w-10">
+									<Image src={SearchIcon} alt="search" />
+								</div>
+							</div>
+							<div className={styles.desktopSearch}>
+								<Image src={SearchIcon} alt="search" />
+								<input
+									type="text"
+									placeholder="Click here to Search"
+								/>
+							</div>
+							<div className={styles.selectAndButtons}>
+								<div className="w-20  mr-4">
+									<CSelect
+										options={[
+											// ...[{ label: 'Select currency', value: '' }],
+											...formattedCurrencies,
+										]}
+										border="none"
+										loading={currencyLoading}
+										defaultValue={'NGN'}
+										onChange={(e) => setActiveCurrency(e)}
+									/>
+								</div>
+								<div className={styles.btns}>
+									<div
+										className={styles.loginBtn}
+										onClick={() => router.push('/login')}
+									>
+										<NormalButton
+											text="Login"
+											className={styles.loginBtnStyle}
+										/>
+									</div>
+									<div
+										className={styles.signUpBtn}
+										onClick={() => router.push('/signup')}
+									>
+										<NormalButton
+											text="Signup Free"
+											bgColor="blue"
+											className={styles.signUpBtnStyle}
+										/>
+									</div>
+								</div>
+							</div>
+						</>
+					)}
 				</div>
 			)}
 			{isOpen && (
@@ -345,3 +393,7 @@ export default function PreviewHeader({
 		</header>
 	);
 }
+
+const MobileDropContents = () => {
+	return <div>mobile drop contents</div>;
+};

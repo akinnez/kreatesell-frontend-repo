@@ -173,6 +173,7 @@ import NavCloseDropdownIcon from '../public/images/login-nav-drop.svg';
 import SideBarLoginProfile from '../public/images/login-Profile.svg';
 import TechCity from '../public/images/tech-city.svg';
 import Punch from '../public/images/punch.svg';
+import SearchIcon from '../public/images/search-icon-2.svg';
 import TechCabal from '../public/images/tech-cabal.svg';
 import MnD from '../public/images/mn-d.svg';
 import MnGuardian from '../public/images/mn-guardian.svg';
@@ -269,6 +270,7 @@ import ZipFile from '../public/images/ZipFile.svg';
 import DownloadIcon2 from '../public/images/downloadIcon.svg';
 import DownArrow from '../public/images/downArrow.svg';
 import EyesClosed from '../public/images/eye-closed-icon.svg';
+import ComingSoon from '../public/images/comingSoonIcon.png';
 import DropDownUpIcon from '../public/images/dropdownup.svg';
 import DropDownIcon from '../public/images/dropdown.svg';
 import CollapseArrowDown from '../public/images/collapseArrowDown.svg';
@@ -276,6 +278,7 @@ import CollapseArrowRight from '../public/images/collapseArrowRight.svg';
 import Folder from '../public/images/folder.svg';
 import MessageIcon from '../public/images/messageIcon.svg';
 import OpenTicketIcon from '../public/images/openTicketIcon.svg';
+import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 
 import PaystackLogo from '../public/images/paystack-logo.svg';
 import InfoIcon from '../public/images/info-icon.svg';
@@ -339,6 +342,7 @@ export {
 	NewsCardOne,
 	IntegrationsCircle,
 	VisionImage,
+	SearchIcon,
 	MissionImage,
 	MissionIcon,
 	VisionIcon,
@@ -561,4 +565,6 @@ export {
 	Clock,
 	LikeIcon,
 	CommentIcon,
+	ComingSoon,
+	MakeItFreeIcon,
 };
