@@ -298,14 +298,14 @@ const ProductCard = ({
 						<p
 							className={`text-base-gray text-sm md:text-base mb-0 ${styles.sellingPrice}`}
 						>
-							{productDetails?.default_currency}
+							{productDetails?.default_currency?.currency}
 							{new Intl.NumberFormat().format(sellingPrice) ??
 								'0.00'}
 						</p>
 						<p
 							className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
 						>
-							{productDetails?.default_currency}
+							{productDetails?.default_currency?.currency}
 							{new Intl.NumberFormat().format(
 								originalPrice ?? productDetails?.default_price
 							) ?? '0.00'}

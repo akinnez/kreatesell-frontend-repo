@@ -93,8 +93,8 @@ const AllProducts = () => {
 					price: {
 						currency:
 							item?.check_out_details[0]?.currency_name ||
-							item?.default_currency
-								? item?.default_currency
+							item?.default_currency?.currency
+								? item?.default_currency?.currency
 								: item?.product_currencies[0]
 										?.currency_short_name,
 						productPrice:
@@ -403,7 +403,6 @@ const AllProducts = () => {
             filename="all_products"
           /> */}
 				</div>
-
 				<div className="hidden md:block mt-8">
 					<Table
 						columns={AllProductsTableHeader}
@@ -478,7 +477,7 @@ const AllProducts = () => {
 								<div className={`${styles.mainContent}`}>
 									<h2>{product.product_name}</h2>
 									<h5>
-										{product.default_currency}{' '}
+										{product.default_currency.currency}{' '}
 										{product.price.productPrice}
 									</h5>
 									{AvailabilityStatus('Out of Stock')}
