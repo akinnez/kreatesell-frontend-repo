@@ -1281,18 +1281,23 @@ const Checkout = () => {
 									{/* */}
 									<RenderIf
 										condition={
-											[
+											([
 												activeCurrency?.currency,
 												activeCurrency?.currency_name,
 											].includes('USD') ||
-											[
-												activeCurrency?.currency,
-												activeCurrency?.currency_name,
-											].includes('GBP') ||
-											[
-												activeCurrency?.currency,
-												activeCurrency?.currency_name,
-											].includes('CAD')
+												[
+													activeCurrency?.currency,
+													activeCurrency?.currency_name,
+												].includes('GBP') ||
+												[
+													activeCurrency?.currency,
+													activeCurrency?.currency_name,
+												].includes('CAD')) &&
+											storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
+												'approved' &&
+											storeDetails?.user_plan?.toLowerCase() ===
+												'business' &&
+											value !== 'paypal'
 										}
 									>
 										<Tooltip
