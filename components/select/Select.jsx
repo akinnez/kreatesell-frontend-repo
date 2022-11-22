@@ -14,6 +14,7 @@ export const Select = ({
 	placeHolderColor,
 	height = '38px',
 	label,
+	cb = () => {},
 	...rest
 }) => {
 	const customStyles = {
@@ -46,6 +47,9 @@ export const Select = ({
 			</label>
 			<RSelect
 				{...rest}
+				onChange={(chosen) => {
+					cb?.(chosen.value);
+				}}
 				styles={customStyles}
 				name={rest.name}
 				options={options}
