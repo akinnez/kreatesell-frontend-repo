@@ -11,7 +11,10 @@ import {Button} from '../form-input';
 import {UpdateStoreCurrencies, GetStoreCurrencies} from 'redux/actions';
 
 const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
-	const {storeCurrencies} = useSelector((state) => state.store);
+	const {
+		storeCurrencies,
+		store: {bank_details},
+	} = useSelector((state) => state.store);
 	const updateStoreCurrencies = UpdateStoreCurrencies();
 	const getStoreCurrencies = GetStoreCurrencies();
 	const [selectedCurrencies, setSelectedCurrencies] = useState([]);
@@ -95,7 +98,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								[
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('NGN')
+								].includes(bank_details?.currency_name || '')
 							// TODO: change NGN to default currency for each sections
 						),
 					]);
@@ -114,7 +117,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								[
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('NGN')
+								].includes(bank_details?.currency_name || '')
 						),
 						...countriesCurrency,
 					]);
@@ -137,7 +140,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								[
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('NGN')
+								].includes(bank_details?.currency_name || '')
 						),
 					]);
 				} else {
@@ -155,7 +158,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								[
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('NGN')
+								].includes(bank_details?.currency_name || '')
 						),
 						...filterdWest,
 					]);
@@ -177,7 +180,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								[
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('NGN')
+								].includes(bank_details?.currency_name || '')
 						),
 					]);
 				} else {
@@ -195,7 +198,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								[
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('NGN')
+								].includes(bank_details?.currency_name || '')
 						),
 						...filteredCentral,
 					]);
