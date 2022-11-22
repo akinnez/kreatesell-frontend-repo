@@ -274,6 +274,9 @@ export const CheckoutForm = ({
 						field={field}
 						title={title}
 						setField={setField}
+						{...{
+							formattedStoreCurrencies,
+						}}
 					/>
 				</div>
 			);
@@ -505,9 +508,10 @@ export const CheckoutForm = ({
 		const result = transformToFormData(checkedData);
 		// console.log("result = ", result);
 		createProduct(result, (res) => {
-			// console.log('res', res)
 			if (productType === 'Digital Download') {
-				router.push(`/account/kreator/products/preview/${productID}`);
+				router.push(
+					`/account/kreator/products/preview/${res?.product_id}`
+				);
 				return;
 			}
 			setProductTab(2);
@@ -883,6 +887,9 @@ export const CheckoutForm = ({
 							title={'Minimum Amount'}
 							field={minimumPrice}
 							setField={setMinimumPrice}
+							{...{
+								formattedStoreCurrencies,
+							}}
 						/>
 					</div>
 					<div className="mt-4">
@@ -890,6 +897,9 @@ export const CheckoutForm = ({
 							title={'Suggested Amount'}
 							field={suggestedPrice}
 							setField={setSuggestedPrice}
+							{...{
+								formattedStoreCurrencies,
+							}}
 						/>
 					</div>
 				</div>
