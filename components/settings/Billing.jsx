@@ -244,7 +244,7 @@ const Billing = () => {
 									: subPriceType
 							}
 							btnOnClick={openModal}
-							// currentPlan={selectedPlan === 'Business'}
+							currentPlan={selectedPlan === 'Business'}
 							selectedCurrency={selectedCurrency}
 						/>
 					</div>
