@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
-import {Pagination, Input} from 'antd';
+import {Pagination, Input, Spin} from 'antd';
 import {useSelector} from 'react-redux';
 import {MdSearch} from 'react-icons/md';
 
@@ -14,36 +14,78 @@ import Logo, {MobileLogo} from 'components/authlayout/logo';
 import {currencyOptions} from 'components/account-dashboard/partials';
 import {ProtectedStoreHeader} from 'components/store/storeHeader';
 import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
-import {Logout} from 'redux/actions';
+import {Logout, ConvertCurrency} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 
 const StorePage = () => {
 	const router = useRouter();
+	const convertCurrency = ConvertCurrency();
 	const fetchSingleStoreProduct = FetchSingleStoreProduct();
 
-	const {
-		query: {storename},
-	} = router;
-
-	// console.log("storename = ", storename);
 	const {
 		singleStoreDetails,
 		singleStoreProducts,
 		singleStorePaginationDetails: pagination,
+		defaultCurrency,
 	} = useSelector((state) => state.product);
+
+	// const [defaultCurrency, setDefaultCurrency] = useState('NGN');
+	const [targetCurrency, setTargetCurrency] = useState('');
+	const [tempTargetCurrency, setTempTargetCurrency] = useState(
+		defaultCurrency?.currency
+	);
+
+	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
+		(state) => state.currencyConverter
+	);
+
+	const {
+		query: {storename},
+	} = router;
 
 	const handlePaginationChange = (page) => {
 		fetchSingleStoreProduct(storename, page);
 	};
 
 	const logout = Logout();
+
+	const handleCurrencyConversion = (toCurrency) => {
+		if (toCurrency) {
+			const data = {
+				amount: 1,
+				from_currency_name: defaultCurrency?.currency,
+				to_currency_name: toCurrency,
+			};
+			convertCurrency(
+				data,
+				() => {
+					setTempTargetCurrency(targetCurrency);
+				},
+				() => {
+					// reset currency to previous currency
+					// setTempTargetCurrency();
+				}
+			);
+		}
+	};
 	useEffect(() => {
 		if (storename !== undefined) {
 			fetchSingleStoreProduct(storename);
 		}
 	}, [storename]);
 
-	// console.log('singleStoreProducts = ', singleStoreProducts)
+	useEffect(() => {
+		if (defaultCurrency) {
+			setTempTargetCurrency(defaultCurrency?.currency);
+		}
+	}, [defaultCurrency]);
+
+	useEffect(() => {
+		if (!!targetCurrency) {
+			handleCurrencyConversion(targetCurrency);
+		}
+	}, [targetCurrency]);
+	console.log('targetcurrency', targetCurrency);
 
 	return (
 		<div className={styles.container}>
@@ -66,7 +108,13 @@ const StorePage = () => {
 						/>
 					</div>
 					<div className="w-20 mr-4">
-						<Select options={currencyOptions} border="none" />
+						<Select
+							options={currencyOptions}
+							border="none"
+							cb={(targetCurrency) =>
+								setTargetCurrency(targetCurrency)
+							}
+						/>
 					</div>
 
 					<div onClick={() => router.push('/login')} className="pr-5">
@@ -89,7 +137,13 @@ const StorePage = () => {
 
 				<div className="w-70 flex justify-end items-center mx-auto">
 					<div className={styles.select}>
-						<Select options={currencyOptions} border="none" />
+						<Select
+							options={currencyOptions}
+							border="none"
+							cb={(targetCurrency) =>
+								setTargetCurrency(targetCurrency)
+							}
+						/>
 					</div>
 
 					{/* <div onClick={() => logout()}>
@@ -160,6 +214,9 @@ const StorePage = () => {
 								key={productDetails?.id}
 								sellingPrice={sellingPrice}
 								originalPrice={originalPrice}
+								convertedCurrency={convertedCurrency?.buy_rate}
+								loading={currencyConverterLoading}
+								targetCurrency={tempTargetCurrency}
 								{...{storename}}
 							/>
 						);
@@ -188,6 +245,9 @@ const ProductCard = ({
 	sellingPrice,
 	originalPrice,
 	storename,
+	convertedCurrency,
+	targetCurrency,
+	loading,
 }) => {
 	const router = useRouter();
 	const setCheckoutDetails = SetCheckoutDetails();
@@ -209,8 +269,6 @@ const ProductCard = ({
 		  productDetails?.product_images?.[0]?.filename?.split(',')
 		: // * show first item
 		  productDetails?.product_images?.[0]?.filename;
-
-	console.log('productDetails  = ', productDetails);
 
 	const imageRendered =
 		productDetails?.product_images?.[1]?.filename ||
@@ -295,39 +353,49 @@ const ProductCard = ({
 					<div
 						className={`flex justify-between items-center pb-4 column ${styles.main}`}
 					>
-						<p
-							className={`text-base-gray text-sm md:text-base mb-0 ${styles.sellingPrice}`}
-						>
-							{productDetails?.default_currency?.currency}
-							{new Intl.NumberFormat().format(sellingPrice) ??
-								'0.00'}
-						</p>
-						<p
-							className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
-						>
-							{productDetails?.default_currency?.currency}
-							{new Intl.NumberFormat().format(
-								originalPrice ?? productDetails?.default_price
-							) ?? '0.00'}
-						</p>
-					</div>
+						{loading ? (
+							<Spin size="small" />
+						) : (
+							<>
+								<p
+									className={`text-base-gray text-sm md:text-base mb-0 ${styles.sellingPrice}`}
+								>
+									{targetCurrency ||
+										productDetails?.default_currency
+											?.currency}
+									{convertedCurrency
+										? new Intl.NumberFormat().format(
+												convertedCurrency * sellingPrice
+										  )
+										: !convertedCurrency
+										? new Intl.NumberFormat().format(
+												sellingPrice
+										  )
+										: '0.00'}
+								</p>
+								<p
+									className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+								>
+									{targetCurrency ||
+										productDetails?.default_currency
+											?.currency}
 
-					{/* <Button
-						text={
-							productDetails?.product_details?.cta_button ??
-							'Buy Now'
-						}
-						className={styles.productCardBtn}
-						onClick={(e) => {
-							e.stopPropagation();
-							// router.push('/checkout')
-							// console.log('CTA Clicked!');
-							router.push(
-								`/checkout/${productDetails?.product_details?.kreasell_product_id}`
-							);
-							setCheckoutDetails(productDetails);
-						}}
-					/> */}
+									{convertedCurrency
+										? new Intl.NumberFormat().format(
+												convertedCurrency *
+													(originalPrice ??
+														productDetails?.default_price)
+										  )
+										: !convertedCurrency
+										? new Intl.NumberFormat().format(
+												originalPrice ??
+													productDetails?.default_price
+										  )
+										: '0.00'}
+								</p>
+							</>
+						)}
+					</div>
 					<Image
 						alt=""
 						src={ExternalLink}

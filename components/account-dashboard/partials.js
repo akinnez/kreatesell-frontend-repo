@@ -10,7 +10,7 @@ export const dayOptions = [
 
 export const currencyOptions = [
 	{value: 'NGN', label: 'NGN'},
-	{value: 'USA', label: 'USD'},
+	{value: 'USD', label: 'USD'},
 	{value: 'GBP', label: 'GBP'},
 	{value: 'KES', label: 'KES'},
 	{value: 'ZAR', label: 'ZAR'},

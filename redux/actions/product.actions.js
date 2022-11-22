@@ -490,6 +490,7 @@ export const FetchSingleStoreProduct = () => {
 					singleStoreDetails: data?.store_details,
 					singleStoreProducts,
 					singleStorePaginationDetails: {...data?.products},
+					defaultCurrency: data?.default_currency,
 				};
 
 				dispatch({

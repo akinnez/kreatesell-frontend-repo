@@ -62,6 +62,11 @@ const countryPayments = {
 			icon: PaystackLogo,
 			value: 'paystack',
 		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
 	],
 	GHS: [
 		{
@@ -73,6 +78,11 @@ const countryPayments = {
 			type: 'Paystack',
 			icon: PaystackLogo,
 			value: 'paystack',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
 		},
 	],
 	USD: [
@@ -147,12 +157,22 @@ const countryPayments = {
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
 		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
 	],
 	XOF: [
 		{
 			type: 'Flutterwave',
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
 		},
 	],
 	GMD: [
@@ -161,12 +181,22 @@ const countryPayments = {
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
 		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
 	],
 	KES: [
 		{
 			type: 'Flutterwave',
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
 		},
 	],
 	LRD: [
@@ -175,12 +205,22 @@ const countryPayments = {
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
 		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
 	],
 	MWK: [
 		{
 			type: 'Flutterwave',
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
 		},
 	],
 	SLL: [
@@ -189,12 +229,22 @@ const countryPayments = {
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
 		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
 	],
 	ZAR: [
 		{
 			type: 'Flutterwave',
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
 		},
 	],
 	TZS: [
@@ -203,12 +253,22 @@ const countryPayments = {
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
 		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
+		},
 	],
 	UGX: [
 		{
 			type: 'Flutterwave',
 			icon: FlutterwaveLogo,
 			value: 'flutterwave',
+		},
+		{
+			type: 'CryptoCurrency',
+			icon: AdvancedBitcoin,
+			value: 'crypto',
 		},
 	],
 };
@@ -314,7 +374,6 @@ const Checkout = () => {
 		try {
 			const response = await axios.get(productLink);
 			setStoreDetails(response.data.data);
-			console.log(response, 'response');
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(
 				response.data?.data?.product_details?.pricing_type

@@ -1,8 +1,10 @@
+import {useEffect} from 'react';
+
 import {Input, Button, Checkbox, FormError, PasswordInput} from '../';
 import {useFormik} from 'formik';
 import Link from 'next/link';
 import {LoginSchema} from '../../validation';
-import {isAnEmpytyObject} from '../../utils';
+import {isAnEmpytyObject, showToast} from '../../utils';
 import {Login, GetStoreDetails} from '../../redux/actions';
 import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
@@ -19,6 +21,13 @@ export const LoginForm = () => {
 		username: '',
 		password: '',
 	};
+
+	useEffect(() => {
+		if (router.query.verified) {
+			showToast('Email has been Confirmed', 'success');
+			router.replace('/login', undefined, {shallow: true});
+		}
+	}, [router.query.verified]);
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
