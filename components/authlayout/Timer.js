@@ -23,6 +23,18 @@ const Timer = () => {
 								Your BUSINESS PLAN has expired. You will
 								automatically be put on the basic plan. Click
 								button to renew now.
+								<div className={style.btnCont}>
+									<button
+										className={style.btn}
+										onClick={() =>
+											router.push(
+												'/account/kreator/settings?activeTab=billing'
+											)
+										}
+									>
+										Renew Business Plan
+									</button>
+								</div>
 							</>
 						) : days > 0 ? (
 							<div className={style.upgradeIndicationContainer}>
@@ -35,7 +47,8 @@ const Timer = () => {
 										<div>ACTIVE</div>
 									</div>
 								</div>
-								{days <= 100 && (
+								{/* TODO: this will be changed when we go live */}
+								{days <= 30 && (
 									<>
 										<h3 className={style.title}>
 											Time Left
