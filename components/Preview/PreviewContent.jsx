@@ -37,6 +37,11 @@ export default function PreviewContent({
 	const affiliateRef = router.query.ref;
 	affiliateRef ? localStorage.setItem('affiliateRef', affiliateRef) : null;
 
+	const affiliateUniqueKey = router.query.uniqkey;
+	affiliateUniqueKey
+		? localStorage.setItem('affiliateUniqueKey', affiliateUniqueKey)
+		: null;
+
 	const {store} = useSelector((state) => state?.store);
 
 	const {product} = useSelector((state) => state?.product);
