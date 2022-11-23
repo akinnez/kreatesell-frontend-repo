@@ -118,7 +118,7 @@ export const GetProductByID = () => {
 		dispatch({type: types.GET_PRODUCT_BY_ID.REQUEST}),
 		axios.request(
 			`get`,
-			`v1/kreatesell/product/get/${productID}`,
+			`v1/kreatesell/product/get/auth/${productID}`,
 			(res) => {
 				console.log(' response from getproductById = ', res);
 				dispatch({
