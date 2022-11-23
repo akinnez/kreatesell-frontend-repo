@@ -564,5 +564,5 @@ export {
 	CommentIcon,
 	ComingSoon,
 	MakeItFreeIcon,
-	KreateSellLogo
+	KreateSellLogo,
 };

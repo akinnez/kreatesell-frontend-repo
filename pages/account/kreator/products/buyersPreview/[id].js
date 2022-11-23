@@ -2,28 +2,26 @@ import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import Image from 'next/image';
-import { PlayIcon2, PlayIconBlue, KreateSellLogo } from 'utils';
-import { Button } from 'components/form-input';
+import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
+import {Button} from 'components/form-input';
 import BackButton from 'components/BackButton';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import {Card, Row, Col} from 'antd';
 import Accordion from '../preview-membership/Accordion';
 import {useSelector} from 'react-redux';
 import {GetProductByID} from 'redux/actions';
 
-
 const buyersPreview = () => {
-    const router = useRouter();
-    const getProduct = GetProductByID();
+	const router = useRouter();
+	const getProduct = GetProductByID();
 
-    const {
+	const {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
 
-    console.log(product,'productproduct')
+	console.log(product, 'productproduct');
 
-  
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
 		useState(null);
@@ -71,33 +69,33 @@ const buyersPreview = () => {
 		return <h1>Loading...</h1>;
 	}
 
-    return (
-        <>
-            <Head>
-                <title>KreateSell | Buyers Preview Membership</title>
-            </Head>
-            <div className={styles.container2}>
-                <header className={`flex px-5`}>
-                    <div className={`flex items-center ${styles.left}`}>
-                        <h3 className="hidden md:block mb-0">
-                            <Image
-                                src={KreateSellLogo}
-                                onClick={() => router.push('/')}
-                                width={150}
-                                height={40}
-                                alt=""
-                            />
-                        </h3>
-                    </div>
-                    <div
-                        className={`flex items-center gap-5 ${styles.middle}`}
-                    >
-                        <h3 className={styles.previewTitle}>{product?.product_details?.product_name}</h3>
-                    </div>
-                    <div className={styles.right}></div>
-                </header>
+	return (
+		<>
+			<Head>
+				<title>KreateSell | Buyers Preview Membership</title>
+			</Head>
+			<div className={styles.container2}>
+				<header className={`flex px-5`}>
+					<div className={`flex items-center ${styles.left}`}>
+						<h3 className="hidden md:block mb-0">
+							<Image
+								src={KreateSellLogo}
+								onClick={() => router.push('/')}
+								width={150}
+								height={40}
+								alt=""
+							/>
+						</h3>
+					</div>
+					<div className={`flex items-center gap-5 ${styles.middle}`}>
+						<h3 className={styles.previewTitle}>
+							{product?.product_details?.product_name}
+						</h3>
+					</div>
+					<div className={styles.right}></div>
+				</header>
 
-                <section>
+				<section>
 					<Row className={`${styles.largeScreen}`} gutter={[16, 16]}>
 						<Col span={9} className={styles.left}>
 							<Card className={styles.card}>
@@ -123,11 +121,20 @@ const buyersPreview = () => {
 									</div>
 								</div>
 							</Card>
-                            <div className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
-                             onClick={() => router.push(`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`)}
-                            >
-                                <p className= {`text-base text-white text-center ${styles.manageMembershipText}`}>Manage Membership</p>
-                            </div>
+							<div
+								className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
+								onClick={() =>
+									router.push(
+										`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
+									)
+								}
+							>
+								<p
+									className={`text-base text-white text-center ${styles.manageMembershipText}`}
+								>
+									Manage Membership
+								</p>
+							</div>
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
@@ -268,9 +275,9 @@ const buyersPreview = () => {
 						)}
 					</div>
 				</section>
-            </div>
-        </>
-    )
-}
+			</div>
+		</>
+	);
+};
 
-export default buyersPreview
+export default buyersPreview;

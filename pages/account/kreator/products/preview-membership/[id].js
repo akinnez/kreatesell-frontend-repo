@@ -22,7 +22,6 @@ const PreviewMembership = () => {
 		product: {product_content},
 	} = useSelector((state) => state.product);
 
-
 	const [activeLink, setActiveLink] = useState({});
 
 	console.log(activeLink, 'activeLink');
@@ -80,7 +79,7 @@ const PreviewMembership = () => {
 			</Head>
 			<div className={styles.container2}>
 				<header className={`flex px-5`}>
-					<div className={`flex items-center gap-5 ${styles.left}`}> 
+					<div className={`flex items-center gap-5 ${styles.left}`}>
 						<h3 className="hidden md:block mb-0">
 							<Image
 								src={LogoV2}

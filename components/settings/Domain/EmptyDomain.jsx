@@ -1,9 +1,9 @@
-import { Button } from 'components';
-import { CreateEditDomain, SetDomainScreen, GetDomains } from 'redux/actions';
+import {Button} from 'components';
+import {CreateEditDomain, SetDomainScreen, GetDomains} from 'redux/actions';
 import styles from './Domain.module.scss';
-import Link from 'next/link'
+import Link from 'next/link';
 
-export const EmptyDomain = ({ showHeader = true }) => {
+export const EmptyDomain = ({showHeader = true}) => {
 	const setDomainScreen = SetDomainScreen();
 
 	return (
