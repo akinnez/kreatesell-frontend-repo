@@ -6,7 +6,7 @@ import {GetProductByID} from 'redux/actions';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
 import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
-import BackButton from 'components/BackButton';
+import BackButton from 'components/BackButton';  
 
 const manageMembership = () => {
 	const router = useRouter();
