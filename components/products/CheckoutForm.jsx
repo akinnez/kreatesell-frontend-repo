@@ -60,8 +60,10 @@ export const CheckoutForm = ({
 	// if (product) {
 	//   setProductID(product?.product_details?.kreasell_product_id);
 	// }
-	const [errorForNotMatchedCurrency, setErrorForNotMatchedCurrency] =
-		useState(false);
+	const [
+		errorForNotMatchedCurrency,
+		setErrorForNotMatchedCurrency,
+	] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const [isLimited, setIsLimited] = useState(false);
 
@@ -125,8 +127,9 @@ export const CheckoutForm = ({
 	// Fixed Price Inputs
 	const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
 	const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
-	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] =
-		useState(fixedOriginalPrice);
+	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] = useState(
+		fixedOriginalPrice
+	);
 
 	// Pay What You Want
 	const [minimumPrice, setMinimumPrice] = useState([]);
@@ -135,13 +138,15 @@ export const CheckoutForm = ({
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
-	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
-		useState(false);
+	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] = useState(
+		false
+	);
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [numberOfLimit, setNumberOfLimit] = useState(0);
 	const [showTotalSales, setShowTotalSales] = useState(false);
-	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] =
-		useState(false);
+	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(
+		false
+	);
 
 	const [totalSelling, setTotalSelling] = useState([]);
 	const mapNumberToArray = (number) => {
@@ -156,8 +161,10 @@ export const CheckoutForm = ({
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
-	const {selectedStoreCurrencies, storeCurrenciesLoading} =
-		useStoreCurrency();
+	const {
+		selectedStoreCurrencies,
+		storeCurrenciesLoading,
+	} = useStoreCurrency();
 
 	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
 		[]
@@ -170,12 +177,17 @@ export const CheckoutForm = ({
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
-		useUpload({
-			setFileChange: setPromotionalMaterial,
-			// should accept rar and zip
-			fileType: 'image',
-		});
+	const {
+		preview,
+		getRootProps,
+		getInputProps,
+		mainFile,
+		deleteFile,
+	} = useUpload({
+		setFileChange: setPromotionalMaterial,
+		// should accept rar and zip
+		fileType: 'image',
+	});
 
 	// console.log("product = ", product);
 
@@ -466,9 +478,11 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
-		if (validateDefinedCurrencies()) {
-			showToast('Please define prices for all currencies', 'error');
-			return;
+		if (priceType === 'Fixed Price') {
+			if (validateDefinedCurrencies()) {
+				showToast('Please define prices for all currencies', 'error');
+				return;
+			}
 		}
 		// console.log("data from submit = ", data);
 		// setProductID(productID);
@@ -1089,8 +1103,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -1121,8 +1134,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
