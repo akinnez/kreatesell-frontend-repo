@@ -16,7 +16,7 @@ import {
 const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 	const {
 		storeCheckoutCurrencies,
-		store: {store_details},
+		store: {store_details, bank_details},
 	} = useSelector((state) => state.store);
 	const updateStoreCheckoutCurrencies = UpdateStoreCheckoutCurrencies();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
@@ -93,7 +93,12 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 							(prv) =>
 								['XOF', 'XAF'].includes(
 									prv.currency_short_name
-								) || ['XOF', 'XAF'].includes(prv.currency)
+								) ||
+								['XOF', 'XAF'].includes(prv.currency) ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes(bank_details?.currency_name || '')
 						),
 					]);
 				} else {
@@ -106,7 +111,12 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 							(prv) =>
 								['XOF', 'XAF'].includes(
 									prv.currency_short_name
-								) || ['XOF', 'XAF'].includes(prv.currency)
+								) ||
+								['XOF', 'XAF'].includes(prv.currency) ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes(bank_details?.currency_name || '')
 						),
 						...countriesCurrency,
 					]);
@@ -124,7 +134,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XOF')
+								].includes('XOF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes(bank_details?.currency_name || '')
 						),
 					]);
 				} else {
@@ -138,7 +152,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XOF')
+								].includes('XOF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes(bank_details?.currency_name || '')
 						),
 						...filterdWest,
 					]);
@@ -156,7 +174,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XAF')
+								].includes('XAF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes(bank_details?.currency_name || '')
 						),
 					]);
 				} else {
@@ -170,7 +192,11 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 								![
 									prv?.currency_short_name,
 									prv?.currency,
-								].includes('XAF')
+								].includes('XAF') ||
+								[
+									prv?.currency_short_name,
+									prv?.currency,
+								].includes(bank_details?.currency_name || '')
 						),
 						...filteredCentral,
 					]);
@@ -236,6 +262,10 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries-2"
+									disabled={
+										cur?.currency ===
+										bank_details?.currency_name
+									}
 								>
 									<span
 										className={`p-2 flex`}
@@ -289,6 +319,10 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries-2"
+									disabled={
+										cur?.currency ===
+										bank_details?.currency_name
+									}
 								>
 									<span
 										className={`p-2 flex`}
@@ -341,6 +375,10 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries-2"
+									disabled={
+										cur?.currency ===
+										bank_details?.currency_name
+									}
 								>
 									<span
 										className={`p-2 flex`}
