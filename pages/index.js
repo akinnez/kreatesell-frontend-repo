@@ -94,7 +94,7 @@ export default function Home() {
 	};
 	// test push
 	return (
-		<Layout subFooter={false} defaultMarginTop={true}>
+		<Layout subFooter={false} defaultMarginTop={true}> 
 			<div className={styles.container}>
 				<div className={styles.body}>
 					<div className={styles.header}>

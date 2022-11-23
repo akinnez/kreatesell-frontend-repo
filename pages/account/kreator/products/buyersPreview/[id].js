@@ -1,31 +1,30 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
-import Image from 'next/image';
-
-import {useSelector} from 'react-redux';
-import {Card, Row, Col} from 'antd';
-
-import {PlayIcon2, PlayIconBlue, LogoV2} from 'utils';
-import {Button} from 'components/form-input';
-import BackButton from 'components/BackButton';
-import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
+import Image from 'next/image';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo } from 'utils';
+import { Button } from 'components/form-input';
+import BackButton from 'components/BackButton';
+import { useRouter } from 'next/router';
+import {Card, Row, Col} from 'antd';
+import Accordion from '../preview-membership/Accordion';
+import {useSelector} from 'react-redux';
 import {GetProductByID} from 'redux/actions';
 
-const PreviewMembership = () => {
-	const router = useRouter();
-	const getProduct = GetProductByID();
 
-	const {
+const buyersPreview = () => {
+    const router = useRouter();
+    const getProduct = GetProductByID();
+
+    const {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
 
+    console.log(product,'productproduct')
 
+  
 	const [activeLink, setActiveLink] = useState({});
-
-	console.log(activeLink, 'activeLink');
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
@@ -61,7 +60,6 @@ const PreviewMembership = () => {
 	};
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	console.log(activeLink, 'ctiveLink');
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -73,46 +71,33 @@ const PreviewMembership = () => {
 		return <h1>Loading...</h1>;
 	}
 
-	return (
-		<>
-			<Head>
-				<title>KreateSell | Preview Membership</title>
-			</Head>
-			<div className={styles.container2}>
-				<header className={`flex px-5`}>
-					<div className={`flex items-center gap-5 ${styles.left}`}> 
-						<h3 className="hidden md:block mb-0">
-							<Image
-								src={LogoV2}
-								onClick={() => router.push('/')}
-								width={40}
-								height={40}
-								alt=""
-							/>
-						</h3>
-						<BackButton />
-					</div>
-					<div
-						className={`flex items-center justify-end gap-5 ${styles.right}`}
-					>
-						<Button
-							className={styles.outlinedBtn}
-							htmlType="button"
-							label="Edit Membership"
-						/>
-						<Button
-							type="primary"
-							onClick={() =>
-								router.push(
-									`/account/kreator/products/preview/${router?.query?.id}`
-								)
-							}
-							htmlType="button"
-							label="Preview and Publish"
-						/>
-					</div>
-				</header>
-				<section>
+    return (
+        <>
+            <Head>
+                <title>KreateSell | Buyers Preview Membership</title>
+            </Head>
+            <div className={styles.container2}>
+                <header className={`flex px-5`}>
+                    <div className={`flex items-center ${styles.left}`}>
+                        <h3 className="hidden md:block mb-0">
+                            <Image
+                                src={KreateSellLogo}
+                                onClick={() => router.push('/')}
+                                width={150}
+                                height={40}
+                                alt=""
+                            />
+                        </h3>
+                    </div>
+                    <div
+                        className={`flex items-center gap-5 ${styles.middle}`}
+                    >
+                        <h3 className={styles.previewTitle}>{product?.product_details?.product_name}</h3>
+                    </div>
+                    <div className={styles.right}></div>
+                </header>
+
+                <section>
 					<Row className={`${styles.largeScreen}`} gutter={[16, 16]}>
 						<Col span={9} className={styles.left}>
 							<Card className={styles.card}>
@@ -138,6 +123,11 @@ const PreviewMembership = () => {
 									</div>
 								</div>
 							</Card>
+                            <div className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
+                             onClick={() => router.push(`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`)}
+                            >
+                                <p className= {`text-base text-white text-center ${styles.manageMembershipText}`}>Manage Membership</p>
+                            </div>
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
@@ -278,9 +268,9 @@ const PreviewMembership = () => {
 						)}
 					</div>
 				</section>
-			</div>
-		</>
-	);
-};
+            </div>
+        </>
+    )
+}
 
-export default PreviewMembership;
+export default buyersPreview

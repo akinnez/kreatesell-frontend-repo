@@ -7,6 +7,7 @@ import {Button} from 'antd';
 import {useRouter} from 'next/router';
 import {RightPreviewArrow, LeftPreviewArrow, ExternalLink} from 'utils';
 
+
 export default function PreviewContent({
 	alreadyDefinedPrice,
 	alreadyDefinedOriginalPrice,
@@ -21,6 +22,10 @@ export default function PreviewContent({
 	const [domainLink, setDomainLink] = useState('');
 
 	const router = useRouter();
+
+	const affiliateRef = router.query.ref;
+    affiliateRef ? localStorage.setItem('affiliateRef', affiliateRef): null
+	
 	const {store} = useSelector((state) => state?.store);
 
 	const {product} = useSelector((state) => state?.product);

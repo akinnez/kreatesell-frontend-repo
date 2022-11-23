@@ -1,8 +1,9 @@
-import {Button} from 'components';
-import {CreateEditDomain, SetDomainScreen, GetDomains} from 'redux/actions';
+import { Button } from 'components';
+import { CreateEditDomain, SetDomainScreen, GetDomains } from 'redux/actions';
 import styles from './Domain.module.scss';
+import Link from 'next/link'
 
-export const EmptyDomain = ({showHeader = true}) => {
+export const EmptyDomain = ({ showHeader = true }) => {
 	const setDomainScreen = SetDomainScreen();
 
 	return (
@@ -30,7 +31,7 @@ export const EmptyDomain = ({showHeader = true}) => {
 				<p className="text-xs text-base-gray-200 pt-2">
 					Have a domain? Connect it here.
 				</p>
-				<div className="mt-4">
+				<div className="my-4">
 					<Button
 						text="Connect a domain"
 						bgColor="blue"
@@ -38,6 +39,15 @@ export const EmptyDomain = ({showHeader = true}) => {
 						onClick={() => setDomainScreen(3)}
 					/>
 				</div>
+				<Link href="/account/kreator/settings/about-domain">
+					<a
+						target="_blank"
+						rel="noopener norefferer"
+						className="text-primary-blue text-base"
+					>
+						View Guide
+					</a>
+				</Link>
 			</div>
 		</div>
 	);

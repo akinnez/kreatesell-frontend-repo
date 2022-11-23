@@ -1,27 +1,28 @@
-import {Percentage, Radio} from 'components/inputPack';
-import {Switch, Form, Input, Button, Select} from 'antd';
+import { Percentage, Radio } from 'components/inputPack';
+import { Switch, Form, Input, Button, Select } from 'antd';
 import styles from './Checkout.module.scss';
 // import { Select } from 'components/form-input';
-import {useState, useEffect, useCallback, useRef} from 'react';
-import {CloudUpload, FileDelete, FileZip, Audio, Video} from 'utils';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { CloudUpload, FileDelete, FileZip, Audio, Video } from 'utils';
 import Image from 'next/image';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
+import { showToast } from '../../utils';
 // import { Select } from "components/select/Select";
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
 	GetProductByID,
 	GetBillingInterval,
 	CreateProduct,
 	SetProductTab,
 } from 'redux/actions';
-import {useUpload} from 'hooks';
+import { useUpload } from 'hooks';
 import CustomCheckoutSelect from './CustomCheckout';
-import {useRouter} from 'next/router';
-import {transformToFormData} from 'utils';
+import { useRouter } from 'next/router';
+import { transformToFormData } from 'utils';
 
 import axios from 'axios';
 
-export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
+export const CheckoutForm = ({ ctaBtnText, priceType, setCtaBtnText }) => {
 	/**
 	 * PriceType Values
 	 * FixedPrice: 1
@@ -34,10 +35,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
 	const setProductTab = SetProductTab();
-	const {store} = useSelector((state) => state.store);
+	const { store } = useSelector((state) => state.store);
 	const router = useRouter();
 
-	const {product, billingInterval, loading} = useSelector(
+	const { product, billingInterval, loading } = useSelector(
 		(state) => state.product
 	);
 
@@ -81,9 +82,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const [isBasic, setIsBasic] = useState(true);
 	const [isApplied, setIsApplied] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
+	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false)
 
 	const mounted = useRef(null);
-	const {Option} = Select;
+	const { Option } = Select;
 
 	// guards against price duplication
 	useEffect(() => {
@@ -97,7 +99,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
-			const {user} = store;
+			const { user } = store;
 			if (user.user_plan === 'Business') {
 				setIsCouponDisabled(false);
 			} else {
@@ -154,7 +156,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
+	const { preview, getRootProps, getInputProps, mainFile, deleteFile } =
 		useUpload({
 			setFileChange: setPromotionalMaterial,
 			// should accept rar and zip
@@ -163,28 +165,28 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 	// console.log("product = ", product);
 
-	console.log(duration, 'duration');
+
 
 	const durationOptions = [
-		{label: 'Daily', value: 'aaily'},
-		{label: 'Weekly', value: 'weekly'},
-		{label: 'Monthly', value: 'monthly'},
-		{label: 'Every 3 Months', value: 'every_3_Months'},
-		{label: 'Every 6 Months', value: 'every_6_Months'},
-		{label: 'Yearly', value: 'yearly'},
-		{label: 'Custom', value: 'custom'},
+		{ label: 'Daily', value: 'aaily' },
+		{ label: 'Weekly', value: 'weekly' },
+		{ label: 'Monthly', value: 'monthly' },
+		{ label: 'Every 3 Months', value: 'every_3_Months' },
+		{ label: 'Every 6 Months', value: 'every_6_Months' },
+		{ label: 'Yearly', value: 'yearly' },
+		{ label: 'Custom', value: 'custom' },
 	];
 
 	const billedEveryDuration = [
-		{label: 'Days(s)', value: 'days'},
-		{label: 'Weeks(s)', value: 'weeks'},
-		{label: 'Month(s)', value: 'months'},
+		{ label: 'Days(s)', value: 'days' },
+		{ label: 'Weeks(s)', value: 'weeks' },
+		{ label: 'Month(s)', value: 'months' },
 	];
 
 	const customBillingIntervals = [
-		{label: 'Day(s)', value: 1},
-		{label: 'Week(s)', value: 7},
-		{label: 'Month(s)', value: 30},
+		{ label: 'Day(s)', value: 1 },
+		{ label: 'Week(s)', value: 7 },
+		{ label: 'Month(s)', value: 30 },
 	];
 	const mappedBillingInterval = billingInterval?.map((billing) => ({
 		label: billing.billing_types,
@@ -195,7 +197,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		let opt = [];
 		for (let i = 1; i < 10; i++) {
 			opt.push(i);
-			const values = opt.map((item) => ({label: item, value: item}));
+			const values = opt.map((item) => ({ label: item, value: item }));
 			setFrequencyOptions(values);
 		}
 	};
@@ -229,7 +231,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const createCustomCurrencyField = (array) => {
 		let title = '';
 		let field = [];
-		let setField = () => {};
+		let setField = () => { };
 		return array.map((value, index) => {
 			switch (value) {
 				case 0:
@@ -287,7 +289,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		formData.append('file', file);
 		const options = {
 			onUploadProgress: (progressEvent) => {
-				const {loaded, total} = progressEvent;
+				const { loaded, total } = progressEvent;
 				let percent = Math.floor((loaded * 100) / total);
 				cb(percent);
 			},
@@ -295,7 +297,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		try {
 			const instance = axios.create();
 			delete instance.defaults.headers.common['Authorization'];
-			const {data} = await instance.post(
+			const { data } = await instance.post(
 				'https://api.cloudinary.com/v1_1/salvoagency/upload',
 				formData,
 				options
@@ -510,12 +512,12 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 	const handleSelect = (field) => (value) => {
 		setDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue({ [field]: value });
 	};
 
 	const handleBilledSelect = (field) => (value) => {
 		setCustomBillingDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue({ [field]: value });
 	};
 
 	const formik = useFormik({
@@ -525,7 +527,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		validateOnChange: false,
 	});
 
-	const {errors, setFieldValue, values} = formik;
+	const { errors, setFieldValue, values } = formik;
 	console.log('formik values', values);
 
 	//Updating Formik values
@@ -726,8 +728,25 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 	const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
 	const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
+
 	useEffect(() => {
-		// console.log("fixedOriginalPrice = ", fixedOriginalPrice);
+		minimumPrice.map((item) => {
+			const minPriceCurrency = item?.currency_name
+			const minPriceValue = item?.currency_value
+
+			const matchItem = suggestedPrice?.find((SpItem) => {
+				return SpItem?.currency_name === minPriceCurrency;
+			});
+
+			if (minPriceValue > matchItem?.currency_value) {
+				showToast('suggested price must be greater than minimum price', 'error',)
+				setIsGreaterThanSug(true)
+			} else {
+				setIsGreaterThanSug(false)
+			}
+			return isGreaterthanSug;
+		})
+
 		fixedOriginalPrice?.map((OpItem) => {
 			//* Op = Original Price and Sp = SellingPrice
 			const OpItemCurrency = OpItem?.currency_name;
@@ -770,6 +789,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 		isOpMoreThanSp,
 		noMatchingCurrency,
 		compareToPrice,
+		minimumPrice,
+		suggestedPrice,
+		isGreaterthanSug
 	]);
 
 	const disableButton = useCallback(() => {
@@ -793,8 +815,16 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 			return true;
 		}
 
+		if (isGreaterthanSug) {
+			return true
+		}
+		// if (!isOpMoreThanSp) {
+		// 	// console.log("condition 3");
+		// 	return true;
+		// }
+
 		return false;
-	}, [compareToPrice, isOpMoreThanSp, noMatchingCurrency]);
+	}, [compareToPrice, isOpMoreThanSp, noMatchingCurrency, isGreaterthanSug]);
 
 	// console.log("disableButton = ", disableButton());
 
@@ -823,6 +853,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 							title={'Minimum Amount'}
 							field={minimumPrice}
 							setField={setMinimumPrice}
+
 						/>
 					</div>
 					<div className="mt-4">
@@ -830,6 +861,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 							title={'Suggested Amount'}
 							field={suggestedPrice}
 							setField={setSuggestedPrice}
+
 						/>
 					</div>
 				</div>
@@ -979,8 +1011,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										isCouponDiabled
 											? 'DISABLED'
 											: applyCoupon
-											? 'ENABLED'
-											: 'DISABLED'
+												? 'ENABLED'
+												: 'DISABLED'
 										// ? 'ON'
 										// 	: 'OFF'
 									}
@@ -1060,7 +1092,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										onChange={formik.handleChange}
 										disabled={
 											couponVariance.is_fixed_amount ===
-											true
+												true
 												? false
 												: true
 										}
@@ -1111,15 +1143,33 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								</p>
 								<div className={styles.couponLimit}>
 									<Radio
-										value={''}
-										content={1}
+										value={frequencyType}
 										label="Unlimited"
+										content={0}
+										onChange={(e) => {
+											setIsLimited(false);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												false
+											);
+										}}
+										checked={!isLimited ? true : false}
 										labelStyle={styles.radioLabelStyle}
 									/>
 									<Radio
-										value={''}
-										content={1}
+										value={frequencyType}
 										label="Limited"
+										content={1}
+										onChange={(e) => {
+											setIsLimited(true);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												true
+											);
+										}}
+										checked={isLimited ? true : false}
 										labelStyle={styles.radioLabelStyle}
 									/>
 								</div>
@@ -1139,10 +1189,17 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								</div>
 								<div className="w-full md:w-4/5">
 									<Input
-										placeholder="1"
-										className={styles.ctaBtn}
-										name="no_of_times"
-										onChange={formik.handleChange}
+										type="number"
+										label="Number of Times"
+										disabled={!isLimited ? true : false}
+										name="no_of_frequency"
+										// value={no_of_frequency}
+										onChange={(e) =>
+											setFieldValue(
+												'coupon_settings.no_of_frequency',
+												e.target.value
+											)
+										}
 									/>
 								</div>
 							</div>
@@ -1152,20 +1209,57 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 								</p>
 								<div className={styles.usageLimit}>
 									<Radio
-										value={''}
-										content={1}
+										value={usageType}
+										content={0}
+										onChange={(e) => {
+											setIsUsage(false);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												false
+											);
+										}}
+										checked={!isUsage ? true : false}
 										label="Unlimited Use per customer"
 										labelStyle={styles.radioLabelStyle}
 									/>
 									<Radio
-										value={''}
-										content={1}
+										value={usageType}
 										label="Coupon can be used how many times by a customer"
+										content={1}
+										onChange={(e) => {
+											setIsUsage(true);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												true
+											);
+										}}
+										checked={isUsage ? true : false}
 										labelStyle={styles.radioLabelStyle}
 									/>
 								</div>
 							</div>
-							<div className={styles.box}>
+							<div className={styles.inputGroup + ' w-full md:w-3/4 mt-2'}>
+								<h2 className="text-lg text-base-black-100">
+									Number of times coupon can be used per
+									customer
+								</h2>
+								<Input
+									type="number"
+									placeholder="1"
+									name="no_of_usage"
+									// value={no_of_usage}
+									disabled={isUsage ? false : true}
+									onChange={(e) =>
+										setFieldValue(
+											'coupon_settings.no_of_usage',
+											e.target.value
+										)
+									}
+								/>
+							</div>
+							{/* <div className={styles.box}>
 								<p className={styles.textMain}>
 									Number of times coupon can be used per
 									customer
@@ -1188,12 +1282,13 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										<Option value="4">4</Option>
 									</Select>
 								</div>
-							</div>
+							</div> */}
+
 						</div>
-						<div className=" w-full md:w-4/5">
+						{/* <div className=" w-full md:w-4/5">
 							<div className={`${styles.discount}`}>
 								<div className={`${styles.settingsSubLabel}`}>
-									Also apply the Discount when the
+									Also apply the Discount when theeee
 									SUBSCRIPTION is renewed for a membership
 									digital product(s) bought with the coupon
 								</div>
@@ -1209,10 +1304,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						{/* start of implementation */}
-						<div className="flex flex-col mt-8">
+						{/* <div className="flex flex-col mt-8">
 							<h2 className="font-semib5old text-base">
 								Limit the Frequency of the Coupon
 							</h2>
@@ -1271,9 +1366,9 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									}
 								/>
 							</div>
-						</div>
+						</div> */}
 
-						<div className="flex flex-col mt-8">
+						{/* <div className="flex flex-col mt-8">
 							<h2 className="font-semibold text-base">
 								Limit the Usage per Customer
 							</h2>
@@ -1337,7 +1432,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									}
 								/>
 							</div>
-						</div>
+						</div> */}
 
 						<div className={styles.switchContent}>
 							<h2 className={styles.label}>
@@ -1514,13 +1609,11 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 										How much percentage are you willing to
 										pay affiliate
 										<p
-											className={`${
-												styles.commisionAllowed
-											} ${
-												afiliatePercentage === ''
+											className={`${styles.commisionAllowed
+												} ${afiliatePercentage === ''
 													? styles.show
 													: ''
-											}`}
+												}`}
 										>
 											Commission Percentage value should
 											be between 1 and 100
@@ -1539,13 +1632,13 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 											onChange={(e) => {
 												const commisionAllowed =
 													e.target.value < 101 &&
-													!e.target.value.startsWith(
-														0
-													)
+														!e.target.value.startsWith(
+															0
+														)
 														? e.target.value.replace(
-																/[^0-9]/g,
-																''
-														  )
+															/[^0-9]/g,
+															''
+														)
 														: '';
 												setAfiliatePercentage(
 													commisionAllowed
@@ -1631,10 +1724,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 															)
 																? Video
 																: item.file.type.includes(
-																		'audio'
-																  )
-																? Audio
-																: FileZip
+																	'audio'
+																)
+																	? Audio
+																	: FileZip
 														}
 														alt="zip"
 													/>
@@ -1683,12 +1776,10 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 									</p>
 
 									<div
-										className={`${
-											styles.contentFileUpload
-										} ${
-											promotionalMaterial?.length > 0 &&
+										className={`${styles.contentFileUpload
+											} ${promotionalMaterial?.length > 0 &&
 											styles.activeUpload
-										}`}
+											}`}
 										{...getRootProps()}
 									>
 										<input {...getInputProps()} />
@@ -1789,7 +1880,7 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 						htmlType="submit"
 						loading={loading}
 						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
-						disabled={disableButton()}
+						disabled={disableButton() || isGreaterthanSug}
 					>
 						{productType === 'Digital Download'
 							? 'Save and Preview'

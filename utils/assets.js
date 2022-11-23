@@ -280,6 +280,8 @@ import MessageIcon from '../public/images/messageIcon.svg';
 import OpenTicketIcon from '../public/images/openTicketIcon.svg';
 import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 
+import KreateSellLogo from '../public/images/KreateSellLogo.png';
+
 export {
 	MessageIcon,
 	OpenTicketIcon,
@@ -562,4 +564,5 @@ export {
 	CommentIcon,
 	ComingSoon,
 	MakeItFreeIcon,
+	KreateSellLogo
 };
