@@ -47,6 +47,12 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
+
+	const isOriginalPrice = product?.product_details?.is_show_compare_price
+	console.log(isOriginalPrice,'isOriginalPrice')
+
+
+
 	// console.log("product = ", product?.product_details?.kreasell_product_id);
 	// setProductID(product?.product_details?.kreasell_product_id);
 
@@ -57,7 +63,8 @@ export const CheckoutForm = ({ctaBtnText, priceType, setCtaBtnText}) => {
 	const [progress, setProgress] = useState(0);
 	const [isLimited, setIsLimited] = useState(false);
 
-	const [compareToPrice, setCompareToPrice] = useState(false);
+	const [compareToPrice, setCompareToPrice] = useState(isOriginalPrice || false);
+	console.log(compareToPrice,'compareToPrice')
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);

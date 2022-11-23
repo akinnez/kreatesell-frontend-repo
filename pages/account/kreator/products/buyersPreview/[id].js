@@ -11,7 +11,7 @@ import Accordion from '../preview-membership/Accordion';
 import {useSelector} from 'react-redux';
 import {GetProductByID} from 'redux/actions';
 
-const buyersPreview = () => {
+const BuyersPreview = () => {
 	const router = useRouter();
 	const getProduct = GetProductByID();
 
@@ -280,4 +280,4 @@ const buyersPreview = () => {
 	);
 };
 
-export default buyersPreview;
+export default BuyersPreview;

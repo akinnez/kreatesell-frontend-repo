@@ -8,7 +8,7 @@ import Image from 'next/image';
 import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
 import BackButton from 'components/BackButton';
 
-const manageMembership = () => {
+const ManageMembership = () => {
 	const router = useRouter();
 	const getProduct = GetProductByID();
 
@@ -86,4 +86,4 @@ const manageMembership = () => {
 	);
 };
 
-export default manageMembership;
+export default ManageMembership;
