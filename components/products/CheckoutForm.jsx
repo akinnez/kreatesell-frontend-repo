@@ -466,9 +466,11 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
-		if (validateDefinedCurrencies()) {
-			showToast('Please define prices for all currencies', 'error');
-			return;
+		if (priceType === 'Fixed Price') {
+			if (validateDefinedCurrencies()) {
+				showToast('Please define prices for all currencies', 'error');
+				return;
+			}
 		}
 		// console.log("data from submit = ", data);
 		// setProductID(productID);

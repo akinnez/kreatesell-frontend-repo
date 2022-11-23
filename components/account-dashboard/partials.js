@@ -9,8 +9,8 @@ export const dayOptions = [
 ];
 
 export const currencyOptions = [
-	{value: 'NGN', label: 'NGN'},
 	{value: 'USD', label: 'USD'},
+	{value: 'NGN', label: 'NGN'},
 	{value: 'GBP', label: 'GBP'},
 	{value: 'KES', label: 'KES'},
 	{value: 'ZAR', label: 'ZAR'},

@@ -1,3 +1,5 @@
+import {Spin} from 'antd';
+
 import RSelect from 'react-select';
 import styles from './Select.module.scss';
 
@@ -15,6 +17,8 @@ export const Select = ({
 	height = '38px',
 	label,
 	cb = () => {},
+	defaultValue = {},
+	loading = false,
 	...rest
 }) => {
 	const customStyles = {
@@ -40,6 +44,20 @@ export const Select = ({
 		}),
 	};
 
+	if (loading)
+		return (
+			<div
+				className={`${styles.select} flex justify-center items-center`}
+				style={{
+					border: '1px solid #d9d9d9',
+					height: '100%',
+					borderRadius: '8px',
+				}}
+			>
+				<Spin size="small" />{' '}
+			</div>
+		);
+
 	return (
 		<div className={styles.select}>
 			<label htmlFor={rest?.name} className={styles.label}>
@@ -53,8 +71,8 @@ export const Select = ({
 				styles={customStyles}
 				name={rest.name}
 				options={options}
-				defaultValue={options?.[0]}
-				placeholder={placeholder || options?.[0]?.label}
+				defaultValue={defaultValue || options?.[0]}
+				placeholder={placeholder || defaultValue || options?.[0]?.label}
 				className={`${styles.selectOptions} ${rest.className}`}
 			/>
 		</div>
