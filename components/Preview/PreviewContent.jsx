@@ -33,6 +33,10 @@ export default function PreviewContent({
 	const [domainLink, setDomainLink] = useState('');
 
 	const router = useRouter();
+
+	const affiliateRef = router.query.ref;
+	affiliateRef ? localStorage.setItem('affiliateRef', affiliateRef) : null;
+
 	const {store} = useSelector((state) => state?.store);
 
 	const {product} = useSelector((state) => state?.product);

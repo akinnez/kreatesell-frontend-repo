@@ -49,6 +49,7 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
+export const pathName = typeof window !== 'undefined' && window;
 
 const countryPayments = {
 	NGN: [
@@ -325,7 +326,6 @@ const Checkout = () => {
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
 
 	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
-
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
 
@@ -414,6 +414,12 @@ const Checkout = () => {
 			);
 		}
 	};
+
+	const affliateRef = pathName.localStorage?.getItem('affiliateRef');
+	const getAffiliateRef = () => {
+		return affliateRef;
+	};
+
 	const handlePhoneCode = (countryParam) => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
@@ -424,6 +430,7 @@ const Checkout = () => {
 	};
 
 	const randomId = `kreate-sell-${crypto.randomBytes(16).toString('hex')}`;
+
 	const paymentStatusList = {
 		success: 's',
 		failed: 'f',
@@ -458,8 +465,8 @@ const Checkout = () => {
 			last_four: '',
 			currency: getCurrency('currency'),
 			payment_type: 'purchase',
-			is_affiliate: values?.is_affiliate || false,
-			affiliate_product_link: '',
+			is_affiliate: affliateRef ? true : false,
+			affiliate_product_link: getAffiliateRef(),
 			user_identifier: values?.id || '',
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,

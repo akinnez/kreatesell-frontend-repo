@@ -282,6 +282,7 @@ import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 
 import PaystackLogo from '../public/images/paystack-logo.svg';
 import InfoIcon from '../public/images/info-icon.svg';
+import KreateSellLogo from '../public/images/KreateSellLogo.png';
 
 export {
 	InfoIcon,
@@ -567,4 +568,5 @@ export {
 	CommentIcon,
 	ComingSoon,
 	MakeItFreeIcon,
+	KreateSellLogo,
 };
