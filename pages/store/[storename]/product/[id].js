@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import styles from '../../../../public/css/storeName-product-id.module.scss';
 import {useSelector} from 'react-redux';
 import PreviewHeader from 'components/Preview/PreviewHeader';
-import {GetProductByID} from 'redux/actions';
+import {GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
@@ -21,10 +21,12 @@ export default function PreviewProduct() {
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
-		useState(null);
+	const [
+		alreadyDefinedOriginalPrice,
+		setAlreadyDefinedOriginalPrice,
+	] = useState(null);
 
-	const getProductByID = GetProductByID();
+	const getProductByID = GetProductByIDNotAut();
 	const convertCurrency = ConvertCurrency();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 
