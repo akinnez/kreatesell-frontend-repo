@@ -6,6 +6,7 @@ import {useState, useEffect, useCallback, useRef} from 'react';
 import {CloudUpload, FileDelete, FileZip, Audio, Video, showToast} from 'utils';
 import Image from 'next/image';
 import {useFormik} from 'formik';
+// import {showToast} from '../../utils';
 // import { Select } from "components/select/Select";
 import {useSelector} from 'react-redux';
 import {
@@ -54,6 +55,9 @@ export const CheckoutForm = ({
 
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
+	const isOriginalPrice = product?.product_details?.is_show_compare_price;
+	console.log(isOriginalPrice, 'isOriginalPrice');
+
 	// console.log("product = ", product?.product_details?.kreasell_product_id);
 	// setProductID(product?.product_details?.kreasell_product_id);
 
@@ -65,7 +69,10 @@ export const CheckoutForm = ({
 	const [progress, setProgress] = useState(0);
 	const [isLimited, setIsLimited] = useState(false);
 
-	const [compareToPrice, setCompareToPrice] = useState(false);
+	const [compareToPrice, setCompareToPrice] = useState(
+		isOriginalPrice || false
+	);
+	console.log(compareToPrice, 'compareToPrice');
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);
@@ -90,6 +97,7 @@ export const CheckoutForm = ({
 	const [isBasic, setIsBasic] = useState(true);
 	const [isApplied, setIsApplied] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
+	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false);
 
 	const mounted = useRef(null);
 	const {Option} = Select;
@@ -178,8 +186,6 @@ export const CheckoutForm = ({
 		});
 
 	// console.log("product = ", product);
-
-	console.log(duration, 'duration');
 
 	const durationOptions = [
 		{label: 'Daily', value: 'aaily'},
@@ -786,8 +792,28 @@ export const CheckoutForm = ({
 
 	const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
 	const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
+
 	useEffect(() => {
-		// console.log("fixedOriginalPrice = ", fixedOriginalPrice);
+		minimumPrice.map((item) => {
+			const minPriceCurrency = item?.currency_name;
+			const minPriceValue = item?.currency_value;
+
+			const matchItem = suggestedPrice?.find((SpItem) => {
+				return SpItem?.currency_name === minPriceCurrency;
+			});
+
+			if (minPriceValue > matchItem?.currency_value) {
+				showToast(
+					'suggested price must be greater than minimum price',
+					'error'
+				);
+				setIsGreaterThanSug(true);
+			} else {
+				setIsGreaterThanSug(false);
+			}
+			return isGreaterthanSug;
+		});
+
 		fixedOriginalPrice?.map((OpItem) => {
 			//* Op = Original Price and Sp = SellingPrice
 			const OpItemCurrency = OpItem?.currency_name;
@@ -830,6 +856,9 @@ export const CheckoutForm = ({
 		isOpMoreThanSp,
 		noMatchingCurrency,
 		compareToPrice,
+		minimumPrice,
+		suggestedPrice,
+		isGreaterthanSug,
 	]);
 
 	const disableButton = useCallback(() => {
@@ -853,8 +882,16 @@ export const CheckoutForm = ({
 			return true;
 		}
 
+		if (isGreaterthanSug) {
+			return true;
+		}
+		// if (!isOpMoreThanSp) {
+		// 	// console.log("condition 3");
+		// 	return true;
+		// }
+
 		return false;
-	}, [compareToPrice, isOpMoreThanSp, noMatchingCurrency]);
+	}, [compareToPrice, isOpMoreThanSp, noMatchingCurrency, isGreaterthanSug]);
 
 	// console.log("disableButton = ", disableButton());
 
@@ -1189,15 +1226,33 @@ export const CheckoutForm = ({
 								</p>
 								<div className={styles.couponLimit}>
 									<Radio
-										value={''}
-										content={1}
+										value={frequencyType}
 										label="Unlimited"
+										content={0}
+										onChange={(e) => {
+											setIsLimited(false);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												false
+											);
+										}}
+										checked={!isLimited ? true : false}
 										labelStyle={styles.radioLabelStyle}
 									/>
 									<Radio
-										value={''}
-										content={1}
+										value={frequencyType}
 										label="Limited"
+										content={1}
+										onChange={(e) => {
+											setIsLimited(true);
+											setFrequencyType(e);
+											setFieldValue(
+												'coupon_settings.is_coupon_limited',
+												true
+											);
+										}}
+										checked={isLimited ? true : false}
 										labelStyle={styles.radioLabelStyle}
 									/>
 								</div>
@@ -1217,10 +1272,17 @@ export const CheckoutForm = ({
 								</div>
 								<div className="w-full md:w-4/5">
 									<Input
-										placeholder="1"
-										className={styles.ctaBtn}
-										name="no_of_times"
-										onChange={formik.handleChange}
+										type="number"
+										label="Number of Times"
+										disabled={!isLimited ? true : false}
+										name="no_of_frequency"
+										// value={no_of_frequency}
+										onChange={(e) =>
+											setFieldValue(
+												'coupon_settings.no_of_frequency',
+												e.target.value
+											)
+										}
 									/>
 								</div>
 							</div>
@@ -1230,20 +1292,61 @@ export const CheckoutForm = ({
 								</p>
 								<div className={styles.usageLimit}>
 									<Radio
-										value={''}
-										content={1}
+										value={usageType}
+										content={0}
+										onChange={(e) => {
+											setIsUsage(false);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												false
+											);
+										}}
+										checked={!isUsage ? true : false}
 										label="Unlimited Use per customer"
 										labelStyle={styles.radioLabelStyle}
 									/>
 									<Radio
-										value={''}
-										content={1}
+										value={usageType}
 										label="Coupon can be used how many times by a customer"
+										content={1}
+										onChange={(e) => {
+											setIsUsage(true);
+											setUsageType(e);
+											setFieldValue(
+												'coupon_settings.is_usage_limited',
+												true
+											);
+										}}
+										checked={isUsage ? true : false}
 										labelStyle={styles.radioLabelStyle}
 									/>
 								</div>
 							</div>
-							<div className={styles.box}>
+							<div
+								className={
+									styles.inputGroup + ' w-full md:w-3/4 mt-2'
+								}
+							>
+								<h2 className="text-lg text-base-black-100">
+									Number of times coupon can be used per
+									customer
+								</h2>
+								<Input
+									type="number"
+									placeholder="1"
+									name="no_of_usage"
+									// value={no_of_usage}
+									disabled={isUsage ? false : true}
+									onChange={(e) =>
+										setFieldValue(
+											'coupon_settings.no_of_usage',
+											e.target.value
+										)
+									}
+								/>
+							</div>
+							{/* <div className={styles.box}>
 								<p className={styles.textMain}>
 									Number of times coupon can be used per
 									customer
@@ -1266,12 +1369,12 @@ export const CheckoutForm = ({
 										<Option value="4">4</Option>
 									</Select>
 								</div>
-							</div>
+							</div> */}
 						</div>
-						<div className=" w-full md:w-4/5">
+						{/* <div className=" w-full md:w-4/5">
 							<div className={`${styles.discount}`}>
 								<div className={`${styles.settingsSubLabel}`}>
-									Also apply the Discount when the
+									Also apply the Discount when theeee
 									SUBSCRIPTION is renewed for a membership
 									digital product(s) bought with the coupon
 								</div>
@@ -1287,10 +1390,10 @@ export const CheckoutForm = ({
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						{/* start of implementation */}
-						<div className="flex flex-col mt-8">
+						{/* <div className="flex flex-col mt-8">
 							<h2 className="font-semib5old text-base">
 								Limit the Frequency of the Coupon
 							</h2>
@@ -1349,9 +1452,9 @@ export const CheckoutForm = ({
 									}
 								/>
 							</div>
-						</div>
+						</div> */}
 
-						<div className="flex flex-col mt-8">
+						{/* <div className="flex flex-col mt-8">
 							<h2 className="font-semibold text-base">
 								Limit the Usage per Customer
 							</h2>
@@ -1415,7 +1518,7 @@ export const CheckoutForm = ({
 									}
 								/>
 							</div>
-						</div>
+						</div> */}
 
 						<div className={styles.switchContent}>
 							<h2 className={styles.label}>
@@ -1867,7 +1970,7 @@ export const CheckoutForm = ({
 						htmlType="submit"
 						loading={loading}
 						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
-						disabled={disableButton()}
+						disabled={disableButton() || isGreaterthanSug}
 					>
 						{productType === 'Digital Download'
 							? 'Save and Preview'

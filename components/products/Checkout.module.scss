@@ -100,6 +100,7 @@
 
 		@media (max-width: 500px) {
 			width: 100%;
+
 			& > div {
 				flex-direction: column;
 			}
@@ -254,6 +255,7 @@
 		h3 {
 			max-width: 100px;
 		}
+
 		// border: 1px solid red;
 		@media (max-width: 576px) {
 			top: -12px;
@@ -329,6 +331,7 @@
 	left: 0;
 	transition: all 0.2s;
 	font-size: 0.75rem;
+
 	@media (max-width: 500px) {
 		// bottom: -10px;
 		position: relative;
@@ -344,6 +347,7 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+
 	.radioLabelStyle {
 		margin-right: 1rem;
 	}
@@ -359,8 +363,14 @@
 	& * {
 		font-weight: inherit !important;
 	}
+
 	.radioLabelStyle {
 		margin-right: 1rem;
+	}
+
+	@media (min-width: 768px) {
+		// bottom: -10px;
+		flex-direction: row;
 	}
 }
 
@@ -369,6 +379,7 @@
 	width: 100%;
 	// border: 1px solid red;
 	align-items: center;
+
 	.settingsSubLabel {
 		width: 100%;
 	}
@@ -380,7 +391,6 @@
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 26px;
-
 	color: #262626;
 }
 
@@ -411,6 +421,12 @@
 	align-items: center;
 	margin-top: 30px;
 	width: 70%;
+
+	@media (max-width: 400px) {
+		width: 100%;
+		margin-right: unset !important;
+		margin-top: unset !important;
+	}
 
 	.label {
 		font-weight: 500;
