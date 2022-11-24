@@ -298,7 +298,6 @@ export const Dropzone = ({
 	const [showDeletePopover, setShowDeletePopover] = useState(false);
 	const deleteImage = DeleteImage();
 	const [imgUrl, setImgUrl] = useState();
-
 	const handleDelete = () => {
 		deleteImage(name, () => {
 			onChange(null);
@@ -352,19 +351,19 @@ export const Dropzone = ({
 						title="title"
 						placement="bottom"
 						visible={showDeletePopover}
-						triggerButton={
-							<div
-								id="fi"
-								className={style.popOverTriggerButtonContainer}
-							>
-								<MdDelete
-									onClick={() => setShowDeletePopover(true)}
-									className={style.icon}
-								/>
-							</div>
-						}
+						popoverActive={true}
 						content={content}
-					/>
+					>
+						<div
+							// id="fi"
+							className={style.popOverTriggerButtonContainer}
+						>
+							<MdDelete
+								onClick={() => setShowDeletePopover(true)}
+								className={style.icon}
+							/>
+						</div>
+					</Popover>
 				</div>
 			)}
 			<label className={style.label}>
@@ -517,29 +516,26 @@ export const FileInput = ({
 								title="title"
 								placement="bottom"
 								visible={showDeletePopover}
-								triggerButton={
-									<div
-										id="fi"
-										className={
-											style.popOverTriggerButtonContainer
-										}
-									>
-										<MdDelete
-											onClick={() =>
-												setShowDeletePopover(true)
-											}
-											style={{
-												fontSize: '20px',
-												cursor: 'pointer',
-												position: 'relative',
-												zIndex: '3',
-											}}
-											color="red"
-										/>
-									</div>
-								}
+								// triggerButton={
+
+								// }
 								content={content}
 							/>
+							<div
+								id="fi"
+								className={style.popOverTriggerButtonContainer}
+							>
+								<MdDelete
+									onClick={() => setShowDeletePopover(true)}
+									style={{
+										fontSize: '20px',
+										cursor: 'pointer',
+										position: 'relative',
+										zIndex: '3',
+									}}
+									color="red"
+								/>
+							</div>
 							Click to delete the profile picture
 						</div>
 					) : (
