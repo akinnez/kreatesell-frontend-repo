@@ -290,7 +290,6 @@ const ProductCard = ({
 		? productDetails?.product_images?.[1]?.filename?.split(',')[1]
 		: productDetails?.product_images?.[1]?.filename;
 
-	console.log('productDetails', productDetails);
 	const initImage = productDetails?.product_images?.[0]?.filename?.includes(
 		','
 	)
@@ -307,6 +306,9 @@ const ProductCard = ({
 		(productDetails?.product_images?.[0]?.filename?.includes(',') &&
 			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
 
+	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
+	let len = imageRendered.split(',');
+
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -319,7 +321,7 @@ const ProductCard = ({
 	const showItemsLeftOrAmtSold = () => {
 		let itemsLeft = productDetails?.total - productDetails?.number_sold;
 		if (itemsLeft <= 10) {
-			return `${itemsLeft} left`;
+			return `${itemsLeft} copies left!`;
 		}
 		if (productDetails.product_details?.is_show_number_of_sales) {
 			return `${productDetails?.number_sold} sold`;
@@ -337,11 +339,7 @@ const ProductCard = ({
 		>
 			<div>
 				<Image
-					src={
-						imageShown === undefined
-							? imageRendered || StoryTellingPNG
-							: imageShown
-					}
+					src={!imageShown ? len[len.length - 1] : imageShown}
 					width="320"
 					height="300"
 					className="rounded-t-lg object-cover"

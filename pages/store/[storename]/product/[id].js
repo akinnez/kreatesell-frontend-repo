@@ -21,10 +21,8 @@ export default function PreviewProduct() {
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [
-		alreadyDefinedOriginalPrice,
-		setAlreadyDefinedOriginalPrice,
-	] = useState(null);
+	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
+		useState(null);
 
 	const getProductByID = GetProductByIDNotAut();
 	const convertCurrency = ConvertCurrency();
