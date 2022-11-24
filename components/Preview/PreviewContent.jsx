@@ -76,7 +76,7 @@ export default function PreviewContent({
 			setCheckout(product?.check_out_details);
 		}
 		if (checkout && checkout?.length > 0) {
-			const defaultPrice = product?.default_currency;
+			const defaultPrice = product?.default_currency?.currency;
 			// if(!defaultPrice){
 			//   defaultPrice =
 			// }
