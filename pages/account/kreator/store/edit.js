@@ -199,7 +199,6 @@ const Index = () => {
 								Fill out the fields below to complete your
 								profile
 							</p>
-
 							<Form
 								layout="vertical"
 								form={form}

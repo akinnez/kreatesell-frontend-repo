@@ -270,7 +270,10 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									onChange={() => handleSelect(cur)}
 									name="countries"
 									// TODO: disabled if its the current base currency
-									disabled={cur?.currency === 'NGN'}
+									disabled={
+										cur?.currency ===
+										bank_details?.currency_name
+									}
 								>
 									<span
 										className={`p-2 flex`}
@@ -324,8 +327,10 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries"
-									// TODO: disabled if its the current base currency
-									disabled={cur?.currency === 'NGN'}
+									disabled={
+										cur?.currency ===
+										bank_details?.currency_name
+									}
 								>
 									<span
 										className={`p-2 flex`}
@@ -379,8 +384,10 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									)}
 									onChange={() => handleSelect(cur)}
 									name="countries"
-									// TODO: disabled if its the current base currency
-									disabled={cur?.currency === 'NGN'}
+									disabled={
+										cur?.currency ===
+										bank_details?.currency_name
+									}
 								>
 									<span
 										className={`p-2 flex`}

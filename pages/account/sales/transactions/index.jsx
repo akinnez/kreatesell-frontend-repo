@@ -42,9 +42,9 @@ const statusComponent = (item) => {
 			contents: '',
 		},
 	};
-	let tagStyles = statusTextList[item].styles;
-	let tooltipContent = statusTextList[item].contents;
-	let mainType = statusTextList[item].type;
+	let tagStyles = statusTextList[item]?.styles;
+	let tooltipContent = statusTextList[item]?.contents;
+	let mainType = statusTextList[item]?.type;
 	return (
 		<>
 			{tooltipContent ? (
@@ -60,13 +60,13 @@ const statusComponent = (item) => {
 					title={tooltipContent}
 				>
 					<div className={styles.tags} style={tagStyles}>
-						{mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+						{mainType?.charAt(0).toUpperCase() + mainType?.slice(1)}
 					</div>
 				</Tooltip>
 			) : (
 				<>
 					<div className={styles.tags} style={tagStyles}>
-						{mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+						{mainType?.charAt(0).toUpperCase() + mainType?.slice(1)}
 					</div>
 				</>
 			)}

@@ -16,9 +16,6 @@ import {useRouter} from 'next/router';
 export const pathName = typeof window !== 'undefined' && window;
 
 export const EditCouponForm = () => {
-	const [isPercentage, setIsPercentage] = useState(true);
-	const [isLimited, setIsLimited] = useState(false);
-	const [isUsage, setIsUsage] = useState(false);
 	const [isAllProduct, setIsAllProduct] = useState();
 	const [productData, setProductData] = useState([]);
 	const [isApplied, setIsApplied] = useState(false);
@@ -35,6 +32,17 @@ export const EditCouponForm = () => {
 
 	const updateCouponData = coupons.filter(
 		(item) => item.coupons.id == couponId
+	);
+
+	console.log(updateCouponData, 'updateCouponData');
+	const [isPercentage, setIsPercentage] = useState(
+		updateCouponData?.is_percentage
+	);
+	const [isLimited, setIsLimited] = useState(
+		!updateCouponData?.is_coupon_limited
+	);
+	const [isUsage, setIsUsage] = useState(
+		!updateCouponData?.is_usage_limited_per_customer
 	);
 
 	const isdefaultRadioValue =
@@ -276,7 +284,10 @@ export const EditCouponForm = () => {
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
 									type="number"
-									placeholder="0"
+									placeholder={
+										updateCouponData?.percentage_value ||
+										'0'
+									}
 									name="percentage_value"
 									onChange={(e) =>
 										setFieldValue(
@@ -310,7 +321,10 @@ export const EditCouponForm = () => {
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
 									type="number"
-									placeholder="0"
+									placeholder={
+										updateCouponData[0]?.coupons
+											?.percentage_value || '0'
+									}
 									name="fixed_amount_value"
 									value={fixed_amount_value}
 									disabled={isPercentage ? true : false}
@@ -402,6 +416,10 @@ export const EditCouponForm = () => {
 						</h2>
 						<Input
 							type="number"
+							placeholder={
+								updateCouponData[0]?.coupons
+									?.number_of_frequencies || '0'
+							}
 							label="Number of Times"
 							disabled={!isLimited ? true : false}
 							name="no_of_frequency"
@@ -457,7 +475,10 @@ export const EditCouponForm = () => {
 						</h2>
 						<Input
 							type="number"
-							placeholder="1"
+							placeholder={
+								updateCouponData[0]?.coupons
+									?.number_of_usages || '0'
+							}
 							name="no_of_usage"
 							value={no_of_usage}
 							disabled={isUsage ? false : true}

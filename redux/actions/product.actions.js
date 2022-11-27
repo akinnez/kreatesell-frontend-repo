@@ -118,6 +118,30 @@ export const GetProductByID = () => {
 		dispatch({type: types.GET_PRODUCT_BY_ID.REQUEST}),
 		axios.request(
 			`get`,
+			`v1/kreatesell/product/get/auth/${productID}`,
+			(res) => {
+				console.log(' response from getproductById = ', res);
+				dispatch({
+					type: types.GET_PRODUCT_BY_ID.SUCCESS,
+					payload: res?.data?.data,
+				});
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({type: types.GET_PRODUCT_BY_ID.FAILURE, payload: err});
+				showToast(err?.message, 'error');
+				errorCallback?.();
+			},
+			productID
+		)
+	);
+};
+export const GetProductByIDNotAut = () => {
+	const dispatch = useDispatch();
+	return (productID, successCallback, errorCallback) => (
+		dispatch({type: types.GET_PRODUCT_BY_ID.REQUEST}),
+		axios.request(
+			`get`,
 			`v1/kreatesell/product/get/${productID}`,
 			(res) => {
 				console.log(' response from getproductById = ', res);

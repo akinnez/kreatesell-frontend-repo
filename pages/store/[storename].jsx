@@ -16,12 +16,13 @@ import {ProtectedStoreHeader} from 'components/store/storeHeader';
 import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
 import {Logout, ConvertCurrency} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
+import useLocation from 'hooks/useLocation';
 
 const StorePage = () => {
 	const router = useRouter();
 	const convertCurrency = ConvertCurrency();
 	const fetchSingleStoreProduct = FetchSingleStoreProduct();
-
+	const {countryDetails, countryDetailsLoading: loading} = useLocation();
 	const {
 		singleStoreDetails,
 		singleStoreProducts,
@@ -68,6 +69,11 @@ const StorePage = () => {
 			);
 		}
 	};
+
+	useEffect(() => {
+		setTargetCurrency(currencyOptions[0].value);
+	}, []);
+
 	useEffect(() => {
 		if (storename !== undefined) {
 			fetchSingleStoreProduct(storename);
@@ -81,11 +87,17 @@ const StorePage = () => {
 	}, [defaultCurrency]);
 
 	useEffect(() => {
-		if (!!targetCurrency) {
+		if (!!targetCurrency && defaultCurrency?.currency) {
 			handleCurrencyConversion(targetCurrency);
 		}
-	}, [targetCurrency]);
-	console.log('targetcurrency', targetCurrency);
+	}, [targetCurrency, defaultCurrency?.currency]);
+
+	// to set currency based on user's location
+	useEffect(() => {
+		if (countryDetails?.currency) {
+			setTargetCurrency(countryDetails?.currency);
+		}
+	}, [countryDetails?.currency]);
 
 	return (
 		<div className={styles.container}>
@@ -114,6 +126,15 @@ const StorePage = () => {
 							cb={(targetCurrency) =>
 								setTargetCurrency(targetCurrency)
 							}
+							defaultValue={
+								countryDetails?.currency
+									? {
+											value: countryDetails?.currency,
+											label: countryDetails?.currency,
+									  }
+									: null
+							}
+							loading={loading}
 						/>
 					</div>
 
@@ -143,6 +164,11 @@ const StorePage = () => {
 							cb={(targetCurrency) =>
 								setTargetCurrency(targetCurrency)
 							}
+							defaultValue={{
+								value: countryDetails?.currency,
+								label: countryDetails?.currency,
+							}}
+							loading={loading}
 						/>
 					</div>
 
@@ -194,7 +220,8 @@ const StorePage = () => {
 						const countrySale =
 							productDetails?.check_out_details?.find(
 								(item) =>
-									item?.currency_name === 'NGN' &&
+									item?.currency_name ===
+										defaultCurrency?.currency &&
 									item?.price_indicator === 'Selling'
 							);
 
@@ -202,7 +229,8 @@ const StorePage = () => {
 						const originalSetting =
 							productDetails?.check_out_details?.find(
 								(item) =>
-									item?.currency_name === 'NGN' &&
+									item?.currency_name ===
+										defaultCurrency?.currency &&
 									item?.price_indicator === 'Original'
 							);
 						// console.log("countrySale = ", countrySale);
@@ -278,6 +306,9 @@ const ProductCard = ({
 		(productDetails?.product_images?.[0]?.filename?.includes(',') &&
 			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
 
+	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
+	let len = imageRendered.split(',');
+
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -290,7 +321,7 @@ const ProductCard = ({
 	const showItemsLeftOrAmtSold = () => {
 		let itemsLeft = productDetails?.total - productDetails?.number_sold;
 		if (itemsLeft <= 10) {
-			return `${itemsLeft} left`;
+			return `${itemsLeft} copies left!`;
 		}
 		if (productDetails.product_details?.is_show_number_of_sales) {
 			return `${productDetails?.number_sold} sold`;
@@ -308,11 +339,7 @@ const ProductCard = ({
 		>
 			<div>
 				<Image
-					src={
-						imageShown === undefined
-							? imageRendered || StoryTellingPNG
-							: imageShown
-					}
+					src={!imageShown ? len[len.length - 1] : imageShown}
 					width="320"
 					height="300"
 					className="rounded-t-lg object-cover"
