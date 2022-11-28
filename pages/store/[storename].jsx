@@ -476,3 +476,7 @@ const ProductCard = ({
 };
 
 export default StorePage;
+
+const StoreMobileDropView = () => {
+	return <div></div>;
+};
