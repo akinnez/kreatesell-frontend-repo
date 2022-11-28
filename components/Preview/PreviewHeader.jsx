@@ -54,10 +54,11 @@ export default function PreviewHeader({
 	const storeName = store?.store_details?.store_name;
 	const {singleStoreDetails} = useSelector((state) => state.product);
 
-	const displayPicture = singleStoreDetails?.display_picture;
+	const displayPicture = product?.store_dto?.profile_pix;
 
-	// console.log('dp = ', singleStoreDetails);
-	// console.log('storename = ', storeName);
+	console.log('product = ', product);
+	console.log('dp= ', displayPicture);
+	const nameOfStore = product?.store_dto?.store_name;
 
 	const {
 		// allowedCurrencies: currencyOptions,
@@ -151,7 +152,7 @@ export default function PreviewHeader({
 				<StoreMobileDropView
 					isVariant={true}
 					dp={displayPicture}
-					nameOfStore={storeName}
+					nameOfStore={nameOfStore}
 				/>
 			)}
 			{showNavLinks ? (

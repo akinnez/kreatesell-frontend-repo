@@ -249,6 +249,17 @@
 
 	&.isVariant {
 		top: 90px;
+		margin-top: unset;
+		// &.noDp {
+		.profile {
+			margin-top: 31px !important;
+
+			padding-left: 2rem !important;
+			display: flex;
+			margin-left: 4rem !important;
+			align-items: center;
+		}
+		// }
 	}
 
 	.profile {
@@ -259,11 +270,14 @@
 		display: flex;
 		margin-left: 4rem;
 		align-items: center;
+		// margin-top: unset;
+		// padding-left: unset;
+		// margin-left: unset;
 
 		&.noDp {
-			margin-top: unset;
-			padding-left: unset;
-			margin-left: unset;
+			// margin-top: unset;
+			// padding-left: unset;
+			// margin-left: unset;
 			> div {
 				margin-right: 1rem;
 			}

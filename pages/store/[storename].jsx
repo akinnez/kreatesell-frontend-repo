@@ -506,13 +506,13 @@ export const StoreMobileDropView = ({
 		>
 			<div
 				className={`${styles.profile} ${
-					!displayPicture ? styles.noDp : ''
+					!displayPicture || !dp ? styles.noDp : ''
 				}`}
 			>
-				{displayPicture ? (
+				{displayPicture || dp ? (
 					<Image
 						src={displayPicture || dp}
-						alt=""
+						alt="dp"
 						layout="fill"
 						className={styles.image}
 					/>
