@@ -21,6 +21,13 @@
 		@include screen('medium') {
 			width: 30%;
 		}
+		& + .btnsContainer {
+			display: flex;
+			align-items: center;
+			@media (max-width: 768px) {
+				display: none;
+			}
+		}
 	}
 
 	// nav {
@@ -150,4 +157,65 @@
 
 .cardBox {
 	word-wrap: break-word;
+}
+
+.mobileMenuCont {
+	// display: none;
+	margin-right: 2rem;
+	cursor: pointer;
+	color: $base-blue !important;
+	.hamburgerDefault {
+		// width: 1.875rem;
+		height: 3px;
+		// * initial width: 1.875rem and height: 3px;
+		width: 26.67px;
+		// height: 18.67px;
+		background: $base-gray;
+		border-radius: 5px;
+		transition: all 0.5s ease-in-out;
+		padding: 0;
+		position: fixed;
+		z-index: 10000;
+		background: #0072ef;
+	}
+
+	.hamburger {
+		@extend .hamburgerDefault;
+		// color: $base-blue !important;
+		background-color: $base-blue;
+		&::before {
+			content: '';
+			position: absolute;
+			@extend .hamburgerDefault;
+			background-color: $base-blue;
+			// color: $base-blue !important;
+			transform: translateY(-9px);
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			@extend .hamburgerDefault;
+			background-color: $base-blue;
+			// color: $base-blue !important;
+			transform: translateY(9px);
+		}
+	}
+
+	&.open .hamburger {
+		transform: translateX(-50px);
+		background: transparent;
+		box-shadow: none;
+		margin-bottom: 0.7rem;
+	}
+
+	&.open .hamburger::before {
+		background-color: $base-gray !important;
+		transform: rotate(45deg) translate(35px, -35px);
+	}
+
+	&.open .hamburger::after {
+		background-color: $base-gray !important;
+		transform: rotate(-45deg) translate(35px, 35px);
+	}
 }

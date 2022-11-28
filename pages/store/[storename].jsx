@@ -23,6 +23,8 @@ const StorePage = () => {
 	const convertCurrency = ConvertCurrency();
 	const fetchSingleStoreProduct = FetchSingleStoreProduct();
 	const {countryDetails, countryDetailsLoading: loading} = useLocation();
+	const [openMobileNav, setOpenMobileNav] = useState(false);
+	const handleNavbar = () => setOpenMobileNav((value) => !value);
 	const {
 		singleStoreDetails,
 		singleStoreProducts,
@@ -148,6 +150,14 @@ const StorePage = () => {
 			</nav>
 
 			<nav className="bg-white lg:hidden flex items-center px-4">
+				<div
+					className={`${styles.mobileMenuCont} ${
+						openMobileNav && styles.open
+					}`}
+					onClick={() => handleNavbar()}
+				>
+					<div className={styles.hamburger}></div>
+				</div>
 				<div className="w-30">
 					<Link href="/">
 						<a className="">
@@ -175,11 +185,16 @@ const StorePage = () => {
 					{/* <div onClick={() => logout()}>
 						<Button text="logout" bgColor="blue" />
 					</div> */}
-					<div onClick={() => router.push('/login')} className="pr-5">
-						<Button text="Login" bgColor="white" />
-					</div>
-					<div onClick={() => router.push('/signup')}>
-						<Button text="Signup" bgColor="blue" />
+					<div className={styles.btnsContainer}>
+						<div
+							onClick={() => router.push('/login')}
+							className="pr-5"
+						>
+							<Button text="Login" bgColor="white" />
+						</div>
+						<div onClick={() => router.push('/signup')}>
+							<Button text="Signup" bgColor="blue" />
+						</div>
 					</div>
 				</div>
 			</nav>
