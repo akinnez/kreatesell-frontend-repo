@@ -17,9 +17,20 @@
 	}
 
 	.select {
-		width: 15%;
+		// width: 15%;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		@include screen('medium') {
-			width: 30%;
+			// width: 30%;
+		}
+
+		& svg + div {
+			width: 100% !important;
+			& > div {
+				padding: 2px 5px !important;
+			}
 		}
 		& + .btnsContainer {
 			display: flex;

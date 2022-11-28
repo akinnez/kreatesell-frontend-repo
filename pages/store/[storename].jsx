@@ -17,6 +17,7 @@ import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
 import {Logout, ConvertCurrency} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 import useLocation from 'hooks/useLocation';
+import {SearchIcon} from 'utils';
 
 const StorePage = () => {
 	const router = useRouter();
@@ -112,14 +113,18 @@ const StorePage = () => {
 					</Link>
 				</div>
 
-				<div className="w-4/5 flex justify-end">
-					<div className="w-30 mr-4">
+				<div className="w-4/5 flex justify-end items-center">
+					{/* <div className="w-30 mr-4">
 						<Input
 							style={{borderRadius: '8px', height: '100%'}}
 							prefix={<MdSearch />}
 							placeholder="Click here to Search"
 							onChange={() => {}}
 						/>
+						
+					</div> */}
+					<div className="w-10">
+						<Image src={SearchIcon} alt="search" />
 					</div>
 					<div className="w-20 mr-4">
 						<Select
@@ -149,37 +154,42 @@ const StorePage = () => {
 				</div>
 			</nav>
 
-			<nav className="bg-white lg:hidden flex items-center px-4">
-				<div
-					className={`${styles.mobileMenuCont} ${
-						openMobileNav && styles.open
-					}`}
-					onClick={() => handleNavbar()}
-				>
-					<div className={styles.hamburger}></div>
-				</div>
-				<div className="w-30">
-					<Link href="/">
-						<a className="">
-							<MobileLogo />
-						</a>
-					</Link>
+			<nav className="bg-white lg:hidden flex items-center justify-between px-4">
+				<div className="items-center  flex ">
+					<div
+						className={`${styles.mobileMenuCont} ${
+							openMobileNav && styles.open
+						}`}
+						onClick={() => handleNavbar()}
+					>
+						<div className={styles.hamburger}></div>
+					</div>
+					<div className="w-100">
+						<Link href="/">
+							<a className="">
+								<MobileLogo />
+							</a>
+						</Link>
+					</div>
 				</div>
 
-				<div className="w-70 flex justify-end items-center mx-auto">
+				<div className="w-100 flex justify-end items-center">
 					<div className={styles.select}>
-						<Select
-							options={currencyOptions}
-							border="none"
-							cb={(targetCurrency) =>
-								setTargetCurrency(targetCurrency)
-							}
-							defaultValue={{
-								value: countryDetails?.currency,
-								label: countryDetails?.currency,
-							}}
-							loading={loading}
-						/>
+						<Image src={SearchIcon} alt="search" />
+						<div className="w-20 mr-4 ml-5">
+							<Select
+								options={currencyOptions}
+								border="none"
+								cb={(targetCurrency) =>
+									setTargetCurrency(targetCurrency)
+								}
+								defaultValue={{
+									value: countryDetails?.currency,
+									label: countryDetails?.currency,
+								}}
+								loading={loading}
+							/>
+						</div>
 					</div>
 
 					{/* <div onClick={() => logout()}>
