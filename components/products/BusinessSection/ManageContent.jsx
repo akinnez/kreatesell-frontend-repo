@@ -6,7 +6,7 @@ import style from './MembershipTab.module.scss';
 import ProductEditor from '../ProductEditor';
 import ContentUpload from '../ContentUpload';
 import {useFormik} from 'formik';
-import {GetProductByID, CreateContent} from 'redux/actions';
+import {AuthGetProductById, CreateContent} from 'redux/actions';
 import {useSelector} from 'react-redux';
 // import ContentEditor from "../ContentEditor"
 
@@ -18,7 +18,7 @@ export default function ManageContent({
 	const [file, setFile] = useState(null);
 	const [contents, setContents] = useState('');
 	const createContent = CreateContent();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 	const [isDownload, setIsDownload] = useState(false);
 
 	const {productID, loading} = useSelector((state) => state.product);

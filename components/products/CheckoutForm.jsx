@@ -10,7 +10,7 @@ import {useFormik} from 'formik';
 // import { Select } from "components/select/Select";
 import {useSelector} from 'react-redux';
 import {
-	GetProductByID,
+	AuthGetProductById,
 	GetBillingInterval,
 	CreateProduct,
 	SetProductTab,
@@ -39,7 +39,7 @@ export const CheckoutForm = ({
 	 */
 
 	const getStoreCurrencies = GetStoreCurrencies();
-	const getProductByID = GetProductByID();
+	const getProductByID = AuthGetProductById();
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
 	const setProductTab = SetProductTab();
@@ -802,7 +802,10 @@ export const CheckoutForm = ({
 				return SpItem?.currency_name === minPriceCurrency;
 			});
 
-			if (minPriceValue > matchItem?.currency_value) {
+			console.log(minPriceValue, 'minPriceValue');
+			console.log(matchItem, 'matchItem');
+
+			if (minPriceValue > Number(matchItem?.currency_value)) {
 				showToast(
 					'suggested price must be greater than minimum price',
 					'error'
@@ -858,7 +861,6 @@ export const CheckoutForm = ({
 		compareToPrice,
 		minimumPrice,
 		suggestedPrice,
-		isGreaterthanSug,
 	]);
 
 	const disableButton = useCallback(() => {

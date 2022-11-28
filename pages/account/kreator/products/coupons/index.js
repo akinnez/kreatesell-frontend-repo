@@ -18,6 +18,9 @@ const Coupon = () => {
 	const router = useRouter();
 	const getCoupon = GetCoupons();
 	const [couponData, setCouponData] = useState([]);
+
+	console.log(couponData, 'couponData');
+
 	const {loading, coupons} = useSelector((state) => state.coupon);
 	useEffect(() => {
 		getCoupon();

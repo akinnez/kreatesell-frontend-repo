@@ -310,6 +310,10 @@ const Checkout = () => {
 
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
+	const [disableBtn, setDisableBtn] = useState(false);
+
+	console.log(disableBtn, 'disableBtn');
+
 	// converted price + transaction fees
 	const [totalPrice, setTotalPrice] = useState();
 
@@ -564,6 +568,14 @@ const Checkout = () => {
 		}
 	}, [country]);
 
+	useEffect(() => {
+		Number(desiredAmount) < Number(getCurrency('minimum')) &&
+		pricingTypeDetails.price_type === 'Pay What You Want'
+			? setDisableBtn(true)
+			: setDisableBtn(false);
+	}, [desiredAmount]);
+
+	console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
 	// const handleSubmit = () => {
 	// 	// if we are using paypal
 
@@ -1625,7 +1637,10 @@ const Checkout = () => {
 										bgColor="blue"
 										className={styles.btnCont}
 										icon={<RightArrow />}
-										disabled={currencyConverterLoading}
+										disabled={
+											currencyConverterLoading ||
+											disableBtn
+										}
 									/>
 								</div>
 							)}

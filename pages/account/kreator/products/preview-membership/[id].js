@@ -11,11 +11,11 @@ import {Button} from 'components/form-input';
 import BackButton from 'components/BackButton';
 import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {GetProductByID} from 'redux/actions';
+import {AuthGetProductById} from 'redux/actions';
 
 const PreviewMembership = () => {
 	const router = useRouter();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 
 	const {
 		product,
@@ -164,9 +164,12 @@ const PreviewMembership = () => {
 								)}
 							</div>
 							<Card>
-								<p className={styles.sectionName}>
-									{activeLink?.product_section_description}
-								</p>
+								<div
+									className={styles.sectionName}
+									dangerouslySetInnerHTML={{
+										__html: activeLink?.product_section_description,
+									}}
+								/>
 							</Card>
 						</Col>
 					</Row>

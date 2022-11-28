@@ -9,18 +9,16 @@ import {useRouter} from 'next/router';
 import {Card, Row, Col} from 'antd';
 import Accordion from '../preview-membership/Accordion';
 import {useSelector} from 'react-redux';
-import {GetProductByID} from 'redux/actions';
+import {AuthGetProductById} from 'redux/actions';
 
 const BuyersPreview = () => {
 	const router = useRouter();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 
 	const {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
-
-	console.log(product, 'productproduct');
 
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
@@ -162,9 +160,12 @@ const BuyersPreview = () => {
 								)}
 							</div>
 							<Card>
-								<p className={styles.sectionName}>
-									{activeLink?.product_section_description}
-								</p>
+								<div
+									className={styles.sectionName}
+									dangerouslySetInnerHTML={{
+										__html: activeLink?.product_section_description,
+									}}
+								/>
 							</Card>
 						</Col>
 					</Row>
