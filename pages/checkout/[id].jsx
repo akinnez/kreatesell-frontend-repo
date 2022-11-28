@@ -275,7 +275,7 @@ const countryPayments = {
 };
 const Checkout = () => {
 	const router = useRouter();
-	const productId = router.query.id; 
+	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
 
 	const [modal, setModal] = useState(false);
@@ -312,7 +312,7 @@ const Checkout = () => {
 
 	const [disableBtn, setDisableBtn] = useState(false);
 
-	console.log(disableBtn,'disableBtn')
+	console.log(disableBtn, 'disableBtn');
 
 	// converted price + transaction fees
 	const [totalPrice, setTotalPrice] = useState();
@@ -404,8 +404,7 @@ const Checkout = () => {
 			return totalFee;
 		} else if (priceOrName === 'minimum') {
 			return (
-				MinimumPrices?.price || 
-				Number(getCurrency('price')).toFixed(2)
+				MinimumPrices?.price || Number(getCurrency('price')).toFixed(2)
 			);
 		} else if (priceOrName === 'suggested') {
 			return (
@@ -566,15 +565,17 @@ const Checkout = () => {
 	useEffect(() => {
 		if (country) {
 			handlePhoneCode(country);
-		} 
+		}
 	}, [country]);
 
-	useEffect(()=> {
-		Number(desiredAmount) < Number(getCurrency('minimum')) && pricingTypeDetails.price_type === 'Pay What You Want' ? 
-		setDisableBtn(true) : setDisableBtn(false)
-   },[desiredAmount])
+	useEffect(() => {
+		Number(desiredAmount) < Number(getCurrency('minimum')) &&
+		pricingTypeDetails.price_type === 'Pay What You Want'
+			? setDisableBtn(true)
+			: setDisableBtn(false);
+	}, [desiredAmount]);
 
-   console.log(pricingTypeDetails.price_type,'pricingTypeDetails.price_type')
+	console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
 	// const handleSubmit = () => {
 	// 	// if we are using paypal
 
@@ -1636,7 +1637,10 @@ const Checkout = () => {
 										bgColor="blue"
 										className={styles.btnCont}
 										icon={<RightArrow />}
-										disabled={currencyConverterLoading || disableBtn}
+										disabled={
+											currencyConverterLoading ||
+											disableBtn
+										}
 									/>
 								</div>
 							)}

@@ -19,8 +19,8 @@ const Coupon = () => {
 	const getCoupon = GetCoupons();
 	const [couponData, setCouponData] = useState([]);
 
-	console.log(couponData,'couponData');
-	
+	console.log(couponData, 'couponData');
+
 	const {loading, coupons} = useSelector((state) => state.coupon);
 	useEffect(() => {
 		getCoupon();

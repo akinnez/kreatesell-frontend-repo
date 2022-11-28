@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import Image from 'next/image';
-import { PlayIcon2, PlayIconBlue, KreateSellLogo } from 'utils';
-import { Button } from 'components/form-input';
+import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
+import {Button} from 'components/form-input';
 import BackButton from 'components/BackButton';
-import { useRouter } from 'next/router';
-import { Card, Row, Col } from 'antd';
+import {useRouter} from 'next/router';
+import {Card, Row, Col} from 'antd';
 import Accordion from '../preview-membership/Accordion';
-import { useSelector } from 'react-redux';
-import { AuthGetProductById } from 'redux/actions';
+import {useSelector} from 'react-redux';
+import {AuthGetProductById} from 'redux/actions';
 
 const BuyersPreview = () => {
 	const router = useRouter();
@@ -17,7 +17,7 @@ const BuyersPreview = () => {
 
 	const {
 		product,
-		product: { product_content },
+		product: {product_content},
 	} = useSelector((state) => state.product);
 
 	const [activeLink, setActiveLink] = useState({});
@@ -104,7 +104,7 @@ const BuyersPreview = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({ title, subList }, idx) => (
+											({title, subList}, idx) => (
 												<Accordion
 													key={idx}
 													{...{
@@ -160,8 +160,11 @@ const BuyersPreview = () => {
 								)}
 							</div>
 							<Card>
-								<div className={styles.sectionName}
-									dangerouslySetInnerHTML={{ __html: activeLink?.product_section_description }}
+								<div
+									className={styles.sectionName}
+									dangerouslySetInnerHTML={{
+										__html: activeLink?.product_section_description,
+									}}
 								/>
 							</Card>
 						</Col>
@@ -174,12 +177,13 @@ const BuyersPreview = () => {
 						<div
 							className={`flex justify-evenly ${styles.mainSections}`}
 						>
-							{accordionData.map(({ title, id, subList }, idx) => (
+							{accordionData.map(({title, id, subList}, idx) => (
 								<div
 									key={idx}
-									className={`p-2 ${styles.title} ${id === activeSelectedSectionId &&
+									className={`p-2 ${styles.title} ${
+										id === activeSelectedSectionId &&
 										styles.active
-										}`}
+									}`}
 									onClick={() => {
 										setSelectedSection(subList);
 										setActiveSelectedSectionId(id);
@@ -198,10 +202,12 @@ const BuyersPreview = () => {
 									{selectedSection.map((sec, idx) => (
 										<div
 											key={idx}
-											className={`p-3 ${styles.sections
-												} ${activeLink?.id === sec.id &&
+											className={`p-3 ${
+												styles.sections
+											} ${
+												activeLink?.id === sec.id &&
 												styles.active2
-												}`}
+											}`}
 											onClick={() => {
 												setActiveLink(sec);
 											}}

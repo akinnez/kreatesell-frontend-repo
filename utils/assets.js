@@ -574,5 +574,5 @@ export {
 	KreateSellLogo,
 	MastercardIcon,
 	CancelAlert,
-	CancelMembershipSuccessIcon 
+	CancelMembershipSuccessIcon,
 };

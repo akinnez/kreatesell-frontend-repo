@@ -24,7 +24,7 @@ export default function PreviewProduct() {
 	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
 		useState(null);
 
-		const getProductByID = AuthGetProductById();
+	const getProductByID = AuthGetProductById();
 	const convertCurrency = ConvertCurrency();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 

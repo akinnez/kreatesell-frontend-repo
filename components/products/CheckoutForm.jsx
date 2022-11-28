@@ -801,9 +801,9 @@ export const CheckoutForm = ({
 			const matchItem = suggestedPrice?.find((SpItem) => {
 				return SpItem?.currency_name === minPriceCurrency;
 			});
-			
-           console.log(minPriceValue,'minPriceValue')
-           console.log(matchItem,'matchItem');
+
+			console.log(minPriceValue, 'minPriceValue');
+			console.log(matchItem, 'matchItem');
 
 			if (minPriceValue > Number(matchItem?.currency_value)) {
 				showToast(

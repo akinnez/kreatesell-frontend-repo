@@ -92,7 +92,8 @@
 									color: #262626;
 								}
 
-								.icon {}
+								.icon {
+								}
 							}
 
 							.accordionContent {
@@ -304,7 +305,7 @@
 	padding: 13px 33px 13px 16px;
 	width: 400px;
 	height: 40px;
-	border: 1px solid #8C8C8C;
+	border: 1px solid #8c8c8c;
 	border-radius: 5px;
 }
 
@@ -327,7 +328,7 @@
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 26px;
-	color: #F5222D;
+	color: #f5222d;
 }
 
 .cardContainer {
@@ -335,7 +336,7 @@
 }
 
 .cardImageContainer {
-	border: 1px solid #8C8C8C;
+	border: 1px solid #8c8c8c;
 	width: 60px;
 	height: 60px;
 	border-radius: 5px;
@@ -364,7 +365,7 @@
 
 .cancelMembershipContainer {
 	margin-top: 20px;
-	border: 1px solid #FF4D4F;
+	border: 1px solid #ff4d4f;
 	padding: 10px 0px;
 	text-align: center;
 	border-radius: 8px;
@@ -376,7 +377,7 @@
 	font-style: normal;
 	font-weight: 700;
 	font-size: 14px;
-	color: #FF4D4F;
+	color: #ff4d4f;
 	margin-bottom: 0;
 }
 
@@ -406,7 +407,7 @@
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 24px;
-	color: #8C8C8C;
+	color: #8c8c8c;
 }
 
 .cancelPromptRedText {
@@ -414,7 +415,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-size: 12px;
-	color: #FF4D4F;
+	color: #ff4d4f;
 }
 
 .canceBtn {
@@ -422,7 +423,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #F5F5F5;
+	background: #f5f5f5;
 	border-radius: 8px;
 	cursor: pointer;
 }
@@ -442,11 +443,11 @@
 	align-items: center;
 	border-radius: 8px;
 	cursor: pointer;
-	border: 1px solid #FF4D4F;
+	border: 1px solid #ff4d4f;
 }
 
 .cancelRedText {
-	color: #FF4D4F;
+	color: #ff4d4f;
 	margin-bottom: 0;
 	font-family: 'Inter';
 	font-style: normal;
@@ -461,7 +462,7 @@
 	text-align: center;
 	padding: 60px 60px;
 	box-shadow: 0px 10px 40px rgba(34, 34, 34, 0.15);
-	background: #FFFFFF;
+	background: #ffffff;
 }
 
 .unSubscribeText {
@@ -481,5 +482,5 @@
 	line-height: 26px;
 	margin-bottom: 0;
 	margin-top: 17px;
-	color: #8C8C8C;
+	color: #8c8c8c;
 }

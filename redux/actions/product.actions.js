@@ -114,7 +114,7 @@ export const PublishProducts = () => {
 
 export const AuthGetProductById = () => {
 	const dispatch = useDispatch();
-	return (productID, successCallback, errorCallback) => ( 
+	return (productID, successCallback, errorCallback) => (
 		dispatch({type: types.GET_PRODUCT_BY_ID.REQUEST}),
 		axios.request(
 			`get`,
