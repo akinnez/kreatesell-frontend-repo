@@ -2,13 +2,22 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
 import {useEffect, useState} from 'react';
-
+import {Button as NormalButton, Input as NormalInput} from '../../components';
 import {Pagination, Input, Spin} from 'antd';
 import {useSelector} from 'react-redux';
 import {MdSearch} from 'react-icons/md';
+import {Avatar} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 
 import styles from '../../public/css/product-store.module.scss';
-import {ArrowLeft, StoryTellingPNG, ExternalLink} from 'utils';
+import {
+	ArrowLeft,
+	StoryTellingPNG,
+	ExternalLink2,
+	ExternalLink,
+	SearchIcon,
+	DummyImage,
+} from 'utils';
 import {Button, Select} from 'components';
 import Logo, {MobileLogo} from 'components/authlayout/logo';
 import {currencyOptions} from 'components/account-dashboard/partials';
@@ -17,7 +26,6 @@ import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
 import {Logout, ConvertCurrency} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 import useLocation from 'hooks/useLocation';
-import {SearchIcon} from 'utils';
 
 const StorePage = () => {
 	const router = useRouter();
@@ -237,6 +245,8 @@ const StorePage = () => {
 					)}
 				</div>
 
+				{openMobileNav && <StoreMobileDropView />}
+
 				<div>
 					<ProtectedStoreHeader
 						publicStore={true}
@@ -345,7 +355,7 @@ const ProductCard = ({
 			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
-	let len = imageRendered.split(',');
+	let len = imageRendered?.split(',');
 
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
@@ -478,5 +488,69 @@ const ProductCard = ({
 export default StorePage;
 
 const StoreMobileDropView = () => {
-	return <div></div>;
+	const {singleStoreDetails} = useSelector((state) => state.product);
+
+	const displayPicture = singleStoreDetails?.display_picture;
+
+	// console.log('details = ', singleStoreDetails);
+	const storeName = singleStoreDetails?.store_name;
+	return (
+		<div className={styles.mobileDropView}>
+			<div
+				className={`${styles.profile} ${
+					!displayPicture ? styles.noDp : ''
+				}`}
+			>
+				{displayPicture ? (
+					<Image
+						src={displayPicture}
+						alt=""
+						layout="fill"
+						className={styles.image}
+					/>
+				) : (
+					<div className={styles.image_intro_text}>
+						<Avatar
+							shape="square"
+							className={styles.avatar}
+							size={70}
+							icon={<UserOutlined />}
+						/>
+					</div>
+				)}
+				<p>{storeName}</p>
+			</div>
+			<div className={styles.storeLink}>
+				<span>store link </span>
+				<Image src={ExternalLink2} alt="external link" />
+			</div>
+			<div className={styles.text}>
+				<h2>
+					Host your <span>Digital Product</span> <br />
+					online under minutes.
+				</h2>
+				<p>
+					Seamlessly sell your content to audience without any
+					marketing knowledge
+				</p>
+			</div>
+			<div>
+				<div className={styles.mobileInput}>
+					<Input type="" placeholder="Enter your email.." />
+				</div>
+				<div className={styles.mobileButton}>
+					<Button
+						text="Get Started Free"
+						bgColor="blue"
+						className={styles.freeBtn}
+					/>
+				</div>
+				<div className={styles.benefits}>
+					<span className={styles.benefitSpan}>Signup for free</span>
+					<span className={styles.benefitSpan}>• Easy setup</span>
+					<span className={styles.benefitSpan}>• Fast payout</span>
+				</div>
+			</div>
+		</div>
+	);
 };

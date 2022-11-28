@@ -173,6 +173,7 @@ import NavCloseDropdownIcon from '../public/images/login-nav-drop.svg';
 import SideBarLoginProfile from '../public/images/login-Profile.svg';
 import TechCity from '../public/images/tech-city.svg';
 import Punch from '../public/images/punch.svg';
+import DummyImage from '../public/images/dummyImage.svg';
 import SearchIcon from '../public/images/search-icon-2.svg';
 import TechCabal from '../public/images/tech-cabal.svg';
 import MnD from '../public/images/mn-d.svg';
@@ -367,6 +368,7 @@ export {
 	SideBarLoginProfile,
 	MnD,
 	MnGuardian,
+	DummyImage,
 	MnPulse,
 	MnPunch,
 	MnTechCabal,
