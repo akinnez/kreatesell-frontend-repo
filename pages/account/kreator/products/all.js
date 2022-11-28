@@ -67,6 +67,11 @@ const AllProducts = () => {
 		label: item.status_name,
 	}));
 
+	const mapMinimumPrice =(priceObj) => {
+		const minPrice = priceObj?.check_out_details.find((itemPrice) => itemPrice.price_indicator === 'Minimum' && itemPrice.currency_name === 'NGN')
+        return minPrice?.price
+	}
+
 	const memoisedProductData = useMemo(
 		() =>
 			productData
@@ -98,9 +103,8 @@ const AllProducts = () => {
 								: item?.product_currencies[0]
 										?.currency_short_name,
 						productPrice:
-							item?.check_out_details[0]?.price ||
-							item?.default_price,
-					},
+						item?.product_details?.pricing_type?.price_type === 'Pay What You Want' ?
+						mapMinimumPrice(item) : item?.default_price || item?.check_out_details[0]?.price},
 					actions: {
 						product_details: {
 							id: item?.product_details?.id,

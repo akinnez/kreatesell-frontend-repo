@@ -22,6 +22,7 @@ export const EditCouponForm = () => {
 	const {couponProducts} = useSelector((state) => state.product);
 	const {loading, coupons} = useSelector((state) => state.coupon);
 
+
 	const {store} = useSelector((state) => state.store);
 	const router = useRouter();
 	const getCouponProducts = GetCouponProducts();
@@ -34,7 +35,6 @@ export const EditCouponForm = () => {
 		(item) => item.coupons.id == couponId
 	);
 
-	console.log(updateCouponData, 'updateCouponData');
 	const [isPercentage, setIsPercentage] = useState(
 		updateCouponData?.is_percentage
 	);

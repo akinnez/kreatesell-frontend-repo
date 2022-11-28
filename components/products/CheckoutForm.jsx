@@ -72,7 +72,6 @@ export const CheckoutForm = ({
 	const [compareToPrice, setCompareToPrice] = useState(
 		isOriginalPrice || false
 	);
-	console.log(compareToPrice, 'compareToPrice');
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);

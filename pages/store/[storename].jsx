@@ -237,7 +237,7 @@ const StorePage = () => {
 						// console.log("sellingPrice = ", sellingPrice);
 						const originalPrice = originalSetting?.price;
 						return (
-							<ProductCard
+							<ProductCard 
 								productDetails={productDetails}
 								key={productDetails?.id}
 								sellingPrice={sellingPrice}
@@ -277,6 +277,8 @@ const ProductCard = ({
 	targetCurrency,
 	loading,
 }) => {
+    const pricingType = productDetails?.product_details?.pricing_type?.price_type
+
 	const router = useRouter();
 	const setCheckoutDetails = SetCheckoutDetails();
 	const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
@@ -395,7 +397,9 @@ const ProductCard = ({
 										  )
 										: '0.00'}
 								</p>
-								<p
+								
+								{pricingType === 'Fixed Price'  && (
+									<p
 									className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
 								>
 									{targetCurrency ||
@@ -415,6 +419,7 @@ const ProductCard = ({
 										  )
 										: '0.00'}
 								</p>
+								)}
 							</>
 						)}
 					</div>

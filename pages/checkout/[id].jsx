@@ -312,8 +312,6 @@ const Checkout = () => {
 
 	const [disableBtn, setDisableBtn] = useState(false);
 
-	console.log(disableBtn, 'disableBtn');
-
 	// converted price + transaction fees
 	const [totalPrice, setTotalPrice] = useState();
 
