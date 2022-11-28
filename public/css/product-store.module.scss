@@ -247,6 +247,10 @@
 		display: none;
 	}
 
+	&.isVariant {
+		top: 90px;
+	}
+
 	.profile {
 		margin-top: 31px;
 		// border: 1px solid green;

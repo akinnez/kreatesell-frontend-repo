@@ -487,7 +487,11 @@ const ProductCard = ({
 
 export default StorePage;
 
-const StoreMobileDropView = () => {
+export const StoreMobileDropView = ({
+	isVariant = false,
+	nameOfStore = '',
+	dp = '',
+}) => {
 	const {singleStoreDetails} = useSelector((state) => state.product);
 
 	const displayPicture = singleStoreDetails?.display_picture;
@@ -495,7 +499,11 @@ const StoreMobileDropView = () => {
 	// console.log('details = ', singleStoreDetails);
 	const storeName = singleStoreDetails?.store_name;
 	return (
-		<div className={styles.mobileDropView}>
+		<div
+			className={`${styles.mobileDropView} ${
+				isVariant ? styles.isVariant : ''
+			}`}
+		>
 			<div
 				className={`${styles.profile} ${
 					!displayPicture ? styles.noDp : ''
@@ -503,7 +511,7 @@ const StoreMobileDropView = () => {
 			>
 				{displayPicture ? (
 					<Image
-						src={displayPicture}
+						src={displayPicture || dp}
 						alt=""
 						layout="fill"
 						className={styles.image}
@@ -518,7 +526,7 @@ const StoreMobileDropView = () => {
 						/>
 					</div>
 				)}
-				<p>{storeName}</p>
+				<p>{storeName || nameOfStore}</p>
 			</div>
 			<div className={styles.storeLink}>
 				<span>store link </span>

@@ -30,6 +30,7 @@ import Link from 'next/link';
 import useCurrency from 'hooks/useCurrency';
 
 import * as ROUTES from 'routes';
+import {StoreMobileDropView} from 'pages/store/[storename]';
 
 export default function PreviewHeader({
 	id,
@@ -51,6 +52,12 @@ export default function PreviewHeader({
 	const publishProduct = PublishProducts();
 
 	const storeName = store?.store_details?.store_name;
+	const {singleStoreDetails} = useSelector((state) => state.product);
+
+	const displayPicture = singleStoreDetails?.display_picture;
+
+	// console.log('dp = ', singleStoreDetails);
+	// console.log('storename = ', storeName);
 
 	const {
 		// allowedCurrencies: currencyOptions,
@@ -110,7 +117,9 @@ export default function PreviewHeader({
 	const toggleView = () => setMobileSidebarIsOpen(!mobileSideBarIsOpen);
 
 	return (
-		<header className="flex items-center justify-between bg-white px-10 py-6 ">
+		<header
+			className={`flex items-center justify-between bg-white px-10 py-6 ${styles.header}`}
+		>
 			<div className={`${styles.lgLeft} flex items-center`}>
 				<div className="flex">
 					<MobileLogo />
@@ -138,6 +147,13 @@ export default function PreviewHeader({
 					)}
 				</div>
 			</div>
+			{mobileSideBarIsOpen && (
+				<StoreMobileDropView
+					isVariant={true}
+					dp={displayPicture}
+					nameOfStore={storeName}
+				/>
+			)}
 			{showNavLinks ? (
 				<div className={styles.miniSaveButtons + ' flex self-end'}>
 					<Button
