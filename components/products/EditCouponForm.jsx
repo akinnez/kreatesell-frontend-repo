@@ -22,7 +22,6 @@ export const EditCouponForm = () => {
 	const {couponProducts} = useSelector((state) => state.product);
 	const {loading, coupons} = useSelector((state) => state.coupon);
 
-
 	const {store} = useSelector((state) => state.store);
 	const router = useRouter();
 	const getCouponProducts = GetCouponProducts();

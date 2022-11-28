@@ -49,16 +49,20 @@ export default function PreviewContent({
 		(state) => state.currencyConverter
 	);
 
-	const getMinimumPrice =() => {
-		const minPrice = checkout?.find((itemPrice) => itemPrice.price_indicator === 'Minimum' && itemPrice.currency_name === 'NGN')
-        return minPrice?.price
-	}
+	const getMinimumPrice = () => {
+		const minPrice = checkout?.find(
+			(itemPrice) =>
+				itemPrice.price_indicator === 'Minimum' &&
+				itemPrice.currency_name === 'NGN'
+		);
+		return minPrice?.price;
+	};
 
 	const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
 	// const defaultCurrency = product
 
-	console.log(product,'product')
+	console.log(product, 'product');
 
 	const {user} = useSelector((state) => state?.auth);
 
@@ -247,22 +251,25 @@ export default function PreviewContent({
 						<div className="flex flex-col">
 							{/*  */}
 							{/* {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)} */}
-							{sellingPrice?.length > 0 && productPriceType !== 'Pay What You Want' &&(
-								<h1 className="text-3xl font-bold">{`${
-									alreadyDefinedPrice?.currency_name ||
-									convertedCurrency?.to_currency_name ||
-									sellingPrice[0]?.currency_name
-								}  ${
-									alreadyDefinedPrice?.price
-										? alreadyDefinedPrice?.price
-										: convertedCurrency?.buy_rate
-										? formatPrice(
-												convertedCurrency?.buy_rate *
+							{sellingPrice?.length > 0 &&
+								productPriceType !== 'Pay What You Want' && (
+									<h1 className="text-3xl font-bold">{`${
+										alreadyDefinedPrice?.currency_name ||
+										convertedCurrency?.to_currency_name ||
+										sellingPrice[0]?.currency_name
+									}  ${
+										alreadyDefinedPrice?.price
+											? alreadyDefinedPrice?.price
+											: convertedCurrency?.buy_rate
+											? formatPrice(
+													convertedCurrency?.buy_rate *
+														sellingPrice[0]?.price
+											  )
+											: formatPrice(
 													sellingPrice[0]?.price
-										  )
-										: formatPrice(sellingPrice[0]?.price)
-								}`}</h1>
-							)}
+											  )
+									}`}</h1>
+								)}
 							{productPriceType === 'Pay What You Want' && (
 								<h1 className="text-3xl font-bold">{`${
 									alreadyDefinedPrice?.currency_name ||
@@ -271,22 +278,23 @@ export default function PreviewContent({
 								} 
 								 ${getMinimumPrice()}`}</h1>
 							)}
-							{originalPrice?.length > 0 && productPriceType !== 'Pay What You Want' &&(
-								<h2 className="text-xl line-through font-medium">{`${
-									alreadyDefinedOriginalPrice?.currency_name ||
-									convertedCurrency?.to_currency_name ||
-									originalPrice[0]?.currency_name
-								}  ${
-									alreadyDefinedOriginalPrice?.price
-										? alreadyDefinedOriginalPrice?.price
-										: convertedCurrency?.buy_rate
-										? formatPrice(
-												convertedCurrency?.buy_rate *
-													originalPrice[0]?.price
-										  )
-										: originalPrice[0]?.price
-								}`}</h2>
-							)}
+							{originalPrice?.length > 0 &&
+								productPriceType !== 'Pay What You Want' && (
+									<h2 className="text-xl line-through font-medium">{`${
+										alreadyDefinedOriginalPrice?.currency_name ||
+										convertedCurrency?.to_currency_name ||
+										originalPrice[0]?.currency_name
+									}  ${
+										alreadyDefinedOriginalPrice?.price
+											? alreadyDefinedOriginalPrice?.price
+											: convertedCurrency?.buy_rate
+											? formatPrice(
+													convertedCurrency?.buy_rate *
+														originalPrice[0]?.price
+											  )
+											: originalPrice[0]?.price
+									}`}</h2>
+								)}
 						</div>
 
 						<Button
