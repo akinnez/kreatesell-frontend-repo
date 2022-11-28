@@ -1,23 +1,25 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {useSelector} from 'react-redux';
-import {GetProductByID} from 'redux/actions';
-import {useRouter} from 'next/router';
+import { useSelector } from 'react-redux';
+import { AuthGetProductById } from 'redux/actions';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon } from 'utils';
 import BackButton from 'components/BackButton';
+import { MembershipCancelAlert, MembershipCancelSuccessAlert } from './MembershipCancelAlert';
 
 const ManageMembership = () => {
 	const router = useRouter();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
+
+	const [showCancelAlert, setShowCancelAlert] = useState(false)
+	const [showSuccessCancel, setShowSuccessCancel] = useState(false)
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
-
-	console.log(product, 'productproduct');
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -66,7 +68,7 @@ const ManageMembership = () => {
 				<div className="w-full flex justify-center items-center mt-6">
 					<div className={`bg-white ${styles.manageContainer}`}>
 						<h1 className={styles.manageContainerText}>
-							New Membership Details
+							Exixting Membership Details
 						</h1>
 						<p className={styles.membershipAmount}>NGN 5,000</p>
 
@@ -77,13 +79,53 @@ const ManageMembership = () => {
 							className={styles.frequencyInput}
 							placeholder="weekly"
 						/>
+						<p className={`mt-3 ${styles.frequency}`}>Email Address</p>
+						<input
+							type="text"
+							className={styles.emailInput}
+							placeholder="eamil address"
+						/>
+						<div className={`flex items-center justify-between ${styles.cardDetailsContainer}`}>
+							<p className={styles.cardDetailsLeft}>Card details</p>
+							<p className={styles.cardDetailsRight}>Save card</p>
+						</div>
 
-						<div></div>
+						<div className={`flex items-center ${styles.cardContainer}`}>
+							<div className={styles.cardImageContainer}>
+								<Image
+									src={MastercardIcon}
+									width={32}
+									height={19}
+								/>
+							</div>
+							<div className='ml-3'>
+								<p className={styles.cardTextType}>Mastercard</p>
+								<p className={styles.cardTextExpiry}>Expires 12/2024</p>
+							</div>
+							<div className='ml-8'>
+								<p className={styles.cardTextExpiry}>**** **** **** 9988</p>
+							</div>
+						</div>
+
+						<div className={styles.cancelMembershipContainer} onClick={() => setShowCancelAlert(true)}>
+							<p className={styles.cancelMemberShipText}>Cancel Membership</p>
+						</div>
 					</div>
 				</div>
+				{showCancelAlert && (
+					<MembershipCancelAlert
+						setShowCancelAlert={setShowCancelAlert}
+						setShowSuccessCancel={setShowSuccessCancel}
+					/>
+				)}
+				{showSuccessCancel && (
+					<MembershipCancelSuccessAlert />
+				)}
 			</div>
 		</>
 	);
 };
 
 export default ManageMembership;
+
+

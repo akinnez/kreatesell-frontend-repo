@@ -7,7 +7,7 @@ import PlayMedia from './PlayMedia';
 import {useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
 import {useFormik} from 'formik';
-import {CreateSection, GetProductByID, CreateContent} from 'redux/actions';
+import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
 
 import ManageSectionSegment from 'components/products/components/ManageSection/ManageSection';
 
@@ -19,7 +19,7 @@ export default function ManageSection({
 	const [mediaContent, setMediaContent] = useState(null);
 	const [productSection, setProductSection] = useState(null);
 	const {product, productID} = useSelector((state) => state.product);
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 	const createContent = CreateContent();
 	const [play, setPlay] = useState(false);
 	const goBack = () => {

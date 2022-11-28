@@ -1,25 +1,25 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import {useSelector} from 'react-redux';
-import {Card, Row, Col} from 'antd';
+import { useSelector } from 'react-redux';
+import { Card, Row, Col } from 'antd';
 
-import {PlayIcon2, PlayIconBlue, LogoV2} from 'utils';
-import {Button} from 'components/form-input';
+import { PlayIcon2, PlayIconBlue, LogoV2 } from 'utils';
+import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
 import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {GetProductByID} from 'redux/actions';
+import { AuthGetProductById } from 'redux/actions';
 
 const PreviewMembership = () => {
 	const router = useRouter();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
 
 	const [activeLink, setActiveLink] = useState({});
@@ -122,7 +122,7 @@ const PreviewMembership = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList}, idx) => (
+											({ title, subList }, idx) => (
 												<Accordion
 													key={idx}
 													{...{
@@ -164,9 +164,9 @@ const PreviewMembership = () => {
 								)}
 							</div>
 							<Card>
-								<p className={styles.sectionName}>
-									{activeLink?.product_section_description}
-								</p>
+								<div className={styles.sectionName}
+									dangerouslySetInnerHTML={{ __html: activeLink?.product_section_description }}
+								/>
 							</Card>
 						</Col>
 					</Row>
@@ -178,13 +178,12 @@ const PreviewMembership = () => {
 						<div
 							className={`flex justify-evenly ${styles.mainSections}`}
 						>
-							{accordionData.map(({title, id, subList}, idx) => (
+							{accordionData.map(({ title, id, subList }, idx) => (
 								<div
 									key={idx}
-									className={`p-2 ${styles.title} ${
-										id === activeSelectedSectionId &&
+									className={`p-2 ${styles.title} ${id === activeSelectedSectionId &&
 										styles.active
-									}`}
+										}`}
 									onClick={() => {
 										setSelectedSection(subList);
 										setActiveSelectedSectionId(id);
@@ -203,12 +202,10 @@ const PreviewMembership = () => {
 									{selectedSection.map((sec, idx) => (
 										<div
 											key={idx}
-											className={`p-3 ${
-												styles.sections
-											} ${
-												activeLink?.id === sec.id &&
+											className={`p-3 ${styles.sections
+												} ${activeLink?.id === sec.id &&
 												styles.active2
-											}`}
+												}`}
 											onClick={() => {
 												setActiveLink(sec);
 											}}
