@@ -164,48 +164,61 @@ const StorePage = () => {
 					>
 						<div className={styles.hamburger}></div>
 					</div>
-					<div className="w-100">
-						<Link href="/">
-							<a className="">
-								<MobileLogo />
-							</a>
-						</Link>
-					</div>
+					{!openMobileNav && (
+						<div className="w-100">
+							<Link href="/">
+								<a className="">
+									<MobileLogo />
+								</a>
+							</Link>
+						</div>
+					)}
 				</div>
 
 				<div className="w-100 flex justify-end items-center">
-					<div className={styles.select}>
-						<Image src={SearchIcon} alt="search" />
-						<div className="w-20 mr-4 ml-5">
-							<Select
-								options={currencyOptions}
-								border="none"
-								cb={(targetCurrency) =>
-									setTargetCurrency(targetCurrency)
-								}
-								defaultValue={{
-									value: countryDetails?.currency,
-									label: countryDetails?.currency,
-								}}
-								loading={loading}
-							/>
+					{!openMobileNav ? (
+						<div className={styles.select}>
+							<Image src={SearchIcon} alt="search" />
+							<div className="w-20 mr-4 ml-5">
+								<Select
+									options={currencyOptions}
+									border="none"
+									cb={(targetCurrency) =>
+										setTargetCurrency(targetCurrency)
+									}
+									defaultValue={{
+										value: countryDetails?.currency,
+										label: countryDetails?.currency,
+									}}
+									loading={loading}
+								/>
+							</div>
 						</div>
-					</div>
-
-					{/* <div onClick={() => logout()}>
-						<Button text="logout" bgColor="blue" />
-					</div> */}
-					<div className={styles.btnsContainer}>
+					) : (
 						<div
 							onClick={() => router.push('/login')}
 							className="pr-5"
 						>
 							<Button text="Login" bgColor="white" />
 						</div>
-						<div onClick={() => router.push('/signup')}>
-							<Button text="Signup" bgColor="blue" />
+					)}
+
+					{/* <div onClick={() => logout()}>
+						<Button text="logout" bgColor="blue" />
+					</div> */}
+					{!openMobileNav && (
+						<div className={styles.btnsContainer}>
+							<div
+								onClick={() => router.push('/login')}
+								className="pr-5"
+							>
+								<Button text="Login" bgColor="white" />
+							</div>
+							<div onClick={() => router.push('/signup')}>
+								<Button text="Signup" bgColor="blue" />
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			</nav>
 
