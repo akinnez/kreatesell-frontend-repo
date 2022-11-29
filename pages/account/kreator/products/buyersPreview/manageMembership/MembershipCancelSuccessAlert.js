@@ -3,7 +3,6 @@ import styles from 'public/css/PreviewMembership.module.scss';
 import {CancelAlert, CancelMembershipSuccessIcon} from 'utils';
 import Image from 'next/image';
 
-
 const MembershipCancelSuccessAlert = () => {
 	return (
 		<div
@@ -23,6 +22,5 @@ const MembershipCancelSuccessAlert = () => {
 		</div>
 	);
 };
-
 
 export default MembershipCancelSuccessAlert;
