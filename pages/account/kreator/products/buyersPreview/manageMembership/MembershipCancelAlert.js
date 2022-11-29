@@ -18,7 +18,7 @@ export const MembershipCancelAlert = ({
 		>
 			<div className={`bg-white ${styles.cancelPromptModal}`}>
 				<p className={styles.cancelPromptTitle}>
-					It's sad to see you go. 
+					It's sad to see you go.
 				</p>
 				<p className={styles.cancelPromptText}>
 					Are you sure you want to UNSUBSCRIBE from this membership
