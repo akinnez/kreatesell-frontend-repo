@@ -83,6 +83,11 @@ export const CreateProductForm = ({
 			preorder_release_date: '',
 			is_preorder_downloadable: true,
 		},
+		// content_file_details: {
+		// 	productfiles: [],
+		// 	file_access_type: '',
+		// 	file_type: '',
+		// },
 		contentZipFiles: '',
 		action: !isAnEmpytyObject(product) ? 'e' : 'c',
 		kreatesell_id: '',
@@ -101,28 +106,28 @@ export const CreateProductForm = ({
 	// console.log("isImageFilled = ", isImageFilled);
 
 	const handleSubmit = (data) => {
-		// console.log("Data is", data)
-		if (['oneTimeSubscription', 'membership'].includes(productType)) {
-			delete data?.contentZipFiles;
-			delete data?.upload_content;
-			delete data?.upload_preview;
-		}
-		if (!data.enable_preorder) {
-			delete data.preorder_details;
-		}
-		if (!data.upload_content) {
-			delete data.contentZipFiles;
-		}
-		delete data.isBasicPlan;
-		// console.log(data)
-		const result = transformToFormData(data, 'contentZipFiles');
-		console.log('result = ', result);
-		createProduct(result, async () => {
-			if (productId) {
-				await getProductByID(productId);
-			}
-			setProductTab(1);
-		});
+		console.log('Data is', data);
+		// if (['oneTimeSubscription', 'membership'].includes(productType)) {
+		// 	delete data?.contentZipFiles;
+		// 	delete data?.upload_content;
+		// 	delete data?.upload_preview;
+		// }
+		// if (!data.enable_preorder) {
+		// 	delete data.preorder_details;
+		// }
+		// if (!data.upload_content) {
+		// 	delete data.contentZipFiles;
+		// }
+		// delete data.isBasicPlan;
+		// // console.log(data)
+		// const result = transformToFormData(data, 'contentZipFiles');
+		// console.log('result = ', result);
+		// createProduct(result, async () => {
+		// 	if (productId) {
+		// 		await getProductByID(productId);
+		// 	}
+		// 	setProductTab(1);
+		// });
 	};
 	const imageIsEdits = (files) => {
 		const mapped = files?.map((items, i) => {

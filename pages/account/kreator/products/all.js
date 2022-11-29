@@ -466,7 +466,12 @@ const AllProducts = () => {
 								<div className={`${styles.image}`}>
 									{product.product_image?.length > 0 && (
 										<Image
-											src={product.product_image[0]}
+											src={
+												product.product_image[
+													product.product_image
+														.length - 1
+												]
+											}
 											width={100}
 											height={100}
 											objectFit="cover"

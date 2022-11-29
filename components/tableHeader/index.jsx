@@ -586,7 +586,7 @@ export const AllProductsTableHeader = [
 				<div className={styles.productTableImage}>
 					{item !== undefined && item.length > 0 && (
 						<Image
-							src={item[0]}
+							src={item[item.length - 1]}
 							width="100"
 							height={100}
 							objectFit="cover"

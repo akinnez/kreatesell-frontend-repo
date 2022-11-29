@@ -540,7 +540,8 @@ const Checkout = () => {
 
 	const checkOutInNaira = checkOutDetails?.find(
 		(item) =>
-			item?.currency_name === 'NGN' && item?.price_indicator === 'Selling'
+			item?.currency_name === defaultCurrency?.currency &&
+			item?.price_indicator === 'Selling'
 	);
 
 	// calculate price + fees
@@ -563,48 +564,6 @@ const Checkout = () => {
 			handlePhoneCode(country);
 		}
 	}, [country]);
-
-	// const handleSubmit = () => {
-	// 	// if we are using paypal
-
-	// 	/** Currencies using PayStack are listed here */
-	// 	if (
-	// 		['GHS', 'NGN'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		)
-	// 	) {
-	// 		return initializePaystackPayment(
-	// 			onPaystackSuccess,
-	// 			onPaystackClose
-	// 		);
-	// 	}
-
-	// 	// currencies using stripe
-
-	// 	/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-	// 	if (
-	// 		(!['NGN', 'GHS'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		) ||
-	// 			selectedPaymentMethod === 'flutterwave') &&
-	// 		!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-	// 	) {
-	// 		handleFlutterPayment({
-	// 			callback: async (response) => {
-	// 				// console.log('response ', response)
-	// 				await sendPaymentCheckoutDetails(
-	// 					paymentDetails({
-	// 						reference: response?.tx_ref,
-	// 						status: 'success',
-	// 					})
-	// 				);
-	// 				closePaymentModal();
-	// 				//   openModal();
-	// 			},
-	// 			onClose: () => {},
-	// 		});
-	// 	}
-	// };
 
 	// TODO: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
@@ -741,32 +700,6 @@ const Checkout = () => {
 			);
 		}
 		/** Currencies using PayStack are listed here */
-
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		// if (
-		// 	(!['NGN', 'GHS'].includes(
-		// 		activeCurrency.currency || activeCurrency.currency_name
-		// 	) ||
-		// 		selectedPaymentMethod === 'flutterwave') &&
-		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		// ) {
-		// 	handleFlutterPayment({
-		// 		callback: async (response) => {
-		// 			// console.log('response ', response)
-		// 			await sendPaymentCheckoutDetails(
-		// 				paymentDetails({
-		// 					reference: response?.tx_ref,
-		// 					status: response?.status,
-		// 				})
-		// 			);
-		// 			closePaymentModal();
-		// 			//   openModal();
-		// 		},
-		// 		onClose: () => {},
-		// 	});
-		// }
 	};
 
 	const formik = useFormik({
@@ -1371,8 +1304,7 @@ const Checkout = () => {
 											storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 												'approved' &&
 											storeDetails?.user_plan?.toLowerCase() ===
-												'business' &&
-											value !== 'paypal'
+												'business'
 										}
 									>
 										<Tooltip
@@ -1409,7 +1341,9 @@ const Checkout = () => {
 																	[
 																		{
 																			description:
-																				'customDescription',
+																				storeDetails
+																					?.product_details
+																					?.product_description,
 																			amount: {
 																				// value: Number(
 																				// 	convertedPrice
