@@ -233,7 +233,7 @@ const StorePage = () => {
 										defaultCurrency?.currency &&
 									item?.price_indicator === 'Original'
 							);
-					
+
 						const originalPrice = originalSetting?.price;
 						return (
 							<ProductCard
