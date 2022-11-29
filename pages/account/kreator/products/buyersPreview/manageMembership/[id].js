@@ -12,7 +12,7 @@ import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
 
 const ManageMembership = () => {
 	const router = useRouter();
-	const getProduct = GetProductByIDNotAut(); 
+	const getProduct = GetProductByIDNotAut();
 
 	const [showCancelAlert, setShowCancelAlert] = useState(false);
 	const [showSuccessCancel, setShowSuccessCancel] = useState(false);
