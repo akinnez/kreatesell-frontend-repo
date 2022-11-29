@@ -34,14 +34,15 @@ export const EditCouponForm = () => {
 		(item) => item.coupons.id == couponId
 	);
 
+	
 	const [isPercentage, setIsPercentage] = useState(
-		updateCouponData?.is_percentage
+		updateCouponData[0]?.coupons?.is_percentage
 	);
 	const [isLimited, setIsLimited] = useState(
-		!updateCouponData?.is_coupon_limited
+		updateCouponData[0]?.coupons?.is_coupon_limited
 	);
 	const [isUsage, setIsUsage] = useState(
-		!updateCouponData?.is_usage_limited_per_customer
+		updateCouponData[0]?.coupons?.is_usage_limited_per_customer
 	);
 
 	const isdefaultRadioValue =
@@ -284,7 +285,7 @@ export const EditCouponForm = () => {
 								<Input
 									type="number"
 									placeholder={
-										updateCouponData?.percentage_value ||
+										updateCouponData[0]?.coupons?.percentage_value ||
 										'0'
 									}
 									name="percentage_value"
@@ -322,7 +323,7 @@ export const EditCouponForm = () => {
 									type="number"
 									placeholder={
 										updateCouponData[0]?.coupons
-											?.percentage_value || '0'
+											?.fixed_amount_value || '0'
 									}
 									name="fixed_amount_value"
 									value={fixed_amount_value}
