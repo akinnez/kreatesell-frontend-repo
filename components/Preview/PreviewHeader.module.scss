@@ -350,6 +350,10 @@
 			display: none;
 		}
 	}
+
+	& + .mobileDropView {
+		border: 1px solid red;
+	}
 }
 
 .lgLeft {
@@ -443,5 +447,17 @@
 .mobileSearch {
 	@media (min-width: 650px) {
 		display: none;
+	}
+}
+
+.header {
+	position: relative;
+	// border: 1px solid red;
+	.mobileMenu + .mobileDropView {
+		top: 90px;
+		position: relative;
+		margin-top: 2rem;
+		min-height: 100vh;
+		border: 1px solid red !important;
 	}
 }

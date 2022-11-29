@@ -13,7 +13,7 @@ import {
 import productStyles from '../../../public/css/AllProducts.module.scss';
 import AddSection from './AddSection';
 import styles from './MembershipTab.module.scss';
-import {CreateSection, GetProductByID} from 'redux/actions';
+import {CreateSection, AuthGetProductById} from 'redux/actions';
 
 export default function MembershipIndex({
 	setIsTabsActive,
@@ -23,7 +23,7 @@ export default function MembershipIndex({
 	const route = useRouter();
 	const [fields, setFields] = useState('adding section');
 	const createSection = CreateSection();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 	const [productData, setProductData] = useState(null);
 
 	const {product, productID} = useSelector((state) => state.product);

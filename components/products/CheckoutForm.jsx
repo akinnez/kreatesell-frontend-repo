@@ -10,7 +10,7 @@ import {useFormik} from 'formik';
 // import { Select } from "components/select/Select";
 import {useSelector} from 'react-redux';
 import {
-	GetProductByID,
+	AuthGetProductById,
 	GetBillingInterval,
 	CreateProduct,
 	SetProductTab,
@@ -39,7 +39,7 @@ export const CheckoutForm = ({
 	 */
 
 	const getStoreCurrencies = GetStoreCurrencies();
-	const getProductByID = GetProductByID();
+	const getProductByID = AuthGetProductById();
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
 	const setProductTab = SetProductTab();
@@ -56,7 +56,6 @@ export const CheckoutForm = ({
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
 	const isOriginalPrice = product?.product_details?.is_show_compare_price;
-	// console.log(isOriginalPrice, 'isOriginalPrice');
 
 	// console.log("product = ", product?.product_details?.kreasell_product_id);
 	// setProductID(product?.product_details?.kreasell_product_id);
@@ -64,15 +63,16 @@ export const CheckoutForm = ({
 	// if (product) {
 	//   setProductID(product?.product_details?.kreasell_product_id);
 	// }
-	const [errorForNotMatchedCurrency, setErrorForNotMatchedCurrency] =
-		useState(false);
+	const [
+		errorForNotMatchedCurrency,
+		setErrorForNotMatchedCurrency,
+	] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const [isLimited, setIsLimited] = useState(false);
 
 	const [compareToPrice, setCompareToPrice] = useState(
 		isOriginalPrice || false
 	);
-	// console.log(compareToPrice, 'compareToPrice');
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);
@@ -133,8 +133,9 @@ export const CheckoutForm = ({
 	// Fixed Price Inputs
 	const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
 	const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
-	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] =
-		useState(fixedOriginalPrice);
+	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] = useState(
+		fixedOriginalPrice
+	);
 
 	// Pay What You Want
 	const [minimumPrice, setMinimumPrice] = useState([]);
@@ -143,13 +144,15 @@ export const CheckoutForm = ({
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
-	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
-		useState(false);
+	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] = useState(
+		false
+	);
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [numberOfLimit, setNumberOfLimit] = useState(0);
 	const [showTotalSales, setShowTotalSales] = useState(false);
-	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] =
-		useState(false);
+	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(
+		false
+	);
 
 	const [totalSelling, setTotalSelling] = useState([]);
 	const mapNumberToArray = (number) => {
@@ -164,8 +167,10 @@ export const CheckoutForm = ({
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
-	const {selectedStoreCurrencies, storeCurrenciesLoading} =
-		useStoreCurrency();
+	const {
+		selectedStoreCurrencies,
+		storeCurrenciesLoading,
+	} = useStoreCurrency();
 
 	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
 		[]
@@ -178,12 +183,17 @@ export const CheckoutForm = ({
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
-		useUpload({
-			setFileChange: setPromotionalMaterial,
-			// should accept rar and zip
-			fileType: 'image',
-		});
+	const {
+		preview,
+		getRootProps,
+		getInputProps,
+		mainFile,
+		deleteFile,
+	} = useUpload({
+		setFileChange: setPromotionalMaterial,
+		// should accept rar and zip
+		fileType: 'image',
+	});
 
 	// console.log("product = ", product);
 
@@ -802,7 +812,10 @@ export const CheckoutForm = ({
 				return SpItem?.currency_name === minPriceCurrency;
 			});
 
-			if (minPriceValue > matchItem?.currency_value) {
+			console.log(minPriceValue, 'minPriceValue');
+			console.log(matchItem, 'matchItem');
+
+			if (minPriceValue > Number(matchItem?.currency_value)) {
 				showToast(
 					'suggested price must be greater than minimum price',
 					'error'
@@ -858,7 +871,6 @@ export const CheckoutForm = ({
 		compareToPrice,
 		minimumPrice,
 		suggestedPrice,
-		isGreaterthanSug,
 	]);
 
 	const disableButton = useCallback(() => {
@@ -1128,8 +1140,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -1160,8 +1171,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}

@@ -21,7 +21,7 @@ import {
 	SetProductTab,
 	GetListingStatus,
 	CreateProduct,
-	GetProductByID,
+	AuthGetProductById,
 	SetProductID,
 } from 'redux/actions';
 import {useSelector} from 'react-redux';
@@ -40,7 +40,7 @@ export const CreateProductForm = ({
 	const setProductTab = SetProductTab();
 	const getListingStatus = GetListingStatus();
 	const createProduct = CreateProduct();
-	const getProductByID = GetProductByID();
+	const getProductByID = AuthGetProductById();
 	const setProductID = SetProductID();
 	const router = useRouter();
 	const {TextArea} = Input;
