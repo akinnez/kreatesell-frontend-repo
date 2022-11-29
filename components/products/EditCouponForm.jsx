@@ -34,7 +34,6 @@ export const EditCouponForm = () => {
 		(item) => item.coupons.id == couponId
 	);
 
-	
 	const [isPercentage, setIsPercentage] = useState(
 		updateCouponData[0]?.coupons?.is_percentage
 	);
@@ -285,8 +284,8 @@ export const EditCouponForm = () => {
 								<Input
 									type="number"
 									placeholder={
-										updateCouponData[0]?.coupons?.percentage_value ||
-										'0'
+										updateCouponData[0]?.coupons
+											?.percentage_value || '0'
 									}
 									name="percentage_value"
 									onChange={(e) =>
