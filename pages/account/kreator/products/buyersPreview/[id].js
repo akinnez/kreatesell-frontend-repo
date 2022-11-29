@@ -9,11 +9,11 @@ import {useRouter} from 'next/router';
 import {Card, Row, Col} from 'antd';
 import Accordion from '../preview-membership/Accordion';
 import {useSelector} from 'react-redux';
-import {AuthGetProductById} from 'redux/actions';
+import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 
 const BuyersPreview = () => {
 	const router = useRouter();
-	const getProduct = AuthGetProductById();
+	const getProduct = GetProductByIDNotAut();
 
 	const {
 		product,

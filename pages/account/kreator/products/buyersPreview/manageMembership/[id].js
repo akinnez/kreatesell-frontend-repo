@@ -2,7 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import {useSelector} from 'react-redux';
-import {AuthGetProductById} from 'redux/actions';
+import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
 import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
@@ -12,7 +12,7 @@ import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
 
 const ManageMembership = () => {
 	const router = useRouter();
-	const getProduct = AuthGetProductById();
+	const getProduct = GetProductByIDNotAut(); 
 
 	const [showCancelAlert, setShowCancelAlert] = useState(false);
 	const [showSuccessCancel, setShowSuccessCancel] = useState(false);
