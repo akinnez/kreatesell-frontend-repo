@@ -7,10 +7,8 @@ import {useRouter} from 'next/router';
 import Image from 'next/image';
 import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
 import BackButton from 'components/BackButton';
-import {
-	MembershipCancelAlert,
-	MembershipCancelSuccessAlert,
-} from './MembershipCancelAlert';
+import MembershipCancelAlert from './MembershipCancelAlert';
+import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
 
 const ManageMembership = () => {
 	const router = useRouter();

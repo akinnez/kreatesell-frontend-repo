@@ -56,7 +56,6 @@ export const CheckoutForm = ({
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
 	const isOriginalPrice = product?.product_details?.is_show_compare_price;
-	console.log(isOriginalPrice, 'isOriginalPrice');
 
 	// console.log("product = ", product?.product_details?.kreasell_product_id);
 	// setProductID(product?.product_details?.kreasell_product_id);

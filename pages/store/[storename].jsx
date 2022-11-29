@@ -281,8 +281,7 @@ const StorePage = () => {
 										defaultCurrency?.currency &&
 									item?.price_indicator === 'Original'
 							);
-						// console.log("countrySale = ", countrySale);
-						// console.log("sellingPrice = ", sellingPrice);
+
 						const originalPrice = originalSetting?.price;
 						return (
 							<ProductCard
