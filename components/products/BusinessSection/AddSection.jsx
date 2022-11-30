@@ -15,7 +15,7 @@ import {
 import {useFormik} from 'formik';
 import {useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
-import {CreateSection, GetProductByID, CreateContent} from 'redux/actions';
+import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
 
 export default function AddSection({toSection}) {
 	const [productSection, setProductSection] = useState(null);
@@ -24,7 +24,7 @@ export default function AddSection({toSection}) {
 	console.log(productID, productID);
 
 	const createSection = CreateSection();
-	const getProduct = GetProductByID();
+	const getProduct = AuthGetProductById();
 	const createContent = CreateContent();
 	const initialValues = {
 		product_id: 0,

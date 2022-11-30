@@ -2,13 +2,22 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
 import {useEffect, useState} from 'react';
-
+import {Button as NormalButton, Input as NormalInput} from '../../components';
 import {Pagination, Input, Spin} from 'antd';
 import {useSelector} from 'react-redux';
 import {MdSearch} from 'react-icons/md';
+import {Avatar} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 
 import styles from '../../public/css/product-store.module.scss';
-import {ArrowLeft, StoryTellingPNG, ExternalLink} from 'utils';
+import {
+	ArrowLeft,
+	StoryTellingPNG,
+	ExternalLink2,
+	ExternalLink,
+	SearchIcon,
+	DummyImage,
+} from 'utils';
 import {Button, Select} from 'components';
 import Logo, {MobileLogo} from 'components/authlayout/logo';
 import {currencyOptions} from 'components/account-dashboard/partials';
@@ -23,6 +32,8 @@ const StorePage = () => {
 	const convertCurrency = ConvertCurrency();
 	const fetchSingleStoreProduct = FetchSingleStoreProduct();
 	const {countryDetails, countryDetailsLoading: loading} = useLocation();
+	const [openMobileNav, setOpenMobileNav] = useState(false);
+	const handleNavbar = () => setOpenMobileNav((value) => !value);
 	const {
 		singleStoreDetails,
 		singleStoreProducts,
@@ -110,14 +121,18 @@ const StorePage = () => {
 					</Link>
 				</div>
 
-				<div className="w-4/5 flex justify-end">
-					<div className="w-30 mr-4">
+				<div className="w-4/5 flex justify-end items-center">
+					{/* <div className="w-30 mr-4">
 						<Input
 							style={{borderRadius: '8px', height: '100%'}}
 							prefix={<MdSearch />}
 							placeholder="Click here to Search"
 							onChange={() => {}}
 						/>
+						
+					</div> */}
+					<div className="w-10">
+						<Image src={SearchIcon} alt="search" />
 					</div>
 					<div className="w-20 mr-4">
 						<Select
@@ -147,40 +162,71 @@ const StorePage = () => {
 				</div>
 			</nav>
 
-			<nav className="bg-white lg:hidden flex items-center px-4">
-				<div className="w-30">
-					<Link href="/">
-						<a className="">
-							<MobileLogo />
-						</a>
-					</Link>
+			<nav className="bg-white lg:hidden flex items-center justify-between px-4">
+				<div className="items-center  flex ">
+					<div
+						className={`${styles.mobileMenuCont} ${
+							openMobileNav && styles.open
+						}`}
+						onClick={() => handleNavbar()}
+					>
+						<div className={styles.hamburger}></div>
+					</div>
+					{!openMobileNav && (
+						<div className="w-100">
+							<Link href="/">
+								<a className="">
+									<MobileLogo />
+								</a>
+							</Link>
+						</div>
+					)}
 				</div>
 
-				<div className="w-70 flex justify-end items-center mx-auto">
-					<div className={styles.select}>
-						<Select
-							options={currencyOptions}
-							border="none"
-							cb={(targetCurrency) =>
-								setTargetCurrency(targetCurrency)
-							}
-							defaultValue={{
-								value: countryDetails?.currency,
-								label: countryDetails?.currency,
-							}}
-							loading={loading}
-						/>
-					</div>
+				<div className="w-100 flex justify-end items-center">
+					{!openMobileNav ? (
+						<div className={styles.select}>
+							<Image src={SearchIcon} alt="search" />
+							<div className="w-20 mr-4 ml-5">
+								<Select
+									options={currencyOptions}
+									border="none"
+									cb={(targetCurrency) =>
+										setTargetCurrency(targetCurrency)
+									}
+									defaultValue={{
+										value: countryDetails?.currency,
+										label: countryDetails?.currency,
+									}}
+									loading={loading}
+								/>
+							</div>
+						</div>
+					) : (
+						<div
+							onClick={() => router.push('/login')}
+							className="pr-5"
+						>
+							<Button text="Login" bgColor="white" />
+						</div>
+					)}
 
 					{/* <div onClick={() => logout()}>
 						<Button text="logout" bgColor="blue" />
 					</div> */}
-					<div onClick={() => router.push('/login')} className="pr-5">
-						<Button text="Login" bgColor="white" />
-					</div>
-					<div onClick={() => router.push('/signup')}>
-						<Button text="Signup" bgColor="blue" />
-					</div>
+					{!openMobileNav && (
+						<div className={styles.btnsContainer}>
+							<div
+								onClick={() => router.push('/login')}
+								className="pr-5"
+							>
+								<Button text="Login" bgColor="white" />
+							</div>
+							<div onClick={() => router.push('/signup')}>
+								<Button text="Signup" bgColor="blue" />
+							</div>
+						</div>
+					)}
 				</div>
 			</nav>
 
@@ -198,6 +244,8 @@ const StorePage = () => {
 						</div>
 					)}
 				</div>
+
+				{openMobileNav && <StoreMobileDropView />}
 
 				<div>
 					<ProtectedStoreHeader
@@ -233,8 +281,7 @@ const StorePage = () => {
 										defaultCurrency?.currency &&
 									item?.price_indicator === 'Original'
 							);
-						// console.log("countrySale = ", countrySale);
-						// console.log("sellingPrice = ", sellingPrice);
+
 						const originalPrice = originalSetting?.price;
 						return (
 							<ProductCard
@@ -277,6 +324,9 @@ const ProductCard = ({
 	targetCurrency,
 	loading,
 }) => {
+	const pricingType =
+		productDetails?.product_details?.pricing_type?.price_type;
+
 	const router = useRouter();
 	const setCheckoutDetails = SetCheckoutDetails();
 	const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
@@ -307,7 +357,7 @@ const ProductCard = ({
 			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
-	let len = imageRendered.split(',');
+	let len = imageRendered?.split(',');
 
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
@@ -395,26 +445,29 @@ const ProductCard = ({
 										  )
 										: '0.00'}
 								</p>
-								<p
-									className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
-								>
-									{targetCurrency ||
-										productDetails?.default_currency
-											?.currency}
 
-									{convertedCurrency
-										? new Intl.NumberFormat().format(
-												convertedCurrency *
-													(originalPrice ??
-														productDetails?.default_price)
-										  )
-										: !convertedCurrency
-										? new Intl.NumberFormat().format(
-												originalPrice ??
-													productDetails?.default_price
-										  )
-										: '0.00'}
-								</p>
+								{pricingType === 'Fixed Price' && (
+									<p
+										className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+									>
+										{targetCurrency ||
+											productDetails?.default_currency
+												?.currency}
+
+										{convertedCurrency
+											? new Intl.NumberFormat().format(
+													convertedCurrency *
+														(originalPrice ??
+															productDetails?.default_price)
+											  )
+											: !convertedCurrency
+											? new Intl.NumberFormat().format(
+													originalPrice ??
+														productDetails?.default_price
+											  )
+											: '0.00'}
+									</p>
+								)}
 							</>
 						)}
 					</div>
@@ -438,3 +491,79 @@ const ProductCard = ({
 };
 
 export default StorePage;
+
+export const StoreMobileDropView = ({
+	isVariant = false,
+	nameOfStore = '',
+	dp = '',
+}) => {
+	const {singleStoreDetails} = useSelector((state) => state.product);
+
+	const displayPicture = singleStoreDetails?.display_picture;
+
+	// console.log('details = ', singleStoreDetails);
+	const storeName = singleStoreDetails?.store_name;
+	return (
+		<div
+			className={`${styles.mobileDropView} ${
+				isVariant ? styles.isVariant : ''
+			}`}
+		>
+			<div
+				className={`${styles.profile} ${
+					!displayPicture || !dp ? styles.noDp : ''
+				}`}
+			>
+				{displayPicture || dp ? (
+					<Image
+						src={displayPicture || dp}
+						alt="dp"
+						layout="fill"
+						className={styles.image}
+					/>
+				) : (
+					<div className={styles.image_intro_text}>
+						<Avatar
+							shape="square"
+							className={styles.avatar}
+							size={70}
+							icon={<UserOutlined />}
+						/>
+					</div>
+				)}
+				<p>{storeName || nameOfStore}</p>
+			</div>
+			<div className={styles.storeLink}>
+				<span>store link </span>
+				<Image src={ExternalLink2} alt="external link" />
+			</div>
+			<div className={styles.text}>
+				<h2>
+					Host your <span>Digital Product</span> <br />
+					online under minutes.
+				</h2>
+				<p>
+					Seamlessly sell your content to audience without any
+					marketing knowledge
+				</p>
+			</div>
+			<div>
+				<div className={styles.mobileInput}>
+					<Input type="" placeholder="Enter your email.." />
+				</div>
+				<div className={styles.mobileButton}>
+					<Button
+						text="Get Started Free"
+						bgColor="blue"
+						className={styles.freeBtn}
+					/>
+				</div>
+				<div className={styles.benefits}>
+					<span className={styles.benefitSpan}>Signup for free</span>
+					<span className={styles.benefitSpan}>• Easy setup</span>
+					<span className={styles.benefitSpan}>• Fast payout</span>
+				</div>
+			</div>
+		</div>
+	);
+};

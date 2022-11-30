@@ -173,6 +173,7 @@ import NavCloseDropdownIcon from '../public/images/login-nav-drop.svg';
 import SideBarLoginProfile from '../public/images/login-Profile.svg';
 import TechCity from '../public/images/tech-city.svg';
 import Punch from '../public/images/punch.svg';
+import DummyImage from '../public/images/dummyImage.svg';
 import SearchIcon from '../public/images/search-icon-2.svg';
 import TechCabal from '../public/images/tech-cabal.svg';
 import MnD from '../public/images/mn-d.svg';
@@ -283,6 +284,9 @@ import MakeItFreeIcon from '../public/images/makeItFreeIcon.png';
 import PaystackLogo from '../public/images/paystack-logo.svg';
 import InfoIcon from '../public/images/info-icon.svg';
 import KreateSellLogo from '../public/images/KreateSellLogo.png';
+import MastercardIcon from '../public/images/mastercardIcon.svg';
+import CancelAlert from '../public/images/cancelAlert.png';
+import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
 
 export {
 	InfoIcon,
@@ -367,6 +371,7 @@ export {
 	SideBarLoginProfile,
 	MnD,
 	MnGuardian,
+	DummyImage,
 	MnPulse,
 	MnPunch,
 	MnTechCabal,
@@ -569,4 +574,7 @@ export {
 	ComingSoon,
 	MakeItFreeIcon,
 	KreateSellLogo,
+	MastercardIcon,
+	CancelAlert,
+	CancelMembershipSuccessIcon,
 };

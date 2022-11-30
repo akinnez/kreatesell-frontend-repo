@@ -10,7 +10,7 @@ import {useFormik} from 'formik';
 // import { Select } from "components/select/Select";
 import {useSelector} from 'react-redux';
 import {
-	GetProductByID,
+	AuthGetProductById,
 	GetBillingInterval,
 	CreateProduct,
 	SetProductTab,
@@ -39,7 +39,7 @@ export const CheckoutForm = ({
 	 */
 
 	const getStoreCurrencies = GetStoreCurrencies();
-	const getProductByID = GetProductByID();
+	const getProductByID = AuthGetProductById();
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
 	const setProductTab = SetProductTab();
@@ -56,7 +56,6 @@ export const CheckoutForm = ({
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
 	const isOriginalPrice = product?.product_details?.is_show_compare_price;
-	console.log(isOriginalPrice, 'isOriginalPrice');
 
 	// console.log("product = ", product?.product_details?.kreasell_product_id);
 	// setProductID(product?.product_details?.kreasell_product_id);
@@ -72,7 +71,6 @@ export const CheckoutForm = ({
 	const [compareToPrice, setCompareToPrice] = useState(
 		isOriginalPrice || false
 	);
-	console.log(compareToPrice, 'compareToPrice');
 	const [applyCoupon, setApplyCoupon] = useState(false);
 	const [isCouponDiabled, setIsCouponDisabled] = useState(true);
 	const [couponType, setCouponType] = useState(0);
@@ -802,7 +800,10 @@ export const CheckoutForm = ({
 				return SpItem?.currency_name === minPriceCurrency;
 			});
 
-			if (minPriceValue > matchItem?.currency_value) {
+			console.log(minPriceValue, 'minPriceValue');
+			console.log(matchItem, 'matchItem');
+
+			if (minPriceValue > Number(matchItem?.currency_value)) {
 				showToast(
 					'suggested price must be greater than minimum price',
 					'error'
@@ -858,7 +859,6 @@ export const CheckoutForm = ({
 		compareToPrice,
 		minimumPrice,
 		suggestedPrice,
-		isGreaterthanSug,
 	]);
 
 	const disableButton = useCallback(() => {
