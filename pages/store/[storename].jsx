@@ -265,20 +265,22 @@ const StorePage = () => {
 						{
 							/* console.log('productDetails = ', productDetails) */
 						}
-						const countrySale = productDetails?.check_out_details?.find(
-							(item) =>
-								item?.currency_name ===
-									defaultCurrency?.currency &&
-								item?.price_indicator === 'Selling'
-						);
+						const countrySale =
+							productDetails?.check_out_details?.find(
+								(item) =>
+									item?.currency_name ===
+										defaultCurrency?.currency &&
+									item?.price_indicator === 'Selling'
+							);
 
 						const sellingPrice = countrySale?.price;
-						const originalSetting = productDetails?.check_out_details?.find(
-							(item) =>
-								item?.currency_name ===
-									defaultCurrency?.currency &&
-								item?.price_indicator === 'Original'
-						);
+						const originalSetting =
+							productDetails?.check_out_details?.find(
+								(item) =>
+									item?.currency_name ===
+										defaultCurrency?.currency &&
+									item?.price_indicator === 'Original'
+							);
 
 						const originalPrice = originalSetting?.price;
 						return (
@@ -398,12 +400,11 @@ const ProductCard = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color:
-							statusLabel[
-								outOfStock()
-									? 'Out of Stock'
-									: productDetails.status
-							].color,
+						color: statusLabel[
+							outOfStock()
+								? 'Out of Stock'
+								: productDetails.status
+						].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
