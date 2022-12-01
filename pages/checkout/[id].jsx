@@ -372,6 +372,7 @@ const Checkout = () => {
 
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price;
+
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
@@ -469,7 +470,7 @@ const Checkout = () => {
 			payment_type: 'purchase',
 			is_affiliate: affliateRef ? true : false,
 			affiliate_product_link: getAffiliateRef(),
-			user_identifier: values?.id || '',
+			user_identifier: randomId || '',
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 		};
@@ -574,7 +575,7 @@ const Checkout = () => {
 			: setDisableBtn(false);
 	}, [desiredAmount]);
 
-	console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
+	// console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
 	// const handleSubmit = () => {
 	// 	// if we are using paypal
 
@@ -729,6 +730,28 @@ const Checkout = () => {
 			}
 		}
 
+		if (selectedPaymentMethod === 'stripe') {
+			try {
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/stripe/create-checkout-session',
+					{
+						unit_amount: totalFee
+							? Number(getCurrency('total')).toFixed() * 100
+							: Number(getCurrency('price')).toFixed() * 100,
+						currency: getCurrency('currency').toLowerCase(),
+						quantity: 1,
+						success_url: 'http://localhost:3000/success',
+						cancel_url: `http://localhost:3000/checkout/${productId}?status=fail`,
+					}
+				);
+				window.open(data.data.url, '_blank');
+			} catch (e) {
+				console.error(e);
+			} finally {
+				return;
+			}
+		}
+
 		if (selectedPaymentMethod === 'flutterwave') {
 			handleFlutterPayment({
 				callback: async (response) => {
@@ -752,6 +775,32 @@ const Checkout = () => {
 			);
 		}
 		/** Currencies using PayStack are listed here */
+
+		// currencies using stripe
+
+		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
+		// if (
+		// 	(!['NGN', 'GHS'].includes(
+		// 		activeCurrency.currency || activeCurrency.currency_name
+		// 	) ||
+		// 		selectedPaymentMethod === 'flutterwave') &&
+		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
+		// ) {
+		// 	handleFlutterPayment({
+		// 		callback: async (response) => {
+		// 			// console.log('response ', response)
+		// 			await sendPaymentCheckoutDetails(
+		// 				paymentDetails({
+		// 					reference: response?.tx_ref,
+		// 					status: response?.status,
+		// 				})
+		// 			);
+		// 			closePaymentModal();
+		// 			//   openModal();
+		// 		},
+		// 		onClose: () => {},
+		// 	});
+		// }
 	};
 
 	const formik = useFormik({
@@ -1356,7 +1405,8 @@ const Checkout = () => {
 											storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 												'approved' &&
 											storeDetails?.user_plan?.toLowerCase() ===
-												'business'
+												'business' &&
+											value !== 'paypal'
 										}
 									>
 										<Tooltip
@@ -1393,9 +1443,7 @@ const Checkout = () => {
 																	[
 																		{
 																			description:
-																				storeDetails
-																					?.product_details
-																					?.product_description,
+																				'customDescription',
 																			amount: {
 																				// value: Number(
 																				// 	convertedPrice
