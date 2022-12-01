@@ -8,27 +8,39 @@ export const useUpload = ({fileType}) => {
 	const onDrop = useCallback(
 		(acceptedFiles, rejectedFiles) => {
 			console.log('onDrop');
-			const fileMatched = acceptedFiles.map((file) => ({
-				file,
-				errors: [],
-			}));
+			console.log('acceptedFiles = ', acceptedFiles);
 
-			const filesInAcceptedFormats = fileMatched.filter(
-				(file) =>
-					!file?.file?.name.toLowerCase().endsWith('.png') ||
-					!file?.file?.name.toLowerCase().endsWith('.jpg') ||
-					!file?.file?.name.toLowerCase().endsWith('.jpeg')
-			);
+			const isAcceptableForUpload =
+				acceptedFiles?.[0]?.path?.endsWith('.png') ||
+				acceptedFiles?.[0]?.path?.endsWith('.jpg') ||
+				acceptedFiles?.[0]?.path?.endsWith('.jpeg');
 
-			if (fileType === 'image') {
-				setFiles((prev) => [
-					...prev,
+			if (isAcceptableForUpload) {
+				const fileMatched = acceptedFiles.map((file) => ({
+					file,
+					errors: [],
+				}));
+
+				const filesInAcceptedFormats = fileMatched.filter(
+					(file) =>
+						!file?.file?.name.toLowerCase().endsWith('.png') ||
+						!file?.file?.name.toLowerCase().endsWith('.jpg') ||
+						!file?.file?.name.toLowerCase().endsWith('.jpeg')
+				);
+
+				if (fileType === 'image') {
+					setFiles((prev) => [
+						...prev,
+						...filesInAcceptedFormats,
+						// ...rejectedFiles,
+					]);
+					return;
+				}
+				return setFiles([
 					...filesInAcceptedFormats,
-					...rejectedFiles,
+					// ...rejectedFiles
 				]);
-				return;
 			}
-			return setFiles([...filesInAcceptedFormats, ...rejectedFiles]);
 		},
 		[fileType]
 	);
