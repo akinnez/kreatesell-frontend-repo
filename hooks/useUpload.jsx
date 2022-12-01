@@ -3,32 +3,48 @@ import {useDropzone} from 'react-dropzone';
 
 export const useUpload = ({fileType}) => {
 	const [files, setFiles] = useState([]);
+	const [showImageFileFeedback, setShowImageFileFeedback] = useState(false);
 
 	//* edits
 	const onDrop = useCallback(
 		(acceptedFiles, rejectedFiles) => {
 			console.log('onDrop');
-			const fileMatched = acceptedFiles.map((file) => ({
-				file,
-				errors: [],
-			}));
+			console.log('acceptedFiles = ', acceptedFiles);
 
-			const filesInAcceptedFormats = fileMatched.filter(
-				(file) =>
-					!file?.file?.name.toLowerCase().endsWith('.png') ||
-					!file?.file?.name.toLowerCase().endsWith('.jpg') ||
-					!file?.file?.name.toLowerCase().endsWith('.jpeg')
-			);
+			const isAcceptableForUpload =
+				acceptedFiles?.[0]?.path?.endsWith('.png') ||
+				acceptedFiles?.[0]?.path?.endsWith('.jpg') ||
+				acceptedFiles?.[0]?.path?.endsWith('.jpeg');
 
-			if (fileType === 'image') {
-				setFiles((prev) => [
-					...prev,
+			if (isAcceptableForUpload) {
+				setShowImageFileFeedback(false);
+				const fileMatched = acceptedFiles.map((file) => ({
+					file,
+					errors: [],
+				}));
+
+				const filesInAcceptedFormats = fileMatched.filter(
+					(file) =>
+						!file?.file?.name.toLowerCase().endsWith('.png') ||
+						!file?.file?.name.toLowerCase().endsWith('.jpg') ||
+						!file?.file?.name.toLowerCase().endsWith('.jpeg')
+				);
+
+				if (fileType === 'image') {
+					setFiles((prev) => [
+						...prev,
+						...filesInAcceptedFormats,
+						// ...rejectedFiles,
+					]);
+					return;
+				}
+				return setFiles([
 					...filesInAcceptedFormats,
-					...rejectedFiles,
+					// ...rejectedFiles
 				]);
-				return;
+			} else {
+				setShowImageFileFeedback(true);
 			}
-			return setFiles([...filesInAcceptedFormats, ...rejectedFiles]);
 		},
 		[fileType]
 	);
@@ -66,5 +82,6 @@ export const useUpload = ({fileType}) => {
 		deleteFile,
 		setUrl,
 		setFiles,
+		showImageFileFeedback,
 	};
 };

@@ -90,10 +90,14 @@ export const Input = ({
 	labelStyle,
 	errorMessage,
 	height = 'default', //default or small
+	containerStyle,
 	...rest
 }) => {
 	return (
-		<div className={`${rest.containerstyle} ${styles.inputContainer}`}>
+		<div
+			className={`${rest.containerstyle} ${styles.inputContainer}`}
+			style={containerStyle && containerStyle}
+		>
 			{label && (
 				<label
 					htmlFor={name}

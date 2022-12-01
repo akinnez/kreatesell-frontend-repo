@@ -1,35 +1,23 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
+
 import {Form, Button, DatePicker, Select, Row, Col} from 'antd';
 import {MdOutlineCancel} from 'react-icons/md';
 import moment from 'moment';
+import {format, parseISO, subDays} from 'date-fns';
+
 import {currencyOptions} from 'utils';
 import styles from './index.module.scss';
 
 const showOptions = [
-	{label: 'Today', value: 'today'},
-	{label: '1 Week', value: '1Week'},
-	{label: '1 Month', value: '1Month'},
-	{label: '6 Months', value: '6Months'},
+	{value: '', label: 'Custom'},
+	{value: 'Today', label: 'Today'},
+	{value: 'Yesterday', label: 'Yesterday'},
+	{value: 'Last 7 days', label: 'Last 7 days'},
+	{value: 'Last 30 days', label: 'Last 30 days'},
+	{value: 'This year', label: 'This year'},
+	{value: 'All time', label: 'All time'},
 ];
-
-const cb = (arr, from, to) => {
-	const fromDate = new Date(from).toLocaleDateString();
-	const parsedFromDate = Date.parse(fromDate);
-	const toDate = new Date(to).toLocaleDateString();
-	const parsedToDate = Date.parse(toDate);
-
-	return arr.filter((item) => {
-		const newDate = new Date(item.date_created).toLocaleDateString();
-		const parsedDate = Date.parse(newDate);
-
-		if (parsedFromDate > parsedToDate) {
-			return parsedDate <= parsedFromDate && parsedDate >= parsedToDate;
-		}
-
-		return parsedDate >= parsedFromDate && parsedDate <= parsedToDate;
-	});
-};
 
 const ResetBtn = ({resetFilters}) => (
 	<div className={styles.resetFilters}>
@@ -39,73 +27,112 @@ const ResetBtn = ({resetFilters}) => (
 	</div>
 );
 
-const DashboardFilters = ({data, setFiltered}) => {
+const DashboardFilters = ({
+	data,
+	setFiltered,
+	setFilters,
+	handleFilterSubmit,
+	filters,
+	getSalesStatistics,
+	getAffiliateSalesStatistics,
+}) => {
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [showFilter, setShowFilter] = useState(false);
 	const [form] = Form.useForm();
 
-	const handleSelect = (field) => (value) => {
-		form.setFieldsValue({[field]: value});
-	};
-
 	const handleDatePicker = (field) => (_, dateStr) => {
-		form.setFieldsValue({
-			[field]: dateStr ? moment(dateStr, 'YYYY-MM-DD') : '',
-		});
+		setFilters((prev) => ({
+			...prev,
+			[field]: dateStr ? dateStr : '',
+		}));
 	};
 
-	const handleSubmitFilter = (values) => {
-		const {show, currency, from, to} = values;
-
-		if (!show && !currency && !from && !to) {
-			return;
+	useEffect(() => {
+		if (filters.show) {
+			handleShowFilter();
 		}
+	}, [filters.show]);
 
-		// let tempArr;
+	const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
+		return format(date, formatArg);
+	};
 
-		// if (show) {
-		//   tempArr = data.filter(item => {
-		//     if (item[searchQuery]) {
-		//       return item[searchQuery].toLowerCase().includes(search.toLowerCase());
-		//     }
-
-		//     return null;
-		//   });
-		// }
-
-		// if (currency && tempArr) {
-		//   tempArr = tempArr.filter(item => item.currency === currency);
-		// } else if (currency && !tempArr) {
-		//   tempArr = data.filter(item => item.currency === currency);
-		// }
-
-		// if (from && to && tempArr) {
-		//   tempArr = cb(tempArr, from._i, to._i);
-		// } else if (from && to && !tempArr) {
-		//   tempArr = cb(data, from._i, to._i);
-		// }
-
-		// if (tempArr) {
-		//   setFiltered(tempArr);
-		//   setIsFiltered(true);
-		//   setShowFilter(false);
-		// }
+	const handleShowFilter = () => {
+		const day = new Date();
+		switch (filters.show) {
+			case 'Today':
+				setFilters((prev) => ({
+					...prev,
+					fromDate: formatDate(subDays(day, 0)),
+				}));
+				setFilters((prev) => ({...prev, toDate: formatDate(day)}));
+				break;
+			case 'Yesterday':
+				setFilters((prev) => ({
+					...prev,
+					fromDate: formatDate(subDays(day, 1)),
+				}));
+				setFilters((prev) => ({
+					...prev,
+					toDate: formatDate(subDays(day, 1)),
+				}));
+				// return [formatDate(subDays(day, 1)), formatDate(day)];
+				break;
+			case 'Last 7 days':
+				setFilters((prev) => ({
+					...prev,
+					fromDate: formatDate(subDays(day, 7)),
+				}));
+				setFilters((prev) => ({...prev, toDate: formatDate(day)}));
+				break;
+			case 'Last 30 days':
+				setFilters((prev) => ({
+					...prev,
+					fromDate: formatDate(subDays(day, 30)),
+				}));
+				setFilters((prev) => ({...prev, toDate: formatDate(day)}));
+				break;
+			case 'This year':
+				let year = new Date().getFullYear();
+				setFilters((prev) => ({...prev, fromDate: `${year}-01-01`}));
+				setFilters((prev) => ({...prev, toDate: formatDate(day)}));
+				break;
+			case 'All time':
+				setFilters((prev) => ({...prev, fromDate: ''}));
+				setFilters((prev) => ({...prev, toDate: formatDate(day)}));
+				break;
+			default:
+				return;
+		}
 	};
 
 	const resetFilters = () => {
 		setFiltered(null);
 		setIsFiltered(false);
 		form.resetFields();
+		setFilters({currency: '', fromDate: '', toDate: ''});
+		getSalesStatistics();
+		getAffiliateSalesStatistics();
 	};
 
-	const handleShowFilter = () => {
-		setShowFilter(true);
-	};
+	// const handleShowFilter = () => {
+	// 	setShowFilter(true);
+	// };
 
 	const handleHideFilter = () => {
 		setShowFilter(false);
 	};
 
+	const handleChange = (name, value, type) => {
+		switch (type) {
+			case 'select':
+				setFilters((prev) => ({...prev, [name]: value}));
+				break;
+			default:
+				break;
+		}
+	};
+	const Dateformat = 'YYYY-MM-DD';
 	return (
 		<>
 			<div className={styles.filterToggle}>
@@ -132,7 +159,9 @@ const DashboardFilters = ({data, setFiltered}) => {
 					<Form
 						labelCol={{span: 24}}
 						wrapperCol={{span: 24}}
-						onFinish={handleSubmitFilter}
+						onFinish={() =>
+							handleFilterSubmit(() => setIsFiltered(true))
+						}
 						size="large"
 						form={form}
 					>
@@ -147,7 +176,9 @@ const DashboardFilters = ({data, setFiltered}) => {
 									<Select
 										options={showOptions}
 										placeholder="Today"
-										onChange={handleSelect('show')}
+										onChange={(e) =>
+											handleChange('show', e, 'select')
+										}
 									/>
 								</Form.Item>
 							</Col>
@@ -161,7 +192,13 @@ const DashboardFilters = ({data, setFiltered}) => {
 									<Select
 										options={currencyOptions}
 										placeholder="NGN"
-										onChange={handleSelect('currency')}
+										onChange={(e) =>
+											handleChange(
+												'currency',
+												e,
+												'select'
+											)
+										}
 									/>
 								</Form.Item>
 							</Col>
@@ -171,10 +208,11 @@ const DashboardFilters = ({data, setFiltered}) => {
 								lg={{span: 4}}
 								className={styles.input__wrapper}
 							>
-								<Form.Item label="From" name="from">
+								<Form.Item label="From" name="fromDate">
 									<DatePicker
 										placeholder="2021-07-22"
-										onChange={handleDatePicker('from')}
+										onChange={handleDatePicker('fromDate')}
+										format={Dateformat}
 										allowClear={false}
 									/>
 								</Form.Item>
@@ -185,10 +223,10 @@ const DashboardFilters = ({data, setFiltered}) => {
 								lg={{span: 4}}
 								className={styles.input__wrapper}
 							>
-								<Form.Item label="To" name="to">
+								<Form.Item label="To" name="toDate">
 									<DatePicker
 										placeholder="2021-07-22"
-										onChange={handleDatePicker('to')}
+										onChange={handleDatePicker('toDate')}
 										allowClear={false}
 									/>
 								</Form.Item>

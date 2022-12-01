@@ -372,6 +372,7 @@ const Checkout = () => {
 
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price;
+
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
@@ -422,6 +423,12 @@ const Checkout = () => {
 		return affliateRef;
 	};
 
+	const affiliateUniqueKey =
+		pathName.localStorage?.getItem('affiliateUniqueKey');
+	const getAffiliateUniqueKey = () => {
+		return affiliateUniqueKey;
+	};
+
 	const handlePhoneCode = (countryParam) => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
@@ -468,8 +475,9 @@ const Checkout = () => {
 			currency: getCurrency('currency'),
 			payment_type: 'purchase',
 			is_affiliate: affliateRef ? true : false,
-			affiliate_product_link: getAffiliateRef(),
-			user_identifier: values?.id || '',
+			affiliate_product_link: getAffiliateUniqueKey(),
+			affiliate_id: getAffiliateRef(),
+			user_identifier: 'user-' + randomId,
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 		};
@@ -542,7 +550,8 @@ const Checkout = () => {
 
 	const checkOutInNaira = checkOutDetails?.find(
 		(item) =>
-			item?.currency_name === 'NGN' && item?.price_indicator === 'Selling'
+			item?.currency_name === defaultCurrency?.currency &&
+			item?.price_indicator === 'Selling'
 	);
 
 	// calculate price + fees
@@ -573,7 +582,7 @@ const Checkout = () => {
 			: setDisableBtn(false);
 	}, [desiredAmount]);
 
-	console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
+	// console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
 	// const handleSubmit = () => {
 	// 	// if we are using paypal
 
@@ -707,7 +716,10 @@ const Checkout = () => {
 					{
 						name: storeDetails?.product_details?.product_name,
 						description:
-							storeDetails?.product_details?.product_description,
+							storeDetails?.product_details?.product_description.substring(
+								0,
+								199
+							),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -721,6 +733,28 @@ const Checkout = () => {
 				);
 				// console.log('data is', data);
 				window.open(data.data.data.hosted_url, '_blank');
+			} catch (e) {
+				console.error(e);
+			} finally {
+				return;
+			}
+		}
+
+		if (selectedPaymentMethod === 'stripe') {
+			try {
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/stripe/create-checkout-session',
+					{
+						unit_amount: totalFee
+							? Number(getCurrency('total')).toFixed() * 100
+							: Number(getCurrency('price')).toFixed() * 100,
+						currency: getCurrency('currency').toLowerCase(),
+						quantity: 1,
+						success_url: 'http://localhost:3000/success',
+						cancel_url: `http://localhost:3000/checkout/${productId}?status=fail`,
+					}
+				);
+				window.open(data.data.url, '_blank');
 			} catch (e) {
 				console.error(e);
 			} finally {
@@ -1381,8 +1415,7 @@ const Checkout = () => {
 											storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 												'approved' &&
 											storeDetails?.user_plan?.toLowerCase() ===
-												'business' &&
-											value !== 'paypal'
+												'business'
 										}
 									>
 										<Tooltip

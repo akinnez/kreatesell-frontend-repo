@@ -45,7 +45,8 @@ class ApiService {
 		if (status === 401) {
 			localStorage.clear();
 			sessionStorage.clear();
-			window.location.href = '/login';
+			let nextPath = window.location.href;
+			window.location.href = `/login?next=${nextPath}`;
 			showToast('You need to be logged in to access resource', 'info');
 		}
 		return Promise.reject(error?.response?.data);

@@ -326,7 +326,7 @@ const ProductCard = ({
 }) => {
 	const pricingType =
 		productDetails?.product_details?.pricing_type?.price_type;
-
+	// console.log('productDetails', productDetails);
 	const router = useRouter();
 	const setCheckoutDetails = SetCheckoutDetails();
 	const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
@@ -421,56 +421,61 @@ const ProductCard = ({
 					{productDetails?.product_details?.product_name}
 				</p>
 
-				<div className={`flex justify-between items-center pb-4`}>
-					<div
-						className={`flex justify-between items-center pb-4 column ${styles.main}`}
-					>
-						{loading ? (
-							<Spin size="small" />
-						) : (
-							<>
-								<p
-									className={`text-base-gray text-sm md:text-base mb-0 ${styles.sellingPrice}`}
-								>
-									{targetCurrency ||
-										productDetails?.default_currency
-											?.currency}
-									{convertedCurrency
-										? new Intl.NumberFormat().format(
-												convertedCurrency * sellingPrice
-										  )
-										: !convertedCurrency
-										? new Intl.NumberFormat().format(
-												sellingPrice
-										  )
-										: '0.00'}
-								</p>
-
-								{pricingType === 'Fixed Price' && (
+				<div className={`flex justify-between items-center pb-4 pt-1`}>
+					{productDetails?.product_price_type === 'Make it Free' ? (
+						<p className={styles.makeItFreeText}>Free</p>
+					) : (
+						<div
+							className={`flex justify-between items-center column ${styles.main}`}
+						>
+							{loading ? (
+								<Spin size="small" />
+							) : (
+								<>
 									<p
-										className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+										className={`text-base-gray text-sm md:text-base mb-0 ${styles.sellingPrice}`}
 									>
 										{targetCurrency ||
 											productDetails?.default_currency
 												?.currency}
-
 										{convertedCurrency
 											? new Intl.NumberFormat().format(
 													convertedCurrency *
-														(originalPrice ??
-															productDetails?.default_price)
+														sellingPrice
 											  )
 											: !convertedCurrency
 											? new Intl.NumberFormat().format(
-													originalPrice ??
-														productDetails?.default_price
+													sellingPrice
 											  )
 											: '0.00'}
 									</p>
-								)}
-							</>
-						)}
-					</div>
+
+									{pricingType === 'Fixed Price' && (
+										<p
+											className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+										>
+											{targetCurrency ||
+												productDetails?.default_currency
+													?.currency}
+
+											{convertedCurrency
+												? new Intl.NumberFormat().format(
+														convertedCurrency *
+															(originalPrice ??
+																productDetails?.default_price)
+												  )
+												: !convertedCurrency
+												? new Intl.NumberFormat().format(
+														originalPrice ??
+															productDetails?.default_price
+												  )
+												: '0.00'}
+										</p>
+									)}
+								</>
+							)}
+						</div>
+					)}
 					<Image
 						alt=""
 						src={ExternalLink}

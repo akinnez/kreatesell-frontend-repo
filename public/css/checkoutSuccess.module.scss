@@ -7,23 +7,36 @@
 		display: flex;
 		background: #ffffff;
 		box-shadow: 0px 1px 0px rgba(34, 34, 34, 0.05);
-		span {
-			font-weight: 400;
-			font-size: 40px;
-			line-height: 64px;
-			color: #262626;
-			flex: 3;
+		padding-inline: 2rem;
+		& > div {
 			display: flex;
 			justify-content: flex-end;
-			padding-inline-end: 4rem;
-			align-items: center;
 		}
-		& > div {
+		.titleContainer {
+			flex: 2;
+			& > h3 {
+				font-weight: 400;
+				font-size: 2.5rem;
+				line-height: 64px;
+				text-align: center;
+				color: #262626;
+			}
+		}
+		.profileImageContainer {
 			flex: 1;
 			display: flex;
-			justify-content: flex-end;
-			padding-inline-end: 4rem;
 			align-items: center;
+			.profileImage {
+				height: 50px;
+				width: 50px;
+				border: 1px solid #7b7b7b;
+			}
+			& > p {
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #595959;
+			}
 		}
 	}
 	.body {
@@ -114,26 +127,61 @@
 					}
 				}
 			}
+			.preorder2 {
+				background: #fff6dd;
+				font-weight: 400;
+				font-size: 0.875rem;
+				line-height: 24px;
+				color: #262626;
+				padding: 0.5rem;
+				& > span {
+					font-weight: 700;
+				}
+			}
+			.error {
+				background: rgba(255, 77, 79, 0.1);
+				font-weight: 400;
+				font-size: 0.875rem;
+				line-height: 24px;
+				color: #ff4d4f;
+				padding: 0.5rem;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				margin-top: 0.5rem;
+				a {
+					font-weight: 700;
+					color: #ff4d4f !important;
+					text-decoration: underline;
+				}
+			}
 		}
 
 		.productCardContainer {
 			padding: 1.5rem;
 
 			.productDetails {
+				margin-top: 1rem;
 				.productName {
 					font-weight: 500;
 					font-size: 1.5rem;
 					line-height: 32px;
 					color: #262626;
 				}
-				.userDetails {
-					.username {
+				.profileImageContainer {
+					flex: 1;
+					display: flex;
+					align-items: center;
+					.profileImage {
+						height: 50px;
+						width: 50px;
+						border: 1px solid #7b7b7b;
+					}
+					& > p {
 						font-weight: 500;
-						font-size: 20px;
+						font-size: 1.25rem;
 						line-height: 30px;
 						color: #595959;
-						display: flex;
-						align-items: center;
 					}
 				}
 			}
@@ -183,6 +231,48 @@
 						cursor: pointer;
 					}
 				}
+			}
+		}
+	}
+}
+
+.modal {
+	padding: 1rem 2.3rem;
+	.header {
+		& > h2 {
+			font-weight: 600;
+			font-size: 1.5rem;
+			line-height: 32px;
+			text-align: center;
+
+			color: #262626;
+		}
+		& > p {
+			font-weight: 400;
+			font-size: 0.875rem;
+			line-height: 24px;
+			text-align: center;
+			color: #595959;
+		}
+	}
+	.modalBody {
+		margin-top: 1rem;
+		.preorder {
+			background: #fffdd0;
+			color: #ff5c00;
+			padding: 1rem;
+			margin-bottom: 1rem;
+			& > h5 {
+				color: inherit;
+				font-weight: 500;
+				font-size: 1rem;
+				line-height: 26px;
+			}
+			& > p {
+				color: inherit;
+				font-weight: 400;
+				font-size: 0.75rem;
+				line-height: 18px;
 			}
 		}
 	}

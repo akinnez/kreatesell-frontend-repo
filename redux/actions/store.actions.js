@@ -198,50 +198,71 @@ export const getStoreFailure = () => ({
 
 export const GetSalesStatistics = () => {
 	const dispatch = useDispatch();
-	return (successCallback, errorCallback) => (
-		dispatch({type: types.GET_SALES_STATISTICS.REQUEST}),
-		axios.request(
-			`get`,
-			`/v1/kreatesell/store/analytics`,
-			(res) => {
-				dispatch({
-					type: types.GET_SALES_STATISTICS.SUCCESS,
-					payload: res.data,
-				});
-				successCallback?.();
-			},
-			(err) => {
-				dispatch({
-					type: types.GET_SALES_STATISTICS.FAILURE,
-					payload: err,
-				});
-				errorCallback?.();
-			}
-		)
-	);
+	return (successCallback, errorCallback, filters = {}) => {
+		delete filters?.show;
+		let str = '';
+		if (Object.values(filters).length > 0) {
+			str += '?';
+			Object.entries(filters).forEach(([a, b]) => {
+				if (b !== '') {
+					str += `&${a}=${b}`;
+				}
+			});
+		}
+		return (
+			dispatch({type: types.GET_SALES_STATISTICS.REQUEST}),
+			axios.request(
+				`get`,
+				`/v1/kreatesell/store/analytics${str}`,
+				(res) => {
+					dispatch({
+						type: types.GET_SALES_STATISTICS.SUCCESS,
+						payload: res.data,
+					});
+					successCallback?.();
+				},
+				(err) => {
+					dispatch({
+						type: types.GET_SALES_STATISTICS.FAILURE,
+						payload: err,
+					});
+					errorCallback?.();
+				}
+			)
+		);
+	};
 };
 
 export const GetAffiliateSalesStatistics = () => {
 	const dispatch = useDispatch();
-	return (successCallback, errorCallback) => (
-		dispatch({type: types.GET_AFFILIATES_SALES_STATISTICS.REQUEST}),
-		axios.request(
-			`get`,
-			`/affiliate/get-affiliate-sales-stats`,
-			(res) => {
-				dispatch({
-					type: types.GET_AFFILIATES_SALES_STATISTICS.SUCCESS,
-					payload: res.data,
-				});
-				successCallback?.();
-			},
-			(err) => {
-				dispatch({
-					type: types.GET_AFFILIATES_SALES_STATISTICS.FAILURE,
-					payload: err,
-				});
-				errorCallback?.();
-			}
-		)
-	);
+	return (successCallback, errorCallback, filters = {}) => {
+		delete filters?.show;
+		let str = '?';
+		if (Object.values(filters).length > 0) {
+			Object.entries(filters).forEach(([a, b]) => {
+				str += `?${a}=${b}`;
+			});
+		}
+		return (
+			dispatch({type: types.GET_AFFILIATES_SALES_STATISTICS.REQUEST}),
+			axios.request(
+				`get`,
+				`/affiliate/get-affiliate-sales-stats`,
+				(res) => {
+					dispatch({
+						type: types.GET_AFFILIATES_SALES_STATISTICS.SUCCESS,
+						payload: res.data,
+					});
+					successCallback?.();
+				},
+				(err) => {
+					dispatch({
+						type: types.GET_AFFILIATES_SALES_STATISTICS.FAILURE,
+						payload: err,
+					});
+					errorCallback?.();
+				}
+			)
+		);
+	};
 };
