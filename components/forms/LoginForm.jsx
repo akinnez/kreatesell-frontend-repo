@@ -36,6 +36,12 @@ export const LoginForm = () => {
 			(res) => {
 				if (
 					Object.keys(router.query).length > 0 &&
+					Object.keys(router.query).includes('next')
+				) {
+					return router.push(router.query.next);
+				}
+				if (
+					Object.keys(router.query).length > 0 &&
 					Object.keys(router.query).includes('showpricing') &&
 					Boolean(router.query?.showpricing)
 				) {

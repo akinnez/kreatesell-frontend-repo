@@ -6,9 +6,8 @@ import {
 	Col,
 	// Card, Form, Input as AntInput
 } from 'antd';
-import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
+import {PayPalButtons} from '@paypal/react-paypal-js';
 
-import Logo from 'components/authlayout/logo';
 import {
 	ActiveTick,
 	ArrowLeft,
@@ -298,13 +297,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const [{options}, dispatch] = usePayPalScriptReducer();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
-
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -371,7 +373,8 @@ const Checkout = () => {
 	);
 
 	const currency_name = checkout?.[0]?.currency_name;
-	const price = checkout?.[0]?.price;
+	const price = checkout?.[0]?.price || 0;
+
 	const getProductDetails = async (productLink) => {
 		try {
 			const response = await axios.get(productLink);
@@ -469,7 +472,7 @@ const Checkout = () => {
 			payment_type: 'purchase',
 			is_affiliate: affliateRef ? true : false,
 			affiliate_product_link: getAffiliateRef(),
-			user_identifier: values?.id || '',
+			user_identifier: randomId || '',
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 		};
@@ -493,7 +496,7 @@ const Checkout = () => {
 		setTotalPrice(
 			(feePercentage / 100) * getCurrency('price') + getCurrency('price')
 		);
-		return totalPrice;
+		// return totalPrice;
 	};
 
 	useEffect(() => {
@@ -574,50 +577,7 @@ const Checkout = () => {
 			: setDisableBtn(false);
 	}, [desiredAmount]);
 
-	console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
-	// const handleSubmit = () => {
-	// 	// if we are using paypal
-
-	// 	/** Currencies using PayStack are listed here */
-	// 	if (
-	// 		['GHS', 'NGN'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		)
-	// 	) {
-	// 		return initializePaystackPayment(
-	// 			onPaystackSuccess,
-	// 			onPaystackClose
-	// 		);
-	// 	}
-
-	// 	// currencies using stripe
-
-	// 	/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-	// 	if (
-	// 		(!['NGN', 'GHS'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		) ||
-	// 			selectedPaymentMethod === 'flutterwave') &&
-	// 		!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-	// 	) {
-	// 		handleFlutterPayment({
-	// 			callback: async (response) => {
-	// 				// console.log('response ', response)
-	// 				await sendPaymentCheckoutDetails(
-	// 					paymentDetails({
-	// 						reference: response?.tx_ref,
-	// 						status: 'success',
-	// 					})
-	// 				);
-	// 				closePaymentModal();
-	// 				//   openModal();
-	// 			},
-	// 			onClose: () => {},
-	// 		});
-	// 	}
-	// };
-
-	// TODO: check if price in a particular currency has been specified before,
+	// TEST: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
 	const handleCurrencyConversion = (toCurrency) => {
 		let index = checkOutDetails.findIndex(
@@ -707,21 +667,45 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description,
+						description: storeDetails?.product_details?.product_description?.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
 							currency: 'USDT',
 						},
 						metadata: {
-							customer_id: '342',
-							customer_name: 1,
+							customer_id: randomId + `-${productId}`,
+							customer_name: `${values?.firstName} ${values?.lastName}`,
 						},
 					}
 				);
 				// console.log('data is', data);
 				window.open(data.data.data.hosted_url, '_blank');
+			} catch (e) {
+				console.error(e);
+			} finally {
+				return;
+			}
+		}
+
+		if (selectedPaymentMethod === 'stripe') {
+			try {
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/stripe/create-checkout-session',
+					{
+						unit_amount: totalFee
+							? Number(getCurrency('total')).toFixed() * 100
+							: Number(getCurrency('price')).toFixed() * 100,
+						currency: getCurrency('currency').toLowerCase(),
+						quantity: 1,
+						success_url: 'http://localhost:3000/success',
+						cancel_url: `http://localhost:3000/checkout/${productId}?status=fail`,
+					}
+				);
+				window.open(data.data.url, '_blank');
 			} catch (e) {
 				console.error(e);
 			} finally {
@@ -782,7 +766,8 @@ const Checkout = () => {
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -1018,7 +1003,7 @@ const Checkout = () => {
 							autoComplete="off"
 							className="w-full"
 						>
-							{pricingTypeDetails.price_type !==
+							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
 								<div className="pb-4">
 									<div className="text-black-100">
@@ -1052,7 +1037,7 @@ const Checkout = () => {
 									</div>
 								</div>
 							)}
-							{pricingTypeDetails.price_type !==
+							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>West African CFA Franc BCEAO(XOF)</h2>
@@ -1112,7 +1097,7 @@ const Checkout = () => {
 									</div>
 								</div>
 							)}
-							{pricingTypeDetails.price_type !==
+							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>Central African CFA Franc BEAC(XAF)</h2>
@@ -1389,31 +1374,29 @@ const Checkout = () => {
 													) => {
 														return actions.order.create(
 															{
-																purchase_units:
-																	[
-																		{
-																			description:
-																				storeDetails
-																					?.product_details
-																					?.product_description,
-																			amount: {
-																				// value: Number(
-																				// 	convertedPrice
-																				// ).toFixed(2),
-																				value: Number(
-																					getCurrency(
-																						'price'
-																					)
-																				).toFixed(
-																					2
-																				),
-																				currency:
-																					getCurrency(
-																						'currency'
-																					),
-																			},
+																purchase_units: [
+																	{
+																		description:
+																			storeDetails
+																				?.product_details
+																				?.product_description,
+																		amount: {
+																			// value: Number(
+																			// 	convertedPrice
+																			// ).toFixed(2),
+																			value: Number(
+																				getCurrency(
+																					'price'
+																				)
+																			).toFixed(
+																				2
+																			),
+																			currency: getCurrency(
+																				'currency'
+																			),
 																		},
-																	],
+																	},
+																],
 															}
 														);
 													}}

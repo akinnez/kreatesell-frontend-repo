@@ -24,7 +24,6 @@ export const CouponHeader = ({
 	const [form] = Form.useForm();
 
 	const {countriesCurrency, loading} = useCurrency();
-	// console.log("countriesCurrency", countriesCurrency);
 
 	useMemo(() => {
 		if (!!countriesCurrency) {
@@ -36,10 +35,7 @@ export const CouponHeader = ({
 		}
 	}, [countriesCurrency]);
 
-	//   Email: salvoprograms@gmail.com
-	// Pass: Salvo$123
 	const format = 'YYYY-MM-DD';
-	// if(loading) return <h1>Loading...</h1>
 	return (
 		<div>
 			<Form

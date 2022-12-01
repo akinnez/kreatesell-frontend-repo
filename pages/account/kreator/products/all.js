@@ -362,6 +362,15 @@ const AllProducts = () => {
 		);
 	};
 
+	const checkImageSrcIsNotNull = (src) => {
+		return (
+			src !== undefined &&
+			src?.length > 0 &&
+			src[0] !== null &&
+			src[0] !== ''
+		);
+	};
+
 	const resetFilters = () => {
 		// setProductData();
 		setStartDate();
@@ -396,6 +405,7 @@ const AllProducts = () => {
 						cb();
 					}}
 					handleStartDate={(e, string) => {
+						console.log('string', string);
 						setStartDate(string);
 					}}
 					handleCurrencyChange={(e) => setCurrencyFilter(e)}
@@ -404,8 +414,6 @@ const AllProducts = () => {
 						setShowSelect(e);
 					}}
 					{...{resetFilters}}
-					// productStatusOptions={productStatusOptions}
-					// handleProductStatus={(e) => setProductStatusId(e)}
 				/>
 
 				<div className={styles.exportDiv}>
@@ -476,14 +484,11 @@ const AllProducts = () => {
 							</div>
 							<div className={`flex ${styles.content}`}>
 								<div className={`${styles.image}`}>
-									{product.product_image?.length > 0 && (
+									{checkImageSrcIsNotNull(
+										product.product_image
+									) && (
 										<Image
-											src={
-												product.product_image[
-													product.product_image
-														.length - 1
-												]
-											}
+											src={product.product_image[0]}
 											width={100}
 											height={100}
 											objectFit="cover"

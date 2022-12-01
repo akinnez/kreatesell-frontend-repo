@@ -287,8 +287,10 @@ import KreateSellLogo from '../public/images/KreateSellLogo.png';
 import MastercardIcon from '../public/images/mastercardIcon.svg';
 import CancelAlert from '../public/images/cancelAlert.png';
 import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
+import CourseFileIcon from '../public/images/CourseFile.svg';
 
 export {
+	CourseFileIcon,
 	InfoIcon,
 	PaystackLogo,
 	MessageIcon,

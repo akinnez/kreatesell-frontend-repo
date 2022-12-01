@@ -120,8 +120,7 @@ export const showToast = (message, type) => {
 };
 
 export const _validateEmail = (email) => {
-	const re =
-		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(email);
 };
 
@@ -404,4 +403,16 @@ export const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
 
 export const RenderIf = ({condition, children}) => {
 	return condition ? children : null;
+};
+
+export const dateOptions = {
+	weekday: 'long',
+	year: 'numeric',
+	month: 'short',
+	day: 'numeric',
+};
+export const timeOptions = {
+	hour: 'numeric',
+	minute: 'numeric',
+	hour12: true,
 };
