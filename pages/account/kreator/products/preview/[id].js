@@ -10,7 +10,7 @@ import {PoweredByKS} from 'components/PoweredByKs';
 // export default function PreviewProduct ({id}){
 export default function PreviewProduct() {
 	const router = useRouter();
-	const getProductByID = GetProductByIDNotAut();  
+	const getProductByID = GetProductByIDNotAut();
 
 	useEffect(() => {
 		if (router.query.id) {

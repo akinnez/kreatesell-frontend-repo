@@ -146,13 +146,16 @@ export const GetProductByIDNotAut = () => {
 			(res) => {
 				console.log(' response from getproductById = ', res);
 				dispatch({
-					type: types.GET_PRODUCT_NOT_BY_ID.SUCCESS, 
+					type: types.GET_PRODUCT_NOT_BY_ID.SUCCESS,
 					payload: res?.data?.data,
 				});
 				successCallback?.();
 			},
 			(err) => {
-				dispatch({type: types.GET_PRODUCT_NOT_BY_ID.FAILURE, payload: err});
+				dispatch({
+					type: types.GET_PRODUCT_NOT_BY_ID.FAILURE,
+					payload: err,
+				});
 				showToast(err?.message, 'error');
 				errorCallback?.();
 			},

@@ -100,7 +100,7 @@ export const CheckoutProductTab = ({productId}) => {
 							Installment Payment
 						</Radio> */}
 						<Radio
-							disabled={store?.user?.user_plan !== 'Business'} 
+							disabled={store?.user?.user_plan !== 'Business'}
 							className={
 								store?.user?.user_plan === 'Business'
 									? styles.businessButton

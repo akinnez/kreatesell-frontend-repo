@@ -68,10 +68,10 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 
 		case types.GET_PRODUCT_BY_ID.SUCCESS:
 			return {...state, loading: false, product: payload};
-		
-	    case types.GET_PRODUCT_NOT_BY_ID.SUCCESS:
-            return {...state, loading: false, product: payload};
-			
+
+		case types.GET_PRODUCT_NOT_BY_ID.SUCCESS:
+			return {...state, loading: false, product: payload};
+
 		case types.GET_PRICING_TYPES.SUCCESS:
 			return {...state, loading: false, pricingTypes: payload};
 
