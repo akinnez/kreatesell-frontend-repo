@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import styles from '../../../../public/css/storeName-product-id.module.scss';
 import {useSelector} from 'react-redux';
 import PreviewHeader from 'components/Preview/PreviewHeader';
-import {AuthGetProductById} from 'redux/actions';
+import {AuthGetProductById,  GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
@@ -24,7 +24,7 @@ export default function PreviewProduct() {
 	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
 		useState(null);
 
-	const getProductByID = AuthGetProductById();
+	const getProductByID = GetProductByIDNotAut(); 
 	const convertCurrency = ConvertCurrency();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 

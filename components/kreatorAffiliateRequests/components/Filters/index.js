@@ -49,7 +49,7 @@ const Filters = ({setFilters, setLoading}) => {
 		}
 
 		setIsFiltered(true);
-		setLoading(true);
+		setLoading(true); 
 		setFilters((s) => ({
 			...s,
 			page: 1,

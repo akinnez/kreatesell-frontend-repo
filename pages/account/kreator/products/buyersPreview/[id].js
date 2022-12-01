@@ -13,7 +13,7 @@ import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 
 const BuyersPreview = () => {
 	const router = useRouter();
-	const getProduct = GetProductByIDNotAut();
+	const getProduct = AuthGetProductById();
 
 	const {
 		product,

@@ -22,7 +22,7 @@ const PageLayout = ({
 		setFilters({...filters, page});
 	};
 
-	const columns = tableColumns(
+	const columns = tableColumns( 
 		showReportModal,
 		showActionModal,
 		showNoteModal

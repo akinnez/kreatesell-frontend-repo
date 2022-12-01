@@ -422,6 +422,12 @@ const Checkout = () => {
 		return affliateRef;
 	};
 
+	const affiliateUniqueKey = pathName.localStorage?.getItem('affiliateUniqueKey');
+	const getAffiliateUniqueKey = () => {
+		return affiliateUniqueKey;
+	}
+
+
 	const handlePhoneCode = (countryParam) => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
@@ -468,7 +474,8 @@ const Checkout = () => {
 			currency: getCurrency('currency'),
 			payment_type: 'purchase',
 			is_affiliate: affliateRef ? true : false,
-			affiliate_product_link: getAffiliateRef(),
+			affiliate_product_link: getAffiliateUniqueKey(),
+			affiliate_id:getAffiliateRef(),
 			user_identifier: values?.id || '',
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
