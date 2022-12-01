@@ -29,6 +29,11 @@ const Dashboard = () => {
 	const getSalesStatistics = GetSalesStatistics();
 	const getAffiliateSalesStatistics = GetAffiliateSalesStatistics();
 
+	const [filters, setFilters] = useState({
+		currency: '',
+		fromDate: '',
+		toDate: '',
+	});
 	const [proceedToOnboard, setProceedToOnboard] = useState(false);
 	const [guideModalVisible, setGuideModalVisible] = useState(false);
 	const [hideDahboardGuideModal, setHideDahboardGuideModal] = useState(false);
@@ -73,6 +78,18 @@ const Dashboard = () => {
 		);
 	}, [mainStoreUrl]);
 
+	const handleFilterSubmit = () => {
+		getSalesStatistics(
+			() => {},
+			() => {},
+			filters
+		);
+		getAffiliateSalesStatistics(
+			() => {},
+			() => {},
+			filters
+		);
+	};
 	// const { data } = useSWR("v1/kreatesell/store/me", fetcher);
 	// console.log(data);
 
@@ -86,14 +103,27 @@ const Dashboard = () => {
 
 		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
-
+	// console.log('filters', filters);
 	return (
 		<AuthLayout>
 			<Head>
 				<title>KreateSell | Dashboard</title>
 			</Head>
 			<header className={styles.boardSection}>
-				<DashboardFilters data={[]} setFiltered={setFiltered} />
+				<DashboardFilters
+					data={[]}
+					setFiltered={setFiltered}
+					handleFilterSubmit={(cb) => {
+						handleFilterSubmit();
+						cb?.();
+					}}
+					{...{
+						setFilters,
+						filters,
+						getSalesStatistics,
+						getAffiliateSalesStatistics,
+					}}
+				/>
 			</header>
 			<section>
 				<div className={styles.stats__container}>

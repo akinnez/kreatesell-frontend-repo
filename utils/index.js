@@ -405,3 +405,15 @@ export const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
 export const RenderIf = ({condition, children}) => {
 	return condition ? children : null;
 };
+
+export const dateOptions = {
+	weekday: 'long',
+	year: 'numeric',
+	month: 'short',
+	day: 'numeric',
+};
+export const timeOptions = {
+	hour: 'numeric',
+	minute: 'numeric',
+	hour12: true,
+};

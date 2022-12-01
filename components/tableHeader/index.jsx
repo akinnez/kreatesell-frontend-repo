@@ -575,6 +575,65 @@ const CouponActionComponent = ({item}) => {
 	);
 };
 
+const productAvailabilityStatus = (item) => {
+	const statusTextList = {
+		'Unlimited Copies': {
+			type: 'Pending',
+			styles: {background: 'rgba(255, 214, 102, 0.2)', color: '#FBB500'},
+		},
+		'In Stock': {
+			type: 'Active',
+			styles: {background: '#F1FCF8', color: '#2DC071'},
+		},
+		'Out of Stock': {
+			type: 'Finished',
+			styles: {background: 'rgba(255, 77, 79, 0.1)', color: '#F90005'},
+		},
+		Expired: {
+			type: 'Expired',
+			styles: {background: 'rgba(255, 77, 79, 0.1)', color: '#F90005'},
+		},
+	};
+
+	let tagStyles = statusTextList[item].styles;
+	const mainType = statusTextList[item].type;
+	return (
+		<div className={styles.tags} style={tagStyles}>
+			{mainType.charAt(0).toUpperCase() + mainType.slice(1)}
+		</div>
+	);
+};
+
+const renderProductType = ({product_price_type, price}) => {
+	if (['Pay What You Want', 'Fixed Price'].includes(product_price_type)) {
+		return (
+			<div className="text-center w-9/12">
+				{price?.currency} {price?.productPrice || '0.00'}
+			</div>
+		);
+	} else if (product_price_type === 'Make it Free') {
+		return (
+			<p
+				className="text-center w-9/12 mb-0"
+				style={{
+					background: '#2DC071',
+					color: '#fff',
+					fontWeight: 700,
+					fontSize: '1rem',
+				}}
+			>
+				FREE
+			</p>
+		);
+	} else if (product_price_type === 'Fixed Price') {
+		return (
+			<>
+				{price?.currency} {price?.productPrice || '0.00'}
+			</>
+		);
+	}
+	return;
+};
 export const AllProductsTableHeader = [
 	{
 		title: '',
@@ -584,15 +643,18 @@ export const AllProductsTableHeader = [
 		render: (item) => {
 			return (
 				<div className={styles.productTableImage}>
-					{item !== undefined && item.length > 0 && (
-						<Image
-							src={item[0]}
-							width="100"
-							height={100}
-							objectFit="cover"
-							alt="Product"
-						/>
-					)}
+					{item !== undefined &&
+						item.length > 0 &&
+						item[0] !== null &&
+						item[0] !== '' && (
+							<Image
+								src={item[0]}
+								width="100"
+								height={100}
+								objectFit="cover"
+								alt="Product"
+							/>
+						)}
 				</div>
 			);
 		},
@@ -600,19 +662,26 @@ export const AllProductsTableHeader = [
 	{
 		title: 'Product',
 		dataIndex: 'product_name',
-		width: 180,
+		width: 210,
 		fixed: 'left',
-		render: (item, record) => (
-			<div className={styles.productTableName + ' flex flex-col'}>
-				{/* {console.log(record)} */}
-				<h2 className="text-lg mb-1 font-semibold">{item}</h2>
-				<p className="text-xs mb-2 w-3/4  py-1 text-center border-green-400 rounded-md px-2 border">
-					{' '}
-					Unlimited Copies
-				</p>
-				<p className="text-xs font-normal"> 0 copies sold</p>
-			</div>
-		),
+		render: (item, record) => {
+			// console.log('record', record);
+			return (
+				<div className={styles.productTableName + ' flex flex-col'}>
+					<h2 className="text-lg mb-1 font-semibold">{item}</h2>
+					<p className="text-xs mb-2 w-3/4  py-1 text-center border-green-400 rounded-md px-2 border">
+						{' '}
+						Unlimited Copies
+					</p>
+					{!record.product_details.is_show_number_of_sales && (
+						<p className="text-xs font-normal">
+							{' '}
+							{record?.number_sold} copies sold
+						</p>
+					)}
+				</div>
+			);
+		},
 	},
 	{
 		title: 'Product Type',
@@ -621,11 +690,7 @@ export const AllProductsTableHeader = [
 	{
 		title: 'Price',
 		dataIndex: 'price',
-		render: (item) => (
-			<div>
-				{item?.currency} {item?.productPrice || '0.00'}
-			</div>
-		),
+		render: (item, record) => <div>{renderProductType(record)}</div>,
 	},
 	{
 		title: 'Date Added',
@@ -633,10 +698,14 @@ export const AllProductsTableHeader = [
 		render: (item) => {
 			const time = parseISO(item);
 			const formatTime = format(time, 'PPPp');
+			const formatDate = format(time, 'PPP');
 			return (
 				<div className="flex flex-col items-center">
-					<div>{`${formatTime.split('at')[0]},`}</div>
-					<div>{formatTime.split('at')[1]}</div>
+					<div>
+						{`${formatDate.split('at')[0]},`}{' '}
+						{formatTime.split('at')[1]}
+					</div>
+					{/* <div>{formatTime.split('at')[1]}</div> */}
 				</div>
 			);
 		},

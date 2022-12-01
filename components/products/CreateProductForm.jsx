@@ -85,6 +85,11 @@ export const CreateProductForm = ({
 			preorder_release_date: '',
 			is_preorder_downloadable: true,
 		},
+		// content_file_details: {
+		// 	productfiles: [],
+		// 	file_access_type: '',
+		// 	file_type: '',
+		// },
 		contentZipFiles: '',
 		action: !isAnEmpytyObject(product) ? 'e' : 'c',
 		kreatesell_id: '',
@@ -103,7 +108,7 @@ export const CreateProductForm = ({
 	console.log('isImageFilled = ', isImageFilled);
 
 	const handleSubmit = (data) => {
-		// console.log("Data is", data)
+		// console.log('Data is', data);
 		if (['oneTimeSubscription', 'membership'].includes(productType)) {
 			delete data?.contentZipFiles;
 			delete data?.upload_content;

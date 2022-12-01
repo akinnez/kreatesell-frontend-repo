@@ -8,8 +8,6 @@ const useCheckoutCurrency = () => {
 	const {storeCheckoutCurrencies, loading: storeCheckoutCurrenciesLoading} =
 		useSelector((state) => state.store);
 
-	useEffect(() => {}, [storeCheckoutCurrencies.length]);
-
 	const countriesCurrency = useMemo(() => {
 		if (storeCheckoutCurrencies.length > 0) {
 			return countries?.filter((country) => {
@@ -35,6 +33,12 @@ const useCheckoutCurrency = () => {
 		return [];
 	}, [countries, storeCheckoutCurrencies.length]);
 
+	// console.log(
+	// 	'country',
+	// 	countries.find((ctr) => ctr.short_name === 'TZ')
+	// );
+	// console.log('storeCheckoutCurrencies', storeCheckoutCurrencies);
+	// console.log('countriesCurrency', countriesCurrency);
 	// allowed currencies: {label:"",value:""}
 
 	const filterdWest = useMemo(() => {
