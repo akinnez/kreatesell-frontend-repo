@@ -61,6 +61,7 @@ export const CreateProductForm = ({
 	const activateStatus = filterListingStatus(1);
 	const deActivateStatus = filterListingStatus(2);
 	const unListStatus = filterListingStatus(3);
+	// const [showImageFileFeedback, setShowImageFileFeedback] = useState(false);
 	const {
 		mainFile: imageUploads,
 		getRootProps,
@@ -68,6 +69,7 @@ export const CreateProductForm = ({
 		deleteFile,
 		setUrl,
 		setFiles,
+		showImageFileFeedback,
 	} = useUpload({
 		fileType: 'image',
 	});
@@ -388,7 +390,13 @@ export const CreateProductForm = ({
 								This image will be displayed on your store page!
 								(You can upload up to 3 images)
 							</p>
-							<p className="text-black font-medium text-xs">
+							<p
+								className={`text-black font-medium text-xs ${
+									showImageFileFeedback
+										? styles.showError
+										: ''
+								}`}
+							>
 								Allowed Files: PNG, JPG | Maximum file size: 2MB
 							</p>
 							{store?.user?.user_plan === 'Basic' &&

@@ -3,6 +3,7 @@ import {useDropzone} from 'react-dropzone';
 
 export const useUpload = ({fileType}) => {
 	const [files, setFiles] = useState([]);
+	const [showImageFileFeedback, setShowImageFileFeedback] = useState(false);
 
 	//* edits
 	const onDrop = useCallback(
@@ -16,6 +17,7 @@ export const useUpload = ({fileType}) => {
 				acceptedFiles?.[0]?.path?.endsWith('.jpeg');
 
 			if (isAcceptableForUpload) {
+				setShowImageFileFeedback(false);
 				const fileMatched = acceptedFiles.map((file) => ({
 					file,
 					errors: [],
@@ -40,6 +42,8 @@ export const useUpload = ({fileType}) => {
 					...filesInAcceptedFormats,
 					// ...rejectedFiles
 				]);
+			} else {
+				setShowImageFileFeedback(true);
 			}
 		},
 		[fileType]
@@ -78,5 +82,6 @@ export const useUpload = ({fileType}) => {
 		deleteFile,
 		setUrl,
 		setFiles,
+		showImageFileFeedback,
 	};
 };
