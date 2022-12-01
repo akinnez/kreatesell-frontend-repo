@@ -28,6 +28,7 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 		case types.CREATE_CONTENT.REQUEST:
 		case types.GET_PRODUCT_TYPES.REQUEST:
 		case types.GET_PRODUCT_BY_ID.REQUEST:
+		case types.GET_PRODUCT_NOT_BY_ID.REQUEST:
 		case types.PUBLISH_PRODUCT.REQUEST:
 		case types.GET_PRICING_TYPES.REQUEST:
 		case types.GET_LISTING_STATUS.REQUEST:
@@ -66,6 +67,9 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 			return {...state, loading: false, listingStatus: payload};
 
 		case types.GET_PRODUCT_BY_ID.SUCCESS:
+			return {...state, loading: false, product: payload};
+
+		case types.GET_PRODUCT_NOT_BY_ID.SUCCESS:
 			return {...state, loading: false, product: payload};
 
 		case types.GET_PRICING_TYPES.SUCCESS:
