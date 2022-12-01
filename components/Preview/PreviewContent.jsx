@@ -230,7 +230,6 @@ export default function PreviewContent({
 							)}
 					</div>
 
-					{/* TODO: make the date dynamic */}
 					{product?.product_details?.enable_preorder && (
 						<div className={styles.preorderInfo}>
 							Please note that this product is to be preordered

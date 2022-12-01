@@ -61,6 +61,7 @@ export const CreateProductForm = ({
 	const activateStatus = filterListingStatus(1);
 	const deActivateStatus = filterListingStatus(2);
 	const unListStatus = filterListingStatus(3);
+	// const [showImageFileFeedback, setShowImageFileFeedback] = useState(false);
 	const {
 		mainFile: imageUploads,
 		getRootProps,
@@ -68,6 +69,7 @@ export const CreateProductForm = ({
 		deleteFile,
 		setUrl,
 		setFiles,
+		showImageFileFeedback,
 	} = useUpload({
 		fileType: 'image',
 	});
@@ -103,31 +105,31 @@ export const CreateProductForm = ({
 		isBasicPlan: false,
 	};
 
-	// console.log("isImageFilled = ", isImageFilled);
+	console.log('isImageFilled = ', isImageFilled);
 
 	const handleSubmit = (data) => {
-		console.log('Data is', data);
-		// if (['oneTimeSubscription', 'membership'].includes(productType)) {
-		// 	delete data?.contentZipFiles;
-		// 	delete data?.upload_content;
-		// 	delete data?.upload_preview;
-		// }
-		// if (!data.enable_preorder) {
-		// 	delete data.preorder_details;
-		// }
-		// if (!data.upload_content) {
-		// 	delete data.contentZipFiles;
-		// }
-		// delete data.isBasicPlan;
-		// // console.log(data)
-		// const result = transformToFormData(data, 'contentZipFiles');
-		// console.log('result = ', result);
-		// createProduct(result, async () => {
-		// 	if (productId) {
-		// 		await getProductByID(productId);
-		// 	}
-		// 	setProductTab(1);
-		// });
+		// console.log('Data is', data);
+		if (['oneTimeSubscription', 'membership'].includes(productType)) {
+			delete data?.contentZipFiles;
+			delete data?.upload_content;
+			delete data?.upload_preview;
+		}
+		if (!data.enable_preorder) {
+			delete data.preorder_details;
+		}
+		if (!data.upload_content) {
+			delete data.contentZipFiles;
+		}
+		delete data.isBasicPlan;
+		// console.log(data)
+		const result = transformToFormData(data, 'contentZipFiles');
+		console.log('result = ', result);
+		createProduct(result, async () => {
+			if (productId) {
+				await getProductByID(productId);
+			}
+			setProductTab(1);
+		});
 	};
 	const imageIsEdits = (files) => {
 		const mapped = files?.map((items, i) => {
@@ -180,6 +182,7 @@ export const CreateProductForm = ({
 	}, [product]);
 
 	useEffect(() => {
+		console.log('imageUploads = ', imageUploads);
 		if (imageUploads.length >= 3) {
 			setIsImageFilled(true);
 			return;
@@ -392,7 +395,13 @@ export const CreateProductForm = ({
 								This image will be displayed on your store page!
 								(You can upload up to 3 images)
 							</p>
-							<p className="text-black font-medium text-xs">
+							<p
+								className={`text-black font-medium text-xs ${
+									showImageFileFeedback
+										? styles.showError
+										: ''
+								}`}
+							>
 								Allowed Files: PNG, JPG | Maximum file size: 2MB
 							</p>
 							{store?.user?.user_plan === 'Basic' &&

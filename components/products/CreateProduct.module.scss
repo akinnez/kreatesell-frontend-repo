@@ -387,3 +387,9 @@
 	margin-left: unset;
 	font-size: unset;
 }
+
+.showError {
+	color: red;
+	font-weight: 700;
+	transition: all 0.2s;
+}
