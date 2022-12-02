@@ -415,6 +415,11 @@ const Checkout = () => {
 				// Number(getCurrency('price')).toFixed(2)
 			);
 		}
+		else if (priceOrName === 'free') {
+			return (
+				'NGN'
+			);
+		}
 	};
 
 	const affliateRef = pathName.localStorage?.getItem('affiliateRef');
@@ -465,13 +470,13 @@ const Checkout = () => {
 			email_address: values?.email,
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
-			total: getCurrency('total'),
+			total: pricingTypeDetails.price_type === 'Make it Free' ? 0 : getCurrency('total'),
 			reference_id: reference,
 			purchase_details: getPurchaseDetails(),
 			status: statusValue,
 			card_type: '',
 			last_four: '',
-			currency: getCurrency('currency'),
+			currency: pricingTypeDetails.price_type === 'Make it Free' ? getCurrency('free') : getCurrency('currency'),
 			payment_type: 'purchase',
 			is_affiliate: affliateRef ? true : false,
 			affiliate_product_link: getAffiliateUniqueKey(),
@@ -882,7 +887,7 @@ const Checkout = () => {
 	const handleMakeItFreePayment = async () => {
 		const status = 'success';
 		await sendPaymentCheckoutDetails(
-			paymentDetails({total: null, reference: '', status: status}),
+			paymentDetails({total: 0, reference: '', status: status}),
 			() => router.push('/checkout/success')
 		);
 	};
