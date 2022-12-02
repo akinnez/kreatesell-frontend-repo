@@ -792,6 +792,8 @@ export const CheckoutForm = ({
 	const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
 
 	useEffect(() => {
+		// if (priceType !== 'Make It Free') return
+
 		minimumPrice.map((item) => {
 			const minPriceCurrency = item?.currency_name;
 			const minPriceValue = item?.currency_value;
@@ -799,9 +801,6 @@ export const CheckoutForm = ({
 			const matchItem = suggestedPrice?.find((SpItem) => {
 				return SpItem?.currency_name === minPriceCurrency;
 			});
-
-			console.log(minPriceValue, 'minPriceValue');
-			console.log(matchItem, 'matchItem');
 
 			if (minPriceValue > Number(matchItem?.currency_value)) {
 				showToast(
@@ -813,7 +812,7 @@ export const CheckoutForm = ({
 				setIsGreaterThanSug(false);
 			}
 			return isGreaterthanSug;
-		});
+		}, []);
 
 		fixedOriginalPrice?.map((OpItem) => {
 			//* Op = Original Price and Sp = SellingPrice
