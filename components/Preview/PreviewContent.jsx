@@ -69,7 +69,7 @@ export default function PreviewContent({
 
 	const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
-	console.log(productPriceType,'productPriceType')
+	console.log(productPriceType, 'productPriceType');
 	// const defaultCurrency = product
 
 	console.log(product, 'product');
@@ -286,7 +286,7 @@ export default function PreviewContent({
 									convertedCurrency?.to_currency_name ||
 									getMinimumCurrency()
 								} 
-								 ${getMinimumPrice()}`}</h1> 
+								 ${getMinimumPrice()}`}</h1>
 							)}
 							{originalPrice?.length > 0 &&
 								productPriceType !== 'Pay What You Want' && (

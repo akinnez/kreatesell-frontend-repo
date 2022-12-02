@@ -414,11 +414,8 @@ const Checkout = () => {
 				OriginalPrices?.price || null
 				// Number(getCurrency('price')).toFixed(2)
 			);
-		}
-		else if (priceOrName === 'free') {
-			return (
-				'NGN'
-			);
+		} else if (priceOrName === 'free') {
+			return 'NGN';
 		}
 	};
 
@@ -470,13 +467,19 @@ const Checkout = () => {
 			email_address: values?.email,
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
-			total: pricingTypeDetails.price_type === 'Make it Free' ? 0 : getCurrency('total'),
+			total:
+				pricingTypeDetails.price_type === 'Make it Free'
+					? 0
+					: getCurrency('total'),
 			reference_id: reference,
 			purchase_details: getPurchaseDetails(),
 			status: statusValue,
 			card_type: '',
 			last_four: '',
-			currency: pricingTypeDetails.price_type === 'Make it Free' ? getCurrency('free') : getCurrency('currency'),
+			currency:
+				pricingTypeDetails.price_type === 'Make it Free'
+					? getCurrency('free')
+					: getCurrency('currency'),
 			payment_type: 'purchase',
 			is_affiliate: affliateRef ? true : false,
 			affiliate_product_link: getAffiliateUniqueKey(),
