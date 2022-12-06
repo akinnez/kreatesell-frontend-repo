@@ -1,6 +1,7 @@
 import {useState} from 'react';
 
 const useAffiliateFilters = (api) => {
+	// console.log('filters rerende market');
 	const [filters, setFilters] = useState({
 		page: 1,
 		limit: 10,
