@@ -683,6 +683,11 @@ export const CheckoutForm = ({
 				product?.product_details?.product_name
 			);
 			setFieldValue(
+				'number_of_limited_product',
+				product?.product_details?.number_of_product
+			);
+			setNumberOfLimit(product?.product_details?.number_of_product);
+			setFieldValue(
 				'product_details',
 				product?.product_details?.product_details
 			);
@@ -1906,7 +1911,7 @@ export const CheckoutForm = ({
 							</span>
 						</div>
 					</div>
-
+					{console.log('numberOfLimit', numberOfLimit)}
 					{limitProductSale && (
 						<div
 							className={
