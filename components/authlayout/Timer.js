@@ -13,6 +13,7 @@ const Timer = () => {
 		store: {plan_expiry_date},
 	} = useSelector((state) => state.store);
 	const [days, hours, minutes, seconds] = useCountdown(plan_expiry_date);
+
 	return (
 		<>
 			<section className={style.businessBg}>
@@ -36,7 +37,7 @@ const Timer = () => {
 									</button>
 								</div>
 							</>
-						) : days > 0 ? (
+						) : days + hours + minutes + seconds > 0 ? (
 							<div className={style.upgradeIndicationContainer}>
 								<div className={style.currentPlan}>
 									<h3 className={style.title}>
