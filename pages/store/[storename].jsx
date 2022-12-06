@@ -265,22 +265,23 @@ const StorePage = () => {
 						{
 							/* console.log('productDetails = ', productDetails) */
 						}
-						const countrySale =
-							productDetails?.check_out_details?.find(
-								(item) =>
-									item?.currency_name ===
-										defaultCurrency?.currency &&
-									item?.price_indicator === 'Selling'
-							);
+						const countrySale = productDetails?.check_out_details?.find(
+							(item) =>
+								item?.currency_name ===
+									defaultCurrency?.currency &&
+								item?.price_indicator === 'Selling'
+						);
 
-						const sellingPrice = countrySale?.price;
-						const originalSetting =
-							productDetails?.check_out_details?.find(
-								(item) =>
-									item?.currency_name ===
-										defaultCurrency?.currency &&
-									item?.price_indicator === 'Original'
-							);
+						{
+							/* const sellingPrice = countrySale?.price; */
+						}
+						const sellingPrice = productDetails?.default_price;
+						const originalSetting = productDetails?.check_out_details?.find(
+							(item) =>
+								item?.currency_name ===
+									defaultCurrency?.currency &&
+								item?.price_indicator === 'Original'
+						);
 
 						const originalPrice = originalSetting?.price;
 						return (
@@ -358,7 +359,7 @@ const ProductCard = ({
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
-
+	// console.log('productDetails', productDetails);
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -400,11 +401,12 @@ const ProductCard = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color: statusLabel[
-							outOfStock()
-								? 'Out of Stock'
-								: productDetails.status
-						].color,
+						color:
+							statusLabel[
+								outOfStock()
+									? 'Out of Stock'
+									: productDetails.status
+							].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
@@ -424,6 +426,14 @@ const ProductCard = ({
 				<div className={`flex justify-between items-center pb-4 pt-1`}>
 					{productDetails?.product_price_type === 'Make it Free' ? (
 						<p className={styles.makeItFreeText}>Free</p>
+					) : productDetails?.product_price_type ===
+					  'Pay What You Want' ? (
+						<p
+							className={`mb-0 text-base-gray ${styles.sellingPrice}`}
+						>
+							{productDetails?.defaultCurrency?.currency}{' '}
+							{productDetails.default_price}
+						</p>
 					) : (
 						<div
 							className={`flex justify-between items-center column ${styles.main}`}
