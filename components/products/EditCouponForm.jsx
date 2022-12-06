@@ -345,12 +345,12 @@ export const EditCouponForm = () => {
 						<div className={styles.inputGroup /*+"  w-3/5"*/}>
 							<Input
 								type="datetime-local"
-								onChange={(e) =>
+								onChange={(e) => {
 									setFieldValue(
 										'coupon_settings.start_date',
 										e.target.value
-									)
-								}
+									);
+								}}
 								value={start_date}
 							/>
 						</div>
