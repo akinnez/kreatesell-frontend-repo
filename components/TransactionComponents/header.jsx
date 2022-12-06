@@ -9,6 +9,7 @@ import {Button} from '../form-input';
 import StatusButtons from './StatusButtons';
 import styles from './header.module.scss';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
+import ResetFilters from 'components/ResetFilters';
 import {SVGFilter} from 'utils';
 
 const TransactionHeader = ({
@@ -66,6 +67,21 @@ const TransactionHeader = ({
 			to: to ? to._i : '',
 		}));
 	};
+
+	const resetFilters = () => {
+		form.resetFields();
+		setIsFiltered(false);
+		setFilters((s) => ({
+			...s,
+			page: 1,
+			productName: '',
+			kreatorName: '',
+			sortBy: null,
+			productType: null,
+			dateListed: '',
+		}));
+	};
+
 	return (
 		<>
 			<Head>
@@ -154,10 +170,7 @@ const TransactionHeader = ({
 							</Col>
 						</Row>
 					</Form>
-					{/* {isFiltered && <ResetFilters resetFilters={()=>{
-            resetFilters()
-            setIsFiltered(false)  
-          }} />} */}
+					{isFiltered && <ResetFilters resetFilters={resetFilters} />}
 				</div>
 				<StatusButtons {...{setFilters, filters, setLoading}} />
 				<div
