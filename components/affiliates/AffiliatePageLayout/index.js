@@ -24,7 +24,7 @@ const AffiliatePageLayout = ({
 		setFilters({...filters, page});
 	};
 
-	console.log('data = ', products.data);
+	// console.log('data = ', products.data);
 	return (
 		<>
 			<header className={styles.header}>
