@@ -8,13 +8,21 @@ export const useUpload = ({fileType}) => {
 	//* edits
 	const onDrop = useCallback(
 		(acceptedFiles, rejectedFiles) => {
-			console.log('onDrop');
-			console.log('acceptedFiles = ', acceptedFiles);
+			// console.log('onDrop');
+			// console.log('acceptedFiles = ', acceptedFiles);
+			// console.log('rejectedFiles = ', rejectedFiles);
 
+			/**
+			 * TODO: we should refactor this to accept the accepted MIME type
+			 *  e.g. acceptedFile = ['.rar', .'png']
+			 *  const isAcceptableForUpload = acceptedFile.includes(acceptedFiles?.[0]?.path)
+			 */
 			const isAcceptableForUpload =
 				acceptedFiles?.[0]?.path?.endsWith('.png') ||
 				acceptedFiles?.[0]?.path?.endsWith('.jpg') ||
-				acceptedFiles?.[0]?.path?.endsWith('.jpeg');
+				acceptedFiles?.[0]?.path?.endsWith('.jpeg') ||
+				acceptedFiles?.[0]?.path?.endsWith('.rar') ||
+				acceptedFiles?.[0]?.path?.endsWith('.zip');
 
 			if (isAcceptableForUpload) {
 				setShowImageFileFeedback(false);
