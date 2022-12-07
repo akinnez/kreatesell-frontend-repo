@@ -21,6 +21,7 @@ const PreviewMembership = () => {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
+	console.log(product, 'productproductproduct');
 
 	const [activeLink, setActiveLink] = useState({});
 
@@ -29,6 +30,15 @@ const PreviewMembership = () => {
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const css = document.createElement('style');
+			css.innerHTML =
+				'.ql-video { width: 100% !important; height: 368px !important;}';
+			document.body.appendChild(css);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -61,6 +71,7 @@ const PreviewMembership = () => {
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
 	// console.log(activeLink, 'ctiveLink');
+	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -140,12 +151,12 @@ const PreviewMembership = () => {
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
-								<h1 className={styles.sectionName}>
+								{/* <h1 className={styles.sectionName}>
+								How To Invest In Cryptocurrency
+								</h1> */}
+								<h1 className={styles.sectionTitle}>
 									{activeLink?.product_section_name}
 								</h1>
-								{/* <h1 className={styles.sectionTitle}>
-									How To Invest In Cryptocurrency
-								</h1> */}
 								{/* {activeLink?.id} */}
 							</Card>
 							<div
@@ -154,14 +165,38 @@ const PreviewMembership = () => {
 									backgroundColor: 'white',
 								}}
 							>
-								{activeLink?.files && (
-									<Image
-										src={fileMedia}
-										alt="media"
-										width={700}
-										height={450}
-									/>
-								)}
+								{activeLink?.files &&
+									fileMediaType === 'image' && (
+										<Image
+											src={fileMedia}
+											alt="media"
+											width={755}
+											height={450}
+											objectFit="cover"
+										/>
+									)}
+								{activeLink?.files &&
+									fileMediaType === 'audio' && (
+										<audio
+											controls
+											className={styles.audio}
+										>
+											<source
+												src={fileMedia}
+												type="audio/mpeg"
+											/>
+										</audio>
+									)}
+								{activeLink?.files &&
+									fileMediaType === 'video' && (
+										<video
+											controls
+											loop
+											src={fileMedia}
+											alt=""
+											className={styles.previewVideo}
+										/>
+									)}
 							</div>
 							<Card>
 								<div

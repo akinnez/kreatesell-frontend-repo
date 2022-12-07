@@ -16,6 +16,11 @@ export default function FileUpload({
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: '.zip,.rar',
 	});
+
+	console.log(initialFile, 'initialFileinitialFile');
+
+	console.log(file, 'filefilefilefile');
+
 	const fetchFile = async (url) => {
 		const instance = axios.create();
 		delete instance.defaults.headers.common['Authorization'];
@@ -55,6 +60,7 @@ export default function FileUpload({
 			setFile(null);
 		};
 	}, [isToggleable, toggleValue]);
+
 	useEffect(() => {
 		if (initialFile) {
 			const getFileDetails = () => {
@@ -65,6 +71,7 @@ export default function FileUpload({
 			getFileDetails();
 		}
 	}, [initialFile]);
+
 	useEffect(() => {
 		if (mainFile.length > 0) {
 			const start = async () => {
@@ -81,6 +88,8 @@ export default function FileUpload({
 			start();
 		}
 	}, [mainFile]);
+
+	console.log(mainFile, 'mainFilemainFilemainFilemainFile');
 
 	return (
 		<div className="pt-2">

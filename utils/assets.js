@@ -288,6 +288,8 @@ import MastercardIcon from '../public/images/mastercardIcon.svg';
 import CancelAlert from '../public/images/cancelAlert.png';
 import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
 import CourseFileIcon from '../public/images/CourseFile.svg';
+import Pdf from '../public/images/Pdf.png';
+import ImageIcon from '../public/images/image.png';
 
 export {
 	CourseFileIcon,
@@ -579,4 +581,6 @@ export {
 	MastercardIcon,
 	CancelAlert,
 	CancelMembershipSuccessIcon,
+	Pdf,
+	ImageIcon,
 };

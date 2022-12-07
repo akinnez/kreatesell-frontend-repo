@@ -20,6 +20,9 @@ const BuyersPreview = () => {
 		product: {product_content},
 	} = useSelector((state) => state.product);
 
+	const productTypeName =
+		product?.product_details?.product_type?.product_type_name;
+
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
 		useState(null);
@@ -31,6 +34,15 @@ const BuyersPreview = () => {
 			getProduct(router.query.id);
 		}
 	}, [router.query.id]);
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const css = document.createElement('style');
+			css.innerHTML =
+				'.ql-video { width: 100% !important; height: 368px !important;}';
+			document.body.appendChild(css);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (accordionData.length > 0) {
@@ -55,7 +67,9 @@ const BuyersPreview = () => {
 		setAccordionData(products);
 	};
 
+	console.log(accordionData, 'dataaa');
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
+	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -118,21 +132,23 @@ const BuyersPreview = () => {
 										)}
 									</div>
 								</div>
+								{productTypeName === 'Membership' && (
+									<div
+										className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
+										onClick={() =>
+											router.push(
+												`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
+											)
+										}
+									>
+										<p
+											className={`text-base text-white text-center ${styles.manageMembershipText}`}
+										>
+											Manage Membership
+										</p>
+									</div>
+								)}
 							</Card>
-							<div
-								className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
-								onClick={() =>
-									router.push(
-										`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
-									)
-								}
-							>
-								<p
-									className={`text-base text-white text-center ${styles.manageMembershipText}`}
-								>
-									Manage Membership
-								</p>
-							</div>
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
@@ -150,14 +166,38 @@ const BuyersPreview = () => {
 									backgroundColor: 'white',
 								}}
 							>
-								{activeLink?.files && (
-									<Image
-										src={fileMedia}
-										alt="media"
-										width={700}
-										height={450}
-									/>
-								)}
+								{activeLink?.files &&
+									fileMediaType === 'image' && (
+										<Image
+											src={fileMedia}
+											alt="media"
+											width={755}
+											height={450}
+											objectFit="cover"
+										/>
+									)}
+								{activeLink?.files &&
+									fileMediaType === 'audio' && (
+										<audio
+											controls
+											className={styles.audio}
+										>
+											<source
+												src={fileMedia}
+												type="audio/mpeg"
+											/>
+										</audio>
+									)}
+								{activeLink?.files &&
+									fileMediaType === 'video' && (
+										<video
+											controls
+											loop
+											src={fileMedia}
+											alt=""
+											className={styles.previewVideo}
+										/>
+									)}
 							</div>
 							<Card>
 								<div
