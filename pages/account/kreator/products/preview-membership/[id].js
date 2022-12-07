@@ -1,17 +1,17 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import {useSelector} from 'react-redux';
-import {Card, Row, Col} from 'antd';
+import { useSelector } from 'react-redux';
+import { Card, Row, Col } from 'antd';
 
-import {PlayIcon2, PlayIconBlue, LogoV2} from 'utils';
-import {Button} from 'components/form-input';
+import { PlayIcon2, PlayIconBlue, LogoV2 } from 'utils';
+import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
 import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {AuthGetProductById} from 'redux/actions';
+import { AuthGetProductById } from 'redux/actions';
 
 const PreviewMembership = () => {
 	const router = useRouter();
@@ -19,8 +19,9 @@ const PreviewMembership = () => {
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
+	console.log(product, 'productproductproduct')
 
 	const [activeLink, setActiveLink] = useState({});
 
@@ -29,6 +30,15 @@ const PreviewMembership = () => {
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const css = document.createElement('style');
+			css.innerHTML =
+				'.ql-video { width: 100% !important; height: 368px !important;}';
+			document.body.appendChild(css);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -60,7 +70,8 @@ const PreviewMembership = () => {
 	};
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	console.log(activeLink, 'ctiveLink');
+	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : ''
+
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -122,7 +133,7 @@ const PreviewMembership = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList}, idx) => (
+											({ title, subList }, idx) => (
 												<Accordion
 													key={idx}
 													{...{
@@ -140,12 +151,12 @@ const PreviewMembership = () => {
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
-								<h1 className={styles.sectionName}>
+								{/* <h1 className={styles.sectionName}>
+								How To Invest In Cryptocurrency
+								</h1> */}
+								<h1 className={styles.sectionTitle}>
 									{activeLink?.product_section_name}
 								</h1>
-								{/* <h1 className={styles.sectionTitle}>
-									How To Invest In Cryptocurrency
-								</h1> */}
 								{/* {activeLink?.id} */}
 							</Card>
 							<div
@@ -154,12 +165,27 @@ const PreviewMembership = () => {
 									backgroundColor: 'white',
 								}}
 							>
-								{activeLink?.files && (
+								{activeLink?.files && fileMediaType === 'image' && (
 									<Image
-										src={fileMedia}
+										src={fileMedia} 
 										alt="media"
-										width={700}
+										width={755}
 										height={450}
+										objectFit="cover"
+									/>
+								)}
+								{activeLink?.files && fileMediaType === 'audio' && (
+									<audio controls className={styles.audio}>
+										<source src={fileMedia} type="audio/mpeg" />
+									</audio>
+								)}
+								{activeLink?.files && fileMediaType === 'video' && (
+									<video
+										controls
+										loop
+										src={fileMedia}
+										alt=""
+										className={styles.previewVideo}
 									/>
 								)}
 							</div>
@@ -181,13 +207,12 @@ const PreviewMembership = () => {
 						<div
 							className={`flex justify-evenly ${styles.mainSections}`}
 						>
-							{accordionData.map(({title, id, subList}, idx) => (
+							{accordionData.map(({ title, id, subList }, idx) => (
 								<div
 									key={idx}
-									className={`p-2 ${styles.title} ${
-										id === activeSelectedSectionId &&
+									className={`p-2 ${styles.title} ${id === activeSelectedSectionId &&
 										styles.active
-									}`}
+										}`}
 									onClick={() => {
 										setSelectedSection(subList);
 										setActiveSelectedSectionId(id);
@@ -206,12 +231,10 @@ const PreviewMembership = () => {
 									{selectedSection.map((sec, idx) => (
 										<div
 											key={idx}
-											className={`p-3 ${
-												styles.sections
-											} ${
-												activeLink?.id === sec.id &&
+											className={`p-3 ${styles.sections
+												} ${activeLink?.id === sec.id &&
 												styles.active2
-											}`}
+												}`}
 											onClick={() => {
 												setActiveLink(sec);
 											}}

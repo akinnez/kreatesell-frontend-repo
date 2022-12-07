@@ -1,15 +1,15 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
-import {Button} from 'components/form-input';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo } from 'utils';
+import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
-import {useRouter} from 'next/router';
-import {Card, Row, Col} from 'antd';
+import { useRouter } from 'next/router';
+import { Card, Row, Col } from 'antd';
 import Accordion from '../preview-membership/Accordion';
-import {useSelector} from 'react-redux';
-import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
+import { useSelector } from 'react-redux';
+import { AuthGetProductById, GetProductByIDNotAut } from 'redux/actions';
 
 const BuyersPreview = () => {
 	const router = useRouter();
@@ -17,8 +17,11 @@ const BuyersPreview = () => {
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
+
+	const productTypeName = product?.product_details?.product_type?.product_type_name
+
 
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
@@ -31,6 +34,15 @@ const BuyersPreview = () => {
 			getProduct(router.query.id);
 		}
 	}, [router.query.id]);
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const css = document.createElement('style');
+			css.innerHTML =
+				'.ql-video { width: 100% !important; height: 368px !important;}';
+			document.body.appendChild(css);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (accordionData.length > 0) {
@@ -55,7 +67,9 @@ const BuyersPreview = () => {
 		setAccordionData(products);
 	};
 
+	console.log(accordionData, 'dataaa')
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
+	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : ''
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -104,7 +118,7 @@ const BuyersPreview = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList}, idx) => (
+											({ title, subList }, idx) => (
 												<Accordion
 													key={idx}
 													{...{
@@ -118,21 +132,23 @@ const BuyersPreview = () => {
 										)}
 									</div>
 								</div>
+								{productTypeName === 'Membership' && (
+									<div
+										className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
+										onClick={() =>
+											router.push(
+												`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
+											)
+										}
+									>
+										<p
+											className={`text-base text-white text-center ${styles.manageMembershipText}`}
+										>
+											Manage Membership
+										</p>
+									</div>
+								)}
 							</Card>
-							<div
-								className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
-								onClick={() =>
-									router.push(
-										`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
-									)
-								}
-							>
-								<p
-									className={`text-base text-white text-center ${styles.manageMembershipText}`}
-								>
-									Manage Membership
-								</p>
-							</div>
 						</Col>
 						<Col span={15} className={styles.right}>
 							<Card className={styles.card}>
@@ -150,12 +166,27 @@ const BuyersPreview = () => {
 									backgroundColor: 'white',
 								}}
 							>
-								{activeLink?.files && (
-									<Image
+								{activeLink?.files && fileMediaType === 'image' && (
+										<Image
+											src={fileMedia}
+											alt="media"
+											width={755}
+											height={450}
+											objectFit="cover"
+										/>
+								)}
+								{activeLink?.files && fileMediaType === 'audio' && (
+									<audio controls className={styles.audio}>
+										<source src={fileMedia} type="audio/mpeg" />
+									</audio>
+								)}
+								{activeLink?.files && fileMediaType === 'video' && (
+									<video
+										controls
+										loop
 										src={fileMedia}
-										alt="media"
-										width={700}
-										height={450}
+										alt=""
+										className={styles.previewVideo}
 									/>
 								)}
 							</div>
@@ -177,13 +208,12 @@ const BuyersPreview = () => {
 						<div
 							className={`flex justify-evenly ${styles.mainSections}`}
 						>
-							{accordionData.map(({title, id, subList}, idx) => (
+							{accordionData.map(({ title, id, subList }, idx) => (
 								<div
 									key={idx}
-									className={`p-2 ${styles.title} ${
-										id === activeSelectedSectionId &&
+									className={`p-2 ${styles.title} ${id === activeSelectedSectionId &&
 										styles.active
-									}`}
+										}`}
 									onClick={() => {
 										setSelectedSection(subList);
 										setActiveSelectedSectionId(id);
@@ -202,12 +232,10 @@ const BuyersPreview = () => {
 									{selectedSection.map((sec, idx) => (
 										<div
 											key={idx}
-											className={`p-3 ${
-												styles.sections
-											} ${
-												activeLink?.id === sec.id &&
+											className={`p-3 ${styles.sections
+												} ${activeLink?.id === sec.id &&
 												styles.active2
-											}`}
+												}`}
 											onClick={() => {
 												setActiveLink(sec);
 											}}

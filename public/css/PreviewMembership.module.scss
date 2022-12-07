@@ -2,6 +2,8 @@
 @import '../css//colors.scss';
 @import '../css//screens.scss';
 
+
+
 .container2 {
 	@media (max-width: 700px) {
 		width: 130vh;
@@ -65,9 +67,12 @@
 
 			.left {
 				.card {
+					height: 100%;
+					overflow-y: scroll;
+					position: relative;
 					.mainTitle {
 						font-weight: 600;
-						font-size: 1.5rem;
+						font-size: 24px;
 						line-height: 32px;
 						color: #0072ef;
 
@@ -87,12 +92,15 @@
 
 								.title {
 									font-weight: 600;
-									font-size: 24px;
+									font-size: 20px;
 									line-height: 32px;
 									color: #262626;
 								}
 
 								.icon {
+									display: flex;
+									align-items: center;
+									justify-content: center;
 								}
 							}
 
@@ -102,7 +110,7 @@
 
 									.subText {
 										font-weight: 500;
-										font-size: 1.25rem;
+										font-size: 16px;
 										line-height: 30px;
 										color: #595959;
 									}
@@ -226,9 +234,13 @@
 }
 
 .manageMembershipContainer {
-	background: #ffffff;
+	background: #F0F0F0;
 	border-radius: 8px;
 	cursor: pointer;
+	position: fixed;
+	top: 90%;
+	z-index: 99;
+	width: 400px;
 }
 
 .manageMembershipText {
@@ -236,7 +248,6 @@
 	font-style: normal;
 	font-weight: 700;
 	font-size: 12px;
-	line-height: 16px;
 	color: #595959;
 }
 
@@ -483,4 +494,16 @@
 	margin-bottom: 0;
 	margin-top: 17px;
 	color: #8c8c8c;
+}
+
+.audio {
+	width: 677px;
+	height: 64px;
+	margin: 0 auto;
+}
+
+.previewVideo {
+	width: 671px;
+	height: 433px;
+	margin: 0 auto;
 }

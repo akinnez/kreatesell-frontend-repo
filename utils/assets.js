@@ -286,6 +286,9 @@ import KreateSellLogo from '../public/images/KreateSellLogo.png';
 import MastercardIcon from '../public/images/mastercardIcon.svg';
 import CancelAlert from '../public/images/cancelAlert.png';
 import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
+import Pdf from '../public/images/Pdf.png';
+import ImageIcon  from '../public/images/image.png';
+
 
 export {
 	InfoIcon,
@@ -575,4 +578,6 @@ export {
 	MastercardIcon,
 	CancelAlert,
 	CancelMembershipSuccessIcon,
+	Pdf,
+	ImageIcon
 };

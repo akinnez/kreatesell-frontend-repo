@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
-import {Switch, Radio, Input, Popconfirm} from 'antd';
+import { Switch, Radio, Input, Popconfirm } from 'antd';
 
-import {ViewSales, Audio, EditPen, FileDelete} from 'utils';
+import { ViewSales, Audio, Video, Pdf, EditPen, FileDelete, ImageIcon } from 'utils';
 import styles from '../../BusinessSection/MembershipTab.module.scss';
 
 const ManageSection = ({
@@ -21,6 +21,11 @@ const ManageSection = ({
 	const [sectionName, setSectionName] = useState(items.section_name);
 
 	console.log(items, 'items');
+	console.log(items?.product_subsection, 'items?.product_subsection')
+
+	// const getMediaIconType = (iconObj) => {
+	// 	if()
+	// }
 
 	return (
 		<div className="flex flex-col mt-7">
@@ -32,7 +37,7 @@ const ManageSection = ({
 							placeholder="Section title"
 							value={sectionName}
 							className={`text-2xl font-semibold ${styles.titleMain2}`}
-							style={{width: '9rem'}}
+							style={{ width: '9rem' }}
 						/>
 					) : (
 						<h1
@@ -131,7 +136,11 @@ const ManageSection = ({
 									<Image
 										width={20}
 										height={20}
-										src={Audio}
+										src={item?.files[0]?.type === "audio" ? Audio
+											: item?.files[0]?.type === "video" ?
+												Video
+												: ImageIcon
+										}
 										alt="file"
 									/>
 								}
@@ -153,7 +162,7 @@ const ManageSection = ({
 							<div
 								className="p-4"
 								onClick={() =>
-									openMedia(item?.files[0].filename)
+									openMedia(item)
 								}
 							>
 								<Image
@@ -191,7 +200,7 @@ const ManageSection = ({
 										type: 'danger',
 										size: 'large',
 									}}
-									overlayInnerStyle={{textAlign: 'center'}}
+									overlayInnerStyle={{ textAlign: 'center' }}
 									overlayStyle={{
 										width: '350px',
 										padding: '20px',
