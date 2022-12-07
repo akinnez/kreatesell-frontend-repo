@@ -5,7 +5,7 @@ import {CloudUpload, CloudUploadDisable, FileDelete, FileZip} from 'utils';
 import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
-export default function FileUpload({ 
+export default function FileUpload({
 	file,
 	setFile,
 	isToggleable,
@@ -17,9 +17,9 @@ export default function FileUpload({
 		fileType: '.zip,.rar',
 	});
 
-	console.log(initialFile,'initialFileinitialFile');
+	console.log(initialFile, 'initialFileinitialFile');
 
-	console.log(file,'filefilefilefile')
+	console.log(file, 'filefilefilefile');
 
 	const fetchFile = async (url) => {
 		const instance = axios.create();
@@ -89,7 +89,7 @@ export default function FileUpload({
 		}
 	}, [mainFile]);
 
-	console.log(mainFile,'mainFilemainFilemainFilemainFile')
+	console.log(mainFile, 'mainFilemainFilemainFilemainFile');
 
 	return (
 		<div className="pt-2">

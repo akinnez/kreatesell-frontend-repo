@@ -62,7 +62,6 @@ export default function ContentUpload({file, setFile}) {
 		}
 	}
 
-	
 	return (
 		<div className="pt-2">
 			<p className="text-base-gray-200 text-xs mb-0">
