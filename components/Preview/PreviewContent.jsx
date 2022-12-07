@@ -58,8 +58,18 @@ export default function PreviewContent({
 		return minPrice?.price;
 	};
 
+	const getMinimumCurrency = () => {
+		const minPrice = checkout?.find(
+			(itemPrice) =>
+				itemPrice.price_indicator === 'Minimum' &&
+				itemPrice.currency_name === 'NGN'
+		);
+		return minPrice?.currency_name;
+	};
+
 	const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
+	console.log(productPriceType, 'productPriceType');
 	// const defaultCurrency = product
 
 	console.log(product, 'product');
@@ -273,7 +283,7 @@ export default function PreviewContent({
 								<h1 className="text-3xl font-bold">{`${
 									alreadyDefinedPrice?.currency_name ||
 									convertedCurrency?.to_currency_name ||
-									sellingPrice[0]?.currency_name
+									getMinimumCurrency()
 								} 
 								 ${getMinimumPrice()}`}</h1>
 							)}

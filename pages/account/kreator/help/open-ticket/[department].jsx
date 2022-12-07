@@ -26,20 +26,23 @@ import {
 	SuccessCheck,
 } from 'utils';
 import BackButton from 'components/BackButton';
+import {useSelector} from 'react-redux';
 
-const CardProfile = () => {
+const CardProfile = ({storeDetails, user}) => {
 	return (
 		<div className={styles.cardBodyDiv}>
 			<div className={styles.userDiv}>
 				<div className={styles.userImageDiv}>
-					<Image
-						src="/images/profile-image.svg"
-						width={60}
-						height={60}
-						layout="fixed"
-						alt="Kreator's Image"
-						className={styles.userImage}
-					/>
+					{storeDetails?.display_picture && (
+						<Image
+							src={storeDetails?.display_picture}
+							width={60}
+							height={60}
+							layout="fixed"
+							alt="Kreator's Image"
+							className={styles.userImage}
+						/>
+					)}
 					<div className={styles.checkedImage}>
 						<Image
 							src="/images/upgrade-active-tick.svg"
@@ -50,7 +53,7 @@ const CardProfile = () => {
 					</div>
 				</div>
 				<div className={styles.userInfoDiv}>
-					<h5 className={styles.userName}> Adeyemi Samuel</h5>
+					<h5 className={styles.userName}> {user?.full_name}</h5>
 					<p className={styles.userRole}> Kreator</p>
 				</div>
 			</div>
@@ -73,6 +76,7 @@ const CardBody = (props) => {
 	} = props;
 
 	const router = useRouter();
+	const {store} = useSelector((state) => state.store);
 	return (
 		<div>
 			<div className={styles.cardResponsDiv}>
@@ -110,7 +114,9 @@ const CardBody = (props) => {
 						</div>
 						<div className={styles.ticketDetail}>
 							<p className={styles.title}>Department</p>
-							<p className={styles.value2}>Technical</p>
+							<p className={styles.value2}>
+								{router.query?.department}
+							</p>
 						</div>
 					</div>
 					<div className={styles.ticketDetail}>
@@ -118,7 +124,10 @@ const CardBody = (props) => {
 						<p className={styles.value2}>Jun 12th 2021, 3:50 PM</p>
 					</div>
 				</div>
-				<CardProfile />
+				<CardProfile
+					storeDetails={store?.store_details}
+					user={store?.user}
+				/>
 				<div className={styles.formContainer}>
 					<div className={styles.inputDiv}>
 						<Input
@@ -194,9 +203,6 @@ const Department = () => {
 	const showSuccessModalFn = () => setShowSuccessModal(true);
 
 	const handleSubmit = () => {
-		//   console.log("aaaaaaaaa", files);
-		// console.log("ddddddddd", uploadingFiles);
-
 		checkExpiredUserToken();
 		const token = getUserToken();
 
@@ -229,7 +235,6 @@ const Department = () => {
 				setSubmitting(false);
 			})
 			.catch((err) => {
-				// console.log("sssssss", err);
 				showToast(`${err.message}`, 'error');
 				setSubmitting(false);
 			});
@@ -268,6 +273,7 @@ const Department = () => {
 };
 
 const SuccessModal = ({showSuccessModal, hideSuccessModal}) => {
+	const router = useRouter();
 	return (
 		<Modal
 			title={null}
@@ -289,7 +295,14 @@ const SuccessModal = ({showSuccessModal, hideSuccessModal}) => {
 					A member of our customer support team would get back to you
 					shortly
 				</p>
-				<Button type="button" text="Go back" bgColor="blue" />
+				<Button
+					type="button"
+					text="Go back"
+					bgColor="blue"
+					onClick={() =>
+						router.push({pathname: `/account/kreator/help`})
+					}
+				/>
 			</div>
 		</Modal>
 	);

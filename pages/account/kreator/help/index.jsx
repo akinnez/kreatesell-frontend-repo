@@ -8,49 +8,36 @@ import axios from 'axios';
 import Loader from 'components/loader';
 import {getUserToken} from 'utils';
 import TicketTable from 'components/KreatorTickets/TicketTable';
+import useHelpFilters from 'components/HelpComponents/hooks/useHelpFilters';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
+import useGetHelpTickets from 'services/swrQueryHooks/Tickets';
+import dataLoading from 'utils/dataLoading';
 
-const Index = (props) => {
-	const ticketsURL = `${process.env.BASE_URL}auth/KreatorTickets`;
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
-	const [tickets, setTickets] = useState([]);
+const Index = () => {
+	const {url, filters, setFilters} = useHelpFilters('auth/KreatorTickets');
+	const {
+		helpTicketData,
+		helpTicketError,
+		isHelpTicketLoading,
+		tickets,
+		loading,
+		setLoading,
+		isValidating,
+	} = useGetHelpTickets(url);
 
-	const getUserTickets = async () => {
-		const token = await getUserToken();
-		try {
-			const res = await axios.get(ticketsURL, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-
-			setTickets(res?.data?.data);
-			setLoading(false);
-		} catch (error) {
-			console.log(error);
-
-			setError(true);
-		}
-	};
-
-	useEffect(() => {
-		getUserTickets();
-	}, []);
-
-	if (error) {
-		return <CustomErrorPage />;
-	}
-
-	if (loading) {
-		return <Loader />;
-	}
+	const isLoading = dataLoading({
+		products: tickets.data,
+		loading,
+		response: helpTicketData,
+		error: helpTicketError,
+		isValidating,
+	});
 
 	return (
 		<>
 			<AuthLayout>
-				<HelpHeader />
-				<TicketTable tickets={tickets} />
+				<HelpHeader {...{setFilters, setLoading, filters}} />
+				<TicketTable tickets={tickets} {...{isLoading}} />
 			</AuthLayout>
 		</>
 	);

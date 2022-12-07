@@ -37,6 +37,16 @@ const statusComponent = (item) => {
 			},
 			contents: '',
 		},
+		pending: {
+			type: 'pending',
+			styles: {
+				background: '#F1FCF8',
+				borderRadius: '.5rem',
+				color: ' #2DC071',
+				fontSize: '14px',
+			},
+			contents: '',
+		},
 	};
 	let tagStyles = statusTextList[item].styles;
 	let tooltipContent = statusTextList[item].contents;
@@ -70,17 +80,17 @@ const statusComponent = (item) => {
 	);
 };
 
-const ActionComponent = (props) => {
+const ActionComponent = (_, all) => {
 	const router = useRouter();
 
 	const handleReopenTicket = () => {
-		console.log('Handle Repopen');
+		console.log('Handle Repopen', all);
 	};
 	let content = (
 		<ul>
 			<li
 				onClick={() =>
-					router.push(`/account/kreator/help/responses/hdj`)
+					router.push(`/account/kreator/help/responses/${all.id}`)
 				}
 				className="flex gap-1.5"
 			>
@@ -109,13 +119,15 @@ const ActionComponent = (props) => {
 const tableHeader = [
 	{
 		title: 'Ticket ID',
-		dataIndex: 'ticket_id',
+		dataIndex: 'id',
+		width: 100,
+		fixed: 'left',
 		render: (item) => <p className={styles.tableData}>{item}</p>,
 	},
 
 	{
 		title: 'Subject',
-		dataIndex: 'subject',
+		dataIndex: 'heading',
 		render: (item) => <p className={styles.tableData}>{item}</p>,
 	},
 	{
@@ -125,7 +137,7 @@ const tableHeader = [
 	},
 	{
 		title: 'Date',
-		dataIndex: 'date_created',
+		dataIndex: 'created_at',
 		render: (item) => <p className={styles.tableData}>{item}</p>,
 	},
 
@@ -140,15 +152,6 @@ const tableHeader = [
 		render: (item, all) => ActionComponent(item, all),
 		width: 100,
 		fixed: 'right',
-	},
-];
-const ticketsD = [
-	{
-		ticket_id: '1234',
-		subject: 'Hello',
-		department: 'Technical',
-		date_created: '3rd Nov',
-		status: 'Open',
 	},
 ];
 
@@ -298,22 +301,22 @@ const SuccessModal = ({showResponseModal, hideResponseModal}) => {
 	);
 };
 
-const TicketTable = ({tickets, handlePaginationChange, page}) => {
+const TicketTable = ({tickets, isLoading}) => {
 	const router = useRouter();
 
 	return (
 		<div className={styles.ticketsContainer}>
 			<div className={styles.dataSection}>
 				<div className={styles.mobile__wrapper}>
-					{ticketsD.map((ticket) => (
-						<CardComponent key={ticket.ticket_id} data={ticket} />
+					{tickets?.data?.map((ticket) => (
+						<CardComponent key={ticket.id} data={ticket} />
 					))}
 				</div>
 				<div className={styles.table__wrapper}>
 					<Table
 						columns={tableHeader}
-						loading={false}
-						dataSource={ticketsD}
+						loading={isLoading}
+						dataSource={tickets?.data}
 						scroll={{x: 1000}}
 						size="large"
 						pagination={{position: ['bottomLeft']}}

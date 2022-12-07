@@ -28,6 +28,7 @@ const AffiliateProducts = () => {
 		isValidating,
 	});
 
+	// console.log('rerendered affiliate market place');
 	return (
 		<AuthLayout headerTitle={!user.is_affiliate ? 'Dashboard' : ''}>
 			<Head>

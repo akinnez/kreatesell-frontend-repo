@@ -4,6 +4,7 @@ import {showToast} from 'utils';
 import axiosApi from 'utils/axios';
 
 const useFetcher = (user, url) => {
+	// console.log('affiliate rerender');
 	const [products, setProducts] = useState({data: [], total: 0});
 	const [loading, setLoading] = useState(false);
 

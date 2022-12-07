@@ -105,8 +105,6 @@ export const CreateProductForm = ({
 		isBasicPlan: false,
 	};
 
-	console.log('isImageFilled = ', isImageFilled);
-
 	const handleSubmit = (data) => {
 		// console.log('Data is', data);
 		if (['oneTimeSubscription', 'membership'].includes(productType)) {

@@ -24,7 +24,7 @@ const PreviewMembership = () => {
 
 	const [activeLink, setActiveLink] = useState({});
 
-	console.log(activeLink, 'activeLink');
+	// console.log(activeLink, 'activeLink');
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
@@ -60,7 +60,7 @@ const PreviewMembership = () => {
 	};
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	console.log(activeLink, 'ctiveLink');
+	// console.log(activeLink, 'ctiveLink');
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {

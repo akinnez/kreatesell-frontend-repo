@@ -273,7 +273,10 @@ const StorePage = () => {
 									item?.price_indicator === 'Selling'
 							);
 
-						const sellingPrice = countrySale?.price;
+						{
+							/* const sellingPrice = countrySale?.price; */
+						}
+						const sellingPrice = productDetails?.default_price;
 						const originalSetting =
 							productDetails?.check_out_details?.find(
 								(item) =>
@@ -358,7 +361,7 @@ const ProductCard = ({
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
-
+	// console.log('productDetails', productDetails);
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -424,6 +427,14 @@ const ProductCard = ({
 				<div className={`flex justify-between items-center pb-4 pt-1`}>
 					{productDetails?.product_price_type === 'Make it Free' ? (
 						<p className={styles.makeItFreeText}>Free</p>
+					) : productDetails?.product_price_type ===
+					  'Pay What You Want' ? (
+						<p
+							className={`mb-0 text-base-gray ${styles.sellingPrice}`}
+						>
+							{productDetails?.defaultCurrency?.currency}{' '}
+							{productDetails.default_price}
+						</p>
 					) : (
 						<div
 							className={`flex justify-between items-center column ${styles.main}`}

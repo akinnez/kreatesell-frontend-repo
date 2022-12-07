@@ -1,40 +1,73 @@
 import React, {useState} from 'react';
 import Image from 'next/image';
 
+import moment from 'moment';
+
 import style from './Header.module.scss';
 import {DatePicker, Select, Form, Input as AntInput, Row, Col} from 'antd';
 import {Button} from '../form-input';
 import {FilterIcon} from '../IconPack';
 import {useRouter} from 'next/router';
+import ResetFilters from 'components/ResetFilters';
 import axios from 'axios';
 import useSWR from 'swr';
 
-const HelpHeader = ({department}) => {
-	const [open, setOpen] = useState(false);
+const HelpHeader = ({setFilters, setLoading, filters}) => {
 	const router = useRouter();
 	const [form] = Form.useForm();
+	const [isFiltered, setIsFiltered] = useState(false);
 
-	const fetcher = () =>
-		axios
-			.get(`${process.env.BASE_URL}admin/DepartmentList`)
-			.then((res) => res?.data?.data)
-			.catch((err) => {
-				setErrorMessage(err.message);
-			});
+	const handleInputChange = (name, value, type) => {
+		switch (type) {
+			case 'date':
+				form.setFieldsValue({
+					[name]: value ? moment(value, 'YYYY-MM-DD') : '',
+				});
+				break;
+			case 'input':
+				form.setFieldsValue({[name]: value});
+				break;
+			case 'select':
+				form.setFieldsValue({[name]: value});
+				break;
+			default:
+				break;
+		}
+	};
 
-	const {data: departments, error} = useSWR(
-		`${process.env.BASE_URL}admin/DepartmentList`,
-		fetcher
-	);
-	const handleSearchSubmit = () => {};
-	const handleSearchInput = () => {};
-	const handleShowSelect = () => {};
-	const handleTicket = () => {};
-	const handleStartDate = () => {};
-	const handleEndDate = () => {};
-	const departmentOptions = [];
+	const handleSearchSubmit = (values) => {
+		const {search, department, ticket, from, to} = values;
+		if (!search && !department && !ticket && !from && !to) {
+			return;
+		}
+		setIsFiltered(true);
+		setLoading(true);
+		setFilters((s) => ({
+			...s,
+			page: 1,
+			search: search || '',
+			department: department || '',
+			ticket: ticket || '',
+			from: from || null,
+			to: to || '',
+		}));
+	};
+	const departmentOptions = [{value: 'value', label: 'label'}];
 	const ticketList = [];
 	const format = 'YYYY-MM-DD';
+
+	const resetFilters = () => {
+		setFilters((prev) => ({
+			...prev,
+			search: '',
+			department: '',
+			ticket: '',
+			from: '',
+			to: '',
+		}));
+		setIsFiltered(false);
+		form.resetFields();
+	};
 
 	return (
 		<>
@@ -52,9 +85,7 @@ const HelpHeader = ({department}) => {
 
 			<div>
 				<Form
-					onFinish={() =>
-						handleSearchSubmit(() => setIsFiltered(true))
-					}
+					onFinish={handleSearchSubmit}
 					size="large"
 					layout="vertical"
 					form={form}
@@ -63,7 +94,13 @@ const HelpHeader = ({department}) => {
 						<Col xs={24} lg={5}>
 							<Form.Item label="Search" name="search">
 								<AntInput
-									onChange={handleSearchInput}
+									onChange={(e) =>
+										handleInputChange(
+											'search',
+											e.currentTarget.value,
+											'input'
+										)
+									}
 									placeholder="Click here to Search"
 								/>
 							</Form.Item>
@@ -74,7 +111,13 @@ const HelpHeader = ({department}) => {
 									options={departmentOptions}
 									className={style.selectRadius}
 									placeholder="Billing"
-									onChange={(e) => handleShowSelect(e)}
+									onChange={(e) =>
+										handleInputChange(
+											'department',
+											e,
+											'select'
+										)
+									}
 								/>
 							</Form.Item>
 						</Col>
@@ -84,7 +127,13 @@ const HelpHeader = ({department}) => {
 									options={ticketList}
 									className={style.selectRadius}
 									placeholder="AllTickets"
-									onChange={(e) => handleTicket(e)}
+									onChange={(e) =>
+										handleInputChange(
+											'tickets',
+											e,
+											'select'
+										)
+									}
 								/>
 							</Form.Item>
 						</Col>
@@ -92,7 +141,9 @@ const HelpHeader = ({department}) => {
 							<Form.Item label="From" name="from">
 								<DatePicker
 									placeholder="2021-07-22"
-									onChange={handleStartDate}
+									onChange={(_, date) =>
+										handleInputChange('from', date, 'date')
+									}
 									format={format}
 									style={{width: '100%'}}
 								/>
@@ -102,7 +153,9 @@ const HelpHeader = ({department}) => {
 							<Form.Item label="To" name="to">
 								<DatePicker
 									placeholder="2021-07-22"
-									onChange={handleEndDate}
+									onChange={(_, date) =>
+										handleInputChange('to', date, 'date')
+									}
 									format={format}
 									style={{width: '100%'}}
 								/>
@@ -133,10 +186,13 @@ const HelpHeader = ({department}) => {
 						</Col>
 					</Row>
 				</Form>
-				{/* {isFiltered && <ResetFilters resetFilters={()=>{
-            resetFilters()
-            setIsFiltered(false)  
-          }} />} */}
+				{isFiltered && (
+					<ResetFilters
+						resetFilters={() => {
+							resetFilters();
+						}}
+					/>
+				)}
 			</div>
 		</>
 	);
