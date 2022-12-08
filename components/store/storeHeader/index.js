@@ -56,7 +56,7 @@ export const ProtectedStoreHeader = ({
 	// const { store } = useSelector((state) => state.store);
 	// console.log('store  = ', store)
 	// console.log('storeName = ', store?.user?.store_name)
-	
+
 	return (
 		<>
 			<div

@@ -21,7 +21,6 @@ import {
 import {useState, memo} from 'react';
 import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
 
-
 import {Logout as LogoutAction} from '../../redux/actions/auth.actions';
 import Timer from './Timer';
 

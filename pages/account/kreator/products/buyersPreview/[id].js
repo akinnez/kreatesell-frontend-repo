@@ -193,7 +193,7 @@ const BuyersPreview = () => {
 									fileMediaType === 'video' && (
 										<video
 											controls
-											controlsList="nodownload" 
+											controlsList="nodownload"
 											loop
 											src={fileMedia}
 											alt=""

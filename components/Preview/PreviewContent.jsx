@@ -32,21 +32,25 @@ export default function PreviewContent({
 	const [originalPrice, setOriginalPrice] = useState([]);
 	const [domainLink, setDomainLink] = useState('');
 
-	const router = useRouter(); 
+	const router = useRouter();
 
 	const affiliateRef = router.query.ref;
 	const affiliateUniqueKey = router.query.uniqkey;
 
 	const getCheckoutLink = () => {
-		if(affiliateRef && affiliateUniqueKey) {
-			return router.push(`/checkout/${productId}?${affiliateUniqueKey && `affiliateUniqueKey=${affiliateUniqueKey}`}&${affiliateRef && `affiliateRef=${affiliateRef}`}`)
-		}else{
-			return router.push(`/checkout/${productId}`)
+		if (affiliateRef && affiliateUniqueKey) {
+			return router.push(
+				`/checkout/${productId}?${
+					affiliateUniqueKey &&
+					`affiliateUniqueKey=${affiliateUniqueKey}`
+				}&${affiliateRef && `affiliateRef=${affiliateRef}`}`
+			);
+		} else {
+			return router.push(`/checkout/${productId}`);
 		}
-	}
+	};
 
- 
-	const {store} = useSelector((state) => state?.store);  
+	const {store} = useSelector((state) => state?.store);
 
 	const {product} = useSelector((state) => state?.product);
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
@@ -306,10 +310,7 @@ export default function PreviewContent({
 								)}
 						</div>
 
-						<Button
-							onClick={getCheckoutLink}
-							type="primary"
-						>
+						<Button onClick={getCheckoutLink} type="primary">
 							{details !== undefined && details?.cta_button
 								? details?.cta_button
 								: 'Buy Now'}

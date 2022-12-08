@@ -41,7 +41,6 @@ const StorePage = () => {
 		defaultCurrency,
 	} = useSelector((state) => state.product);
 
-
 	// const [defaultCurrency, setDefaultCurrency] = useState('NGN');
 	const [targetCurrency, setTargetCurrency] = useState('');
 	const [tempTargetCurrency, setTempTargetCurrency] = useState(

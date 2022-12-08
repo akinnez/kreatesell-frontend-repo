@@ -701,7 +701,7 @@ const Checkout = () => {
 	// 	transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
 	// }
 
-	const totalFee = Number(subTotal)
+	const totalFee = Number(subTotal);
 
 	const initialValues = {
 		firstName: '',
@@ -1614,7 +1614,7 @@ const Checkout = () => {
 									{/* <div className="flex justify-between">
 										<p>Transaction Fee</p>
 										<p>{transactionFee}</p>
-									</div> */} 
+									</div> */}
 
 									<div className="flex justify-between">
 										<p>Tax</p>
