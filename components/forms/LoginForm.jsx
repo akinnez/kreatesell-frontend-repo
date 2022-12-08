@@ -38,7 +38,7 @@ export const LoginForm = () => {
 					Object.keys(router.query).length > 0 &&
 					Object.keys(router.query).includes('next')
 				) {
-					return router.push(router.query.next);
+					return router.replace(router.query.next);
 				}
 				if (
 					Object.keys(router.query).length > 0 &&
