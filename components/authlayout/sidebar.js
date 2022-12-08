@@ -100,7 +100,6 @@ const Sidebar = ({isMobileView = false}) => {
 
 	const {isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen} = isOpen;
 	const onOpenChange = (id) => {
-		console.log('item clicked');
 		// setIsOpen((isOpen) => !isOpen);
 		setIsOpen((prev) => ({...isOpen, [id]: !isOpen[id]}));
 	};

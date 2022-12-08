@@ -45,6 +45,7 @@ const productsColumns = [
 	{
 		title: 'Action',
 		render: (record) => {
+			// console.log('total_sold', record.total_sold);
 			if (record?.total_affiliate_sales >= 5) {
 				return (
 					<GetLink

@@ -288,8 +288,21 @@ import MastercardIcon from '../public/images/mastercardIcon.svg';
 import CancelAlert from '../public/images/cancelAlert.png';
 import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
 import CourseFileIcon from '../public/images/CourseFile.svg';
+import Copy2 from '../public/images/copy2.svg';
+
+import FacebookIcon from '../public/images/facebookicon.svg';
+import InstagramIcon from '../public/images/instagramicon.svg';
+import TwitterIcon2 from '../public/images/twittericon.svg';
+import GmailIcon from '../public/images/gmailicon.svg';
+import WhatsappIcon2 from '../public/images/whatsappIcon.svg';
 
 export {
+	WhatsappIcon2,
+	FacebookIcon,
+	InstagramIcon,
+	TwitterIcon2,
+	GmailIcon,
+	Copy2,
 	CourseFileIcon,
 	InfoIcon,
 	PaystackLogo,

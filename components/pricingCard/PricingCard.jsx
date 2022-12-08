@@ -25,7 +25,7 @@ export const PricingCard = ({
 			</div>
 
 			<div className={styles.price}>
-				<p className={styles.currency}>{selectedCurrency?.currency}</p>{' '}
+				<p className={styles.currency}>{selectedCurrency}</p>{' '}
 				<p className={styles.price2}>
 					{price !== '0' ? Number(price).toFixed(2) : price}{' '}
 				</p>
@@ -37,7 +37,7 @@ export const PricingCard = ({
 				{![0, '0'].includes(subPriceType) && subPriceType && (
 					<span className={styles.subPriceType}>
 						- Save{' '}
-						{`${selectedCurrency?.currency} ${
+						{`${selectedCurrency} ${
 							subPriceType !== '0'
 								? Number(subPriceType).toFixed(2)
 								: subPriceType

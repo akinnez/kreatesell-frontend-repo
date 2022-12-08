@@ -56,8 +56,6 @@ export default function PreviewHeader({
 
 	const displayPicture = product?.store_dto?.profile_pix;
 
-	console.log('product = ', product);
-	console.log('dp= ', displayPicture);
 	const nameOfStore = product?.store_dto?.store_name;
 
 	const {

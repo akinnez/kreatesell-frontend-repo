@@ -1,6 +1,7 @@
 import axios from '../../utils/axios';
 import * as types from '../types';
 import {useDispatch} from 'react-redux';
+import {useRouter} from 'next/router';
 import {showToast} from 'utils';
 
 export const CreateProduct = () => {
@@ -114,6 +115,7 @@ export const PublishProducts = () => {
 
 export const AuthGetProductById = () => {
 	const dispatch = useDispatch();
+	const router = useRouter();
 	return (productID, successCallback, errorCallback) => (
 		dispatch({type: types.GET_PRODUCT_BY_ID.REQUEST}),
 		axios.request(
@@ -131,6 +133,12 @@ export const AuthGetProductById = () => {
 				dispatch({type: types.GET_PRODUCT_BY_ID.FAILURE, payload: err});
 				showToast(err?.message, 'error');
 				errorCallback?.();
+				if (
+					err.message ===
+					'You do not have access to preview this product'
+				) {
+					router.replace({pathname: '/account/kreator/products/all'});
+				}
 			},
 			productID
 		)
@@ -524,7 +532,7 @@ export const FetchSingleStoreProduct = () => {
 					type: types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS,
 					payload,
 				});
-				successCallback?.();
+				successCallback?.(res?.data);
 			},
 			(err) => {
 				dispatch({

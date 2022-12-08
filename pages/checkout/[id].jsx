@@ -51,6 +51,7 @@ import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
 export const pathName = typeof window !== 'undefined' && window;
 
+// TODO: Move to a util file so it can be easily reused
 const countryPayments = {
 	NGN: [
 		{
@@ -298,8 +299,6 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const [{options}, dispatch] = usePayPalScriptReducer();
-
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
 
@@ -475,7 +474,7 @@ const Checkout = () => {
 			reference_id: reference,
 			purchase_details: getPurchaseDetails(),
 			status: statusValue,
-			card_type: '',
+			card_type: selectedPaymentMethod,
 			last_four: '',
 			currency:
 				pricingTypeDetails.price_type === 'Make it Free'
@@ -590,49 +589,6 @@ const Checkout = () => {
 			: setDisableBtn(false);
 	}, [desiredAmount]);
 
-	// console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
-	// const handleSubmit = () => {
-	// 	// if we are using paypal
-
-	// 	/** Currencies using PayStack are listed here */
-	// 	if (
-	// 		['GHS', 'NGN'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		)
-	// 	) {
-	// 		return initializePaystackPayment(
-	// 			onPaystackSuccess,
-	// 			onPaystackClose
-	// 		);
-	// 	}
-
-	// 	// currencies using stripe
-
-	// 	/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-	// 	if (
-	// 		(!['NGN', 'GHS'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		) ||
-	// 			selectedPaymentMethod === 'flutterwave') &&
-	// 		!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-	// 	) {
-	// 		handleFlutterPayment({
-	// 			callback: async (response) => {
-	// 				// console.log('response ', response)
-	// 				await sendPaymentCheckoutDetails(
-	// 					paymentDetails({
-	// 						reference: response?.tx_ref,
-	// 						status: 'success',
-	// 					})
-	// 				);
-	// 				closePaymentModal();
-	// 				//   openModal();
-	// 			},
-	// 			onClose: () => {},
-	// 		});
-	// 	}
-	// };
-
 	// TODO: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
 	const handleCurrencyConversion = (toCurrency) => {
@@ -717,7 +673,6 @@ const Checkout = () => {
 	const handleSubmit = async () => {
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
-			// console.log('crypto');
 			try {
 				const data = await axios.post(
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
@@ -778,7 +733,10 @@ const Checkout = () => {
 							reference: response?.tx_ref,
 							status: response?.status,
 						}),
-						() => router.push('/checkout/success')
+						() =>
+							router.push(
+								`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+							)
 					);
 					closePaymentModal();
 					//   openModal();
@@ -792,33 +750,6 @@ const Checkout = () => {
 				onPaystackClose
 			);
 		}
-		/** Currencies using PayStack are listed here */
-
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		// if (
-		// 	(!['NGN', 'GHS'].includes(
-		// 		activeCurrency.currency || activeCurrency.currency_name
-		// 	) ||
-		// 		selectedPaymentMethod === 'flutterwave') &&
-		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		// ) {
-		// 	handleFlutterPayment({
-		// 		callback: async (response) => {
-		// 			// console.log('response ', response)
-		// 			await sendPaymentCheckoutDetails(
-		// 				paymentDetails({
-		// 					reference: response?.tx_ref,
-		// 					status: response?.status,
-		// 				})
-		// 			);
-		// 			closePaymentModal();
-		// 			//   openModal();
-		// 		},
-		// 		onClose: () => {},
-		// 	});
-		// }
 	};
 
 	const formik = useFormik({
@@ -888,7 +819,10 @@ const Checkout = () => {
 		const status = 'success';
 		sendPaymentCheckoutDetails(
 			paymentDetails({reference: reference?.reference, status: status}),
-			() => router.push('/checkout/success')
+			() =>
+				router.push(
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+				)
 		);
 	};
 
@@ -918,7 +852,10 @@ const Checkout = () => {
 		const status = 'success';
 		await sendPaymentCheckoutDetails(
 			paymentDetails({total: 0, reference: '', status: status}),
-			() => router.push('/checkout/success')
+			() =>
+				router.push(
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+				)
 		);
 	};
 

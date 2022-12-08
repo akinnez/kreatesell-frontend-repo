@@ -90,7 +90,7 @@ export default function PreviewProduct() {
 				setAlreadyDefinedOriginalPrice(null);
 				const data = {
 					amount: 0,
-					from_currency_name: 'NGN', //NGN for now till we get the base currency
+					from_currency_name: 'NGN', //TODO: NGN for now till we get the base currency
 					to_currency_name: toCurrency,
 				};
 				convertCurrency(
@@ -108,7 +108,7 @@ export default function PreviewProduct() {
 			setAlreadyDefinedOriginalPrice(null);
 			const data = {
 				amount: 0,
-				from_currency_name: 'NGN', //NGN for now till we get the base currency
+				from_currency_name: 'NGN', //TODO: NGN for now till we get the base currency
 				to_currency_name: toCurrency,
 			};
 			convertCurrency(
