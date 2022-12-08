@@ -301,52 +301,54 @@ const Success = () => {
 				className={styles.modalContainer}
 				width={700}
 			>
-				<h1>Share this product</h1>
-				<div
-					className={`${styles.socialMediaContainer} flex justify-center gap-10`}
-				>
-					<FacebookShareButton
-						url={`https://facebook.com`}
-						quote={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
-						hashtag={hashTagsWithHash[0]}
+				<div style={{padding: '4rem'}}>
+					<h1>Share this product</h1>
+					<div
+						className={`${styles.socialMediaContainer} flex justify-center gap-10`}
 					>
-						<Image alt="" src={FacebookIcon} />
-					</FacebookShareButton>
+						<FacebookShareButton
+							url={`https://facebook.com`}
+							quote={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
+							hashtag={hashTagsWithHash[0]}
+						>
+							<Image alt="" src={FacebookIcon} />
+						</FacebookShareButton>
 
-					<TwitterShareButton
-						url={`${origin}/store/${storename}/product/${productName}`}
-						title={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: `}
-						via={'kreatesell'}
-						hashtags={hashTagsWithoutHash}
-					>
-						<Image alt="" src={TwitterIcon2} />
-					</TwitterShareButton>
-					<WhatsappShareButton
-						url={`https://wa.me`}
-						title={'title of the post'}
-					>
-						<Image alt="" src={WhatsappIcon2} />
-					</WhatsappShareButton>
-					<EmailShareButton
-						url={``}
-						subject={'You need to see this right away!'}
-						body={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
-					>
-						<Image alt="" src={GmailIcon} />
-					</EmailShareButton>
-				</div>
-				<p className={`mb-0`}>Copy Product Link</p>
-				<div className={styles.link__container}>
-					<div className={styles.link}>
-						<span
-							ref={linkElement}
-						>{`${origin}/store/${storename}/product/${productName}`}</span>
+						<TwitterShareButton
+							url={`${origin}/store/${storename}/product/${productName}`}
+							title={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: `}
+							via={'kreatesell'}
+							hashtags={hashTagsWithoutHash}
+						>
+							<Image alt="" src={TwitterIcon2} />
+						</TwitterShareButton>
+						<WhatsappShareButton
+							url={`https://wa.me`}
+							title={'title of the post'}
+						>
+							<Image alt="" src={WhatsappIcon2} />
+						</WhatsappShareButton>
+						<EmailShareButton
+							url={``}
+							subject={'You need to see this right away!'}
+							body={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
+						>
+							<Image alt="" src={GmailIcon} />
+						</EmailShareButton>
 					</div>
-					<Button
-						className={styles.link__btn}
-						onClick={handleCopy}
-						text={<Image src={Copy2} alt="copy icon" />}
-					/>
+					<p className={`mb-0`}>Copy Product Link</p>
+					<div className={styles.link__container}>
+						<div className={styles.link}>
+							<span
+								ref={linkElement}
+							>{`${origin}/store/${storename}/product/${productName}`}</span>
+						</div>
+						<Button
+							className={styles.link__btn}
+							onClick={handleCopy}
+							text={<Image src={Copy2} alt="copy icon" />}
+						/>
+					</div>
 				</div>
 			</Modal>
 			{showAccessPageModal && (
@@ -423,14 +425,12 @@ const Success = () => {
 								{singleStoreProducts?.map((productDetails) => {
 									const sellingPrice =
 										productDetails?.default_price;
-									const originalSetting =
-										productDetails?.check_out_details?.find(
-											(item) =>
-												item?.currency_name ===
-													defaultCurrency?.currency &&
-												item?.price_indicator ===
-													'Original'
-										);
+									const originalSetting = productDetails?.check_out_details?.find(
+										(item) =>
+											item?.currency_name ===
+												defaultCurrency?.currency &&
+											item?.price_indicator === 'Original'
+									);
 
 									const originalPrice =
 										originalSetting?.price;
@@ -577,11 +577,12 @@ const ProductCard2 = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color: statusLabel[
-							outOfStock()
-								? 'Out of Stock'
-								: productDetails.status
-						].color,
+						color:
+							statusLabel[
+								outOfStock()
+									? 'Out of Stock'
+									: productDetails.status
+							].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
