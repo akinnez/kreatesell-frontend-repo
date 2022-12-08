@@ -1016,7 +1016,7 @@ export const ProfileIcon = () => {
 	);
 };
 
-export const CloseSubMenu = () => {
+export const CloseSubMenu = () => { 
 	return (
 		<svg
 			width="14"

@@ -23,7 +23,8 @@ export const CouponHeader = ({
 	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
 	const [form] = Form.useForm();
 
-	const {countriesCurrency, loading} = useCurrency();
+	const {countriesCurrency, loading} = useCurrency(); 
+
 
 	useMemo(() => {
 		if (!!countriesCurrency) {

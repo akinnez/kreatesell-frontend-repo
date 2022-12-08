@@ -56,6 +56,7 @@ export const ProtectedStoreHeader = ({
 	// const { store } = useSelector((state) => state.store);
 	// console.log('store  = ', store)
 	// console.log('storeName = ', store?.user?.store_name)
+	
 	return (
 		<>
 			<div
@@ -89,7 +90,7 @@ export const ProtectedStoreHeader = ({
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
 						<div className={styles.profile_wrapper}>
-							{!displayPicture ? (
+							{!publicStoreInfo?.display_picture ? (
 								<div className={styles.image_intro_text}>
 									<Avatar
 										shape="square"

@@ -183,6 +183,7 @@ const AllProducts = () => {
 				return;
 		}
 	};
+
 	const handleSearchSubmit = () => {
 		getProducts(1, productName, startDate, endDate, currencyFilter, () =>
 			console.log('done')
@@ -439,6 +440,7 @@ const AllProducts = () => {
 							onChange: handlePaginationChange,
 							current: page,
 							defaultPageSize: limit,
+							// onShowSizeChange : (curr, size)=> console.log(curr, size , 'page size')
 						}}
 						size="large"
 					/>

@@ -180,6 +180,7 @@ const BuyersPreview = () => {
 									fileMediaType === 'audio' && (
 										<audio
 											controls
+											controlsList="nodownload"
 											className={styles.audio}
 										>
 											<source
@@ -192,6 +193,7 @@ const BuyersPreview = () => {
 									fileMediaType === 'video' && (
 										<video
 											controls
+											controlsList="nodownload" 
 											loop
 											src={fileMedia}
 											alt=""

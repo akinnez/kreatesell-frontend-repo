@@ -602,7 +602,7 @@ export const CheckoutForm = ({
 			// case 'Installment Payment':
 			// 	return setFieldValue('pricing_type_id', 3);
 			case 'Make It Free':
-				return setFieldValue('pricing_type_id', 4);
+				return setFieldValue('pricing_type_id', 3); 
 		}
 	}, [priceType]);
 	useEffect(() => {

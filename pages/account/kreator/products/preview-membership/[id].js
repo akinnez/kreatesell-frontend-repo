@@ -179,6 +179,7 @@ const PreviewMembership = () => {
 									fileMediaType === 'audio' && (
 										<audio
 											controls
+											controlsList="nodownload"
 											className={styles.audio}
 										>
 											<source
@@ -191,6 +192,7 @@ const PreviewMembership = () => {
 									fileMediaType === 'video' && (
 										<video
 											controls
+											controlsList="nodownload"
 											loop
 											src={fileMedia}
 											alt=""

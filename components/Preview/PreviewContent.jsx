@@ -32,17 +32,21 @@ export default function PreviewContent({
 	const [originalPrice, setOriginalPrice] = useState([]);
 	const [domainLink, setDomainLink] = useState('');
 
-	const router = useRouter();
+	const router = useRouter(); 
 
 	const affiliateRef = router.query.ref;
-	affiliateRef ? localStorage.setItem('affiliateRef', affiliateRef) : null;
-
 	const affiliateUniqueKey = router.query.uniqkey;
-	affiliateUniqueKey
-		? localStorage.setItem('affiliateUniqueKey', affiliateUniqueKey)
-		: null;
 
-	const {store} = useSelector((state) => state?.store);
+	const getCheckoutLink = () => {
+		if(affiliateRef && affiliateUniqueKey) {
+			return router.push(`/checkout/${productId}?${affiliateUniqueKey && `affiliateUniqueKey=${affiliateUniqueKey}`}&${affiliateRef && `affiliateRef=${affiliateRef}`}`)
+		}else{
+			return router.push(`/checkout/${productId}`)
+		}
+	}
+
+ 
+	const {store} = useSelector((state) => state?.store);  
 
 	const {product} = useSelector((state) => state?.product);
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
@@ -69,10 +73,6 @@ export default function PreviewContent({
 
 	const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
-	console.log(productPriceType, 'productPriceType');
-	// const defaultCurrency = product
-
-	console.log(product, 'product');
 
 	const {user} = useSelector((state) => state?.auth);
 
@@ -307,17 +307,7 @@ export default function PreviewContent({
 						</div>
 
 						<Button
-							onClick={() => {
-								router.push(
-									{
-										pathname: `/checkout/${productId}`,
-										query: {
-											selectedCurrecy: 'activeCurrency',
-										},
-									},
-									`/checkout/${productId}`
-								);
-							}}
+							onClick={getCheckoutLink}
 							type="primary"
 						>
 							{details !== undefined && details?.cta_button
