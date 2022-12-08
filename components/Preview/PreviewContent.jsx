@@ -69,10 +69,7 @@ export default function PreviewContent({
 
 	const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
-	console.log(productPriceType, 'productPriceType');
 	// const defaultCurrency = product
-
-	console.log(product, 'product');
 
 	const {user} = useSelector((state) => state?.auth);
 
@@ -136,7 +133,6 @@ export default function PreviewContent({
 		}
 	}, [store]);
 
-	// console.log('product', product)
 	return (
 		<div
 			className={
@@ -260,50 +256,74 @@ export default function PreviewContent({
 						<div className="flex flex-col">
 							{/*  */}
 							{/* {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)} */}
-							{sellingPrice?.length > 0 &&
-								productPriceType !== 'Pay What You Want' && (
-									<h1 className="text-3xl font-bold">{`${
-										alreadyDefinedPrice?.currency_name ||
-										convertedCurrency?.to_currency_name ||
-										sellingPrice[0]?.currency_name
-									}  ${
-										alreadyDefinedPrice?.price
-											? alreadyDefinedPrice?.price
-											: convertedCurrency?.buy_rate
-											? formatPrice(
-													convertedCurrency?.buy_rate *
-														sellingPrice[0]?.price
-											  )
-											: formatPrice(
-													sellingPrice[0]?.price
-											  )
-									}`}</h1>
-								)}
-							{productPriceType === 'Pay What You Want' && (
-								<h1 className="text-3xl font-bold">{`${
-									alreadyDefinedPrice?.currency_name ||
-									convertedCurrency?.to_currency_name ||
-									getMinimumCurrency()
-								} 
-								 ${getMinimumPrice()}`}</h1>
+							{/* FIXME: We need to refactor this properly */}
+							{productPriceType === 'Make it Free' ? (
+								<p
+									style={{
+										background: '#2DC071',
+										padding: '.2rem 2.5rem',
+										fontWeight: '700',
+										fontSize: '1.125rem',
+										color: '#fff',
+									}}
+									className={`mb-0`}
+								>
+									Free
+								</p>
+							) : (
+								<>
+									{sellingPrice?.length > 0 &&
+										productPriceType !==
+											'Pay What You Want' && (
+											<h1 className="text-3xl font-bold">{`${
+												alreadyDefinedPrice?.currency_name ||
+												convertedCurrency?.to_currency_name ||
+												sellingPrice[0]?.currency_name
+											}  ${
+												alreadyDefinedPrice?.price
+													? alreadyDefinedPrice?.price
+													: convertedCurrency?.buy_rate
+													? formatPrice(
+															convertedCurrency?.buy_rate *
+																sellingPrice[0]
+																	?.price
+													  )
+													: formatPrice(
+															sellingPrice[0]
+																?.price
+													  )
+											}`}</h1>
+										)}
+									{productPriceType ===
+										'Pay What You Want' && (
+										<h1 className="text-3xl font-bold">{`${
+											alreadyDefinedPrice?.currency_name ||
+											convertedCurrency?.to_currency_name ||
+											getMinimumCurrency()
+										} 
+                  ${getMinimumPrice()}`}</h1>
+									)}
+									{originalPrice?.length > 0 &&
+										productPriceType !==
+											'Pay What You Want' && (
+											<h2 className="text-xl line-through font-medium">{`${
+												alreadyDefinedOriginalPrice?.currency_name ||
+												convertedCurrency?.to_currency_name ||
+												originalPrice[0]?.currency_name
+											}  ${
+												alreadyDefinedOriginalPrice?.price
+													? alreadyDefinedOriginalPrice?.price
+													: convertedCurrency?.buy_rate
+													? formatPrice(
+															convertedCurrency?.buy_rate *
+																originalPrice[0]
+																	?.price
+													  )
+													: originalPrice[0]?.price
+											}`}</h2>
+										)}
+								</>
 							)}
-							{originalPrice?.length > 0 &&
-								productPriceType !== 'Pay What You Want' && (
-									<h2 className="text-xl line-through font-medium">{`${
-										alreadyDefinedOriginalPrice?.currency_name ||
-										convertedCurrency?.to_currency_name ||
-										originalPrice[0]?.currency_name
-									}  ${
-										alreadyDefinedOriginalPrice?.price
-											? alreadyDefinedOriginalPrice?.price
-											: convertedCurrency?.buy_rate
-											? formatPrice(
-													convertedCurrency?.buy_rate *
-														originalPrice[0]?.price
-											  )
-											: originalPrice[0]?.price
-									}`}</h2>
-								)}
 						</div>
 
 						<Button

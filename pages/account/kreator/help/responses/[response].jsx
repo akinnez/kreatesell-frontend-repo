@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
 
 import useSWR from 'swr';
 import axios from 'axios';
@@ -17,7 +18,7 @@ import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import {Button} from 'components/button/Button';
 import BackButton from 'components/BackButton';
 
-const CardBody = (props) => {
+const CardBody = ({ticketId}) => {
 	const [showIssue, setShowIssue] = useState(false);
 	return (
 		<>
@@ -27,7 +28,7 @@ const CardBody = (props) => {
 				>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Ticket ID</p>
-						<p className={styles.value}>#456789</p>
+						<p className={styles.value}>#{ticketId}</p>
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
@@ -113,8 +114,14 @@ const Index = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const [tickets, setTickets] = useState([]);
+	const [ticketId, setTicketId] = useState('');
+	const router = useRouter();
 
-	const getUsertTickets = async () => {
+	useEffect(() => {
+		setTicketId(router?.query?.response);
+	}, [router?.query?.response]);
+
+	const getUserTickets = async () => {
 		const token = await getUserToken();
 		try {
 			const res = await axios.get(ticketsURL, {
@@ -133,7 +140,7 @@ const Index = (props) => {
 	};
 
 	useEffect(() => {
-		getUsertTickets();
+		getUserTickets();
 	}, []);
 
 	if (error) {
@@ -151,7 +158,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody />
+					<CardBody {...{ticketId}} />
 				</div>
 			</AuthLayout>
 		</>

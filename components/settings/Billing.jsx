@@ -55,11 +55,11 @@ const Billing = () => {
 	const [selectedPlan, setSelectedPlan] = useState('');
 	const [countryOptions, setCountryOptions] = useState([]);
 	const [subscriptionMode, setSubscriptionMode] = useState(null);
-	const [selectedCurrency, setSelectedCurrency] = useState({});
+	const [selectedCurrency, setSelectedCurrency] = useState('');
 
 	const {handleCurrencyConversion, getCurrency} = useConvertRates(
-		'NGN',
-		selectedCurrency?.currency
+		store?.bank_details?.currency_name,
+		selectedCurrency
 	);
 
 	useEffect(() => {
@@ -103,7 +103,7 @@ const Billing = () => {
 	// useEffect to default to a currency
 	useEffect(() => {
 		if (countryOptions.length > 0 && !modal) {
-			setSelectedCurrency(countryOptions[0]);
+			setSelectedCurrency(countryOptions[0]?.currency);
 		}
 	}, [countryOptions.length]);
 
@@ -131,7 +131,7 @@ const Billing = () => {
 
 	// to convert a currency based on when selected currency changes
 	useEffect(() => {
-		handleCurrencyConversion(selectedCurrency?.currency);
+		handleCurrencyConversion();
 	}, [selectedCurrency]);
 
 	// change
@@ -141,7 +141,7 @@ const Billing = () => {
 				.filter((ctr) => !['XAF', 'XOF'].includes(ctr.currency))
 				.map((ctr) => ({
 					...ctr,
-					value: ctr.name,
+					value: ctr.currency,
 					label: ctr.currency,
 				}));
 			setCountryOptions([...currency]);
@@ -201,14 +201,14 @@ const Billing = () => {
 								Monthly
 							</button>
 						</div>
-
 						<div className={styles.select}>
 							<Select
 								name="country"
 								options={countryOptions}
 								arrowIconColor="#0072EF"
 								borderColor="#40A9FF"
-								onChange={(e) => setSelectedCurrency(e)}
+								cb={(e) => setSelectedCurrency(e)}
+								defaultValue={countryOptions?.[0]?.value}
 							/>
 						</div>
 					</div>

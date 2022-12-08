@@ -4,8 +4,8 @@ import {ConvertCurrency} from 'redux/actions';
 
 const useConvertRates = (from_currency_name, convertedCurrency) => {
 	const convertCurrency = ConvertCurrency();
-	function handleCurrencyConversion(toCurrency) {
-		if (convertedCurrency) {
+	function handleCurrencyConversion() {
+		if (convertedCurrency && from_currency_name) {
 			const data = {
 				amount: 0,
 				from_currency_name: from_currency_name,
