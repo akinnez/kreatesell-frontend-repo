@@ -35,12 +35,20 @@ export default function PreviewContent({
 	const router = useRouter();
 
 	const affiliateRef = router.query.ref;
-	affiliateRef ? localStorage.setItem('affiliateRef', affiliateRef) : null;
-
 	const affiliateUniqueKey = router.query.uniqkey;
-	affiliateUniqueKey
-		? localStorage.setItem('affiliateUniqueKey', affiliateUniqueKey)
-		: null;
+
+	const getCheckoutLink = () => {
+		if (affiliateRef && affiliateUniqueKey) {
+			return router.push(
+				`/checkout/${productId}?${
+					affiliateUniqueKey &&
+					`affiliateUniqueKey=${affiliateUniqueKey}`
+				}&${affiliateRef && `affiliateRef=${affiliateRef}`}`
+			);
+		} else {
+			return router.push(`/checkout/${productId}`);
+		}
+	};
 
 	const {store} = useSelector((state) => state?.store);
 
@@ -69,7 +77,6 @@ export default function PreviewContent({
 
 	const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
-	// const defaultCurrency = product
 
 	const {user} = useSelector((state) => state?.auth);
 
@@ -326,20 +333,7 @@ export default function PreviewContent({
 							)}
 						</div>
 
-						<Button
-							onClick={() => {
-								router.push(
-									{
-										pathname: `/checkout/${productId}`,
-										query: {
-											selectedCurrecy: 'activeCurrency',
-										},
-									},
-									`/checkout/${productId}`
-								);
-							}}
-							type="primary"
-						>
+						<Button onClick={getCheckoutLink} type="primary">
 							{details !== undefined && details?.cta_button
 								? details?.cta_button
 								: 'Buy Now'}

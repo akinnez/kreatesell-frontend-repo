@@ -10,6 +10,7 @@ import useSWR from 'swr';
 
 export const CheckoutProductTab = ({productId}) => {
 	const [priceType, setPriceType] = useState('Fixed Price');
+	console.log(priceType, 'priceType');
 	const getPricingTypes = GetPricingTypes();
 	const {product} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);
@@ -29,8 +30,7 @@ export const CheckoutProductTab = ({productId}) => {
 	const options = [
 		{label: 'Fixed Price', value: 'Fixed Price'},
 		{label: 'Pay What You Want', value: 'Pay What You Want'},
-		// {label: 'Installment Payment', value: 'Installment Payment'},
-		{label: 'Make It Free', value: 'Make It Free'},
+		{label: 'Make It Free', value: 'Make it Free'},
 	];
 
 	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
@@ -106,7 +106,7 @@ export const CheckoutProductTab = ({productId}) => {
 									? styles.businessButton
 									: styles.freeButton
 							}
-							value="Make It Free"
+							value="Make it Free"
 						>
 							<p>Make It Free</p> <h3>Business</h3>
 						</Radio>

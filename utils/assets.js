@@ -295,6 +295,8 @@ import InstagramIcon from '../public/images/instagramicon.svg';
 import TwitterIcon2 from '../public/images/twittericon.svg';
 import GmailIcon from '../public/images/gmailicon.svg';
 import WhatsappIcon2 from '../public/images/whatsappIcon.svg';
+import Pdf from '../public/images/Pdf.png';
+import ImageIcon from '../public/images/image.png';
 
 export {
 	WhatsappIcon2,
@@ -592,4 +594,6 @@ export {
 	MastercardIcon,
 	CancelAlert,
 	CancelMembershipSuccessIcon,
+	Pdf,
+	ImageIcon,
 };

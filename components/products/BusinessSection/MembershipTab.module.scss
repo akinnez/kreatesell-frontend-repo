@@ -4,11 +4,14 @@
 
 .sectionContainerTitle {
 	align-items: flex-start;
+
 	@include screen('inbetween') {
 		flex-direction: row;
 	}
+
 	h1 {
 		font-size: 1.5rem;
+
 		@include screen('inbetween') {
 			font-weight: 600;
 			font-size: 1.3rem;
@@ -17,6 +20,7 @@
 		}
 	}
 }
+
 .saveButton {
 	margin: 24px auto 0;
 	width: 10%;
@@ -31,6 +35,7 @@
 		background-color: $base-blue;
 	}
 }
+
 .addSectionBtn {
 	height: 2.5rem;
 	border-radius: 8px;
@@ -39,24 +44,28 @@
 	align-items: center;
 	font-weight: 600;
 }
+
 .titleMain {
 	font-weight: 600;
 	font-size: 1.5rem;
 	line-height: 32px;
 	color: #0072ef;
 }
+
 .titleMain2 {
 	font-weight: 600;
 	font-size: 1.5rem;
 	line-height: 32px;
 	color: #262626;
 }
+
 .accessControl {
 	font-weight: 500;
 	font-size: 1rem;
 	line-height: 26px;
 	color: #595959;
 }
+
 .miniSaveButton {
 	button {
 		border-radius: 8px;
@@ -65,6 +74,7 @@
 		padding: 1.5em;
 	}
 }
+
 .miniSaveButtons,
 .miniSaveButtonsMobile {
 	& > button:first-child {
@@ -72,41 +82,49 @@
 			margin-left: 5px !important;
 		}
 	}
+
 	button {
 		border-radius: 8px;
 		text-align: center;
 		font-weight: 500;
 		padding: 1.5em 1em;
 	}
+
 	button:not(:last-child) {
 		margin-right: 13px;
 		background-color: transparent !important;
 	}
 }
+
 .miniSaveButtons {
 	@include screen('inbetween') {
 		display: none;
 	}
 }
+
 .miniSaveButtonsMobile {
 	// border: 1px solid red;
 	margin-left: 2rem;
 	display: none;
+
 	@include screen('inbetween') {
 		display: flex;
 		align-items: flex-start;
 	}
 }
+
 .section {
 	background-color: $base-white;
 	min-height: 150px;
 	border-radius: 8px;
 	padding: 3em;
 	margin-bottom: 5px;
+
 	@include screen('inbetween') {
 		padding: 3rem 1rem;
 	}
 }
+
 .manageButton {
 	button {
 		border-radius: 8px;
@@ -114,38 +132,47 @@
 		font-weight: 500;
 		background-color: transparent !important;
 	}
+
 	@include screen('inbetween') {
 		display: none;
 	}
 }
+
 .mobileManageButton {
 	button {
 		text-align: center;
 		font-weight: 500;
 		background-color: transparent !important;
 	}
+
 	display: none;
+
 	@include screen('inbetween') {
 		display: inline-block;
 	}
 }
+
 .manageIcon {
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
 }
+
 .toolTip {
 	background-color: $base-white !important;
 	color: $black-100;
 }
+
 .managedContent {
 	padding: 15px 80px 15px 40px;
+
 	.productName {
 		font-weight: 500;
 		font-size: 1.125rem;
 		line-height: 28px;
 		color: #262626;
 	}
+
 	.digitalProductSize {
 		font-weight: 500;
 		font-size: 0.875rem;
@@ -153,6 +180,7 @@
 		color: #8c8c8c;
 	}
 }
+
 .fileImage {
 	margin-right: 12px;
 	width: 50px;
@@ -162,12 +190,15 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	img {
 		border-radius: 8px;
 	}
 }
+
 .managedControls {
 	display: flex;
+
 	& > div {
 		width: 40px;
 		height: 30px;
@@ -179,13 +210,16 @@
 		padding: 0.3em;
 		cursor: pointer;
 	}
+
 	div:not(:last-child) {
 		margin-right: 5px;
 	}
 }
+
 .contentContainer {
 	padding: 30px;
 }
+
 .contents {
 	// width: 85%;
 	width: 100%;
@@ -193,14 +227,17 @@
 	flex-direction: column;
 	// border: 1px solid red;
 }
+
 .rad {
 	label {
 		align-items: baseline !important;
+
 		span {
 			font-size: 18px;
 		}
 	}
 }
+
 .in {
 	input {
 		height: 2.5rem;
@@ -212,11 +249,13 @@
 		& > div:last-child {
 			div {
 				padding: 0.8em;
+
 				& > div:first-child {
 					div {
 						font-size: 16px;
 						color: $gray-200;
 						padding: 0;
+
 						pre {
 							font-family: inherit;
 							width: 80%;
@@ -226,6 +265,7 @@
 						}
 					}
 				}
+
 				& > div:last-child {
 					display: flex;
 					justify-content: space-between;
@@ -234,6 +274,7 @@
 						border-radius: 8px;
 						// padding: 1.3em 1em;
 					}
+
 					// & >button:first-child{
 					// 	background-color: $white-200 !important;
 					// 	color: $gray-600;
@@ -249,6 +290,7 @@
 		}
 	}
 }
+
 .addContentButton {
 	display: flex;
 	justify-content: center;
@@ -266,4 +308,26 @@
 		font-weight: 600;
 		font-size: 17px;
 	}
+}
+
+// PREVIEW MODAL STYLES
+
+.previewModalTitle {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	color: #262626;
+	padding-top: 0.5rem;
+}
+
+.previewVideo {
+	width: 818px;
+	height: 400px;
+}
+
+.previewCancelIcon {
+	cursor: pointer;
+	padding-top: 1rem;
+	padding-right: 1rem;
 }

@@ -419,13 +419,12 @@ const Checkout = () => {
 		}
 	};
 
-	const affliateRef = pathName.localStorage?.getItem('affiliateRef');
+	const affliateRef = router.query.affiliateRef;
 	const getAffiliateRef = () => {
 		return affliateRef;
 	};
 
-	const affiliateUniqueKey =
-		pathName.localStorage?.getItem('affiliateUniqueKey');
+	const affiliateUniqueKey = router.query.affiliateUniqueKey;
 	const getAffiliateUniqueKey = () => {
 		return affiliateUniqueKey;
 	};
@@ -632,33 +631,33 @@ const Checkout = () => {
 
 	// const calcNgN = 5 / 100 * subTotal
 
-	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	// let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
 
-	if (
-		[
-			'KES',
-			'GHS',
-			'MWK',
-			'SLL',
-			'ZAR',
-			'TZS',
-			'UGX',
-			'XOF',
-			'XAF',
-		].includes(activeCurrency?.currency || activeCurrency?.currency_name)
-	) {
-		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
-	} else if (
-		['USD', 'GBP'].includes(
-			activeCurrency?.currency || activeCurrency?.currency_name
-		)
-	) {
-		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
-	} else {
-		transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
-	}
+	// if (
+	// 	[
+	// 		'KES',
+	// 		'GHS',
+	// 		'MWK',
+	// 		'SLL',
+	// 		'ZAR',
+	// 		'TZS',
+	// 		'UGX',
+	// 		'XOF',
+	// 		'XAF',
+	// 	].includes(activeCurrency?.currency || activeCurrency?.currency_name)
+	// ) {
+	// 	transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
+	// } else if (
+	// 	['USD', 'GBP'].includes(
+	// 		activeCurrency?.currency || activeCurrency?.currency_name
+	// 	)
+	// ) {
+	// 	transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
+	// } else {
+	// 	transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	// }
 
-	const totalFee = Number(subTotal) + transactionFee;
+	const totalFee = Number(subTotal);
 
 	const initialValues = {
 		firstName: '',
@@ -1549,10 +1548,10 @@ const Checkout = () => {
 										</div>
 									</div>
 
-									<div className="flex justify-between">
+									{/* <div className="flex justify-between">
 										<p>Transaction Fee</p>
 										<p>{transactionFee}</p>
-									</div>
+									</div> */}
 
 									<div className="flex justify-between">
 										<p>Tax</p>

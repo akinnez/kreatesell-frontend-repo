@@ -17,6 +17,7 @@ export default function ManageSection({
 	toSection,
 }) {
 	const [mediaContent, setMediaContent] = useState(null);
+	console.log(mediaContent, 'mediaContent');
 	const [productSection, setProductSection] = useState(null);
 	const {product, productID} = useSelector((state) => state.product);
 	const getProduct = AuthGetProductById();
@@ -90,9 +91,11 @@ export default function ManageSection({
 		<div className="">
 			{play && (
 				<PlayMedia
-					source={mediaContent}
+					source={mediaContent?.files[0].filename}
 					open={play}
 					closePlay={setPlay}
+					type={mediaContent?.files[0].type}
+					title={mediaContent?.product_section_name}
 				/>
 			)}
 

@@ -47,9 +47,11 @@ export const EditCouponForm = () => {
 	const isdefaultRadioValue =
 		updateCouponData[0]?.coupons?.is_for_all_product;
 
+	console.log(start_date, 'startdata');
+
 	const initialValues = {
 		coupon_settings: {
-			coupon_code: updateCouponData[0]?.coupons?.coupon_code,
+			coupon_code: '',
 			is_coupon: true,
 			start_date: '',
 			// is_for_all_product: true,
