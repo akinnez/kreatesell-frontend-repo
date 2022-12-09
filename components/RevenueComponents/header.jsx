@@ -18,6 +18,7 @@ const TransactionHeader = ({
 	filters,
 	memoisedDataForExport,
 	exportColumns,
+	response,
 }) => {
 	const [isFiltered, setIsFiltered] = useState(false);
 
@@ -158,7 +159,12 @@ const TransactionHeader = ({
             setIsFiltered(false)  
           }} />} */}
 				</div>
-				<StatsCard />
+				<StatsCard
+					totalRevenue={response?.total_revenue}
+					totalWithdrawn={response?.total_withdraw}
+					totalPending={response?.total_pending}
+					availableToWithdraw={response?.available_to_withdraw}
+				/>
 				<StatusButtons {...{setFilters, filters, setLoading}} />
 				<div
 					className={`${styles.export} flex justify-between mt-5 mb-3`}

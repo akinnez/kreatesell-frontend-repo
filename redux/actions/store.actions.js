@@ -199,21 +199,24 @@ export const getStoreFailure = () => ({
 export const GetSalesStatistics = () => {
 	const dispatch = useDispatch();
 	return (successCallback, errorCallback, filters = {}) => {
-		delete filters?.show;
-		let str = '';
-		if (Object.values(filters).length > 0) {
-			str += '?';
-			Object.entries(filters).forEach(([a, b]) => {
-				if (b !== '') {
-					str += `&${a}=${b}`;
-				}
-			});
+		const url = new URL(
+			`${process.env.BASE_URL}v1/kreatesell/store/analytics`
+		);
+
+		if (filters.currency) {
+			url.searchParams.set('currency', filters.currency);
+		}
+		if (filters.fromDate) {
+			url.searchParams.set('fromDate', filters.fromDate);
+		}
+		if (filters.toDate) {
+			url.searchParams.set('toDate', filters.toDate);
 		}
 		return (
 			dispatch({type: types.GET_SALES_STATISTICS.REQUEST}),
 			axios.request(
 				`get`,
-				`/v1/kreatesell/store/analytics${str}`,
+				url,
 				(res) => {
 					dispatch({
 						type: types.GET_SALES_STATISTICS.SUCCESS,
@@ -236,18 +239,24 @@ export const GetSalesStatistics = () => {
 export const GetAffiliateSalesStatistics = () => {
 	const dispatch = useDispatch();
 	return (successCallback, errorCallback, filters = {}) => {
-		delete filters?.show;
-		let str = '?';
-		if (Object.values(filters).length > 0) {
-			Object.entries(filters).forEach(([a, b]) => {
-				str += `?${a}=${b}`;
-			});
+		const url = new URL(
+			`${process.env.BASE_URL}affiliate/get-affiliate-sales-stats`
+		);
+		if (filters.currency) {
+			url.searchParams.set('currency', filters.currency);
 		}
+		if (filters.fromDate) {
+			url.searchParams.set('fromDate', filters.fromDate);
+		}
+		if (filters.toDate) {
+			url.searchParams.set('toDate', filters.toDate);
+		}
+
 		return (
 			dispatch({type: types.GET_AFFILIATES_SALES_STATISTICS.REQUEST}),
 			axios.request(
 				`get`,
-				`/affiliate/get-affiliate-sales-stats`,
+				url,
 				(res) => {
 					dispatch({
 						type: types.GET_AFFILIATES_SALES_STATISTICS.SUCCESS,
