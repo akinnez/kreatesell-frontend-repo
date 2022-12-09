@@ -115,7 +115,7 @@ export const SignupForm = () => {
 					name="Email"
 					placeholder="Enter your Email address"
 					onChange={formik.handleChange}
-					value={formik.values.Email}
+					value={formik.values.Email?.trim()}
 				/>
 
 				<Input
