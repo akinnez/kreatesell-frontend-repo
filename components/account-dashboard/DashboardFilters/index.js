@@ -115,10 +115,6 @@ const DashboardFilters = ({
 		getAffiliateSalesStatistics();
 	};
 
-	// const handleShowFilter = () => {
-	// 	setShowFilter(true);
-	// };
-
 	const handleHideFilter = () => {
 		setShowFilter(false);
 	};
