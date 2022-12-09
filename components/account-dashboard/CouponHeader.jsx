@@ -117,6 +117,7 @@ export const CouponHeader = ({
 					resetFilters={() => {
 						resetFilters();
 						setIsFiltered(false);
+						form.resetFields();
 					}}
 				/>
 			)}
