@@ -21,3 +21,4 @@ export * from './products/index';
 export * from './notifications/NotificationsDropdown';
 export * from './imageLoading/imageLoad';
 export * from './Preview/index';
+export * from './FormSuccess/FormSuccess';

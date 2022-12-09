@@ -1,6 +1,13 @@
 import {useEffect} from 'react';
 
-import {Input, Button, Checkbox, FormError, PasswordInput} from '../';
+import {
+	Input,
+	Button,
+	Checkbox,
+	FormError,
+	PasswordInput,
+	FormSuccess,
+} from '../';
 import {useFormik} from 'formik';
 import Link from 'next/link';
 import {LoginSchema} from '../../validation';
@@ -24,7 +31,7 @@ export const LoginForm = () => {
 
 	useEffect(() => {
 		if (router.query.verified) {
-			showToast('Email has been Confirmed', 'success');
+			// showToast('Email has been Confirmed', 'success');
 			router.replace('/login', undefined, {shallow: true});
 		}
 	}, [router.query.verified]);
@@ -96,7 +103,12 @@ export const LoginForm = () => {
 	return (
 		<>
 			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
-
+			{router.query.verified && (
+				<FormSuccess
+					message={`Your account has been successfully verified. 
+Please login below...`}
+				/>
+			)}
 			<form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Input
 					label="Email or Phone number"
@@ -134,7 +146,6 @@ export const LoginForm = () => {
 					loading={loading}
 				/>
 			</form>
-
 			<div className={styles.footer}>
 				Don’t have an account?{' '}
 				<Link href="/signup">
