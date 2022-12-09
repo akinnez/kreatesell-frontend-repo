@@ -47,47 +47,51 @@ const AccessPageModal = ({
 	errorModal,
 	product_id,
 	setErrorModal,
+	product,
 }) => {
-	// make call to access page here
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/payment/access-product`;
 	const [productDetails, setProductDetails] = useState({
 		product_id,
 		customer_email: '',
 		customer_phone_number: '',
 	});
-	// https://res.cloudinary.com/salvoagency/image/upload/v1669869345/kreatesell/tt4l09tguvru5u29fyhz.jpg
 
-	// TODO: Split the file link to generate file name, extension
 	const handleDownload = (fileLink) => {
-		console.log('fileLink', fileLink);
+		// Split the file link to generate file name, extension
 		let arr = fileLink.split('.');
 		let extension = arr[arr.length - 1];
-		// fetch(fileLink, {
-		// 	method: 'GET',
-		// 	headers: {
-		// 		// 'Content-Type': 'image/pdf',
-		// 	},
-		// })
-		// 	.then((response) => response.blob())
-		// 	.then((blob) => {
-		// 		// Create blob link to download
-		// 		const url = window.URL.createObjectURL(new Blob([blob]));
-		// 		const link = document.createElement('a');
-		// 		link.href = url;
-		// 		link.setAttribute('download', `course.jpg`);
+		fetch(fileLink, {
+			method: 'GET',
+			headers: {
+				// TODO: set content file
+				// 'Content-Type': 'image/pdf',
+			},
+		})
+			.then((response) => response.blob())
+			.then((blob) => {
+				// Create blob link to download
+				const url = window.URL.createObjectURL(new Blob([blob]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute(
+					'download',
+					`${product?.product_details?.product_name}.${extension}`
+				);
 
-		// 		// Append to html link element page
-		// 		document.body.appendChild(link);
+				// Append to html link element page
+				document.body.appendChild(link);
 
-		// 		// Start download
-		// 		link.click();
+				// Start download
+				link.click();
 
-		// 		// Clean up and remove the link
-		// 		link.parentNode.removeChild(link);
-		// 	});
+				// Clean up and remove the link
+				link.parentNode.removeChild(link);
+			});
 	};
 
 	const handleSubmit = async () => {
+		// TODO: show toast or error message that there's no email
+		setErrorModal(false);
 		if (!productDetails?.customer_email) return;
 
 		// TODO: validate email address
@@ -95,7 +99,6 @@ const AccessPageModal = ({
 			const response = await axios.post(productLink, productDetails);
 			handleDownload(response?.data?.download_link);
 		} catch (error) {
-			console.log('error is', error);
 			setErrorModal(true);
 		} finally {
 		}
@@ -214,7 +217,6 @@ const Success = () => {
 					setProductDetailLoading(false);
 				},
 				(err) => {
-					console.log('error', err);
 					setProductDetailLoading(false);
 				}
 			);
@@ -226,7 +228,7 @@ const Success = () => {
 			const response = await axios.get(productLink);
 			setProduct(response.data.data);
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 		} finally {
 			setProductsDetailLoading(false);
 		}
@@ -361,6 +363,7 @@ const Success = () => {
 						closeAccessPageModal,
 						errorModal,
 						setErrorModal,
+						product,
 					}}
 				/>
 			)}
@@ -383,7 +386,9 @@ const Success = () => {
 								alt="user profile picture"
 							/>
 						</div>
-						<p className="mb-0 ml-2">User Name</p>
+						<p className="mb-0 ml-2">
+							{storeDetails?.kreator_full_name}
+						</p>
 					</div>
 				</nav>
 				<div className={styles.body}>
@@ -405,12 +410,21 @@ const Success = () => {
 						<div className={styles.item}>
 							<Row gutter={[32, 32]}>
 								<Col md={{span: 8}} span={8}>
-									<ProductCard productDetails={product} />
+									<ProductCard
+										productDetails={product}
+										kreatorDetails={
+											storeDetails?.kreator_full_name
+										}
+									/>
 								</Col>
 								<Col md={{span: 16}} span={16}>
 									<PurchaseSummaryCard
 										handleClickAction={() =>
 											setShowAccessPageModal(true)
+										}
+										productName={
+											product?.product_details
+												?.product_name
 										}
 									/>
 								</Col>
@@ -464,12 +478,17 @@ const Success = () => {
 	);
 };
 
-const ProductCard = ({productDetails}) => {
+const ProductCard = ({productDetails, kreatorDetails}) => {
+	const [productImage] = useState(() => {
+		return productDetails?.product_images?.filter(
+			(img) => img.file_type === 1
+		)[0];
+	});
 	return (
 		<div className={styles.productCardContainer}>
 			<Image
 				className={`${styles.productImage} rounded-t-lg`}
-				src={productDetails?.product_images?.[0]?.filename}
+				src={productImage?.filename}
 				width="320"
 				height="300"
 				alt="product image"
@@ -490,9 +509,7 @@ const ProductCard = ({productDetails}) => {
 							alt="user profile picture"
 						/>
 					</div>
-					<p className="mb-0 ml-2">
-						{productDetails?.store_dto?.brand_name}
-					</p>
+					<p className="mb-0 ml-2">{kreatorDetails}</p>
 				</div>
 			</div>
 		</div>
@@ -663,7 +680,7 @@ const ProductCard2 = ({
 	);
 };
 
-const PurchaseSummaryCard = ({handleClickAction}) => {
+const PurchaseSummaryCard = ({handleClickAction, productName}) => {
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
@@ -684,7 +701,7 @@ const PurchaseSummaryCard = ({handleClickAction}) => {
 					alt=""
 				/>
 				<span className="">
-					<div className={styles.top}>Think fast and slow.rar</div>
+					<div className={styles.top}>{productName}.zip</div>
 					<div className={styles.bottom}>
 						<div>
 							<p className={styles.left}>236MB</p>|
@@ -713,7 +730,7 @@ const PurchaseSummaryCard = ({handleClickAction}) => {
 					alt=""
 				/>
 				<span className="">
-					<div className={styles.top}>Think fast and slow.rar</div>
+					<div className={styles.top}>{productName}.rar</div>
 					<div className={styles.bottom}>
 						<div>
 							<p className={styles.left}>236MB</p>|
