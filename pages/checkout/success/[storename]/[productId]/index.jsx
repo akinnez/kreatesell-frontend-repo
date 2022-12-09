@@ -301,7 +301,7 @@ const Success = () => {
 				className={styles.modalContainer}
 				width={700}
 			>
-				<div style={{padding: '4rem'}}>
+				<div className={styles.modal}>
 					<h1>Share this product</h1>
 					<div
 						className={`${styles.socialMediaContainer} flex justify-center gap-10`}
@@ -336,7 +336,9 @@ const Success = () => {
 							<Image alt="" src={GmailIcon} />
 						</EmailShareButton>
 					</div>
-					<p className={`mb-0`}>Copy Product Link</p>
+					<p className={`mb-0`}>
+						Click the copy icon to copy the product link
+					</p>
 					<div className={styles.link__container}>
 						<div className={styles.link}>
 							<span

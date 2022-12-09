@@ -49,24 +49,29 @@
 
 .modalContainer {
 	padding: 1rem 2.5rem;
-	h1 {
-		font-weight: 600;
-		font-size: 1.25rem;
-		line-height: 32px;
-		color: #262626;
-		text-align: center;
-	}
-	.socialMediaContainer {
-		// border: 1px solid;
-		padding-block: 1.6rem;
-		text-align: center;
-	}
-	p {
-		font-weight: 500;
-		font-size: 1rem;
-		line-height: 26px;
+	.modal {
+		padding-bottom: 5rem;
+		padding-top: 2rem;
+		padding-inline: 3.5rem;
+		h1 {
+			font-weight: 600;
+			font-size: 1.25rem;
+			line-height: 32px;
+			color: #262626;
+			text-align: center;
+		}
+		.socialMediaContainer {
+			// border: 1px solid;
+			padding-block: 1.6rem;
+			text-align: center;
+		}
+		p {
+			font-weight: 500;
+			font-size: 1rem;
+			line-height: 26px;
 
-		color: #262626;
+			color: #262626;
+		}
 	}
 }
 
@@ -129,7 +134,7 @@
 	width: 100%;
 	// max-width: 670px;
 	padding: 10px 15px;
-	border: 1px dashed $base-blue;
+	border: 1px solid $base-blue;
 	border-radius: 8px 0px 0px 8px;
 	background-color: $base-green-300;
 	white-space: nowrap;
