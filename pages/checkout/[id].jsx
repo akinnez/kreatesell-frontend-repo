@@ -299,11 +299,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -549,9 +554,17 @@ const Checkout = () => {
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
 	useEffect(() => {
+		console.log('payment method changed to', selectedPaymentMethod);
+		console.log('activeCurrency', activeCurrency);
+		// TODO: we dont want to convert everytime selected payment method is not crypto but it changes
 		if (selectedPaymentMethod && selectedPaymentMethod === 'crypto') {
 			handleCurrencyConversion('USD');
+		} else if (selectedPaymentMethod !== 'crypto') {
+			handleCurrencyConversion(
+				activeCurrency?.currency_name || activeCurrency.currency
+			);
 		}
+		// else if its not crypto,
 	}, [selectedPaymentMethod]);
 
 	const checkOutInNaira = checkOutDetails?.find(
@@ -588,7 +601,7 @@ const Checkout = () => {
 			: setDisableBtn(false);
 	}, [desiredAmount]);
 
-	// TODO: check if price in a particular currency has been specified before,
+	// FIXME: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
 	const handleCurrencyConversion = (toCurrency) => {
 		let index = checkOutDetails.findIndex(
@@ -677,11 +690,10 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -779,7 +791,8 @@ const Checkout = () => {
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -1392,29 +1405,27 @@ const Checkout = () => {
 													) => {
 														return actions.order.create(
 															{
-																purchase_units:
-																	[
-																		{
-																			description:
-																				'customDescription',
-																			amount: {
-																				// value: Number(
-																				// 	convertedPrice
-																				// ).toFixed(2),
-																				value: Number(
-																					getCurrency(
-																						'price'
-																					)
-																				).toFixed(
-																					2
-																				),
-																				currency:
-																					getCurrency(
-																						'currency'
-																					),
-																			},
+																purchase_units: [
+																	{
+																		description:
+																			'customDescription',
+																		amount: {
+																			// value: Number(
+																			// 	convertedPrice
+																			// ).toFixed(2),
+																			value: Number(
+																				getCurrency(
+																					'price'
+																				)
+																			).toFixed(
+																				2
+																			),
+																			currency: getCurrency(
+																				'currency'
+																			),
 																		},
-																	],
+																	},
+																],
 															}
 														);
 													}}
@@ -1539,6 +1550,10 @@ const Checkout = () => {
 												</span>
 												{getCurrency('currency')}{' '}
 												{subTotal}
+												{/* {console.log(
+													'subTotal',
+													subTotal
+												)} */}
 												{/* {basicSubtotal} || {desiredAmount
 													? desiredAmount
 													: Number(
