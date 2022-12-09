@@ -195,7 +195,13 @@ export const StatusComponent = (item) => {
 			type: 'revoked',
 			styles: {background: '#F5F5F5', color: '#595959'},
 			contents:
-				' Product violated copyright terms and has been removed permanently.',
+				'Product violated copyright terms and has been removed permanently.',
+		},
+		6: {
+			type: 'unlisted',
+			styles: {background: '#E6F7FF;', color: '#0072EF;'},
+			contents:
+				'Product would not be visible on your store page but anyone with its direct link can purchase it.Product violated copyright terms and has been removed permanently.',
 		},
 	};
 	let tagStyles = statusTextList[item].styles;
