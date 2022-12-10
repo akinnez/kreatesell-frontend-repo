@@ -205,7 +205,9 @@ const StorePage = () => {
 					</div>
 				</nav>
 
-				<nav className="bg-white lg:hidden flex items-center justify-between px-4">
+				<nav
+					className={`bg-white lg:hidden flex items-center justify-between px-4 ${styles.mobileNav}`}
+				>
 					<div className="items-center  flex ">
 						<div
 							className={`${styles.mobileMenuCont} ${
