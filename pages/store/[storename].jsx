@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import router, {useRouter} from 'next/router';
 import Image from 'next/image';
 import {useEffect, useState, useRef} from 'react';
 
@@ -690,7 +690,10 @@ export const StoreMobileDropView = ({
 				<div className={styles.mobileInput}>
 					<Input type="" placeholder="Enter your email.." />
 				</div>
-				<div className={styles.mobileButton}>
+				<div
+					className={styles.mobileButton}
+					onClick={() => router.push('/signup')}
+				>
 					<Button
 						text="Get Started Free"
 						bgColor="blue"

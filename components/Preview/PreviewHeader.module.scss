@@ -350,10 +350,6 @@
 			display: none;
 		}
 	}
-
-	& + .mobileDropView {
-		border: 1px solid red;
-	}
 }
 
 .lgLeft {
@@ -451,13 +447,22 @@
 }
 
 .header {
-	position: relative;
+	// position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 	// border: 1px solid red;
-	.mobileMenu + .mobileDropView {
+	z-index: 2000;
+	.mobileLeft {
+		padding-top: 0.8rem;
+		padding-bottom: 0.8rem;
+	}
+	.mobileDropView {
 		top: 90px;
 		position: relative;
 		margin-top: 2rem;
 		min-height: 100vh;
-		border: 1px solid red !important;
+		// border: 10px solid red !important
 	}
 }
