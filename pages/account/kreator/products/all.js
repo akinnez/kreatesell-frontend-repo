@@ -49,7 +49,7 @@ const AllProducts = () => {
 		(state) => state.product
 	);
 	const {store} = useSelector((state) => state.store);
-	// console.log('products = ', products);
+	console.log('products = ', products);
 
 	const {page, total_records, limit} = productPagination;
 
@@ -341,7 +341,8 @@ const AllProducts = () => {
 	);
 	const AvailabilityStatus = (status, total, noSold) => {
 		const availablityList = {
-			'Unlimited Copies': '#00B140',
+			// 'Unlimited Copies': '#00B140',
+			'In Stock': '#00B140',
 			'Out of Stock': '#F90005',
 			'100 Copies': '#0072EF',
 		};
@@ -504,13 +505,15 @@ const AllProducts = () => {
 										{product.default_currency.currency}{' '}
 										{product.price.productPrice}
 									</h5>
-									{AvailabilityStatus('Out of Stock')}
-									{/* //*  testing if */}
-									{/* {product?.number_sold < product?.total
-										? 'In Stock'
-										: 'Out of Stock'} */}
+									{AvailabilityStatus(
+										product?.number_sold ===
+											product?.product_details
+												?.no_of_product
+											? 'Out of Stock'
+											: 'In Stock'
+									)}
+
 									<p>
-										{' '}
 										<span>Sold: </span>
 										{product?.number_sold} Copies
 									</p>
