@@ -49,7 +49,7 @@ const AllProducts = () => {
 		(state) => state.product
 	);
 	const {store} = useSelector((state) => state.store);
-	// console.log("store = ", store.user.store_name);
+	// console.log('products = ', products);
 
 	const {page, total_records, limit} = productPagination;
 
@@ -339,7 +339,7 @@ const AllProducts = () => {
 			</li>
 		</ul>
 	);
-	const AvailabilityStatus = (status) => {
+	const AvailabilityStatus = (status, total, noSold) => {
 		const availablityList = {
 			'Unlimited Copies': '#00B140',
 			'Out of Stock': '#F90005',
@@ -348,7 +348,7 @@ const AllProducts = () => {
 		return (
 			<p>
 				{' '}
-				<span>In Stock: </span>
+				<span>Stock Info: </span>
 				<div
 					style={{
 						background: availablityList[status],
@@ -505,9 +505,14 @@ const AllProducts = () => {
 										{product.price.productPrice}
 									</h5>
 									{AvailabilityStatus('Out of Stock')}
+									{/* //*  testing if */}
+									{/* {product?.number_sold < product?.total
+										? 'In Stock'
+										: 'Out of Stock'} */}
 									<p>
 										{' '}
-										<span>Sold: </span>0 Copies
+										<span>Sold: </span>
+										{product?.number_sold} Copies
 									</p>
 								</div>
 							</div>
