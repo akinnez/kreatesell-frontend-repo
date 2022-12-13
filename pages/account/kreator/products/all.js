@@ -49,7 +49,7 @@ const AllProducts = () => {
 		(state) => state.product
 	);
 	const {store} = useSelector((state) => state.store);
-	// console.log("store = ", store.user.store_name);
+	console.log('products = ', products);
 
 	const {page, total_records, limit} = productPagination;
 
@@ -183,6 +183,7 @@ const AllProducts = () => {
 				return;
 		}
 	};
+
 	const handleSearchSubmit = () => {
 		getProducts(1, productName, startDate, endDate, currencyFilter, () =>
 			console.log('done')
@@ -338,16 +339,17 @@ const AllProducts = () => {
 			</li>
 		</ul>
 	);
-	const AvailabilityStatus = (status) => {
+	const AvailabilityStatus = (status, total, noSold) => {
 		const availablityList = {
-			'Unlimited Copies': '#00B140',
+			// 'Unlimited Copies': '#00B140',
+			'In Stock': '#00B140',
 			'Out of Stock': '#F90005',
 			'100 Copies': '#0072EF',
 		};
 		return (
 			<p>
 				{' '}
-				<span>In Stock: </span>
+				<span>Stock Info: </span>
 				<div
 					style={{
 						background: availablityList[status],
@@ -439,6 +441,7 @@ const AllProducts = () => {
 							onChange: handlePaginationChange,
 							current: page,
 							defaultPageSize: limit,
+							// onShowSizeChange : (curr, size)=> console.log(curr, size , 'page size')
 						}}
 						size="large"
 					/>
@@ -502,10 +505,17 @@ const AllProducts = () => {
 										{product.default_currency.currency}{' '}
 										{product.price.productPrice}
 									</h5>
-									{AvailabilityStatus('Out of Stock')}
+									{AvailabilityStatus(
+										product?.number_sold ===
+											product?.product_details
+												?.no_of_product
+											? 'Out of Stock'
+											: 'In Stock'
+									)}
+
 									<p>
-										{' '}
-										<span>Sold: </span>0 Copies
+										<span>Sold: </span>
+										{product?.number_sold} Copies
 									</p>
 								</div>
 							</div>

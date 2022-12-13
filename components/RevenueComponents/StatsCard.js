@@ -6,10 +6,10 @@ import {GrossSales, Profit, UnitSales, Visit} from '../../utils';
 import styles from '../../public/css/AllRevenue.module.scss';
 
 export const StatsCard = ({
-	totalVisits = 3,
-	unitSales = 3,
-	grossSales = 3,
-	profit = 3,
+	totalRevenue = 0,
+	totalWithdrawn = 0,
+	totalPending = 0,
+	availableToWithdraw = 0,
 }) => {
 	return (
 		<div className={`${styles.container} my-5`}>
@@ -35,7 +35,7 @@ export const StatsCard = ({
 									</div>
 									<div className={styles.countCont}>
 										<div className={styles.value}>
-											{totalVisits}
+											{totalRevenue}
 										</div>
 										<div className={styles.valueText}>
 											Total Revenue
@@ -57,7 +57,7 @@ export const StatsCard = ({
 									</div>
 									<div className={styles.countCont}>
 										<div className={styles.value}>
-											{unitSales}
+											{totalWithdrawn}
 										</div>
 										<div className={styles.valueText}>
 											Withdrawn
@@ -79,7 +79,7 @@ export const StatsCard = ({
 									</div>
 									<div className={styles.countCont}>
 										<div className={styles.value}>
-											{grossSales}
+											{totalPending}
 										</div>
 										<div className={styles.valueText}>
 											Pending for Clearance
@@ -101,7 +101,7 @@ export const StatsCard = ({
 									</div>
 									<div className={styles.countCont}>
 										<div className={styles.value}>
-											{profit}
+											{availableToWithdraw}
 										</div>
 										<div className={styles.valueText}>
 											Available for Withdraw

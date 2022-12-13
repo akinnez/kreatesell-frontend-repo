@@ -10,6 +10,7 @@ import useSWR from 'swr';
 
 export const CheckoutProductTab = ({productId}) => {
 	const [priceType, setPriceType] = useState('Fixed Price');
+	console.log(priceType, 'priceType');
 	const getPricingTypes = GetPricingTypes();
 	const {product} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);
@@ -29,15 +30,23 @@ export const CheckoutProductTab = ({productId}) => {
 	const options = [
 		{label: 'Fixed Price', value: 'Fixed Price'},
 		{label: 'Pay What You Want', value: 'Pay What You Want'},
-		// {label: 'Installment Payment', value: 'Installment Payment'},
-		{label: 'Make It Free', value: 'Make It Free'},
+		{label: 'Make It Free', value: 'Make it Free'},
 	];
 
 	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
 	// console.log("data from /me = ", data);
 	const defaultCtaBtnTextSet = data?.store_details?.cta_button;
+	// console.log('defaultCta = ', defaultCtaBtnTextSet);
 
+	useEffect(() => {
+		if (defaultCtaBtnTextSet) {
+			setCtaBtnText(defaultCtaBtnTextSet);
+		}
+	}, []);
 	const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || '');
+	const handleMouseOut = () => {
+		setCtaBtnText(ctaBtnText);
+	};
 	const changeField = (field) => {
 		setPriceType(field.target.value);
 	};
@@ -68,6 +77,7 @@ export const CheckoutProductTab = ({productId}) => {
 							name="ctaBtnText"
 							value={ctaBtnText}
 							onChange={(e) => setCtaBtnText(e.target.value)}
+							onMouseLeave={handleMouseOut}
 							maxLength={10}
 						/>
 					</div>
@@ -106,7 +116,7 @@ export const CheckoutProductTab = ({productId}) => {
 									? styles.businessButton
 									: styles.freeButton
 							}
-							value="Make It Free"
+							value="Make it Free"
 						>
 							<p>Make It Free</p> <h3>Business</h3>
 						</Radio>

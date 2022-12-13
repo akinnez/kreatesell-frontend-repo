@@ -24,7 +24,6 @@ const AffiliatePageLayout = ({
 		setFilters({...filters, page});
 	};
 
-	// console.log('data = ', products.data);
 	return (
 		<>
 			<header className={styles.header}>
@@ -44,7 +43,7 @@ const AffiliatePageLayout = ({
 					<MobileDataRenderer
 						productKey={productKey}
 						statusKey={statusKey}
-						products={products.data}
+						products={products?.data}
 						component={Component}
 						showStatus={showStatus}
 					/>
@@ -57,7 +56,7 @@ const AffiliatePageLayout = ({
 						/>
 					</div>
 				</section>
-				{products.data.length > 0 && (
+				{products?.data?.length > 0 && (
 					<section>
 						<Pagination
 							pageSize={filters.limit}

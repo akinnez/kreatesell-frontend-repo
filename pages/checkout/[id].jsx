@@ -12,6 +12,7 @@ import Logo from 'components/authlayout/logo';
 import {
 	ActiveTick,
 	ArrowLeft,
+	MobileBackArrow,
 	RightArrow,
 	CloudDownload,
 	ActiveStripe,
@@ -51,6 +52,7 @@ import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
 export const pathName = typeof window !== 'undefined' && window;
 
+// TODO: Move to a util file so it can be easily reused
 const countryPayments = {
 	NGN: [
 		{
@@ -298,8 +300,6 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const [{options}, dispatch] = usePayPalScriptReducer();
-
 	const {countriesCurrency, filterdWest, filteredCentral} =
 		useCheckoutCurrency();
 
@@ -420,13 +420,12 @@ const Checkout = () => {
 		}
 	};
 
-	const affliateRef = pathName.localStorage?.getItem('affiliateRef');
+	const affliateRef = router.query.affiliateRef;
 	const getAffiliateRef = () => {
 		return affliateRef;
 	};
 
-	const affiliateUniqueKey =
-		pathName.localStorage?.getItem('affiliateUniqueKey');
+	const affiliateUniqueKey = router.query.affiliateUniqueKey;
 	const getAffiliateUniqueKey = () => {
 		return affiliateUniqueKey;
 	};
@@ -475,7 +474,7 @@ const Checkout = () => {
 			reference_id: reference,
 			purchase_details: getPurchaseDetails(),
 			status: statusValue,
-			card_type: '',
+			card_type: selectedPaymentMethod,
 			last_four: '',
 			currency:
 				pricingTypeDetails.price_type === 'Make it Free'
@@ -551,9 +550,17 @@ const Checkout = () => {
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
 	useEffect(() => {
+		console.log('payment method changed to', selectedPaymentMethod);
+		console.log('activeCurrency', activeCurrency);
+		// TODO: we dont want to convert everytime selected payment method is not crypto but it changes
 		if (selectedPaymentMethod && selectedPaymentMethod === 'crypto') {
 			handleCurrencyConversion('USD');
+		} else if (selectedPaymentMethod !== 'crypto') {
+			handleCurrencyConversion(
+				activeCurrency?.currency_name || activeCurrency.currency
+			);
 		}
+		// else if its not crypto,
 	}, [selectedPaymentMethod]);
 
 	const checkOutInNaira = checkOutDetails?.find(
@@ -590,50 +597,7 @@ const Checkout = () => {
 			: setDisableBtn(false);
 	}, [desiredAmount]);
 
-	// console.log(pricingTypeDetails.price_type, 'pricingTypeDetails.price_type');
-	// const handleSubmit = () => {
-	// 	// if we are using paypal
-
-	// 	/** Currencies using PayStack are listed here */
-	// 	if (
-	// 		['GHS', 'NGN'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		)
-	// 	) {
-	// 		return initializePaystackPayment(
-	// 			onPaystackSuccess,
-	// 			onPaystackClose
-	// 		);
-	// 	}
-
-	// 	// currencies using stripe
-
-	// 	/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-	// 	if (
-	// 		(!['NGN', 'GHS'].includes(
-	// 			activeCurrency.currency || activeCurrency.currency_name
-	// 		) ||
-	// 			selectedPaymentMethod === 'flutterwave') &&
-	// 		!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-	// 	) {
-	// 		handleFlutterPayment({
-	// 			callback: async (response) => {
-	// 				// console.log('response ', response)
-	// 				await sendPaymentCheckoutDetails(
-	// 					paymentDetails({
-	// 						reference: response?.tx_ref,
-	// 						status: 'success',
-	// 					})
-	// 				);
-	// 				closePaymentModal();
-	// 				//   openModal();
-	// 			},
-	// 			onClose: () => {},
-	// 		});
-	// 	}
-	// };
-
-	// TODO: check if price in a particular currency has been specified before,
+	// FIXME: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
 	const handleCurrencyConversion = (toCurrency) => {
 		let index = checkOutDetails.findIndex(
@@ -676,33 +640,33 @@ const Checkout = () => {
 
 	// const calcNgN = 5 / 100 * subTotal
 
-	let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	// let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
 
-	if (
-		[
-			'KES',
-			'GHS',
-			'MWK',
-			'SLL',
-			'ZAR',
-			'TZS',
-			'UGX',
-			'XOF',
-			'XAF',
-		].includes(activeCurrency?.currency || activeCurrency?.currency_name)
-	) {
-		transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
-	} else if (
-		['USD', 'GBP'].includes(
-			activeCurrency?.currency || activeCurrency?.currency_name
-		)
-	) {
-		transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
-	} else {
-		transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
-	}
+	// if (
+	// 	[
+	// 		'KES',
+	// 		'GHS',
+	// 		'MWK',
+	// 		'SLL',
+	// 		'ZAR',
+	// 		'TZS',
+	// 		'UGX',
+	// 		'XOF',
+	// 		'XAF',
+	// 	].includes(activeCurrency?.currency || activeCurrency?.currency_name)
+	// ) {
+	// 	transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
+	// } else if (
+	// 	['USD', 'GBP'].includes(
+	// 		activeCurrency?.currency || activeCurrency?.currency_name
+	// 	)
+	// ) {
+	// 	transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
+	// } else {
+	// 	transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
+	// }
 
-	const totalFee = Number(subTotal) + transactionFee;
+	const totalFee = Number(subTotal);
 
 	const initialValues = {
 		firstName: '',
@@ -717,7 +681,6 @@ const Checkout = () => {
 	const handleSubmit = async () => {
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
-			// console.log('crypto');
 			try {
 				const data = await axios.post(
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
@@ -778,7 +741,10 @@ const Checkout = () => {
 							reference: response?.tx_ref,
 							status: response?.status,
 						}),
-						() => router.push('/checkout/success')
+						() =>
+							router.push(
+								`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+							)
 					);
 					closePaymentModal();
 					//   openModal();
@@ -792,33 +758,6 @@ const Checkout = () => {
 				onPaystackClose
 			);
 		}
-		/** Currencies using PayStack are listed here */
-
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		// if (
-		// 	(!['NGN', 'GHS'].includes(
-		// 		activeCurrency.currency || activeCurrency.currency_name
-		// 	) ||
-		// 		selectedPaymentMethod === 'flutterwave') &&
-		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		// ) {
-		// 	handleFlutterPayment({
-		// 		callback: async (response) => {
-		// 			// console.log('response ', response)
-		// 			await sendPaymentCheckoutDetails(
-		// 				paymentDetails({
-		// 					reference: response?.tx_ref,
-		// 					status: response?.status,
-		// 				})
-		// 			);
-		// 			closePaymentModal();
-		// 			//   openModal();
-		// 		},
-		// 		onClose: () => {},
-		// 	});
-		// }
 	};
 
 	const formik = useFormik({
@@ -888,7 +827,10 @@ const Checkout = () => {
 		const status = 'success';
 		sendPaymentCheckoutDetails(
 			paymentDetails({reference: reference?.reference, status: status}),
-			() => router.push('/checkout/success')
+			() =>
+				router.push(
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+				)
 		);
 	};
 
@@ -918,7 +860,10 @@ const Checkout = () => {
 		const status = 'success';
 		await sendPaymentCheckoutDetails(
 			paymentDetails({total: 0, reference: '', status: status}),
-			() => router.push('/checkout/success')
+			() =>
+				router.push(
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+				)
 		);
 	};
 
@@ -957,16 +902,33 @@ const Checkout = () => {
 					' white relative py-8 px-10 flex shadow items-center text-center'
 				}
 			>
-				<Image src={LogoImg} alt="logo" width={140} height={35} />
-				<h2 className=" font-bold mb-0 text-lg lg:text-2xl">
-					Checkout
-				</h2>
+				<div className={styles.smContent}>
+					<div onClick={() => router.back()}>
+						<Image
+							src={MobileBackArrow}
+							alt="backArrow"
+							width={20}
+							height={20}
+						/>
+					</div>
+
+					<h2 className="ont-bold mb-0 text-lg lg:text-2xl">
+						Checkout
+					</h2>
+					<Image src={LogoImg} alt="logo" width={140} height={35} />
+				</div>
+				<div className={styles.lgContent}>
+					<Image src={LogoImg} alt="logo" width={140} height={35} />
+					<h2 className=" font-bold mb-0 text-lg lg:text-2xl">
+						Checkout
+					</h2>
+				</div>
 			</nav>
 
 			<div className={`${styles.container}`}>
 				<div className="flex py-6 items-center">
 					<div
-						className="flex cursor-pointer"
+						className={`flex cursor-pointer ${styles.backArrow}`}
 						onClick={() => router.back()}
 					>
 						<div>
@@ -1029,7 +991,7 @@ const Checkout = () => {
 
 							<Row gutter={{xs: 0, sm: 0, md: 8}}>
 								<Col
-									xs={24}
+									xs={12}
 									md={12}
 									className={styles.phoneNumberLabel}
 								>
@@ -1037,7 +999,7 @@ const Checkout = () => {
 								</Col>
 
 								<div className={styles.phoneCode}>
-									<Col xs={24} md={12}>
+									<Col xs={12} md={12}>
 										<SelectV2
 											label=""
 											size="large"
@@ -1096,7 +1058,9 @@ const Checkout = () => {
 										price equivalent
 									</p>
 
-									<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+									<div
+										className={`grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 ${styles.currencyCardCont}`}
+									>
 										{countriesCurrency?.map(
 											({currency, currency_id, flag}) => (
 												<CurrencyCard
@@ -1123,7 +1087,9 @@ const Checkout = () => {
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>West African CFA Franc BCEAO(XOF)</h2>
-									<div className="grid gap-4 grid-cols-4 ">
+									<div
+										className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
+									>
 										{filterdWest.map(
 											(
 												{id, currency, flag, name},
@@ -1603,6 +1569,10 @@ const Checkout = () => {
 												</span>
 												{getCurrency('currency')}{' '}
 												{subTotal}
+												{/* {console.log(
+													'subTotal',
+													subTotal
+												)} */}
 												{/* {basicSubtotal} || {desiredAmount
 													? desiredAmount
 													: Number(
@@ -1612,10 +1582,10 @@ const Checkout = () => {
 										</div>
 									</div>
 
-									<div className="flex justify-between">
+									{/* <div className="flex justify-between">
 										<p>Transaction Fee</p>
 										<p>{transactionFee}</p>
-									</div>
+									</div> */}
 
 									<div className="flex justify-between">
 										<p>Tax</p>

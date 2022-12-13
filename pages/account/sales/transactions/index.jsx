@@ -18,6 +18,7 @@ import {
 	DropDownIcon,
 	DropDownUpIcon,
 } from 'utils';
+import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
 const statusComponent = (item) => {
 	const statusTextList = {
@@ -139,6 +140,7 @@ const columns = [
 		title: 'Payment Method',
 		dataIndex: 'payment_method',
 		width: 100,
+		render: (payment_method) => PaymentMethodIcons(payment_method),
 	},
 	{
 		title: 'Date',

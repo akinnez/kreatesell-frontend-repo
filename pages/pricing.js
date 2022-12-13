@@ -22,7 +22,6 @@ const Pricing = () => {
 	const {store} = useSelector((state) => state.store);
 	const {convertedCurrency} = useSelector((state) => state.currencyConverter);
 
-	// console.log
 	// return either monthly or annual upgrade price
 	const getUpgradePrice = (type = 'monthly') => {
 		if (type === 'monthly') {
@@ -66,11 +65,11 @@ const Pricing = () => {
 	const [selectedPlan, setSelectedPlan] = useState('');
 	const [countryOptions, setCountryOptions] = useState([]);
 	const [subscriptionMode, setSubscriptionMode] = useState(null);
-	const [selectedCurrency, setSelectedCurrency] = useState({});
+	const [selectedCurrency, setSelectedCurrency] = useState('');
 
 	const {handleCurrencyConversion, getCurrency} = useConvertRates(
 		'NGN',
-		selectedCurrency?.currency
+		selectedCurrency
 	);
 
 	useEffect(() => {
@@ -114,10 +113,9 @@ const Pricing = () => {
 	// useEffect to default to a currency
 	useEffect(() => {
 		if (countryOptions.length > 0) {
-			setSelectedCurrency(countryOptions[0]);
+			setSelectedCurrency(countryOptions[0]?.label);
 		}
 	}, [countryOptions.length]);
-
 	//   useEffect to calculate price
 	useEffect(() => {
 		if (annually) {
@@ -142,7 +140,7 @@ const Pricing = () => {
 
 	// to convert a currency based on when selected currency changes
 	useEffect(() => {
-		handleCurrencyConversion(selectedCurrency?.currency);
+		handleCurrencyConversion();
 	}, [selectedCurrency]);
 
 	// change
@@ -156,7 +154,7 @@ const Pricing = () => {
 				.filter((ctr) => !['XAF', 'XOF'].includes(ctr.currency))
 				.map((ctr) => ({
 					...ctr,
-					value: ctr.name,
+					value: ctr.currency,
 					label: ctr.currency,
 				}));
 			setCountryOptions([...currency, ...cur]);
@@ -218,7 +216,8 @@ const Pricing = () => {
 									options={countryOptions}
 									arrowIconColor="#0072EF"
 									borderColor="#40A9FF"
-									onChange={(e) => setSelectedCurrency(e)}
+									cb={(e) => setSelectedCurrency(e)}
+									defaultValue={countryOptions?.[0]?.value}
 								/>
 							</div>
 						</div>
@@ -240,7 +239,6 @@ const Pricing = () => {
 									currentPlan={selectedPlan === 'basic'}
 								/>
 							</div>
-
 							<div className={`${styles.free}`}>
 								<PricingCard
 									title="business"

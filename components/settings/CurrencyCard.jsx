@@ -16,9 +16,10 @@ const CurrencyCard = ({
 			<span
 				key={currency_id}
 				onClick={() => handleSelect({currency_id, currency})}
+				className="currencyBox"
 			>
 				<p
-					className={`p-2 flex items-center ${
+					className={`p-2 flex items-center pr-1 mr-1 ${
 						activeCurrency?.currency_id === currency_id
 							? 'activeCard'
 							: 'card'
@@ -39,6 +40,13 @@ const CurrencyCard = ({
 				</p>
 			</span>
 			<style jsx>{`
+				.currencyBox {
+					/* border: 1px solid red; */
+					width: 100%;
+					min-width: 100px;
+					/* margin-right: 10px; */
+					display: inline-block;
+				}
 				.activeCard {
 					border: 1px solid #2dc071;
 					border-radius: 0.5rem;

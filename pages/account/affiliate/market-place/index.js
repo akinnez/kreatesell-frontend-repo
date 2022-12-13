@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import {useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import AuthLayout from 'components/authlayout';
 import KreatorDashboard from 'components/account-dashboard/KreatorDashboard';
@@ -14,6 +15,7 @@ import dataLoading from 'utils/dataLoading';
 const AffiliateProducts = () => {
 	const {user} = useSelector((state) => state.auth);
 	const {store} = useSelector((state) => state.store);
+	const storeChanged = Object.keys(store).length;
 	const {url, filters, setFilters} = useAffiliateFilters(
 		'affiliate/get-products'
 	);
@@ -27,8 +29,21 @@ const AffiliateProducts = () => {
 		error,
 		isValidating,
 	});
+	const memoisedProducts = useMemo(() => {
+		if (products?.data?.length > 0 && Object.keys(store).length > 0) {
+			return {
+				...products,
+				data: products?.data?.map((product) => {
+					return {
+						...product,
+						affiliateSales: store?.total_sales_till_date,
+					};
+				}),
+			};
+		}
+		return [{data: [], total: 0}];
+	}, [products, store]);
 
-	// console.log('rerendered affiliate market place');
 	return (
 		<AuthLayout headerTitle={!user.is_affiliate ? 'Dashboard' : ''}>
 			<Head>
@@ -41,7 +56,7 @@ const AffiliateProducts = () => {
 				</>
 			) : (
 				<AffiliatePageLayout
-					products={products}
+					products={memoisedProducts}
 					isLoading={isLoading}
 					setLoading={setLoading}
 					title="Market Place"

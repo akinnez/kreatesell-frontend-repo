@@ -10,12 +10,9 @@ const Accordion = ({title, subList, setActiveLink, activeLink}) => {
 	return (
 		<div className={styles.accordionItem}>
 			<div className={`${styles.accordionTitle} flex  cursor-pointer`}>
-				<div className={styles.title} style={{display: 'inline-block'}}>
-					{title}
-				</div>
+				<div className={styles.title}>{title}</div>
 				<div
 					className={styles.icon}
-					style={{display: 'inline-block'}}
 					onClick={() => setIsActive(!isActive)}
 				>
 					{isActive ? (

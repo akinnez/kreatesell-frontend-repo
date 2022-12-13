@@ -104,7 +104,7 @@ const Index = () => {
 					data: res.data.data,
 					total: res.data.total_records,
 				});
-				return res;
+				return res.data;
 			},
 			(err) => {
 				setLoading(false);
@@ -143,6 +143,7 @@ const Index = () => {
 					filters,
 					memoisedDataForExport,
 					exportColumns,
+					response,
 				}}
 			/>
 

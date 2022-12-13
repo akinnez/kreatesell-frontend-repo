@@ -4,6 +4,7 @@ export const SignupSchema = () => {
 	return Yup.object().shape({
 		Email: Yup.string()
 			.email()
+			.trim()
 			.required('Please input a valid email address'),
 		Password: Yup.string()
 			.required('Please enter a valid password')

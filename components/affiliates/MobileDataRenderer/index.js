@@ -15,11 +15,11 @@ const MobileDataRenderer = ({
 	showStatus,
 }) => (
 	<>
-		{products.length === 0 ? (
+		{products?.length === 0 ? (
 			<NoData />
 		) : (
 			<ul className={styles.products}>
-				{products.map((product) => (
+				{products?.map((product) => (
 					<li key={product.id} className={styles.product}>
 						{showStatus && (
 							<div className={styles.status}>

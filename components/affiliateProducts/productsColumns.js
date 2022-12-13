@@ -45,7 +45,8 @@ const productsColumns = [
 	{
 		title: 'Action',
 		render: (record) => {
-			if (record?.total_affiliate_sales >= 5) {
+			// if (record?.affiliateSales >= 5) {
+			if (false) {
 				return (
 					<GetLink
 						status={record.request_status}

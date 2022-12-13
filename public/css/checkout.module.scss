@@ -11,11 +11,44 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 	}
+
+	.lgContent {
+		display: block;
+		@media (max-width: 600px) {
+			display: none;
+		}
+	}
+
+	.smContent {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+		h2 {
+			position: unset;
+			transform: unset;
+			font-weight: 700;
+		}
+		@media (min-width: 600px) {
+			display: none;
+		}
+	}
 }
 
 .container {
+	// border: 1px solid red;
 	background-image: url('../images/checkout-bg.png');
 	padding: 20px 80px;
+	@media (max-width: 1200px) {
+		padding: 1rem;
+	}
+	@media (max-width: 600px) {
+		padding: 1rem;
+		background-image: unset;
+		.backArrow {
+			display: none;
+		}
+	}
 	@include screen('medium') {
 		background-image: none;
 	}
@@ -75,6 +108,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	// @media (max-width: 600px) {
+	// 	width: 100%;
+	// 	flex: 1.2;
+	// }
 	//   border: 1px solid red;
 	//   position: relative;
 	//   top: -34px;
@@ -168,4 +205,30 @@
 	font-size: 13px;
 	margin-left: 10px;
 	margin-top: 4px;
+}
+
+// .currencyCardCont {
+// 	// border: 1px solid red;
+// 	//* more
+// }
+
+.currencyWestAfCardCont {
+	// border: 1px solid green;
+
+	@media (max-width: 500px) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		gap: 10px;
+
+		.card,
+		.activeCard {
+			width: 30%;
+			display: flex;
+			justify-content: flex-start !important;
+			align-items: center;
+		}
+	}
 }

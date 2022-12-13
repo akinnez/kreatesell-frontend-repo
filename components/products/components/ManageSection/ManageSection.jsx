@@ -3,7 +3,15 @@ import Image from 'next/image';
 
 import {Switch, Radio, Input, Popconfirm} from 'antd';
 
-import {ViewSales, Audio, EditPen, FileDelete} from 'utils';
+import {
+	ViewSales,
+	Audio,
+	Video,
+	Pdf,
+	EditPen,
+	FileDelete,
+	ImageIcon,
+} from 'utils';
 import styles from '../../BusinessSection/MembershipTab.module.scss';
 
 const ManageSection = ({
@@ -21,6 +29,11 @@ const ManageSection = ({
 	const [sectionName, setSectionName] = useState(items.section_name);
 
 	console.log(items, 'items');
+	console.log(items?.product_subsection, 'items?.product_subsection');
+
+	// const getMediaIconType = (iconObj) => {
+	// 	if()
+	// }
 
 	return (
 		<div className="flex flex-col mt-7">
@@ -131,7 +144,14 @@ const ManageSection = ({
 									<Image
 										width={20}
 										height={20}
-										src={Audio}
+										src={
+											item?.files[0]?.type === 'audio'
+												? Audio
+												: item?.files[0]?.type ===
+												  'video'
+												? Video
+												: ImageIcon
+										}
 										alt="file"
 									/>
 								}
@@ -152,9 +172,7 @@ const ManageSection = ({
 						<div className={styles.managedControls}>
 							<div
 								className="p-4"
-								onClick={() =>
-									openMedia(item?.files[0].filename)
-								}
+								onClick={() => openMedia(item)}
 							>
 								<Image
 									width={15}
