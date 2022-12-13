@@ -296,7 +296,7 @@ p.makeItFreeText {
 .mobileDropView {
 	padding: 24.5px;
 	// border: 1px solid red;
-	height: 100vh;
+	min-height: 200vh;
 	// position: absolute;
 	position: fixed;
 	z-index: 800;
