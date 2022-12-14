@@ -61,8 +61,21 @@ export default function PreviewContent({
 		const minPrice = checkout?.find(
 			(itemPrice) =>
 				itemPrice.price_indicator === 'Minimum' &&
-				itemPrice.currency_name === 'NGN'
+				itemPrice.currency_name === product?.default_currency?.currency
 		);
+		const minDefinedPrice = checkout?.find(
+			(itemPrice) =>
+				itemPrice.price_indicator === 'Minimum' &&
+				itemPrice.currency_name === convertedCurrency?.to_currency_name
+		);
+
+		// TODO:if there are already predefined prices, show them instead
+		if (minDefinedPrice && Object.keys(minDefinedPrice).length > 0) {
+			return minDefinedPrice?.price;
+		}
+		if (Object.keys(convertedCurrency).length > 0) {
+			return convertedCurrency?.buy_rate * minPrice?.price;
+		}
 		return minPrice?.price;
 	};
 
@@ -70,7 +83,7 @@ export default function PreviewContent({
 		const minPrice = checkout?.find(
 			(itemPrice) =>
 				itemPrice.price_indicator === 'Minimum' &&
-				itemPrice.currency_name === 'NGN'
+				itemPrice.currency_name === product?.default_currency?.currency
 		);
 		return minPrice?.currency_name;
 	};
@@ -282,11 +295,28 @@ export default function PreviewContent({
 									{sellingPrice?.length > 0 &&
 										productPriceType !==
 											'Pay What You Want' && (
-											<h1 className="text-3xl font-bold">{`${
-												alreadyDefinedPrice?.currency_name ||
-												convertedCurrency?.to_currency_name ||
-												sellingPrice[0]?.currency_name
-											}  ${
+											<h1 className="text-3xl font-bold">
+												{`${
+													convertedCurrency?.to_currency_name ||
+													alreadyDefinedPrice?.currency_name ||
+													sellingPrice[0]
+														?.currency_name
+												} ${
+													convertedCurrency?.buy_rate
+														? formatPrice(
+																convertedCurrency?.buy_rate *
+																	sellingPrice[0]
+																		?.price
+														  )
+														: alreadyDefinedPrice?.price
+														? alreadyDefinedPrice?.price
+														: formatPrice(
+																sellingPrice[0]
+																	?.price
+														  )
+												}  
+                      `}
+												{/* ${
 												alreadyDefinedPrice?.price
 													? alreadyDefinedPrice?.price
 													: convertedCurrency?.buy_rate
@@ -299,8 +329,10 @@ export default function PreviewContent({
 															sellingPrice[0]
 																?.price
 													  )
-											}`}</h1>
+											} */}
+											</h1>
 										)}
+
 									{productPriceType ===
 										'Pay What You Want' && (
 										<h1 className="text-3xl font-bold">{`${
@@ -308,7 +340,7 @@ export default function PreviewContent({
 											convertedCurrency?.to_currency_name ||
 											getMinimumCurrency()
 										} 
-                  ${getMinimumPrice()}`}</h1>
+                  ${formatPrice(getMinimumPrice())}`}</h1>
 									)}
 									{originalPrice?.length > 0 &&
 										productPriceType !==
