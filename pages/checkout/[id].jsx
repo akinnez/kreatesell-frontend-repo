@@ -8,7 +8,6 @@ import {
 } from 'antd';
 import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 
-import Logo from 'components/authlayout/logo';
 import {
 	ActiveTick,
 	ArrowLeft,
@@ -50,231 +49,10 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
+import {countryPayments} from '../../utils/paymentOptions';
+
 export const pathName = typeof window !== 'undefined' && window;
 
-// TODO: Move to a util file so it can be easily reused
-const countryPayments = {
-	NGN: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'Paystack',
-			icon: PaystackLogo,
-			value: 'paystack',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	GHS: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'Paystack',
-			icon: PaystackLogo,
-			value: 'paystack',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	USD: [
-		{
-			type: 'Stripe',
-			icon: ActiveStripe,
-			value: 'stripe',
-		},
-		{
-			type: 'Paypal',
-			icon: AdvancedPaypal,
-			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	GBP: [
-		{
-			type: 'Stripe',
-			icon: ActiveStripe,
-			value: 'stripe',
-		},
-		{
-			type: 'Paypal',
-			icon: AdvancedPaypal,
-			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	CAD: [
-		{
-			type: 'Stripe',
-			icon: ActiveStripe,
-			value: 'stripe',
-		},
-		{
-			type: 'Paypal',
-			icon: AdvancedPaypal,
-			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	XAF: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	XOF: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	GMD: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	KES: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	LRD: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	MWK: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	SLL: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	ZAR: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	TZS: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	UGX: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-};
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
@@ -300,11 +78,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -550,8 +333,6 @@ const Checkout = () => {
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
 	useEffect(() => {
-		console.log('payment method changed to', selectedPaymentMethod);
-		console.log('activeCurrency', activeCurrency);
 		// TODO: we dont want to convert everytime selected payment method is not crypto but it changes
 		if (selectedPaymentMethod && selectedPaymentMethod === 'crypto') {
 			handleCurrencyConversion('USD');
@@ -686,11 +467,10 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -788,7 +568,8 @@ const Checkout = () => {
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -1297,15 +1078,6 @@ const Checkout = () => {
 											activeCurrency?.currency_name
 									]
 										?.filter(({value}) => {
-											{
-												/* if (value !== 'paypal') {
-												return true;
-											} */
-											}
-
-											{
-												/* check that the user has upgraded and has done KYC */
-											}
 											if (
 												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 													'approved' &&
@@ -1422,29 +1194,27 @@ const Checkout = () => {
 													) => {
 														return actions.order.create(
 															{
-																purchase_units:
-																	[
-																		{
-																			description:
-																				'customDescription',
-																			amount: {
-																				// value: Number(
-																				// 	convertedPrice
-																				// ).toFixed(2),
-																				value: Number(
-																					getCurrency(
-																						'price'
-																					)
-																				).toFixed(
-																					2
-																				),
-																				currency:
-																					getCurrency(
-																						'currency'
-																					),
-																			},
+																purchase_units: [
+																	{
+																		description:
+																			'customDescription',
+																		amount: {
+																			// value: Number(
+																			// 	convertedPrice
+																			// ).toFixed(2),
+																			value: Number(
+																				getCurrency(
+																					'price'
+																				)
+																			).toFixed(
+																				2
+																			),
+																			currency: getCurrency(
+																				'currency'
+																			),
 																		},
-																	],
+																	},
+																],
 															}
 														);
 													}}
