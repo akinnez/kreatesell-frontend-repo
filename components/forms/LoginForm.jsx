@@ -87,6 +87,9 @@ export const LoginForm = () => {
 				) {
 					return router.push('/resend-email');
 				}
+				// if (err?.error && err?.error?.toLowerCase().includes(`has been de-activated`)) {
+				// 	return err?.error;
+				// }
 			}
 		);
 	};

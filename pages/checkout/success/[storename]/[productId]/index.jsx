@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import router, {useRouter} from 'next/router';
 
 import {Row, Col, Modal} from 'antd';
 import axios from 'axios';
@@ -369,6 +369,7 @@ const Success = () => {
 			)}
 			<div className={styles.successContainer}>
 				<nav>
+					<div className={styles.emptyContainer}></div>
 					<div className={styles.titleContainer}>
 						<h3 className={`mb-0 ${styles.pageTitle}`}>
 							{product?.product_details?.product_name}
@@ -386,7 +387,7 @@ const Success = () => {
 								alt="user profile picture"
 							/>
 						</div>
-						<p className="mb-0 ml-2">
+						<p className={'mb-0 ml-2'}>
 							{storeDetails?.kreator_full_name}
 						</p>
 					</div>
@@ -442,14 +443,12 @@ const Success = () => {
 								{singleStoreProducts?.map((productDetails) => {
 									const sellingPrice =
 										productDetails?.default_price;
-									const originalSetting =
-										productDetails?.check_out_details?.find(
-											(item) =>
-												item?.currency_name ===
-													defaultCurrency?.currency &&
-												item?.price_indicator ===
-													'Original'
-										);
+									const originalSetting = productDetails?.check_out_details?.find(
+										(item) =>
+											item?.currency_name ===
+												defaultCurrency?.currency &&
+											item?.price_indicator === 'Original'
+									);
 
 									const originalPrice =
 										originalSetting?.price;
@@ -599,11 +598,12 @@ const ProductCard2 = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color: statusLabel[
-							outOfStock()
-								? 'Out of Stock'
-								: productDetails.status
-						].color,
+						color:
+							statusLabel[
+								outOfStock()
+									? 'Out of Stock'
+									: productDetails.status
+							].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
@@ -620,7 +620,7 @@ const ProductCard2 = ({
 					{productDetails?.product_details?.product_name}
 				</p>
 
-				<div className={`flex justify-between items-center pb-4 pt-1`}>
+				<div className={`flex justify-between items-center pt-1`}>
 					{productDetails?.product_price_type === 'Make it Free' ? (
 						<p className={styles.makeItFreeText}>Free</p>
 					) : productDetails?.product_price_type ===
@@ -682,13 +682,17 @@ const ProductCard2 = ({
 };
 
 const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
+	const productId = router?.query?.productId;
+	const productDetails = product?.product_details;
+
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
 		} else if (action === 'viewCourse') {
-			console.log('view course');
+			router.push(`/account/kreator/products/buyersPreview/${productId}`);
 		}
 	};
+
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
 			<p className={styles.header}>Purchase Summary</p>
@@ -713,13 +717,48 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 								</p>
 							</div>
 							{/* TODO: don't show this button for preorder products */}
-							<Button
-								text="Download File"
-								bgColor="blue"
-								icon={<CloudDownload />}
-								style={{padding: '1rem'}}
-								onClick={() => handleClick('download')}
-							/>
+							{!productDetails?.enable_preorder && (
+								<Button
+									text="Download File"
+									bgColor="blue"
+									icon={<CloudDownload />}
+									style={{padding: '1rem'}}
+									disabled={product?.product_content === null}
+									onClick={() => handleClick('download')}
+								/>
+							)}
+						</div>
+					</span>
+				</div>
+			) : product?.product_type_details === 'Membership' ? (
+				<div className={`${styles.purchase} mb-2`}>
+					<Image
+						className={styles.purchaseIcon}
+						src={CourseFileIcon}
+						height="80"
+						width="80"
+						alt=""
+					/>
+					<span className="">
+						<div className={styles.top}>{productName}</div>
+						<div className={styles.bottom}>
+							<div>
+								<p className={styles.left}>236MB</p>|
+								<p className={styles.right}>
+									{product?.default_currency?.currency}{' '}
+									{product?.default_price}
+								</p>
+							</div>
+							{/* TODO: don't show this button for preorder products */}
+							{!productDetails?.enable_preorder && (
+								<Button
+									text="Access Course"
+									bgColor="blue"
+									icon={<CloudDownload />}
+									style={{padding: '1rem'}}
+									onClick={() => handleClick('viewCourse')}
+								/>
+							)}
 						</div>
 					</span>
 				</div>
@@ -733,7 +772,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						alt=""
 					/>
 					<span className="">
-						<div className={styles.top}>{productName}.rar</div>
+						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
 								<p className={styles.left}>236MB</p>|
@@ -743,13 +782,13 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 								</p>
 							</div>
 							{/* TODO: don't show this button for preorder products */}
-							<Button
-								text="Access Course"
+							{/* <Button
+								text="course"
 								bgColor="blue"
 								icon={<CloudDownload />}
-								style={{padding: '1rem'}}
-								onClick={() => handleClick('download')}
-							/>
+								style={{ padding: '1rem' }}
+								onClick={() => handleClick('viewCourse')}
+							/> */}
 						</div>
 					</span>
 				</div>
@@ -757,18 +796,25 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			<br />
 			<hr />
 			<br />
-
 			{/* FIXME: show preorder */}
-			<div className={styles.preorder2}>
-				Thank you for your preorder.{' '}
-				<span>The expected release date is Mar 31, 2022 9:00 AM</span>
-			</div>
+			{productDetails?.enable_preorder && (
+				<div className={styles.preorder2}>
+					Thank you for your preorder.{' '}
+					<span>
+						The expected release date is{' '}
+						{productDetails?.preoder_date}
+					</span>
+				</div>
+			)}
 			{/* FIXME: show error for product not available */}
-			<div className={styles.error}>
-				<Image src={ErrorIcon} alt="" />
-				This content file is unavailable. Please reach out to the{' '}
-				<Link href="#">Kreator</Link> for more details.
-			</div>
+			{product?.product_type_details === 'Digital Download' &&
+				product?.product_content === null && (
+					<div className={styles.error}>
+						<Image src={ErrorIcon} alt="" />
+						This content file is unavailable. Please reach out to
+						the <Link href="#">Kreator</Link> for more details.
+					</div>
+				)}
 		</div>
 	);
 };
