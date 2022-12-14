@@ -65,7 +65,10 @@ const CreateProduct = () => {
 				</Card>
 			)}
 			{productTab === 1 && (
-				<Card style={{padding: '60px 48px 60px 48px '}}>
+				<Card
+					style={{padding: '50px 28px 60px 28px '}}
+					// style={{padding: '50px 48px 60px 48px '}}
+				>
 					<CheckoutProductTab {...{productId}} />
 				</Card>
 			)}
