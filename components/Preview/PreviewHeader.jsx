@@ -216,7 +216,7 @@ export default function PreviewHeader({
 										border="none"
 										loading={currencyLoading}
 										defaultValue={'NGN'}
-										onChange={(e) => setActiveCurrency(e)}
+										cb={(e) => setActiveCurrency(e)}
 									/>
 								</div>
 								<div className={styles.btns}>

@@ -11,6 +11,7 @@ import {useGetUpgradePlansPrices} from 'services/swrQueryHooks/UpgradePlansQuery
 import useCurrency from 'hooks/useCurrency';
 import useConvertRates from 'hooks/useConvertRates';
 import useFetchUtilities from 'hooks/useFetchUtilities';
+import useLocation from 'hooks/useLocation';
 import Spinner from 'components/Spinner';
 
 const Pricing = () => {
@@ -21,6 +22,7 @@ const Pricing = () => {
 		useCurrency();
 	const {store} = useSelector((state) => state.store);
 	const {convertedCurrency} = useSelector((state) => state.currencyConverter);
+	const {countryDetails, countryDetailsLoading} = useLocation();
 
 	// return either monthly or annual upgrade price
 	const getUpgradePrice = (type = 'monthly') => {
@@ -111,11 +113,14 @@ const Pricing = () => {
 	}, [upgradePlanPrices]);
 
 	// useEffect to default to a currency
+	// // to set currency based on user's location
 	useEffect(() => {
-		if (countryOptions.length > 0) {
+		if (countryDetails?.currency) {
+			setSelectedCurrency(countryDetails?.currency);
+		} else if (countryOptions.length > 0) {
 			setSelectedCurrency(countryOptions[0]?.label);
 		}
-	}, [countryOptions.length]);
+	}, [countryOptions.length, countryDetails?.currency]);
 	//   useEffect to calculate price
 	useEffect(() => {
 		if (annually) {
@@ -142,6 +147,13 @@ const Pricing = () => {
 	useEffect(() => {
 		handleCurrencyConversion();
 	}, [selectedCurrency]);
+
+	// to set currency based on user's location
+	// useEffect(() => {
+	// 	if (countryDetails?.currency) {
+	// 		setSelectedCurrency(countryDetails?.currency);
+	// 	}
+	// }, [countryDetails?.currency]);
 
 	// change
 	useMemo(() => {
@@ -217,7 +229,11 @@ const Pricing = () => {
 									arrowIconColor="#0072EF"
 									borderColor="#40A9FF"
 									cb={(e) => setSelectedCurrency(e)}
-									defaultValue={countryOptions?.[0]?.value}
+									defaultValue={
+										selectedCurrency ||
+										countryOptions?.[0]?.value
+									}
+									loading={countryDetailsLoading}
 								/>
 							</div>
 						</div>

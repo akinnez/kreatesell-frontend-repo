@@ -45,12 +45,11 @@ const productsColumns = [
 	{
 		title: 'Action',
 		render: (record) => {
-			// if (record?.affiliateSales >= 5) {
-			if (false) {
+			if (record?.affiliateSales >= 5) {
 				return (
 					<GetLink
 						status={record.request_status}
-						productId={record.product_id}
+						productId={record.id}
 					/>
 				);
 			}

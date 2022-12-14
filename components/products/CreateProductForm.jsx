@@ -121,7 +121,6 @@ export const CreateProductForm = ({
 		delete data.isBasicPlan;
 		// console.log(data)
 		const result = transformToFormData(data, 'contentZipFiles');
-		console.log('result = ', result);
 		createProduct(result, async () => {
 			if (productId) {
 				await getProductByID(productId);
@@ -180,7 +179,7 @@ export const CreateProductForm = ({
 	}, [product]);
 
 	useEffect(() => {
-		console.log('imageUploads = ', imageUploads);
+		// console.log('imageUploads = ', imageUploads);
 		if (imageUploads.length >= 3) {
 			setIsImageFilled(true);
 			return;
