@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import router, {useRouter} from 'next/router';
 
 import {Row, Col, Modal} from 'antd';
 import axios from 'axios';
@@ -55,6 +55,8 @@ const AccessPageModal = ({
 		customer_email: '',
 		customer_phone_number: '',
 	});
+
+	console.log(productDetails, 'productDetailsproductDetails');
 
 	const handleDownload = (fileLink) => {
 		// Split the file link to generate file name, extension
@@ -682,13 +684,16 @@ const ProductCard2 = ({
 };
 
 const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
+	const productId = router?.query?.productId;
+
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
 		} else if (action === 'viewCourse') {
-			console.log('view course');
+			router.push(`/account/kreator/products/buyersPreview/${productId}`);
 		}
 	};
+
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
 			<p className={styles.header}>Purchase Summary</p>
@@ -758,7 +763,6 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			<br />
 			<hr />
 			<br />
-
 			{/* FIXME: show preorder */}
 			<div className={styles.preorder2}>
 				Thank you for your preorder.{' '}
