@@ -100,6 +100,15 @@
 	@media (min-width: 1300px) {
 		margin-left: 21px;
 	}
+
+	@media (max-width: 768px) {
+		h2 {
+			font-size: 2.4rem;
+		}
+		p {
+			font-size: 1.8rem;
+		}
+	}
 }
 .mainImage {
 	width: 100%;
@@ -154,6 +163,7 @@
 	flex: 1;
 	margin-top: 3rem;
 	overflow-y: auto;
+	// border: 1px solid red;
 
 	p {
 		color: $base-gray;
@@ -199,11 +209,21 @@
 	// overflow-y: auto;
 	min-height: 80px;
 	// border: 1px solid red;
+	> div {
+		@media (max-width: 500px) {
+			font-size: 1.7rem;
+			// padding: 2.4rem;
+		}
+	}
 
 	button {
 		padding: 1.5rem;
 		border-radius: 8px;
 		font-weight: 600;
+		@media (max-width: 500px) {
+			font-size: 1.7rem;
+			padding: 2.4rem;
+		}
 	}
 
 	// h1 {
@@ -350,10 +370,6 @@
 			display: none;
 		}
 	}
-
-	& + .mobileDropView {
-		border: 1px solid red;
-	}
 }
 
 .lgLeft {
@@ -451,13 +467,22 @@
 }
 
 .header {
-	position: relative;
+	// position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 	// border: 1px solid red;
-	.mobileMenu + .mobileDropView {
+	z-index: 2000;
+	.mobileLeft {
+		padding-top: 0.8rem;
+		padding-bottom: 0.8rem;
+	}
+	.mobileDropView {
 		top: 90px;
 		position: relative;
 		margin-top: 2rem;
 		min-height: 100vh;
-		border: 1px solid red !important;
+		// border: 10px solid red !important
 	}
 }

@@ -296,7 +296,7 @@ p.makeItFreeText {
 .mobileDropView {
 	padding: 24.5px;
 	// border: 1px solid red;
-	height: 100vh;
+	min-height: 200vh;
 	// position: absolute;
 	position: fixed;
 	z-index: 800;
@@ -458,4 +458,15 @@ p.makeItFreeText {
 			padding: 0 0.4rem;
 		}
 	}
+}
+
+.mobileNav {
+	// border: 1px solid red;
+	position: fixed;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2000;
 }

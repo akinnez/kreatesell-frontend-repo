@@ -36,8 +36,17 @@ export const CheckoutProductTab = ({productId}) => {
 	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
 	// console.log("data from /me = ", data);
 	const defaultCtaBtnTextSet = data?.store_details?.cta_button;
+	// console.log('defaultCta = ', defaultCtaBtnTextSet);
 
+	useEffect(() => {
+		if (defaultCtaBtnTextSet) {
+			setCtaBtnText(defaultCtaBtnTextSet);
+		}
+	}, []);
 	const [ctaBtnText, setCtaBtnText] = useState(defaultCtaBtnTextSet || '');
+	const handleMouseOut = () => {
+		setCtaBtnText(ctaBtnText);
+	};
 	const changeField = (field) => {
 		setPriceType(field.target.value);
 	};
@@ -68,6 +77,7 @@ export const CheckoutProductTab = ({productId}) => {
 							name="ctaBtnText"
 							value={ctaBtnText}
 							onChange={(e) => setCtaBtnText(e.target.value)}
+							onMouseLeave={handleMouseOut}
 							maxLength={10}
 						/>
 					</div>

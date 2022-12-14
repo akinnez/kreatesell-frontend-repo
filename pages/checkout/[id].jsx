@@ -12,6 +12,7 @@ import Logo from 'components/authlayout/logo';
 import {
 	ActiveTick,
 	ArrowLeft,
+	MobileBackArrow,
 	RightArrow,
 	CloudDownload,
 	ActiveStripe,
@@ -901,16 +902,33 @@ const Checkout = () => {
 					' white relative py-8 px-10 flex shadow items-center text-center'
 				}
 			>
-				<Image src={LogoImg} alt="logo" width={140} height={35} />
-				<h2 className=" font-bold mb-0 text-lg lg:text-2xl">
-					Checkout
-				</h2>
+				<div className={styles.smContent}>
+					<div onClick={() => router.back()}>
+						<Image
+							src={MobileBackArrow}
+							alt="backArrow"
+							width={20}
+							height={20}
+						/>
+					</div>
+
+					<h2 className="ont-bold mb-0 text-lg lg:text-2xl">
+						Checkout
+					</h2>
+					<Image src={LogoImg} alt="logo" width={140} height={35} />
+				</div>
+				<div className={styles.lgContent}>
+					<Image src={LogoImg} alt="logo" width={140} height={35} />
+					<h2 className=" font-bold mb-0 text-lg lg:text-2xl">
+						Checkout
+					</h2>
+				</div>
 			</nav>
 
 			<div className={`${styles.container}`}>
 				<div className="flex py-6 items-center">
 					<div
-						className="flex cursor-pointer"
+						className={`flex cursor-pointer ${styles.backArrow}`}
 						onClick={() => router.back()}
 					>
 						<div>
@@ -973,7 +991,7 @@ const Checkout = () => {
 
 							<Row gutter={{xs: 0, sm: 0, md: 8}}>
 								<Col
-									xs={24}
+									xs={12}
 									md={12}
 									className={styles.phoneNumberLabel}
 								>
@@ -981,7 +999,7 @@ const Checkout = () => {
 								</Col>
 
 								<div className={styles.phoneCode}>
-									<Col xs={24} md={12}>
+									<Col xs={12} md={12}>
 										<SelectV2
 											label=""
 											size="large"
@@ -1040,7 +1058,9 @@ const Checkout = () => {
 										price equivalent
 									</p>
 
-									<div className="grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+									<div
+										className={`grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 ${styles.currencyCardCont}`}
+									>
 										{countriesCurrency?.map(
 											({currency, currency_id, flag}) => (
 												<CurrencyCard
@@ -1067,7 +1087,9 @@ const Checkout = () => {
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>West African CFA Franc BCEAO(XOF)</h2>
-									<div className="grid gap-4 grid-cols-4 ">
+									<div
+										className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
+									>
 										{filterdWest.map(
 											(
 												{id, currency, flag, name},
