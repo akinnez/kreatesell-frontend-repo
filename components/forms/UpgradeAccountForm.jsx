@@ -29,30 +29,7 @@ import CurrencyCard from 'components/settings/CurrencyCard';
 import {useSelector} from 'react-redux';
 import {Input} from 'components';
 import axios from 'axios';
-import axiosApi from 'utils/axios';
-
-const paymentMethods = [
-	{
-		type: 'Stripe',
-		icon: ActiveStripe,
-		value: 'stripe',
-	},
-	{
-		type: 'Paypal',
-		icon: AdvancedPaypal,
-		value: 'paypal',
-	},
-	{
-		type: 'Flutterwave',
-		icon: FlutterwaveLogo,
-		value: 'flutterwave',
-	},
-	{
-		type: 'CryptoCurrency',
-		icon: AdvancedBitcoin,
-		value: 'crypto',
-	},
-];
+import {countryPayments} from '../../utils/paymentOptions';
 
 export const UpgradeAccountForm = ({
 	subscriptionMode: {mode, price},
@@ -68,6 +45,8 @@ export const UpgradeAccountForm = ({
 	// for paypal
 	// get the state for the sdk script and the dispatch method
 	const [{options}, dispatch] = usePayPalScriptReducer();
+	// console.log('selectedCurrency', selectedCurrency);
+	// console.log('convertedCurrency', convertedCurrency);
 
 	// const makePlanUpgrade = MakePlanUpgrade();
 	const {user} = useSelector((state) => state.auth);
@@ -81,7 +60,7 @@ export const UpgradeAccountForm = ({
 
 	const {handleCurrencyConversion} = useConvertRates(
 		'NGN',
-		activeCurrency?.currency || selectedCurrency?.currency
+		activeCurrency?.currency || selectedCurrency
 	);
 
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
@@ -134,7 +113,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -267,12 +247,17 @@ export const UpgradeAccountForm = ({
 	// set currency on mount
 	useEffect(() => {
 		if (countriesCurrency && !selectedCurrency.value) {
-			setActiveCurrency(countriesCurrency[0]);
-			setSelectedPaymentMethod(paymentMethods[0].value);
+			let currency = countriesCurrency.find(
+				(cur) => cur?.currency === selectedCurrency
+			);
+			setActiveCurrency(currency || countriesCurrency[0]);
+			setSelectedPaymentMethod(countryPayments['NGN'].value);
 		} else if (selectedCurrency.value) {
 			setActiveCurrency(selectedCurrency);
 		}
 	}, [countriesCurrency]);
+
+	console.log('active', activeCurrency);
 
 	useEffect(() => {
 		if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
@@ -473,95 +458,119 @@ export const UpgradeAccountForm = ({
 						</div>
 					</div>
 
-					{/* only show this section if selected currency is "USD" or "GBP" */}
-					{['USD', 'GBP'].includes(activeCurrency?.currency) && (
-						<>
-							<div className="pt-6">
-								<div>Payment Method</div>
-								<p className="text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm">
-									Select your preferred payment method
-								</p>
-							</div>
-							<div className="grid gap-4 grid-cols-3 pt-3">
-								{paymentMethods
-									?.filter(({value}) => {
-										return value === 'flutterwave' ||
-											(store?.kyc_status
-												?.is_kyc_verified &&
-												value !== 'paypal')
-											? true
-											: false;
-									})
-									.map(({type, icon, value}) => (
-										<div
-											key={value}
-											onClick={() =>
-												handlePaymentMethod(value)
-											}
-											className={`${
-												selectedPaymentMethod === value
-													? 'activeCard'
-													: 'card'
-											} p-2 flex justify-around items-center`}
-										>
-											<Image src={icon} alt={type} />
-											{store?.kyc_status
-												?.is_kyc_verified &&
-												selectedPaymentMethod ===
-													value && (
-													<Image
-														src={ActiveTick}
-														alt="active"
-														width="16"
-														height="16"
-													/>
-												)}
-										</div>
-									))}
-								<RenderIf
-									condition={
-										store?.kyc_status?.is_kyc_verified
+					<>
+						<div className="pt-6">
+							<div className="text-black-100">Payment Method</div>
+							<p className="text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm">
+								Select your preferred payment method
+							</p>
+						</div>
+						<div className="grid gap-4 grid-cols-3 pt-3">
+							{countryPayments[
+								activeCurrency?.currency ||
+									activeCurrency?.currency_name
+							]
+								?.filter(({value}) => {
+									if (
+										store?.kyc_status?.kyc_status?.toLowerCase() ===
+											'approved' &&
+										store?.user?.user_plan?.toLowerCase() ===
+											'business' &&
+										value !== 'paypal'
+									) {
+										return true;
+									} else if (
+										store?.kyc_status?.kyc_status?.toLowerCase() !==
+											'approved' &&
+										store?.user?.user_plan?.toLowerCase() !==
+											'business'
+									) {
+										{
+											/* return false if currency is cad, usd or gbp */
+										}
+										if (
+											[
+												activeCurrency?.currency,
+												activeCurrency?.currency_name,
+											].includes('USD') ||
+											[
+												activeCurrency?.currency,
+												activeCurrency?.currency_name,
+											].includes('GBP') ||
+											[
+												activeCurrency?.currency,
+												activeCurrency?.currency_name,
+											].includes('CAD')
+										) {
+											return false;
+										}
 									}
-								>
-									<PayPalButtons
-										style={{
-											layout: 'horizontal',
-											label: 'pay',
-										}}
-										className={`flex justify-around items-center`}
-										createOrder={async (data, actions) => {
-											return actions.order.create({
-												purchase_units: [
-													{
-														description:
-															'customDescription',
-														amount: {
-															// value: Number(
-															// 	convertedPrice
-															// ).toFixed(2),
-															value: Number(
-																totalPrice
-															).toFixed(2),
-															currency:
-																activeCurrency?.currency ||
-																selectedCurrency.currency,
-														},
+								})
+								.map(({type, icon, value}) => (
+									<div
+										key={value}
+										onClick={() =>
+											handlePaymentMethod(value)
+										}
+										className={`${
+											selectedPaymentMethod === value
+												? 'activeCard'
+												: 'card'
+										} p-2 flex justify-around items-center`}
+									>
+										<Image src={icon} alt={type} />
+										{store?.kyc_status?.is_kyc_verified &&
+											selectedPaymentMethod === value && (
+												<Image
+													src={ActiveTick}
+													alt="active"
+													width="16"
+													height="16"
+												/>
+											)}
+									</div>
+								))}
+							<RenderIf
+								condition={store?.kyc_status?.is_kyc_verified}
+							>
+								<PayPalButtons
+									style={{
+										layout: 'horizontal',
+										label: 'pay',
+									}}
+									className={`flex justify-around items-center`}
+									createOrder={async (data, actions) => {
+										return actions.order.create({
+											purchase_units: [
+												{
+													description:
+														'customDescription',
+													amount: {
+														// value: Number(
+														// 	convertedPrice
+														// ).toFixed(2),
+														value: Number(
+															totalPrice
+														).toFixed(2),
+														currency:
+															activeCurrency?.currency ||
+															selectedCurrency.currency,
 													},
-												],
-											});
-										}}
-										onApprove={(data, actions) => {
-											console.log('data is', data);
-											console.log('actions is', actions);
-											alert(
-												'You have successfully completed the transaction'
-											);
-										}}
-									/>
-								</RenderIf>
-							</div>
-						</>
-					)}
+												},
+											],
+										});
+									}}
+									onApprove={(data, actions) => {
+										console.log('data is', data);
+										console.log('actions is', actions);
+										alert(
+											'You have successfully completed the transaction'
+										);
+									}}
+								/>
+							</RenderIf>
+						</div>
+					</>
 
 					<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 						<div className="w-3/5 xs:w-3/4 md:w-4/5">
