@@ -13,7 +13,7 @@ import {
 	EmailShareButton,
 } from 'react-share';
 
-import styles from 'public/css/checkoutSuccess.module.scss'; 
+import styles from 'public/css/checkoutSuccess.module.scss';
 import {Button, Input} from 'components';
 import {
 	ZipFile,
@@ -44,7 +44,7 @@ import {hashTagsWithHash, hashTagsWithoutHash} from 'utils/socialShareHashtags';
 const AccessPageModal = ({
 	showAccessPageModal,
 	closeAccessPageModal,
-	errorModal, 
+	errorModal,
 	product_id,
 	setErrorModal,
 	product,
@@ -56,7 +56,7 @@ const AccessPageModal = ({
 		customer_phone_number: '',
 	});
 
-	console.log(productDetails,'productDetailsproductDetails')
+	console.log(productDetails, 'productDetailsproductDetails');
 
 	const handleDownload = (fileLink) => {
 		// Split the file link to generate file name, extension
@@ -682,14 +682,14 @@ const ProductCard2 = ({
 	);
 };
 
-const PurchaseSummaryCard = ({handleClickAction, productName}) => { 
+const PurchaseSummaryCard = ({handleClickAction, productName}) => {
 	const productId = router?.query?.productId;
 
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
 		} else if (action === 'viewCourse') {
-			router.push(`/account/kreator/products/buyersPreview/${productId}`)
+			router.push(`/account/kreator/products/buyersPreview/${productId}`);
 		}
 	};
 

@@ -19,9 +19,8 @@ import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
 
 export default function AddSection({toSection}) {
 	const [productSection, setProductSection] = useState(null);
-	console.log(productSection,'productSection')
+	console.log(productSection, 'productSection');
 	const {product, productID} = useSelector((state) => state.product);
-
 
 	const createSection = CreateSection();
 	const getProduct = AuthGetProductById();
