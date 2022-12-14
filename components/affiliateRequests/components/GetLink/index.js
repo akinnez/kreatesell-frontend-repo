@@ -5,7 +5,9 @@ import styles from './index.module.scss';
 const GetLink = ({productId, status}) => (
 	<>
 		{status === 'Approved' ? (
-			<Link href={`/account/affiliate/requests/${productId}`}>
+			<Link
+				href={`/account/affiliate/requests/${productId}?requiresApproval=false`}
+			>
 				<a className={styles.link}>
 					Get Link <MdOutlineLink />
 				</a>
