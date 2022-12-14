@@ -370,7 +370,7 @@ const Success = () => {
 			<div className={styles.successContainer}>
 				<nav>
 					<div className={styles.titleContainer}>
-						<h3 className="mb-0">
+						<h3 className={`mb-0 ${styles.pageTitle}`}>
 							{product?.product_details?.product_name}
 						</h3>
 					</div>
@@ -426,6 +426,7 @@ const Success = () => {
 											product?.product_details
 												?.product_name
 										}
+										{...{product}}
 									/>
 								</Col>
 							</Row>
@@ -441,14 +442,12 @@ const Success = () => {
 								{singleStoreProducts?.map((productDetails) => {
 									const sellingPrice =
 										productDetails?.default_price;
-									const originalSetting =
-										productDetails?.check_out_details?.find(
-											(item) =>
-												item?.currency_name ===
-													defaultCurrency?.currency &&
-												item?.price_indicator ===
-													'Original'
-										);
+									const originalSetting = productDetails?.check_out_details?.find(
+										(item) =>
+											item?.currency_name ===
+												defaultCurrency?.currency &&
+											item?.price_indicator === 'Original'
+									);
 
 									const originalPrice =
 										originalSetting?.price;
@@ -598,11 +597,12 @@ const ProductCard2 = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color: statusLabel[
-							outOfStock()
-								? 'Out of Stock'
-								: productDetails.status
-						].color,
+						color:
+							statusLabel[
+								outOfStock()
+									? 'Out of Stock'
+									: productDetails.status
+							].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
@@ -680,7 +680,7 @@ const ProductCard2 = ({
 	);
 };
 
-const PurchaseSummaryCard = ({handleClickAction, productName}) => {
+const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
@@ -691,62 +691,72 @@ const PurchaseSummaryCard = ({handleClickAction, productName}) => {
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
 			<p className={styles.header}>Purchase Summary</p>
-			<div className={`${styles.purchase} mb-2`}>
-				<Image
-					className={styles.purchaseIcon}
-					src={ZipFile}
-					// src={CourseFileIcon}
-					height="80"
-					width="80"
-					alt=""
-				/>
-				<span className="">
-					<div className={styles.top}>{productName}.zip</div>
-					<div className={styles.bottom}>
-						<div>
-							<p className={styles.left}>236MB</p>|
-							<p className={styles.right}>NGN 5,000</p>
+			{product?.product_type_details === 'Digital Download' ? (
+				<div className={`${styles.purchase} mb-2`}>
+					<Image
+						className={styles.purchaseIcon}
+						src={ZipFile}
+						// src={CourseFileIcon}
+						height="80"
+						width="80"
+						alt=""
+					/>
+					<span className="">
+						<div className={styles.top}>{productName}.zip</div>
+						<div className={styles.bottom}>
+							<div>
+								<p className={styles.left}>236MB</p>|
+								<p className={styles.right}>
+									{product?.default_currency?.currency}{' '}
+									{product?.default_price}
+								</p>
+							</div>
+							{/* TODO: don't show this button for preorder products */}
+							<Button
+								text="Download File"
+								bgColor="blue"
+								icon={<CloudDownload />}
+								style={{padding: '1rem'}}
+								onClick={() => handleClick('download')}
+							/>
 						</div>
-						{/* TODO: don't show this button for preorder products */}
-						<Button
-							text="Download File"
-							bgColor="blue"
-							icon={<CloudDownload />}
-							style={{padding: '1rem'}}
-							onClick={() => handleClick('download')}
-						/>
-					</div>
-				</span>
-			</div>
+					</span>
+				</div>
+			) : (
+				<div className={`${styles.purchase} mb-2`}>
+					<Image
+						className={styles.purchaseIcon}
+						src={CourseFileIcon}
+						height="80"
+						width="80"
+						alt=""
+					/>
+					<span className="">
+						<div className={styles.top}>{productName}.rar</div>
+						<div className={styles.bottom}>
+							<div>
+								<p className={styles.left}>236MB</p>|
+								<p className={styles.right}>
+									{product?.default_currency?.currency}{' '}
+									{product?.default_price}
+								</p>
+							</div>
+							{/* TODO: don't show this button for preorder products */}
+							<Button
+								text="Access Course"
+								bgColor="blue"
+								icon={<CloudDownload />}
+								style={{padding: '1rem'}}
+								onClick={() => handleClick('download')}
+							/>
+						</div>
+					</span>
+				</div>
+			)}
 			<br />
 			<hr />
 			<br />
-			<div className={`${styles.purchase} mb-2`}>
-				<Image
-					className={styles.purchaseIcon}
-					src={CourseFileIcon}
-					height="80"
-					width="80"
-					alt=""
-				/>
-				<span className="">
-					<div className={styles.top}>{productName}.rar</div>
-					<div className={styles.bottom}>
-						<div>
-							<p className={styles.left}>236MB</p>|
-							<p className={styles.right}>NGN 5,000</p>
-						</div>
-						{/* TODO: don't show this button for preorder products */}
-						<Button
-							text="Access Course"
-							bgColor="blue"
-							icon={<CloudDownload />}
-							style={{padding: '1rem'}}
-							onClick={() => handleClick('download')}
-						/>
-					</div>
-				</span>
-			</div>
+
 			{/* FIXME: show preorder */}
 			<div className={styles.preorder2}>
 				Thank you for your preorder.{' '}
