@@ -16,19 +16,21 @@ export default function FileUpload({
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: '.zip,.rar',
 	});
+	// console.log('initialFile', initialFile);
 
-	console.log(initialFile, 'initialFileinitialFile');
-
-	console.log(file, 'filefilefilefile');
+	const [files, setFiles] = useState([]);
+	// console.log('files', files);
+	// console.log('file', file);
+	// console.log('mainFile', mainFile);
 
 	const fetchFile = async (url) => {
 		const instance = axios.create();
 		delete instance.defaults.headers.common['Authorization'];
 		try {
 			const data = await axios.get(url, {resource_type: 'raw'});
-			console.log(data);
+			// console.log(data);
 			let buffer = new Buffer(data.data.toString());
-			console.log(buffer.toString('base64'));
+			// console.log(buffer.toString('base64'));
 		} catch (error) {
 			console.log(error);
 		}
@@ -65,6 +67,7 @@ export default function FileUpload({
 		if (initialFile) {
 			const getFileDetails = () => {
 				initialFile.map(async (item) => {
+					setFiles((prev) => [...prev, item]);
 					await fetchFile(item.filename);
 				});
 			};

@@ -59,7 +59,8 @@ export default function PreviewProduct() {
 			});
 		setFormattedCurrencies(currencies);
 	};
-
+	// console.log('storeCheckoutCurrencies', storeCheckoutCurrencies);
+	// console.log('formattedCurrencies', formattedCurrencies);
 	useEffect(() => {
 		if (storeCheckoutCurrencies.length > 0) {
 			formatCurrencies();

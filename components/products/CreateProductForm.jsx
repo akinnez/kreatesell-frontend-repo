@@ -162,8 +162,9 @@ export const CreateProductForm = ({
 	}, [productID, productId]);
 
 	useEffect(() => {
-		if (preOrder) {
+		if (preOrder && store) {
 			const {user} = store;
+			// console.log('store', store);
 			if (user.user_plan === 'Basic') {
 				setFieldValue('isBasicPlan', true);
 			} else {
@@ -531,7 +532,6 @@ export const CreateProductForm = ({
 								</div>
 							</div>
 						)}
-
 						{preOrder && (
 							<div className={styles.enablePreOrderCont}>
 								<p className="text-base-gray-200">
@@ -554,7 +554,6 @@ export const CreateProductForm = ({
 								/>
 							</div>
 						)}
-
 						{productType === 'digitalDownload' && (
 							<div className="flex justify-between items-center mt-5 w-full lg:w-2/4 pt-4">
 								<h2 className="text-black-100 font-semibold text-lg">
@@ -574,7 +573,6 @@ export const CreateProductForm = ({
 								</div>
 							</div>
 						)}
-
 						{contentFiles && (
 							<FileUpload
 								initialFile={initialProduct}
