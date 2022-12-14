@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 import {
 	Input,
@@ -8,13 +8,13 @@ import {
 	PasswordInput,
 	FormSuccess,
 } from '../';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import Link from 'next/link';
-import { LoginSchema } from '../../validation';
-import { isAnEmpytyObject, showToast } from '../../utils';
-import { Login, GetStoreDetails } from '../../redux/actions';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import {LoginSchema} from '../../validation';
+import {isAnEmpytyObject, showToast} from '../../utils';
+import {Login, GetStoreDetails} from '../../redux/actions';
+import {useRouter} from 'next/router';
+import {useSelector} from 'react-redux';
 import styles from '../../public/css/Login.module.scss';
 
 export const LoginForm = () => {
@@ -22,7 +22,7 @@ export const LoginForm = () => {
 	const getStoreDetails = GetStoreDetails();
 	const router = useRouter();
 
-	const { loading } = useSelector((state) => state.auth);
+	const {loading} = useSelector((state) => state.auth);
 
 	const initialValues = {
 		username: '',
@@ -63,7 +63,7 @@ export const LoginForm = () => {
 				) {
 					return router.push({
 						pathname: '/verify-account',
-						query: { email: res?.data?.email },
+						query: {email: res?.data?.email},
 					});
 				}
 				if (
@@ -89,7 +89,7 @@ export const LoginForm = () => {
 				}
 				// if (err?.error && err?.error?.toLowerCase().includes(`has been de-activated`)) {
 				// 	return err?.error;
-				// } 
+				// }
 			}
 		);
 	};
@@ -101,7 +101,7 @@ export const LoginForm = () => {
 		validateOnChange: false,
 	});
 
-	const { errors } = formik;
+	const {errors} = formik;
 
 	return (
 		<>
