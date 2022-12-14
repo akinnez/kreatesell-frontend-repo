@@ -19,9 +19,9 @@ import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
 
 export default function AddSection({toSection}) {
 	const [productSection, setProductSection] = useState(null);
+	console.log(productSection,'productSection')
 	const {product, productID} = useSelector((state) => state.product);
 
-	console.log(productID, productID);
 
 	const createSection = CreateSection();
 	const getProduct = AuthGetProductById();
@@ -328,7 +328,7 @@ export default function AddSection({toSection}) {
 								</Tooltip>
 							</div>
 						</div>
-						{item.product_subsection.map((lecture, idx) => (
+						{item?.product_subsection?.map((lecture, idx) => (
 							<div
 								key={idx}
 								className="flex mt-5 ml-5 justify-between items-center"
