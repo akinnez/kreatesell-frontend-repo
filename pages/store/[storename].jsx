@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import router, {useRouter} from 'next/router';
 import Image from 'next/image';
 import {useEffect, useState, useRef} from 'react';
 
@@ -60,7 +60,6 @@ const StorePage = () => {
 		singleStorePaginationDetails: pagination,
 		defaultCurrency,
 	} = useSelector((state) => state.product);
-
 	// const [defaultCurrency, setDefaultCurrency] = useState('NGN');
 	const [targetCurrency, setTargetCurrency] = useState('');
 	const [tempTargetCurrency, setTempTargetCurrency] = useState(
@@ -205,7 +204,9 @@ const StorePage = () => {
 					</div>
 				</nav>
 
-				<nav className="bg-white lg:hidden flex items-center justify-between px-4">
+				<nav
+					className={`bg-white lg:hidden flex items-center justify-between px-4 ${styles.mobileNav}`}
+				>
 					<div className="items-center  flex ">
 						<div
 							className={`${styles.mobileMenuCont} ${
@@ -688,7 +689,10 @@ export const StoreMobileDropView = ({
 				<div className={styles.mobileInput}>
 					<Input type="" placeholder="Enter your email.." />
 				</div>
-				<div className={styles.mobileButton}>
+				<div
+					className={styles.mobileButton}
+					onClick={() => router.push('/signup')}
+				>
 					<Button
 						text="Get Started Free"
 						bgColor="blue"
