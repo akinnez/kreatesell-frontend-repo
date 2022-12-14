@@ -12,17 +12,18 @@ export default function PreviewProduct() {
 	const router = useRouter();
 
 	const {
-		product: {store_dto, check_out_details},
+		product: {store_dto, check_out_details, default_currency},
 	} = useSelector((state) => state.product);
 	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
-	const [activeCurrency, setActiveCurrency] = useState({});
+	const [activeCurrency, setActiveCurrency] = useState('');
 	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
-
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
-		useState(null);
+	const [
+		alreadyDefinedOriginalPrice,
+		setAlreadyDefinedOriginalPrice,
+	] = useState(null);
 
 	const getProductByID = GetProductByIDNotAut();
 	const convertCurrency = ConvertCurrency();
@@ -55,7 +56,7 @@ export default function PreviewProduct() {
 				return {
 					...cur,
 					label: cur.currency_short_name,
-					value: cur?.currency_id,
+					value: cur?.currency_short_name,
 				};
 			});
 		setFormattedCurrencies(currencies);
@@ -68,10 +69,10 @@ export default function PreviewProduct() {
 	}, [storeCheckoutCurrencies.length]);
 
 	useEffect(() => {
-		if (activeCurrency?.label) {
-			handleCurrencyConversion(activeCurrency?.label);
+		if (activeCurrency) {
+			handleCurrencyConversion(activeCurrency);
 		}
-	}, [activeCurrency?.currency_id]);
+	}, [activeCurrency]);
 	// console.log('check_out_details', check_out_details)
 	const handleCurrencyConversion = (toCurrency) => {
 		let sellingIndex = check_out_details.findIndex(
@@ -90,7 +91,7 @@ export default function PreviewProduct() {
 				setAlreadyDefinedOriginalPrice(null);
 				const data = {
 					amount: 0,
-					from_currency_name: 'NGN', //TODO: NGN for now till we get the base currency
+					from_currency_name: default_currency?.currency,
 					to_currency_name: toCurrency,
 				};
 				convertCurrency(
@@ -108,7 +109,7 @@ export default function PreviewProduct() {
 			setAlreadyDefinedOriginalPrice(null);
 			const data = {
 				amount: 0,
-				from_currency_name: 'NGN', //TODO: NGN for now till we get the base currency
+				from_currency_name: default_currency?.currency,
 				to_currency_name: toCurrency,
 			};
 			convertCurrency(
