@@ -442,12 +442,14 @@ const Success = () => {
 								{singleStoreProducts?.map((productDetails) => {
 									const sellingPrice =
 										productDetails?.default_price;
-									const originalSetting = productDetails?.check_out_details?.find(
-										(item) =>
-											item?.currency_name ===
-												defaultCurrency?.currency &&
-											item?.price_indicator === 'Original'
-									);
+									const originalSetting =
+										productDetails?.check_out_details?.find(
+											(item) =>
+												item?.currency_name ===
+													defaultCurrency?.currency &&
+												item?.price_indicator ===
+													'Original'
+										);
 
 									const originalPrice =
 										originalSetting?.price;
@@ -597,12 +599,11 @@ const ProductCard2 = ({
 				<p
 					className={`mb-0 ${styles.status}`}
 					style={{
-						color:
-							statusLabel[
-								outOfStock()
-									? 'Out of Stock'
-									: productDetails.status
-							].color,
+						color: statusLabel[
+							outOfStock()
+								? 'Out of Stock'
+								: productDetails.status
+						].color,
 					}}
 				>
 					{/* if productDetails.total >= productDetails.number_sold : "Out of stock"*/}
@@ -705,7 +706,8 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}.zip</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>236MB</p>|
+								<p className={styles.left}>236MB</p>| //TODO:
+								Replace this with appropriate size
 								<p className={styles.right}>
 									{product?.default_currency?.currency}{' '}
 									{product?.default_price}

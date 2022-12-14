@@ -71,7 +71,6 @@ export default function FileUpload({
 			getFileDetails();
 		}
 	}, [initialFile]);
-
 	useEffect(() => {
 		if (mainFile.length > 0) {
 			const start = async () => {
@@ -88,8 +87,6 @@ export default function FileUpload({
 			start();
 		}
 	}, [mainFile]);
-
-	console.log(mainFile, 'mainFilemainFilemainFilemainFile');
 
 	return (
 		<div className="pt-2">
