@@ -698,14 +698,16 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 		}
 	};
 
-	const getFileSize =() => {
-		const numberSize = Number(product?.product_images[1]?.size.split('MB')[0]);
-		if(numberSize < 1){
-             const kbSize = numberSize * 1000
-			 return `${kbSize} KB`
+	const getFileSize = () => {
+		const numberSize = Number(
+			product?.product_images[1]?.size.split('MB')[0]
+		);
+		if (numberSize < 1) {
+			const kbSize = numberSize * 1000;
+			return `${kbSize} KB`;
 		}
-		return `${product?.product_images[1]?.size}`
-	}
+		return `${product?.product_images[1]?.size}`;
+	};
 
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
@@ -724,10 +726,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>
-									{getFileSize()}
-								</p>{' '}
-								|
+								<p className={styles.left}>{getFileSize()}</p> |
 								{/* //TODO:
 								Replace this with appropriate size */}
 								<p className={styles.right}>
@@ -818,7 +817,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			<br />
 			<hr />
 			<br />
-			
+
 			{productDetails?.enable_preorder && (
 				<div className={styles.preorder2}>
 					Thank you for your preorder.{' '}
@@ -828,7 +827,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 					</span>
 				</div>
 			)}
-		
+
 			{product?.product_type_details === 'Digital Download' &&
 				product?.product_images === null && (
 					<div className={styles.error}>
