@@ -97,7 +97,7 @@ const AccessPageModal = ({
 		// TODO: validate email address
 		try {
 			const response = await axios.post(productLink, productDetails);
-			handleDownload(response?.data?.download_link);
+			handleDownload(response?.data?.product_dto?.product_images[1]?.filename);
 		} catch (error) {
 			setErrorModal(true);
 		} finally {
@@ -716,7 +716,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.bottom}>
 							<div>
 								<p className={styles.left}>
-									{product?.product_images[0]?.size}
+									{product?.product_images[1]?.size}
 								</p>{' '}
 								|
 								{/* //TODO:
