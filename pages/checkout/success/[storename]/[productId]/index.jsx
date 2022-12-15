@@ -696,7 +696,6 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 		}
 	};
 
-
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
 			<p className={styles.header}>Purchase Summary</p>
@@ -749,10 +748,13 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>|
+								<p
+									className={styles.left}
+								>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
+								|
 								<p className={styles.right}>
 									{product?.default_currency?.currency}{' '}
-									{product?.default_price} 
+									{product?.default_price}
 								</p>
 							</div>
 							{/* TODO: don't show this button for preorder products */}
@@ -818,7 +820,11 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 					<div className={styles.error}>
 						<Image src={ErrorIcon} alt="" />
 						This content file is unavailable. Please reach out to
-						the <Link href={`mailto:${StoreDetails?.store_email}`}>Kreator</Link> for more details.
+						the{' '}
+						<Link href={`mailto:${StoreDetails?.store_email}`}>
+							Kreator
+						</Link>{' '}
+						for more details.
 					</div>
 				)}
 		</div>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import {Row, Col} from 'antd';
 
 import {GrossSales, Profit, UnitSales, Visit} from '../../utils';
-import styles from '../../public/css/AllRevenue.module.scss'; 
+import styles from '../../public/css/AllRevenue.module.scss';
 
 export const StatsCard = ({
 	totalRevenue = 0,
@@ -21,7 +21,7 @@ export const StatsCard = ({
 			</div>
 			<div className={`${styles.midSection}`}>
 				<div className={styles.cardContainer}>
-					<Row gutter={[16, 16]} style={{width:'100%'}}>
+					<Row gutter={[16, 16]} style={{width: '100%'}}>
 						<Col xs={12} lg={6}>
 							<div className={styles.firstCard}>
 								<div className={styles.iconCont}>

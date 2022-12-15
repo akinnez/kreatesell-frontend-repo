@@ -197,7 +197,7 @@ export default function Home() {
 									height="100"
 								/>
 							</div>
-							<div className={styles.imageStyle}> 
+							<div className={styles.imageStyle}>
 								<Image
 									src={Punch}
 									alt="punch"

@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { Layout, Menu, Button, Dropdown, Badge } from 'antd';
-import { MdOutlineMenu, MdOutlineLogout } from 'react-icons/md';
+import {useRouter} from 'next/router';
+import {useSelector} from 'react-redux';
+import {Layout, Menu, Button, Dropdown, Badge} from 'antd';
+import {MdOutlineMenu, MdOutlineLogout} from 'react-icons/md';
 import NotificationsDropdown from 'components/notifications/NotificationsDropdown';
-import { MobileLogo } from './logo';
-import { PageDot, ProfileIcon, Cog, EditPen2 } from '../IconPack';
-import { Logout } from '../../redux/actions';
+import {MobileLogo} from './logo';
+import {PageDot, ProfileIcon, Cog, EditPen2} from '../IconPack';
+import {Logout} from '../../redux/actions';
 import style from './Header.module.scss';
-import { shortenDetail, NavCloseIcon, NavCloseLogo } from 'utils';
+import {shortenDetail, NavCloseIcon, NavCloseLogo} from 'utils';
 
-const Profile = ({ name, avi }) => {
+const Profile = ({name, avi}) => {
 	return (
 		<>
 			<div className="profile-wrapper">
@@ -96,19 +96,19 @@ export const menu = (logout) => (
 	</Menu>
 );
 
-const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
-	const { Header } = Layout;
+const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
+	const {Header} = Layout;
 
-	const router = useRouter()
+	const router = useRouter();
 
 	const [info, setInfo] = useState({});
 
-	const { pathname } = useRouter();
+	const {pathname} = useRouter();
 
 	const isOverLayView = pathname === '/account/kreator/products/preview/[id]';
 
 	const {
-		store: { store_details },
+		store: {store_details},
 	} = useSelector((state) => state.store);
 
 	const logout = Logout();
@@ -153,11 +153,13 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
 								</div>
 							</div>
 							<div className={style.nav_right}>
-								<Button 
+								<Button
 									type="text"
 									shape="circle"
 									icon={<Cog />}
-									onClick={() => router.push('/account/kreator/settings')}
+									onClick={() =>
+										router.push('/account/kreator/settings')
+									}
 								/>
 								<NotificationsDropdown />
 								<Dropdown
@@ -207,12 +209,14 @@ const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
 						<Button
 							type="text"
 							icon={<Cog />}
-							onClick={() => router.push('/account/kreator/settings')}
+							onClick={() =>
+								router.push('/account/kreator/settings')
+							}
 						/>
 						<NotificationsDropdown />
 						<Dropdown
 							overlay={menu(logout)}
-							placement="bottomRight" 
+							placement="bottomRight"
 							arrow
 						>
 							<Button type="text" className={style.dropdown__btn}>
