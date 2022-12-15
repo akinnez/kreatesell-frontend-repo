@@ -23,11 +23,17 @@ const Billing = () => {
 	const {store} = useSelector((state) => state.store);
 	const {convertedCurrency} = useSelector((state) => state.currencyConverter);
 
-	const {data: upgradePlanPrices, error: upgradePlanErrors} =
-		useGetUpgradePlansPrices();
+	const {
+		data: upgradePlanPrices,
+		error: upgradePlanErrors,
+	} = useGetUpgradePlansPrices();
 	const paymentUnsubscribe = PaymentUnsubscribe();
-	const {countriesCurrency, loading, filteredCentral, filterdWest} =
-		useCurrency();
+	const {
+		countriesCurrency,
+		loading,
+		filteredCentral,
+		filterdWest,
+	} = useCurrency();
 	// return either monthly or annual upgrade price
 	const getUpgradePrice = (type = 'monthly') => {
 		if (type === 'monthly') {
@@ -237,7 +243,7 @@ const Billing = () => {
 									: subPriceType
 							}
 							btnOnClick={openModal}
-							// currentPlan={selectedPlan === 'Business'}
+							currentPlan={selectedPlan === 'Business'}
 							selectedCurrency={
 								convertedCurrency?.to_currency_name ||
 								selectedCurrency

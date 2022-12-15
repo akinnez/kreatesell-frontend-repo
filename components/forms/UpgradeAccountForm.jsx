@@ -66,6 +66,9 @@ export const UpgradeAccountForm = ({
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
 
+	// ====================================================================================
+	//              PAYMENT CONFIG STARTS HERE
+	// ===================================================================================
 	const randomId = `kreate-sell-${crypto.randomBytes(16).toString('hex')}`;
 	const paymentStatusList = {
 		success: 's',
@@ -113,7 +116,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -166,6 +170,22 @@ export const UpgradeAccountForm = ({
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
 
+	// paypal success
+	const paypalSuccess = (data, actions) => {
+		// sendPaymentCheckoutDetails(
+		// 	paymentDetails({reference: reference?.reference, status: status}),
+		// 	() =>
+		// 		router.push(
+		// 			`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+		// 		)
+		// );
+	};
+
+	const stripeSuccess = () => {};
+
+	// ===================================================================================
+	//              PAYMENT CONFIG ENDS HERE
+	// ===================================================================================
 	const calculatePriceWithFees = () => {
 		let feePercentage;
 		switch (activeCurrency?.currency) {
@@ -193,12 +213,19 @@ export const UpgradeAccountForm = ({
 				const data = await axios.post(
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
-						id: 'id_test',
-						price: totalPrice,
-						name: 'Tunde Afo',
+						name: 'user name',
+						description: 'Account upgrade payment',
+						pricing_type: 'fixed_price',
+						local_price: {
+							amount: totalPrice,
+							currency: 'USDT',
+						},
+						metadata: {
+							customer_id: '342', //TODO: customer id
+							customer_name: 1,
+						},
 					}
 				);
-				console.log('data is', data);
 				// console.log('data is', data);
 				window.open(data.data.hosted_url, '_blank');
 			} catch (e) {
@@ -206,24 +233,28 @@ export const UpgradeAccountForm = ({
 			}
 		}
 
-		// if selected currency is stripe
-
-		/** Currencies using PayStack are listed here */
-		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
-			return initializePaystackPayment(
-				onPaystackSuccess,
-				onPaystackClose
-			);
+		if (selectedPaymentMethod === 'stripe') {
+			try {
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/stripe/create-checkout-session',
+					{
+						unit_amount: Number(totalPrice).toFixed() * 100,
+						currency: activeCurrency?.currency,
+						quantity: 1,
+						success_url: `${location.origin}/account/kreator/settings?activeTab=billing&upgradeStatus=successful`,
+						cancel_url: `${location.origin}/account/kreator/settings?activeTab=billing?status=fail`,
+					}
+				);
+				console.log('data', data);
+				window.open(data.data.url, '_blank');
+			} catch (e) {
+				console.error(e);
+			} finally {
+				return;
+			}
 		}
 
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		if (
-			(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
-				selectedPaymentMethod === 'flutterwave') &&
-			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		) {
+		if (selectedPaymentMethod === 'flutterwave') {
 			setModal(false);
 			handleFlutterPayment({
 				callback: async (response) => {
@@ -241,6 +272,46 @@ export const UpgradeAccountForm = ({
 				onClose: () => {},
 			});
 		}
+
+		if (selectedPaymentMethod === 'paystack') {
+			return initializePaystackPayment(
+				onPaystackSuccess,
+				onPaystackClose
+			);
+		}
+		// /** Currencies using PayStack are listed here */
+		// if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
+		// 	return initializePaystackPayment(
+		// 		onPaystackSuccess,
+		// 		onPaystackClose
+		// 	);
+		// }
+
+		// currencies using stripe
+
+		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
+		// if (
+		// 	(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
+		// 		selectedPaymentMethod === 'flutterwave') &&
+		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
+		// ) {
+		// 	setModal(false);
+		// 	handleFlutterPayment({
+		// 		callback: async (response) => {
+		// 			// console.log('response ', response)
+		// 			setSelectedPlan('Business');
+		// 			await sendPaymentCheckoutDetails(
+		// 				paymentDetails({
+		// 					reference: response?.tx_ref,
+		// 					status: response?.status,
+		// 				})
+		// 			);
+		// 			closePaymentModal();
+		// 			//   openModal();
+		// 		},
+		// 		onClose: () => {},
+		// 	});
+		// }
 	};
 
 	// set currency on mount
@@ -256,17 +327,22 @@ export const UpgradeAccountForm = ({
 		}
 	}, [countriesCurrency]);
 
-	console.log('active', activeCurrency);
+	// useEffect(() => {
+	// 	if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
+	// 		setSelectedPaymentMethod('');
+	// 	}
+	// }, [activeCurrency?.currency]);
 
 	useEffect(() => {
-		if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
-			setSelectedPaymentMethod('');
+		if (activeCurrency?.currency || activeCurrency?.currency_name) {
+			setSelectedPaymentMethod(
+				countryPayments[
+					activeCurrency?.currency || activeCurrency.currency_name
+				][0].value
+			);
 		}
-	}, [activeCurrency?.currency]);
-
-	useEffect(() => {
 		handleCurrencyConversion(activeCurrency?.currency);
-	}, [activeCurrency?.currency]);
+	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
 	// useEffect to convert currency
 	useEffect(() => {
@@ -560,6 +636,7 @@ export const UpgradeAccountForm = ({
 										});
 									}}
 									onApprove={(data, actions) => {
+										// TODO: handle payment success
 										console.log('data is', data);
 										console.log('actions is', actions);
 										alert(
