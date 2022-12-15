@@ -164,8 +164,7 @@ export const CreateProductForm = ({
 	useEffect(() => {
 		if (preOrder && store) {
 			const {user} = store;
-			// console.log('store', store);
-			if (user.user_plan === 'Basic') {
+			if (user?.user_plan === 'Basic') {
 				setFieldValue('isBasicPlan', true);
 			} else {
 				setFieldValue('isBasicPlan', false);
