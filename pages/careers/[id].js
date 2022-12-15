@@ -107,7 +107,7 @@ export default function Career() {
 					<div className={styles.body}>
 						<section className={styles.role}>
 							<TitleDescription
-								title={`${job.title} at Kreatesell`}
+								title={`${job.title} at KreateSell`}
 								description={`${job.description1}`}
 							/>
 						</section>
@@ -135,7 +135,7 @@ export default function Career() {
 							{!!job.responsibilities && (
 								<TitleDescriptionList
 									title="Job Responsibilities"
-									subtitle={`As a ${job.title} at Kreatesell, you will:`}
+									subtitle={`As a ${job.title} at KreateSell, you will:`}
 									list={job?.responsibilities || ''}
 								/>
 							)}
@@ -153,7 +153,7 @@ export default function Career() {
 							<section className={styles.requirements}>
 								<TitleDescriptionList
 									title={'Job Requirements'}
-									subtitle={`Our ideal ${job.title} at Kreatesell should have:`}
+									subtitle={`Our ideal ${job.title} at KreateSell should have:`}
 									list={job.requirements}
 								/>
 							</section>

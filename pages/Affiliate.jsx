@@ -30,11 +30,11 @@ const Affiliate = () => {
 							<h2 className="hidden md:block">
 								Become An
 								<br /> Affiliate On
-								<br /> Kreatesell
+								<br /> KreateSell
 								<br /> Now!
 							</h2>
 							<h2 className="block md:hidden">
-								Become An Affiliate On Kreatesell Now!
+								Become An Affiliate On KreateSell Now!
 							</h2>
 							<br />
 							<Button
@@ -47,14 +47,14 @@ const Affiliate = () => {
 							/>
 						</div>
 						<div className={styles.right}>
-							Kreatesell is a Break-Through SaaS platform for
+							KreateSell is a Break-Through SaaS platform for
 							Content Creators and Digital Entrepreneurs
 							(Kreators) to instantly sell their content and
 							digital products to a wide range of global
 							customers.
 							<br />
 							<br />
-							Kreatesell is the First-Of-Its-Kind and has
+							KreateSell is the First-Of-Its-Kind and has
 							incorporated Simplified tools to help Kreators make
 							Embarrassingly Large sales, even with no Tech/coding
 							skill or experience.
@@ -63,7 +63,7 @@ const Affiliate = () => {
 							As an affiliate, you would be making a Super
 							Powerful impact by providing these Kreators with a
 							constant stream of buying customers, to buy their
-							products on Kreatesell.
+							products on KreateSell.
 							<br />
 							<br />
 							The best part? You earn AMAZING commissions for
@@ -71,7 +71,7 @@ const Affiliate = () => {
 							<br />
 							<br />
 							Earning has Never Been Easier as it is on
-							Kreatesell. Make Insane Amounts of passive and
+							KreateSell. Make Insane Amounts of passive and
 							active income for yourself. <br />
 							<br />
 						</div>
@@ -120,7 +120,7 @@ const Affiliate = () => {
 									<Card
 										backgroundColor={'blueBackground'}
 										content={
-											'He signed up as a user on Kreatesell. After signing up, he browsed through the products listed, looking for those that offered the BEST commissions to Affiliates.'
+											'He signed up as a user on KreateSell. After signing up, he browsed through the products listed, looking for those that offered the BEST commissions to Affiliates.'
 										}
 									/>
 								</div>
@@ -232,7 +232,7 @@ const Affiliate = () => {
 								You can refer as many people as you want for as
 								<br /> many products as you wish when you sign
 								up as a<br /> User to become an Affiliate on
-								Kreatesell.
+								KreateSell.
 								<br />
 								<br />
 								You get a unique referral link for every product
@@ -263,7 +263,7 @@ const Affiliate = () => {
 								<br />
 								You can refer as many people as you want for as
 								many products as you wish when you sign up as a
-								User to become an Affiliate on Kreatesell.
+								User to become an Affiliate on KreateSell.
 								<br />
 								<br />
 								You get a unique referral link for every product
@@ -283,11 +283,11 @@ const Affiliate = () => {
 					</section>
 					<section className={styles.signUpSection}>
 						<h3 className="hidden md:block">
-							Sign up as a User on Kreatesell to
+							Sign up as a User on KreateSell to
 							<br /> become an Affiliate NOW!
 						</h3>
 						<h3 className="block md:hidden">
-							Sign up as a User on Kreatesell to become an
+							Sign up as a User on KreateSell to become an
 							Affiliate NOW!
 						</h3>
 

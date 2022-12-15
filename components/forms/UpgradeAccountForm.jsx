@@ -115,8 +115,8 @@ export const UpgradeAccountForm = ({
 		},
 		type: '',
 		customizations: {
-			title: 'Kreatesell Title',
-			description: 'Kreatesell description',
+			title: 'KreateSell Title',
+			description: 'KreateSell description',
 			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};

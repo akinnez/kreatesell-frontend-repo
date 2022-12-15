@@ -161,7 +161,11 @@ const DashboardFilters = ({
 						size="large"
 						form={form}
 					>
-						<Row gutter={0} align="bottom" justify="space-between">
+						<Row
+							gutter={[15, 14]}
+							align="bottom"
+							justify="space-between"
+						>
 							<Col
 								// xs={{span: 24}}
 								xs={{span: 11}}
@@ -233,7 +237,11 @@ const DashboardFilters = ({
 								className={styles.filter__btn}
 							>
 								<Form.Item>
-									<Button type="primary" htmlType="submit">
+									<Button
+										type="primary"
+										htmlType="submit"
+										style={{marginLeft: '2rem'}}
+									>
 										<Image
 											src="/images/FilterIcon.png"
 											alt="Filter icon"

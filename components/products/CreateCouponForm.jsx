@@ -204,7 +204,7 @@ export const CreateCouponForm = () => {
 								value={false}
 								checked={!isAllProduct ? true : false}
 							>
-								Choose Speific Product
+								Choose Specific Product
 							</Radio>
 						</Radio.Group>
 					</div>

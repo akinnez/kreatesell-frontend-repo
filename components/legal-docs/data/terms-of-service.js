@@ -11,14 +11,14 @@ export const termsData = {
 					then you may not access the website or use any of its services. If these Terms of 
 					Service are considered an offer, acceptance is expressly limited to these Terms of Service.`,
 
-				`The platform ("www.kreatesell.com") is operated by Kreatesell LTD.`,
+				`The platform ("www.kreatesell.com") is operated by KreateSell LTD.`,
 
-				`Throughout this Terms of Service page, the terms "we", "us", "our" and "ours” refer to Kreatesell LTD.
-					 Kreatesell LTD offers www.kreatesell.com, including all information, APIs, tools and services available 
+				`Throughout this Terms of Service page, the terms "we", "us", "our" and "ours” refer to KreateSell LTD.
+					 KreateSell LTD offers www.kreateSell.com, including all information, APIs, tools and services available 
 					 to you only upon your consent to all terms, conditions, notices, releases and policies stated herein.`,
 
 				`This terms of service page sets forth our policy with respect to the collection, use, 
-					and disclosure of user personal data when you use our Service ("Kreatesell") and the choices you have taken with that data.`,
+					and disclosure of user personal data when you use our Service ("KreateSell") and the choices you have taken with that data.`,
 
 				`By visiting our platform and / or purchasing something from it, you participate in our “Service” and 
 					agree to the following terms and conditions (“Terms of Service”, “Terms”), including all additional terms
@@ -46,12 +46,12 @@ export const termsData = {
 			answer: [
 				`Most of the common terms used refer to the following:`,
 				'',
-				`"Kreatesell LTD" referred to herein as ("the Company" "We", "Us", "Our", "Ours"): 
-				the company that operates the www.kreatesell.com website (the "Service").`,
-				`"Kreatesell", "Kreatesell.com" website referred to herein as (the “Service”, "Application", "Platform", "Software")`,
+				`"KreateSell LTD" referred to herein as ("the Company" "We", "Us", "Our", "Ours"): 
+				the company that operates the www.kreateSell.com website (the "Service").`,
+				`"KreateSell", "KreateSell.com" website referred to herein as (the “Service”, "Application", "Platform", "Software")`,
 				`"Site" referred to herein as ("websites", "APIs")`,
 				`"Account" means a unique account created for You to gain access to our Service or parts of our Service.`,
-				`"User", "Visitor", "Browser": person or customer making use or visiting Kreatesell.com.`,
+				`"User", "Visitor", "Browser": person or customer making use or visiting KreateSell.com.`,
 				`"Content Creator'', "Vendor", "Merchant", "Content Contributor" referred to herein as (Kreator): 
 				any person uploading a product on our platform for public consumption.`,
 				`"Buyer": any person or user who buys a product on this "platform".`,
@@ -66,10 +66,10 @@ export const termsData = {
 			],
 		},
 		{
-			question: '1. Using Kreatesell',
+			question: '1. Using KreateSell',
 			answer: [
-				`1.1 Who can use Kreatesell`,
-				`To be eligible to use any of the Kreatesell services, you must be of 18 years of age or at
+				`1.1 Who can use KreateSell`,
+				`To be eligible to use any of the KreateSell services, you must be of 18 years of age or at
 			 least the legal age in your state or province of residence,  Some of our Services may be 
 			 installable software that is downloaded to your computer, phone, tablet, or other devices. 
 			 You agree that we may automatically upgrade those Products, and these Terms will apply to such upgrades.`,
@@ -96,13 +96,13 @@ export const termsData = {
 						plan you selected when upgrading your account for more services.`,
 
 				`At the end of every Billing Cycle, your subscription will automatically renew under 
-						the same conditions unless you cancel it or probably cancelled by the Kreatesell 
+						the same conditions unless you cancel it or probably cancelled by the KreateSell 
 						team for a purpose well reviewed.`,
 
 				`A valid and approved method is required to process the payment for a subscription.
 						 You'll provide your payment details on the payment page when intending to upgrade a plan.`,
 
-				`Should a billing fail for any reason, Kreatesell will notify you of such and not any 
+				`Should a billing fail for any reason, KreateSell will notify you of such and not any 
 						part of the paid services will be accessible until payment is successful.`,
 
 				`For in any case a paid subscriber stops making payment for any paid plan of the platform, 
@@ -118,11 +118,11 @@ export const termsData = {
 			question: '3.1. Registration',
 			isSubHeading: true,
 			answer: [
-				`To become a Kreator, you must first register with Kreatesell, create a free account. 
+				`To become a Kreator, you must first register with KreateSell, create a free account. 
 			 			 Some Services may not be available to free account holders. We will list the available
 			 			 services to free and paid accounts on the pricing page. Depending on the Services you select, 
 			 			  you will gain access to our Kreator's dashboard which we provide as part of our Services.
-			 			 Not in any scenario should you give a third-party your personal credentials to your Kreatesell 
+			 			 Not in any scenario should you give a third-party your personal credentials to your KreateSell 
 			 			 account. You are responsible for the privacy of any login and password, and you are responsible
 			 			 for all activities that occur using your access credentials.`,
 				'',
@@ -204,11 +204,11 @@ export const termsData = {
 			isSubHeading: true,
 			answer: [
 				`For information about how to submit a request for takedown, 
-				if you believe a content on Kreatesell infringes your intellectual
+				if you believe a content on KreateSell infringes your intellectual
 				 property rights, please send our support a message and the documents 
 				or evidence to prove your claim.`,
 
-				`Kreatesell takes copyright infringement matters seriously,
+				`KreateSell takes copyright infringement matters seriously,
 				 and is ready to remove any allegedly or factually infringing
 				  content displayed on this platform upon due notice 
 				  and request by the title holder.`,
@@ -219,7 +219,7 @@ export const termsData = {
 				 You must notify our support of your claim.  Once your request 
 				 is received, We will study and consider your claim and, 
 				 if it believes or has reason to believe any content on the Service 
-				 infringes on another’s copyright, Kreatesell may delete it, disable 
+				 infringes on another’s copyright, KreateSell may delete it, disable 
 				 or otherwise stop displaying such product.`,
 			],
 		},
@@ -249,7 +249,7 @@ export const termsData = {
 		{
 			question: '5. Affiliate Program (Agreement)',
 			answer: [
-				`Kreatesell offers an affiliate promoting program to signed up users who are willing to
+				`KreateSell offers an affiliate promoting program to signed up users who are willing to
 			 	promote a product of a kreator and earn massive commissions`,
 			],
 		},
@@ -274,7 +274,7 @@ export const termsData = {
 						 subscription plan, commissions will also be paid for plan
 						 upgrades of such membership or subscription product.`,
 
-				`Affiliates who promote premium plans (Business plan, more to come soon) of our (Kreatesell) 
+				`Affiliates who promote premium plans (Business plan, more to come soon) of our (KreateSell) 
 						platform will be payable for every purchase made through his cookie.`,
 
 				`Should a customer referred by an affiliate promoter for the purchase of our
@@ -372,11 +372,11 @@ export const termsData = {
 				`b. Promoters have the right to use any platforms or means to send real people to a product for a purchase.`,
 				`c. Promoters have the right to use only respectful promotion practices to promote a product.`,
 				`d. Promoters should not in any case over hype or deceive people into buying a product that is below deliverability or subpar.`,
-				`e. Kreatesell does not allow you to promote, market, or advertise any products or
+				`e. KreateSell does not allow you to promote, market, or advertise any products or
          utilizing advertisements that are pornographic in nature, pyramid schemes, multi - level marketing`,
-				`g. Kreatesell does not allow to market or advertise any product that poses danger to the 
+				`g. KreateSell does not allow to market or advertise any product that poses danger to the 
         sanity and wellness of children under the age of 18.`,
-				`h. Kreatesell does not allow to market or advertise any product that promotes or
+				`h. KreateSell does not allow to market or advertise any product that promotes or
          poses danger to the health of members of the public, cultural divide, or ethnicity or racism.`,
 				`i. Promoters will be held responsible for any fraud or strange 
         action performed with his or her affiliate account or link.`,
@@ -528,9 +528,9 @@ export const termsData = {
 			question: '14. Waiver And Severability',
 			withMargin: true,
 			answer: [
-				`No waiver by Kreatesell LTD of any term or condition set forth in Terms shall be deemed
+				`No waiver by KreateSell LTD of any term or condition set forth in Terms shall be deemed
         a further or continuing waiver of such term or condition or a waiver of any other term or condition,
-        and any failure of Kreatesell LTD to assert a right or provision under
+        and any failure of KreateSell LTD to assert a right or provision under
         Terms shall not constitute a waiver of such right or provision.`,
 
 				`If any provision of Terms is held by a court or other tribunal of competent jurisdiction to be invalid,
@@ -562,9 +562,9 @@ export const termsData = {
 			],
 		},
 		{
-			question: '17. Kreatesell’s Acceptable Use Policy',
+			question: '17. KreateSell’s Acceptable Use Policy',
 			answer: [
-				`We own the Kreatesell platform and Services, including the website, present or future services, and things like our logos,
+				`We own the KreateSell platform and Services, including the website, present or future services, and things like our logos,
         API, code, and content curated by our teams.`,
 				`You can’t alter any of those or make use of them without prior authorization.`,
 				'',
