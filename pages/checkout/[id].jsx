@@ -618,6 +618,19 @@ const Checkout = () => {
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
 
+	// paypal success
+	const paypalSuccess = (data, actions) => {
+		// sendPaymentCheckoutDetails(
+		// 	paymentDetails({reference: reference?.reference, status: status}),
+		// 	() =>
+		// 		router.push(
+		// 			`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+		// 		)
+		// );
+	};
+
+	const stripeSuccess = () => {};
+
 	// ===================================================================================
 	//              PAYMENT CONFIG ENDS HERE
 	// ===================================================================================
@@ -1223,10 +1236,11 @@ const Checkout = () => {
 															'data is',
 															data
 														);
-														console.log(
-															'actions is',
+														paypalSuccess(
+															data,
 															actions
 														);
+														// TODO: handle payment success
 														alert(
 															'You have successfully completed the transaction'
 														);
