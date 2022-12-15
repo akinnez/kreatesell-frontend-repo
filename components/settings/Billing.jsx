@@ -21,7 +21,9 @@ const Billing = () => {
 	const Router = useRouter();
 
 	const {store} = useSelector((state) => state.store);
-	const {convertedCurrency} = useSelector((state) => state.currencyConverter);
+	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
+		(state) => state.currencyConverter
+	);
 
 	const {
 		data: upgradePlanPrices,
@@ -243,11 +245,12 @@ const Billing = () => {
 									: subPriceType
 							}
 							btnOnClick={openModal}
-							currentPlan={selectedPlan === 'Business'}
+							// currentPlan={selectedPlan === 'Business'}
 							selectedCurrency={
 								convertedCurrency?.to_currency_name ||
 								selectedCurrency
 							}
+							loading={currencyConverterLoading}
 						/>
 					</div>
 				</div>
@@ -283,6 +286,7 @@ const Billing = () => {
 								setModal,
 								setSelectedPlan,
 								convertedCurrency,
+								monthly,
 							}}
 						/>
 					</DialogContent>

@@ -41,12 +41,13 @@ export const UpgradeAccountForm = ({
 	setModal,
 	setSelectedPlan,
 	convertedCurrency,
+	monthly,
 }) => {
 	// for paypal
 	// get the state for the sdk script and the dispatch method
 	const [{options}, dispatch] = usePayPalScriptReducer();
-	// console.log('selectedCurrency', selectedCurrency);
-	// console.log('convertedCurrency', convertedCurrency);
+
+	// TODO: handle currency change for crypto currency
 
 	// const makePlanUpgrade = MakePlanUpgrade();
 	const {user} = useSelector((state) => state.auth);
@@ -213,7 +214,7 @@ export const UpgradeAccountForm = ({
 				const data = await axios.post(
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
-						name: 'user name',
+						name: splitFullName(user?.full_name, 'arr')?.[0],
 						description: 'Account upgrade payment',
 						pricing_type: 'fixed_price',
 						local_price: {
@@ -221,8 +222,11 @@ export const UpgradeAccountForm = ({
 							currency: 'USDT',
 						},
 						metadata: {
-							customer_id: '342', //TODO: customer id
-							customer_name: 1,
+							customer_id: user?.id, //TODO: customer id
+							customer_name: splitFullName(
+								user?.full_name,
+								'arr'
+							)?.[0],
 						},
 					}
 				);
@@ -327,12 +331,6 @@ export const UpgradeAccountForm = ({
 		}
 	}, [countriesCurrency]);
 
-	// useEffect(() => {
-	// 	if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
-	// 		setSelectedPaymentMethod('');
-	// 	}
-	// }, [activeCurrency?.currency]);
-
 	useEffect(() => {
 		if (activeCurrency?.currency || activeCurrency?.currency_name) {
 			setSelectedPaymentMethod(
@@ -400,9 +398,11 @@ export const UpgradeAccountForm = ({
 						</sup>{' '}
 						{Number(convertedPrice).toFixed(2)}
 						{/* {Number(totalPrice).toFixed(2)} */}
-						<sub className="font-normal text-xs text-black-100">
-							/ Month
-						</sub>
+						{monthly && (
+							<sub className="font-normal text-xs text-black-100">
+								/ Month
+							</sub>
+						)}
 					</div>
 				</div>
 
