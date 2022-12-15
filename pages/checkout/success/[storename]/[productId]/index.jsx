@@ -97,7 +97,9 @@ const AccessPageModal = ({
 		// TODO: validate email address
 		try {
 			const response = await axios.post(productLink, productDetails);
-			handleDownload(response?.data?.product_dto?.product_images[1]?.filename);
+			handleDownload(
+				response?.data?.product_dto?.product_images[1]?.filename
+			);
 		} catch (error) {
 			setErrorModal(true);
 		} finally {
@@ -688,8 +690,6 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const StoreDetails = product?.store_dto;
 	const productSectionCount = product?.content_section_tracker;
 
-	console.log(product, 'jdfbvjbdjvbdjbvjdbvkd');
-
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
@@ -697,6 +697,15 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			router.push(`/account/kreator/products/buyersPreview/${productId}`);
 		}
 	};
+
+	const getFileSize =() => {
+		const numberSize = Number(product?.product_images[1]?.size.split('MB')[0]);
+		if(numberSize < 1){
+             const kbSize = numberSize * 1000
+			 return `${kbSize} KB`
+		}
+		return `${product?.product_images[1]?.size}`
+	}
 
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
@@ -716,7 +725,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.bottom}>
 							<div>
 								<p className={styles.left}>
-									{product?.product_images[1]?.size}
+									{getFileSize()}
 								</p>{' '}
 								|
 								{/* //TODO:
@@ -788,7 +797,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>236MB</p>|
+								<p className={styles.left}>N/A</p>|
 								<p className={styles.right}>
 									{product?.default_currency?.currency}{' '}
 									{product?.default_price}
@@ -809,7 +818,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			<br />
 			<hr />
 			<br />
-			{/* FIXME: show preorder */}
+			
 			{productDetails?.enable_preorder && (
 				<div className={styles.preorder2}>
 					Thank you for your preorder.{' '}
@@ -819,7 +828,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 					</span>
 				</div>
 			)}
-			{/* FIXME: show error for product not available */}
+		
 			{product?.product_type_details === 'Digital Download' &&
 				product?.product_images === null && (
 					<div className={styles.error}>
