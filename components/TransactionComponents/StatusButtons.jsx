@@ -3,7 +3,7 @@ import styles from './header.module.scss';
 
 const statusArr = [
 	{type: 'All', label: 'All'},
-	{type: 'Successful', label: 'successful'},
+	{type: 'Successful', label: 'Successful'},
 	{type: 'Failed', label: 'Failed'},
 ];
 

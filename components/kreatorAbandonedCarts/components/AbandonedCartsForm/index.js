@@ -76,7 +76,7 @@ const AbandonedCartsForm = ({showModal, campaign}) => {
 				help={formik.touched.admin_title && formik.errors.admin_title}
 			>
 				<Input
-					placeholder="kreatesell"
+					placeholder="kreateSell"
 					{...formik.getFieldProps('admin_title')}
 				/>
 			</Form.Item>

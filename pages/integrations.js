@@ -14,7 +14,7 @@ const Integrations = () => {
 					<h1 className={styles.heading}>Integrations</h1>
 					<p className={styles.text}>
 						Are you wondering if you can work with your favourite
-						tools on Kreatesell?
+						tools on KreateSell?
 					</p>
 					<div className={styles.imageBox}>
 						<Image
@@ -36,7 +36,7 @@ const Integrations = () => {
 						<h1 className={styles.heading}>Integrations</h1>
 						<p className={styles.text}>
 							Are you wondering if you can work with your
-							favourite tools on Kreatesell? Don’t worry, we’ve
+							favourite tools on KreateSell? Don’t worry, we’ve
 							got you covered! We have integrated the best tools
 							you can find across the internet. All within your
 							reach! Check out the tools we have integrated below.

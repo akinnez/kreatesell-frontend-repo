@@ -675,7 +675,7 @@ export const AllProductsTableHeader = [
 			return (
 				<div className={styles.productTableName + ' flex flex-col'}>
 					<h2 className="text-lg mb-1 font-semibold">{item}</h2>
-					<p className="text-xs mb-2 w-3/4  py-1 text-center border-green-400 rounded-md px-2 border">
+					<p className="text-xs mb-2 w-3/4 text-green-600 py-1 text-center border-green-400 rounded-md px-2 border">
 						{' '}
 						Unlimited Copies
 					</p>

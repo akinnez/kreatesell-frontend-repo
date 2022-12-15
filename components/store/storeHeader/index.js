@@ -9,15 +9,15 @@ import {
 	Instagram,
 	LinkedIn,
 } from '../../IconPack';
-import {Avatar} from 'antd';
-import {UserOutlined} from '@ant-design/icons';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import Dropdown from '../../dropdown';
 import Router from 'next/router';
 import Social from './social-media';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Image from 'next/image';
 
-const CtaButton = ({Icon = () => <></>, label, active}) => {
+const CtaButton = ({ Icon = () => <></>, label, active }) => {
 	return (
 		<>
 			<div className={`cta ${active ? 'active' : ''}`}>
@@ -68,12 +68,11 @@ export const ProtectedStoreHeader = ({
 				style={
 					coverImage || publicStoreInfo?.cover_page
 						? {
-								backgroundImage: `url(${
-									coverImage ||
-									publicStoreInfo?.cover_page ||
-									'/images/placeholder-1.jpg'
+							backgroundImage: `url(${coverImage ||
+								publicStoreInfo?.cover_page ||
+								'/images/placeholder-1.jpg'
 								})`,
-						  }
+						}
 						: {}
 				}
 			>
@@ -103,11 +102,10 @@ export const ProtectedStoreHeader = ({
 								<div
 									className={styles.image_intro_text}
 									style={{
-										backgroundImage: `url(${
-											displayPicture ||
+										backgroundImage: `url(${displayPicture ||
 											publicStoreInfo?.display_picture ||
 											'/images/placeholder-2.jpg'
-										})`,
+											})`,
 									}}
 								/>
 							)}
@@ -127,7 +125,7 @@ export const ProtectedStoreHeader = ({
 						{!publicStore && (
 							<div className={styles.cta_link_wrapper}>
 								<div>
-									<p
+									<div
 										onClick={() =>
 											Router.push(
 												'/account/kreator/store/edit'
@@ -139,9 +137,10 @@ export const ProtectedStoreHeader = ({
 											label="Edit Profile"
 											active
 										/>
-									</p>
-									<p>
+									</div>
+									<div>
 										<Dropdown
+											style={{ marginTop: '0' }} //FIX DROPDOWN MARGIN
 											Button={
 												<CtaButton
 													Icon={ShareIcon}
@@ -156,8 +155,8 @@ export const ProtectedStoreHeader = ({
 												linkedIn={social?.linkedIn}
 											/>
 										</Dropdown>
-									</p>
-									<p
+									</div>
+									<div
 										onClick={() =>
 											Router.push(`/store/${storeName}`)
 										}
@@ -166,7 +165,7 @@ export const ProtectedStoreHeader = ({
 											Icon={ViewAs}
 											label="Preview"
 										/>
-									</p>
+									</div>
 								</div>
 							</div>
 						)}
@@ -222,7 +221,7 @@ export const StoreHeader = () => {
 		<>
 			<div
 				className={styles.bg_wrapper}
-				style={{backgroundImage: `url(/images/placeholder-1.jpg)`}}
+				style={{ backgroundImage: `url(/images/placeholder-1.jpg)` }}
 			>
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
