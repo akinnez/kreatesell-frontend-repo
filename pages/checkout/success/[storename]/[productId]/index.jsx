@@ -688,7 +688,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const StoreDetails = product?.store_dto;
 	const productSectionCount = product?.content_section_tracker;
 
-	console.log(product,'jdfbvjbdjvbdjbvjdbvkd')
+	console.log(product, 'jdfbvjbdjvbdjbvjdbvkd');
 
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
@@ -715,7 +715,10 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>{product?.product_images[0]?.size}</p> |
+								<p className={styles.left}>
+									{product?.product_images[0]?.size}
+								</p>{' '}
+								|
 								{/* //TODO:
 								Replace this with appropriate size */}
 								<p className={styles.right}>
