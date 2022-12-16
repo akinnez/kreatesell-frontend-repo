@@ -41,7 +41,6 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 			}
 		);
 	});
-	console.log('data is', data);
 
 	const histories = data || [];
 	const historiesTotal = data?.total_records || 0;
