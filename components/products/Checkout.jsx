@@ -10,7 +10,6 @@ import useSWR from 'swr';
 
 export const CheckoutProductTab = ({productId}) => {
 	const [priceType, setPriceType] = useState('Fixed Price');
-	console.log(priceType, 'priceType');
 	const getPricingTypes = GetPricingTypes();
 	const {product} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);

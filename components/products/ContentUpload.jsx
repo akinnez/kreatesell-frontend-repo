@@ -13,14 +13,16 @@ import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
 export default function ContentUpload({file, setFile}) {
+	console.log(file,'gfgfgfgfgfgfgf')
 	const [progress, setProgress] = useState(0);
-	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
+	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({ 
 		fileType: {
 			'image/*': ['.jpeg', '.png'],
 			'audio/*': [],
 			'application/pdf': [],
 		},
 	});
+
 	const handleDeleteFile = () => {
 		deleteFile(mainFile[0].file);
 		setFile(null);
