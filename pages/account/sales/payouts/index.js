@@ -104,8 +104,12 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 		validationSchema: createPasswordSchema,
 		validateOnChange: false,
 	});
-	const {errors, handleSubmit, /*handleChange,*/ setFieldValue, values} =
-		formik;
+	const {
+		errors,
+		handleSubmit,
+		/*handleChange,*/ setFieldValue,
+		values,
+	} = formik;
 
 	return (
 		<>
@@ -201,7 +205,7 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 								bgColor="primaryBlue"
 								loading={false}
 								className={`${styles.buttonSubmit}`}
-								onClick={() => setOpen(false)}
+								onClick={() => setShowModal(false)}
 							/>
 						</>
 					)}
