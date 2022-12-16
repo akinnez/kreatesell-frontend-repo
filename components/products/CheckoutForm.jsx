@@ -471,7 +471,7 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
-		console.log(data,'datadfatadata')
+		console.log(data, 'datadfatadata');
 		if (priceType === 'Fixed Price') {
 			if (validateDefinedCurrencies()) {
 				showToast('Please define prices for all currencies', 'error');
@@ -596,7 +596,7 @@ export const CheckoutForm = ({
 
 	//Updating Formik values
 
-	console.log(priceType,'priceTypepriceTypepriceType')
+	console.log(priceType, 'priceTypepriceTypepriceType');
 	useEffect(() => {
 		switch (priceType) {
 			case 'Fixed Price':
@@ -1976,7 +1976,7 @@ export const CheckoutForm = ({
 
 				<div className={styles.digitalBtn}>
 					<Button
-						type="primary"	
+						type="primary"
 						htmlType="submit"
 						loading={loading}
 						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}

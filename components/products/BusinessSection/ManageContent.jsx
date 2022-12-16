@@ -93,7 +93,7 @@ export default function ManageContent({
 		setFieldValue('is_content_downloadable', isDownload);
 	}, [contents, isDownload, file]);
 
-	console.log(file,'fifififif')
+	console.log(file, 'fifififif');
 	return (
 		<div className="">
 			<div
