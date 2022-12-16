@@ -104,12 +104,8 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 		validationSchema: createPasswordSchema,
 		validateOnChange: false,
 	});
-	const {
-		errors,
-		handleSubmit,
-		/*handleChange,*/ setFieldValue,
-		values,
-	} = formik;
+	const {errors, handleSubmit, /*handleChange,*/ setFieldValue, values} =
+		formik;
 
 	return (
 		<>
