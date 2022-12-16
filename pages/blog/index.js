@@ -1,19 +1,19 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Router, {withRouter, useRouter} from 'next/router';
+import Router, { withRouter, useRouter } from 'next/router';
 import Link from 'next/link';
 
-import {Pagination} from 'antd';
+import { Pagination } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-import {Layout, Input} from '../../components';
+import { Layout, Input } from '../../components';
 import styles from '../../public/css/Blog.module.scss';
-import {BlogHero, SingleBlog} from '../../utils';
+import { BlogHero, SingleBlog } from '../../utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import Loader from 'components/loader';
-import {Briefcase, Clock} from '../../utils';
+import { Briefcase, Clock } from '../../utils';
 import BlogTab from 'components/Blog/blogTabs';
 import Spinner from 'components/Spinner';
 
@@ -109,7 +109,8 @@ const Blog = () => {
 								src={RecentBlogs?.thumbnail}
 								alt={RecentBlogs?.thumbnail_alt}
 								width="635"
-								height="380"
+								height="400"
+								objectFit='cover'
 								className={styles.recentBlogImage}
 							/>
 						</div>
@@ -129,7 +130,7 @@ const Blog = () => {
 							<div className={styles.categoryTime}>
 								<span className={styles.category}>
 									<Image src={Briefcase} alt="" width="25" />{' '}
-									{RecentBlogs?.category}
+									{RecentBlogs?.category.toUpperCase()}
 								</span>
 								<p className={styles.time}>
 									{' '}
@@ -140,10 +141,14 @@ const Blog = () => {
 							<p
 								className={styles.description}
 								dangerouslySetInnerHTML={{
-									__html: RecentBlogs.description,
+									__html: RecentBlogs.excerpt,
 								}}
 							/>
-							{/* <p className={styles.excerpt}>{mostRecentBlog[0]?.excerpt} yehgdubbdbi</p> */}
+							<Link
+								href={`/blog/${RecentBlogs?.category}/${RecentBlogs?.id}`}
+							>
+								<p className={styles.seeMoreBtn}>See more</p>
+							</Link>
 						</div>
 					</div>
 					<div className={styles.right}>
@@ -152,12 +157,12 @@ const Blog = () => {
 								type="search"
 								placeholder="Search by keyword"
 								className={styles.input}
-								// onChange={(e)=>handleInputChange(e.target.value)}
+							// onChange={(e)=>handleInputChange(e.target.value)}
 							/>
 						</div>
 						<div className={styles.categories}>
 							<h3 className={styles.header}>Categories: </h3>
-							<BlogTab {...{active, setActive}} />
+							<BlogTab {...{ active, setActive }} />
 						</div>
 					</div>
 				</div>
@@ -165,7 +170,7 @@ const Blog = () => {
 				{/* Dummy Blog Post. Blog data will be mapped here */}
 				<div className={styles.singlePostContainer}>
 					{Blogs?.data &&
-						Blogs?.data?.map((item, index) => (
+						Blogs?.data?.map((item) => (
 							<BlogPreview
 								key={item?.id}
 								id={item?.id}
@@ -207,6 +212,17 @@ export const BlogPreview = ({
 	thumbnail,
 	thumbnail_alt,
 }) => {
+
+	function shortenString(str, length) {
+		if (str.length > length) {
+			return str.substring(0, length) + "...";
+		} else {
+			return str;
+		}
+	}
+
+	const shortenedExcerpt = shortenString(excerpt, 250);
+	
 	return (
 		<div className={styles.singlePost}>
 			<div className={styles.singleImage}>
@@ -243,18 +259,26 @@ export const BlogPreview = ({
 					{'  '}Marketing
 				</span>
 				<p className={styles.time}>
-					<Image src={Clock} alt="" width="15" /> 7 days ago
+					<Image src={Clock} alt="" width="15" />
+					{moment(created_at).fromNow()}
 				</p>
 			</div>
 			<p
 				className={styles.description}
 				dangerouslySetInnerHTML={{
-					__html: excerpt,
+					__html: shortenedExcerpt,
 				}}
 			/>
-			{/* <div className={styles.excerptDiv}>
-        <p className={styles.singleExcerpt}>{excerpt}</p>
-      </div> */}
+
+			{/* <Link
+				href={`/blog/${category}/${id}`}
+			>
+				<p
+					styles={{ marginTop: '0', fontSize: '16px', color: '#0072EF', cursor: 'pointer' }}>
+					See more
+				</p>
+			</Link> */}
+
 			<div className={styles.divider} />
 		</div>
 	);
