@@ -108,7 +108,7 @@ const AboutDomain = () => {
 						</p>
 
 						<p className="pl-8 text-base-gray">
-							Regular URL of Kreatesell Account:
+							Regular URL of KreateSell Account:
 							<span className="text-blue-400 cursor-pointer">
 								https://yourstorename.kreatesell.com/
 							</span>

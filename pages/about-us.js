@@ -652,13 +652,13 @@ const data = [
 		headingText: 'Our activities are transparent',
 		id: 'transparent',
 		content:
-			'At Kreatesell, we have no hidden agenda. We are very open about our activities. Follow our blog and social media channels for updates.',
+			'At KreateSell, we have no hidden agenda. We are very open about our activities. Follow our blog and social media channels for updates.',
 	},
 	{
 		headingText: 'We provide excellent service',
 		id: 'service',
 		content:
-			'We strive for excellence in everything we do at Kreatesell. This includes services to our valued Kreators and one another. We are always ready to help out, just reach out to us.',
+			'We strive for excellence in everything we do at KreateSell. This includes services to our valued Kreators and one another. We are always ready to help out, just reach out to us.',
 	},
 ];
 

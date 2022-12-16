@@ -17,7 +17,7 @@ export const CookiePolicy = () => {
 						href="mailto:support@kreatesell.com"
 						style={{marginLeft: '3px'}}
 					>
-						support@kreatesell.com
+						support@kreateSell.com
 					</a>
 				</p>
 			</div>

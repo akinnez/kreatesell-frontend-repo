@@ -792,11 +792,12 @@
 	//         }
 	//       }
 	//     }
-	//     .newsCard {
-	//       background: $base-white;
+	// .newsCard {
+	//   background: blue;
+	// }
 
-	//       // .newsImage {
-	//       // }
+	//   // .newsImage {
+	//   // }
 	//       .newsTextCont {
 	//         background: $base-white;
 	//         padding: 1rem;
@@ -1318,6 +1319,7 @@
 		// border: 1px solid red;
 		border-radius: 8px;
 		margin-bottom: 1rem;
+
 		// border: 1px solid black;
 		@media (min-width: 450px) {
 			// margin-bottom: unset;

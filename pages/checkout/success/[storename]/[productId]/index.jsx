@@ -97,7 +97,9 @@ const AccessPageModal = ({
 		// TODO: validate email address
 		try {
 			const response = await axios.post(productLink, productDetails);
-			handleDownload(response?.data?.download_link);
+			handleDownload(
+				response?.data?.product_dto?.product_images[1]?.filename
+			);
 		} catch (error) {
 			setErrorModal(true);
 		} finally {
@@ -685,6 +687,8 @@ const ProductCard2 = ({
 const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const productId = router?.query?.productId;
 	const productDetails = product?.product_details;
+	const StoreDetails = product?.store_dto;
+	const productSectionCount = product?.content_section_tracker;
 
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
@@ -692,6 +696,17 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 		} else if (action === 'viewCourse') {
 			router.push(`/account/kreator/products/buyersPreview/${productId}`);
 		}
+	};
+
+	const getFileSize = () => {
+		const numberSize = Number(
+			product?.product_images[1]?.size.split('MB')[0]
+		);
+		if (numberSize < 1) {
+			const kbSize = numberSize * 1000;
+			return `${kbSize} KB`;
+		}
+		return `${product?.product_images[1]?.size}`;
 	};
 
 	return (
@@ -711,7 +726,14 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}.zip</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>236MB</p>|
+								<p className={styles.left}>
+									{product?.product_images[1]?.size
+										? getFileSize()
+										: 'N/A'}
+								</p>{' '}
+								|
+								{/* //TODO:
+								Replace this with appropriate size */}
 								<p className={styles.right}>
 									{product?.default_currency?.currency}{' '}
 									{product?.default_price}
@@ -724,7 +746,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 									bgColor="blue"
 									icon={<CloudDownload />}
 									style={{padding: '1rem'}}
-									disabled={product?.product_content === null}
+									disabled={product?.product_images === null}
 									onClick={() => handleClick('download')}
 								/>
 							)}
@@ -744,7 +766,10 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>236MB</p>|
+								<p
+									className={styles.left}
+								>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
+								|
 								<p className={styles.right}>
 									{product?.default_currency?.currency}{' '}
 									{product?.default_price}
@@ -776,7 +801,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>236MB</p>|
+								<p className={styles.left}>N/A</p>|
 								<p className={styles.right}>
 									{product?.default_currency?.currency}{' '}
 									{product?.default_price}
@@ -797,7 +822,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			<br />
 			<hr />
 			<br />
-			{/* FIXME: show preorder */}
+
 			{productDetails?.enable_preorder && (
 				<div className={styles.preorder2}>
 					Thank you for your preorder.{' '}
@@ -807,13 +832,17 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 					</span>
 				</div>
 			)}
-			{/* FIXME: show error for product not available */}
+
 			{product?.product_type_details === 'Digital Download' &&
-				product?.product_content === null && (
+				product?.product_images === null && (
 					<div className={styles.error}>
 						<Image src={ErrorIcon} alt="" />
 						This content file is unavailable. Please reach out to
-						the <Link href="#">Kreator</Link> for more details.
+						the{' '}
+						<Link href={`mailto:${StoreDetails?.store_email}`}>
+							Kreator
+						</Link>{' '}
+						for more details.
 					</div>
 				)}
 		</div>

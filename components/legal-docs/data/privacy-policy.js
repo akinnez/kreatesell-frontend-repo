@@ -5,7 +5,7 @@ export const privacyData = {
 			question: '',
 			withMargin: true,
 			answer: [
-				`Kreatesell LTD ("We", "Us", "Our", "Ours") operates the www.kreatesell.com website (the "service").`,
+				`KreateSell LTD ("We", "Us", "Our", "Ours") operates the www.kreatesell.com website (the "service").`,
 
 				`This page informs you about "our" policies regarding the collection, use, and 
         		  disclosure of personal data when you make use of our Service and the choices you have associated with the data.`,
@@ -26,7 +26,7 @@ export const privacyData = {
 				`Company is referred to as either “the Company”, “We”, “Us” or “Our” in this Agreement).`,
 				`Country is referred to as the nationality of the user in context.`,
 				`Device is referred to as any device that can access the Service such as a computer, a cell phone or a digital tablet.`,
-				`Website is referred to as Kreatesell, accessible from www.kreatesell.com`,
+				`Website is referred to as KreateSell, accessible from www.kreateSell.com`,
 				`Data Subject (User) is referred to as the individual using our Service. 
 					The User corresponds to the Data Subject, who is the subject of Personal Data.`,
 				`You used on this platform is referred to as the individual accessing or using the Service, or the company, 
@@ -62,10 +62,10 @@ export const privacyData = {
 				'2.1. Personal Information collected from users (customers)',
 			isSubHeading: true,
 			answer: [
-				`2.1.1 Kreatesell has the tools in place to collect details from the users who give consent 
+				`2.1.1 KreateSell has the tools in place to collect details from the users who give consent 
 						to the privacy policy that complies with the laws applicable to our platform, Kreators are also 
 						required to do so for their buyers too. You also agree to obtain consent from your customers for 
-						the use and access of their Personal Information by Kreatesell and other third parties who need 
+						the use and access of their Personal Information by KreateSell and other third parties who need 
 						their information to improve their buying experience on the platform.`,
 				`We collect First name and Last name, Email address, Phone number, Country from the users.`,
 			],
@@ -88,7 +88,7 @@ export const privacyData = {
 			],
 		},
 		{
-			question: '2.3. Information from Kreatesell website visitors',
+			question: '2.3. Information from KreateSell website visitors',
 			isSubHeading: true,
 			answer: [
 				`2.3.1. We collect information from people who visit Our website including your IP 
@@ -98,11 +98,11 @@ export const privacyData = {
 					web browser that you are using.`,
 				`2.3.2. We also collect Personal Information submitted by you via any messaging or email feature available from our website.`,
 				`2.3.3. We may also receive Personal Information when you submit request and/or help 
-			tickets or other requests sent to Kreatesell support via our website,`,
+			tickets or other requests sent to KreateSell support via our website,`,
 				`2.3.4. For users that email us for support we collect name, email address, location,
-			 Kreatesell site address, as well as any conversation with a Kreatesell team member.`,
+			 KreateSell site address, as well as any conversation with a KreateSell team member.`,
 				`2.3.5. If you use our blog section, we collect your name and any content that you post or comment on.`,
-				`2.5.6. We collect this information when you visit any of the hosted web pages on Kreatesell,
+				`2.5.6. We collect this information when you visit any of the hosted web pages on KreateSell,
 					 use Services offered on our websites or engage with us either by email, web form, instant message,
 					 phone, or post content on or through our websites
 					(including blogs). We also collect any additional information that you might 
@@ -115,14 +115,14 @@ export const privacyData = {
 			isSubHeading: true,
 			answer: [
 				`Individuals who qualify as affiliate promoters are individuals that have agreed
-						 on specific terms to work with Kreatesell in promoting the Service by `,
-				`a) referring clients to Kreatesell;`,
-				`b) promoting Kreatesell products for customer use;`,
-				`c) Promoting Service using the Kreatesell Application Interface (API) for customer use or `,
-				`d) partnering with Kreatesell for the purposes of promotion or collaboration.`,
+						 on specific terms to work with KreateSell in promoting the Service by `,
+				`a) referring clients to KreateSell;`,
+				`b) promoting KreateSell products for customer use;`,
+				`c) Promoting Service using the KreateSell Application Interface (API) for customer use or `,
+				`d) partnering with KreateSell for the purposes of promotion or collaboration.`,
 				'',
 				'We may collect your name, company name, website, social media usernames/handles, phone number(s), address, business type, and email address.',
-				`We collect data about the Kreatesell-hosted web pages that you visit and how and when you 
+				`We collect data about the KreateSell-hosted web pages that you visit and how and when you 
 					access your account, including information about the device and browser you use, your network 
 					connection and your IP address.We use this information to give you access and to improve our Services.`,
 				`We collect Personal Information about your customers that you share with us or that they provide to use directly.
@@ -136,7 +136,7 @@ export const privacyData = {
 			question: '3. Who We Share Your Data With',
 			answer: [
 				`We share certain data about you with Kreators, other users, companies performing services for us,
-				 Kreatesell affiliate promoters, our business partners, analytics and data enrichment providers, 
+				 KreateSell affiliate promoters, our business partners, analytics and data enrichment providers, 
 				 your social media providers, companies running promotions for us, and advertising companies who are
 				  helping us promote our Services. We may also share your data as needed for security, legal compliance, 
 				  or as part of a corporate restructuring. Lastly, we can share data in other ways if it is aggregated or
@@ -151,8 +151,8 @@ export const privacyData = {
 				`We share data that we have about you (including your email address) with the kreator
 			 of the product you bought or the product you accessed or requested information about, so they can
 			  improve their content for you and other users. This data may include things like your city, country,
-			   browser language, operating system, device settings, the site that brought you to Kreatesell, and 
-			   your activities on Kreatesell. If we collect additional data about you (like age or gender), 
+			   browser language, operating system, device settings, the site that brought you to KreateSell, and 
+			   your activities on KreateSell. If we collect additional data about you (like age or gender), 
 			   we may share such information too. `,
 			],
 		},
@@ -166,7 +166,7 @@ export const privacyData = {
 			],
 		},
 		{
-			question: '3.3. With Kreatesell Affiliate Promoters: ',
+			question: '3.3. With KreateSell Affiliate Promoters: ',
 			isSubHeading: true,
 			answer: [
 				`We may share your (Kreator) data with our platform promoters to help
@@ -178,7 +178,7 @@ export const privacyData = {
 			question: '3.4. With Business Partners: ',
 			isSubHeading: true,
 			answer: [
-				`We have agreements with other websites and platforms to distribute our Services and drive traffic to Kreatesell. 
+				`We have agreements with other websites and platforms to distribute our Services and drive traffic to KreateSell. 
 				 Depending on your country of location, we may share your data with these partners.`,
 			],
 		},
@@ -237,7 +237,7 @@ export const privacyData = {
 				`Requested as part of a judicial, governmental, or legal inquiry, order, or proceeding;`,
 				`Reasonably necessary as part of a valid subpoena, warrant, or other legally-valid request;`,
 				`Reasonably necessary in our discretion to protect against imminent harm to the rights, property,
-						 or safety of Kreatesell, our users, employees, members of the public, or our Services.`,
+						 or safety of KreateSell, our users, employees, members of the public, or our Services.`,
 				`Reasonably necessary to enforce our Terms of Use, Privacy Policy, and other legal agreements;`,
 				`Required to detect, prevent, or address fraud, abuse, misuse, potential violations of law (or rule or regulation), 
 						or security or technical issues; or`,
@@ -455,7 +455,7 @@ export const privacyData = {
 			question: "11. Children's Privacy",
 			answer: [
 				`
-				Kreatesell is obligated to protect the privacy of children. 
+				KreateSell is obligated to protect the privacy of children. 
 				Our service prohibits anyone who is under the age of 18 ("Children") 
 				and not legally eligible or permitted to use such service like ours. 
 				We do not intentionally collect data from people under the age of 18 and not legally eligible. 
@@ -503,7 +503,7 @@ export const privacyData = {
 			question: '14. Contact Us',
 			answer: [
 				`If you have any questions, comments, concerns, or disputes regarding our Privacy Policy, 
-				please feel free to contact our privacy team at support@kreatesell.com. `,
+				please feel free to contact our privacy team at support@kreateSell.com. `,
 			],
 		},
 	],

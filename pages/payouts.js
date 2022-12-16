@@ -128,7 +128,7 @@ const Payouts = () => {
 								/>
 							</div>
 							<div className={styles.text}>
-								Kreatesell supports twenty one (21) currencies
+								KreateSell supports twenty one (21) currencies
 								today and because we work with multiple
 								providers to make this possible, settlements
 								into your bank account/wallet are made based on
@@ -277,7 +277,7 @@ const Payouts = () => {
 					<div className={styles.details}>
 						<h1 className={styles.heading}>Our Transaction Fees</h1>
 						<p className={styles.text}>
-							No matter what Kreatesell plan you are on, you would
+							No matter what KreateSell plan you are on, you would
 							be charged a small affordable fee for processing
 							your successful sales. This fee is determined by
 							your location and currency. Below are the supported

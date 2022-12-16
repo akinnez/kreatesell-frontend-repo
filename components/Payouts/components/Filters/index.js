@@ -69,7 +69,12 @@ const Filters = ({setFilters, setLoading}) => {
 				form={form}
 				name="filter_form"
 			>
-				<Row gutter={[15, 14]} align="bottom" justify="start" wrap>
+				<Row
+					gutter={[15, 14]}
+					align="bottom"
+					justify="space-evenly"
+					wrap
+				>
 					<Col
 						xs={{span: 24}}
 						md={{span: 12}}
@@ -136,7 +141,11 @@ const Filters = ({setFilters, setLoading}) => {
 						className={`${styles.input__wrapper} ${styles.filter__btn}`}
 					>
 						<Form.Item>
-							<Button type="primary" htmlType="submit">
+							<Button
+								type="primary"
+								htmlType="submit"
+								style={{marginLeft: '2rem'}}
+							>
 								<Image
 									src="/images/FilterIcon.png"
 									alt="Filter icon"
