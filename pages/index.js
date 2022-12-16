@@ -57,7 +57,7 @@ export default function Home() {
 	const {data: blogData, error: blogError} = useGetBlogPosts(4);
 	const [blogPosts, setBlogPosts] = useState([]);
 
-	console.log(blogPosts,'blogPostsblogPostsblogPostsblogPosts')
+	console.log(blogPosts, 'blogPostsblogPostsblogPostsblogPosts');
 
 	const [modalVisible, setVisible] = useState(false);
 	const [email, setEmail] = useState('');
@@ -657,7 +657,7 @@ export default function Home() {
 										styles.newsCardsGridWithTopImageM
 									}
 								>
-									{blogPosts.slice(0, 5).map((blog) => ( 
+									{blogPosts.slice(0, 5).map((blog) => (
 										<NewsCard
 											key={blog.id}
 											imgSrc={blog.thumbnail}
@@ -759,8 +759,7 @@ const NewsCard = ({
 	postId,
 	category,
 }) => {
-
-	console.log(category,'categorycategorycategory')
+	console.log(category, 'categorycategorycategory');
 	return (
 		<div className={styles.newsCard}>
 			<div className={styles.newsImage}>
@@ -770,7 +769,7 @@ const NewsCard = ({
 					height="132"
 					alt="news card"
 					layout="responsive"
-					objectFit='cover'
+					objectFit="cover"
 				/>
 			</div>
 			<div className={styles.newsTextCont}>

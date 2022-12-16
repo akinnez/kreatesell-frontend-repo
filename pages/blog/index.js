@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
-import Router, { withRouter, useRouter } from 'next/router';
+import Router, {withRouter, useRouter} from 'next/router';
 import Link from 'next/link';
 
-import { Pagination } from 'antd';
+import {Pagination} from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-import { Layout, Input } from '../../components';
+import {Layout, Input} from '../../components';
 import styles from '../../public/css/Blog.module.scss';
-import { BlogHero, SingleBlog } from '../../utils';
+import {BlogHero, SingleBlog} from '../../utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import Loader from 'components/loader';
-import { Briefcase, Clock } from '../../utils';
+import {Briefcase, Clock} from '../../utils';
 import BlogTab from 'components/Blog/blogTabs';
 import Spinner from 'components/Spinner';
 
@@ -110,7 +110,7 @@ const Blog = () => {
 								alt={RecentBlogs?.thumbnail_alt}
 								width="635"
 								height="400"
-								objectFit='cover'
+								objectFit="cover"
 								className={styles.recentBlogImage}
 							/>
 						</div>
@@ -157,12 +157,12 @@ const Blog = () => {
 								type="search"
 								placeholder="Search by keyword"
 								className={styles.input}
-							// onChange={(e)=>handleInputChange(e.target.value)}
+								// onChange={(e)=>handleInputChange(e.target.value)}
 							/>
 						</div>
 						<div className={styles.categories}>
 							<h3 className={styles.header}>Categories: </h3>
-							<BlogTab {...{ active, setActive }} />
+							<BlogTab {...{active, setActive}} />
 						</div>
 					</div>
 				</div>
@@ -212,17 +212,16 @@ export const BlogPreview = ({
 	thumbnail,
 	thumbnail_alt,
 }) => {
-
 	function shortenString(str, length) {
 		if (str.length > length) {
-			return str.substring(0, length) + "...";
+			return str.substring(0, length) + '...';
 		} else {
 			return str;
 		}
 	}
 
 	const shortenedExcerpt = shortenString(excerpt, 250);
-	
+
 	return (
 		<div className={styles.singlePost}>
 			<div className={styles.singleImage}>
