@@ -2,6 +2,7 @@ import {ActivePrice} from '../../utils';
 import Image from 'next/image';
 import styles from './PricingCard.module.scss';
 import {Button} from '../index';
+import Spinner from 'components/Spinner';
 
 export const PricingCard = ({
 	title,
@@ -13,6 +14,7 @@ export const PricingCard = ({
 	btnOnClick,
 	currentPlan = false,
 	selectedCurrency,
+	loading = false,
 }) => {
 	const Features = title === 'basic' ? BasicFeatures : BusinessFeatures;
 
@@ -24,27 +26,35 @@ export const PricingCard = ({
 				<hr />
 			</div>
 
-			<div className={styles.price}>
-				<p className={styles.currency}>{selectedCurrency}</p>{' '}
-				<p className={styles.price2}>
-					{price !== '0' ? Number(price).toFixed(2) : price}{' '}
-				</p>
-				<p className={styles.month}>/ Month</p>
-			</div>
+			{loading ? (
+				<div style={{height: '80px'}}>
+					<Spinner />
+				</div>
+			) : (
+				<>
+					<div className={styles.price}>
+						<p className={styles.currency}>{selectedCurrency}</p>{' '}
+						<p className={styles.price2}>
+							{price !== '0' ? Number(price).toFixed(2) : price}{' '}
+						</p>
+						<p className={styles.month}>/ Month</p>
+					</div>
 
-			<h5 className={styles.priceType}>
-				{priceType}{' '}
-				{![0, '0'].includes(subPriceType) && subPriceType && (
-					<span className={styles.subPriceType}>
-						- Save{' '}
-						{`${selectedCurrency} ${
-							subPriceType !== '0'
-								? Number(subPriceType).toFixed(2)
-								: subPriceType
-						}`}
-					</span>
-				)}
-			</h5>
+					<h5 className={styles.priceType}>
+						{priceType}{' '}
+						{![0, '0'].includes(subPriceType) && subPriceType && (
+							<span className={styles.subPriceType}>
+								- Save{' '}
+								{`${selectedCurrency} ${
+									subPriceType !== '0'
+										? Number(subPriceType).toFixed(2)
+										: subPriceType
+								}`}
+							</span>
+						)}
+					</h5>
+				</>
+			)}
 
 			{btnText && !currentPlan && (
 				<div className={styles.button}>

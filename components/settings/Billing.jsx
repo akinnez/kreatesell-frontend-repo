@@ -21,14 +21,15 @@ const Billing = () => {
 	const Router = useRouter();
 
 	const {store} = useSelector((state) => state.store);
-	const {convertedCurrency} = useSelector((state) => state.currencyConverter);
+	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
+		(state) => state.currencyConverter
+	);
 
 	const {data: upgradePlanPrices, error: upgradePlanErrors} =
 		useGetUpgradePlansPrices();
 	const paymentUnsubscribe = PaymentUnsubscribe();
 	const {countriesCurrency, loading, filteredCentral, filterdWest} =
 		useCurrency();
-	// console.log
 	// return either monthly or annual upgrade price
 	const getUpgradePrice = (type = 'monthly') => {
 		if (type === 'monthly') {
@@ -47,7 +48,7 @@ const Billing = () => {
 	});
 	const {annually, monthly} = activeBtn;
 	const [businessPrice, setBusinessPrice] = useState(
-		getUpgradePrice('monthly')
+		getUpgradePrice('annually')
 	);
 	const [priceLabel, setPriceLabel] = useState('Billed Monthly');
 	const [subPriceType, setSubPriceType] = useState();
@@ -73,32 +74,26 @@ const Billing = () => {
 
 	useEffect(() => {
 		if (upgradePlanPrices) {
+			setBusinessPrice(getUpgradePrice('annually'));
+		}
+	}, [upgradePlanPrices]);
+
+	useEffect(() => {
+		if (monthly) {
 			setBusinessPrice(getUpgradePrice('monthly'));
+			setPriceLabel('Billed Monthly');
+			setSubPriceType('');
+		} else {
+			setBusinessPrice(getUpgradePrice('annually'));
+			setPriceLabel('Billed Annually');
+			setSubPriceType(
+				`${
+					getUpgradePrice('monthly') * 12 -
+					getUpgradePrice('annually') * 12
+				}`
+			);
 		}
-	}, [upgradePlanPrices]);
-
-	useEffect(() => {
-		monthly
-			? setBusinessPrice(getUpgradePrice('monthly'))
-			: setBusinessPrice(getUpgradePrice('annually'));
-		monthly
-			? setPriceLabel('Billed Monthly')
-			: setPriceLabel('Billed Annually');
-		monthly
-			? setSubPriceType('')
-			: setSubPriceType(
-					`${
-						getUpgradePrice('monthly') * 12 -
-						getUpgradePrice('annually') * 12
-					}`
-			  );
 	}, [monthly]);
-
-	useEffect(() => {
-		if (upgradePlanPrices) {
-			setBusinessPrice(getUpgradePrice());
-		}
-	}, [upgradePlanPrices]);
 
 	// useEffect to default to a currency
 	useEffect(() => {
@@ -244,8 +239,12 @@ const Billing = () => {
 									: subPriceType
 							}
 							btnOnClick={openModal}
-							currentPlan={selectedPlan === 'Business'}
-							selectedCurrency={selectedCurrency}
+							// currentPlan={selectedPlan === 'Business'}
+							selectedCurrency={
+								convertedCurrency?.to_currency_name ||
+								selectedCurrency
+							}
+							loading={currencyConverterLoading}
 						/>
 					</div>
 				</div>
@@ -281,6 +280,7 @@ const Billing = () => {
 								setModal,
 								setSelectedPlan,
 								convertedCurrency,
+								monthly,
 							}}
 						/>
 					</DialogContent>

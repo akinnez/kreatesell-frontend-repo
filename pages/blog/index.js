@@ -100,7 +100,7 @@ const Blog = () => {
 			<div className={styles.container}>
 				<div className={styles.pageTitle}>
 					<h3>Kreatesell blog</h3>
-					<p>Tips to make money online and Kreatesell updates.</p>
+					<p>Tips to make money online and KreateSell updates.</p>
 				</div>
 				<div className={styles.hero}>
 					<div className={styles.left}>

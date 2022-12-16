@@ -127,7 +127,7 @@ export const ProtectedStoreHeader = ({
 						{!publicStore && (
 							<div className={styles.cta_link_wrapper}>
 								<div>
-									<p
+									<div
 										onClick={() =>
 											Router.push(
 												'/account/kreator/store/edit'
@@ -139,9 +139,10 @@ export const ProtectedStoreHeader = ({
 											label="Edit Profile"
 											active
 										/>
-									</p>
-									<p>
+									</div>
+									<div>
 										<Dropdown
+											style={{marginTop: '0'}} //FIX DROPDOWN MARGIN
 											Button={
 												<CtaButton
 													Icon={ShareIcon}
@@ -156,8 +157,8 @@ export const ProtectedStoreHeader = ({
 												linkedIn={social?.linkedIn}
 											/>
 										</Dropdown>
-									</p>
-									<p
+									</div>
+									<div
 										onClick={() =>
 											Router.push(`/store/${storeName}`)
 										}
@@ -166,7 +167,7 @@ export const ProtectedStoreHeader = ({
 											Icon={ViewAs}
 											label="Preview"
 										/>
-									</p>
+									</div>
 								</div>
 							</div>
 						)}

@@ -207,7 +207,7 @@ export default function PreviewHeader({
 								/>
 							</div>
 							<div className={styles.selectAndButtons}>
-								<div className="w-20  mr-4">
+								<div className="w-20  mx-4">
 									<CSelect
 										options={[
 											// ...[{ label: 'Select currency', value: '' }],

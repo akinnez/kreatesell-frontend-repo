@@ -45,6 +45,7 @@ export const CheckoutForm = ({
 	const setProductTab = SetProductTab();
 	const {store} = useSelector((state) => state.store);
 	const router = useRouter();
+	const today = new Date().toISOString().slice(0, 16);
 
 	const {product, billingInterval, loading} = useSelector(
 		(state) => state.product
@@ -1204,6 +1205,7 @@ export const CheckoutForm = ({
 											e.target.value
 										);
 									}}
+									min={today}
 								/>
 							</div>
 
@@ -1222,6 +1224,7 @@ export const CheckoutForm = ({
 											e.target.value
 										);
 									}}
+									min={today}
 								/>
 							</div>
 							<div>

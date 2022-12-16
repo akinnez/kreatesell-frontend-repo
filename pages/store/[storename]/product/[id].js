@@ -15,6 +15,7 @@ export default function PreviewProduct() {
 		product: {store_dto, check_out_details, default_currency},
 	} = useSelector((state) => state.product);
 	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
+
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
 	// this is the product details for a product whose price has been defined by
@@ -46,7 +47,10 @@ export default function PreviewProduct() {
 				return (
 					index ===
 					self.findIndex(
-						(t) => currency.currency_id === t.currency_id
+						(t) =>
+							currency.currency_id === t.currency_id ||
+							currency?.currency_short_name ===
+								t?.currency_short_name
 					)
 				);
 			})
@@ -59,7 +63,8 @@ export default function PreviewProduct() {
 			});
 		setFormattedCurrencies(currencies);
 	};
-
+	// console.log('storeCheckoutCurrencies', storeCheckoutCurrencies);
+	// console.log('formattedCurrencies', formattedCurrencies);
 	useEffect(() => {
 		if (storeCheckoutCurrencies.length > 0) {
 			formatCurrencies();
@@ -71,7 +76,7 @@ export default function PreviewProduct() {
 			handleCurrencyConversion(activeCurrency);
 		}
 	}, [activeCurrency]);
-	// console.log('check_out_details', check_out_details)
+
 	const handleCurrencyConversion = (toCurrency) => {
 		let sellingIndex = check_out_details.findIndex(
 			(detail) =>

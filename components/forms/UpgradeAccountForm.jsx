@@ -29,30 +29,7 @@ import CurrencyCard from 'components/settings/CurrencyCard';
 import {useSelector} from 'react-redux';
 import {Input} from 'components';
 import axios from 'axios';
-import axiosApi from 'utils/axios';
-
-const paymentMethods = [
-	{
-		type: 'Stripe',
-		icon: ActiveStripe,
-		value: 'stripe',
-	},
-	{
-		type: 'Paypal',
-		icon: AdvancedPaypal,
-		value: 'paypal',
-	},
-	{
-		type: 'Flutterwave',
-		icon: FlutterwaveLogo,
-		value: 'flutterwave',
-	},
-	{
-		type: 'CryptoCurrency',
-		icon: AdvancedBitcoin,
-		value: 'crypto',
-	},
-];
+import {countryPayments} from '../../utils/paymentOptions';
 
 export const UpgradeAccountForm = ({
 	subscriptionMode: {mode, price},
@@ -64,10 +41,13 @@ export const UpgradeAccountForm = ({
 	setModal,
 	setSelectedPlan,
 	convertedCurrency,
+	monthly,
 }) => {
 	// for paypal
 	// get the state for the sdk script and the dispatch method
 	const [{options}, dispatch] = usePayPalScriptReducer();
+
+	// TODO: handle currency change for crypto currency
 
 	// const makePlanUpgrade = MakePlanUpgrade();
 	const {user} = useSelector((state) => state.auth);
@@ -81,12 +61,15 @@ export const UpgradeAccountForm = ({
 
 	const {handleCurrencyConversion} = useConvertRates(
 		'NGN',
-		activeCurrency?.currency || selectedCurrency?.currency
+		activeCurrency?.currency || selectedCurrency
 	);
 
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
 
+	// ====================================================================================
+	//              PAYMENT CONFIG STARTS HERE
+	// ===================================================================================
 	const randomId = `kreate-sell-${crypto.randomBytes(16).toString('hex')}`;
 	const paymentStatusList = {
 		success: 's',
@@ -132,8 +115,8 @@ export const UpgradeAccountForm = ({
 		},
 		type: '',
 		customizations: {
-			title: 'Kreatesell Title',
-			description: 'Kreatesell description',
+			title: 'KreateSell Title',
+			description: 'KreateSell description',
 			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
@@ -187,6 +170,22 @@ export const UpgradeAccountForm = ({
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
 
+	// paypal success
+	const paypalSuccess = (data, actions) => {
+		// sendPaymentCheckoutDetails(
+		// 	paymentDetails({reference: reference?.reference, status: status}),
+		// 	() =>
+		// 		router.push(
+		// 			`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+		// 		)
+		// );
+	};
+
+	const stripeSuccess = () => {};
+
+	// ===================================================================================
+	//              PAYMENT CONFIG ENDS HERE
+	// ===================================================================================
 	const calculatePriceWithFees = () => {
 		let feePercentage;
 		switch (activeCurrency?.currency) {
@@ -214,12 +213,22 @@ export const UpgradeAccountForm = ({
 				const data = await axios.post(
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
-						id: 'id_test',
-						price: totalPrice,
-						name: 'Tunde Afo',
+						name: splitFullName(user?.full_name, 'arr')?.[0],
+						description: 'Account upgrade payment',
+						pricing_type: 'fixed_price',
+						local_price: {
+							amount: totalPrice,
+							currency: 'USDT',
+						},
+						metadata: {
+							customer_id: user?.id, //TODO: customer id
+							customer_name: splitFullName(
+								user?.full_name,
+								'arr'
+							)?.[0],
+						},
 					}
 				);
-				console.log('data is', data);
 				// console.log('data is', data);
 				window.open(data.data.hosted_url, '_blank');
 			} catch (e) {
@@ -227,24 +236,28 @@ export const UpgradeAccountForm = ({
 			}
 		}
 
-		// if selected currency is stripe
-
-		/** Currencies using PayStack are listed here */
-		if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
-			return initializePaystackPayment(
-				onPaystackSuccess,
-				onPaystackClose
-			);
+		if (selectedPaymentMethod === 'stripe') {
+			try {
+				const data = await axios.post(
+					'https://kreatesell.io/api/v1/kreatesell/payment/stripe/create-checkout-session',
+					{
+						unit_amount: Number(totalPrice).toFixed() * 100,
+						currency: activeCurrency?.currency,
+						quantity: 1,
+						success_url: `${location.origin}/account/kreator/settings?activeTab=billing&upgradeStatus=successful`,
+						cancel_url: `${location.origin}/account/kreator/settings?activeTab=billing?status=fail`,
+					}
+				);
+				console.log('data', data);
+				window.open(data.data.url, '_blank');
+			} catch (e) {
+				console.error(e);
+			} finally {
+				return;
+			}
 		}
 
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		if (
-			(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
-				selectedPaymentMethod === 'flutterwave') &&
-			!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		) {
+		if (selectedPaymentMethod === 'flutterwave') {
 			setModal(false);
 			handleFlutterPayment({
 				callback: async (response) => {
@@ -262,27 +275,71 @@ export const UpgradeAccountForm = ({
 				onClose: () => {},
 			});
 		}
+
+		if (selectedPaymentMethod === 'paystack') {
+			return initializePaystackPayment(
+				onPaystackSuccess,
+				onPaystackClose
+			);
+		}
+		// /** Currencies using PayStack are listed here */
+		// if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
+		// 	return initializePaystackPayment(
+		// 		onPaystackSuccess,
+		// 		onPaystackClose
+		// 	);
+		// }
+
+		// currencies using stripe
+
+		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
+		// if (
+		// 	(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
+		// 		selectedPaymentMethod === 'flutterwave') &&
+		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
+		// ) {
+		// 	setModal(false);
+		// 	handleFlutterPayment({
+		// 		callback: async (response) => {
+		// 			// console.log('response ', response)
+		// 			setSelectedPlan('Business');
+		// 			await sendPaymentCheckoutDetails(
+		// 				paymentDetails({
+		// 					reference: response?.tx_ref,
+		// 					status: response?.status,
+		// 				})
+		// 			);
+		// 			closePaymentModal();
+		// 			//   openModal();
+		// 		},
+		// 		onClose: () => {},
+		// 	});
+		// }
 	};
 
 	// set currency on mount
 	useEffect(() => {
 		if (countriesCurrency && !selectedCurrency.value) {
-			setActiveCurrency(countriesCurrency[0]);
-			setSelectedPaymentMethod(paymentMethods[0].value);
+			let currency = countriesCurrency.find(
+				(cur) => cur?.currency === selectedCurrency
+			);
+			setActiveCurrency(currency || countriesCurrency[0]);
+			setSelectedPaymentMethod(countryPayments['NGN'].value);
 		} else if (selectedCurrency.value) {
 			setActiveCurrency(selectedCurrency);
 		}
 	}, [countriesCurrency]);
 
 	useEffect(() => {
-		if (!['USD', 'GBP'].includes(activeCurrency.currency)) {
-			setSelectedPaymentMethod('');
+		if (activeCurrency?.currency || activeCurrency?.currency_name) {
+			setSelectedPaymentMethod(
+				countryPayments[
+					activeCurrency?.currency || activeCurrency.currency_name
+				][0].value
+			);
 		}
-	}, [activeCurrency?.currency]);
-
-	useEffect(() => {
 		handleCurrencyConversion(activeCurrency?.currency);
-	}, [activeCurrency?.currency]);
+	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
 	// useEffect to convert currency
 	useEffect(() => {
@@ -340,9 +397,11 @@ export const UpgradeAccountForm = ({
 						</sup>{' '}
 						{Number(convertedPrice).toFixed(2)}
 						{/* {Number(totalPrice).toFixed(2)} */}
-						<sub className="font-normal text-xs text-black-100">
-							/ Month
-						</sub>
+						{monthly && (
+							<sub className="font-normal text-xs text-black-100">
+								/ Month
+							</sub>
+						)}
 					</div>
 				</div>
 
@@ -473,95 +532,120 @@ export const UpgradeAccountForm = ({
 						</div>
 					</div>
 
-					{/* only show this section if selected currency is "USD" or "GBP" */}
-					{['USD', 'GBP'].includes(activeCurrency?.currency) && (
-						<>
-							<div className="pt-6">
-								<div>Payment Method</div>
-								<p className="text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm">
-									Select your preferred payment method
-								</p>
-							</div>
-							<div className="grid gap-4 grid-cols-3 pt-3">
-								{paymentMethods
-									?.filter(({value}) => {
-										return value === 'flutterwave' ||
-											(store?.kyc_status
-												?.is_kyc_verified &&
-												value !== 'paypal')
-											? true
-											: false;
-									})
-									.map(({type, icon, value}) => (
-										<div
-											key={value}
-											onClick={() =>
-												handlePaymentMethod(value)
-											}
-											className={`${
-												selectedPaymentMethod === value
-													? 'activeCard'
-													: 'card'
-											} p-2 flex justify-around items-center`}
-										>
-											<Image src={icon} alt={type} />
-											{store?.kyc_status
-												?.is_kyc_verified &&
-												selectedPaymentMethod ===
-													value && (
-													<Image
-														src={ActiveTick}
-														alt="active"
-														width="16"
-														height="16"
-													/>
-												)}
-										</div>
-									))}
-								<RenderIf
-									condition={
-										store?.kyc_status?.is_kyc_verified
+					<>
+						<div className="pt-6">
+							<div className="text-black-100">Payment Method</div>
+							<p className="text-base-gray-200 text-xs pt-2 md:pt-0 md:text-sm">
+								Select your preferred payment method
+							</p>
+						</div>
+						<div className="grid gap-4 grid-cols-3 pt-3">
+							{countryPayments[
+								activeCurrency?.currency ||
+									activeCurrency?.currency_name
+							]
+								?.filter(({value}) => {
+									if (
+										store?.kyc_status?.kyc_status?.toLowerCase() ===
+											'approved' &&
+										store?.user?.user_plan?.toLowerCase() ===
+											'business' &&
+										value !== 'paypal'
+									) {
+										return true;
+									} else if (
+										store?.kyc_status?.kyc_status?.toLowerCase() !==
+											'approved' &&
+										store?.user?.user_plan?.toLowerCase() !==
+											'business'
+									) {
+										{
+											/* return false if currency is cad, usd or gbp */
+										}
+										if (
+											[
+												activeCurrency?.currency,
+												activeCurrency?.currency_name,
+											].includes('USD') ||
+											[
+												activeCurrency?.currency,
+												activeCurrency?.currency_name,
+											].includes('GBP') ||
+											[
+												activeCurrency?.currency,
+												activeCurrency?.currency_name,
+											].includes('CAD')
+										) {
+											return false;
+										}
 									}
-								>
-									<PayPalButtons
-										style={{
-											layout: 'horizontal',
-											label: 'pay',
-										}}
-										className={`flex justify-around items-center`}
-										createOrder={async (data, actions) => {
-											return actions.order.create({
-												purchase_units: [
-													{
-														description:
-															'customDescription',
-														amount: {
-															// value: Number(
-															// 	convertedPrice
-															// ).toFixed(2),
-															value: Number(
-																totalPrice
-															).toFixed(2),
-															currency:
-																activeCurrency?.currency ||
-																selectedCurrency.currency,
-														},
+								})
+								.map(({type, icon, value}) => (
+									<div
+										key={value}
+										onClick={() =>
+											handlePaymentMethod(value)
+										}
+										className={`${
+											selectedPaymentMethod === value
+												? 'activeCard'
+												: 'card'
+										} p-2 flex justify-around items-center`}
+									>
+										<Image src={icon} alt={type} />
+										{store?.kyc_status?.is_kyc_verified &&
+											selectedPaymentMethod === value && (
+												<Image
+													src={ActiveTick}
+													alt="active"
+													width="16"
+													height="16"
+												/>
+											)}
+									</div>
+								))}
+							<RenderIf
+								condition={store?.kyc_status?.is_kyc_verified}
+							>
+								<PayPalButtons
+									style={{
+										layout: 'horizontal',
+										label: 'pay',
+									}}
+									className={`flex justify-around items-center`}
+									createOrder={async (data, actions) => {
+										return actions.order.create({
+											purchase_units: [
+												{
+													description:
+														'customDescription',
+													amount: {
+														// value: Number(
+														// 	convertedPrice
+														// ).toFixed(2),
+														value: Number(
+															totalPrice
+														).toFixed(2),
+														currency:
+															activeCurrency?.currency ||
+															selectedCurrency.currency,
 													},
-												],
-											});
-										}}
-										onApprove={(data, actions) => {
-											console.log('data is', data);
-											console.log('actions is', actions);
-											alert(
-												'You have successfully completed the transaction'
-											);
-										}}
-									/>
-								</RenderIf>
-							</div>
-						</>
-					)}
+												},
+											],
+										});
+									}}
+									onApprove={(data, actions) => {
+										// TODO: handle payment success
+										console.log('data is', data);
+										console.log('actions is', actions);
+										alert(
+											'You have successfully completed the transaction'
+										);
+									}}
+								/>
+							</RenderIf>
+						</div>
+					</>
 
 					<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 						<div className="w-3/5 xs:w-3/4 md:w-4/5">

@@ -99,6 +99,8 @@ export const menu = (logout) => (
 const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 	const {Header} = Layout;
 
+	const router = useRouter();
+
 	const [info, setInfo] = useState({});
 
 	const {pathname} = useRouter();
@@ -115,7 +117,7 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 	const title =
 		pageTitle.length >= 4
 			? pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')
-			: 'Home';
+			: 'Dashboard';
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'));
@@ -155,6 +157,9 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 									type="text"
 									shape="circle"
 									icon={<Cog />}
+									onClick={() =>
+										router.push('/account/kreator/settings')
+									}
 								/>
 								<NotificationsDropdown />
 								<Dropdown
@@ -201,7 +206,13 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 						</div>
 					</div>
 					<div className={style.nav_right}>
-						<Button type="text" shape="circle" icon={<Cog />} />
+						<Button
+							type="text"
+							icon={<Cog />}
+							onClick={() =>
+								router.push('/account/kreator/settings')
+							}
+						/>
 						<NotificationsDropdown />
 						<Dropdown
 							overlay={menu(logout)}

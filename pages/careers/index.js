@@ -107,9 +107,9 @@ const Careers = () => {
 			<div className={styles.container}>
 				<div className={styles.body}>
 					<div className={styles.header}>
-						<h1>Jobs At Kreatesell</h1>
+						<h1>Jobs At KreateSell</h1>
 						<p className={styles.subHeader}>
-							Join us at Kreatesell, and contribute your quota in
+							Join us at KreateSell, and contribute your quota in
 							helping Kreators (Content Creators and <br />{' '}
 							digital Entrepreneurs) sell to a global audience
 							hassle-free!

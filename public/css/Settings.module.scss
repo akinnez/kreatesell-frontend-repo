@@ -4,6 +4,7 @@
 .card {
 	border-radius: 12px;
 	padding: 0 20px;
+	height: 100vh;
 
 	@include screen('tablet') {
 		padding: 0;

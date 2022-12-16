@@ -297,39 +297,25 @@ export default function PreviewContent({
 											'Pay What You Want' && (
 											<h1 className="text-3xl font-bold">
 												{`${
-													convertedCurrency?.to_currency_name ||
 													alreadyDefinedPrice?.currency_name ||
+													convertedCurrency?.to_currency_name ||
 													sellingPrice[0]
 														?.currency_name
 												} ${
-													convertedCurrency?.buy_rate
+													alreadyDefinedPrice?.price
+														? alreadyDefinedPrice?.price
+														: convertedCurrency?.buy_rate
 														? formatPrice(
 																convertedCurrency?.buy_rate *
 																	sellingPrice[0]
 																		?.price
 														  )
-														: alreadyDefinedPrice?.price
-														? alreadyDefinedPrice?.price
 														: formatPrice(
 																sellingPrice[0]
 																	?.price
 														  )
 												}  
                       `}
-												{/* ${
-												alreadyDefinedPrice?.price
-													? alreadyDefinedPrice?.price
-													: convertedCurrency?.buy_rate
-													? formatPrice(
-															convertedCurrency?.buy_rate *
-																sellingPrice[0]
-																	?.price
-													  )
-													: formatPrice(
-															sellingPrice[0]
-																?.price
-													  )
-											} */}
 											</h1>
 										)}
 

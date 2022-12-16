@@ -181,9 +181,9 @@ const Advanced = () => {
 									className={`${styles.paymentMethodCard}`}
 								>
 									<Image src={image} alt="" />{' '}
-									{id === 'cryptocurrency' && (
+									{/* {id === 'cryptocurrency' && (
 										<>&nbsp; Cryptocurrency</>
-									)}
+									)} */}
 								</div>
 							))}
 						</div>
