@@ -221,6 +221,7 @@ export const BlogPreview = ({
 	}
 
 	const shortenedExcerpt = shortenString(excerpt, 250);
+	
 
 	return (
 		<div className={styles.singlePost}>
