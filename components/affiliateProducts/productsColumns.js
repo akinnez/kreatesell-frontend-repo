@@ -48,7 +48,8 @@ const productsColumns = [
 			if (record?.affiliateSales >= 5) {
 				return (
 					<GetLink
-						status={record.request_status}
+						status={'Approved'}
+						requiresApproval={false}
 						productId={record.id}
 					/>
 				);
