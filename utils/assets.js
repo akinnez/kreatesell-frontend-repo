@@ -297,8 +297,12 @@ import GmailIcon from '../public/images/gmailicon.svg';
 import WhatsappIcon2 from '../public/images/whatsappIcon.svg';
 import Pdf from '../public/images/Pdf.png';
 import ImageIcon from '../public/images/image.png';
+import ErrorOutline from '../public/images/error_outline.svg';
+import ChangePasswordModalIcon from '../public/images/changePasswordModalIcon.svg';
 
 export {
+	ChangePasswordModalIcon,
+	ErrorOutline,
 	WhatsappIcon2,
 	FacebookIcon,
 	InstagramIcon,

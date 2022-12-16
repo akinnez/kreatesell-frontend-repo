@@ -66,9 +66,18 @@ export const PhoneNumberInput = ({
 	);
 };
 
-export const PasswordInput = ({type, placeholder, label, name, ...rest}) => {
+export const PasswordInput = ({
+	type,
+	placeholder,
+	label,
+	name,
+	isError = false,
+	...rest
+}) => {
 	return (
-		<div className={`${rest.containerstyle} ${styles.inputContainer}`}>
+		<div
+			className={`${rest.containerstyle} ${styles.inputContainer} text-left`}
+		>
 			<label htmlFor={name} className={styles.label}>
 				{label}
 			</label>
@@ -76,7 +85,10 @@ export const PasswordInput = ({type, placeholder, label, name, ...rest}) => {
 				{...rest}
 				placeholder={placeholder}
 				name={name}
-				className={`${rest.className} ${styles.input} ${styles.Password}`}
+				className={`${rest.className} ${styles.input} ${
+					styles.Password
+				} ${isError && styles.errorPlaceholder}`}
+				style={{border: isError && `1px solid #FF4D4F`}}
 			/>
 		</div>
 	);

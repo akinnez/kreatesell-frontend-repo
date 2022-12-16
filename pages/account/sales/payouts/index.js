@@ -1,21 +1,32 @@
 import {useEffect, useState} from 'react';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
+import Image from 'next/image';
+
 import {useSelector} from 'react-redux';
-import {Tabs} from 'antd';
+import {Modal, Tabs} from 'antd';
+import {useFormik} from 'formik';
+
 import AuthLayout from 'components/authlayout';
 import Spinner from 'components/Spinner';
 import Payouts from 'components/Payouts/components/Payouts';
 import BankAccountDetails from 'components/Payouts/components/BankAccountDetails';
 import Wallet from 'components/Payouts/components/Wallet';
-import {showToast} from 'utils';
+import {
+	showToast,
+	ErrorOutline,
+	ChangePasswordModalIcon,
+	SuccessCheck,
+} from 'utils';
 import styles from 'public/css/PayoutsPage.module.scss';
+import {PasswordInput, Button} from '../../../../components';
+import {createPasswordSchema} from '../../../../validation';
 
 const {TabPane} = Tabs;
 
 const PayoutsPage = () => {
 	const [tab, setTab] = useState('1');
-
+	const [showModal, setShowModal] = useState(true);
 	const router = useRouter();
 
 	const {store, loading} = useSelector((state) => state.store);
@@ -66,7 +77,147 @@ const PayoutsPage = () => {
 					</TabPane>
 				</Tabs>
 			)}
+			<AddPasswordModal {...{showModal, setShowModal}} />
 		</AuthLayout>
+	);
+};
+
+const AddPasswordModal = ({showModal = true, setShowModal}) => {
+	const initialValues = {
+		password: '',
+		confirmPassword: '',
+	};
+
+	const [isSuccessful, setIsSuccessful] = useState(false);
+
+	const handleSubmitFn = (values) => {
+		console.log('values', values);
+		// onSuccess, set setIsSuccessful to true
+		setTimeout(() => {
+			setIsSuccessful(true);
+		}, 1000);
+	};
+
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmitFn,
+		validationSchema: createPasswordSchema,
+		validateOnChange: false,
+	});
+	const {errors, handleSubmit, /*handleChange,*/ setFieldValue, values} =
+		formik;
+
+	return (
+		<>
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				centered
+				maskClosable={false}
+				closable={false}
+				style={{textAlign: 'center'}}
+				className={`${styles.addPasswordModal}`}
+				width={700}
+			>
+				<>
+					{!isSuccessful ? (
+						<>
+							<Image alt="icon" src={ChangePasswordModalIcon} />
+							<form
+								onSubmit={handleSubmit}
+								autoComplete="off"
+								className={`mt-5`}
+							>
+								<h5>Set Up Password</h5>
+								<p className={`mb-5`}>
+									Your account does not have a password,
+									please create one now and have unrestricted
+									access.
+								</p>
+								{!!errors.confirmPassword && (
+									<div className={`${styles.error} flex`}>
+										<Image
+											alt="error icon"
+											src={ErrorOutline}
+										/>
+										<p className="mb-0">
+											Passwords do not match. Ensure you
+											input the same password in both
+											boxes.
+										</p>
+									</div>
+								)}
+								<PasswordInput
+									label="Enter Password"
+									name="password"
+									placeholder="****************"
+									onChange={(e) => {
+										const val = e.target.value || '';
+										setFieldValue('password', val.trim());
+										// handleChange(e);
+									}}
+									value={values.password}
+									className={`mb-0`}
+									isError={!!errors.password}
+								/>
+								<PasswordInput
+									label="Confirm Password"
+									name="confirmPassword"
+									placeholder="****************"
+									// onChange={handleChange}
+									onChange={(e) => {
+										const val = e.target.value || '';
+										setFieldValue(
+											'confirmPassword',
+											val.trim()
+										);
+									}}
+									className={`mb-0`}
+									isError={!!errors.confirmPassword}
+								/>
+								<br />
+								<Button
+									type="submit"
+									text="Save Password"
+									bgColor="primaryBlue"
+									loading={false}
+									className={`${styles.buttonSubmit}`}
+								/>
+							</form>
+						</>
+					) : (
+						<>
+							<Image alt="success icon" src={SuccessCheck} />
+							<h3 className={`mt-5`}>
+								Password has been successfully set
+							</h3>
+							<p className={`mb-4`}>
+								Your account is now secure and protected.
+							</p>
+							<Button
+								type="button"
+								text="Continue"
+								bgColor="primaryBlue"
+								loading={false}
+								className={`${styles.buttonSubmit}`}
+								onClick={() => setOpen(false)}
+							/>
+						</>
+					)}
+				</>
+			</Modal>
+			<style>
+				{`
+          .ant-modal-body {
+            padding: 2rem 3rem;
+          }
+          .ant-input:placeholder-shown{
+            
+          }
+        `}
+			</style>
+		</>
 	);
 };
 
