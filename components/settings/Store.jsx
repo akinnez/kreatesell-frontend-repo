@@ -184,7 +184,7 @@ const StoreSettings = () => {
 			</div>
 			<p className="text-base-gray-200 text-xs pt-2">
 				By Switching on, your buyers will be responsible for the payment
-				of any tax fee imposed by Kreatesell.
+				of any tax fee imposed by KreateSell.
 			</p>
 
 			<div className="mt-8 w-4/12 lg:hidden">

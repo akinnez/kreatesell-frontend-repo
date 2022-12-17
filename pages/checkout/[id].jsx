@@ -8,7 +8,6 @@ import {
 } from 'antd';
 import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 
-import Logo from 'components/authlayout/logo';
 import {
 	ActiveTick,
 	ArrowLeft,
@@ -50,231 +49,10 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
+import {countryPayments} from '../../utils/paymentOptions';
+
 export const pathName = typeof window !== 'undefined' && window;
 
-// TODO: Move to a util file so it can be easily reused
-const countryPayments = {
-	NGN: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'Paystack',
-			icon: PaystackLogo,
-			value: 'paystack',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	GHS: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'Paystack',
-			icon: PaystackLogo,
-			value: 'paystack',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	USD: [
-		{
-			type: 'Stripe',
-			icon: ActiveStripe,
-			value: 'stripe',
-		},
-		{
-			type: 'Paypal',
-			icon: AdvancedPaypal,
-			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	GBP: [
-		{
-			type: 'Stripe',
-			icon: ActiveStripe,
-			value: 'stripe',
-		},
-		{
-			type: 'Paypal',
-			icon: AdvancedPaypal,
-			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	CAD: [
-		{
-			type: 'Stripe',
-			icon: ActiveStripe,
-			value: 'stripe',
-		},
-		{
-			type: 'Paypal',
-			icon: AdvancedPaypal,
-			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	XAF: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	XOF: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	GMD: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	KES: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	LRD: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	MWK: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	SLL: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	ZAR: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	TZS: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-	UGX: [
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
-			type: 'CryptoCurrency',
-			icon: AdvancedBitcoin,
-			value: 'crypto',
-		},
-	],
-};
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
@@ -550,8 +328,6 @@ const Checkout = () => {
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
 	useEffect(() => {
-		console.log('payment method changed to', selectedPaymentMethod);
-		console.log('activeCurrency', activeCurrency);
 		// TODO: we dont want to convert everytime selected payment method is not crypto but it changes
 		if (selectedPaymentMethod && selectedPaymentMethod === 'crypto') {
 			handleCurrencyConversion('USD');
@@ -739,7 +515,7 @@ const Checkout = () => {
 					await sendPaymentCheckoutDetails(
 						paymentDetails({
 							reference: response?.tx_ref,
-							status: response?.status,
+							status: 'success',
 						}),
 						() =>
 							router.push(
@@ -841,6 +617,19 @@ const Checkout = () => {
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
+
+	// paypal success
+	const paypalSuccess = (data, actions) => {
+		// sendPaymentCheckoutDetails(
+		// 	paymentDetails({reference: reference?.reference, status: status}),
+		// 	() =>
+		// 		router.push(
+		// 			`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+		// 		)
+		// );
+	};
+
+	const stripeSuccess = () => {};
 
 	// ===================================================================================
 	//              PAYMENT CONFIG ENDS HERE
@@ -1297,15 +1086,6 @@ const Checkout = () => {
 											activeCurrency?.currency_name
 									]
 										?.filter(({value}) => {
-											{
-												/* if (value !== 'paypal') {
-												return true;
-											} */
-											}
-
-											{
-												/* check that the user has upgraded and has done KYC */
-											}
 											if (
 												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 													'approved' &&
@@ -1456,10 +1236,11 @@ const Checkout = () => {
 															'data is',
 															data
 														);
-														console.log(
-															'actions is',
+														paypalSuccess(
+															data,
 															actions
 														);
+														// TODO: handle payment success
 														alert(
 															'You have successfully completed the transaction'
 														);

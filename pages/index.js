@@ -57,6 +57,8 @@ export default function Home() {
 	const {data: blogData, error: blogError} = useGetBlogPosts(4);
 	const [blogPosts, setBlogPosts] = useState([]);
 
+	console.log(blogPosts, 'blogPostsblogPostsblogPostsblogPosts');
+
 	const [modalVisible, setVisible] = useState(false);
 	const [email, setEmail] = useState('');
 	useEffect(() => {
@@ -648,58 +650,6 @@ export default function Home() {
 						<section className={styles.parentCard}>
 							<div className={styles.profileAndCard}>
 								{/* mobiile - section 1 */}
-								<div className={styles.newsFront}>
-									<Image
-										src={blogPosts[0]?.thumbnail}
-										width={300}
-										height={300}
-										alt="main"
-										className={styles.cardMain}
-										layout="responsive"
-									/>
-									<div
-										className={`${styles.profileCard} ${styles.mb}`}
-									>
-										<h5>{blogPosts[0]?.title}</h5>
-										<p>{blogPosts[0]?.description}</p>
-										<section className={styles.profile}>
-											<Image
-												src={ProfileImage}
-												className={styles.profileImage}
-												alt="profile image"
-												width="20"
-												height="20"
-												layout="responsive"
-											/>
-											<div className={styles.contact}>
-												<p>
-													{
-														blogPosts[0]?.app_user
-															?.full_name
-													}
-												</p>
-												<p>
-													Staff at{' '}
-													{
-														blogPosts[0]?.app_user
-															?.store_name
-													}
-												</p>
-											</div>
-										</section>
-									</div>
-									<div className={styles.min}>
-										<NewsCard
-											imgSrc={blogPosts[1]?.thumbnail}
-											mainText={blogPosts[1]?.title}
-											drop="inspirations"
-											authorName={
-												blogPosts[1]?.app_user.full_name
-											}
-										/>
-									</div>
-								</div>
-
 								{/* end of section 1 */}
 
 								<div
@@ -707,7 +657,7 @@ export default function Home() {
 										styles.newsCardsGridWithTopImageM
 									}
 								>
-									{blogPosts.slice(2, 5).map((blog) => (
+									{blogPosts.slice(0, 5).map((blog) => (
 										<NewsCard
 											key={blog.id}
 											imgSrc={blog.thumbnail}
@@ -809,6 +759,7 @@ const NewsCard = ({
 	postId,
 	category,
 }) => {
+	console.log(category, 'categorycategorycategory');
 	return (
 		<div className={styles.newsCard}>
 			<div className={styles.newsImage}>
@@ -818,6 +769,7 @@ const NewsCard = ({
 					height="132"
 					alt="news card"
 					layout="responsive"
+					objectFit="cover"
 				/>
 			</div>
 			<div className={styles.newsTextCont}>
@@ -833,7 +785,7 @@ const NewsCard = ({
 						</a>
 					</Link>
 				</div>
-				<div className={styles.newsAuthor}>{authorName}</div>
+				<div className={styles.newsAuthor}>KreateSell</div>
 			</div>
 		</div>
 	);

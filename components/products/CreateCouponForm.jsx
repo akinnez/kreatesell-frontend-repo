@@ -14,6 +14,7 @@ import {CreateCoupon, GetCoupons} from 'redux/actions';
 import {useRouter} from 'next/router';
 
 export const CreateCouponForm = () => {
+	const today = new Date().toISOString().slice(0, 16);
 	const [isPercentage, setIsPercentage] = useState(true);
 	const [isLimited, setIsLimited] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
@@ -203,7 +204,7 @@ export const CreateCouponForm = () => {
 								value={false}
 								checked={!isAllProduct ? true : false}
 							>
-								Choose Speific Product
+								Choose Specific Product
 							</Radio>
 						</Radio.Group>
 					</div>
@@ -316,6 +317,7 @@ export const CreateCouponForm = () => {
 									)
 								}
 								value={start_date}
+								min={today}
 							/>
 						</div>
 					</div>
@@ -333,6 +335,7 @@ export const CreateCouponForm = () => {
 									)
 								}
 								value={end_date}
+								min={today}
 							/>
 						</div>
 					</div>

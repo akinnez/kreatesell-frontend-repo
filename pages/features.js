@@ -247,7 +247,7 @@ const Features = () => {
 									<FeatureCard
 										// animate={() => Animate("zoom-in", 400, "ease")}
 										title="Online Courses"
-										content="Choose from the endless list of online courses that perfectly solve your business and customers’ needs; Kreatesell accepts many file types, hosts all of the content, and starts making money from selling your content to your students."
+										content="Choose from the endless list of online courses that perfectly solve your business and customers’ needs; KreateSell accepts many file types, hosts all of the content, and starts making money from selling your content to your students."
 									/>
 								</div>
 							</div>
@@ -428,7 +428,7 @@ const Features = () => {
 									<FeatureCard
 										// animate={() => Animate("zoom-in", 400, "ease")}
 										title="Email marketing"
-										content="Get your potential and active customer engaged with your personalized email or the preset email on the kreatesell clipboard."
+										content="Get your potential and active customer engaged with your personalized email or the preset email on the kreateSell clipboard."
 									/>
 									<FeatureCard
 										// animate={() => Animate("zoom-in", 300, "ease")}
@@ -796,7 +796,7 @@ const Features = () => {
 								</section>
 
 								<h6 className={styles.featureExcerpt}>
-									Kreatesell support is your partner in
+									KreateSell support is your partner in
 									business. We care for your wellbeing and
 									peace. That is why we&apos;re right next to
 									you whenever the need arises.

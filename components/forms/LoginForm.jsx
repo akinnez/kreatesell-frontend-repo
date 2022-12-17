@@ -29,13 +29,6 @@ export const LoginForm = () => {
 		password: '',
 	};
 
-	useEffect(() => {
-		if (router.query.verified) {
-			// showToast('Email has been Confirmed', 'success');
-			router.replace('/login', undefined, {shallow: true});
-		}
-	}, [router.query.verified]);
-
 	const handleSubmit = (data) => {
 		// //* temp by pass
 		//  router.push('/account/dashboard');
@@ -89,6 +82,9 @@ export const LoginForm = () => {
 				) {
 					return router.push('/resend-email');
 				}
+				// if (err?.error && err?.error?.toLowerCase().includes(`has been de-activated`)) {
+				// 	return err?.error;
+				// }
 			}
 		);
 	};

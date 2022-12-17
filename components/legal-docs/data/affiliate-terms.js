@@ -4,15 +4,15 @@ export const affiliateTerms = {
 		{
 			question: 'Referral Tracking',
 			answer: [
-				`Kreatesell provides the Affiliate Promoter with specific Affiliate Links which can be used to promote 
-            a product to potential customers.Kreatesell will track users who have visited the product page and made a 
+				`KreateSell provides the Affiliate Promoter with specific Affiliate Links which can be used to promote 
+            a product to potential customers.KreateSell will track users who have visited the product page and made a 
             purchase successfully with the Affiliate Links using a cookie which has a validity period of 90 days.
             Only customers who completed a successful purchase while the cookie is still valid will be considered a verified 
             referral of the Affiliate and recorded in the Affiliate Dashboard of the affiliate promoter.`,
 				'',
 
 				`The Affiliate promoters are not permitted to modify or edit the Affiliate Links or the cookies in any way.
-            Kreatesell will not be responsible for any tracking or reporting errors that may happen due to any modifications
+            KreateSell will not be responsible for any tracking or reporting errors that may happen due to any modifications
             to the Affiliate Link or the cookies.`,
 				'',
 
@@ -31,7 +31,7 @@ export const affiliateTerms = {
             her payments charged back or otherwise reversed.`,
 				'',
 				`All Affiliate commissions will be payable in the local currency of the promoter, except 
-        as otherwise determined by Kreatesell in its sole discretion.`,
+        as otherwise determined by KreateSell in its sole discretion.`,
 				'',
 
 				`Any unpaid Affiliate commission due to suspicious activity will be forfeited after 12 calendar months.`,
@@ -39,12 +39,12 @@ export const affiliateTerms = {
 
 				`In the scenario whereby any purchase activity looks suspicious, We may delay the payment of Affiliate 
                 commissions by about 3 calendar months to verify the genuineness of the sales.
-                Kreatesell reserves the right to recalculate, make void, or disqualify any Affiliate
+                KreateSell reserves the right to recalculate, make void, or disqualify any Affiliate
                 commissions in the event of any fraudulent, deceptive or otherwise illegal activity.`,
 				'',
 
-				`Should in any case a customer purchases anything on Kreatesell through Kreatesell promotional or special offers-
-                be it Kreatesell’s premium plans or Kreators’ product after the expiration period of an affiliate 
+				`Should in any case a customer purchases anything on KreateSell through KreateSell promotional or special offers-
+                be it KreateSell’s premium plans or Kreators’ product after the expiration period of an affiliate 
                 cookie who promotes to such customer, the affiliate promoter will not be qualified 
                 to receive commission for such purchases.`,
 				'',
@@ -53,7 +53,7 @@ export const affiliateTerms = {
                  to promote any product else, he / or she has to be requesting permission from the Kreator of the product.`,
 				'',
 				`It's the responsibility of Affiliate Promoters to select the right and promising products 
-                to promote from our products' marketplace. Kreatesell will ensure that all the products on our marketplace
+                to promote from our products' marketplace. KreateSell will ensure that all the products on our marketplace
                 are top notch but we do not offer any guarantee or representation in that regard.`,
 			],
 		},
@@ -81,7 +81,7 @@ export const affiliateTerms = {
 			question: 'OVERWRITE COOKIES',
 			withMargin: true,
 			answer: [
-				`On Kreatesell platform, the new cookie clicked by a prospect / or visitor will overwrite the former cookie 
+				`On KreateSell platform, the new cookie clicked by a prospect / or visitor will overwrite the former cookie 
         of the another affiliate referral link clicked by the prospect. The sales commission is then mapped 
         to the last affiliate link clicked by a prospect or customer of a product.`,
 

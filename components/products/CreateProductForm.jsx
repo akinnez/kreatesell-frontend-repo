@@ -121,7 +121,6 @@ export const CreateProductForm = ({
 		delete data.isBasicPlan;
 		// console.log(data)
 		const result = transformToFormData(data, 'contentZipFiles');
-		console.log('result = ', result);
 		createProduct(result, async () => {
 			if (productId) {
 				await getProductByID(productId);
@@ -163,9 +162,9 @@ export const CreateProductForm = ({
 	}, [productID, productId]);
 
 	useEffect(() => {
-		if (preOrder) {
+		if (preOrder && store) {
 			const {user} = store;
-			if (user.user_plan === 'Basic') {
+			if (user?.user_plan === 'Basic') {
 				setFieldValue('isBasicPlan', true);
 			} else {
 				setFieldValue('isBasicPlan', false);
@@ -180,7 +179,7 @@ export const CreateProductForm = ({
 	}, [product]);
 
 	useEffect(() => {
-		console.log('imageUploads = ', imageUploads);
+		// console.log('imageUploads = ', imageUploads);
 		if (imageUploads.length >= 3) {
 			setIsImageFilled(true);
 			return;
@@ -532,7 +531,6 @@ export const CreateProductForm = ({
 								</div>
 							</div>
 						)}
-
 						{preOrder && (
 							<div className={styles.enablePreOrderCont}>
 								<p className="text-base-gray-200">
@@ -555,7 +553,6 @@ export const CreateProductForm = ({
 								/>
 							</div>
 						)}
-
 						{productType === 'digitalDownload' && (
 							<div className="flex justify-between items-center mt-5 w-full lg:w-2/4 pt-4">
 								<h2 className="text-black-100 font-semibold text-lg">
@@ -575,7 +572,6 @@ export const CreateProductForm = ({
 								</div>
 							</div>
 						)}
-
 						{contentFiles && (
 							<FileUpload
 								initialFile={initialProduct}

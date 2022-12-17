@@ -226,7 +226,7 @@ export default function PreviewHeader({
 								/>
 							</div>
 							<div className={styles.selectAndButtons}>
-								<div className="w-20  mr-4">
+								<div className="w-20  mx-4">
 									<CSelect
 										options={[
 											// ...[{ label: 'Select currency', value: '' }],
@@ -235,7 +235,7 @@ export default function PreviewHeader({
 										border="none"
 										loading={currencyLoading}
 										defaultValue={'NGN'}
-										onChange={(e) => setActiveCurrency(e)}
+										cb={(e) => setActiveCurrency(e)}
 									/>
 								</div>
 								<div className={styles.btns}>

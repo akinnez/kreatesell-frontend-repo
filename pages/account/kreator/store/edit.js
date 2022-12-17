@@ -194,7 +194,7 @@ const Index = () => {
 				<Row>
 					<Col span={24}>
 						<Card bordered={false} className={style.card}>
-							<h3>Welcome to Kreatesell</h3>
+							<h3>Welcome to KreateSell</h3>
 							<p>
 								Fill out the fields below to complete your
 								profile

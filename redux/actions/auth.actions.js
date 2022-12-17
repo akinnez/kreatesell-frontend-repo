@@ -5,7 +5,6 @@ import {useRouter} from 'next/router';
 import {showToast} from '../../utils';
 
 export const Signup = () => {
-	// console.log('I got here')
 	const dispatch = useDispatch();
 	return (data, successCallback, errorCallback) => (
 		dispatch({type: types.SIGNUP.REQUEST}),
@@ -46,14 +45,12 @@ export const Login = () => {
 			`post`,
 			`auth/signin/EmailConfirm`,
 			(res) => {
-				// console.log('res is', res)
 				// check if the login request has 2FA enabled
 				if (!res.data?.is2_fa_set) {
 					const {token, user} = res;
 					dispatch({type: types.LOGIN.SUCCESS, payload: user});
 					localStorage.setItem('token', token);
 					localStorage.setItem('user', JSON.stringify(user));
-					// sessionStorage.setItem("user", JSON.stringify(user));
 				} else if (res.data?.is2_fa_set) {
 					dispatch({type: types.STOP_LOADING});
 				}
@@ -61,7 +58,7 @@ export const Login = () => {
 			},
 			(err) => {
 				dispatch({type: types.LOGIN.FAILURE, payload: err});
-				showToast(err?.message, 'error');
+				showToast(err?.message || err?.data?.message, 'error');
 				errorCallback?.(err);
 			},
 			data

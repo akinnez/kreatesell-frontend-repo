@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import router, {useRouter} from 'next/router';
 
 import {Row, Col, Modal} from 'antd';
 import axios from 'axios';
@@ -97,7 +97,9 @@ const AccessPageModal = ({
 		// TODO: validate email address
 		try {
 			const response = await axios.post(productLink, productDetails);
-			handleDownload(response?.data?.download_link);
+			handleDownload(
+				response?.data?.product_dto?.product_images[1]?.filename
+			);
 		} catch (error) {
 			setErrorModal(true);
 		} finally {
@@ -369,8 +371,9 @@ const Success = () => {
 			)}
 			<div className={styles.successContainer}>
 				<nav>
+					<div className={styles.emptyContainer}></div>
 					<div className={styles.titleContainer}>
-						<h3 className="mb-0">
+						<h3 className={`mb-0 ${styles.pageTitle}`}>
 							{product?.product_details?.product_name}
 						</h3>
 					</div>
@@ -386,7 +389,7 @@ const Success = () => {
 								alt="user profile picture"
 							/>
 						</div>
-						<p className="mb-0 ml-2">
+						<p className={'mb-0 ml-2'}>
 							{storeDetails?.kreator_full_name}
 						</p>
 					</div>
@@ -426,6 +429,7 @@ const Success = () => {
 											product?.product_details
 												?.product_name
 										}
+										{...{product}}
 									/>
 								</Col>
 							</Row>
@@ -619,7 +623,7 @@ const ProductCard2 = ({
 					{productDetails?.product_details?.product_name}
 				</p>
 
-				<div className={`flex justify-between items-center pb-4 pt-1`}>
+				<div className={`flex justify-between items-center pt-1`}>
 					{productDetails?.product_price_type === 'Make it Free' ? (
 						<p className={styles.makeItFreeText}>Free</p>
 					) : productDetails?.product_price_type ===
@@ -680,84 +684,169 @@ const ProductCard2 = ({
 	);
 };
 
-const PurchaseSummaryCard = ({handleClickAction, productName}) => {
+const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
+	const productId = router?.query?.productId;
+	const productDetails = product?.product_details;
+	const StoreDetails = product?.store_dto;
+	const productSectionCount = product?.content_section_tracker;
+
+	console.log(product, 'productproductproductproduct');
+
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
 		} else if (action === 'viewCourse') {
-			console.log('view course');
+			router.push(`/account/kreator/products/buyersPreview/${productId}`);
 		}
 	};
+
+	const getFileSize = () => {
+		const numberSize = Number(
+			product?.product_images[1]?.size.split('MB')[0]
+		);
+		if (numberSize < 1) {
+			const kbSize = numberSize * 1000;
+			return `${kbSize} KB`;
+		}
+		return `${product?.product_images[1]?.size}`;
+	};
+
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
 			<p className={styles.header}>Purchase Summary</p>
-			<div className={`${styles.purchase} mb-2`}>
-				<Image
-					className={styles.purchaseIcon}
-					src={ZipFile}
-					// src={CourseFileIcon}
-					height="80"
-					width="80"
-					alt=""
-				/>
-				<span className="">
-					<div className={styles.top}>{productName}.zip</div>
-					<div className={styles.bottom}>
-						<div>
-							<p className={styles.left}>236MB</p>|
-							<p className={styles.right}>NGN 5,000</p>
+			{product?.product_type_details === 'Digital Download' ? (
+				<div className={`${styles.purchase} mb-2`}>
+					<Image
+						className={styles.purchaseIcon}
+						src={ZipFile}
+						// src={CourseFileIcon}
+						height="80"
+						width="80"
+						alt=""
+					/>
+					<span className="">
+						<div className={styles.top}>{productName}.zip</div>
+						<div className={styles.bottom}>
+							<div>
+								<p className={styles.left}>
+									{product?.product_images[1]?.size
+										? getFileSize()
+										: 'N/A'}
+								</p>{' '}
+								|
+								{/* //TODO:
+								Replace this with appropriate size */}
+								<p className={styles.right}>
+									{product?.default_currency?.currency}{' '}
+									{product?.default_price}
+								</p>
+							</div>
+							{/* TODO: don't show this button for preorder products */}
+							{!productDetails?.enable_preorder && (
+								<Button
+									text="Download File"
+									bgColor="blue"
+									icon={<CloudDownload />}
+									style={{padding: '1rem'}}
+									disabled={!product?.product_images[1]}
+									onClick={() => handleClick('download')}
+								/>
+							)}
 						</div>
-						{/* TODO: don't show this button for preorder products */}
-						<Button
-							text="Download File"
-							bgColor="blue"
-							icon={<CloudDownload />}
-							style={{padding: '1rem'}}
-							onClick={() => handleClick('download')}
-						/>
-					</div>
-				</span>
-			</div>
+					</span>
+				</div>
+			) : product?.product_type_details === 'Membership' ? (
+				<div className={`${styles.purchase} mb-2`}>
+					<Image
+						className={styles.purchaseIcon}
+						src={CourseFileIcon}
+						height="80"
+						width="80"
+						alt=""
+					/>
+					<span className="">
+						<div className={styles.top}>{productName}</div>
+						<div className={styles.bottom}>
+							<div>
+								<p
+									className={styles.left}
+								>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
+								|
+								<p className={styles.right}>
+									{product?.default_currency?.currency}{' '}
+									{product?.default_price}
+								</p>
+							</div>
+							{/* TODO: don't show this button for preorder products */}
+							{!productDetails?.enable_preorder && (
+								<Button
+									text="Access Course"
+									bgColor="blue"
+									icon={<CloudDownload />}
+									style={{padding: '1rem'}}
+									onClick={() => handleClick('viewCourse')}
+								/>
+							)}
+						</div>
+					</span>
+				</div>
+			) : (
+				<div className={`${styles.purchase} mb-2`}>
+					<Image
+						className={styles.purchaseIcon}
+						src={CourseFileIcon}
+						height="80"
+						width="80"
+						alt=""
+					/>
+					<span className="">
+						<div className={styles.top}>{productName}</div>
+						<div className={styles.bottom}>
+							<div>
+								<p className={styles.left}>N/A</p>|
+								<p className={styles.right}>
+									{product?.default_currency?.currency}{' '}
+									{product?.default_price}
+								</p>
+							</div>
+							{/* TODO: don't show this button for preorder products */}
+							{/* <Button
+								text="course"
+								bgColor="blue"
+								icon={<CloudDownload />}
+								style={{ padding: '1rem' }}
+								onClick={() => handleClick('viewCourse')}
+							/> */}
+						</div>
+					</span>
+				</div>
+			)}
 			<br />
 			<hr />
 			<br />
-			<div className={`${styles.purchase} mb-2`}>
-				<Image
-					className={styles.purchaseIcon}
-					src={CourseFileIcon}
-					height="80"
-					width="80"
-					alt=""
-				/>
-				<span className="">
-					<div className={styles.top}>{productName}.rar</div>
-					<div className={styles.bottom}>
-						<div>
-							<p className={styles.left}>236MB</p>|
-							<p className={styles.right}>NGN 5,000</p>
-						</div>
-						{/* TODO: don't show this button for preorder products */}
-						<Button
-							text="Access Course"
-							bgColor="blue"
-							icon={<CloudDownload />}
-							style={{padding: '1rem'}}
-							onClick={() => handleClick('download')}
-						/>
+
+			{productDetails?.enable_preorder && (
+				<div className={styles.preorder2}>
+					Thank you for your preorder.{' '}
+					<span>
+						The expected release date is{' '}
+						{productDetails?.preoder_date}
+					</span>
+				</div>
+			)}
+
+			{product?.product_type_details === 'Digital Download' &&
+				!product?.product_images[1] && (
+					<div className={styles.error}>
+						<Image src={ErrorIcon} alt="" />
+						This content file is unavailable. Please reach out to
+						the{' '}
+						<Link href={`mailto:${StoreDetails?.store_email}`}>
+							Kreator
+						</Link>{' '}
+						for more details.
 					</div>
-				</span>
-			</div>
-			{/* FIXME: show preorder */}
-			<div className={styles.preorder2}>
-				Thank you for your preorder.{' '}
-				<span>The expected release date is Mar 31, 2022 9:00 AM</span>
-			</div>
-			{/* FIXME: show error for product not available */}
-			<div className={styles.error}>
-				<Image src={ErrorIcon} alt="" />
-				This content file is unavailable. Please reach out to the{' '}
-				<Link href="#">Kreator</Link> for more details.
-			</div>
+				)}
 		</div>
 	);
 };
