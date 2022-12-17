@@ -128,7 +128,25 @@ export default function PreviewHeader({
 			{/* // * Mobile  */}
 			<div className={styles.mobileLeft}>
 				<div className={styles.mobileMenu}>
-					{mobileSideBarIsOpen ? (
+					<Image
+						src={MobileBackArrow}
+						alt="backArrow"
+						// onClick={() => setMobileSidebarIsOpen(false)}
+					/>
+					<span>{product?.product_details?.product_name}</span>
+					<div className={styles.btnBox}>
+						<Button
+							type="default"
+							icon={<Image src={CopyLink} alt="copy" />}
+							onClick={() =>
+								_copyToClipboard(link, 'Product Link Copied')
+							}
+						></Button>
+						<Button type="primary" onClick={() => setIsOpen(true)}>
+							Publish
+						</Button>
+					</div>
+					{/* {mobileSideBarIsOpen ? (
 						<Image
 							src={NavCloseIcon}
 							alt="navClose"
@@ -141,18 +159,19 @@ export default function PreviewHeader({
 								shape="circle"
 								icon={<MdOutlineMenu onClick={toggleView} />}
 							/>
+
 							<MobileLogo />
 						</>
-					)}
+					)} */}
 				</div>
 			</div>
-			{mobileSideBarIsOpen && (
+			{/* {mobileSideBarIsOpen && (
 				<StoreMobileDropView
 					isVariant={true}
 					dp={displayPicture}
 					nameOfStore={nameOfStore}
 				/>
-			)}
+			)} */}
 			{showNavLinks ? (
 				<div className={styles.miniSaveButtons + ' flex self-end'}>
 					<Button

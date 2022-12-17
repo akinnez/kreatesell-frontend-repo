@@ -23,6 +23,7 @@
 	// width: 85%;
 	margin: 32px auto;
 	padding: 1rem;
+	// border: 100px solid red;
 
 	@media (min-width: 500px) {
 		padding: 72px 60px;
@@ -93,6 +94,13 @@
 	// @media (max-width: 400px) {
 
 	// }
+
+	@media (max-width: 768px) {
+		p {
+			font-size: 1.4rem;
+		}
+	}
+
 	@include screen('medium') {
 		width: 100%;
 		// border-bottom: 2px solid transparent;
@@ -164,7 +172,14 @@
 	margin-top: 3rem;
 	overflow-y: auto;
 	// border: 1px solid red;
-
+	@media (max-width: 768px) {
+		h2 {
+			font-size: 1.8rem !important;
+		}
+		p {
+			font-size: 1.1rem !important;
+		}
+	}
 	p {
 		color: $base-gray;
 	}
@@ -339,6 +354,7 @@
 	justify-content: space-between;
 	width: 100%;
 	align-items: center;
+	// border: 1px solid red;
 	p {
 		margin-left: 37.33px;
 		margin-right: 1rem;
@@ -346,6 +362,22 @@
 		max-width: 290px;
 		white-space: nowrap;
 		overflow: hidden;
+	}
+
+	svg {
+		// width: 100% !important;
+		height: 50px !important;
+		font-size: 4rem !important;
+	}
+	button {
+		width: 40px !important;
+		// border: 1px solid red;
+		height: 50px !important;
+		svg {
+			width: 100% !important;
+			height: 50px !important;
+			font-size: 4rem !important;
+		}
 	}
 
 	.btns {
@@ -381,24 +413,57 @@
 .more {
 	h2 {
 		margin-top: 4rem !important;
+		// border: 1px solid red !important;
+		@media (max-width: 768px) {
+			font-size: 1.8rem;
+		}
 	}
 
 	.moreDetails {
 		margin-bottom: 6rem !important;
-		// border: 1px solid red !important;
+		font-weight: normal;
+		@media (max-width: 768px) {
+			font-size: 1.3rem;
+		}
 	}
 }
 
 .mobileMenu {
-	@include flex(row, flex-start, center);
+	width: 100%;
+	// border: 1px solid red;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
-	button {
-		margin-right: 10px;
-
-		svg {
-			font-size: 30px;
-		}
+	.btnBox {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
+	button,
+	button:first-child {
+		width: 100% !important;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-weight: bolder;
+		border-radius: 8px !important;
+	}
+
+	button:first-child {
+		// width: 100% !important;
+		margin-right: 0.5rem;
+		width: 100px !important;
+	}
+	// @include flex(row, flex-start, center);
+
+	// button {
+	// 	margin-right: 10px;
+
+	// 	svg {
+	// 		font-size: 30px;
+	// 	}
+	// }
 }
 
 .mobileLoginLink {
@@ -483,6 +548,6 @@
 		position: relative;
 		margin-top: 2rem;
 		min-height: 100vh;
-		// border: 10px solid red !important
+		// border: 10px solid red !important;
 	}
 }

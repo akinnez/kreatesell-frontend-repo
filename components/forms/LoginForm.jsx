@@ -37,6 +37,8 @@ export const LoginForm = () => {
 	}, [router.query.verified]);
 
 	const handleSubmit = (data) => {
+		// //* temp by pass
+		//  router.push('/account/dashboard');
 		/**Login endpoint is called with data */
 		login(
 			data,

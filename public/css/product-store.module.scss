@@ -312,6 +312,7 @@ p.makeItFreeText {
 		top: 90px;
 		margin-top: unset;
 		// &.noDp {
+		// border: 10px solid red;
 		.profile {
 			margin-top: 31px !important;
 
@@ -321,6 +322,36 @@ p.makeItFreeText {
 			align-items: center;
 		}
 		// }
+
+		@media (max-width: 768px) {
+			.text {
+				font-size: 2rem;
+				line-height: 1.6;
+				margin-top: 3rem;
+				margin-bottom: 4rem;
+				p {
+					font-size: 2rem;
+					line-height: 1.5;
+				}
+			}
+
+			.mobileInput {
+				// margin-bottom: 2rem;
+				input {
+					font-size: 1.2rem;
+				}
+			}
+
+			.mobileButton {
+				button {
+					font-size: 1.9rem;
+				}
+			}
+
+			.benefits {
+				font-size: 1rem;
+			}
+		}
 	}
 
 	.profile {
@@ -395,6 +426,14 @@ p.makeItFreeText {
 
 		span {
 			margin-right: 8px;
+		}
+
+		@media (max-width: 768px) {
+			// width: 200px;
+			height: 100px;
+			span {
+				font-size: 1.2rem;
+			}
 		}
 	}
 
