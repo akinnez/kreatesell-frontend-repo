@@ -91,6 +91,13 @@
 	padding: 2.5em 2em;
 	width: 100%;
 
+	// @media (max-width: 500px) {
+	h2 {
+		font-size: 1.2rem !important;
+		// color: red !important;
+	}
+	// }
+
 	// @media (max-width: 400px) {
 
 	// }
@@ -172,12 +179,22 @@
 	margin-top: 3rem;
 	overflow-y: auto;
 	// border: 1px solid red;
+
 	@media (max-width: 768px) {
 		h2 {
 			font-size: 1.8rem !important;
 		}
 		p {
-			font-size: 1.1rem !important;
+			font-size: 1.5rem !important;
+		}
+	}
+	@media (max-width: 500px) {
+		h2 {
+			font-size: 1.5rem !important;
+			// color: red;
+		}
+		p {
+			font-size: 0.95rem !important;
 		}
 	}
 	p {
@@ -354,7 +371,10 @@
 	justify-content: space-between;
 	width: 100%;
 	align-items: center;
-	// border: 1px solid red;
+
+	// &.isPreviewMain {
+	// 	// border: 1px solid red;
+	// }
 	p {
 		margin-left: 37.33px;
 		margin-right: 1rem;
@@ -539,6 +559,8 @@
 	right: 0;
 	// border: 1px solid red;
 	z-index: 2000;
+	padding-left: 0.5rem !important;
+	padding-right: 0.5rem !important;
 	.mobileLeft {
 		padding-top: 0.8rem;
 		padding-bottom: 0.8rem;
@@ -550,4 +572,21 @@
 		min-height: 100vh;
 		// border: 10px solid red !important;
 	}
+}
+
+.lgOnly {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	// @media (max-width: 651px) {
+	// 	display: none;
+	// }
+}
+
+.Init {
+	width: 100%;
+	// position: relative;
+	// right: 40px;
+	display: flex;
+	align-items: center;
 }
