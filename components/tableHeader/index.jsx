@@ -199,7 +199,7 @@ export const StatusComponent = (item) => {
 		},
 		6: {
 			type: 'unlisted',
-			styles: {background: '#E6F7FF;', color: '#0072EF;'},
+			styles: {background: '#E6F7FF', color: '#0072EF'},
 			contents:
 				'Product would not be visible on your store page but anyone with its direct link can purchase it.Product violated copyright terms and has been removed permanently.',
 		},

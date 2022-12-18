@@ -57,9 +57,14 @@ export const Login = () => {
 				successCallback?.(res);
 			},
 			(err) => {
+				if (err) {
+					dispatch({type: types.LOGIN.FAILURE, payload: err});
+					showToast(err?.message || err?.data?.message, 'error');
+					errorCallback?.(err);
+				} else {
+					showToast('Network error', 'error');
+				}
 				dispatch({type: types.LOGIN.FAILURE, payload: err});
-				showToast(err?.message || err?.data?.message, 'error');
-				errorCallback?.(err);
 			},
 			data
 		)

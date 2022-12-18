@@ -91,7 +91,7 @@ export const createPasswordSchema = () => {
 	return Yup.object().shape({
 		password: Yup.string().required('Password is required'),
 		// .min(6, 'Password is too short'),
-		confirmPassword: Yup.string()
+		confirm_password: Yup.string()
 			.required('Confirm Password is required')
 			// .min(6, 'Confirm Password is too short')
 			.oneOf([Yup.ref('password'), null], 'Passwords must match'),

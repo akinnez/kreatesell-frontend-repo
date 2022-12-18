@@ -21,6 +21,7 @@ import {
 import styles from 'public/css/PayoutsPage.module.scss';
 import {PasswordInput, Button} from '../../../../components';
 import {createPasswordSchema} from '../../../../validation';
+import {ResetPassword} from '../../../../redux/actions';
 
 const {TabPane} = Tabs;
 
@@ -83,19 +84,23 @@ const PayoutsPage = () => {
 };
 
 const AddPasswordModal = ({showModal = true, setShowModal}) => {
+	const {user} = useSelector((state) => state.auth);
+	const resetPassword = ResetPassword();
+
 	const initialValues = {
+		username: '',
 		password: '',
-		confirmPassword: '',
+		confirm_password: '',
 	};
 
 	const [isSuccessful, setIsSuccessful] = useState(false);
 
 	const handleSubmitFn = (values) => {
-		console.log('values', values);
-		// onSuccess, set setIsSuccessful to true
-		setTimeout(() => {
-			setIsSuccessful(true);
-		}, 1000);
+		resetPassword(values, () => {
+			setTimeout(() => {
+				setIsSuccessful(true);
+			}, 500);
+		});
 	};
 
 	const formik = useFormik({
@@ -104,8 +109,17 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 		validationSchema: createPasswordSchema,
 		validateOnChange: false,
 	});
-	const {errors, handleSubmit, /*handleChange,*/ setFieldValue, values} =
-		formik;
+	const {
+		errors,
+		handleSubmit,
+		/*handleChange,*/ setFieldValue,
+		values,
+	} = formik;
+	useEffect(() => {
+		if (user) {
+			setFieldValue('username', user?.email);
+		}
+	}, [user]);
 
 	return (
 		<>
@@ -135,7 +149,7 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 									please create one now and have unrestricted
 									access.
 								</p>
-								{!!errors.confirmPassword && (
+								{!!errors.confirm_password && (
 									<div className={`${styles.error} flex`}>
 										<Image
 											alt="error icon"
@@ -163,18 +177,18 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 								/>
 								<PasswordInput
 									label="Confirm Password"
-									name="confirmPassword"
+									name="confirm_password"
 									placeholder="****************"
 									// onChange={handleChange}
 									onChange={(e) => {
 										const val = e.target.value || '';
 										setFieldValue(
-											'confirmPassword',
+											'confirm_password',
 											val.trim()
 										);
 									}}
 									className={`mb-0`}
-									isError={!!errors.confirmPassword}
+									isError={!!errors.confirm_password}
 								/>
 								<br />
 								<Button

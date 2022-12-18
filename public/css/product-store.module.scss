@@ -72,6 +72,11 @@
 
 			color: #262626;
 		}
+		@include screen('medium-large') {
+			padding-bottom: 0.5rem;
+			padding-top: 0.5rem;
+			padding-inline: 0.5rem;
+		}
 	}
 }
 
@@ -151,7 +156,7 @@
 .link__btn {
 	height: 45px;
 	padding: 0.3rem;
-	border-radius: 0px 8px 8px 0px;
+	border-radius: 0px 8px 8px 0px !important;
 	border: 1px solid $base-blue;
 	color: $base-blue;
 	font-weight: bold;
