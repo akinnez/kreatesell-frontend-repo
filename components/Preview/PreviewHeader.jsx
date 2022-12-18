@@ -128,12 +128,12 @@ export default function PreviewHeader({
 			{/* // * Mobile  */}
 			<div className={styles.mobileLeft}>
 				<div className={styles.mobileMenu}>
-					<Image
+					{/* <Image
 						src={MobileBackArrow}
 						alt="backArrow"
-						// onClick={() => setMobileSidebarIsOpen(false)}
-					/>
-					<span>{product?.product_details?.product_name}</span>
+						onClick={() => setMobileSidebarIsOpen(false)}
+					/> */}
+					{/* <span>{product?.product_details?.product_name}</span>
 					<div className={styles.btnBox}>
 						<Button
 							type="default"
@@ -145,15 +145,15 @@ export default function PreviewHeader({
 						<Button type="primary" onClick={() => setIsOpen(true)}>
 							Publish
 						</Button>
-					</div>
-					{/* {mobileSideBarIsOpen ? (
+					</div> */}
+					{mobileSideBarIsOpen ? (
 						<Image
 							src={NavCloseIcon}
 							alt="navClose"
 							onClick={() => setMobileSidebarIsOpen(false)}
 						/>
 					) : (
-						<>
+						<div className={styles.Init}>
 							<Button
 								type="text"
 								shape="circle"
@@ -161,17 +161,17 @@ export default function PreviewHeader({
 							/>
 
 							<MobileLogo />
-						</>
-					)} */}
+						</div>
+					)}
 				</div>
 			</div>
-			{/* {mobileSideBarIsOpen && (
+			{mobileSideBarIsOpen && (
 				<StoreMobileDropView
 					isVariant={true}
 					dp={displayPicture}
 					nameOfStore={nameOfStore}
 				/>
-			)} */}
+			)}
 			{showNavLinks ? (
 				<div className={styles.miniSaveButtons + ' flex self-end'}>
 					<Button
@@ -212,7 +212,7 @@ export default function PreviewHeader({
 							</div>
 						</div>
 					) : (
-						<>
+						<div className={styles.lgOnly}>
 							<div className={styles.mobileSearch}>
 								<div className="w-10">
 									<Image src={SearchIcon} alt="search" />
@@ -260,7 +260,7 @@ export default function PreviewHeader({
 									</div>
 								</div>
 							</div>
-						</>
+						</div>
 					)}
 				</div>
 			)}

@@ -177,7 +177,7 @@
 			font-size: 1.8rem !important;
 		}
 		p {
-			font-size: 1.1rem !important;
+			font-size: 1.5rem !important;
 		}
 	}
 	p {
@@ -550,4 +550,21 @@
 		min-height: 100vh;
 		// border: 10px solid red !important;
 	}
+}
+
+.lgOnly {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	// @media (max-width: 651px) {
+	// 	display: none;
+	// }
+}
+
+.Init {
+	width: 100%;
+	position: relative;
+	right: 40px;
+	display: flex;
+	align-items: center;
 }
