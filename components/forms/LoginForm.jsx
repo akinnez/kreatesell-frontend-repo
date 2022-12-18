@@ -31,6 +31,7 @@ export const LoginForm = () => {
 
 	const handleSubmit = (data) => {
 		/**Login endpoint is called with data */
+
 		login(
 			data,
 			(res) => {

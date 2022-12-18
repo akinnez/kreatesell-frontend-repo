@@ -49,7 +49,6 @@ const AllProducts = () => {
 		(state) => state.product
 	);
 	const {store} = useSelector((state) => state.store);
-	console.log('products = ', products);
 
 	const {page, total_records, limit} = productPagination;
 
