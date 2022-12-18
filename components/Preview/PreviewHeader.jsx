@@ -37,6 +37,7 @@ export default function PreviewHeader({
 	showNavLinks = true,
 	formattedCurrencies,
 	setActiveCurrency,
+	isPreviewMain = false,
 }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isResponse, setIsResponse] = useState(false);
@@ -126,43 +127,74 @@ export default function PreviewHeader({
 			</div>
 
 			{/* // * Mobile  */}
-			<div className={styles.mobileLeft}>
-				<div className={styles.mobileMenu}>
-					{/* <Image
-						src={MobileBackArrow}
-						alt="backArrow"
-						onClick={() => setMobileSidebarIsOpen(false)}
-					/> */}
-					{/* <span>{product?.product_details?.product_name}</span>
-					<div className={styles.btnBox}>
-						<Button
-							type="default"
-							icon={<Image src={CopyLink} alt="copy" />}
-							onClick={() =>
-								_copyToClipboard(link, 'Product Link Copied')
-							}
-						></Button>
-						<Button type="primary" onClick={() => setIsOpen(true)}>
-							Publish
-						</Button>
-					</div> */}
-					{mobileSideBarIsOpen ? (
-						<Image
-							src={NavCloseIcon}
-							alt="navClose"
-							onClick={() => setMobileSidebarIsOpen(false)}
-						/>
-					) : (
-						<div className={styles.Init}>
-							<Button
-								type="text"
-								shape="circle"
-								icon={<MdOutlineMenu onClick={toggleView} />}
+			<div
+				className={`${styles.mobileLeft} ${
+					isPreviewMain ? styles.isPreviewMain : ''
+				}`}
+			>
+				<div
+					className={`${styles.mobileMenu} 
+					}`}
+				>
+					{isPreviewMain && (
+						<>
+							<Image
+								src={MobileBackArrow}
+								alt="backArrow"
+								onClick={() => setMobileSidebarIsOpen(false)}
 							/>
-
-							<MobileLogo />
-						</div>
+							<span>
+								{product?.product_details?.product_name}
+							</span>
+							<div className={styles.btnBox}>
+								<Button
+									type="default"
+									icon={<Image src={CopyLink} alt="copy" />}
+									onClick={() =>
+										_copyToClipboard(
+											link,
+											'Product Link Copied'
+										)
+									}
+								></Button>
+								<Button
+									type="primary"
+									onClick={() => setIsOpen(true)}
+								>
+									Publish
+								</Button>
+							</div>
+						</>
 					)}
+					<>
+						{!isPreviewMain && (
+							<>
+								{mobileSideBarIsOpen ? (
+									<Image
+										src={NavCloseIcon}
+										alt="navClose"
+										onClick={() =>
+											setMobileSidebarIsOpen(false)
+										}
+									/>
+								) : (
+									<div className={styles.Init}>
+										<Button
+											type="text"
+											shape="circle"
+											icon={
+												<MdOutlineMenu
+													onClick={toggleView}
+												/>
+											}
+										/>
+
+										<MobileLogo />
+									</div>
+								)}
+							</>
+						)}
+					</>
 				</div>
 			</div>
 			{mobileSideBarIsOpen && (

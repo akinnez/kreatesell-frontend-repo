@@ -34,7 +34,7 @@ export default function PreviewProduct() {
 				}}
 				className={styles.previewPageContainer}
 			>
-				<PreviewHeader id={router.query.id} />
+				<PreviewHeader id={router.query.id} isPreviewMain={true} />
 				<PreviewContent />
 				<PoweredByKS />
 			</div>
