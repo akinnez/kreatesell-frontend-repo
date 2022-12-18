@@ -30,6 +30,8 @@ export const LoginForm = () => {
 	};
 
 	const handleSubmit = (data) => {
+		// //* temp by pass
+		//  router.push('/account/dashboard');
 		/**Login endpoint is called with data */
 
 		login(

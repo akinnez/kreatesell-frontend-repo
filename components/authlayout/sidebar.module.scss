@@ -125,6 +125,10 @@
 		// width: 140vw;
 		min-width: 100vw;
 	}
+
+	@media (max-width: 500px) {
+		min-width: 120vw;
+	}
 }
 
 .mobileSideBar {

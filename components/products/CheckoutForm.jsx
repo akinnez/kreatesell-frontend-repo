@@ -471,6 +471,7 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
+		console.log(data, 'datadfatadata');
 		if (priceType === 'Fixed Price') {
 			if (validateDefinedCurrencies()) {
 				showToast('Please define prices for all currencies', 'error');
@@ -594,6 +595,8 @@ export const CheckoutForm = ({
 	// console.log('formik values', values);
 
 	//Updating Formik values
+
+	console.log(priceType, 'priceTypepriceTypepriceType');
 	useEffect(() => {
 		switch (priceType) {
 			case 'Fixed Price':
@@ -602,7 +605,7 @@ export const CheckoutForm = ({
 				return setFieldValue('pricing_type_id', 2);
 			// case 'Installment Payment':
 			// 	return setFieldValue('pricing_type_id', 3);
-			case 'Make It Free':
+			case 'Make it Free':
 				return setFieldValue('pricing_type_id', 3);
 		}
 	}, [priceType]);

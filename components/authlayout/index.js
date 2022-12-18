@@ -98,13 +98,15 @@ const Index = ({
 
 	// console.log("info = ", info);
 	// console.log("store details = ", store_details);
-
+	//* uncomment - temp by-pass
 	useEffect(() => {
 		if (!_isUserLoggedIn()) {
 			showToast('Login required to view page', 'info');
 			return router.push('/login');
 		}
 	}, []);
+
+	//* uncomment
 
 	const user = useSelector((state) => state.auth);
 	const [userName, setUserName] = useState('');
