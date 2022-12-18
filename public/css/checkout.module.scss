@@ -207,10 +207,21 @@
 	margin-top: 4px;
 }
 
-// .currencyCardCont {
-// 	// border: 1px solid red;
-// 	//* more
-// }
+.currencyCardCont {
+	// border: 1px solid red;
+	@media (max-width: 500px) {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+
+		.card,
+		.activeCard {
+			min-width: 40%;
+			display: flex;
+			justify-content: flex-start !important;
+			align-items: center;
+		}
+	}
+}
 
 .currencyWestAfCardCont {
 	// border: 1px solid green;
@@ -225,7 +236,7 @@
 
 		.card,
 		.activeCard {
-			width: 30%;
+			min-width: 30%;
 			display: flex;
 			justify-content: flex-start !important;
 			align-items: center;

@@ -304,7 +304,7 @@ const StorePage = () => {
 						</div>
 					</div>
 
-					<div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
+					<div className="w-full grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
 						{singleStoreProducts?.map((productDetails) => {
 							{
 								/* console.log('productDetails = ', productDetails) */
@@ -478,10 +478,30 @@ const ProductCard = ({
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
-	// console.log('productDetails', productDetails);
+	// console.log('productDetails', productDetails?.check_out_details);
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
+	};
+
+	const getPredefinedPrice = (type) => {
+		let predefinedAmount;
+		if (type === 'Pay What You Want') {
+			predefinedAmount = productDetails?.check_out_details?.find(
+				(det) =>
+					det?.price_indicator === 'Minimum' &&
+					det?.currency_name === targetCurrency
+			);
+			// minimum
+		} else if (type === 'Fixed Price') {
+			//selling
+			predefinedAmount = productDetails?.check_out_details?.find(
+				(det) =>
+					det?.price_indicator === 'Selling' &&
+					det?.currency_name === targetCurrency
+			);
+		}
+		return predefinedAmount?.price;
 	};
 
 	const outOfStock = () => {
@@ -551,7 +571,13 @@ const ProductCard = ({
 						>
 							{targetCurrency ||
 								productDetails?.default_currency?.currency}{' '}
-							{convertedCurrency
+							{getPredefinedPrice(
+								productDetails?.product_price_type
+							)
+								? getPredefinedPrice(
+										productDetails?.product_price_type
+								  )
+								: convertedCurrency
 								? new Intl.NumberFormat().format(
 										convertedCurrency *
 											productDetails.default_price
@@ -572,7 +598,13 @@ const ProductCard = ({
 										{targetCurrency ||
 											productDetails?.default_currency
 												?.currency}
-										{convertedCurrency
+										{getPredefinedPrice(
+											productDetails?.product_price_type
+										)
+											? getPredefinedPrice(
+													productDetails?.product_price_type
+											  )
+											: convertedCurrency
 											? new Intl.NumberFormat().format(
 													convertedCurrency *
 														sellingPrice
@@ -584,28 +616,29 @@ const ProductCard = ({
 											: '0.00'}
 									</p>
 
-									{pricingType === 'Fixed Price' && (
-										<p
-											className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
-										>
-											{targetCurrency ||
-												productDetails?.default_currency
-													?.currency}
-
-											{convertedCurrency
-												? new Intl.NumberFormat().format(
-														convertedCurrency *
-															(originalPrice ??
-																productDetails?.default_price)
-												  )
-												: !convertedCurrency
-												? new Intl.NumberFormat().format(
-														originalPrice ??
-															productDetails?.default_price
-												  )
-												: '0.00'}
-										</p>
-									)}
+									{pricingType === 'Fixed Price' &&
+										originalPrice && (
+											<p
+												className={`text-base-gray  text-sm md:text-base originalPrice ${styles.originalPrice}`}
+											>
+												{targetCurrency ||
+													productDetails
+														?.default_currency
+														?.currency}
+												{convertedCurrency
+													? new Intl.NumberFormat().format(
+															convertedCurrency *
+																(originalPrice ??
+																	productDetails?.default_price)
+													  )
+													: !convertedCurrency
+													? new Intl.NumberFormat().format(
+															originalPrice ??
+																productDetails?.default_price
+													  )
+													: '0.00'}
+											</p>
+										)}
 								</>
 							)}
 						</div>

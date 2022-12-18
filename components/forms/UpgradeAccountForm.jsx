@@ -100,7 +100,6 @@ export const UpgradeAccountForm = ({
 	};
 
 	// Flutterwave configurations
-	// console.log('active currency', activeCurrency?.currency)
 	const flutterConfig = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: randomId,
@@ -282,39 +281,6 @@ export const UpgradeAccountForm = ({
 				onPaystackClose
 			);
 		}
-		// /** Currencies using PayStack are listed here */
-		// if (['GHS', 'NGN'].includes(activeCurrency.currency)) {
-		// 	return initializePaystackPayment(
-		// 		onPaystackSuccess,
-		// 		onPaystackClose
-		// 	);
-		// }
-
-		// currencies using stripe
-
-		/** Currencies using FlutterWave are listed here. When other payment options for USD and GBP are implemented, remember to consider it here also */
-		// if (
-		// 	(!['NGN', 'GHS'].includes(activeCurrency.currency) ||
-		// 		selectedPaymentMethod === 'flutterwave') &&
-		// 	!['paypal', 'stripe', 'crypto'].includes(selectedPaymentMethod)
-		// ) {
-		// 	setModal(false);
-		// 	handleFlutterPayment({
-		// 		callback: async (response) => {
-		// 			// console.log('response ', response)
-		// 			setSelectedPlan('Business');
-		// 			await sendPaymentCheckoutDetails(
-		// 				paymentDetails({
-		// 					reference: response?.tx_ref,
-		// 					status: response?.status,
-		// 				})
-		// 			);
-		// 			closePaymentModal();
-		// 			//   openModal();
-		// 		},
-		// 		onClose: () => {},
-		// 	});
-		// }
 	};
 
 	// set currency on mount
@@ -340,6 +306,9 @@ export const UpgradeAccountForm = ({
 		}
 		handleCurrencyConversion(activeCurrency?.currency);
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
+
+	useEffect(() => {}, [selectedPaymentMethod]);
+	console.log('selectedPaymentMethod', selectedPaymentMethod);
 
 	// useEffect to convert currency
 	useEffect(() => {

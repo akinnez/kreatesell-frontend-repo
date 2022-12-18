@@ -690,6 +690,8 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const StoreDetails = product?.store_dto;
 	const productSectionCount = product?.content_section_tracker;
 
+	console.log(product, 'productproductproductproduct');
+
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
 			handleClickAction();
@@ -726,7 +728,12 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 						<div className={styles.top}>{productName}.zip</div>
 						<div className={styles.bottom}>
 							<div>
-								<p className={styles.left}>{getFileSize()}</p> |
+								<p className={styles.left}>
+									{product?.product_images[1]?.size
+										? getFileSize()
+										: 'N/A'}
+								</p>{' '}
+								|
 								{/* //TODO:
 								Replace this with appropriate size */}
 								<p className={styles.right}>
@@ -741,7 +748,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 									bgColor="blue"
 									icon={<CloudDownload />}
 									style={{padding: '1rem'}}
-									disabled={product?.product_images === null}
+									disabled={!product?.product_images[1]}
 									onClick={() => handleClick('download')}
 								/>
 							)}
@@ -829,7 +836,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			)}
 
 			{product?.product_type_details === 'Digital Download' &&
-				product?.product_images === null && (
+				!product?.product_images[1] && (
 					<div className={styles.error}>
 						<Image src={ErrorIcon} alt="" />
 						This content file is unavailable. Please reach out to

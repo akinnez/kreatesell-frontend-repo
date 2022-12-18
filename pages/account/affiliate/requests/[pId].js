@@ -17,8 +17,8 @@ const AffiliateRequestLinK = () => {
 	const router = useRouter();
 
 	const {data: product, error} = useFetchData(
-		router.query.pId
-			? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}`
+		router.query.pId && router?.query?.requiresApproval
+			? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}?requiresApproval=${router.query?.requiresApproval}`
 			: null
 	);
 

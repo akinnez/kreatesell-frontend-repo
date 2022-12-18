@@ -29,15 +29,11 @@ export const LoginForm = () => {
 		password: '',
 	};
 
-	// useEffect(() => {
-	// 	if (router.query.verified) {
-	// 		// showToast('Email has been Confirmed', 'success');
-	// 		router.replace('/login', undefined, {shallow: true});
-	// 	}
-	// }, [router.query.verified]);
-
 	const handleSubmit = (data) => {
+		// //* temp by pass
+		//  router.push('/account/dashboard');
 		/**Login endpoint is called with data */
+
 		login(
 			data,
 			(res) => {

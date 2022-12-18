@@ -2,6 +2,7 @@ import axios from 'axios';
 import {getToken, showToast} from '.';
 
 export const baseURL = process.env.BASE_URL;
+const windowObj = typeof window !== 'undefined' && window;
 
 class ApiService {
 	constructor(contentType) {
@@ -23,9 +24,15 @@ class ApiService {
 		instance.interceptors.request.use((config) => {
 			const token = getToken();
 			if (!token) return config;
-
-			config.headers['Authorization'] = 'Bearer ' + token;
-			return config;
+			if (windowObj) {
+				if (!navigator.onLine) {
+					showToast('There is no network connection', 'error');
+					throw new axios.Cancel('There is No Network Connection');
+				} else {
+					config.headers['Authorization'] = 'Bearer ' + token;
+					return config;
+				}
+			}
 		});
 
 		this.service = instance;

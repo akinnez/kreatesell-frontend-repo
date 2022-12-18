@@ -1,9 +1,16 @@
 import {useUpload} from 'hooks';
 import Image from 'next/image';
-import {useEffect, useState} from 'react';
-import {CloudUpload, CloudUploadDisable, FileDelete, FileZip} from 'utils';
+import {useEffect, useState, useMemo} from 'react';
+import {
+	CloudUpload,
+	CloudUploadDisable,
+	FileDelete,
+	FileZip,
+	RenderIf,
+} from 'utils';
 import axios from 'axios';
 import styles from './CreateProduct.module.scss';
+import Filters from 'components/Payouts/components/Filters';
 
 export default function FileUpload({
 	file,
@@ -16,7 +23,6 @@ export default function FileUpload({
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: '.zip,.rar',
 	});
-	// console.log('initialFile', initialFile);
 
 	const [files, setFiles] = useState([]);
 	// console.log('files', files);
@@ -63,7 +69,7 @@ export default function FileUpload({
 		};
 	}, [isToggleable, toggleValue]);
 
-	useEffect(() => {
+	useMemo(() => {
 		if (initialFile) {
 			const getFileDetails = () => {
 				initialFile.map(async (item) => {
@@ -73,7 +79,8 @@ export default function FileUpload({
 			};
 			getFileDetails();
 		}
-	}, [initialFile]);
+	}, [initialFile?.length]);
+
 	useEffect(() => {
 		if (mainFile.length > 0) {
 			const start = async () => {
@@ -91,6 +98,11 @@ export default function FileUpload({
 		}
 	}, [mainFile]);
 
+	const handleUpdateDelete = () => {
+		setFile(null);
+		setFiles([]);
+	};
+
 	return (
 		<div className="pt-2">
 			<p className="text-base-gray-200 text-xs mb-0">
@@ -100,23 +112,17 @@ export default function FileUpload({
 			<small className="text-black mb-4 font-normal">
 				The maximum allowed file size is 1GB.
 			</small>
-			{mainFile.length > 0 &&
-				mainFile.map((item, index) => (
+			{/* show this if there's  */}
+			{files.length > 0 &&
+				files.map((item, index) => (
 					<div
 						key={index}
 						className={styles.fileUpload + ' flex flex-col'}
 					>
-						<p className="mb-3">
-							{progress !== 100
-								? 'Uploading'
-								: 'Content Uploaded Successfully'}{' '}
-							({progress && <>{progress}</>})%
-						</p>
 						<div
 							key={index}
 							className={styles.uploaded + ' w-full rounded-md'}
 						>
-							{progress !== 100 && <span></span>}
 							<div className="flex items-center">
 								<div
 									className="mr-4 flex items-center justify-center"
@@ -131,16 +137,18 @@ export default function FileUpload({
 								</div>
 								<div className="flex flex-col">
 									<h2 className="mb-3 text-base font-bold">
-										{item.file.name}
+										{
+											item?.filename.split('/')[
+												item?.filename.split('/')
+													.length - 1
+											]
+										}
 									</h2>
-									<p className="mb-0">{`${(
-										item.file.size /
-										(1024 * 1024)
-									).toFixed()}MB`}</p>
+									<p className="mb-0">{`${item?.size}`}</p>
 								</div>
 							</div>
 							<div
-								onClick={() => handleDeleteFile()}
+								onClick={() => handleUpdateDelete()}
 								className={
 									styles.deleteFile +
 									' flex items-center justify-center'
@@ -151,6 +159,61 @@ export default function FileUpload({
 						</div>
 					</div>
 				))}
+			<RenderIf condition={files.length === 0}>
+				{mainFile.length > 0 &&
+					mainFile.map((item, index) => (
+						<div
+							key={index}
+							className={styles.fileUpload + ' flex flex-col'}
+						>
+							<p className="mb-3">
+								{progress !== 100
+									? 'Uploading'
+									: 'Content Uploaded Successfully'}{' '}
+								({progress && <>{progress}</>})%
+							</p>
+							<div
+								key={index}
+								className={
+									styles.uploaded + ' w-full rounded-md'
+								}
+							>
+								{progress !== 100 && <span></span>}
+								<div className="flex items-center">
+									<div
+										className="mr-4 flex items-center justify-center"
+										style={{
+											width: '48px',
+											height: '48px',
+											background: '#0072EF',
+											borderRadius: '8px',
+										}}
+									>
+										<Image src={FileZip} alt="zip" />
+									</div>
+									<div className="flex flex-col">
+										<h2 className="mb-3 text-base font-bold">
+											{item.file.name}
+										</h2>
+										<p className="mb-0">{`${(
+											item.file.size /
+											(1024 * 1024)
+										).toFixed()}MB`}</p>
+									</div>
+								</div>
+								<div
+									onClick={() => handleDeleteFile()}
+									className={
+										styles.deleteFile +
+										' flex items-center justify-center'
+									}
+								>
+									<Image src={FileDelete} alt="delete" />
+								</div>
+							</div>
+						</div>
+					))}
+			</RenderIf>
 			<div className={styles.fileUploader}>
 				{file && <span></span>}
 				<div

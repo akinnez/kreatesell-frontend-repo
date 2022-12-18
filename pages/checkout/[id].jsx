@@ -515,7 +515,7 @@ const Checkout = () => {
 					await sendPaymentCheckoutDetails(
 						paymentDetails({
 							reference: response?.tx_ref,
-							status: response?.status,
+							status: 'success',
 						}),
 						() =>
 							router.push(
