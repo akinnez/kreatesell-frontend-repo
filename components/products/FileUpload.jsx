@@ -79,7 +79,7 @@ export default function FileUpload({
 			};
 			getFileDetails();
 		}
-	}, [initialFile.length]);
+	}, [initialFile?.length]);
 
 	useEffect(() => {
 		if (mainFile.length > 0) {
