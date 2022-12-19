@@ -336,8 +336,6 @@ export const CheckoutForm = ({
 		deleteFile(mainFile[0].file);
 	};
 
-
-
 	const populatePricingObject = (currency, price) => {
 		const prices = {
 			currency_value: price,
