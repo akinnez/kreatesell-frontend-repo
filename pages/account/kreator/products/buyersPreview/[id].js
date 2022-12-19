@@ -1,16 +1,17 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo } from 'utils';
 // import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
-import {useRouter} from 'next/router';
-import {Card, Row, Col, Modal} from 'antd';
+import { useRouter } from 'next/router';
+import { Card, Row, Col, Modal } from 'antd';
 import Accordion from '../preview-membership/Accordion';
+import { CloudDownload } from 'utils/icons/CloudDownload';
 
 import axios from 'axios';
-import {Input, Button} from 'components';
+import { Input, Button } from 'components';
 
 const AccessPageModal = ({
 	showAccessPageModal,
@@ -56,9 +57,9 @@ const AccessPageModal = ({
 			closeIcon={null}
 			closable={true}
 			width={595}
-			onOk={() => {}}
-			style={{top: 200}}
-			// centered
+			onOk={() => { }}
+			style={{ top: 200 }}
+		// centered
 		>
 			<div className={styles.modal}>
 				<header className={styles.header}>
@@ -78,7 +79,7 @@ const AccessPageModal = ({
 						label="Email address"
 						height="small"
 						onChange={(e) => setEmail(e.target.value)}
-						containerStyle={{width: '100%'}}
+						containerStyle={{ width: '100%' }}
 					/>
 
 					{/* TODO: show for incorrect email */}
@@ -100,7 +101,7 @@ const AccessPageModal = ({
 						loading={false}
 						disabled={false}
 						bgColor="blue"
-						style={{width: '100%'}}
+						style={{ width: '100%' }}
 						onClick={handleSubmit}
 					/>
 				</div>
@@ -129,6 +130,7 @@ const BuyersPreview = () => {
 	const productTypeName =
 		acessProductDetails?.product_details?.product_type?.product_type_name;
 
+
 	//open email modal on loading of page
 	useEffect(() => {
 		setShowAccessPageModal(true);
@@ -148,6 +150,38 @@ const BuyersPreview = () => {
 			document.body.appendChild(css);
 		}
 	}, []);
+
+
+	const handleDownload = (fileLink, extension) => {
+		fetch(fileLink, {
+			method: 'GET',
+			headers: {
+				// TODO: set content file
+				// 'Content-Type': 'image/pdf',
+			},
+		})
+			.then((response) => response.blob())
+			.then((blob) => {
+				// Create blob link to download
+				const url = window.URL.createObjectURL(new Blob([blob]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute(
+					'download',
+					`${productDetails?.product_name}.${extension}`
+				);
+
+				// Append to html link element page
+				document.body.appendChild(link);
+
+				// Start download
+				link.click();
+
+				// Clean up and remove the link
+				link.parentNode.removeChild(link);
+			});
+	};
+
 
 	useEffect(() => {
 		if (accordionData.length > 0) {
@@ -238,7 +272,7 @@ const BuyersPreview = () => {
 									<div>
 										<div className={styles.accordion}>
 											{accordionData.map(
-												({title, subList}, idx) => (
+												({ title, subList }, idx) => (
 													<Accordion
 														key={idx}
 														{...{
@@ -320,8 +354,18 @@ const BuyersPreview = () => {
 												className={styles.previewVideo}
 											/>
 										)}
-								</div>
+								</div> 
+
 								<Card>
+									{activeLink?.is_content_downloadable && (
+										<Button
+											icon={<CloudDownload />}
+											text="Download Content"
+											bgColor="blue"
+											style={{ padding: '1rem', marginBottom: '1rem' }}
+											onClick={() => handleDownload(activeLink?.files[0]?.filename, activeLink?.files[0]?.extension)}
+										/>
+									)}
 									<div
 										className={styles.sectionName}
 										dangerouslySetInnerHTML={{
@@ -340,14 +384,13 @@ const BuyersPreview = () => {
 								className={`flex justify-evenly ${styles.mainSections}`}
 							>
 								{accordionData.map(
-									({title, id, subList}, idx) => (
+									({ title, id, subList }, idx) => (
 										<div
 											key={idx}
-											className={`p-2 ${styles.title} ${
-												id ===
-													activeSelectedSectionId &&
+											className={`p-2 ${styles.title} ${id ===
+												activeSelectedSectionId &&
 												styles.active
-											}`}
+												}`}
 											onClick={() => {
 												setSelectedSection(subList);
 												setActiveSelectedSectionId(id);
@@ -368,12 +411,10 @@ const BuyersPreview = () => {
 										{selectedSection.map((sec, idx) => (
 											<div
 												key={idx}
-												className={`p-3 ${
-													styles.sections
-												} ${
-													activeLink?.id === sec.id &&
+												className={`p-3 ${styles.sections
+													} ${activeLink?.id === sec.id &&
 													styles.active2
-												}`}
+													}`}
 												onClick={() => {
 													setActiveLink(sec);
 												}}
@@ -382,7 +423,7 @@ const BuyersPreview = () => {
 												<Image
 													src={
 														activeLink?.id ===
-														sec.id
+															sec.id
 															? PlayIconBlue
 															: PlayIcon2
 													}

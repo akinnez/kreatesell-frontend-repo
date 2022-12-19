@@ -442,7 +442,8 @@ const Success = () => {
 								Other Products by the Kreator
 							</h2>
 							<div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
-								{singleStoreProducts?.map((productDetails) => {
+								{singleStoreProducts.filter((productItem)=> productItem?.product_details?.product_name !== product?.product_details?.product_name)
+								?.map((productDetails) => {
 									const sellingPrice =
 										productDetails?.default_price;
 									const originalSetting =
@@ -560,7 +561,6 @@ const ProductCard2 = ({
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
-	// console.log('productDetails', productDetails);
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -689,8 +689,6 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const productDetails = product?.product_details;
 	const StoreDetails = product?.store_dto;
 	const productSectionCount = product?.content_section_tracker;
-
-	console.log(product, 'productproductproductproduct');
 
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
