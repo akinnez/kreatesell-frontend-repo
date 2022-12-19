@@ -303,8 +303,6 @@ export const CheckoutForm = ({
 		}
 	}, [mainFile]);
 
-
-
 	async function uploadFile(file, cb) {
 		const formData = new FormData();
 		formData.append('upload_preset', 'kreatesell');
@@ -472,18 +470,18 @@ export const CheckoutForm = ({
 
 	//to set the prices value to empty arrays
 
-	const checkFreePayments =()=> {
-		if(priceType === 'Make it Free'){
-			setMinimumPrice([])
-			setSuggestedPrice([])
-			setFixedSellingPrice([])
-			setFixedOriginalPrice([])
+	const checkFreePayments = () => {
+		if (priceType === 'Make it Free') {
+			setMinimumPrice([]);
+			setSuggestedPrice([]);
+			setFixedSellingPrice([]);
+			setFixedOriginalPrice([]);
 		}
-	}
+	};
 
-	useEffect(()=> {
-		checkFreePayments()
-	},[priceType])
+	useEffect(() => {
+		checkFreePayments();
+	}, [priceType]);
 
 	// ========================================================
 
@@ -529,12 +527,9 @@ export const CheckoutForm = ({
 			delete data.is_show_compare_price;
 		}
 
-
-
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
-
 
 		createProduct(result, (res) => {
 			if (productType === 'Digital Download') {

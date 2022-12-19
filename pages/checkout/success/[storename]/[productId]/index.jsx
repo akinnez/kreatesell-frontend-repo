@@ -442,36 +442,43 @@ const Success = () => {
 								Other Products by the Kreator
 							</h2>
 							<div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
-								{singleStoreProducts.filter((productItem)=> productItem?.product_details?.product_name !== product?.product_details?.product_name)
-								?.map((productDetails) => {
-									const sellingPrice =
-										productDetails?.default_price;
-									const originalSetting =
-										productDetails?.check_out_details?.find(
-											(item) =>
-												item?.currency_name ===
-													defaultCurrency?.currency &&
-												item?.price_indicator ===
-													'Original'
-										);
+								{singleStoreProducts
+									.filter(
+										(productItem) =>
+											productItem?.product_details
+												?.product_name !==
+											product?.product_details
+												?.product_name
+									)
+									?.map((productDetails) => {
+										const sellingPrice =
+											productDetails?.default_price;
+										const originalSetting =
+											productDetails?.check_out_details?.find(
+												(item) =>
+													item?.currency_name ===
+														defaultCurrency?.currency &&
+													item?.price_indicator ===
+														'Original'
+											);
 
-									const originalPrice =
-										originalSetting?.price;
-									return (
-										<ProductCard2
-											productDetails={productDetails}
-											key={productDetails?.id}
-											sellingPrice={sellingPrice}
-											originalPrice={originalPrice}
-											{...{
-												storename,
-												openShareModal,
-												setOpenShareModal,
-												handleModalOpen,
-											}}
-										/>
-									);
-								})}
+										const originalPrice =
+											originalSetting?.price;
+										return (
+											<ProductCard2
+												productDetails={productDetails}
+												key={productDetails?.id}
+												sellingPrice={sellingPrice}
+												originalPrice={originalPrice}
+												{...{
+													storename,
+													openShareModal,
+													setOpenShareModal,
+													handleModalOpen,
+												}}
+											/>
+										);
+									})}
 							</div>
 						</section>
 					)}
