@@ -336,10 +336,6 @@ export const CheckoutForm = ({
 		deleteFile(mainFile[0].file);
 	};
 
-	useEffect(() => {
-		// console.log(product)
-	}, [product]);
-
 	const populatePricingObject = (currency, price) => {
 		const prices = {
 			currency_value: price,
@@ -419,7 +415,7 @@ export const CheckoutForm = ({
 				}
 			}
 		}
-		console.log('data', data);
+
 		return data;
 	};
 
@@ -468,10 +464,24 @@ export const CheckoutForm = ({
 		return false;
 	};
 
+	//to set the prices value to empty arrays
+
+	const checkFreePayments = () => {
+		if (priceType === 'Make it Free') {
+			setMinimumPrice([]);
+			setSuggestedPrice([]);
+			setFixedSellingPrice([]);
+			setFixedOriginalPrice([]);
+		}
+	};
+
+	useEffect(() => {
+		checkFreePayments();
+	}, [priceType]);
+
 	// ========================================================
 
 	const handleSubmit = (data) => {
-		console.log(data, 'datadfatadata');
 		if (priceType === 'Fixed Price') {
 			if (validateDefinedCurrencies()) {
 				showToast('Please define prices for all currencies', 'error');
@@ -487,6 +497,7 @@ export const CheckoutForm = ({
 
 		// console.log("dataWithCompare = ", dataWithCompare);
 		// console.log("Data passed to handle submit function", data);
+
 		if (!data.enable_preorder) {
 			delete data.preorder_details;
 		}
@@ -511,10 +522,11 @@ export const CheckoutForm = ({
 		if (!data.is_show_compare_price) {
 			delete data.is_show_compare_price;
 		}
+
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
-		// console.log("result = ", result);
+
 		createProduct(result, (res) => {
 			if (productType === 'Digital Download') {
 				router.push(
@@ -528,7 +540,7 @@ export const CheckoutForm = ({
 
 	const initialValues = {
 		action: 'e',
-		minimum_price: 0,
+		// minimum_price: 0,
 		is_minimum_price: true,
 		is_show_compare_price: compareToPrice,
 		pricing_type_id: 1,
@@ -596,7 +608,6 @@ export const CheckoutForm = ({
 
 	//Updating Formik values
 
-	console.log(priceType, 'priceTypepriceTypepriceType');
 	useEffect(() => {
 		switch (priceType) {
 			case 'Fixed Price':
