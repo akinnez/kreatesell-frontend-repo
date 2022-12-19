@@ -336,9 +336,7 @@ export const CheckoutForm = ({
 		deleteFile(mainFile[0].file);
 	};
 
-	useEffect(() => {
-		// console.log(product)
-	}, [product]);
+
 
 	const populatePricingObject = (currency, price) => {
 		const prices = {
