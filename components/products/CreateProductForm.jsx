@@ -352,7 +352,7 @@ export const CreateProductForm = ({
 					}
 				>
 					<p className="mb-2 text-xs">
-						{values?.product_description.length === 770 ? (
+						{values?.product_description.length === 700 ? (
 							<span
 								className={`${styles.charLimit} ${styles.normal}`}
 							>
