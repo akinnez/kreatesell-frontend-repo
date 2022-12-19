@@ -59,6 +59,9 @@ export const UpgradeAccountForm = ({
 	// converted price + transaction fees
 	const [totalPrice, setTotalPrice] = useState();
 
+	// for when crypto is selected
+	const [currency, setCurrency] = useState('');
+
 	const {handleCurrencyConversion} = useConvertRates(
 		'NGN',
 		activeCurrency?.currency || selectedCurrency
@@ -116,7 +119,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'KreateSell Title',
 			description: 'KreateSell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -228,8 +232,7 @@ export const UpgradeAccountForm = ({
 						},
 					}
 				);
-				// console.log('data is', data);
-				window.open(data.data.hosted_url, '_blank');
+				window.open(data.data.data.hosted_url, '_blank');
 			} catch (e) {
 				console.error(e);
 			}
@@ -247,7 +250,6 @@ export const UpgradeAccountForm = ({
 						cancel_url: `${location.origin}/account/kreator/settings?activeTab=billing?status=fail`,
 					}
 				);
-				console.log('data', data);
 				window.open(data.data.url, '_blank');
 			} catch (e) {
 				console.error(e);
@@ -304,17 +306,31 @@ export const UpgradeAccountForm = ({
 				][0].value
 			);
 		}
-		handleCurrencyConversion(activeCurrency?.currency);
+		handleCurrencyConversion();
 	}, [activeCurrency?.currency, activeCurrency?.currency_name]);
 
-	useEffect(() => {}, [selectedPaymentMethod]);
-	console.log('selectedPaymentMethod', selectedPaymentMethod);
+	useEffect(() => {
+		if (selectedPaymentMethod === 'crypto') {
+			setCurrency('USD');
+			handleCurrencyConversion('USD');
+		} else {
+			setCurrency('');
+		}
+	}, [selectedPaymentMethod]);
+	useEffect(() => {
+		if (!currency) {
+			handleCurrencyConversion();
+		}
+	}, [currency]);
+
+	// console.log('selectedPaymentMethod', selectedPaymentMethod);
+	// console.log('currency', currency);
+	// console.log('convertedCurrency', convertedCurrency);
 
 	// useEffect to convert currency
 	useEffect(() => {
 		if (Object.keys(convertedCurrency).length > 0) {
 			setConvertedPrice(price * convertedCurrency?.buy_rate);
-			onCurrencyChange();
 		}
 	}, [convertedCurrency]);
 
@@ -334,19 +350,6 @@ export const UpgradeAccountForm = ({
 		setSelectedPaymentMethod(method);
 	};
 
-	// this is to trigger rerender for paypal options
-	function onCurrencyChange() {
-		if (['USD', 'GBP'].includes(activeCurrency?.currency)) {
-			dispatch({
-				type: 'resetOptions',
-				value: {
-					...options,
-					currency: activeCurrency.currency,
-				},
-			});
-		}
-	}
-
 	if (loading) return <Loader />;
 
 	return (
@@ -361,11 +364,12 @@ export const UpgradeAccountForm = ({
 
 					<div className="text-base-green-200 font-bold text-2xl">
 						<sup className="font-normal text-xs text-black-100">
-							{activeCurrency?.currency ||
+							{currency ||
+								activeCurrency?.currency ||
 								selectedCurrency.currency}
+							<RenderIf condition={!!currency}>T</RenderIf>
 						</sup>{' '}
 						{Number(convertedPrice).toFixed(2)}
-						{/* {Number(totalPrice).toFixed(2)} */}
 						{monthly && (
 							<sub className="font-normal text-xs text-black-100">
 								/ Month
@@ -652,8 +656,10 @@ export const UpgradeAccountForm = ({
 						<div className="flex justify-between pt-2">
 							<p>SubTotal</p>
 							<p>
-								{activeCurrency?.currency ||
-									selectedCurrency.currency}{' '}
+								{currency ||
+									activeCurrency?.currency ||
+									selectedCurrency.currency}
+								<RenderIf condition={!!currency}>T</RenderIf>{' '}
 								{Number(convertedPrice).toFixed(2)}
 							</p>
 						</div>
@@ -661,8 +667,10 @@ export const UpgradeAccountForm = ({
 						<div className="flex justify-between">
 							<p>Total with Fees</p>
 							<p className="text-primary-blue font-medium">
-								{activeCurrency?.currency ||
-									selectedCurrency.currency}{' '}
+								{currency ||
+									activeCurrency?.currency ||
+									selectedCurrency.currency}
+								<RenderIf condition={!!currency}>T</RenderIf>{' '}
 								{/* {Number(convertedPrice).toFixed(2)} */}
 								{Number(totalPrice).toFixed(2)}
 							</p>
@@ -673,10 +681,13 @@ export const UpgradeAccountForm = ({
 						{
 							<Button
 								text={`Pay ${
+									currency ||
 									activeCurrency?.currency ||
 									selectedCurrency.currency
 									// } ${Number(convertedPrice).toFixed(2)}`}
-								} ${Number(totalPrice).toFixed(2)}`}
+								}${!!currency ? 'T' : ''} ${Number(
+									totalPrice
+								).toFixed(2)}`}
 								bgColor="blue"
 								style={{width: '100%'}}
 								icon={<RightArrow />}
