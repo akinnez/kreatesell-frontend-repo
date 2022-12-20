@@ -65,6 +65,7 @@ import LiberianFlag from '../public/images/flag-liber.svg';
 import TanzanianFlag from '../public/images/flag-tanz.svg';
 import LeoneFlag from '../public/images/flag-seiraL.png';
 import MalawiFlag from '../public/images/flag-malawi.png';
+import CartIcon from '../public/images/coupon-cart.svg';
 import WaitTimeBg from '../public/images/waitTimeBg.png';
 import BeninFlag from '../public/images/flag-benin.png';
 import GambianFlag from '../public/images/flag-gambia.png';
@@ -378,6 +379,7 @@ export {
 	IntZoom,
 	MockVideo,
 	IntCoinBase,
+	CartIcon,
 	IntSamsungPay,
 	MainAbout,
 	MainAboutLg,

@@ -479,7 +479,7 @@ const ActionComponent = ({item}, all) => {
 		</Popover>
 	);
 };
-const CouponActionComponent = ({item}) => {
+export const CouponActionComponent = ({item}) => {
 	const router = useRouter();
 	const id = item?.id;
 	let content = (
@@ -817,4 +817,108 @@ export const emptyComponent = (text) => {
 			</h2>
 		</div>
 	);
+};
+
+export const MobileCouponActionComponent = ({item}) => {
+	const router = useRouter();
+	const id = item?.coupons?.id;
+	return (
+		<ul>
+			<li
+				className={
+					styles.deletePop + ' flex items-center cursor-pointer'
+				}
+			>
+				<Popconfirm
+					title={
+						<pre className="mb-0 text-sm ">
+							Are you sure to{' '}
+							<h2 className="text-base text-base-gray-400 mb-0 font-semibold">
+								Deactivate
+							</h2>{' '}
+							this coupon?
+						</pre>
+					}
+					// onConfirm={handleModalOk}
+					// onCancel={cancel}
+					okText="Deactivate"
+					cancelText="Cancel"
+					icon={<></>}
+					placement="bottom"
+					overlayClassName={styles.popConfirm}
+				>
+					<span>
+						<Image alt="" src={DeactvateProduct} />
+					</span>
+					<p className="mb-0 ml-3">Deactivate</p>
+				</Popconfirm>
+			</li>
+			<li
+				className={
+					styles.deletePop + ' flex items-center cursor-pointer'
+				}
+			>
+				<Popconfirm
+					title={
+						<pre className="mb-0 text-sm ">
+							Are you sure to{' '}
+							<h2 className="text-base text-base-gray-400 mb-0 font-semibold">
+								Delete
+							</h2>{' '}
+							this coupon?
+						</pre>
+					}
+					// onConfirm={handleModalOk}
+					// onCancel={cancel}
+					okText="Delete"
+					cancelText="Cancel"
+					icon={<></>}
+					placement="bottom"
+					overlayClassName={styles.popConfirm}
+				>
+					<span>
+						<Image alt="" src={DeleteIcon} />
+					</span>
+					<p className="mb-0 ml-3">Delete</p>
+				</Popconfirm>
+			</li>
+			<li
+				className="flex items-center cursor-pointer"
+				onClick={() => {
+					localStorage.setItem('couponId', id);
+					router.push('/account/kreator/products/coupons/edit', '', {
+						id,
+					});
+				}}
+			>
+				<span>
+					<Image alt="" src={EditProduct} />
+				</span>
+				<p className="mb-0 ml-3">Edit</p>
+			</li>
+		</ul>
+	);
+};
+
+export const GetCouponStatus = (statusText) => {
+	const statusTextList = {
+		active: {
+			color: '#2DC071;',
+			backgroundColor: '#F1FCF8;',
+		},
+		pending: {
+			color: '#FBB500',
+			backgroundColor: ' rgba(255, 214, 102, 0.2);',
+		},
+		finished: {
+			color: '#F90005;',
+			backgroundColor: 'rgba(255, 77, 79, 0.1);',
+		},
+		expired: {
+			color: '#F90005;',
+			backgroundColor: 'rgba(255, 77, 79, 0.1);',
+		},
+	};
+
+	return statusTextList[statusText?.toLowerCase()];
 };

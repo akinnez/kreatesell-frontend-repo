@@ -4,7 +4,8 @@ import {
 	CouponHeader,
 	emptyComponent,
 } from 'components';
-import {DownloadIcon} from 'utils';
+import {DownloadIcon, CartIcon, ActionBtn} from 'utils';
+import {CouponActionComponent, MobileCouponActionComponent} from 'components';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
@@ -13,6 +14,7 @@ import {useRouter} from 'next/router';
 import {GetCoupons} from 'redux/actions';
 import {useEffect, useState, useMemo} from 'react';
 import {useSelector} from 'react-redux';
+import {Popover} from 'antd';
 
 const Coupon = () => {
 	const router = useRouter();
@@ -72,6 +74,7 @@ const Coupon = () => {
 				})),
 		[couponData]
 	);
+	console.log('data = ', memoisedCouponData);
 
 	// const data = [
 	// 	{
@@ -141,7 +144,7 @@ const Coupon = () => {
 					</div>
 				</div>
 
-				<div className="lg:block mb-16 mt-8">
+				<div className={`lg:block mb-16 mt-8 ${styles.lgTable}`}>
 					<Table
 						columns={AllCouponTableHeader}
 						locale={tableLocale}
@@ -155,6 +158,17 @@ const Coupon = () => {
 							x: 1300,
 						}}
 					/>
+				</div>
+				<div className={`lg:block mb-16 mt-8 ${styles.smTable}`}>
+					{memoisedCouponData?.map((item) => (
+						<MobileCouponCard
+							// data={memoisedCouponData}
+							data={item}
+							{...item}
+							// item={item}
+							key={item?.key}
+						/>
+					))}
 				</div>
 				<div className="flex flex-col items-center">
 					<h2
@@ -184,3 +198,92 @@ const Coupon = () => {
 };
 
 export default Coupon;
+
+const MobileCouponCard = ({
+	data,
+	status,
+	product_name,
+	code,
+	discount,
+	quantity,
+	usages,
+	max_usages,
+}) => {
+	return (
+		<div className={` ${styles.couponMobile}`}>
+			<div className={styles.couponTop}>
+				<div className={`${styles.couponStatus} ${styles[status]}`}>
+					{status}
+				</div>
+				<div>
+					<Popover
+						overlayStyle={{
+							width: '150px',
+							padding: '0',
+						}}
+						placement="bottomLeft"
+						// content={() => MobileCouponActionComponent(data)}
+						content={<MobileCouponActionComponent item={data} />}
+						trigger="click"
+						overlayClassName={styles.action}
+					>
+						<Image
+							alt=""
+							src={ActionBtn}
+							width={'30px'}
+							height={'30px'}
+						/>
+					</Popover>
+				</div>
+			</div>
+			<div className={styles.dateBox}>
+				<div className={styles.dates}>
+					<span className={styles.date}>start date</span>
+					<span>Jun 12th 2021, 3:50 PM</span>
+				</div>
+				<div className={styles.dates}>
+					<span className={styles.date}>end date</span>
+					<span>Jun 12th 2021, 3:50 PM</span>
+				</div>
+			</div>
+			<div className={styles.itemName}>
+				<span className={styles.iconContainer}>
+					<Image src={CartIcon} alt="cart icon" />
+				</span>
+				{product_name}
+			</div>
+			<div className={styles.details}>
+				<div className={styles.shade}>
+					<div className={styles.inner}>
+						<span>Code </span>
+						<span>{code}</span>
+					</div>
+				</div>
+				<div>
+					<div className={styles.inner}>
+						<span>Discount </span>
+						<span>{discount}</span>
+					</div>
+				</div>
+				<div className={styles.shade}>
+					<div className={styles.inner}>
+						<span>Quantity</span>
+						<span>{quantity}</span>
+					</div>
+				</div>
+				<div>
+					<div className={styles.inner}>
+						<span>Usage</span>
+						<span>{usages}</span>
+					</div>
+				</div>
+				<div className={styles.shade}>
+					<div className={styles.inner}>
+						<span>Max usages</span>
+						<span>{max_usages}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
