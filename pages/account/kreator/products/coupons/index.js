@@ -152,7 +152,7 @@ const Coupon = () => {
 						}}
 						size="large"
 						scroll={{
-							x: 1000,
+							x: 1300,
 						}}
 					/>
 				</div>
