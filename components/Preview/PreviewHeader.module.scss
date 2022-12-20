@@ -208,6 +208,11 @@
 	font-size: 0.875rem;
 	line-height: 24px;
 	color: #595959;
+	p {
+		@media (max-width: 768px) {
+			font-size: 0.9rem;
+		}
+	}
 }
 .active {
 	border: 1.5px solid $black-100;
