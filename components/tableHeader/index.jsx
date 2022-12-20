@@ -703,6 +703,7 @@ export const AllProductsTableHeader = [
 		dataIndex: 'date_created',
 		render: (item) => {
 			const time = parseISO(item);
+
 			const formatTime = format(time, 'PPPp');
 			const formatDate = format(time, 'PPP');
 			return (

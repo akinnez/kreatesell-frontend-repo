@@ -400,11 +400,13 @@
 			font-size: 12px;
 			line-height: 18px;
 			text-transform: capitalize;
+			text-align: left;
 			/* identical to box height, or 150% */
 			background: #e6f7ff;
 			padding: 4px 8px;
 			display: flex;
 			align-items: center;
+			justify-content: flex-start;
 
 			/* PRIMARY */
 

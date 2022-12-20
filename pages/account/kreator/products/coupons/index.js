@@ -5,7 +5,8 @@ import {
 	emptyComponent,
 } from 'components';
 import {DownloadIcon, CartIcon, ActionBtn} from 'utils';
-import {CouponActionComponent, MobileCouponActionComponent} from 'components';
+import {MobileCouponActionComponent} from 'components';
+import {format, parseISO, parse} from 'date-fns';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
@@ -208,7 +209,19 @@ const MobileCouponCard = ({
 	quantity,
 	usages,
 	max_usages,
+	start_date,
+	end_date,
+	item,
 }) => {
+	const startTime = parseISO(start_date);
+	const formatStartTime = format(startTime, 'PPPp');
+	const formatStartDate = format(startTime, 'PPP');
+
+	const endTime = parseISO(end_date);
+	const formatEndTime = format(endTime, 'PPPp');
+	const formatEndDate = format(endTime, 'PPP');
+
+	// console.log('formartStartTime = ', formatStartTime);
 	return (
 		<div className={` ${styles.couponMobile}`}>
 			<div className={styles.couponTop}>
@@ -239,11 +252,17 @@ const MobileCouponCard = ({
 			<div className={styles.dateBox}>
 				<div className={styles.dates}>
 					<span className={styles.date}>start date</span>
-					<span>Jun 12th 2021, 3:50 PM</span>
+					<span>
+						{`${formatStartDate.split('at')[0]},`}{' '}
+						{formatStartTime.split('at')[1]}
+					</span>
 				</div>
 				<div className={styles.dates}>
 					<span className={styles.date}>end date</span>
-					<span>Jun 12th 2021, 3:50 PM</span>
+					<span>
+						{`${formatEndDate.split('at')[0]},`}{' '}
+						{formatEndTime.split('at')[1]}
+					</span>
 				</div>
 			</div>
 			<div className={styles.itemName}>
