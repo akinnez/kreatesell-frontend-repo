@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import styles from './sidebar.module.scss';
-import {Layout} from 'antd';
+import {Layout, Modal} from 'antd';
 import Sidebar from './sidebar';
 import Logo from './logo';
 import Nav from './header';
@@ -23,6 +23,7 @@ import {
 	NavCloseDropdownIcon,
 	SideBarLoginProfile,
 	PromptInfoIcon,
+	Congratulations,
 } from 'utils';
 import {Logout} from '../../redux/actions';
 import {useRouter} from 'next/router';
@@ -32,6 +33,8 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import useFetchStore from 'hooks/useFetchStore';
 import useFetchNotifications from 'hooks/useFetchNotifications';
 import {menu} from './header';
+import CloseIcon from 'components/affiliates/CloseIcon';
+import {Button} from 'components';
 
 const Loader = () => {
 	return (
@@ -261,6 +264,7 @@ const Index = ({
 					padding: 50px 30px 10px 30px;
 				}
 			`}</style>
+			<SuccesfulSalesModal />
 		</section>
 	);
 };
@@ -281,6 +285,35 @@ const SetUpPrompt = ({show}) => {
 				.
 			</p>
 		</div>
+	);
+};
+
+const SuccesfulSalesModal = () => {
+	return (
+		<Modal
+			title={null}
+			footer={null}
+			visible={false}
+			onCancel={() => console.log('Closed')}
+			maskClosable={false}
+			closeIcon={<CloseIcon />}
+			className={styles.affiliate__modal}
+			style={{textAlign: 'center'}}
+			width={800}
+		>
+			<Image src={Congratulations} alt="" />
+			<h5>Congratulations, you have made your 5th sale!</h5>
+			<p className={`mb-0`}>
+				You now have unrestricted access to market any product without
+				requesting for <br />
+				access.
+			</p>
+			<Button
+				bgColor="primaryBlue"
+				text="Go To MarketPlace"
+				className={`py-3 mt-5 ${styles.modalBtn}`}
+			/>
+		</Modal>
 	);
 };
 

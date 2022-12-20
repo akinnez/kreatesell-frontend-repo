@@ -253,3 +253,27 @@
 .setUpPrompt.show {
 	opacity: 1;
 }
+
+// success modal
+.affiliate__modal {
+	h5 {
+		font-weight: 600;
+		font-size: 30px;
+		line-height: 33px;
+		color: #262626;
+		margin-top: 1rem;
+	}
+	p {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 26px;
+		color: #8c8c8c;
+	}
+	.modalBtn {
+		width: 30%;
+		height: fit-content !important;
+		font-weight: 700 !important;
+		font-size: 0.875rem !important;
+		color: #ffffff !important;
+	}
+}

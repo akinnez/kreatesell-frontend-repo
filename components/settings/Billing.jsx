@@ -239,7 +239,7 @@ const Billing = () => {
 									: subPriceType
 							}
 							btnOnClick={openModal}
-							// currentPlan={selectedPlan === 'Business'}
+							currentPlan={selectedPlan === 'Business'}
 							selectedCurrency={
 								convertedCurrency?.to_currency_name ||
 								selectedCurrency

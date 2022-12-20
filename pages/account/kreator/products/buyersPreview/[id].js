@@ -8,6 +8,7 @@ import BackButton from 'components/BackButton';
 import {useRouter} from 'next/router';
 import {Card, Row, Col, Modal} from 'antd';
 import Accordion from '../preview-membership/Accordion';
+import {CloudDownload} from 'utils/icons/CloudDownload';
 
 import axios from 'axios';
 import {Input, Button} from 'components';
@@ -148,6 +149,36 @@ const BuyersPreview = () => {
 			document.body.appendChild(css);
 		}
 	}, []);
+
+	const handleDownload = (fileLink, extension) => {
+		fetch(fileLink, {
+			method: 'GET',
+			headers: {
+				// TODO: set content file
+				// 'Content-Type': 'image/pdf',
+			},
+		})
+			.then((response) => response.blob())
+			.then((blob) => {
+				// Create blob link to download
+				const url = window.URL.createObjectURL(new Blob([blob]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute(
+					'download',
+					`${productDetails?.product_name}.${extension}`
+				);
+
+				// Append to html link element page
+				document.body.appendChild(link);
+
+				// Start download
+				link.click();
+
+				// Clean up and remove the link
+				link.parentNode.removeChild(link);
+			});
+	};
 
 	useEffect(() => {
 		if (accordionData.length > 0) {
@@ -321,7 +352,27 @@ const BuyersPreview = () => {
 											/>
 										)}
 								</div>
+
 								<Card>
+									{activeLink?.is_content_downloadable && (
+										<Button
+											icon={<CloudDownload />}
+											text="Download Content"
+											bgColor="blue"
+											style={{
+												padding: '1rem',
+												marginBottom: '1rem',
+											}}
+											onClick={() =>
+												handleDownload(
+													activeLink?.files[0]
+														?.filename,
+													activeLink?.files[0]
+														?.extension
+												)
+											}
+										/>
+									)}
 									<div
 										className={styles.sectionName}
 										dangerouslySetInnerHTML={{

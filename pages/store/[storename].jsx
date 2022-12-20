@@ -305,51 +305,54 @@ const StorePage = () => {
 					</div>
 
 					<div className="w-full grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
-						{singleStoreProducts?.map((productDetails) => {
-							{
-								/* console.log('productDetails = ', productDetails) */
-							}
-							const countrySale =
-								productDetails?.check_out_details?.find(
-									(item) =>
-										item?.currency_name ===
-											defaultCurrency?.currency &&
-										item?.price_indicator === 'Selling'
-								);
+						{singleStoreProducts
+							?.filter(
+								(productDetails) =>
+									productDetails?.product_images !== null
+							)
+							?.map((productDetails) => {
+								const countrySale =
+									productDetails?.check_out_details?.find(
+										(item) =>
+											item?.currency_name ===
+												defaultCurrency?.currency &&
+											item?.price_indicator === 'Selling'
+									);
 
-							{
-								/* const sellingPrice = countrySale?.price; */
-							}
-							const sellingPrice = productDetails?.default_price;
-							const originalSetting =
-								productDetails?.check_out_details?.find(
-									(item) =>
-										item?.currency_name ===
-											defaultCurrency?.currency &&
-										item?.price_indicator === 'Original'
-								);
+								{
+									/* const sellingPrice = countrySale?.price; */
+								}
+								const sellingPrice =
+									productDetails?.default_price;
+								const originalSetting =
+									productDetails?.check_out_details?.find(
+										(item) =>
+											item?.currency_name ===
+												defaultCurrency?.currency &&
+											item?.price_indicator === 'Original'
+									);
 
-							const originalPrice = originalSetting?.price;
-							return (
-								<ProductCard
-									productDetails={productDetails}
-									key={productDetails?.id}
-									sellingPrice={sellingPrice}
-									originalPrice={originalPrice}
-									convertedCurrency={
-										convertedCurrency?.buy_rate
-									}
-									loading={currencyConverterLoading}
-									targetCurrency={tempTargetCurrency}
-									{...{
-										storename,
-										openShareModal,
-										setOpenShareModal,
-										handleModalOpen,
-									}}
-								/>
-							);
-						})}
+								const originalPrice = originalSetting?.price;
+								return (
+									<ProductCard
+										productDetails={productDetails}
+										key={productDetails?.id}
+										sellingPrice={sellingPrice}
+										originalPrice={originalPrice}
+										convertedCurrency={
+											convertedCurrency?.buy_rate
+										}
+										loading={currencyConverterLoading}
+										targetCurrency={tempTargetCurrency}
+										{...{
+											storename,
+											openShareModal,
+											setOpenShareModal,
+											handleModalOpen,
+										}}
+									/>
+								);
+							})}
 					</div>
 
 					{pagination?.total_records > 12 && (
@@ -446,39 +449,36 @@ const ProductCard = ({
 }) => {
 	const pricingType =
 		productDetails?.product_details?.pricing_type?.price_type;
-	// console.log('productDetails', productDetails);
 	const router = useRouter();
 	const setCheckoutDetails = SetCheckoutDetails();
-	const imageShown = productDetails?.product_images?.[0]?.filename?.includes(
-		','
-	)
-		? productDetails?.product_images?.[0]?.filename?.split(',')[0]
-		: productDetails?.product_images?.[0]?.filename?.endsWith('.rar') ||
-		  productDetails?.product_images?.[0]?.filename?.endsWith('.zip')
-		? productDetails?.product_images?.[1]?.filename
-		: productDetails?.product_images?.[1]?.filename?.includes(',')
-		? productDetails?.product_images?.[1]?.filename?.split(',')[1]
-		: productDetails?.product_images?.[1]?.filename;
+	const images = productDetails?.product_images?.filter(
+		(img) => !['.rar', '.zip'].includes(img.filename) || img !== null
+	);
+	const imageShown = images?.[0]?.filename?.includes(',')
+		? images?.[0]?.filename?.split(',')[0]
+		: images?.[0]?.filename?.endsWith('.rar') ||
+		  images?.[0]?.filename?.endsWith('.zip')
+		? images?.[1]?.filename
+		: images?.[1]?.filename?.includes(',')
+		? images?.[1]?.filename?.split(',')[1]
+		: images?.[1]?.filename;
 
-	const initImage = productDetails?.product_images?.[0]?.filename?.includes(
-		','
-	)
+	const initImage = images?.[0]?.filename?.includes(',')
 		? // * show full array
-		  productDetails?.product_images?.[0]?.filename?.split(',')
+		  images?.[0]?.filename?.split(',')
 		: // * show first item
-		  productDetails?.product_images?.[0]?.filename;
+		  images?.[0]?.filename;
 
 	const imageRendered =
-		productDetails?.product_images?.[1]?.filename ||
-		productDetails?.product_images?.[0]?.filename ||
-		(productDetails?.product_images?.[1]?.filename?.includes(',') &&
-			productDetails?.product_images?.[1]?.filename?.split(',')[0]) ||
-		(productDetails?.product_images?.[0]?.filename?.includes(',') &&
-			productDetails?.product_images?.[0]?.filename?.split(',')[0]);
+		images?.[1]?.filename ||
+		images?.[0]?.filename ||
+		(images?.[1]?.filename?.includes(',') &&
+			images?.[1]?.filename?.split(',')[0]) ||
+		(images?.[0]?.filename?.includes(',') &&
+			images?.[0]?.filename?.split(',')[0]);
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
-	// console.log('productDetails', productDetails?.check_out_details);
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -529,7 +529,7 @@ const ProductCard = ({
 		>
 			<div>
 				<Image
-					src={!imageShown ? len[len.length - 1] : imageShown}
+					src={!imageShown ? len[len?.length - 1] : imageShown}
 					width="320"
 					height="300"
 					className="rounded-t-lg object-cover"
@@ -672,7 +672,6 @@ export const StoreMobileDropView = ({
 
 	const displayPicture = singleStoreDetails?.display_picture;
 
-	// console.log('details = ', singleStoreDetails);
 	const storeName = singleStoreDetails?.store_name;
 	return (
 		<div
