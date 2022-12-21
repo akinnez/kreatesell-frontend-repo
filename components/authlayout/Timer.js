@@ -16,7 +16,7 @@ const Timer = () => {
 	const [days, hours, minutes, seconds] = useCountdown(plan_expiry_date);
 
 	return (
-		<RenderIf condition={!!user?.user_plan === 'Business'}>
+		<RenderIf condition={user?.user_plan === 'Business'}>
 			<section className={style.businessBg}>
 				<div className={style.iconBox}>
 					<p className={style.text}>
