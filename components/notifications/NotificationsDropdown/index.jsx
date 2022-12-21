@@ -23,7 +23,7 @@ const NotificationsDropdown = () => {
 				mutate,
 			})}
 			placement="bottom"
-			trigger={['click']} 
+			trigger={['click']}
 			arrow
 		>
 			<div>

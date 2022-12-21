@@ -92,7 +92,7 @@ const notificationsMenu = ({notifications, error, count, dispatch, mutate}) => {
 			type
 		);
 
-		const  jsx = (
+		const jsx = (
 			<Menu.Item
 				className={`${styles.menu__item} ${styles['data-menu__item']}`}
 				key={notification.id}
