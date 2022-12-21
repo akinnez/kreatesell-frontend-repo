@@ -173,9 +173,10 @@ const Dashboard = () => {
 								: affiliateSalesStatistics.gross_sales
 						}
 						profit={
-							affiliateSalesStatistics.profits === null
+							affiliateSalesStatistics.total_commission_earned ===
+							null
 								? 0
-								: affiliateSalesStatistics.profits
+								: affiliateSalesStatistics.total_commission_earned
 						}
 						currency={affiliateSalesStatistics.affiliate_currency}
 					/>
