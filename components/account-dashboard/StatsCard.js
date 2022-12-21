@@ -9,6 +9,7 @@ export const StatsCard = ({
 	profit,
 	isAffiliateCard = false,
 	isAnAffiliate = false,
+	currency,
 }) => {
 	return (
 		<div className={styles.container}>
@@ -71,7 +72,9 @@ export const StatsCard = ({
 								/>
 							</div>
 							<div className={styles.countCont}>
-								<div className={styles.value}>{grossSales}</div>
+								<div className={styles.value}>
+									{currency} {grossSales}
+								</div>
 								<div className={styles.valueText}>
 									Gross Sales
 								</div>
@@ -90,7 +93,9 @@ export const StatsCard = ({
 								/>
 							</div>
 							<div className={styles.countCont}>
-								<div className={styles.value}>{profit}</div>
+								<div className={styles.value}>
+									{currency} {profit}
+								</div>
 								<div className={styles.valueText}>Profit</div>
 							</div>
 						</div>

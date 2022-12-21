@@ -138,6 +138,7 @@ const Dashboard = () => {
 						unitSales={salesStatistics.total_sales}
 						grossSales={salesStatistics.gross_sales}
 						profit={salesStatistics.profits}
+						currency={salesStatistics.currency}
 					/>
 				</div>
 				{/* show only when user is an affiliate */}
@@ -176,6 +177,7 @@ const Dashboard = () => {
 								? 0
 								: affiliateSalesStatistics.profits
 						}
+						currency={affiliateSalesStatistics.affiliate_currency}
 					/>
 				</div>
 				{/* )} */}
