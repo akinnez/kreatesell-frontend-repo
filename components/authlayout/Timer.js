@@ -6,20 +6,22 @@ import {useSelector} from 'react-redux';
 import {useCountdown} from 'hooks/useCountdownTimer';
 
 import style from './Timer.module.scss';
+import {RenderIf} from 'utils';
 
 const Timer = () => {
 	const router = useRouter();
 	const {
-		store: {plan_expiry_date},
+		store: {plan_expiry_date, user},
 	} = useSelector((state) => state.store);
 	const [days, hours, minutes, seconds] = useCountdown(plan_expiry_date);
 
 	return (
-		<>
+		<RenderIf condition={!!user?.user_plan === 'Business'}>
 			<section className={style.businessBg}>
 				<div className={style.iconBox}>
 					<p className={style.text}>
-						{days + hours + minutes + seconds <= 0 ? (
+						{days + hours + minutes + seconds <= 0 &&
+						plan_expiry_date ? (
 							<>
 								Your BUSINESS PLAN has expired. You will
 								automatically be put on the basic plan. Click
@@ -139,7 +141,7 @@ const Timer = () => {
 					</p>
 				</div>
 			</section>
-		</>
+		</RenderIf>
 	);
 };
 
