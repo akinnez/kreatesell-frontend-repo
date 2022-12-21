@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useSWRConfig} from 'swr';
-import {Dropdown, Button, Badge} from 'antd';
+import {Dropdown, Button, Badge, Menu} from 'antd';
 import useUnreadNotificationsCount from 'hooks/useUnreadNotificationsCount';
 import notificationsMenu from '../notificationsMenu';
 import {Bell} from '../../IconPack';
@@ -12,7 +12,12 @@ const NotificationsDropdown = () => {
 	const dispatch = useDispatch();
 
 	const count = useUnreadNotificationsCount(notifications);
-
+	const menu = (
+		<Menu>
+			<Menu.Item>item 1</Menu.Item>
+			<Menu.Item>item 2</Menu.Item>
+		</Menu>
+	);
 	return (
 		<Dropdown
 			overlay={notificationsMenu({
@@ -22,8 +27,7 @@ const NotificationsDropdown = () => {
 				dispatch,
 				mutate,
 			})}
-			placement="bottom"
-			trigger={['contextMenu']}
+			trigger={['hover']}
 			arrow
 		>
 			<div>
