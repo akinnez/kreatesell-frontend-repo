@@ -15,7 +15,7 @@ const NotificationsDropdown = () => {
 
 	return (
 		<Dropdown
-			overlay={notificationsMenu({
+			menu={notificationsMenu({
 				notifications,
 				error,
 				count,
