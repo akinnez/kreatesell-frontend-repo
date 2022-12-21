@@ -18,6 +18,7 @@ export default function FileUpload({
 	isToggleable,
 	toggleValue,
 	initialFile,
+	onLoadCb = () => {},
 }) {
 	const [progress, setProgress] = useState(0);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
@@ -74,6 +75,7 @@ export default function FileUpload({
 			const getFileDetails = () => {
 				initialFile.map(async (item) => {
 					setFiles((prev) => [...prev, item]);
+					setFile(item.filename);
 					await fetchFile(item.filename);
 				});
 			};

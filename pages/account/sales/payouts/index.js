@@ -27,7 +27,7 @@ const {TabPane} = Tabs;
 
 const PayoutsPage = () => {
 	const [tab, setTab] = useState('1');
-	const [showModal, setShowModal] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
 
 	const {store, loading} = useSelector((state) => state.store);
@@ -45,6 +45,15 @@ const PayoutsPage = () => {
 			);
 		}
 	}, [router.query.redirect]);
+
+	useEffect(() => {
+		if (
+			store?.user?.is_social_login &&
+			store?.user?.is_required_to_set_password
+		) {
+			setShowModal(true);
+		}
+	}, [store]);
 
 	return (
 		<AuthLayout>
@@ -85,6 +94,7 @@ const PayoutsPage = () => {
 
 const AddPasswordModal = ({showModal = true, setShowModal}) => {
 	const {user} = useSelector((state) => state.auth);
+
 	const resetPassword = ResetPassword();
 
 	const initialValues = {
@@ -109,8 +119,12 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 		validationSchema: createPasswordSchema,
 		validateOnChange: false,
 	});
-	const {errors, handleSubmit, /*handleChange,*/ setFieldValue, values} =
-		formik;
+	const {
+		errors,
+		handleSubmit,
+		/*handleChange,*/ setFieldValue,
+		values,
+	} = formik;
 	useEffect(() => {
 		if (user) {
 			setFieldValue('username', user?.email);
