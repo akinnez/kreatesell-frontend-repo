@@ -126,7 +126,7 @@ export default function PreviewHeader({
 				</div>
 			</div>
 
-			{/* // * Mobile  */}
+			{/* // * Mobile   -- */}
 			<div
 				className={`${styles.mobileLeft} ${
 					isPreviewMain ? styles.isPreviewMain : ''
