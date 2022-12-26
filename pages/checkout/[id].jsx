@@ -265,7 +265,7 @@ const Checkout = () => {
 			user_identifier: 'user-' + randomId,
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
-			coupon_code:couponCode || ""
+			coupon_code: couponCode || '',
 		};
 		return value;
 	};
