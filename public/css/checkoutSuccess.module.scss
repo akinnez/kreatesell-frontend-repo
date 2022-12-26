@@ -4,6 +4,7 @@
 
 .successContainer {
 	background-image: url('../images/checkout-bg.png');
+
 	nav {
 		text-align: center;
 		padding-block: 1.5rem;
@@ -85,9 +86,6 @@
 					margin-bottom: 0;
 				}
 			}
-
-			.item {
-			}
 		}
 
 		.otherProducts {
@@ -115,6 +113,19 @@
 				font-size: 20px;
 				line-height: 30px;
 				color: #595959;
+			}
+
+			.noContentPurchase {
+				margin-left: 0.1px;
+			}
+
+			.noContentText {
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 600;
+				font-size: 30px;
+				// line-height: 33px;
+				color: #262626;
 			}
 
 			.purchase {
@@ -151,9 +162,6 @@
 								color: #8c8c8c;
 							}
 						}
-					}
-
-					& > button {
 					}
 				}
 			}
@@ -222,6 +230,7 @@
 						line-height: 30px;
 						color: #595959;
 					}
+
 					// .kreatorName {
 					// 	font-family: 'Inter';
 					// 	font-style: normal;
