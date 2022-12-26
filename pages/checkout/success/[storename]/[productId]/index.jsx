@@ -32,6 +32,7 @@ import {
 	GmailIcon,
 	ExternalLink,
 	WhatsappIcon2,
+	NoContentIcon,
 } from 'utils';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import Loader from 'components/loader';
@@ -97,9 +98,11 @@ const AccessPageModal = ({
 		// TODO: validate email address
 		try {
 			const response = await axios.post(productLink, productDetails);
-			handleDownload(
-				response?.data?.product_dto?.product_images[1]?.filename
-			);
+			const fileTobeDownloaded =
+				response?.data?.product_dto?.product_images?.filter(
+					(item) => item?.file_type_name === 'ContentZipFile'
+				);
+			handleDownload(fileTobeDownloaded[0]?.filename);
 		} catch (error) {
 			setErrorModal(true);
 		} finally {
@@ -705,6 +708,11 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 		}
 	};
 
+	const productType = product?.product_type_details;
+	const contentZipFile = product?.product_images?.filter(
+		(item) => item.file_type_name === 'ContentZipFile'
+	);
+
 	const getFileSize = () => {
 		const numberSize = Number(
 			product?.product_images[1]?.size.split('MB')[0]
@@ -719,7 +727,9 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	return (
 		<div className={styles.purchaseSummaryCardContainer}>
 			<p className={styles.header}>Purchase Summary</p>
-			{product?.product_type_details === 'Digital Download' ? (
+			{/* factor the condtion that equates to conetnt file existing and the product is digital download */}
+			{contentZipFile.length > 0 &&
+			product?.product_type_details === 'Digital Download' ? (
 				<div className={`${styles.purchase} mb-2`}>
 					<Image
 						className={styles.purchaseIcon}
@@ -796,34 +806,17 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 					</span>
 				</div>
 			) : (
-				<div className={`${styles.purchase} mb-2`}>
+				<div className={styles.noContentPurchase}>
 					<Image
 						className={styles.purchaseIcon}
-						src={CourseFileIcon}
-						height="80"
-						width="80"
+						src={NoContentIcon}
+						height="120"
+						width="120"
 						alt=""
 					/>
-					<span className="">
-						<div className={styles.top}>{productName}</div>
-						<div className={styles.bottom}>
-							<div>
-								<p className={styles.left}>N/A</p>|
-								<p className={styles.right}>
-									{product?.default_currency?.currency}{' '}
-									{product?.default_price}
-								</p>
-							</div>
-							{/* TODO: don't show this button for preorder products */}
-							{/* <Button
-								text="course"
-								bgColor="blue"
-								icon={<CloudDownload />}
-								style={{ padding: '1rem' }}
-								onClick={() => handleClick('viewCourse')}
-							/> */}
-						</div>
-					</span>
+					<div className={styles.noContentText}>
+						Content File is Unavailable
+					</div>
 				</div>
 			)}
 			<br />
@@ -840,8 +833,8 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 				</div>
 			)}
 
-			{product?.product_type_details === 'Digital Download' &&
-				!product?.product_images[1] && (
+			{contentZipFile?.length === 0 &&
+				productType === 'Digital Download' && (
 					<div className={styles.error}>
 						<Image src={ErrorIcon} alt="" />
 						This content file is unavailable. Please reach out to

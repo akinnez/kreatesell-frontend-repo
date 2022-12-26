@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useSWRConfig} from 'swr';
-import {Dropdown, Button, Badge} from 'antd';
+import {Dropdown, Button, Badge, Menu} from 'antd';
 import useUnreadNotificationsCount from 'hooks/useUnreadNotificationsCount';
 import notificationsMenu from '../notificationsMenu';
 import {Bell} from '../../IconPack';
@@ -22,8 +22,7 @@ const NotificationsDropdown = () => {
 				dispatch,
 				mutate,
 			})}
-			placement="bottom"
-			trigger={['contextMenu']}
+			trigger={['hover']}
 			arrow
 		>
 			<div>

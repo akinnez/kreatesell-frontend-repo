@@ -67,7 +67,7 @@ export const countryHandler = async ({
 	countries,
 }) => {
 	formik.setFieldValue('country', value);
-	console.log('banksByCountryId', banksByCountryId);
+	// console.log('banksByCountryId', banksByCountryId);
 	// change this to only US and UK
 	const {short_name} = countries.find((country) => country?.id === value);
 
@@ -84,12 +84,13 @@ export const countryHandler = async ({
 				'get',
 				`${process.env.BASE_URL}v1/kreatesell/payment/banks/${short_name}`,
 				(res) => {
-					console.log('response is', res);
+					// console.log('response is', res);
 					return res.data;
 				}
 			);
 
 			// v1/kreatesell/payment/banks/{countryshortname}
+			// console.log('banksResponse', banksResponse);
 
 			// const banksData = banksResponse.data.list_of_banks
 			const banksData = banksResponse.data;

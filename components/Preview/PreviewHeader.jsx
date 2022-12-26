@@ -1,4 +1,4 @@
-import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button, Form, Input, Modal, Select, Tooltip} from 'antd';
 import {Button as NormalButton} from 'components';
 import Image from 'next/image';
 import {
@@ -157,12 +157,24 @@ export default function PreviewHeader({
 										)
 									}
 								></Button>
-								<Button
-									type="primary"
-									onClick={() => setIsOpen(true)}
+								<Tooltip
+									title="Product is deactivated, activate it to publish"
+									visible={
+										product?.product_details?.status === 3
+									}
+									placement="bottomRight"
 								>
-									Publish
-								</Button>
+									<Button
+										type="primary"
+										onClick={() => setIsOpen(true)}
+										disabled={
+											product?.product_details?.status ===
+											3
+										}
+									>
+										Publish
+									</Button>
+								</Tooltip>
 							</div>
 						</>
 					)}
@@ -221,9 +233,19 @@ export default function PreviewHeader({
 					>
 						Exit Preview
 					</Button>
-					<Button type="primary" onClick={() => setIsOpen(true)}>
-						Publish
-					</Button>
+					<Tooltip
+						title="Product is deactivated, activate it to publish"
+						visible={product?.product_details?.status === 3}
+						placement="bottomRight"
+					>
+						<Button
+							type="primary"
+							onClick={() => setIsOpen(true)}
+							disabled={product?.product_details?.status === 3}
+						>
+							Publish
+						</Button>
+					</Tooltip>
 				</div>
 			) : (
 				<div className="flex justify-end items-center">
@@ -456,6 +478,13 @@ export default function PreviewHeader({
 					</div>
 				</Modal>
 			)}
+			<style>
+				{`
+          .ant-tooltip-inner{
+            border-radius: 8px !important;
+          }
+        `}
+			</style>
 		</header>
 	);
 }

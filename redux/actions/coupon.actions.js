@@ -79,7 +79,6 @@ export const ApplyCoupon = () => {
 			`post`,
 			`v1/kreatesell/payment/apply-coupon`,
 			(res) => {
-				console.log('apply coupon res', res);
 				dispatch({type: types.APPLY_COUPON.SUCCESS, payload: res});
 				showToast('Coupon successfully added');
 				successCallback?.(res);

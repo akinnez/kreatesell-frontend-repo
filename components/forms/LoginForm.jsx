@@ -73,7 +73,7 @@ export const LoginForm = () => {
 					return router.push('/welcome');
 				}
 				getStoreDetails();
-				return router.push('/account/dashboard');
+				return router.replace('/account/dashboard');
 			},
 			(err) => {
 				if (
