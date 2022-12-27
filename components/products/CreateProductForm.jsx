@@ -579,6 +579,7 @@ export const CreateProductForm = ({
 								isToggleable={true}
 								toggleValue={contentFiles}
 								setFile={setProductFile}
+								// onLoadCb={()=>setFieldValue('')}
 							/>
 						)}
 					</div>

@@ -223,7 +223,7 @@ export const UpgradeAccountForm = ({
 							currency: 'USDT',
 						},
 						metadata: {
-							customer_id: user?.id, //TODO: customer id
+							customer_id: user?.id,
 							customer_name: splitFullName(
 								user?.full_name,
 								'arr'

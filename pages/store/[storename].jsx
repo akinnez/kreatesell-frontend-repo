@@ -503,13 +503,19 @@ const ProductCard = ({
 		}
 		return predefinedAmount?.price;
 	};
+	// console.log('productDetails', productDetails);
 
 	const outOfStock = () => {
-		return productDetails.number_sold >= productDetails.total;
+		return (
+			productDetails.number_sold >=
+				productDetails.product_details?.number_of_product &&
+			productDetails?.product_details?.is_limited_sales
+		);
 	};
 
 	const showItemsLeftOrAmtSold = () => {
-		let itemsLeft = productDetails?.total - productDetails?.number_sold;
+		let itemsLeft =
+			productDetails?.number_of_product - productDetails?.number_sold;
 		if (itemsLeft <= 10) {
 			return `${itemsLeft} copies left!`;
 		}

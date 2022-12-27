@@ -488,6 +488,7 @@ export const CheckoutForm = ({
 				return;
 			}
 		}
+
 		// console.log("data from submit = ", data);
 		// setProductID(productID);
 		// const dataWithCompare = {
@@ -617,7 +618,7 @@ export const CheckoutForm = ({
 			// case 'Installment Payment':
 			// 	return setFieldValue('pricing_type_id', 3);
 			case 'Make it Free':
-				return setFieldValue('pricing_type_id', 3);
+				return setFieldValue('pricing_type_id', 4);
 		}
 	}, [priceType]);
 	useEffect(() => {
@@ -652,6 +653,7 @@ export const CheckoutForm = ({
 			'coupon_settings.is_fixed_amount',
 			couponVariance.is_fixed_amount
 		);
+		setFieldValue('set_price', priceType === 'Make it Free' ? false : true);
 	}, [
 		ctaBtnText,
 		fixedSellingPrice,
@@ -668,6 +670,7 @@ export const CheckoutForm = ({
 		suggestedPrice,
 		numberOfInputs,
 		couponVariance,
+		priceType,
 		setFieldValue,
 	]);
 
@@ -1927,7 +1930,6 @@ export const CheckoutForm = ({
 							</span>
 						</div>
 					</div>
-					{console.log('numberOfLimit', numberOfLimit)}
 					{limitProductSale && (
 						<div
 							className={

@@ -59,7 +59,7 @@ export const Login = () => {
 			(err) => {
 				if (err) {
 					dispatch({type: types.LOGIN.FAILURE, payload: err});
-					showToast(err?.message || err?.data?.message, 'error');
+					showToast(err?.message || err?.error, 'error');
 					errorCallback?.(err);
 				} else {
 					showToast('Network error', 'error');
