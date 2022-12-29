@@ -15,7 +15,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
-import OnboardingGuide, {DashboardGuide} from './OnboardingGuide';
+import OnboardingGuide, {DashboardGuide} from './OnboardingGuide'; 
 
 // import useSWR from "swr";
 
@@ -194,7 +194,7 @@ const Dashboard = () => {
 					maskClosable={false}
 					width={700}
 				>
-					<div className={styles.modal__wrapper}>
+					<div className={styles.modal__wrapper}>  
 						<header className={styles.header}>
 							<Title>Thrilled to welcome you on board </Title>
 						</header>

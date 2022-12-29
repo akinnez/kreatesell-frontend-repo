@@ -1,7 +1,7 @@
 @use 'public/css/colors';
 
 .menu__item {
-	width: 295px;
+	// width: 295px;
 
 	&:not([class*='data-menu__item']):hover {
 		background-color: transparent;

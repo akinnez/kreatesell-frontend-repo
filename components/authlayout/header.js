@@ -116,8 +116,8 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 	const pageTitle = pathname?.split('/');
 	const title =
 		pageTitle.length >= 4
-			? pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')
-			: 'Dashboard';
+			? `${pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')}`
+			: 'Dashboard'; 
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'));

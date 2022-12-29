@@ -1,11 +1,12 @@
 import styles from './PreviewHeader.module.scss';
-import {useSelector} from 'react-redux';
-import {useState, useEffect} from 'react';
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
-import {Button} from 'antd';
-import {useRouter} from 'next/router';
-import {RightPreviewArrow, LeftPreviewArrow, ExternalLink} from 'utils';
+import { Button } from 'antd';
+import { useRouter } from 'next/router';
+import { RightPreviewArrow, LeftPreviewArrow, ExternalLink } from 'utils';
 
 var options = {
 	weekday: 'long',
@@ -34,29 +35,59 @@ export default function PreviewContent({
 
 	const router = useRouter();
 
+	const { store } = useSelector((state) => state?.store);
+
+	const { product } = useSelector((state) => state?.product);
+	const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
+		(state) => state.currencyConverter
+	);
+
+	const productId = product?.product_details?.kreasell_product_id;
+	const productPriceType = product?.product_details?.pricing_type?.price_type;
+
+
+
 	const affiliateRef = router.query.ref;
 	const affiliateUniqueKey = router.query.uniqkey;
+
+	//set cookie on load of the component 
+	useEffect(() => {
+
+		//get 
+		//run check to see if exist 
+
+		//
+		let aMin = new Date(new Date().getTime() + 1 * 60 * 1000)
+		Cookies.set('affliated-product-id', productId, {
+			expires: aMin
+		})
+		Cookies.set('affliated-unique-key', affiliateUniqueKey,
+		{
+			expires: aMin
+		})
+	},[productId, affiliateUniqueKey])
+
+	//cookie setting function
+
+	const getMe = Cookies.get('affliated-unique-key')
+	console.log(getMe,'getMegetMegetMe')
+
+	// function setAffiliateCookie () {
+
+	// }
+
 
 	const getCheckoutLink = () => {
 		if (affiliateRef && affiliateUniqueKey) {
 			return router.push(
-				`/checkout/${productId}?${
-					affiliateUniqueKey &&
-					`affiliateUniqueKey=${affiliateUniqueKey}`
+				`/checkout/${productId}?${affiliateUniqueKey &&
+				`affiliateUniqueKey=${affiliateUniqueKey}`
 				}&${affiliateRef && `affiliateRef=${affiliateRef}`}`
 			);
 		} else {
 			return router.push(`/checkout/${productId}`);
 		}
 	};
-
-	const {store} = useSelector((state) => state?.store);
-
-	const {product} = useSelector((state) => state?.product);
-	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
-		(state) => state.currencyConverter
-	);
-
 	const getMinimumPrice = () => {
 		const minPrice = checkout?.find(
 			(itemPrice) =>
@@ -88,10 +119,8 @@ export default function PreviewContent({
 		return minPrice?.currency_name;
 	};
 
-	const productId = product?.product_details?.kreasell_product_id;
-	const productPriceType = product?.product_details?.pricing_type?.price_type;
 
-	const {user} = useSelector((state) => state?.auth);
+	const { user } = useSelector((state) => state?.auth);
 
 	const formatPrice = (amount, decimalPlaces = 2) =>
 		Number(amount).toFixed(decimalPlaces);
@@ -148,7 +177,7 @@ export default function PreviewContent({
 	}, [images, activeImage]);
 	useEffect(() => {
 		if (Object.keys(store)?.length > 0) {
-			const {domain_details} = store?.domain_details;
+			const { domain_details } = store?.domain_details;
 			setDomainLink(domain_details[0]?.domain_url);
 		}
 	}, [store]);
@@ -176,9 +205,8 @@ export default function PreviewContent({
 							images.length > 0 &&
 							images.map((item, index) => (
 								<div
-									className={`cursor-pointer ${
-										activeImage === index && styles.active
-									}`}
+									className={`cursor-pointer ${activeImage === index && styles.active
+										}`}
 									onClick={() => setActiveImage(index)}
 									key={index}
 									style={{
@@ -260,7 +288,7 @@ export default function PreviewContent({
 						<div className={styles.preorderInfo}>
 							Please note that this product is to be preordered
 							and{' '}
-							<p style={{fontWeight: '700', color: '#000'}}>
+							<p style={{ fontWeight: '700', color: '#000' }}>
 								the expected release date is{' '}
 								{new Date(
 									product?.product_details?.preoder_date
@@ -294,58 +322,53 @@ export default function PreviewContent({
 								<>
 									{sellingPrice?.length > 0 &&
 										productPriceType !==
-											'Pay What You Want' && (
+										'Pay What You Want' && (
 											<h1 className="text-3xl font-bold">
-												{`${
-													alreadyDefinedPrice?.currency_name ||
+												{`${alreadyDefinedPrice?.currency_name ||
 													convertedCurrency?.to_currency_name ||
 													sellingPrice[0]
 														?.currency_name
-												} ${
-													alreadyDefinedPrice?.price
+													} ${alreadyDefinedPrice?.price
 														? alreadyDefinedPrice?.price
 														: convertedCurrency?.buy_rate
-														? formatPrice(
+															? formatPrice(
 																convertedCurrency?.buy_rate *
-																	sellingPrice[0]
-																		?.price
-														  )
-														: formatPrice(
 																sellingPrice[0]
 																	?.price
-														  )
-												}  
+															)
+															: formatPrice(
+																sellingPrice[0]
+																	?.price
+															)
+													}  
                       `}
 											</h1>
 										)}
 
 									{productPriceType ===
 										'Pay What You Want' && (
-										<h1 className="text-3xl font-bold">{`${
-											alreadyDefinedPrice?.currency_name ||
-											convertedCurrency?.to_currency_name ||
-											getMinimumCurrency()
-										} 
+											<h1 className="text-3xl font-bold">{`${alreadyDefinedPrice?.currency_name ||
+												convertedCurrency?.to_currency_name ||
+												getMinimumCurrency()
+												} 
                   ${formatPrice(getMinimumPrice())}`}</h1>
-									)}
+										)}
 									{originalPrice?.length > 0 &&
 										productPriceType !==
-											'Pay What You Want' && (
-											<h2 className="text-xl line-through font-medium">{`${
-												alreadyDefinedOriginalPrice?.currency_name ||
+										'Pay What You Want' && (
+											<h2 className="text-xl line-through font-medium">{`${alreadyDefinedOriginalPrice?.currency_name ||
 												convertedCurrency?.to_currency_name ||
 												originalPrice[0]?.currency_name
-											}  ${
-												alreadyDefinedOriginalPrice?.price
+												}  ${alreadyDefinedOriginalPrice?.price
 													? alreadyDefinedOriginalPrice?.price
 													: convertedCurrency?.buy_rate
-													? formatPrice(
+														? formatPrice(
 															convertedCurrency?.buy_rate *
-																originalPrice[0]
-																	?.price
-													  )
-													: originalPrice[0]?.price
-											}`}</h2>
+															originalPrice[0]
+																?.price
+														)
+														: originalPrice[0]?.price
+												}`}</h2>
 										)}
 								</>
 							)}
@@ -378,3 +401,7 @@ export default function PreviewContent({
 		</div>
 	);
 }
+
+// export function getServerSideProps({ req, res }) {
+// 	return { props: { token: req.cookies || "" } }
+// } 
