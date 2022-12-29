@@ -353,13 +353,22 @@ export const CreateProductForm = ({
 				>
 					<p className="mb-2 text-xs">
 						{values?.product_description.length === 700 ? (
+							// <span
+							// 	className={`${styles.charLimit} ${styles.normal}`}
+							// >
+							// 	120 words limit reached!
+							// </span>
 							<span
 								className={`${styles.charLimit} ${styles.normal}`}
 							>
-								120 words limit reached!
+								You have reached the 700 characters limit!
 							</span>
 						) : (
-							<span>120 words only is allowed</span>
+							// <span>120 words only is allowed</span>
+							<span>
+								You have 700 characters to summarise your
+								digital product
+							</span>
 						)}
 					</p>
 					<TextArea

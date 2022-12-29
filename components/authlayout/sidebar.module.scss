@@ -121,6 +121,7 @@
 .layoutMain {
 	position: relative;
 	width: 100%;
+
 	@media (max-width: 900px) {
 		// width: 140vw;
 		min-width: 100vw;
@@ -128,6 +129,10 @@
 
 	@media (max-width: 500px) {
 		min-width: 120vw;
+	}
+
+	.content {
+		border: 1px solid red;
 	}
 }
 
