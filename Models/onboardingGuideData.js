@@ -22,7 +22,7 @@ export const guideDataObject = [
 	},
 	{
 		positionTop: '37%',
-		positionLeft: '17%', 
+		positionLeft: '17%',
 		modalTitle: 'This is your Kreators tab',
 		modalText:
 			'Here you can explore how people are engaging with your digital products. Click to approve or decline Affiliate requests and see abandoned transactions for follow up.',
@@ -87,7 +87,7 @@ export const guideDataObjectMobiles = [
 	},
 	{
 		positionTop: '37%',
-		positionLeft: '25%', 
+		positionLeft: '25%',
 		modalTitle: 'Explore better with Filter',
 		modalText:
 			'This allows you to choose and view specific information on your dashboard. Click to experience.',

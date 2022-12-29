@@ -50,7 +50,7 @@ const OnboardingGuide = ({
 	}, [visible]);
 
 	return (
-		<div 
+		<div
 			className={`
 			${styles.onboardingGuideModal}
 			${!_visible && 'hidden'} 
