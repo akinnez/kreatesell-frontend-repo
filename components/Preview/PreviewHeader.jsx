@@ -126,7 +126,7 @@ export default function PreviewHeader({
 				</div>
 			</div>
 
-			{/* // * Mobile  */}
+			{/* // * Mobile   -- */}
 			<div
 				className={`${styles.mobileLeft} ${
 					isPreviewMain ? styles.isPreviewMain : ''
@@ -141,7 +141,7 @@ export default function PreviewHeader({
 							<Image
 								src={MobileBackArrow}
 								alt="backArrow"
-								onClick={() => setMobileSidebarIsOpen(false)}
+								onClick={() => router.back()}
 							/>
 							<span>
 								{product?.product_details?.product_name}

@@ -1,6 +1,7 @@
 import styles from './PreviewHeader.module.scss';
 import {useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import {Button} from 'antd';
@@ -31,14 +32,59 @@ export default function PreviewContent({
 	const [sellingPrice, setSellingPrice] = useState([]);
 	const [originalPrice, setOriginalPrice] = useState([]);
 	const [domainLink, setDomainLink] = useState('');
+	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
+
+	console.log(cookieExpiryTime, 'cookieExpiryTimecookieExpiryTime');
 
 	const router = useRouter();
+
+	const {store} = useSelector((state) => state?.store);
+
+	const {product} = useSelector((state) => state?.product);
+	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
+		(state) => state.currencyConverter
+	);
+
+	const productId = product?.product_details?.kreasell_product_id;
+	const productPriceType = product?.product_details?.pricing_type?.price_type;
 
 	const affiliateRef = router.query.ref;
 	const affiliateUniqueKey = router.query.uniqkey;
 
+	//set cookie on load of the component
+	const getAffiliateCookie = () => {
+		Cookies.set('affliate-product-id', productId, {
+			expires: 365 * 60,
+		});
+		Cookies.set('affliate-unique-key', affiliateUniqueKey, {
+			expires: 365 * 60,
+		});
+		Cookies.set('affliate-createdAt', new Date(), {
+			expires: 365 * 60,
+		});
+
+		//i neeed another way to persist the data immediately it is being set
+		window.location.reload();
+	};
+
+	useEffect(() => {
+		if (!affiliateRef && !affiliateUniqueKey) return;
+		//run check to see if exist
+		const cookieCreatedAt = Cookies.get('affliate-createdAt');
+		const cookieUniqueKey = Cookies.get('affliate-unique-key');
+		cookieCreatedAt && cookieUniqueKey === affiliateUniqueKey
+			? setCookieExpiryTime(cookieCreatedAt)
+			: getAffiliateCookie();
+	}, []);
+
+	const currentDate = new Date();
+	const dateToCompare = new Date(cookieExpiryTime);
+	const monthDifference =
+		(dateToCompare.getFullYear() - currentDate.getFullYear()) * 12 +
+		(dateToCompare.getMonth() - currentDate.getMonth());
+
 	const getCheckoutLink = () => {
-		if (affiliateRef && affiliateUniqueKey) {
+		if (affiliateRef && affiliateUniqueKey && monthDifference <= 6) {
 			return router.push(
 				`/checkout/${productId}?${
 					affiliateUniqueKey &&
@@ -49,14 +95,6 @@ export default function PreviewContent({
 			return router.push(`/checkout/${productId}`);
 		}
 	};
-
-	const {store} = useSelector((state) => state?.store);
-
-	const {product} = useSelector((state) => state?.product);
-	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
-		(state) => state.currencyConverter
-	);
-
 	const getMinimumPrice = () => {
 		const minPrice = checkout?.find(
 			(itemPrice) =>
@@ -87,9 +125,6 @@ export default function PreviewContent({
 		);
 		return minPrice?.currency_name;
 	};
-
-	const productId = product?.product_details?.kreasell_product_id;
-	const productPriceType = product?.product_details?.pricing_type?.price_type;
 
 	const {user} = useSelector((state) => state?.auth);
 
@@ -421,3 +456,7 @@ export default function PreviewContent({
 		</div>
 	);
 }
+
+// export function getServerSideProps({ req, res }) {
+// 	return { props: { token: req.cookies || "" } }
+// }
