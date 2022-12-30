@@ -61,9 +61,34 @@
 		height: 2.5rem;
 	}
 
+	.limitProductContainer {
+		background: #fff;
+		width: 75%;
+		padding: 1rem 1.5rem;
+		margin-top: 1rem;
+	}
+
 	.limitProductInput {
 		height: 2rem;
 		width: 20%;
+	}
+
+	.salesLimitError {
+		margin-top: 0.5rem;
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+		p {
+			font-weight: 500;
+			font-size: 0.875rem;
+			line-height: 1.5rem;
+			color: rgba(255, 77, 79, 0.9);
+			flex: 1;
+			margin-bottom: 0 !important;
+			span {
+				font-weight: bolder;
+			}
+		}
 	}
 
 	.upload {

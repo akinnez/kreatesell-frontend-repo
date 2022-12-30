@@ -153,6 +153,18 @@ export default function PreviewContent({
 		}
 	}, [store]);
 
+	const isProductOutOfStock = () => {
+		if (product?.product_details) {
+			const {is_limited_sales, number_of_product} =
+				product?.product_details;
+			return (
+				is_limited_sales &&
+				number_of_product - product?.number_sold <= 0
+			);
+		}
+		return;
+	};
+
 	return (
 		<div
 			className={
@@ -231,6 +243,7 @@ export default function PreviewContent({
 								</h2>
 							)}
 							<div className={styles.visitLink}>
+								{console.log('domainLink', domainLink)}
 								{/* <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'><a>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></a></Link> */}
 								<Link
 									href={domainLink}
@@ -243,6 +256,21 @@ export default function PreviewContent({
 								</Link>
 							</div>
 						</div>
+					</div>
+					<div
+						className={`${styles.availabilityStatusContainer} mt-5`}
+					>
+						<p
+							className={`${styles.availabilityStatus} ${
+								isProductOutOfStock()
+									? styles.outOfStock
+									: styles.inStock
+							} mb-0`}
+						>
+							{isProductOutOfStock()
+								? 'Out Of Stock'
+								: 'In Stock'}
+						</p>
 					</div>
 					<div className={styles.desc}>
 						<h2 className="mb-5 font-semibold text-lg">
@@ -351,7 +379,11 @@ export default function PreviewContent({
 							)}
 						</div>
 
-						<Button onClick={getCheckoutLink} type="primary">
+						<Button
+							onClick={getCheckoutLink}
+							type="primary"
+							disabled={isProductOutOfStock()}
+						>
 							{details !== undefined && details?.cta_button
 								? details?.cta_button
 								: 'Buy Now'}
@@ -375,6 +407,17 @@ export default function PreviewContent({
 					)}
 				</div>
 			</section>
+			<style>{`
+        .ant-btn[disabled] {
+            cursor: not-allowed;
+            background: #bfbfbf !important;
+            border: none;
+            color: white;
+        }
+        .ant-btn[disabled]:hover{
+          color: white;
+        }
+      `}</style>
 		</div>
 	);
 }
