@@ -19,6 +19,7 @@ const EditBankDetails = ({
 		(state) => state.utils
 	);
 	const {allAllowedCurrencies} = useCurrency();
+	// console.log('allAllowedCurrencies', allAllowedCurrencies);
 	return (
 		<Modal
 			title={null}

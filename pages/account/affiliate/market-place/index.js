@@ -44,8 +44,6 @@ const AffiliateProducts = () => {
 		return [{data: [], total: 0}];
 	}, [products, store]);
 
-	console.log(user.is_affiliate, 'user.is_affiliate');
-
 	return (
 		<AuthLayout headerTitle={!user.is_affiliate ? 'Dashboard' : ''}>
 			<Head>

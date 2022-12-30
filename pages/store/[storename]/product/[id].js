@@ -7,7 +7,7 @@ import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
-// export default function PreviewProduct ({id}){
+
 export default function PreviewProduct() {
 	const router = useRouter();
 
