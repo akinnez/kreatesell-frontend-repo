@@ -14,7 +14,10 @@ import useGetHelpTickets from 'services/swrQueryHooks/Tickets';
 import dataLoading from 'utils/dataLoading';
 
 const Index = () => {
-	const {url, filters, setFilters} = useHelpFilters('auth/KreatorTickets');
+	// const {url, filters, setFilters} = useHelpFilters('auth/KreatorTickets');
+	const {url, filters, setFilters} = useHelpFilters(
+		'tickets/kreator/fetch/all'
+	);
 	const {
 		helpTicketData,
 		helpTicketError,
