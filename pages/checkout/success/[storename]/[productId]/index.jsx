@@ -477,7 +477,7 @@ const Success = () => {
 							<h2 className={styles.headerText}>
 								Other Products by the Kreator
 							</h2>
-							<div className="w-11/12 mx-auto lg:w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
+							<div className="w-11/12 mx-auto lg:w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-8 mb-8 pb-20 mt-6">
 								{singleStoreProducts
 									.filter(
 										(productItem) =>

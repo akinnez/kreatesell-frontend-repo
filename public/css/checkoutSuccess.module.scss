@@ -199,6 +199,11 @@
 				font-size: 30px;
 				// line-height: 33px;
 				color: #262626;
+
+				@include screen('medium') {
+					font-size: 20px;
+				}
+	
 			}
 
 			.purchase {
@@ -293,6 +298,12 @@
 					color: #ff4d4f !important;
 					text-decoration: underline;
 				}
+			}
+
+			@include screen('medium') {
+				font-size: 15px;
+				line-height: 15px;
+				gap: 0.1rem;
 			}
 		}
 
