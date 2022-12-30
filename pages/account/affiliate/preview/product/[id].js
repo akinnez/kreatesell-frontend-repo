@@ -52,7 +52,7 @@ const ProductPreview = () => {
 							</Title>
 							<ProductKreator
 								kreatorImage={
-									product.kreator_user_details.profile_image
+									product.kreator_user_details.profile_image 
 								}
 								kreatorName={
 									product.kreator_user_details.full_name

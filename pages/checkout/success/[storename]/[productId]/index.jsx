@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import router, {useRouter} from 'next/router';
+import router, { useRouter } from 'next/router';
 
-import {Row, Col, Modal} from 'antd';
+import { Row, Col, Modal } from 'antd';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
 	FacebookShareButton,
 	WhatsappShareButton,
@@ -14,7 +14,7 @@ import {
 } from 'react-share';
 
 import styles from 'public/css/checkoutSuccess.module.scss';
-import {Button, Input} from 'components';
+import { Button, Input } from 'components';
 import {
 	ZipFile,
 	SuccessProduct,
@@ -36,11 +36,11 @@ import {
 } from 'utils';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import Loader from 'components/loader';
-import {PoweredByKS} from 'components/PoweredByKs';
-import {CloudDownload} from 'utils/icons/CloudDownload';
-import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
-import {showToast} from 'utils';
-import {hashTagsWithHash, hashTagsWithoutHash} from 'utils/socialShareHashtags';
+import { PoweredByKS } from 'components/PoweredByKs';
+import { CloudDownload } from 'utils/icons/CloudDownload';
+import { FetchSingleStoreProduct, SetCheckoutDetails } from 'redux/actions';
+import { showToast } from 'utils';
+import { hashTagsWithHash, hashTagsWithoutHash } from 'utils/socialShareHashtags';
 
 const AccessPageModal = ({
 	showAccessPageModal,
@@ -110,7 +110,7 @@ const AccessPageModal = ({
 	};
 
 	const handleInputChange = (field, value) => {
-		setProductDetails((prev) => ({...prev, [field]: value}));
+		setProductDetails((prev) => ({ ...prev, [field]: value }));
 	};
 
 	return (
@@ -122,9 +122,9 @@ const AccessPageModal = ({
 			closeIcon={null}
 			closable={true}
 			width={595}
-			onOk={() => {}}
-			style={{top: 200}}
-			// centered
+			onOk={() => { }}
+			style={{ top: 200 }}
+		// centered
 		>
 			<div className={styles.modal}>
 				<header className={styles.header}>
@@ -149,7 +149,7 @@ const AccessPageModal = ({
 								e.currentTarget.value
 							)
 						}
-						containerStyle={{width: '100%'}}
+						containerStyle={{ width: '100%' }}
 					/>
 
 					{/* TODO: show for incorrect email */}
@@ -171,7 +171,7 @@ const AccessPageModal = ({
 						loading={false}
 						disabled={false}
 						bgColor="blue"
-						style={{width: '100%'}}
+						style={{ width: '100%' }}
 						onClick={handleSubmit}
 					/>
 				</div>
@@ -207,7 +207,7 @@ const Success = () => {
 	// single product details
 	const [product, setProduct] = useState(null);
 	const [errorModal, setErrorModal] = useState(false);
-	const {singleStoreProducts, defaultCurrency} = useSelector(
+	const { singleStoreProducts, defaultCurrency } = useSelector(
 		(state) => state.product
 	);
 
@@ -414,8 +414,8 @@ const Success = () => {
 							</p>
 						</div>
 						<div className={styles.item}>
-							<Row gutter={[32, 32]}>
-								<Col md={{span: 8}} span={8}>
+							<Row gutter={[32, 32]} className={styles.hideCol}>
+								<Col md={{ span: 8 }} span={8}>
 									<ProductCard
 										productDetails={product}
 										kreatorDetails={
@@ -423,7 +423,7 @@ const Success = () => {
 										}
 									/>
 								</Col>
-								<Col md={{span: 16}} span={16}>
+								<Col md={{ span: 16 }} span={16}>
 									<PurchaseSummaryCard
 										handleClickAction={() =>
 											setShowAccessPageModal(true)
@@ -432,59 +432,86 @@ const Success = () => {
 											product?.product_details
 												?.product_name
 										}
-										{...{product}}
+										{...{ product }}
 									/>
 								</Col>
 							</Row>
+
+							{/* mobiles */}
+							<Row gutter={[32, 32]} className={styles.mobileItems}>
+								<Col className={styles.mobileItemCol}>
+									<ProductCard
+										productDetails={product}
+										kreatorDetails={
+											storeDetails?.kreator_full_name
+										}
+									/>
+								</Col>
+							</Row>
+							<Row gutter={[32, 32]} className={styles.mobileItems}>
+								<Col className={styles.mobileItemCol}>
+									<PurchaseSummaryCard
+										handleClickAction={() =>
+											setShowAccessPageModal(true)
+										}
+										productName={
+											product?.product_details
+												?.product_name
+										}
+										{...{ product }}
+									/>
+								</Col>
+							</Row>
+							{/* mobiles */}
 						</div>
 					</section>
 					{storeDetails?.store_details
 						?.is_enable_product_cross_sell && (
-						<section className={styles.otherProducts}>
-							<h2 className={styles.headerText}>
-								Other Products by the Kreator
-							</h2>
-							<div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
-								{singleStoreProducts
-									.filter(
-										(productItem) =>
-											productItem?.product_details
-												?.product_name !==
-											product?.product_details
-												?.product_name
-									)
-									?.map((productDetails) => {
-										const sellingPrice =
-											productDetails?.default_price;
-										const originalSetting =
-											productDetails?.check_out_details?.find(
-												(item) =>
-													item?.currency_name ===
+							<section className={styles.otherProducts}>
+								<h2 className={styles.headerText}>
+									Other Products by the Kreator
+								</h2>
+								<div className="w-11/12 mx-auto lg:w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
+									{singleStoreProducts
+										.filter(
+											(productItem) =>
+												productItem?.product_details
+													?.product_name !==
+												product?.product_details
+													?.product_name
+										)
+										?.map((productDetails) => {
+											const sellingPrice =
+												productDetails?.default_price;
+											const originalSetting =
+												productDetails?.check_out_details?.find(
+													(item) =>
+														item?.currency_name ===
 														defaultCurrency?.currency &&
-													item?.price_indicator ===
+														item?.price_indicator ===
 														'Original'
-											);
+												);
 
-										const originalPrice =
-											originalSetting?.price;
-										return (
-											<ProductCard2
-												productDetails={productDetails}
-												key={productDetails?.id}
-												sellingPrice={sellingPrice}
-												originalPrice={originalPrice}
-												{...{
-													storename,
-													openShareModal,
-													setOpenShareModal,
-													handleModalOpen,
-												}}
-											/>
-										);
-									})}
-							</div>
-						</section>
-					)}
+											const originalPrice =
+												originalSetting?.price;
+											return (
+												<ProductCard2
+													productDetails={productDetails}
+													key={productDetails?.id}
+													sellingPrice={sellingPrice}
+													originalPrice={originalPrice}
+													{...{
+														storename,
+														openShareModal,
+														setOpenShareModal,
+														handleModalOpen,
+													}}
+												/>
+											);
+										})}
+								</div>
+							</section>
+						)}
 				</div>
 
 				<PoweredByKS />
@@ -493,7 +520,7 @@ const Success = () => {
 	);
 };
 
-const ProductCard = ({productDetails, kreatorDetails}) => {
+const ProductCard = ({ productDetails, kreatorDetails }) => {
 	const [productImage] = useState(() => {
 		return productDetails?.product_images?.filter(
 			(img) => img.file_type === 1
@@ -547,19 +574,19 @@ const ProductCard2 = ({
 	)
 		? productDetails?.product_images?.[0]?.filename?.split(',')[0]
 		: productDetails?.product_images?.[0]?.filename?.endsWith('.rar') ||
-		  productDetails?.product_images?.[0]?.filename?.endsWith('.zip')
-		? productDetails?.product_images?.[1]?.filename
-		: productDetails?.product_images?.[1]?.filename?.includes(',')
-		? productDetails?.product_images?.[1]?.filename?.split(',')[1]
-		: productDetails?.product_images?.[1]?.filename;
+			productDetails?.product_images?.[0]?.filename?.endsWith('.zip')
+			? productDetails?.product_images?.[1]?.filename
+			: productDetails?.product_images?.[1]?.filename?.includes(',')
+				? productDetails?.product_images?.[1]?.filename?.split(',')[1]
+				: productDetails?.product_images?.[1]?.filename;
 
 	const initImage = productDetails?.product_images?.[0]?.filename?.includes(
 		','
 	)
 		? // * show full array
-		  productDetails?.product_images?.[0]?.filename?.split(',')
+		productDetails?.product_images?.[0]?.filename?.split(',')
 		: // * show first item
-		  productDetails?.product_images?.[0]?.filename;
+		productDetails?.product_images?.[0]?.filename;
 
 	const imageRendered =
 		productDetails?.product_images?.[1]?.filename ||
@@ -572,8 +599,8 @@ const ProductCard2 = ({
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
 	const statusLabel = {
-		'In Stock': {color: '#2DC071'},
-		'Out of Stock': {color: '#FF4D4F'},
+		'In Stock': { color: '#2DC071' },
+		'Out of Stock': { color: '#FF4D4F' },
 	};
 
 	const outOfStock = () => {
@@ -592,7 +619,7 @@ const ProductCard2 = ({
 	return (
 		<div
 			className={`bg-white w-full rounded-lg border ${styles.productCardCtn}`}
-			style={{cursor: 'pointer'}}
+			style={{ cursor: 'pointer' }}
 			onClick={() => {
 				router.push(
 					`/store/${storename}/product/${productDetails?.product_details?.kreasell_product_id}`
@@ -637,7 +664,7 @@ const ProductCard2 = ({
 					{productDetails?.product_price_type === 'Make it Free' ? (
 						<p className={styles.makeItFreeText}>Free</p>
 					) : productDetails?.product_price_type ===
-					  'Pay What You Want' ? (
+						'Pay What You Want' ? (
 						<p
 							className={`mb-0 text-base-gray ${styles.sellingPrice}`}
 						>
@@ -669,7 +696,7 @@ const ProductCard2 = ({
 
 										{new Intl.NumberFormat().format(
 											originalPrice ??
-												productDetails?.default_price
+											productDetails?.default_price
 										) || '0.00'}
 									</p>
 								)}
@@ -694,7 +721,7 @@ const ProductCard2 = ({
 	);
 };
 
-const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
+const PurchaseSummaryCard = ({ handleClickAction, productName, product }) => {
 	const productId = router?.query?.productId;
 	const productDetails = product?.product_details;
 	const StoreDetails = product?.store_dto;
@@ -729,82 +756,114 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			<p className={styles.header}>Purchase Summary</p>
 			{/* factor the condtion that equates to conetnt file existing and the product is digital download */}
 			{contentZipFile.length > 0 &&
-			product?.product_type_details === 'Digital Download' ? (
-				<div className={`${styles.purchase} mb-2`}>
-					<Image
-						className={styles.purchaseIcon}
-						src={ZipFile}
-						// src={CourseFileIcon}
-						height="80"
-						width="80"
-						alt=""
-					/>
-					<span className="">
-						<div className={styles.top}>{productName}.zip</div>
-						<div className={styles.bottom}>
-							<div>
-								<p className={styles.left}>
-									{product?.product_images[1]?.size
-										? getFileSize()
-										: 'N/A'}
-								</p>{' '}
-								|
-								{/* //TODO:
+				product?.product_type_details === 'Digital Download' ? (
+				<>
+					<div className={`${styles.purchase} mb-2`}>
+						<Image
+							className={styles.purchaseIcon}
+							src={ZipFile}
+							// src={CourseFileIcon}
+							height="80"
+							width="80"
+							alt=""
+						/>
+						<span className="">
+							<div className={styles.top}>{productName}.zip</div>
+							<div className={styles.bottom}>
+								<div>
+									<p className={styles.left}>
+										{product?.product_images[1]?.size
+											? getFileSize()
+											: 'N/A'}
+									</p>{' '}
+									|
+									{/* //TODO:
 								Replace this with appropriate size */}
-								<p className={styles.right}>
-									{product?.default_currency?.currency}{' '}
-									{product?.default_price}
-								</p>
+									<p className={styles.right}>
+										{product?.default_currency?.currency}{' '}
+										{product?.default_price}
+									</p>
+								</div>
+								{/* TODO: don't show this button for preorder products */}
+								{!productDetails?.enable_preorder && (
+									<Button
+										text="Download File"
+										bgColor="blue"
+										icon={<CloudDownload />}
+										style={{ padding: '1rem' }}
+										className={styles.downloadBtn}
+										disabled={!product?.product_images[1]}
+										onClick={() => handleClick('download')}
+									/>
+								)}
 							</div>
-							{/* TODO: don't show this button for preorder products */}
-							{!productDetails?.enable_preorder && (
-								<Button
-									text="Download File"
-									bgColor="blue"
-									icon={<CloudDownload />}
-									style={{padding: '1rem'}}
-									disabled={!product?.product_images[1]}
-									onClick={() => handleClick('download')}
-								/>
-							)}
-						</div>
-					</span>
-				</div>
+						</span>
+					</div>
+
+					{/* mobiles */}
+					{!productDetails?.enable_preorder && (
+						<Button
+							text="Download File"
+							bgColor="blue"
+							icon={<CloudDownload />}
+							style={{ padding: '1rem' }}
+							className={styles.downloadBtnMobile}
+							disabled={!product?.product_images[1]}
+							onClick={() => handleClick('download')}
+						/>
+					)}
+					{/* mobiles */}
+				</>
 			) : product?.product_type_details === 'Membership' ? (
-				<div className={`${styles.purchase} mb-2`}>
-					<Image
-						className={styles.purchaseIcon}
-						src={CourseFileIcon}
-						height="80"
-						width="80"
-						alt=""
-					/>
-					<span className="">
-						<div className={styles.top}>{productName}</div>
-						<div className={styles.bottom}>
-							<div>
-								<p
-									className={styles.left}
-								>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
-								|
-								<p className={styles.right}>
-									{product?.default_currency?.currency}{' '}
-									{product?.default_price}
-								</p>
+				<>
+					<div className={`${styles.purchase} mb-2`}>
+						<Image
+							className={styles.purchaseIcon}
+							src={CourseFileIcon}
+							height="80"
+							width="80"
+							alt=""
+						/>
+						<span className="">
+							<div className={styles.top}>{productName}</div>
+							<div className={styles.bottom}>
+								<div>
+									<p
+										className={styles.left}
+									>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
+									|
+									<p className={styles.right}>
+										{product?.default_currency?.currency}{' '}
+										{product?.default_price}
+									</p>
+								</div>
+								{/* TODO: don't show this button for preorder products */}
+								{!productDetails?.enable_preorder && (
+									<Button
+										text="Access Course"
+										bgColor="blue"
+										icon={<CloudDownload />}
+										style={{ padding: '1rem' }}
+										className={styles.downloadBtn}
+										onClick={() => handleClick('viewCourse')}
+									/>
+								)}
 							</div>
-							{/* TODO: don't show this button for preorder products */}
-							{!productDetails?.enable_preorder && (
-								<Button
-									text="Access Course"
-									bgColor="blue"
-									icon={<CloudDownload />}
-									style={{padding: '1rem'}}
-									onClick={() => handleClick('viewCourse')}
-								/>
-							)}
-						</div>
-					</span>
-				</div>
+						</span>
+					</div>
+					{/* mobiles */}
+					{!productDetails?.enable_preorder && (
+						<Button
+							text="Access Course"
+							bgColor="blue"
+							icon={<CloudDownload />}
+							style={{ padding: '1rem' }}
+							className={styles.downloadBtnMobile}
+							onClick={() => handleClick('viewCourse')}
+						/>
+					)}
+					{/* mobiles */}
+				</>
 			) : (
 				<div className={styles.noContentPurchase}>
 					<Image

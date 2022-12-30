@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 const KreatorInfo = ({children, href}) => (
 	<>
 		{children}
-		<Link href={`/account/affiliate/preview/kreator/${href}`}>
+		<Link href={`/store/${href}`}>
 			<a className={styles.store__link}>
 				Visit Store&nbsp;&nbsp; <HiOutlineExternalLink />
 			</a>
