@@ -35,6 +35,7 @@ import useFetchNotifications from 'hooks/useFetchNotifications';
 import {menu} from './header';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {Button} from 'components';
+import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
 
 const Loader = () => {
 	return (
@@ -70,7 +71,7 @@ const Index = ({
 	const pathname = router.pathname;
 
 	const {
-		store: {store_details},
+		store: {store_details, require_approval_message},
 	} = useSelector((state) => state.store);
 
 	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
@@ -143,6 +144,14 @@ const Index = ({
 	const toggleView = () => setIsMobileSideBarOpen(!isMobileSideBarOpen);
 
 	const [showOverlayOnClick, setShowOverlayOnClick] = useState(false);
+
+	const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+	useEffect(() => {
+		if (require_approval_message) {
+			setShowSuccessModal(require_approval_message);
+		}
+	}, [require_approval_message]);
 
 	return (
 		<section className={styles.layoutMain}>
@@ -264,7 +273,10 @@ const Index = ({
 					padding: 50px 30px 10px 30px;
 				}
 			`}</style>
-			<SuccesfulSalesModal />
+			<SuccesfulSalesModal
+				showModal={showSuccessModal}
+				{...{setShowSuccessModal}}
+			/>
 		</section>
 	);
 };
@@ -288,13 +300,28 @@ const SetUpPrompt = ({show}) => {
 	);
 };
 
-const SuccesfulSalesModal = () => {
+const SuccesfulSalesModal = ({showModal = false, setShowSuccessModal}) => {
+	const router = useRouter();
+	const successfulAffiliateSales = SuccessfulAffiliateSales();
+	const {loading} = useSelector((state) => state.Affiliate);
+	const handleSubmit = () => {
+		successfulAffiliateSales(
+			() => {
+				setTimeout(() => {
+					setShowSuccessModal(false);
+					router.push('/account/affiliate/market-place');
+				}, 1000);
+			},
+			() => console.log('error')
+		);
+	};
+
 	return (
 		<Modal
 			title={null}
 			footer={null}
-			visible={false}
-			onCancel={() => console.log('Closed')}
+			visible={showModal}
+			onCancel={() => setShowSuccessModal(false)}
 			maskClosable={false}
 			closeIcon={<CloseIcon />}
 			className={styles.affiliate__modal}
@@ -312,6 +339,8 @@ const SuccesfulSalesModal = () => {
 				bgColor="primaryBlue"
 				text="Go To MarketPlace"
 				className={`py-3 mt-5 ${styles.modalBtn}`}
+				onClick={handleSubmit}
+				{...{loading}}
 			/>
 		</Modal>
 	);
