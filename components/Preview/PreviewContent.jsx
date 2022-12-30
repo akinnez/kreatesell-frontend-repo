@@ -68,6 +68,7 @@ export default function PreviewContent({
 	};
 
 	useEffect(() => {
+		if(!affiliateRef && !affiliateUniqueKey) return
 		//run check to see if exist
 		const cookieCreatedAt = Cookies.get('affliate-createdAt');
 		const cookieUniqueKey = Cookies.get('affliate-unique-key');
