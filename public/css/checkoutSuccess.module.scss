@@ -23,7 +23,7 @@
 			justify-content: flex-start;
 		}
 
-		&>div {
+		& > div {
 			display: flex;
 			justify-content: flex-end;
 		}
@@ -40,7 +40,7 @@
 			flex: 3;
 			justify-content: center;
 
-			&>h3 {
+			& > h3 {
 				font-weight: 400;
 				font-size: 40px;
 				// line-height: 64px;
@@ -72,7 +72,7 @@
 				border: 1px solid #d8d8d8;
 			}
 
-			&>p {
+			& > p {
 				font-weight: 500;
 				font-size: 1.25rem;
 				line-height: 30px;
@@ -134,7 +134,6 @@
 
 			.item {
 				width: 100%;
-
 			}
 
 			.hideCol {
@@ -173,8 +172,6 @@
 
 			box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
 			border-radius: 8px;
-
-
 		}
 
 		.purchaseSummaryCardContainer {
@@ -209,7 +206,7 @@
 				flex-direction: row;
 				gap: 1.3rem;
 
-				&>span {
+				& > span {
 					display: flex;
 					flex-direction: column;
 					width: 100%;
@@ -230,7 +227,7 @@
 						align-items: center;
 						justify-content: space-between;
 
-						&>div {
+						& > div {
 							display: flex;
 							gap: 1rem;
 
@@ -248,7 +245,6 @@
 						// }
 					}
 				}
-
 			}
 
 			.downloadBtn {
@@ -275,7 +271,7 @@
 				color: #262626;
 				padding: 0.5rem;
 
-				&>span {
+				& > span {
 					font-weight: 700;
 				}
 			}
@@ -325,7 +321,7 @@
 						border-radius: 8.14565px;
 					}
 
-					&>p {
+					& > p {
 						font-weight: 500;
 						font-size: 1.25rem;
 						line-height: 30px;
@@ -370,7 +366,7 @@
 					}
 				}
 
-				&>h5 {
+				& > h5 {
 					font-weight: 700;
 					font-size: 18px;
 					line-height: 28px;
@@ -382,7 +378,7 @@
 					justify-content: space-between;
 					align-items: center;
 
-					&>p {
+					& > p {
 						margin-bottom: 0px;
 						font-weight: 500;
 						font-size: 20px;
@@ -404,7 +400,7 @@
 	padding: 1rem 2.3rem;
 
 	.header {
-		&>h2 {
+		& > h2 {
 			font-weight: 600;
 			font-size: 1.5rem;
 			line-height: 32px;
@@ -413,7 +409,7 @@
 			color: #262626;
 		}
 
-		&>p {
+		& > p {
 			font-weight: 400;
 			font-size: 0.875rem;
 			line-height: 24px;
@@ -431,14 +427,14 @@
 			padding: 1rem;
 			margin-bottom: 1rem;
 
-			&>h5 {
+			& > h5 {
 				color: inherit;
 				font-weight: 500;
 				font-size: 1rem;
 				line-height: 26px;
 			}
 
-			&>p {
+			& > p {
 				color: inherit;
 				font-weight: 400;
 				font-size: 0.75rem;
@@ -487,9 +483,11 @@
 
 	.productStatus {
 		.status {
-			&.inStock {}
+			&.inStock {
+			}
 
-			&.outOfStock {}
+			&.outOfStock {
+			}
 		}
 
 		.amountSold {
@@ -585,7 +583,7 @@ p.makeItFreeText {
 		overflow-x: hidden;
 		text-overflow: ellipsis;
 
-		&>span {
+		& > span {
 			color: $black-100;
 			font-size: 18px;
 			line-height: 1;
