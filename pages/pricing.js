@@ -293,9 +293,9 @@ const Pricing = () => {
 						<a
 							rel="noopener noreferrer"
 							target="blank"
-							href="mailto:info@KreateSell.com"
+							href="mailto:support@KreateSell.com"
 						>
-							info@KreateSell.com
+							support@KreateSell.com
 						</a>{' '}
 						if your questions or concerns <br /> are not answered
 						here.
