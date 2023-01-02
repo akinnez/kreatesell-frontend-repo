@@ -294,6 +294,7 @@ const Pricing = () => {
 							rel="noopener noreferrer"
 							target="blank"
 							href="mailto:support@KreateSell.com"
+							className={styles.support}
 						>
 							support@KreateSell.com
 						</a>{' '}
@@ -301,7 +302,12 @@ const Pricing = () => {
 						here.
 					</p>
 					<div className={styles.buttonCont}>
-						<Button className={styles.btn} text="Contact Now" />
+						<Button
+							className={styles.btn}
+							text="Contact Now"
+							withLink={true}
+							link="mailto:support@KreateSell.com"
+						/>
 					</div>
 				</div>
 
