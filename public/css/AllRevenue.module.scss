@@ -38,6 +38,7 @@
 
 .container {
 	width: 100%;
+
 	.earnings {
 		font-weight: 500;
 		font-size: 1rem;
@@ -170,6 +171,7 @@
 	}
 
 	.midSection {
+		width: 100%;
 		.title {
 			@include flex(row, space-between, null);
 			padding-top: 2rem;
@@ -200,11 +202,13 @@
 		}
 		.cardContainer {
 			@include flex(row, space-between, null);
-			@include screen('medium') {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 1rem;
-			}
+			// @include screen('medium') {
+			// 	display: grid;
+			// 	grid-template-columns: 1fr 1fr;
+			// 	gap: 1rem;
+			// }
+			// border: 1px solid red;
+			min-width: 100%;
 
 			.m0 {
 				margin: 0;
@@ -263,16 +267,25 @@
 				@extend .cardStyle;
 				// margin-left: 1rem;
 				padding-inline: 2.5rem;
+				//
 
 				@include screen('medium') {
 					margin-left: 0;
+				}
+
+				@media (max-width: 400px) {
+					padding-inline: 0.5rem;
 				}
 			}
 
 			.firstCard {
 				@extend .cardStyle;
 				margin: 0;
+				// padding-inline: 2.5rem;
 				padding-inline: 2.5rem;
+				@media (max-width: 400px) {
+					padding-inline: 0.5rem;
+				}
 			}
 		}
 	}
