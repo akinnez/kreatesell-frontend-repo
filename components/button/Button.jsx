@@ -8,6 +8,9 @@ export const Button = ({
 	bgColor = 'white',
 	icon,
 	leftIcon,
+	withLink = false,
+	link,
+
 	...rest
 }) => {
 	return (
@@ -27,7 +30,19 @@ export const Button = ({
 				{leftIcon && (
 					<div className={styles.buttonIcon}>{leftIcon}</div>
 				)}
-				{text}
+				<>
+					{withLink ? (
+						<a
+							rel="noopener noreferrer"
+							target="_blank"
+							href={link}
+						>
+							{text}
+						</a>
+					) : (
+						<>{text}</>
+					)}
+				</>
 				{icon && <div className={styles.buttonIcon}>{icon}</div>}
 			</div>
 		</button>

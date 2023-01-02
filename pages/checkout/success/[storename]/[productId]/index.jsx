@@ -414,7 +414,7 @@ const Success = () => {
 							</p>
 						</div>
 						<div className={styles.item}>
-							<Row gutter={[32, 32]}>
+							<Row gutter={[32, 32]} className={styles.hideCol}>
 								<Col md={{span: 8}} span={8}>
 									<ProductCard
 										productDetails={product}
@@ -436,6 +436,39 @@ const Success = () => {
 									/>
 								</Col>
 							</Row>
+
+							{/* mobiles */}
+							<Row
+								gutter={[32, 32]}
+								className={styles.mobileItems}
+							>
+								<Col className={styles.mobileItemCol}>
+									<ProductCard
+										productDetails={product}
+										kreatorDetails={
+											storeDetails?.kreator_full_name
+										}
+									/>
+								</Col>
+							</Row>
+							<Row
+								gutter={[32, 32]}
+								className={styles.mobileItems}
+							>
+								<Col className={styles.mobileItemCol}>
+									<PurchaseSummaryCard
+										handleClickAction={() =>
+											setShowAccessPageModal(true)
+										}
+										productName={
+											product?.product_details
+												?.product_name
+										}
+										{...{product}}
+									/>
+								</Col>
+							</Row>
+							{/* mobiles */}
 						</div>
 					</section>
 					{storeDetails?.store_details
@@ -444,7 +477,7 @@ const Success = () => {
 							<h2 className={styles.headerText}>
 								Other Products by the Kreator
 							</h2>
-							<div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
+							<div className="w-11/12 mx-auto lg:w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-8 mb-8 pb-20 mt-6">
 								{singleStoreProducts
 									.filter(
 										(productItem) =>
@@ -730,81 +763,115 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 			{/* factor the condtion that equates to conetnt file existing and the product is digital download */}
 			{contentZipFile.length > 0 &&
 			product?.product_type_details === 'Digital Download' ? (
-				<div className={`${styles.purchase} mb-2`}>
-					<Image
-						className={styles.purchaseIcon}
-						src={ZipFile}
-						// src={CourseFileIcon}
-						height="80"
-						width="80"
-						alt=""
-					/>
-					<span className="">
-						<div className={styles.top}>{productName}.zip</div>
-						<div className={styles.bottom}>
-							<div>
-								<p className={styles.left}>
-									{product?.product_images[1]?.size
-										? getFileSize()
-										: 'N/A'}
-								</p>{' '}
-								|
-								{/* //TODO:
+				<>
+					<div className={`${styles.purchase} mb-2`}>
+						<Image
+							className={styles.purchaseIcon}
+							src={ZipFile}
+							// src={CourseFileIcon}
+							height="80"
+							width="80"
+							alt=""
+						/>
+						<span className="">
+							<div className={styles.top}>{productName}.zip</div>
+							<div className={styles.bottom}>
+								<div>
+									<p className={styles.left}>
+										{product?.product_images[1]?.size
+											? getFileSize()
+											: 'N/A'}
+									</p>{' '}
+									|
+									{/* //TODO:
 								Replace this with appropriate size */}
-								<p className={styles.right}>
-									{product?.default_currency?.currency}{' '}
-									{product?.default_price}
-								</p>
+									<p className={styles.right}>
+										{product?.default_currency?.currency}{' '}
+										{product?.default_price}
+									</p>
+								</div>
+								{/* TODO: don't show this button for preorder products */}
+								{!productDetails?.enable_preorder && (
+									<Button
+										text="Download File"
+										bgColor="blue"
+										icon={<CloudDownload />}
+										style={{padding: '1rem'}}
+										className={styles.downloadBtn}
+										disabled={!product?.product_images[1]}
+										onClick={() => handleClick('download')}
+									/>
+								)}
 							</div>
-							{/* TODO: don't show this button for preorder products */}
-							{!productDetails?.enable_preorder && (
-								<Button
-									text="Download File"
-									bgColor="blue"
-									icon={<CloudDownload />}
-									style={{padding: '1rem'}}
-									disabled={!product?.product_images[1]}
-									onClick={() => handleClick('download')}
-								/>
-							)}
-						</div>
-					</span>
-				</div>
+						</span>
+					</div>
+
+					{/* mobiles */}
+					{!productDetails?.enable_preorder && (
+						<Button
+							text="Download File"
+							bgColor="blue"
+							icon={<CloudDownload />}
+							style={{padding: '1rem'}}
+							className={styles.downloadBtnMobile}
+							disabled={!product?.product_images[1]}
+							onClick={() => handleClick('download')}
+						/>
+					)}
+					{/* mobiles */}
+				</>
 			) : product?.product_type_details === 'Membership' ? (
-				<div className={`${styles.purchase} mb-2`}>
-					<Image
-						className={styles.purchaseIcon}
-						src={CourseFileIcon}
-						height="80"
-						width="80"
-						alt=""
-					/>
-					<span className="">
-						<div className={styles.top}>{productName}</div>
-						<div className={styles.bottom}>
-							<div>
-								<p
-									className={styles.left}
-								>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
-								|
-								<p className={styles.right}>
-									{product?.default_currency?.currency}{' '}
-									{product?.default_price}
-								</p>
+				<>
+					<div className={`${styles.purchase} mb-2`}>
+						<Image
+							className={styles.purchaseIcon}
+							src={CourseFileIcon}
+							height="80"
+							width="80"
+							alt=""
+						/>
+						<span className="">
+							<div className={styles.top}>{productName}</div>
+							<div className={styles.bottom}>
+								<div>
+									<p
+										className={styles.left}
+									>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
+									|
+									<p className={styles.right}>
+										{product?.default_currency?.currency}{' '}
+										{product?.default_price}
+									</p>
+								</div>
+								{/* TODO: don't show this button for preorder products */}
+								{!productDetails?.enable_preorder && (
+									<Button
+										text="Access Course"
+										bgColor="blue"
+										icon={<CloudDownload />}
+										style={{padding: '1rem'}}
+										className={styles.downloadBtn}
+										onClick={() =>
+											handleClick('viewCourse')
+										}
+									/>
+								)}
 							</div>
-							{/* TODO: don't show this button for preorder products */}
-							{!productDetails?.enable_preorder && (
-								<Button
-									text="Access Course"
-									bgColor="blue"
-									icon={<CloudDownload />}
-									style={{padding: '1rem'}}
-									onClick={() => handleClick('viewCourse')}
-								/>
-							)}
-						</div>
-					</span>
-				</div>
+						</span>
+					</div>
+					{/* mobiles */}
+					{!productDetails?.enable_preorder && (
+						<Button
+							text="Access Course"
+							bgColor="blue"
+							icon={<CloudDownload />}
+							style={{padding: '1rem'}}
+							className={styles.downloadBtnMobile}
+							onClick={() => handleClick('viewCourse')}
+						/>
+					)}
+					{/* mobiles */}
+				</>
 			) : (
 				<div className={styles.noContentPurchase}>
 					<Image
