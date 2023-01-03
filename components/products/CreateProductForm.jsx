@@ -584,7 +584,7 @@ export const CreateProductForm = ({
 						)}
 						{contentFiles && (
 							<FileUpload
-								initialFile={initialProduct}  
+								initialFile={initialProduct}
 								file={productFile}
 								isToggleable={true}
 								toggleValue={contentFiles}

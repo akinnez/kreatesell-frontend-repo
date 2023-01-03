@@ -13,9 +13,9 @@ import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
 export default function ContentUpload({file, setFile, initialContent}) {
-	console.log(file,'filefilefileururururururur')
+	console.log(file, 'filefilefileururururururur');
 
-	console.log(initialContent,'filefilefilefile')
+	console.log(initialContent, 'filefilefilefile');
 	const [progress, setProgress] = useState(0);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: {
@@ -37,7 +37,6 @@ export default function ContentUpload({file, setFile, initialContent}) {
 			console.log(error);
 		}
 	};
-	
 
 	const handleDeleteFile = () => {
 		deleteFile(mainFile[0].file);
@@ -50,7 +49,7 @@ export default function ContentUpload({file, setFile, initialContent}) {
 				async (item) => await uploadFile(item.file, setProgress)
 			);
 		}
-	}, [mainFile]); 
+	}, [mainFile]);
 
 	// useEffect(() => {
 	// 	if (initialContent) {
