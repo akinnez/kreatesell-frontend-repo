@@ -42,6 +42,7 @@ export default function FileUpload({
 			console.log(error);
 		}
 	};
+	
 	const getBase64 = (file) => {
 		return new Promise((resolve, reject) => {
 			const reader = new FileReader();
@@ -81,7 +82,7 @@ export default function FileUpload({
 			};
 			getFileDetails();
 		}
-	}, [initialFile?.length]);
+	}, [initialFile?.length]); 
 
 	useEffect(() => {
 		if (mainFile.length > 0) {

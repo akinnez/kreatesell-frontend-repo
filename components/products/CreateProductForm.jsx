@@ -55,6 +55,7 @@ export const CreateProductForm = ({
 	const {store} = useSelector((state) => state.store);
 	const [productFile, setProductFile] = useState(null);
 	const [initialProduct, setInitialProduct] = useState(null);
+
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);
 
@@ -583,7 +584,7 @@ export const CreateProductForm = ({
 						)}
 						{contentFiles && (
 							<FileUpload
-								initialFile={initialProduct}
+								initialFile={initialProduct}  
 								file={productFile}
 								isToggleable={true}
 								toggleValue={contentFiles}

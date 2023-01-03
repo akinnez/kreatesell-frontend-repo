@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import {useEffect, useState} from 'react';
-import {ArrowLeft, ViewSales, Video, Audio, EditPen, FileDelete} from 'utils';
-import {Button, Switch} from 'antd';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, ViewSales, Video, Audio, EditPen, FileDelete } from 'utils';
+import { Button, Switch } from 'antd';
 import style from './MembershipTab.module.scss';
 import ProductEditor from '../ProductEditor';
 import ContentUpload from '../ContentUpload';
-import {useFormik} from 'formik';
-import {AuthGetProductById, CreateContent} from 'redux/actions';
-import {useSelector} from 'react-redux';
+import { useFormik } from 'formik';
+import { AuthGetProductById, CreateContent } from 'redux/actions';
+import { useSelector } from 'react-redux';
 // import ContentEditor from "../ContentEditor"
 
 export default function ManageContent({
@@ -17,11 +17,14 @@ export default function ManageContent({
 }) {
 	const [file, setFile] = useState(null);
 	const [contents, setContents] = useState('');
+	const [initialContent, setInitialContent] = useState('');
+	console.log(initialContent, 'initialContentinitialContentinitialContent')
 	const createContent = CreateContent();
 	const getProduct = AuthGetProductById();
 	const [isDownload, setIsDownload] = useState(false);
 
-	const {productID, loading} = useSelector((state) => state.product);
+	const { productID, loading } = useSelector((state) => state.product);
+
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
@@ -54,7 +57,7 @@ export default function ManageContent({
 		validateOnChange: false,
 	});
 
-	const {setFieldValue} = formik;
+	const { setFieldValue } = formik;
 
 	useEffect(() => {
 		setFieldValue('product_section_name', content.product_section_name);
@@ -93,7 +96,13 @@ export default function ManageContent({
 		setFieldValue('is_content_downloadable', isDownload);
 	}, [contents, isDownload, file]);
 
-	console.log(file, 'fifififif');
+	useEffect(() => {
+		if (content?.files.length > 1) {
+			setInitialContent(content?.files[1])
+		}
+	}, [content])
+
+
 	return (
 		<div className="">
 			<div
@@ -119,7 +128,7 @@ export default function ManageContent({
 					</h1>
 					<h2 className="font-normal text-lg ">Content File</h2>
 					<div className="w-4/5">
-						<ContentUpload file={file} setFile={setFile} />
+						<ContentUpload file={file} setFile={setFile} initialContent={initialContent}/>
 						<div className="mt-5 flex justify-between items-start">
 							<div className="flex flex-col">
 								<h2 className="text-lg font-medium">
