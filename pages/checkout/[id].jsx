@@ -118,6 +118,7 @@ const Checkout = () => {
 			item.price_indicator === 'Minimum' &&
 			item.currency_name === testCurrency
 	);
+
 	const SuggestedPrices = checkOutDetails.find(
 		(item) =>
 			item.price_indicator === 'Suggested' &&
@@ -166,6 +167,17 @@ const Checkout = () => {
 		}
 	};
 
+
+	const getCheckoutPriceInNaira  = (indicator) => {
+         let priceInNiara = checkOutDetails?.find(
+			(item) =>
+				item?.currency_name === defaultCurrency?.currency &&
+				item?.price_indicator === indicator
+		)
+		return priceInNiara?.price * convertedCurrency?.buy_rate
+	}
+
+
 	const getCurrency = (priceOrName) => {
 		if (priceOrName === 'currency') {
 			return selectedPaymentMethod === 'crypto'
@@ -181,12 +193,11 @@ const Checkout = () => {
 			return totalFee;
 		} else if (priceOrName === 'minimum') {
 			return (
-				MinimumPrices?.price || Number(getCurrency('price')).toFixed(2)
+				MinimumPrices?.price || Number(getCheckoutPriceInNaira('Minimum')).toFixed(2) 
 			);
 		} else if (priceOrName === 'suggested') {
 			return (
-				SuggestedPrices?.price ||
-				Number(getCurrency('price')).toFixed(2)
+				SuggestedPrices?.price || Number(getCheckoutPriceInNaira('Suggested')).toFixed(2) 
 			);
 		} else if (priceOrName === 'original') {
 			return (
@@ -346,6 +357,15 @@ const Checkout = () => {
 			item?.price_indicator === 'Selling'
 	);
 
+	// const checkOutInNairaMin = checkOutDetails?.find(
+	// 	(item) =>
+	// 		item?.currency_name === defaultCurrency?.currency &&
+	// 		item?.price_indicator === 'Minimum'
+	// );
+
+
+
+
 	// calculate price + fees
 	useEffect(() => {
 		if (
@@ -376,6 +396,7 @@ const Checkout = () => {
 
 	// FIXME: check if price in a particular currency has been specified before,
 	// if it has, use that instead of converting, just use the specified value
+
 	const handleCurrencyConversion = (toCurrency) => {
 		let index = checkOutDetails.findIndex(
 			(detail) =>
