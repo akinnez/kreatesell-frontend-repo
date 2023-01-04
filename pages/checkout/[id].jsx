@@ -167,16 +167,14 @@ const Checkout = () => {
 		}
 	};
 
-
-	const getCheckoutPriceInNaira  = (indicator) => {
-         let priceInNiara = checkOutDetails?.find(
+	const getCheckoutPriceInNaira = (indicator) => {
+		let priceInNiara = checkOutDetails?.find(
 			(item) =>
 				item?.currency_name === defaultCurrency?.currency &&
 				item?.price_indicator === indicator
-		)
-		return priceInNiara?.price * convertedCurrency?.buy_rate
-	}
-
+		);
+		return priceInNiara?.price * convertedCurrency?.buy_rate;
+	};
 
 	const getCurrency = (priceOrName) => {
 		if (priceOrName === 'currency') {
@@ -193,11 +191,13 @@ const Checkout = () => {
 			return totalFee;
 		} else if (priceOrName === 'minimum') {
 			return (
-				MinimumPrices?.price || Number(getCheckoutPriceInNaira('Minimum')).toFixed(2) 
+				MinimumPrices?.price ||
+				Number(getCheckoutPriceInNaira('Minimum')).toFixed(2)
 			);
 		} else if (priceOrName === 'suggested') {
 			return (
-				SuggestedPrices?.price || Number(getCheckoutPriceInNaira('Suggested')).toFixed(2) 
+				SuggestedPrices?.price ||
+				Number(getCheckoutPriceInNaira('Suggested')).toFixed(2)
 			);
 		} else if (priceOrName === 'original') {
 			return (
@@ -362,9 +362,6 @@ const Checkout = () => {
 	// 		item?.currency_name === defaultCurrency?.currency &&
 	// 		item?.price_indicator === 'Minimum'
 	// );
-
-
-
 
 	// calculate price + fees
 	useEffect(() => {

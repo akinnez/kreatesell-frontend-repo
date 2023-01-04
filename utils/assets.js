@@ -306,7 +306,6 @@ import Mailchimp from '../public/images/mailchimp.png';
 import GetResponse from '../public/images/getResponse.png';
 import Zapier from '../public/images/zapier.png';
 
-
 export {
 	Congratulations,
 	ChangePasswordModalIcon,
@@ -612,5 +611,5 @@ export {
 	NoContentIcon,
 	Mailchimp,
 	GetResponse,
-	Zapier
+	Zapier,
 };

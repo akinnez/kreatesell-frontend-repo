@@ -1,17 +1,17 @@
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import styles from './CreateCouponForm.module.scss';
 import style from '../../public/css/AllProducts.module.scss';
-import { TextInput } from '../../components/inputPack';
-import { CreateCouponSchema } from '../../validation/CreateCoupon.validation';
-import { Radio } from 'antd';
-import { useState, useEffect, useMemo } from 'react';
-import { Input, Switch, Select, Button } from 'antd';
-import { useSelector } from 'react-redux';
-import { GetCouponProducts } from 'redux/actions';
+import {TextInput} from '../../components/inputPack';
+import {CreateCouponSchema} from '../../validation/CreateCoupon.validation';
+import {Radio} from 'antd';
+import {useState, useEffect, useMemo} from 'react';
+import {Input, Switch, Select, Button} from 'antd';
+import {useSelector} from 'react-redux';
+import {GetCouponProducts} from 'redux/actions';
 import Image from 'next/image';
-import { ErrorIcon } from 'utils';
-import { CreateCoupon, GetCoupons } from 'redux/actions';
-import { useRouter } from 'next/router';
+import {ErrorIcon} from 'utils';
+import {CreateCoupon, GetCoupons} from 'redux/actions';
+import {useRouter} from 'next/router';
 
 export const pathName = typeof window !== 'undefined' && window;
 
@@ -19,10 +19,10 @@ export const EditCouponForm = () => {
 	const [isAllProduct, setIsAllProduct] = useState();
 	const [productData, setProductData] = useState([]);
 	const [isApplied, setIsApplied] = useState(false);
-	const { couponProducts } = useSelector((state) => state.product);
-	const { loading, coupons } = useSelector((state) => state.coupon);
+	const {couponProducts} = useSelector((state) => state.product);
+	const {loading, coupons} = useSelector((state) => state.coupon);
 
-	const { store } = useSelector((state) => state.store);
+	const {store} = useSelector((state) => state.store);
 	const router = useRouter();
 	const getCouponProducts = GetCouponProducts();
 	const createCoupon = CreateCoupon();
@@ -44,7 +44,6 @@ export const EditCouponForm = () => {
 	const [isUsage, setIsUsage] = useState(
 		updateCouponData[0]?.coupons?.is_usage_limited_per_customer
 	);
-
 
 	const isdefaultRadioValue =
 		updateCouponData[0]?.coupons?.is_for_all_product;
@@ -118,7 +117,7 @@ export const EditCouponForm = () => {
 		// validationSchema: CreateCouponSchema,
 		validateOnChange: false,
 	});
-	const { errors, values, setFieldValue } = formik;
+	const {errors, values, setFieldValue} = formik;
 	const {
 		coupon_code,
 		fixed_amount_value,
@@ -174,7 +173,7 @@ export const EditCouponForm = () => {
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
-			const { user } = store;
+			const {user} = store;
 			if (user.user_plan === 'Basic') {
 				setFieldValue('isBasicPlan', true);
 			}
@@ -210,7 +209,7 @@ export const EditCouponForm = () => {
 						type="text"
 						label="Coupon Code"
 						labelExtra=" Letters and Numbers only!."
-						style={{ width: '100%' }}
+						style={{width: '100%'}}
 						placeholder={updateCouponData[0]?.coupons?.coupon_code}
 						name="coupon_code"
 						disabled
@@ -232,13 +231,13 @@ export const EditCouponForm = () => {
 							defaultValue={
 								isdefaultRadioValue === true ? true : false
 							}
-						// onChange={handleRadioChange}
+							// onChange={handleRadioChange}
 						>
 							<Radio
 								className={styles.radioContent}
 								value={true}
 								disabled
-							// checked={isAllProduct ? true : false}
+								// checked={isAllProduct ? true : false}
 							>
 								All Products
 							</Radio>
@@ -246,7 +245,7 @@ export const EditCouponForm = () => {
 								className={styles.radioContent}
 								value={false}
 								disabled
-							// checked={!isAllProduct ? true : false}
+								// checked={!isAllProduct ? true : false}
 							>
 								Choose Specific Product
 							</Radio>
