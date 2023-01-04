@@ -37,7 +37,6 @@ export const EditCouponForm = () => {
 	const [isPercentage, setIsPercentage] = useState(
 		updateCouponData[0]?.coupons?.is_percentage
 	);
-
 	const [isLimited, setIsLimited] = useState(
 		updateCouponData[0]?.coupons?.is_coupon_limited
 	);
@@ -67,7 +66,7 @@ export const EditCouponForm = () => {
 			is_apply_to_recurring: false,
 		},
 		action: 'e',
-		coupon_id: 0,
+		coupon_id: couponId || 0,
 		isBasicPlan: false,
 	};
 	const handleSubmit = (data) => {
@@ -114,7 +113,7 @@ export const EditCouponForm = () => {
 	const formik = useFormik({
 		initialValues,
 		onSubmit: handleSubmit,
-		// validationSchema: CreateCouponSchema,
+		validationSchema: CreateCouponSchema,
 		validateOnChange: false,
 	});
 	const {errors, values, setFieldValue} = formik;
@@ -152,24 +151,7 @@ export const EditCouponForm = () => {
 
 	useEffect(() => {
 		setFieldValue('coupon_settings.is_apply_to_recurring', isApplied);
-		setFieldValue('coupon_settings.is_percentage', isPercentage);
-		setFieldValue('coupon_settings.is_fixed_amount', isUsage);
-		setFieldValue('coupon_settings.is_coupon_limited', isLimited);
-	}, [isApplied, isPercentage, isUsage, isLimited]);
-
-	// // useEffect(() => {
-	// setFieldValue(
-	// 	'coupon_settings.percentage_value',
-	// 	updateCouponData[0]?.coupons?.percentage_value
-	// );
-	// setFieldValue(
-	// 	'coupon_settings.fixed_amount_value',
-	// 	updateCouponData[0]?.coupons?.fixed_amount_value
-	// );
-	// setFieldValue('coupon_settings.is_percentage', isPercentage);
-	// setFieldValue('coupon_settings.is_fixed_amount', isUsage);
-	// setFieldValue('coupon_settings.is_coupon_limited', isLimited);
-	// // }, []);
+	}, [isApplied]);
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
