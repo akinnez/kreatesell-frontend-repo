@@ -22,7 +22,7 @@ const NotificationsDropdown = () => {
 				dispatch,
 				mutate,
 			})}
-			trigger={['hover']}
+			trigger={['click', 'hover']}
 			arrow
 		>
 			<div>

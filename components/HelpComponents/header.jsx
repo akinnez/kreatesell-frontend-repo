@@ -137,7 +137,7 @@ const HelpHeader = ({setFilters, setLoading, filters}) => {
 								/>
 							</Form.Item>
 						</Col>
-						<Col xs={10} lg={3}>
+						<Col xs={10} lg={3} md={6}>
 							<Form.Item label="From" name="from">
 								<DatePicker
 									placeholder="2021-07-22"
@@ -149,7 +149,7 @@ const HelpHeader = ({setFilters, setLoading, filters}) => {
 								/>
 							</Form.Item>
 						</Col>
-						<Col xs={10} lg={3}>
+						<Col xs={13} lg={3} md={6}>
 							<Form.Item label="To" name="to">
 								<DatePicker
 									placeholder="2021-07-22"
@@ -161,7 +161,7 @@ const HelpHeader = ({setFilters, setLoading, filters}) => {
 								/>
 							</Form.Item>
 						</Col>
-						<Col xs={4} lg={2}>
+						<Col xs={10} lg={3} sm={4} md={6}>
 							<Form.Item>
 								<Button
 									type="primary"
