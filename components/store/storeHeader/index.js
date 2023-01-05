@@ -90,27 +90,30 @@ export const ProtectedStoreHeader = ({
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
 						<div className={styles.profile_wrapper}>
-							{!publicStoreInfo?.display_picture ? (
-								<div className={styles.image_intro_text}>
-									<Avatar
-										shape="square"
-										className={styles.avatar}
-										size={70}
-										icon={<UserOutlined />}
+							{
+								//*  !publicStoreInfo?.display_picture
+								!displayPicture ? (
+									<div className={styles.image_intro_text}>
+										<Avatar
+											shape="square"
+											className={styles.avatar}
+											size={70}
+											icon={<UserOutlined />}
+										/>
+									</div>
+								) : (
+									<div
+										className={styles.image_intro_text}
+										style={{
+											backgroundImage: `url(${
+												displayPicture ||
+												publicStoreInfo?.display_picture ||
+												'/images/placeholder-2.jpg'
+											})`,
+										}}
 									/>
-								</div>
-							) : (
-								<div
-									className={styles.image_intro_text}
-									style={{
-										backgroundImage: `url(${
-											displayPicture ||
-											publicStoreInfo?.display_picture ||
-											'/images/placeholder-2.jpg'
-										})`,
-									}}
-								/>
-							)}
+								)
+							}
 							<div className={styles.txt_wrapper}>
 								<h3>
 									{(brandName ||
