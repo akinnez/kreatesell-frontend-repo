@@ -1351,23 +1351,9 @@ const Checkout = () => {
 												</span>
 												{getCurrency('currency')}{' '}
 												{subTotal}
-												{/* {console.log(
-													'subTotal',
-													subTotal
-												)} */}
-												{/* {basicSubtotal} || {desiredAmount
-													? desiredAmount
-													: Number(
-														getCurrency('price')
-													).toFixed(2)} */}
 											</p>
 										</div>
 									</div>
-
-									{/* <div className="flex justify-between">
-										<p>Transaction Fee</p>
-										<p>{transactionFee}</p>
-									</div> */}
 
 									<div className="flex justify-between">
 										<p>Tax</p>
@@ -1379,10 +1365,6 @@ const Checkout = () => {
 									<div className="flex justify-between">
 										<p>Total</p>
 										<p className="text-primary-blue font-medium">
-											{/* {currency_name}{' '} */}
-											{/* {new Intl.NumberFormat().format(
-                                            price ?? checkoutDetails?.default_price
-											)} */}
 											{getCurrency('currency')}{' '}
 											{Number(totalFee).toFixed(2)}
 										</p>
@@ -1397,6 +1379,7 @@ const Checkout = () => {
 										src={MakeItFreeIcon}
 										width="240"
 										height="294"
+										alt=""
 									/>
 								</div>
 							)}
