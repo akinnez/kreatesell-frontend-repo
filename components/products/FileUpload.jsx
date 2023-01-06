@@ -22,13 +22,10 @@ export default function FileUpload({
 }) {
 	const [progress, setProgress] = useState(0);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
-		fileType: '.zip,.rar',
+		fileType: 'all',
 	});
 
 	const [files, setFiles] = useState([]);
-	// console.log('files', files);
-	// console.log('file', file);
-	// console.log('mainFile', mainFile);
 
 	const fetchFile = async (url) => {
 		const instance = axios.create();
