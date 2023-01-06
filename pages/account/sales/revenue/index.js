@@ -2,6 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 
 import useSWR from 'swr';
 import {Table} from 'antd';
+import {format, parseISO} from 'date-fns';
 
 import styles from '../../../../public/css/AllRevenue.module.scss';
 import RevenueHeader from 'components/RevenueComponents/header';
@@ -83,6 +84,16 @@ const statusComponent = (item) => {
 			},
 			contents: '',
 		},
+		Reversed: {
+			type: 'reversed',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
 	};
 	let tagStyles = statusTextList[item]?.styles;
 	let mainType = statusTextList[item]?.type;
@@ -123,8 +134,22 @@ const columns = [
 	},
 	{
 		title: 'Clearance Date',
-		dataIndex: '',
-		width: 120,
+		dataIndex: 'clearance_date',
+		width: 180,
+		render: (item) => {
+			const time = parseISO(item);
+
+			const formatTime = format(time, 'PPPp');
+			const formatDate = format(time, 'PPP');
+			return (
+				<div className="flex flex-col items-center">
+					<div>
+						{`${formatDate.split('at')[0]},`}{' '}
+						{formatTime.split('at')[1]}
+					</div>
+				</div>
+			);
+		},
 	},
 	{
 		title: 'Transaction Status',
