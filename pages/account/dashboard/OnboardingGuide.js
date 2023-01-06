@@ -14,7 +14,7 @@ const OnboardingGuide = ({
 	// setGuideModalVisible,
 	// setIsmobile,
 	guideDataObject,
-	goToNext
+	goToNext,
 }) => {
 	// const [index, setIndex] = useState(0);
 	// const [mindex, setMIndex] = useState(0);
@@ -52,58 +52,56 @@ const OnboardingGuide = ({
 	// }, [visible]);
 
 	return (
-		<div
-			className={styles.onboardingGuideModal} 
-		>
+		<div className={styles.onboardingGuideModal}>
 			{/* desktop view */}
 			{/* <div style={{postion: 'relative', width: '100%', height: '100%'}}> */}
-				<div
-					className={styles.onboardingTooltip}
-					style={{
-						left: guideDataObject.positionLeft,
-						top: guideDataObject.positionTop
-					}}
-				>
-					<div className={styles.guideArrow}></div>
-					<div className={styles.toolTipTitleContainer}>
-						<p className={styles.toolTipModalTitle}>
-							{/* {guideInfoObject.modalTitle} */}
-							{guideDataObject.modalTitle}
-						</p>
-						<div>
-							<Image
-								src={CloseIcon}
-								className={styles.toolTipCloseIcon}
-								// onClick={proceedToDashboard}
-							/>
-						</div>
-					</div>
-					<p className={styles.toolTipText}>
-						{/* {guideInfoObject.modalText} */}
-						{guideDataObject.modalText}
+			<div
+				className={styles.onboardingTooltip}
+				style={{
+					left: guideDataObject.positionLeft,
+					top: guideDataObject.positionTop,
+				}}
+			>
+				<div className={styles.guideArrow}></div>
+				<div className={styles.toolTipTitleContainer}>
+					<p className={styles.toolTipModalTitle}>
+						{/* {guideInfoObject.modalTitle} */}
+						{guideDataObject.modalTitle}
 					</p>
-					<div className={styles.toolTipTitleContainer}>
-						<p className={styles.toolTipBtnText}>2/9</p>
-						<div className={styles.toolTipBtnContainer}>
-							<button
-								// disabled={index === 0}
-								className={styles.toolTipBtn}
-								// onClick={setPreviousContents}
-							>
-								Prev
-							</button>
-							{/* {index !== guideDataObject.length - 1 && ( */}
-								<button
-									// disabled={
-									// 	index === guideDataObject.length - 1
-									// }
-									className={styles.toolTipNextBtn}
-									onClick={()=> goToNext()}
-								>
-									Next
-								</button>
-							{/* )} */}
-							{/* {index === guideDataObject.length - 1 && (
+					<div>
+						<Image
+							src={CloseIcon}
+							className={styles.toolTipCloseIcon}
+							// onClick={proceedToDashboard}
+						/>
+					</div>
+				</div>
+				<p className={styles.toolTipText}>
+					{/* {guideInfoObject.modalText} */}
+					{guideDataObject.modalText}
+				</p>
+				<div className={styles.toolTipTitleContainer}>
+					<p className={styles.toolTipBtnText}>2/9</p>
+					<div className={styles.toolTipBtnContainer}>
+						<button
+							// disabled={index === 0}
+							className={styles.toolTipBtn}
+							// onClick={setPreviousContents}
+						>
+							Prev
+						</button>
+						{/* {index !== guideDataObject.length - 1 && ( */}
+						<button
+							// disabled={
+							// 	index === guideDataObject.length - 1
+							// }
+							className={styles.toolTipNextBtn}
+							onClick={() => goToNext()}
+						>
+							Next
+						</button>
+						{/* )} */}
+						{/* {index === guideDataObject.length - 1 && (
 								<button
 									className={styles.toolTipNextBtn}
 									onClick={proceedToDashboard}
@@ -111,9 +109,9 @@ const OnboardingGuide = ({
 									Next
 								</button>
 							)} */}
-						</div>
 					</div>
 				</div>
+			</div>
 			{/* </div> */}
 
 			{/* mobiles */}
@@ -213,7 +211,7 @@ export const DashboardGuide = ({setHideDahboardGuideModal}) => {
 					className={styles.onboardingTooltip}
 					style={{
 						left: dashboardGuideObject.positionLeft,
-						top: dashboardGuideObject.positionTop,  
+						top: dashboardGuideObject.positionTop,
 					}}
 				>
 					<div className={styles.dashboardGuideArrow}></div>

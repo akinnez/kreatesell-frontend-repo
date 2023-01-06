@@ -88,30 +88,30 @@ const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
 
 // console.log(OpenSubMenu);
 const globalState = {
-  position: ['dashboard', 'store', 'products'],
-  progress: {
-    dashboard:{
-      isActive: true,
-      content: '',
-      hasPrev: false,
-      hasNext: true
-    },
-    store:{
-      isActive: false,
-      content: '',
-      hasPrev: true,
-      hasNext: true
-    },
-  }
-}
+	position: ['dashboard', 'store', 'products'],
+	progress: {
+		dashboard: {
+			isActive: true,
+			content: '',
+			hasPrev: false,
+			hasNext: true,
+		},
+		store: {
+			isActive: false,
+			content: '',
+			hasPrev: true,
+			hasNext: true,
+		},
+	},
+};
 
 const [currentActiveIndex, setCurrentActiveIndex] = useState(0);
 
 const handleNextClick = () => {
-  setCurrentActiveIndex(prev=>prev+1);
-}
+	setCurrentActiveIndex((prev) => prev + 1);
+};
 
-globalState.progress[globalState[currentActiveIndex]]
+globalState.progress[globalState[currentActiveIndex]];
 
 const Sidebar = ({isMobileView = false}) => {
 	const {SubMenu} = Menu;

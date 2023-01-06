@@ -1,11 +1,11 @@
-import { useState, memo, useEffect, useRef, forwardRef } from 'react';
+import {useState, memo, useEffect, useRef, forwardRef} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { Menu } from 'antd';
+import {Menu} from 'antd';
 import style from './sidebar.module.scss';
-import { useRouter } from 'next/router';
-import { SetProductDefault, SetProductID } from 'redux/actions';
+import {useRouter} from 'next/router';
+import {SetProductDefault, SetProductID} from 'redux/actions';
 import {
 	Shop,
 	Dashboard,
@@ -20,11 +20,11 @@ import {
 	KreatorsIcon,
 	SalesIcon,
 } from '../IconPack';
-import { BusinessPlanBox, OpenSubMenu } from '../../utils/assets';
+import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
 
-import { Logout as LogoutAction } from '../../redux/actions/auth.actions';
+import {Logout as LogoutAction} from '../../redux/actions/auth.actions';
 import Timer from './Timer';
-import { RenderIf, CloseIcon } from 'utils';
+import {RenderIf, CloseIcon} from 'utils';
 import {
 	guideDataObject,
 	guideDataObjectMobiles,
@@ -37,8 +37,8 @@ const menuItemStyle = {
 };
 
 const MenuItem = memo(
-	forwardRef(({ Icon = () => <></>, title, target = '#', ...rest }, ref) => {
-		const { pathname } = useRouter();
+	forwardRef(({Icon = () => <></>, title, target = '#', ...rest}, ref) => {
+		const {pathname} = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 		return (
@@ -65,19 +65,15 @@ const MenuItem = memo(
 );
 MenuItem.displayName = 'MenuItem';
 
-
-
-
-
-const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
-	const { pathname } = useRouter();
+const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
+	const {pathname} = useRouter();
 	const logout = LogoutAction();
 	const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 	return (
 		<Menu.Item
 			{...rest}
-			style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
+			style={{background: '#0072EF', color: 'white', ...menuItemStyle}}
 			icon={
 				<Icon
 					className={style.icon}
@@ -94,9 +90,6 @@ const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
 		</Menu.Item>
 	);
 };
-
-
-
 
 // console.log(OpenSubMenu);
 // const globalState = {
@@ -126,11 +119,13 @@ const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
 // globalState.progress[globalState[currentActiveIndex]]
 
 const SubmenuComp = memo(
-	forwardRef(({ Icon = () => <></>, title, target = '#', isProductOpen,onOpenChange, ...rest }, ref) => {
-		const { pathname } = useRouter();
+	forwardRef(({Icon = () => <>
+
+			</>, title, target = '#', isProductOpen, onOpenChange, ...rest}, ref) => {
+		const {pathname} = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
-		const { SubMenu } = Menu
+		const {SubMenu} = Menu;
 
 		return (
 			<div ref={ref}>
@@ -156,7 +151,7 @@ const SubmenuComp = memo(
 								alt="open"
 								width={14}
 								height={14}
-							// onClick={handleClick}
+								// onClick={handleClick}
 							/>
 						);
 					}}
@@ -189,15 +184,13 @@ const SubmenuComp = memo(
 					</Menu.Item>
 				</SubMenu>
 			</div>
-
 		);
-	}));
+	})
+);
 SubmenuComp.displayName = 'SubMenuContainer';
 
-
-const Sidebar = ({ isMobileView = false }) => {
-
-	const { SubMenu } = Menu;
+const Sidebar = ({isMobileView = false}) => {
+	const {SubMenu} = Menu;
 	const router = useRouter();
 	const setProductId = SetProductID();
 	const setProductDefault = SetProductDefault();
@@ -205,22 +198,21 @@ const Sidebar = ({ isMobileView = false }) => {
 
 	// const [isOpen, setIsOpen] = useState(false);
 
+	const [currentDataIndex, setCurrentDataIndex] = useState(0);
 
-	const [currentDataIndex, setCurrentDataIndex] = useState(0)
+	const guideDataObj = guideDataObject[currentDataIndex];
 
-	const guideDataObj = guideDataObject[currentDataIndex]
+	console.log('guideDataObj', guideDataObj);
 
-	console.log('guideDataObj', guideDataObj)
-
-
-	guideDataObj.menuItem === 'products' && console.log(positionRef.current.getBoundingClientRect(), 'current')
+	guideDataObj.menuItem === 'products' &&
+		console.log(positionRef.current.getBoundingClientRect(), 'current');
 	const changeContents = () => {
-		setCurrentDataIndex(currentDataIndex + 1)
-	}
+		setCurrentDataIndex(currentDataIndex + 1);
+	};
 
 	const setPreviousContents = () => {
-		setCurrentDataIndex(currentDataIndex - 1)
-	}
+		setCurrentDataIndex(currentDataIndex - 1);
+	};
 
 	const [isOpen, setIsOpen] = useState({
 		isProductOpen: false,
@@ -239,10 +231,10 @@ const Sidebar = ({ isMobileView = false }) => {
 		return route[route.length - 1];
 	});
 
-	const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
+	const {isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen} = isOpen;
 	const onOpenChange = (id) => {
 		// setIsOpen((isOpen) => !isOpen);
-		setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
+		setIsOpen((prev) => ({...isOpen, [id]: !isOpen[id]}));
 	};
 	const offsetCalculate = () => {
 		setCurrentPosition({
@@ -251,9 +243,6 @@ const Sidebar = ({ isMobileView = false }) => {
 			loaded: true,
 		});
 	};
-
-
-
 
 	useEffect(() => {
 		if (typeof window !== undefined && document) {
@@ -274,10 +263,14 @@ const Sidebar = ({ isMobileView = false }) => {
 				mode="inline"
 				theme="light"
 				className={style.menu}
-			// onClick={handleClick}
+				// onClick={handleClick}
 			>
 				<MenuItem
-					ref={guideDataObj.menuItem === 'dashboard' ? positionRef : null}
+					ref={
+						guideDataObj.menuItem === 'dashboard'
+							? positionRef
+							: null
+					}
 					key={1}
 					Icon={Dashboard}
 					title="Dashboard"
@@ -296,13 +289,15 @@ const Sidebar = ({ isMobileView = false }) => {
 					title="Products"
 					target="/account/kreator/products"
 				/> */}
-
 				<SubmenuComp
-					ref={guideDataObj.menuItem === 'products' ? positionRef : null}
+					ref={
+						guideDataObj.menuItem === 'products'
+							? positionRef
+							: null
+					}
 					isProductOpen={isProductOpen}
 					onOpenChange={onOpenChange}
 				/>
-
 				{/* <div
 					ref={guideDataObj.menuItem === 'products' ? positionRef : null}
 					style={{ border: guideDataObj.menuItem === 'products' ? '2px solid red' : "" }}
@@ -365,7 +360,11 @@ const Sidebar = ({ isMobileView = false }) => {
 				</div> */}
 				<SubMenu
 					key="kreators-menu"
-					ref={guideDataObj.menuItem === 'kreators' ? positionRef : null}
+					ref={
+						guideDataObj.menuItem === 'kreators'
+							? positionRef
+							: null
+					}
 					onClick={() => setIsActive('kreators')}
 					icon={
 						<KreatorsIcon
@@ -387,7 +386,7 @@ const Sidebar = ({ isMobileView = false }) => {
 								alt="open"
 								width={14}
 								height={14}
-							// onClick={handleClick}
+								// onClick={handleClick}
 							/>
 						);
 					}}
@@ -405,7 +404,11 @@ const Sidebar = ({ isMobileView = false }) => {
 				</SubMenu>
 				<SubMenu
 					key="affiliates-menu"
-					ref={guideDataObj.menuItem === 'affiliates' ? positionRef : null}
+					ref={
+						guideDataObj.menuItem === 'affiliates'
+							? positionRef
+							: null
+					}
 					onClick={() => setIsActive('affiliates')}
 					icon={
 						<AffiliatesIcon
@@ -427,7 +430,7 @@ const Sidebar = ({ isMobileView = false }) => {
 								alt="open"
 								width={14}
 								height={14}
-							// onClick={handleClick}
+								// onClick={handleClick}
 							/>
 						);
 					}}
@@ -467,7 +470,7 @@ const Sidebar = ({ isMobileView = false }) => {
 								alt="open"
 								width={14}
 								height={14}
-							// onClick={handleClick}
+								// onClick={handleClick}
 							/>
 						);
 					}}
@@ -498,7 +501,11 @@ const Sidebar = ({ isMobileView = false }) => {
 					onClick={() => setIsActive('help')}
 				/>
 				<MenuItem
-					ref={guideDataObj.menuItem === 'integrations' ? positionRef : null}
+					ref={
+						guideDataObj.menuItem === 'integrations'
+							? positionRef
+							: null
+					}
 					key={6}
 					Icon={Ticket}
 					title="Integrations"
@@ -506,7 +513,11 @@ const Sidebar = ({ isMobileView = false }) => {
 					onClick={() => setIsActive('integrations')}
 				/>{' '}
 				<MenuItem
-					ref={guideDataObj.menuItem === 'settings' ? positionRef : null}
+					ref={
+						guideDataObj.menuItem === 'settings'
+							? positionRef
+							: null
+					}
 					key={7}
 					Icon={Setting}
 					title="Settings"
@@ -534,7 +545,7 @@ const Sidebar = ({ isMobileView = false }) => {
 							<Image
 								src={CloseIcon}
 								className={style.toolTipCloseIcon}
-							// onClick={hideDashboardGuideModal}
+								// onClick={hideDashboardGuideModal}
 							/>
 						</div>
 					</div>
@@ -547,7 +558,7 @@ const Sidebar = ({ isMobileView = false }) => {
 							<button
 								// disabled={index === 0}
 								className={style.toolTipBtn}
-							onClick={setPreviousContents}
+								onClick={setPreviousContents}
 							>
 								Prev
 							</button>

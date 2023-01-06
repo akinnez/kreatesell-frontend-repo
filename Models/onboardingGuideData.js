@@ -1,30 +1,30 @@
-export const guideDataObject = [ 
+export const guideDataObject = [
 	{
-		menuItem:'dashboard',
+		menuItem: 'dashboard',
 		modalTitle: 'Here is your Dashboard tab',
 		modalText:
 			'You can see the summary of all activities that have been carried out on your KreateSell account at a glance.',
 	},
 	{
-		menuItem:'store',
+		menuItem: 'store',
 		modalTitle: 'This is your store tab',
 		modalText:
 			'Click to view everything about your KreateSell store. Add, delete and update your business/store information here.',
 	},
 	{
-		menuItem:'products', 
+		menuItem: 'products',
 		modalTitle: 'Here is your products tab',
 		modalText:
 			'Click to easily add a new product, create unique coupons for your customers. And view all your products published on KreateSell.',
 	},
 	{
-		menuItem:'kreators',
+		menuItem: 'kreators',
 		modalTitle: 'This is your Kreators tab',
 		modalText:
 			'Here you can explore how people are engaging with your digital products. Click to approve or decline Affiliate requests and see abandoned transactions for follow up.',
 	},
 	{
-		menuItem:'affiliates',
+		menuItem: 'affiliates',
 		modalTitle: 'Here is your Affiliates tab',
 		modalText:
 			'Click here to join the KreateSell Affiliate Marketing program. Start exploring all products available for you to promote. And get your unique link from approved requests, to begin enjoying commissions from your sales.',
@@ -36,25 +36,25 @@ export const guideDataObject = [
 	//     modalText: 'Soon, you will be able to earn every time you invite someone to join KreateSell, using your unique referral link. Watch out for this!',
 	// },
 	{
-		menuItem:'sales',
+		menuItem: 'sales',
 		modalTitle: 'This is your Sales tab',
 		modalText:
 			'Here you can explore all things money-related. View your payout and transaction details. Also, monitor the revenue made from your digital products, in one click.',
 	},
 	{
-		menuItem:'help',
+		menuItem: 'help',
 		modalTitle: 'Get Help here',
 		modalText:
 			'You can reach out about any complaints you have, related to your KreateSell account, and get immediate assistance. Click here to have your issues resolved swiftly.',
 	},
 	{
-		menuItem:'integrations',
+		menuItem: 'integrations',
 		modalTitle: 'Your Integrations happen here',
 		modalText:
 			'Easily use your favorite tools with KreateSell. Click to see all supported tools and integrate them without any stress.',
 	},
 	{
-		menuItem:'settings',
+		menuItem: 'settings',
 		modalTitle: 'Explore your account Settings',
 		modalText:
 			'Here you can select your preferred currencies, set your store experience for visitors and buyers, tighten your account security, upgrade your plan, and much more.',
