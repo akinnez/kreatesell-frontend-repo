@@ -9,114 +9,115 @@ import {
 } from '../../../Models/onboardingGuideData';
 
 const OnboardingGuide = ({
-	visible,
-	setProceedToOnboard,
-	setGuideModalVisible,
-	setIsmobile,
+	// visible,
+	// setProceedToOnboard,
+	// setGuideModalVisible,
+	// setIsmobile,
+	guideDataObject,
+	goToNext
 }) => {
-	const [index, setIndex] = useState(0);
-	const [mindex, setMIndex] = useState(0);
-	const [toogleMobile, setToogleMobile] = useState(false);
+	// const [index, setIndex] = useState(0);
+	// const [mindex, setMIndex] = useState(0);
+	// const [toogleMobile, setToogleMobile] = useState(false);
 
-	const changeContents = () => {
-		setIndex(index + 1);
-	};
+	// const changeContents = () => {
+	// 	setIndex(index + 1);
+	// };
 
-	const changeContentsMobile = () => {
-		setMIndex(mindex + 1);
-	};
+	// const changeContentsMobile = () => {
+	// 	setMIndex(mindex + 1);
+	// };
 
-	const setPreviousContents = () => {
-		setIndex(index - 1);
-		setToogleMobile(true);
-	};
-	const setPreviousMobile = () => {
-		setMIndex(mindex - 1);
-	};
+	// const setPreviousContents = () => {
+	// 	setIndex(index - 1);
+	// 	setToogleMobile(true);
+	// };
+	// const setPreviousMobile = () => {
+	// 	setMIndex(mindex - 1);
+	// };
 
-	const proceedToDashboard = () => {
-		setProceedToOnboard(true);
-		setGuideModalVisible(true);
-		toogleMobile ? setIsmobile(true) : setIsmobile(false);
-	};
+	// const proceedToDashboard = () => {
+	// 	setProceedToOnboard(true);
+	// 	setGuideModalVisible(true);
+	// 	toogleMobile ? setIsmobile(true) : setIsmobile(false);
+	// };
 
-	const guideInfoObject = guideDataObject[index];
-	const guideInfoObjectMobile = guideDataObjectMobiles[mindex];
+	// const guideInfoObject = guideDataObject[index];
+	// const guideInfoObjectMobile = guideDataObjectMobiles[mindex];
 
-	const [_visible, setVisible] = useState(false);
+	// const [_visible, setVisible] = useState(false);
 
-	useEffect(() => {
-		setVisible(visible);
-	}, [visible]);
+	// useEffect(() => {
+	// 	setVisible(visible);
+	// }, [visible]);
 
 	return (
 		<div
-			className={`
-			${styles.onboardingGuideModal}
-			${!_visible && 'hidden'} 
-			${_visible && styles.styleDisplay}`}
+			className={styles.onboardingGuideModal} 
 		>
 			{/* desktop view */}
-			<div style={{postion: 'relative', width: '100%', height: '100%'}}>
+			{/* <div style={{postion: 'relative', width: '100%', height: '100%'}}> */}
 				<div
 					className={styles.onboardingTooltip}
 					style={{
-						left: guideInfoObject.positionLeft,
-						top: guideInfoObject.positionTop,
+						left: guideDataObject.positionLeft,
+						top: guideDataObject.positionTop
 					}}
 				>
 					<div className={styles.guideArrow}></div>
 					<div className={styles.toolTipTitleContainer}>
 						<p className={styles.toolTipModalTitle}>
-							{guideInfoObject.modalTitle}
+							{/* {guideInfoObject.modalTitle} */}
+							{guideDataObject.modalTitle}
 						</p>
 						<div>
 							<Image
 								src={CloseIcon}
 								className={styles.toolTipCloseIcon}
-								onClick={proceedToDashboard}
+								// onClick={proceedToDashboard}
 							/>
 						</div>
 					</div>
 					<p className={styles.toolTipText}>
-						{guideInfoObject.modalText}
+						{/* {guideInfoObject.modalText} */}
+						{guideDataObject.modalText}
 					</p>
 					<div className={styles.toolTipTitleContainer}>
-						<p className={styles.toolTipBtnText}>{index + 1}/9</p>
+						<p className={styles.toolTipBtnText}>2/9</p>
 						<div className={styles.toolTipBtnContainer}>
 							<button
-								disabled={index === 0}
+								// disabled={index === 0}
 								className={styles.toolTipBtn}
-								onClick={setPreviousContents}
+								// onClick={setPreviousContents}
 							>
 								Prev
 							</button>
-							{index !== guideDataObject.length - 1 && (
+							{/* {index !== guideDataObject.length - 1 && ( */}
 								<button
-									disabled={
-										index === guideDataObject.length - 1
-									}
+									// disabled={
+									// 	index === guideDataObject.length - 1
+									// }
 									className={styles.toolTipNextBtn}
-									onClick={changeContents}
+									onClick={()=> goToNext()}
 								>
 									Next
 								</button>
-							)}
-							{index === guideDataObject.length - 1 && (
+							{/* )} */}
+							{/* {index === guideDataObject.length - 1 && (
 								<button
 									className={styles.toolTipNextBtn}
 									onClick={proceedToDashboard}
 								>
 									Next
 								</button>
-							)}
+							)} */}
 						</div>
 					</div>
 				</div>
-			</div>
+			{/* </div> */}
 
 			{/* mobiles */}
-			<div
+			{/* <div
 				className={styles.onboardingTooltipMobile}
 				style={{
 					left: guideInfoObjectMobile.positionLeft,
@@ -170,7 +171,7 @@ const OnboardingGuide = ({
 						)}
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
@@ -212,7 +213,7 @@ export const DashboardGuide = ({setHideDahboardGuideModal}) => {
 					className={styles.onboardingTooltip}
 					style={{
 						left: dashboardGuideObject.positionLeft,
-						top: dashboardGuideObject.positionTop,
+						top: dashboardGuideObject.positionTop,  
 					}}
 				>
 					<div className={styles.dashboardGuideArrow}></div>

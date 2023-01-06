@@ -7,6 +7,7 @@ const initialState = {
 	error: {},
 	couponID: '',
 	applyCouponResponse: {},
+	couponPagination: {}, 
 };
 const CouponReducer = (state = initialState, {type, payload}) => {
 	switch (type) {

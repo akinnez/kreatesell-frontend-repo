@@ -24,7 +24,12 @@ const Coupon = () => {
 
 	console.log(couponData, 'couponData');
 
-	const {loading, coupons} = useSelector((state) => state.coupon);
+	const {loading, coupons, couponPagination} = useSelector((state) => state.coupon);
+    
+	const {page, total_records, limit} = couponPagination;
+
+	const handlePaginationChange = (page) => getCoupon(page);
+
 	useEffect(() => {
 		getCoupon();
 	}, []);
@@ -153,6 +158,11 @@ const Coupon = () => {
 						loading={loading}
 						pagination={{
 							position: ['none', 'bottomLeft'],
+							total: total_records,
+							defaultCurrent: 1,
+							onChange: handlePaginationChange, 
+							current: page,
+							defaultPageSize: limit,
 						}}
 						size="large"
 						scroll={{

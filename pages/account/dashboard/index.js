@@ -225,14 +225,14 @@ const Dashboard = () => {
 				</Modal>
 			)}
 
-			{!guideModalVisible && isFirstTimeUser && (
+			{/* {!guideModalVisible && isFirstTimeUser && (
 				<OnboardingGuide
 					visible={modalVisible}
 					setProceedToOnboard={setProceedToOnboard}
 					setGuideModalVisible={setGuideModalVisible}
 					setIsmobile={setIsmobile}
 				/>
-			)}
+			)} */}
 
 			{hideDahboardGuideModal && (
 				<DashboardGuide

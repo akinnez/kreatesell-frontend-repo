@@ -1,6 +1,8 @@
 .sidebar {
 	max-height: 90vh;
 	overflow: scroll;
+	// position: relative;
+	// z-index: 999;
 	.menu {
 		border: none;
 		padding: 20px 10px;
@@ -281,4 +283,97 @@
 		font-size: 0.875rem !important;
 		color: #ffffff !important;
 	}
+}
+
+//onboarding guide 
+
+
+.onboardingTooltip {
+	// position: absolute;
+	// left:16px;
+	// top:10%;
+	width: 427px;
+	// height: 196px;
+	padding: 24px;
+	border-radius: 8px;
+	background-color: #f1fcf8;
+	transition: all 0.5s linear;
+
+	// @include screen('medium') {
+	// 	display: none;
+	// }
+}
+
+.dashboardGuideArrow {
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-bottom-color: #f1fcf8;
+	position: absolute;
+	top: -12%;
+	left: 85%;
+}
+.toolTipTitleContainer {
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+}
+.toolTipModalTitle {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 28px;
+	text-align: center;
+	color: #595959;
+}
+.toolTipCloseIcon {
+	cursor: pointer;
+}
+.toolTipText {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 24px;
+	color: #595959;
+}
+.toolTipBtnText {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 28px;
+	color: #595959;
+}
+.toolTipBtnContainer {
+	display: flex;
+	align-content: center;
+}
+.toolTipBtn {
+	padding: 6px 20px;
+	background: #ffffff;
+	border: 0.5px solid #0072ef;
+	border-radius: 8px;
+	margin-right: 8px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	color: #0072ef;
+}
+
+.toolTipNextBtn {
+	padding: 6px 20px;
+	background: #0072ef;
+	border: 0.5px solid #0072ef;
+	border-radius: 8px;
+	margin-right: 8px;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	color: #ffffff;
 }
