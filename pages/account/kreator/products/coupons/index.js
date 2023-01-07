@@ -128,7 +128,12 @@ const Coupon = () => {
 				// handleProductStatus={(e) => setProductStatusId(e)}
 				/>
 
-				<div className="flex justify-between items-center pt-3 mt-5 mr-10">
+				<div
+					className={
+						styles.container +
+						' flex justify-between items-center pt-3 mt-5 mr-10'
+					}
+				>
 					<h2
 						className={
 							styles.lightGrey +
@@ -137,7 +142,9 @@ const Coupon = () => {
 					>
 						Coupons
 					</h2>
-					<div className="flex justify-end items-center cursor-pointer">
+					<div
+						className={`flex justify-end items-center cursor-pointer ${styles.export}`}
+					>
 						<div className="text-primary-blue  font-semibold text-xs pr-2">
 							Export Data in CSV
 						</div>
@@ -252,14 +259,14 @@ const MobileCouponCard = ({
 			<div className={styles.dateBox}>
 				<div className={styles.dates}>
 					<span className={styles.date}>start date</span>
-					<span>
+					<span className={styles.val}>
 						{`${formatStartDate.split('at')[0]},`}{' '}
 						{formatStartTime.split('at')[1]}
 					</span>
 				</div>
 				<div className={styles.dates}>
 					<span className={styles.date}>end date</span>
-					<span>
+					<span className={styles.val}>
 						{`${formatEndDate.split('at')[0]},`}{' '}
 						{formatEndTime.split('at')[1]}
 					</span>
