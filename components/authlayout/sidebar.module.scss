@@ -140,9 +140,9 @@
 	// border: 1px solid red;
 	max-width: 372px;
 	height: 100%;
-	margin-top: 6.2rem;
+	// margin-top: 6.2rem;
 	background-color: #ffffff;
-	z-index: 300;
+	z-index: 900;
 	position: absolute;
 
 	.profile {
@@ -250,7 +250,7 @@
 		max-width: 348px;
 		padding: 0.8rem;
 		left: 30px;
-		right: 10px;
+		// right: 10px;
 	}
 	@media (min-width: 768px) {
 		max-height: 140px;

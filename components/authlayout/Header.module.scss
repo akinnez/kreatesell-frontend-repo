@@ -98,10 +98,19 @@
 	}
 }
 
+.navCloseBox {
+	position: absolute;
+	right: 10px;
+	background-color: #fff;
+	z-index: 800;
+	// border: 1px solid red;
+}
 .navClose {
 	display: flex;
+	// position: relative;
 	justify-content: space-between;
 	align-items: center;
+	z-index: 900;
 	// padding: 13px 16px 13px 24px;
 	padding: 25px 16px 25px 10px;
 	// background: #ffffff;

@@ -182,7 +182,9 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 					) : (
 						<div onClick={toggleView} className={style.navClose}>
 							<Image src={NavCloseLogo} alt="navClose logo" />
-							<Image src={NavCloseIcon} alt="close icon" />
+							<div className={style.navCloseBox}>
+								<Image src={NavCloseIcon} alt="close icon" />
+							</div>
 						</div>
 					)}
 				</>
