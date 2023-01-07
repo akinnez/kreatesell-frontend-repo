@@ -15,7 +15,7 @@ import {useRouter} from 'next/router';
 import {GetCoupons} from 'redux/actions';
 import {useEffect, useState, useMemo} from 'react';
 import {useSelector} from 'react-redux';
-import {Popover} from 'antd';
+import {Popover, Pagination} from 'antd';
 
 const Coupon = () => {
 	const router = useRouter();
@@ -142,6 +142,7 @@ const Coupon = () => {
 					>
 						Coupons
 					</h2>
+
 					<div
 						className={`flex justify-end items-center cursor-pointer ${styles.export}`}
 					>
@@ -177,6 +178,13 @@ const Coupon = () => {
 							key={item?.key}
 						/>
 					))}
+					<div>
+						<Pagination
+							position={['none', 'topLeft']}
+							total={memoisedCouponData?.length}
+							defaultCurrent={1}
+						/>
+					</div>
 				</div>
 				<div className="flex flex-col items-center">
 					<h2
