@@ -41,9 +41,9 @@ export const Footer = () => {
 							rel="noopener noreferrer"
 							className="text"
 							target="blank"
-							href="mailto:info@kreatesell.com"
+							href="mailto:support@kreatesell.com"
 						>
-							info@kreatesell.com
+							support@kreatesell.com
 						</a>
 					</div>
 
@@ -327,9 +327,9 @@ export const Footer = () => {
 						rel="noopener noreferrer"
 						className={styles.mobileFooterEmail}
 						target="blank"
-						href="mailto:info@kreatesell.com"
+						href="mailto:support@kreatesell.com"
 					>
-						info@kreatesell.com
+						support@kreatesell.com
 					</a>
 
 					<div className={styles.engageUs}>Engage with us</div>
