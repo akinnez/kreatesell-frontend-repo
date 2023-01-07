@@ -120,13 +120,17 @@
 }
 
 .mainNav {
+	min-width: 100vw;
 	// position: relative;
 	@media (max-width: 768px) {
-		position: sticky;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 200;
+		// position: sticky;
+		// margin-bottom: 1rem;
+		// position: fixed;
+		// top: 0px;
+		// margin-top: 0px;
+		// left: 0;
+		// right: 0;
+		// z-index: 200;
 		// border: 2px solid red;
 		background-color: #fff;
 	}

@@ -268,7 +268,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									}
 								>
 									<span
-										className={`p-2 flex`}
+										className={`p-2 flex ${style.item}`}
 										style={{
 											border: '1px solid #D9D9D9',
 											borderRadius: '8px',
@@ -325,7 +325,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									}
 								>
 									<span
-										className={`p-2 flex`}
+										className={`p-2 flex ${style.item}`}
 										style={{
 											border: '1px solid #D9D9D9',
 											borderRadius: '8px',
@@ -381,7 +381,7 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 									}
 								>
 									<span
-										className={`p-2 flex`}
+										className={`p-2 flex ${style.item}`}
 										style={{
 											border: '1px solid #D9D9D9',
 											borderRadius: '8px',
