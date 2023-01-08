@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import {useRouter} from 'next/router';
-import {Typography} from 'antd';
-import {AiOutlineArrowRight} from 'react-icons/ai';
+import { useRouter } from 'next/router';
+import { Typography } from 'antd';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 import styles from './index.module.scss';
 
 const StatsHeader = ({
@@ -10,8 +10,12 @@ const StatsHeader = ({
 	orderUrl,
 	isAffiliateCard = false,
 	isAnAffiliate,
+	// positionRef,
+	// guideDataObj 
 }) => {
 	const router = useRouter();
+
+	// console.log(guideDataObj, 'guideDataObjguideDataObjguideDataObj')
 
 	return (
 		<div className={styles.stats__header}>
@@ -36,10 +40,14 @@ const StatsHeader = ({
 				<>
 					{title === 'Affiliate' && !isAnAffiliate ? (
 						<Link href="#">
-							<a className={styles.notYetAnAffiliate}>
-								{title}&#39;s Dashboard &nbsp;{' '}
-								<AiOutlineArrowRight />
-							</a>
+							<div 
+							// ref={guideDataObj.menuItem === 'kreatorDashboard' ? positionRef : null}
+							>
+								<a className={styles.notYetAnAffiliate}>
+									{title}&#39;s Dashboard &nbsp;{' '}
+									<AiOutlineArrowRight />
+								</a>
+							</div>
 						</Link>
 					) : (
 						<Link href={url}>

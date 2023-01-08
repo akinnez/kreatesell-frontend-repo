@@ -1,15 +1,16 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './sidebar.module.scss';
-import {Layout, Modal} from 'antd';
+import { Layout, Modal, Typography } from 'antd';
 import Sidebar from './sidebar';
 import Logo from './logo';
 import Nav from './header';
 import useSWR from 'swr';
-import {Spin, Dropdown} from 'antd';
-import {ToastContainer} from 'react-toastify';
-import {useDispatch, useSelector} from 'react-redux';
+import { Spin, Dropdown } from 'antd';
+import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import ApiService from '../../utils/axios';
 import * as types from '../../redux/types';
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import fetcher from '../../utils/fetcher';
@@ -25,16 +26,16 @@ import {
 	PromptInfoIcon,
 	Congratulations,
 } from 'utils';
-import {Logout} from '../../redux/actions';
-import {useRouter} from 'next/router';
-import {USER} from 'redux/types/auth.types';
-import {GetProductTypes} from 'redux/actions/product.actions';
+import { Logout } from '../../redux/actions';
+import { useRouter } from 'next/router';
+import { USER } from 'redux/types/auth.types';
+import { GetProductTypes } from 'redux/actions/product.actions';
 import useFetchUtilities from 'hooks/useFetchUtilities';
 import useFetchStore from 'hooks/useFetchStore';
 import useFetchNotifications from 'hooks/useFetchNotifications';
-import {menu} from './header';
+import { menu } from './header';
 import CloseIcon from 'components/affiliates/CloseIcon';
-import {Button} from 'components';
+import { Button } from 'components';
 
 const Loader = () => {
 	return (
@@ -64,16 +65,16 @@ const Index = ({
 	mobilePadding = false,
 	headerTitle,
 }) => {
-	const {Header, Footer, Sider, Content} = Layout;
+	const { Header, Footer, Sider, Content } = Layout;
 	const router = useRouter();
 	const [info, setInfo] = useState('');
 	const pathname = router.pathname;
 
 	const {
-		store: {store_details},
+		store: { store_details },
 	} = useSelector((state) => state.store);
 
-	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
+	const { data } = useSWR('v1/kreatesell/store/me', fetcher);
 	// console.log("data from store = ", data?.user);
 
 	const userPlan = data?.user?.user_plan;
@@ -119,14 +120,14 @@ const Index = ({
 	const logout = Logout();
 	useEffect(() => {
 		if (userIsEmpty) {
-			dispatch({type: USER.REQUEST});
+			dispatch({ type: USER.REQUEST });
 
 			const userStorage = getUser();
 
 			setUserName(userStorage?.full_name);
 
 			if (userStorage) {
-				dispatch({type: USER.SUCCESS, payload: userStorage});
+				dispatch({ type: USER.SUCCESS, payload: userStorage });
 			}
 		}
 	}, [dispatch, userIsEmpty]);
@@ -144,6 +145,9 @@ const Index = ({
 
 	const [showOverlayOnClick, setShowOverlayOnClick] = useState(false);
 
+	const [proceedToOnboard, setProceedToOnboard] = useState(false);
+
+
 	return (
 		<section className={styles.layoutMain}>
 			{storeSetupPromptIsShown() && (
@@ -155,17 +159,26 @@ const Index = ({
 					theme="light"
 					style={{
 						height: '100vh',
-						position: 'sticky',
+						// position: 'sticky',
 						top: 0,
 						left: 0,
+						position: 'relative',
+						zIndex: 1000
 					}}
 					trigger={null}
 					breakpoint="lg"
 					collapsedWidth={0}
 				>
-					<div style={{padding: '0 5px'}}>
+					<div style={{
+						padding: '0 5px',
+						position: 'relative',
+						zIndex: 1000,
+					}}
+					>
 						<Logo />
-						<Sidebar />
+						<div style={{ position: 'relative' }}>
+							<Sidebar setProceedToOnboard={setProceedToOnboard} />
+						</div>
 					</div>
 				</Sider>
 				{isMobileSideBarOpen && (
@@ -221,7 +234,10 @@ const Index = ({
 						<Sidebar isMobileView={true} />
 					</div>
 				)}
-				<Layout>
+				<Layout style={{
+					position: 'relative',
+					zIndex: 4
+				}}>
 					<Nav
 						headerTitle={headerTitle}
 						toggleView={toggleView}
@@ -230,16 +246,14 @@ const Index = ({
 					{/* <div className={styles.mobileLoginSideBar}>
             <Sidebar />
           </div> */}
-					<Content
-						// style={{
-						// 	backgroundColor: "rgba(245, 245, 245, 1)",
-						// 	padding: "50px 20px 10px 20px",
-						// }}
-
+					<Content style={{
+						// backgroundColor: "rgba(245, 245, 245, 1)",
+						// padding: "50px 20px 10px 20px",
+						position: 'relative',
+						zIndex: 4,
+					}}
 						// The previous style above was replaced with the one below cos a different bg needed to be dynamically rendered for mobile view.
-						className={`content ${
-							mobilePadding && `authLayout-no-mobile-padding`
-						}`}
+						className={`content ${mobilePadding && `authLayout-no-mobile-padding`}`}
 					>
 						<ToastContainer
 							position="top-right"
@@ -259,17 +273,21 @@ const Index = ({
 			</Layout>
 
 			<style jsx>{`
-				.content {
+				.content { 
 					background-color: rgba(245, 245, 245, 1);
 					padding: 50px 30px 10px 30px;
 				}
 			`}</style>
 			<SuccesfulSalesModal />
+
+			{proceedToOnboard && (
+				<WelcomeOnBoard />
+			)}
 		</section>
 	);
 };
 
-const SetUpPrompt = ({show}) => {
+const SetUpPrompt = ({ show }) => {
 	return (
 		<div className={`${styles.setUpPrompt} ${show ? styles.show : ''}`}>
 			<div className={styles.promptHeader}>
@@ -298,7 +316,7 @@ const SuccesfulSalesModal = () => {
 			maskClosable={false}
 			closeIcon={<CloseIcon />}
 			className={styles.affiliate__modal}
-			style={{textAlign: 'center'}}
+			style={{ textAlign: 'center' }}
 			width={800}
 		>
 			<Image src={Congratulations} alt="" />
@@ -316,5 +334,63 @@ const SuccesfulSalesModal = () => {
 		</Modal>
 	);
 };
+
+const WelcomeOnBoard = () => {
+
+	const [modalVisible, setModalVisible] = useState(true);
+	const { Text, Title } = Typography;
+
+	const hideModal = async () => {
+		try {
+			const response = await axios.get(
+				`${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
+			);
+			console.log(response?.data);
+		} catch (error) {
+			console.log(error);
+		}
+		setModalVisible(false)
+	}
+
+	return (
+		<Modal
+			title={null}
+			footer={null}
+			closable={false}
+			// onCancel={()=> console.log('hghgh')}
+			visible={modalVisible}
+			maskClosable={false}
+			width={700}
+		>
+			<div className={styles.modal__wrapper}>
+				<header className={styles.header}>
+					<Title>Thrilled to welcome you on board </Title>
+				</header>
+				<div className={styles.content}>
+					<p>
+						<Text>
+							You&apos;re few minutes away from selling
+							your e-books, online courses, templates,
+							memberships and subscriptions on an amazing
+							all-in-one edtech platform.
+						</Text>
+					</p>
+				</div>
+				<footer className={styles.footer}>
+					{/* {user?.percentage_completed !== 100 && ( */}
+					<Link href="/account/dashboard/affiliate">
+						<a>Tips to sell your contents</a>
+					</Link>
+					<Button
+						bgColor="primaryBlue"
+						text="Proceed to Dashboard"
+						className={`py-3 ${styles.modalBtn}`}
+						onClick={hideModal}
+					/>
+				</footer>
+			</div>
+		</Modal>
+	)
+}
 
 export default Index;

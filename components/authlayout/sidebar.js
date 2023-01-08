@@ -1,11 +1,13 @@
-import {useState, memo, useEffect, useRef, forwardRef} from 'react';
+import { useState, memo, useEffect, useRef, forwardRef,useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import {Menu} from 'antd';
-import style from './sidebar.module.scss';
-import {useRouter} from 'next/router';
-import {SetProductDefault, SetProductID} from 'redux/actions';
+import { Menu } from 'antd';
+import style from './sidebar.module.scss'; 
+import axiosAPI from 'utils/axios';
+import { useRouter } from 'next/router';
+import { mutate } from 'swr';
+import { SetProductDefault, SetProductID } from 'redux/actions';
 import {
 	Shop,
 	Dashboard,
@@ -20,15 +22,15 @@ import {
 	KreatorsIcon,
 	SalesIcon,
 } from '../IconPack';
-import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
+import { BusinessPlanBox, OpenSubMenu } from '../../utils/assets';
 
-import {Logout as LogoutAction} from '../../redux/actions/auth.actions';
+import { Logout as LogoutAction } from '../../redux/actions/auth.actions';
 import Timer from './Timer';
-import {RenderIf, CloseIcon} from 'utils';
+import { RenderIf, CloseIcon } from 'utils';
 import {
 	guideDataObject,
 	guideDataObjectMobiles,
-	dashboardGuideData,
+	dashboardGuideData, 
 } from '../../Models/onboardingGuideData';
 
 const menuItemStyle = {
@@ -37,8 +39,8 @@ const menuItemStyle = {
 };
 
 const MenuItem = memo(
-	forwardRef(({Icon = () => <></>, title, target = '#', ...rest}, ref) => {
-		const {pathname} = useRouter();
+	forwardRef(({ Icon = () => <></>, title, target = '#', ...rest }, ref) => {
+		const { pathname } = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 		return (
@@ -65,15 +67,15 @@ const MenuItem = memo(
 );
 MenuItem.displayName = 'MenuItem';
 
-const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
-	const {pathname} = useRouter();
+const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+	const { pathname } = useRouter();
 	const logout = LogoutAction();
 	const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 	return (
 		<Menu.Item
 			{...rest}
-			style={{background: '#0072EF', color: 'white', ...menuItemStyle}}
+			style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
 			icon={
 				<Icon
 					className={style.icon}
@@ -119,14 +121,14 @@ const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
 // globalState.progress[globalState[currentActiveIndex]]
 
 const SubmenuComp = memo(
-	forwardRef(({Icon = () => <>
+	forwardRef(({ Icon = () => <>
 
-			</>, title, target = '#', isProductOpen, onOpenChange, ...rest}, ref) => {
-		const {pathname} = useRouter();
+	</>, title, target = '#', isProductOpen, onOpenChange, ...rest }, ref) => {
+		const { pathname } = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
-		const {SubMenu} = Menu;
-
+		const { SubMenu } = Menu;
+ 
 		return (
 			<div ref={ref}>
 				<SubMenu
@@ -151,7 +153,7 @@ const SubmenuComp = memo(
 								alt="open"
 								width={14}
 								height={14}
-								// onClick={handleClick}
+							// onClick={handleClick}
 							/>
 						);
 					}}
@@ -189,8 +191,8 @@ const SubmenuComp = memo(
 );
 SubmenuComp.displayName = 'SubMenuContainer';
 
-const Sidebar = ({isMobileView = false}) => {
-	const {SubMenu} = Menu;
+const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
+	const { SubMenu } = Menu;
 	const router = useRouter();
 	const setProductId = SetProductID();
 	const setProductDefault = SetProductDefault();
@@ -198,14 +200,15 @@ const Sidebar = ({isMobileView = false}) => {
 
 	// const [isOpen, setIsOpen] = useState(false);
 
+	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
+	console.log(isFirstTimeUser,'isFirstTimeUser')
+	
+	const [hideDahboardGuideModal, setHideDahboardGuideModal] = useState(false);
+
 	const [currentDataIndex, setCurrentDataIndex] = useState(0);
 
 	const guideDataObj = guideDataObject[currentDataIndex];
 
-	console.log('guideDataObj', guideDataObj);
-
-	guideDataObj.menuItem === 'products' &&
-		console.log(positionRef.current.getBoundingClientRect(), 'current');
 	const changeContents = () => {
 		setCurrentDataIndex(currentDataIndex + 1);
 	};
@@ -231,15 +234,15 @@ const Sidebar = ({isMobileView = false}) => {
 		return route[route.length - 1];
 	});
 
-	const {isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen} = isOpen;
+	const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
 	const onOpenChange = (id) => {
 		// setIsOpen((isOpen) => !isOpen);
-		setIsOpen((prev) => ({...isOpen, [id]: !isOpen[id]}));
+		setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
 	};
 	const offsetCalculate = () => {
 		setCurrentPosition({
-			top: positionRef.current.getBoundingClientRect().top,
-			left: positionRef.current.getBoundingClientRect().left + 150,
+			top: positionRef.current.getBoundingClientRect().top - 95,
+			left: positionRef.current.getBoundingClientRect().left + 160,
 			loaded: true,
 		});
 	};
@@ -257,13 +260,45 @@ const Sidebar = ({isMobileView = false}) => {
 		};
 	}, []);
 
+	const hideDashboardGuideModal = () => {
+		setHideDahboardGuideModal(true); 
+		setProceedToOnboard(true)
+	};
+
+	const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
+
+	const getUserVisitStatus = useCallback(() => {
+		axiosAPI.request(
+			'get',
+			mainStoreUrl,
+			(res) => {
+				// console.log(
+				// 	'isAnAffiliate from endpoint = ',
+				// 	res?.data?.user?.is_affiliate
+				// );
+				setIsFirstTimeUser(res?.data?.user?.is_first_time);
+				mutate(mainStoreUrl);
+			},
+			(err) => {
+				console.log('error = ', err);
+			}
+		);
+	}, [mainStoreUrl]);
+
+
+	useEffect(() => {
+		getUserVisitStatus();
+		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
+	}, [isFirstTimeUser, getUserVisitStatus]);
+
+
 	return (
 		<div className={style.sidebar}>
 			<Menu
 				mode="inline"
 				theme="light"
 				className={style.menu}
-				// onClick={handleClick}
+			// onClick={handleClick}
 			>
 				<MenuItem
 					ref={
@@ -283,40 +318,100 @@ const Sidebar = ({isMobileView = false}) => {
 					title="Store"
 					target="/account/kreator/store"
 				/>
-				{/* <MenuItem
-					key={3}
-					Icon={Product}
-					title="Products"
-					target="/account/kreator/products"
-				/> */}
-				<SubmenuComp
-					ref={
-						guideDataObj.menuItem === 'products'
-							? positionRef
-							: null
-					}
-					isProductOpen={isProductOpen}
-					onOpenChange={onOpenChange}
-				/>
-				{/* <div
-					ref={guideDataObj.menuItem === 'products' ? positionRef : null}
-					style={{ border: guideDataObj.menuItem === 'products' ? '2px solid red' : "" }}
-				>
-					<SubMenu
+
+				{guideDataObj.menuItem === 'products' ? (
+					<MenuItem
+						ref={guideDataObj.menuItem === 'products' ? positionRef : null}
 						key="sub1"
-						onTitleClick={() => onOpenChange('isProductOpen')}
+						Icon={Product}
+						title="Products"
+						target="/account/kreator/products/all"
+					/>
+				)
+					: (
+						<SubMenu
+							key="sub1"
+							onTitleClick={() => onOpenChange('isProductOpen')}
+							icon={
+								<Product
+									className={style.icon}
+									height={20}
+									width={20}
+								/>
+							}
+							title="Products"
+							className={style.subMenu}
+							id="isProductOpen"
+							expandIcon={() => {
+								return isProductOpen ? (
+									<CloseSubMenu className={style.closeIcon} />
+								) : (
+									<Image
+										src={OpenSubMenu.src}
+										alt="open"
+										width={14}
+										height={14}
+									// onClick={handleClick}
+									/>
+								);
+							}}
+						>
+							<Menu.Item key={35}>
+								<Link href="/account/kreator/products/all">
+									<a>All Products</a>
+								</Link>
+							</Menu.Item>
+							<Menu.Item key={36}>
+								<Link href="/account/kreator/products/create">
+									<a
+										onClick={(e) => {
+											e.preventDefault();
+											setProductId('');
+											setProductDefault();
+											console.log('ytrfghjuytrdfgh');
+											router.push(
+												'/account/kreator/products/create'
+											);
+										}}
+									>
+										Create Product
+									</a>
+								</Link>
+							</Menu.Item>
+							<Menu.Item key={37}>
+								<Link href="/account/kreator/products/coupons">
+									<a>Coupon Codes</a>
+								</Link>
+							</Menu.Item>
+						</SubMenu>
+					)}
+
+
+				{guideDataObj.menuItem === 'kreators' ? (
+					<MenuItem
+						ref={guideDataObj.menuItem === 'kreators' ? positionRef : null}
+						key="kreators-menu"
+						Icon={KreatorsIcon}
+						title="Kreators"
+						target="/account/kreator/affiliates-requests"
+					/>
+				) : (
+					<SubMenu
+						key="kreators-menu"
+						onClick={() => setIsActive('kreators')}
 						icon={
-							<Product
+							<KreatorsIcon
 								className={style.icon}
 								height={20}
 								width={20}
 							/>
 						}
-						title="Products"
+						title="Kreators"
 						className={style.subMenu}
-						id="isProductOpen"
+						onTitleClick={() => onOpenChange('isKreatorOpen')}
+						id="isKreatorOpen"
 						expandIcon={() => {
-							return isProductOpen ? (
+							return isKreatorOpen ? (
 								<CloseSubMenu className={style.closeIcon} />
 							) : (
 								<Image
@@ -329,168 +424,125 @@ const Sidebar = ({isMobileView = false}) => {
 							);
 						}}
 					>
-						<Menu.Item key={35}>
-							<Link href="/account/kreator/products/all">
-								<a>All Products</a>
+						<Menu.Item key={41}>
+							<Link href="/account/kreator/affiliates-requests">
+								<a>Affiliates Requests</a>
 							</Link>
 						</Menu.Item>
-						<Menu.Item key={36}>
-							<Link href="/account/kreator/products/create">
-								<a
-									onClick={(e) => {
-										e.preventDefault();
-										setProductId('');
-										setProductDefault();
-										console.log('ytrfghjuytrdfgh');
-										router.push(
-											'/account/kreator/products/create'
-										);
-									}}
-								>
-									Create Product
-								</a>
-							</Link>
-						</Menu.Item>
-						<Menu.Item key={37}>
-							<Link href="/account/kreator/products/coupons">
-								<a>Coupon Codes</a>
+						<Menu.Item key={40}>
+							<Link href="/account/kreator/abandoned-carts">
+								<a>Abandoned Carts</a>
 							</Link>
 						</Menu.Item>
 					</SubMenu>
-				</div> */}
-				<SubMenu
-					key="kreators-menu"
-					ref={
-						guideDataObj.menuItem === 'kreators'
-							? positionRef
-							: null
-					}
-					onClick={() => setIsActive('kreators')}
-					icon={
-						<KreatorsIcon
-							className={style.icon}
-							height={20}
-							width={20}
-						/>
-					}
-					title="Kreators"
-					className={style.subMenu}
-					onTitleClick={() => onOpenChange('isKreatorOpen')}
-					id="isKreatorOpen"
-					expandIcon={() => {
-						return isKreatorOpen ? (
-							<CloseSubMenu className={style.closeIcon} />
-						) : (
-							<Image
-								src={OpenSubMenu.src}
-								alt="open"
-								width={14}
-								height={14}
-								// onClick={handleClick}
+				)}
+
+				{guideDataObj.menuItem === 'affiliates' ? (
+					<MenuItem
+						ref={guideDataObj.menuItem === 'affiliates' ? positionRef : null}
+						key="affiliates-menu"
+						Icon={AffiliatesIcon}
+						title="Affiliates"
+						target="/account/kreator/affiliates-requests"
+					/>
+				) : (
+					<SubMenu
+						key="affiliates-menu"
+						onClick={() => setIsActive('affiliates')}
+						icon={
+							<AffiliatesIcon
+								className={style.icon}
+								height={20}
+								width={20}
 							/>
-						);
-					}}
-				>
-					<Menu.Item key={41}>
-						<Link href="/account/kreator/affiliates-requests">
-							<a>Affiliates Requests</a>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key={40}>
-						<Link href="/account/kreator/abandoned-carts">
-							<a>Abandoned Carts</a>
-						</Link>
-					</Menu.Item>
-				</SubMenu>
-				<SubMenu
-					key="affiliates-menu"
-					ref={
-						guideDataObj.menuItem === 'affiliates'
-							? positionRef
-							: null
-					}
-					onClick={() => setIsActive('affiliates')}
-					icon={
-						<AffiliatesIcon
-							className={style.icon}
-							height={20}
-							width={20}
-						/>
-					}
-					title="Affiliates"
-					className={style.subMenu}
-					onTitleClick={() => onOpenChange('isAffiliateOpen')}
-					id="iisAffiliateOpen"
-					expandIcon={() => {
-						return isAffiliateOpen ? (
-							<CloseSubMenu className={style.closeIcon} />
-						) : (
-							<Image
-								src={OpenSubMenu.src}
-								alt="open"
-								width={14}
-								height={14}
+						}
+						title="Affiliates"
+						className={style.subMenu}
+						onTitleClick={() => onOpenChange('isAffiliateOpen')}
+						id="iisAffiliateOpen"
+						expandIcon={() => {
+							return isAffiliateOpen ? (
+								<CloseSubMenu className={style.closeIcon} />
+							) : (
+								<Image
+									src={OpenSubMenu.src}
+									alt="open"
+									width={14}
+									height={14}
 								// onClick={handleClick}
+								/>
+							);
+						}}
+					>
+						<Menu.Item key={38}>
+							<Link href="/account/affiliate/market-place">
+								<a>Market Place</a>
+							</Link>
+						</Menu.Item>
+						<Menu.Item key={39}>
+							<Link href="/account/affiliate/requests">
+								<a>Requests</a>
+							</Link>
+						</Menu.Item>
+					</SubMenu>
+				)}
+
+
+				{guideDataObj.menuItem === 'sales' ? (
+					<MenuItem
+						ref={guideDataObj.menuItem === 'sales' ? positionRef : null}
+						key="sales-menu"
+						Icon={SalesIcon}
+						title="Sales"
+						target="/account/sales/payouts"
+					/>
+				) : (
+					<SubMenu
+						key="sales-menu"
+						onClick={() => setIsActive('sales')}
+						icon={
+							<SalesIcon
+								className={style.icon}
+								height={20}
+								width={20}
 							/>
-						);
-					}}
-				>
-					<Menu.Item key={38}>
-						<Link href="/account/affiliate/market-place">
-							<a>Market Place</a>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key={39}>
-						<Link href="/account/affiliate/requests">
-							<a>Requests</a>
-						</Link>
-					</Menu.Item>
-				</SubMenu>
-				<SubMenu
-					key="sales-menu"
-					ref={guideDataObj.menuItem === 'sales' ? positionRef : null}
-					onClick={() => setIsActive('sales')}
-					icon={
-						<SalesIcon
-							className={style.icon}
-							height={20}
-							width={20}
-						/>
-					}
-					title="Sales"
-					className={style.subMenu}
-					onTitleClick={() => onOpenChange('isSalesOpen')}
-					id="isSalesOpen"
-					expandIcon={() => {
-						return isSalesOpen ? (
-							<CloseSubMenu className={style.closeIcon} />
-						) : (
-							<Image
-								src={OpenSubMenu.src}
-								alt="open"
-								width={14}
-								height={14}
+						}
+						title="Sales"
+						className={style.subMenu}
+						onTitleClick={() => onOpenChange('isSalesOpen')}
+						id="isSalesOpen"
+						expandIcon={() => {
+							return isSalesOpen ? (
+								<CloseSubMenu className={style.closeIcon} />
+							) : (
+								<Image
+									src={OpenSubMenu.src}
+									alt="open"
+									width={14}
+									height={14}
 								// onClick={handleClick}
-							/>
-						);
-					}}
-				>
-					<Menu.Item key="sales-payouts">
-						<Link href="/account/sales/payouts">
-							<a>Payouts</a>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key="sales-transactions">
-						<Link href="/account/sales/transactions">
-							<a>Transactions</a>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key="sales-revenue">
-						<Link href="/account/sales/revenue">
-							<a>Revenue</a>
-						</Link>
-					</Menu.Item>
-				</SubMenu>
+								/>
+							);
+						}}
+					>
+						<Menu.Item key="sales-payouts">
+							<Link href="/account/sales/payouts">
+								<a>Payouts</a>
+							</Link>
+						</Menu.Item>
+						<Menu.Item key="sales-transactions">
+							<Link href="/account/sales/transactions">
+								<a>Transactions</a>
+							</Link>
+						</Menu.Item>
+						<Menu.Item key="sales-revenue">
+							<Link href="/account/sales/revenue">
+								<a>Revenue</a>
+							</Link>
+						</Menu.Item>
+					</SubMenu>
+				)}
+
 				<MenuItem
 					ref={guideDataObj.menuItem === 'help' ? positionRef : null}
 					key={5}
@@ -523,20 +575,32 @@ const Sidebar = ({isMobileView = false}) => {
 					title="Settings"
 					target="/account/kreator/settings"
 				/>
-				<LogoutItem key={8} Icon={Logout} title="Logout" />
+				<LogoutItem key={8} Icon={Logout} title="Logout" /> 
 			</Menu>
-			<RenderIf condition={currentPosition.loaded}>
+		    {!hideDahboardGuideModal && isFirstTimeUser &&  (
+					<RenderIf condition={currentPosition.loaded}>
+					<div
+						style={{
+							background: 'rgba(0,0,0,0.7)',
+							position: 'fixed',
+							top: 0,
+							left: 250,
+							right: 0,
+							bottom: 0,
+							zIndex: 5000, 
+						}}
+					></div>
 				<div
 					id="website-guide"
 					style={{
 						position: 'absolute',
 						left: `${currentPosition.left}px`,
 						top: `${currentPosition.top}px`,
-						zIndex: 5,
+						zIndex: 5000,
 					}}
 					className={style.onboardingTooltip}
 				>
-					<div className={style.dashboardGuideArrow}></div>
+					<div className={style.guideArrow}></div>
 					<div className={style.toolTipTitleContainer}>
 						<p className={style.toolTipModalTitle}>
 							{guideDataObj.modalTitle}
@@ -545,7 +609,7 @@ const Sidebar = ({isMobileView = false}) => {
 							<Image
 								src={CloseIcon}
 								className={style.toolTipCloseIcon}
-								// onClick={hideDashboardGuideModal}
+							// onClick={hideDashboardGuideModal}
 							/>
 						</div>
 					</div>
@@ -553,38 +617,41 @@ const Sidebar = ({isMobileView = false}) => {
 						{guideDataObj.modalText}
 					</p>
 					<div className={style.toolTipTitleContainer}>
-						<p className={style.toolTipBtnText}>1/3</p>
+						<p className={style.toolTipBtnText}>{guideDataObj.index}/9</p>
 						<div className={style.toolTipBtnContainer}>
 							<button
-								// disabled={index === 0}
+								disabled={guideDataObj.menuItem === 'dashboard'} 
 								className={style.toolTipBtn}
 								onClick={setPreviousContents}
 							>
 								Prev
 							</button>
-							{/* {index !== dashboardGuideData.length - 1 && ( */}
-							<button
-								// disabled={
-								// 	index === dashboardGuideData.length - 1
-								// }
-								className={style.toolTipNextBtn}
-								onClick={changeContents}
-							>
-								Next
-							</button>
-							{/* )} */}
-							{/* {index === dashboardGuideData.length - 1 && (
+
+							{guideDataObj.menuItem !== 'settings' && (
 								<button
-									className={styles.toolTipNextBtn}
+									className={style.toolTipNextBtn}
+									onClick={changeContents}
+								>
+									Next
+								</button>
+							)}
+
+							{guideDataObj.menuItem === 'settings' && (
+								<button
+									className={style.toolTipNextBtn}
 									onClick={hideDashboardGuideModal}
 								>
 									Got it
 								</button>
-							)} */}
+							)}
 						</div>
 					</div>
 				</div>
 			</RenderIf>
+			)}
+
+			{/* dashboardmodals come up here */}
+
 			{!isMobileView && <Timer />}
 		</div>
 	);

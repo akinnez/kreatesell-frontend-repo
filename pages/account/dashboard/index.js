@@ -1,8 +1,8 @@
-import {useState, useEffect, useCallback} from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import {Modal, Button, Typography} from 'antd';
-import {StatsCard} from 'components/account-dashboard/StatsCard';
+import { Modal, Button, Typography } from 'antd';
+import { StatsCard } from 'components/account-dashboard/StatsCard';
 import AuthLayout from 'components/authlayout';
 import DashboardFilters from 'components/account-dashboard/DashboardFilters';
 import StatsHeader from 'components/account-dashboard/StatsHeader';
@@ -11,15 +11,17 @@ import {
 	GetSalesStatistics,
 	GetAffiliateSalesStatistics,
 } from '../../../redux/actions';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
-import {mutate} from 'swr';
+import { mutate } from 'swr';
 import axiosAPI from 'utils/axios';
-import OnboardingGuide, {DashboardGuide} from './OnboardingGuide';
+import OnboardingGuide, { DashboardGuide } from './OnboardingGuide';
+import { RenderIf, CloseIcon } from 'utils';
+import { dashboardGuideData } from '../../../Models/onboardingGuideData';
 
 // import useSWR from "swr";
 
-const {Text, Title} = Typography;
+const { Text, Title } = Typography;
 
 const Dashboard = () => {
 	const [modalVisible, setModalVisible] = useState(true);
@@ -39,8 +41,8 @@ const Dashboard = () => {
 	const [hideDahboardGuideModal, setHideDahboardGuideModal] = useState(false);
 	const [isMobile, setIsmobile] = useState(false);
 
-	const {salesStatistics} = useSelector((state) => state.store);
-	const {affiliateSalesStatistics} = useSelector((state) => state.store);
+	const { salesStatistics } = useSelector((state) => state.store);
+	const { affiliateSalesStatistics } = useSelector((state) => state.store);
 
 	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 	const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
@@ -80,13 +82,13 @@ const Dashboard = () => {
 
 	const handleFilterSubmit = () => {
 		getSalesStatistics(
-			() => {},
-			() => {},
+			() => { },
+			() => { },
 			filters
 		);
 		getAffiliateSalesStatistics(
-			() => {},
-			() => {},
+			() => { },
+			() => { },
 			filters
 		);
 	};
@@ -100,10 +102,62 @@ const Dashboard = () => {
 
 	useEffect(() => {
 		getUserVisitStatus();
-
 		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
 	// console.log('filters', filters);
+
+	//get position refs of filter and the dashboard pointers  
+
+	// const [currentDataIndex, setCurrentDataIndex] = useState(0);
+
+	// const guideDataObj = dashboardGuideData[currentDataIndex];
+
+	// console.log(guideDataObj,'guideDataObjguideDataObjguideDataObj')
+
+	// const changeContents = () => {
+	// 	setCurrentDataIndex(currentDataIndex + 1);
+	// };
+
+	// const setPreviousContents = () => {
+	// 	setCurrentDataIndex(currentDataIndex - 1);
+	// };
+
+	// const hideDashboardGuideModal = () => {
+	// 	setHideDahboardGuideModal(true);
+	// 	setProceedToOnboard(true)
+	// };
+
+	// const positionRef = useRef();
+	// const [currentPosition, setCurrentPosition] = useState({
+	// 	top: 0,
+	// 	left: 0,
+	// 	loaded: false,
+	// });
+
+	// const offsetCalculate = () => {
+	// 	setCurrentPosition({
+	// 		top: positionRef.current.getBoundingClientRect().top - 60,
+	// 		left: positionRef.current.getBoundingClientRect().left - 550,
+	// 		loaded: true,
+	// 	});
+	// };
+
+	// console.log(positionRef.current,'positionRef.current')
+
+	// useEffect(() => {
+	// 	if (typeof window !== undefined && document) {
+	// 		offsetCalculate();
+	// 	}
+	// }, [currentDataIndex]); //fill this array up with dependency 
+
+	// useEffect(() => {
+	// 	window.addEventListener('scroll', offsetCalculate, true);
+	// 	return () => {
+	// 		window.removeEventListener('scroll', offsetCalculate, true);
+	// 	};
+	// }, []);
+
+
 	return (
 		<AuthLayout>
 			<Head>
@@ -123,6 +177,9 @@ const Dashboard = () => {
 						getSalesStatistics,
 						getAffiliateSalesStatistics,
 					}}
+					// positionRef={positionRef}
+					// guideDataObj={guideDataObj}
+				// ref={ref}
 				/>
 			</header>
 			<section>
@@ -132,6 +189,8 @@ const Dashboard = () => {
 						url="/account/dashboard/kreator"
 						isAffiliateCard={false}
 						isAnAffiliate={isAnAffiliate}
+						// positionRef={positionRef}
+						// guideDataObj={guideDataObj}
 					/>
 					<StatsCard
 						totalVisits={salesStatistics.total_visits}
@@ -144,9 +203,8 @@ const Dashboard = () => {
 				{/* show only when user is an affiliate */}
 				{/* {isAffiliate && ( */}
 				<div
-					className={`${styles.stats__container} ${
-						isAnAffiliate ? styles.isAnAffiliate : ''
-					}`}
+					className={`${styles.stats__container} ${isAnAffiliate ? styles.isAnAffiliate : ''
+						}`}
 				>
 					<StatsHeader
 						title="Affiliate"
@@ -174,7 +232,7 @@ const Dashboard = () => {
 						}
 						profit={
 							affiliateSalesStatistics.total_commission_earned ===
-							null
+								null
 								? 0
 								: affiliateSalesStatistics.total_commission_earned
 						}
@@ -184,7 +242,7 @@ const Dashboard = () => {
 				{/* )} */}
 			</section>
 			{/* {isFirstTimer */}
-			{proceedToOnboard && (
+			{/* {proceedToOnboard && (
 				<Modal
 					title={null}
 					footer={null}
@@ -209,7 +267,6 @@ const Dashboard = () => {
 							</p>
 						</div>
 						<footer className={styles.footer}>
-							{/* {user?.percentage_completed !== 100 && ( */}
 							<Link href="/account/dashboard/affiliate">
 								<a>Tips to sell your contents</a>
 							</Link>
@@ -223,7 +280,7 @@ const Dashboard = () => {
 						</footer>
 					</div>
 				</Modal>
-			)}
+			)} */}
 
 			{/* {!guideModalVisible && isFirstTimeUser && (
 				<OnboardingGuide
@@ -234,11 +291,76 @@ const Dashboard = () => {
 				/>
 			)} */}
 
-			{hideDahboardGuideModal && (
+
+			{/* <RenderIf condition={currentPosition.loaded}>
+				<div
+					style={{
+						background: 'rgba(0,0,0,0.7)',
+						position: 'fixed',
+						top: 0,
+						left: 250,
+						right: 0,
+						bottom: 0,
+						zIndex: 5000,
+					}}
+				></div>
+				<div
+					id="website-guide"
+					style={{
+						position: 'absolute',
+						left: `${currentPosition.left}px`,
+						top: `${currentPosition.top}px`,
+						zIndex: 5000,
+					}}
+					className={styles.onboardingTooltip}
+				>
+					<div className={styles.dashboardGuideArrow}></div>
+					<div className={styles.toolTipTitleContainer}>
+						<p className={styles.toolTipModalTitle}>
+							{guideDataObj.modalTitle}
+						</p>
+					</div>
+					<p className={styles.toolTipText}>
+						{guideDataObj.modalText}
+					</p>
+					<div className={styles.toolTipTitleContainer}>
+						<p className={styles.toolTipBtnText}>{guideDataObj.index}/9</p>
+						<div className={styles.toolTipBtnContainer}>
+							<button
+								disabled={guideDataObj.menuItem === 'dashboard'}
+								className={styles.toolTipBtn}
+								onClick={setPreviousContents}
+							>
+								Prev
+							</button>
+
+							{guideDataObj.menuItem !== 'settings' && (
+								<button
+									className={styles.toolTipNextBtn}
+									onClick={changeContents}
+								>
+									Next
+								</button>
+							)}
+
+							{guideDataObj.menuItem === 'settings' && (
+								<button
+									className={styles.toolTipNextBtn}
+									onClick={hideDashboardGuideModal}
+								>
+									Got it
+								</button>
+							)}
+						</div>
+					</div>
+				</div>
+			</RenderIf> */}
+
+			{/* {hideDahboardGuideModal && (
 				<DashboardGuide
 					setHideDahboardGuideModal={setHideDahboardGuideModal}
 				/>
-			)}
+			)} */}
 		</AuthLayout>
 	);
 };

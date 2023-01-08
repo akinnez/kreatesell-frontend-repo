@@ -136,6 +136,8 @@ export const Dashboard = ({
 	);
 };
 
+
+
 export const Product = ({primaryColor, className, active}) => {
 	return (
 		<div

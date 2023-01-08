@@ -1,7 +1,9 @@
+@import '../../public/css/colors.scss';
+
 .sidebar {
 	max-height: 90vh;
-	overflow: scroll;
-	// position: relative;
+	overflow-y: scroll;
+	overflow-x: hidden;
 	// z-index: 999;
 	.menu {
 		border: none;
@@ -303,6 +305,16 @@
 	// }
 }
 
+.guideArrow {
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-right-color: #f1fcf8;
+	position: absolute;
+	top: 5%;
+	left: -6%;
+}
+
 .dashboardGuideArrow {
 	width: 0;
 	height: 0;
@@ -375,4 +387,89 @@
 	font-size: 14px;
 	line-height: 20px;
 	color: #ffffff;
+}
+
+.onboardingGuideModal {
+	z-index: 1500;
+	// position: relative;
+	background: $modal-bg;
+	inset: 0;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	height: 100%;
+	top: 0;
+	left: 0;
+	width: 100%;
+	// left: 14%;
+
+	// @include screen('large') {
+	// 	// left: 0;
+	// 	// width: 100vw;
+	// 	left: 20%;
+	// }
+
+	// @include screen('4k-large') {
+	// 	left: 10%;
+	// 	// width: 55vw;
+	// }
+}
+
+
+.modal__wrapper {
+	text-align: center;
+	padding: 2rem 1rem;
+}
+
+.header {
+	margin-bottom: 32px;
+
+	> h1 {
+		margin-bottom: 0;
+		font-weight: 700;
+		font-size: 18px;
+		color: #595959;
+	}
+}
+
+.content {
+	margin-bottom: 32px;
+
+	p {
+		margin-bottom: 0;
+
+		> [class='ant-typography'] {
+			font-weight: 400;
+			font-size: 14px;
+			color: #595959;
+		}
+	}
+}
+
+.footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 20px 40px;
+
+	> button,
+	a {
+		font-weight: 700;
+		font-size: 14px;
+		border-radius: 8px;
+		width: auto;
+		height: auto;
+		padding: 10px 20px;
+	}
+
+	> a:first-child {
+		border: 1px solid #0072ef;
+		color: #0072ef;
+
+		&:hover {
+			border-color: #0072ef;
+			color: #0072ef;
+		}
+	}
 }

@@ -35,6 +35,8 @@ const DashboardFilters = ({
 	filters,
 	getSalesStatistics,
 	getAffiliateSalesStatistics,
+	// positionRef,
+	// guideDataObj
 }) => {
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [showFilter, setShowFilter] = useState(false);
@@ -241,6 +243,7 @@ const DashboardFilters = ({
 										type="primary"
 										htmlType="submit"
 										style={{marginLeft: '2rem'}}
+										// ref={guideDataObj.menuItem === 'filter' ? positionRef : null}
 									>
 										<Image
 											src="/images/FilterIcon.png"
@@ -256,7 +259,7 @@ const DashboardFilters = ({
 					</Form>
 				</div>
 			</div>
-			{isFiltered && <ResetBtn resetFilters={resetFilters} />}
+			{isFiltered && <ResetBtn resetFilters={resetFilters} />} 
 		</>
 	);
 };
