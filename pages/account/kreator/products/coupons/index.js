@@ -4,18 +4,18 @@ import {
 	CouponHeader,
 	emptyComponent,
 } from 'components';
-import { DownloadIcon, CartIcon, ActionBtn } from 'utils';
-import { MobileCouponActionComponent } from 'components';
-import { format, parseISO, parse, subDays } from 'date-fns';
+import {DownloadIcon, CartIcon, ActionBtn} from 'utils';
+import {MobileCouponActionComponent} from 'components';
+import {format, parseISO, parse, subDays} from 'date-fns';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
-import { Table } from 'antd';
-import { useRouter } from 'next/router';
-import { GetCoupons } from 'redux/actions';
-import { useEffect, useState, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { Popover } from 'antd';
+import {Table} from 'antd';
+import {useRouter} from 'next/router';
+import {GetCoupons} from 'redux/actions';
+import {useEffect, useState, useMemo} from 'react';
+import {useSelector} from 'react-redux';
+import {Popover} from 'antd';
 
 const Coupon = () => {
 	const router = useRouter();
@@ -30,11 +30,11 @@ const Coupon = () => {
 
 	console.log(couponData, 'couponData');
 
-	const { loading, coupons, couponPagination } = useSelector(
+	const {loading, coupons, couponPagination} = useSelector(
 		(state) => state.coupon
 	);
 
-	const { page, total_records, limit } = couponPagination;
+	const {page, total_records, limit} = couponPagination;
 
 	const handlePaginationChange = (page) => getCoupon(page);
 
@@ -90,14 +90,12 @@ const Coupon = () => {
 		}
 	};
 
-
 	const handleSearchSubmit = () => {
 		getCoupon(1, productName, startDate, endDate, currencyFilter, () =>
 			console.log('done')
 		);
 		console.log(productName, startDate, endDate);
 	};
-
 
 	const resetFilters = () => {
 		// setProductData();
@@ -108,7 +106,6 @@ const Coupon = () => {
 		// get products
 		getCoupon();
 	};
-
 
 	const memoisedCouponData = useMemo(
 		() =>
@@ -207,7 +204,7 @@ const Coupon = () => {
 					handleCurrencyChange={(e) => setCurrencyFilter(e)}
 					// productStatusOptions={productStatusOptions}
 					handleProductStatus={(e) => setProductStatusId(e)}
-					{...{ resetFilters }}
+					{...{resetFilters}}
 				/>
 
 				<div className="flex justify-between items-center pt-3 mt-5 mr-10">

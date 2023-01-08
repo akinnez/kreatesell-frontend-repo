@@ -53,7 +53,7 @@ export const GetCoupons = () => {
 			${currencyFilter ? `&Currency_Id=${currencyFilter}` : ''} 
 			`,
 				(res) => {
-					console.log(res,'res me');
+					console.log(res, 'res me');
 					const coupons = res?.data?.data;
 					const data = res?.data;
 					const payload = {

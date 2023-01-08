@@ -1,34 +1,34 @@
 export const guideDataObject = [
 	{
-		index:"1",
+		index: '1',
 		menuItem: 'dashboard',
 		modalTitle: 'Here is your Dashboard tab',
 		modalText:
 			'You can see the summary of all activities that have been carried out on your KreateSell account at a glance.',
 	},
 	{
-		index:"2",
+		index: '2',
 		menuItem: 'store',
 		modalTitle: 'This is your store tab',
 		modalText:
 			'Click to view everything about your KreateSell store. Add, delete and update your business/store information here.',
 	},
 	{
-		index:"3",
+		index: '3',
 		menuItem: 'products',
 		modalTitle: 'Here is your products tab',
 		modalText:
 			'Click to easily add a new product, create unique coupons for your customers. And view all your products published on KreateSell.',
 	},
 	{
-		index:"4",
+		index: '4',
 		menuItem: 'kreators',
 		modalTitle: 'This is your Kreators tab',
 		modalText:
 			'Here you can explore how people are engaging with your digital products. Click to approve or decline Affiliate requests and see abandoned transactions for follow up.',
 	},
 	{
-		index:"5",
+		index: '5',
 		menuItem: 'affiliates',
 		modalTitle: 'Here is your Affiliates tab',
 		modalText:
@@ -41,28 +41,28 @@ export const guideDataObject = [
 	//     modalText: 'Soon, you will be able to earn every time you invite someone to join KreateSell, using your unique referral link. Watch out for this!',
 	// },
 	{
-		index:"6",
+		index: '6',
 		menuItem: 'sales',
 		modalTitle: 'This is your Sales tab',
 		modalText:
 			'Here you can explore all things money-related. View your payout and transaction details. Also, monitor the revenue made from your digital products, in one click.',
 	},
 	{
-		index:"7",
+		index: '7',
 		menuItem: 'help',
 		modalTitle: 'Get Help here',
 		modalText:
 			'You can reach out about any complaints you have, related to your KreateSell account, and get immediate assistance. Click here to have your issues resolved swiftly.',
 	},
 	{
-		index:"8",
+		index: '8',
 		menuItem: 'integrations',
 		modalTitle: 'Your Integrations happen here',
 		modalText:
 			'Easily use your favorite tools with KreateSell. Click to see all supported tools and integrate them without any stress.',
 	},
 	{
-		index:"9",
+		index: '9',
 		menuItem: 'settings',
 		modalTitle: 'Explore your account Settings',
 		modalText:
@@ -96,21 +96,21 @@ export const guideDataObjectMobiles = [
 
 export const dashboardGuideData = [
 	{
-		index:"0",
+		index: '0',
 		menuItem: 'kreatorDashboard',
 		modalTitle: 'Check out your Kreator’s Dashboard',
 		modalText:
 			'Click here to start exploring all your Kreator privileges. View your products, live analytics of engagements with your products, how much you have made and much more.',
 	},
 	{
-		index:"1",
+		index: '1',
 		menuItem: 'affliatiesDashboard',
 		modalTitle: 'Explore your Affiliate’s Dashboard',
 		modalText:
 			'Click here to see how far you have come as an Affiliate on KreateSell. From your earnings to sales records, and everything in between.',
 	},
 	{
-		index:"2",
+		index: '2',
 		menuItem: 'filters',
 		modalTitle: 'Explore better with Filter',
 		modalText:

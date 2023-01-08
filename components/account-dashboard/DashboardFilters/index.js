@@ -259,7 +259,7 @@ const DashboardFilters = ({
 					</Form>
 				</div>
 			</div>
-			{isFiltered && <ResetBtn resetFilters={resetFilters} />} 
+			{isFiltered && <ResetBtn resetFilters={resetFilters} />}
 		</>
 	);
 };

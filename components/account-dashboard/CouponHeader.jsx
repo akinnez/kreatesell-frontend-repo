@@ -14,7 +14,7 @@ export const CouponHeader = ({
 	handleStartDate,
 	handleEndDate,
 	handleSearchSubmit,
-	handleCurrencyChange, 
+	handleCurrencyChange,
 	// productStatusOptions,
 	resetFilters,
 	handleShowSelect,
@@ -35,7 +35,7 @@ export const CouponHeader = ({
 		}
 	}, [countriesCurrency]);
 
-	const format = 'YYYY-MM-DD'; 
+	const format = 'YYYY-MM-DD';
 	return (
 		<div>
 			<Form

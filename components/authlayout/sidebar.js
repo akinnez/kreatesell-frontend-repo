@@ -1,13 +1,20 @@
-import { useState, memo, useEffect, useRef, forwardRef,useCallback } from 'react';
+import {
+	useState,
+	memo,
+	useEffect,
+	useRef,
+	forwardRef,
+	useCallback,
+} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { Menu } from 'antd';
-import style from './sidebar.module.scss'; 
+import {Menu} from 'antd';
+import style from './sidebar.module.scss';
 import axiosAPI from 'utils/axios';
-import { useRouter } from 'next/router';
-import { mutate } from 'swr';
-import { SetProductDefault, SetProductID } from 'redux/actions';
+import {useRouter} from 'next/router';
+import {mutate} from 'swr';
+import {SetProductDefault, SetProductID} from 'redux/actions';
 import {
 	Shop,
 	Dashboard,
@@ -22,15 +29,15 @@ import {
 	KreatorsIcon,
 	SalesIcon,
 } from '../IconPack';
-import { BusinessPlanBox, OpenSubMenu } from '../../utils/assets';
+import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
 
-import { Logout as LogoutAction } from '../../redux/actions/auth.actions';
+import {Logout as LogoutAction} from '../../redux/actions/auth.actions';
 import Timer from './Timer';
-import { RenderIf, CloseIcon } from 'utils';
+import {RenderIf, CloseIcon} from 'utils';
 import {
 	guideDataObject,
 	guideDataObjectMobiles,
-	dashboardGuideData, 
+	dashboardGuideData,
 } from '../../Models/onboardingGuideData';
 
 const menuItemStyle = {
@@ -39,8 +46,8 @@ const menuItemStyle = {
 };
 
 const MenuItem = memo(
-	forwardRef(({ Icon = () => <></>, title, target = '#', ...rest }, ref) => {
-		const { pathname } = useRouter();
+	forwardRef(({Icon = () => <></>, title, target = '#', ...rest}, ref) => {
+		const {pathname} = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 		return (
@@ -67,15 +74,15 @@ const MenuItem = memo(
 );
 MenuItem.displayName = 'MenuItem';
 
-const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
-	const { pathname } = useRouter();
+const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
+	const {pathname} = useRouter();
 	const logout = LogoutAction();
 	const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 	return (
 		<Menu.Item
 			{...rest}
-			style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
+			style={{background: '#0072EF', color: 'white', ...menuItemStyle}}
 			icon={
 				<Icon
 					className={style.icon}
@@ -121,14 +128,14 @@ const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
 // globalState.progress[globalState[currentActiveIndex]]
 
 const SubmenuComp = memo(
-	forwardRef(({ Icon = () => <>
+	forwardRef(({Icon = () => <>
 
-	</>, title, target = '#', isProductOpen, onOpenChange, ...rest }, ref) => {
-		const { pathname } = useRouter();
+			</>, title, target = '#', isProductOpen, onOpenChange, ...rest}, ref) => {
+		const {pathname} = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
-		const { SubMenu } = Menu;
- 
+		const {SubMenu} = Menu;
+
 		return (
 			<div ref={ref}>
 				<SubMenu
@@ -153,7 +160,7 @@ const SubmenuComp = memo(
 								alt="open"
 								width={14}
 								height={14}
-							// onClick={handleClick}
+								// onClick={handleClick}
 							/>
 						);
 					}}
@@ -191,8 +198,8 @@ const SubmenuComp = memo(
 );
 SubmenuComp.displayName = 'SubMenuContainer';
 
-const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
-	const { SubMenu } = Menu;
+const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
+	const {SubMenu} = Menu;
 	const router = useRouter();
 	const setProductId = SetProductID();
 	const setProductDefault = SetProductDefault();
@@ -201,8 +208,8 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 	// const [isOpen, setIsOpen] = useState(false);
 
 	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
-	console.log(isFirstTimeUser,'isFirstTimeUser')
-	
+	console.log(isFirstTimeUser, 'isFirstTimeUser');
+
 	const [hideDahboardGuideModal, setHideDahboardGuideModal] = useState(false);
 
 	const [currentDataIndex, setCurrentDataIndex] = useState(0);
@@ -234,10 +241,10 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 		return route[route.length - 1];
 	});
 
-	const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
+	const {isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen} = isOpen;
 	const onOpenChange = (id) => {
 		// setIsOpen((isOpen) => !isOpen);
-		setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
+		setIsOpen((prev) => ({...isOpen, [id]: !isOpen[id]}));
 	};
 	const offsetCalculate = () => {
 		setCurrentPosition({
@@ -261,8 +268,8 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 	}, []);
 
 	const hideDashboardGuideModal = () => {
-		setHideDahboardGuideModal(true); 
-		setProceedToOnboard(true)
+		setHideDahboardGuideModal(true);
+		setProceedToOnboard(true);
 	};
 
 	const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
@@ -285,12 +292,10 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 		);
 	}, [mainStoreUrl]);
 
-
 	useEffect(() => {
 		getUserVisitStatus();
 		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
-
 
 	return (
 		<div className={style.sidebar}>
@@ -298,7 +303,7 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 				mode="inline"
 				theme="light"
 				className={style.menu}
-			// onClick={handleClick}
+				// onClick={handleClick}
 			>
 				<MenuItem
 					ref={
@@ -318,78 +323,82 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 					title="Store"
 					target="/account/kreator/store"
 				/>
-
 				{guideDataObj.menuItem === 'products' ? (
 					<MenuItem
-						ref={guideDataObj.menuItem === 'products' ? positionRef : null}
+						ref={
+							guideDataObj.menuItem === 'products'
+								? positionRef
+								: null
+						}
 						key="sub1"
 						Icon={Product}
 						title="Products"
 						target="/account/kreator/products/all"
 					/>
-				)
-					: (
-						<SubMenu
-							key="sub1"
-							onTitleClick={() => onOpenChange('isProductOpen')}
-							icon={
-								<Product
-									className={style.icon}
-									height={20}
-									width={20}
-								/>
-							}
-							title="Products"
-							className={style.subMenu}
-							id="isProductOpen"
-							expandIcon={() => {
-								return isProductOpen ? (
-									<CloseSubMenu className={style.closeIcon} />
-								) : (
-									<Image
-										src={OpenSubMenu.src}
-										alt="open"
-										width={14}
-										height={14}
+				) : (
+					<SubMenu
+						key="sub1"
+						onTitleClick={() => onOpenChange('isProductOpen')}
+						icon={
+							<Product
+								className={style.icon}
+								height={20}
+								width={20}
+							/>
+						}
+						title="Products"
+						className={style.subMenu}
+						id="isProductOpen"
+						expandIcon={() => {
+							return isProductOpen ? (
+								<CloseSubMenu className={style.closeIcon} />
+							) : (
+								<Image
+									src={OpenSubMenu.src}
+									alt="open"
+									width={14}
+									height={14}
 									// onClick={handleClick}
-									/>
-								);
-							}}
-						>
-							<Menu.Item key={35}>
-								<Link href="/account/kreator/products/all">
-									<a>All Products</a>
-								</Link>
-							</Menu.Item>
-							<Menu.Item key={36}>
-								<Link href="/account/kreator/products/create">
-									<a
-										onClick={(e) => {
-											e.preventDefault();
-											setProductId('');
-											setProductDefault();
-											console.log('ytrfghjuytrdfgh');
-											router.push(
-												'/account/kreator/products/create'
-											);
-										}}
-									>
-										Create Product
-									</a>
-								</Link>
-							</Menu.Item>
-							<Menu.Item key={37}>
-								<Link href="/account/kreator/products/coupons">
-									<a>Coupon Codes</a>
-								</Link>
-							</Menu.Item>
-						</SubMenu>
-					)}
-
-
+								/>
+							);
+						}}
+					>
+						<Menu.Item key={35}>
+							<Link href="/account/kreator/products/all">
+								<a>All Products</a>
+							</Link>
+						</Menu.Item>
+						<Menu.Item key={36}>
+							<Link href="/account/kreator/products/create">
+								<a
+									onClick={(e) => {
+										e.preventDefault();
+										setProductId('');
+										setProductDefault();
+										console.log('ytrfghjuytrdfgh');
+										router.push(
+											'/account/kreator/products/create'
+										);
+									}}
+								>
+									Create Product
+								</a>
+							</Link>
+						</Menu.Item>
+						<Menu.Item key={37}>
+							<Link href="/account/kreator/products/coupons">
+								<a>Coupon Codes</a>
+							</Link>
+						</Menu.Item>
+					</SubMenu>
+				)}
 				{guideDataObj.menuItem === 'kreators' ? (
 					<MenuItem
-						ref={guideDataObj.menuItem === 'kreators' ? positionRef : null}
+						ref={
+							guideDataObj.menuItem === 'kreators'
+								? positionRef
+								: null
+						}
 						key="kreators-menu"
 						Icon={KreatorsIcon}
 						title="Kreators"
@@ -419,7 +428,7 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -436,10 +445,13 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
 				{guideDataObj.menuItem === 'affiliates' ? (
 					<MenuItem
-						ref={guideDataObj.menuItem === 'affiliates' ? positionRef : null}
+						ref={
+							guideDataObj.menuItem === 'affiliates'
+								? positionRef
+								: null
+						}
 						key="affiliates-menu"
 						Icon={AffiliatesIcon}
 						title="Affiliates"
@@ -469,7 +481,7 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -486,11 +498,13 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
-
 				{guideDataObj.menuItem === 'sales' ? (
 					<MenuItem
-						ref={guideDataObj.menuItem === 'sales' ? positionRef : null}
+						ref={
+							guideDataObj.menuItem === 'sales'
+								? positionRef
+								: null
+						}
 						key="sales-menu"
 						Icon={SalesIcon}
 						title="Sales"
@@ -520,7 +534,7 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -542,7 +556,6 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
 				<MenuItem
 					ref={guideDataObj.menuItem === 'help' ? positionRef : null}
 					key={5}
@@ -575,10 +588,10 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 					title="Settings"
 					target="/account/kreator/settings"
 				/>
-				<LogoutItem key={8} Icon={Logout} title="Logout" /> 
+				<LogoutItem key={8} Icon={Logout} title="Logout" />
 			</Menu>
-		    {!hideDahboardGuideModal && isFirstTimeUser &&  (
-					<RenderIf condition={currentPosition.loaded}>
+			{!hideDahboardGuideModal && isFirstTimeUser && (
+				<RenderIf condition={currentPosition.loaded}>
 					<div
 						style={{
 							background: 'rgba(0,0,0,0.7)',
@@ -587,67 +600,71 @@ const Sidebar = ({ isMobileView = false , setProceedToOnboard }) => {
 							left: 250,
 							right: 0,
 							bottom: 0,
-							zIndex: 5000, 
+							zIndex: 5000,
 						}}
 					></div>
-				<div
-					id="website-guide"
-					style={{
-						position: 'absolute',
-						left: `${currentPosition.left}px`,
-						top: `${currentPosition.top}px`,
-						zIndex: 5000,
-					}}
-					className={style.onboardingTooltip}
-				>
-					<div className={style.guideArrow}></div>
-					<div className={style.toolTipTitleContainer}>
-						<p className={style.toolTipModalTitle}>
-							{guideDataObj.modalTitle}
+					<div
+						id="website-guide"
+						style={{
+							position: 'absolute',
+							left: `${currentPosition.left}px`,
+							top: `${currentPosition.top}px`,
+							zIndex: 5000,
+						}}
+						className={style.onboardingTooltip}
+					>
+						<div className={style.guideArrow}></div>
+						<div className={style.toolTipTitleContainer}>
+							<p className={style.toolTipModalTitle}>
+								{guideDataObj.modalTitle}
+							</p>
+							<div>
+								<Image
+									src={CloseIcon}
+									className={style.toolTipCloseIcon}
+									// onClick={hideDashboardGuideModal}
+								/>
+							</div>
+						</div>
+						<p className={style.toolTipText}>
+							{guideDataObj.modalText}
 						</p>
-						<div>
-							<Image
-								src={CloseIcon}
-								className={style.toolTipCloseIcon}
-							// onClick={hideDashboardGuideModal}
-							/>
+						<div className={style.toolTipTitleContainer}>
+							<p className={style.toolTipBtnText}>
+								{guideDataObj.index}/9
+							</p>
+							<div className={style.toolTipBtnContainer}>
+								<button
+									disabled={
+										guideDataObj.menuItem === 'dashboard'
+									}
+									className={style.toolTipBtn}
+									onClick={setPreviousContents}
+								>
+									Prev
+								</button>
+
+								{guideDataObj.menuItem !== 'settings' && (
+									<button
+										className={style.toolTipNextBtn}
+										onClick={changeContents}
+									>
+										Next
+									</button>
+								)}
+
+								{guideDataObj.menuItem === 'settings' && (
+									<button
+										className={style.toolTipNextBtn}
+										onClick={hideDashboardGuideModal}
+									>
+										Got it
+									</button>
+								)}
+							</div>
 						</div>
 					</div>
-					<p className={style.toolTipText}>
-						{guideDataObj.modalText}
-					</p>
-					<div className={style.toolTipTitleContainer}>
-						<p className={style.toolTipBtnText}>{guideDataObj.index}/9</p>
-						<div className={style.toolTipBtnContainer}>
-							<button
-								disabled={guideDataObj.menuItem === 'dashboard'} 
-								className={style.toolTipBtn}
-								onClick={setPreviousContents}
-							>
-								Prev
-							</button>
-
-							{guideDataObj.menuItem !== 'settings' && (
-								<button
-									className={style.toolTipNextBtn}
-									onClick={changeContents}
-								>
-									Next
-								</button>
-							)}
-
-							{guideDataObj.menuItem === 'settings' && (
-								<button
-									className={style.toolTipNextBtn}
-									onClick={hideDashboardGuideModal}
-								>
-									Got it
-								</button>
-							)}
-						</div>
-					</div>
-				</div>
-			</RenderIf>
+				</RenderIf>
 			)}
 
 			{/* dashboardmodals come up here */}

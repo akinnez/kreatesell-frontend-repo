@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Typography } from 'antd';
-import { AiOutlineArrowRight } from 'react-icons/ai';
+import {useRouter} from 'next/router';
+import {Typography} from 'antd';
+import {AiOutlineArrowRight} from 'react-icons/ai';
 import styles from './index.module.scss';
 
 const StatsHeader = ({
@@ -11,7 +11,7 @@ const StatsHeader = ({
 	isAffiliateCard = false,
 	isAnAffiliate,
 	// positionRef,
-	// guideDataObj 
+	// guideDataObj
 }) => {
 	const router = useRouter();
 
@@ -40,7 +40,7 @@ const StatsHeader = ({
 				<>
 					{title === 'Affiliate' && !isAnAffiliate ? (
 						<Link href="#">
-							<div 
+							<div
 							// ref={guideDataObj.menuItem === 'kreatorDashboard' ? positionRef : null}
 							>
 								<a className={styles.notYetAnAffiliate}>
