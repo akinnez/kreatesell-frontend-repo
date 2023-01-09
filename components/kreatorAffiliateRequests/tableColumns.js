@@ -64,6 +64,7 @@ const tableColumns = (showReportModal, showActionModal, showNoteModal) => [
 				product={record.product_name}
 				productId={record.product_id}
 				showActionModal={showActionModal}
+				{...{record}}
 			/>
 		),
 		width: '140px',
