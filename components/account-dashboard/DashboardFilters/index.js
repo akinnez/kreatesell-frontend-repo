@@ -35,7 +35,7 @@ const DashboardFilters = ({
 	filters,
 	getSalesStatistics,
 	getAffiliateSalesStatistics,
-	// positionRef,
+	// ref,
 	// guideDataObj
 }) => {
 	const [isFiltered, setIsFiltered] = useState(false);

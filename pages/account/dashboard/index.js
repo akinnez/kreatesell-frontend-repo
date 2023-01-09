@@ -106,7 +106,7 @@ const Dashboard = () => {
 	}, [isFirstTimeUser, getUserVisitStatus]);
 	// console.log('filters', filters);
 
-	//get position refs of filter and the dashboard pointers
+	// get position refs of filter and the dashboard pointers
 
 	// const [currentDataIndex, setCurrentDataIndex] = useState(0);
 
@@ -176,7 +176,7 @@ const Dashboard = () => {
 						getSalesStatistics,
 						getAffiliateSalesStatistics,
 					}}
-					// positionRef={positionRef}
+					// ref={positionRef}
 					// guideDataObj={guideDataObj}
 					// ref={ref}
 				/>
