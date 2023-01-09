@@ -98,12 +98,9 @@ const Coupon = () => {
 	};
 
 	const resetFilters = () => {
-		// setProductData();
 		setStartDate();
 		setEndDate();
 		setCurrencyFilter();
-
-		// get products
 		getCoupon();
 	};
 
@@ -195,7 +192,10 @@ const Coupon = () => {
 				</div>
 				<CouponHeader
 					handleSearchInput={(e) => setProductName(e.target.value)}
-					handleSearchSubmit={() => handleSearchSubmit()}
+					handleSearchSubmit={(cb) => {
+						handleSearchSubmit();
+						cb();
+					}}
 					handleStartDate={(e) => setStartDate(e.target.value)}
 					handleEndDate={(e) => setEndDate(e.target.value)}
 					handleShowSelect={(e) => {
