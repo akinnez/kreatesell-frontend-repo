@@ -1,18 +1,18 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
-import {useSelector} from 'react-redux';
-import {Layout, Menu, Button, Dropdown, Badge} from 'antd';
-import {MdOutlineMenu, MdOutlineLogout} from 'react-icons/md';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { Layout, Menu, Button, Dropdown, Badge } from 'antd';
+import { MdOutlineMenu, MdOutlineLogout } from 'react-icons/md';
 import NotificationsDropdown from 'components/notifications/NotificationsDropdown';
-import {MobileLogo} from './logo';
-import {PageDot, ProfileIcon, Cog, EditPen2} from '../IconPack';
-import {Logout} from '../../redux/actions';
+import { MobileLogo } from './logo';
+import { PageDot, ProfileIcon, Cog, EditPen2 } from '../IconPack';
+import { Logout } from '../../redux/actions';
 import style from './Header.module.scss';
-import {shortenDetail, NavCloseIcon, NavCloseLogo} from 'utils';
+import { shortenDetail, NavCloseIcon, NavCloseLogo } from 'utils';
 
-const Profile = ({name, avi}) => {
+const Profile = ({ name, avi }) => {
 	return (
 		<>
 			<div className="profile-wrapper">
@@ -96,28 +96,30 @@ export const menu = (logout) => (
 	</Menu>
 );
 
-const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
-	const {Header} = Layout;
+const Nav = ({ headerTitle, toggleView, isMobileSideBarOpen }) => {
+	const { Header } = Layout;
 
 	const router = useRouter();
 
 	const [info, setInfo] = useState({});
 
-	const {pathname} = useRouter();
+	const { pathname } = useRouter();
 
-	const isOverLayView = pathname === '/account/kreator/products/preview/[id]';
+	const isOverLayView = pathname === '/account/kreator/products/preview/[id]'; 
 
 	const {
-		store: {store_details},
+		store: { store_details },
 	} = useSelector((state) => state.store);
 
 	const logout = Logout();
 
 	const pageTitle = pathname?.split('/');
+	console.log(pageTitle, 'pageTitlepageTitle')
+	console.log(pageTitle.includes('affiliate'), 'pageTitlebool')
+	console.log(pageTitle.length,'pageTitle.length')
 	const title =
-		pageTitle.length >= 4
-			? `${pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')}`
-			: 'Dashboard';
+		pageTitle.length >= 4 && !pageTitle.includes('affiliate') && !pageTitle.includes('coupons') && !pageTitle.includes('create')
+			? `${pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')}` : pageTitle.includes('affiliate') ? 'AFFILIATES' :  pageTitle.includes('coupons') ? 'COUPON CODES' : pageTitle.includes('create') && pageTitle[3] === 'products'? 'CREATE PRODUCT' : 'Dashboard';
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'));

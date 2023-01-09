@@ -36,7 +36,7 @@ const AffiliateRequests = () => {
 				products={products}
 				isLoading={isLoading}
 				setLoading={setLoading}
-				title="Affiliate Offers"
+				title="Requests"
 				totalSales={store.total_sales_till_date}
 				filters={filters}
 				setFilters={setFilters}
