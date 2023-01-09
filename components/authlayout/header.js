@@ -114,9 +114,7 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 	const logout = Logout();
 
 	const pageTitle = pathname?.split('/');
-	console.log(pageTitle, 'pageTitlepageTitle');
-	console.log(pageTitle.includes('affiliate'), 'pageTitlebool');
-	console.log(pageTitle.length, 'pageTitle.length');
+	
 	const title =
 		pageTitle.length >= 4 &&
 		!pageTitle.includes('affiliate') &&

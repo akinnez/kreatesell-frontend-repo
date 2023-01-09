@@ -1,13 +1,13 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './sidebar.module.scss';
-import {Layout, Modal, Typography} from 'antd';
+import { Layout, Modal, Typography } from 'antd';
 import Sidebar from './sidebar';
 import Logo from './logo';
 import Nav from './header';
 import useSWR from 'swr';
-import {Spin, Dropdown} from 'antd';
-import {ToastContainer} from 'react-toastify';
-import {useDispatch, useSelector} from 'react-redux';
+import { Spin, Dropdown } from 'antd';
+import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import ApiService from '../../utils/axios';
 import * as types from '../../redux/types';
 import axios from 'axios';
@@ -26,17 +26,17 @@ import {
 	PromptInfoIcon,
 	Congratulations,
 } from 'utils';
-import {Logout} from '../../redux/actions';
-import {useRouter} from 'next/router';
-import {USER} from 'redux/types/auth.types';
-import {GetProductTypes} from 'redux/actions/product.actions';
+import { Logout } from '../../redux/actions';
+import { useRouter } from 'next/router';
+import { USER } from 'redux/types/auth.types';
+import { GetProductTypes } from 'redux/actions/product.actions';
 import useFetchUtilities from 'hooks/useFetchUtilities';
 import useFetchStore from 'hooks/useFetchStore';
 import useFetchNotifications from 'hooks/useFetchNotifications';
-import {menu} from './header';
+import { menu } from './header';
 import CloseIcon from 'components/affiliates/CloseIcon';
-import {Button} from 'components';
-import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
+import { Button } from 'components';
+import { SuccessfulAffiliateSales } from 'redux/actions/affiliate.actions';
 
 const Loader = () => {
 	return (
@@ -66,16 +66,16 @@ const Index = ({
 	mobilePadding = false,
 	headerTitle,
 }) => {
-	const {Header, Footer, Sider, Content} = Layout;
+	const { Header, Footer, Sider, Content } = Layout;
 	const router = useRouter();
 	const [info, setInfo] = useState('');
 	const pathname = router.pathname;
 
 	const {
-		store: {store_details, require_approval_message},
+		store: { store_details, require_approval_message },
 	} = useSelector((state) => state.store);
 
-	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
+	const { data } = useSWR('v1/kreatesell/store/me', fetcher);
 	// console.log("data from store = ", data?.user);
 
 	const userPlan = data?.user?.user_plan;
@@ -121,14 +121,14 @@ const Index = ({
 	const logout = Logout();
 	useEffect(() => {
 		if (userIsEmpty) {
-			dispatch({type: USER.REQUEST});
+			dispatch({ type: USER.REQUEST });
 
 			const userStorage = getUser();
 
 			setUserName(userStorage?.full_name);
 
 			if (userStorage) {
-				dispatch({type: USER.SUCCESS, payload: userStorage});
+				dispatch({ type: USER.SUCCESS, payload: userStorage });
 			}
 		}
 	}, [dispatch, userIsEmpty]);
@@ -184,7 +184,7 @@ const Index = ({
 						}}
 					>
 						<Logo />
-						<div style={{position: 'relative'}}>
+						<div style={{ position: 'relative' }}>
 							<Sidebar
 								setProceedToOnboard={setProceedToOnboard}
 							/>
@@ -266,9 +266,8 @@ const Index = ({
 							zIndex: 4,
 						}}
 						// The previous style above was replaced with the one below cos a different bg needed to be dynamically rendered for mobile view.
-						className={`content ${
-							mobilePadding && `authLayout-no-mobile-padding`
-						}`}
+						className={`content ${mobilePadding && `authLayout-no-mobile-padding`
+							}`}
 					>
 						<ToastContainer
 							position="top-right"
@@ -297,13 +296,13 @@ const Index = ({
 			{proceedToOnboard && <WelcomeOnBoard />}
 			<SuccesfulSalesModal
 				showModal={showSuccessModal}
-				{...{setShowSuccessModal}}
+				{...{ setShowSuccessModal }}
 			/>
 		</section>
 	);
 };
 
-const SetUpPrompt = ({show}) => {
+const SetUpPrompt = ({ show }) => {
 	return (
 		<div className={`${styles.setUpPrompt} ${show ? styles.show : ''}`}>
 			<div className={styles.promptHeader}>
@@ -322,10 +321,10 @@ const SetUpPrompt = ({show}) => {
 	);
 };
 
-const SuccesfulSalesModal = ({showModal = false, setShowSuccessModal}) => {
+const SuccesfulSalesModal = ({ showModal = false, setShowSuccessModal }) => {
 	const router = useRouter();
 	const successfulAffiliateSales = SuccessfulAffiliateSales();
-	const {loading} = useSelector((state) => state.Affiliate);
+	const { loading } = useSelector((state) => state.Affiliate);
 	const handleSubmit = () => {
 		successfulAffiliateSales(
 			() => {
@@ -347,7 +346,7 @@ const SuccesfulSalesModal = ({showModal = false, setShowSuccessModal}) => {
 			maskClosable={false}
 			closeIcon={<CloseIcon />}
 			className={styles.affiliate__modal}
-			style={{textAlign: 'center'}}
+			style={{ textAlign: 'center' }}
 			width={800}
 		>
 			<Image src={Congratulations} alt="" />
@@ -362,7 +361,7 @@ const SuccesfulSalesModal = ({showModal = false, setShowSuccessModal}) => {
 				text="Go To MarketPlace"
 				className={`py-3 mt-5 ${styles.modalBtn}`}
 				onClick={handleSubmit}
-				{...{loading}}
+				{...{ loading }}
 			/>
 		</Modal>
 	);
@@ -370,7 +369,7 @@ const SuccesfulSalesModal = ({showModal = false, setShowSuccessModal}) => {
 
 const WelcomeOnBoard = () => {
 	const [modalVisible, setModalVisible] = useState(true);
-	const {Text, Title} = Typography;
+	const { Text, Title } = Typography;
 
 	const hideModal = async () => {
 		setModalVisible(false);
