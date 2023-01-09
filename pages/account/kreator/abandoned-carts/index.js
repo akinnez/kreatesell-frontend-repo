@@ -24,10 +24,12 @@ const AbandonedCarts = () => {
 			<Head>
 				<title>KreateSell | Abandoned Carts</title>
 			</Head>
-
-			<div className="w-full h-5/6 bg-white flex items-center justify-center">
-				<div className="bg-white">
-					<div className="ml-36">
+			<h1 className={styles.heading}>Abandoned Carts</h1>
+			<div
+				className={`w-full bg-white flex items-center justify-center ${styles.container}`}
+			>
+				<div className={styles.mainBox}>
+					<div className={styles.imgContainer}>
 						<Image
 							src={ComingSoon}
 							alt="commingsoonicon"
@@ -38,13 +40,9 @@ const AbandonedCarts = () => {
 					</div>
 					<h1 className={styles.abadonedCartText}>Coming Soon!</h1>
 					<p className={styles.abadonedCartP}>
-						Remind your customers when they fail to make
-					</p>
-					<p className={styles.abadonedCartP}>
-						payments for products they like. Use your own words{' '}
-					</p>
-					<p className={styles.abadonedCartP}>
-						and content to reach your audience.
+						Remind your customers when they fail to make payments
+						for products they like. Use your own words and content
+						to reach your audience.
 					</p>
 				</div>
 			</div>

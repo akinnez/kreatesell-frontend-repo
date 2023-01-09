@@ -10,6 +10,7 @@ import coupon from './coupon.reducer';
 import planUpgrade from './planUpgrade.reducer';
 import currencyConverter from './currencyConverter.reducer';
 import submitPaymentOptions from './paymentOptions.reducer';
+import Affiliate from './affiliate.reducer';
 
 const rootReducer = combineReducers({
 	auth,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	planUpgrade,
 	currencyConverter,
 	submitPaymentOptions,
+	Affiliate,
 });
 
 export default rootReducer;

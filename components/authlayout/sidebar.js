@@ -592,8 +592,8 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 			<RenderIf
 				condition={
 					route === 'dashboard' &&
-					!hideDahboardGuideModal &&
-					isFirstTimeUser
+					!hideDahboardGuideModal
+				
 				}
 			>
 				<div

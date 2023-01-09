@@ -1,13 +1,19 @@
 import {Percentage, Radio} from 'components/inputPack';
 import {Switch, Form, Input, Button, Select} from 'antd';
 import styles from './Checkout.module.scss';
-// import { Select } from 'components/form-input';
 import {useState, useEffect, useCallback, useRef} from 'react';
-import {CloudUpload, FileDelete, FileZip, Audio, Video, showToast} from 'utils';
+import {
+	CloudUpload,
+	FileDelete,
+	FileZip,
+	Audio,
+	Video,
+	showToast,
+	RenderIf,
+} from 'utils';
 import Image from 'next/image';
 import {useFormik} from 'formik';
-// import {showToast} from '../../utils';
-// import { Select } from "components/select/Select";
+
 import {useSelector} from 'react-redux';
 import {
 	AuthGetProductById,
@@ -20,7 +26,7 @@ import {useUpload} from 'hooks';
 import useStoreCurrency from 'hooks/useStoreCurrencies';
 import CustomCheckoutSelect from './CustomCheckout';
 import {useRouter} from 'next/router';
-import {transformToFormData} from 'utils';
+import {transformToFormData, ErrorOutline} from 'utils';
 
 import axios from 'axios';
 
@@ -885,6 +891,12 @@ export const CheckoutForm = ({
 
 	const disableButton = useCallback(() => {
 		// console.log("compareToPrice = ", compareToPrice);
+		// if (!limitProductSale) {
+		// 	return false;
+		// }
+		if (numberOfLimit < product?.number_sold && limitProductSale) {
+			return true;
+		}
 
 		if (!compareToPrice && !isOpMoreThanSp) {
 			// console.log("condition 1");
@@ -907,17 +919,37 @@ export const CheckoutForm = ({
 		if (isGreaterthanSug) {
 			return true;
 		}
+
 		// if (!isOpMoreThanSp) {
 		// 	// console.log("condition 3");
 		// 	return true;
 		// }
 
 		return false;
-	}, [compareToPrice, isOpMoreThanSp, noMatchingCurrency, isGreaterthanSug]);
+	}, [
+		compareToPrice,
+		isOpMoreThanSp,
+		noMatchingCurrency,
+		isGreaterthanSug,
+		numberOfLimit,
+		limitProductSale,
+	]);
 
-	// console.log("disableButton = ", disableButton());
+	const salesLimitErrorMsg = () => {
+		let message = '';
+		// if(product?.number_sold && product?.product_details?.number_of_product){
+		if (product?.number_sold) {
+			if (numberOfLimit < product?.number_sold) {
+				message = `You have sold <span>${product?.number_sold}</span> copies. <span>Product Sales
+        Limit</span> must exceed Total Number of Sales
+        e.g If <span>Total Number of Sales</span> is 40,
+        Product Sales Limit can be <span>50, 60, 70
+        and above.<span>`;
+			}
+		}
+		return message;
+	};
 
-	// console.log("showCompare is enabled = ", product?.product_details);
 	return (
 		<Form onFinish={formik.handleSubmit}>
 			{priceType === 'Fixed Price' && (
@@ -1931,22 +1963,40 @@ export const CheckoutForm = ({
 						</div>
 					</div>
 					{limitProductSale && (
-						<div
-							className={
-								'items-center mt-2 flex justify-between pt-3 w-2/3'
-							}
-						>
-							<h2 className="text-base-gray-200 mb-0 font-medium text-base">
-								Product Sales Limit
-							</h2>
-							<Input
-								placeholder="Enter Limit"
-								onChange={(e) =>
-									setNumberOfLimit(e.target.value)
+						<div className={`${styles.limitProductContainer}`}>
+							<div
+								className={`items-center mt-2 flex justify-between pt-3 w-2/3 `}
+							>
+								<h2 className="text-base-gray-200 mb-0 font-medium text-base">
+									Product Sales Limit
+								</h2>
+								<Input
+									placeholder="Enter Limit"
+									onChange={(e) =>
+										setNumberOfLimit(e.target.value)
+									}
+									value={numberOfLimit}
+									className={styles.limitProductInput}
+								/>
+							</div>
+							<RenderIf
+								condition={
+									limitProductSale &&
+									numberOfLimit < product?.number_sold
 								}
-								value={numberOfLimit}
-								className={styles.limitProductInput}
-							/>
+							>
+								<div className={styles.salesLimitError}>
+									<Image
+										alt="error icon"
+										src={ErrorOutline}
+									/>
+									<p
+										dangerouslySetInnerHTML={{
+											__html: salesLimitErrorMsg(),
+										}}
+									/>
+								</div>
+							</RenderIf>
 						</div>
 					)}
 

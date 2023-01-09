@@ -25,14 +25,20 @@
 	display: flex;
 	align-items: center;
 
-	p {
-		padding-left: 0.5rem;
-		padding-top: 0.6rem;
+	p,
+	a {
+		// padding-left: 0.5rem;
+		// padding-top: 0.6rem;
+		margin-left: 0.5rem;
 		font-style: normal;
 		font-weight: 400;
 		font-size: 0.8rem;
 		line-height: 1.625rem;
 		color: $gray-200;
+
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }
 

@@ -284,6 +284,23 @@
 }
 .lightGrey {
 	color: $gray-200;
+	@media (max-width: 768px) {
+		display: none;
+	}
+}
+
+.container {
+	@media (max-width: 768px) {
+		margin-right: unset;
+	}
+}
+
+.export {
+	@media (max-width: 768px) {
+		align-self: flex-end;
+		width: 100%;
+		// border: 1px solid red;
+	}
 }
 .emptyTable {
 	min-height: 400px;
@@ -411,6 +428,14 @@
 			/* PRIMARY */
 
 			color: #0072ef;
+		}
+
+		.val {
+			// border: 1px solid red;
+			@media (max-width: 450px) {
+				font-size: 11.5px;
+				line-height: 20px;
+			}
 		}
 	}
 

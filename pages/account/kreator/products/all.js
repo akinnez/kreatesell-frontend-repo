@@ -52,6 +52,8 @@ const AllProducts = () => {
 
 	const {page, total_records, limit} = productPagination;
 
+	// console.log('pagination = ', productPagination);
+
 	const [productData, setProductData] = useState([]);
 	const [productName, setProductName] = useState('');
 	const [startDate, setStartDate] = useState('');
