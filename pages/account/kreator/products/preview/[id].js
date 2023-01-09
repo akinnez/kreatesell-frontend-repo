@@ -23,7 +23,7 @@ export default function PreviewProduct() {
 	}
 
 	return (
-		<AuthLayout> 
+		<AuthLayout>
 			<div
 				style={{
 					position: 'absolute',

@@ -590,7 +590,11 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 				<LogoutItem key={8} Icon={Logout} title="Logout" />
 			</Menu>
 			<RenderIf
-				condition={route === 'dashboard' && !hideDahboardGuideModal && isFirstTimeUser}
+				condition={
+					route === 'dashboard' &&
+					!hideDahboardGuideModal &&
+					isFirstTimeUser
+				}
 			>
 				<div
 					style={{
