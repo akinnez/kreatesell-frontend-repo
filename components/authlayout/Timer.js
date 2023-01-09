@@ -7,6 +7,7 @@ import {useCountdown} from 'hooks/useCountdownTimer';
 
 import style from './Timer.module.scss';
 import {RenderIf} from 'utils';
+import {BusinessPlanBox} from '../../utils/assets';
 
 const Timer = () => {
 	const router = useRouter();
@@ -16,7 +17,7 @@ const Timer = () => {
 	const [days, hours, minutes, seconds] = useCountdown(plan_expiry_date);
 
 	return (
-		<RenderIf condition={user?.user_plan === 'Business'}>
+		<RenderIf condition={true}>
 			<section className={style.businessBg}>
 				<div className={style.iconBox}>
 					<p className={style.text}>
@@ -134,7 +135,40 @@ const Timer = () => {
 								</div>
 							</>
 						) : (
-							<></>
+							<div
+								style={{
+									display: 'flex',
+									flexDirection: 'column',
+								}}
+							>
+								<span
+									style={{
+										backgroundColor: 'white',
+										width: 'fit-content',
+										padding: '.25rem',
+										borderRadius: '8px',
+										marginBlockEnd: '0.5rem',
+									}}
+								>
+									<Image
+										src={BusinessPlanBox}
+										alt="business plan icon"
+									/>
+								</span>
+								Enjoy the power of premium options
+								<div className={style.btnCont}>
+									<button
+										className={style.btn}
+										onClick={() =>
+											router.push(
+												'/account/kreator/settings?activeTab=billing'
+											)
+										}
+									>
+										GO BUSINESS PLAN
+									</button>
+								</div>
+							</div>
 						)}
 						{/* Enjoy the power of
             <br /> premium options */}
