@@ -15,9 +15,8 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
-import OnboardingGuide, {DashboardGuide} from './OnboardingGuide';
-import {RenderIf, CloseIcon} from 'utils';
-import {dashboardGuideData} from '../../../Models/onboardingGuideData';
+// import {RenderIf, CloseIcon} from 'utils';
+// import {dashboardGuideData} from '../../../Models/onboardingGuideData';
 
 // import useSWR from "swr";
 
@@ -280,15 +279,6 @@ const Dashboard = () => {
 						</footer>
 					</div>
 				</Modal>
-			)} */}
-
-			{/* {!guideModalVisible && isFirstTimeUser && (
-				<OnboardingGuide
-					visible={modalVisible}
-					setProceedToOnboard={setProceedToOnboard}
-					setGuideModalVisible={setGuideModalVisible}
-					setIsmobile={setIsmobile}
-				/>
 			)} */}
 
 			{/* <RenderIf condition={currentPosition.loaded}>

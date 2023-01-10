@@ -155,6 +155,15 @@ const Index = ({
 		}
 	}, [require_approval_message]);
 
+	const [hideSider, setHideSider] = useState(false)
+	const route = router.pathname.split('/');
+
+	useEffect(() => {
+		if (route.includes('preview') && route.includes('products')) {
+			setHideSider(true)
+		}
+	}, [route])
+
 	return (
 		<section className={styles.layoutMain}>
 			{storeSetupPromptIsShown() && (
@@ -164,14 +173,7 @@ const Index = ({
 				<Sider
 					width={250}
 					theme="light"
-					style={{
-						height: '100vh',
-						position: 'sticky',
-						top: 0,
-						left: 0,
-						// position: 'relative',
-						zIndex: 1000,
-					}}
+					style={hideSider ? {display:'none'} : {height:'100vh', position:'sticky', top:'0', left:'0', zIndex:'1000'}} 
 					trigger={null}
 					breakpoint="lg"
 					collapsedWidth={0}

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import AuthLayout from 'components/authlayout';
 import Image from 'next/image';
-import {ComingSoon, Mailchimp, GetResponse, Zapier} from 'utils';
+import { ComingSoon, Mailchimp, GetResponse, Zapier } from 'utils';
 import styles from 'public/css/AbandonedCarts.module.scss';
 
 const Integrations = () => {
@@ -18,19 +18,19 @@ const Integrations = () => {
 							alt="commingsoonicon"
 							width={105}
 							height={120}
-							// className='ml-5'
+						// className='ml-5'
 						/>
 					</div>
-					<h1 className={styles.abadonedCartText}>Coming Soon!</h1>
-					<p className={styles.abadonedCartP}>
-						You can now integrate apps such as mailchimp
-					</p>
-					<p className={styles.abadonedCartP}>
-						Zapier and Getresponse into the platform without{' '}
-					</p>
-					<p className={styles.abadonedCartP}>
-						having to go to their individual sites.
-					</p>
+						<h1 className={styles.abadonedCartText}>Coming Soon!</h1>
+						<div className={styles.intergartionsP}>
+							You can now integrate apps such as mailchimp, Zapier and Getresponse into the platform without{' '}, having to go to their individual sites.
+						</div> 
+						{/* <p className={styles.intergartionsP}>
+							
+						</p>
+						<p className={styles.intergartionsP}>
+							
+						</p> */}
 					<div className="mt-2 flex items-center justify-center p-4">
 						<div className="p-2">
 							<Image
@@ -38,7 +38,7 @@ const Integrations = () => {
 								alt="Mailchimpicon"
 								width={100}
 								height={25}
-								// className='ml-5'
+							// className='ml-5'
 							/>
 						</div>
 						<div className="p-2">
@@ -47,7 +47,7 @@ const Integrations = () => {
 								alt="Zapiericon"
 								width={105}
 								height={27}
-								// className='ml-5'
+							// className='ml-5'
 							/>
 						</div>
 						<div className="p-2">
@@ -56,7 +56,7 @@ const Integrations = () => {
 								alt="GetResponseicon"
 								width={110}
 								height={15}
-								// className='ml-5'
+							// className='ml-5'
 							/>
 						</div>
 					</div>
