@@ -1,8 +1,6 @@
 import React, {useMemo, useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
-import useSWR from 'swr';
-
 import ApiService from 'utils/axios';
 import Loader from 'components/loader';
 
@@ -87,7 +85,7 @@ const useCurrency = () => {
 		return countries.filter((c) => cn.includes(c.name));
 	}, [countries]);
 	// console.log('countriesCurrency', countriesCurrency)
-	// console.log('allowedCurrencies', allowedCurrencies)
+	// console.log('allowedCurrencies', allowedCurrencies);
 
 	return {
 		countriesCurrency,

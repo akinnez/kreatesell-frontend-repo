@@ -2,6 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 
 import useSWR from 'swr';
 import {Table} from 'antd';
+import {format, parseISO} from 'date-fns';
 
 import styles from '../../../../public/css/AllRevenue.module.scss';
 import RevenueHeader from 'components/RevenueComponents/header';
@@ -11,6 +12,101 @@ import axiosAPI from 'utils/axios';
 import {dateString} from 'utils/dateFormat';
 import {emptyComponent} from 'components';
 
+const statusComponent = (item) => {
+	const statusTextList = {
+		Successful: {
+			type: 'successful',
+			styles: {
+				background: '#F1FCF8',
+				borderRadius: '.5rem',
+				color: ' #2DC071',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		Pending: {
+			type: 'pending',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		Initiated: {
+			type: 'initiated',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		Cleared: {
+			type: 'cleared',
+			styles: {
+				background: '#F1FCF8',
+				borderRadius: '.5rem',
+				color: ' #2DC071',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		Failed: {
+			type: 'failed',
+			styles: {
+				background: 'rgba(255, 77, 79, 0.1)',
+				borderRadius: '.5rem',
+				color: '#F90005',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		ChargeBack: {
+			type: 'chargeBack',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		Refunded: {
+			type: 'refunded',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+		Reversed: {
+			type: 'reversed',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '1rem',
+			},
+			contents: '',
+		},
+	};
+	let tagStyles = statusTextList[item]?.styles;
+	let mainType = statusTextList[item]?.type;
+	return (
+		<>
+			<>
+				<div className={styles.tags} style={tagStyles}>
+					{mainType?.charAt(0).toUpperCase() + mainType?.slice(1)}
+				</div>
+			</>
+		</>
+	);
+};
 const columns = [
 	{
 		title: 'Order Id',
@@ -19,13 +115,15 @@ const columns = [
 	},
 	{
 		title: 'Product',
-		dataIndex: 'product',
+		dataIndex: 'products',
 		width: 200,
 	},
 	{
-		title: 'Price',
+		title: 'transaction_amount',
 		render: (_, data) => {
-			return <span>{`${data?.currency} ${data?.price}`}</span>;
+			return (
+				<span>{`${data?.currency} ${data?.transaction_amount}`}</span>
+			);
 		},
 		width: 150,
 	},
@@ -36,13 +134,29 @@ const columns = [
 	},
 	{
 		title: 'Clearance Date',
-		dataIndex: '',
-		width: 120,
+		dataIndex: 'clearance_date',
+		width: 180,
+		render: (item) => {
+			const time = parseISO(item);
+
+			const formatTime = format(time, 'PPPp');
+			const formatDate = format(time, 'PPP');
+			return (
+				<div className="flex flex-col items-center">
+					<div>
+						{`${formatDate.split('at')[0]},`}{' '}
+						{formatTime.split('at')[1]}
+					</div>
+				</div>
+			);
+		},
 	},
 	{
 		title: 'Transaction Status',
-		dataIndex: 'transaction_status',
-		render: (item) => statusComponent(item),
+		dataIndex: 'status',
+		render: (item) => {
+			return statusComponent(item);
+		},
 		width: 150,
 	},
 ];

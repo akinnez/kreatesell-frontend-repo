@@ -141,7 +141,9 @@ export const SignupForm = () => {
 
 				<div className={styles.terms}>
 					<Checkbox name="terms" onChange={formik.handleChange} />
-					<p>I agree to terms & conditions</p>
+					<Link href="/legal/privacy-policy">
+						<a>I agree to terms & conditions</a>
+					</Link>
 				</div>
 				<Button
 					text="Sign up"

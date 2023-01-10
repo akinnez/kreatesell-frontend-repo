@@ -98,6 +98,7 @@ export const UpgradeAccountForm = ({
 			is_affiliate: user?.is_affiliate,
 			affiliate_product_link: '',
 			user_identifier: user?.id,
+			duration: monthly ? 'monthly' : 'yearly',
 		};
 		return value;
 	};

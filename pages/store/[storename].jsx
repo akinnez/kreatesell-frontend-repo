@@ -36,6 +36,7 @@ import {FetchSingleStoreProduct, SetCheckoutDetails} from 'redux/actions';
 import {Logout, ConvertCurrency} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 import useLocation from 'hooks/useLocation';
+import useCurrency from 'hooks/useCurrency';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {showToast} from 'utils';
 
@@ -48,8 +49,10 @@ const StorePage = () => {
 			: '';
 	});
 	const [productName, setProductName] = useState('');
+	const {allowedCurrencies} = useCurrency();
 	const convertCurrency = ConvertCurrency();
 	const fetchSingleStoreProduct = FetchSingleStoreProduct();
+
 	const {countryDetails, countryDetailsLoading: loading} = useLocation();
 	const [openMobileNav, setOpenMobileNav] = useState(false);
 	const [openShareModal, setOpenShareModal] = useState(false);
@@ -65,6 +68,7 @@ const StorePage = () => {
 	const [tempTargetCurrency, setTempTargetCurrency] = useState(
 		defaultCurrency?.currency
 	);
+	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
 
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
@@ -157,6 +161,23 @@ const StorePage = () => {
 		}
 	};
 
+	const formatCurrencies = () => {
+		const currencies = allowedCurrencies.map((cur) => {
+			return {
+				...cur,
+				value: cur.label,
+			};
+		});
+
+		setFormattedCurrencies(currencies);
+	};
+	useEffect(() => {
+		if (allowedCurrencies.length > 0) {
+			formatCurrencies();
+		}
+	}, [allowedCurrencies.length]);
+	// console.log('formattedCurrencies', formattedCurrencies);
+
 	return (
 		<>
 			<div className={styles.container}>
@@ -175,7 +196,8 @@ const StorePage = () => {
 						</div>
 						<div className="w-20 mr-4">
 							<Select
-								options={currencyOptions}
+								// options={currencyOptions}
+								options={formattedCurrencies}
 								border="none"
 								cb={(targetCurrency) =>
 									setTargetCurrency(targetCurrency)
@@ -585,10 +607,14 @@ const ProductCard = ({
 								  )
 								: convertedCurrency
 								? new Intl.NumberFormat().format(
-										convertedCurrency *
-											productDetails.default_price
+										Number(
+											convertedCurrency *
+												productDetails.default_price
+										).toFixed(2)
 								  )
-								: productDetails.default_price}
+								: Number(productDetails.default_price).toFixed(
+										2
+								  )}
 						</p>
 					) : (
 						<div
@@ -603,7 +629,7 @@ const ProductCard = ({
 									>
 										{targetCurrency ||
 											productDetails?.default_currency
-												?.currency}
+												?.currency}{' '}
 										{getPredefinedPrice(
 											productDetails?.product_price_type
 										)
@@ -612,12 +638,16 @@ const ProductCard = ({
 											  )
 											: convertedCurrency
 											? new Intl.NumberFormat().format(
-													convertedCurrency *
-														sellingPrice
+													Number(
+														convertedCurrency *
+															sellingPrice
+													).toFixed(2)
 											  )
 											: !convertedCurrency
 											? new Intl.NumberFormat().format(
-													sellingPrice
+													Number(
+														sellingPrice
+													).toFixed(2)
 											  )
 											: '0.00'}
 									</p>
@@ -630,17 +660,29 @@ const ProductCard = ({
 												{targetCurrency ||
 													productDetails
 														?.default_currency
-														?.currency}
+														?.currency}{' '}
 												{convertedCurrency
 													? new Intl.NumberFormat().format(
-															convertedCurrency *
-																(originalPrice ??
-																	productDetails?.default_price)
+															Number(
+																convertedCurrency
+															).toFixed(2) *
+																(Number(
+																	originalPrice
+																).toFixed(2) ??
+																	Number(
+																		productDetails?.default_price
+																	).toFixed(
+																		2
+																	))
 													  )
 													: !convertedCurrency
 													? new Intl.NumberFormat().format(
-															originalPrice ??
-																productDetails?.default_price
+															Number(
+																originalPrice
+															).toFixed(2) ??
+																Number(
+																	productDetails?.default_price
+																).toFixed(2)
 													  )
 													: '0.00'}
 											</p>
