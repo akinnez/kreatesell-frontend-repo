@@ -16,14 +16,14 @@
 		margin-right: 13px;
 	}
 	& > button:first-child {
-		background-color: transparent !important;
+		background-color: transparent !important; 
 	}
 }
 .contentContainer {
 	// width: 85%;
-	margin: 32px auto;
+	margin: 9rem auto 0 auto;
 	padding: 1rem;
-	// border: 100px solid red;
+	// border: 10px solid red;
 
 	@media (min-width: 500px) {
 		padding: 72px 60px;
