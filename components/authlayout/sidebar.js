@@ -296,7 +296,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 	}, [isFirstTimeUser, getUserVisitStatus]);
 
 	return (
-		<div className={style.sidebar}> 
+		<div className={style.sidebar}>
 			<Menu
 				mode="inline"
 				theme="light"
@@ -590,12 +590,13 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 			<RenderIf
 				condition={
 					route === 'dashboard' &&
-					!hideDahboardGuideModal && isFirstTimeUser
+					!hideDahboardGuideModal &&
+					isFirstTimeUser
 				}
 			>
 				<div
 					style={{
-						background: 'rgba(0,0,0,0.7)', 
+						background: 'rgba(0,0,0,0.7)',
 						position: 'fixed',
 						top: 0,
 						left: 250,
