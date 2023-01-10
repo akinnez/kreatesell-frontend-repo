@@ -24,7 +24,7 @@ const menu = ({status, showActionModal, ...props}) => {
 				</span>
 				Approve
 			</Menu.Item>
-			<RenderIf condition={props.all.status !== 'Approved'}>
+			<RenderIf condition={status !== 'Approved'}>
 				<Menu.Item
 					key={2}
 					onClick={() => handler('decline', 'Decline')}
