@@ -57,8 +57,6 @@ export default function Home() {
 	const {data: blogData, error: blogError} = useGetBlogPosts(4);
 	const [blogPosts, setBlogPosts] = useState([]);
 
-	console.log(blogPosts, 'blogPostsblogPostsblogPostsblogPosts');
-
 	const [modalVisible, setVisible] = useState(false);
 	const [email, setEmail] = useState('');
 	useEffect(() => {
@@ -759,7 +757,6 @@ const NewsCard = ({
 	postId,
 	category,
 }) => {
-	console.log(category, 'categorycategorycategory');
 	return (
 		<div className={styles.newsCard}>
 			<div className={styles.newsImage}>
