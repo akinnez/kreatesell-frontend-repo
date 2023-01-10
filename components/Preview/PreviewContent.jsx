@@ -34,8 +34,6 @@ export default function PreviewContent({
 	const [domainLink, setDomainLink] = useState('');
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
 
-	console.log(cookieExpiryTime, 'cookieExpiryTimecookieExpiryTime');
-
 	const router = useRouter();
 
 	const {store} = useSelector((state) => state?.store);
@@ -190,8 +188,10 @@ export default function PreviewContent({
 
 	const isProductOutOfStock = () => {
 		if (product?.product_details) {
-			const {is_limited_sales, number_of_product} =
-				product?.product_details;
+			const {
+				is_limited_sales,
+				number_of_product,
+			} = product?.product_details;
 			return (
 				is_limited_sales &&
 				number_of_product - product?.number_sold <= 0
@@ -278,7 +278,6 @@ export default function PreviewContent({
 								</h2>
 							)}
 							<div className={styles.visitLink}>
-								{console.log('domainLink', domainLink)}
 								{/* <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'><a>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></a></Link> */}
 								<Link
 									href={domainLink}
