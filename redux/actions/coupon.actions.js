@@ -39,6 +39,7 @@ export const GetCoupons = () => {
 		product_Name = '',
 		StartDate,
 		endDate,
+		currencyFilter,
 		successCallback,
 		errorCallback
 	) => {
@@ -49,12 +50,15 @@ export const GetCoupons = () => {
 			${product_Name ? `&product_name=${product_Name}` : ''}
 			${StartDate ? `&StartDate=${StartDate}` : ''}
 			${endDate ? `&endDate=${endDate}` : ''}
+			${currencyFilter ? `&Currency_Id=${currencyFilter}` : ''} 
 			`,
 				(res) => {
-					console.log(res);
+					console.log(res, 'res me');
 					const coupons = res?.data?.data;
+					const data = res?.data;
 					const payload = {
 						coupons,
+						couponPagination: {...data},
 					};
 					dispatch({type: types.GET_ALL_COUPONS.SUCCESS, payload});
 					successCallback?.();

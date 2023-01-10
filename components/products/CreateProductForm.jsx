@@ -55,6 +55,7 @@ export const CreateProductForm = ({
 	const {store} = useSelector((state) => state.store);
 	const [productFile, setProductFile] = useState(null);
 	const [initialProduct, setInitialProduct] = useState(null);
+
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);
 

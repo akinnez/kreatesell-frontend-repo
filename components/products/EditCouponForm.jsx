@@ -47,8 +47,6 @@ export const EditCouponForm = () => {
 	const isdefaultRadioValue =
 		updateCouponData[0]?.coupons?.is_for_all_product;
 
-	console.log(start_date, 'startdata');
-
 	const initialValues = {
 		coupon_settings: {
 			coupon_code: '',
@@ -68,7 +66,7 @@ export const EditCouponForm = () => {
 			is_apply_to_recurring: false,
 		},
 		action: 'e',
-		coupon_id: 0,
+		coupon_id: couponId || 0,
 		isBasicPlan: false,
 	};
 	const handleSubmit = (data) => {

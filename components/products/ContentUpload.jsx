@@ -1,6 +1,6 @@
 import {useUpload} from 'hooks';
 import Image from 'next/image';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useMemo} from 'react';
 import {
 	CloudUpload,
 	CloudUploadDisable,
@@ -12,8 +12,10 @@ import {
 import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
-export default function ContentUpload({file, setFile}) {
-	console.log(file, 'gfgfgfgfgfgfgf');
+export default function ContentUpload({file, setFile, initialContent}) {
+	console.log(file, 'filefilefileururururururur');
+
+	console.log(initialContent, 'filefilefilefile');
 	const [progress, setProgress] = useState(0);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: {
@@ -22,6 +24,19 @@ export default function ContentUpload({file, setFile}) {
 			'application/pdf': [],
 		},
 	});
+
+	const fetchFile = async (url) => {
+		const instance = axios.create();
+		delete instance.defaults.headers.common['Authorization'];
+		try {
+			const data = await axios.get(url, {resource_type: 'raw'});
+			// console.log(data);
+			let buffer = new Buffer(data.data.toString());
+			// console.log(buffer.toString('base64'));
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleDeleteFile = () => {
 		deleteFile(mainFile[0].file);
@@ -35,6 +50,17 @@ export default function ContentUpload({file, setFile}) {
 			);
 		}
 	}, [mainFile]);
+
+	// useEffect(() => {
+	// 	if (initialContent) {
+	// 		const getFileDetails = async () => {
+	// 		setFile(initialContent?.filename);
+	// 		await fetchFile(initialContent?.filename)
+	// 	}
+	// 		getFileDetails();
+	// 	}
+	// }, [initialContent]);
+
 	async function uploadFile(file, cb) {
 		const formData = new FormData();
 		formData.append('upload_preset', 'kreatesell');

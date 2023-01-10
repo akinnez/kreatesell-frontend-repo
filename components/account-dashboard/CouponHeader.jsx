@@ -15,7 +15,7 @@ export const CouponHeader = ({
 	handleEndDate,
 	handleSearchSubmit,
 	handleCurrencyChange,
-	productStatusOptions,
+	// productStatusOptions,
 	resetFilters,
 	handleShowSelect,
 }) => {

@@ -6,7 +6,7 @@ import {
 } from 'components';
 import {DownloadIcon, CartIcon, ActionBtn} from 'utils';
 import {MobileCouponActionComponent} from 'components';
-import {format, parseISO, parse} from 'date-fns';
+import {format, parseISO, parse, subDays} from 'date-fns';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
@@ -21,10 +21,23 @@ const Coupon = () => {
 	const router = useRouter();
 	const getCoupon = GetCoupons();
 	const [couponData, setCouponData] = useState([]);
+	const [showSelect, setShowSelect] = useState('');
+	const [productData, setProductData] = useState([]);
+	const [productName, setProductName] = useState('');
+	const [startDate, setStartDate] = useState('');
+	const [endDate, setEndDate] = useState('');
+	const [currencyFilter, setCurrencyFilter] = useState('');
 
 	console.log(couponData, 'couponData');
 
-	const {loading, coupons} = useSelector((state) => state.coupon);
+	const {loading, coupons, couponPagination} = useSelector(
+		(state) => state.coupon
+	);
+
+	const {page, total_records, limit} = couponPagination;
+
+	const handlePaginationChange = (page) => getCoupon(page);
+
 	useEffect(() => {
 		getCoupon();
 	}, []);
@@ -32,6 +45,64 @@ const Coupon = () => {
 	useEffect(() => {
 		setCouponData(coupons);
 	}, [coupons]);
+
+	useEffect(() => {
+		if (showSelect) {
+			handleShowFilter();
+		}
+	}, [showSelect]);
+
+	const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
+		return format(date, formatArg);
+	};
+
+	const handleShowFilter = () => {
+		const day = new Date();
+		switch (showSelect) {
+			case 'Today':
+				setStartDate(() => formatDate(subDays(day, 0)));
+				setEndDate(() => formatDate(day));
+				break;
+			case 'Yesterday':
+				setStartDate(formatDate(subDays(day, 1)));
+				setEndDate(formatDate(subDays(day, 1)));
+				// return [formatDate(subDays(day, 1)), formatDate(day)];
+				break;
+			case 'Last 7 days':
+				setStartDate(formatDate(subDays(day, 7)));
+				setEndDate(formatDate(day));
+				break;
+			case 'Last 30 days':
+				setStartDate(formatDate(subDays(day, 30)));
+				setEndDate(formatDate(day));
+				break;
+			case 'This year':
+				let year = new Date().getFullYear();
+				setStartDate(`${year}-01-01`);
+				setEndDate(formatDate(day));
+				break;
+			case 'All time':
+				setStartDate('');
+				setEndDate(formatDate(day));
+				break;
+			default:
+				return;
+		}
+	};
+
+	const handleSearchSubmit = () => {
+		getCoupon(1, productName, startDate, endDate, currencyFilter, () =>
+			console.log('done')
+		);
+		console.log(productName, startDate, endDate);
+	};
+
+	const resetFilters = () => {
+		setStartDate();
+		setEndDate();
+		setCurrencyFilter();
+		getCoupon();
+	};
 
 	const memoisedCouponData = useMemo(
 		() =>
@@ -120,12 +191,20 @@ const Coupon = () => {
 					/>
 				</div>
 				<CouponHeader
-				// handleSearchInput={(e) => setProductName(e.target.value)}
-				// handleSearchSubmit={() => handleSearchSubmit()}
-				// handleStartDate={(e) => setStartDate(e.target.value)}
-				// handleEndDate={(e) => setEndDate(e.target.value)}
-				// productStatusOptions={productStatusOptions}
-				// handleProductStatus={(e) => setProductStatusId(e)}
+					handleSearchInput={(e) => setProductName(e.target.value)}
+					handleSearchSubmit={(cb) => {
+						handleSearchSubmit();
+						cb();
+					}}
+					handleStartDate={(e) => setStartDate(e.target.value)}
+					handleEndDate={(e) => setEndDate(e.target.value)}
+					handleShowSelect={(e) => {
+						setShowSelect(e);
+					}}
+					handleCurrencyChange={(e) => setCurrencyFilter(e)}
+					// productStatusOptions={productStatusOptions}
+					handleProductStatus={(e) => setProductStatusId(e)}
+					{...{resetFilters}}
 				/>
 
 				<div
@@ -161,6 +240,11 @@ const Coupon = () => {
 						loading={loading}
 						pagination={{
 							position: ['none', 'bottomLeft'],
+							total: total_records,
+							defaultCurrent: 1,
+							onChange: handlePaginationChange,
+							current: page,
+							defaultPageSize: limit,
 						}}
 						size="large"
 						scroll={{
