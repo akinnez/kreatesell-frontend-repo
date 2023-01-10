@@ -39,7 +39,7 @@ export const GetCoupons = () => {
 		coupon_Code = '',
 		StartDate,
 		endDate,
-		currencyFilter, 
+		currencyFilter,
 		successCallback,
 		errorCallback
 	) => {

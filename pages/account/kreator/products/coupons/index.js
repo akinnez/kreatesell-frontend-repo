@@ -31,7 +31,7 @@ const Coupon = () => {
 	const {loading, coupons, couponPagination} = useSelector(
 		(state) => state.coupon
 	);
-	
+
 	const {page, total_records, limit} = couponPagination;
 
 	const handlePaginationChange = (page) => getCoupon(page);
