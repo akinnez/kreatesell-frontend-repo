@@ -23,17 +23,15 @@ const Coupon = () => {
 	const [couponData, setCouponData] = useState([]);
 	const [showSelect, setShowSelect] = useState('');
 	const [productData, setProductData] = useState([]);
-	const [productName, setProductName] = useState('');
+	const [couponCode, setCouponCode] = useState('');
 	const [startDate, setStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');
 	const [currencyFilter, setCurrencyFilter] = useState('');
 
-	console.log(couponData, 'couponData');
-
 	const {loading, coupons, couponPagination} = useSelector(
 		(state) => state.coupon
 	);
-
+	
 	const {page, total_records, limit} = couponPagination;
 
 	const handlePaginationChange = (page) => getCoupon(page);
@@ -91,16 +89,17 @@ const Coupon = () => {
 	};
 
 	const handleSearchSubmit = () => {
-		getCoupon(1, productName, startDate, endDate, currencyFilter, () =>
+		getCoupon(1, couponCode, startDate, endDate, currencyFilter, () =>
 			console.log('done')
 		);
-		console.log(productName, startDate, endDate);
+		console.log(couponCode, startDate, endDate);
 	};
 
 	const resetFilters = () => {
 		setStartDate();
 		setEndDate();
 		setCurrencyFilter();
+		setCouponCode();
 		getCoupon();
 	};
 
@@ -191,13 +190,15 @@ const Coupon = () => {
 					/>
 				</div>
 				<CouponHeader
-					handleSearchInput={(e) => setProductName(e.target.value)}
+					handleSearchInput={(e) => setCouponCode(e.target.value)}
 					handleSearchSubmit={(cb) => {
 						handleSearchSubmit();
 						cb();
 					}}
-					handleStartDate={(e) => setStartDate(e.target.value)}
-					handleEndDate={(e) => setEndDate(e.target.value)}
+					handleStartDate={(e, string) => {
+						setStartDate(string);
+					}}
+					handleEndDate={(e, string) => setEndDate(string)}
 					handleShowSelect={(e) => {
 						setShowSelect(e);
 					}}

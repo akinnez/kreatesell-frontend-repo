@@ -36,10 +36,10 @@ export const GetCoupons = () => {
 	const dispatch = useDispatch();
 	return (
 		page = 1,
-		product_Name = '',
+		coupon_Code = '',
 		StartDate,
 		endDate,
-		currencyFilter,
+		currencyFilter, 
 		successCallback,
 		errorCallback
 	) => {
@@ -47,13 +47,12 @@ export const GetCoupons = () => {
 			axios.request(
 				`get`,
 				`v1/kreatesell/coupon/fetch/all?page=${page}
-			${product_Name ? `&product_name=${product_Name}` : ''}
+			${coupon_Code ? `&coupon_Code=${coupon_Code}` : ''}
 			${StartDate ? `&StartDate=${StartDate}` : ''}
 			${endDate ? `&endDate=${endDate}` : ''}
 			${currencyFilter ? `&Currency_Id=${currencyFilter}` : ''} 
 			`,
 				(res) => {
-					console.log(res, 'res me');
 					const coupons = res?.data?.data;
 					const data = res?.data;
 					const payload = {

@@ -208,7 +208,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 	// const [isOpen, setIsOpen] = useState(false);
 
 	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
-	console.log(isFirstTimeUser, 'isFirstTimeUser');
+
 
 	const [hideDahboardGuideModal, setHideDahboardGuideModal] = useState(false);
 
