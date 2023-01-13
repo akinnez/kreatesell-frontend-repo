@@ -1,12 +1,14 @@
-import {useState, useMemo} from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 
-import {Form, Button, DatePicker, Select, Row, Col, Input} from 'antd';
+import { Form, Button, DatePicker, Select, Row, Col, Input } from 'antd';
 
-import {dayOptions, currencyOptions} from './partials';
+import { dayOptions, currencyOptions } from './partials';
 import styles from '../../public/css/Dashboard.module.scss';
 import ResetFilters from 'components/ResetFilters';
 import useCurrency from 'hooks/useCurrency';
+import { useRouter } from 'next/router';
+
 
 export const CouponHeader = ({
 	handleSearchInput,
@@ -23,7 +25,9 @@ export const CouponHeader = ({
 	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
 	const [form] = Form.useForm();
 
-	const {countriesCurrency, loading} = useCurrency();
+	const { countriesCurrency, loading } = useCurrency();
+	const router = useRouter();
+
 
 	useMemo(() => {
 		if (!!countriesCurrency) {
@@ -36,6 +40,10 @@ export const CouponHeader = ({
 	}, [countriesCurrency]);
 
 	const format = 'YYYY-MM-DD';
+
+	const route = router.pathname.split('/');
+	const isCouponCol = route.includes('coupons');
+
 	return (
 		<div>
 			<Form
@@ -53,7 +61,7 @@ export const CouponHeader = ({
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={12} lg={4}>
+					<Col xs={12} lg={isCouponCol ? 5 : 4}>
 						<Form.Item label="Show" name="show">
 							<Select
 								options={dayOptions}
@@ -63,33 +71,35 @@ export const CouponHeader = ({
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={12} lg={4}>
-						<Form.Item label="Currency" name="currency">
-							<Select
-								options={countriesCurrencyList}
-								className={styles.selectRadius}
-								placeholder="NGN"
-								onChange={(e) => handleCurrencyChange(e)}
-							/>
-						</Form.Item>
-					</Col>
-					<Col xs={10} lg={3}>
+					{!route?.includes('coupons') && (
+						<Col xs={12} lg={isCouponCol ? 5 : 4}>
+							<Form.Item label="Currency" name="currency">
+								<Select
+									options={countriesCurrencyList}
+									className={styles.selectRadius}
+									placeholder="NGN"
+									onChange={(e) => handleCurrencyChange(e)}
+								/>
+							</Form.Item>
+						</Col>
+					)}
+					<Col xs={10} lg={isCouponCol ? 5 : 3}>
 						<Form.Item label="From" name="from">
 							<DatePicker
 								placeholder="2021-07-22"
 								onChange={handleStartDate}
 								format={format}
-								style={{width: '100%'}}
+								style={{ width: '100%' }}
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={10} lg={3}>
+					<Col xs={10} lg={isCouponCol ? 5 : 3}>
 						<Form.Item label="To" name="to">
 							<DatePicker
 								placeholder="2021-07-22"
 								onChange={handleEndDate}
 								format={format}
-								style={{width: '100%'}}
+								style={{ width: '100%' }}
 							/>
 						</Form.Item>
 					</Col>
@@ -97,7 +107,7 @@ export const CouponHeader = ({
 						<Form.Item>
 							<Button
 								type="primary"
-								style={{borderRadius: '8px'}}
+								style={{ borderRadius: '8px' }}
 								htmlType="submit"
 							>
 								<Image

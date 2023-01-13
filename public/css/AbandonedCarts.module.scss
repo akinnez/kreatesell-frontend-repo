@@ -143,6 +143,26 @@
 	}
 }
 
+.intergartionsP {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 26px;
+	max-width: 263px;
+	/* or 186% */
+
+	text-align: center;
+	margin: 0 auto;
+
+	/* Gray / gray-7 SECONDARY TEXT */
+
+	color: #8c8c8c;
+	@media (min-width: 992px) {
+		max-width: 366px;
+	}
+}
+
 .mainBox {
 	// border: 1px solid red;
 	display: flex;

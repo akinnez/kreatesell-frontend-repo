@@ -302,6 +302,10 @@ import ErrorOutline from '../public/images/error_outline.svg';
 import ChangePasswordModalIcon from '../public/images/changePasswordModalIcon.svg';
 import Congratulations from '../public/images/congratulations.svg';
 import NoContentIcon from '../public/images/icons-unavailable.png';
+import Mailchimp from '../public/images/mailchimp.png';
+import GetResponse from '../public/images/getResponse.png';
+import Zapier from '../public/images/zapier.png';
+
 
 export {
 	Congratulations,
@@ -606,4 +610,7 @@ export {
 	Pdf,
 	ImageIcon,
 	NoContentIcon,
+	Mailchimp,
+	GetResponse,
+	Zapier
 };
