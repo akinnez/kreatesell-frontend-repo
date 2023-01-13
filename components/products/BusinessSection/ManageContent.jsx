@@ -57,19 +57,23 @@ export default function ManageContent({
 	const {setFieldValue} = formik;
 
 	useEffect(() => {
-		setFieldValue('product_section_name', content.product_section_name);
-		setFieldValue('section_id', content.product_content_id);
-		setFieldValue(
-			'product_section_description',
-			content.product_section_description
-		);
-		setFieldValue(
-			'is_content_downloadable',
-			content.is_content_downloadable
-		);
-		setFieldValue('sub_section_id', content.id);
-		setContents(content.product_section_description);
-		setIsDownload(content.is_content_downloadable);
+		if (content) {
+			setFieldValue('product_section_name', content.product_section_name);
+			setFieldValue('section_id', content.product_content_id);
+			setFieldValue(
+				'product_section_description',
+				content.product_section_description
+			);
+			setFieldValue(
+				'is_content_downloadable',
+				content.is_content_downloadable
+			);
+			// TODO: based on membership or one time sub, filter out a file type
+			setFile(content.files?.filter((imgObj) => imgObj.file_type === 5));
+			setFieldValue('sub_section_id', content.id);
+			setContents(content.product_section_description);
+			setIsDownload(content.is_content_downloadable);
+		}
 	}, [content]);
 	// useEffect(()=>{
 	//     if(file){
@@ -93,7 +97,6 @@ export default function ManageContent({
 		setFieldValue('is_content_downloadable', isDownload);
 	}, [contents, isDownload, file]);
 
-	console.log(file, 'fifififif');
 	return (
 		<div className="">
 			<div
@@ -119,7 +122,11 @@ export default function ManageContent({
 					</h1>
 					<h2 className="font-normal text-lg ">Content File</h2>
 					<div className="w-4/5">
-						<ContentUpload file={file} setFile={setFile} />
+						<ContentUpload
+							file={file}
+							setFile={setFile}
+							initialFile={file}
+						/>
 						<div className="mt-5 flex justify-between items-start">
 							<div className="flex flex-col">
 								<h2 className="text-lg font-medium">
