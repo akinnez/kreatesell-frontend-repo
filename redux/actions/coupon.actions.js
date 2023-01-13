@@ -55,7 +55,7 @@ export const GetCoupons = () => {
 					const data = res?.data;
 					const payload = {
 						coupons,
-						couponPagination: {...data}
+						couponPagination: {...data},
 					};
 					dispatch({type: types.GET_ALL_COUPONS.SUCCESS, payload});
 					successCallback?.();

@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import AuthLayout from 'components/authlayout';
 import Image from 'next/image';
-import {ComingSoon, Mailchimp, GetResponse, Zapier} from 'utils'; 
-import styles from 'public/css/AbandonedCarts.module.scss'; 
+import {ComingSoon, Mailchimp, GetResponse, Zapier} from 'utils';
+import styles from 'public/css/AbandonedCarts.module.scss';
 
 const Integrations = () => {
 	return (

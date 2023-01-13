@@ -47,7 +47,6 @@ export const EditCouponForm = () => {
 	const isdefaultRadioValue =
 		updateCouponData[0]?.coupons?.is_for_all_product;
 
-
 	const initialValues = {
 		coupon_settings: {
 			coupon_code: '',
@@ -55,9 +54,11 @@ export const EditCouponForm = () => {
 			start_date: '',
 			// is_for_all_product: true,
 			end_date: '',
-			fixed_amount_value: updateCouponData[0]?.coupons?.fixed_amount_value || '',
+			fixed_amount_value:
+				updateCouponData[0]?.coupons?.fixed_amount_value || '',
 			// product_id: '',
-			percentage_value: updateCouponData[0]?.coupons?.percentage_value || '', 
+			percentage_value:
+				updateCouponData[0]?.coupons?.percentage_value || '',
 			is_percentage: true,
 			is_fixed_amount: false,
 			is_coupon_limited: false,
@@ -67,7 +68,7 @@ export const EditCouponForm = () => {
 			is_apply_to_recurring: false,
 		},
 		action: 'e',
-		coupon_id: couponId || 0, 
+		coupon_id: couponId || 0,
 		isBasicPlan: false,
 	};
 	const handleSubmit = (data) => {

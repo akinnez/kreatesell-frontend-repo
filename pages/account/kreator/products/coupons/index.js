@@ -4,18 +4,18 @@ import {
 	CouponHeader,
 	emptyComponent,
 } from 'components';
-import { DownloadIcon, CartIcon, ActionBtn } from 'utils';
-import { MobileCouponActionComponent } from 'components';
-import { format, parseISO, parse, subDays } from 'date-fns';
+import {DownloadIcon, CartIcon, ActionBtn} from 'utils';
+import {MobileCouponActionComponent} from 'components';
+import {format, parseISO, parse, subDays} from 'date-fns';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
-import { Table } from 'antd';
-import { useRouter } from 'next/router';
-import { GetCoupons } from 'redux/actions';
-import { useEffect, useState, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { Popover, Pagination } from 'antd';
+import {Table} from 'antd';
+import {useRouter} from 'next/router';
+import {GetCoupons} from 'redux/actions';
+import {useEffect, useState, useMemo} from 'react';
+import {useSelector} from 'react-redux';
+import {Popover, Pagination} from 'antd';
 
 const Coupon = () => {
 	const router = useRouter();
@@ -27,9 +27,11 @@ const Coupon = () => {
 	const [startDate, setStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');
 
-	const { loading, coupons, couponPagination } = useSelector((state) => state.coupon);
+	const {loading, coupons, couponPagination} = useSelector(
+		(state) => state.coupon
+	);
 
-	const { page, total_records, limit } = couponPagination;
+	const {page, total_records, limit} = couponPagination;
 
 	const handlePaginationChange = (page) => getCoupon(page);
 
@@ -86,9 +88,7 @@ const Coupon = () => {
 	};
 
 	const handleSearchSubmit = () => {
-		getCoupon(1, couponCode, startDate, endDate, () =>
-			console.log('done')
-		);
+		getCoupon(1, couponCode, startDate, endDate, () => console.log('done'));
 		console.log(couponCode, startDate, endDate);
 	};
 
@@ -99,7 +99,6 @@ const Coupon = () => {
 		setCouponCode();
 		getCoupon();
 	};
-
 
 	const memoisedCouponData = useMemo(
 		() =>
@@ -201,7 +200,7 @@ const Coupon = () => {
 					}}
 					// productStatusOptions={productStatusOptions}
 					handleProductStatus={(e) => setProductStatusId(e)}
-					{...{ resetFilters }}
+					{...{resetFilters}}
 				/>
 
 				<div
