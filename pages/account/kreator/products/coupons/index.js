@@ -295,7 +295,7 @@ const Coupon = () => {
 
 export default Coupon;
 
-const MobileCouponCard = ({
+export const MobileCouponCard = ({
 	data,
 	status,
 	product_name,
