@@ -1,3 +1,5 @@
+import {useMemo} from 'react';
+
 import {useUpload} from 'hooks';
 import Image from 'next/image';
 import {useEffect, useState} from 'react';
@@ -8,13 +10,14 @@ import {
 	FileZip,
 	Audio,
 	Video,
+	RenderIf,
 } from 'utils';
 import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
-export default function ContentUpload({file, setFile}) {
-	console.log(file, 'gfgfgfgfgfgfgf');
+export default function ContentUpload({file, setFile, initialFile}) {
 	const [progress, setProgress] = useState(0);
+	const [files, setFiles] = useState([]);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: {
 			'image/*': ['.jpeg', '.png'],
@@ -35,6 +38,7 @@ export default function ContentUpload({file, setFile}) {
 			);
 		}
 	}, [mainFile]);
+
 	async function uploadFile(file, cb) {
 		const formData = new FormData();
 		formData.append('upload_preset', 'kreatesell');
@@ -63,6 +67,54 @@ export default function ContentUpload({file, setFile}) {
 			console.log('ERROR', error);
 		}
 	}
+	const fetchFile = async (url) => {
+		const instance = axios.create();
+		delete instance.defaults.headers.common['Authorization'];
+		try {
+			const data = await axios.get(url, {resource_type: 'raw'});
+			// console.log(data);
+			let buffer = new Buffer(data.data.toString());
+			// console.log(buffer.toString('base64'));
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useMemo(() => {
+		if (Array.isArray(initialFile) && initialFile?.length > 0) {
+			const getFileDetails = () => {
+				initialFile?.map(async (item) => {
+					setFiles((prev) => [...prev, item]);
+					setFile(item.filename);
+					await fetchFile(item.filename);
+				});
+			};
+			getFileDetails();
+		}
+	}, [initialFile?.length]);
+
+	// FIXME: I
+	const handleUpdateDelete = () => {
+		setFile(null);
+		setFiles([]);
+	};
+
+	// useEffect(() => {
+	// 	if (mainFile.length > 0) {
+	// 		const start = async () => {
+	// 			const pr_arr = mainFile.map(
+	// 				(item, i) =>
+	// 					new Promise(async (res, rej) => {
+	// 						await getBase64(item.file);
+	// 						setFile(item.file);
+	// 						res(null);
+	// 					})
+	// 			);
+	// 			await Promise.all(pr_arr);
+	// 		};
+	// 		start();
+	// 	}
+	// }, [mainFile]);
 
 	return (
 		<div className="pt-2">
@@ -72,23 +124,16 @@ export default function ContentUpload({file, setFile}) {
 			<small className="text-black mb-4 font-normal">
 				The maximum allowed file size is 750MB.
 			</small>
-			{mainFile.length > 0 &&
-				mainFile.map((item, index) => (
+			{files.length > 0 &&
+				files.map((item, index) => (
 					<div
 						key={index}
 						className={styles.fileUpload + ' flex flex-col'}
 					>
-						<p className="mb-3">
-							{progress !== 100
-								? 'Uploading'
-								: 'Content Uploaded Successfully'}{' '}
-							({progress && <>{progress}</>})%
-						</p>
 						<div
 							key={index}
 							className={styles.uploaded + ' w-full rounded-md'}
 						>
-							{progress !== 100 && <span></span>}
 							<div className="flex items-center">
 								<div
 									className="mr-4 flex items-center justify-center"
@@ -99,31 +144,24 @@ export default function ContentUpload({file, setFile}) {
 										borderRadius: '8px',
 									}}
 								>
-									<Image
-										src={
-											item.file.type.includes('video')
-												? Video
-												: item.file.type.includes(
-														'audio'
-												  )
-												? Audio
-												: FileZip
-										}
-										alt="zip"
-									/>
+									<Image src={FileZip} alt="zip" />
 								</div>
 								<div className="flex flex-col">
 									<h2 className="mb-3 text-base font-bold">
-										{item.file.name}
+										{
+											item?.filename.split('/')[
+												item?.filename.split('/')
+													.length - 1
+											]
+										}
 									</h2>
-									<p className="mb-0">{`${(
-										item.file.size /
-										(1024 * 1024)
-									).toFixed()}MB`}</p>
+									<p className="mb-0">{`${
+										item?.size || '0 MB'
+									}`}</p>
 								</div>
 							</div>
 							<div
-								onClick={() => handleDeleteFile()}
+								onClick={() => handleUpdateDelete()}
 								className={
 									styles.deleteFile +
 									' flex items-center justify-center'
@@ -134,6 +172,72 @@ export default function ContentUpload({file, setFile}) {
 						</div>
 					</div>
 				))}
+			<RenderIf condition={files.length === 0}>
+				{mainFile.length > 0 &&
+					mainFile.map((item, index) => (
+						<div
+							key={index}
+							className={styles.fileUpload + ' flex flex-col'}
+						>
+							<p className="mb-3">
+								{progress !== 100
+									? 'Uploading'
+									: 'Content Uploaded Successfully'}{' '}
+								({progress && <>{progress}</>})%
+							</p>
+							<div
+								key={index}
+								className={
+									styles.uploaded + ' w-full rounded-md'
+								}
+							>
+								{progress !== 100 && <span></span>}
+								<div className="flex items-center">
+									<div
+										className="mr-4 flex items-center justify-center"
+										style={{
+											width: '48px',
+											height: '48px',
+											background: '#0072EF',
+											borderRadius: '8px',
+										}}
+									>
+										<Image
+											src={
+												item.file.type.includes('video')
+													? Video
+													: item.file.type.includes(
+															'audio'
+													  )
+													? Audio
+													: FileZip
+											}
+											alt="zip"
+										/>
+									</div>
+									<div className="flex flex-col">
+										<h2 className="mb-3 text-base font-bold">
+											{item.file.name}
+										</h2>
+										<p className="mb-0">{`${(
+											item.file.size /
+											(1024 * 1024)
+										).toFixed()}MB`}</p>
+									</div>
+								</div>
+								<div
+									onClick={() => handleDeleteFile()}
+									className={
+										styles.deleteFile +
+										' flex items-center justify-center'
+									}
+								>
+									<Image src={FileDelete} alt="delete" />
+								</div>
+							</div>
+						</div>
+					))}
+			</RenderIf>
 			<div className={styles.fileUploader}>
 				{file && <span></span>}
 				<div

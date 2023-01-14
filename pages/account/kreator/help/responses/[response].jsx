@@ -13,12 +13,13 @@ import {
 	CollapseArrowDown,
 	CollapseArrowRight,
 	Folder,
+	RenderIf,
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import {Button} from 'components/button/Button';
 import BackButton from 'components/BackButton';
 
-const CardBody = ({ticketId}) => {
+const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
 	return (
 		<>
@@ -32,21 +33,23 @@ const CardBody = ({ticketId}) => {
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
-						<span className={styles.status}>Open</span>
+						<span className={styles.status}>{ticket.status}</span>
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Department</p>
-						<p className={styles.value2}>Technical</p>
+						<p className={styles.value2}>
+							{ticket.department || 'Technical'}
+						</p>
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Submitted Date</p>
-						<p className={styles.value2}>Jun 12th 2021, 3:50 PM</p>
+						<p className={styles.value2}>{ticket?.created_at}</p>
 					</div>
 				</div>
 				<div className={`mb-10 ${styles.complainContainer}`}>
 					<div className={`flex justify-between`}>
 						<h2 className={`${styles.complain} mb-0`}>
-							Login Difficulties
+							{ticket?.heading}
 						</h2>
 						<Button
 							text="Show Message"
@@ -69,11 +72,12 @@ const CardBody = ({ticketId}) => {
 							showIssue ? styles.block : styles.hidden
 						}`}
 					>
-						<p className={`mt-5 ${styles.description}`}>
-							I can&apos;t seem to log into my account and i can
-							not share my link with customers. I would love if
-							this is resolved as soon as possible.
-						</p>
+						<p
+							className={`mt-5 ${styles.description}`}
+							dangerouslySetInnerHTML={{
+								__html: ticket.message,
+							}}
+						/>
 						<div className={`${styles.attachments} flex flex-col`}>
 							Attachments (1)
 							{/* files */}
@@ -86,51 +90,68 @@ const CardBody = ({ticketId}) => {
 						</div>
 					</section>
 				</div>
-				<div className={styles.adminResponse}>
-					<h2 className={styles.title}>Admin Response</h2>
-					<p className={styles.response}>
-						This would be resolved shortly. My apologies for the
-						inconveniences.
-					</p>
-					{/* border bottom here */}
-					<div className={`${styles.attachments} flex flex-col`}>
-						Attachments (1)
-						{/* files */}
-						<div className={`flex gap-4 ${styles.files}`}>
-							<Image src={Folder} alt="icon" />
-							<p className={`mb-0 ${styles.fileName}`}>
-								Yesyoucan.png
-							</p>
+				<RenderIf condition={ticket.replied}>
+					<div className={styles.adminResponse}>
+						<h2 className={styles.title}>Admin Response</h2>
+						<p className={styles.response}>
+							This would be resolved shortly. My apologies for the
+							inconveniences.
+						</p>
+						{/* border bottom here */}
+						<div className={`${styles.attachments} flex flex-col`}>
+							Attachments (1)
+							{/* files */}
+							<div className={`flex gap-4 ${styles.files}`}>
+								<Image src={Folder} alt="icon" />
+								<p className={`mb-0 ${styles.fileName}`}>
+									Yesyoucan.png
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
+				</RenderIf>
 			</div>
 		</>
 	);
 };
 
+// ticket object shape
+// {
+//   "id": 59,
+//   "uploaded_image_list": [
+//       "https://res.cloudinary.com/salvoagency/raw/upload/v1670422497/kreatesell/profilepicture/neh067jdcp3nw1ilsuve.png"
+//   ],
+//   "heading": "Ticket Heading",
+//   "message": "<p>Testing tickets on admin</p>",
+//   "replied": false,
+//   "ticket_count": 1,
+//   "file_path": "",
+//   "status": "pending",
+//   "ticket_reference": "TK#-KSmid638090827592930059",
+//   "department": null,
+//   "user_id": null,
+//   "created_at": "2022-12-07T06:14:55.747"
+// }
 const Index = (props) => {
-	const ticketsURL = `${process.env.BASE_URL}auth/KreatorTickets`;
+	const ticketsURL = (id) =>
+		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const [tickets, setTickets] = useState([]);
+	const [ticket, setTicket] = useState([]);
 	const [ticketId, setTicketId] = useState('');
 	const router = useRouter();
-
 	useEffect(() => {
 		setTicketId(router?.query?.response);
 	}, [router?.query?.response]);
-
-	const getUserTickets = async () => {
+	const getUserTickets = async (id) => {
 		const token = await getUserToken();
 		try {
-			const res = await axios.get(ticketsURL, {
+			const res = await axios.get(ticketsURL(id), {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			});
-
-			setTickets(res?.data?.data);
+			setTicket(res?.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -140,8 +161,10 @@ const Index = (props) => {
 	};
 
 	useEffect(() => {
-		getUserTickets();
-	}, []);
+		if (router.query?.response) {
+			getUserTickets(router.query?.response);
+		}
+	}, [router.query?.response]);
 
 	if (error) {
 		return <CustomErrorPage />;
@@ -158,7 +181,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody {...{ticketId}} />
+					<CardBody {...{ticketId, ticket}} />
 				</div>
 			</AuthLayout>
 		</>

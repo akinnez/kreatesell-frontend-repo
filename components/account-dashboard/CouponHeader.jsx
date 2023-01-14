@@ -7,6 +7,7 @@ import {dayOptions, currencyOptions} from './partials';
 import styles from '../../public/css/Dashboard.module.scss';
 import ResetFilters from 'components/ResetFilters';
 import useCurrency from 'hooks/useCurrency';
+import {useRouter} from 'next/router';
 
 export const CouponHeader = ({
 	handleSearchInput,
@@ -24,6 +25,7 @@ export const CouponHeader = ({
 	const [form] = Form.useForm();
 
 	const {countriesCurrency, loading} = useCurrency();
+	const router = useRouter();
 
 	useMemo(() => {
 		if (!!countriesCurrency) {
@@ -36,6 +38,10 @@ export const CouponHeader = ({
 	}, [countriesCurrency]);
 
 	const format = 'YYYY-MM-DD';
+
+	const route = router.pathname.split('/');
+	const isCouponCol = route.includes('coupons');
+
 	return (
 		<div>
 			<Form
@@ -53,7 +59,7 @@ export const CouponHeader = ({
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={12} lg={4}>
+					<Col xs={12} lg={isCouponCol ? 5 : 4}>
 						<Form.Item label="Show" name="show">
 							<Select
 								options={dayOptions}
@@ -63,17 +69,19 @@ export const CouponHeader = ({
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={12} lg={4}>
-						<Form.Item label="Currency" name="currency">
-							<Select
-								options={countriesCurrencyList}
-								className={styles.selectRadius}
-								placeholder="NGN"
-								onChange={(e) => handleCurrencyChange(e)}
-							/>
-						</Form.Item>
-					</Col>
-					<Col xs={10} lg={3}>
+					{!route?.includes('coupons') && (
+						<Col xs={12} lg={isCouponCol ? 5 : 4}>
+							<Form.Item label="Currency" name="currency">
+								<Select
+									options={countriesCurrencyList}
+									className={styles.selectRadius}
+									placeholder="NGN"
+									onChange={(e) => handleCurrencyChange(e)}
+								/>
+							</Form.Item>
+						</Col>
+					)}
+					<Col xs={10} lg={isCouponCol ? 5 : 3}>
 						<Form.Item label="From" name="from">
 							<DatePicker
 								placeholder="2021-07-22"
@@ -83,7 +91,7 @@ export const CouponHeader = ({
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={10} lg={3}>
+					<Col xs={10} lg={isCouponCol ? 5 : 3}>
 						<Form.Item label="To" name="to">
 							<DatePicker
 								placeholder="2021-07-22"

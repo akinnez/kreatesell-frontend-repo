@@ -114,9 +114,19 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 	const logout = Logout();
 
 	const pageTitle = pathname?.split('/');
+
 	const title =
-		pageTitle.length >= 4
+		pageTitle.length >= 4 &&
+		!pageTitle.includes('affiliate') &&
+		!pageTitle.includes('coupons') &&
+		!pageTitle.includes('create')
 			? `${pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')}`
+			: pageTitle.includes('affiliate')
+			? 'AFFILIATES'
+			: pageTitle.includes('coupons')
+			? 'COUPON CODES'
+			: pageTitle.includes('create') && pageTitle[3] === 'products'
+			? 'CREATE PRODUCT'
 			: 'Dashboard';
 
 	useEffect(() => {

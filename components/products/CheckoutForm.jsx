@@ -891,7 +891,10 @@ export const CheckoutForm = ({
 
 	const disableButton = useCallback(() => {
 		// console.log("compareToPrice = ", compareToPrice);
-		if (numberOfLimit < product?.number_sold) {
+		// if (!limitProductSale) {
+		// 	return false;
+		// }
+		if (numberOfLimit < product?.number_sold && limitProductSale) {
 			return true;
 		}
 
@@ -929,6 +932,7 @@ export const CheckoutForm = ({
 		noMatchingCurrency,
 		isGreaterthanSug,
 		numberOfLimit,
+		limitProductSale,
 	]);
 
 	const salesLimitErrorMsg = () => {
@@ -1976,7 +1980,10 @@ export const CheckoutForm = ({
 								/>
 							</div>
 							<RenderIf
-								condition={numberOfLimit < product?.number_sold}
+								condition={
+									limitProductSale &&
+									numberOfLimit < product?.number_sold
+								}
 							>
 								<div className={styles.salesLimitError}>
 									<Image

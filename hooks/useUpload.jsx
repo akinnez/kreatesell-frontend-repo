@@ -24,7 +24,7 @@ export const useUpload = ({fileType}) => {
 				acceptedFiles?.[0]?.path?.endsWith('.rar') ||
 				acceptedFiles?.[0]?.path?.endsWith('.zip');
 
-			if (isAcceptableForUpload) {
+			if (fileType === 'all' || isAcceptableForUpload) {
 				setShowImageFileFeedback(false);
 				const fileMatched = acceptedFiles.map((file) => ({
 					file,
@@ -62,7 +62,7 @@ export const useUpload = ({fileType}) => {
 	};
 
 	const setUrl = (file, url) => {
-		console.log('setUrl');
+		// console.log('setUrl');
 		setFiles((prev) =>
 			prev.map((oneFile) => {
 				if (oneFile.file === file) {

@@ -236,15 +236,8 @@ const Index = ({
 						toggleView={toggleView}
 						isMobileSideBarOpen={isMobileSideBarOpen}
 					/>
-					{/* <div className={styles.mobileLoginSideBar}>
-            <Sidebar />
-          </div> */}
-					<Content
-						// style={{
-						// 	backgroundColor: "rgba(245, 245, 245, 1)",
-						// 	padding: "50px 20px 10px 20px",
-						// }}
 
+					<Content
 						// The previous style above was replaced with the one below cos a different bg needed to be dynamically rendered for mobile view.
 						className={`content ${
 							mobilePadding && `authLayout-no-mobile-padding`
@@ -263,7 +256,6 @@ const Index = ({
 						/>
 						{loading ? <Loader /> : children}
 					</Content>
-					{/* <Footer>Footer</Footer> */}
 				</Layout>
 			</Layout>
 

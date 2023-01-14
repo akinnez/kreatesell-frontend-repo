@@ -11,10 +11,10 @@ import styles from './index.module.scss';
 
 const {Text} = Typography;
 const {TextArea} = Input;
-const imageTypes = ['image/png', 'image/jpeg', 'image/gif'];
+const imageTypes = ['image/png', 'image/jpeg' /*, 'image/gif'*/];
 const maxSize = 2 * 1024 * 1024;
 const size = `${maxSize / (1024 * 1024).toFixed(1)}MB`;
-const limit = 5;
+const limit = 1;
 
 const ReportAffiliate = ({
 	reportIsVisible,
@@ -37,7 +37,7 @@ const ReportAffiliate = ({
 			for (let i = 0; i < images.length; i++) {
 				if (!imageTypes.includes(images[i].type)) {
 					showToast(
-						'Selected files can only be of type png/jpg/jpeg/gif',
+						'Selected files can only be of type png/jpg/jpeg',
 						'warn'
 					);
 					actions.setSubmitting(false);
@@ -203,11 +203,15 @@ const ReportAffiliate = ({
 									<input
 										ref={inputElement}
 										type="file"
-										multiple
+										// multiple
 										onChange={handleChange}
-										accept="image/png, image/jpeg, image/gif"
+										accept="image/png, image/jpeg"
 									/>
 								</div>
+								<p className={styles.image_details_description}>
+									Upload evidence (Allowed Files: PNG, JPG |
+									Maximum File Size: 2MB)
+								</p>
 							</div>
 							<div className={styles.submit__btn}>
 								<Button
