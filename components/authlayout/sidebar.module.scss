@@ -111,7 +111,6 @@
 
 		li:not(.menuitem) {
 			div {
-
 				svg,
 				span,
 				i {
@@ -193,7 +192,7 @@
 
 				color: #0072ef;
 
-				&+div {
+				& + div {
 					display: flex;
 					justify-content: center;
 					align-items: center;
@@ -201,12 +200,12 @@
 					padding: 4px 8px;
 				}
 
-				&+div.businessPlan {
+				& + div.businessPlan {
 					background: #00b140;
 					color: #ffffff;
 				}
 
-				&+div.basicPlan {
+				& + div.basicPlan {
 					border: 1px solid #00b140;
 					color: #00b140;
 					background: unset;
@@ -257,7 +256,7 @@
 			color: #595959;
 		}
 
-		&+p {
+		& + p {
 			font-weight: 400;
 			font-size: 14px;
 			line-height: 24px;
@@ -441,12 +440,11 @@
 	// }
 }
 
-
 .modal_wrapper {
 	@include screen('medium') {
 		display: none;
 	}
-} 
+}
 
 .modal__wrapper {
 	text-align: center;
@@ -456,7 +454,7 @@
 .header {
 	margin-bottom: 32px;
 
-	>h1 {
+	> h1 {
 		margin-bottom: 0;
 		font-weight: 700;
 		font-size: 18px;
@@ -470,7 +468,7 @@
 	p {
 		margin-bottom: 0;
 
-		>[class='ant-typography'] {
+		> [class='ant-typography'] {
 			font-weight: 400;
 			font-size: 14px;
 			color: #595959;
@@ -486,7 +484,7 @@
 	flex-wrap: wrap;
 	gap: 20px 40px;
 
-	>button,
+	> button,
 	a {
 		font-weight: 700;
 		font-size: 14px;
@@ -496,7 +494,7 @@
 		padding: 10px 20px;
 	}
 
-	>a:first-child {
+	> a:first-child {
 		border: 1px solid #0072ef;
 		color: #0072ef;
 

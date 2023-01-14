@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { Menu } from 'antd';
+import {Menu} from 'antd';
 import style from './sidebar.module.scss';
-import { useRouter } from 'next/router';
-import { SetProductDefault, SetProductID } from 'redux/actions';
+import {useRouter} from 'next/router';
+import {SetProductDefault, SetProductID} from 'redux/actions';
 import Image from 'next/image';
-import { mutate } from 'swr';
+import {mutate} from 'swr';
 import {
 	Shop,
 	Dashboard,
@@ -27,12 +27,12 @@ import {
 	forwardRef,
 	useCallback,
 } from 'react';
-import { BusinessPlanBox, OpenSubMenu } from '../../utils/assets';
-import { RenderIf, CloseIcon } from 'utils';
-import { guideDataObject } from '../../Models/onboardingGuideData';
+import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
+import {RenderIf, CloseIcon} from 'utils';
+import {guideDataObject} from '../../Models/onboardingGuideData';
 import axiosAPI from 'utils/axios';
 
-import { Logout as LogoutAction } from '../../redux/actions/auth.actions';
+import {Logout as LogoutAction} from '../../redux/actions/auth.actions';
 import Timer from './Timer';
 
 const menuItemStyle = {
@@ -41,8 +41,8 @@ const menuItemStyle = {
 };
 
 const MenuItem = memo(
-	forwardRef(({ Icon = () => <></>, title, target = '#', ...rest }, ref) => {
-		const { pathname } = useRouter();
+	forwardRef(({Icon = () => <></>, title, target = '#', ...rest}, ref) => {
+		const {pathname} = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 		return (
@@ -69,16 +69,15 @@ const MenuItem = memo(
 );
 MenuItem.displayName = 'MenuItem';
 
-
-const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
-	const { pathname } = useRouter();
+const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
+	const {pathname} = useRouter();
 	const logout = LogoutAction();
 	const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 	return (
 		<Menu.Item
 			{...rest}
-			style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
+			style={{background: '#0072EF', color: 'white', ...menuItemStyle}}
 			icon={
 				<Icon
 					className={style.icon}
@@ -98,8 +97,8 @@ const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
 
 // console.log(OpenSubMenu);
 
-const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
-	const { SubMenu } = Menu;
+const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
+	const {SubMenu} = Menu;
 	const router = useRouter();
 	const setProductId = SetProductID();
 	const setProductDefault = SetProductDefault();
@@ -129,7 +128,6 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 
 	const route = router.pathname.split('/')[2];
 
-
 	// const [isOpen, setIsOpen] = useState(false);
 	const [isOpen, setIsOpen] = useState({
 		isProductOpen: false,
@@ -138,10 +136,10 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 		isSalesOpen: false,
 	});
 
-	const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
+	const {isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen} = isOpen;
 	const onOpenChange = (id) => {
 		// setIsOpen((isOpen) => !isOpen);
-		setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
+		setIsOpen((prev) => ({...isOpen, [id]: !isOpen[id]}));
 	};
 
 	const offsetCalculate = () => {
@@ -203,7 +201,7 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 				mode="inline"
 				theme="light"
 				className={style.menu}
-			// onClick={handleClick}
+				// onClick={handleClick}
 			>
 				<MenuItem
 					ref={
@@ -223,7 +221,6 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 					title="Store"
 					target="/account/kreator/store"
 				/>
-
 				{guideDataObj.menuItem === 'products' ? (
 					<MenuItem
 						ref={
@@ -259,7 +256,7 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -292,8 +289,6 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
-
 				{guideDataObj.menuItem === 'kreators' ? (
 					<MenuItem
 						ref={
@@ -330,7 +325,7 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -347,8 +342,6 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
-
 				{guideDataObj.menuItem === 'affiliates' ? (
 					<MenuItem
 						ref={
@@ -385,7 +378,7 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -402,7 +395,6 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
 				{guideDataObj.menuItem === 'sales' ? (
 					<MenuItem
 						ref={
@@ -439,7 +431,7 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 									alt="open"
 									width={14}
 									height={14}
-								// onClick={handleClick}
+									// onClick={handleClick}
 								/>
 							);
 						}}
@@ -461,7 +453,6 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 						</Menu.Item>
 					</SubMenu>
 				)}
-
 				<MenuItem
 					ref={guideDataObj.menuItem === 'help' ? positionRef : null}
 					key={5}
@@ -469,9 +460,8 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 					isHelp={true}
 					title="Help"
 					target="/account/kreator/help"
-				// onClick={() => setIsActive('help')}
+					// onClick={() => setIsActive('help')}
 				/>
-
 				<MenuItem
 					ref={
 						guideDataObj.menuItem === 'integrations'
@@ -482,9 +472,8 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 					Icon={Ticket}
 					title="Integrations"
 					target="/account/kreator/integrations"
-				// onClick={() => setIsActive('integrations')}
+					// onClick={() => setIsActive('integrations')}
 				/>{' '}
-
 				<MenuItem
 					ref={
 						guideDataObj.menuItem === 'settings'
@@ -496,35 +485,33 @@ const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
 					title="Settings"
 					target="/account/kreator/settings"
 				/>
-
 				<LogoutItem key={8} Icon={Logout} title="Logout" />
 			</Menu>
 			<RenderIf
 				condition={
 					route === 'dashboard' &&
-					!hideDahboardGuideModal && !isMobileView 
-					&&
+					!hideDahboardGuideModal &&
+					!isMobileView &&
 					isFirstTimeUser
 				}
 			>
 				<div
 					style={{
-						background: 'rgba(0,0,0,0.7)', 
+						background: 'rgba(0,0,0,0.7)',
 						position: 'fixed',
 						top: 0,
 						left: 250,
 						right: 0,
 						bottom: 0,
 						zIndex: 5000,
-						
 					}}
 					className={style.modal_wrapper}
-				></div> 
+				></div>
 				<div
 					id="website-guide"
 					style={{
 						position: 'absolute',
-						left: `${currentPosition.left}px`, 
+						left: `${currentPosition.left}px`,
 						top: `${currentPosition.top}px`,
 						zIndex: 5000,
 					}}
