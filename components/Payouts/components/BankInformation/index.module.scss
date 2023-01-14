@@ -32,3 +32,12 @@
 .paypal__info > p > [class='ant-typography']:first-child {
 	width: 130px;
 }
+
+.text {
+	span:last-child {
+		@media (max-width: 768px) {
+			position: relative;
+			left: -10px;
+		}
+	}
+}
