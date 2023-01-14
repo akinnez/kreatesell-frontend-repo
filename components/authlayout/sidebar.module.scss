@@ -128,7 +128,10 @@
 	}
 
 	@media (max-width: 500px) {
-		min-width: 120vw;
+		// min-width: 120vw; //* took out for the dashboard quirk
+		width: 100vw;
+
+		min-width: 100vw;
 	}
 
 	.content {

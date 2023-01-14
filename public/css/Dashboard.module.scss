@@ -5,6 +5,10 @@
 .container {
 	width: 100%;
 
+	// &.affliateCard {
+	// 	border: 1px solid red;
+	// }
+
 	.selector {
 		background: $white-100;
 		@include flex(row, center, null);

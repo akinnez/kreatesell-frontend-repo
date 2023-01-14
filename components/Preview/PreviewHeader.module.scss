@@ -381,6 +381,7 @@
 
 	.previewContainer {
 		display: flex;
+		// overflow: hidden;
 		flex-direction: column;
 		@media (min-width: 1300px) {
 			flex-direction: row;
