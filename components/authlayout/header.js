@@ -107,6 +107,10 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 
 	const isOverLayView = pathname === '/account/kreator/products/preview/[id]';
 
+	const patchMainHeaderWidth = pathname?.includes(
+		'/account/kreator/settings'
+	);
+
 	const {
 		store: {store_details},
 	} = useSelector((state) => state.store);
@@ -137,7 +141,9 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 
 	return (
 		<section
-			className={`${style.mainNav} ${isOverLayView ? style.hide : ''}`}
+			className={`${style.mainNav} ${isOverLayView ? style.hide : ''} ${
+				patchMainHeaderWidth ? style.withPatch : ''
+			}`}
 		>
 			{/* <SetUpPrompt /> */}
 			<div className={style.mobileHeader}>
