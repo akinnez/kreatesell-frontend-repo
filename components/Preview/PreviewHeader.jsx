@@ -160,7 +160,10 @@ export default function PreviewHeader({
 								<Tooltip
 									title="Product is deactivated, activate it to publish"
 									visible={
-										product?.product_details?.status === 3
+										product?.product_details?.status ===
+											3 ||
+										product?.product_listing_status_type ===
+											'Deactivated'
 									}
 									placement="bottomRight"
 								>
@@ -169,7 +172,9 @@ export default function PreviewHeader({
 										onClick={() => setIsOpen(true)}
 										disabled={
 											product?.product_details?.status ===
-											3
+												3 ||
+											product?.product_listing_status_type ===
+												'Deactivated'
 										}
 									>
 										Publish
@@ -235,13 +240,21 @@ export default function PreviewHeader({
 					</Button>
 					<Tooltip
 						title="Product is deactivated, activate it to publish"
-						visible={product?.product_details?.status === 3}
+						visible={
+							product?.product_details?.status === 3 ||
+							product?.product_listing_status_type ===
+								'Deactivated'
+						}
 						placement="bottomRight"
 					>
 						<Button
 							type="primary"
 							onClick={() => setIsOpen(true)}
-							disabled={product?.product_details?.status === 3}
+							disabled={
+								product?.product_details?.status === 3 ||
+								product?.product_listing_status_type ===
+									'Deactivated'
+							}
 						>
 							Publish
 						</Button>

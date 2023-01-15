@@ -4,10 +4,17 @@ import {BsThreeDots} from 'react-icons/bs';
 import ApproveImg from 'public/images/approve_icon.png';
 import DeclineImg from 'public/images/decline_icon.png';
 import RevokeImg from 'public/images/revoke_icon.png';
+import ReportImg from 'public/images/report_icon.png';
 import styles from './index.module.scss';
 import {RenderIf} from 'utils';
 
-const menu = ({status, showActionModal, ...props}) => {
+const menu = ({
+	status,
+	showActionModal,
+	showReportModal,
+	affiliateId,
+	...props
+}) => {
 	const handler = (requestStatus, title) => {
 		showActionModal({status: requestStatus, title, ...props});
 	};
@@ -24,7 +31,7 @@ const menu = ({status, showActionModal, ...props}) => {
 				</span>
 				Approve
 			</Menu.Item>
-			<RenderIf condition={props.all.status !== 'Approved'}>
+			<RenderIf condition={status !== 'Approved'}>
 				<Menu.Item
 					key={2}
 					onClick={() => handler('decline', 'Decline')}
@@ -45,6 +52,16 @@ const menu = ({status, showActionModal, ...props}) => {
 					<Image src={RevokeImg} alt="Revoke Icon" />
 				</span>
 				Revoke
+			</Menu.Item>
+			<Menu.Item
+				key={3}
+				onClick={() => showReportModal(affiliateId)}
+				// disabled={status === 'Revoked'}
+			>
+				<span className={styles.image__wrapper}>
+					<Image src={ReportImg} alt="Report Icon" />
+				</span>
+				Report Kreator
 			</Menu.Item>
 		</Menu>
 	);

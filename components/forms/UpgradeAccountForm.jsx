@@ -526,31 +526,48 @@ export const UpgradeAccountForm = ({
 										value !== 'paypal'
 									) {
 										return true;
-									} else if (
+									}
+									if (
 										store?.kyc_status?.kyc_status?.toLowerCase() !==
 											'approved' &&
 										store?.user?.user_plan?.toLowerCase() !==
 											'business'
 									) {
-										{
-											/* return false if currency is cad, usd or gbp */
-										}
+										return false;
+									}
+									if (
+										store?.user?.user_plan?.toLowerCase() !==
+										'business'
+									) {
+										let currency =
+											activeCurrency?.currency ||
+											activeCurrency?.currency_name;
 										if (
-											[
-												activeCurrency?.currency,
-												activeCurrency?.currency_name,
-											].includes('USD') ||
-											[
-												activeCurrency?.currency,
-												activeCurrency?.currency_name,
-											].includes('GBP') ||
-											[
-												activeCurrency?.currency,
-												activeCurrency?.currency_name,
-											].includes('CAD')
+											['USD', 'GBP', 'CAD'].includes(
+												currency
+											)
 										) {
 											return false;
 										}
+										return true;
+									}
+									if (
+										store?.kyc_status?.kyc_status?.toLowerCase() !==
+										'approved'
+									) {
+										let currency =
+											activeCurrency?.currency ||
+											activeCurrency?.currency_name;
+										if (
+											['USD', 'GBP', 'CAD'].includes(
+												currency
+											)
+										) {
+											return false;
+										}
+										return true;
+									} else {
+										return true;
 									}
 								})
 								.map(({type, icon, value}) => (
@@ -578,7 +595,17 @@ export const UpgradeAccountForm = ({
 									</div>
 								))}
 							<RenderIf
-								condition={store?.kyc_status?.is_kyc_verified}
+								condition={
+									store?.kyc_status?.is_kyc_verified &&
+									store?.kyc_status?.kyc_status?.toLowerCase() ===
+										'approved' &&
+									store?.user?.user_plan?.toLowerCase() ===
+										'business' &&
+									['USD', 'GBP', 'CAD'].includes(
+										activeCurrency?.currency ||
+											activeCurrency?.currency_name
+									)
+								}
 							>
 								<PayPalButtons
 									style={{

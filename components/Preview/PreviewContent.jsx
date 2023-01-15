@@ -34,8 +34,6 @@ export default function PreviewContent({
 	const [domainLink, setDomainLink] = useState('');
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
 
-	console.log(cookieExpiryTime, 'cookieExpiryTimecookieExpiryTime');
-
 	const router = useRouter();
 
 	const {store} = useSelector((state) => state?.store);
@@ -278,7 +276,6 @@ export default function PreviewContent({
 								</h2>
 							)}
 							<div className={styles.visitLink}>
-								{console.log('domainLink', domainLink)}
 								{/* <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'><a>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></a></Link> */}
 								<Link
 									href={domainLink}
