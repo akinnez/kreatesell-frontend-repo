@@ -18,11 +18,14 @@ export default function PreviewProduct() {
 
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
+	const [productStatus, setProductStatus] = useState('idle');
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
-		useState(null);
+	const [
+		alreadyDefinedOriginalPrice,
+		setAlreadyDefinedOriginalPrice,
+	] = useState(null);
 
 	const getProductByID = GetProductByIDNotAut();
 	const convertCurrency = ConvertCurrency();
@@ -30,7 +33,27 @@ export default function PreviewProduct() {
 
 	useEffect(() => {
 		if (router.query.id) {
-			getProductByID(router.query.id);
+			getProductByID(
+				router.query.id,
+				(res) => {
+					// console.log('successs', res.data.data.status);
+					if (
+						['deactivate', 'deativate'].includes(
+							res.data.data.status.toLowerCase()
+						)
+					) {
+						setProductStatus('deactivated');
+						return;
+					}
+					setProductStatus('not-deactivated');
+				},
+				(status) => {
+					// console.log('failed', status);
+					if (status === 'failed') {
+						setProductStatus('deactivated');
+					}
+				}
+			);
 		}
 	}, [router.query.id]);
 
@@ -134,6 +157,7 @@ export default function PreviewProduct() {
 				style={{
 					// position: 'absolute',
 					background: '#e5e5e5',
+					minHeight: '100vh',
 					// left: 0,
 					// top: 0,
 					// width: '100%',
@@ -145,7 +169,11 @@ export default function PreviewProduct() {
 					{...{formattedCurrencies, setActiveCurrency}}
 				/>
 				<PreviewContent
-					{...{alreadyDefinedPrice, alreadyDefinedOriginalPrice}}
+					{...{
+						alreadyDefinedPrice,
+						alreadyDefinedOriginalPrice,
+						productStatus,
+					}}
 				/>
 				<PoweredByKS />
 			</div>

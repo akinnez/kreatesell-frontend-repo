@@ -30,6 +30,47 @@
 		width: 85%;
 	}
 }
+.emptyContainerHolder {
+	height: calc(100vh - 4.5rem - 6.125rem);
+	margin-top: 6.125rem;
+	@include flex(column, center, center);
+	@include screen('tablet') {
+		width: 100%;
+	}
+}
+.emptyContainer {
+	margin: auto;
+	padding: 1rem;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	@include screen('tablet') {
+		width: 95%;
+	}
+	h2 {
+		font-weight: 600;
+		font-size: 1.875rem;
+		line-height: 2.0625rem;
+		text-align: center;
+		color: #262626;
+	}
+	p {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 26px;
+		text-align: center;
+		color: #8c8c8c;
+		width: 50%;
+		@include screen('tablet') {
+			width: 90%;
+		}
+	}
+
+	@media (min-width: 500px) {
+		padding: 72px 60px;
+		width: 85%;
+	}
+}
 
 .select {
 	border: 1px solid;
