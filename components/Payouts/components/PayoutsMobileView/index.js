@@ -7,7 +7,7 @@ import Basket from 'public/images/basket-grayed.png';
 import styles from './index.module.scss';
 
 const PayoutsMobileView = ({payouts}) => {
-	console.log('payouts = ', payouts);
+	// console.log('payouts = ', payouts);
 	return (
 		<div>
 			{payouts.length === 0 ? (
