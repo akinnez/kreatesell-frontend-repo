@@ -166,6 +166,15 @@ const Checkout = () => {
 		}
 	};
 
+	const getCheckoutPriceInNaira = (indicator) => {
+		let priceInNiara = checkOutDetails?.find(
+			(item) =>
+				item?.currency_name === defaultCurrency?.currency &&
+				item?.price_indicator === indicator
+		);
+		return priceInNiara?.price * convertedCurrency?.buy_rate;
+	};
+
 	const getCurrency = (priceOrName) => {
 		if (priceOrName === 'currency') {
 			return selectedPaymentMethod === 'crypto'
@@ -181,12 +190,13 @@ const Checkout = () => {
 			return totalFee;
 		} else if (priceOrName === 'minimum') {
 			return (
-				MinimumPrices?.price || Number(getCurrency('price')).toFixed(2)
+				MinimumPrices?.price ||
+				Number(getCheckoutPriceInNaira('Minimum')).toFixed(2)
 			);
 		} else if (priceOrName === 'suggested') {
 			return (
 				SuggestedPrices?.price ||
-				Number(getCurrency('price')).toFixed(2)
+				Number(getCheckoutPriceInNaira('Suggested')).toFixed(2)
 			);
 		} else if (priceOrName === 'original') {
 			return (
@@ -399,9 +409,12 @@ const Checkout = () => {
 		}
 	};
 
-	const standardPrice = desiredAmount
-		? desiredAmount
-		: getCurrency('minimum');
+	const standardPrice =
+		pricingTypeDetails?.price_type === 'Pay What You Want'
+			? desiredAmount
+				? desiredAmount
+				: getCurrency('minimum')
+			: Number(getCurrency('price')).toFixed(2);
 	const percentagePrice =
 		standardPrice - (Number(couponDetails?.value) / 100) * standardPrice;
 	const actualPrice = standardPrice - Number(couponDetails?.value);

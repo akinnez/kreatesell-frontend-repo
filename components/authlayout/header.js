@@ -107,6 +107,10 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 
 	const isOverLayView = pathname === '/account/kreator/products/preview/[id]';
 
+	const patchMainHeaderWidth = pathname?.includes(
+		'/account/kreator/settings'
+	);
+
 	const {
 		store: {store_details},
 	} = useSelector((state) => state.store);
@@ -114,9 +118,19 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 	const logout = Logout();
 
 	const pageTitle = pathname?.split('/');
+
 	const title =
-		pageTitle.length >= 4
+		pageTitle.length >= 4 &&
+		!pageTitle.includes('affiliate') &&
+		!pageTitle.includes('coupons') &&
+		!pageTitle.includes('create')
 			? `${pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')}`
+			: pageTitle.includes('affiliate')
+			? 'AFFILIATES'
+			: pageTitle.includes('coupons')
+			? 'COUPON CODES'
+			: pageTitle.includes('create') && pageTitle[3] === 'products'
+			? 'CREATE PRODUCT'
 			: 'Dashboard';
 
 	useEffect(() => {
@@ -127,7 +141,9 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 
 	return (
 		<section
-			className={`${style.mainNav} ${isOverLayView ? style.hide : ''}`}
+			className={`${style.mainNav} ${isOverLayView ? style.hide : ''} ${
+				patchMainHeaderWidth ? style.withPatch : ''
+			}`}
 		>
 			{/* <SetUpPrompt /> */}
 			<div className={style.mobileHeader}>
@@ -182,7 +198,9 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 					) : (
 						<div onClick={toggleView} className={style.navClose}>
 							<Image src={NavCloseLogo} alt="navClose logo" />
-							<Image src={NavCloseIcon} alt="close icon" />
+							<div className={style.navCloseBox}>
+								<Image src={NavCloseIcon} alt="close icon" />
+							</div>
 						</div>
 					)}
 				</>

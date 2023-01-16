@@ -9,19 +9,19 @@ const BankInformation = ({bankDetails}) => (
 			<div
 				className={`${styles.bank__info__details} ${styles.bank__info}`}
 			>
-				<p>
+				<p className={styles.text}>
 					<Text>Currency:</Text>
 					<Text>&nbsp; {bankDetails.currency || 'NGN'}</Text>
 				</p>
-				<p>
+				<p className={styles.text}>
 					<Text>Bank Name:</Text>
 					<Text>&nbsp; {bankDetails.bank_name}</Text>
 				</p>
-				<p>
+				<p className={styles.text}>
 					<Text>Account Number:</Text>
 					<Text>&nbsp; {bankDetails.account_number}</Text>
 				</p>
-				<p>
+				<p className={styles.text}>
 					<Text>Account Name:</Text>
 					<Text>&nbsp; {bankDetails.account_name}</Text>
 				</p>

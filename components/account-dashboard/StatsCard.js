@@ -12,7 +12,11 @@ export const StatsCard = ({
 	currency,
 }) => {
 	return (
-		<div className={styles.container}>
+		<div
+			className={`${styles.container} ${
+				isAffiliateCard ? styles.affliateCard : ''
+			}`}
+		>
 			<div
 				className={`${styles.midSection} ${
 					isAffiliateCard && !isAnAffiliate

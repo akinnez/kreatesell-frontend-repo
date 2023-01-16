@@ -303,6 +303,9 @@ import ChangePasswordModalIcon from '../public/images/changePasswordModalIcon.sv
 import Congratulations from '../public/images/congratulations.svg';
 import NoContentIcon from '../public/images/icons-unavailable.png';
 import ProductDeactivated from '../public/images/product-deactivated.svg';
+import Mailchimp from '../public/images/mailchimp.png';
+import GetResponse from '../public/images/getResponse.png';
+import Zapier from '../public/images/zapier.png';
 
 export {
 	ProductDeactivated,
@@ -608,4 +611,7 @@ export {
 	Pdf,
 	ImageIcon,
 	NoContentIcon,
+	Mailchimp,
+	GetResponse,
+	Zapier,
 };
