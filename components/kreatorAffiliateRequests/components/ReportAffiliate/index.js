@@ -27,6 +27,7 @@ const ReportAffiliate = ({
 	const inputElement = useRef();
 
 	const submitHandler = (values, actions) => {
+		// console.log('Submit Handler');
 		if (images.length > 0) {
 			if (images.length > limit) {
 				showToast(`You can only select up to ${limit} images`, 'warn');
@@ -82,7 +83,7 @@ const ReportAffiliate = ({
 
 	const handleChange = (e) => {
 		const {files} = e.target;
-
+		// console.log('files', files);
 		if (files.length > limit || files.length + images.length > limit) {
 			showToast(`You can only select up to ${limit} images`, 'warn');
 			return;
@@ -106,10 +107,11 @@ const ReportAffiliate = ({
 
 			newImages = [...newImages, files[i]];
 		}
-
+		// console.log('newImages', newImages);
 		setImages([...images, ...newImages]);
 	};
 
+	// console.log('images', images);
 	const handleKeyUp = (e) => {
 		if (e.target.scrollHeight > e.target.clientHeight) {
 			e.target.style.height = e.target.scrollHeight + 'px';

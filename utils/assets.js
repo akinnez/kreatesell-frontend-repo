@@ -302,8 +302,10 @@ import ErrorOutline from '../public/images/error_outline.svg';
 import ChangePasswordModalIcon from '../public/images/changePasswordModalIcon.svg';
 import Congratulations from '../public/images/congratulations.svg';
 import NoContentIcon from '../public/images/icons-unavailable.png';
+import ProductDeactivated from '../public/images/product-deactivated.svg';
 
 export {
+	ProductDeactivated,
 	Congratulations,
 	ChangePasswordModalIcon,
 	ErrorOutline,

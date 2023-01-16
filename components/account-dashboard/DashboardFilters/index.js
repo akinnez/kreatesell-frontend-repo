@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useMemo} from 'react';
 import Image from 'next/image';
 
 import {Form, Button, DatePicker, Select, Row, Col} from 'antd';
@@ -8,6 +8,7 @@ import {format, parseISO, subDays} from 'date-fns';
 
 import {currencyOptions} from 'utils';
 import styles from './index.module.scss';
+import useCurrency from 'hooks/useCurrency';
 
 const showOptions = [
 	{value: '', label: 'Custom'},
@@ -38,7 +39,20 @@ const DashboardFilters = ({
 }) => {
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [showFilter, setShowFilter] = useState(false);
+	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
 	const [form] = Form.useForm();
+
+	const {countriesCurrency, loading} = useCurrency();
+
+	useMemo(() => {
+		if (!!countriesCurrency) {
+			let country = countriesCurrency.map((ctr) => ({
+				label: ctr.currency,
+				value: ctr.currency_id,
+			}));
+			setCountriesCurrencyList(country);
+		}
+	}, [countriesCurrency]);
 
 	const handleDatePicker = (field) => (_, dateStr) => {
 		setFilters((prev) => ({
@@ -190,7 +204,8 @@ const DashboardFilters = ({
 							>
 								<Form.Item label="Currency" name="currency">
 									<Select
-										options={currencyOptions}
+										// options={currencyOptions}
+										options={countriesCurrencyList}
 										placeholder="NGN"
 										onChange={(e) =>
 											handleChange(
