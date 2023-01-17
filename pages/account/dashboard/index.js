@@ -15,7 +15,6 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
-import OnboardingGuide, {DashboardGuide} from './OnboardingGuide';
 
 // import useSWR from "swr";
 
@@ -183,62 +182,6 @@ const Dashboard = () => {
 				</div>
 				{/* )} */}
 			</section>
-			{/* {isFirstTimer */}
-			{proceedToOnboard && (
-				<Modal
-					title={null}
-					footer={null}
-					closable={false}
-					onCancel={hideModal}
-					visible={modalVisible}
-					maskClosable={false}
-					width={700}
-				>
-					<div className={styles.modal__wrapper}>
-						<header className={styles.header}>
-							<Title>Thrilled to welcome you on board </Title>
-						</header>
-						<div className={styles.content}>
-							<p>
-								<Text>
-									You&apos;re few minutes away from selling
-									your e-books, online courses, templates,
-									memberships and subscriptions on an amazing
-									all-in-one edtech platform.
-								</Text>
-							</p>
-						</div>
-						<footer className={styles.footer}>
-							{/* {user?.percentage_completed !== 100 && ( */}
-							<Link href="/account/dashboard/affiliate">
-								<a>Tips to sell your contents</a>
-							</Link>
-							<Button
-								size="large"
-								type="primary"
-								onClick={hideModal}
-							>
-								Proceed to Dashboard
-							</Button>
-						</footer>
-					</div>
-				</Modal>
-			)}
-
-			{!guideModalVisible && isFirstTimeUser && (
-				<OnboardingGuide
-					visible={modalVisible}
-					setProceedToOnboard={setProceedToOnboard}
-					setGuideModalVisible={setGuideModalVisible}
-					setIsmobile={setIsmobile}
-				/>
-			)}
-
-			{hideDahboardGuideModal && (
-				<DashboardGuide
-					setHideDahboardGuideModal={setHideDahboardGuideModal}
-				/>
-			)}
 		</AuthLayout>
 	);
 };

@@ -1,10 +1,14 @@
-@use 'public/css/mixins';
-@use 'public/css/screens';
+@import './mixins.scss';
+@import './screens.scss';
 
 .container {
 	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0);
 
-	@media (max-width: 900px) {
-		width: 180vw;
+	// @media (max-width: 900px) {
+	// 	width: 180vw;
+	// }
+	@include screen('tablet') {
+		width: 100%;
 	}
 }

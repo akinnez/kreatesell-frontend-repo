@@ -157,7 +157,7 @@ export const GetProductByIDNotAut = () => {
 					type: types.GET_PRODUCT_NOT_BY_ID.SUCCESS,
 					payload: res?.data?.data,
 				});
-				successCallback?.();
+				successCallback?.(res);
 			},
 			(err) => {
 				dispatch({
@@ -165,7 +165,7 @@ export const GetProductByIDNotAut = () => {
 					payload: err,
 				});
 				showToast(err?.message, 'error');
-				errorCallback?.();
+				errorCallback?.(err.status);
 			},
 			productID
 		)
