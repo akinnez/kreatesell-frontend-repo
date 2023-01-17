@@ -261,8 +261,11 @@ const Coupon = () => {
 					<div>
 						<Pagination
 							position={['none', 'topLeft']}
-							total={memoisedCouponData?.length}
+							total={total_records}
 							defaultCurrent={1}
+							current={page}
+							onChange={handlePaginationChange}
+							defaultPageSize={limit}
 						/>
 					</div>
 				</div>
@@ -315,6 +318,8 @@ export const MobileCouponCard = ({
 	const endTime = parseISO(end_date);
 	const formatEndTime = format(endTime, 'PPPp');
 	const formatEndDate = format(endTime, 'PPP');
+
+	console.log(` max usages for ${product_name} is ${max_usages}`);
 
 	return (
 		<div className={` ${styles.couponMobile}`}>
