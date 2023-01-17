@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 
 import useSWR from 'swr';
-import {Table, Tooltip, Popover, Card} from 'antd';
+import { Table, Tooltip, Popover, Card } from 'antd';
 
 import styles from '../../../../public/css/AllTransactions.module.scss';
 import TransactionHeader from 'components/TransactionComponents/header';
@@ -10,8 +10,8 @@ import TransactionHeader from 'components/TransactionComponents/header';
 import AuthLayout from 'components/authlayout';
 import useFilters from 'components/TransactionComponents/useFilters';
 import axiosAPI from 'utils/axios';
-import {dateString} from 'utils/dateFormat';
-import {emptyComponent} from 'components';
+import { dateString } from 'utils/dateFormat';
+import { emptyComponent } from 'components';
 import {
 	EyesClosed,
 	handleShowFilter,
@@ -50,7 +50,7 @@ const statusComponent = (item) => {
 		<>
 			{tooltipContent ? (
 				<Tooltip
-					overlayInnerStyle={{fontSize: '10px', textAlign: 'center'}}
+					overlayInnerStyle={{ fontSize: '10px', textAlign: 'center' }}
 					overlayStyle={{
 						width: '150px',
 						borderRadius: '10px',
@@ -77,7 +77,7 @@ const statusComponent = (item) => {
 
 const ActionComponent = (
 	_,
-	{order_id, customer_full_name, customer_email_address}
+	{ order_id, customer_full_name, customer_email_address }
 ) => {
 	const title = (
 		<h1 className={styles.mainHeader}>Customer&apos;s Details</h1>
@@ -198,15 +198,16 @@ const exportColumns = [
 	},
 ];
 
+
 const tableLocale = {
 	emptyText: emptyComponent('No record yet'),
 };
 
 const formatNumberToLocaleString = (number) => {
-	return number.toLocaleString(undefined, {maximumFractionDigits: 2});
+	return number.toLocaleString(undefined, { maximumFractionDigits: 2 });
 };
 
-const CardComponent = ({data}) => {
+const CardComponent = ({ data }) => {
 	const [showCustomer, setShowCustomer] = useState(false);
 	return (
 		<div className={styles.cardContainer}>
@@ -226,7 +227,7 @@ const CardComponent = ({data}) => {
 				<ul className={styles.orderDetails}>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Order ID</h1>
-						<p className={`${styles.value} mb-0`}>
+						<p className={`${styles.value} mb-0 ml-4`}>
 							#{data.order_id}
 						</p>
 					</li>
@@ -245,7 +246,7 @@ const CardComponent = ({data}) => {
 					</li>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Payment Method</h1>
-						<p className={`${styles.value} mb-0`}></p>
+						<p className={`${styles.value} mb-0`}>{PaymentMethodIcons(data?.payment_method)}</p>
 					</li>
 				</ul>
 				<section className={styles.customerDetailsSection}>
@@ -262,9 +263,8 @@ const CardComponent = ({data}) => {
 					{/* <Image/> */}
 
 					<ul
-						className={`${styles.customerDetails} ${
-							showCustomer ? styles.show : styles.hide
-						}`}
+						className={`${styles.customerDetails} ${showCustomer ? styles.show : styles.hide
+							}`}
 					>
 						<li className={styles.customerDetail}>
 							<h1 className={`${styles.key} mb-0`}>Order ID</h1>
@@ -290,9 +290,9 @@ const CardComponent = ({data}) => {
 
 const Index = () => {
 	const [loading, setLoading] = useState(false);
-	const [requests, setRequests] = useState({data: [], total: 0});
+	const [requests, setRequests] = useState({ data: [], total: 0 });
 
-	const {url, filters, setFilters} = useFilters(
+	const { url, filters, setFilters } = useFilters(
 		'v1/kreatesell/store/fetch/transactions/all'
 	);
 
@@ -345,6 +345,9 @@ const Index = () => {
 
 	return (
 		<AuthLayout>
+			<div className={styles.transaction__header}>
+				Transactions
+			</div>
 			<TransactionHeader
 				{...{
 					setFilters,
@@ -357,9 +360,10 @@ const Index = () => {
 			/>
 			<div className={styles.dataSection}>
 				<div className={styles.mobile__wrapper}>
-					{requests.data.map((request) => (
-						<CardComponent key={request.order_id} data={request} />
-					))}
+					{requests?.data.length === 0 ? emptyComponent('No record yet') :
+						requests?.data.map((request) => (
+							<CardComponent key={request.order_id} data={request} />
+						))}
 				</div>
 				<div className={styles.table__wrapper}>
 					<Table

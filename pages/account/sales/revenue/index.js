@@ -1,16 +1,16 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import useSWR from 'swr';
-import {Table} from 'antd';
-import {format, parseISO} from 'date-fns';
+import { Table, Card } from 'antd';
+import { format, parseISO } from 'date-fns';
 
 import styles from '../../../../public/css/AllRevenue.module.scss';
 import RevenueHeader from 'components/RevenueComponents/header';
 import AuthLayout from 'components/authlayout';
 import useFilters from 'components/TransactionComponents/useFilters';
 import axiosAPI from 'utils/axios';
-import {dateString} from 'utils/dateFormat';
-import {emptyComponent} from 'components';
+import { dateString } from 'utils/dateFormat';
+import { emptyComponent } from 'components';
 
 const statusComponent = (item) => {
 	const statusTextList = {
@@ -196,11 +196,56 @@ const tableLocale = {
 	emptyText: emptyComponent('No record yet'),
 };
 
+const formatNumberToLocaleString = (number) => {
+	return number.toLocaleString(undefined, { maximumFractionDigits: 2 });
+};
+
+const CardComponent = ({ data }) => {
+	return (
+		<div className={styles.mobileCardContainer}>
+			<Card className={styles.mobileCard}>
+				<p className={styles.date}>{dateString(data.date_created)}</p>
+				<div className={styles.statusContainer}>
+					<div className={styles.status}>
+						{statusComponent(data?.status)}
+					</div>
+				</div>
+				<div className={styles.heading}>
+					{/* <Image /> */}
+					<h1 className={styles.title}>
+						{data?.products || 'UI Design Introduction'}
+					</h1>
+				</div>
+				<ul className={styles.orderDetails}>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Order ID</h1>
+						<p className={`${styles.value} mb-0 ml-4`}>{data.order_id}</p>
+					</li>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Customer's Name</h1>
+						<p className={`${styles.value} mb-0`}>
+							{data?.customer_full_name}
+						</p>
+					</li>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Amount</h1>
+						<p className={`${styles.value} mb-0`}>
+							{data?.currency}{' '}
+							{formatNumberToLocaleString(data?.transaction_amount)}
+						</p>
+					</li>
+				</ul>
+			</Card>
+		</div>
+	);
+};
+
+
 const Index = () => {
 	const [loading, setLoading] = useState(false);
-	const [requests, setRequests] = useState({data: [], total: 0});
+	const [requests, setRequests] = useState({ data: [], total: 0 });
 
-	const {url, filters, setFilters} = useFilters(
+	const { url, filters, setFilters } = useFilters(
 		'v1/kreatesell/store/fetch/revenue/all'
 	);
 	const {
@@ -249,6 +294,9 @@ const Index = () => {
 	}, [filters?.show]);
 	return (
 		<AuthLayout>
+			<div className={styles.transaction__header}>
+				Revenue
+			</div>
 			<RevenueHeader
 				{...{
 					setFilters,
@@ -260,16 +308,25 @@ const Index = () => {
 					response,
 				}}
 			/>
-
-			<Table
-				columns={columns}
-				dataSource={requests.data}
-				loading={!response && !error}
-				locale={tableLocale}
-				scroll={{
-					x: 1000,
-				}}
-			/>
+			<div className={styles.dataSection}>
+				<div className={styles.mobile__wrapper}>
+					{requests?.data.length === 0 ? emptyComponent('No record yet') :
+						requests?.data.map((request) => (
+							<CardComponent key={request.order_id} data={request} />
+						))}
+				</div>
+				<div className={styles.table__wrapper}>
+					<Table
+						columns={columns}
+						dataSource={requests.data}
+						loading={!response && !error}
+						locale={tableLocale}
+						scroll={{
+							x: 1000,
+						}}
+					/>
+				</div>
+			</div>
 		</AuthLayout>
 	);
 };
