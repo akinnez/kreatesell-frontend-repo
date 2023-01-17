@@ -302,11 +302,13 @@ import ErrorOutline from '../public/images/error_outline.svg';
 import ChangePasswordModalIcon from '../public/images/changePasswordModalIcon.svg';
 import Congratulations from '../public/images/congratulations.svg';
 import NoContentIcon from '../public/images/icons-unavailable.png';
+import ProductDeactivated from '../public/images/product-deactivated.svg';
 import Mailchimp from '../public/images/mailchimp.png';
 import GetResponse from '../public/images/getResponse.png';
 import Zapier from '../public/images/zapier.png';
 
 export {
+	ProductDeactivated,
 	Congratulations,
 	ChangePasswordModalIcon,
 	ErrorOutline,

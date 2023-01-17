@@ -343,6 +343,17 @@ const ActionComponent = ({item}, all) => {
 				</span>
 				<p className="mb-0 ml-3"> Preview</p>
 			</li>
+			<li
+				onClick={() =>
+					router.push(`/account/kreator/products/view-subscribers`)
+				}
+				className="flex items-center cursor-pointer"
+			>
+				<span>
+					<Image alt="" src={ViewSales} />
+				</span>
+				<p className="mb-0 ml-3"> Subscribers</p>
+			</li>
 
 			<li
 				className="flex items-center cursor-pointer"
