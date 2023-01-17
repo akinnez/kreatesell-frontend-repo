@@ -114,7 +114,7 @@
 			.orderDetail {
 				margin-block-end: 0.5rem;
 				padding: 0.5rem 0.8rem;
-				align-items: center; 
+				align-items: center;
 				@include flex(row, space-between, null);
 
 				.key {

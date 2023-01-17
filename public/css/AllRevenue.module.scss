@@ -52,7 +52,7 @@
 		line-height: 26px;
 		color: #8c8c8c;
 	}
-	.expected { 
+	.expected {
 		font-weight: 700;
 		font-size: 0.75rem;
 		line-height: 26px;
@@ -363,7 +363,6 @@
 	}
 }
 
-
 .mobileCardContainer {
 	margin-block-end: 1.5rem;
 
@@ -408,7 +407,7 @@
 			.orderDetail {
 				margin-block-end: 0.5rem;
 				padding: 0.5rem 0.8rem;
-				align-items: center; 
+				align-items: center;
 				@include flex(row, space-between, null);
 
 				.key {

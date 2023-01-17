@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import Head from 'next/head';
-import { StatsCard } from 'components/account-dashboard/StatsCard';
+import {StatsCard} from 'components/account-dashboard/StatsCard';
 import AuthLayout from 'components/authlayout';
 import DashboardFilters from 'components/account-dashboard/DashboardFilters';
 import StatsHeader from 'components/account-dashboard/StatsHeader';
@@ -9,16 +9,14 @@ import {
 	GetSalesStatistics,
 	GetAffiliateSalesStatistics,
 } from '../../../redux/actions';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import axios from 'axios';
-import { mutate } from 'swr';
+import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
 
 // import useSWR from "swr";
 
-
 const Dashboard = () => {
-
 	const [_, setFiltered] = useState(null);
 	const [isAnAffiliate, setIsAnAffiliate] = useState(false);
 
@@ -31,30 +29,29 @@ const Dashboard = () => {
 		toDate: '',
 	});
 
-	const { salesStatistics } = useSelector((state) => state.store);
-	const { affiliateSalesStatistics } = useSelector((state) => state.store);
+	const {salesStatistics} = useSelector((state) => state.store);
+	const {affiliateSalesStatistics} = useSelector((state) => state.store);
 
 	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 	const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
-	
- 
+
 	const welcomeMessageCheck = async () => {
 		await axiosAPI.request(
 			'get',
 			`v1/kreatesell/store/welcome-message`,
 			(res) => {
-				console.log(res)
+				console.log(res);
 			},
 			(error) => {
-				console.log(error)
+				console.log(error);
 			}
 		);
-	}; 
+	};
 
 	useEffect(() => {
-		welcomeMessageCheck()
-		return () => {}
-	}, [])
+		welcomeMessageCheck();
+		return () => {};
+	}, []);
 
 	const getUserVisitStatus = useCallback(() => {
 		axiosAPI.request(
@@ -77,13 +74,13 @@ const Dashboard = () => {
 
 	const handleFilterSubmit = () => {
 		getSalesStatistics(
-			() => { },
-			() => { },
+			() => {},
+			() => {},
 			filters
 		);
 		getAffiliateSalesStatistics(
-			() => { },
-			() => { },
+			() => {},
+			() => {},
 			filters
 		);
 	};
@@ -141,8 +138,9 @@ const Dashboard = () => {
 				{/* show only when user is an affiliate */}
 				{/* {isAffiliate && ( */}
 				<div
-					className={`${styles.stats__container} ${isAnAffiliate ? styles.isAnAffiliate : ''
-						}`}
+					className={`${styles.stats__container} ${
+						isAnAffiliate ? styles.isAnAffiliate : ''
+					}`}
 				>
 					<StatsHeader
 						title="Affiliate"
@@ -170,7 +168,7 @@ const Dashboard = () => {
 						}
 						profit={
 							affiliateSalesStatistics.total_commission_earned ===
-								null
+							null
 								? 0
 								: affiliateSalesStatistics.total_commission_earned
 						}

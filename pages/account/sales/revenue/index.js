@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 
 import useSWR from 'swr';
-import { Table, Card } from 'antd';
-import { format, parseISO } from 'date-fns';
+import {Table, Card} from 'antd';
+import {format, parseISO} from 'date-fns';
 
 import styles from '../../../../public/css/AllRevenue.module.scss';
 import RevenueHeader from 'components/RevenueComponents/header';
 import AuthLayout from 'components/authlayout';
 import useFilters from 'components/TransactionComponents/useFilters';
 import axiosAPI from 'utils/axios';
-import { dateString } from 'utils/dateFormat';
-import { emptyComponent } from 'components';
+import {dateString} from 'utils/dateFormat';
+import {emptyComponent} from 'components';
 
 const statusComponent = (item) => {
 	const statusTextList = {
@@ -197,10 +197,10 @@ const tableLocale = {
 };
 
 const formatNumberToLocaleString = (number) => {
-	return number.toLocaleString(undefined, { maximumFractionDigits: 2 });
+	return number.toLocaleString(undefined, {maximumFractionDigits: 2});
 };
 
-const CardComponent = ({ data }) => {
+const CardComponent = ({data}) => {
 	return (
 		<div className={styles.mobileCardContainer}>
 			<Card className={styles.mobileCard}>
@@ -219,10 +219,14 @@ const CardComponent = ({ data }) => {
 				<ul className={styles.orderDetails}>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Order ID</h1>
-						<p className={`${styles.value} mb-0 ml-4`}>{data.order_id}</p>
+						<p className={`${styles.value} mb-0 ml-4`}>
+							{data.order_id}
+						</p>
 					</li>
 					<li className={styles.orderDetail}>
-						<h1 className={`${styles.key} mb-0`}>Customer's Name</h1>
+						<h1 className={`${styles.key} mb-0`}>
+							Customer's Name
+						</h1>
 						<p className={`${styles.value} mb-0`}>
 							{data?.customer_full_name}
 						</p>
@@ -231,7 +235,9 @@ const CardComponent = ({ data }) => {
 						<h1 className={`${styles.key} mb-0`}>Amount</h1>
 						<p className={`${styles.value} mb-0`}>
 							{data?.currency}{' '}
-							{formatNumberToLocaleString(data?.transaction_amount)}
+							{formatNumberToLocaleString(
+								data?.transaction_amount
+							)}
 						</p>
 					</li>
 				</ul>
@@ -240,12 +246,11 @@ const CardComponent = ({ data }) => {
 	);
 };
 
-
 const Index = () => {
 	const [loading, setLoading] = useState(false);
-	const [requests, setRequests] = useState({ data: [], total: 0 });
+	const [requests, setRequests] = useState({data: [], total: 0});
 
-	const { url, filters, setFilters } = useFilters(
+	const {url, filters, setFilters} = useFilters(
 		'v1/kreatesell/store/fetch/revenue/all'
 	);
 	const {
@@ -294,9 +299,7 @@ const Index = () => {
 	}, [filters?.show]);
 	return (
 		<AuthLayout>
-			<div className={styles.transaction__header}>
-				Revenue
-			</div>
+			<div className={styles.transaction__header}>Revenue</div>
 			<RevenueHeader
 				{...{
 					setFilters,
@@ -310,10 +313,14 @@ const Index = () => {
 			/>
 			<div className={styles.dataSection}>
 				<div className={styles.mobile__wrapper}>
-					{requests?.data.length === 0 ? emptyComponent('No record yet') :
-						requests?.data.map((request) => (
-							<CardComponent key={request.order_id} data={request} />
-						))}
+					{requests?.data.length === 0
+						? emptyComponent('No record yet')
+						: requests?.data.map((request) => (
+								<CardComponent
+									key={request.order_id}
+									data={request}
+								/>
+						  ))}
 				</div>
 				<div className={styles.table__wrapper}>
 					<Table

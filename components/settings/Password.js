@@ -69,7 +69,7 @@ const Index = () => {
 	return (
 		<div className={style.wrapper}>
 			<h3>Account Settings</h3>
-			<div className={style.bordered}> 
+			<div className={style.bordered}>
 				<h4>Password</h4>
 				<form
 					onSubmit={handleSubmit}

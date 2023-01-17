@@ -10,7 +10,7 @@ import {
 	EmptyDataTable,
 	DeleteIcon,
 } from 'utils';
-import styles from '../../public/css/AllProducts.module.scss'; 
+import styles from '../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
 import {useState} from 'react';
 import {Modal, Tag, Tooltip, Popover, Popconfirm} from 'antd';
@@ -813,7 +813,7 @@ export const emptyComponent = (text) => {
 	return (
 		<div className={styles.emptyTable + ' flex flex-col'}>
 			<Image alt="" src={EmptyDataTable} />
-			<h2 className={'text-black mt-5 font-semibold text-lg'}> 
+			<h2 className={'text-black mt-5 font-semibold text-lg'}>
 				{text ? text : 'No content has been added'}
 			</h2>
 		</div>

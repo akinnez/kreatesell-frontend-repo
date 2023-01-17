@@ -952,8 +952,8 @@ const Checkout = () => {
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>Central African CFA Franc BEAC(XAF)</h2>
-									<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full"> 
-										{filteredCentral.map( 
+									<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
+										{filteredCentral.map(
 											(
 												{id, currency, name, flag},
 												index

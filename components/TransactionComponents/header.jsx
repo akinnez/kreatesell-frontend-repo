@@ -87,7 +87,7 @@ const TransactionHeader = ({
 			<Head>
 				<title>KreateSell | Transactions</title>
 			</Head>
-			<div className={styles.container}> 
+			<div className={styles.container}>
 				<div>
 					<Form
 						onFinish={(val) => handleSearchSubmit(val)}
