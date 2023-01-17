@@ -319,8 +319,6 @@ export const MobileCouponCard = ({
 	const formatEndTime = format(endTime, 'PPPp');
 	const formatEndDate = format(endTime, 'PPP');
 
-	console.log(` max usages for ${product_name} is ${max_usages}`);
-
 	return (
 		<div className={` ${styles.couponMobile}`}>
 			<div className={styles.couponTop}>
