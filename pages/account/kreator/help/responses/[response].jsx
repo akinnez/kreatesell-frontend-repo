@@ -75,6 +75,7 @@ const CardBody = ({ticketId, ticket}) => {
 		// 		setSubmitting(false);
 		// 	});
 	};
+	console.log('ticket', ticket);
 	return (
 		<>
 			<div className={styles.cardResponsDiv}>
@@ -137,12 +138,30 @@ const CardBody = ({ticketId, ticket}) => {
 						<div className={`${styles.attachments} flex flex-col`}>
 							Attachments (1)
 							{/* files */}
-							<div className={`flex gap-2 ${styles.files}`}>
-								<Image src={Folder} alt="icon" />
-								<p className={`mb-0 ${styles.fileName}`}>
-									Yesyoucan.png
-								</p>
-							</div>
+							{ticket?.uploaded_image_list.map((file, idx) => (
+								<div
+									key={idx}
+									className={`flex gap-2 ${styles.files}`}
+								>
+									<Image src={Folder} alt="icon" />
+									<a
+										target="_blank"
+										rel="noreferrer"
+										href={file}
+									>
+										<p
+											className={`mb-0 ${styles.fileName}`}
+										>
+											file-{idx}.
+											{
+												file.split('.')[
+													file.split('.').length - 1
+												]
+											}
+										</p>
+									</a>
+								</div>
+							))}
 						</div>
 					</section>
 				</div>
