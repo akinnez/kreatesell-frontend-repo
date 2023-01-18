@@ -35,6 +35,7 @@ import useFetchNotifications from 'hooks/useFetchNotifications';
 import {menu} from './header';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {Button} from 'components';
+import axiosAPI from 'utils/axios';
 import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
 
 const Loader = () => {
@@ -372,10 +373,16 @@ const WelcomeOnBoard = () => {
 	const hideModal = async () => {
 		setModalVisible(false);
 		try {
-			const response = await axios.get(
-				`${process.env.BASE_URL}v1/kreatesell/store/welcome-message`
+			await axiosAPI.request(
+				'get',
+				`v1/kreatesell/store/welcome-message`,
+				(res) => {
+					console.log(res);
+				},
+				(error) => {
+					console.log(error);
+				}
 			);
-			console.log(response?.data);
 		} catch (error) {
 			console.log(error);
 		}

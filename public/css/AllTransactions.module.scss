@@ -7,9 +7,11 @@
 	text-align: center;
 	cursor: pointer;
 }
+
 .icon {
 	cursor: pointer;
 }
+
 .mainHeader {
 	font-weight: 600;
 	font-size: 1.527rem;
@@ -17,8 +19,10 @@
 	color: #262626;
 	margin-bottom: 0px;
 }
+
 .ActionComponentSection {
 	margin-block-end: 1rem;
+
 	.title {
 		font-family: 'Inter';
 		font-style: normal;
@@ -28,6 +32,7 @@
 		color: #8c8c8c;
 		margin-block-end: 0.4rem;
 	}
+
 	.subtitle {
 		font-weight: 700;
 		font-size: 1rem;
@@ -40,25 +45,39 @@
 	.table__wrapper {
 		display: block;
 	}
+
 	.mobile__wrapper {
 		display: none;
 	}
+
 	@include screen('x-large') {
 		.table__wrapper {
 			display: none;
 		}
+
 		.mobile__wrapper {
 			display: block;
 		}
 	}
 }
 
+.transaction__header {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	margin-bottom: 35px;
+}
+
 .cardContainer {
 	margin-block-end: 1.5rem;
+
 	.card {
 		@include flex(column, null, null);
 		border-radius: 8px;
 		padding: 1rem;
+
 		.date {
 			font-weight: 400;
 			font-size: 0.75rem;
@@ -67,13 +86,16 @@
 			align-items: center;
 			color: #595959;
 		}
+
 		.statusContainer {
 			display: flex;
 			justify-content: flex-end;
+
 			.status {
 				display: inline-block;
 			}
 		}
+
 		.heading {
 			.title {
 				font-weight: 700;
@@ -84,19 +106,24 @@
 				color: #262626;
 			}
 		}
+
 		// this is a list
 		.orderDetails {
 			margin-block: 1rem;
+
 			.orderDetail {
 				margin-block-end: 0.5rem;
 				padding: 0.5rem 0.8rem;
+				align-items: center;
 				@include flex(row, space-between, null);
+
 				.key {
 					font-weight: 700;
 					font-size: 0.875rem;
 					line-height: 20px;
 					color: #262626;
 				}
+
 				.value {
 					font-weight: 400;
 					font-size: 0.875rem;
@@ -104,11 +131,13 @@
 					color: #595959;
 				}
 			}
+
 			.orderDetail:nth-child(odd) {
 				background: #f5f5f5;
 				border-radius: 8px;
 			}
 		}
+
 		.customerDetailsSection {
 			.customerDetailsHeading {
 				font-weight: 700;
@@ -118,34 +147,41 @@
 				@include flex(row, null, center);
 				gap: 0.5rem;
 			}
+
 			.customerDetails {
 				margin-block: 1rem;
 				transition: all 1000ms ease-in;
+
 				.customerDetail {
 					margin-block-end: 0.5rem;
 					padding: 0.5rem 0.8rem;
 					@include flex(row, space-between, null);
+
 					.key {
 						font-weight: 700;
 						font-size: 0.875rem;
 						line-height: 20px;
 						color: #595959;
 					}
+
 					.value {
 						font-weight: 400;
 						font-size: 0.875rem;
 						line-height: 24px;
 						color: #595959;
 					}
+
 					&::nth-child(odd) {
 						background: #f1fcf8;
 						border-radius: 8px;
 					}
 				}
+
 				&.show {
 					height: fit-content;
 					display: block;
 				}
+
 				&.hide {
 					height: 0px;
 					display: none;

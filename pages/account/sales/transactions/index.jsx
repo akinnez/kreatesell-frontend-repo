@@ -226,7 +226,7 @@ const CardComponent = ({data}) => {
 				<ul className={styles.orderDetails}>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Order ID</h1>
-						<p className={`${styles.value} mb-0`}>
+						<p className={`${styles.value} mb-0 ml-4`}>
 							#{data.order_id}
 						</p>
 					</li>
@@ -245,7 +245,9 @@ const CardComponent = ({data}) => {
 					</li>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Payment Method</h1>
-						<p className={`${styles.value} mb-0`}></p>
+						<p className={`${styles.value} mb-0`}>
+							{PaymentMethodIcons(data?.payment_method)}
+						</p>
 					</li>
 				</ul>
 				<section className={styles.customerDetailsSection}>
@@ -345,6 +347,7 @@ const Index = () => {
 
 	return (
 		<AuthLayout>
+			<div className={styles.transaction__header}>Transactions</div>
 			<TransactionHeader
 				{...{
 					setFilters,
@@ -357,9 +360,14 @@ const Index = () => {
 			/>
 			<div className={styles.dataSection}>
 				<div className={styles.mobile__wrapper}>
-					{requests.data.map((request) => (
-						<CardComponent key={request.order_id} data={request} />
-					))}
+					{requests?.data.length === 0
+						? emptyComponent('No record yet')
+						: requests?.data.map((request) => (
+								<CardComponent
+									key={request.order_id}
+									data={request}
+								/>
+						  ))}
 				</div>
 				<div className={styles.table__wrapper}>
 					<Table
