@@ -120,7 +120,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'KreateSell Title',
 			description: 'KreateSell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -528,33 +529,21 @@ export const UpgradeAccountForm = ({
 											'business' &&
 										value !== 'paypal'
 									) {
-										console.log(`store?.kyc_status?.kyc_status?.toLowerCase() ===
+										return true;
+									}
+									if (
+										store?.kyc_status?.kyc_status?.toLowerCase() ===
 											'approved' &&
 										store?.user?.user_plan?.toLowerCase() ===
 											'business' &&
-										value !== 'paypal'`);
-										return true;
-									}
-									{
-										/* if kyc is not approved and userplan is not business */
-									}
-									{
-										/* if (
-										store?.kyc_status?.kyc_status?.toLowerCase() !==
-											'approved' &&
-										store?.user?.user_plan?.toLowerCase() !==
-											'business'
+										value === 'paypal'
 									) {
 										return false;
-									} */
 									}
 									if (
 										store?.user?.user_plan?.toLowerCase() !==
 										'business'
 									) {
-										let currency =
-											activeCurrency?.currency ||
-											activeCurrency?.currency_name;
 										if (
 											![
 												'crypto',
@@ -572,9 +561,6 @@ export const UpgradeAccountForm = ({
 										store?.kyc_status?.kyc_status?.toLowerCase() !==
 										'approved'
 									) {
-										let currency =
-											activeCurrency?.currency ||
-											activeCurrency?.currency_name;
 										if (
 											![
 												'crypto',
