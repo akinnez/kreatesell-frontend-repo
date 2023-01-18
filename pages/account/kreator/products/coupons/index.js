@@ -261,8 +261,11 @@ const Coupon = () => {
 					<div>
 						<Pagination
 							position={['none', 'topLeft']}
-							total={memoisedCouponData?.length}
+							total={total_records}
 							defaultCurrent={1}
+							current={page}
+							onChange={handlePaginationChange}
+							defaultPageSize={limit}
 						/>
 					</div>
 				</div>

@@ -518,6 +518,9 @@ export const UpgradeAccountForm = ({
 									activeCurrency?.currency_name
 							]
 								?.filter(({value}) => {
+									{
+										/* if kyc is approved and userplan is business */
+									}
 									if (
 										store?.kyc_status?.kyc_status?.toLowerCase() ===
 											'approved' &&
@@ -528,44 +531,35 @@ export const UpgradeAccountForm = ({
 										return true;
 									}
 									if (
-										store?.kyc_status?.kyc_status?.toLowerCase() !==
+										store?.kyc_status?.kyc_status?.toLowerCase() ===
 											'approved' &&
-										store?.user?.user_plan?.toLowerCase() !==
-											'business'
+										store?.user?.user_plan?.toLowerCase() ===
+											'business' &&
+										value === 'paypal'
 									) {
 										return false;
 									}
 									if (
 										store?.user?.user_plan?.toLowerCase() !==
-										'business'
-									) {
-										let currency =
-											activeCurrency?.currency ||
-											activeCurrency?.currency_name;
-										if (
-											['USD', 'GBP', 'CAD'].includes(
-												currency
-											)
-										) {
-											return false;
-										}
-										return true;
-									}
-									if (
+											'business' ||
 										store?.kyc_status?.kyc_status?.toLowerCase() !==
-										'approved'
+											'approved'
 									) {
-										let currency =
-											activeCurrency?.currency ||
-											activeCurrency?.currency_name;
 										if (
-											['USD', 'GBP', 'CAD'].includes(
-												currency
-											)
+											![
+												'crypto',
+												'stripe',
+												'paypal',
+											].includes(value)
 										) {
-											return false;
+											return true;
+											{
+												/* return false; */
+											}
 										}
-										return true;
+									}
+									if (value === 'paypal') {
+										return false;
 									} else {
 										return true;
 									}
@@ -583,7 +577,7 @@ export const UpgradeAccountForm = ({
 										} p-2 flex justify-around items-center`}
 									>
 										<Image src={icon} alt={type} />
-										{store?.kyc_status?.is_kyc_verified &&
+										{true &&
 											selectedPaymentMethod === value && (
 												<Image
 													src={ActiveTick}

@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router';
 import PreviewHeader from 'components/Preview/PreviewHeader';
 import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import PreviewContent from 'components/Preview/PreviewContent';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../components/Preview/PreviewHeader.module.scss';
@@ -12,9 +12,30 @@ export default function PreviewProduct() {
 	const router = useRouter();
 	const getProductByID = GetProductByIDNotAut();
 
+	const [productStatus, setProductStatus] = useState('idle');
 	useEffect(() => {
 		if (router.query.id) {
-			getProductByID(router.query.id);
+			getProductByID(
+				router.query.id,
+				(res) => {
+					// console.log('successs', res.data.data.status);
+					if (
+						['deactivate', 'deativate'].includes(
+							res.data.data.status.toLowerCase()
+						)
+					) {
+						setProductStatus('deactivated');
+						return;
+					}
+					setProductStatus('not-deactivated');
+				},
+				(status) => {
+					// console.log('failed', status);
+					if (status === 'failed') {
+						setProductStatus('deactivated');
+					}
+				}
+			);
 		}
 	}, [router.query.id]);
 
@@ -35,7 +56,7 @@ export default function PreviewProduct() {
 				className={styles.previewPageContainer}
 			>
 				<PreviewHeader id={router.query.id} isPreviewMain={true} />
-				<PreviewContent />
+				<PreviewContent {...{productStatus}} />
 				<PoweredByKS />
 			</div>
 		</AuthLayout>

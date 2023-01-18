@@ -7,7 +7,7 @@ import Basket from 'public/images/basket-grayed.png';
 import styles from './index.module.scss';
 
 const PayoutsMobileView = ({payouts}) => {
-	console.log('payouts = ', payouts);
+	// console.log('payouts = ', payouts);
 	return (
 		<div>
 			{payouts.length === 0 ? (
@@ -22,7 +22,7 @@ const PayoutsMobileView = ({payouts}) => {
 										<p>Transaction Date:</p>
 										<p>
 											{dateFormat(
-												payout.transaction_date
+												payout?.transaction_date
 											)}
 										</p>
 									</div>
@@ -30,7 +30,8 @@ const PayoutsMobileView = ({payouts}) => {
 									<div>
 										<p>Settlement Date:</p>
 										<p>
-											{dateFormat(payout.settlement_date)}
+											{/* {dateFormat(payout.settlement_date)} */}
+											{dateFormat(payout?.payment_date)}
 										</p>
 									</div>
 								</div>

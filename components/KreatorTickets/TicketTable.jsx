@@ -12,6 +12,7 @@ import {
 	CollapseArrowRight,
 	CollapseArrowDown,
 	Folder,
+	formatDateAndTime,
 } from 'utils';
 import {Button} from 'components/button/Button';
 
@@ -138,7 +139,10 @@ const tableHeader = [
 	{
 		title: 'Date',
 		dataIndex: 'created_at',
-		render: (item) => <p className={styles.tableData}>{item}</p>,
+		width: 300,
+		render: (item) => (
+			<p className={styles.tableData}>{formatDateAndTime(item)}</p>
+		),
 	},
 
 	{

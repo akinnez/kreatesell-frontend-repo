@@ -5,8 +5,14 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import {Button} from 'antd';
+import {Button as NormalButton} from 'components';
 import {useRouter} from 'next/router';
-import {RightPreviewArrow, LeftPreviewArrow, ExternalLink} from 'utils';
+import {
+	RightPreviewArrow,
+	LeftPreviewArrow,
+	ExternalLink,
+	ProductDeactivated,
+} from 'utils';
 
 var options = {
 	weekday: 'long',
@@ -23,6 +29,7 @@ var timeOptions = {
 export default function PreviewContent({
 	alreadyDefinedPrice,
 	alreadyDefinedOriginalPrice,
+	productStatus,
 }) {
 	const [details, setDetails] = useState({});
 	const [images, setImages] = useState([]);
@@ -33,6 +40,7 @@ export default function PreviewContent({
 	const [originalPrice, setOriginalPrice] = useState([]);
 	const [domainLink, setDomainLink] = useState('');
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
+	// const []
 
 	const router = useRouter();
 
@@ -48,6 +56,7 @@ export default function PreviewContent({
 
 	const affiliateRef = router.query.ref;
 	const affiliateUniqueKey = router.query.uniqkey;
+	const storename = router.query.storename;
 
 	//set cookie on load of the component
 	const getAffiliateCookie = () => {
@@ -197,6 +206,38 @@ export default function PreviewContent({
 		}
 		return;
 	};
+
+	if (productStatus === 'idle') return null;
+
+	if (productStatus === 'deactivated') {
+		return (
+			<div className={styles.emptyContainerHolder}>
+				<div
+					className={
+						styles.emptyContainer +
+						' flex flex-col bg-white rounded-lg'
+					}
+				>
+					<Image alt="" src={ProductDeactivated} />
+					<h2>This product is currently unavailable</h2>
+					<p>
+						It might have been deactivated by the Kreator to improve
+						it and give you the best value you deserve. Kindly check
+						back later.
+					</p>
+					<NormalButton
+						bgColor="blue"
+						onClick={() =>
+							storename
+								? router.push(`/store/${storename}`)
+								: router.push('/account/kreator/products/all')
+						}
+						text="Okay"
+					/>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div

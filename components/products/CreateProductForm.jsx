@@ -256,33 +256,35 @@ export const CreateProductForm = ({
 				product?.product_details?.product_listing_status
 			);
 			setFieldValue('cta_button', product?.product_details?.cta_button);
-			setFieldValue(
-				'product_images.productFiles',
-				...product?.product_images
-					?.filter((images) => images?.file_type !== 4)
-					?.map((item) => {
-						const arr = item?.filename?.split(',');
-						return arr.length > 0 ? [...arr] : [];
-					})
-			);
-			if (product.product_details.enable_preorder) {
-				setPreOrder(true);
-			}
-			setFiles(
-				imageIsEdits(
+			if (Array.isArray(product?.product_images)) {
+				setFieldValue(
+					'product_images.productFiles',
 					...product?.product_images
 						?.filter((images) => images?.file_type !== 4)
 						?.map((item) => {
 							const arr = item?.filename?.split(',');
-							const truc = arr?.map((item) => {
-								return {
-									filename: item,
-								};
-							});
-							return truc;
+							return arr.length > 0 ? [...arr] : [];
 						})
-				)
-			);
+				);
+				setFiles(
+					imageIsEdits(
+						...product?.product_images
+							?.filter((images) => images?.file_type !== 4)
+							?.map((item) => {
+								const arr = item?.filename?.split(',');
+								const truc = arr?.map((item) => {
+									return {
+										filename: item,
+									};
+								});
+								return truc;
+							})
+					)
+				);
+			}
+			if (product.product_details.enable_preorder) {
+				setPreOrder(true);
+			}
 			setContents(product?.product_details?.product_details);
 			if (product?.product_details.upload_content) {
 				setContentFiles(product?.product_details.upload_content);

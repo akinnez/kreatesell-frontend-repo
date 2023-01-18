@@ -4,6 +4,27 @@ import axios from 'axios';
 export const pathName = typeof window !== 'undefined' && window;
 import {subDays, format} from 'date-fns';
 
+var options = {
+	weekday: 'long',
+	year: 'numeric',
+	month: 'short',
+	day: 'numeric',
+};
+var timeOptions = {
+	hour: 'numeric',
+	minute: 'numeric',
+	hour12: true,
+};
+
+export const formatDateAndTime = (date) => {
+	return (
+		<>
+			{new Date(date).toLocaleDateString('en-US', options)}{' '}
+			{new Date(date).toLocaleString('en-US', timeOptions)}
+		</>
+	);
+};
+
 export const transactionFees = {
 	NGN: 5,
 	Others: 6,
@@ -411,11 +432,6 @@ export const dateOptions = {
 	year: 'numeric',
 	month: 'short',
 	day: 'numeric',
-};
-export const timeOptions = {
-	hour: 'numeric',
-	minute: 'numeric',
-	hour12: true,
 };
 
 export const getQueryKeys = (namespace) => ({

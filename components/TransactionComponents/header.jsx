@@ -124,7 +124,7 @@ const TransactionHeader = ({
 									/>
 								</Form.Item>
 							</Col>
-							<Col xs={10} lg={3}>
+							<Col xs={12} lg={3}>
 								<Form.Item label="From" name="from">
 									<DatePicker
 										placeholder="2021-07-22"
@@ -134,7 +134,7 @@ const TransactionHeader = ({
 									/>
 								</Form.Item>
 							</Col>
-							<Col xs={10} lg={3}>
+							<Col xs={12} lg={3}>
 								<Form.Item label="To" name="to">
 									<DatePicker
 										placeholder="2021-07-22"

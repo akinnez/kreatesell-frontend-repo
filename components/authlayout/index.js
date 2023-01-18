@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import styles from './sidebar.module.scss';
-import {Layout, Modal} from 'antd';
+import {Layout, Modal, Typography} from 'antd';
 import Sidebar from './sidebar';
 import Logo from './logo';
 import Nav from './header';
@@ -35,6 +35,7 @@ import useFetchNotifications from 'hooks/useFetchNotifications';
 import {menu} from './header';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {Button} from 'components';
+import axiosAPI from 'utils/axios';
 import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
 
 const Loader = () => {
@@ -145,6 +146,7 @@ const Index = ({
 
 	const [showOverlayOnClick, setShowOverlayOnClick] = useState(false);
 
+	const [proceedToOnboard, setProceedToOnboard] = useState(false);
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
 	useEffect(() => {
@@ -152,6 +154,15 @@ const Index = ({
 			setShowSuccessModal(require_approval_message);
 		}
 	}, [require_approval_message]);
+
+	const [hideSider, setHideSider] = useState(false);
+	const route = router.pathname.split('/');
+
+	useEffect(() => {
+		if (route.includes('preview') && route.includes('products')) {
+			setHideSider(true);
+		}
+	}, [route]);
 
 	return (
 		<section className={styles.layoutMain}>
@@ -162,19 +173,34 @@ const Index = ({
 				<Sider
 					width={250}
 					theme="light"
-					style={{
-						height: '100vh',
-						position: 'sticky',
-						top: 0,
-						left: 0,
-					}}
+					style={
+						hideSider
+							? {display: 'none'}
+							: {
+									height: '100vh',
+									position: 'sticky',
+									top: '0',
+									left: '0',
+									zIndex: '1000',
+							  }
+					}
 					trigger={null}
 					breakpoint="lg"
 					collapsedWidth={0}
 				>
-					<div style={{padding: '0 5px'}}>
+					<div
+						style={{
+							padding: '0 5px',
+							position: 'relative',
+							zIndex: 1000,
+						}}
+					>
 						<Logo />
-						<Sidebar />
+						<div style={{position: 'relative'}}>
+							<Sidebar
+								setProceedToOnboard={setProceedToOnboard}
+							/>
+						</div>
 					</div>
 				</Sider>
 				{isMobileSideBarOpen && (
@@ -265,6 +291,8 @@ const Index = ({
 					padding: 50px 30px 10px 30px;
 				}
 			`}</style>
+			{proceedToOnboard && <WelcomeOnBoard />}
+
 			<SuccesfulSalesModal
 				showModal={showSuccessModal}
 				{...{setShowSuccessModal}}
@@ -334,6 +362,69 @@ const SuccesfulSalesModal = ({showModal = false, setShowSuccessModal}) => {
 				onClick={handleSubmit}
 				{...{loading}}
 			/>
+		</Modal>
+	);
+};
+
+const WelcomeOnBoard = () => {
+	const [modalVisible, setModalVisible] = useState(true);
+	const {Text, Title} = Typography;
+
+	const hideModal = async () => {
+		setModalVisible(false);
+		try {
+			await axiosAPI.request(
+				'get',
+				`v1/kreatesell/store/welcome-message`,
+				(res) => {
+					console.log(res);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	return (
+		<Modal
+			title={null}
+			footer={null}
+			closable={false}
+			// onCancel={()=> console.log('hghgh')}
+			visible={modalVisible}
+			maskClosable={false}
+			width={700}
+		>
+			<div className={styles.modal__wrapper}>
+				<header className={styles.header}>
+					<Title>Thrilled to welcome you on board </Title>
+				</header>
+				<div className={styles.content}>
+					<p>
+						<Text>
+							You&apos;re few minutes away from selling your
+							e-books, online courses, templates, memberships and
+							subscriptions on an amazing all-in-one edtech
+							platform.
+						</Text>
+					</p>
+				</div>
+				<footer className={styles.footer}>
+					{/* {user?.percentage_completed !== 100 && ( */}
+					<Link href="/account/dashboard/affiliate">
+						<a>Tips to sell your contents</a>
+					</Link>
+					<Button
+						bgColor="primaryBlue"
+						text="Proceed to Dashboard"
+						className={`py-3 ${styles.modalBtn}`}
+						onClick={hideModal}
+					/>
+				</footer>
+			</div>
 		</Modal>
 	);
 };

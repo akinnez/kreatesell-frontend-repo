@@ -43,6 +43,11 @@ export const countryPayments = {
 	],
 	USD: [
 		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
 			type: 'Stripe',
 			icon: ActiveStripe,
 			value: 'stripe',
@@ -51,11 +56,6 @@ export const countryPayments = {
 			type: 'Paypal',
 			icon: AdvancedPaypal,
 			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
 		},
 		{
 			type: 'CryptoCurrency',
@@ -65,6 +65,11 @@ export const countryPayments = {
 	],
 	GBP: [
 		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
 			type: 'Stripe',
 			icon: ActiveStripe,
 			value: 'stripe',
@@ -73,11 +78,6 @@ export const countryPayments = {
 			type: 'Paypal',
 			icon: AdvancedPaypal,
 			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
 		},
 		{
 			type: 'CryptoCurrency',
@@ -87,6 +87,11 @@ export const countryPayments = {
 	],
 	CAD: [
 		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
+		},
+		{
 			type: 'Stripe',
 			icon: ActiveStripe,
 			value: 'stripe',
@@ -95,11 +100,6 @@ export const countryPayments = {
 			type: 'Paypal',
 			icon: AdvancedPaypal,
 			value: 'paypal',
-		},
-		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
 		},
 		{
 			type: 'CryptoCurrency',

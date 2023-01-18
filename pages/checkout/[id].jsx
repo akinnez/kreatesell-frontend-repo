@@ -952,7 +952,7 @@ const Checkout = () => {
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>Central African CFA Franc BEAC(XAF)</h2>
-									<div className="grid gap-4 grid-cols-4 ">
+									<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
 										{filteredCentral.map(
 											(
 												{id, currency, name, flag},
@@ -1093,8 +1093,7 @@ const Checkout = () => {
 								<p className="text-base-gray-200">
 									Select your preferred payment method
 								</p>
-
-								<div className="grid gap-4 grid-cols-3">
+								<div className="grid gap-4 grid-cols-3 w-full">
 									{countryPayments[
 										activeCurrency?.currency ||
 											activeCurrency?.currency_name
@@ -1108,31 +1107,36 @@ const Checkout = () => {
 												value !== 'paypal'
 											) {
 												return true;
-											} else if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+											}
+											if (
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 													'approved' &&
-												storeDetails?.user_plan?.toLowerCase() !==
-													'business'
+												storeDetails?.user_plan?.toLowerCase() ===
+													'business' &&
+												value === 'paypal'
 											) {
-												{
-													/* return false if currency is cad, usd or gbp */
-												}
+												return false;
+											}
+											if (
+												storeDetails?.user_plan?.toLowerCase() !==
+													'business' ||
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+													'approved'
+											) {
 												if (
-													[
-														activeCurrency?.currency,
-														activeCurrency?.currency_name,
-													].includes('USD') ||
-													[
-														activeCurrency?.currency,
-														activeCurrency?.currency_name,
-													].includes('GBP') ||
-													[
-														activeCurrency?.currency,
-														activeCurrency?.currency_name,
-													].includes('CAD')
+													![
+														'crypto',
+														'stripe',
+														'paypal',
+													].includes(value)
 												) {
-													return false;
+													return true;
 												}
+											}
+											if (value === 'paypal') {
+												return false;
+											} else {
+												return true;
 											}
 										})
 										.map(({type, icon, value}) => (
@@ -1209,7 +1213,7 @@ const Checkout = () => {
 														!formik.values.email ||
 														!formik.values.phoneNo
 													}
-													className={`flex justify-around items-center`}
+													className={`flex justify-around items-center ml-14 md:ml-1`}
 													createOrder={(
 														data,
 														actions
