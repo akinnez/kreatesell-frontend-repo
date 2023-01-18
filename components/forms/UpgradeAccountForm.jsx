@@ -120,7 +120,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'KreateSell Title',
 			description: 'KreateSell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -518,6 +519,9 @@ export const UpgradeAccountForm = ({
 									activeCurrency?.currency_name
 							]
 								?.filter(({value}) => {
+									{
+										/* if kyc is approved and userplan is business */
+									}
 									if (
 										store?.kyc_status?.kyc_status?.toLowerCase() ===
 											'approved' &&
@@ -525,15 +529,25 @@ export const UpgradeAccountForm = ({
 											'business' &&
 										value !== 'paypal'
 									) {
+										console.log(`store?.kyc_status?.kyc_status?.toLowerCase() ===
+											'approved' &&
+										store?.user?.user_plan?.toLowerCase() ===
+											'business' &&
+										value !== 'paypal'`);
 										return true;
 									}
-									if (
+									{
+										/* if kyc is not approved and userplan is not business */
+									}
+									{
+										/* if (
 										store?.kyc_status?.kyc_status?.toLowerCase() !==
 											'approved' &&
 										store?.user?.user_plan?.toLowerCase() !==
 											'business'
 									) {
 										return false;
+									} */
 									}
 									if (
 										store?.user?.user_plan?.toLowerCase() !==
@@ -543,13 +557,17 @@ export const UpgradeAccountForm = ({
 											activeCurrency?.currency ||
 											activeCurrency?.currency_name;
 										if (
-											['USD', 'GBP', 'CAD'].includes(
-												currency
-											)
+											![
+												'crypto',
+												'stripe',
+												'paypal',
+											].includes(value)
 										) {
-											return false;
+											return true;
+											{
+												/* return false; */
+											}
 										}
-										return true;
 									}
 									if (
 										store?.kyc_status?.kyc_status?.toLowerCase() !==
@@ -559,13 +577,17 @@ export const UpgradeAccountForm = ({
 											activeCurrency?.currency ||
 											activeCurrency?.currency_name;
 										if (
-											['USD', 'GBP', 'CAD'].includes(
-												currency
-											)
+											![
+												'crypto',
+												'stripe',
+												'paypal',
+											].includes(value)
 										) {
-											return false;
+											{
+												/* return false; */
+											}
+											return true;
 										}
-										return true;
 									} else {
 										return true;
 									}
@@ -583,7 +605,7 @@ export const UpgradeAccountForm = ({
 										} p-2 flex justify-around items-center`}
 									>
 										<Image src={icon} alt={type} />
-										{store?.kyc_status?.is_kyc_verified &&
+										{true &&
 											selectedPaymentMethod === value && (
 												<Image
 													src={ActiveTick}
