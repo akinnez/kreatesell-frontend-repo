@@ -13,7 +13,7 @@ export const StatsCard = ({
 }) => {
 	return (
 		<div className={`${styles.container} my-5`}>
-			<div className={`flex justify-between my-3`}>
+			<div className={`flex justify-between items-center my-3`}>
 				<h1 className={`${styles.earnings} mb-0`}>Earnings</h1>
 				<h1 className={`${styles.expected} mb-0`}>
 					Expected Earnings: <span>$4,500</span>

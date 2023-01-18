@@ -952,7 +952,7 @@ const Checkout = () => {
 								'Make it Free' && (
 								<div className="py-7">
 									<h2>Central African CFA Franc BEAC(XAF)</h2>
-									<div className="grid gap-4 grid-cols-4 ">
+									<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
 										{filteredCentral.map(
 											(
 												{id, currency, name, flag},
@@ -1094,7 +1094,7 @@ const Checkout = () => {
 									Select your preferred payment method
 								</p>
 
-								<div className="grid gap-4 grid-cols-3">
+								<div className="grid gap-4 grid-cols-3 w-full">
 									{countryPayments[
 										activeCurrency?.currency ||
 											activeCurrency?.currency_name
@@ -1209,7 +1209,7 @@ const Checkout = () => {
 														!formik.values.email ||
 														!formik.values.phoneNo
 													}
-													className={`flex justify-around items-center`}
+													className={`flex justify-around items-center ml-14 md:ml-1`}
 													createOrder={(
 														data,
 														actions
