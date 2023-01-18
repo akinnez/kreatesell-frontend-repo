@@ -27,10 +27,8 @@ const StoreSettings = () => {
 		is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
 	}));
 
-	const {
-		enable_disable_tax,
-		is_enable_product_cross_sell,
-	} = userStoreSettings;
+	const {enable_disable_tax, is_enable_product_cross_sell} =
+		userStoreSettings;
 	const [ctaBtnValue, setCtaBtnValue] = useState({
 		option: 'store',
 		cta_button: defaultCTA || '',
@@ -110,7 +108,8 @@ const StoreSettings = () => {
 							console.log();
 							setUserStoreSettings((value) => ({
 								...value,
-								is_enable_product_cross_sell: !value.is_enable_product_cross_sell,
+								is_enable_product_cross_sell:
+									!value.is_enable_product_cross_sell,
 							}));
 
 							await updateStoreSettings(userStoreSettings, () => {
