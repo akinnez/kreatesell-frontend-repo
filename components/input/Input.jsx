@@ -107,7 +107,7 @@ export const Input = ({
 }) => {
 	return (
 		<div
-			className={`${rest.containerstyle} ${styles.inputContainer}`}
+			className={`${styles.inputContainer} ${rest.containerstyle} `}
 			style={containerStyle && containerStyle}
 		>
 			{label && (

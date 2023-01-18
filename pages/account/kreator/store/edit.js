@@ -15,6 +15,7 @@ import {
 import style from '../../../../public/css/Store.module.scss';
 import ApiService from '../../../../utils/axios';
 import {toast} from 'react-toastify';
+import {showToast} from 'utils';
 
 const Index = () => {
 	const store = useSelector((state) => state.store);
@@ -50,8 +51,6 @@ const Index = () => {
 		formData.append('Linkedln', info.Linkedln);
 		formData.append('Twitter', info.Twitter);
 		formData.append('Store_Name', info.Store_Name);
-		// console.log('file', file)
-		// console.log('info', info)
 		ApiService.request(
 			'post',
 			'v1/kreatesell/store/onboarding',
@@ -64,6 +63,7 @@ const Index = () => {
 			},
 			(err) => {
 				setLoading({...loading, updating: false});
+				showToast(err.message, 'error');
 				toast.error(err);
 			},
 			formData
@@ -74,12 +74,11 @@ const Index = () => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
 		);
+		console.log('phoneCode', phoneCode);
 		setCountryCode(phoneCode?.country_code);
-		setCountryId(phoneCode?.id);
+		setCountryId(phoneCode?.currency_id);
 		// setCountryId(phoneCode?.id)
 	};
-	// console.log('country is', country)
-	// console.log('country ID is', countryId)
 
 	// prefill the country code when the user selects another country
 	useEffect(() => {
@@ -90,10 +89,13 @@ const Index = () => {
 
 	// prefill the country code on page mount
 	useEffect(() => {
-		if (countries.length > 0) {
-			handlePhoneCode(form.getFieldValue('Country_Id'));
+		if (countries.length > 0 && countryId) {
+			let phoneCode = countries.find(
+				(country) => country.id === countryId
+			);
+			handlePhoneCode(phoneCode.name);
 		}
-	}, [countries.length]);
+	}, [countries.length, countryId]);
 
 	const notNull = (val) => {
 		return !!val && val !== 'null';
@@ -106,8 +108,6 @@ const Index = () => {
 			({data}) => {
 				//* user has setup store details
 
-				console.log('data = ', data?.store_details);
-
 				const {
 					brand_name,
 					country_name,
@@ -115,7 +115,6 @@ const Index = () => {
 					store_name,
 					// linked_ln,
 				} = data?.store_details;
-				// console.log("store name = ", store_name);
 
 				const hasBeganSettingUpStore =
 					brand_name && country_name && mobile_number && store_name;
@@ -134,7 +133,7 @@ const Index = () => {
 					Cover_Picture: data?.store_details?.cover_page,
 				});
 				setCountryId(
-					notNull(data?.store_details?.country_name)
+					notNull(data?.store_details?.country_id)
 						? data?.store_details?.country_id
 						: ''
 				);
@@ -182,10 +181,7 @@ const Index = () => {
 	};
 
 	const updateUiOnDelete = () => {
-		console.log('delete Option updated !');
-
 		setFile({...file, Cover_Picture: null});
-		console.log('coverPicture = ', file?.Cover_Picture);
 	};
 
 	return (
@@ -261,6 +257,7 @@ const Index = () => {
 									placeholder="Tell us more about your business. 
                             Buyers are also interested in knowing more about your business uniqueness."
 									maxLength={700}
+									required
 								/>
 
 								<Row gutter={{xs: 0, sm: 0, md: 8}}>

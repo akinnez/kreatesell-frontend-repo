@@ -306,8 +306,10 @@ import ProductDeactivated from '../public/images/product-deactivated.svg';
 import Mailchimp from '../public/images/mailchimp.png';
 import GetResponse from '../public/images/getResponse.png';
 import Zapier from '../public/images/zapier.png';
+import MailReopen from '../public/images/mail_open.svg';
 
 export {
+	MailReopen,
 	ProductDeactivated,
 	Congratulations,
 	ChangePasswordModalIcon,

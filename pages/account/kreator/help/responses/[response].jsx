@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
+import dynamic from 'next/dynamic';
 
 import useSWR from 'swr';
 import axios from 'axios';
+const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
+import EditorToolbar, {
+	modules,
+	formats,
+} from '../../../../../components/PostTicket/EditorToolbar';
+import 'react-quill/dist/quill.snow.css';
 
 import AuthLayout from 'components/authlayout';
 import styles from '../../../../../public/css/Response.module.scss';
@@ -14,13 +21,60 @@ import {
 	CollapseArrowRight,
 	Folder,
 	RenderIf,
+	MailReopen,
+	formatDateAndTime,
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import {Button} from 'components/button/Button';
 import BackButton from 'components/BackButton';
+import {Input} from 'components/input/Input';
+import FileUpload from 'components/PostTicket/FileUpload';
 
 const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
+
+	const [files, setFiles] = useState([]);
+	const [uploadingFiles, setUploadingFiles] = useState([]);
+
+	const [reopenSection, setReopenSection] = useState(false);
+	const handleReopen = () => {
+		setReopenSection(true);
+	};
+
+	const handleSubmit = () => {
+		// checkExpiredUserToken();
+		// const token = getUserToken();
+		// setSubmitting(true);
+		// if (!subject || subject === '' || !message || message === '') {
+		// 	setSubmitting(false);
+		// 	return showToast('All fields are required', 'error');
+		// }
+		// const formData = new FormData();
+		// for (let i = 0; i < uploadingFiles.length; i++) {
+		// 	formData.append('ImagePaths', uploadingFiles[i]);
+		// }
+		// formData.append('Subject', subject);
+		// formData.append('Message', message);
+		// formData.append('Department', router?.query?.department);
+		// return axios
+		// 	.post(`${process.env.BASE_URL}tickets/Create`, formData, {
+		// 		headers: {
+		// 			Authorization: `Bearer ${token}`,
+		// 		},
+		// 	})
+		// 	.then((res) => {
+		// 		setSubject('');
+		// 		setMessage('');
+		// 		setFiles([]);
+		// 		showSuccessModalFn(true);
+		// 		// showToast('Ticket have been opened successfully', 'success');
+		// 		setSubmitting(false);
+		// 	})
+		// 	.catch((err) => {
+		// 		showToast(`${err.message}`, 'error');
+		// 		setSubmitting(false);
+		// 	});
+	};
 	return (
 		<>
 			<div className={styles.cardResponsDiv}>
@@ -43,7 +97,9 @@ const CardBody = ({ticketId, ticket}) => {
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Submitted Date</p>
-						<p className={styles.value2}>{ticket?.created_at}</p>
+						<p className={styles.value2}>
+							{formatDateAndTime(ticket?.created_at)}
+						</p>
 					</div>
 				</div>
 				<div className={`mb-10 ${styles.complainContainer}`}>
@@ -110,7 +166,61 @@ const CardBody = ({ticketId, ticket}) => {
 						</div>
 					</div>
 				</RenderIf>
+				<RenderIf condition={true || ticket.status === 'closed'}>
+					<Button
+						text="Repopen"
+						leftIcon={<Image alt="icon" src={MailReopen} />}
+						className="p-3"
+						bgColor="blue"
+						onClick={handleReopen}
+					/>
+				</RenderIf>
 			</div>
+			<RenderIf condition={reopenSection}>
+				<div className={styles.formContainer}>
+					<h6 className={styles.labelStyle}>Message</h6>
+					<div className="text-editor">
+						<EditorToolbar />
+						<ReactQuill
+							theme="snow"
+							value={''}
+							onChange={(e) => console.log(e)}
+							placeholder={
+								'Write the details of your ticket here'
+							}
+							style={{height: '200px'}}
+							modules={modules}
+							formats={formats}
+						/>
+					</div>
+
+					<br />
+					<h6 className={styles.labelStyle}>Attachment</h6>
+					<FileUpload
+						files={files}
+						setFiles={setFiles}
+						uploadingFiles={uploadingFiles}
+						setUploadingFiles={setUploadingFiles}
+					/>
+					<br />
+					<div style={{marginTop: '6px'}}>
+						<Button
+							disabled={false || files?.length > 5}
+							bgColor="blue"
+							text="Submit Response"
+							className="p-2"
+							onClick={() => handleSubmit()}
+						/>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						<Button
+							disabled={false}
+							text="Cancel"
+							className={styles.cancelSubmit}
+							onClick={() => router.back()}
+						/>
+					</div>
+				</div>
+			</RenderIf>
 		</>
 	);
 };
@@ -173,7 +283,7 @@ const Index = (props) => {
 	if (loading) {
 		return <Loader />;
 	}
-
+	// console.log('ticket', ticket);
 	return (
 		<>
 			<AuthLayout>

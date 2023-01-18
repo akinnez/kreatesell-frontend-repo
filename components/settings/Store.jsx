@@ -27,8 +27,10 @@ const StoreSettings = () => {
 		is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
 	}));
 
-	const {enable_disable_tax, is_enable_product_cross_sell} =
-		userStoreSettings;
+	const {
+		enable_disable_tax,
+		is_enable_product_cross_sell,
+	} = userStoreSettings;
 	const [ctaBtnValue, setCtaBtnValue] = useState({
 		option: 'store',
 		cta_button: defaultCTA || '',
@@ -93,16 +95,6 @@ const StoreSettings = () => {
 					want this! (Kindly leave it blank to use the default BUY NOW
 					button.)
 				</p>
-
-				<div className="hidden lg:block mt-8 w-1/5">
-					<Button
-						text="Save Changes"
-						bgColor="blue"
-						className={styles.btnStyle}
-						loading={loading}
-						onClick={handleCTAButton}
-					/>
-				</div>
 			</div>
 
 			<div className="flex justify-between items-center w-full lg:w-2/4 pt-4 mt-4">
@@ -118,8 +110,7 @@ const StoreSettings = () => {
 							console.log();
 							setUserStoreSettings((value) => ({
 								...value,
-								is_enable_product_cross_sell:
-									!value.is_enable_product_cross_sell,
+								is_enable_product_cross_sell: !value.is_enable_product_cross_sell,
 							}));
 
 							await updateStoreSettings(userStoreSettings, () => {
@@ -187,6 +178,30 @@ const StoreSettings = () => {
 				By Switching on, your buyers will be responsible for the payment
 				of any tax fee imposed by KreateSell.
 			</p>
+			<div className="flex justify-between w-6/12 mt-5 items-center">
+				<p className="mb-0">Set Custom Tax Amount</p>
+				<Input
+					placeholder="Enter Amount"
+					type="number"
+					height="small"
+					value={''}
+					onChange={(e) => {
+						console.log('e', e.target.value);
+					}}
+					required={false}
+					maxLength={10}
+					containerstyle="mb-0"
+				/>
+			</div>
+			<div className="hidden lg:block mt-8 w-1/5">
+				<Button
+					text="Save Changes"
+					bgColor="blue"
+					className={styles.btnStyle}
+					loading={loading}
+					onClick={handleCTAButton}
+				/>
+			</div>
 
 			<div className="mt-8 w-4/12 lg:hidden">
 				<Button
