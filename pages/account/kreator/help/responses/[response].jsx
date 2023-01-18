@@ -138,30 +138,32 @@ const CardBody = ({ticketId, ticket}) => {
 						<div className={`${styles.attachments} flex flex-col`}>
 							Attachments (1)
 							{/* files */}
-							{ticket?.uploaded_image_list.map((file, idx) => (
-								<div
-									key={idx}
-									className={`flex gap-2 ${styles.files}`}
-								>
-									<Image src={Folder} alt="icon" />
-									<a
-										target="_blank"
-										rel="noreferrer"
-										href={file}
+							{Array.isArray(ticket?.uploaded_image_list) &&
+								ticket?.uploaded_image_list.map((file, idx) => (
+									<div
+										key={idx}
+										className={`flex gap-2 ${styles.files}`}
 									>
-										<p
-											className={`mb-0 ${styles.fileName}`}
+										<Image src={Folder} alt="icon" />
+										<a
+											target="_blank"
+											rel="noreferrer"
+											href={file}
 										>
-											file-{idx}.
-											{
-												file.split('.')[
-													file.split('.').length - 1
-												]
-											}
-										</p>
-									</a>
-								</div>
-							))}
+											<p
+												className={`mb-0 ${styles.fileName}`}
+											>
+												file-{idx}.
+												{
+													file.split('.')[
+														file.split('.').length -
+															1
+													]
+												}
+											</p>
+										</a>
+									</div>
+								))}
 						</div>
 					</section>
 				</div>
