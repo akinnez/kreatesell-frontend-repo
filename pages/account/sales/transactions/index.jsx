@@ -241,7 +241,7 @@ const CardComponent = ({data}) => {
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Clearance Date</h1>
 						<p className={`${styles.value} mb-0`}>
-						{dateString(data.clearance_date)} 
+							{dateString(data.clearance_date)}
 						</p>
 					</li>
 					<li className={styles.orderDetail}>
