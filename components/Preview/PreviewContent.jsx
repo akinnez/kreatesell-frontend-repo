@@ -197,8 +197,10 @@ export default function PreviewContent({
 
 	const isProductOutOfStock = () => {
 		if (product?.product_details) {
-			const {is_limited_sales, number_of_product} =
-				product?.product_details;
+			const {
+				is_limited_sales,
+				number_of_product,
+			} = product?.product_details;
 			return (
 				is_limited_sales &&
 				number_of_product - product?.number_sold <= 0
@@ -230,7 +232,7 @@ export default function PreviewContent({
 						onClick={() =>
 							storename
 								? router.push(`/store/${storename}`)
-								: '/account/kreator/products/all'
+								: router.push('/account/kreator/products/all')
 						}
 						text="Okay"
 					/>
