@@ -120,7 +120,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'KreateSell Title',
 			description: 'KreateSell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -541,7 +542,9 @@ export const UpgradeAccountForm = ({
 									}
 									if (
 										store?.user?.user_plan?.toLowerCase() !==
-										'business'
+											'business' ||
+										store?.kyc_status?.kyc_status?.toLowerCase() !==
+											'approved'
 									) {
 										if (
 											![
@@ -556,22 +559,8 @@ export const UpgradeAccountForm = ({
 											}
 										}
 									}
-									if (
-										store?.kyc_status?.kyc_status?.toLowerCase() !==
-										'approved'
-									) {
-										if (
-											![
-												'crypto',
-												'stripe',
-												'paypal',
-											].includes(value)
-										) {
-											{
-												/* return false; */
-											}
-											return true;
-										}
+									if (value === 'paypal') {
+										return false;
 									} else {
 										return true;
 									}

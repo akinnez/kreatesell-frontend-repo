@@ -78,11 +78,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -476,11 +481,10 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -578,7 +582,8 @@ const Checkout = () => {
 		customizations: {
 			title: 'Kreatesell Title',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -1093,7 +1098,6 @@ const Checkout = () => {
 								<p className="text-base-gray-200">
 									Select your preferred payment method
 								</p>
-
 								<div className="grid gap-4 grid-cols-3 w-full">
 									{countryPayments[
 										activeCurrency?.currency ||
@@ -1120,7 +1124,9 @@ const Checkout = () => {
 											}
 											if (
 												storeDetails?.user_plan?.toLowerCase() !==
-												'business'
+													'business' ||
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+													'approved'
 											) {
 												if (
 													![
@@ -1132,21 +1138,9 @@ const Checkout = () => {
 													return true;
 												}
 											}
-											if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-												'approved'
-											) {
-												if (
-													![
-														'crypto',
-														'stripe',
-														'paypal',
-													].includes(value)
-												) {
-													return true;
-												}
+											if (value === 'paypal') {
+												return false;
 											} else {
-												console.log('else');
 												return true;
 											}
 										})
@@ -1231,29 +1225,27 @@ const Checkout = () => {
 													) => {
 														return actions.order.create(
 															{
-																purchase_units:
-																	[
-																		{
-																			description:
-																				'customDescription',
-																			amount: {
-																				// value: Number(
-																				// 	convertedPrice
-																				// ).toFixed(2),
-																				value: Number(
-																					getCurrency(
-																						'price'
-																					)
-																				).toFixed(
-																					2
-																				),
-																				currency:
-																					getCurrency(
-																						'currency'
-																					),
-																			},
+																purchase_units: [
+																	{
+																		description:
+																			'customDescription',
+																		amount: {
+																			// value: Number(
+																			// 	convertedPrice
+																			// ).toFixed(2),
+																			value: Number(
+																				getCurrency(
+																					'price'
+																				)
+																			).toFixed(
+																				2
+																			),
+																			currency: getCurrency(
+																				'currency'
+																			),
 																		},
-																	],
+																	},
+																],
 															}
 														);
 													}}
