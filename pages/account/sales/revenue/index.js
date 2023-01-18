@@ -225,7 +225,7 @@ const CardComponent = ({data}) => {
 					</li>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>
-							Customer's Name
+							Customer Name
 						</h1>
 						<p className={`${styles.value} mb-0`}>
 							{data?.customer_full_name}
