@@ -60,7 +60,7 @@
 .modal {
 	border-radius: 0.5rem;
 	width: 50%;
-	
+
 	@include screen('medium') {
 		width: 90%;
 		padding: 7rem 2rem;

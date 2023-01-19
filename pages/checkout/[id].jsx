@@ -1021,7 +1021,7 @@ const Checkout = () => {
 										above the minimum amount.
 									</p>
 									<div
-										className={styles.minimumPriceContainer} 
+										className={styles.minimumPriceContainer}
 									>
 										<div
 											className={styles.minimumPriceText}

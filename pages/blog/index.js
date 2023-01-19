@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
-import Router, { withRouter, useRouter } from 'next/router';
+import Router, {withRouter, useRouter} from 'next/router';
 import Link from 'next/link';
 
-import { Pagination } from 'antd';
+import {Pagination} from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-import { Layout, Input } from '../../components';
+import {Layout, Input} from '../../components';
 import styles from '../../public/css/Blog.module.scss';
-import { BlogHero, SingleBlog } from '../../utils';
+import {BlogHero, SingleBlog} from '../../utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import Loader from 'components/loader';
-import { Briefcase, Clock } from '../../utils';
+import {Briefcase, Clock} from '../../utils';
 import BlogTab from 'components/Blog/blogTabs';
 import Spinner from 'components/Spinner';
 
@@ -24,9 +24,9 @@ const Blog = () => {
 	const [isBlogDataLoading, setIsBlogDataLoading] = useState(true);
 	const [active, setActive] = useState('All');
 	const [Blogs, setBlogs] = useState({});
-	console.log(Blogs.data, 'BlogsBlogsBlogs')
+	console.log(Blogs.data, 'BlogsBlogsBlogs');
 	const [RecentBlogs, setMostRecentBlog] = useState({});
-	console.log(RecentBlogs, 'RecentBlogsRecentBlogsRecentBlogs')
+	console.log(RecentBlogs, 'RecentBlogsRecentBlogsRecentBlogs');
 	const [page, setPage] = useState(1);
 	const startLoading = () => setIsLoading(true);
 	const stopLoading = () => setIsLoading(false);
@@ -41,7 +41,7 @@ const Blog = () => {
 	// console.log("recent blogs", RecentBlogs)
 	// console.log("blogs", Blogs)
 
-	console.log(active, 'activeactiveactive')
+	console.log(active, 'activeactiveactive');
 
 	useEffect(() => {
 		const func = async () => {
@@ -54,7 +54,7 @@ const Blog = () => {
 				);
 
 				const res = await reqOne;
-				// console.log(res?.data?.data,'respond')  
+				// console.log(res?.data?.data,'respond')
 				setBlogs(res?.data || {});
 				setMostRecentBlog(res?.data?.data[0] || []);
 			} catch (err) {
@@ -141,13 +141,23 @@ const Blog = () => {
 								{RecentBlogs?.created_at && (
 									<div className={styles.categoryTime}>
 										<span className={styles.category}>
-											<Image src={Briefcase} alt="" width="25" />{' '}
+											<Image
+												src={Briefcase}
+												alt=""
+												width="25"
+											/>{' '}
 											{RecentBlogs?.category?.toUpperCase()}
 										</span>
 										<p className={styles.time}>
 											{' '}
-											<Image src={Clock} alt="" width="15" />{' '}
-											{moment(RecentBlogs?.created_at).fromNow()}
+											<Image
+												src={Clock}
+												alt=""
+												width="15"
+											/>{' '}
+											{moment(
+												RecentBlogs?.created_at
+											).fromNow()}
 										</p>
 									</div>
 								)}
@@ -161,7 +171,9 @@ const Blog = () => {
 									<Link
 										href={`/blog/${RecentBlogs?.category}/${RecentBlogs?.id}`}
 									>
-										<p className={styles.seeMoreBtn}>See more</p>
+										<p className={styles.seeMoreBtn}>
+											See more
+										</p>
 									</Link>
 								)}
 							</div>
@@ -172,21 +184,23 @@ const Blog = () => {
 									type="search"
 									placeholder="Search by keyword"
 									className={styles.input}
-								// onChange={(e)=>handleInputChange(e.target.value)}
+									// onChange={(e)=>handleInputChange(e.target.value)}
 								/>
 							</div>
 							<div className={styles.categories}>
 								<h3 className={styles.header}>Categories: </h3>
-								<BlogTab {...{ active, setActive }} />
+								<BlogTab {...{active, setActive}} />
 							</div>
 						</div>
 					</div>
-				) : <>Nothing</>}
-
+				) : (
+					<>Nothing</>
+				)}
 
 				{/* Dummy Blog Post. Blog data will be mapped here */}
 				<div className={styles.singlePostContainer}>
-					{Blogs?.data && Blogs?.data?.length !== 0 &&
+					{Blogs?.data &&
+						Blogs?.data?.length !== 0 &&
 						Blogs?.data?.map((item) => (
 							<BlogPreview
 								key={item?.id}
@@ -198,8 +212,7 @@ const Blog = () => {
 								thumbnail={item?.thumbnail}
 								thumbnail_alt={item?.thumbnail_alt}
 							/>
-						))
-					}
+						))}
 				</div>
 				{/* Dummy Blog Post. Blog data will be mapped here */}
 
@@ -273,7 +286,8 @@ export const BlogPreview = ({
 			<div className={styles.categoryTime}>
 				<span className={styles.category}>
 					<Image src={Briefcase} alt="" width="25" />
-					{'  '}{category}
+					{'  '}
+					{category}
 				</span>
 				<p className={styles.time}>
 					<Image src={Clock} alt="" width="15" />
