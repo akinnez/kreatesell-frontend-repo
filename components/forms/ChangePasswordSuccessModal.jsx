@@ -6,7 +6,7 @@ import styles from '../../public/css/ResetSuccess.module.scss';
 export const ChangePasswordSuccessModal = () => {
 	return (
 		<div className={styles.resetPasswordModal}>
-			<div className={styles.image}>
+			<div className={styles.image}> 
 				<Image src={KreateSellBrand} alt="kreatesell" />
 			</div>
 			<h5>

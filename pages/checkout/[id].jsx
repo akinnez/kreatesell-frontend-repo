@@ -1021,7 +1021,7 @@ const Checkout = () => {
 										above the minimum amount.
 									</p>
 									<div
-										className={styles.minimumPriceContainer}
+										className={styles.minimumPriceContainer} 
 									>
 										<div
 											className={styles.minimumPriceText}
@@ -1068,7 +1068,7 @@ const Checkout = () => {
 										<p className={styles.desiredPayText}>
 											Desired Amount
 										</p>
-										<div className="w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
+										<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
 											<Input
 												placeholder={`Suggested Amount: ${getCurrency(
 													'currency'

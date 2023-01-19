@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Index.module.scss';
 // import { Checkbox, Row, Col, Spin, Form } from 'antd';
 // import {Button} from '../form-input';
 import ApiService from '../../utils/axios';
-import {ChangePassword} from '../../redux/actions';
-import {useSelector} from 'react-redux';
+import { ChangePassword } from '../../redux/actions';
+import { useSelector } from 'react-redux';
+import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog';
 // import {useRouter} from 'next/router';
 
 import {
@@ -37,7 +38,7 @@ const Index = () => {
 
 	// const router = useRouter();
 
-	const {loading} = useSelector((state) => state.auth);
+	const { loading } = useSelector((state) => state.auth);
 
 	const [modalVisible, setVisible] = useState(false);
 
@@ -107,13 +108,23 @@ const Index = () => {
 					/>
 				</form>
 
-				<Modal
+				{/* <Modal
 					onClose={() => setVisible(false)}
 					visible={modalVisible}
 					cancelPropagation={true}
 				>
 					<ChangePasswordSuccessModal />
-				</Modal>
+				</Modal> */}
+ 
+				<DialogOverlay
+					isOpen={modalVisible}
+					onDismiss={() => setVisible(false)}
+					className="pt-12 "
+				>
+					<DialogContent className={style.modal} aria-label="modal">
+						<ChangePasswordSuccessModal />
+					</DialogContent>
+				</DialogOverlay>
 			</div>
 		</div>
 	);

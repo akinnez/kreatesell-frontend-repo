@@ -5,7 +5,7 @@ import axiosAPI from 'utils/axios';
 import styles from './BlogTabs.module.scss';
 
 const BlogTab = ({active, setActive}) => {
-	const [categoriesData, setCategoriesData] = useState([{value: 'All'}]);
+	const [categoriesData, setCategoriesData] = useState([]);
 	const {data: categories, error: categoriesError} = useSWR(
 		`${process.env.BASE_URL}blogs/posts/getcategories`,
 		(url) => {
