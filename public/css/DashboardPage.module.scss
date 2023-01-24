@@ -2,11 +2,22 @@
 @use 'mixins';
 @use 'screens';
 
+.dashBoardContainer {
+	@media (max-width: 768px) {
+		// height: 100vh;
+		// overflow: hidden;
+	}
+}
 .boardSection {
 	position: relative;
 }
 .stats__container:first-child {
 	margin-bottom: 40px;
+}
+
+.stats__container:last-child {
+	margin-bottom: 80px !important;
+	// border: 1px solid red;
 }
 
 .stats__container:last-child {
