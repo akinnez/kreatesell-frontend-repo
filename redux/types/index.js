@@ -11,3 +11,4 @@ export * from './planUpgrade.types';
 export * from './currencyConverter.types';
 export * from './paymentOptions.types';
 export * from './affiliate.types';
+export * from './mobileSidebar.types';
