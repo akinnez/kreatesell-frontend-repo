@@ -2,10 +2,14 @@
 @use 'mixins';
 @use 'screens';
 
-.dashBoardContainer {
+.dashBoardContainer.mobileSideBarInView {
 	@media (max-width: 768px) {
-		// height: 100vh;
+		height: 100vh;
 		// overflow: hidden;
+	}
+	@media (max-width: 408px) {
+		height: 50vh;
+		overflow: hidden;
 	}
 }
 .boardSection {

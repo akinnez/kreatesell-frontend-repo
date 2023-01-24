@@ -37,6 +37,7 @@ import CloseIcon from 'components/affiliates/CloseIcon';
 import {Button} from 'components';
 import axiosAPI from 'utils/axios';
 import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
+import {TOGGLE_SIDEBAR} from '../../redux/types';
 
 const Loader = () => {
 	return (
@@ -141,8 +142,14 @@ const Index = ({
 	useFetchStore();
 	useFetchNotifications();
 
-	const [isMobileSideBarOpen, setIsMobileSideBarOpen] = useState(false);
-	const toggleView = () => setIsMobileSideBarOpen(!isMobileSideBarOpen);
+	// const [isMobileSideBarOpen, setIsMobileSideBarOpen] = useState(false);
+	const isMobileSideBarOpen = useSelector(
+		(state) => state.mobileSideBar.isMobileSideBarOpen
+	);
+
+	const toggleView = () => {
+		dispatch({type: TOGGLE_SIDEBAR});
+	};
 
 	const [showOverlayOnClick, setShowOverlayOnClick] = useState(false);
 

@@ -23,6 +23,10 @@ const Dashboard = () => {
 	const getSalesStatistics = GetSalesStatistics();
 	const getAffiliateSalesStatistics = GetAffiliateSalesStatistics();
 
+	const isMobileSideBarOpen = useSelector(
+		(state) => state.mobileSideBar.isMobileSideBarOpen
+	);
+
 	const [filters, setFilters] = useState({
 		currency: '',
 		fromDate: '',
@@ -103,7 +107,11 @@ const Dashboard = () => {
 			<Head>
 				<title>KreateSell | Dashboard</title>
 			</Head>
-			<div className={styles.dashBoardContainer}>
+			<div
+				className={`${styles.dashBoardContainer} ${
+					isMobileSideBarOpen ? styles.mobileSideBarInView : ''
+				}`}
+			>
 				<header className={styles.boardSection}>
 					<DashboardFilters
 						data={[]}
