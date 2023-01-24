@@ -187,7 +187,7 @@ export const CheckoutForm = ({
 		useUpload({
 			setFileChange: setPromotionalMaterial,
 			// should accept rar and zip
-			fileType: 'image',
+			fileType: 'all',
 		});
 
 	// console.log("product = ", product);
@@ -1808,7 +1808,7 @@ export const CheckoutForm = ({
 							</div>
 							<div className="flex justify-between items-center w-full lg:w-3/5 pt-4">
 								<div className="text-gray-500 font-semibold">
-									Upload a Promotional Material for affiliates
+									Upload a Promotional Material for affiliates 
 								</div>
 								<div className="flex">
 									<Switch

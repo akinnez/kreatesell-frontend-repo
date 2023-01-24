@@ -35,23 +35,23 @@ const Dashboard = () => {
 	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 	const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-	const welcomeMessageCheck = async () => {
-		await axiosAPI.request(
-			'get',
-			`v1/kreatesell/store/welcome-message`,
-			(res) => {
-				console.log(res);
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
+	// const welcomeMessageCheck = async () => {
+	// 	await axiosAPI.request(
+	// 		'get',
+	// 		`v1/kreatesell/store/welcome-message`, 
+	// 		(res) => {
+	// 			console.log(res);
+	// 		},
+	// 		(error) => {
+	// 			console.log(error);
+	// 		}
+	// 	);
+	// };
 
-	useEffect(() => {
-		welcomeMessageCheck();
-		return () => {};
-	}, []);
+	// useEffect(() => {
+	// 	welcomeMessageCheck();
+	// 	return () => {};
+	// }, []);
 
 	const getUserVisitStatus = useCallback(() => {
 		axiosAPI.request(

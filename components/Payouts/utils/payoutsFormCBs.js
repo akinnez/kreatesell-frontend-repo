@@ -152,7 +152,7 @@ export const validateAccountOnBlur = ({
 				setValidating(false);
 
 				if (res.status === 'error') {
-					showToast(res.message, 'warn');
+					showToast(res.message || 'Invalid account number, please check again', 'warn');
 					// setIsValid(false);
 					return;
 				}

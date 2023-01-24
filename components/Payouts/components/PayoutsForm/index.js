@@ -1,8 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import {useDispatch} from 'react-redux';
-import {Typography, Form, Select, Input, Button} from 'antd';
-import {Formik} from 'formik';
+import { useDispatch } from 'react-redux';
+import { Typography, Form, Select, Input, Button } from 'antd';
+import { Formik } from 'formik';
 import PayoutsFormWarning from '../PayoutsFormWarning';
 import {
 	accountNumberHandler,
@@ -14,18 +14,18 @@ import {
 	paypalCB,
 	validateAccountOnBlur,
 } from 'components/Payouts/utils/payoutsFormCBs';
-import {PayoutFormValidator} from 'validation/PayoutForm.validation';
+import { PayoutFormValidator } from 'validation/PayoutForm.validation';
 import styles from './index.module.scss';
 
-const {Text} = Typography;
-const {Option} = Select;
+const { Text } = Typography;
+const { Option } = Select;
 
 const PayoutsForm = ({
 	hideModal,
 	showSuccessModal,
 	countries,
 	banksByCountryId,
-	bankDetails,
+	bankDetails
 }) => {
 	const [banksLoading, setBanksLoading] = useState(false);
 	const [validating, setValidating] = useState(false);
@@ -34,7 +34,6 @@ const PayoutsForm = ({
 	const [banks, setBanks] = useState(() => {
 		return banksCB(bankDetails, banksByCountryId);
 	});
-
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 
@@ -88,6 +87,7 @@ const PayoutsForm = ({
 							showSearch
 							autoComplete="country"
 							placeholder="Nigeria"
+							disabled={bankDetails}
 							onChange={(value) =>
 								countryHandler({
 									value,
@@ -113,7 +113,7 @@ const PayoutsForm = ({
 							}
 							onBlur={formik.handleBlur}
 							value={formik.values.country}
-							// disabled={!!bankDetails}
+						// disabled={!!bankDetails}
 						>
 							{countries.map((country) => (
 								<Option
@@ -224,35 +224,35 @@ const PayoutsForm = ({
 									formik.errors.account_number
 								}
 							>
-								<Input
-									autoComplete="off"
-									placeholder="Enter account number"
-									onChange={(e) =>
-										accountNumberHandler(e, formik, form)
-									}
-									onBlur={(e) => {
-										validateAccountOnBlur({
-											e,
-											formik,
-											form,
-											banks,
-											setValidating,
-											// setIsValid,
-										});
-									}}
-									value={formik.values.account_number}
-								/>
+									<Input
+										autoComplete="off"
+										placeholder="Enter account number"
+										onChange={(e) =>
+											accountNumberHandler(e, formik, form)
+										}
+										onBlur={(e) => {
+											validateAccountOnBlur({
+												e,
+												formik,
+												form,
+												banks,
+												setValidating,
+												// setIsValid,
+											});
+										}}
+										value={formik.values.account_number}
+									/>
 							</Form.Item>
 							<Form.Item
 								name="account_name"
 								label="Account Name"
 								validateStatus={
 									formik.touched.account_name &&
-									formik.errors.account_name
+										formik.errors.account_name
 										? 'error'
 										: validating
-										? 'validating'
-										: 'success'
+											? 'validating'
+											: 'success'
 								}
 								hasFeedback={validating}
 								help={
