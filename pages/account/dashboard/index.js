@@ -38,7 +38,7 @@ const Dashboard = () => {
 	// const welcomeMessageCheck = async () => {
 	// 	await axiosAPI.request(
 	// 		'get',
-	// 		`v1/kreatesell/store/welcome-message`, 
+	// 		`v1/kreatesell/store/welcome-message`,
 	// 		(res) => {
 	// 			console.log(res);
 	// 		},
