@@ -187,7 +187,7 @@ export const CheckoutForm = ({
 		useUpload({
 			setFileChange: setPromotionalMaterial,
 			// should accept rar and zip
-			fileType: 'image',
+			fileType: 'all',
 		});
 
 	// console.log("product = ", product);

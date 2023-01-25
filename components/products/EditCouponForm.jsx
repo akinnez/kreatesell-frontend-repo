@@ -62,9 +62,10 @@ export const EditCouponForm = () => {
 			is_percentage: true,
 			is_fixed_amount: false,
 			is_coupon_limited: false,
-			no_of_frequency: '',
+			no_of_frequency:
+				updateCouponData[0]?.coupons?.no_of_frequency || '',
 			is_usage_limited: false,
-			no_of_usage: '',
+			no_of_usage: updateCouponData[0]?.coupons?.no_of_usage || '',
 			is_apply_to_recurring: false,
 		},
 		action: 'e',

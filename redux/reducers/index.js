@@ -11,6 +11,7 @@ import planUpgrade from './planUpgrade.reducer';
 import currencyConverter from './currencyConverter.reducer';
 import submitPaymentOptions from './paymentOptions.reducer';
 import Affiliate from './affiliate.reducer';
+import mobileSideBar from './mobileSideBar.reducer';
 
 const rootReducer = combineReducers({
 	auth,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	currencyConverter,
 	submitPaymentOptions,
 	Affiliate,
+	mobileSideBar,
 });
 
 export default rootReducer;

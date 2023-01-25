@@ -140,7 +140,7 @@ export const Footer = () => {
 							<a>FAQ</a>
 						</Link>
 
-						<a href="https://wa.me/+2349016324945">
+						<a href="https://wa.me/+2349062002777">
 							Contact Support
 						</a>
 					</div>
@@ -295,7 +295,7 @@ export const Footer = () => {
 								<a>FAQ</a>
 							</Link>
 
-							<a href="https://wa.me/+2349016324945">
+							<a href="https://wa.me/+2349062002777">
 								Contact Support
 							</a>
 						</div>

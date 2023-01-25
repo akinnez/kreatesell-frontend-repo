@@ -34,7 +34,6 @@ const PayoutsForm = ({
 	const [banks, setBanks] = useState(() => {
 		return banksCB(bankDetails, banksByCountryId);
 	});
-
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 
@@ -88,6 +87,7 @@ const PayoutsForm = ({
 							showSearch
 							autoComplete="country"
 							placeholder="Nigeria"
+							disabled={bankDetails}
 							onChange={(value) =>
 								countryHandler({
 									value,
