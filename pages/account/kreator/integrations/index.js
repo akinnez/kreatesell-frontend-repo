@@ -21,7 +21,7 @@ const Integrations = () => {
 							// className='ml-5'
 						/>
 					</div>
-					<h1 className={styles.abadonedCartText}>Coming Soon!</h1>
+					<h1 className={styles.abadonedCartText}>Coming soon!</h1>
 					<div className={styles.intergartionsP}>
 						You can now integrate apps such as mailchimp, Zapier and
 						Getresponse into the platform without , having to go to
