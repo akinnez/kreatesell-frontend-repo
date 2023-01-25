@@ -4,7 +4,7 @@ import styles from './header.module.scss';
 const statusArr = [
 	{type: 'All', label: 'All'},
 	{type: 'cleared', label: 'Cleared'},
-	{type: 'pending', label: 'Pending Clearance'},
+	{type: 'pending', label: 'Pending clearance'},
 ];
 
 const StatusButtons = ({setFilters, filters, setLoading}) => {
