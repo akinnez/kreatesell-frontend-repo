@@ -9,6 +9,7 @@ import {
 	MobileIcon,
 	EmptyDataTable,
 	DeleteIcon,
+	Subscribers2,
 } from 'utils';
 import styles from '../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
@@ -350,7 +351,7 @@ const ActionComponent = ({item}, all) => {
 				className="flex items-center cursor-pointer"
 			>
 				<span>
-					<Image alt="" src={ViewSales} />
+					<Image alt="" src={Subscribers2} />
 				</span>
 				<p className="mb-0 ml-3"> Subscribers</p>
 			</li>

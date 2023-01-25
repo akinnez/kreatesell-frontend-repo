@@ -167,27 +167,54 @@ const CardBody = ({ticketId, ticket}) => {
 						</div>
 					</section>
 				</div>
-				<RenderIf condition={ticket.replied}>
-					<div className={styles.adminResponse}>
-						<h2 className={styles.title}>Admin Response</h2>
-						<p className={styles.response}>
-							This would be resolved shortly. My apologies for the
-							inconveniences.
-						</p>
-						{/* border bottom here */}
-						<div className={`${styles.attachments} flex flex-col`}>
-							Attachments (1)
-							{/* files */}
-							<div className={`flex gap-4 ${styles.files}`}>
-								<Image src={Folder} alt="icon" />
-								<p className={`mb-0 ${styles.fileName}`}>
-									Yesyoucan.png
+				<RenderIf condition={Array.isArray(ticket.ticket_response)}>
+					{ticket?.ticket_response?.map((tick) => (
+						<div key={tick.id} className={styles.adminResponse}>
+							<div className="flex gap-10 items-center">
+								<h2 className={`mb-0 ${styles.title}`}>
+									Admin Response
+								</h2>
+								<p className="mb-0">
+									{formatDateAndTime(tick.created_at)}
 								</p>
 							</div>
+							<p
+								className={styles.response}
+								dangerouslySetInnerHTML={{
+									__html: tick.message,
+								}}
+							/>
+
+							{/* border bottom here */}
+							<RenderIf
+								condition={
+									Array.isArray(tick.reply_photos) &&
+									tick?.reply_photos?.length > 0
+								}
+							>
+								<div
+									className={`${styles.attachments} flex flex-col`}
+								>
+									Attachments ({tick?.reply_photos?.length})
+									{/* files */}
+									<div
+										className={`flex gap-4 ${styles.files}`}
+									>
+										<Image src={Folder} alt="icon" />
+										<p
+											className={`mb-0 ${styles.fileName}`}
+										>
+											Yesyoucan.png
+										</p>
+									</div>
+								</div>
+							</RenderIf>
 						</div>
-					</div>
+					))}
 				</RenderIf>
-				<RenderIf condition={true || ticket.status === 'closed'}>
+				<RenderIf
+					condition={ticket?.status?.toLowerCase() === 'closed'}
+				>
 					<Button
 						text="Repopen"
 						leftIcon={<Image alt="icon" src={MailReopen} />}
@@ -268,7 +295,7 @@ const Index = (props) => {
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const [ticket, setTicket] = useState([]);
+	const [ticket, setTicket] = useState({});
 	const [ticketId, setTicketId] = useState('');
 	const router = useRouter();
 	useEffect(() => {

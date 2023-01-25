@@ -239,21 +239,25 @@ export default function ContentUpload({file, setFile, initialFile}) {
 					))}
 			</RenderIf>
 			<div className={styles.fileUploader}>
-				{file && <span></span>}
+				{file?.length > 0 && <span></span>}
 				<div
 					className={`${styles.contentFileUpload} ${
-						file ? styles.contentFileUploadDisabled : ''
+						file?.length > 0 ? styles.contentFileUploadDisabled : ''
 					}`}
 					{...getRootProps()}
 				>
 					<div className="flex justify-center items-center">
 						<input {...getInputProps()} />
 						<Image
-							src={file ? CloudUploadDisable : CloudUpload}
+							src={
+								file?.length > 0
+									? CloudUploadDisable
+									: CloudUpload
+							}
 							alt="upload image"
 						/>
 						<p className="hidden md:block text-sm pl-4 my-auto">
-							Drag and Drop or Click to Upload Your Product File
+							Drag and Drop or Click to Upload Your Product Fileg
 						</p>
 						<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
 							Drag & Drop Or Click to Upload Your Product File

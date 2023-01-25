@@ -23,7 +23,7 @@ export const RecentAnalytics = () => {
 		],
 		datasets: [
 			{
-				data: [25, 0, 50, 75, 25, 100, 50, 25, 75, 75, 25, 100],
+				data: [25, 0, 50, 75, 25, 100, 50, 25, 75, 75, 2500, 1000],
 				fill: false,
 				backgroundColor: '#0072EF',
 				borderColor: '#40A9FF',

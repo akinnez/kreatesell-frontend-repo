@@ -23,7 +23,7 @@ const GoogleLoginComponent = () => {
 					{}
 				)
 				.then((res) => {
-					console.log('google login res is: ', res);
+					// console.log('google login res is: ', res);
 					localStorage.setItem('token', res?.data?.data?.token);
 					localStorage.setItem(
 						'user',

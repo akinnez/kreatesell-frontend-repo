@@ -307,8 +307,12 @@ import Mailchimp from '../public/images/mailchimp.png';
 import GetResponse from '../public/images/getResponse.png';
 import Zapier from '../public/images/zapier.png';
 import MailReopen from '../public/images/mail_open.svg';
+import ShoppingCart from '../public/images/shopping_cart.svg';
+import Subscribers2 from '../public/images/subscribers.svg';
 
 export {
+	Subscribers2,
+	ShoppingCart,
 	MailReopen,
 	ProductDeactivated,
 	Congratulations,

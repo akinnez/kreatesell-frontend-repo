@@ -260,7 +260,9 @@ const Advanced = () => {
 							styles.greyed
 						}`}
 					>
-						<div className={styles.overlay}></div>
+						{['Request'].includes(
+							store?.kyc_status?.kyc_status
+						) && <div className={styles.overlay}></div>}
 						<div className={styles.stepsLeft}>
 							<div className={styles.top}>
 								{/* 1st card */}

@@ -18,7 +18,7 @@ import {Button} from 'components/button/Button';
 
 const statusComponent = (item) => {
 	const statusTextList = {
-		Open: {
+		open: {
 			type: 'open',
 			styles: {
 				background: '#F1FCF8',

@@ -1,14 +1,97 @@
-@use 'mixins';
-@use 'colors';
+@import './mixins.scss';
+@import './colors.scss';
+@import './screens.scss';
 
 .header {
-	@include mixins.flex(row, space-between, center);
+	@include flex(row, space-between, center);
 	flex-wrap: wrap;
 	margin-bottom: 20px;
 }
 
 .tableWrapper {
-	margin-block: 1rem;
+}
+
+.dataSection {
+	.tableWrapper {
+		margin-block: 1rem;
+		display: block;
+	}
+
+	.mobileWrapper {
+		display: none;
+	}
+
+	@include screen('x-large') {
+		.tableWrapper {
+			display: none;
+		}
+
+		.mobileWrapper {
+			display: block;
+			.cardContainer {
+				margin-block-end: 1.5rem;
+				.card {
+					@include flex(column, null, null);
+					border-radius: 8px;
+					padding: 1rem 0.5rem;
+					// border: 1px solid;
+					width: 100%;
+					min-height: 200px;
+					.dateContainer {
+						@include flex(row, center, null);
+						.startDate,
+						.endDate {
+							.dateFiller {
+								background: #e6f7ff;
+								padding: 0.3rem;
+								border-radius: 8px;
+								font-weight: 400;
+								font-size: 0.75rem;
+								color: #0072ef;
+							}
+							.date {
+								font-weight: 400;
+								font-size: 0.875rem;
+								color: #595959;
+							}
+						}
+					}
+					.courseTitle {
+						font-weight: 700;
+						font-size: 1rem;
+						color: #262626;
+					}
+					.customerDetails {
+						margin-block: 1rem;
+						.customerDetail {
+							margin-block-end: 0.5rem;
+							padding: 0.5rem 0.8rem;
+							align-items: center;
+							@include flex(row, space-between, null);
+							.key {
+								font-weight: 700;
+								font-size: 0.875rem;
+								line-height: 20px;
+								color: #262626;
+							}
+
+							.value {
+								font-weight: 400;
+								font-size: 0.875rem;
+								line-height: 24px;
+								color: #595959;
+							}
+						}
+
+						.customerDetail:nth-child(odd) {
+							background: #f5f5f5;
+							border-radius: 8px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .exportDiv {

@@ -42,7 +42,7 @@ const Index = () => {
 		const formData = new FormData();
 		formData.append('Brand_Name', info.Brand_Name);
 		formData.append('Bio_Data', info.Bio_Data);
-		formData.append('Country_Id', countryId);
+		formData.append('Country_Id', countryCode?.id);
 		formData.append('Cover_Picture', file.Cover_Picture);
 		formData.append('Profile_Picture', file.Profile_Picture);
 		formData.append('Mobile_Number', info.Mobile_Number);
@@ -74,10 +74,8 @@ const Index = () => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
 		);
-		console.log('phoneCode', phoneCode);
-		setCountryCode(phoneCode?.country_code);
-		setCountryId(phoneCode?.currency_id);
-		// setCountryId(phoneCode?.id)
+		// console.log('phone code', phoneCode);
+		setCountryCode(phoneCode);
 	};
 
 	// prefill the country code when the user selects another country
@@ -93,7 +91,7 @@ const Index = () => {
 			let phoneCode = countries.find(
 				(country) => country.id === countryId
 			);
-			handlePhoneCode(phoneCode.name);
+			handlePhoneCode(phoneCode?.name);
 		}
 	}, [countries.length, countryId]);
 
@@ -108,6 +106,7 @@ const Index = () => {
 			({data}) => {
 				//* user has setup store details
 
+				// console.log('data', data);
 				const {
 					brand_name,
 					country_name,
@@ -280,10 +279,15 @@ const Index = () => {
 									</Col>
 									<Col xs={24} md={12}>
 										<Input
-											addonBefore={countryCode || ''}
+											addonBefore={
+												countryCode?.country_code ||
+												'+thy'
+											}
 											type="tel"
 											label="Phone Number"
-											placeholder={countryCode}
+											placeholder={
+												countryCode?.country_code
+											}
 											rules={[
 												{
 													required: true,
