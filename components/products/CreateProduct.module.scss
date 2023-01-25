@@ -403,3 +403,15 @@
 	font-weight: 700;
 	transition: all 0.2s;
 }
+
+.businessBtn {
+	margin-bottom: 0;
+	background-color: $base-green-100;
+	padding: 2px 7px;
+	font-size: 0.8em;
+	margin-left: 20px;
+	font-weight: 500;
+	border: 1px solid $green-200;
+	text-transform: uppercase;
+	color: #fff;
+}

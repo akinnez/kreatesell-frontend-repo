@@ -520,7 +520,7 @@ export const CreateProductForm = ({
 						</div>
 					</div>
 				</Form.Item>
-
+ 
 				<Form.Item>
 					<div className="mt-6 w-full lg:w-3/4">
 						{productType === 'digitalDownload' && (
@@ -535,10 +535,12 @@ export const CreateProductForm = ({
 											setFieldValue('enable_preorder', e);
 										}}
 										checked={preOrder}
+										disabled={store?.user?.user_plan !== 'Business'}
 									/>
 									<h2 className="pl-6 font-semibold text-medium text-black-100">
 										{preOrder ? 'ON' : 'OFF'}
 									</h2>
+									<h3 className={styles.businessBtn}>Business</h3>
 								</div>
 							</div>
 						)}
