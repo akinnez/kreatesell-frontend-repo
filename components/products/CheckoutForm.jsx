@@ -1767,8 +1767,8 @@ export const CheckoutForm = ({
 										<Input
 											// type="number"
 											type="tel"
-											placeholder="0"
-											value={afiliatePercentage}
+											placeholder={afiliatePercentage ? afiliatePercentage :'0'}
+											// value={afiliatePercentage}
 											// pattern="/^([0-1]?[0-9]|100)$/"
 											max={100}
 											min={1}
@@ -1971,11 +1971,11 @@ export const CheckoutForm = ({
 									Product Sales Limit
 								</h2>
 								<Input
-									placeholder="Enter Limit"
+									placeholder={numberOfLimit ? numberOfLimit :"Enter Limit"}
 									onChange={(e) =>
 										setNumberOfLimit(e.target.value)
 									}
-									value={numberOfLimit}
+									// value={numberOfLimit}
 									className={styles.limitProductInput}
 								/>
 							</div>
