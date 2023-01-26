@@ -29,12 +29,19 @@
 			}
 			.status {
 				border-radius: 0.5rem;
-				background: #f1fcf8;
 				font-weight: 400;
 				font-size: 1rem;
 				line-height: 24px;
-				color: #2dc071;
 				padding: 0.3rem 1rem;
+			}
+
+			.closed {
+				background: rgba(255, 77, 79, 0.1);
+				color: #f90005;
+			}
+			.open {
+				background: #f1fcf8;
+				color: #2dc071;
 			}
 		}
 	}
@@ -63,7 +70,7 @@
 			}
 			&.block {
 				// opacity: 1;
-				max-height: 400px;
+				max-height: 600px;
 				overflow: hidden;
 			}
 			&.hidden {
@@ -85,6 +92,13 @@
 			font-size: 1.25rem;
 			line-height: 30px;
 			color: #595959;
+			margin-bottom: 0;
+			& > * {
+				font-weight: 500;
+				font-size: 1.25rem;
+				line-height: 30px;
+				color: #595959;
+			}
 		}
 	}
 	.attachments {
@@ -121,4 +135,11 @@
 	@include screen('tablet') {
 		padding: 1rem;
 	}
+}
+
+.value2 {
+	font-weight: 500;
+	font-size: 20px;
+	color: #595959;
+	margin-bottom: 0;
 }

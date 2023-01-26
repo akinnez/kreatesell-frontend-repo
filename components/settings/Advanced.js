@@ -235,7 +235,9 @@ const Advanced = () => {
 						<Image src={AdvancedSettings} alt="" />
 					</div>
 				</section>
-				<RenderIf condition={store?.user?.user_plan !== 'Business'}>
+				<RenderIf
+					condition={store?.user?.user_plan !== 'Business' && !!store}
+				>
 					<div
 						className={`flex gap-5 ${styles.upgradeYourAccountInfo}`}
 					>

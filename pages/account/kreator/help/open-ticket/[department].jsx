@@ -80,7 +80,7 @@ const CardBody = (props) => {
 	return (
 		<div>
 			<div className={styles.cardResponsDiv}>
-				<div
+				{/* <div
 					className={`mb-5 flex justify-between ${styles.ticketDetails}`}
 				>
 					<div className={styles.ticketDetail}>
@@ -99,7 +99,7 @@ const CardBody = (props) => {
 						<p className={styles.title}>Submitted Date</p>
 						<p className={styles.value2}>Jun 12th 2021, 3:50 PM</p>
 					</div>
-				</div>
+				</div> */}
 				<div
 					className={`mb-5 flex justify-between ${styles.ticketDetailsMobile}`}
 				>
