@@ -383,6 +383,7 @@ const AllProducts = () => {
 		// get products
 		getProducts();
 	};
+	// console.log('memoisedProductData', memoisedProductData);
 	return (
 		<AuthLayout>
 			<div className={styles.allProduct + ' pb-10'}>
