@@ -90,3 +90,35 @@
 	font-weight: bold;
 	transition: all 0.2s;
 }
+
+.affilateInput {
+	// width: 15%;
+	position: relative;
+
+	// border: 1px solid blue;
+	input {
+		width: 100%;
+	}
+
+	input[type='number']::-webkit-outer-spin-button,
+	input[type='number']::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+		-moz-appearance: textfield;
+	}
+
+	span {
+		width: 25%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 71%;
+		background: #0072ef;
+		color: #ffffff;
+		border-radius: 0 8px 8px 0;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}

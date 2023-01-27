@@ -194,18 +194,21 @@ const StoreSettings = () => {
 			<RenderIf condition={enable_disable_tax}>
 				<div className="flex justify-between w-6/12 mt-5 items-center">
 					<p className="mb-0">Set Custom Tax Amount</p>
-					<Input
-						placeholder="Enter Amount"
-						type="number"
-						height="small"
-						value={taxValue}
-						onChange={(e) => {
-							setTaxValue(e.target.value);
-						}}
-						required={false}
-						maxLength={10}
-						containerstyle="mb-0"
-					/>
+					<div className={styles.affilateInput}>
+						<Input
+							placeholder="Enter Amount"
+							type="number"
+							height="small"
+							value={taxValue}
+							onChange={(e) => {
+								setTaxValue(e.target.value);
+							}}
+							required={false}
+							maxLength={10}
+							containerstyle="mb-0"
+						/>
+						<span>%</span>
+					</div>
 				</div>
 			</RenderIf>
 			<div className="hidden lg:block mt-8 w-1/5">
