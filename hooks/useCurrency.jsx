@@ -17,10 +17,13 @@ const useCurrency = () => {
 			'v1/kreatesell/utils/allowed-currencies',
 			(res) => {
 				setLoading(false);
-				const item = res?.data?.currencies?.map(({id, short_name}) => ({
-					label: short_name,
-					value: id,
-				}));
+				const item = res?.data?.currencies?.map(
+					({id, short_name, is_payable}) => ({
+						label: short_name,
+						value: id,
+						is_payable,
+					})
+				);
 				setAllowedCurrencies(item);
 			}
 		),
