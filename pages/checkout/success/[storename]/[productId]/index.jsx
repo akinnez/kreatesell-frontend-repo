@@ -529,9 +529,10 @@ const Success = () => {
 const ProductCard = ({productDetails, kreatorDetails}) => {
 	const [productImage] = useState(() => {
 		return productDetails?.product_images?.filter(
-			(img) => img.file_type === 1
+			(img) => img.file_type_name === "Main"
 		)[0];
 	});
+
 	return (
 		<div className={styles.productCardContainer}>
 			<Image
@@ -539,7 +540,7 @@ const ProductCard = ({productDetails, kreatorDetails}) => {
 				src={productImage?.filename}
 				width="320"
 				height="300"
-				alt="product image"
+				alt="product_image"
 			/>
 			<div className={styles.productDetails}>
 				<p className={styles.productName}>
@@ -748,13 +749,13 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 
 	const getFileSize = () => {
 		const numberSize = Number(
-			product?.product_images[1]?.size.split('MB')[0]
+			product?.product_images[0]?.size.split('MB')[0]
 		);
 		if (numberSize < 1) {
 			const kbSize = numberSize * 1000;
 			return `${kbSize} KB`;
 		}
-		return `${product?.product_images[1]?.size}`;
+		return `${product?.product_images[0]?.size}`;
 	};
 
 	return (
@@ -778,7 +779,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 							<div className={styles.bottom}>
 								<div>
 									<p className={styles.left}>
-										{product?.product_images[1]?.size
+										{product?.product_images[0]?.size
 											? getFileSize()
 											: 'N/A'}
 									</p>{' '}
