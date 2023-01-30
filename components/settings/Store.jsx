@@ -8,7 +8,7 @@ import {
 	UpdateStoreSettings,
 	UpdateCTAButton,
 } from 'redux/actions';
-import {_getMyStoreDetails} from 'utils';
+import {RenderIf, _getMyStoreDetails} from 'utils';
 import {showToast} from 'utils';
 
 const StoreSettings = () => {
@@ -27,6 +27,8 @@ const StoreSettings = () => {
 		is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
 	}));
 
+	const [taxValue, setTaxValue] = useState(0);
+
 	const {enable_disable_tax, is_enable_product_cross_sell} =
 		userStoreSettings;
 	const [ctaBtnValue, setCtaBtnValue] = useState({
@@ -36,7 +38,19 @@ const StoreSettings = () => {
 
 	const handleCTAButton = (e) => {
 		e.preventDefault();
-		updateCTAButton(ctaBtnValue, () => {
+		const data = {
+			option_id: store.store_id,
+			option: 'store',
+			cta_button: defaultCTA || '',
+			store_settings: {
+				set_context: is_enable_product_cross_sell,
+				set_enable_tax: enable_disable_tax,
+				custom_tax_amount: taxValue,
+			},
+		};
+		!enable_disable_tax && delete data.store_settings.custom_tax_amount;
+
+		updateCTAButton(data, () => {
 			getStoreDetails();
 		});
 	};
@@ -44,10 +58,11 @@ const StoreSettings = () => {
 	useEffect(() => {
 		getStoreDetails();
 	}, []);
-
-	//   useEffect(() => {
-	//     console.log(userStoreSettings);
-	//   }, [userStoreSettings]);
+	useEffect(() => {
+		if (store) {
+			setTaxValue(store?.custom_tax_amount);
+		}
+	}, [store]);
 
 	return (
 		<form
@@ -105,25 +120,24 @@ const StoreSettings = () => {
 						checked={userStoreSettings.is_enable_product_cross_sell}
 						id="cross_sell"
 						onChange={async () => {
-							console.log();
 							setUserStoreSettings((value) => ({
 								...value,
 								is_enable_product_cross_sell:
 									!value.is_enable_product_cross_sell,
 							}));
 
-							await updateStoreSettings(userStoreSettings, () => {
-								getStoreDetails();
+							// await updateStoreSettings(userStoreSettings, () => {
+							// 	getStoreDetails();
 
-								if (!is_enable_product_cross_sell) {
-									showToast('Cross-sell activated', 'info');
-								} else {
-									showToast(
-										"Cross-sell deactivated. Buyers won't see your other products!",
-										'info'
-									);
-								}
-							});
+							// 	if (!is_enable_product_cross_sell) {
+							// 		showToast('Cross-sell activated', 'info');
+							// 	} else {
+							// 		showToast(
+							// 			"Cross-sell deactivated. Buyers won't see your other products!",
+							// 			'info'
+							// 		);
+							// 	}
+							// });
 						}}
 					/>
 					<span className="pl-6 text-black-100">
@@ -147,25 +161,25 @@ const StoreSettings = () => {
 						checked={userStoreSettings.enable_disable_tax}
 						id="enable_disable_tax"
 						onChange={async () => {
-							await setUserStoreSettings((value) => ({
+							setUserStoreSettings((value) => ({
 								...value,
 								enable_disable_tax: !value.enable_disable_tax,
 							}));
-							await updateStoreSettings(userStoreSettings, () => {
-								getStoreDetails();
+							// await updateStoreSettings(userStoreSettings, () => {
+							// 	getStoreDetails();
 
-								if (!enable_disable_tax) {
-									showToast(
-										'Activated. Fees will now be paid by buyers!',
-										'info'
-									);
-								} else {
-									showToast(
-										'Deactivated. You now pay the fees!',
-										'info'
-									);
-								}
-							});
+							// 	if (!enable_disable_tax) {
+							// 		showToast(
+							// 			'Activated. Fees will now be paid by buyers!',
+							// 			'info'
+							// 		);
+							// 	} else {
+							// 		showToast(
+							// 			'Deactivated. You now pay the fees!',
+							// 			'info'
+							// 		);
+							// 	}
+							// });
 						}}
 					/>
 					<span className="pl-6 text-black-100">
@@ -177,21 +191,26 @@ const StoreSettings = () => {
 				By Switching on, your buyers will be responsible for the payment
 				of any tax fee imposed by KreateSell.
 			</p>
-			<div className="flex justify-between w-6/12 mt-5 items-center">
-				<p className="mb-0">Set Custom Tax Amount</p>
-				<Input
-					placeholder="Enter Amount"
-					type="number"
-					height="small"
-					value={''}
-					onChange={(e) => {
-						console.log('e', e.target.value);
-					}}
-					required={false}
-					maxLength={10}
-					containerstyle="mb-0"
-				/>
-			</div>
+			<RenderIf condition={enable_disable_tax}>
+				<div className="flex justify-between w-6/12 mt-5 items-center">
+					<p className="mb-0">Set Custom Tax Amount</p>
+					<div className={styles.affilateInput}>
+						<Input
+							placeholder="Enter Amount"
+							type="number"
+							height="small"
+							value={taxValue}
+							onChange={(e) => {
+								setTaxValue(e.target.value);
+							}}
+							required={false}
+							maxLength={10}
+							containerstyle="mb-0"
+						/>
+						<span>%</span>
+					</div>
+				</div>
+			</RenderIf>
 			<div className="hidden lg:block mt-8 w-1/5">
 				<Button
 					text="Save Changes"

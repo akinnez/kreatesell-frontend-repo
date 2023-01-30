@@ -150,7 +150,8 @@ const columns = [
 	},
 	{
 		title: 'Clearance Date',
-		dataIndex: '',
+		dataIndex: 'clearance_date',
+		render: (dateStr) => dateString(dateStr),
 		width: 120,
 	},
 	{
@@ -240,7 +241,7 @@ const CardComponent = ({data}) => {
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Clearance Date</h1>
 						<p className={`${styles.value} mb-0`}>
-							Jun 12th 2021, 3:50PM
+							{dateString(data.clearance_date)}
 						</p>
 					</li>
 					<li className={styles.orderDetail}>

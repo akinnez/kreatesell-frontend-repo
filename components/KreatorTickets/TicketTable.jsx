@@ -18,7 +18,7 @@ import {Button} from 'components/button/Button';
 
 const statusComponent = (item) => {
 	const statusTextList = {
-		Open: {
+		open: {
 			type: 'open',
 			styles: {
 				background: '#F1FCF8',
@@ -31,7 +31,7 @@ const statusComponent = (item) => {
 		Closed: {
 			type: 'closed',
 			styles: {
-				background: 'rgba(255, 77, 79, 0.1);',
+				background: 'rgba(255, 77, 79, 0.1)',
 				borderRadius: '.5rem',
 				color: ' #F90005',
 				fontSize: '14px',

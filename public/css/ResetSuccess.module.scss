@@ -4,10 +4,13 @@
 
 .resetPasswordModal {
 	@include flex(column, center, center);
-	padding: 0 12rem;
+	padding: 0 2rem;
 
 	@include screen('tablet') {
 		padding: 0;
+	}
+	@include screen('medium') {
+		width: 100%;
 	}
 
 	.image {

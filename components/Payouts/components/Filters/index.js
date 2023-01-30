@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import Image from 'next/image';
 import {Form, Button, DatePicker, Input, Select, Row, Col} from 'antd';
 import {MdSearch} from 'react-icons/md';
@@ -6,12 +6,33 @@ import moment from 'moment';
 import ResetFilters from 'components/ResetFilters';
 import {currencyOptions} from 'utils';
 import styles from './index.module.scss';
+import useCurrency from 'hooks/useCurrency';
 
 const currencies = [{value: 'All', label: 'All'}, ...currencyOptions];
 
 const Filters = ({setFilters, setLoading}) => {
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [form] = Form.useForm();
+
+	const {allowedCurrencies} = useCurrency();
+	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
+
+	useMemo(() => {
+		if (!!allowedCurrencies) {
+			let payableCurrencies = allowedCurrencies.filter((cur) => {
+				if (cur.is_payable) {
+					return true;
+				}
+			});
+			// console.log('payableCurrencies', payableCurrencies);
+			setCountriesCurrencyList([
+				{value: 'All', label: 'ALL'},
+				...payableCurrencies,
+			]);
+		}
+	}, [allowedCurrencies]);
+
+	// console.log('countriesCurrencyList', countriesCurrencyList);
 
 	const handleSearch = (e) => {
 		form.setFieldsValue({search: e.target.value});
@@ -103,7 +124,7 @@ const Filters = ({setFilters, setLoading}) => {
 					>
 						<Form.Item label="Currency" name="currency">
 							<Select
-								options={currencies}
+								options={countriesCurrencyList}
 								placeholder="NGN"
 								onChange={handleCurrency}
 							/>

@@ -23,6 +23,10 @@ const Dashboard = () => {
 	const getSalesStatistics = GetSalesStatistics();
 	const getAffiliateSalesStatistics = GetAffiliateSalesStatistics();
 
+	const isMobileSideBarOpen = useSelector(
+		(state) => state.mobileSideBar.isMobileSideBarOpen
+	);
+
 	const [filters, setFilters] = useState({
 		currency: '',
 		fromDate: '',
@@ -35,23 +39,23 @@ const Dashboard = () => {
 	const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 	const mainStoreUrl = `${process.env.BASE_URL}v1/kreatesell/store/me`;
 
-	const welcomeMessageCheck = async () => {
-		await axiosAPI.request(
-			'get',
-			`v1/kreatesell/store/welcome-message`,
-			(res) => {
-				console.log(res);
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
+	// const welcomeMessageCheck = async () => {
+	// 	await axiosAPI.request(
+	// 		'get',
+	// 		`v1/kreatesell/store/welcome-message`,
+	// 		(res) => {
+	// 			console.log(res);
+	// 		},
+	// 		(error) => {
+	// 			console.log(error);
+	// 		}
+	// 	);
+	// };
 
-	useEffect(() => {
-		welcomeMessageCheck();
-		return () => {};
-	}, []);
+	// useEffect(() => {
+	// 	welcomeMessageCheck();
+	// 	return () => {};
+	// }, []);
 
 	const getUserVisitStatus = useCallback(() => {
 		axiosAPI.request(
@@ -103,80 +107,88 @@ const Dashboard = () => {
 			<Head>
 				<title>KreateSell | Dashboard</title>
 			</Head>
-			<header className={styles.boardSection}>
-				<DashboardFilters
-					data={[]}
-					setFiltered={setFiltered}
-					handleFilterSubmit={(cb) => {
-						handleFilterSubmit();
-						cb?.();
-					}}
-					{...{
-						setFilters,
-						filters,
-						getSalesStatistics,
-						getAffiliateSalesStatistics,
-					}}
-				/>
-			</header>
-			<section>
-				<div className={styles.stats__container}>
-					<StatsHeader
-						title="Kreator"
-						url="/account/dashboard/kreator"
-						isAffiliateCard={false}
-						isAnAffiliate={isAnAffiliate}
+			<div
+				className={`${styles.dashBoardContainer} ${
+					isMobileSideBarOpen ? styles.mobileSideBarInView : ''
+				}`}
+			>
+				<header className={styles.boardSection}>
+					<DashboardFilters
+						data={[]}
+						setFiltered={setFiltered}
+						handleFilterSubmit={(cb) => {
+							handleFilterSubmit();
+							cb?.();
+						}}
+						{...{
+							setFilters,
+							filters,
+							getSalesStatistics,
+							getAffiliateSalesStatistics,
+						}}
 					/>
-					<StatsCard
-						totalVisits={salesStatistics.total_visits}
-						unitSales={salesStatistics.total_sales}
-						grossSales={salesStatistics.gross_sales}
-						profit={salesStatistics.profits}
-						currency={salesStatistics.currency}
-					/>
-				</div>
-				{/* show only when user is an affiliate */}
-				{/* {isAffiliate && ( */}
-				<div
-					className={`${styles.stats__container} ${
-						isAnAffiliate ? styles.isAnAffiliate : ''
-					}`}
-				>
-					<StatsHeader
-						title="Affiliate"
-						url="/account/dashboard/affiliate"
-						isAnAffiliate={isAnAffiliate}
-						isAffiliateCard={true}
-					/>
-					<StatsCard
-						isAnAffiliate={isAnAffiliate}
-						isAffiliateCard={true}
-						totalVisits={
-							affiliateSalesStatistics.total_visits === null
-								? 0
-								: affiliateSalesStatistics.total_visits
-						}
-						unitSales={
-							affiliateSalesStatistics.total_sales === null
-								? 0
-								: affiliateSalesStatistics.total_sales
-						}
-						grossSales={
-							affiliateSalesStatistics.gross_sales === null
-								? 0
-								: affiliateSalesStatistics.gross_sales
-						}
-						profit={
-							affiliateSalesStatistics.total_commission_earned ===
-							null
-								? 0
-								: affiliateSalesStatistics.total_commission_earned
-						}
-						currency={affiliateSalesStatistics.affiliate_currency}
-					/>
-				</div>
-				{/* )} */}
-			</section>
+				</header>
+				<section>
+					<div className={styles.stats__container}>
+						<StatsHeader
+							title="Kreator"
+							url="/account/dashboard/kreator"
+							isAffiliateCard={false}
+							isAnAffiliate={isAnAffiliate}
+						/>
+						<StatsCard
+							totalVisits={salesStatistics.total_visits}
+							unitSales={salesStatistics.total_sales}
+							grossSales={salesStatistics.gross_sales}
+							profit={salesStatistics.profits}
+							currency={salesStatistics.currency}
+						/>
+					</div>
+					{/* show only when user is an affiliate */}
+					{/* {isAffiliate && ( */}
+					<div
+						className={`${styles.stats__container} ${
+							isAnAffiliate ? styles.isAnAffiliate : ''
+						}`}
+					>
+						<StatsHeader
+							title="Affiliate"
+							url="/account/dashboard/affiliate"
+							isAnAffiliate={isAnAffiliate}
+							isAffiliateCard={true}
+						/>
+						<StatsCard
+							isAnAffiliate={isAnAffiliate}
+							isAffiliateCard={true}
+							totalVisits={
+								affiliateSalesStatistics.total_visits === null
+									? 0
+									: affiliateSalesStatistics.total_visits
+							}
+							unitSales={
+								affiliateSalesStatistics.total_sales === null
+									? 0
+									: affiliateSalesStatistics.total_sales
+							}
+							grossSales={
+								affiliateSalesStatistics.gross_sales === null
+									? 0
+									: affiliateSalesStatistics.gross_sales
+							}
+							profit={
+								affiliateSalesStatistics.total_commission_earned ===
+								null
+									? 0
+									: affiliateSalesStatistics.total_commission_earned
+							}
+							currency={
+								affiliateSalesStatistics.affiliate_currency
+							}
+						/>
+					</div>
+					{/* )} */}
+				</section>
+			</div>
 		</AuthLayout>
 	);
 };

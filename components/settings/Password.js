@@ -5,6 +5,7 @@ import style from './Index.module.scss';
 import ApiService from '../../utils/axios';
 import {ChangePassword} from '../../redux/actions';
 import {useSelector} from 'react-redux';
+import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
 // import {useRouter} from 'next/router';
 
 import {
@@ -107,13 +108,23 @@ const Index = () => {
 					/>
 				</form>
 
-				<Modal
+				{/* <Modal
 					onClose={() => setVisible(false)}
 					visible={modalVisible}
 					cancelPropagation={true}
 				>
 					<ChangePasswordSuccessModal />
-				</Modal>
+				</Modal> */}
+
+				<DialogOverlay
+					isOpen={modalVisible}
+					onDismiss={() => setVisible(false)}
+					className="pt-12 "
+				>
+					<DialogContent className={style.modal} aria-label="modal">
+						<ChangePasswordSuccessModal />
+					</DialogContent>
+				</DialogOverlay>
 			</div>
 		</div>
 	);

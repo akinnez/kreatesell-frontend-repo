@@ -1068,7 +1068,7 @@ const Checkout = () => {
 										<p className={styles.desiredPayText}>
 											Desired Amount
 										</p>
-										<div className="w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
+										<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
 											<Input
 												placeholder={`Suggested Amount: ${getCurrency(
 													'currency'
@@ -1100,6 +1100,16 @@ const Checkout = () => {
 									]
 										?.filter(({value}) => {
 											if (
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+													'approved' &&
+												[
+													'paypal',
+													'stripe',
+													'crypto',
+												].includes(value)
+											) {
+												return false;
+											} else if (
 												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 													'approved' &&
 												storeDetails?.user_plan?.toLowerCase() ===

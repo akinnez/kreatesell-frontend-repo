@@ -198,7 +198,7 @@ const DashboardFilters = ({
 							</Col>
 							<Col
 								// xs={{span: 24}}
-								xs={{span: 12}}
+								xs={{span: 11}}
 								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
@@ -219,8 +219,8 @@ const DashboardFilters = ({
 							</Col>
 							<Col
 								// xs={{span: 24}}
-								xs={{span: 8}}
-								lg={{span: 4}}
+								xs={{span: 11}}
+								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
 								<Form.Item label="From" name="fromDate">
@@ -234,8 +234,8 @@ const DashboardFilters = ({
 							</Col>
 							<Col
 								// xs={{span: 24}}
-								xs={{span: 8}}
-								lg={{span: 4}}
+								xs={{span: 11}}
+								lg={{span: 5}}
 								className={styles.input__wrapper}
 							>
 								<Form.Item label="To" name="toDate">
@@ -255,7 +255,7 @@ const DashboardFilters = ({
 									<Button
 										type="primary"
 										htmlType="submit"
-										style={{marginLeft: '2rem'}}
+										// style={{marginLeft: '2rem'}}
 									>
 										<Image
 											src="/images/FilterIcon.png"

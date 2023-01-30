@@ -235,7 +235,9 @@ const Advanced = () => {
 						<Image src={AdvancedSettings} alt="" />
 					</div>
 				</section>
-				<RenderIf condition={store?.user?.user_plan !== 'Business'}>
+				<RenderIf
+					condition={store?.user?.user_plan !== 'Business' && !!store}
+				>
 					<div
 						className={`flex gap-5 ${styles.upgradeYourAccountInfo}`}
 					>
@@ -260,7 +262,9 @@ const Advanced = () => {
 							styles.greyed
 						}`}
 					>
-						<div className={styles.overlay}></div>
+						{['Request'].includes(
+							store?.kyc_status?.kyc_status
+						) && <div className={styles.overlay}></div>}
 						<div className={styles.stepsLeft}>
 							<div className={styles.top}>
 								{/* 1st card */}

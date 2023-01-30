@@ -10,11 +10,11 @@ const PayoutsMobileView = ({payouts}) => {
 	// console.log('payouts = ', payouts);
 	return (
 		<div>
-			{payouts.length === 0 ? (
+			{payouts?.length === 0 || !payouts ? (
 				<NoData />
 			) : (
 				<ul className={styles.payouts}>
-					{payouts.map((payout) => (
+					{payouts?.map((payout) => (
 						<li key={payout.id} className={styles.payouts__item}>
 							<div className={styles.payout__header}>
 								<div className={styles['payout__date-info']}>

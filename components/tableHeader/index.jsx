@@ -9,6 +9,8 @@ import {
 	MobileIcon,
 	EmptyDataTable,
 	DeleteIcon,
+	Subscribers2,
+	RenderIf,
 } from 'utils';
 import styles from '../../public/css/AllProducts.module.scss';
 import Image from 'next/image';
@@ -268,8 +270,6 @@ const ActionComponent = ({item}, all) => {
 	// const productLink = item?.product_details?.product_link
 	// const productLink = "scam";
 
-	// console.log('all is', all)
-
 	// useEffect(() => {
 	// 	if (Object.keys(store).length > 0) {
 	// 		const {domain_details} = store.domain_details;
@@ -343,17 +343,21 @@ const ActionComponent = ({item}, all) => {
 				</span>
 				<p className="mb-0 ml-3"> Preview</p>
 			</li>
-			<li
-				onClick={() =>
-					router.push(`/account/kreator/products/view-subscribers`)
-				}
-				className="flex items-center cursor-pointer"
-			>
-				<span>
-					<Image alt="" src={ViewSales} />
-				</span>
-				<p className="mb-0 ml-3"> Subscribers</p>
-			</li>
+			<RenderIf condition={all.product_type !== 'Digital Download'}>
+				<li
+					onClick={() =>
+						router.push(
+							`/account/kreator/products/view-subscribers`
+						)
+					}
+					className="flex items-center cursor-pointer"
+				>
+					<span>
+						<Image alt="" src={Subscribers2} />
+					</span>
+					<p className="mb-0 ml-3"> Subscribers</p>
+				</li>
+			</RenderIf>
 
 			<li
 				className="flex items-center cursor-pointer"

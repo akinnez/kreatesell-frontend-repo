@@ -23,6 +23,8 @@ import {
 	RenderIf,
 	MailReopen,
 	formatDateAndTime,
+	checkExpiredUserToken,
+	showToast,
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 import {Button} from 'components/button/Button';
@@ -32,9 +34,14 @@ import FileUpload from 'components/PostTicket/FileUpload';
 
 const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
-
+	const router = useRouter();
+	// console.log('ticket', ticket);
 	const [files, setFiles] = useState([]);
 	const [uploadingFiles, setUploadingFiles] = useState([]);
+
+	// const [subject, setSubject] = useState('');
+	const [message, setMessage] = useState('');
+	const [submitting, setSubmitting] = useState(false);
 
 	const [reopenSection, setReopenSection] = useState(false);
 	const handleReopen = () => {
@@ -42,40 +49,48 @@ const CardBody = ({ticketId, ticket}) => {
 	};
 
 	const handleSubmit = () => {
-		// checkExpiredUserToken();
-		// const token = getUserToken();
-		// setSubmitting(true);
-		// if (!subject || subject === '' || !message || message === '') {
-		// 	setSubmitting(false);
-		// 	return showToast('All fields are required', 'error');
-		// }
-		// const formData = new FormData();
-		// for (let i = 0; i < uploadingFiles.length; i++) {
-		// 	formData.append('ImagePaths', uploadingFiles[i]);
-		// }
-		// formData.append('Subject', subject);
-		// formData.append('Message', message);
-		// formData.append('Department', router?.query?.department);
-		// return axios
-		// 	.post(`${process.env.BASE_URL}tickets/Create`, formData, {
-		// 		headers: {
-		// 			Authorization: `Bearer ${token}`,
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		setSubject('');
-		// 		setMessage('');
-		// 		setFiles([]);
-		// 		showSuccessModalFn(true);
-		// 		// showToast('Ticket have been opened successfully', 'success');
-		// 		setSubmitting(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		showToast(`${err.message}`, 'error');
-		// 		setSubmitting(false);
-		// 	});
+		console.log('submit ');
+		checkExpiredUserToken();
+		const token = getUserToken();
+		setSubmitting(true);
+		if (/*!subject || subject === '' ||*/ !message || message === '') {
+			setSubmitting(false);
+			return showToast('All fields are required', 'error');
+		}
+		const formData = new FormData();
+		for (let i = 0; i < uploadingFiles.length; i++) {
+			formData.append('ImagePaths', uploadingFiles[i]);
+		}
+		formData.append('Subject', ticket.heading);
+		formData.append('Message', message);
+		formData.append('Department', router?.query?.department);
+		return axios
+			.post(
+				`${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`,
+				formData,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				// setSubject('');
+				setMessage('');
+				setFiles([]);
+				// showSuccessModalFn(true);
+				// showToast('Ticket have been opened successfully', 'success');
+				setSubmitting(false);
+				setTimeout(() => {
+					router.push('/account/kreator/help');
+				}, 500);
+			})
+			.catch((err) => {
+				showToast(`${err.message}`, 'error');
+				setSubmitting(false);
+			});
 	};
-	console.log('ticket', ticket);
+	// console.log('ticket', ticket);
 	return (
 		<>
 			<div className={styles.cardResponsDiv}>
@@ -88,7 +103,15 @@ const CardBody = ({ticketId, ticket}) => {
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
-						<span className={styles.status}>{ticket.status}</span>
+						<span
+							className={`${styles.status} ${
+								ticket.status === 'Closed'
+									? styles.closed
+									: styles.open
+							}`}
+						>
+							{ticket.status}
+						</span>
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Department</p>
@@ -136,7 +159,7 @@ const CardBody = ({ticketId, ticket}) => {
 							}}
 						/>
 						<div className={`${styles.attachments} flex flex-col`}>
-							Attachments (1)
+							Attachments ({ticket?.uploaded_image_list?.length})
 							{/* files */}
 							{Array.isArray(ticket?.uploaded_image_list) &&
 								ticket?.uploaded_image_list.map((file, idx) => (
@@ -167,27 +190,146 @@ const CardBody = ({ticketId, ticket}) => {
 						</div>
 					</section>
 				</div>
-				<RenderIf condition={ticket.replied}>
-					<div className={styles.adminResponse}>
-						<h2 className={styles.title}>Admin Response</h2>
-						<p className={styles.response}>
-							This would be resolved shortly. My apologies for the
-							inconveniences.
-						</p>
-						{/* border bottom here */}
-						<div className={`${styles.attachments} flex flex-col`}>
-							Attachments (1)
-							{/* files */}
-							<div className={`flex gap-4 ${styles.files}`}>
-								<Image src={Folder} alt="icon" />
-								<p className={`mb-0 ${styles.fileName}`}>
-									Yesyoucan.png
+				<RenderIf condition={Array.isArray(ticket.ticket_response)}>
+					{ticket?.ticket_response?.map((tick) => (
+						<div key={tick.id} className={styles.adminResponse}>
+							<div className="flex gap-10 items-center">
+								<h2 className={`mb-0 ${styles.title}`}>
+									Admin Response
+								</h2>
+								<p className="mb-0">
+									{formatDateAndTime(tick.created_at)}
 								</p>
 							</div>
+							<p
+								className={styles.response}
+								dangerouslySetInnerHTML={{
+									__html: tick.message,
+								}}
+							/>
+
+							{/* border bottom here */}
+							<RenderIf
+								condition={
+									Array.isArray(tick.reply_photos) &&
+									tick?.reply_photos?.length > 0
+								}
+							>
+								<div
+									className={`${styles.attachments} flex flex-col`}
+								>
+									Attachments ({tick?.reply_photos?.length})
+									{/* files */}
+									<div
+										className={`flex gap-4 ${styles.files}`}
+									>
+										<Image src={Folder} alt="icon" />
+										<p
+											className={`mb-0 ${styles.fileName}`}
+										>
+											Yesyoucan.png
+										</p>
+									</div>
+								</div>
+							</RenderIf>
+							{/*TODO: Make it's own component */}
+							<div
+								className={`mb-10 ${styles.complainContainer}`}
+							>
+								<div
+									className={`flex justify-between items-center`}
+								>
+									<h2 className={`${styles.complain} mb-0`}>
+										{ticket?.heading}
+									</h2>
+									<p className={styles.value2}>
+										{formatDateAndTime(ticket?.created_at)}
+									</p>
+									<Button
+										text="Show Message"
+										icon={
+											!showIssue ? (
+												<Image
+													src={CollapseArrowRight}
+													alt="icon"
+												/>
+											) : (
+												<Image
+													src={CollapseArrowDown}
+													alt="icon"
+												/>
+											)
+										}
+										className="p-2"
+										onClick={() =>
+											setShowIssue((prev) => !prev)
+										}
+									/>
+								</div>
+								<section
+									className={`${styles.complainDescription} ${
+										showIssue ? styles.block : styles.hidden
+									}`}
+								>
+									<p
+										className={`mt-5 ${styles.description}`}
+										dangerouslySetInnerHTML={{
+											__html: ticket.message,
+										}}
+									/>
+									<div
+										className={`${styles.attachments} flex flex-col`}
+									>
+										Attachments (
+										{ticket?.uploaded_image_list?.length})
+										{/* files */}
+										{Array.isArray(
+											ticket?.uploaded_image_list
+										) &&
+											ticket?.uploaded_image_list.map(
+												(file, idx) => (
+													<div
+														key={idx}
+														className={`flex gap-2 ${styles.files}`}
+													>
+														<Image
+															src={Folder}
+															alt="icon"
+														/>
+														<a
+															target="_blank"
+															rel="noreferrer"
+															href={file}
+														>
+															<p
+																className={`mb-0 ${styles.fileName}`}
+															>
+																file-{idx}.
+																{
+																	file.split(
+																		'.'
+																	)[
+																		file.split(
+																			'.'
+																		)
+																			.length -
+																			1
+																	]
+																}
+															</p>
+														</a>
+													</div>
+												)
+											)}
+									</div>
+								</section>
+							</div>
 						</div>
-					</div>
+					))}
 				</RenderIf>
-				<RenderIf condition={true || ticket.status === 'closed'}>
+				<RenderIf
+					condition={ticket?.status?.toLowerCase() === 'closed'}
+				>
 					<Button
 						text="Repopen"
 						leftIcon={<Image alt="icon" src={MailReopen} />}
@@ -204,8 +346,8 @@ const CardBody = ({ticketId, ticket}) => {
 						<EditorToolbar />
 						<ReactQuill
 							theme="snow"
-							value={''}
-							onChange={(e) => console.log(e)}
+							value={message}
+							onChange={(e) => setMessage(e)}
 							placeholder={
 								'Write the details of your ticket here'
 							}
@@ -246,29 +388,12 @@ const CardBody = ({ticketId, ticket}) => {
 	);
 };
 
-// ticket object shape
-// {
-//   "id": 59,
-//   "uploaded_image_list": [
-//       "https://res.cloudinary.com/salvoagency/raw/upload/v1670422497/kreatesell/profilepicture/neh067jdcp3nw1ilsuve.png"
-//   ],
-//   "heading": "Ticket Heading",
-//   "message": "<p>Testing tickets on admin</p>",
-//   "replied": false,
-//   "ticket_count": 1,
-//   "file_path": "",
-//   "status": "pending",
-//   "ticket_reference": "TK#-KSmid638090827592930059",
-//   "department": null,
-//   "user_id": null,
-//   "created_at": "2022-12-07T06:14:55.747"
-// }
 const Index = (props) => {
 	const ticketsURL = (id) =>
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const [ticket, setTicket] = useState([]);
+	const [ticket, setTicket] = useState({});
 	const [ticketId, setTicketId] = useState('');
 	const router = useRouter();
 	useEffect(() => {

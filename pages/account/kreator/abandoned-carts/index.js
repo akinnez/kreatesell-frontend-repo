@@ -38,7 +38,7 @@ const AbandonedCarts = () => {
 							// className='ml-5'
 						/>
 					</div>
-					<h1 className={styles.abadonedCartText}>Coming Soon!</h1>
+					<h1 className={styles.abadonedCartText}>Coming soon!</h1>
 					<p className={styles.abadonedCartP}>
 						Remind your customers when they fail to make payments
 						for products they like. Use your own words and content

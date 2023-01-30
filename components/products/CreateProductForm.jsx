@@ -535,10 +535,17 @@ export const CreateProductForm = ({
 											setFieldValue('enable_preorder', e);
 										}}
 										checked={preOrder}
+										disabled={
+											store?.user?.user_plan !==
+											'Business'
+										}
 									/>
 									<h2 className="pl-6 font-semibold text-medium text-black-100">
 										{preOrder ? 'ON' : 'OFF'}
 									</h2>
+									<h3 className={styles.businessBtn}>
+										Business
+									</h3>
 								</div>
 							</div>
 						)}

@@ -23,7 +23,7 @@ const Payouts = ({bankDetails, handleClick}) => {
 		'v1/kreatesell/store/payouts'
 	);
 
-	console.log('payouts = ', payouts);
+	// console.log('payouts = ', payouts);
 	useEffect(() => {
 		if (bankDetails) {
 			setLoading(true);
@@ -32,6 +32,7 @@ const Payouts = ({bankDetails, handleClick}) => {
 				'get',
 				url,
 				(res) => {
+					// console.log('res is', res);
 					setLoading(false);
 					setPayouts((s) => ({
 						...s,
@@ -96,7 +97,7 @@ const Payouts = ({bankDetails, handleClick}) => {
 						/>
 					</div>
 				</section>
-				{payouts.data.length > 0 && (
+				{payouts?.data?.length > 0 && (
 					<section>
 						<Pagination
 							pageSize={filters.limit}

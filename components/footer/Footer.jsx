@@ -140,7 +140,7 @@ export const Footer = () => {
 							<a>FAQ</a>
 						</Link>
 
-						<a href="https://wa.me/+2349016324945">
+						<a href="https://wa.me/+2349062002777">
 							Contact Support
 						</a>
 					</div>
@@ -213,7 +213,7 @@ export const Footer = () => {
 							/>
 						</a>
 						<a
-							href="https://t.me/+zIT2wru_Ha8zOWY0"
+							href="https://t.me/Kreate_Sell"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={styles.gramContainer}
@@ -295,7 +295,7 @@ export const Footer = () => {
 								<a>FAQ</a>
 							</Link>
 
-							<a href="https://wa.me/+2349016324945">
+							<a href="https://wa.me/+2349062002777">
 								Contact Support
 							</a>
 						</div>
@@ -389,6 +389,18 @@ export const Footer = () => {
 								src={TwitterIcon}
 								alt="kreatesell twitter"
 								className="cursor"
+							/>
+						</a>
+						<a
+							href="https://t.me/Kreate_Sell"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={styles.gramContainer}
+						>
+							<Image
+								src={FooterTelegram}
+								alt="kreatesell twitter"
+								className="cursor telegram"
 							/>
 						</a>
 					</div>
