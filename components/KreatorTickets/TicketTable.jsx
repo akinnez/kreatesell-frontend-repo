@@ -28,6 +28,16 @@ const statusComponent = (item) => {
 			},
 			contents: '',
 		},
+		Open: {
+			type: 'open',
+			styles: {
+				background: '#F1FCF8',
+				borderRadius: '.5rem',
+				color: ' #2DC071',
+				fontSize: '14px',
+			},
+			contents: '',
+		},
 		Closed: {
 			type: 'closed',
 			styles: {
