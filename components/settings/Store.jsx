@@ -21,16 +21,19 @@ const StoreSettings = () => {
 
 	// console.log("store  = ", store?.cta_button);
 	const defaultCTA = store?.cta_button;
+	// console.log(store);
 
 	const [userStoreSettings, setUserStoreSettings] = useState(() => ({
 		enable_disable_tax: store?.customer_pay_tax,
 		is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
 	}));
 
-	const [taxValue, setTaxValue] = useState(0);
+	const [taxValue, setTaxValue] = useState(store?.custom_tax_amount);
 
-	const {enable_disable_tax, is_enable_product_cross_sell} =
-		userStoreSettings;
+	const {
+		enable_disable_tax,
+		is_enable_product_cross_sell,
+	} = userStoreSettings;
 	const [ctaBtnValue, setCtaBtnValue] = useState({
 		option: 'store',
 		cta_button: defaultCTA || '',
@@ -58,11 +61,13 @@ const StoreSettings = () => {
 	useEffect(() => {
 		getStoreDetails();
 	}, []);
-	useEffect(() => {
-		if (store) {
-			setTaxValue(store?.custom_tax_amount);
+
+	const handleChange = (event) => {
+		const newValue = event.currentTarget.value;
+		if (!isNaN(newValue) && newValue >= 1 && newValue <= 100) {
+			setTaxValue(newValue);
 		}
-	}, [store]);
+	};
 
 	return (
 		<form
@@ -122,8 +127,7 @@ const StoreSettings = () => {
 						onChange={async () => {
 							setUserStoreSettings((value) => ({
 								...value,
-								is_enable_product_cross_sell:
-									!value.is_enable_product_cross_sell,
+								is_enable_product_cross_sell: !value.is_enable_product_cross_sell,
 							}));
 
 							// await updateStoreSettings(userStoreSettings, () => {
@@ -194,17 +198,32 @@ const StoreSettings = () => {
 			<RenderIf condition={enable_disable_tax}>
 				<div className="flex justify-between w-6/12 mt-5 items-center">
 					<p className="mb-0">Set Custom Tax Amount</p>
-					<div className={styles.affilateInput}>
+					<div
+						className={styles.affilateInput}
+						style={{width: '155.5px'}}
+					>
+						{/* <Input
+							type={'text'}
+							placeholder="Enter Amount"
+							height="small"
+							// max={100}
+							// min={1}
+							// maxLength={3}
+							required={userStoreSettings.enable_disable_tax}
+							containerstyle="mb-0"
+							value={taxValue}
+							onChange={handleChange}
+						/> */}
 						<Input
 							placeholder="Enter Amount"
 							type="number"
 							height="small"
+							max={100}
+							min={1}
+							maxLength={3}
 							value={taxValue}
-							onChange={(e) => {
-								setTaxValue(e.target.value);
-							}}
-							required={false}
-							maxLength={10}
+							onChange={handleChange}
+							required={userStoreSettings.enable_disable_tax}
 							containerstyle="mb-0"
 						/>
 						<span>%</span>
