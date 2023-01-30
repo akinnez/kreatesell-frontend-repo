@@ -130,8 +130,8 @@ const ActionComponent = (_, all) => {
 const tableHeader = [
 	{
 		title: 'Ticket ID',
-		dataIndex: 'id',
-		width: 100,
+		dataIndex: 'ticket_reference',
+		width: 250,
 		fixed: 'left',
 		render: (item) => <p className={styles.tableData}>{item}</p>,
 	},
@@ -159,6 +159,7 @@ const tableHeader = [
 		title: 'Status',
 		dataIndex: 'status',
 		render: (item) => statusComponent(item),
+		width: 100,
 	},
 	{
 		title: 'Actions',
