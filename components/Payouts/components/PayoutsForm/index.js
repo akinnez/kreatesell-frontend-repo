@@ -27,6 +27,10 @@ const PayoutsForm = ({
 	banksByCountryId,
 	bankDetails,
 }) => {
+	// console.log(
+	// 	'countries',
+	// 	countries?.filter((country) => country.is_payable)
+	// );
 	const [banksLoading, setBanksLoading] = useState(false);
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
@@ -87,7 +91,7 @@ const PayoutsForm = ({
 							showSearch
 							autoComplete="country"
 							placeholder="Nigeria"
-							disabled={bankDetails}
+							// disabled={bankDetails}
 							onChange={(value) =>
 								countryHandler({
 									value,
@@ -113,28 +117,30 @@ const PayoutsForm = ({
 							}
 							onBlur={formik.handleBlur}
 							value={formik.values.country}
-							// disabled={!!bankDetails}
+							disabled={!!bankDetails}
 						>
-							{countries.map((country) => (
-								<Option
-									key={country.id}
-									value={country.id}
-									className={styles.countries__options}
-									title={country.name}
-								>
-									{country.flag && (
-										<Image
-											src={country.flag}
-											alt={`Flag of ${country.name}`}
-											width={40}
-											height={30}
-											className={styles.option__icon}
-										/>
-									)}
-									&nbsp;&nbsp;
-									{country.name}
-								</Option>
-							))}
+							{countries
+								?.filter((country) => country.is_payable)
+								.map((country) => (
+									<Option
+										key={country.id}
+										value={country.id}
+										className={styles.countries__options}
+										title={country.name}
+									>
+										{country.flag && (
+											<Image
+												src={country.flag}
+												alt={`Flag of ${country.name}`}
+												width={40}
+												height={30}
+												className={styles.option__icon}
+											/>
+										)}
+										&nbsp;&nbsp;
+										{country.name}
+									</Option>
+								))}
 						</Select>
 					</Form.Item>
 					{paypal ? (
