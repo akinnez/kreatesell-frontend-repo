@@ -455,7 +455,10 @@ export const CheckoutForm = ({
 	// function to check that all product currencies have been defined before submission is possible
 	const validateDefinedCurrencies = () => {
 		setErrorForNotMatchedCurrency(false);
-		if (formattedStoreCurrencies.length !== fixedSellingPrice.length) {
+		if (
+			formattedStoreCurrencies.length !== fixedSellingPrice.length ||
+			formattedStoreCurrencies.length !== savedFixedOriginalPrice.length
+		) {
 			setErrorForNotMatchedCurrency(true);
 			return true;
 		}
@@ -488,6 +491,8 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
+		// console.log('fixedSellingPrice', fixedSellingPrice);
+		// console.log('savedFixedOriginalPrice', savedFixedOriginalPrice);
 		if (priceType === 'Fixed Price') {
 			if (validateDefinedCurrencies()) {
 				showToast('Please define prices for all currencies', 'error');
