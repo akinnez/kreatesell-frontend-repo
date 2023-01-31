@@ -153,7 +153,11 @@ const Checkout = () => {
 
 	const getProductDetails = async (productLink) => {
 		try {
-			const response = await axios.get(productLink);
+			const response = await axios.get(productLink, {
+				headers: {
+					Authorization: 'none',
+				},
+			});
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(
@@ -331,7 +335,7 @@ const Checkout = () => {
 			setSelectedPaymentMethod(
 				countryPayments[
 					activeCurrency?.currency || activeCurrency.currency_name
-				][0].value
+				]?.[0].value
 			);
 		}
 		handleCurrencyConversion(activeCurrency.currency);
@@ -467,7 +471,7 @@ const Checkout = () => {
 		couponCode: '',
 	};
 
-	// console.log('storeDetails', storeDetails);
+	console.log('storeDetails', storeDetails);
 	const handleSubmit = async () => {
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
@@ -1100,8 +1104,18 @@ const Checkout = () => {
 									]
 										?.filter(({value}) => {
 											if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-													'approved' &&
+												![
+													'crypto',
+													'stripe',
+													'paypal',
+												].includes(value)
+											) {
+												return true;
+											} else if (
+												(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+													'approved' ||
+													storeDetails?.user_plan?.toLowerCase() !==
+														'business') &&
 												[
 													'paypal',
 													'stripe',
@@ -1114,38 +1128,10 @@ const Checkout = () => {
 													'approved' &&
 												storeDetails?.user_plan?.toLowerCase() ===
 													'business' &&
-												value !== 'paypal'
+												['stripe', 'crypto'].includes(
+													value
+												)
 											) {
-												return true;
-											}
-											if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-													'approved' &&
-												storeDetails?.user_plan?.toLowerCase() ===
-													'business' &&
-												value === 'paypal'
-											) {
-												return false;
-											}
-											if (
-												storeDetails?.user_plan?.toLowerCase() !==
-													'business' ||
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-													'approved'
-											) {
-												if (
-													![
-														'crypto',
-														'stripe',
-														'paypal',
-													].includes(value)
-												) {
-													return true;
-												}
-											}
-											if (value === 'paypal') {
-												return false;
-											} else {
 												return true;
 											}
 										})
