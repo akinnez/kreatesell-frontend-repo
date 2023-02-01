@@ -136,12 +136,11 @@ export default function FileUpload({
 								</div>
 								<div className="flex flex-col">
 									<h2 className="mb-3 text-base font-bold">
-										{
+										{item?.uploaded_name ||
 											item?.filename.split('/')[
 												item?.filename.split('/')
 													.length - 1
-											]
-										}
+											]}
 									</h2>
 									<p className="mb-0">{`${item?.size}`}</p>
 								</div>
@@ -158,6 +157,7 @@ export default function FileUpload({
 						</div>
 					</div>
 				))}
+
 			<RenderIf condition={files.length === 0}>
 				{mainFile.length > 0 &&
 					mainFile.map((item, index) => (

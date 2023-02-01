@@ -60,6 +60,8 @@ export default function ImageUpload({file, deleteFile, setUrl}) {
 					let percent = Math.floor((loaded * 100) / total);
 					cb(percent);
 				},
+				// UseFilename: true,
+				// UniqueFilename: false,
 			};
 
 			try {

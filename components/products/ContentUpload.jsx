@@ -148,12 +148,11 @@ export default function ContentUpload({file, setFile, initialFile}) {
 								</div>
 								<div className="flex flex-col">
 									<h2 className="mb-3 text-base font-bold">
-										{
+										{item?.uploaded_name ||
 											item?.filename.split('/')[
 												item?.filename.split('/')
 													.length - 1
-											]
-										}
+											]}
 									</h2>
 									<p className="mb-0">{`${
 										item?.size || '0 MB'
