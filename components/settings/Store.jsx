@@ -29,9 +29,12 @@ const StoreSettings = () => {
 	}));
 
 	const [taxValue, setTaxValue] = useState(store?.custom_tax_amount);
+	const [errorTax, setErrorTax] = useState(false);
 
-	const {enable_disable_tax, is_enable_product_cross_sell} =
-		userStoreSettings;
+	const {
+		enable_disable_tax,
+		is_enable_product_cross_sell,
+	} = userStoreSettings;
 	const [ctaBtnValue, setCtaBtnValue] = useState({
 		option: 'store',
 		cta_button: defaultCTA || '',
@@ -39,6 +42,10 @@ const StoreSettings = () => {
 
 	const handleCTAButton = (e) => {
 		e.preventDefault();
+		if (errorTax) {
+			showToast('Input a valid tax percentage', 'error');
+			return;
+		}
 		const data = {
 			option_id: store.store_id,
 			option: 'store',
@@ -60,9 +67,19 @@ const StoreSettings = () => {
 		getStoreDetails();
 	}, []);
 
+	useEffect(() => {
+		if (taxValue) {
+			if ((Number(taxValue) && taxValue < 1) || taxValue > 100) {
+				setErrorTax(true);
+			} else {
+				setErrorTax(false);
+			}
+		}
+	}, [taxValue]);
+
 	const handleChange = (event) => {
 		const newValue = event.currentTarget.value;
-		if (!isNaN(newValue) && newValue >= 1 && newValue <= 100) {
+		if (!isNaN(newValue)) {
 			setTaxValue(newValue);
 		}
 	};
@@ -125,8 +142,7 @@ const StoreSettings = () => {
 						onChange={async () => {
 							setUserStoreSettings((value) => ({
 								...value,
-								is_enable_product_cross_sell:
-									!value.is_enable_product_cross_sell,
+								is_enable_product_cross_sell: !value.is_enable_product_cross_sell,
 							}));
 
 							// await updateStoreSettings(userStoreSettings, () => {
@@ -195,39 +211,50 @@ const StoreSettings = () => {
 				of any tax fee imposed by KreateSell.
 			</p>
 			<RenderIf condition={enable_disable_tax}>
-				<div className="flex justify-between w-6/12 mt-5 items-center">
-					<p className="mb-0">Set Custom Tax Amount</p>
-					<div
-						className={styles.affilateInput}
-						style={{width: '155.5px'}}
-					>
-						{/* <Input
-							type={'text'}
-							placeholder="Enter Amount"
-							height="small"
-							// max={100}
-							// min={1}
-							// maxLength={3}
-							required={userStoreSettings.enable_disable_tax}
-							containerstyle="mb-0"
-							value={taxValue}
-							onChange={handleChange}
-						/> */}
-						<Input
-							placeholder="Enter Amount"
-							type="number"
-							height="small"
-							max={100}
-							min={1}
-							maxLength={3}
-							value={taxValue}
-							onChange={handleChange}
-							required={userStoreSettings.enable_disable_tax}
-							containerstyle="mb-0"
-						/>
-						<span>%</span>
+				<>
+					<div className="flex justify-between w-6/12 mt-5 items-center">
+						<p className="mb-0">Set Custom Tax Amount</p>
+						<div
+							className={`${styles.affilateInput}`}
+							style={{
+								width: '155.5px',
+							}}
+						>
+							<Input
+								placeholder="Enter Amount"
+								type="number"
+								height="small"
+								// max={100}
+								// min={1}
+								// maxLength={3}
+								value={taxValue}
+								onChange={handleChange}
+								required={userStoreSettings.enable_disable_tax}
+								containerstyle={styles.marginBottomSm}
+								className={errorTax && styles.borderRed}
+								// containerStyle={{marginBottom: 0}}
+								// errorMessage={
+								// 	true && 'Tax amount must be between 1 & 100'
+								// }
+							/>
+							<span className={errorTax && styles.errorSpan}>
+								%
+							</span>
+						</div>
 					</div>
-				</div>
+					<RenderIf condition={errorTax}>
+						<div className="flex justify-end w-6/12 items-center">
+							<p
+								className={`${styles.errorSpan} mb-0 pl-2`}
+								style={{
+									width: '155.5px',
+								}}
+							>
+								Invalid tax amount
+							</p>
+						</div>
+					</RenderIf>
+				</>
 			</RenderIf>
 			<div className="hidden lg:block mt-8 w-1/5">
 				<Button

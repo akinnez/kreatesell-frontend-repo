@@ -83,7 +83,8 @@
 	}
 }
 
-.charLimit {
+.charLimit,
+.errorSpan {
 	color: red;
 	font-size: 0.7rem;
 	margin-left: 0.6rem;
@@ -112,7 +113,7 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		height: 71%;
+		height: 93%;
 		background: #0072ef;
 		color: #ffffff;
 		border-radius: 0 8px 8px 0;
@@ -120,5 +121,18 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		&.errorSpan {
+			background: red;
+		}
 	}
+}
+
+.borderRed {
+	border: 1px solid red !important;
+	&:hover {
+		border: 1px solid red !important;
+	}
+}
+.marginBottomSm {
+	margin-bottom: 3px !important;
 }
