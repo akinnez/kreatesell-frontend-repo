@@ -1,23 +1,23 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import Head from 'next/head';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import axios from 'axios';
-import {
-	MdOutlineShare,
-	MdOutlineCancel,
-	MdOutlineModeEdit,
-	MdDeleteForever,
-	MdContentCopy,
-} from 'react-icons/md';
+// import {
+// 	MdOutlineShare,
+// 	MdOutlineCancel,
+// 	MdOutlineModeEdit,
+// 	MdDeleteForever,
+// 	MdContentCopy,
+// } from 'react-icons/md';
 import moment from 'moment';
-import {AiFillLike} from 'react-icons/ai';
+// import { AiFillLike } from 'react-icons/ai';
 import {IoFolderOpenSharp} from 'react-icons/io5';
 import {AiOutlineClockCircle} from 'react-icons/ai';
 import {DiscussionEmbed} from 'disqus-react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import {Layout} from 'components';
 
@@ -30,27 +30,31 @@ import {
 	ShareIconGrey,
 	CommentIconGrey,
 	LikeIconGrey,
-	checkExpiredUserToken,
-	getUser,
+	// checkExpiredUserToken,
+	// getUser,
 	_isUserLoggedIn,
-	isAnEmpytyObject,
+	// isAnEmpytyObject,
 } from 'utils';
 import ApiService from 'utils/axios';
 import styles from 'public/css/SingleBlog.module.scss';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import {
-	FacebookShareButton,
-	LinkedinShareButton,
-	TwitterShareButton,
-	WhatsappShareButton,
-	FacebookIcon,
-	TwitterIcon,
-	LinkedinIcon,
-	WhatsappIcon,
-} from 'react-share';
-import {USER} from 'redux/types/auth.types';
+// import {
+// 	FacebookShareButton,
+// 	LinkedinShareButton,
+// 	TwitterShareButton,
+// 	WhatsappShareButton,
+// 	FacebookIcon,
+// 	TwitterIcon,
+// 	LinkedinIcon,
+// 	WhatsappIcon,
+// } from 'react-share';
+// import { USER } from 'redux/types/auth.types';
 
-const SingleBlogPost = ({blog, recentBlogs, moreBlogs}) => {
+const SingleBlogPost = () => {
+	const [blog, setBlogs] = useState({});
+	const [recentBlogs, setRecentBlog] = useState({});
+	const [moreBlogs, setMoreBlog] = useState([]);
+
 	const router = useRouter();
 	const genUrl =
 		process.env.NODE_ENV === 'production'
@@ -58,24 +62,71 @@ const SingleBlogPost = ({blog, recentBlogs, moreBlogs}) => {
 			: `http://localhost:3000${router.asPath}`;
 
 	const {user} = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
-	const userIsEmpty = isAnEmpytyObject(user.user);
-	const handleCopyLink = () => {
-		navigator.clipboard.writeText(genUrl);
-		showToast('Link Copied', 'success');
+	// const dispatch = useDispatch();
+	// const userIsEmpty = isAnEmpytyObject(user.user);
+	// const handleCopyLink = () => {
+	// 	navigator.clipboard.writeText(genUrl);
+	// 	showToast('Link Copied', 'success');
+	// };
+
+	// const getCookies = () => {
+	// 	let pairs = document.cookie.split(';');
+	// 	let cookies = {};
+	// 	// for (let i=0; i<pairs.length; i++){
+	// 	//   let pair = pairs[i].split("=");
+	// 	//   cookies[(pair[0]+'').trim()] = unescape(pair.slice(1).join('='));
+	// 	// }
+	// 	// return cookies;
+	// };
+
+	//get blog post data
+
+	const fetchBlogsData = async () => {
+		let result = {};
+		let resultTwo = {};
+		let moreBlogs = {};
+		try {
+			result = await axios.get(
+				`${process.env.BASE_URL}blogs/posts/${router.query.id}`
+			);
+
+			resultTwo = await axios.get(
+				`${process.env.BASE_URL}blogs/posts/active?page=${1}`
+			);
+			moreBlogs = await axios.get(
+				`${process.env.BASE_URL}blogs/post-category/${router.query.title}`
+			);
+			setBlogs(result?.data);
+			setRecentBlog(resultTwo?.data ? resultTwo?.data : {});
+			setMoreBlog(moreBlogs?.data ? moreBlogs?.data : {});
+		} catch (error) {
+			console.log('error is', error);
+		}
 	};
 
-	const getCookies = () => {
-		console.log('hhhhhhhhhhhhhhh', document.cookie);
-		let pairs = document.cookie.split(';');
-		console.log('ssssssssss', pairs);
-		let cookies = {};
-		// for (let i=0; i<pairs.length; i++){
-		//   let pair = pairs[i].split("=");
-		//   cookies[(pair[0]+'').trim()] = unescape(pair.slice(1).join('='));
-		// }
-		// return cookies;
-	};
+	//get paths
+
+	// const getBlogsPath = async () => {
+	// 	let result = {};
+	// 	let paths = [];
+	// 	try {
+	// 		result = await axios.get(`${process.env.BASE_URL}blogs/posts/active`);
+	// 		paths = result?.data?.data?.map((item, index) => ({
+	// 			params: { title: item?.category || null, id: item?.id || null },
+	// 		}));
+	// 	} catch (error) {
+	// 		console.log('error is: ', error);
+	// 	}
+
+	// 	return {
+	// 		paths,
+	// 		fallback: false,
+	// 	};
+	// }
+
+	useEffect(() => {
+		fetchBlogsData();
+	}, [router.query.id, router.query.title]);
 
 	const handleLikePost = () => {
 		ApiService.request(
@@ -265,28 +316,30 @@ const SingleBlogPost = ({blog, recentBlogs, moreBlogs}) => {
 									/>
 									<p> {blog?.category}</p> &nbsp;
 								</div>
-								<div className={styles.smallInfoDateDiv}>
-									<AiOutlineClockCircle
-										className={styles.smallIcon}
-									/>
-									<p>
-										{formatDistanceToNow(
-											new Date(
+								{blog?.created_at && (
+									<div className={styles.smallInfoDateDiv}>
+										<AiOutlineClockCircle
+											className={styles.smallIcon}
+										/>
+										<p>
+											{formatDistanceToNow(
 												new Date(
-													blog?.created_at
-												).getFullYear(),
-												new Date(
-													blog?.created_at
-												).getMonth(),
-												new Date(
-													blog?.created_at
-												).getDay()
-											),
-											{addSuffix: true}
-										)}
-									</p>
-									&nbsp;
-								</div>
+													new Date(
+														blog?.created_at
+													).getFullYear(),
+													new Date(
+														blog?.created_at
+													).getMonth(),
+													new Date(
+														blog?.created_at
+													).getDay()
+												),
+												{addSuffix: true}
+											)}
+										</p>
+										&nbsp;
+									</div>
+								)}
 								<div className={styles.smallInfoDateDiv}>
 									<AiOutlineClockCircle
 										className={styles.smallIcon}
@@ -296,13 +349,18 @@ const SingleBlogPost = ({blog, recentBlogs, moreBlogs}) => {
 								</div>
 							</div>
 							<div className={styles.thumbnailDiv}>
-								<Image
-									src={blog?.thumbnail}
-									className={styles.thumbnailImage}
-									alt={blog?.thumbnail_alt}
-									width={815}
-									height={365}
-								/>
+								{blog?.thumbnail && (
+									<Image
+										src={blog?.thumbnail}
+										className={styles.thumbnailImage}
+										alt={
+											blog?.thumbnail_alt ||
+											'blog_thumbnail'
+										}
+										width={815}
+										height={365}
+									/>
+								)}
 							</div>
 						</div>
 						<div
@@ -493,50 +551,50 @@ const SingleBlogPost = ({blog, recentBlogs, moreBlogs}) => {
 	);
 };
 
-export async function getStaticPaths(context) {
-	let result = {};
-	let paths = [];
-	try {
-		result = await axios.get(`${process.env.BASE_URL}blogs/posts/active`);
-		paths = result?.data?.data?.map((item, index) => ({
-			params: {title: item?.category || null, id: item?.id || null},
-		}));
-	} catch (error) {
-		console.log('error is: ', error);
-	}
+// export async function getStaticPaths(context) {
+// 	let result = {};
+// 	let paths = [];
+// 	try {
+// 		result = await axios.get(`${process.env.BASE_URL}blogs/posts/active`);
+// 		paths = result?.data?.data?.map((item, index) => ({
+// 			params: { title: item?.category || null, id: item?.id || null },
+// 		}));
+// 	} catch (error) {
+// 		console.log('error is: ', error);
+// 	}
 
-	return {
-		paths,
-		fallback: false,
-	};
-}
+// 	return {
+// 		paths,
+// 		fallback: false,
+// 	};
+// }
 
-export async function getStaticProps(context) {
-	let result = {};
-	let resultTwo = {};
-	let moreBlogs = {};
-	try {
-		result = await axios.get(
-			`${process.env.BASE_URL}blogs/posts/${context.params.id}`
-		);
+// export async function getStaticProps(context) {
+// 	let result = {};
+// 	let resultTwo = {};
+// 	let moreBlogs = {};
+// 	try {
+// 		result = await axios.get(
+// 			`${process.env.BASE_URL}blogs/posts/${context.params.id}`
+// 		);
 
-		resultTwo = await axios.get(
-			`${process.env.BASE_URL}blogs/posts/active?page=${1}`
-		);
-		moreBlogs = await axios.get(
-			`${process.env.BASE_URL}blogs/post-category/${context.params.title}`
-		);
-	} catch (error) {
-		console.log('error is', error);
-	}
+// 		resultTwo = await axios.get(
+// 			`${process.env.BASE_URL}blogs/posts/active?page=${1}`
+// 		);
+// 		moreBlogs = await axios.get(
+// 			`${process.env.BASE_URL}blogs/post-category/${context.params.title}`
+// 		);
+// 	} catch (error) {
+// 		console.log('error is', error);
+// 	}
 
-	return {
-		props: {
-			blog: result?.data,
-			recentBlogs: resultTwo?.data ? resultTwo?.data : {},
-			moreBlogs: moreBlogs?.data ? moreBlogs?.data : {},
-		}, // will be passed to the page component as props
-	};
-}
+// 	return {
+// 		props: {
+// 			blogs: result?.data,
+// 			recentBlog: resultTwo?.data ? resultTwo?.data : {},
+// 			moreBlog: moreBlogs?.data ? moreBlogs?.data : {},
+// 		}, // will be passed to the page component as props
+// 	};
+// }
 
 export default SingleBlogPost;
