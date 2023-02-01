@@ -37,7 +37,6 @@ const Blog = () => {
 		};
 	}, []);
 
-
 	useEffect(() => {
 		const func = async () => {
 			setIsBlogDataLoading(true);

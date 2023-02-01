@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -14,12 +14,12 @@ import axios from 'axios';
 // } from 'react-icons/md';
 import moment from 'moment';
 // import { AiFillLike } from 'react-icons/ai';
-import { IoFolderOpenSharp } from 'react-icons/io5';
-import { AiOutlineClockCircle } from 'react-icons/ai';
-import { DiscussionEmbed } from 'disqus-react';
-import { useSelector } from 'react-redux';
+import {IoFolderOpenSharp} from 'react-icons/io5';
+import {AiOutlineClockCircle} from 'react-icons/ai';
+import {DiscussionEmbed} from 'disqus-react';
+import {useSelector} from 'react-redux';
 
-import { Layout } from 'components';
+import {Layout} from 'components';
 
 import {
 	showToast,
@@ -50,12 +50,10 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 // } from 'react-share';
 // import { USER } from 'redux/types/auth.types';
 
-
 const SingleBlogPost = () => {
 	const [blog, setBlogs] = useState({});
 	const [recentBlogs, setRecentBlog] = useState({});
-	const [moreBlogs, setMoreBlog] = useState([])
-
+	const [moreBlogs, setMoreBlog] = useState([]);
 
 	const router = useRouter();
 	const genUrl =
@@ -63,7 +61,7 @@ const SingleBlogPost = () => {
 			? `https://kreatesell.com${router.asPath}`
 			: `http://localhost:3000${router.asPath}`;
 
-	const { user } = useSelector((state) => state.auth);
+	const {user} = useSelector((state) => state.auth);
 	// const dispatch = useDispatch();
 	// const userIsEmpty = isAnEmpytyObject(user.user);
 	// const handleCopyLink = () => {
@@ -98,15 +96,15 @@ const SingleBlogPost = () => {
 			moreBlogs = await axios.get(
 				`${process.env.BASE_URL}blogs/post-category/${router.query.title}`
 			);
-			setBlogs(result?.data)
-			setRecentBlog(resultTwo?.data ? resultTwo?.data : {})
-			setMoreBlog(moreBlogs?.data ? moreBlogs?.data : {})
+			setBlogs(result?.data);
+			setRecentBlog(resultTwo?.data ? resultTwo?.data : {});
+			setMoreBlog(moreBlogs?.data ? moreBlogs?.data : {});
 		} catch (error) {
 			console.log('error is', error);
 		}
-	}
+	};
 
-	//get paths 
+	//get paths
 
 	// const getBlogsPath = async () => {
 	// 	let result = {};
@@ -124,13 +122,11 @@ const SingleBlogPost = () => {
 	// 		paths,
 	// 		fallback: false,
 	// 	};
-	// } 
+	// }
 
 	useEffect(() => {
-		fetchBlogsData()
-	}, [router.query.id, router.query.title])
-
-
+		fetchBlogsData();
+	}, [router.query.id, router.query.title]);
 
 	const handleLikePost = () => {
 		ApiService.request(
@@ -179,7 +175,7 @@ const SingleBlogPost = () => {
 		title: blog.title,
 	};
 
-	const bgStyle = { fill: '#000000' };
+	const bgStyle = {fill: '#000000'};
 	const SideBlogPost = ({
 		excerpt,
 		title,
@@ -208,12 +204,12 @@ const SingleBlogPost = () => {
 								new Date(created_at).getMonth(),
 								new Date(created_at).getDay()
 							),
-							{ addSuffix: true }
+							{addSuffix: true}
 						)}
 					</p>
 					<Link href={`/blog/${category}/${id}`}>
 						<h4
-							style={{ cursor: 'pointer' }}
+							style={{cursor: 'pointer'}}
 							className={styles.title}
 						>
 							{title}
@@ -338,7 +334,7 @@ const SingleBlogPost = () => {
 														blog?.created_at
 													).getDay()
 												),
-												{ addSuffix: true }
+												{addSuffix: true}
 											)}
 										</p>
 										&nbsp;
@@ -357,7 +353,10 @@ const SingleBlogPost = () => {
 									<Image
 										src={blog?.thumbnail}
 										className={styles.thumbnailImage}
-										alt={blog?.thumbnail_alt || "blog_thumbnail"}
+										alt={
+											blog?.thumbnail_alt ||
+											'blog_thumbnail'
+										}
 										width={815}
 										height={365}
 									/>
