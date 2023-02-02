@@ -93,9 +93,8 @@ const statusComponent = (item) => {
 
 const ActionComponent = (_, all) => {
 	const router = useRouter();
-
-	const handleReopenTicket = () => {
-		console.log('Handle Repopen', all);
+	const handleReopenTicket = (id) => {
+		router.push(`/account/kreator/help/responses/${id}?reopen=true`);
 	};
 	let content = (
 		<ul>
@@ -107,7 +106,17 @@ const ActionComponent = (_, all) => {
 			>
 				<Image alt="icon" src={MessageIcon} /> View Response
 			</li>
-			<li onClick={() => handleReopenTicket()} className="flex gap-1.5">
+
+			<li
+				onClick={
+					all?.status?.toLowerCase() === 'closed'
+						? () => handleReopenTicket(all.id)
+						: null
+				}
+				className={`flex gap-1.5 ${
+					all?.status?.toLowerCase() === 'open' && styles.disableClick
+				}`}
+			>
 				<Image alt="icon" src={OpenTicketIcon} /> Reopen Ticket
 			</li>
 		</ul>

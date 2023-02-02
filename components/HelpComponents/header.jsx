@@ -52,8 +52,30 @@ const HelpHeader = ({setFilters, setLoading, filters}) => {
 			to: to || '',
 		}));
 	};
-	const departmentOptions = [{value: 'value', label: 'label'}];
-	const ticketList = [];
+	const departmentOptions = [
+		{value: 'value', label: 'label'},
+		{
+			value: 'Technical',
+			label: 'Technical',
+		},
+		{
+			value: 'Affiliates',
+			label: 'Affiliates',
+		},
+		{
+			value: 'Billing',
+			label: 'Billing',
+		},
+		{
+			value: 'General',
+			label: 'General',
+		},
+	];
+	const ticketList = [
+		{value: '', label: 'All'},
+		{value: 'open', label: 'Open'},
+		{value: 'closed', label: 'Closed'},
+	];
 	const format = 'YYYY-MM-DD';
 
 	const resetFilters = () => {

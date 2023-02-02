@@ -44,12 +44,17 @@ const CardBody = ({ticketId, ticket}) => {
 	const [submitting, setSubmitting] = useState(false);
 
 	const [reopenSection, setReopenSection] = useState(false);
+
+	useEffect(() => {
+		if (router.query.reopen === 'true') {
+			setReopenSection(true);
+		}
+	}, [router?.query]);
+
 	const handleReopen = () => {
 		setReopenSection(true);
 	};
-
 	const handleSubmit = () => {
-		console.log('submit ');
 		checkExpiredUserToken();
 		const token = getUserToken();
 		setSubmitting(true);
@@ -79,7 +84,10 @@ const CardBody = ({ticketId, ticket}) => {
 				setMessage('');
 				setFiles([]);
 				// showSuccessModalFn(true);
-				// showToast('Ticket have been opened successfully', 'success');
+				showToast(
+					res?.data?.message || `Ticket has been opened successfully`,
+					'success'
+				);
 				setSubmitting(false);
 				setTimeout(() => {
 					router.push('/account/kreator/help');
@@ -99,7 +107,9 @@ const CardBody = ({ticketId, ticket}) => {
 				>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Ticket ID</p>
-						<p className={styles.value}>#{ticketId}</p>
+						<p className={styles.value}>
+							{ticket?.ticket_reference}
+						</p>
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
@@ -332,6 +342,15 @@ const CardBody = ({ticketId, ticket}) => {
 				>
 					<Button
 						text="Repopen"
+						leftIcon={<Image alt="icon" src={MailReopen} />}
+						className="p-3"
+						bgColor="blue"
+						onClick={handleReopen}
+					/>
+				</RenderIf>
+				<RenderIf condition={ticket?.status?.toLowerCase() === 'open'}>
+					<Button
+						text="Reply"
 						leftIcon={<Image alt="icon" src={MailReopen} />}
 						className="p-3"
 						bgColor="blue"
