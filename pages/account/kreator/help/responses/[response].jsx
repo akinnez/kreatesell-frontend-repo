@@ -35,7 +35,6 @@ import FileUpload from 'components/PostTicket/FileUpload';
 const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
-	// console.log('ticket', ticket);
 	const [files, setFiles] = useState([]);
 	const [uploadingFiles, setUploadingFiles] = useState([]);
 
@@ -99,6 +98,7 @@ const CardBody = ({ticketId, ticket}) => {
 			});
 	};
 	// console.log('ticket', ticket);
+
 	return (
 		<>
 			<div className={styles.cardResponsDiv}>
@@ -410,7 +410,7 @@ const CardBody = ({ticketId, ticket}) => {
 const Index = (props) => {
 	const ticketsURL = (id) =>
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [ticket, setTicket] = useState({});
 	const [ticketId, setTicketId] = useState('');
@@ -430,7 +430,7 @@ const Index = (props) => {
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
-
+			setLoading(false);
 			setError(true);
 		}
 	};
@@ -446,7 +446,11 @@ const Index = (props) => {
 	}
 
 	if (loading) {
-		return <Loader />;
+		return (
+			<AuthLayout>
+				<Loader />
+			</AuthLayout>
+		);
 	}
 	// console.log('ticket', ticket);
 	return (

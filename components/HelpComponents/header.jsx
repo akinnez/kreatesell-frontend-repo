@@ -40,6 +40,7 @@ const HelpHeader = ({setFilters, setLoading, filters}) => {
 		if (!search && !department && !ticket && !from && !to) {
 			return;
 		}
+		console.log('values', values);
 		setIsFiltered(true);
 		setLoading(true);
 		setFilters((s) => ({
