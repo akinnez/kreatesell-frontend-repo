@@ -201,6 +201,13 @@ const formatNumberToLocaleString = (number) => {
 };
 
 const CardComponent = ({data}) => {
+	// console.log('data = ', data);
+	const item = data?.clearance_date;
+
+	const time = parseISO(item);
+
+	const formatTime = format(time, 'PPPp');
+	const formatDate = format(time, 'PPP');
 	return (
 		<div className={styles.mobileCardContainer}>
 			<Card className={styles.mobileCard}>
@@ -224,18 +231,26 @@ const CardComponent = ({data}) => {
 						</p>
 					</li>
 					<li className={styles.orderDetail}>
-						<h1 className={`${styles.key} mb-0`}>Customer Name</h1>
-						<p className={`${styles.value} mb-0`}>
-							{data?.customer_full_name}
-						</p>
-					</li>
-					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Amount</h1>
 						<p className={`${styles.value} mb-0`}>
 							{data?.currency}{' '}
 							{formatNumberToLocaleString(
 								data?.transaction_amount
 							)}
+						</p>
+					</li>
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Commission</h1>
+						<p className={`${styles.value} mb-0`}>
+							{data?.commission}
+						</p>
+					</li>
+
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Clearance Date</h1>
+						<p className={`${styles.value} mb-0`}>
+							{`${formatDate.split('at')[0]},`}{' '}
+							{formatTime.split('at')[1]}
 						</p>
 					</li>
 				</ul>
