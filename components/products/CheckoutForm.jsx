@@ -70,8 +70,10 @@ export const CheckoutForm = ({
 	// if (product) {
 	//   setProductID(product?.product_details?.kreasell_product_id);
 	// }
-	const [errorForNotMatchedCurrency, setErrorForNotMatchedCurrency] =
-		useState(false);
+	const [
+		errorForNotMatchedCurrency,
+		setErrorForNotMatchedCurrency,
+	] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const [isLimited, setIsLimited] = useState(false);
 
@@ -138,8 +140,9 @@ export const CheckoutForm = ({
 	// Fixed Price Inputs
 	const [fixedSellingPrice, setFixedSellingPrice] = useState([]);
 	const [fixedOriginalPrice, setFixedOriginalPrice] = useState([]);
-	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] =
-		useState(fixedOriginalPrice);
+	const [savedFixedOriginalPrice, setSavedFixedOriginalPrice] = useState(
+		fixedOriginalPrice
+	);
 
 	// Pay What You Want
 	const [minimumPrice, setMinimumPrice] = useState([]);
@@ -148,13 +151,15 @@ export const CheckoutForm = ({
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
-	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
-		useState(false);
+	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] = useState(
+		false
+	);
 	const [limitProductSale, setLimitProductSale] = useState(false);
 	const [numberOfLimit, setNumberOfLimit] = useState(0);
 	const [showTotalSales, setShowTotalSales] = useState(false);
-	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] =
-		useState(false);
+	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] = useState(
+		false
+	);
 
 	const [totalSelling, setTotalSelling] = useState([]);
 	const mapNumberToArray = (number) => {
@@ -169,8 +174,10 @@ export const CheckoutForm = ({
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
-	const {selectedStoreCurrencies, storeCurrenciesLoading} =
-		useStoreCurrency();
+	const {
+		selectedStoreCurrencies,
+		storeCurrenciesLoading,
+	} = useStoreCurrency();
 
 	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
 		[]
@@ -183,12 +190,17 @@ export const CheckoutForm = ({
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
-		useUpload({
-			setFileChange: setPromotionalMaterial,
-			// should accept rar and zip
-			fileType: 'all',
-		});
+	const {
+		preview,
+		getRootProps,
+		getInputProps,
+		mainFile,
+		deleteFile,
+	} = useUpload({
+		setFileChange: setPromotionalMaterial,
+		// should accept rar and zip
+		fileType: 'all',
+	});
 
 	// console.log("product = ", product);
 
@@ -853,66 +865,68 @@ export const CheckoutForm = ({
 
 	const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
 	const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
-
 	useEffect(() => {
 		// if (priceType !== 'Make It Free') return
+		if (priceType === 'Pay What You Want') {
+			for (let i = 0; i < minimumPrice.length; i++) {
+				let item = minimumPrice[i];
+				const minPriceCurrency = item?.currency_name;
+				const minPriceValue = item?.currency_value;
 
-		minimumPrice.map((item) => {
-			const minPriceCurrency = item?.currency_name;
-			const minPriceValue = item?.currency_value;
+				const matchItem = suggestedPrice?.find((SpItem) => {
+					return SpItem?.currency_name === minPriceCurrency;
+				});
 
-			const matchItem = suggestedPrice?.find((SpItem) => {
-				return SpItem?.currency_name === minPriceCurrency;
-			});
-
-			if (minPriceValue > Number(matchItem?.currency_value)) {
-				showToast(
-					'suggested price must be greater than minimum price',
-					'error'
-				);
-				setIsGreaterThanSug(true);
-			} else {
-				setIsGreaterThanSug(false);
+				if (Number(minPriceValue) > Number(matchItem?.currency_value)) {
+					showToast(
+						'suggested price must be greater than minimum price',
+						'error'
+					);
+					setIsGreaterThanSug(true);
+					break;
+				} else {
+					setIsGreaterThanSug(false);
+				}
+				// return isGreaterthanSug;
 			}
-			return isGreaterthanSug;
-		}, []);
+		} else if (priceType === 'Fixed Price') {
+			for (let i = 0; i < fixedOriginalPrice.length; i++) {
+				let OpItem = fixedOriginalPrice[i];
+				const OpItemCurrency = OpItem?.currency_name;
+				const OpItemPrice = OpItem?.currency_value;
 
-		for (let i = 0; i < fixedOriginalPrice.length; i++) {
-			let OpItem = fixedOriginalPrice[i];
-			const OpItemCurrency = OpItem?.currency_name;
-			const OpItemPrice = OpItem?.currency_value;
+				const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
+					return SpItem?.currency_name === OpItemCurrency;
+				});
 
-			const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
-				return SpItem?.currency_name === OpItemCurrency;
-			});
+				if (
+					fixedSellingPrice.length === 0 ||
+					fixedOriginalPrice.length === 0
+				) {
+					setIsOpMoreThanSp(false);
+				} else if (
+					compareToPrice === true &&
+					fixedOriginalPrice.length === 0
+				) {
+					setIsOpMoreThanSp(false);
+				} else if (OpItemPrice > matchingSpItem?.currency_value) {
+					setIsOpMoreThanSp(true);
+					setNoMatchingCurrency(false);
+					break;
+				} else if (OpItemPrice < matchingSpItem?.currency_value) {
+					setIsOpMoreThanSp(false);
+					setNoMatchingCurrency(false);
+				} else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
+					setNoMatchingCurrency(true);
+					setIsOpMoreThanSp(false);
+					break;
+				} else {
+					setIsOpMoreThanSp(false);
+					setNoMatchingCurrency(false);
+				}
 
-			if (
-				fixedSellingPrice.length === 0 ||
-				fixedOriginalPrice.length === 0
-			) {
-				setIsOpMoreThanSp(false);
-			} else if (
-				compareToPrice === true &&
-				fixedOriginalPrice.length === 0
-			) {
-				setIsOpMoreThanSp(false);
-			} else if (OpItemPrice > matchingSpItem?.currency_value) {
-				setIsOpMoreThanSp(true);
-				setNoMatchingCurrency(false);
-				break;
-			} else if (OpItemPrice < matchingSpItem?.currency_value) {
-				setIsOpMoreThanSp(false);
-				setNoMatchingCurrency(false);
-			} else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
-				setNoMatchingCurrency(true);
-				setIsOpMoreThanSp(false);
-				break;
-			} else {
-				setIsOpMoreThanSp(false);
-				setNoMatchingCurrency(false);
+				return isOpMoreThanSp && noMatchingCurrency;
 			}
-
-			return isOpMoreThanSp && noMatchingCurrency;
 		}
 	}, [
 		fixedOriginalPrice,
@@ -923,6 +937,19 @@ export const CheckoutForm = ({
 		minimumPrice,
 		suggestedPrice,
 	]);
+	// TODO: when payment type changes, work on the logic for button being disabled
+	// useEffect(() => {
+	// 	if (priceType) {
+	// 		if (priceType === 'Pay What You Want') {
+	// 			setFixedOriginalPrice([]);
+	// 			setFixedSellingPrice([]);
+	// 		} else if (priceType === 'Fixed Price') {
+	// 			setMinimumPrice([]);
+	// 			setSuggestedPrice([]);
+	// 		}
+	// 	}
+	// }, [priceType]);
+
 	const disableButton = useCallback(() => {
 		// console.log("compareToPrice = ", compareToPrice);
 		// if (!limitProductSale) {
@@ -967,6 +994,7 @@ export const CheckoutForm = ({
 		isGreaterthanSug,
 		numberOfLimit,
 		limitProductSale,
+		priceType,
 	]);
 
 	const salesLimitErrorMsg = () => {
@@ -1217,8 +1245,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
@@ -1249,8 +1276,7 @@ export const CheckoutForm = ({
 										setCouponVariance((value) => ({
 											...value,
 											isPercentage: !value.isPercentage,
-											is_fixed_amount:
-												!value.is_fixed_amount,
+											is_fixed_amount: !value.is_fixed_amount,
 										}));
 									}}
 									labelStyle={styles.radioLabelStyle}
