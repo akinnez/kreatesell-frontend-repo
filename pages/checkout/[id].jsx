@@ -108,6 +108,7 @@ const Checkout = () => {
 	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
+	const [taxValue, setTaxValue] = useState(null);
 
 	const testCurrency = activeCurrency?.currency
 		? activeCurrency?.currency
@@ -165,6 +166,7 @@ const Checkout = () => {
 			);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
+			setTaxValue(response?.data?.data?.store_dto?.custom_tax_amount);
 		} catch (error) {
 			console.log(error);
 		}
@@ -191,7 +193,7 @@ const Checkout = () => {
 				checkOutInNaira?.price
 			);
 		} else if (priceOrName === 'total') {
-			return totalFee;
+			return taxValue ? getTaxDeduction() : totalFee;
 		} else if (priceOrName === 'minimum') {
 			return (
 				MinimumPrices?.price ||
@@ -431,6 +433,11 @@ const Checkout = () => {
 		couponDetails.indicator === 'IsFixedAmount'
 			? basicSubtotal
 			: standardPrice;
+
+	const getTaxDeduction = () => {
+		const calTax = (Number(taxValue) / 100) * subTotal;
+		return Number(calTax) + Number(subTotal);
+	};
 
 	// const calcNgN = 5 / 100 * subTotal
 
@@ -1370,7 +1377,7 @@ const Checkout = () => {
 
 									<div className="flex justify-between">
 										<p>Tax</p>
-										<p>0</p>
+										<p>{taxValue || 0}</p>
 									</div>
 
 									<div className="divider"></div>
@@ -1379,7 +1386,9 @@ const Checkout = () => {
 										<p>Total</p>
 										<p className="text-primary-blue font-medium">
 											{getCurrency('currency')}{' '}
-											{Number(totalFee).toFixed(2)}
+											{taxValue
+												? getTaxDeduction()
+												: Number(totalFee).toFixed(2)}
 										</p>
 									</div>
 								</div>
