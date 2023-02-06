@@ -1,8 +1,10 @@
 import {useState} from 'react';
 import Image from 'next/image';
+
 import {useDispatch} from 'react-redux';
 import {Typography, Form, Select, Input, Button} from 'antd';
 import {Formik} from 'formik';
+
 import PayoutsFormWarning from '../PayoutsFormWarning';
 import {
 	accountNumberHandler,
@@ -15,10 +17,25 @@ import {
 	validateAccountOnBlur,
 } from 'components/Payouts/utils/payoutsFormCBs';
 import {PayoutFormValidator} from 'validation/PayoutForm.validation';
+import {RestOfTheWorld} from 'utils';
 import styles from './index.module.scss';
 
 const {Text} = Typography;
 const {Option} = Select;
+
+const RestOfTheWorldObj = {
+	country_code: '+1',
+	short_name: 'US',
+	currency: 'USD',
+	currency_id: 6,
+	is_payable: true,
+	taxable_amount: 10,
+	is_taxable_amount_percent: true,
+	// id: 188,
+	id: -10, // I used this just for rest of the world
+	name: 'Rest of the world',
+	flag: RestOfTheWorld,
+};
 
 const PayoutsForm = ({
 	hideModal,
@@ -27,10 +44,6 @@ const PayoutsForm = ({
 	banksByCountryId,
 	bankDetails,
 }) => {
-	// console.log(
-	// 	'countries',
-	// 	countries?.filter((country) => country.is_payable)
-	// );
 	const [banksLoading, setBanksLoading] = useState(false);
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
@@ -110,20 +123,20 @@ const PayoutsForm = ({
 									.toLowerCase()
 									.includes(input.toLowerCase())
 							}
-							filterSort={(optionA, optionB) =>
-								optionA.title
-									.toLowerCase()
-									.localeCompare(optionB.title.toLowerCase())
-							}
+							// filterSort={(optionA, optionB) =>
+							// 	optionA.title
+							// 		.toLowerCase()
+							// 		.localeCompare(optionB.title.toLowerCase())
+							// }
 							onBlur={formik.handleBlur}
 							value={formik.values.country}
 							disabled={!!bankDetails}
 						>
 							{countries
 								?.filter((country) => country.is_payable)
-								.map((country) => (
+								.map((country, idx) => (
 									<Option
-										key={country.id}
+										key={`${country.id}-${idx}`}
 										value={country.id}
 										className={styles.countries__options}
 										title={country.name}
@@ -141,6 +154,24 @@ const PayoutsForm = ({
 										{country.name}
 									</Option>
 								))}
+							{/* For the rest of the world */}
+							<Option
+								value={RestOfTheWorldObj.id}
+								className={styles.countries__options}
+								title={RestOfTheWorldObj.name}
+							>
+								{RestOfTheWorldObj.flag && (
+									<Image
+										src={RestOfTheWorldObj.flag}
+										alt={`Flag of ${RestOfTheWorldObj.name}`}
+										width={40}
+										height={30}
+										className={styles.option__icon}
+									/>
+								)}
+								&nbsp;&nbsp;
+								{RestOfTheWorldObj.name}
+							</Option>
 						</Select>
 					</Form.Item>
 					{paypal ? (

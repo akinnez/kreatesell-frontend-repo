@@ -7,6 +7,7 @@ const initialState = {
 	banksByCountryId: {},
 	loading: false,
 	error: '',
+	currency: [],
 };
 
 const UtilsReducer = (state = initialState, {type, payload}) => {

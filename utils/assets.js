@@ -309,8 +309,10 @@ import Zapier from '../public/images/zapier.png';
 import MailReopen from '../public/images/mail_open.svg';
 import ShoppingCart from '../public/images/shopping_cart.svg';
 import Subscribers2 from '../public/images/subscribers.svg';
+import RestOfTheWorld from '../public/images/rest-of-the-world.svg';
 
 export {
+	RestOfTheWorld,
 	Subscribers2,
 	ShoppingCart,
 	MailReopen,

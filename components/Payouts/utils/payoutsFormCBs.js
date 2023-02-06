@@ -16,7 +16,7 @@ export const paypalCB = (bankDetails) => {
 		bankDetails &&
 		// bankDetails.country_id !== '1' &&
 		// bankDetails.country_id !== '72' &&
-		[187, 188].includes(bankDetails.country_id)
+		[187, 188, -10].includes(bankDetails.country_id)
 	) {
 		return true;
 	}
@@ -67,16 +67,20 @@ export const countryHandler = async ({
 	countries,
 }) => {
 	formik.setFieldValue('country', value);
-	// console.log('banksByCountryId', banksByCountryId);
+	let tempValue = value;
 	// change this to only US and UK
-	const {short_name} = countries.find((country) => country?.id === value);
+	const {short_name} = countries.find((country) => {
+		// if value is rest of the world, make it USA's payload
+		if (value === -10) tempValue = 188;
+		return country?.id === tempValue;
+	});
 
 	// US and UK are 187 and 188
-	if (![187, 188].includes(value)) {
+	if (![187, 188].includes(tempValue)) {
 		setPaypal(false);
 
-		if (value in banksByCountryId) {
-			setBanks(banksByCountryId[value]);
+		if (tempValue in banksByCountryId) {
+			setBanks(banksByCountryId[tempValue]);
 		} else {
 			setBanksLoading(true);
 
@@ -96,7 +100,7 @@ export const countryHandler = async ({
 			const banksData = banksResponse.data;
 
 			setBanks(banksData);
-			dispatch(bankSuccess({id: value, banks: banksData}));
+			dispatch(bankSuccess({id: tempValue, banks: banksData}));
 			setBanksLoading(false);
 		}
 	} else {
@@ -243,7 +247,7 @@ export const createSubmitHandler = ({
 			);
 		} else {
 			const data = {
-				country_id: values.country,
+				country_id: values.country === -10 ? 188 : values.country,
 				account_number: values.paypal_email.trim(),
 				account_name: values.paypal_email.trim(),
 				password: values.password,
@@ -252,7 +256,7 @@ export const createSubmitHandler = ({
 			const dispatchObj = {
 				bank_name: 'Paypal',
 				bank_id: '194',
-				country_id: `${values.country}`,
+				country_id: `${values.country === -10 ? 188 : values.country}`,
 				country_name: country.name,
 				account_name: values.paypal_email.trim(),
 				account_number: values.paypal_email.trim(),
