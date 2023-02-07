@@ -1,7 +1,7 @@
-import { Percentage, Radio } from 'components/inputPack';
-import { Switch, Form, Input, Button, Select } from 'antd';
+import {Percentage, Radio} from 'components/inputPack';
+import {Switch, Form, Input, Button, Select} from 'antd';
 import styles from './Checkout.module.scss';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
 import {
 	CloudUpload,
 	FileDelete,
@@ -12,9 +12,9 @@ import {
 	RenderIf,
 } from 'utils';
 import Image from 'next/image';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import {
 	AuthGetProductById,
 	GetBillingInterval,
@@ -22,11 +22,11 @@ import {
 	SetProductTab,
 	GetStoreCurrencies,
 } from 'redux/actions';
-import { useUpload } from 'hooks';
+import {useUpload} from 'hooks';
 import useStoreCurrency from 'hooks/useStoreCurrencies';
 import CustomCheckoutSelect from './CustomCheckout';
-import { useRouter } from 'next/router';
-import { transformToFormData, ErrorOutline } from 'utils';
+import {useRouter} from 'next/router';
+import {transformToFormData, ErrorOutline} from 'utils';
 
 import axios from 'axios';
 
@@ -49,11 +49,11 @@ export const CheckoutForm = ({
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
 	const setProductTab = SetProductTab();
-	const { store } = useSelector((state) => state.store);
+	const {store} = useSelector((state) => state.store);
 	const router = useRouter();
 	const today = new Date().toISOString().slice(0, 16);
 
-	const { product, billingInterval, loading } = useSelector(
+	const {product, billingInterval, loading} = useSelector(
 		(state) => state.product
 	);
 
@@ -105,7 +105,7 @@ export const CheckoutForm = ({
 	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false);
 
 	const mounted = useRef(null);
-	const { Option } = Select;
+	const {Option} = Select;
 
 	// guards against price duplication
 	useEffect(() => {
@@ -119,7 +119,7 @@ export const CheckoutForm = ({
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
-			const { user } = store;
+			const {user} = store;
 			if (user.user_plan === 'Business') {
 				setIsCouponDisabled(false);
 			} else {
@@ -157,7 +157,7 @@ export const CheckoutForm = ({
 		useState(false);
 
 	const [totalSelling, setTotalSelling] = useState([]);
-	const mapNumberToArray = (number) => { 
+	const mapNumberToArray = (number) => {
 		const arrayNumbers = [];
 		for (let i = 0; i < number; i++) {
 			arrayNumbers.push(i);
@@ -169,7 +169,7 @@ export const CheckoutForm = ({
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
-	const { selectedStoreCurrencies, storeCurrenciesLoading } =
+	const {selectedStoreCurrencies, storeCurrenciesLoading} =
 		useStoreCurrency();
 
 	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
@@ -183,7 +183,7 @@ export const CheckoutForm = ({
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const { preview, getRootProps, getInputProps, mainFile, deleteFile } =
+	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
 		useUpload({
 			setFileChange: setPromotionalMaterial,
 			// should accept rar and zip
@@ -193,25 +193,25 @@ export const CheckoutForm = ({
 	// console.log("product = ", product);
 
 	const durationOptions = [
-		{ label: 'Daily', value: 'aaily' },
-		{ label: 'Weekly', value: 'weekly' },
-		{ label: 'Monthly', value: 'monthly' },
-		{ label: 'Every 3 Months', value: 'every_3_Months' },
-		{ label: 'Every 6 Months', value: 'every_6_Months' },
-		{ label: 'Yearly', value: 'yearly' },
-		{ label: 'Custom', value: 'custom' },
+		{label: 'Daily', value: 'aaily'},
+		{label: 'Weekly', value: 'weekly'},
+		{label: 'Monthly', value: 'monthly'},
+		{label: 'Every 3 Months', value: 'every_3_Months'},
+		{label: 'Every 6 Months', value: 'every_6_Months'},
+		{label: 'Yearly', value: 'yearly'},
+		{label: 'Custom', value: 'custom'},
 	];
 
 	const billedEveryDuration = [
-		{ label: 'Days(s)', value: 'days' },
-		{ label: 'Weeks(s)', value: 'weeks' },
-		{ label: 'Month(s)', value: 'months' },
+		{label: 'Days(s)', value: 'days'},
+		{label: 'Weeks(s)', value: 'weeks'},
+		{label: 'Month(s)', value: 'months'},
 	];
 
 	const customBillingIntervals = [
-		{ label: 'Day(s)', value: 1 },
-		{ label: 'Week(s)', value: 7 },
-		{ label: 'Month(s)', value: 30 },
+		{label: 'Day(s)', value: 1},
+		{label: 'Week(s)', value: 7},
+		{label: 'Month(s)', value: 30},
 	];
 	const mappedBillingInterval = billingInterval?.map((billing) => ({
 		label: billing.billing_types,
@@ -222,7 +222,7 @@ export const CheckoutForm = ({
 		let opt = [];
 		for (let i = 1; i < 10; i++) {
 			opt.push(i);
-			const values = opt.map((item) => ({ label: item, value: item }));
+			const values = opt.map((item) => ({label: item, value: item}));
 			setFrequencyOptions(values);
 		}
 	};
@@ -254,7 +254,7 @@ export const CheckoutForm = ({
 	const createCustomCurrencyField = (array) => {
 		let title = '';
 		let field = [];
-		let setField = () => { };
+		let setField = () => {};
 		return array.map((value, index) => {
 			switch (value) {
 				case 0:
@@ -315,7 +315,7 @@ export const CheckoutForm = ({
 		formData.append('file', file);
 		const options = {
 			onUploadProgress: (progressEvent) => {
-				const { loaded, total } = progressEvent;
+				const {loaded, total} = progressEvent;
 				let percent = Math.floor((loaded * 100) / total);
 				cb(percent);
 			},
@@ -323,7 +323,7 @@ export const CheckoutForm = ({
 		try {
 			const instance = axios.create();
 			delete instance.defaults.headers.common['Authorization'];
-			const { data } = await instance.post(
+			const {data} = await instance.post(
 				'https://api.cloudinary.com/v1_1/salvoagency/upload',
 				formData,
 				options
@@ -452,7 +452,6 @@ export const CheckoutForm = ({
 		getStoreCurrencies();
 	}, []);
 
-
 	// function to check that all product currencies have been defined before submission is possible
 	// returns true if not valid
 	const validateDefinedCurrencies = (priceType) => {
@@ -461,15 +460,15 @@ export const CheckoutForm = ({
 				formattedStoreCurrencies.length !== fixedSellingPrice.length ||
 				(compareToPrice &&
 					formattedStoreCurrencies.length !==
-					savedFixedOriginalPrice.length)
+						savedFixedOriginalPrice.length)
 			) {
 				setErrorForNotMatchedCurrency(true);
 				return true;
 			}
 			const results = formattedStoreCurrencies.filter(
-				({ currency: id1 }) =>
+				({currency: id1}) =>
 					!fixedSellingPrice.some(
-						({ currency_name: id2 }) => id2 === id1
+						({currency_name: id2}) => id2 === id1
 					)
 			);
 			if (results.length > 0) {
@@ -485,8 +484,8 @@ export const CheckoutForm = ({
 				return true;
 			}
 			const results = formattedStoreCurrencies.filter(
-				({ currency: id1 }) =>
-					!minimumPrice.some(({ currency_name: id2 }) => id2 === id1)
+				({currency: id1}) =>
+					!minimumPrice.some(({currency_name: id2}) => id2 === id1)
 			);
 			if (results.length > 0) {
 				setErrorForNotMatchedCurrency(true);
@@ -630,12 +629,12 @@ export const CheckoutForm = ({
 
 	const handleSelect = (field) => (value) => {
 		setDuration(value);
-		setFieldValue({ [field]: value });
+		setFieldValue({[field]: value});
 	};
 
 	const handleBilledSelect = (field) => (value) => {
 		setCustomBillingDuration(value);
-		setFieldValue({ [field]: value });
+		setFieldValue({[field]: value});
 	};
 
 	const formik = useFormik({
@@ -645,7 +644,7 @@ export const CheckoutForm = ({
 		validateOnChange: false,
 	});
 
-	const { errors, setFieldValue, values } = formik;
+	const {errors, setFieldValue, values} = formik;
 	// console.log('formik values', values);
 
 	//Updating Formik values
@@ -823,7 +822,7 @@ export const CheckoutForm = ({
 			if (
 				product.check_out_details &&
 				product.check_out_details.length > 0
-			) { 
+			) {
 				populatePricing(product?.check_out_details);
 				// setFixedOriginalPrice(fixedOriginalPrice);
 			}
@@ -1184,8 +1183,8 @@ export const CheckoutForm = ({
 										isCouponDiabled
 											? 'DISABLED'
 											: applyCoupon
-												? 'ENABLED'
-												: 'DISABLED'
+											? 'ENABLED'
+											: 'DISABLED'
 										// ? 'ON'
 										// 	: 'OFF'
 									}
@@ -1265,7 +1264,7 @@ export const CheckoutForm = ({
 										onChange={formik.handleChange}
 										disabled={
 											couponVariance.is_fixed_amount ===
-												true
+											true
 												? false
 												: true
 										}
@@ -1787,11 +1786,13 @@ export const CheckoutForm = ({
 										How much percentage are you willing to
 										pay affiliate
 										<p
-											className={`${styles.commisionAllowed
-												} ${afiliatePercentage === ''
+											className={`${
+												styles.commisionAllowed
+											} ${
+												afiliatePercentage === ''
 													? styles.show
 													: ''
-												}`}
+											}`}
 										>
 											Commission Percentage value should
 											be between 1 and 100
@@ -1814,13 +1815,13 @@ export const CheckoutForm = ({
 											onChange={(e) => {
 												const commisionAllowed =
 													e.target.value < 101 &&
-														!e.target.value.startsWith(
-															0
-														)
+													!e.target.value.startsWith(
+														0
+													)
 														? e.target.value.replace(
-															/[^0-9]/g,
-															''
-														)
+																/[^0-9]/g,
+																''
+														  )
 														: '';
 												setAfiliatePercentage(
 													commisionAllowed
@@ -1906,10 +1907,10 @@ export const CheckoutForm = ({
 															)
 																? Video
 																: item.file.type.includes(
-																	'audio'
-																)
-																	? Audio
-																	: FileZip
+																		'audio'
+																  )
+																? Audio
+																: FileZip
 														}
 														alt="zip"
 													/>
@@ -1958,10 +1959,12 @@ export const CheckoutForm = ({
 									</p>
 
 									<div
-										className={`${styles.contentFileUpload
-											} ${promotionalMaterial?.length > 0 &&
+										className={`${
+											styles.contentFileUpload
+										} ${
+											promotionalMaterial?.length > 0 &&
 											styles.activeUpload
-											}`}
+										}`}
 										{...getRootProps()}
 									>
 										<input {...getInputProps()} />
