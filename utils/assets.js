@@ -310,8 +310,14 @@ import MailReopen from '../public/images/mail_open.svg';
 import ShoppingCart from '../public/images/shopping_cart.svg';
 import Subscribers2 from '../public/images/subscribers.svg';
 import RestOfTheWorld from '../public/images/rest-of-the-world.svg';
+import VerificationIcon from '../public/images/verification.svg';
+import LargeVerificationIcon from '../public/images/verificationLarge.svg';
+import MediumVerificationIcon from '../public/images/verificationMedium.svg';
 
 export {
+	MediumVerificationIcon,
+	LargeVerificationIcon,
+	VerificationIcon,
 	RestOfTheWorld,
 	Subscribers2,
 	ShoppingCart,

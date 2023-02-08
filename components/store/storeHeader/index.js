@@ -1,4 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Router from 'next/router';
+import Image from 'next/image';
+
+import {useSelector} from 'react-redux';
+import {Avatar, Modal} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
+import Drawer from 'react-bottom-drawer';
+
 import styles from './Index.module.scss';
 import {
 	EditIcon,
@@ -9,13 +17,15 @@ import {
 	Instagram,
 	LinkedIn,
 } from '../../IconPack';
-import {Avatar} from 'antd';
-import {UserOutlined} from '@ant-design/icons';
 import Dropdown from '../../dropdown';
-import Router from 'next/router';
 import Social from './social-media';
-import {useSelector} from 'react-redux';
-import Image from 'next/image';
+import {
+	VerificationIcon,
+	LargeVerificationIcon,
+	RenderIf,
+	MediumVerificationIcon,
+} from '../../../utils';
+import {Button} from 'components';
 
 const CtaButton = ({Icon = () => <></>, label, active}) => {
 	return (
@@ -53,9 +63,20 @@ export const ProtectedStoreHeader = ({
 	publicStoreInfo = {},
 }) => {
 	// console.log('store = ', publicStoreInfo);
-	// const { store } = useSelector((state) => state.store);
-	// console.log('store  = ', store)
-	// console.log('storeName = ', store?.user?.store_name)
+	const {kreatorFullName, kycStatus, storePlan} = useSelector(
+		(state) => state.product
+	);
+	const [showModal, setShowModal] = useState(false);
+	const [showDrawer, setShowDrawer] = useState(false);
+
+	// function to close drawer for mobile
+	const onClose = React.useCallback(() => {
+		setShowDrawer(false);
+	}, []);
+
+	const showBadge = () => {
+		return kycStatus?.kyc_status === 'Approved' && storePlan === 'Business';
+	};
 
 	return (
 		<>
@@ -115,10 +136,36 @@ export const ProtectedStoreHeader = ({
 								)
 							}
 							<div className={styles.txt_wrapper}>
-								<h3>
-									{(brandName ||
-										publicStoreInfo?.brand_name) ??
-										''}
+								<h3 className={`flex gap-1`}>
+									{kreatorFullName || ''}{' '}
+									<RenderIf condition={showBadge()}>
+										{/* mobile */}
+										<div
+											className={`${styles.mobileCheck} flex`}
+										>
+											<Image
+												className={`cursor-pointer`}
+												alt="blue verify checkmark"
+												src={VerificationIcon}
+												onClick={() =>
+													setShowDrawer(true)
+												}
+											/>
+										</div>
+										{/* Desktop view */}
+										<div
+											className={`${styles.desktopCheck} flex`}
+										>
+											<Image
+												className={`cursor-pointer`}
+												alt="blue verify checkmark"
+												src={VerificationIcon}
+												onClick={() =>
+													setShowModal(true)
+												}
+											/>
+										</div>
+									</RenderIf>
 								</h3>
 								<p>
 									https://kreatesell.com/store/
@@ -217,7 +264,69 @@ export const ProtectedStoreHeader = ({
 					</div>
 				</div>
 			)}
+			<VerifiedModal {...{showModal, setShowModal}} />
+			<VerifiedDrawer {...{showDrawer, onClose}} />
 		</>
+	);
+};
+
+const VerifiedModal = ({showModal, setShowModal}) => {
+	return (
+		<>
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => setShowModal(false)}
+				maskClosable={true}
+				className={styles.modalContainer}
+				width={550}
+				closeIcon={<></>}
+				centered
+			>
+				<div className={`${styles.modal} flex flex-col `}>
+					<Image alt="" src={LargeVerificationIcon} />
+					<h2 className={`text-center mt-3`}>Verified Account</h2>
+					<h5 className={``}>
+						This store is officially registered as a business on
+						KreateSell. They have been verified and you can pay them
+						using Paypal, Stripe, Cryptocurrency and other advanced
+						payment options. <span role="link">Learn more...</span>
+					</h5>
+				</div>
+			</Modal>
+		</>
+	);
+};
+
+const VerifiedDrawer = ({showDrawer, onClose}) => {
+	return (
+		<Drawer
+			isVisible={showDrawer}
+			onClose={onClose}
+			// mountOnEnter={true}
+			// unmountOnExit={true}
+			// duration={250}
+			// hideScrollbar={false}
+			className={styles.drawerContainer}
+		>
+			<div className={`${styles.modal} flex flex-col py-10`}>
+				<Image alt="" src={MediumVerificationIcon} />
+				<h2 className={`text-center mt-3`}>Verified Account</h2>
+				<h5 className={``}>
+					This store is officially registered as a business on
+					KreateSell. They have been verified and you can pay them
+					using Paypal, Stripe, Cryptocurrency and other advanced
+					payment options. <span role="link">Learn more...</span>
+				</h5>
+				<div
+					className={`${styles.buttonContainer} mt-5`}
+					onClick={onClose}
+				>
+					<Button text="Got It" bgColor="white" />
+				</div>
+			</div>
+		</Drawer>
 	);
 };
 

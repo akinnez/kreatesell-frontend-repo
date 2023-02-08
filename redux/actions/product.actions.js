@@ -526,6 +526,9 @@ export const FetchSingleStoreProduct = () => {
 					singleStoreProducts,
 					singleStorePaginationDetails: {...data?.products},
 					defaultCurrency: data?.default_currency,
+					kreatorFullName: data?.kreator_full_name,
+					storePlan: data?.user_plan,
+					kycStatus: data?.kyc_status,
 				};
 
 				dispatch({

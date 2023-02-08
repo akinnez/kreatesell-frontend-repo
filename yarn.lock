@@ -2420,6 +2420,11 @@ bn.js@^5.0.0, bn.js@^5.1.1:
   resolved "https://registry.npmjs.org/bn.js/-/bn.js-5.2.0.tgz"
   integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
 
+body-scroll-lock@^3.0.1:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-3.1.5.tgz#c1392d9217ed2c3e237fee1e910f6cdd80b7aaec"
+  integrity sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==
+
 boolbase@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
@@ -7405,6 +7410,17 @@ react-auth-code-input@^1.2.1:
   resolved "https://registry.npmjs.org/react-auth-code-input/-/react-auth-code-input-1.2.1.tgz"
   integrity sha512-+S5yBwi/lv/2/jolaryx1veHXDIomeIL/YOx1HVpqIWFlFz2eXWFNN8aA3RniJmp+YzVc5G04gQlFLpXT8Km+w==
 
+react-bottom-drawer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-bottom-drawer/-/react-bottom-drawer-0.1.1.tgz#6d54a44ec061c4c0734fecefe5bb8ce552b8d9f3"
+  integrity sha512-V2v2BAe/ZM22tuKyaFJEDBB4sCZdHkmi19p//gfFZpC1bInMVBxqbD8n00DteoXypIx199tG8Dkl0qyjm7P/Fg==
+  dependencies:
+    body-scroll-lock "^3.0.1"
+    clsx "^1.1.1"
+    lodash.debounce "^4.0.8"
+    react-swipeable "^5.5.1"
+    react-transition-group "^4.3.0"
+
 react-calendar@^3.3.1, react-calendar@^3.4.0:
   version "3.6.0"
   resolved "https://registry.npmjs.org/react-calendar/-/react-calendar-3.6.0.tgz"
@@ -7766,6 +7782,13 @@ react-style-singleton@^2.1.0:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^1.0.0"
+
+react-swipeable@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-5.5.1.tgz#48ae6182deaf62f21d4b87469b60281dbd7c4a76"
+  integrity sha512-EQObuU3Qg3JdX3WxOn5reZvOSCpU4fwpUAs+NlXSN3y+qtsO2r8VGkVnOQzmByt3BSYj9EWYdUOUfi7vaMdZZw==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-test-renderer@^17.0.0, react-test-renderer@^17.0.2:
   version "17.0.2"
