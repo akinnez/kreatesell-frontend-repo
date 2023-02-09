@@ -29,8 +29,9 @@
 }
 
 .affiliate__info {
-	@include mixins.flex(row, center, flex-start);
+	@include mixins.flex(row, center, center);
 	column-gap: 5px;
+	gap: 1rem;
 
 	> span:first-child {
 		margin-top: 3px;
@@ -65,6 +66,10 @@
 			color: colors.$gray-200;
 		}
 	}
+}
+
+.isAffiliate {
+	color: #8c8c8c !important;
 }
 
 @include screens.minScreen('tablet') {

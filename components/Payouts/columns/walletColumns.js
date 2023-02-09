@@ -4,13 +4,21 @@ import dateFormat from 'utils/dateFormat';
 
 export const walletColumns = [
 	{
-		title: 'Amount Withdrawn',
+		title: 'Amount',
 		render: (record) => `${record.currency} ${record.amount}`,
 	},
 	{
-		title: 'Description',
+		title: 'Type',
+		dataIndex: 'direction',
 		render: (record) =>
-			`${record.bank_name} (${formatAccountNumber(record.bank_account)})`,
+			record?.toLowerCase() === 'c' ? 'Credit' : 'Debit',
+	},
+	{
+		title: 'Description',
+		dataIndex: 'remarks',
+		// render: (record) =>
+		// 	`${record.bank_name} (${formatAccountNumber(record.bank_account)})`,
+		render: (record) => record,
 	},
 	{
 		title: 'Withdrawal Date',

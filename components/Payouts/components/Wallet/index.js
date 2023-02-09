@@ -1,7 +1,9 @@
 import {useState} from 'react';
-import useSWR from 'swr';
 import {useRouter} from 'next/router';
+
+import useSWR from 'swr';
 import {Table, Pagination, Spin, Modal, Button} from 'antd';
+
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
 import PaginationSizeChanger from 'components/PaginationSizeChanger';
 import WalletBalance from '../WalletBalance';
@@ -22,8 +24,12 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const [loading, setLoading] = useState(false);
 	const Router = useRouter();
 
+	// const {url, filters, setFilters} = useFilters(
+	// 	'v1/kreatesell/store/wallet/history'
+	// );
+	// TODO: put the wallet ID
 	const {url, filters, setFilters} = useFilters(
-		'affiliate/get-wallet-history'
+		'v1/kreatesell/store/wallet/history'
 	);
 
 	const {data, error, isValidating} = useSWR(url, (url) => {
@@ -42,8 +48,9 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 		);
 	});
 
-	const histories = data || [];
+	const histories = data?.data || [];
 	const historiesTotal = data?.total_records || 0;
+	console.log('histories', histories);
 
 	let isLoading;
 
@@ -56,6 +63,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	} else {
 		isLoading = false;
 	}
+	// console.log('data', data);
 
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
@@ -64,6 +72,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 		return <Loader />;
 	}
 
+	// TODO: Check to see if this if statement is still required
 	if (
 		typeof data === 'string' &&
 		data.includes(
@@ -116,11 +125,11 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 				<Filters setFilters={setFilters} setLoading={setLoading} />
 			</section>
 			<section>
-				<SyncDataToCSV
+				{/* <SyncDataToCSV
 					data={histories}
 					headers={walletHeaders}
 					filename="wallet_history"
-				/>
+				/> */}
 			</section>
 			<Spin spinning={isLoading} wrapperClassName={styles.spin__wrapper}>
 				<PaginationSizeChanger

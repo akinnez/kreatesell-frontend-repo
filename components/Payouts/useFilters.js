@@ -10,9 +10,10 @@ const useFilters = (api) => {
 		to: '',
 	});
 
-	const url = new URL(
-		`${process.env.BASE_URL}${api}?Page=${filters.page}&Limit=${filters.limit}`
-	);
+	// const url = new URL(
+	// 	`${process.env.BASE_URL}${api}?Page=${filters.page}&Limit=${filters.limit}`
+	// );
+	const url = new URL(`${process.env.BASE_URL}${api}`);
 
 	if (filters.productName) {
 		url.searchParams.set('Product_Name', filters.productName);
