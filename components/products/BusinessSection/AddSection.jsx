@@ -19,7 +19,6 @@ import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
 
 export default function AddSection({toSection}) {
 	const [productSection, setProductSection] = useState(null);
-	console.log(productSection, 'productSection');
 	const {product, productID} = useSelector((state) => state.product);
 
 	const createSection = CreateSection();
@@ -213,6 +212,7 @@ export default function AddSection({toSection}) {
 			setProductSection(product_content);
 		}
 	}, [product]);
+	// console.log('productSection', productSection);
 	return (
 		<div className={styles.allSection}>
 			{productSection !== null &&

@@ -26,6 +26,7 @@ import {
 	MediumVerificationIcon,
 } from '../../../utils';
 import {Button} from 'components';
+import {VerifiedModal, VerifiedDrawer} from 'components/VerifiedComponents';
 
 const CtaButton = ({Icon = () => <></>, label, active}) => {
 	return (
@@ -264,69 +265,46 @@ export const ProtectedStoreHeader = ({
 					</div>
 				</div>
 			)}
-			<VerifiedModal {...{showModal, setShowModal}} />
-			<VerifiedDrawer {...{showDrawer, onClose}} />
+			<VerifiedModal {...{showModal, setShowModal}}>
+				<VerifiedModalChildren />
+			</VerifiedModal>
+			<VerifiedDrawer {...{showDrawer, onClose}}>
+				<VerifiedDrawerChildren {...{onClose}} />
+			</VerifiedDrawer>
 		</>
 	);
 };
 
-const VerifiedModal = ({showModal, setShowModal}) => {
+const VerifiedModalChildren = () => {
 	return (
-		<>
-			<Modal
-				title={null}
-				footer={null}
-				visible={showModal}
-				onCancel={() => setShowModal(false)}
-				maskClosable={true}
-				className={styles.modalContainer}
-				width={550}
-				closeIcon={<></>}
-				centered
-			>
-				<div className={`${styles.modal} flex flex-col `}>
-					<Image alt="" src={LargeVerificationIcon} />
-					<h2 className={`text-center mt-3`}>Verified Account</h2>
-					<h5 className={``}>
-						This store is officially registered as a business on
-						KreateSell. They have been verified and you can pay them
-						using Paypal, Stripe, Cryptocurrency and other advanced
-						payment options. <span role="link">Learn more...</span>
-					</h5>
-				</div>
-			</Modal>
-		</>
+		<div className={`${styles.modal} flex flex-col `}>
+			<Image alt="" src={LargeVerificationIcon} />
+			<h2 className={`text-center mt-3`}>Verified Account</h2>
+			<h5 className={``}>
+				This store is officially registered as a business on KreateSell.
+				They have been verified and you can pay them using Paypal,
+				Stripe, Cryptocurrency and other advanced payment options.{' '}
+				<span role="link">Learn more...</span>
+			</h5>
+		</div>
 	);
 };
 
-const VerifiedDrawer = ({showDrawer, onClose}) => {
+const VerifiedDrawerChildren = ({onClose}) => {
 	return (
-		<Drawer
-			isVisible={showDrawer}
-			onClose={onClose}
-			// mountOnEnter={true}
-			// unmountOnExit={true}
-			// duration={250}
-			// hideScrollbar={false}
-			className={styles.drawerContainer}
-		>
-			<div className={`${styles.modal} flex flex-col py-10`}>
-				<Image alt="" src={MediumVerificationIcon} />
-				<h2 className={`text-center mt-3`}>Verified Account</h2>
-				<h5 className={``}>
-					This store is officially registered as a business on
-					KreateSell. They have been verified and you can pay them
-					using Paypal, Stripe, Cryptocurrency and other advanced
-					payment options. <span role="link">Learn more...</span>
-				</h5>
-				<div
-					className={`${styles.buttonContainer} mt-5`}
-					onClick={onClose}
-				>
-					<Button text="Got It" bgColor="white" />
-				</div>
+		<div className={`${styles.drawer} flex flex-col py-10`}>
+			<Image alt="" src={MediumVerificationIcon} />
+			<h2 className={`text-center mt-3`}>Verified Account</h2>
+			<h5 className={``}>
+				This store is officially registered as a business on KreateSell.
+				They have been verified and you can pay them using Paypal,
+				Stripe, Cryptocurrency and other advanced payment options.{' '}
+				<span role="link">Learn more...</span>
+			</h5>
+			<div className={`${styles.buttonContainer} mt-5`} onClick={onClose}>
+				<Button text="Got It" bgColor="white" />
 			</div>
-		</Drawer>
+		</div>
 	);
 };
 
