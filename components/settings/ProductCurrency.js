@@ -236,7 +236,9 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 					section. Any currency that you don&apos;t select here will
 					be automatically converted if used by your customer.
 				</p>
-				<div className={`flex justify-between`}>
+				<div
+					className={`flex justify-between ${style.customizeContainer}`}
+				>
 					<h4>
 						Customize the amount you can set when adding a product
 					</h4>
@@ -253,12 +255,15 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 				</div>
 
 				<div style={{width: '100%'}}>
-					<Row>
+					<Row gutter={[50, 0]}>
 						{countriesCurrency?.map((cur, i) => (
 							<Col
 								key={i}
-								md={4}
-								sm={8}
+								xl={3}
+								lg={6}
+								md={6}
+								sm={6}
+								xs={12}
 								style={{marginBlockEnd: '1rem'}}
 							>
 								<CustomCheck
@@ -311,12 +316,15 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 					</CustomCheck>
 				</div>
 				<div style={{width: '100%'}}>
-					<Row>
+					<Row gutter={[50, 0]}>
 						{filterdWest?.map((cur, i) => (
 							<Col
 								key={i}
-								md={5}
-								sm={8}
+								// xl={3}
+								lg={6}
+								md={6}
+								sm={6}
+								xs={12}
 								style={{marginBlockEnd: '1rem'}}
 							>
 								<CustomCheck
@@ -368,12 +376,14 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 					</CustomCheck>
 				</div>
 				<div style={{width: '100%'}}>
-					<Row>
+					<Row gutter={[50, 0]}>
 						{filteredCentral?.map((cur, i) => (
 							<Col
 								key={i}
-								md={4}
+								lg={6}
+								md={6}
 								sm={6}
+								xs={12}
 								style={{marginBlockEnd: '1rem'}}
 							>
 								<CustomCheck

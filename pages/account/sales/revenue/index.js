@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
+import Image from 'next/image';
 
 import useSWR from 'swr';
 import {Table, Card} from 'antd';
@@ -11,6 +12,7 @@ import useFilters from 'components/TransactionComponents/useFilters';
 import axiosAPI from 'utils/axios';
 import {dateString} from 'utils/dateFormat';
 import {emptyComponent} from 'components';
+import {Cart} from 'utils';
 
 const statusComponent = (item) => {
 	const statusTextList = {
@@ -20,7 +22,7 @@ const statusComponent = (item) => {
 				background: '#F1FCF8',
 				borderRadius: '.5rem',
 				color: ' #2DC071',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -30,7 +32,7 @@ const statusComponent = (item) => {
 				background: 'rgba(0, 0, 0, 0.05)',
 				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -40,7 +42,7 @@ const statusComponent = (item) => {
 				background: 'rgba(0, 0, 0, 0.05)',
 				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -50,7 +52,7 @@ const statusComponent = (item) => {
 				background: '#F1FCF8',
 				borderRadius: '.5rem',
 				color: ' #2DC071',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -60,7 +62,7 @@ const statusComponent = (item) => {
 				background: 'rgba(255, 77, 79, 0.1)',
 				borderRadius: '.5rem',
 				color: '#F90005',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -70,7 +72,7 @@ const statusComponent = (item) => {
 				background: 'rgba(0, 0, 0, 0.05)',
 				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -80,7 +82,7 @@ const statusComponent = (item) => {
 				background: 'rgba(0, 0, 0, 0.05)',
 				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -90,7 +92,7 @@ const statusComponent = (item) => {
 				background: 'rgba(0, 0, 0, 0.05)',
 				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -218,9 +220,9 @@ const CardComponent = ({data}) => {
 					</div>
 				</div>
 				<div className={styles.heading}>
-					{/* <Image /> */}
-					<h1 className={styles.title}>
-						{data?.products || 'UI Design Introduction'}
+					<h1 className={`${styles.title} flex gap-2`}>
+						<Image src={Cart} alt="" />
+						{data?.products || ''}
 					</h1>
 				</div>
 				<ul className={styles.orderDetails}>
@@ -242,7 +244,7 @@ const CardComponent = ({data}) => {
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Commission</h1>
 						<p className={`${styles.value} mb-0`}>
-							{data?.commission}
+							{data?.commission_currency} {data?.commission}
 						</p>
 					</li>
 

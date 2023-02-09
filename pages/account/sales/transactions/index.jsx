@@ -17,6 +17,8 @@ import {
 	handleShowFilter,
 	DropDownIcon,
 	DropDownUpIcon,
+	Cart,
+	Copy,
 } from 'utils';
 import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
@@ -28,7 +30,7 @@ const statusComponent = (item) => {
 				background: '#F1FCF8',
 				borderRadius: '.5rem',
 				color: ' #2DC071',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -38,7 +40,7 @@ const statusComponent = (item) => {
 				background: 'rgba(0, 0, 0, 0.05)',
 				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '1rem',
+				fontSize: '.85rem',
 			},
 			contents: '',
 		},
@@ -219,9 +221,8 @@ const CardComponent = ({data}) => {
 					</div>
 				</div>
 				<div className={styles.heading}>
-					{/* <Image /> */}
-					<h1 className={styles.title}>
-						{data.product || 'UI Design Introduction'}
+					<h1 className={`${styles.title} flex gap-2`}>
+						<Image alt="" src={Cart} /> {`  ${data.product}` || ''}
 					</h1>
 				</div>
 				<ul className={styles.orderDetails}>
@@ -258,7 +259,7 @@ const CardComponent = ({data}) => {
 							{showCustomer ? (
 								<Image src={DropDownUpIcon} alt="icon" />
 							) : (
-								<Image src={DropDownIcon} alt="" />
+								<Image src={DropDownIcon} alt="icon" />
 							)}
 						</span>
 					</h2>
@@ -270,18 +271,30 @@ const CardComponent = ({data}) => {
 						}`}
 					>
 						<li className={styles.customerDetail}>
-							<h1 className={`${styles.key} mb-0`}>Order ID</h1>
+							<h1 className={`${styles.key} mb-0`}>
+								Reference ID
+							</h1>
 							<p className={`${styles.value} mb-0`}>
-								#{data.order_id}
+								76543289651
 							</p>
 						</li>
 						<li className={styles.customerDetail}>
 							<h1 className={`${styles.key} mb-0`}>
-								Product Price
+								Customer Name
 							</h1>
 							<p className={`${styles.value} mb-0`}>
-								{data.currency}{' '}
-								{formatNumberToLocaleString(data.price)}
+								{data?.customer_full_name}
+							</p>
+						</li>
+						<li className={styles.customerDetail}>
+							<h1 className={`${styles.key} mb-0`}>
+								Email Address
+							</h1>
+							<p
+								className={`${styles.value} mb-0 flex align-center gap-2`}
+							>
+								<Image alt="" src={Copy} />
+								{data?.customer_email_address}
 							</p>
 						</li>
 					</ul>

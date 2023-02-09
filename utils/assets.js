@@ -313,8 +313,12 @@ import RestOfTheWorld from '../public/images/rest-of-the-world.svg';
 import VerificationIcon from '../public/images/verification.svg';
 import LargeVerificationIcon from '../public/images/verificationLarge.svg';
 import MediumVerificationIcon from '../public/images/verificationMedium.svg';
+import Cart from '../public/images/Cart.svg';
+import Copy from '../public/images/copy.svg';
 
 export {
+	Copy,
+	Cart,
 	MediumVerificationIcon,
 	LargeVerificationIcon,
 	VerificationIcon,
