@@ -815,7 +815,7 @@ export const CheckoutForm = ({
 			if (product.product_details.is_show_number_of_sales) {
 				setShowTotalSales(true);
 			}
-			if (product.product_details.who_bears_fee) {
+			if (product.is_buyer_pays_for_fee === true) {
 				setBuyerPaysTransactionFee(true);
 			}
 

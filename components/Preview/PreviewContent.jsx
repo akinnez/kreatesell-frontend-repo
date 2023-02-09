@@ -70,41 +70,74 @@ export default function PreviewContent({
 		(state) => state.currencyConverter
 	);
 
-	const productId = product?.product_details?.kreasell_product_id;
+	// const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
 
 	const affiliateRef = router.query.ref;
 	const affiliateUniqueKey = router.query.uniqkey;
 	const storename = router.query.storename;
+	const productId = router.query?.id;
 
 	//set cookie on load of the component
 	const getAffiliateCookie = () => {
-		Cookies.set('affliate-product-id', productId, {
-			expires: 365 * 60,
-		});
-		Cookies.set('affliate-unique-key', affiliateUniqueKey, {
-			expires: 365 * 60,
-		});
-		Cookies.set('affliate-createdAt', new Date(), {
-			expires: 365 * 60,
-		});
+		const affilateCookieObj = {
+			affiliate_product_id: productId,
+			affliate_uniquekey: affiliateUniqueKey,
+			affliate_createdAt: new Date(),
+		};
+		//to test in  two minutes
+		// let inTowMinutes = new Date(new Date().getTime() + 2 * 60 * 1000)
+
+		Cookies.set(
+			'affliate-cookie-storage',
+			JSON.stringify(affilateCookieObj),
+			{
+				expires: 365 * 60,
+			}
+		);
+
+		return;
+
+		// if (productId) {
+		// 	Cookies.set('affliate-product-id', productId, {
+		// 		expires: 365 * 60,
+		// 	});
+		// }
+		// Cookies.set('affliate-unique-key', affiliateUniqueKey, {
+		// 	expires: 365 * 60,
+		// });
+		// Cookies.set('affliate-createdAt', new Date(), {
+		// 	expires: 365 * 60,
+		// });
 
 		//i neeed another way to persist the data immediately it is being set
-		window.location.reload();
+		// window.location.reload();
 	};
 
 	useEffect(() => {
+		// to prevent infinite loops in the product preview page without afilliate link
 		if (!affiliateRef && !affiliateUniqueKey) return;
+
 		//run check to see if exist
-		const cookieCreatedAt = Cookies.get('affliate-createdAt');
-		const cookieUniqueKey = Cookies.get('affliate-unique-key');
-		cookieCreatedAt && cookieUniqueKey === affiliateUniqueKey
+		const affiliteCookieOObject = Cookies.get('affliate-cookie-storage');
+		const cookieObj = affiliteCookieOObject
+			? JSON.parse(affiliteCookieOObject)
+			: null;
+
+		const cookieCreatedAt = cookieObj?.affliate_createdAt;
+		const cookieUniqueKey = cookieObj?.affliate_uniquekey;
+		const cookieProductId = cookieObj?.affiliate_product_id;
+
+		cookieCreatedAt &&
+		cookieUniqueKey === affiliateUniqueKey &&
+		cookieProductId === productId
 			? setCookieExpiryTime(cookieCreatedAt)
 			: getAffiliateCookie();
 	}, []);
 
 	const currentDate = new Date();
 	const dateToCompare = new Date(cookieExpiryTime);
+	console.log(dateToCompare, 'dateToCompare');
 	const monthDifference =
 		(dateToCompare.getFullYear() - currentDate.getFullYear()) * 12 +
 		(dateToCompare.getMonth() - currentDate.getMonth());

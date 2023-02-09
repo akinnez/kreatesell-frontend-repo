@@ -109,6 +109,8 @@ const Checkout = () => {
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
 	const [taxValue, setTaxValue] = useState(null);
+	const [isChargable, setIsChargable] = useState(null);
+	const [transactionFee, setTransactionFee] = useState(0);
 
 	const testCurrency = activeCurrency?.currency
 		? activeCurrency?.currency
@@ -167,6 +169,7 @@ const Checkout = () => {
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 			setTaxValue(response?.data?.data?.store_dto?.custom_tax_amount);
+			setIsChargable(response.data?.data?.is_buyer_pays_for_fee);
 		} catch (error) {
 			console.log(error);
 		}
@@ -193,7 +196,7 @@ const Checkout = () => {
 				checkOutInNaira?.price
 			);
 		} else if (priceOrName === 'total') {
-			return taxValue ? getTaxDeduction() : totalFee;
+			return taxValue ? getTaxDeduction('getCal') : totalFee;
 		} else if (priceOrName === 'minimum') {
 			return (
 				MinimumPrices?.price ||
@@ -434,10 +437,40 @@ const Checkout = () => {
 			? basicSubtotal
 			: standardPrice;
 
-	const getTaxDeduction = () => {
-		const calTax = (Number(taxValue) / 100) * subTotal;
-		return Number(calTax) + Number(subTotal);
+	const getTaxDeduction = (val) => {
+		const calTax = Number(((taxValue / 100) * subTotal).toFixed(2));
+		return val === 'getVal'
+			? calTax
+			: Number(calTax) + Number(subTotal) + Number(transactionFee);
 	};
+
+	// calculate bearable fee from customer's indication
+	useEffect(() => {
+		const getTransactionFees = async () => {
+			// if (isChargable === "customer") {
+			try {
+				await axios
+					.get(
+						`https://kreatesell.io/api/v1/kreatesell/product/get-bearable-fee/${
+							activeCurrency?.currency_name ||
+							activeCurrency?.currency
+						}`
+					)
+					//get actual fees and percentage indications
+					.then((res) => {
+						const value = res?.data?.data?.fee_amount;
+						const percentageValue = Number(
+							((value / 100) * subTotal).toFixed(2)
+						);
+						setTransactionFee(percentageValue);
+					});
+			} catch (err) {
+				console.log(err);
+				// }
+			}
+		};
+		getTransactionFees();
+	}, [activeCurrency?.currency, activeCurrency?.currency_name, subTotal]);
 
 	// const calcNgN = 5 / 100 * subTotal
 
@@ -478,7 +511,6 @@ const Checkout = () => {
 		couponCode: '',
 	};
 
-	console.log('storeDetails', storeDetails);
 	const handleSubmit = async () => {
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
@@ -1377,9 +1409,14 @@ const Checkout = () => {
 
 									<div className="flex justify-between">
 										<p>Tax</p>
-										<p>{taxValue || 0}</p>
+										<p>{getTaxDeduction('getVal') || 0}</p>
 									</div>
-
+									{isChargable === true && (
+										<div className="flex justify-between">
+											<p>Transaction fees</p>
+											<p>{transactionFee || 0}</p>
+										</div>
+									)}
 									<div className="divider"></div>
 
 									<div className="flex justify-between">
@@ -1387,8 +1424,15 @@ const Checkout = () => {
 										<p className="text-primary-blue font-medium">
 											{getCurrency('currency')}{' '}
 											{taxValue
-												? getTaxDeduction()
-												: Number(totalFee).toFixed(2)}
+												? Number(
+														getTaxDeduction(
+															'getCal'
+														)
+												  ).toFixed(2)
+												: Number(
+														totalFee +
+															transactionFee
+												  ).toFixed(2)}
 										</p>
 									</div>
 								</div>
