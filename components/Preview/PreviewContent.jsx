@@ -1,17 +1,24 @@
-import styles from './PreviewHeader.module.scss';
-import {useSelector} from 'react-redux';
-import {useState, useEffect} from 'react';
-import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
-import {Button} from 'antd';
-import {Button as NormalButton} from 'components';
+import {useState, useEffect, useCallback} from 'react';
 import {useRouter} from 'next/router';
+
+import {useSelector} from 'react-redux';
+import {Button} from 'antd';
+import Cookies from 'js-cookie';
+
+import styles from './PreviewHeader.module.scss';
+import {Button as NormalButton} from 'components';
+import {VerifiedModal, VerifiedDrawer} from 'components/VerifiedComponents';
 import {
 	RightPreviewArrow,
 	LeftPreviewArrow,
 	ExternalLink,
 	ProductDeactivated,
+	RenderIf,
+	VerificationIcon,
+	LargeVerificationIcon,
+	MediumVerificationIcon,
 } from 'utils';
 
 var options = {
@@ -42,11 +49,23 @@ export default function PreviewContent({
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
 	// const []
 
+	// verification modal and drawers controls
+	const [showModal, setShowModal] = useState(false);
+	const [showDrawer, setShowDrawer] = useState(false);
+
+	// function to close drawer for mobile
+	const onClose = useCallback(() => {
+		setShowDrawer(false);
+	}, []);
+
 	const router = useRouter();
 
 	const {store} = useSelector((state) => state?.store);
 
-	const {product} = useSelector((state) => state?.product);
+	const {product, kycStatus, storePlan} = useSelector(
+		(state) => state?.product
+	);
+
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
@@ -133,6 +152,8 @@ export default function PreviewContent({
 		return minPrice?.currency_name;
 	};
 
+	// NOTE: Because this page can be both a preview(kreator's) and product page(buyer's)
+	// user is not always enough
 	const {user} = useSelector((state) => state?.auth);
 
 	const formatPrice = (amount, decimalPlaces = 2) =>
@@ -195,6 +216,14 @@ export default function PreviewContent({
 		}
 	}, [store]);
 
+	const showBadge = () => {
+		return (
+			product?.kyc_status?.kyc_status === 'Approved' &&
+			product?.user_plan === 'Business'
+		);
+		// return kycStatus?.kyc_status === 'Approved' && storePlan === 'Business';
+	};
+
 	const isProductOutOfStock = () => {
 		if (product?.product_details) {
 			const {is_limited_sales, number_of_product} =
@@ -245,6 +274,9 @@ export default function PreviewContent({
 				styles.contentContainer + ' flex flex-col bg-white rounded-lg'
 			}
 		>
+			<VerifiedDrawer {...{showDrawer, onClose}}>
+				<VerifiedDrawerChildren {...{onClose}} />
+			</VerifiedDrawer>
 			<div className={`flex ${styles.previewContainer}`}>
 				<div className={styles.imageGallery}>
 					<div className={styles.mainImage}>
@@ -257,6 +289,7 @@ export default function PreviewContent({
 							/>
 						)}
 					</div>
+					{/* sub images */}
 					<div className={styles.subImages}>
 						{images !== undefined &&
 							images.length > 0 &&
@@ -311,22 +344,53 @@ export default function PreviewContent({
 							)}
 						</div>
 						<div className="flex  ml-6 flex-col">
-							{Object.keys(user).length > 0 && (
-								<h2 className="text-lg mb-0 font-semibold capitalize">
-									{user?.full_name}
-								</h2>
-							)}
-							<div className={styles.visitLink}>
-								{/* <Link href={domainLink ? domainLink.split('.com')[1] :"/"} className='mb-0 font-medium'><a>Visit Store&nbsp;<Image src={ExternalLink} alt="link" /></a></Link> */}
-								<Link
-									href={domainLink}
-									className="mb-0 font-medium"
+							<div className={`flex flex-col`}>
+								<h2
+									className={`text-lg mb-0 font-semibold capitalize ${styles.userName}`}
 								>
-									<a>
-										Visit Store&nbsp;
-										<Image src={ExternalLink} alt="link" />
-									</a>
-								</Link>
+									{product?.kreator_full_name ||
+										user?.full_name}
+									<RenderIf condition={showBadge()}>
+										<div
+											className={`${styles.mobileCheck} flex`}
+										>
+											<Image
+												className={`cursor-pointer`}
+												alt="blue verify checkmark"
+												src={VerificationIcon}
+												onClick={() =>
+													setShowDrawer(true)
+												}
+											/>
+										</div>
+										<div
+											className={`${styles.desktopCheck} flex`}
+										>
+											<Image
+												className={`cursor-pointer`}
+												alt="blue verify checkmark"
+												src={VerificationIcon}
+												onClick={() =>
+													setShowModal(true)
+												}
+											/>
+										</div>
+									</RenderIf>
+								</h2>
+								<div className={styles.visitLink}>
+									<Link
+										href={domainLink}
+										className="mb-0 font-medium"
+									>
+										<a>
+											Visit Store&nbsp;
+											<Image
+												src={ExternalLink}
+												alt="link"
+											/>
+										</a>
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -480,6 +544,10 @@ export default function PreviewContent({
 					)}
 				</div>
 			</section>
+			<VerifiedModal {...{showModal, setShowModal}}>
+				<VerifiedModalChildren />
+			</VerifiedModal>
+
 			<style>{`
         .ant-btn[disabled] {
             cursor: not-allowed;
@@ -494,6 +562,38 @@ export default function PreviewContent({
 		</div>
 	);
 }
+const VerifiedModalChildren = () => {
+	return (
+		<div className={`${styles.modal} flex flex-col `}>
+			<Image alt="" src={LargeVerificationIcon} />
+			<h2 className={`text-center mt-3`}>Verified Account</h2>
+			<h5 className={``}>
+				This store is officially registered as a business on KreateSell.
+				They have been verified and you can pay them using Paypal,
+				Stripe, Cryptocurrency and other advanced payment options.{' '}
+				<span role="link">Learn more...</span>
+			</h5>
+		</div>
+	);
+};
+
+const VerifiedDrawerChildren = ({onClose}) => {
+	return (
+		<div className={`${styles.drawer} flex flex-col py-10`}>
+			<Image alt="" src={MediumVerificationIcon} />
+			<h2 className={`text-center mt-3`}>Verified Account</h2>
+			<h5 className={``}>
+				This store is officially registered as a business on KreateSell.
+				They have been verified and you can pay them using Paypal,
+				Stripe, Cryptocurrency and other advanced payment options.{' '}
+				<span role="link">Learn more...</span>
+			</h5>
+			<div className={`${styles.buttonContainer} mt-5`} onClick={onClose}>
+				<Button text="Got It" bgColor="white" />
+			</div>
+		</div>
+	);
+};
 
 // export function getServerSideProps({ req, res }) {
 // 	return { props: { token: req.cookies || "" } }
