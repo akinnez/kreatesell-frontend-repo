@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Image from 'next/image';
-import axios from 'axios'
+import axios from 'axios';
 
-import { Switch, Radio, Input, Popconfirm } from 'antd';
+import {Switch, Radio, Input, Popconfirm} from 'antd';
 
 import {
 	ViewSales,
@@ -40,8 +40,8 @@ const ManageSection = ({
 		try {
 			const response = await axios.head(cloudinaryUrl, {
 				headers: {
-					'Accept-Encoding': 'identity'
-				}
+					'Accept-Encoding': 'identity',
+				},
 			});
 			const size = response.headers['content-length'];
 			return size;
@@ -51,23 +51,27 @@ const ManageSection = ({
 		}
 	}
 
-	const CloudinaryFileSize = ({ cloudinaryUrl }) => {
+	const CloudinaryFileSize = ({cloudinaryUrl}) => {
 		const [fileSize, setFileSize] = useState(null);
 
 		useEffect(() => {
-			extractFileSize(cloudinaryUrl).then(size => {
+			extractFileSize(cloudinaryUrl).then((size) => {
 				setFileSize(size);
 			});
 		}, [cloudinaryUrl]);
 
 		return fileSize !== null ? (
-			<h2 className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}>{fileSize > 1000000 ? `${Number(fileSize / 1000000).toFixed(2)}MB` : `${Number(fileSize / 1000).toFixed(2)}KB`}</h2>
+			<h2
+				className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}
+			>
+				{fileSize > 1000000
+					? `${Number(fileSize / 1000000).toFixed(2)}MB`
+					: `${Number(fileSize / 1000).toFixed(2)}KB`}
+			</h2>
 		) : (
 			<p>Loading file size</p>
 		);
 	};
-
-
 
 	return (
 		<div className="flex flex-col mt-7">
@@ -79,7 +83,7 @@ const ManageSection = ({
 							placeholder="Section title"
 							value={sectionName}
 							className={`text-2xl font-semibold ${styles.titleMain2}`}
-							style={{ width: '9rem' }}
+							style={{width: '9rem'}}
 						/>
 					) : (
 						<h1
@@ -182,16 +186,18 @@ const ManageSection = ({
 											item?.files[0]?.type === 'audio'
 												? Audio
 												: item?.files[0]?.type ===
-													'video'
-													? Video
-													: ImageIcon
+												  'video'
+												? Video
+												: ImageIcon
 										}
 										alt="file"
 									/>
 								}
 							</div>
 							<div className="flex flex-col">
-								<h1 className={`text-xl font-semibold ${styles.productName}`}>
+								<h1
+									className={`text-xl font-semibold ${styles.productName}`}
+								>
 									{item.product_section_name}
 								</h1>
 								{/* {
@@ -199,7 +205,9 @@ const ManageSection = ({
 										className={`text-base font-medium ${styles.digitalProductSize}`}
 									>{item?.files[0]?.filename}</h2>
 								} */}
-								<CloudinaryFileSize cloudinaryUrl={item?.files[0]?.filename} />
+								<CloudinaryFileSize
+									cloudinaryUrl={item?.files[0]?.filename}
+								/>
 							</div>
 						</div>
 						<div className={styles.managedControls}>
@@ -242,7 +250,7 @@ const ManageSection = ({
 										type: 'danger',
 										size: 'large',
 									}}
-									overlayInnerStyle={{ textAlign: 'center' }}
+									overlayInnerStyle={{textAlign: 'center'}}
 									overlayStyle={{
 										width: '350px',
 										padding: '20px',
