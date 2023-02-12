@@ -69,7 +69,6 @@ export const ProtectedStoreHeader = ({
 	);
 	const [showModal, setShowModal] = useState(false);
 	const [showDrawer, setShowDrawer] = useState(false);
-
 	// function to close drawer for mobile
 	const onClose = React.useCallback(() => {
 		setShowDrawer(false);
@@ -112,30 +111,28 @@ export const ProtectedStoreHeader = ({
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
 						<div className={styles.profile_wrapper}>
-							{
-								//*  !publicStoreInfo?.display_picture
-								!displayPicture ? (
-									<div className={styles.image_intro_text}>
-										<Avatar
-											shape="square"
-											className={styles.avatar}
-											size={70}
-											icon={<UserOutlined />}
-										/>
-									</div>
-								) : (
+							{!publicStoreInfo?.display_picture ? (
+								<div className={styles.image_intro_text}>
+									<Avatar
+										shape="square"
+										className={styles.avatar}
+										size={70}
+										icon={<UserOutlined />}
+									/>
+								</div>
+							) : (
+								<>
 									<div
 										className={styles.image_intro_text}
 										style={{
 											backgroundImage: `url(${
-												displayPicture ||
 												publicStoreInfo?.display_picture ||
 												'/images/placeholder-2.jpg'
 											})`,
 										}}
 									/>
-								)
-							}
+								</>
+							)}
 							<div className={styles.txt_wrapper}>
 								<h3 className={`flex gap-1`}>
 									{kreatorFullName || ''}{' '}
