@@ -22,7 +22,7 @@ export const walletColumns = [
 	},
 	{
 		title: 'Withdrawal Date',
-		dataIndex: 'withdrawal_date',
+		dataIndex: 'date_created',
 		render: (date) => dateFormat(date),
 	},
 	{

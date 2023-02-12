@@ -73,7 +73,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 									affiliateBalance?.wallet_balance[0]
 										?.currency_name
 								}
-								balance={available_balance?.kreatorBalance}
+								balance={available_balance}
 							>
 								<div className={styles.withdraw__btn}>
 									<Button
@@ -83,9 +83,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 											true
 										)}
 										disabled={
-											parseFloat(
-												available_balance?.kreatorBalance
-											) <= 0
+											parseFloat(available_balance) <= 0
 										}
 									>
 										Withdraw Funds $
