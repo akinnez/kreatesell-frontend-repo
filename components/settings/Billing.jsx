@@ -7,6 +7,7 @@ import {Dialog, DialogOverlay, DialogContent} from '@reach/dialog';
 
 import useCurrency from 'hooks/useCurrency';
 import useConvertRates from 'hooks/useConvertRates';
+import useLocation from 'hooks/useLocation';
 
 import {PricingCard, Button, UpgradeAccountForm, Select} from 'components';
 
@@ -24,6 +25,7 @@ const Billing = () => {
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
+	const {countryDetails, countryDetailsLoading} = useLocation();
 
 	const {data: upgradePlanPrices, error: upgradePlanErrors} =
 		useGetUpgradePlansPrices();
@@ -59,7 +61,8 @@ const Billing = () => {
 	const [selectedCurrency, setSelectedCurrency] = useState('');
 
 	const {handleCurrencyConversion, getCurrency} = useConvertRates(
-		store?.bank_details?.currency_name,
+		// store?.bank_details?.currency_name, //TODO: Adjust this to be dynamic
+		'NGN',
 		selectedCurrency
 	);
 
@@ -97,10 +100,12 @@ const Billing = () => {
 
 	// useEffect to default to a currency
 	useEffect(() => {
-		if (countryOptions.length > 0 && !modal) {
+		if (countryDetails?.currency) {
+			setSelectedCurrency(countryDetails?.currency);
+		} else if (countryOptions.length > 0 && !modal) {
 			setSelectedCurrency(countryOptions[0]?.currency);
 		}
-	}, [countryOptions.length]);
+	}, [countryOptions.length, countryDetails?.currency]);
 
 	//   useEffect to calculate price
 	useEffect(() => {
@@ -203,7 +208,11 @@ const Billing = () => {
 								arrowIconColor="#0072EF"
 								borderColor="#40A9FF"
 								cb={(e) => setSelectedCurrency(e)}
-								defaultValue={countryOptions?.[0]?.value}
+								defaultValue={
+									selectedCurrency ||
+									countryOptions?.[0]?.value
+								}
+								loading={countryDetailsLoading}
 							/>
 						</div>
 					</div>
