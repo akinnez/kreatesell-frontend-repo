@@ -50,7 +50,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 
 	const histories = data?.data || [];
 	const historiesTotal = data?.total_records || 0;
-	console.log('histories', histories);
+	// console.log('histories', histories);
 
 	let isLoading;
 
