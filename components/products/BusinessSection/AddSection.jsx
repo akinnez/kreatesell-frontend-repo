@@ -1,6 +1,6 @@
-import {Button, Input, Tooltip} from 'antd';
+import { Button, Input, Tooltip } from 'antd';
 import styles from './MembershipTab.module.scss';
-import {DeleteProduct, DuplicateProduct} from 'utils';
+import { DeleteProduct, DuplicateProduct } from 'utils';
 import Image from 'next/image';
 import {
 	HandleBar,
@@ -12,20 +12,20 @@ import {
 	MobileTrashIcon,
 	MobileViewSubscribers,
 } from 'utils';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import {
 	BsFillPencilFill,
 	BsFillXCircleFill,
 	BsFillCheckCircleFill,
 } from 'react-icons/bs';
-import {useSelector} from 'react-redux';
-import {useState, useEffect} from 'react';
-import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
-import {useRouter} from 'next/router';
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { CreateSection, AuthGetProductById, CreateContent } from 'redux/actions';
+import { useRouter } from 'next/router';
 
-export default function AddSection({toSection}) {
+export default function AddSection({ toSection }) {
 	const [productSection, setProductSection] = useState(null);
-	const {product} = useSelector((state) => state.product);
+	const { product } = useSelector((state) => state.product);
 	const [openInput, setOpenInput] = useState(false);
 	const [openLectureInput, setOpenLectureInput] = useState(false);
 	const router = useRouter();
@@ -80,17 +80,16 @@ export default function AddSection({toSection}) {
 		validationSchema: '',
 		validateOnChange: false,
 	});
-	const {setFieldValue} = formik;
+	const { setFieldValue } = formik;
 
-	const {setFieldValue: setSubValue} = subFormik;
+	const { setFieldValue: setSubValue } = subFormik;
 	const addSection = () => {
 		createSection(
 			{
 				product_id: product?.product_details?.id,
 				kreatesell_id: product?.product_details?.kreasell_product_id,
-				product_content_name: `Section ${
-					product?.product_content.length + 1
-				}`,
+				product_content_name: `Section ${product?.product_content.length + 1
+					}`,
 				action: 'c',
 			},
 			() => {
@@ -143,7 +142,7 @@ export default function AddSection({toSection}) {
 		);
 	};
 	const handleClick = (target) => {
-		const {nextElementSibling: element} = target;
+		const { nextElementSibling: element } = target;
 		target.style.display = 'none';
 		element.style.display = 'block';
 	};
@@ -165,9 +164,8 @@ export default function AddSection({toSection}) {
 		createContent(
 			{
 				section_id: item.id,
-				product_section_name: `Lecture ${
-					item.product_subsection.length + 1
-				}`,
+				product_section_name: `Lecture ${item.product_subsection.length + 1
+					}`,
 				product_section_description: 'Kindly add a brief description',
 				upload_product_file: true,
 				product_visibility_status: 1,
@@ -221,7 +219,7 @@ export default function AddSection({toSection}) {
 	};
 	useEffect(() => {
 		if (Object.keys(product).length > 0) {
-			const {product_content} = product;
+			const { product_content } = product;
 			setProductSection(product_content);
 		}
 	}, [product]);
@@ -243,12 +241,22 @@ export default function AddSection({toSection}) {
 										<h2 className="text-base mb-0 ml-2 font-medium cursor-pointer">
 											{item.section_name}
 										</h2>
-										<div
-											className="ml-4 cursor-pointer"
-											onClick={() => setOpenInput(true)}
+										<Tooltip
+											color="white"
+											overlayInnerStyle={{ color: 'black' }}
+											overlayStyle={{
+												backgroundColor: 'white',
+											}}
+											placement="right"
+											title="Rename section"
 										>
-											<BsFillPencilFill className="text-gray-500" />
-										</div>
+											<div
+												className="ml-4 cursor-pointer"
+												onClick={() => setOpenInput(true)}
+											>
+												<BsFillPencilFill className="text-gray-500" />
+											</div>
+										</Tooltip>
 									</div>
 								)}
 
@@ -332,7 +340,7 @@ export default function AddSection({toSection}) {
 								</div>
 								<Tooltip
 									color="white"
-									overlayInnerStyle={{color: 'black'}}
+									overlayInnerStyle={{ color: 'black' }}
 									placement="top"
 									title="Duplicate"
 								>
@@ -350,7 +358,7 @@ export default function AddSection({toSection}) {
 								</Tooltip>
 								<Tooltip
 									color="white"
-									overlayInnerStyle={{color: 'black'}}
+									overlayInnerStyle={{ color: 'black' }}
 									overlayClassName={styles.toolTip}
 									placement="top"
 									title="Delete"
@@ -388,14 +396,24 @@ export default function AddSection({toSection}) {
 											>
 												{lecture.product_section_name}
 											</h2>
-											<div
-												className="ml-4 cursor-pointer"
-												onClick={() =>
-													setOpenLectureInput(true)
-												}
+											<Tooltip
+												color="white"
+												overlayInnerStyle={{ color: 'black' }}
+												overlayStyle={{
+													backgroundColor: 'white',
+												}}
+												placement="right"
+												title="Rename lecture"
 											>
-												<BsFillPencilFill className="text-blue-500" />
-											</div>
+												<div
+													className="ml-4 cursor-pointer"
+													onClick={() =>
+														setOpenLectureInput(true)
+													}
+												>
+													<BsFillPencilFill className="text-blue-500" />
+												</div>
+											</Tooltip>
 										</div>
 									)}
 
@@ -493,7 +511,7 @@ export default function AddSection({toSection}) {
 									</div>
 									<Tooltip
 										color="white"
-										overlayInnerStyle={{color: 'black'}}
+										overlayInnerStyle={{ color: 'black' }}
 										overlayStyle={{
 											backgroundColor: 'white',
 										}}
@@ -518,7 +536,7 @@ export default function AddSection({toSection}) {
 									</Tooltip>
 									<Tooltip
 										color="white"
-										overlayInnerStyle={{color: 'black'}}
+										overlayInnerStyle={{ color: 'black' }}
 										overlayStyle={{
 											backgroundColor: 'white',
 										}}
