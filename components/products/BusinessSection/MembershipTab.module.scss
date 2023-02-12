@@ -169,15 +169,16 @@
 	.productName {
 		font-weight: 500;
 		font-size: 1.125rem;
-		line-height: 28px;
+		// line-height: 28px;
 		color: #262626;
 	}
 
 	.digitalProductSize {
 		font-weight: 500;
 		font-size: 0.875rem;
-		line-height: 24px;
+		// line-height: 24px;
 		color: #8c8c8c;
+		padding: 0; 
 	}
 }
 

@@ -1,6 +1,6 @@
-import {Button, Input, Tooltip} from 'antd';
+import { Button, Input, Tooltip } from 'antd';
 import styles from './MembershipTab.module.scss';
-import {DeleteProduct, DuplicateProduct} from 'utils';
+import { DeleteProduct, DuplicateProduct } from 'utils';
 import Image from 'next/image';
 import {
 	HandleBar,
@@ -12,15 +12,21 @@ import {
 	MobileTrashIcon,
 	MobileViewSubscribers,
 } from 'utils';
-import {useFormik} from 'formik';
-import {useSelector} from 'react-redux';
-import {useState, useEffect} from 'react';
-import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
+import { useFormik } from 'formik';
+import { BsFillPencilFill, BsFillXCircleFill, BsFillCheckCircleFill } from "react-icons/bs";
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { CreateSection, AuthGetProductById, CreateContent } from 'redux/actions';
+import { useRouter } from 'next/router';
 
-export default function AddSection({toSection}) {
+export default function AddSection({ toSection }) {
 	const [productSection, setProductSection] = useState(null);
-	console.log(productSection, 'productSection');
-	const {product, productID} = useSelector((state) => state.product);
+	const { product } = useSelector((state) => state.product);
+	const [openInput, setOpenInput] = useState(false);
+	const [openLectureInput, setOpenLectureInput] = useState(false);
+	const router = useRouter();
+
+	const prodId = router.query.productId
 
 	const createSection = CreateSection();
 	const getProduct = AuthGetProductById();
@@ -49,13 +55,13 @@ export default function AddSection({toSection}) {
 	};
 	const handleSubmit = (data) => {
 		createSection(data, () => {
-			getProduct(productID);
+			getProduct(prodId);
 		});
 	};
 
 	const submitSub = (data) => {
 		createContent(data, () => {
-			getProduct(productID);
+			getProduct(prodId);
 		});
 	};
 	const formik = useFormik({
@@ -70,21 +76,20 @@ export default function AddSection({toSection}) {
 		validationSchema: '',
 		validateOnChange: false,
 	});
-	const {setFieldValue} = formik;
+	const { setFieldValue } = formik;
 
-	const {setFieldValue: setSubValue} = subFormik;
+	const { setFieldValue: setSubValue } = subFormik;
 	const addSection = () => {
 		createSection(
 			{
 				product_id: product?.product_details?.id,
 				kreatesell_id: product?.product_details?.kreasell_product_id,
-				product_content_name: `Section ${
-					product?.product_content.length + 1
-				}`,
+				product_content_name: `Section ${product?.product_content.length + 1
+					}`,
 				action: 'c',
 			},
 			() => {
-				getProduct(productID);
+				getProduct(prodId);
 			}
 		);
 	};
@@ -98,7 +103,7 @@ export default function AddSection({toSection}) {
 				content_id: item.id,
 			},
 			() => {
-				getProduct(productID);
+				getProduct(prodId);
 			}
 		);
 	};
@@ -128,34 +133,35 @@ export default function AddSection({toSection}) {
 				content_id: item.id,
 			},
 			() => {
-				getProduct(productID);
+				getProduct(prodId);
 			}
 		);
 	};
 	const handleClick = (target) => {
-		const {nextElementSibling: element} = target;
+		const { nextElementSibling: element } = target;
 		target.style.display = 'none';
 		element.style.display = 'block';
 	};
-	const handleBlur = (target) => {
-		const {previousElementSibling: element} = target;
-		target.style.display = 'none';
-		element.style.display = 'block';
+	const handleSectionChange = () => {
+		// const { previousElementSibling: element } = target;
+		// target.style.display = 'none';
+		// element.style.display = 'block';
 		formik.handleSubmit();
+		setOpenInput(false)
 	};
-	const handleLectureBlur = (target) => {
-		const {previousElementSibling: element} = target;
-		target.style.display = 'none';
-		element.style.display = 'block';
+	const handleLectureInputChange = () => {
+		// const { previousElementSibling: element } = target;
+		// target.style.display = 'none';
+		// element.style.display = 'block';
 		subFormik.handleSubmit();
+		setOpenLectureInput(false)
 	};
 	const addNewLecture = (item) => {
 		createContent(
 			{
 				section_id: item.id,
-				product_section_name: `Lecture ${
-					item.product_subsection.length + 1
-				}`,
+				product_section_name: `Lecture ${item.product_subsection.length + 1
+					}`,
 				product_section_description: 'Kindly add a brief description',
 				upload_product_file: true,
 				product_visibility_status: 1,
@@ -166,7 +172,7 @@ export default function AddSection({toSection}) {
 				action: 'c',
 			},
 			() => {
-				getProduct(productID);
+				getProduct(prodId);
 			}
 		);
 	};
@@ -185,7 +191,7 @@ export default function AddSection({toSection}) {
 				},
 			},
 			() => {
-				getProduct(productID);
+				getProduct(prodId);
 			}
 		);
 	};
@@ -203,13 +209,13 @@ export default function AddSection({toSection}) {
 				},
 			},
 			() => {
-				getProduct(productID);
+				getProduct(prodId);
 			}
 		);
 	};
 	useEffect(() => {
 		if (Object.keys(product).length > 0) {
-			const {product_content} = product;
+			const { product_content } = product;
 			setProductSection(product_content);
 		}
 	}, [product]);
@@ -222,32 +228,43 @@ export default function AddSection({toSection}) {
 						<div className="flex justify-between items-center">
 							<div className="flex items-center">
 								<Image
-									className="mr-3"
+									className="mr-4"
 									src={HandleBar}
 									alt="handle"
 								/>
-								<h2
-									onClick={(e) => handleClick(e.target)}
-									className="text-base mb-0 ml-2 font-medium cursor-pointer"
-								>
-									{item.section_name}
-								</h2>
-								<Input
-									autoFocus={true}
-									style={{display: 'none'}}
-									value={formik.values.product_content_name}
-									onFocus={() =>
-										setFieldValue(
-											'product_content_name',
-											item.section_name
-										)
-									}
-									onBlur={(e) => handleBlur(e.target)}
-									onChange={(e) =>
-										handleChange(e.target.value, item)
-									}
-									placeholder="Introduction"
-								/>
+								{!openInput && (
+									<div className='flex items-center'>
+										<h2 className="text-base mb-0 ml-2 font-medium cursor-pointer">
+											{item.section_name}
+										</h2>
+										<div className='ml-4 cursor-pointer' onClick={() => setOpenInput(true)}>
+											<BsFillPencilFill className='text-gray-500' />
+										</div>
+									</div>
+								)}
+
+								{openInput &&  (
+									<div className='flex items-center ml-3'>
+										<Input
+											autoFocus={true}
+											value={formik.values.product_content_name}
+											onFocus={() =>
+												setFieldValue(
+													'product_content_name',
+													item.section_name
+												)
+											}
+											onChange={(e) =>
+												handleChange(e.target.value, item)
+											}
+											placeholder="Introduction"
+										/>
+										<div className='flex items-center ml-3 gap-2 cursor-pointer'>
+											<BsFillCheckCircleFill className='text-blue-500 text-lg' onClick={() => handleSectionChange()} />
+											<BsFillXCircleFill className='text-gray-500 text-lg' onClick={() => setOpenInput(false)} />
+										</div>
+									</div>
+								)}
 							</div>
 							<div className="flex items-center">
 								<div className={styles.manageButton + ' mr-3'}>
@@ -290,7 +307,7 @@ export default function AddSection({toSection}) {
 								</div>
 								<Tooltip
 									color="white"
-									overlayInnerStyle={{color: 'black'}}
+									overlayInnerStyle={{ color: 'black' }}
 									placement="top"
 									title="Duplicate"
 								>
@@ -308,7 +325,7 @@ export default function AddSection({toSection}) {
 								</Tooltip>
 								<Tooltip
 									color="white"
-									overlayInnerStyle={{color: 'black'}}
+									overlayInnerStyle={{ color: 'black' }}
 									overlayClassName={styles.toolTip}
 									placement="top"
 									title="Delete"
@@ -338,36 +355,48 @@ export default function AddSection({toSection}) {
 										src={HandleBar}
 										alt="handle"
 									/>
-									<h2
-										onClick={(e) => handleClick(e.target)}
-										className="text-base mb-0 ml-2 font-medium cursor-pointer"
-									>
-										{lecture.product_section_name}
-									</h2>
-									<Input
-										autoFocus={true}
-										style={{display: 'none'}}
-										value={
-											subFormik.values
-												.product_section_name
-										}
-										onFocus={() =>
-											setSubValue(
-												'product_section_name',
-												lecture.product_section_name
-											)
-										}
-										onBlur={(e) =>
-											handleLectureBlur(e.target)
-										}
-										onChange={(e) =>
-											handleLectureChange(
-												e.target.value,
-												lecture
-											)
-										}
-										placeholder="Brief"
-									/>
+									{!openLectureInput && (
+										<div className='flex items-center'>
+											<h2
+												// onClick={(e) => handleClick(e.target)}
+												className="text-base mb-0 ml-2 font-medium cursor-pointer"
+											>
+												{lecture.product_section_name}
+											</h2>
+											<div className='ml-4 cursor-pointer' onClick={() => setOpenLectureInput(true)}>
+												<BsFillPencilFill className='text-blue-500' />
+											</div>
+										</div>
+									)}
+									
+									{openLectureInput && item?.product_subsection.indexOf(lecture) === idx && (
+										<div className='flex items-center ml-3'>
+											<Input
+												autoFocus={true}
+												value={
+													subFormik.values
+														.product_section_name
+												}
+												onFocus={() =>
+													setSubValue(
+														'product_section_name',
+														lecture.product_section_name
+													)
+												}
+												onChange={(e) =>
+													handleLectureChange(
+														e.target.value,
+														lecture
+													)
+												}
+												placeholder="Add lecture"
+											/>
+											<div className='flex items-center ml-3 gap-2 cursor-pointer'>
+												<BsFillCheckCircleFill className='text-blue-500 text-lg' onClick={()=> handleLectureInputChange()}/>
+												<BsFillXCircleFill className='text-gray-500 text-lg' onClick={() => setOpenLectureInput(false)} />
+											</div>
+										</div>
+									)}
 								</div>
 								<div className="flex items-center">
 									<div
@@ -419,7 +448,7 @@ export default function AddSection({toSection}) {
 									</div>
 									<Tooltip
 										color="white"
-										overlayInnerStyle={{color: 'black'}}
+										overlayInnerStyle={{ color: 'black' }}
 										overlayStyle={{
 											backgroundColor: 'white',
 										}}
@@ -444,7 +473,7 @@ export default function AddSection({toSection}) {
 									</Tooltip>
 									<Tooltip
 										color="white"
-										overlayInnerStyle={{color: 'black'}}
+										overlayInnerStyle={{ color: 'black' }}
 										overlayStyle={{
 											backgroundColor: 'white',
 										}}

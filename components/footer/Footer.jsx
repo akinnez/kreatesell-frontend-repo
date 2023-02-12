@@ -213,7 +213,7 @@ export const Footer = () => {
 							/>
 						</a>
 						<a
-							href="https://t.me/Kreate_Sell"
+							href="https://t.me/UseKreateSell"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={styles.gramContainer}

@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import axios from 'axios'
 
-import {Switch, Radio, Input, Popconfirm} from 'antd';
+import { Switch, Radio, Input, Popconfirm } from 'antd';
 
 import {
 	ViewSales,
@@ -35,6 +36,39 @@ const ManageSection = ({
 	// 	if()
 	// }
 
+	async function extractFileSize(cloudinaryUrl) {
+		try {
+			const response = await axios.head(cloudinaryUrl, {
+				headers: {
+					'Accept-Encoding': 'identity'
+				}
+			});
+			const size = response.headers['content-length'];
+			return size;
+		} catch (error) {
+			console.log(error);
+			return 0;
+		}
+	}
+
+	const CloudinaryFileSize = ({ cloudinaryUrl }) => {
+		const [fileSize, setFileSize] = useState(null);
+
+		useEffect(() => {
+			extractFileSize(cloudinaryUrl).then(size => {
+				setFileSize(size);
+			});
+		}, [cloudinaryUrl]);
+
+		return fileSize !== null ? (
+			<h2 className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}>{fileSize > 1000000 ? `${Number(fileSize / 1000000).toFixed(2)}MB` : `${Number(fileSize / 1000).toFixed(2)}KB`}</h2>
+		) : (
+			<p>Loading file size</p>
+		);
+	};
+
+
+
 	return (
 		<div className="flex flex-col mt-7">
 			<div className="flex justify-between items-center">
@@ -45,7 +79,7 @@ const ManageSection = ({
 							placeholder="Section title"
 							value={sectionName}
 							className={`text-2xl font-semibold ${styles.titleMain2}`}
-							style={{width: '9rem'}}
+							style={{ width: '9rem' }}
 						/>
 					) : (
 						<h1
@@ -142,31 +176,30 @@ const ManageSection = ({
 							<div className={styles.fileImage}>
 								{
 									<Image
-										width={20}
-										height={20}
+										width={25}
+										height={25}
 										src={
 											item?.files[0]?.type === 'audio'
 												? Audio
 												: item?.files[0]?.type ===
-												  'video'
-												? Video
-												: ImageIcon
+													'video'
+													? Video
+													: ImageIcon
 										}
 										alt="file"
 									/>
 								}
 							</div>
 							<div className="flex flex-col">
-								<h1
-									className={`text-xl font-semibold ${styles.productName}`}
-								>
+								<h1 className={`text-xl font-semibold ${styles.productName}`}>
 									{item.product_section_name}
 								</h1>
-								{
+								{/* {
 									<h2
 										className={`text-base font-medium ${styles.digitalProductSize}`}
-									>{`20MB`}</h2>
-								}
+									>{item?.files[0]?.filename}</h2>
+								} */}
+								<CloudinaryFileSize cloudinaryUrl={item?.files[0]?.filename} />
 							</div>
 						</div>
 						<div className={styles.managedControls}>
@@ -209,7 +242,7 @@ const ManageSection = ({
 										type: 'danger',
 										size: 'large',
 									}}
-									overlayInnerStyle={{textAlign: 'center'}}
+									overlayInnerStyle={{ textAlign: 'center' }}
 									overlayStyle={{
 										width: '350px',
 										padding: '20px',
