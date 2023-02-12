@@ -516,6 +516,10 @@ export const CheckoutForm = ({
 	const handleSubmit = (data) => {
 		// console.log('fixedSellingPrice', fixedSellingPrice);
 		// console.log('savedFixedOriginalPrice', savedFixedOriginalPrice);
+		if (afiliatePercentage === '') {
+			showToast('Put in a valid percentage value!', 'error');
+			return;
+		}
 		if (priceType === 'Fixed Price') {
 			if (validateDefinedCurrencies('Fixed Price')) {
 				showToast('Please define prices for all currencies', 'error');

@@ -51,7 +51,7 @@ const Social = ({
 					onClick={() =>
 						_copyToClipboard(
 							store?.domain_details.domain_details[0].domain_url,
-							'Link copied successfully'
+							'You have copied your link!'
 						)
 					}
 				>
