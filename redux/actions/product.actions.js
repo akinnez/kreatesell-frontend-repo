@@ -93,9 +93,9 @@ export const PublishProducts = () => {
 			`patch`,
 			`v1/kreatesell/product/configurations`,
 			(res) => {
-				console.log('publish', res);
+				// console.log('publish', res);
 				dispatch({type: types.PUBLISH_PRODUCT.SUCCESS});
-				showToast(res?.message, 'info');
+				// showToast(res?.message, 'info');
 				successCallback?.();
 			},
 			(err) => {

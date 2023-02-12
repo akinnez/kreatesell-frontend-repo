@@ -36,8 +36,8 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 		case types.FETCH_SINGLE_STORE_PRODUCT.REQUEST:
 		case types.FETCH_SINGLE_STORE_PRODUCT.REQUEST:
 		case types.FETCH_COUPON_PRODUCT.REQUEST:
+			return {...state, loading: true};
 		// case types.UPDATE_PRODUCT_CURRENCY.REQUEST:
-		//   return { ...state, loading: true }
 
 		case types.GET_ALL_PRODUCTS.SUCCESS:
 		case types.GET_BILLING_INTERVAL.SUCCESS:
