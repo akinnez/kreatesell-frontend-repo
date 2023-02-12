@@ -625,13 +625,13 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	// border: 1px solid red;
 	z-index: 2000;
 	padding-left: 0.5rem !important;
 	padding-right: 0.5rem !important;
 	.mobileLeft {
 		padding-top: 0.8rem;
 		padding-bottom: 0.8rem;
+		// border: 1px solid red;
 	}
 	.mobileDropView {
 		top: 90px;
@@ -639,6 +639,9 @@
 		margin-top: 2rem;
 		min-height: 100vh;
 		// border: 10px solid red !important;
+	}
+	.backArrow {
+		margin-right: 1rem;
 	}
 }
 

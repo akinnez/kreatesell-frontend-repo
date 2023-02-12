@@ -1,6 +1,10 @@
-import {Button, Form, Input, Modal, Select, Tooltip} from 'antd';
-import {Button as NormalButton} from 'components';
+import {useEffect, useState} from 'react';
 import Image from 'next/image';
+
+import {useSelector} from 'react-redux';
+import {Button, Form, Input, Modal, Select, Tooltip} from 'antd';
+
+import {Button as NormalButton} from 'components';
 import {
 	ProductHeaderLogo,
 	CopyLink,
@@ -11,8 +15,6 @@ import {
 import {MdOutlineMenu} from 'react-icons/md';
 import {MobileLogo} from 'components/authlayout/logo';
 import {Button as CButton, Select as CSelect} from 'components';
-import {useSelector} from 'react-redux';
-import {useEffect, useState} from 'react';
 import {
 	ArrowLeft,
 	PublishProduct,
@@ -116,6 +118,11 @@ export default function PreviewHeader({
 
 	const toggleView = () => setMobileSidebarIsOpen(!mobileSideBarIsOpen);
 
+	const renderElipsis = (str) => {
+		if (typeof str !== 'string') return;
+		return str.length > 15;
+	};
+
 	return (
 		<header
 			className={`flex items-center justify-between bg-white px-10 py-6 ${styles.header}`}
@@ -138,22 +145,32 @@ export default function PreviewHeader({
 				>
 					{isPreviewMain && (
 						<>
-							<Image
-								src={MobileBackArrow}
-								alt="backArrow"
-								onClick={() => router.back()}
-							/>
+							<span className={styles.backArrow}>
+								<Image
+									src={MobileBackArrow}
+									alt="backArrow"
+									onClick={() => router.back()}
+								/>
+							</span>
 							<span>
-								{product?.product_details?.product_name}
+								{`${product?.product_details?.product_name?.substring(
+									0,
+									15
+								)}${
+									renderElipsis(
+										product?.product_details?.product_name
+									) && '...'
+								}`}
 							</span>
 							<div className={styles.btnBox}>
 								<Button
+									// size="small"
 									type="default"
 									icon={<Image src={CopyLink} alt="copy" />}
 									onClick={() =>
 										_copyToClipboard(
 											link,
-											'Product Link Copied'
+											'The product link was successfully copied!'
 										)
 									}
 								></Button>
@@ -227,7 +244,10 @@ export default function PreviewHeader({
 						type="default"
 						icon={<Image src={CopyLink} alt="copy" />}
 						onClick={() =>
-							_copyToClipboard(link, 'Product Link Copied')
+							_copyToClipboard(
+								link,
+								'The product link was successfully copied!'
+							)
 						}
 					>
 						Copy Link
@@ -362,7 +382,7 @@ export default function PreviewHeader({
 										onClick={() =>
 											_copyToClipboard(
 												`${domainLink}/${values.product_id}`,
-												'Product Link Copied'
+												'The product link was successfully copied!'
 											)
 										}
 										className="cursor-pointer"
