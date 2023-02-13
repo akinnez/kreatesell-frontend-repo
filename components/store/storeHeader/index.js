@@ -111,7 +111,8 @@ export const ProtectedStoreHeader = ({
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
 						<div className={styles.profile_wrapper}>
-							{!publicStoreInfo?.display_picture ? (
+							{!publicStoreInfo?.display_picture &&
+							!displayPicture ? (
 								<div className={styles.image_intro_text}>
 									<Avatar
 										shape="square"
@@ -126,6 +127,7 @@ export const ProtectedStoreHeader = ({
 										className={styles.image_intro_text}
 										style={{
 											backgroundImage: `url(${
+												displayPicture ||
 												publicStoreInfo?.display_picture ||
 												'/images/placeholder-2.jpg'
 											})`,
