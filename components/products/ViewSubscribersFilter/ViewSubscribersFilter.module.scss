@@ -46,6 +46,9 @@
 	.input__wrapper div[class~='ant-form-item'],
 	.filter__btn {
 		margin-bottom: 0 !important;
+		@include screen('inbetween') {
+			margin-top: 1rem;
+		}
 	}
 	.formItemButton {
 		margin-bottom: 0px;

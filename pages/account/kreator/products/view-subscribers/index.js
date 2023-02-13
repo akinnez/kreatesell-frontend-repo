@@ -10,7 +10,8 @@ import styles from '../../../../../public/css/ViewSubscribers.module.scss';
 import {ViewSubscribersHeader} from 'components/products/ViewSubscribersFilter';
 import useViewMembershipFilters from 'components/affiliates/hooks/useViewMembershipFilters';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
-import {ShoppingCart} from 'utils';
+import {ShoppingCart, formatDateAndTime, formatDate} from 'utils';
+import useSubscribersList from 'services/swrQueryHooks/SubscribersList';
 
 // TODO: move to its own file
 const subscribersColumns = [
@@ -24,7 +25,7 @@ const subscribersColumns = [
 	},
 	{
 		title: 'Email',
-		dataIndex: 'email',
+		dataIndex: 'customer_email',
 	},
 	{
 		title: 'Product Price',
@@ -32,19 +33,21 @@ const subscribersColumns = [
 	},
 	{
 		title: 'Number of Payments Made',
-		dataIndex: 'number_payements_made',
+		dataIndex: 'number_of_payment_made',
 	},
 	{
 		title: 'Number of Pending Payments',
-		dataIndex: 'number_pending_payments',
+		dataIndex: 'number_of_pending_payments',
 	},
 	{
 		title: 'Subscription Start Date',
-		dataIndex: 'subscription_start_date',
+		dataIndex: 'subscription_start',
+		render: (item) => <p>{formatDateAndTime(item)}</p>,
 	},
 	{
 		title: 'Subscription End Date',
-		dataIndex: 'subscription_end_date',
+		dataIndex: 'subscription_end',
+		render: (item) => <p>{formatDateAndTime(item)}</p>,
 	},
 ];
 export const headCells = [
@@ -84,57 +87,63 @@ export const headCells = [
 
 const rowKey = (record) => record.id;
 
-const CardContainer = () => {
+const CardContainer = ({data}) => {
 	return (
 		<div className={styles.cardContainer}>
 			<Card className={styles.card}>
 				<div className={styles.dateContainer}>
 					<span className={styles.startDate}>
 						<span className={styles.dateFiller}>Start Date:</span>
-						<p className={styles.date}>Jun 12th 2021, 3:50 PM</p>
+						<p className={styles.date}>
+							{formatDateAndTime(data.subscription_start)}
+						</p>
 					</span>
 					<hr />
 					<span className={styles.endDate}>
 						<span className={styles.dateFiller}>End Date:</span>
-						<p>Jun 12th 2021, 3:50 PM</p>
+						<p>{formatDateAndTime(data.subscription_end)}</p>
 					</span>
 				</div>
 				<div className={styles.courseTitle}>
 					<span>
 						<Image src={ShoppingCart} alt="icon" />
 					</span>{' '}
-					Fundamental of Graphics
+					{data?.product_name}
 				</div>
 				<ul className={styles.customerDetails}>
 					<li className={styles.customerDetail}>
 						<h1 className={`${styles.key} mb-0`}>Customer Name</h1>
 						<p className={`${styles.value} mb-0 ml-4`}>
-							Yusuf Ridwan
+							{data?.customer_name}
 						</p>
 					</li>
 					<li className={styles.customerDetail}>
 						<h1 className={`${styles.key} mb-0`}>Customer Email</h1>
 						<p className={`${styles.value} mb-0 ml-4`}>
-							yusufridwan@gmail.com
+							{data?.customer_email}
 						</p>
 					</li>
 					<li className={styles.customerDetail}>
 						<h1 className={`${styles.key} mb-0`}>Product Price</h1>
 						<p className={`${styles.value} mb-0 ml-4`}>
-							NGN 4,565.97
+							{data?.currency} {data?.product_price}
 						</p>
 					</li>
 					<li className={styles.customerDetail}>
 						<h1 className={`${styles.key} mb-0`}>
 							No. of Payments Made
 						</h1>
-						<p className={`${styles.value} mb-0 ml-4`}>1</p>
+						<p className={`${styles.value} mb-0 ml-4`}>
+							{data?.number_of_payment_made}
+						</p>
 					</li>
 					<li className={styles.customerDetail}>
 						<h1 className={`${styles.key} mb-0`}>
 							No. of Pending Payments
 						</h1>
-						<p className={`${styles.value} mb-0 ml-4`}>9</p>
+						<p className={`${styles.value} mb-0 ml-4`}>
+							{data?.number_of_pending_payments}
+						</p>
 					</li>
 				</ul>
 			</Card>
@@ -144,12 +153,21 @@ const CardContainer = () => {
 
 const ViewSubscribers = () => {
 	const {url, filters, setFilters} = useViewMembershipFilters(
-		'products/get-subscribers'
+		'v1/kreatesell/product/fetch/all/subscribers'
 	);
+
+	const {
+		loading,
+		subscribers,
+		subscribersData,
+		subscribersError,
+		subscribersLoading,
+	} = useSubscribersList(url);
 
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
 	};
+	if (subscribersLoading) return <>Loading...</>;
 	return (
 		<ProfileLayout customWidth={true}>
 			<Head>
@@ -171,13 +189,13 @@ const ViewSubscribers = () => {
 
 				<div className={styles.dataSection}>
 					<section className={styles.mobileWrapper}>
-						<CardContainer />
-						<CardContainer />
-						<CardContainer />
+						{subscribers?.data?.map((dt, idx) => (
+							<CardContainer key={idx} data={dt} />
+						))}
 					</section>
 					<section className={styles.tableWrapper}>
 						<Table
-							dataSource={[]}
+							dataSource={subscribers?.data || []}
 							columns={subscribersColumns}
 							pagination={{
 								position: ['bottomLeft'],
