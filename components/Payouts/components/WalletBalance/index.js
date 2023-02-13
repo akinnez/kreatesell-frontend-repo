@@ -98,10 +98,10 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 									affiliateBalance?.wallet_balance[1]
 										?.currency_name
 								}
-								balance={Number(
+								balance={
 									affiliateBalance?.wallet_balance[1]
 										?.available_balance
-								).toFixed(2)}
+								}
 								isAffiliate={user?.is_affiliate}
 							>
 								<div className={styles.affiliate__info}>
