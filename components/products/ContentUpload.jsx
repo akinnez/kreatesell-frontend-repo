@@ -19,11 +19,7 @@ export default function ContentUpload({file, setFile, initialFile}) {
 	const [progress, setProgress] = useState(0);
 	const [files, setFiles] = useState([]);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
-		fileType: {
-			'image/*': ['.jpeg', '.png'],
-			'audio/*': [],
-			'application/pdf': [],
-		},
+		fileType: 'all',
 	});
 
 	const handleDeleteFile = () => {
