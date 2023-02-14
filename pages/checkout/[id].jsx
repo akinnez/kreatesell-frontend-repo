@@ -1,12 +1,12 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import {DialogOverlay, DialogContent} from '@reach/dialog';
+import { DialogOverlay, DialogContent } from '@reach/dialog';
 import {
 	Row,
 	Col,
 	// Card, Form, Input as AntInput
 } from 'antd';
-import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 import {
 	ActiveTick,
@@ -25,18 +25,18 @@ import {
 	RenderIf,
 	MakeItFreeIcon,
 } from 'utils';
-import {Tooltip} from 'antd';
-import {SelectV2} from 'components/form-input';
-import {PhoneNumberInput} from 'components';
+import { Tooltip } from 'antd';
+import { SelectV2 } from 'components/form-input';
+import { PhoneNumberInput } from 'components';
 import styles from '../../public/css/checkout.module.scss';
-import {Input, Button} from 'components';
+import { Input, Button } from 'components';
 import CurrencyCard from 'components/settings/CurrencyCard';
-import {ConsumerSalesCheckoutSchema} from 'validation';
-import {useFormik, Formik} from 'formik';
-import {useSelector} from 'react-redux';
-import {useRouter} from 'next/router';
-import {usePaystackPayment} from 'react-paystack';
-import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
+import { ConsumerSalesCheckoutSchema } from 'validation';
+import { useFormik, Formik } from 'formik';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { usePaystackPayment } from 'react-paystack';
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import {
 	SendPaymentCheckoutDetails,
 	ConvertCurrency,
@@ -49,7 +49,7 @@ import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
-import {countryPayments} from '../../utils/paymentOptions';
+import { countryPayments } from '../../utils/paymentOptions';
 
 export const pathName = typeof window !== 'undefined' && window;
 
@@ -63,22 +63,22 @@ const Checkout = () => {
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
 
-	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
+	const { convertedCurrency, loading: currencyConverterLoading } = useSelector(
 		(state) => state.currencyConverter
 	);
-	const {loading: storeCheckoutCurrenciesLoading} = useSelector(
+	const { loading: storeCheckoutCurrenciesLoading } = useSelector(
 		(state) => state.store
 	);
 
-	const {loading, applyCouponResponse} = useSelector((state) => state.coupon);
+	const { loading, applyCouponResponse } = useSelector((state) => state.coupon);
 
 	const [country, setCountry] = useState('');
 	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
-	const {countries} = useSelector((state) => state.utils);
+	const { countries } = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
+	const { countriesCurrency, filterdWest, filteredCentral } =
 		useCheckoutCurrency();
 
 	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
@@ -145,10 +145,10 @@ const Checkout = () => {
 		// (item) => item?.currency_name === activeCurrency?.currency,
 		(item) =>
 			(item?.price_indicator === pricingTypeDetails.price_type) ===
-			'Pay What You Want'
+				'Pay What You Want'
 				? 'Minimum'
 				: 'Selling' &&
-				  item?.currency_name === baseCurrencyObbject?.currency_name
+				item?.currency_name === baseCurrencyObbject?.currency_name
 	);
 
 	const currency_name = checkout?.[0]?.currency_name;
@@ -257,7 +257,7 @@ const Checkout = () => {
 		];
 	};
 
-	const paymentDetails = ({reference = '', status = ''}) => {
+	const paymentDetails = ({ reference = '', status = '' }) => {
 		const statusValue = paymentStatusList[status];
 		const value = {
 			fullname: `${values?.firstName} ${values?.lastName}`,
@@ -388,7 +388,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		Number(desiredAmount) < Number(getCurrency('minimum')) &&
-		pricingTypeDetails.price_type === 'Pay What You Want'
+			pricingTypeDetails.price_type === 'Pay What You Want'
 			? setDisableBtn(true)
 			: setDisableBtn(false);
 	}, [desiredAmount]);
@@ -433,7 +433,7 @@ const Checkout = () => {
 			: actualPrice;
 	const subTotal =
 		couponDetails.indicator === 'IsPercentage' ||
-		couponDetails.indicator === 'IsFixedAmount'
+			couponDetails.indicator === 'IsFixedAmount'
 			? basicSubtotal
 			: standardPrice;
 
@@ -448,12 +448,12 @@ const Checkout = () => {
 	useEffect(() => {
 		const getTransactionFees = async () => {
 			// if (isChargable === "customer") {
+			if (!isChargable) return
 			try {
 				await axios
 					.get(
-						`https://kreatesell.io/api/v1/kreatesell/product/get-bearable-fee/${
-							activeCurrency?.currency_name ||
-							activeCurrency?.currency
+						`https://kreatesell.io/api/v1/kreatesell/product/get-bearable-fee/${activeCurrency?.currency_name ||
+						activeCurrency?.currency
 						}`
 					)
 					//get actual fees and percentage indications
@@ -582,7 +582,7 @@ const Checkout = () => {
 					closePaymentModal();
 					//   openModal();
 				},
-				onClose: () => {},
+				onClose: () => { },
 			});
 		}
 		if (selectedPaymentMethod === 'paystack') {
@@ -600,7 +600,7 @@ const Checkout = () => {
 		validateOnChange: true,
 	});
 
-	const {errors, setFieldValue, values} = formik;
+	const { errors, setFieldValue, values } = formik;
 
 	// ====================================================================================
 	//              PAYMENT CONFIG STARTS HERE
@@ -659,7 +659,7 @@ const Checkout = () => {
 		// const status = paymentStatusList[reference?.status];
 		const status = 'success';
 		sendPaymentCheckoutDetails(
-			paymentDetails({reference: reference?.reference, status: status}),
+			paymentDetails({ reference: reference?.reference, status: status }),
 			() =>
 				router.push(
 					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
@@ -686,7 +686,7 @@ const Checkout = () => {
 		// );
 	};
 
-	const stripeSuccess = () => {};
+	const stripeSuccess = () => { };
 
 	// ===================================================================================
 	//              PAYMENT CONFIG ENDS HERE
@@ -705,7 +705,7 @@ const Checkout = () => {
 	const handleMakeItFreePayment = async () => {
 		const status = 'success';
 		await sendPaymentCheckoutDetails(
-			paymentDetails({total: 0, reference: '', status: status}),
+			paymentDetails({ total: 0, reference: '', status: status }),
 			() =>
 				router.push(
 					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
@@ -792,7 +792,7 @@ const Checkout = () => {
 
 				<div className="flex flex-col md:flex-row gap-6 w-full">
 					<div
-						style={{height: 'fit-content'}}
+						style={{ height: 'fit-content' }}
 						className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
 					>
 						<form>
@@ -813,7 +813,7 @@ const Checkout = () => {
 								height="small"
 								onChange={formik.handleChange}
 								errorMessage={errors.firstName}
-								// validateOnChange
+							// validateOnChange
 							/>
 
 							<Input
@@ -823,7 +823,7 @@ const Checkout = () => {
 								height="small"
 								onChange={formik.handleChange}
 								errorMessage={errors.lastName}
-								// validateOnChange
+							// validateOnChange
 							/>
 
 							<Input
@@ -835,7 +835,7 @@ const Checkout = () => {
 								errorMessage={errors.email}
 							/>
 
-							<Row gutter={{xs: 0, sm: 0, md: 8}}>
+							<Row gutter={{ xs: 0, sm: 0, md: 8 }}>
 								<Col
 									xs={12}
 									md={12}
@@ -854,12 +854,12 @@ const Checkout = () => {
 											placeholder="Nigeria (+234)"
 											// name="Country_Id"
 											isCheckout={true}
-											// rules={[
-											//   {
-											//     required: true,
-											//     message: "Country is a required field",
-											//   },
-											// ]}
+										// rules={[
+										//   {
+										//     required: true,
+										//     message: "Country is a required field",
+										//   },
+										// ]}
 										/>
 									</Col>
 									<div className={styles.phoneBox}>
@@ -895,239 +895,239 @@ const Checkout = () => {
 						>
 							{pricingTypeDetails.price_type !==
 								'Make it Free' && (
-								<div className="pb-4">
-									<div className="text-black-100">
-										Select Currency
-									</div>
-									<p className="text-base-gray-200">
-										Select your preferred currency and get
-										price equivalent
-									</p>
+									<div className="pb-4">
+										<div className="text-black-100">
+											Select Currency
+										</div>
+										<p className="text-base-gray-200">
+											Select your preferred currency and get
+											price equivalent
+										</p>
 
-									<div
-										className={`grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 ${styles.currencyCardCont}`}
-									>
-										{countriesCurrency?.map(
-											({currency, currency_id, flag}) => (
-												<CurrencyCard
-													key={currency_id}
-													handleSelect={() =>
-														handleSelect({
+										<div
+											className={`grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 ${styles.currencyCardCont}`}
+										>
+											{countriesCurrency?.map(
+												({ currency, currency_id, flag }) => (
+													<CurrencyCard
+														key={currency_id}
+														handleSelect={() =>
+															handleSelect({
+																currency_id,
+																currency,
+															})
+														}
+														{...{
+															currency,
 															currency_id,
-															currency,
-														})
-													}
-													{...{
-														currency,
-														currency_id,
-														flag,
-														activeCurrency,
-													}}
-												/>
-											)
-										)}
+															flag,
+															activeCurrency,
+														}}
+													/>
+												)
+											)}
+										</div>
 									</div>
-								</div>
-							)}
+								)}
 							{pricingTypeDetails.price_type !==
 								'Make it Free' && (
-								<div className="py-7">
-									<h2>West African CFA Franc BCEAO(XOF)</h2>
-									<div
-										className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
-									>
-										{filterdWest.map(
-											(
-												{id, currency, flag, name},
-												index
-											) => (
-												<div
-													key={index}
-													className={
-														activeCurrency?.id ===
-														id
-															? styles.activeCard
-															: styles.card
-													}
-													onClick={() =>
-														handleSelect({
-															id,
-															currency,
-														})
-													}
-												>
+									<div className="py-7">
+										<h2>West African CFA Franc BCEAO(XOF)</h2>
+										<div
+											className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
+										>
+											{filterdWest.map(
+												(
+													{ id, currency, flag, name },
+													index
+												) => (
 													<div
+														key={index}
 														className={
-															styles.checFlag +
-															' mr-2'
+															activeCurrency?.id ===
+																id
+																? styles.activeCard
+																: styles.card
 														}
-														style={{
-															borderRadius: '50%',
-														}}
+														onClick={() =>
+															handleSelect({
+																id,
+																currency,
+															})
+														}
 													>
-														<Image
-															src={flag}
-															alt="flag"
-															layout="fill"
-														/>
-													</div>
-													<div className="">
-														{name}
-													</div>
-													{activeCurrency?.id ===
-														id && (
-														<div className="pl-1 pt-1">
+														<div
+															className={
+																styles.checFlag +
+																' mr-2'
+															}
+															style={{
+																borderRadius: '50%',
+															}}
+														>
 															<Image
-																src={ActiveTick}
-																alt="active"
-																width="16"
-																height="16"
+																src={flag}
+																alt="flag"
+																layout="fill"
 															/>
 														</div>
-													)}
-												</div>
-											)
-										)}
+														<div className="">
+															{name}
+														</div>
+														{activeCurrency?.id ===
+															id && (
+																<div className="pl-1 pt-1">
+																	<Image
+																		src={ActiveTick}
+																		alt="active"
+																		width="16"
+																		height="16"
+																	/>
+																</div>
+															)}
+													</div>
+												)
+											)}
+										</div>
 									</div>
-								</div>
-							)}
+								)}
 							{pricingTypeDetails.price_type !==
 								'Make it Free' && (
-								<div className="py-7">
-									<h2>Central African CFA Franc BEAC(XAF)</h2>
-									<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
-										{filteredCentral.map(
-											(
-												{id, currency, name, flag},
-												index
-											) => (
-												<div
-													key={index}
-													className={
-														activeCurrency?.id ===
-														id
-															? styles.activeCard
-															: styles.card
-													}
-													onClick={() =>
-														handleSelect({
-															id,
-															currency,
-														})
-													}
-												>
+									<div className="py-7">
+										<h2>Central African CFA Franc BEAC(XAF)</h2>
+										<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
+											{filteredCentral.map(
+												(
+													{ id, currency, name, flag },
+													index
+												) => (
 													<div
+														key={index}
 														className={
-															styles.checFlag +
-															' mr-2'
+															activeCurrency?.id ===
+																id
+																? styles.activeCard
+																: styles.card
 														}
-														style={{
-															borderRadius: '50%',
-														}}
+														onClick={() =>
+															handleSelect({
+																id,
+																currency,
+															})
+														}
 													>
-														<Image
-															src={flag}
-															alt="flag"
-															layout="fill"
-														/>
-													</div>
-													<div className="">
-														{name}
-													</div>
-													{activeCurrency?.id ===
-														id && (
-														<div className="pl-1 pt-1">
+														<div
+															className={
+																styles.checFlag +
+																' mr-2'
+															}
+															style={{
+																borderRadius: '50%',
+															}}
+														>
 															<Image
-																src={ActiveTick}
-																alt="active"
-																width="16"
-																height="16"
+																src={flag}
+																alt="flag"
+																layout="fill"
 															/>
 														</div>
-													)}
-												</div>
-											)
-										)}
+														<div className="">
+															{name}
+														</div>
+														{activeCurrency?.id ===
+															id && (
+																<div className="pl-1 pt-1">
+																	<Image
+																		src={ActiveTick}
+																		alt="active"
+																		width="16"
+																		height="16"
+																	/>
+																</div>
+															)}
+													</div>
+												)
+											)}
+										</div>
 									</div>
-								</div>
-							)}
+								)}
 
 							{/* start the pay as you want  */}
 							{pricingTypeDetails?.price_type ===
 								'Pay What You Want' && (
-								<div className="">
-									<h2 className={styles.desiredPayTitle}>
-										Pay what you want
-									</h2>
-									<p className={styles.desiredPayText}>
-										For this product, you can pay any price
-										above the minimum amount.
-									</p>
-									<div
-										className={styles.minimumPriceContainer}
-									>
+									<div className="">
+										<h2 className={styles.desiredPayTitle}>
+											Pay what you want
+										</h2>
+										<p className={styles.desiredPayText}>
+											For this product, you can pay any price
+											above the minimum amount.
+										</p>
 										<div
-											className={styles.minimumPriceText}
+											className={styles.minimumPriceContainer}
 										>
-											Minimum price:{' '}
-											{getCurrency('currency')}{' '}
-											{getCurrency('minimum')}
-											{/* {MinimumPrices ? getCurrency('minimum'): getCurrency('price').toFixed(2)} */}
-											{/* {Number( 
+											<div
+												className={styles.minimumPriceText}
+											>
+												Minimum price:{' '}
+												{getCurrency('currency')}{' '}
+												{getCurrency('minimum')}
+												{/* {MinimumPrices ? getCurrency('minimum'): getCurrency('price').toFixed(2)} */}
+												{/* {Number( 
 													
 												).toFixed(2)} */}
+											</div>
 										</div>
-									</div>
-									{desiredAmount &&
-										Number(desiredAmount) <
+										{desiredAmount &&
+											Number(desiredAmount) <
 											Number(
 												getCurrency('minimum')
 											).toFixed(2) && (
-											<div
-												className={
-													styles.desiredAmountError
-												}
-											>
-												<Image
-													src={ErrorIcon}
-													alt="error_icon"
-												/>
-												<p className={styles.errorText}>
-													Please read carefully <br />
-													Your desired amount is too
-													low. The minimum amount for
-													this product is{' '}
-													{getCurrency(
+												<div
+													className={
+														styles.desiredAmountError
+													}
+												>
+													<Image
+														src={ErrorIcon}
+														alt="error_icon"
+													/>
+													<p className={styles.errorText}>
+														Please read carefully <br />
+														Your desired amount is too
+														low. The minimum amount for
+														this product is{' '}
+														{getCurrency(
+															'currency'
+														)}{' '}
+														{Number(
+															getCurrency('minimum')
+														).toFixed(2)}
+														.
+													</p>
+												</div>
+											)}
+										<div className={styles.desiredPayContainer}>
+											<p className={styles.desiredPayText}>
+												Desired Amount
+											</p>
+											<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
+												<Input
+													placeholder={`Suggested Amount: ${getCurrency(
 														'currency'
-													)}{' '}
-													{Number(
-														getCurrency('minimum')
-													).toFixed(2)}
-													.
-												</p>
+													)} ${getCurrency(
+														'suggested'
+													)}.00 `}
+													onChange={(e) =>
+														setDesiredAmount(
+															e.target.value
+														)
+													}
+												/>
 											</div>
-										)}
-									<div className={styles.desiredPayContainer}>
-										<p className={styles.desiredPayText}>
-											Desired Amount
-										</p>
-										<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
-											<Input
-												placeholder={`Suggested Amount: ${getCurrency(
-													'currency'
-												)} ${getCurrency(
-													'suggested'
-												)}.00 `}
-												onChange={(e) =>
-													setDesiredAmount(
-														e.target.value
-													)
-												}
-											/>
 										</div>
 									</div>
-								</div>
-							)}
+								)}
 							<div className="divider"></div>
 							<div className="pb-6">
 								<div className="text-black-100">
@@ -1139,9 +1139,9 @@ const Checkout = () => {
 								<div className="grid gap-4 grid-cols-3 w-full">
 									{countryPayments[
 										activeCurrency?.currency ||
-											activeCurrency?.currency_name
+										activeCurrency?.currency_name
 									]
-										?.filter(({value}) => {
+										?.filter(({ value }) => {
 											if (
 												![
 													'crypto',
@@ -1154,7 +1154,7 @@ const Checkout = () => {
 												(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
 													'approved' ||
 													storeDetails?.user_plan?.toLowerCase() !==
-														'business') &&
+													'business') &&
 												[
 													'paypal',
 													'stripe',
@@ -1164,9 +1164,9 @@ const Checkout = () => {
 												return false;
 											} else if (
 												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-													'approved' &&
+												'approved' &&
 												storeDetails?.user_plan?.toLowerCase() ===
-													'business' &&
+												'business' &&
 												['stripe', 'crypto'].includes(
 													value
 												)
@@ -1174,18 +1174,17 @@ const Checkout = () => {
 												return true;
 											}
 										})
-										.map(({type, icon, value}) => (
+										.map(({ type, icon, value }) => (
 											<div
 												key={value}
 												onClick={() =>
 													handlePaymentMethod(value)
 												}
-												className={`${
-													selectedPaymentMethod ===
-													value
+												className={`${selectedPaymentMethod ===
+														value
 														? 'activeCard'
 														: 'card'
-												} p-2 flex justify-around items-center`}
+													} p-2 flex justify-around items-center`}
 											>
 												<Image
 													src={icon}
@@ -1194,13 +1193,13 @@ const Checkout = () => {
 												/>
 												{selectedPaymentMethod ===
 													value && (
-													<Image
-														src={ActiveTick}
-														alt="active"
-														width="16"
-														height="16"
-													/>
-												)}
+														<Image
+															src={ActiveTick}
+															alt="active"
+															width="16"
+															height="16"
+														/>
+													)}
 											</div>
 										))}
 									{/* active currency */}
@@ -1220,9 +1219,9 @@ const Checkout = () => {
 													activeCurrency?.currency_name,
 												].includes('CAD')) &&
 											storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-												'approved' &&
+											'approved' &&
 											storeDetails?.user_plan?.toLowerCase() ===
-												'business'
+											'business'
 										}
 									>
 										<Tooltip
@@ -1309,149 +1308,149 @@ const Checkout = () => {
 							{/**Apply coupon feature is yet to be implemented */}
 							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
-								<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
-									<div className="w-3/5 xs:w-3/4 md:w-4/5">
-										<Input
-											placeholder="Coupon Code"
-											name="couponCode"
-											onChange={(e) =>
-												setCouponCode(e.target.value)
-											}
-										/>
+									<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+										<div className="w-3/5 xs:w-3/4 md:w-4/5">
+											<Input
+												placeholder="Coupon Code"
+												name="couponCode"
+												onChange={(e) =>
+													setCouponCode(e.target.value)
+												}
+											/>
+										</div>
+										<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+											<Button
+												text={
+													loading
+														? 'wait'
+														: 'Apply Coupon'
+												}
+												className={styles.couponBtn}
+												onClick={handleApplyCoupon}
+											/>
+										</div>
 									</div>
-									<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
-										<Button
-											text={
-												loading
-													? 'wait'
-													: 'Apply Coupon'
-											}
-											className={styles.couponBtn}
-											onClick={handleApplyCoupon}
-										/>
-									</div>
-								</div>
-							)}
+								)}
 
 							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
-								<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
-									<div className="w-4/5">
-										<Input
-											placeholder=" Enter Coupon Code"
-											name="couponCode"
-											onChange={(e) =>
-												setCouponCode(e.target.value)
-											}
-										/>
+									<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
+										<div className="w-4/5">
+											<Input
+												placeholder=" Enter Coupon Code"
+												name="couponCode"
+												onChange={(e) =>
+													setCouponCode(e.target.value)
+												}
+											/>
+										</div>
+										<div className="w-1/5 pb-2">
+											<Button
+												text={
+													loading
+														? 'please wait..'
+														: 'Apply Coupon'
+												}
+												className={styles.couponBtn}
+												onClick={handleApplyCoupon}
+											/>
+										</div>
 									</div>
-									<div className="w-1/5 pb-2">
-										<Button
-											text={
-												loading
-													? 'please wait..'
-													: 'Apply Coupon'
-											}
-											className={styles.couponBtn}
-											onClick={handleApplyCoupon}
-										/>
-									</div>
-								</div>
-							)}
+								)}
 
 							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
-								<div
-									className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
-								>
-									<div className="flex justify-between">
-										<p>SubTotal</p>
-										<div className="flex gap-4">
-											{/* {checkoutDetails?.product_details
+									<div
+										className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
+									>
+										<div className="flex justify-between">
+											<p>SubTotal</p>
+											<div className="flex gap-4">
+												{/* {checkoutDetails?.product_details
                       ?.is_strike_original_price && (
                       <s className="text-base-gray-200">
                         {currency_name} 10000
                       </s>
                     )} */}
-											<p>
-												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
-												{OriginalPrices && (
+												<p>
+													{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
+													{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+													{OriginalPrices && (
+														<span
+															style={{
+																fontSize: '15px',
+																color: '#8C8C8C',
+																textDecoration:
+																	'line-through',
+															}}
+														>
+															{getCurrency(
+																'currency'
+															)}{' '}
+														</span>
+													)}
 													<span
 														style={{
 															fontSize: '15px',
 															color: '#8C8C8C',
 															textDecoration:
 																'line-through',
+															marginRight: '7px',
 														}}
 													>
-														{getCurrency(
-															'currency'
-														)}{' '}
+														{getCurrency('original')}
 													</span>
-												)}
-												<span
-													style={{
-														fontSize: '15px',
-														color: '#8C8C8C',
-														textDecoration:
-															'line-through',
-														marginRight: '7px',
-													}}
-												>
-													{getCurrency('original')}
-												</span>
-												{getCurrency('currency')}{' '}
-												{subTotal}
-											</p>
+													{getCurrency('currency')}{' '}
+													{subTotal}
+												</p>
+											</div>
 										</div>
-									</div>
 
-									<div className="flex justify-between">
-										<p>Tax</p>
-										<p>{getTaxDeduction('getVal') || 0}</p>
-									</div>
-									{isChargable === true && (
 										<div className="flex justify-between">
-											<p>Transaction fees</p>
-											<p>{transactionFee || 0}</p>
+											<p>Tax</p>
+											<p>{getTaxDeduction('getVal') || 0}</p>
 										</div>
-									)}
-									<div className="divider"></div>
+										{isChargable === true && (
+											<div className="flex justify-between">
+												<p>Transaction fees</p>
+												<p>{transactionFee || 0}</p>
+											</div>
+										)}
+										<div className="divider"></div>
 
-									<div className="flex justify-between">
-										<p>Total</p>
-										<p className="text-primary-blue font-medium">
-											{getCurrency('currency')}{' '}
-											{taxValue
-												? Number(
+										<div className="flex justify-between">
+											<p>Total</p>
+											<p className="text-primary-blue font-medium">
+												{getCurrency('currency')}{' '}
+												{taxValue
+													? Number(
 														getTaxDeduction(
 															'getCal'
 														)
-												  ).toFixed(2)
-												: Number(
+													).toFixed(2)
+													: Number(
 														totalFee +
-															transactionFee
-												  ).toFixed(2)}
-										</p>
+														transactionFee
+													).toFixed(2)}
+											</p>
+										</div>
 									</div>
-								</div>
-							)}
+								)}
 
 							{pricingTypeDetails?.price_type ===
 								'Make it Free' && (
-								<div className="flex items-center justify-center">
-									<Image
-										src={MakeItFreeIcon}
-										width="240"
-										height="294"
-										alt=""
-									/>
-								</div>
-							)}
+									<div className="flex items-center justify-center">
+										<Image
+											src={MakeItFreeIcon}
+											width="240"
+											height="294"
+											alt=""
+										/>
+									</div>
+								)}
 
 							{pricingTypeDetails?.price_type !==
-							'Make it Free' ? (
+								'Make it Free' ? (
 								<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 									Get instant access to this product once your
 									payment is successful!
@@ -1471,19 +1470,19 @@ const Checkout = () => {
 
 							{pricingTypeDetails?.price_type !==
 								'Make it Free' && (
-								<div className=" w-full lg:w-5/6 mx-auto">
-									<Button
-										text={`Pay Now`}
-										bgColor="blue"
-										className={styles.btnCont}
-										icon={<RightArrow />}
-										disabled={
-											currencyConverterLoading ||
-											disableBtn
-										}
-									/>
-								</div>
-							)}
+									<div className=" w-full lg:w-5/6 mx-auto">
+										<Button
+											text={`Pay Now`}
+											bgColor="blue"
+											className={styles.btnCont}
+											icon={<RightArrow />}
+											disabled={
+												currencyConverterLoading ||
+												disableBtn
+											}
+										/>
+									</div>
+								)}
 
 							{/* {isFree ? (
                 <div className=" w-full lg:w-5/6 mx-auto">
@@ -1559,7 +1558,7 @@ const Checkout = () => {
 	);
 };
 
-const SuccessfulCheckoutModal = ({productDetails, price, currency}) => {
+const SuccessfulCheckoutModal = ({ productDetails, price, currency }) => {
 	return (
 		<div className="p-0 md:p-6 lg:p-12 text-center">
 			<Image src={ActiveTick} width="45" height="45" />

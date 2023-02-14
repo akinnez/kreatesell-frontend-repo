@@ -1,8 +1,8 @@
-import {useMemo} from 'react';
+import { useMemo } from 'react';
 
-import {useUpload} from 'hooks';
+import { useUpload } from 'hooks';
 import Image from 'next/image';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import {
 	CloudUpload,
 	CloudUploadDisable,
@@ -15,10 +15,10 @@ import {
 import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
-export default function ContentUpload({file, setFile, initialFile}) {
+export default function ContentUpload({ file, setFile, initialFile }) {
 	const [progress, setProgress] = useState(0);
 	const [files, setFiles] = useState([]);
-	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
+	const { mainFile, getRootProps, getInputProps, deleteFile } = useUpload({
 		fileType: 'all',
 	});
 
@@ -41,7 +41,7 @@ export default function ContentUpload({file, setFile, initialFile}) {
 		formData.append('file', file);
 		const options = {
 			onUploadProgress: (progressEvent) => {
-				const {loaded, total} = progressEvent;
+				const { loaded, total } = progressEvent;
 				let percent = Math.floor((loaded * 100) / total);
 				cb(percent);
 			},
@@ -49,7 +49,7 @@ export default function ContentUpload({file, setFile, initialFile}) {
 		try {
 			const instance = axios.create();
 			delete instance.defaults.headers.common['Authorization'];
-			const {data} = await instance.post(
+			const { data } = await instance.post(
 				'https://api.cloudinary.com/v1_1/salvoagency/upload',
 				formData,
 				options
@@ -67,7 +67,7 @@ export default function ContentUpload({file, setFile, initialFile}) {
 		const instance = axios.create();
 		delete instance.defaults.headers.common['Authorization'];
 		try {
-			const data = await axios.get(url, {resource_type: 'raw'});
+			const data = await axios.get(url, { resource_type: 'raw' });
 			// console.log(data);
 			let buffer = new Buffer(data.data.toString());
 			// console.log(buffer.toString('base64'));
@@ -93,6 +93,43 @@ export default function ContentUpload({file, setFile, initialFile}) {
 	const handleUpdateDelete = () => {
 		setFile(null);
 		setFiles([]);
+	};
+
+	async function extractFileSize(cloudinaryUrl) {
+		try {
+			const response = await axios.head(cloudinaryUrl, {
+				headers: {
+					'Accept-Encoding': 'identity',
+				},
+			});
+			const size = response.headers['content-length'];
+			return size;
+		} catch (error) {
+			console.log(error);
+			return 0;
+		}
+	}
+
+	const CloudinaryFileSize = ({ cloudinaryUrl }) => {
+		const [fileSize, setFileSize] = useState(null);
+
+		useEffect(() => {
+			extractFileSize(cloudinaryUrl).then((size) => {
+				setFileSize(size);
+			});
+		}, [cloudinaryUrl]);
+
+		return fileSize !== null ? (
+			<h2
+				className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}
+			>
+				{fileSize > 1000000
+					? `${Number(fileSize / 1000000).toFixed(2)}MB`
+					: `${Number(fileSize / 1000).toFixed(2)}KB`}
+			</h2>
+		) : (
+			<p>Loading file size</p>
+		);
 	};
 
 	// useEffect(() => {
@@ -145,14 +182,14 @@ export default function ContentUpload({file, setFile, initialFile}) {
 								<div className="flex flex-col">
 									<h2 className="mb-3 text-base font-bold">
 										{item?.uploaded_name ||
-											item?.filename.split('/')[
-												item?.filename.split('/')
-													.length - 1
+											item?.filename?.split('/')[
+											item?.filename.split('/')
+												.length - 1
 											]}
 									</h2>
-									<p className="mb-0">{`${
-										item?.size || '0 MB'
-									}`}</p>
+									<CloudinaryFileSize
+										cloudinaryUrl={item?.filename}
+									/>
 								</div>
 							</div>
 							<div
@@ -202,10 +239,10 @@ export default function ContentUpload({file, setFile, initialFile}) {
 												item.file.type.includes('video')
 													? Video
 													: item.file.type.includes(
-															'audio'
-													  )
-													? Audio
-													: FileZip
+														'audio'
+													)
+														? Audio
+														: FileZip
 											}
 											alt="zip"
 										/>
@@ -236,9 +273,8 @@ export default function ContentUpload({file, setFile, initialFile}) {
 			<div className={styles.fileUploader}>
 				{file?.length > 0 && <span></span>}
 				<div
-					className={`${styles.contentFileUpload} ${
-						file?.length > 0 ? styles.contentFileUploadDisabled : ''
-					}`}
+					className={`${styles.contentFileUpload} ${file?.length > 0 ? styles.contentFileUploadDisabled : ''
+						}`}
 					{...getRootProps()}
 				>
 					<div className="flex justify-center items-center">
