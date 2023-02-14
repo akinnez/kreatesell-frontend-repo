@@ -2,12 +2,13 @@ import dateFormat from 'utils/dateFormat';
 import formatNumber from 'utils/formatNumber';
 
 export const payoutsColumns = [
-	{title: 'Product', dataIndex: 'product'},
-	{title: 'Customer Name', dataIndex: 'customer_fullname'},
+	{title: 'Product', dataIndex: 'product', width: 200},
+	{title: 'Customer Name', dataIndex: 'customer_fullname', width: 150},
 	{title: 'Customer Email', dataIndex: 'customer_email_address'},
 	{
 		title: 'Amount',
-		render: (record) => `${record.currency} ${formatNumber(record.amount)}`,
+		render: (record) =>
+			`${record.currency} ${Number(record.amount).toFixed(2)}`,
 	},
 	{
 		title: 'Transaction Date',
