@@ -63,18 +63,19 @@ export const Footer = () => {
 					</div>
 
 					<div className={styles.brandContact}>
-            <div className={styles.brandContactIcon}>
-              <Image src={Location} alt="location" />
-            </div>
-            <a
-              className="text"
-              rel="noopener noreferrer"
-              target="blank"
-              href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
-            >
-              Floor 17, Cocoa house <br />Dugbe, Ibadan
-            </a>
-          </div>
+						<div className={styles.brandContactIcon}>
+							<Image src={Location} alt="location" />
+						</div>
+						<a
+							className="text"
+							rel="noopener noreferrer"
+							target="blank"
+							href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
+						>
+							Floor 17, Cocoa house <br />
+							Dugbe, Ibadan
+						</a>
+					</div>
 				</div>
 
 				<div>
@@ -405,7 +406,9 @@ export const Footer = () => {
 						</a>
 					</div>
 
-					<div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div> 
+					<div className={styles.mobileAddress}>
+						Cocoa house Dugbe, Ibadan
+					</div>
 
 					<div className={styles.mobileCopyright}>
 						Copyright &copy; {new Date().getFullYear()} Kreatesell.

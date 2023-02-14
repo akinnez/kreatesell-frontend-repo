@@ -1,14 +1,14 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { ArrowLeft, ViewSales, Video, Audio, EditPen, FileDelete } from 'utils';
-import { Button, Switch } from 'antd';
+import {useEffect, useState} from 'react';
+import {ArrowLeft, ViewSales, Video, Audio, EditPen, FileDelete} from 'utils';
+import {Button, Switch} from 'antd';
 import style from './MembershipTab.module.scss';
 import ProductEditor from '../ProductEditor';
 import ContentUpload from '../ContentUpload';
-import { useFormik } from 'formik';
-import { AuthGetProductById, CreateContent } from 'redux/actions';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import {useFormik} from 'formik';
+import {AuthGetProductById, CreateContent} from 'redux/actions';
+import {useSelector} from 'react-redux';
+import {useRouter} from 'next/router';
 // import ContentEditor from "../ContentEditor"
 
 export default function ManageContent({
@@ -21,15 +21,14 @@ export default function ManageContent({
 	const createContent = CreateContent();
 	const getProduct = AuthGetProductById();
 	const [isDownload, setIsDownload] = useState(false);
-	const router = useRouter()
+	const router = useRouter();
 
-	const { loading } = useSelector((state) => state.product);
+	const {loading} = useSelector((state) => state.product);
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
 	};
-	const productID = router.query?.productId
-
+	const productID = router.query?.productId;
 
 	const initialValues = {
 		section_id: '',
@@ -58,7 +57,7 @@ export default function ManageContent({
 		validateOnChange: false,
 	});
 
-	const { setFieldValue } = formik;
+	const {setFieldValue} = formik;
 
 	useEffect(() => {
 		if (content) {
