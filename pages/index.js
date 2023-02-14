@@ -1,10 +1,11 @@
-import styles from "../styles/home.module.scss";
+import styles from "../styles/home.module.scss"; 
 import { Navbar } from "components/Nav";
 import MainAttention from "components/Attention";
 import SneakPeak from "components/SneakPeak";
 // import SocialIcons from "components/SocialIcons";
 import "antd/dist/antd.css";
 import { Modal } from "antd";
+import { Footer } from "components";
 
 export default function Home() {
   function detailsSubmissionSuccess(msg = "") {
@@ -45,9 +46,9 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container}> 
       <Navbar />
-      <section className={styles.doFlex}>
+      <section className={styles.doFlex}> 
         <MainAttention
           showSubmissionSuccessModal={detailsSubmissionSuccess}
           showSubmissionFailureModal={detailsSubmissionFailure}
@@ -55,11 +56,12 @@ export default function Home() {
         <SneakPeak />
       </section>
       {/* <SocialIcons /> */}
+       <Footer />
     </div>
   );
 }
 
-const Title = ({ text }) => <h1 className={styles.heading}>{text}</h1>;
+const Title = ({ text }) => <h1 className={styles.heading}>{text}</h1>; 
 
 
 const Content = () => (

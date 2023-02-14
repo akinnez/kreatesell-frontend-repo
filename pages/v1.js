@@ -65,14 +65,14 @@ export default function Home() {
           </div>
           {/* <div className={styles.countdown}>
             <CountDownTimer />
-            <p className={styles.text}>To launch!</p>
+            <p className={styles.text}>To launch!</p>   
           </div> */}
           {/* <p className={styles.text}>
             We want you to be the first to know when we launch. So, join the
             wait-list by submitting your details below.
           </p> */}
           {/* <div className={styles.inputContainer}>
-            <InputButton
+            <InputButton 
               name="email "
               placeholder="Enter your email..."
               buttonText="Submit"
