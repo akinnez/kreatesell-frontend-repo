@@ -41,9 +41,9 @@ export const Footer = () => {
 							rel="noopener noreferrer"
 							className="text"
 							target="blank"
-							href="mailto:support@kreatesell.com"
+							href="mailto:info@kreatesell.com"
 						>
-							support@kreatesell.com
+							info@kreatesell.com
 						</a>
 					</div>
 
@@ -58,23 +58,24 @@ export const Footer = () => {
 							// href="tel:+2349062002777"
 							href="https://wa.me/+2349062002777"
 						>
-							Contact Us
+							&nbsp;Contact Us
 						</a>
 					</div>
 
-					{/* <div className={styles.brandContact}>
-            <div className={styles.brandContactIcon}>
-              <Image src={Location} alt="location" />
-            </div>
-            <a
-              className="text"
-              rel="noopener noreferrer"
-              target="blank"
-              href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
-            >
-              Cocoa house Dugbe, Ibadan
-            </a>
-          </div> */}
+					<div className={styles.brandContact}>
+						<div className={styles.brandContactIcon}>
+							<Image src={Location} alt="location" />
+						</div>
+						<a
+							className="text"
+							rel="noopener noreferrer"
+							target="blank"
+							href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
+						>
+							Floor 17, Cocoa house,
+							<br /> Dugbe Ibadan
+						</a>
+					</div>
 				</div>
 
 				<div>
@@ -327,9 +328,9 @@ export const Footer = () => {
 						rel="noopener noreferrer"
 						className={styles.mobileFooterEmail}
 						target="blank"
-						href="mailto:support@kreatesell.com"
+						href="mailto:info@kreatesell.com"
 					>
-						support@kreatesell.com
+						info@kreatesell.com
 					</a>
 
 					<div className={styles.engageUs}>Engage with us</div>
