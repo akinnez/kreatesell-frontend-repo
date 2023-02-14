@@ -448,6 +448,7 @@ const Checkout = () => {
 	useEffect(() => {
 		const getTransactionFees = async () => {
 			// if (isChargable === "customer") {
+			if (!isChargable) return;
 			try {
 				await axios
 					.get(

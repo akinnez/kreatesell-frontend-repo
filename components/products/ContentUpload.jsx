@@ -95,6 +95,43 @@ export default function ContentUpload({file, setFile, initialFile}) {
 		setFiles([]);
 	};
 
+	async function extractFileSize(cloudinaryUrl) {
+		try {
+			const response = await axios.head(cloudinaryUrl, {
+				headers: {
+					'Accept-Encoding': 'identity',
+				},
+			});
+			const size = response.headers['content-length'];
+			return size;
+		} catch (error) {
+			console.log(error);
+			return 0;
+		}
+	}
+
+	const CloudinaryFileSize = ({cloudinaryUrl}) => {
+		const [fileSize, setFileSize] = useState(null);
+
+		useEffect(() => {
+			extractFileSize(cloudinaryUrl).then((size) => {
+				setFileSize(size);
+			});
+		}, [cloudinaryUrl]);
+
+		return fileSize !== null ? (
+			<h2
+				className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}
+			>
+				{fileSize > 1000000
+					? `${Number(fileSize / 1000000).toFixed(2)}MB`
+					: `${Number(fileSize / 1000).toFixed(2)}KB`}
+			</h2>
+		) : (
+			<p>Loading file size</p>
+		);
+	};
+
 	// useEffect(() => {
 	// 	if (mainFile.length > 0) {
 	// 		const start = async () => {
@@ -145,14 +182,14 @@ export default function ContentUpload({file, setFile, initialFile}) {
 								<div className="flex flex-col">
 									<h2 className="mb-3 text-base font-bold">
 										{item?.uploaded_name ||
-											item?.filename.split('/')[
+											item?.filename?.split('/')[
 												item?.filename.split('/')
 													.length - 1
 											]}
 									</h2>
-									<p className="mb-0">{`${
-										item?.size || '0 MB'
-									}`}</p>
+									<CloudinaryFileSize
+										cloudinaryUrl={item?.filename}
+									/>
 								</div>
 							</div>
 							<div

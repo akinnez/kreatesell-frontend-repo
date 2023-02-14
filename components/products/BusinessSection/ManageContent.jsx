@@ -8,6 +8,7 @@ import ContentUpload from '../ContentUpload';
 import {useFormik} from 'formik';
 import {AuthGetProductById, CreateContent} from 'redux/actions';
 import {useSelector} from 'react-redux';
+import {useRouter} from 'next/router';
 // import ContentEditor from "../ContentEditor"
 
 export default function ManageContent({
@@ -20,12 +21,14 @@ export default function ManageContent({
 	const createContent = CreateContent();
 	const getProduct = AuthGetProductById();
 	const [isDownload, setIsDownload] = useState(false);
+	const router = useRouter();
 
-	const {productID, loading} = useSelector((state) => state.product);
+	const {loading} = useSelector((state) => state.product);
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
 	};
+	const productID = router.query?.productId;
 
 	const initialValues = {
 		section_id: '',

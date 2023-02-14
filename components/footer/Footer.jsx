@@ -406,7 +406,9 @@ export const Footer = () => {
 						</a>
 					</div>
 
-					{/* <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div> */}
+					<div className={styles.mobileAddress}>
+						Cocoa house Dugbe, Ibadan
+					</div>
 
 					<div className={styles.mobileCopyright}>
 						Copyright &copy; {new Date().getFullYear()} Kreatesell.
