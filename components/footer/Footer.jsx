@@ -407,7 +407,7 @@ export const Footer = () => {
 					</div>
 
 					<div className={styles.mobileAddress}>
-					Floor 17, Cocoa house Dugbe, Ibadan
+						Floor 17, Cocoa house Dugbe, Ibadan
 					</div>
 
 					<div className={styles.mobileCopyright}>
