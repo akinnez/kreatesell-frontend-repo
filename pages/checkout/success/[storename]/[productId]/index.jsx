@@ -747,6 +747,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 		(item) => item.file_type_name === 'ContentZipFile'
 	);
 
+
 	const getFileSize = () => {
 		const numberSize = Number(
 			product?.product_images[0]?.size.split('MB')[0]
