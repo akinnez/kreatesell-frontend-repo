@@ -411,8 +411,8 @@ export const Footer = () => {
 					</div>
 
 					<div className={styles.mobileCopyright}>
-						Copyright &copy; {new Date().getFullYear()} Kreatesell LTD.
-						All Rights Reserved
+						Copyright &copy; {new Date().getFullYear()} Kreatesell
+						LTD. All Rights Reserved
 					</div>
 				</div>
 			</div>
