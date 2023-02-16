@@ -19,7 +19,17 @@ var timeOptions = {
 export const formatDateAndTime = (date) => {
 	return (
 		<>
-			{new Date(date).toLocaleDateString('en-US', options)}{' '}
+			{new Date(date).toLocaleDateString('en-US', options)} &nbsp;
+			{new Date(date).toLocaleString('en-US', timeOptions)}
+		</>
+	);
+};
+export const formatShortDateAndTime = (date) => {
+	let shortOptions = {...options, weekday: 'short'};
+	delete shortOptions.weekday;
+	return (
+		<>
+			{new Date(date).toLocaleDateString('en-US', shortOptions)}
 			{new Date(date).toLocaleString('en-US', timeOptions)}
 		</>
 	);
@@ -141,8 +151,7 @@ export const showToast = (message, type) => {
 };
 
 export const _validateEmail = (email) => {
-	const re =
-		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(email);
 };
 
