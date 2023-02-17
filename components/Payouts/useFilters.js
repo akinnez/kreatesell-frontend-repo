@@ -8,12 +8,13 @@ const useFilters = (api) => {
 		currency: null,
 		from: '',
 		to: '',
+		WalletType: 'Affiliate',
 	});
 
-	// const url = new URL(
-	// 	`${process.env.BASE_URL}${api}?Page=${filters.page}&Limit=${filters.limit}`
-	// );
-	const url = new URL(`${process.env.BASE_URL}${api}`);
+	const url = new URL(
+		`${process.env.BASE_URL}${api}?Page=${filters.page}&Limit=${filters.limit}`
+	);
+	// const url = new URL(`${process.env.BASE_URL}${api}`);
 
 	if (filters.productName) {
 		url.searchParams.set('Product_Name', filters.productName);
@@ -29,6 +30,9 @@ const useFilters = (api) => {
 
 	if (filters.to) {
 		url.searchParams.set('EndDate', filters.to);
+	}
+	if (filters.WalletType) {
+		url.searchParams.set('WalletType', filters.WalletType);
 	}
 
 	return {url: url.href, filters, setFilters};

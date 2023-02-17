@@ -227,8 +227,8 @@ const CardComponent = ({data}) => {
 					</li>
 					<li className={styles.ticketDetail}>
 						<h1 className={`${styles.key} mb-0`}>Ticket ID</h1>
-						<p className={`${styles.value} mb-0`}>
-							#{data.ticket_id}
+						<p className={`${styles.value} mb-0 text-right`}>
+							{data.ticket_reference}
 						</p>
 					</li>
 				</ul>
