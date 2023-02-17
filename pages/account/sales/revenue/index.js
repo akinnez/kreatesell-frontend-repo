@@ -204,16 +204,18 @@ const formatNumberToLocaleString = (number) => {
 
 const CardComponent = ({data}) => {
 	// console.log('data = ', data);
-	const item = data?.clearance_date;
+	const formatDateFn = (date) => {
+		const time = parseISO(date);
+		const formatTime = format(time, 'PPPp');
+		const formatDate = format(time, 'PPP');
 
-	const time = parseISO(item);
+		return `${formatDate.split('at')[0]},${formatTime.split('at')[1]}`;
+	};
 
-	const formatTime = format(time, 'PPPp');
-	const formatDate = format(time, 'PPP');
 	return (
 		<div className={styles.mobileCardContainer}>
 			<Card className={styles.mobileCard}>
-				<p className={styles.date}>{dateString(data.date_created)}</p>
+				<p className={styles.date}>{formatDateFn(data.date_created)}</p>
 				<div className={styles.statusContainer}>
 					<div className={styles.status}>
 						{statusComponent(data?.status)}
@@ -228,7 +230,7 @@ const CardComponent = ({data}) => {
 				<ul className={styles.orderDetails}>
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Order ID</h1>
-						<p className={`${styles.value} mb-0 ml-4`}>
+						<p className={`${styles.value} mb-0 ml-4 text-right`}>
 							{data.order_id}
 						</p>
 					</li>
@@ -251,8 +253,7 @@ const CardComponent = ({data}) => {
 					<li className={styles.orderDetail}>
 						<h1 className={`${styles.key} mb-0`}>Clearance Date</h1>
 						<p className={`${styles.value} mb-0`}>
-							{`${formatDate.split('at')[0]},`}{' '}
-							{formatTime.split('at')[1]}
+							{formatDateFn(data?.clearance_date)}
 						</p>
 					</li>
 				</ul>
