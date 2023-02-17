@@ -1,11 +1,29 @@
 import Image from 'next/image';
+
 import {Line} from 'react-chartjs-2';
+
 import {Select} from '../';
 import {DownloadIcon} from '../../utils';
 import {dayOptions} from './partials';
 import styles from './Recent.module.scss';
+import useViewMembershipFilters from './hooks/useKreatorRecentCustomers';
+import useKreatorRecentCustomers from 'services/swrQueryHooks/KreatorRecentCustomers';
 
 export const RecentAnalytics = () => {
+	const {url, filters, setFilters} = useViewMembershipFilters(
+		'v1/kreatesell/store/kreator/recent-transactions'
+	);
+	const {
+		recentKreatorCustomers,
+		loading,
+		setLoading,
+		recentKreatorsData,
+		recentKreatorsError,
+		recentKreatorsLoading,
+		isValidating,
+	} = useKreatorRecentCustomers(url);
+
+	// console.log('recentKreatorCustomers', recentKreatorCustomers);
 	const data = {
 		labels: [
 			'Jan',
@@ -47,6 +65,7 @@ export const RecentAnalytics = () => {
 			},
 		},
 	};
+	// Get list of recent customers' transactions
 
 	return (
 		<div className={styles.container}>
