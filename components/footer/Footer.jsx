@@ -407,12 +407,12 @@ export const Footer = () => {
 					</div>
 
 					<div className={styles.mobileAddress}>
-						Cocoa house Dugbe, Ibadan
+						Floor 17, Cocoa house Dugbe, Ibadan
 					</div>
 
 					<div className={styles.mobileCopyright}>
-						Copyright &copy; {new Date().getFullYear()} Kreatesell.
-						All Rights Reserved
+						Copyright &copy; {new Date().getFullYear()} Kreatesell
+						LTD. All Rights Reserved
 					</div>
 				</div>
 			</div>
