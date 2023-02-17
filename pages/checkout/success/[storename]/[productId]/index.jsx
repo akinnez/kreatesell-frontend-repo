@@ -731,7 +731,7 @@ const ProductCard2 = ({
 const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const productId = router?.query?.productId;
 	const productDetails = product?.product_details;
-	console.log(product,'hello')
+	console.log(product, 'hello');
 	const StoreDetails = product?.store_dto;
 	const productSectionCount = product?.content_section_tracker;
 
@@ -776,7 +776,9 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 							alt=""
 						/>
 						<span className="">
-							<div className={styles.top}>{`${productName}.${product?.product_images[0]?.extension}`}</div>
+							<div
+								className={styles.top}
+							>{`${productName}.${product?.product_images[0]?.extension}`}</div>
 							<div className={styles.bottom}>
 								<div>
 									<p className={styles.left}>
