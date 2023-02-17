@@ -148,6 +148,8 @@ export const CheckoutForm = ({
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
+	const [errorAffiliatePercentage, setErrorAffiliatePercentage] =
+		useState(false);
 	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
 		useState(false);
 	const [limitProductSale, setLimitProductSale] = useState(false);
@@ -514,11 +516,13 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
-		// console.log('fixedSellingPrice', fixedSellingPrice);
-		// console.log('savedFixedOriginalPrice', savedFixedOriginalPrice);
-		if (afiliatePercentage === '') {
+		if (afiliatePercentage === '' || afiliatePercentage === 0) {
 			showToast('Put in a valid percentage value!', 'error');
+			setErrorAffiliatePercentage(true);
 			return;
+		}
+		if (errorAffiliatePercentage) {
+			setErrorAffiliatePercentage(false);
 		}
 		if (priceType === 'Fixed Price') {
 			if (validateDefinedCurrencies('Fixed Price')) {
@@ -1847,8 +1851,19 @@ export const CheckoutForm = ({
 													commisionAllowed
 												);
 											}}
+											className={
+												errorAffiliatePercentage &&
+												styles.borderRed
+											}
 										/>
-										<span>%</span>
+										<span
+											className={
+												errorAffiliatePercentage &&
+												styles.errorSpan
+											}
+										>
+											%
+										</span>
 									</div>
 
 									{/* <p
