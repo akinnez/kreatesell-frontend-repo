@@ -1,27 +1,42 @@
+import {useMemo, useState, useEffect} from 'react';
 import Image from 'next/image';
 
 import {Form, Button, DatePicker, Input, Select, Row, Col} from 'antd';
 import moment from 'moment';
-import {MdSearch} from 'react-icons/md';
+import {MdSearch, MdOutlineCancel} from 'react-icons/md';
 
 import styles from './ViewSubscribersFilter.module.scss';
+import {showOptions} from 'utils';
+import useCurrency from 'hooks/useCurrency';
 
-const JobType = [
-	{label: 'UX Engineer', value: 'ux engineer'},
-	{label: 'Frontend Designer', value: 'frontend designer'},
-	{label: 'Tech Lead', value: 'tech lead'},
-	{label: 'Content Writer', value: 'content writer'},
-	{label: 'Product Designer', value: 'product designer'},
-	{label: 'Backend Engineer', value: 'backend engineer'},
-	{label: 'Cloud Engineer', value: 'cloud engineer'},
-	{label: 'Digital Marketer', value: 'digital marketer'},
-];
+const ResetBtn = ({resetFilters}) => (
+	<div className={styles.resetFilters}>
+		<Button shape="round" icon={<MdOutlineCancel />} onClick={resetFilters}>
+			Clear filters
+		</Button>
+	</div>
+);
+
 export const ViewSubscribersHeader = ({submitCb}) => {
+	const [isFiltered, setIsFiltered] = useState(false);
+	const [countriesCurrencyList, setCountriesCurrencyList] = useState([]);
 	const [form] = Form.useForm();
 
 	const handleSearch = (e) => {
 		form.setFieldsValue({[e.target.name]: e.target.value});
 	};
+
+	const {countriesCurrency} = useCurrency();
+
+	useMemo(() => {
+		if (!!countriesCurrency) {
+			let country = countriesCurrency.map((ctr) => ({
+				label: ctr.currency,
+				value: ctr.currency_id,
+			}));
+			setCountriesCurrencyList(country);
+		}
+	}, [countriesCurrency]);
 
 	const handleDropdown = (value, key) => {
 		form.setFieldsValue({[key]: value});
@@ -34,18 +49,18 @@ export const ViewSubscribersHeader = ({submitCb}) => {
 	};
 
 	const handleSubmitFilter = (values) => {
-		console.log('values', values);
-		const {search, show, currency, from, to} = values;
+		const {text, show, currency, from, to} = values;
 
-		if (!search && !show && !currency && !from && !to) {
+		if (!text && !show && !currency && !from && !to) {
 			// show toast
-			console.log('Input values');
+			// console.log('Input values');
 			return;
 		}
+		setIsFiltered(true);
 		submitCb((s) => ({
 			...s,
 			page: 1,
-			productName: productName || '',
+			text: text || '',
 			show: show || '',
 			currency: currency || '',
 			from: from || '',
@@ -54,12 +69,22 @@ export const ViewSubscribersHeader = ({submitCb}) => {
 	};
 
 	const resetFilters = () => {
+		setIsFiltered(false);
 		form.resetFields();
+		submitCb({
+			page: 1,
+			limit: 10,
+			text: '',
+			show: '',
+			currency: null,
+			from: '',
+			to: '',
+		});
 	};
 
-	const handleToggle = (value) => () => {
-		setShowFilter(value);
-	};
+	// const handleToggle = (value) => () => {
+	// 	setShowFilter(value);
+	// };
 
 	return (
 		<div className={styles.dateHeader}>
@@ -78,7 +103,7 @@ export const ViewSubscribersHeader = ({submitCb}) => {
 						lg={{span: 4}}
 						className={styles.input__wrapper}
 					>
-						<Form.Item label="Search" name="search">
+						<Form.Item label="Search" name="text">
 							<Input
 								prefix={<MdSearch />}
 								placeholder="Click here to Search"
@@ -93,7 +118,7 @@ export const ViewSubscribersHeader = ({submitCb}) => {
 					>
 						<Form.Item label="Show" name="show">
 							<Select
-								options={JobType}
+								options={showOptions}
 								placeholder="Today"
 								onChange={(value) =>
 									handleDropdown(value, 'show')
@@ -108,7 +133,7 @@ export const ViewSubscribersHeader = ({submitCb}) => {
 					>
 						<Form.Item label="Currency" name="currency">
 							<Select
-								options={JobType}
+								options={countriesCurrencyList}
 								placeholder="NGN"
 								onChange={(value) =>
 									handleDropdown(value, 'currency')
@@ -167,6 +192,9 @@ export const ViewSubscribersHeader = ({submitCb}) => {
 					</Col>
 				</Row>
 			</Form>
+			<div style={{marginInline: '25px', marginBlockStart: '10px'}}>
+				{isFiltered && <ResetBtn resetFilters={resetFilters} />}
+			</div>
 		</div>
 	);
 };

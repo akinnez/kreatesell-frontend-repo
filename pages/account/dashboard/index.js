@@ -99,7 +99,7 @@ const Dashboard = () => {
 	useEffect(() => {
 		getUserVisitStatus();
 
-		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
+		// console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
 	// console.log('filters', filters);
 	return (
@@ -157,6 +157,7 @@ const Dashboard = () => {
 							isAnAffiliate={isAnAffiliate}
 							isAffiliateCard={true}
 						/>
+
 						<StatsCard
 							isAnAffiliate={isAnAffiliate}
 							isAffiliateCard={true}

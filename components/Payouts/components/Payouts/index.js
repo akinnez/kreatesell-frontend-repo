@@ -23,7 +23,6 @@ const Payouts = ({bankDetails, handleClick}) => {
 		'v1/kreatesell/store/payouts'
 	);
 
-	// console.log('payouts = ', payouts);
 	useEffect(() => {
 		if (bankDetails) {
 			setLoading(true);

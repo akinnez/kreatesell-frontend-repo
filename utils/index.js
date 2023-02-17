@@ -29,7 +29,7 @@ export const formatShortDateAndTime = (date) => {
 	delete shortOptions.weekday;
 	return (
 		<>
-			{new Date(date).toLocaleDateString('en-US', shortOptions)}
+			{new Date(date).toLocaleDateString('en-US', shortOptions)} -{' '}
 			{new Date(date).toLocaleString('en-US', timeOptions)}
 		</>
 	);
@@ -329,6 +329,16 @@ export const currencyOptions = [
 	{value: 'UGX', label: 'UGX'},
 	{value: 'USD', label: 'USD'},
 	{value: 'GBP', label: 'GBP'},
+];
+
+export const showOptions = [
+	{value: '', label: 'Custom'},
+	{value: 'Today', label: 'Today'},
+	{value: 'Yesterday', label: 'Yesterday'},
+	{value: 'Last 7 days', label: 'Last 7 days'},
+	{value: 'Last 30 days', label: 'Last 30 days'},
+	{value: 'This year', label: 'This year'},
+	{value: 'All time', label: 'All time'},
 ];
 
 export const Animate = (
