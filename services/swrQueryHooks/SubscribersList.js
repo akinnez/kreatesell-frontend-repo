@@ -1,8 +1,6 @@
 import {useState} from 'react';
 import useSWR from 'swr';
 
-import {HELP_TICKETS} from '../queryKeys';
-import {getHelpTickets} from '../api/HelpTickets';
 import axiosApi from 'utils/axios';
 import {showToast} from 'utils';
 

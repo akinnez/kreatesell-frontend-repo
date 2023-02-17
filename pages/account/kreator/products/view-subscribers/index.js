@@ -10,7 +10,7 @@ import styles from '../../../../../public/css/ViewSubscribers.module.scss';
 import {ViewSubscribersHeader} from 'components/products/ViewSubscribersFilter';
 import useViewMembershipFilters from 'components/affiliates/hooks/useViewMembershipFilters';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
-import {ShoppingCart, formatDateAndTime, formatDate} from 'utils';
+import {ShoppingCart, formatDateAndTime, formatShortDateAndTime} from 'utils';
 import useSubscribersList from 'services/swrQueryHooks/SubscribersList';
 
 // TODO: move to its own file
@@ -95,13 +95,13 @@ const CardContainer = ({data}) => {
 					<span className={styles.startDate}>
 						<span className={styles.dateFiller}>Start Date:</span>
 						<p className={styles.date}>
-							{formatDateAndTime(data.subscription_start)}
+							{formatShortDateAndTime(data.subscription_start)}
 						</p>
 					</span>
 					<hr />
 					<span className={styles.endDate}>
 						<span className={styles.dateFiller}>End Date:</span>
-						<p>{formatDateAndTime(data.subscription_end)}</p>
+						<p>{formatShortDateAndTime(data.subscription_end)}</p>
 					</span>
 				</div>
 				<div className={styles.courseTitle}>
@@ -162,12 +162,13 @@ const ViewSubscribers = () => {
 		subscribersData,
 		subscribersError,
 		subscribersLoading,
+		isValidating,
 	} = useSubscribersList(url);
 
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
 	};
-	if (subscribersLoading) return <>Loading...</>;
+	// if (subscribersLoading) return <>Loading...</>;
 	return (
 		<ProfileLayout customWidth={true}>
 			<Head>
@@ -206,7 +207,7 @@ const ViewSubscribers = () => {
 								onChange: handlePageChange,
 							}}
 							rowKey={rowKey}
-							loading={false}
+							loading={subscribersLoading || isValidating}
 						/>
 					</section>
 				</div>
