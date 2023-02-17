@@ -2,6 +2,29 @@ import HistoryTag from '../components/HistoryTag';
 import formatAccountNumber from '../utils/formatAccountNumber';
 import dateFormat from 'utils/dateFormat';
 
+const statusColorComponent = (status) => {
+	const defaultStyle = {
+		borderRadius: '8px',
+		display: 'flex',
+		justifyContent: 'center',
+		marginBottom: '0px',
+		fontWeight: 400,
+		fontSize: '16px',
+	};
+	const StatusObj = {
+		Credit: {
+			color: '#2DC071',
+			background: '#F1FCF8',
+		},
+		Debit: {
+			color: '#FF4D4F',
+			background: 'rgba(255, 77, 79, 0.1)',
+		},
+	};
+	if (!StatusObj[status]) return;
+	return <p style={{...StatusObj[status], ...defaultStyle}}>{status}</p>;
+};
+
 export const walletColumns = [
 	{
 		title: 'Amount',
@@ -11,7 +34,9 @@ export const walletColumns = [
 		title: 'Type',
 		dataIndex: 'direction',
 		render: (record) =>
-			record?.toLowerCase() === 'c' ? 'Credit' : 'Debit',
+			record?.toLowerCase() === 'c'
+				? statusColorComponent('Credit')
+				: statusColorComponent('Debit'),
 	},
 	{
 		title: 'Description',

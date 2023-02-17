@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useRouter} from 'next/router';
 
 import useSWR from 'swr';
-import {Table, Pagination, Spin, Modal, Button} from 'antd';
+import {Table, Pagination, Spin, Modal, Button, Switch} from 'antd';
 
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
 import PaginationSizeChanger from 'components/PaginationSizeChanger';
@@ -32,7 +32,12 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 		'v1/kreatesell/store/wallet/history'
 	);
 
-	const {data, error, isValidating} = useSWR(url, (url) => {
+	const {
+		data,
+		error,
+		isValidating,
+		isLoading: swrLoading,
+	} = useSWR(url, (url) => {
 		return axiosApi.request(
 			'get',
 			url,
@@ -68,9 +73,13 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
 	};
-	if (!data && !error) {
-		return <Loader />;
-	}
+
+	const handleKreatorAffiliateFilter = (walletType = '') => {
+		setFilters((prev) => ({...prev, WalletType: walletType}));
+	};
+	// if (!data && !error) {
+	// 	return <Loader />;
+	// }
 
 	// TODO: Check to see if this if statement is still required
 	if (
@@ -120,16 +129,28 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 				walletInfo={walletInfo}
 				loading={storeLoading}
 			/>
-			<h2 className={styles.heading}>Wallet History</h2>
+			<div className={`flex items-center mb-10 gap-4`}>
+				<h2 className={`${styles.heading} mb-0`}>Wallet History</h2>
+				<Switch
+					checkedChildren={"Kreator's Wallet"}
+					unCheckedChildren={"Affiliate's Wallet"}
+					onChange={(e) => {
+						handleKreatorAffiliateFilter(
+							e ? 'Kreator' : 'Affiliate'
+						);
+					}}
+					// disabled={swrLoading || isValidating}
+				/>
+			</div>
 			<section>
 				<Filters setFilters={setFilters} setLoading={setLoading} />
 			</section>
 			<section>
-				{/* <SyncDataToCSV
-					data={histories}
+				<SyncDataToCSV
+					data={histories || []}
 					headers={walletHeaders}
 					filename="wallet_history"
-				/> */}
+				/>
 			</section>
 			<Spin spinning={isLoading} wrapperClassName={styles.spin__wrapper}>
 				<PaginationSizeChanger
@@ -147,6 +168,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 							columns={walletColumns}
 							pagination={false}
 							rowKey={rowKey}
+							// loading={swrLoading || isValidating}
 						/>
 					</div>
 				</section>
