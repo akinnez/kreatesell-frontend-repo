@@ -58,7 +58,7 @@ export const StatsCard = ({
 							</div>
 							<div className={styles.countCont}>
 								<div className={styles.value}>
-									{(typeof unitSales === 'number' &&
+									{(unitSales !== null &&
 										parseInt(unitSales)) ||
 										''}
 								</div>
