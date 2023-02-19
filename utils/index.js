@@ -16,6 +16,17 @@ var timeOptions = {
 	hour12: true,
 };
 
+export const formatDate2 = (dateArg) => {
+	const date = new Date(dateArg);
+
+	const day = ('0' + date.getUTCDate()).slice(-2);
+	const month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+	const year = date.getUTCFullYear();
+
+	const formattedDate = `${day}/${month}/${year}`;
+	return formattedDate;
+};
+
 export const formatDateAndTime = (date) => {
 	return (
 		<>
