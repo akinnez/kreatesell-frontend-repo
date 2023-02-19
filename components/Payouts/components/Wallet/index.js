@@ -49,24 +49,26 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 		'v1/kreatesell/store/wallet/history'
 	);
 
-	const {data, error, isValidating, isLoading: swrLoading} = useSWR(
-		url,
-		(url) => {
-			return axiosApi.request(
-				'get',
-				url,
-				(res) => {
-					setLoading(false);
-					return res.data;
-				},
-				(err) => {
-					setLoading(false);
-					showToast('Error fetching your wallet history', 'error');
-					return err;
-				}
-			);
-		}
-	);
+	const {
+		data,
+		error,
+		isValidating,
+		isLoading: swrLoading,
+	} = useSWR(url, (url) => {
+		return axiosApi.request(
+			'get',
+			url,
+			(res) => {
+				setLoading(false);
+				return res.data;
+			},
+			(err) => {
+				setLoading(false);
+				showToast('Error fetching your wallet history', 'error');
+				return err;
+			}
+		);
+	});
 
 	const histories = data?.data || [];
 	const historiesTotal = data?.total_records || 0;
