@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useRouter} from 'next/router';
 
 import useSWR from 'swr';
 import {Table, Pagination, Spin, Modal, Button, Switch} from 'antd';
+import {useSelector} from 'react-redux';
 
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
 import PaginationSizeChanger from 'components/PaginationSizeChanger';
@@ -17,41 +18,55 @@ import {showToast} from 'utils';
 import styles from './index.module.scss';
 import Loader from 'components/loader';
 import CloseIcon from 'components/affiliates/CloseIcon';
+import {AddBankModal} from 'components/bank';
 
 const rowKey = (record) => record.id;
 
 const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const [loading, setLoading] = useState(false);
+	const [isBank, setIsBank] = useState(false);
 	const Router = useRouter();
+	const {store} = useSelector((state) => state.store);
 
 	// const {url, filters, setFilters} = useFilters(
 	// 	'v1/kreatesell/store/wallet/history'
 	// );
+	useEffect(() => {
+		if (Object.keys(store).length > 0) {
+			const {bank_details, user} = store;
+			if (!bank_details) {
+				setIsBank(true);
+			} else {
+				setIsBank(false);
+			}
+			return () => {
+				setIsBank(false);
+			};
+		}
+	}, [store]);
 	// TODO: put the wallet ID
 	const {url, filters, setFilters} = useFilters(
 		'v1/kreatesell/store/wallet/history'
 	);
 
-	const {
-		data,
-		error,
-		isValidating,
-		isLoading: swrLoading,
-	} = useSWR(url, (url) => {
-		return axiosApi.request(
-			'get',
-			url,
-			(res) => {
-				setLoading(false);
-				return res.data;
-			},
-			(err) => {
-				setLoading(false);
-				showToast('Error fetching your wallet history', 'error');
-				return err;
-			}
-		);
-	});
+	const {data, error, isValidating, isLoading: swrLoading} = useSWR(
+		url,
+		(url) => {
+			return axiosApi.request(
+				'get',
+				url,
+				(res) => {
+					setLoading(false);
+					return res.data;
+				},
+				(err) => {
+					setLoading(false);
+					showToast('Error fetching your wallet history', 'error');
+					return err;
+				}
+			);
+		}
+	);
 
 	const histories = data?.data || [];
 	const historiesTotal = data?.total_records || 0;
@@ -185,6 +200,9 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 					</section>
 				)}
 			</Spin>
+			{isBank && (
+				<AddBankModal closable={false} {...{isBank, setIsBank}} />
+			)}
 		</>
 	);
 };
