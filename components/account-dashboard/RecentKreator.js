@@ -9,18 +9,19 @@ import styles from './Recent.module.scss';
 import useViewMembershipFilters from './hooks/useKreatorRecentCustomers';
 import useKreatorRecentCustomers from 'services/swrQueryHooks/KreatorRecentCustomers';
 
-export const RecentAnalytics = () => {
+export const RecentKreatorAnalytics = () => {
+	// TODO: change these
 	const {url, filters, setFilters} = useViewMembershipFilters(
-		'affiliate/recent-transactions'
+		'v1/kreatesell/store/kreator/recent-transactions'
 	);
 	const {
-		setLoading,
 		recentKreatorsData,
 		recentKreatorsError,
 		recentKreatorsLoading,
 		isValidating,
 	} = useKreatorRecentCustomers(url);
 
+	// console.log('recentKreatorsData', recentKreatorsData);
 	const data = {
 		labels: [
 			'Jan',
@@ -76,7 +77,9 @@ export const RecentAnalytics = () => {
 			<div className={styles.analytics}>
 				<div className={styles.recentSales}>
 					<div className={styles.graphTitle}>
-						<div className={styles.recentTitle}>Recent Sales</div>
+						<div className={styles.recentTitle}>
+							Recent Kreator Sales
+						</div>
 
 						<div className={styles.graphLegend}>
 							<div className={styles.roundIcon}></div>
@@ -105,10 +108,10 @@ export const RecentAnalytics = () => {
 										className={styles.contentList}
 									>
 										<li>{data?.customer_full_name}</li>
+										<li>{data?.tnx_id}</li>
 										<li>
-											{data?.transaction_id || 'No ID'}
+											{formatDate2(data?.date_created)}
 										</li>
-										<li>{formatDate2(data?.sales_date)}</li>
 									</ul>
 								))}
 						</div>

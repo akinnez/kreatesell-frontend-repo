@@ -5,6 +5,12 @@ import axiosApi from 'utils/axios';
 import {showToast} from 'utils';
 
 // fetcher function
+/**
+ *
+ * @param {*} url
+ * @description this swr hook is used for both kreator and affiliates recent
+ * analytics
+ */
 const useKreatorRecentCustomers = (url) => {
 	const [recentKreatorCustomers, setRecentKreatorCustomers] = useState({
 		data: [],
