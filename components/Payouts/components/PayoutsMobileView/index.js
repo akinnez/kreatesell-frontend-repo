@@ -67,7 +67,7 @@ const PayoutsMobileView = ({payouts}) => {
 										<RenderIf
 											condition={
 												payout?.earned_as ===
-												'Earned as Kreator'
+												'Earned as Affiliate'
 											}
 										>
 											<p
