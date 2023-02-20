@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
 
 import {Table, Card} from 'antd';
 
@@ -30,6 +31,11 @@ const subscribersColumns = [
 	{
 		title: 'Product Price',
 		dataIndex: 'product_price',
+		render: (item, all) => (
+			<>
+				{all.currency} {item}
+			</>
+		),
 	},
 	{
 		title: 'Number of Payments Made',
@@ -152,6 +158,8 @@ const CardContainer = ({data}) => {
 };
 
 const ViewSubscribers = () => {
+	const router = useRouter();
+
 	const {url, filters, setFilters} = useViewMembershipFilters(
 		'v1/kreatesell/product/fetch/all/subscribers'
 	);
@@ -163,11 +171,21 @@ const ViewSubscribers = () => {
 		subscribersError,
 		subscribersLoading,
 		isValidating,
-	} = useSubscribersList(url);
+	} = useSubscribersList(url, !!filters.KreatorProductId);
 
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
 	};
+
+	useEffect(() => {
+		if (router.query.KreatorProductId) {
+			setFilters((prev) => ({
+				...prev,
+				KreatorProductId: router.query.KreatorProductId,
+			}));
+		}
+	}, [router.query.KreatorProductId]);
+
 	// if (subscribersLoading) return <>Loading...</>;
 	return (
 		<ProfileLayout customWidth={true}>
