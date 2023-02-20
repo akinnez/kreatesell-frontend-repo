@@ -9,6 +9,7 @@ import {useSelector} from 'react-redux';
 import {SetProductTab} from 'redux/actions';
 import MembershipTab from 'components/products/BusinessSection/MembershipTab';
 import styles from '../../../../public/css/CreateProducts.module.scss';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const CreateProduct = () => {
 	const router = useRouter();
@@ -43,6 +44,7 @@ const CreateProduct = () => {
 					style={{padding: '5px 2px 0', marginBottom: '1em'}}
 					className={styles.cardContainer}
 				>
+					<TelegramFloatingDiv />
 					<Tab
 						titles={titles}
 						disableCheckout={productCreationNotComplete}
@@ -55,7 +57,8 @@ const CreateProduct = () => {
 				</Card>
 			)}
 			{productTab === 0 && (
-				<Card style={{padding: '60px 1.5rem 60px 1.5rem '}}>
+				<Card style={{padding: '60px 1.5rem 60px 1.5rem'}}>
+					<TelegramFloatingDiv />
 					<CreateProductTab
 						setSelectedTab={setSelectedTab}
 						titles={titles}
@@ -69,14 +72,18 @@ const CreateProduct = () => {
 					style={{padding: '50px 28px 60px 28px '}}
 					// style={{padding: '50px 48px 60px 48px '}}
 				>
+					<TelegramFloatingDiv />
 					<CheckoutProductTab {...{productId}} />
 				</Card>
 			)}
 			{productTab === 2 && (
-				<MembershipTab
-					setIsTabsActive={setIsTabsActive}
-					{...{productId}}
-				/>
+				<>
+					<TelegramFloatingDiv />
+					<MembershipTab
+						setIsTabsActive={setIsTabsActive}
+						{...{productId}}
+					/>
+				</>
 			)}
 		</AuthLayout>
 	);

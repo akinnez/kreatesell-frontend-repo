@@ -315,6 +315,9 @@ import LargeVerificationIcon from '../public/images/verificationLarge.svg';
 import MediumVerificationIcon from '../public/images/verificationMedium.svg';
 import Cart from '../public/images/Cart.svg';
 import Copy from '../public/images/copy.svg';
+import PdfIcon from '../public/images/pdfIcon.png';
+import BlueAlert from '../public/images/blueAlert.png';
+import TelegramIcon from '../public/images/telegramIcon.png';
 
 export {
 	Copy,
@@ -632,4 +635,7 @@ export {
 	Mailchimp,
 	GetResponse,
 	Zapier,
+	PdfIcon,
+	BlueAlert,
+	TelegramIcon,
 };

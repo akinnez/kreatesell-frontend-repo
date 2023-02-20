@@ -108,8 +108,9 @@ const Checkout = () => {
 	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
-	const [taxValue, setTaxValue] = useState(null);
+	const [taxValue, setTaxValue] = useState(0);
 	const [isChargable, setIsChargable] = useState(null);
+
 	const [transactionFee, setTransactionFee] = useState(0);
 
 	const testCurrency = activeCurrency?.currency
@@ -196,7 +197,9 @@ const Checkout = () => {
 				checkOutInNaira?.price
 			);
 		} else if (priceOrName === 'total') {
-			return taxValue ? getTaxDeduction('getCal') : totalFee;
+			return taxValue
+				? getTaxDeduction('getCal')
+				: totalFee + transactionFee;
 		} else if (priceOrName === 'minimum') {
 			return (
 				MinimumPrices?.price ||
@@ -471,7 +474,12 @@ const Checkout = () => {
 			}
 		};
 		getTransactionFees();
-	}, [activeCurrency?.currency, activeCurrency?.currency_name, subTotal]);
+	}, [
+		activeCurrency?.currency,
+		activeCurrency?.currency_name,
+		subTotal,
+		isChargable,
+	]);
 
 	// const calcNgN = 5 / 100 * subTotal
 
@@ -629,7 +637,6 @@ const Checkout = () => {
 	const handleFlutterPayment = useFlutterwave(flutterConfig);
 
 	// Flutterwave configurations end here
-
 	// paystack config
 	const payStackConfig = {
 		reference: randomId,
@@ -1424,16 +1431,9 @@ const Checkout = () => {
 										<p>Total</p>
 										<p className="text-primary-blue font-medium">
 											{getCurrency('currency')}{' '}
-											{taxValue
-												? Number(
-														getTaxDeduction(
-															'getCal'
-														)
-												  ).toFixed(2)
-												: Number(
-														totalFee +
-															transactionFee
-												  ).toFixed(2)}
+											{Number(
+												getCurrency('total')
+											).toFixed(2)}
 										</p>
 									</div>
 								</div>

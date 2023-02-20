@@ -157,12 +157,11 @@ export default function AddSection({toSection}) {
 		editInp.style.display = 'flex';
 	};
 
-	const handleSectionChange = (e, item) => {
+	const handleSectionChange = (e) => {
 		const tagName =
 			e.currentTarget.parentElement.parentElement.previousElementSibling;
 		const inputTag = e.currentTarget.parentElement.parentElement;
-		setFieldValue('kreatesell_id', item.kreate_sell_product_id);
-		setFieldValue('product_id', item.product_id);
+
 		formik.handleSubmit();
 		inputTag.style.display = 'none';
 		tagName.style.display = 'flex';
@@ -176,21 +175,31 @@ export default function AddSection({toSection}) {
 		tagName.style.display = 'flex';
 	};
 
-	const handleLectureInputChange = (e, lecture) => {
+	const handleLectureInputChange = (e) => {
 		const tagName =
 			e.currentTarget.parentElement.parentElement.previousElementSibling;
 		const inputTag = e.currentTarget.parentElement.parentElement;
-		setSubValue('section_id', lecture.product_content_id);
-		setSubValue(
-			'product_section_description',
-			lecture.product_section_description
-		);
+		// setSubValue('section_id', lecture.product_content_id);
+		// setSubValue(
+		// 	'product_section_description',
+		// 	lecture.product_section_description
+		// );
 		subFormik.handleSubmit();
 		inputTag.style.display = 'none';
 		tagName.style.display = 'flex';
 		// if (lectureName === "") {
 		// 	setOpenLectureInput(false)
 		// 	return
+	};
+
+	const handleUpdateFields = (item) => {
+		setFieldValue('product_content_name', item.section_name);
+		setFieldValue('content_id', item.id);
+	};
+
+	const handleLectureFieldsUpdate = (lecture) => {
+		setSubValue('product_section_name', lecture.product_section_name);
+		setSubValue('sub_section_id', lecture.id);
 	};
 
 	const addNewLecture = (item) => {
@@ -300,12 +309,7 @@ export default function AddSection({toSection}) {
 										value={
 											formik.values.product_content_name
 										}
-										onFocus={() =>
-											setFieldValue(
-												'product_content_name',
-												item.section_name
-											)
-										}
+										onFocus={() => handleUpdateFields(item)}
 										onChange={(e) =>
 											handleChange(e.target.value, item)
 										}
@@ -315,7 +319,7 @@ export default function AddSection({toSection}) {
 										<BsFillCheckCircleFill
 											className="text-blue-500 text-lg"
 											onClick={(e) =>
-												handleSectionChange(e, item)
+												handleSectionChange(e)
 											}
 										/>
 										<BsFillXCircleFill
@@ -452,9 +456,8 @@ export default function AddSection({toSection}) {
 													.product_section_name
 											}
 											onFocus={() =>
-												setSubValue(
-													'product_section_name',
-													lecture.product_section_name
+												handleLectureFieldsUpdate(
+													lecture
 												)
 											}
 											onChange={(e) =>
