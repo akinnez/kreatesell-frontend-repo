@@ -21,7 +21,6 @@ const PreviewMembership = () => {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
-	console.log(product, 'productproductproduct');
 
 	const [activeLink, setActiveLink] = useState({});
 
@@ -70,7 +69,7 @@ const PreviewMembership = () => {
 	};
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	// console.log(activeLink, 'ctiveLink');
+	
 	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
 
 	useMemo(() => {

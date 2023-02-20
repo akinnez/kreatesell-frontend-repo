@@ -1,14 +1,14 @@
 import Image from 'next/image';
-import {useEffect, useState} from 'react';
-import {ArrowLeft, ViewSales, Video, Audio, EditPen, FileDelete} from 'utils';
-import {Button, Switch} from 'antd';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, BlueAlert, ViewSales, Video, Audio, EditPen, FileDelete } from 'utils';
+import { Button, Switch } from 'antd';
 import style from './MembershipTab.module.scss';
 import ProductEditor from '../ProductEditor';
 import ContentUpload from '../ContentUpload';
-import {useFormik} from 'formik';
-import {AuthGetProductById, CreateContent} from 'redux/actions';
-import {useSelector} from 'react-redux';
-import {useRouter} from 'next/router';
+import { useFormik } from 'formik';
+import { AuthGetProductById, CreateContent } from 'redux/actions';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 // import ContentEditor from "../ContentEditor"
 
 export default function ManageContent({
@@ -23,7 +23,7 @@ export default function ManageContent({
 	const [isDownload, setIsDownload] = useState(false);
 	const router = useRouter();
 
-	const {loading} = useSelector((state) => state.product);
+	const { loading } = useSelector((state) => state.product);
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
@@ -57,7 +57,7 @@ export default function ManageContent({
 		validateOnChange: false,
 	});
 
-	const {setFieldValue} = formik;
+	const { setFieldValue } = formik;
 
 	useEffect(() => {
 		if (content) {
@@ -123,7 +123,11 @@ export default function ManageContent({
 					<h1 className="text-2xl mb-5 font-semibold">
 						{content.product_section_name}
 					</h1>
-					<h2 className="font-normal text-lg ">Content File</h2>
+					<h2 className="font-normal text-lg ">Content File</h2> 
+					<div className={style.contentUploadAlert}>
+						<Image alt="alert_icon" src={BlueAlert} width={40} height={40}/> 
+						<div className={style.contentAlertText}>IMPORTANT TIP: <span className={style.greyTextAlert}>It’s good for you to always reduce your video file size to make it as small as possible before uploading. The recommended file size for upload is <span className={style.blueTextAlert}>between 25MB to 120MB per video. </span> This is so that your video can load fast when your customers are watching it. However, you can still upload up to a maximum file size of 750MB.</span></div>
+					</div>
 					<div className="w-4/5">
 						<ContentUpload
 							file={file}

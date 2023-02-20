@@ -1,15 +1,66 @@
-import {Modal} from 'antd';
-import {useEffect, useState} from 'react';
+import { Modal } from 'antd';
+import { useEffect, useState } from 'react';
 import styles from './MembershipTab.module.scss';
 import Image from 'next/image';
-import {CloseIcon} from 'utils';
+import { CloseIcon } from 'utils';
+import { Document, Page, pdfjs } from 'react-pdf';
+import axios from 'axios';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-export default function PlayMedia({type, open, source, closePlay, title}) {
-	console.log(title, 'titletitle');
+export default function PlayMedia({ type, open, source, closePlay, title }) {
+
 	const [isOpen, setIsOpen] = useState(open);
 	// const handleclose = () => {
 	// 	setIsOpen(false);
 	// };
+
+	const PdfPreview = ({cloudinaryUrl }) => {
+		const [numPages, setNumPages] = useState(null);
+		const [pageNumber, setPageNumber] = useState(1);
+		const [pdfUrl, setPdfUrl] = useState(null);
+		const [error, setError] = useState(null);
+	  
+		useEffect(() => {
+		  const fetchPDF = async () => {
+			try {
+			  const response = await axios.get(cloudinaryUrl, {
+				responseType: 'arraybuffer',
+			  });
+			  const blob = new Blob([response.data], { type: 'application/pdf' });
+			  const url = URL.createObjectURL(blob);
+			  setPdfUrl(url);
+			  setError(null);
+			} catch (error) {
+			  console.error(error);
+			  setError(error.toString());
+			}
+		  };
+		  fetchPDF();
+		}, [cloudinaryUrl]);
+	  
+		const onDocumentLoadSuccess = ({ numPages }) => {
+		  setNumPages(numPages);
+		  setError(null);
+		};
+	  
+		const onDocumentLoadError = (error) => {
+		  console.error(error);
+		  setError(error.toString());
+		};
+
+		return (
+			<div className='w-full h-96 overflow-y-hidden overflow-x-hidden'>
+				<Document
+					file={{ url: pdfUrl }}
+					onLoadSuccess={onDocumentLoadSuccess}
+					onLoadError={onDocumentLoadError}
+				>
+					<Page pageNumber={pageNumber} />
+				</Document>
+			</div>
+		);
+	}
+
 	return (
 		<Modal
 			title={null}
@@ -54,6 +105,9 @@ export default function PlayMedia({type, open, source, closePlay, title}) {
 					alt=""
 					className={styles.previewVideo}
 				/>
+			)}
+			{type === 'text' || type === "applicaation" && (
+				<PdfPreview cloudinaryUrl={source} />
 			)}
 		</Modal>
 	);
