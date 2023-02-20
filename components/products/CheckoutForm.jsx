@@ -516,7 +516,10 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
-		if (afiliatePercentage === '' || afiliatePercentage === 0) {
+		if (
+			allowAffiliateMarket &&
+			(afiliatePercentage === '' || afiliatePercentage === 0)
+		) {
 			showToast('Put in a valid percentage value!', 'error');
 			setErrorAffiliatePercentage(true);
 			return;
