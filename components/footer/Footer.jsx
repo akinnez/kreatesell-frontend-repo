@@ -72,8 +72,10 @@ export const Footer = () => {
 							target="blank"
 							href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
 						>
-							Floor 17, Cocoa house,
-							<br /> Dugbe Ibadan
+							KREATESELL LTD <br />
+							17TH FLOOR, COCOA HOUSE, <br />
+							LIEBU BYPASS, DUGBE, IBADAN 200263
+							<br /> <span>Phone: +2349062002777</span>
 						</a>
 					</div>
 				</div>
@@ -407,7 +409,10 @@ export const Footer = () => {
 					</div>
 
 					<div className={styles.mobileAddress}>
-						Floor 17, Cocoa house Dugbe, Ibadan
+						KREATESELL LTD
+						<br />
+						17TH FLOOR, COCOA HOUSE, LIEBU BYPASS, DUGBE, IBADAN
+						200263
 					</div>
 
 					<div className={styles.mobileCopyright}>
