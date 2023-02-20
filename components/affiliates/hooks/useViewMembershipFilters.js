@@ -9,6 +9,7 @@ const useViewMembershipFilters = (api) => {
 		currency: null,
 		from: '',
 		to: '',
+		KreatorProductId: '',
 	});
 
 	// console.log('filters', filters);
@@ -19,6 +20,10 @@ const useViewMembershipFilters = (api) => {
 
 	if (filters.text) {
 		url.searchParams.set('Text', filters.text);
+	}
+
+	if (filters.KreatorProductId) {
+		url.searchParams.set('KreatorProductId', filters.KreatorProductId);
 	}
 
 	if (filters.show) {

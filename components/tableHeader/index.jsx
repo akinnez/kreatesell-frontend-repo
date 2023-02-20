@@ -347,7 +347,7 @@ const ActionComponent = ({item}, all) => {
 				<li
 					onClick={() =>
 						router.push(
-							`/account/kreator/products/view-subscribers`
+							`/account/kreator/products/view-subscribers?KreatorProductId=${id}`
 						)
 					}
 					className="flex items-center cursor-pointer"
