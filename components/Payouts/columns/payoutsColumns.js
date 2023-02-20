@@ -10,7 +10,9 @@ export const payoutsColumns = [
 		render: (record) => (
 			<div className={`flex`}>
 				{`${record.currency} ${Number(record.amount).toFixed(2)}`}
-				<RenderIf condition={record?.earned_as === 'Earned as Kreator'}>
+				<RenderIf
+					condition={record?.earned_as === 'Earned as Affiliate'}
+				>
 					<p
 						className={`flex items-center justify-center ml-1`}
 						style={{

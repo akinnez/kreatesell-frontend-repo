@@ -18,9 +18,9 @@ const WalletInfo = ({
 
 	return (
 		<div
-			className={`${styles.box} ${isAffiliate && styles.isAffiliate} ${
-				styles.kreator__box
-			}`}
+			className={`${styles.box} ${
+				!isAffiliate && title === 'Affiliate' && styles.isAffiliate
+			} ${styles.kreator__box}`}
 		>
 			<div className={styles.title}>
 				<span>{title}&#39;s Wallet Balance</span>
