@@ -69,7 +69,7 @@ const PreviewMembership = () => {
 	};
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	
+
 	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
 
 	useMemo(() => {

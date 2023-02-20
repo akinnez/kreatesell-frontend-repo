@@ -637,5 +637,5 @@ export {
 	Zapier,
 	PdfIcon,
 	BlueAlert,
-	TelegramIcon
+	TelegramIcon,
 };

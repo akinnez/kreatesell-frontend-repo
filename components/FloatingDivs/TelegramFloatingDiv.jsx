@@ -1,19 +1,32 @@
-import React from 'react'
+import React from 'react';
 import Image from 'next/image';
-import { TelegramIcon } from 'utils';
+import {TelegramIcon} from 'utils';
 
 const TelegramFloatingDiv = () => {
-    return (
-        <div style={{ position: 'fixed', left: '17%', top: '60%', cursor: 'pointer', zIndex: '100' }}>
-            <a
-                href="https://t.me/UseKreateSell"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <Image src={TelegramIcon} alt="telegram__icon" width={70} height={70} />
-            </a>
-        </div>
-    )
-}
+	return (
+		<div
+			style={{
+				position: 'fixed',
+				left: '17%',
+				top: '60%',
+				cursor: 'pointer',
+				zIndex: '100',
+			}}
+		>
+			<a
+				href="https://t.me/UseKreateSell"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Image
+					src={TelegramIcon}
+					alt="telegram__icon"
+					width={70}
+					height={70}
+				/>
+			</a>
+		</div>
+	);
+};
 
-export default TelegramFloatingDiv 
+export default TelegramFloatingDiv;

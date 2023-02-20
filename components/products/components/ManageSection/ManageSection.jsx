@@ -12,7 +12,7 @@ import {
 	EditPen,
 	FileDelete,
 	ImageIcon,
-	PdfIcon
+	PdfIcon,
 } from 'utils';
 import styles from '../../BusinessSection/MembershipTab.module.scss';
 
@@ -186,10 +186,10 @@ const ManageSection = ({
 										src={
 											item?.files[0]?.type === 'audio'
 												? Audio
-												: item?.files[0]?.type === 
+												: item?.files[0]?.type ===
 												  'video'
 												? Video
-												: item?.files[0]?.type === 
+												: item?.files[0]?.type ===
 												  'image'
 												? ImageIcon
 												: PdfIcon

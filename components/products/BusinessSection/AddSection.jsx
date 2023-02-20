@@ -1,6 +1,6 @@
-import { Button, Input, Tooltip } from 'antd';
+import {Button, Input, Tooltip} from 'antd';
 import styles from './MembershipTab.module.scss';
-import { DeleteProduct, DuplicateProduct } from 'utils';
+import {DeleteProduct, DuplicateProduct} from 'utils';
 import Image from 'next/image';
 import {
 	HandleBar,
@@ -12,20 +12,20 @@ import {
 	MobileTrashIcon,
 	MobileViewSubscribers,
 } from 'utils';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import {
 	BsFillPencilFill,
 	BsFillXCircleFill,
 	BsFillCheckCircleFill,
 } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { CreateSection, AuthGetProductById, CreateContent } from 'redux/actions';
-import { useRouter } from 'next/router';
+import {useSelector} from 'react-redux';
+import {useState, useEffect} from 'react';
+import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
+import {useRouter} from 'next/router';
 
-export default function AddSection({ toSection }) {
+export default function AddSection({toSection}) {
 	const [productSection, setProductSection] = useState(null);
-	const { product, productID } = useSelector((state) => state.product);
+	const {product, productID} = useSelector((state) => state.product);
 	const [openLectureInput, setOpenLectureInput] = useState(false);
 	const [lectureName, setLectureName] = useState('');
 	const router = useRouter();
@@ -80,16 +80,17 @@ export default function AddSection({ toSection }) {
 		validationSchema: '',
 		validateOnChange: false,
 	});
-	const { setFieldValue } = formik;
+	const {setFieldValue} = formik;
 
-	const { setFieldValue: setSubValue } = subFormik;
+	const {setFieldValue: setSubValue} = subFormik;
 	const addSection = () => {
 		createSection(
 			{
 				product_id: product?.product_details?.id,
 				kreatesell_id: prodId,
-				product_content_name: `Section ${product?.product_content.length + 1
-					}`,
+				product_content_name: `Section ${
+					product?.product_content.length + 1
+				}`,
 				action: 'c',
 			},
 			() => {
@@ -191,29 +192,23 @@ export default function AddSection({ toSection }) {
 		// 	return
 	};
 
-
 	const handleUpdateFields = (item) => {
-		setFieldValue(
-			'product_content_name',
-			item.section_name
-		)
+		setFieldValue('product_content_name', item.section_name);
 		setFieldValue('content_id', item.id);
-	}
+	};
 
 	const handleLectureFieldsUpdate = (lecture) => {
-		setSubValue(
-			'product_section_name',
-			lecture.product_section_name
-		)
+		setSubValue('product_section_name', lecture.product_section_name);
 		setSubValue('sub_section_id', lecture.id);
-	}
+	};
 
 	const addNewLecture = (item) => {
 		createContent(
 			{
 				section_id: item.id,
-				product_section_name: `Lecture ${item.product_subsection.length + 1
-					}`,
+				product_section_name: `Lecture ${
+					item.product_subsection.length + 1
+				}`,
 				product_section_description: 'Kindly add a brief description',
 				upload_product_file: true,
 				product_visibility_status: 1,
@@ -267,7 +262,7 @@ export default function AddSection({ toSection }) {
 	};
 	useEffect(() => {
 		if (Object.keys(product).length > 0) {
-			const { product_content } = product;
+			const {product_content} = product;
 			setProductSection(product_content);
 		}
 	}, [product]);
@@ -315,7 +310,9 @@ export default function AddSection({ toSection }) {
 											formik.values.product_content_name
 										}
 										onFocus={() => handleUpdateFields(item)}
-										onChange={(e) => handleChange(e.target.value, item)}
+										onChange={(e) =>
+											handleChange(e.target.value, item)
+										}
 										placeholder="Introduction"
 									/>
 									<div className="flex items-center ml-3 gap-2 cursor-pointer">
@@ -375,7 +372,7 @@ export default function AddSection({ toSection }) {
 								</div>
 								<Tooltip
 									color="white"
-									overlayInnerStyle={{ color: 'black' }}
+									overlayInnerStyle={{color: 'black'}}
 									placement="top"
 									title="Duplicate"
 								>
@@ -393,7 +390,7 @@ export default function AddSection({ toSection }) {
 								</Tooltip>
 								<Tooltip
 									color="white"
-									overlayInnerStyle={{ color: 'black' }}
+									overlayInnerStyle={{color: 'black'}}
 									overlayClassName={styles.toolTip}
 									placement="top"
 									title="Delete"
@@ -458,14 +455,28 @@ export default function AddSection({ toSection }) {
 												subFormik.values
 													.product_section_name
 											}
-											onFocus={() => handleLectureFieldsUpdate(lecture)}
-											onChange={(e) => handleLectureChange(e.target.value, lecture)}
+											onFocus={() =>
+												handleLectureFieldsUpdate(
+													lecture
+												)
+											}
+											onChange={(e) =>
+												handleLectureChange(
+													e.target.value,
+													lecture
+												)
+											}
 											placeholder="Add lecture"
 										/>
 										<div className="flex items-center ml-3 gap-2 cursor-pointer">
 											<BsFillCheckCircleFill
 												className="text-blue-500 text-lg"
-												onClick={(e) => handleLectureInputChange(e,lecture)}
+												onClick={(e) =>
+													handleLectureInputChange(
+														e,
+														lecture
+													)
+												}
 											/>
 											<BsFillXCircleFill
 												className="text-gray-500 text-lg"
@@ -526,7 +537,7 @@ export default function AddSection({ toSection }) {
 									</div>
 									<Tooltip
 										color="white"
-										overlayInnerStyle={{ color: 'black' }}
+										overlayInnerStyle={{color: 'black'}}
 										overlayStyle={{
 											backgroundColor: 'white',
 										}}
@@ -551,7 +562,7 @@ export default function AddSection({ toSection }) {
 									</Tooltip>
 									<Tooltip
 										color="white"
-										overlayInnerStyle={{ color: 'black' }}
+										overlayInnerStyle={{color: 'black'}}
 										overlayStyle={{
 											backgroundColor: 'white',
 										}}
