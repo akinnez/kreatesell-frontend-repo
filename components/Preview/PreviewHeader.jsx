@@ -56,7 +56,6 @@ export default function PreviewHeader({
 
 	const storeName = store?.store_details?.store_name;
 	const {singleStoreDetails} = useSelector((state) => state.product);
-
 	const displayPicture = product?.store_dto?.profile_pix;
 
 	const nameOfStore = product?.store_dto?.store_name;

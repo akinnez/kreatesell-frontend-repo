@@ -65,7 +65,6 @@ export default function PreviewContent({
 	const {product, kycStatus, storePlan} = useSelector(
 		(state) => state?.product
 	);
-
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
@@ -137,7 +136,6 @@ export default function PreviewContent({
 
 	const currentDate = new Date();
 	const dateToCompare = new Date(cookieExpiryTime);
-	console.log(dateToCompare, 'dateToCompare');
 	const monthDifference =
 		(dateToCompare.getFullYear() - currentDate.getFullYear()) * 12 +
 		(dateToCompare.getMonth() - currentDate.getMonth());
