@@ -24,11 +24,10 @@ export const RecentAnalytics = () => {
 	} = useKreatorRecentCustomers(url);
 
 	// endpoint to get data for chart for last 12 months
-	const {
-		kreatorSalesHistoryData: affiliateSalesHistory,
-	} = useGetKreatorSalesHistory(
-		`affiliate/transactions-count?startDate=${getDate12MonthsAgo()}`
-	);
+	const {kreatorSalesHistoryData: affiliateSalesHistory} =
+		useGetKreatorSalesHistory(
+			`affiliate/transactions-count?startDate=${getDate12MonthsAgo()}`
+		);
 
 	const MemoizedData = useMemo(() => {
 		let months = new Array(12).fill(0);
