@@ -12,6 +12,7 @@ import {
 	EditPen,
 	FileDelete,
 	ImageIcon,
+	PdfIcon,
 } from 'utils';
 import styles from '../../BusinessSection/MembershipTab.module.scss';
 
@@ -29,8 +30,8 @@ const ManageSection = ({
 	const [isTitleEditable, setIsTitleEditable] = useState(false);
 	const [sectionName, setSectionName] = useState(items.section_name);
 
-	console.log(items, 'items');
-	console.log(items?.product_subsection, 'items?.product_subsection');
+	// console.log(items, 'items');
+	// console.log(items?.product_subsection, 'items?.product_subsection');
 
 	// const getMediaIconType = (iconObj) => {
 	// 	if()
@@ -188,7 +189,10 @@ const ManageSection = ({
 												: item?.files[0]?.type ===
 												  'video'
 												? Video
-												: ImageIcon
+												: item?.files[0]?.type ===
+												  'image'
+												? ImageIcon
+												: PdfIcon
 										}
 										alt="file"
 									/>

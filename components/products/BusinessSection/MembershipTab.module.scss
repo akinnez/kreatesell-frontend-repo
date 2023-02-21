@@ -311,6 +311,30 @@
 	}
 }
 
+.contentUploadAlert {
+	background-color: #e6f7ff;
+	display: flex;
+	align-items: center;
+	width: 80%;
+	padding: 1rem 0.65rem;
+	border-radius: 15px;
+}
+.contentAlertText {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 26px;
+	color: #096dd9;
+	margin-left: 8px;
+}
+.greyTextAlert {
+	color: #595959;
+}
+.blueTextAlert {
+	color: #0072ef;
+}
+
 // PREVIEW MODAL STYLES
 
 .previewModalTitle {
