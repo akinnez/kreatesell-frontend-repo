@@ -74,6 +74,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const historiesTotal = data?.total_records || 0;
 	// console.log('histories', histories);
 
+	// FIXME: This is not necessary, as SWR gives us the accurate loading state across board
 	let isLoading;
 
 	if (loading) {
@@ -156,6 +157,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 							e ? 'Kreator' : 'Affiliate'
 						);
 					}}
+					defaultChecked={true}
 					// disabled={swrLoading || isValidating}
 				/>
 			</div>

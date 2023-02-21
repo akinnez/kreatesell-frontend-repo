@@ -8,7 +8,7 @@ const useFilters = (api) => {
 		currency: null,
 		from: '',
 		to: '',
-		WalletType: 'Affiliate',
+		WalletType: 'Kreator',
 	});
 
 	const url = new URL(
