@@ -1,17 +1,19 @@
+import {useMemo} from 'react';
 import Image from 'next/image';
 
 import {Line} from 'react-chartjs-2';
 
 import {Select} from '../';
-import {DownloadIcon, formatDate2} from '../../utils';
+import {DownloadIcon, formatDate2, getDate12MonthsAgo} from '../../utils';
 import {dayOptions} from './partials';
 import styles from './Recent.module.scss';
 import useViewMembershipFilters from './hooks/useKreatorRecentCustomers';
 import useKreatorRecentCustomers from 'services/swrQueryHooks/KreatorRecentCustomers';
+import useGetKreatorSalesHistory from 'services/swrQueryHooks/KreatorsSalesHistory';
 
 export const RecentKreatorAnalytics = () => {
 	// TODO: change these
-	const {url, filters, setFilters} = useViewMembershipFilters(
+	const {url} = useViewMembershipFilters(
 		'v1/kreatesell/store/kreator/recent-transactions'
 	);
 	const {
@@ -20,8 +22,27 @@ export const RecentKreatorAnalytics = () => {
 		recentKreatorsLoading,
 		isValidating,
 	} = useKreatorRecentCustomers(url);
+	// endpoint to get data for chart for last 12 months
+	const {kreatorSalesHistoryData} = useGetKreatorSalesHistory(
+		`v1/kreatesell/store/kreator/transactions-count?startDate=${getDate12MonthsAgo()}`
+	);
 
-	// console.log('recentKreatorsData', recentKreatorsData);
+	const MemoizedData = useMemo(() => {
+		let months = new Array(12).fill(0);
+		if (kreatorSalesHistoryData) {
+			let KTotal = kreatorSalesHistoryData?.total_revenue;
+			months.forEach((_, monthIndex) => {
+				for (let i = 0; i < KTotal.length; i++) {
+					if (monthIndex + 1 == KTotal[i].month_number) {
+						months[i] = Number(KTotal[i].count);
+					}
+				}
+			});
+			return months;
+		}
+		return months;
+	}, [kreatorSalesHistoryData]);
+
 	const data = {
 		labels: [
 			'Jan',
@@ -39,7 +60,7 @@ export const RecentKreatorAnalytics = () => {
 		],
 		datasets: [
 			{
-				data: [25, 0, 50, 75, 25, 100, 50, 25, 75, 75, 2500, 1000],
+				data: MemoizedData,
 				fill: false,
 				backgroundColor: '#0072EF',
 				borderColor: '#40A9FF',
@@ -133,6 +154,7 @@ export const RecentKreatorAnalytics = () => {
 									borderColor="#69C0FF"
 									bgColor="#E6F7FF"
 									placeHolderColor="#0072EF"
+									menuPlacement={'top'}
 								/>
 							</div>
 						</div>

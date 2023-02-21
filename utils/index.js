@@ -46,6 +46,20 @@ export const formatShortDateAndTime = (date) => {
 	);
 };
 
+export const getDate12MonthsAgo = () => {
+	var date = new Date();
+	date.setMonth(date.getMonth() - 12);
+
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+
+	month = month < 10 ? '0' + month : month;
+	day = day < 10 ? '0' + day : day;
+
+	return year + '-' + month + '-' + day;
+};
+
 export const transactionFees = {
 	NGN: 5,
 	Others: 6,
@@ -162,8 +176,7 @@ export const showToast = (message, type) => {
 };
 
 export const _validateEmail = (email) => {
-	const re =
-		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(email);
 };
 
