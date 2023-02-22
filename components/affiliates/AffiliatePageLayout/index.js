@@ -30,7 +30,7 @@ const AffiliatePageLayout = ({
 			<header className={styles.header}>
 				<h2>{title}</h2>
 			</header>
-			<TelegramFloatingDiv left="15%" top="60%"/>
+			<TelegramFloatingDiv left="15%" top="60%" />
 			<AffiliateFilters setFilters={setFilters} setLoading={setLoading} />
 			<div className={styles['sales-stat']}>
 				Affiliate&apos;s Number of Sales: <span>{totalSales}</span>

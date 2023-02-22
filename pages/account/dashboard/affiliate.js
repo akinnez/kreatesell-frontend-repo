@@ -14,9 +14,9 @@ const Affiliate = () => {
 		<AuthLayout headerTitle="Dashboard">
 			<Head>
 				<title>KreateSell | Affiliate Dashboard</title>
-			</Head>	
+			</Head>
 			<div>
-				<TelegramFloatingDiv left="15%" top="60%"/>
+				<TelegramFloatingDiv left="15%" top="60%" />
 				<UserFilters
 					data={[]}
 					searchQuery=""

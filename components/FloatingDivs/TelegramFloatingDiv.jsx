@@ -2,13 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import {TelegramIcon} from 'utils';
 
-const TelegramFloatingDiv = ({ left, top  }) => {
+const TelegramFloatingDiv = ({left, top}) => {
 	return (
 		<div
 			style={{
 				position: 'fixed',
-				left:left,
-				top:top,
+				left: left,
+				top: top,
 				cursor: 'pointer',
 				zIndex: '10000',
 			}}

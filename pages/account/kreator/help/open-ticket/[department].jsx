@@ -224,7 +224,7 @@ const Department = () => {
 	return (
 		<AuthLayout>
 			<div className={styles.container}>
-				<TelegramFloatingDiv left="15%" top="50%"/>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<div className="mb-10">
 					<BackButton />
 				</div>

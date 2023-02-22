@@ -30,7 +30,7 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout mobilePadding={true}>
-                 <TelegramFloatingDiv left="15%" top="50%"/>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<Card bordered={false} className={style.card}>
 					<Tabs
 						activeKey={activeTab}

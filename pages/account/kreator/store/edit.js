@@ -187,7 +187,7 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout loading={loading.fetching}>
-				<TelegramFloatingDiv left="15%" top="50%"/>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<Row>
 					<Col span={24}>
 						<Card bordered={false} className={style.card}>

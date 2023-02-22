@@ -71,7 +71,7 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout loading={loading}>
-				<TelegramFloatingDiv left="15%" top="50%"/>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<ProtectedStoreHeader
 					brandName={data?.store_details?.brand_name}
 					storeName={data?.store_details?.store_name}

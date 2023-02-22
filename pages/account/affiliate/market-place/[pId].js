@@ -65,7 +65,7 @@ const AffiliateProductRequest = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
-				<TelegramFloatingDiv left="13%" top="50%"/>
+				<TelegramFloatingDiv left="13%" top="50%" />
 				<TabPane tab="Request" key="1">
 					<Request
 						hasRequestedAccess={

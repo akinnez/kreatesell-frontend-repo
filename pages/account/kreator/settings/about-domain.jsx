@@ -8,7 +8,7 @@ const AboutDomain = () => {
 	return (
 		<>
 			<AuthLayout mobilePadding={true}>
-				<TelegramFloatingDiv left="15%" top="50%"/>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<Card className={styles.card}>
 					<h4 className="text-base-gray font-medium text-sm md:text-base">
 						Manually connect your domain name in a few steps

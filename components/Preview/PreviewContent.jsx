@@ -311,7 +311,7 @@ export default function PreviewContent({
 			<VerifiedDrawer {...{showDrawer, onClose}}>
 				<VerifiedDrawerChildren {...{onClose}} />
 			</VerifiedDrawer>
-			<TelegramFloatingDiv left="7%" top="18%"/>
+			<TelegramFloatingDiv left="7%" top="18%" />
 			<div className={`flex ${styles.previewContainer}`}>
 				<div className={styles.imageGallery}>
 					<div className={styles.mainImage}>

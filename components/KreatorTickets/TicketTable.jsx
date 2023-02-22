@@ -331,7 +331,7 @@ const TicketTable = ({tickets, isLoading}) => {
 
 	return (
 		<div className={styles.ticketsContainer}>
-			<TelegramFloatingDiv left="15%" top="60%"/>
+			<TelegramFloatingDiv left="15%" top="60%" />
 			<div className={styles.dataSection}>
 				<div className={styles.mobile__wrapper}>
 					{tickets?.data?.map((ticket) => (

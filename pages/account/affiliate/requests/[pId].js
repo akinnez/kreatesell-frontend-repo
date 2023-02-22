@@ -66,7 +66,7 @@ const AffiliateRequestLinK = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
-				<TelegramFloatingDiv left="13%" top="50%"/>
+				<TelegramFloatingDiv left="13%" top="50%" />
 				<TabPane tab="Affiliate Link" key="1">
 					<AffiliateLink affiliateLink={product.affiliate_link} />
 				</TabPane>
