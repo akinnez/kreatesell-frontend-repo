@@ -157,11 +157,11 @@ export default function AddSection({toSection}) {
 		editInp.style.display = 'flex';
 	};
 
-	const handleSectionChange = (e) => {
+	const handleSectionChange = (e, item) => {
 		const tagName =
 			e.currentTarget.parentElement.parentElement.previousElementSibling;
 		const inputTag = e.currentTarget.parentElement.parentElement;
-
+		setFieldValue('product_id', item.product_id);
 		formik.handleSubmit();
 		inputTag.style.display = 'none';
 		tagName.style.display = 'flex';
@@ -175,15 +175,15 @@ export default function AddSection({toSection}) {
 		tagName.style.display = 'flex';
 	};
 
-	const handleLectureInputChange = (e) => {
+	const handleLectureInputChange = (e, lecture) => {
 		const tagName =
 			e.currentTarget.parentElement.parentElement.previousElementSibling;
 		const inputTag = e.currentTarget.parentElement.parentElement;
-		// setSubValue('section_id', lecture.product_content_id);
-		// setSubValue(
-		// 	'product_section_description',
-		// 	lecture.product_section_description
-		// );
+		setSubValue('section_id', lecture.product_content_id);
+		setSubValue(
+			'product_section_description',
+			lecture.product_section_description
+		);
 		subFormik.handleSubmit();
 		inputTag.style.display = 'none';
 		tagName.style.display = 'flex';
@@ -195,11 +195,14 @@ export default function AddSection({toSection}) {
 	const handleUpdateFields = (item) => {
 		setFieldValue('product_content_name', item.section_name);
 		setFieldValue('content_id', item.id);
+		setFieldValue('kreatesell_id', item.kreate_sell_product_id);
 	};
 
 	const handleLectureFieldsUpdate = (lecture) => {
+		console.log(lecture);
 		setSubValue('product_section_name', lecture.product_section_name);
 		setSubValue('sub_section_id', lecture.id);
+		setFieldValue('section_id', lecture.product_content_id);
 	};
 
 	const addNewLecture = (item) => {
@@ -313,13 +316,15 @@ export default function AddSection({toSection}) {
 										onChange={(e) =>
 											handleChange(e.target.value, item)
 										}
-										placeholder="Introduction"
+										placeholder={
+											formik.values.product_content_name
+										}
 									/>
 									<div className="flex items-center ml-3 gap-2 cursor-pointer">
 										<BsFillCheckCircleFill
 											className="text-blue-500 text-lg"
 											onClick={(e) =>
-												handleSectionChange(e)
+												handleSectionChange(e, item)
 											}
 										/>
 										<BsFillXCircleFill
@@ -466,7 +471,10 @@ export default function AddSection({toSection}) {
 													lecture
 												)
 											}
-											placeholder="Add lecture"
+											placeholder={
+												subFormik.values
+													.product_section_name
+											}
 										/>
 										<div className="flex items-center ml-3 gap-2 cursor-pointer">
 											<BsFillCheckCircleFill
