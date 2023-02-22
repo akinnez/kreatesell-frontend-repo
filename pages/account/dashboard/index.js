@@ -13,6 +13,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 // import useSWR from "swr";
 
@@ -112,6 +113,7 @@ const Dashboard = () => {
 					isMobileSideBarOpen ? styles.mobileSideBarInView : ''
 				}`}
 			>
+				<TelegramFloatingDiv left="15%" top="45%"/>
 				<header className={styles.boardSection}>
 					<DashboardFilters
 						data={[]}

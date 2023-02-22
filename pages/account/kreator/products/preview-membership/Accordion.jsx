@@ -2,7 +2,7 @@ import React, {memo, useState} from 'react';
 import Image from 'next/image';
 
 import {AccordionDown, AccordionRight, PlayIcon2} from 'utils';
-import styles from 'public/css/PreviewMembership.module.scss';
+import styles from 'public/css/PreviewMembership.module.scss'; 
 
 const Accordion = ({title, subList, setActiveLink, activeLink}) => {
 	const [isActive, setIsActive] = useState(false);
@@ -17,7 +17,7 @@ const Accordion = ({title, subList, setActiveLink, activeLink}) => {
 					{title}
 				</div>
 				<div
-					className={styles.icon}
+					className={styles.icon} 
 					onClick={() => setIsActive(!isActive)}
 				>
 					{isActive ? (
@@ -53,7 +53,7 @@ const Accordion = ({title, subList, setActiveLink, activeLink}) => {
 									setActiveLink(itm);
 								}}
 							>
-								<span className={`${styles.subText}`}>
+								<span className={`${styles.subText}`}> 
 									{itm.product_section_name}
 								</span>
 								<div className="flex">

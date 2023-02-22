@@ -13,6 +13,7 @@ import {ProtectedStoreHeader} from '../../../../components/store/storeHeader';
 import useSWR from 'swr';
 import fetcher from '../../../../utils/fetcher';
 import {GetStoreDetails, GetProducts} from 'redux/actions';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const cardStyles = {
 	borderRadius: '8px',
@@ -70,6 +71,7 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout loading={loading}>
+				<TelegramFloatingDiv left="15%" top="50%"/>
 				<ProtectedStoreHeader
 					brandName={data?.store_details?.brand_name}
 					storeName={data?.store_details?.store_name}

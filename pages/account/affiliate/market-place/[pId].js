@@ -10,6 +10,7 @@ import Request from 'components/affiliateProducts/components/Request';
 import Overview from 'components/affiliates/Overview';
 import useFetchData from 'hooks/useFetchData';
 import productImageFn from 'utils/productImageFn';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const {TabPane} = Tabs;
 
@@ -64,6 +65,7 @@ const AffiliateProductRequest = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
+				<TelegramFloatingDiv left="13%" top="50%"/>
 				<TabPane tab="Request" key="1">
 					<Request
 						hasRequestedAccess={

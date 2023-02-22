@@ -2,11 +2,13 @@ import React from 'react';
 import AuthLayout from '../../../../components/authlayout';
 import {Card, Tabs} from 'antd';
 import styles from '../../../../public/css/About-domain.module.scss';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const AboutDomain = () => {
 	return (
 		<>
 			<AuthLayout mobilePadding={true}>
+				<TelegramFloatingDiv left="15%" top="50%"/>
 				<Card className={styles.card}>
 					<h4 className="text-base-gray font-medium text-sm md:text-base">
 						Manually connect your domain name in a few steps

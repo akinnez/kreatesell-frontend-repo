@@ -10,6 +10,7 @@ import StoreSettings from 'components/settings/Store';
 import Billing from 'components/settings/Billing';
 import Domain from 'components/settings/Domain/Domain';
 import Advanced from 'components/settings/Advanced';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const Index = () => {
 	const {TabPane} = Tabs;
@@ -29,6 +30,7 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout mobilePadding={true}>
+                 <TelegramFloatingDiv left="15%" top="50%"/>
 				<Card bordered={false} className={style.card}>
 					<Tabs
 						activeKey={activeTab}
