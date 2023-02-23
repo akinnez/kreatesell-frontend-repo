@@ -235,7 +235,7 @@ const CardComponent = ({data}) => {
 				<div className={`${styles.ticketSubjectContainer}`}>
 					<h2 className={`${styles.ticketTitle}`}>Ticket Subject</h2>
 					<div className={`${styles.ticketReason}`}>
-						Login Difficulties
+						{data?.heading || ''}
 					</div>
 				</div>
 			</Card>
