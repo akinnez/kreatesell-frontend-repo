@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useMemo, useState} from 'react';
 import Image from 'next/image';
 
 import {Line} from 'react-chartjs-2';
