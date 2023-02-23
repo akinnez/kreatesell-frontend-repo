@@ -289,6 +289,7 @@ const Checkout = () => {
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 			coupon_code: couponCode || '',
+			TransactionFee: transactionFee,
 		};
 		return value;
 	};
@@ -1468,18 +1469,18 @@ const Checkout = () => {
 											</div>
 										</div>
 
-										<div className="flex justify-between">
-											<p>Tax</p>
-											<p>
-												{getTaxDeduction('getVal') || 0}
-											</p>
-										</div>
 										{isChargable === true && (
 											<div className="flex justify-between">
 												<p>Transaction fees</p>
 												<p>{transactionFee || 0}</p>
 											</div>
 										)}
+										<div className="flex justify-between">
+											<p>Tax</p>
+											<p>
+												{getTaxDeduction('getVal') || 0}
+											</p>
+										</div>
 										<div className="divider"></div>
 
 										<div className="flex justify-between">
