@@ -102,7 +102,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 									affiliateBalance?.wallet_balance[1]
 										?.available_balance
 								}
-								isAffiliate={!user?.is_affiliate}
+								isAffiliate={user?.is_affiliate}
 							>
 								<div className={styles.affiliate__info}>
 									<span>
@@ -110,7 +110,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 									</span>
 									<span
 										className={`${
-											user?.is_affiliate &&
+											!user?.is_affiliate &&
 											styles.isAffiliate
 										}`}
 									>
