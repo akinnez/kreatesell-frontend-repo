@@ -11,7 +11,36 @@ import useViewMembershipFilters from './hooks/useKreatorRecentCustomers';
 import useKreatorRecentCustomers from 'services/swrQueryHooks/KreatorRecentCustomers';
 import useGetKreatorSalesHistory from 'services/swrQueryHooks/KreatorsSalesHistory';
 
+const monthMappings = {
+	January: 'Jan',
+	February: 'Feb',
+	March: 'March',
+	April: 'Apr',
+	May: 'May',
+	June: 'Jun',
+	July: 'Jul',
+	August: 'Aug',
+	September: 'Sep',
+	October: 'Oct',
+	November: 'Nov',
+	December: 'Dec',
+};
 export const RecentKreatorAnalytics = () => {
+	const [monthsArranged, setMonthsArranged] = useState([
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec',
+	]);
+
 	// TODO: change these
 	const {url} = useViewMembershipFilters(
 		'v1/kreatesell/store/kreator/recent-transactions'
@@ -27,6 +56,12 @@ export const RecentKreatorAnalytics = () => {
 		`v1/kreatesell/store/kreator/transactions-count?startDate=${getDate12MonthsAgo()}`
 	);
 
+	const FormattedMonths = useMemo(() => {
+		if (kreatorSalesHistoryData) {
+		}
+		return monthsArranged;
+	}, [kreatorSalesHistoryData]);
+
 	const MemoizedData = useMemo(() => {
 		let months = new Array(12).fill(0);
 		if (kreatorSalesHistoryData) {
@@ -34,7 +69,7 @@ export const RecentKreatorAnalytics = () => {
 			months.forEach((_, monthIndex) => {
 				for (let i = 0; i < KTotal.length; i++) {
 					if (monthIndex + 1 == KTotal[i].month_number) {
-						months[i] = Number(KTotal[i].count);
+						months[monthIndex] = Number(KTotal[i].count);
 					}
 				}
 			});
@@ -42,7 +77,6 @@ export const RecentKreatorAnalytics = () => {
 		}
 		return months;
 	}, [kreatorSalesHistoryData]);
-
 	const data = {
 		labels: [
 			'Jan',
