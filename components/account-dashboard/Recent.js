@@ -1,7 +1,8 @@
-import {useMemo} from 'react';
+import {useMemo, useState, useEffect} from 'react';
 import Image from 'next/image';
 
 import {Line} from 'react-chartjs-2';
+import {format, subDays} from 'date-fns';
 
 import {Select} from '../';
 import {DownloadIcon, formatDate2, getDate12MonthsAgo} from '../../utils';
@@ -10,24 +11,35 @@ import styles from './Recent.module.scss';
 import useViewMembershipFilters from './hooks/useKreatorRecentCustomers';
 import useKreatorRecentCustomers from 'services/swrQueryHooks/KreatorRecentCustomers';
 import useGetKreatorSalesHistory from 'services/swrQueryHooks/KreatorsSalesHistory';
+import useGetRevenue from 'services/swrQueryHooks/useGetRevenue';
+import useRevenueFilter from './hooks/useRevenueFilter';
+import Loader from 'components/loader';
 
 export const RecentAnalytics = () => {
-	const {url, filters, setFilters} = useViewMembershipFilters(
-		'affiliate/recent-transactions'
+	const [show, setShow] = useState('All time');
+	const [value, setValue] = useState(dayOptions[0]);
+
+	// Revenue data
+	/////////////////////////////////////////////////////////////
+	const {url: revenueUrl, setFilters, filters} = useRevenueFilter(
+		'affiliate/total-revenue'
 	);
-	const {
-		setLoading,
-		recentKreatorsData,
-		recentKreatorsError,
-		recentKreatorsLoading,
-		isValidating,
-	} = useKreatorRecentCustomers(url);
+	// api call for revenue
+	const {revenueData, revenueLoading, revenueError} = useGetRevenue(
+		revenueUrl,
+		!!filters.startDate
+	);
+	/////////////////////////////////////////////////////////////
+
+	const {url} = useViewMembershipFilters('affiliate/recent-transactions');
+	const {setLoading, recentKreatorsData} = useKreatorRecentCustomers(url);
 
 	// endpoint to get data for chart for last 12 months
-	const {kreatorSalesHistoryData: affiliateSalesHistory} =
-		useGetKreatorSalesHistory(
-			`affiliate/transactions-count?startDate=${getDate12MonthsAgo()}`
-		);
+	const {
+		kreatorSalesHistoryData: affiliateSalesHistory,
+	} = useGetKreatorSalesHistory(
+		`affiliate/transactions-count?startDate=${getDate12MonthsAgo()}`
+	);
 
 	const MemoizedData = useMemo(() => {
 		let months = new Array(12).fill(0);
@@ -44,6 +56,53 @@ export const RecentAnalytics = () => {
 		}
 		return months;
 	}, [affiliateSalesHistory]);
+
+	useEffect(() => {
+		handleShowFilter();
+	}, [show]);
+	const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
+		return format(date, formatArg);
+	};
+
+	const handleShowFilter = () => {
+		const day = new Date();
+		switch (show) {
+			case 'Today':
+				setFilters((prev) => ({
+					...prev,
+					startDate: formatDate(subDays(day, 0)),
+				}));
+				break;
+			case 'Yesterday':
+				setFilters((prev) => ({
+					...prev,
+					startDate: formatDate(subDays(day, 1)),
+				}));
+				break;
+			case 'Last 7 days':
+				setFilters((prev) => ({
+					...prev,
+					startDate: formatDate(subDays(day, 7)),
+				}));
+				break;
+			case 'Last 30 days':
+				setFilters((prev) => ({
+					...prev,
+					startDate: formatDate(subDays(day, 30)),
+				}));
+				break;
+			case 'This year':
+				let year = new Date().getFullYear();
+				setFilters((prev) => ({...prev, startDate: `${year}-01-01`}));
+				break;
+			case 'All time':
+				setFilters((prev) => ({...prev, startDate: '2000-01-01'}));
+				break;
+			default:
+				return;
+		}
+	};
+
 	const data = {
 		labels: [
 			'Jan',
@@ -140,20 +199,34 @@ export const RecentAnalytics = () => {
 					<div className={styles.revenue}>
 						<div className={styles.revenueTitle}>Total Revenue</div>
 						<div className={styles.revenueAmount}>
-							<sup className={styles.currency}>#</sup>0
+							<sup className={styles.currency}>#</sup>
+							{revenueLoading ? (
+								<span className="ml-4">
+									<Loader />
+								</span>
+							) : (
+								revenueData?.data?.revenue
+							)}
 						</div>
 						<div className={styles.duration}>
 							<div className={styles.selectCont}>
 								<Select
 									name="day"
-									value="Select value"
+									value={value}
 									options={dayOptions}
-									placeholder="Sales this Week"
+									// placeholder="Sales this Week"
 									arrowIconColor="#0072EF"
 									borderColor="#69C0FF"
 									bgColor="#E6F7FF"
 									placeHolderColor="#0072EF"
 									menuPlacement={'top'}
+									cb={(e) => {
+										setShow(e);
+										let val = dayOptions.find(
+											(opt) => opt.value === e
+										);
+										setValue(val);
+									}}
 								/>
 							</div>
 						</div>

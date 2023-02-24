@@ -167,6 +167,7 @@
 			.revenue {
 				background: $base-white;
 				height: 11.25rem;
+				position: relative;
 				@include flex(column, space-between, null);
 
 				@extend .cardStyle;
@@ -191,7 +192,7 @@
 					margin-top: 0.75rem;
 					margin-bottom: 1.375rem;
 					font-weight: 600;
-					font-size: 4rem;
+					font-size: 2rem;
 					line-height: 4rem;
 					color: $base-blue;
 
@@ -202,7 +203,7 @@
 					.currency {
 						font-weight: 600;
 						font-size: 1.5rem;
-						line-height: 2rem;
+						line-height: 3.5rem;
 						color: $blue-700;
 					}
 				}
