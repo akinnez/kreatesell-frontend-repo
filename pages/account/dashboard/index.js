@@ -27,7 +27,6 @@ const Dashboard = () => {
 	const isMobileSideBarOpen = useSelector(
 		(state) => state.mobileSideBar.isMobileSideBarOpen
 	);
-
 	const [filters, setFilters] = useState({
 		currency: '',
 		fromDate: '',
