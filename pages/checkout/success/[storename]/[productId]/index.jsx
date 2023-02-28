@@ -736,8 +736,11 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const productSectionCount = product?.content_section_tracker;
 	const checkoutDetails = product?.check_out_details;
 
-
-   const paidInCurrencyObject = checkoutDetails.find((_i)=> _i?.currency_name === paidIncurrency && _i?.price_indicator === "Selling")
+	const paidInCurrencyObject = checkoutDetails.find(
+		(_i) =>
+			_i?.currency_name === paidIncurrency &&
+			_i?.price_indicator === 'Selling'
+	);
 
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
@@ -796,7 +799,6 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 									<p className={styles.right}>
 										{paidInCurrencyObject?.currency_name}{' '}
 										{paidInCurrencyObject?.price}
-
 									</p>
 								</div>
 								{/* TODO: don't show this button for preorder products */}
@@ -840,7 +842,7 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 							alt=""
 						/>
 						<span className="">
-							<div className={styles.top}>{productName}</div> 
+							<div className={styles.top}>{productName}</div>
 							<div className={styles.bottom}>
 								<div>
 									<p

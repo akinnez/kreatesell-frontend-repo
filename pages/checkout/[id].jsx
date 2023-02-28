@@ -521,7 +521,9 @@ const Checkout = () => {
 		currency: 'NGN',
 		couponCode: '',
 	};
-	const currencyPaidIn = activeCurrency?.currency ? activeCurrency?.currency : activeCurrency?.currency_name
+	const currencyPaidIn = activeCurrency?.currency
+		? activeCurrency?.currency
+		: activeCurrency?.currency_name;
 
 	const handleSubmit = async () => {
 		// if selected is crypto
@@ -674,12 +676,12 @@ const Checkout = () => {
 			paymentDetails({reference: reference?.reference, status: status}),
 			() =>
 				router.push(
-					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`  
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
 				)
 		);
 	};
 
-	const onPaystackClose = () => { 
+	const onPaystackClose = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
 		console.log('closed');
 	};
