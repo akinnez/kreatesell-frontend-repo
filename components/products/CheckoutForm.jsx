@@ -1,7 +1,7 @@
-import {Percentage, Radio} from 'components/inputPack';
-import {Switch, Form, Input, Button, Select} from 'antd';
+import { Percentage, Radio } from 'components/inputPack';
+import { Switch, Form, Input, Button, Select } from 'antd';
 import styles from './Checkout.module.scss';
-import {useState, useEffect, useCallback, useRef} from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
 	CloudUpload,
 	FileDelete,
@@ -12,9 +12,9 @@ import {
 	RenderIf,
 } from 'utils';
 import Image from 'next/image';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
 	AuthGetProductById,
 	GetBillingInterval,
@@ -22,11 +22,11 @@ import {
 	SetProductTab,
 	GetStoreCurrencies,
 } from 'redux/actions';
-import {useUpload} from 'hooks';
+import { useUpload } from 'hooks';
 import useStoreCurrency from 'hooks/useStoreCurrencies';
 import CustomCheckoutSelect from './CustomCheckout';
-import {useRouter} from 'next/router';
-import {transformToFormData, ErrorOutline} from 'utils';
+import { useRouter } from 'next/router';
+import { transformToFormData, ErrorOutline } from 'utils';
 
 import axios from 'axios';
 
@@ -49,11 +49,11 @@ export const CheckoutForm = ({
 	const getBillingInterval = GetBillingInterval();
 	const createProduct = CreateProduct();
 	const setProductTab = SetProductTab();
-	const {store} = useSelector((state) => state.store);
+	const { store } = useSelector((state) => state.store);
 	const router = useRouter();
 	const today = new Date().toISOString().slice(0, 16);
 
-	const {product, billingInterval, loading} = useSelector(
+	const { product, billingInterval, loading } = useSelector(
 		(state) => state.product
 	);
 
@@ -85,8 +85,8 @@ export const CheckoutForm = ({
 	const [billingFrequency, setBillingFrequency] = useState(0);
 	const [billed, setBilled] = useState(false);
 	const [customBillingDuration, setCustomBillingDuration] = useState('');
-	const [duration, setDuration] = useState('custom');
 
+	const [duration, setDuration] = useState('custom');
 	const [usageType, setUsageType] = useState(0);
 	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
 	const [frequencyOptions, setFrequencyOptions] = useState([]);
@@ -105,7 +105,7 @@ export const CheckoutForm = ({
 	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false);
 
 	const mounted = useRef(null);
-	const {Option} = Select;
+	const { Option } = Select;
 
 	// guards against price duplication
 	useEffect(() => {
@@ -119,7 +119,7 @@ export const CheckoutForm = ({
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
-			const {user} = store;
+			const { user } = store;
 			if (user.user_plan === 'Business') {
 				setIsCouponDisabled(false);
 			} else {
@@ -171,7 +171,7 @@ export const CheckoutForm = ({
 		setCustomBillingInterval(e * billingIntervalDuration);
 	};
 
-	const {selectedStoreCurrencies, storeCurrenciesLoading} =
+	const { selectedStoreCurrencies, storeCurrenciesLoading } =
 		useStoreCurrency();
 
 	const [formattedStoreCurrencies, setFormattedStoreCurrencies] = useState(
@@ -185,7 +185,7 @@ export const CheckoutForm = ({
 	// for the promotional content
 	const [file, setFile] = useState();
 
-	const {preview, getRootProps, getInputProps, mainFile, deleteFile} =
+	const { preview, getRootProps, getInputProps, mainFile, deleteFile } =
 		useUpload({
 			setFileChange: setPromotionalMaterial,
 			// should accept rar and zip
@@ -195,25 +195,25 @@ export const CheckoutForm = ({
 	// console.log("product = ", product);
 
 	const durationOptions = [
-		{label: 'Daily', value: 'aaily'},
-		{label: 'Weekly', value: 'weekly'},
-		{label: 'Monthly', value: 'monthly'},
-		{label: 'Every 3 Months', value: 'every_3_Months'},
-		{label: 'Every 6 Months', value: 'every_6_Months'},
-		{label: 'Yearly', value: 'yearly'},
-		{label: 'Custom', value: 'custom'},
+		{ label: 'Daily', value: 'aaily' },
+		{ label: 'Weekly', value: 'weekly' },
+		{ label: 'Monthly', value: 'monthly' },
+		{ label: 'Every 3 Months', value: 'every_3_Months' },
+		{ label: 'Every 6 Months', value: 'every_6_Months' },
+		{ label: 'Yearly', value: 'yearly' },
+		{ label: 'Custom', value: 'custom' },
 	];
 
 	const billedEveryDuration = [
-		{label: 'Days(s)', value: 'days'},
-		{label: 'Weeks(s)', value: 'weeks'},
-		{label: 'Month(s)', value: 'months'},
+		{ label: 'Days(s)', value: 'days' },
+		{ label: 'Weeks(s)', value: 'weeks' },
+		{ label: 'Month(s)', value: 'months' },
 	];
 
 	const customBillingIntervals = [
-		{label: 'Day(s)', value: 1},
-		{label: 'Week(s)', value: 7},
-		{label: 'Month(s)', value: 30},
+		{ label: 'Day(s)', value: 1 },
+		{ label: 'Week(s)', value: 7 },
+		{ label: 'Month(s)', value: 30 },
 	];
 	const mappedBillingInterval = billingInterval?.map((billing) => ({
 		label: billing.billing_types,
@@ -224,7 +224,7 @@ export const CheckoutForm = ({
 		let opt = [];
 		for (let i = 1; i < 10; i++) {
 			opt.push(i);
-			const values = opt.map((item) => ({label: item, value: item}));
+			const values = opt.map((item) => ({ label: item, value: item }));
 			setFrequencyOptions(values);
 		}
 	};
@@ -256,7 +256,7 @@ export const CheckoutForm = ({
 	const createCustomCurrencyField = (array) => {
 		let title = '';
 		let field = [];
-		let setField = () => {};
+		let setField = () => { };
 		return array.map((value, index) => {
 			switch (value) {
 				case 0:
@@ -317,7 +317,7 @@ export const CheckoutForm = ({
 		formData.append('file', file);
 		const options = {
 			onUploadProgress: (progressEvent) => {
-				const {loaded, total} = progressEvent;
+				const { loaded, total } = progressEvent;
 				let percent = Math.floor((loaded * 100) / total);
 				cb(percent);
 			},
@@ -325,7 +325,7 @@ export const CheckoutForm = ({
 		try {
 			const instance = axios.create();
 			delete instance.defaults.headers.common['Authorization'];
-			const {data} = await instance.post(
+			const { data } = await instance.post(
 				'https://api.cloudinary.com/v1_1/salvoagency/upload',
 				formData,
 				options
@@ -462,15 +462,15 @@ export const CheckoutForm = ({
 				formattedStoreCurrencies.length !== fixedSellingPrice.length ||
 				(compareToPrice &&
 					formattedStoreCurrencies.length !==
-						savedFixedOriginalPrice.length)
+					savedFixedOriginalPrice.length)
 			) {
 				setErrorForNotMatchedCurrency(true);
 				return true;
 			}
 			const results = formattedStoreCurrencies.filter(
-				({currency: id1}) =>
+				({ currency: id1 }) =>
 					!fixedSellingPrice.some(
-						({currency_name: id2}) => id2 === id1
+						({ currency_name: id2 }) => id2 === id1
 					)
 			);
 			if (results.length > 0) {
@@ -486,8 +486,8 @@ export const CheckoutForm = ({
 				return true;
 			}
 			const results = formattedStoreCurrencies.filter(
-				({currency: id1}) =>
-					!minimumPrice.some(({currency_name: id2}) => id2 === id1)
+				({ currency: id1 }) =>
+					!minimumPrice.some(({ currency_name: id2 }) => id2 === id1)
 			);
 			if (results.length > 0) {
 				setErrorForNotMatchedCurrency(true);
@@ -540,6 +540,11 @@ export const CheckoutForm = ({
 			}
 		}
 
+		if (duration.toLowerCase() !== "custom") {
+			delete data.custom_billing_duration;
+			delete data.custom_billing_interval_times
+		}
+
 		// console.log("data from submit = ", data);
 		// setProductID(productID);
 		// const dataWithCompare = {
@@ -578,6 +583,7 @@ export const CheckoutForm = ({
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
+		console.log(result, 'resultresult')
 
 		createProduct(result, (res) => {
 			if (productType === 'Digital Download') {
@@ -638,14 +644,14 @@ export const CheckoutForm = ({
 		},
 	};
 
-	const handleSelect = (field) => (value) => {
+	const handleSelect = (field, value) => {
 		setDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue(field, value);
 	};
 
-	const handleBilledSelect = (field) => (value) => {
+	const handleBilledSelect = (field, value) => {
 		setCustomBillingDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue(field, value);
 	};
 
 	const formik = useFormik({
@@ -655,7 +661,7 @@ export const CheckoutForm = ({
 		validateOnChange: false,
 	});
 
-	const {errors, setFieldValue, values} = formik;
+	const { errors, setFieldValue, values } = formik;
 	// console.log('formik values', values);
 
 	//Updating Formik values
@@ -745,6 +751,7 @@ export const CheckoutForm = ({
 	}, [compareToPrice, allowAffiliateMarket, limitProductSale]);
 
 	const setAllFields = useCallback(() => {
+		console.log(product,'demeemeemeee')
 		mounted.current += 1;
 		if (product && mounted.current === 1) {
 			setFieldValue(
@@ -846,7 +853,9 @@ export const CheckoutForm = ({
 			if (product.product_details.is_limited_sales === true) {
 				setLimitProductSale(true);
 			}
-			// if(product.)
+			// custom_billing_interval_times
+			// custom_billing_duration
+			// billing_frequency_duration
 		}
 	}, [product]);
 
@@ -1210,8 +1219,8 @@ export const CheckoutForm = ({
 										isCouponDiabled
 											? 'DISABLED'
 											: applyCoupon
-											? 'ENABLED'
-											: 'DISABLED'
+												? 'ENABLED'
+												: 'DISABLED'
 										// ? 'ON'
 										// 	: 'OFF'
 									}
@@ -1291,7 +1300,7 @@ export const CheckoutForm = ({
 										onChange={formik.handleChange}
 										disabled={
 											couponVariance.is_fixed_amount ===
-											true
+												true
 												? false
 												: true
 										}
@@ -1397,7 +1406,7 @@ export const CheckoutForm = ({
 										// value={no_of_frequency}
 										onChange={(e) =>
 											setFieldValue(
-												'coupon_settings.no_of_frequency',
+												'no_of_frequency',
 												e.target.value
 											)
 										}
@@ -1677,8 +1686,8 @@ export const CheckoutForm = ({
 							className="w-1/2 text-lg mb-2 rounded-lg"
 							value={duration}
 							options={durationOptions}
-							onChange={handleSelect(
-								'billing_frequency_duration'
+							onChange={(e) => handleSelect(
+								'billing_frequency_duration', e
 							)}
 						/>
 
@@ -1696,7 +1705,12 @@ export const CheckoutForm = ({
 										placeholder="0"
 										// className="w-24"
 										name="custom_billing_duration"
-										onChange={formik.handleChange}
+										onChange={(e) =>
+											setFieldValue(
+												'custom_billing_duration',
+												e.target.value
+											)
+										}
 										style={{
 											width: '60px',
 											marginLeft: '10px',
@@ -1707,8 +1721,8 @@ export const CheckoutForm = ({
 										defaultValue="days"
 										className="w-24"
 										options={billedEveryDuration}
-										onChange={handleBilledSelect(
-											'billed_every_duration_length'
+										onChange={(e) => handleBilledSelect(
+											'custom_billing_interval_times', e
 										)}
 									/>
 								</div>
@@ -1813,13 +1827,11 @@ export const CheckoutForm = ({
 										How much percentage are you willing to
 										pay affiliate
 										<p
-											className={`${
-												styles.commisionAllowed
-											} ${
-												afiliatePercentage === ''
+											className={`${styles.commisionAllowed
+												} ${afiliatePercentage === ''
 													? styles.show
 													: ''
-											}`}
+												}`}
 										>
 											Commission Percentage value should
 											be between 1 and 100
@@ -1834,7 +1846,7 @@ export const CheckoutForm = ({
 													? afiliatePercentage
 													: '0'
 											}
-											// value={afiliatePercentage}
+											value={afiliatePercentage > 0 ? afiliatePercentage : ""}
 											// pattern="/^([0-1]?[0-9]|100)$/"
 											max={100}
 											min={1}
@@ -1842,13 +1854,13 @@ export const CheckoutForm = ({
 											onChange={(e) => {
 												const commisionAllowed =
 													e.target.value < 101 &&
-													!e.target.value.startsWith(
-														0
-													)
+														!e.target.value.startsWith(
+															0
+														)
 														? e.target.value.replace(
-																/[^0-9]/g,
-																''
-														  )
+															/[^0-9]/g,
+															''
+														)
 														: '';
 												setAfiliatePercentage(
 													commisionAllowed
@@ -1945,10 +1957,10 @@ export const CheckoutForm = ({
 															)
 																? Video
 																: item.file.type.includes(
-																		'audio'
-																  )
-																? Audio
-																: FileZip
+																	'audio'
+																)
+																	? Audio
+																	: FileZip
 														}
 														alt="zip"
 													/>
@@ -1997,12 +2009,10 @@ export const CheckoutForm = ({
 									</p>
 
 									<div
-										className={`${
-											styles.contentFileUpload
-										} ${
-											promotionalMaterial?.length > 0 &&
+										className={`${styles.contentFileUpload
+											} ${promotionalMaterial?.length > 0 &&
 											styles.activeUpload
-										}`}
+											}`}
 										{...getRootProps()}
 									>
 										<input {...getInputProps()} />
@@ -2056,7 +2066,7 @@ export const CheckoutForm = ({
 									onChange={(e) =>
 										setNumberOfLimit(e.target.value)
 									}
-									// value={numberOfLimit}
+									value={numberOfLimit > 0 ? numberOfLimit : ''}
 									className={styles.limitProductInput}
 								/>
 							</div>
