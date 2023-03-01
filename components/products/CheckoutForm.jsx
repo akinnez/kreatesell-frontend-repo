@@ -85,8 +85,8 @@ export const CheckoutForm = ({
 	const [billingFrequency, setBillingFrequency] = useState(0);
 	const [billed, setBilled] = useState(false);
 	const [customBillingDuration, setCustomBillingDuration] = useState('');
-	const [duration, setDuration] = useState('custom');
 
+	const [duration, setDuration] = useState('custom');
 	const [usageType, setUsageType] = useState(0);
 	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
 	const [frequencyOptions, setFrequencyOptions] = useState([]);
@@ -540,6 +540,11 @@ export const CheckoutForm = ({
 			}
 		}
 
+		if (duration.toLowerCase() !== 'custom') {
+			delete data.custom_billing_duration;
+			delete data.custom_billing_interval_times;
+		}
+
 		// console.log("data from submit = ", data);
 		// setProductID(productID);
 		// const dataWithCompare = {
@@ -578,6 +583,7 @@ export const CheckoutForm = ({
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
+		console.log(result, 'resultresult');
 
 		createProduct(result, (res) => {
 			if (productType === 'Digital Download') {
@@ -638,14 +644,14 @@ export const CheckoutForm = ({
 		},
 	};
 
-	const handleSelect = (field) => (value) => {
+	const handleSelect = (field, value) => {
 		setDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue(field, value);
 	};
 
-	const handleBilledSelect = (field) => (value) => {
+	const handleBilledSelect = (field, value) => {
 		setCustomBillingDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue(field, value);
 	};
 
 	const formik = useFormik({
@@ -745,6 +751,7 @@ export const CheckoutForm = ({
 	}, [compareToPrice, allowAffiliateMarket, limitProductSale]);
 
 	const setAllFields = useCallback(() => {
+		console.log(product, 'demeemeemeee');
 		mounted.current += 1;
 		if (product && mounted.current === 1) {
 			setFieldValue(
@@ -846,7 +853,9 @@ export const CheckoutForm = ({
 			if (product.product_details.is_limited_sales === true) {
 				setLimitProductSale(true);
 			}
-			// if(product.)
+			// custom_billing_interval_times
+			// custom_billing_duration
+			// billing_frequency_duration
 		}
 	}, [product]);
 
@@ -1397,7 +1406,7 @@ export const CheckoutForm = ({
 										// value={no_of_frequency}
 										onChange={(e) =>
 											setFieldValue(
-												'coupon_settings.no_of_frequency',
+												'no_of_frequency',
 												e.target.value
 											)
 										}
@@ -1677,9 +1686,9 @@ export const CheckoutForm = ({
 							className="w-1/2 text-lg mb-2 rounded-lg"
 							value={duration}
 							options={durationOptions}
-							onChange={handleSelect(
-								'billing_frequency_duration'
-							)}
+							onChange={(e) =>
+								handleSelect('billing_frequency_duration', e)
+							}
 						/>
 
 						{duration === 'custom' && (
@@ -1696,7 +1705,12 @@ export const CheckoutForm = ({
 										placeholder="0"
 										// className="w-24"
 										name="custom_billing_duration"
-										onChange={formik.handleChange}
+										onChange={(e) =>
+											setFieldValue(
+												'custom_billing_duration',
+												e.target.value
+											)
+										}
 										style={{
 											width: '60px',
 											marginLeft: '10px',
@@ -1707,9 +1721,12 @@ export const CheckoutForm = ({
 										defaultValue="days"
 										className="w-24"
 										options={billedEveryDuration}
-										onChange={handleBilledSelect(
-											'billed_every_duration_length'
-										)}
+										onChange={(e) =>
+											handleBilledSelect(
+												'custom_billing_interval_times',
+												e
+											)
+										}
 									/>
 								</div>
 							</div>
@@ -1834,7 +1851,11 @@ export const CheckoutForm = ({
 													? afiliatePercentage
 													: '0'
 											}
-											// value={afiliatePercentage}
+											value={
+												afiliatePercentage > 0
+													? afiliatePercentage
+													: ''
+											}
 											// pattern="/^([0-1]?[0-9]|100)$/"
 											max={100}
 											min={1}
@@ -2056,7 +2077,9 @@ export const CheckoutForm = ({
 									onChange={(e) =>
 										setNumberOfLimit(e.target.value)
 									}
-									// value={numberOfLimit}
+									value={
+										numberOfLimit > 0 ? numberOfLimit : ''
+									}
 									className={styles.limitProductInput}
 								/>
 							</div>
