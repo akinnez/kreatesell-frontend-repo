@@ -389,7 +389,7 @@ const StorePage = () => {
 						</div>
 					)}
 				</div>
-				<PoweredByKS />
+				<PoweredByKS showDisclaimer={true} {...{storename}} />
 			</div>
 			{/* TODO: Make this a single reusable component */}
 			{/* params to pass: openShareModal, handleModalClose, storeName, productName, origin */}
