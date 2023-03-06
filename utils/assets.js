@@ -318,6 +318,8 @@ import Copy from '../public/images/copy.svg';
 import PdfIcon from '../public/images/pdfIcon.png';
 import BlueAlert from '../public/images/blueAlert.png';
 import TelegramIcon from '../public/images/telegramIcon.png';
+import InfinityIcon from '../public/images/infinity.png';
+import QuestionIcon from '../public/images/questionIcon.png';
 
 export {
 	Copy,
@@ -638,4 +640,6 @@ export {
 	PdfIcon,
 	BlueAlert,
 	TelegramIcon,
+	InfinityIcon,
+	QuestionIcon
 };

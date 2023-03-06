@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
-import {Table, Card} from 'antd';
+import { Table, Card, Tooltip } from 'antd';
 
 import ProfileLayout from 'components/ProfileLayout';
 import BackButton from 'components/BackButton';
 import styles from '../../../../../public/css/ViewSubscribers.module.scss';
-import {ViewSubscribersHeader} from 'components/products/ViewSubscribersFilter';
+import { ViewSubscribersHeader } from 'components/products/ViewSubscribersFilter';
 import useViewMembershipFilters from 'components/affiliates/hooks/useViewMembershipFilters';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
-import {ShoppingCart, formatDateAndTime, formatShortDateAndTime} from 'utils';
+import { ShoppingCart, formatDateAndTime, formatShortDateAndTime, InfinityIcon } from 'utils';
 import useSubscribersList from 'services/swrQueryHooks/SubscribersList';
 
 // TODO: move to its own file
@@ -44,6 +44,18 @@ const subscribersColumns = [
 	{
 		title: 'Number of Pending Payments',
 		dataIndex: 'number_of_pending_payments',
+		render: (value) => {
+			if (value <= 0) {
+				return (
+					<>
+						<Tooltip title="The subscriber will be charged until they cancel">
+							<Image src={InfinityIcon} alt="icon" />
+						</Tooltip>
+					</>
+				);
+			}
+			return value;
+		}
 	},
 	{
 		title: 'Subscription Start Date',
@@ -93,7 +105,7 @@ export const headCells = [
 
 const rowKey = (record) => record.id;
 
-const CardContainer = ({data}) => {
+const CardContainer = ({ data }) => {
 	return (
 		<div className={styles.cardContainer}>
 			<Card className={styles.card}>
@@ -160,7 +172,7 @@ const CardContainer = ({data}) => {
 const ViewSubscribers = () => {
 	const router = useRouter();
 
-	const {url, filters, setFilters} = useViewMembershipFilters(
+	const { url, filters, setFilters } = useViewMembershipFilters(
 		'v1/kreatesell/product/fetch/all/subscribers'
 	);
 
@@ -174,7 +186,7 @@ const ViewSubscribers = () => {
 	} = useSubscribersList(url, !!filters.KreatorProductId);
 
 	const handlePageChange = (page) => {
-		setFilters({...filters, page});
+		setFilters({ ...filters, page });
 	};
 
 	useEffect(() => {
