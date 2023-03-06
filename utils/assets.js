@@ -641,5 +641,5 @@ export {
 	BlueAlert,
 	TelegramIcon,
 	InfinityIcon,
-	QuestionIcon
+	QuestionIcon,
 };
