@@ -85,6 +85,7 @@ export const CheckoutForm = ({
 	const [billingFrequency, setBillingFrequency] = useState(0);
 	const [billed, setBilled] = useState(false);
 	const [customBillingDuration, setCustomBillingDuration] = useState('');
+	const [subLengthNo, setSubLengthNo] = useState(0);
 
 	const [duration, setDuration] = useState('custom');
 	const [usageType, setUsageType] = useState(0);
@@ -96,7 +97,7 @@ export const CheckoutForm = ({
 	const [firstPayment, setFirstPayment] = useState([]);
 	const [secondPayment, setSecondPayment] = useState([]);
 	const [thirdPayment, setThirdPayment] = useState([]);
-	const [billingIntervalDuration, setBillingIntervalDuration] = useState(7);
+	const [billingIntervalDuration, setBillingIntervalDuration] = useState(0);
 	const [initialBillingInput, setInitialBillingInput] = useState(0);
 	const [custombillingInterval, setCustomBillingInterval] = useState(0);
 	const [isBasic, setIsBasic] = useState(true);
@@ -579,11 +580,23 @@ export const CheckoutForm = ({
 		if (!data.is_show_compare_price) {
 			delete data.is_show_compare_price;
 		}
+		if (!data.is_fixed_number_of_payments) {
+			delete data.is_fixed_number_of_payments;
+		}
+		if (!data.isUnlimited_billing) {
+			delete data.isUnlimited_billing;
+		}
+		if (data.billing_frequency_duration === 'custom') {
+			delete data.custom_billing_interval_times;
+			delete data.custom_billing_duration;
+		}
+		if (!data.no_of_subcription_length_times) {
+			delete data.no_of_subcription_length_times;
+		}
 
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
-		console.log(result, 'resultresult');
 
 		createProduct(result, (res) => {
 			if (productType === 'Digital Download') {
@@ -609,7 +622,7 @@ export const CheckoutForm = ({
 		suggested_prices: [],
 		billing_frequency: 0,
 		minimum_prices: [],
-		no_of_subcription_length_times: '',
+		no_of_subcription_length_times: 0,
 		custom_billing_duration: '',
 		custom_billing_interval_times: customBillingDuration,
 		billing_frequency_duration: duration,
@@ -751,7 +764,6 @@ export const CheckoutForm = ({
 	}, [compareToPrice, allowAffiliateMarket, limitProductSale]);
 
 	const setAllFields = useCallback(() => {
-		console.log(product, 'demeemeemeee');
 		mounted.current += 1;
 		if (product && mounted.current === 1) {
 			setFieldValue(
@@ -818,6 +830,10 @@ export const CheckoutForm = ({
 					? product.product_details.upload_content
 					: false
 			);
+			setFieldValue(
+				'no_of_subcription_length_times',
+				product?.product_details?.no_of_subcription_length_times
+			);
 			// setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
 			// setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
 
@@ -852,6 +868,14 @@ export const CheckoutForm = ({
 			}
 			if (product.product_details.is_limited_sales === true) {
 				setLimitProductSale(true);
+			}
+			if (product?.product_details?.no_of_subcription_length_times <= 0) {
+				setBillingFrequency(0);
+			} else {
+				setBillingFrequency(1);
+				setSubLengthNo(
+					product?.product_details?.no_of_subcription_length_times
+				);
 			}
 			// custom_billing_interval_times
 			// custom_billing_duration
@@ -1751,10 +1775,14 @@ export const CheckoutForm = ({
 										setBillingFrequency(e);
 										setFieldValue(
 											'isUnlimited_billing',
+											true
+										);
+										setFieldValue(
+											'is_fixed_number_of_payments',
 											false
 										);
 									}}
-									checked={!billed ? true : false}
+									// checked={!billed ? true : false}
 									labelStyle={styles.radioLabelStyle}
 								></Radio>
 							</div>
@@ -1771,8 +1799,12 @@ export const CheckoutForm = ({
 											'is_fixed_number_of_payments',
 											true
 										);
+										setFieldValue(
+											'isUnlimited_billing',
+											false
+										);
 									}}
-									checked={billed ? true : false}
+									// checked={billed ? true : false}
 									labelStyle={styles.radioLabelStyle}
 								></Radio>
 							</div>
@@ -1785,10 +1817,13 @@ export const CheckoutForm = ({
 							<Input
 								type="number"
 								label="no_of_subcription_length_times"
-								disabled={!billed ? true : false}
+								disabled={billingFrequency === 0 ? true : false}
 								name="no_of_subcription_length_times"
 								className="w-3/4"
-								// value={no_of_billed_times}
+								min={1}
+								maxLength={3}
+								placeholder={subLengthNo}
+								// value={subLengthNo}
 								onChange={(e) =>
 									setFieldValue(
 										'no_of_subcription_length_times',

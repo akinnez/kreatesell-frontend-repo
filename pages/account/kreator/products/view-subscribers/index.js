@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
 
-import {Table, Card} from 'antd';
+import {Table, Card, Tooltip} from 'antd';
 
 import ProfileLayout from 'components/ProfileLayout';
 import BackButton from 'components/BackButton';
@@ -11,7 +11,12 @@ import styles from '../../../../../public/css/ViewSubscribers.module.scss';
 import {ViewSubscribersHeader} from 'components/products/ViewSubscribersFilter';
 import useViewMembershipFilters from 'components/affiliates/hooks/useViewMembershipFilters';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
-import {ShoppingCart, formatDateAndTime, formatShortDateAndTime} from 'utils';
+import {
+	ShoppingCart,
+	formatDateAndTime,
+	formatShortDateAndTime,
+	InfinityIcon,
+} from 'utils';
 import useSubscribersList from 'services/swrQueryHooks/SubscribersList';
 
 // TODO: move to its own file
@@ -44,6 +49,18 @@ const subscribersColumns = [
 	{
 		title: 'Number of Pending Payments',
 		dataIndex: 'number_of_pending_payments',
+		render: (value) => {
+			if (value <= 0) {
+				return (
+					<>
+						<Tooltip title="The subscriber will be charged until they cancel">
+							<Image src={InfinityIcon} alt="icon" />
+						</Tooltip>
+					</>
+				);
+			}
+			return value;
+		},
 	},
 	{
 		title: 'Subscription Start Date',

@@ -24,6 +24,7 @@ import {
 	PaystackLogo,
 	RenderIf,
 	MakeItFreeIcon,
+	QuestionIcon,
 } from 'utils';
 import {Tooltip} from 'antd';
 import {SelectV2} from 'components/form-input';
@@ -1478,12 +1479,25 @@ const Checkout = () => {
 												<p>{transactionFee || 0}</p>
 											</div>
 										)}
+
 										<div className="flex justify-between">
-											<p>Tax</p>
+											<p>
+												Tax{' '}
+												<span>
+													<Tooltip title="You are paying this tax to the kreator, in compliance with their country’s tax policy. KreateSell does not in anyway benefit from the taxes.">
+														<Image
+															src={QuestionIcon}
+															alt=""
+														/>
+													</Tooltip>
+												</span>
+											</p>
+
 											<p>
 												{getTaxDeduction('getVal') || 0}
 											</p>
 										</div>
+
 										<div className="divider"></div>
 
 										<div className="flex justify-between">
