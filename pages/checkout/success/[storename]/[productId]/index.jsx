@@ -533,7 +533,6 @@ const ProductCard = ({productDetails, kreatorDetails}) => {
 		)[0];
 	});
 
-
 	return (
 		<div className={styles.productCardContainer}>
 			<Image

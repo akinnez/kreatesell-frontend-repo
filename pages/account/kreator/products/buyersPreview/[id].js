@@ -32,7 +32,7 @@ const AccessPageModal = ({
 
 	const handleSubmit = async () => {
 		// TODO: show toast or error message that there's no email
-		setErrorModal(false); 
+		setErrorModal(false);
 		if (!productDetailsData?.customer_email) return;
 
 		// TODO: validate email address
@@ -41,7 +41,10 @@ const AccessPageModal = ({
 			setCourseContent(response?.data?.product_dto?.product_content);
 			setAcessProductDetails(response?.data?.product_dto);
 			// console.log(response?.data?.total_payment_to_date,'response?.data?')
-			localStorage.setItem('total_payments_made', response?.data?.total_payment_to_date)
+			localStorage.setItem(
+				'total_payments_made',
+				response?.data?.total_payment_to_date
+			);
 			//collect course content from response
 			closeAccessPageModal();
 		} catch (error) {
@@ -116,7 +119,7 @@ const BuyersPreview = () => {
 	const router = useRouter();
 	const productId = router?.query?.id;
 
-	const { pathname } = router;
+	const {pathname} = router;
 
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
@@ -203,7 +206,7 @@ const BuyersPreview = () => {
 				title: product.section_name,
 				subList: product.product_subsection,
 				id: product.id,
-				product
+				product,
 			};
 		});
 		setAccordionData(products);
@@ -237,7 +240,7 @@ const BuyersPreview = () => {
 			)}
 
 			{!showAccessPageModal && (
-				<div className={styles.container2}> 
+				<div className={styles.container2}>
 					<header className={`flex px-5`}>
 						<div className={`flex items-center ${styles.left}`}>
 							<h3 className="hidden md:block mb-0">
@@ -274,7 +277,10 @@ const BuyersPreview = () => {
 									<div>
 										<div className={styles.accordion}>
 											{accordionData.map(
-												({title, subList, product}, idx) => (
+												(
+													{title, subList, product},
+													idx
+												) => (
 													<Accordion
 														key={idx}
 														pathname={pathname}
@@ -283,7 +289,7 @@ const BuyersPreview = () => {
 															subList,
 															title,
 															activeLink,
-															product
+															product,
 														}}
 													/>
 												)

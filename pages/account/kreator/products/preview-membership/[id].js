@@ -17,7 +17,7 @@ const PreviewMembership = () => {
 	const router = useRouter();
 	const getProduct = AuthGetProductById();
 
-	const { pathname } = router;
+	const {pathname} = router;
 
 	const {
 		product,
@@ -52,7 +52,7 @@ const PreviewMembership = () => {
 			// programatically select the first item in the section
 			setSelectedSection(accordionData[0].subList);
 			setActiveSelectedSectionId(accordionData[0].id);
-		} 
+		}
 	}, [accordionData.length]);
 	useEffect(() => {
 		// programatically select the first item in subsection
@@ -65,7 +65,7 @@ const PreviewMembership = () => {
 				title: product.section_name,
 				subList: product.product_subsection,
 				id: product.id,
-				product
+				product,
 			};
 		});
 		setAccordionData(products);
@@ -135,7 +135,10 @@ const PreviewMembership = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList, product}, idx) => (
+											(
+												{title, subList, product},
+												idx
+											) => (
 												<Accordion
 													key={idx}
 													pathname={pathname}
@@ -144,7 +147,7 @@ const PreviewMembership = () => {
 														subList,
 														title,
 														activeLink,
-														product
+														product,
 													}}
 												/>
 											)

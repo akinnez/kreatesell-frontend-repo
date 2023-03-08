@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import { Button } from 'antd';
+import {Button} from 'antd';
 
-import { Switch, Radio, Input, Popconfirm } from 'antd';
+import {Switch, Radio, Input, Popconfirm} from 'antd';
 
 import {
 	ViewSales,
@@ -16,8 +16,8 @@ import {
 	PdfIcon,
 } from 'utils';
 import styles from '../../BusinessSection/MembershipTab.module.scss';
-import { useRouter } from 'next/router';
-import { CreateSection, AuthGetProductById, CreateContent } from 'redux/actions';
+import {useRouter} from 'next/router';
+import {CreateSection, AuthGetProductById, CreateContent} from 'redux/actions';
 
 const ManageSection = ({
 	items,
@@ -32,10 +32,12 @@ const ManageSection = ({
 }) => {
 	const [isTitleEditable, setIsTitleEditable] = useState(false);
 	const [sectionName, setSectionName] = useState(items.section_name);
-	const [frequency, setFrequency] = useState("");
-	const [accessControl, setAccessControl] = useState(items?.is_available_to_all_subscriber)
+	const [frequency, setFrequency] = useState('');
+	const [accessControl, setAccessControl] = useState(
+		items?.is_available_to_all_subscriber
+	);
 
-	const createSection = CreateSection()
+	const createSection = CreateSection();
 	const getProduct = AuthGetProductById();
 	// console.log(items?.product_subsection, 'items?.product_subsection');
 
@@ -43,7 +45,7 @@ const ManageSection = ({
 	// 	if()
 	// }
 
-	const router = useRouter()
+	const router = useRouter();
 	const productID = router.query.productId;
 
 	async function extractFileSize(cloudinaryUrl) {
@@ -60,14 +62,13 @@ const ManageSection = ({
 			return 0;
 		}
 	}
-	
 
-	const CloudinaryFileSize = ({ cloudinaryUrl }) => {
+	const CloudinaryFileSize = ({cloudinaryUrl}) => {
 		const [fileSize, setFileSize] = useState(null);
 
 		const memoizedExtractFileSize = useMemo(() => {
 			return extractFileSize(cloudinaryUrl);
-		  }, [cloudinaryUrl]);
+		}, [cloudinaryUrl]);
 
 		// useEffect(() => {
 		// 	extractFileSize(cloudinaryUrl).then((size) => {
@@ -77,30 +78,32 @@ const ManageSection = ({
 
 		useEffect(() => {
 			memoizedExtractFileSize.then((size) => {
-			  setFileSize(size);
+				setFileSize(size);
 			});
-		  }, [memoizedExtractFileSize]);
+		}, [memoizedExtractFileSize]);
 
-		return fileSize !== null && (
-			<h2
-				className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}
-			>
-				{fileSize > 1000000
-					? `${Number(fileSize / 1000000).toFixed(2)}MB`
-					: `${Number(fileSize / 1000).toFixed(2)}KB`}
-			</h2>
+		return (
+			fileSize !== null && (
+				<h2
+					className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}
+				>
+					{fileSize > 1000000
+						? `${Number(fileSize / 1000000).toFixed(2)}MB`
+						: `${Number(fileSize / 1000).toFixed(2)}KB`}
+				</h2>
+			)
 		);
 	};
 
 	// useEffect(() => {
 	// 	if(accessControl === null) {
 	// 		setAccessControl(items?.is_available_to_all_subscriber)
-	// 	}  
+	// 	}
 	// },[items])
 
 	const handleAccessControlChange = (e) => {
 		if (e === true) {
-			setAccessControl(e)
+			setAccessControl(e);
 			createSection(
 				{
 					product_content_name: items.section_name,
@@ -110,16 +113,16 @@ const ManageSection = ({
 					product_id: items.product_id,
 					is_access_control_set: true,
 					is_available_to_all_subscriber: e,
-					frequency_of_availability: e === true ? 0 : frequency
+					frequency_of_availability: e === true ? 0 : frequency,
 				},
 				() => {
 					getProduct(productID);
 				}
 			);
 		} else {
-			setAccessControl(false)
+			setAccessControl(false);
 		}
-	}
+	};
 
 	const handleSectionChange = () => {
 		createSection(
@@ -131,14 +134,15 @@ const ManageSection = ({
 				product_id: items.product_id,
 				is_access_control_set: true,
 				is_available_to_all_subscriber: accessControl,
-				frequency_of_availability: accessControl === true ? 0 : frequency
+				frequency_of_availability:
+					accessControl === true ? 0 : frequency,
 			},
 			() => {
 				getProduct(productID);
 			}
 		);
-		window.location.reload()
-	}
+		window.location.reload();
+	};
 
 	return (
 		<div className="flex flex-col mt-7">
@@ -150,7 +154,7 @@ const ManageSection = ({
 							placeholder="Section title"
 							value={sectionName}
 							className={`text-2xl font-semibold ${styles.titleMain2}`}
-							style={{ width: '9rem' }}
+							style={{width: '9rem'}}
 						/>
 					) : (
 						<h1
@@ -196,7 +200,9 @@ const ManageSection = ({
 					<div className="mt-3">
 						<Radio.Group
 							className={styles.rad}
-							onChange={(e) => handleAccessControlChange(e.target.value)}
+							onChange={(e) =>
+								handleAccessControlChange(e.target.value)
+							}
 							defaultValue={items?.is_available_to_all_subscriber}
 						>
 							<Radio
@@ -221,14 +227,21 @@ const ManageSection = ({
 							<label className="text-lg font-medium mb-3">
 								Number of Times
 							</label>
-							<div className='flex items-center'>
+							<div className="flex items-center">
 								<Input
 									onChange={(e) =>
 										setFrequency(e.target.value)
 									}
-									placeholder={items?.frequency_of_availability}
+									placeholder={
+										items?.frequency_of_availability
+									}
 								/>
-								<Button type="primary" onClick={() => handleSectionChange()}>Submit</Button>
+								<Button
+									type="primary"
+									onClick={() => handleSectionChange()}
+								>
+									Submit
+								</Button>
 							</div>
 						</div>
 					)}
@@ -253,12 +266,12 @@ const ManageSection = ({
 											item?.files[0]?.type === 'audio'
 												? Audio
 												: item?.files[0]?.type ===
-													'video'
-													? Video
-													: item?.files[0]?.type ===
-														'image'
-														? ImageIcon
-														: PdfIcon
+												  'video'
+												? Video
+												: item?.files[0]?.type ===
+												  'image'
+												? ImageIcon
+												: PdfIcon
 										}
 										alt="file"
 									/>
@@ -277,9 +290,9 @@ const ManageSection = ({
 								} */}
 								{/* <div className='flex items-center'>
 									<p>File size:</p> */}
-									<CloudinaryFileSize
-										cloudinaryUrl={item?.files[0]?.filename}
-									/>
+								<CloudinaryFileSize
+									cloudinaryUrl={item?.files[0]?.filename}
+								/>
 								{/* </div> */}
 							</div>
 						</div>
@@ -323,7 +336,7 @@ const ManageSection = ({
 										type: 'danger',
 										size: 'large',
 									}}
-									overlayInnerStyle={{ textAlign: 'center' }}
+									overlayInnerStyle={{textAlign: 'center'}}
 									overlayStyle={{
 										width: '350px',
 										padding: '20px',

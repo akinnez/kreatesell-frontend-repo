@@ -104,7 +104,7 @@ export const CheckoutForm = ({
 	const [isApplied, setIsApplied] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
 	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false);
-	const [numOfBilledTimes, setNumOfBilledTimes] = useState(0)
+	const [numOfBilledTimes, setNumOfBilledTimes] = useState(0);
 
 	const mounted = useRef(null);
 	const {Option} = Select;
@@ -713,9 +713,9 @@ export const CheckoutForm = ({
 		setFieldValue('who_bear_fee', buyerPaysTransactionFee);
 		setFieldValue('product_settings.is_limited_sales', limitProductSale);
 		setFieldValue('number_of_limited_product', +numberOfLimit);
-		setFieldValue('no_of_subcription_length_times',subLengthNo);
-		setFieldValue('custom_billing_interval_times', customBillingDuration)
-        setFieldValue('custom_billing_duration',numOfBilledTimes);
+		setFieldValue('no_of_subcription_length_times', subLengthNo);
+		setFieldValue('custom_billing_interval_times', customBillingDuration);
+		setFieldValue('custom_billing_duration', numOfBilledTimes);
 		setFieldValue('minimum_prices', [...minimumPrice]);
 		setFieldValue('suggested_prices', [...suggestedPrice]);
 		setFieldValue('billing_frequency', numberOfInputs);
@@ -899,7 +899,7 @@ export const CheckoutForm = ({
 
 			setCustomBillingDuration(
 				product?.product_details?.custom_billing_interval_times
-			)
+			);
 
 			// custom_billing_interval_times
 			// custom_billing_duration
@@ -1729,7 +1729,10 @@ export const CheckoutForm = ({
 							className='w-1/2'
 						/> */}
 						<Select
-							defaultValue={product?.product_details?.billing_frequency_duration || 'custom'}
+							defaultValue={
+								product?.product_details
+									?.billing_frequency_duration || 'custom'
+							}
 							size="large"
 							className="w-1/2 text-lg mb-2 rounded-lg"
 							value={duration}
@@ -1745,7 +1748,7 @@ export const CheckoutForm = ({
 									Custom Billing interval
 								</h1>
 								<div className="flex items-center">
-									<p className="text-gray-400 text-base mt-2"> 
+									<p className="text-gray-400 text-base mt-2">
 										Billed Every
 									</p>
 									<Input
@@ -1755,7 +1758,9 @@ export const CheckoutForm = ({
 										// defaultValue='5'
 										name="custom_billing_duration"
 										value={numOfBilledTimes}
-										onChange={(e) => setNumOfBilledTimes(e.target.value)}
+										onChange={(e) =>
+											setNumOfBilledTimes(e.target.value)
+										}
 										style={{
 											width: '60px',
 											marginLeft: '10px',
@@ -1763,7 +1768,11 @@ export const CheckoutForm = ({
 										}}
 									/>
 									<Select
-										defaultValue={product?.product_details?.custom_billing_interval_times || 'days'}
+										defaultValue={
+											product?.product_details
+												?.custom_billing_interval_times ||
+											'days'
+										}
 										className="w-24"
 										options={billedEveryDuration}
 										onChange={(e) =>
