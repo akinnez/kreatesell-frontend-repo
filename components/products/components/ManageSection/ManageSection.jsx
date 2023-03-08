@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
+import { Button } from 'antd';
 
-import {Switch, Radio, Input, Popconfirm} from 'antd';
+import { Switch, Radio, Input, Popconfirm } from 'antd';
 
 import {
 	ViewSales,
@@ -15,6 +16,8 @@ import {
 	PdfIcon,
 } from 'utils';
 import styles from '../../BusinessSection/MembershipTab.module.scss';
+import { useRouter } from 'next/router';
+import { CreateSection, AuthGetProductById, CreateContent } from 'redux/actions';
 
 const ManageSection = ({
 	items,
@@ -29,13 +32,19 @@ const ManageSection = ({
 }) => {
 	const [isTitleEditable, setIsTitleEditable] = useState(false);
 	const [sectionName, setSectionName] = useState(items.section_name);
+	const [frequency, setFrequency] = useState("");
+	const [accessControl, setAccessControl] = useState(items?.is_available_to_all_subscriber)
 
-	// console.log(items, 'items');
+	const createSection = CreateSection()
+	const getProduct = AuthGetProductById();
 	// console.log(items?.product_subsection, 'items?.product_subsection');
 
 	// const getMediaIconType = (iconObj) => {
 	// 	if()
 	// }
+
+	const router = useRouter()
+	const productID = router.query.productId;
 
 	async function extractFileSize(cloudinaryUrl) {
 		try {
@@ -51,17 +60,28 @@ const ManageSection = ({
 			return 0;
 		}
 	}
+	
 
-	const CloudinaryFileSize = ({cloudinaryUrl}) => {
+	const CloudinaryFileSize = ({ cloudinaryUrl }) => {
 		const [fileSize, setFileSize] = useState(null);
 
-		useEffect(() => {
-			extractFileSize(cloudinaryUrl).then((size) => {
-				setFileSize(size);
-			});
-		}, [cloudinaryUrl]);
+		const memoizedExtractFileSize = useMemo(() => {
+			return extractFileSize(cloudinaryUrl);
+		  }, [cloudinaryUrl]);
 
-		return fileSize !== null ? (
+		// useEffect(() => {
+		// 	extractFileSize(cloudinaryUrl).then((size) => {
+		// 		setFileSize(size);
+		// 	});
+		// }, [cloudinaryUrl]);
+
+		useEffect(() => {
+			memoizedExtractFileSize.then((size) => {
+			  setFileSize(size);
+			});
+		  }, [memoizedExtractFileSize]);
+
+		return fileSize !== null && (
 			<h2
 				className={`text-base font-medium mt-0 ${styles.digitalProductSize}`}
 			>
@@ -69,10 +89,56 @@ const ManageSection = ({
 					? `${Number(fileSize / 1000000).toFixed(2)}MB`
 					: `${Number(fileSize / 1000).toFixed(2)}KB`}
 			</h2>
-		) : (
-			<p>Loading file size</p>
 		);
 	};
+
+	// useEffect(() => {
+	// 	if(accessControl === null) {
+	// 		setAccessControl(items?.is_available_to_all_subscriber)
+	// 	}  
+	// },[items])
+
+	const handleAccessControlChange = (e) => {
+		if (e === true) {
+			setAccessControl(e)
+			createSection(
+				{
+					product_content_name: items.section_name,
+					action: 'e',
+					content_id: items.id,
+					kreatesell_id: items.kreate_sell_product_id,
+					product_id: items.product_id,
+					is_access_control_set: true,
+					is_available_to_all_subscriber: e,
+					frequency_of_availability: e === true ? 0 : frequency
+				},
+				() => {
+					getProduct(productID);
+				}
+			);
+		} else {
+			setAccessControl(false)
+		}
+	}
+
+	const handleSectionChange = () => {
+		createSection(
+			{
+				product_content_name: items.section_name,
+				action: 'e',
+				content_id: items.id,
+				kreatesell_id: items.kreate_sell_product_id,
+				product_id: items.product_id,
+				is_access_control_set: true,
+				is_available_to_all_subscriber: accessControl,
+				frequency_of_availability: accessControl === true ? 0 : frequency
+			},
+			() => {
+				getProduct(productID);
+			}
+		);
+		window.location.reload()
+	}
 
 	return (
 		<div className="flex flex-col mt-7">
@@ -84,7 +150,7 @@ const ManageSection = ({
 							placeholder="Section title"
 							value={sectionName}
 							className={`text-2xl font-semibold ${styles.titleMain2}`}
-							style={{width: '9rem'}}
+							style={{ width: '9rem' }}
 						/>
 					) : (
 						<h1
@@ -130,8 +196,8 @@ const ManageSection = ({
 					<div className="mt-3">
 						<Radio.Group
 							className={styles.rad}
-							onChange={(e) => handleChange(items, e)}
-							defaultValue={true}
+							onChange={(e) => handleAccessControlChange(e.target.value)}
+							defaultValue={items?.is_available_to_all_subscriber}
 						>
 							<Radio
 								className={`text-xl font-semibold items-center ${styles.accessControl}`}
@@ -148,22 +214,22 @@ const ManageSection = ({
 							</Radio>
 						</Radio.Group>
 					</div>
-					{!formik.values.is_available_to_all_subscriber && (
+					{!accessControl && (
 						<div
-							className={styles.in + ' flex flex-col w-1/3 mt-4'}
+							className={styles.in + ' flex flex-col w-1/4 mt-4'}
 						>
 							<label className="text-lg font-medium mb-3">
 								Number of Times
 							</label>
-							<Input
-								onChange={(e) =>
-									setFieldValue(
-										'frequency_of_availability',
-										e.target.value
-									)
-								}
-								placeholder="1"
-							/>
+							<div className='flex items-center'>
+								<Input
+									onChange={(e) =>
+										setFrequency(e.target.value)
+									}
+									placeholder={items?.frequency_of_availability}
+								/>
+								<Button type="primary" onClick={() => handleSectionChange()}>Submit</Button>
+							</div>
 						</div>
 					)}
 				</div>
@@ -187,12 +253,12 @@ const ManageSection = ({
 											item?.files[0]?.type === 'audio'
 												? Audio
 												: item?.files[0]?.type ===
-												  'video'
-												? Video
-												: item?.files[0]?.type ===
-												  'image'
-												? ImageIcon
-												: PdfIcon
+													'video'
+													? Video
+													: item?.files[0]?.type ===
+														'image'
+														? ImageIcon
+														: PdfIcon
 										}
 										alt="file"
 									/>
@@ -209,9 +275,12 @@ const ManageSection = ({
 										className={`text-base font-medium ${styles.digitalProductSize}`}
 									>{item?.files[0]?.filename}</h2>
 								} */}
-								<CloudinaryFileSize
-									cloudinaryUrl={item?.files[0]?.filename}
-								/>
+								{/* <div className='flex items-center'>
+									<p>File size:</p> */}
+									<CloudinaryFileSize
+										cloudinaryUrl={item?.files[0]?.filename}
+									/>
+								{/* </div> */}
 							</div>
 						</div>
 						<div className={styles.managedControls}>
@@ -254,7 +323,7 @@ const ManageSection = ({
 										type: 'danger',
 										size: 'large',
 									}}
-									overlayInnerStyle={{textAlign: 'center'}}
+									overlayInnerStyle={{ textAlign: 'center' }}
 									overlayStyle={{
 										width: '350px',
 										padding: '20px',

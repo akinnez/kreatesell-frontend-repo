@@ -18,10 +18,10 @@ export default function ManageSection({
 }) {
 	const [mediaContent, setMediaContent] = useState(null);
 	const [productSection, setProductSection] = useState(null);
-	const {product, productID} = useSelector((state) => state.product);
+	const {product, productID} = useSelector((state) => state.product); 
 	const getProduct = AuthGetProductById();
 	const createContent = CreateContent();
-	const [play, setPlay] = useState(false);
+	const [play, setPlay] = useState(false); 
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
@@ -65,7 +65,7 @@ export default function ManageSection({
 		setFieldValue('kreatesell_id', item.kreate_sell_product_id);
 		setFieldValue('product_id', item.product_id);
 		setFieldValue('is_access_control_set', true);
-		setFieldValue('is_available_to_all_subscriber', e.target.value);
+		setFieldValue('is_available_to_all_subscriber', e.target.value); 
 	};
 	const deleteLecture = (lecture) => {
 		createContent(
@@ -108,11 +108,6 @@ export default function ManageSection({
 					</h3>
 
 					<div className="flex items-center justify-between mb-7">
-						{/* <h1
-					className={`text-2xl text-blue-600 font-bold ${styles.titleMain}`}
-				>
-					How to Invest in Crypocurrency
-				</h1> */}
 					</div>
 				</div>
 				<div className={styles.miniSaveButtons + ' flex'}>

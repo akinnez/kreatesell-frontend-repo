@@ -1,24 +1,35 @@
-import React, {memo, useState} from 'react';
+import React, { memo, useState } from 'react';
 import Image from 'next/image';
 
-import {AccordionDown, AccordionRight, PlayIcon2} from 'utils';
-import styles from 'public/css/PreviewMembership.module.scss';
+import { AccordionDown, AccordionRight, PlayIcon2 } from 'utils';
+import styles from 'public/css/PreviewMembership.module.scss'; 
 
-const Accordion = ({title, subList, setActiveLink, activeLink}) => {
+const Accordion = ({ title, subList, setActiveLink, activeLink, product, pathname }) => {
+	
 	const [isActive, setIsActive] = useState(false);
+	const totalPayments = localStorage.getItem('total_payments_made') 
+
+
+	const path = pathname.split('/')
+	const linkPath = path[path.length-2]
+
+	const handleSectionOpen = () => {
+        if(totalPayments < product?.frequency_of_availability && linkPath !== "preview-membership" ) return
+		setIsActive(!isActive)
+	}
 
 	return (
-		<div className={styles.accordionItem}>
-			<div className={`${styles.accordionTitle} flex  cursor-pointer`}>
+		<div className={styles.accordionItem}> 
+			<div className={`${styles.accordionTitle} flex text-gray-700  ${totalPayments < product?.frequency_of_availability && linkPath !== "preview-membership" && 'bg-gray-300 text-grey-100'} cursor-pointer`}>
 				<div
 					className={styles.title}
-					onClick={() => setIsActive(!isActive)}
+					onClick={() => handleSectionOpen()}
 				>
-					{title}
+					{product?.section_name}
 				</div>
 				<div
 					className={styles.icon}
-					onClick={() => setIsActive(!isActive)}
+					onClick={() => handleSectionOpen()}
 				>
 					{isActive ? (
 						<Image
@@ -40,14 +51,12 @@ const Accordion = ({title, subList, setActiveLink, activeLink}) => {
 			{isActive && (
 				<>
 					<div className={styles.accordionContent}>
-						{subList.map((itm) => (
+						{product?.product_subsection.map((itm) => (
 							<div
-								className={`cursor-pointer flex justify-between ${
-									styles.subTextContainer
-								} ${
-									activeLink?.id === itm.id &&
+								className={`cursor-pointer flex justify-between ${styles.subTextContainer
+									} ${activeLink?.id === itm.id &&
 									styles.activeSublist
-								}`}
+									}`}
 								key={itm?.id}
 								onClick={() => {
 									setActiveLink(itm);
