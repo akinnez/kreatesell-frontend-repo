@@ -258,8 +258,10 @@ export default function PreviewContent({
 
 	const isProductOutOfStock = () => {
 		if (product?.product_details) {
-			const {is_limited_sales, number_of_product} =
-				product?.product_details;
+			const {
+				is_limited_sales,
+				number_of_product,
+			} = product?.product_details;
 			return (
 				is_limited_sales &&
 				number_of_product - product?.number_sold <= 0
@@ -554,7 +556,9 @@ export default function PreviewContent({
 							type="primary"
 							disabled={isProductOutOfStock()}
 						>
-							{details !== undefined && details?.cta_button
+							{product?.product_details?.enable_preorder
+								? 'Preorder'
+								: details !== undefined && details?.cta_button
 								? details?.cta_button
 								: 'Buy Now'}
 						</Button>
