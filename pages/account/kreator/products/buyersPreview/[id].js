@@ -13,7 +13,6 @@ import {CloudDownload} from 'utils/icons/CloudDownload';
 import axios from 'axios';
 import {Input, Button} from 'components';
 
-export const pathName = typeof window !== 'undefined' && window;
 
 const AccessPageModal = ({
 	showAccessPageModal,
@@ -43,7 +42,7 @@ const AccessPageModal = ({
 			setCourseContent(response?.data?.product_dto?.product_content);
 			setAcessProductDetails(response?.data?.product_dto);
 			// console.log(response?.data?.total_payment_to_date,'response?.data?')
-			pathName.localStorage?.setItem(
+			window.localStorage?.setItem(
 				'total_payments_made',
 				response?.data?.total_payment_to_date
 			);
