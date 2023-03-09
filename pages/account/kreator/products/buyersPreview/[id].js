@@ -13,7 +13,6 @@ import {CloudDownload} from 'utils/icons/CloudDownload';
 import axios from 'axios';
 import {Input, Button} from 'components';
 
-
 const AccessPageModal = ({
 	showAccessPageModal,
 	errorModal,
