@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import {AccordionDown, AccordionRight, PlayIcon2} from 'utils';
 import styles from 'public/css/PreviewMembership.module.scss';
+export const pathName = typeof window !== 'undefined' && window;
 
 const Accordion = ({
 	title,
@@ -13,7 +14,7 @@ const Accordion = ({
 	pathname,
 }) => {
 	const [isActive, setIsActive] = useState(false);
-	const totalPayments = localStorage.getItem('total_payments_made');
+	const totalPayments = pathName.localStorage?.getItem('total_payments_made');
 
 	const path = pathname.split('/');
 	const linkPath = path[path.length - 2];
