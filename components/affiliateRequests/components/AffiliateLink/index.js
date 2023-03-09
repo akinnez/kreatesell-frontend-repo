@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import {Button} from 'antd';
-import {showToast} from 'utils';
+import {RenderIf, showToast} from 'utils';
 import styles from './index.module.scss';
 
 const AffiliateLink = ({affiliateLink}) => {
@@ -29,16 +29,32 @@ const AffiliateLink = ({affiliateLink}) => {
 
 	return (
 		<section className={styles.section}>
-			<div className={styles.label}>
-				<span>Affiliate Link</span>
-			</div>
-			<div className={styles.link__container}>
-				<div className={styles.link}>
-					<span ref={linkElement}>{affiliateLink}</span>
+			<RenderIf condition={true}>
+				<div className={styles.label}>
+					<span>Affiliate Sales Page Link</span>
 				</div>
-				<Button className={styles.link__btn} onClick={handleCopy}>
-					Copy Link
-				</Button>
+				<div className={styles.link__container}>
+					<div className={styles.link}>
+						<span ref={linkElement}>{''}</span>
+					</div>
+					<Button className={styles.link__btn} onClick={handleCopy}>
+						Copy Link
+					</Button>
+				</div>
+			</RenderIf>
+			<br />
+			<div>
+				<div className={styles.label}>
+					<span>Affiliate Product Page Link</span>
+				</div>
+				<div className={styles.link__container}>
+					<div className={styles.link}>
+						<span ref={linkElement}>{affiliateLink}</span>
+					</div>
+					<Button className={styles.link__btn} onClick={handleCopy}>
+						Copy Link
+					</Button>
+				</div>
 			</div>
 		</section>
 	);

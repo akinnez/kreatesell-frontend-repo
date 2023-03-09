@@ -31,10 +31,12 @@ import {
 	SetProductTab,
 	DuplicateProductAction,
 } from 'redux/actions';
-import {useEffect, useState, useMemo} from 'react';
+import {useEffect, useState, useMemo, useContext} from 'react';
 import {useSelector} from 'react-redux';
 import {StatusComponent} from 'components/tableHeader';
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
+import {SalesPageContext} from 'context/AddSalesPageContext';
+import {SalesPageModal} from 'components/tableHeader';
 
 const AllProducts = () => {
 	const router = useRouter();
@@ -189,7 +191,6 @@ const AllProducts = () => {
 		getProducts(1, productName, startDate, endDate, currencyFilter, () =>
 			console.log('done')
 		);
-		console.log(productName, startDate, endDate);
 	};
 	const handlePaginationChange = (page) => getProducts(page);
 
@@ -383,7 +384,9 @@ const AllProducts = () => {
 		// get products
 		getProducts();
 	};
-	// console.log('memoisedProductData', memoisedProductData);
+
+	const salesPage = useContext(SalesPageContext);
+
 	return (
 		<AuthLayout>
 			<div className={styles.allProduct + ' pb-10'}>
@@ -422,10 +425,10 @@ const AllProducts = () => {
 
 				<div className={styles.exportDiv}>
 					{/* <SyncDataToCSV
-            data={data}
-            headers={headCells}
-            filename="all_products"
-          /> */}
+              data={data}
+              headers={headCells}
+              filename="all_products"
+            /> */}
 				</div>
 				<div className="hidden md:block mt-8">
 					<Table
@@ -560,6 +563,13 @@ const AllProducts = () => {
 					/>
 				</div>
 			</div>
+			<SalesPageModal
+				showModal={salesPage.salesPage.showModal}
+				closeModal={() =>
+					salesPage.salesPageDispatch({type: 'CLOSE_MODAL'})
+				}
+				type={salesPage.salesPage.modalType}
+			/>
 		</AuthLayout>
 	);
 };

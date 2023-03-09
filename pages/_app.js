@@ -19,6 +19,7 @@ import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 import {PayPalScriptProvider} from '@paypal/react-paypal-js';
 import {setAuthorizationHeader} from '../utils/index';
 import ChatScript from '../components/ChatWidgetScript';
+import {SalesPageProvider} from 'context/AddSalesPageContext';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -38,19 +39,22 @@ function MyApp({Component, pageProps}) {
 
 	return (
 		<Provider store={store}>
-			<Script
-				charset="UTF-8"
-				src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
-				async
-			/>
-			<ChatScript />
-			<PayPalScriptProvider
-				options={{
-					'client-id': process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
-				}}
-			>
-				<Component {...pageProps} />
-			</PayPalScriptProvider>
+			<SalesPageProvider>
+				<Script
+					charset="UTF-8"
+					src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
+					async
+				/>
+				<ChatScript />
+				<PayPalScriptProvider
+					options={{
+						'client-id':
+							process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
+					}}
+				>
+					<Component {...pageProps} />
+				</PayPalScriptProvider>
+			</SalesPageProvider>
 		</Provider>
 	);
 }

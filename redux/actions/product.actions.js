@@ -549,6 +549,40 @@ export const FetchSingleStoreProduct = () => {
 	);
 };
 
+export const AddSalesPage = () => {
+	const dispatch = useDispatch();
+	return (
+		data = {productId: '', salesPageUrl: ''},
+		successCallback,
+		errorCallback
+	) => (
+		dispatch({type: types.CREATE_SALES_PAGE.REQUEST}),
+		axios.request(
+			`get`,
+			`affiliate/generate-affiliate-link?productId=${data.productId}&salesPageUrl=${data.salesPageUrl}`,
+			(res) => {
+				dispatch({type: types.CREATE_SALES_PAGE.SUCCESS, payload: res});
+				showToast(
+					'Successfully added Sales page' || res?.message,
+					'info'
+				);
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({type: types.CREATE_SALES_PAGE.FAILURE, payload: err});
+				showToast(
+					err.message
+						? err.message
+						: 'Network Error, Check your Connection',
+					'error'
+				);
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+
 export const SetProductTab = () => {
 	const dispatch = useDispatch();
 	return (tab, successCallback, errorCallback) =>

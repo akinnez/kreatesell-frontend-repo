@@ -1,5 +1,8 @@
 import * as types from '../types';
 
+const addSalesPageState = {
+	addSalesPageLoading: false,
+};
 // TODO: make the loading states be unique for each entity
 const initialState = {
 	loading: false,
@@ -18,6 +21,7 @@ const initialState = {
 	singleStoreProducts: [],
 	singleStorePaginationDetails: {},
 	couponProducts: [],
+	...addSalesPageState,
 };
 
 const ProductReducer = (state = initialState, {type, payload}) => {
@@ -39,6 +43,9 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 			return {...state, loading: true};
 		// case types.UPDATE_PRODUCT_CURRENCY.REQUEST:
 
+		case types.CREATE_SALES_PAGE.REQUEST:
+			return {...state, addSalesPageLoading: true};
+
 		case types.GET_ALL_PRODUCTS.SUCCESS:
 		case types.GET_BILLING_INTERVAL.SUCCESS:
 		case types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS:
@@ -59,7 +66,8 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 				};
 			}
 			return {...state, loading: false, ...payload};
-
+		case types.CREATE_SALES_PAGE.SUCCESS:
+			return {...state, addSalesPageLoading: false};
 		case types.GET_PRODUCT_TYPES.SUCCESS:
 			return {...state, loading: false, productTypes: payload};
 
@@ -96,6 +104,8 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 		case types.FETCH_SINGLE_STORE_PRODUCT.FAILURE:
 			// case types.UPDATE_PRODUCT_CURRENCY.FAILURE:
 			return {...state, loading: false, error: payload};
+		case types.CREATE_SALES_PAGE.FAILURE:
+			return {...state, addSalesPageLoading: false};
 
 		case types.SET_PRODUCT_TAB.REQUEST:
 			return {...state, productTab: payload};

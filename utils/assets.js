@@ -290,6 +290,9 @@ import CancelAlert from '../public/images/cancelAlert.png';
 import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
 import CourseFileIcon from '../public/images/CourseFile.svg';
 import Copy2 from '../public/images/copy2.svg';
+import PlusIcon from '../public/images/plus-icon.svg';
+import MinusIcon from '../public/images/minusIcon.svg';
+import GreenCancel from '../public/images/GreenCancel.svg';
 
 import FacebookIcon from '../public/images/facebookicon.svg';
 import InstagramIcon from '../public/images/instagramicon.svg';
@@ -322,6 +325,9 @@ import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
 
 export {
+	MinusIcon,
+	GreenCancel,
+	PlusIcon,
 	Copy,
 	Cart,
 	MediumVerificationIcon,
