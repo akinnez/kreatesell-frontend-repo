@@ -1,8 +1,10 @@
 import React, {memo, useState} from 'react';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
 
 import {AccordionDown, AccordionRight, PlayIcon2} from 'utils';
 import styles from 'public/css/PreviewMembership.module.scss';
+export const pathsName = typeof window !== 'undefined' && window;
 
 const Accordion = ({
 	title,
@@ -10,31 +12,38 @@ const Accordion = ({
 	setActiveLink,
 	activeLink,
 	product,
-	pathname,
+	// pathname,
 }) => {
 	const [isActive, setIsActive] = useState(false);
-	const totalPayments = window.localStorage?.getItem('total_payments_made');
+	const totalPayments = pathsName.localStorage?.getItem('total_payments_made');
+
+	const router = useRouter()
+	const {pathname} = router;
+
 
 	const path = pathname.split('/');
 	const linkPath = path[path.length - 2];
 
 	const handleSectionOpen = () => {
 		if (
-			totalPayments < product?.frequency_of_availability &&
+			totalPayments < product?.frequency_of_availability
+			 &&
 			linkPath !== 'preview-membership'
 		)
 			return;
 		setIsActive(!isActive);
 	};
 
+
+	
 	return (
 		<div className={styles.accordionItem}>
 			<div
-				className={`${styles.accordionTitle} flex text-gray-700  ${
+				className={`${styles.accordionTitle} flex text-gray-700 cursor-pointer ${
 					totalPayments < product?.frequency_of_availability &&
 					linkPath !== 'preview-membership' &&
 					'bg-gray-300 text-grey-100'
-				} cursor-pointer`}
+				}cursor-pointer`}
 			>
 				<div
 					className={styles.title}

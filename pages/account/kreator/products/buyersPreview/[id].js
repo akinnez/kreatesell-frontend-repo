@@ -119,7 +119,7 @@ const BuyersPreview = () => {
 	const router = useRouter();
 	const productId = router?.query?.id;
 
-	const {pathname} = router;
+	// const {pathname} = router;
 
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
@@ -290,7 +290,7 @@ const BuyersPreview = () => {
 															title,
 															activeLink,
 															product,
-															pathname,
+															// pathname,
 														}}
 													/>
 												)

@@ -17,7 +17,7 @@ const PreviewMembership = () => {
 	const router = useRouter();
 	const getProduct = AuthGetProductById();
 
-	const {pathname} = router;
+	// const {pathname} = router;
 
 	const {
 		product,
@@ -148,7 +148,7 @@ const PreviewMembership = () => {
 														title,
 														activeLink,
 														product,
-														pathname,
+														// pathname,
 													}}
 												/>
 											)
