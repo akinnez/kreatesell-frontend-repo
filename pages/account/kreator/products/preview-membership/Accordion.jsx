@@ -23,7 +23,7 @@ const Accordion = ({
 			totalPayments < product?.frequency_of_availability &&
 			linkPath !== 'preview-membership'
 		)
-		return;
+			return;
 		setIsActive(!isActive);
 	};
 

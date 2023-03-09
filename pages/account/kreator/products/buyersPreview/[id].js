@@ -290,7 +290,7 @@ const BuyersPreview = () => {
 															title,
 															activeLink,
 															product,
-															pathname
+															pathname,
 														}}
 													/>
 												)

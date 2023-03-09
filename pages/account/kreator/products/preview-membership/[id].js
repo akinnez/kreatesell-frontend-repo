@@ -148,7 +148,7 @@ const PreviewMembership = () => {
 														title,
 														activeLink,
 														product,
-														pathname
+														pathname,
 													}}
 												/>
 											)
