@@ -17,6 +17,8 @@ const PreviewMembership = () => {
 	const router = useRouter();
 	const getProduct = AuthGetProductById();
 
+	// const {pathname} = router;
+
 	const {
 		product,
 		product: {product_content},
@@ -63,6 +65,7 @@ const PreviewMembership = () => {
 				title: product.section_name,
 				subList: product.product_subsection,
 				id: product.id,
+				product,
 			};
 		});
 		setAccordionData(products);
@@ -132,14 +135,20 @@ const PreviewMembership = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList}, idx) => (
+											(
+												{title, subList, product},
+												idx
+											) => (
 												<Accordion
 													key={idx}
+													// pathname={pathname}
 													{...{
 														setActiveLink,
 														subList,
 														title,
 														activeLink,
+														product,
+														// pathname,
 													}}
 												/>
 											)

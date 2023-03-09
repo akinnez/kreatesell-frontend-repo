@@ -669,7 +669,6 @@ const Checkout = () => {
 
 	const onPaystackSuccess = (reference) => {
 		// Implementation for whatever you want to do with reference and after success call.
-		// console.log(reference)
 		// const status = paymentStatusList[reference?.status];
 		const status = 'success';
 		sendPaymentCheckoutDetails(

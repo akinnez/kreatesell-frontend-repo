@@ -40,6 +40,11 @@ const AccessPageModal = ({
 			const response = await axios.post(productLink, productDetailsData);
 			setCourseContent(response?.data?.product_dto?.product_content);
 			setAcessProductDetails(response?.data?.product_dto);
+			// console.log(response?.data?.total_payment_to_date,'response?.data?')
+			window.localStorage?.setItem(
+				'total_payments_made',
+				response?.data?.total_payment_to_date
+			);
 			//collect course content from response
 			closeAccessPageModal();
 		} catch (error) {
@@ -113,6 +118,8 @@ const AccessPageModal = ({
 const BuyersPreview = () => {
 	const router = useRouter();
 	const productId = router?.query?.id;
+
+	// const {pathname} = router;
 
 	const [activeLink, setActiveLink] = useState({});
 	const [activeSelectedSectionId, setActiveSelectedSectionId] =
@@ -199,6 +206,7 @@ const BuyersPreview = () => {
 				title: product.section_name,
 				subList: product.product_subsection,
 				id: product.id,
+				product,
 			};
 		});
 		setAccordionData(products);
@@ -269,14 +277,20 @@ const BuyersPreview = () => {
 									<div>
 										<div className={styles.accordion}>
 											{accordionData.map(
-												({title, subList}, idx) => (
+												(
+													{title, subList, product},
+													idx
+												) => (
 													<Accordion
 														key={idx}
+														// pathname={pathname}
 														{...{
 															setActiveLink,
 															subList,
 															title,
 															activeLink,
+															product,
+															// pathname,
 														}}
 													/>
 												)
