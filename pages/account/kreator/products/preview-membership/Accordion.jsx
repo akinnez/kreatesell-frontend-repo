@@ -15,31 +15,31 @@ const Accordion = ({
 	// pathname,
 }) => {
 	const [isActive, setIsActive] = useState(false);
-	const totalPayments = pathsName.localStorage?.getItem('total_payments_made');
+	const totalPayments = pathsName.localStorage?.getItem(
+		'total_payments_made'
+	);
 
-	const router = useRouter()
+	const router = useRouter();
 	const {pathname} = router;
-
 
 	const path = pathname.split('/');
 	const linkPath = path[path.length - 2];
 
 	const handleSectionOpen = () => {
 		if (
-			totalPayments < product?.frequency_of_availability
-			 &&
+			totalPayments < product?.frequency_of_availability &&
 			linkPath !== 'preview-membership'
 		)
 			return;
 		setIsActive(!isActive);
 	};
 
-
-	
 	return (
 		<div className={styles.accordionItem}>
 			<div
-				className={`${styles.accordionTitle} flex text-gray-700 cursor-pointer ${
+				className={`${
+					styles.accordionTitle
+				} flex text-gray-700 cursor-pointer ${
 					totalPayments < product?.frequency_of_availability &&
 					linkPath !== 'preview-membership' &&
 					'bg-gray-300 text-grey-100'
