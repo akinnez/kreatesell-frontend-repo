@@ -12,16 +12,16 @@ export const PoweredByKS = ({showDisclaimer = false, storename = ''}) => {
 					alt="powered by KreateSell"
 				/>
 			</p>
-			<RenderIf condition={showDisclaimer}>
-				<p className={styles.disclaimer}>
-					<span>DISCLAIMER NOTICE: </span>
-					This store has no relationship with Facebook, Google or any
-					of the advertising platforms you may have seen our ads on.
-					Additionally, this site is NOT endorsed by Facebook, Google
-					or any advertising platforms in any way. This website and
-					all of it&apos;s contents is a property of {storename}.
-				</p>
-			</RenderIf>
+			{/* <RenderIf condition={showDisclaimer}> */}
+			<p className={styles.disclaimer}>
+				<span>DISCLAIMER NOTICE: </span>
+				This store has no relationship with Facebook, Google or any of
+				the advertising platforms you may have seen our ads on.
+				Additionally, this site is NOT endorsed by Facebook, Google or
+				any advertising platforms in any way. This website and all of
+				it&apos;s contents is a property of {storename}.
+			</p>
+			{/* </RenderIf> */}
 		</footer>
 	);
 };
