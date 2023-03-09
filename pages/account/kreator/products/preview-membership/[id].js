@@ -141,13 +141,14 @@ const PreviewMembership = () => {
 											) => (
 												<Accordion
 													key={idx}
-													pathname={pathname}
+													// pathname={pathname}
 													{...{
 														setActiveLink,
 														subList,
 														title,
 														activeLink,
 														product,
+														pathname
 													}}
 												/>
 											)
