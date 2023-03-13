@@ -18,7 +18,11 @@ const {TabPane} = Tabs;
 const AffiliateRequestLinK = () => {
 	const router = useRouter();
 
-	const {affiliateLink: product, salesPage, error} = useFetchData(
+	const {
+		affiliateLink: product,
+		salesPage,
+		error,
+	} = useFetchData(
 		router.query.pId && router?.query?.requiresApproval
 			? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}?requiresApproval=${router.query?.requiresApproval}`
 			: null
