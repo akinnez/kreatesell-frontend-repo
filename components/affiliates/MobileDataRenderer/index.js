@@ -54,6 +54,7 @@ const MobileDataRenderer = ({
 							<Component
 								productId={product[productKey]}
 								status={product[statusKey]}
+								product={product}
 							/>
 						</div>
 						<ProductDetails

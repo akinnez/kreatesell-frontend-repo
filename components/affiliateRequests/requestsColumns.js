@@ -58,6 +58,7 @@ const requestsColumns = [
 			<GetLink
 				status={record.request_status}
 				productId={record.product_id}
+				product={record}
 			/>
 		),
 		width: '97px',

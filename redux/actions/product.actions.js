@@ -559,7 +559,7 @@ export const AddSalesPage = () => {
 		dispatch({type: types.CREATE_SALES_PAGE.REQUEST}),
 		axios.request(
 			`get`,
-			`affiliate/generate-affiliate-link?productId=${data.productId}&salesPageUrl=${data.salesPageUrl}`,
+			`affiliate/generate-salespage-link?productId=${data.productId}&salesPageUrl=${data.salesPageUrl}`,
 			(res) => {
 				dispatch({type: types.CREATE_SALES_PAGE.SUCCESS, payload: res});
 				showToast(
@@ -570,6 +570,41 @@ export const AddSalesPage = () => {
 			},
 			(err) => {
 				dispatch({type: types.CREATE_SALES_PAGE.FAILURE, payload: err});
+				showToast(
+					err.message
+						? err.message
+						: 'Network Error, Check your Connection',
+					'error'
+				);
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+export const DisconnectSalesPage = () => {
+	const dispatch = useDispatch();
+	return (data = {productId: ''}, successCallback, errorCallback) => (
+		dispatch({type: types.DISCONNECT_SALES_PAGE.REQUEST}),
+		axios.request(
+			`get`,
+			`affiliate/disconnect-salespage-link?productId=${data.productId}`,
+			(res) => {
+				dispatch({
+					type: types.DISCONNECT_SALES_PAGE.SUCCESS,
+					payload: res,
+				});
+				showToast(
+					'Successfully removed sales page link' || res?.message,
+					'info'
+				);
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.DISCONNECT_SALES_PAGE.FAILURE,
+					payload: err,
+				});
 				showToast(
 					err.message
 						? err.message

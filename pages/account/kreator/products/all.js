@@ -47,9 +47,13 @@ const AllProducts = () => {
 	const createEditDeleteProduct = CreateProduct();
 	const setProductTab = SetProductTab();
 	const duplicateProduct = DuplicateProductAction();
-	const {products, loading, productPagination, productStatus} = useSelector(
-		(state) => state.product
-	);
+	const {
+		products,
+		loading,
+		productPagination,
+		productStatus,
+		getAllProductsLoading,
+	} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);
 
 	const {page, total_records, limit} = productPagination;
@@ -128,6 +132,35 @@ const AllProducts = () => {
 				})),
 		[domainLink, productData]
 	);
+
+	useEffect(() => {
+		// the url of the sales page will have product id, kreator unique key and ref, store name
+
+		// metgala.com/?ref=f3c1e813-6f82-4445-a7f6-91aa6c795258&prodId=KREATE-swivehub638100791085876454&uniqkey=6dd50f57-af06-488f-abfb-eea61c9786dd&storename=swivehub
+
+		// Get the query params
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		let ref = urlParams.get('ref');
+		let uniqkey = urlParams.get('uniqkey');
+		let prodId = urlParams.get('prodId');
+		let storename = urlParams.get('storename');
+
+		// make sure you add an id of submitButton to your "Order now" button
+		let button = document.getElementById('submitButton');
+		button?.addEventListener('click', () => {
+			// console.log('ref', ref);
+			// console.log('uniqkey', uniqkey);
+			// console.log('prodId', prodId);
+			// console.log('storename', storename);
+			// console.log('clicked');
+			// go to sales page
+			if (ref && uniqkey && prodId && storename) {
+				window.location.href = `https://dev.kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}&uniqkey=${uniqkey}`;
+			}
+		});
+		return () => {};
+	}, []);
 
 	useEffect(() => {
 		getProducts();
@@ -412,7 +445,6 @@ const AllProducts = () => {
 						cb();
 					}}
 					handleStartDate={(e, string) => {
-						console.log('string', string);
 						setStartDate(string);
 					}}
 					handleCurrencyChange={(e) => setCurrencyFilter(e)}
@@ -434,7 +466,7 @@ const AllProducts = () => {
 					<Table
 						columns={AllProductsTableHeader}
 						locale={tableLocale}
-						loading={loading}
+						loading={getAllProductsLoading}
 						dataSource={memoisedProductData}
 						scroll={{
 							x: 1000,

@@ -51,6 +51,7 @@ const productsColumns = [
 						status={'Approved'}
 						requiresApproval={false}
 						productId={record.id}
+						product={record}
 					/>
 				);
 			}

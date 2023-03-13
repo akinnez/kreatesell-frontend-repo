@@ -33,6 +33,7 @@ import {
 	SetProductID,
 	SetProductTab,
 	AddSalesPage,
+	DisconnectSalesPage,
 } from 'redux/actions';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {SalesPageContext} from 'context/AddSalesPageContext';
@@ -44,6 +45,7 @@ export const SalesPageModal = ({
 }) => {
 	const [salesPageUrl, setSalesPageUrl] = useState('');
 	const addSalesPage = AddSalesPage();
+	const disconnectSalesPage = DisconnectSalesPage();
 	const {salesPage, salesPageDispatch} = useContext(SalesPageContext);
 	const {addSalesPageLoading} = useSelector((state) => state.product);
 
@@ -85,11 +87,13 @@ export const SalesPageModal = ({
 								productId: salesPage?.productId,
 								salesPageUrl,
 							},
-							() =>
+							() => {
+								setSalesPageUrl('');
 								salesPageDispatch({
 									type: 'CHANGE_MODAL_TYPE',
 									payload: {modalType: 'salesPageConnected'},
-								})
+								});
+							}
 						);
 					}}
 					loading={addSalesPageLoading}
@@ -152,7 +156,21 @@ export const SalesPageModal = ({
 						className="mt-3"
 						style={{width: '30%'}}
 						bgColor="blue"
-						onClick={() => {}}
+						onClick={() => {
+							disconnectSalesPage(
+								{
+									productId: salesPage?.productId,
+								},
+								() =>
+									salesPageDispatch({
+										type: 'CHANGE_MODAL_TYPE',
+										payload: {
+											modalType: 'salesPageDisconnected',
+										},
+									})
+							);
+						}}
+						loading={addSalesPageLoading}
 					/>
 					<Button
 						text="No"

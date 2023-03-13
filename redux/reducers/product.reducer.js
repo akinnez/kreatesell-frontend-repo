@@ -6,6 +6,7 @@ const addSalesPageState = {
 // TODO: make the loading states be unique for each entity
 const initialState = {
 	loading: false,
+	getAllProductsLoading: false,
 	products: [],
 	error: {},
 	product: {},
@@ -27,6 +28,7 @@ const initialState = {
 const ProductReducer = (state = initialState, {type, payload}) => {
 	switch (type) {
 		case types.GET_ALL_PRODUCTS.REQUEST:
+			return {...state, getAllProductsLoading: true};
 		case types.CREATE_PRODUCT.REQUEST:
 		case types.CREATE_SECTION.REQUEST:
 		case types.CREATE_CONTENT.REQUEST:
@@ -44,9 +46,11 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 		// case types.UPDATE_PRODUCT_CURRENCY.REQUEST:
 
 		case types.CREATE_SALES_PAGE.REQUEST:
+		case types.DISCONNECT_SALES_PAGE.REQUEST:
 			return {...state, addSalesPageLoading: true};
 
 		case types.GET_ALL_PRODUCTS.SUCCESS:
+			return {...state, getAllProductsLoading: false, ...payload};
 		case types.GET_BILLING_INTERVAL.SUCCESS:
 		case types.FETCH_SINGLE_STORE_PRODUCT.SUCCESS:
 			return {...state, loading: false, ...payload};
@@ -67,6 +71,7 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 			}
 			return {...state, loading: false, ...payload};
 		case types.CREATE_SALES_PAGE.SUCCESS:
+		case types.DISCONNECT_SALES_PAGE.SUCCESS:
 			return {...state, addSalesPageLoading: false};
 		case types.GET_PRODUCT_TYPES.SUCCESS:
 			return {...state, loading: false, productTypes: payload};
@@ -90,6 +95,7 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 			return {...state, loading: false, couponProducts: payload};
 
 		case types.GET_ALL_PRODUCTS.FAILURE:
+			return {...state, getAllProductsLoading: false, error: payload};
 		case types.CREATE_PRODUCT.FAILURE:
 		case types.CREATE_SECTION.FAILURE:
 		case types.CREATE_CONTENT.FAILURE:
@@ -105,6 +111,7 @@ const ProductReducer = (state = initialState, {type, payload}) => {
 			// case types.UPDATE_PRODUCT_CURRENCY.FAILURE:
 			return {...state, loading: false, error: payload};
 		case types.CREATE_SALES_PAGE.FAILURE:
+		case types.DISCONNECT_SALES_PAGE.FAILURE:
 			return {...state, addSalesPageLoading: false};
 
 		case types.SET_PRODUCT_TAB.REQUEST:
