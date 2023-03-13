@@ -18,8 +18,8 @@ const AffiliateProductRequest = () => {
 	const router = useRouter();
 
 	const {
-		data: product,
-		setData,
+		affiliateLink: product,
+		setAffiliateLink: setData,
 		error,
 	} = useFetchData(
 		router.query.pId

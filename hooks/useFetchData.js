@@ -21,6 +21,22 @@ const useFetchData = (url) => {
 		// 		}
 		// 	);
 		// }
+		if (router.query.pId && url) {
+			const fetcher = async () => {
+				axiosAPI.request(
+					'get',
+					url,
+					(res) => {
+						setAffiliateLink(res.data);
+						// return res.data;
+					},
+					(err) => {
+						setError(err.message);
+					}
+				);
+			};
+			fetcher();
+		}
 		if (router.query.productId && url) {
 			const fetcher = async () => {
 				const getAffiliateLink = axiosAPI.request(
@@ -44,16 +60,17 @@ const useFetchData = (url) => {
 					}
 				);
 
-				const [affiliateLinkData, salesPageLinkData] =
-					await Promise.all([getAffiliateLink, getSalesPageLink]);
+				const [
+					affiliateLinkData,
+					salesPageLinkData,
+				] = await Promise.all([getAffiliateLink, getSalesPageLink]);
 				setAffiliateLink(affiliateLinkData);
 				setSalesPage(salesPageLinkData);
 			};
 			fetcher();
 		}
 	}, [url, router.query.productId]);
-
-	return {affiliateLink, salesPage, error};
+	return {affiliateLink, setAffiliateLink, salesPage, error};
 };
 
 export default useFetchData;
