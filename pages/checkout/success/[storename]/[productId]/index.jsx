@@ -537,7 +537,7 @@ const ProductCard = ({productDetails, kreatorDetails}) => {
 		<div className={styles.productCardContainer}>
 			<Image
 				className={`${styles.productImage} rounded-t-lg`}
-				src={productImage?.filename}
+				src={productImage?.filename.split(',')[0]}
 				width="320"
 				height="300"
 				alt="product_image"

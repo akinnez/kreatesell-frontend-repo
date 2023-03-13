@@ -104,6 +104,7 @@ export const CheckoutForm = ({
 	const [isApplied, setIsApplied] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
 	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false);
+	const [numOfBilledTimes, setNumOfBilledTimes] = useState(0);
 
 	const mounted = useRef(null);
 	const {Option} = Select;
@@ -196,7 +197,7 @@ export const CheckoutForm = ({
 	// console.log("product = ", product);
 
 	const durationOptions = [
-		{label: 'Daily', value: 'aaily'},
+		{label: 'Daily', value: 'daily'},
 		{label: 'Weekly', value: 'weekly'},
 		{label: 'Monthly', value: 'monthly'},
 		{label: 'Every 3 Months', value: 'every_3_Months'},
@@ -206,9 +207,9 @@ export const CheckoutForm = ({
 	];
 
 	const billedEveryDuration = [
-		{label: 'Days(s)', value: 'days'},
-		{label: 'Weeks(s)', value: 'weeks'},
-		{label: 'Month(s)', value: 'months'},
+		{label: 'Days', value: 'days'},
+		{label: 'Weeks', value: 'weeks'},
+		{label: 'Months', value: 'months'},
 	];
 
 	const customBillingIntervals = [
@@ -586,7 +587,7 @@ export const CheckoutForm = ({
 		if (!data.isUnlimited_billing) {
 			delete data.isUnlimited_billing;
 		}
-		if (data.billing_frequency_duration === 'custom') {
+		if (data.billing_frequency_duration !== 'custom') {
 			delete data.custom_billing_interval_times;
 			delete data.custom_billing_duration;
 		}
@@ -622,7 +623,7 @@ export const CheckoutForm = ({
 		suggested_prices: [],
 		billing_frequency: 0,
 		minimum_prices: [],
-		no_of_subcription_length_times: 0,
+		no_of_subcription_length_times: subLengthNo,
 		custom_billing_duration: '',
 		custom_billing_interval_times: customBillingDuration,
 		billing_frequency_duration: duration,
@@ -712,6 +713,9 @@ export const CheckoutForm = ({
 		setFieldValue('who_bear_fee', buyerPaysTransactionFee);
 		setFieldValue('product_settings.is_limited_sales', limitProductSale);
 		setFieldValue('number_of_limited_product', +numberOfLimit);
+		setFieldValue('no_of_subcription_length_times', subLengthNo);
+		setFieldValue('custom_billing_interval_times', customBillingDuration);
+		setFieldValue('custom_billing_duration', numOfBilledTimes);
 		setFieldValue('minimum_prices', [...minimumPrice]);
 		setFieldValue('suggested_prices', [...suggestedPrice]);
 		setFieldValue('billing_frequency', numberOfInputs);
@@ -740,6 +744,10 @@ export const CheckoutForm = ({
 		suggestedPrice,
 		numberOfInputs,
 		couponVariance,
+		subLengthNo,
+		customBillingDuration,
+		numOfBilledTimes,
+		numberOfLimit,
 		priceType,
 		setFieldValue,
 	]);
@@ -830,9 +838,17 @@ export const CheckoutForm = ({
 					? product.product_details.upload_content
 					: false
 			);
+			// setFieldValue(
+			// 	'no_of_subcription_length_times',
+			// 	product?.product_details?.no_of_subcription_length_times
+			// );
+			// setFieldValue(
+			// 	'custom_billing_duration',
+			// 	product?.product_details?.custom_billing_duration
+			// );
 			setFieldValue(
-				'no_of_subcription_length_times',
-				product?.product_details?.no_of_subcription_length_times
+				'custom_billing_interval_times:',
+				product?.product_details?.custom_billing_interval_times
 			);
 			// setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
 			// setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
@@ -869,7 +885,7 @@ export const CheckoutForm = ({
 			if (product.product_details.is_limited_sales === true) {
 				setLimitProductSale(true);
 			}
-			if (product?.product_details?.no_of_subcription_length_times <= 0) {
+			if (product?.product_details?.no_of_subcription_length_times < 1) {
 				setBillingFrequency(0);
 			} else {
 				setBillingFrequency(1);
@@ -877,6 +893,14 @@ export const CheckoutForm = ({
 					product?.product_details?.no_of_subcription_length_times
 				);
 			}
+			setNumOfBilledTimes(
+				product?.product_details?.custom_billing_duration
+			);
+
+			setCustomBillingDuration(
+				product?.product_details?.custom_billing_interval_times
+			);
+
 			// custom_billing_interval_times
 			// custom_billing_duration
 			// billing_frequency_duration
@@ -1705,7 +1729,10 @@ export const CheckoutForm = ({
 							className='w-1/2'
 						/> */}
 						<Select
-							defaultValue="custom"
+							defaultValue={
+								product?.product_details
+									?.billing_frequency_duration || 'custom'
+							}
 							size="large"
 							className="w-1/2 text-lg mb-2 rounded-lg"
 							value={duration}
@@ -1728,12 +1755,11 @@ export const CheckoutForm = ({
 										type="number"
 										placeholder="0"
 										// className="w-24"
+										// defaultValue='5'
 										name="custom_billing_duration"
+										value={numOfBilledTimes}
 										onChange={(e) =>
-											setFieldValue(
-												'custom_billing_duration',
-												e.target.value
-											)
+											setNumOfBilledTimes(e.target.value)
 										}
 										style={{
 											width: '60px',
@@ -1742,7 +1768,11 @@ export const CheckoutForm = ({
 										}}
 									/>
 									<Select
-										defaultValue="days"
+										defaultValue={
+											product?.product_details
+												?.custom_billing_interval_times ||
+											'days'
+										}
 										className="w-24"
 										options={billedEveryDuration}
 										onChange={(e) =>
@@ -1823,13 +1853,8 @@ export const CheckoutForm = ({
 								min={1}
 								maxLength={3}
 								placeholder={subLengthNo}
-								// value={subLengthNo}
-								onChange={(e) =>
-									setFieldValue(
-										'no_of_subcription_length_times',
-										e.target.value
-									)
-								}
+								value={subLengthNo}
+								onChange={(e) => setSubLengthNo(e.target.value)}
 							/>
 						</div>
 					</div>
