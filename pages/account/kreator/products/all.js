@@ -16,6 +16,8 @@ import {
 	ViewSales,
 	DuplicateProduct,
 	_copyToClipboard,
+	PlusIcon,
+	MinusIcon,
 } from 'utils';
 import AuthLayout from '../../../../components/authlayout';
 import styles from '../../../../public/css/AllProducts.module.scss';
@@ -248,132 +250,174 @@ const AllProducts = () => {
 			});
 		});
 	};
-	let content = (product) => (
-		<ul>
-			<li
-				className="flex items-center cursor-pointer"
-				onClick={() => {
-					setProductId(product.product_details?.kreasell_product_id);
-					router.push('/account/kreator/products/create');
-					setProductTab(0);
-				}}
-			>
-				<span>
-					<Image alt="" src={EditProduct} />
-				</span>
-				<p className="mb-0 ml-3">Edit Product</p>
-			</li>
-
-			<li
-				className="flex items-center cursor-pointer"
-				onClick={() => {
-					return _copyToClipboard(
-						product?.actions.product_details?.product_link,
-						// `/store/${storename}/product/${product?.product_details?.kreasell_product_id}`
-						'Product Link Copied'
-					);
-				}}
-			>
-				<span>
-					<Image alt="" src={ManageProduct} />
-				</span>
-				<p className="mb-0 ml-3">Copy Link</p>
-			</li>
-
-			<li
-				onClick={() =>
-					router.push(
-						`/account/kreator/products/preview/${product.product_details?.kreasell_product_id}`
-					)
-				}
-				className="flex items-center cursor-pointer"
-			>
-				<span>
-					<Image alt="" src={ViewSales} />
-				</span>
-				<p className="mb-0 ml-3"> Preview</p>
-			</li>
-
-			<li
-				className="flex items-center cursor-pointer"
-				onClick={() =>
-					duplicateProduct(product.product_details?.id, () =>
-						getProducts()
-					)
-				}
-			>
-				<span>
-					<Image alt="" src={DuplicateProduct} />
-				</span>
-				<p className="mb-0 ml-3">Duplicate</p>
-			</li>
-
-			<li
-				className={
-					styles.deletePop + ' flex items-center cursor-pointer'
-				}
-			>
-				<Popconfirm
-					title={
-						<pre className="mb-0 text-sm ">
-							Are you sure to{' '}
-							<h2 className="text-base text-base-gray-400 mb-0 font-semibold">
-								Deactivate
-							</h2>{' '}
-							this product?
-						</pre>
-					}
-					onConfirm={() => handleModalOk(product)}
-					// onCancel={cancel}
-					okText="`Deactivate`"
-					cancelText="Cancel"
-					icon={<></>}
-					placement="bottom"
-					overlayClassName={styles.popConfirm}
+	let Content = (product) => {
+		const {salesPageDispatch} = useContext(SalesPageContext);
+		return (
+			<ul>
+				<li
+					className="flex items-center cursor-pointer"
+					onClick={() => {
+						setProductId(
+							product.product_details?.kreasell_product_id
+						);
+						router.push('/account/kreator/products/create');
+						setProductTab(0);
+					}}
 				>
 					<span>
-						<Image alt="" src={DeactvateProduct} />
+						<Image alt="" src={EditProduct} />
 					</span>
-					<p className="mb-0 ml-3">
-						Deactivate
-						<br /> (Unpublish)
-					</p>
-				</Popconfirm>
-			</li>
-			<li
-				className={
-					styles.deletePop + ' flex items-center cursor-pointer'
-				}
-			>
-				<Popconfirm
-					title={
-						<pre className="mb-0 text-sm ">
-							Are you sure to{' '}
-							<h2 className="text-base text-base-red-400 mb-0 font-semibold">
-								Delete
-							</h2>{' '}
-							this product?
-						</pre>
-					}
-					onConfirm={() => handleModalOk(product)}
-					// onCancel={cancel}
-					okText="Delete"
-					cancelText="Cancel"
-					icon={<></>}
-					placement="left"
-					overlayClassName={styles.popConfirm}
+					<p className="mb-0 ml-3">Edit Product</p>
+				</li>
+
+				<li
+					className="flex items-center cursor-pointer"
+					onClick={() => {
+						return _copyToClipboard(
+							product?.actions.product_details?.product_link,
+							// `/store/${storename}/product/${product?.product_details?.kreasell_product_id}`
+							'Product Link Copied'
+						);
+					}}
 				>
 					<span>
-						<Image alt="" src={DeleteIcon} />
+						<Image alt="" src={ManageProduct} />
 					</span>
-					<p className="mb-0 ml-3">
-						Delete
-						<br />
-					</p>
-				</Popconfirm>
-			</li>
-		</ul>
-	);
+					<p className="mb-0 ml-3">Copy Link</p>
+				</li>
+
+				<li
+					onClick={() =>
+						router.push(
+							`/account/kreator/products/preview/${product.product_details?.kreasell_product_id}`
+						)
+					}
+					className="flex items-center cursor-pointer"
+				>
+					<span>
+						<Image alt="" src={ViewSales} />
+					</span>
+					<p className="mb-0 ml-3"> Preview</p>
+				</li>
+				{/* set show modal */}
+				<li
+					onClick={() =>
+						salesPageDispatch({
+							payload: {
+								modalType: 'connectSalesModal',
+								productId:
+									product.product_details
+										?.kreasell_product_id,
+							},
+							type: 'OPEN_MODAL',
+						})
+					}
+				>
+					<span className="flex">
+						<Image src={PlusIcon} alt="sales page" />
+					</span>
+					<p className="mb-0 ml-3">Connect Sales Page</p>
+				</li>
+				<li
+					onClick={() =>
+						salesPageDispatch({
+							payload: {
+								modalType: 'disconnectSalesPage',
+								productId:
+									product.product_details
+										?.kreasell_product_id,
+							},
+							type: 'OPEN_MODAL',
+						})
+					}
+				>
+					<span className="flex">
+						<Image src={MinusIcon} alt="sales page" />
+					</span>
+					<p className="mb-0 ml-3">Disconnect Sales Page</p>
+				</li>
+
+				<li
+					className="flex items-center cursor-pointer"
+					onClick={() =>
+						duplicateProduct(product.product_details?.id, () =>
+							getProducts()
+						)
+					}
+				>
+					<span>
+						<Image alt="" src={DuplicateProduct} />
+					</span>
+					<p className="mb-0 ml-3">Duplicate</p>
+				</li>
+
+				<li
+					className={
+						styles.deletePop + ' flex items-center cursor-pointer'
+					}
+				>
+					<Popconfirm
+						title={
+							<pre className="mb-0 text-sm ">
+								Are you sure to{' '}
+								<h2 className="text-base text-base-gray-400 mb-0 font-semibold">
+									Deactivate
+								</h2>{' '}
+								this product?
+							</pre>
+						}
+						onConfirm={() => handleModalOk(product)}
+						// onCancel={cancel}
+						okText="`Deactivate`"
+						cancelText="Cancel"
+						icon={<></>}
+						placement="bottom"
+						overlayClassName={styles.popConfirm}
+					>
+						<span>
+							<Image alt="" src={DeactvateProduct} />
+						</span>
+						<p className="mb-0 ml-3">
+							Deactivate
+							<br /> (Unpublish)
+						</p>
+					</Popconfirm>
+				</li>
+				<li
+					className={
+						styles.deletePop + ' flex items-center cursor-pointer'
+					}
+				>
+					<Popconfirm
+						title={
+							<pre className="mb-0 text-sm ">
+								Are you sure to{' '}
+								<h2 className="text-base text-base-red-400 mb-0 font-semibold">
+									Delete
+								</h2>{' '}
+								this product?
+							</pre>
+						}
+						onConfirm={() => handleModalOk(product)}
+						// onCancel={cancel}
+						okText="Delete"
+						cancelText="Cancel"
+						icon={<></>}
+						placement="left"
+						overlayClassName={styles.popConfirm}
+					>
+						<span>
+							<Image alt="" src={DeleteIcon} />
+						</span>
+						<p className="mb-0 ml-3">
+							Delete
+							<br />
+						</p>
+					</Popconfirm>
+				</li>
+			</ul>
+		);
+	};
 	const AvailabilityStatus = (status, total, noSold) => {
 		const availablityList = {
 			// 'Unlimited Copies': '#00B140',
@@ -499,7 +543,7 @@ const AllProducts = () => {
 										padding: '0',
 									}}
 									placement="bottomLeft"
-									content={() => content(product)}
+									content={() => Content(product)}
 									trigger="click"
 									overlayClassName={styles.action}
 								>

@@ -60,7 +60,7 @@ export const SalesPageModal = ({
 				maskClosable={true}
 				closeIcon={<CloseIcon />}
 				className={styles.modalContainer}
-				width={'550px'}
+				width={'500px'}
 			>
 				<br />
 				<h1 className={`${styles.modalTitle}`}>Connect Sales Page</h1>
