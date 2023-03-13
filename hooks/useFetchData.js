@@ -60,10 +60,8 @@ const useFetchData = (url) => {
 					}
 				);
 
-				const [
-					affiliateLinkData,
-					salesPageLinkData,
-				] = await Promise.all([getAffiliateLink, getSalesPageLink]);
+				const [affiliateLinkData, salesPageLinkData] =
+					await Promise.all([getAffiliateLink, getSalesPageLink]);
 				setAffiliateLink(affiliateLinkData);
 				setSalesPage(salesPageLinkData);
 			};
