@@ -562,10 +562,7 @@ export const AddSalesPage = () => {
 			`affiliate/generate-salespage-link?productId=${data.productId}&salesPageUrl=${data.salesPageUrl}`,
 			(res) => {
 				dispatch({type: types.CREATE_SALES_PAGE.SUCCESS, payload: res});
-				showToast(
-					'Successfully added Sales page' || res?.message,
-					'info'
-				);
+				showToast(res?.data?.message, 'info');
 				successCallback?.();
 			},
 			(err) => {

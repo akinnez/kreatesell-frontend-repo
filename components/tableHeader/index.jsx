@@ -46,6 +46,7 @@ export const SalesPageModal = ({
 	const [salesPageUrl, setSalesPageUrl] = useState('');
 	const addSalesPage = AddSalesPage();
 	const disconnectSalesPage = DisconnectSalesPage();
+	const getProducts = GetProducts();
 	const {salesPage, salesPageDispatch} = useContext(SalesPageContext);
 	const {addSalesPageLoading} = useSelector((state) => state.product);
 
@@ -93,6 +94,7 @@ export const SalesPageModal = ({
 									type: 'CHANGE_MODAL_TYPE',
 									payload: {modalType: 'salesPageConnected'},
 								});
+								getProducts();
 							}
 						);
 					}}
@@ -118,7 +120,7 @@ export const SalesPageModal = ({
 				<Image src={SuccessCheck} alt="Success checkmark" />
 				<h1 className={styles.modalTitle}>Sales Page Connected</h1>
 				<p className={`mb-3 ${styles.subtitle}`}>
-					You’ve successfully connected your sales page{' '}
+					You&apos;ve successfully connected your sales page{' '}
 				</p>
 				<Button
 					text="Close"
@@ -161,13 +163,15 @@ export const SalesPageModal = ({
 								{
 									productId: salesPage?.productId,
 								},
-								() =>
+								() => {
 									salesPageDispatch({
 										type: 'CHANGE_MODAL_TYPE',
 										payload: {
 											modalType: 'salesPageDisconnected',
 										},
-									})
+									});
+									getProducts();
+								}
 							);
 						}}
 						loading={addSalesPageLoading}
@@ -532,38 +536,43 @@ const ActionComponent = ({item}, all) => {
 				<p className="mb-0 ml-3"> Preview</p>
 			</li>
 			{/* set show modal */}
-			<li
-				onClick={() =>
-					salesPageDispatch({
-						payload: {
-							modalType: 'connectSalesModal',
-							productId: kreasell_product_id,
-						},
-						type: 'OPEN_MODAL',
-					})
-				}
-			>
-				<span className="flex">
-					<Image src={PlusIcon} alt="sales page" />
-				</span>
-				<p className="mb-0 ml-3">Connect Sales Page</p>
-			</li>
-			<li
-				onClick={() =>
-					salesPageDispatch({
-						payload: {
-							modalType: 'disconnectSalesPage',
-							productId: kreasell_product_id,
-						},
-						type: 'OPEN_MODAL',
-					})
-				}
-			>
-				<span className="flex">
-					<Image src={MinusIcon} alt="sales page" />
-				</span>
-				<p className="mb-0 ml-3">Disconnect Sales Page</p>
-			</li>
+			<RenderIf condition={all.salespageurl === null}>
+				<li
+					onClick={() =>
+						salesPageDispatch({
+							payload: {
+								modalType: 'connectSalesModal',
+								productId: kreasell_product_id,
+							},
+							type: 'OPEN_MODAL',
+						})
+					}
+				>
+					<span className="flex">
+						<Image src={PlusIcon} alt="sales page" />
+					</span>
+					<p className="mb-0 ml-3">Connect Sales Page</p>
+				</li>
+			</RenderIf>
+			<RenderIf condition={all.salespageurl !== null}>
+				{/* <RenderIf condition={true}> */}
+				<li
+					onClick={() =>
+						salesPageDispatch({
+							payload: {
+								modalType: 'disconnectSalesPage',
+								productId: kreasell_product_id,
+							},
+							type: 'OPEN_MODAL',
+						})
+					}
+				>
+					<span className="flex">
+						<Image src={MinusIcon} alt="sales page" />
+					</span>
+					<p className="mb-0 ml-3">Disconnect Sales Page</p>
+				</li>
+			</RenderIf>
 			<RenderIf condition={all.product_type !== 'Digital Download'}>
 				<li
 					onClick={() =>
