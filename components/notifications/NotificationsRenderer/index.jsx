@@ -1,26 +1,25 @@
-import {memo, useMemo} from 'react';
+import { memo, useMemo } from 'react';
 import Image from 'next/image';
 import NoNotifications from 'components/notifications/NoNotifications';
 import NotificationsItem from '../NotificationsItem';
-import {notificationTypes} from 'utils/notificationTypes';
+import { notificationTypes } from 'utils/notificationTypes';
 import useUnreadNotificationsCount from 'hooks/useUnreadNotificationsCount';
 import NotificationPlaceholder from 'public/images/notifications.svg';
 import styles from './index.module.scss';
 
-const NotificationsRenderer = ({notifications}) => {
+const NotificationsRenderer = ({ notifications }) => {
 	const count = useUnreadNotificationsCount(notifications);
 
 	const notificationsList = useMemo(() => {
 		return notifications.reduce((list, notification) => {
 			const type = notification.notification_type;
 			const typeExists = type in notificationTypes;
-
 			if (!typeExists) return list;
 
 			const jsx = (
 				<NotificationsItem
 					key={notification.id}
-					notification={notification}
+					notification={notification} 
 				/>
 			);
 
@@ -29,6 +28,8 @@ const NotificationsRenderer = ({notifications}) => {
 			return list;
 		}, []);
 	}, [notifications]);
+
+
 
 	return (
 		<>
