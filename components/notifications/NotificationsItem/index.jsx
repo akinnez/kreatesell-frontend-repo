@@ -38,7 +38,10 @@ const NotificationsItem = ({notification}) => {
 	const name = generateName(notification.name, type);
 	const productName = generateProductName(notification.product_name, type);
 
-	console.log(notification.created_at,'notification.created_atnotification.created_at')
+	console.log(
+		notification.created_at,
+		'notification.created_atnotification.created_at'
+	);
 
 	return (
 		<li
@@ -53,19 +56,23 @@ const NotificationsItem = ({notification}) => {
 				<div className={styles.notification__content}>
 					<div className={styles.notification__info}>
 						<p>
-							{type === 'affiliate request' ? notificationTypes[type](name, productName) 
-							: type === 'approve affiliate' ? notificationTypes[type](name) 
-							: type === 'Sales' ? notificationTypes[type](name, productName) 
-							: type === 'Affiliate Sales' ? notificationTypes[type](name, productName) 
-							: notificationTypes[type]}
+							{type === 'affiliate request'
+								? notificationTypes[type](name, productName)
+								: type === 'approve affiliate'
+								? notificationTypes[type](name)
+								: type === 'Sales'
+								? notificationTypes[type](name, productName)
+								: type === 'Affiliate Sales'
+								? notificationTypes[type](name, productName)
+								: notificationTypes[type]}
 						</p>
-						<p>{notificationTime(notification.created_at)}</p> 
+						<p>{notificationTime(notification.created_at)}</p>
 					</div>
 					{notification.product_img && (
 						<div className={styles['notification__product-image']}>
 							<Image
 								src={notification.product_img}
-								alt={notification.product_name ?? productName} 
+								alt={notification.product_name ?? productName}
 								layout="fill"
 							/>
 						</div>

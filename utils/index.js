@@ -2,7 +2,7 @@ import cogoToast from 'cogo-toast';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 export const pathName = typeof window !== 'undefined' && window;
-import { subDays, format } from 'date-fns';
+import {subDays, format} from 'date-fns';
 
 var options = {
 	weekday: 'long',
@@ -36,7 +36,7 @@ export const formatDateAndTime = (date) => {
 	);
 };
 export const formatShortDateAndTime = (date) => {
-	let shortOptions = { ...options, weekday: 'short' };
+	let shortOptions = {...options, weekday: 'short'};
 	delete shortOptions.weekday;
 	return (
 		<>
@@ -66,7 +66,7 @@ export const transactionFees = {
 	USD: 10,
 	GBP: 10,
 };
-export const _clearData = ({ pushToLogin = true }) => {
+export const _clearData = ({pushToLogin = true}) => {
 	pathName && localStorage.clear();
 	pathName && sessionStorage.clear();
 	if (pushToLogin) {
@@ -100,7 +100,7 @@ export const getToken = () => {
 		const decodedToken = jwt_decode(token);
 		const tokenExpired = decodedToken.exp * 1000 === new Date().valueOf();
 		if (tokenExpired) {
-			_clearData({ pushToLogin: true });
+			_clearData({pushToLogin: true});
 		}
 	}
 	return token;
@@ -215,7 +215,7 @@ export function transformToFormData(data, exempt) {
 
 export const _formatURL = (url) => url.replace(/(^\w+:|^)\/\//, '');
 
-export const _prependHttp = ({ url, https = true }) => {
+export const _prependHttp = ({url, https = true}) => {
 	if (typeof url !== 'string') {
 		throw new TypeError(
 			`Expected \`url\` to be of type \`string\`, got \`${typeof url}\``
@@ -231,7 +231,7 @@ export const _prependHttp = ({ url, https = true }) => {
 	return url.replace(/^(?!(?:\w+?:)?\/\/)/, https ? 'https://' : 'http://');
 };
 
-export const _prependKreateSell = ({ url, https = true }) => {
+export const _prependKreateSell = ({url, https = true}) => {
 	if (typeof url !== 'string') {
 		throw new TypeError(
 			`Expected \`url\` to be of type \`string\`, got \`${typeof url}\``
@@ -249,7 +249,7 @@ export const _prependKreateSell = ({ url, https = true }) => {
 
 export const notificationTime = (timeValue) => {
 	if (!timeValue) return '';
-  
+
 	const parseServerTime = Date.parse(timeValue);
 	const milliseconds = Date.now() - parseServerTime;
 	const seconds = Math.floor(milliseconds / 1000);
@@ -261,7 +261,7 @@ export const notificationTime = (timeValue) => {
 	const years = Math.floor(months / 12);
 
 	// console.log(seconds,minutes,hours,'')
-  
+
 	if (seconds < 60) return `${seconds} seconds ago`;
 	if (minutes < 60) return `${minutes} minutes ago`;
 	if (hours < 24) return `${hours} hours ago`;
@@ -273,7 +273,7 @@ export const notificationTime = (timeValue) => {
 	if (months < 12) return `${months} months ago`;
 	if (years === 1) return 'A year ago';
 	return `${years} years ago`;
-  };
+};
 
 export * from './assets';
 
@@ -295,7 +295,7 @@ export const checkExpiredUserToken = () => {
 
 			if (tokenExpired) {
 				showToast('Your Login Session Have Expired', 'info');
-				_clearData({ pushToLogin: true });
+				_clearData({pushToLogin: true});
 				localStorage.removeItem('token');
 			}
 		}
@@ -348,24 +348,24 @@ export const downloadMultiFiles = (files) => {
 };
 
 export const currencyOptions = [
-	{ value: 'NGN', label: 'NGN' },
-	{ label: 'GHS', value: 'GHS' },
-	{ value: 'KES', label: 'KES' },
-	{ value: 'ZAR', label: 'ZAR' },
-	{ value: 'TZS', label: 'TZS' },
-	{ value: 'UGX', label: 'UGX' },
-	{ value: 'USD', label: 'USD' },
-	{ value: 'GBP', label: 'GBP' },
+	{value: 'NGN', label: 'NGN'},
+	{label: 'GHS', value: 'GHS'},
+	{value: 'KES', label: 'KES'},
+	{value: 'ZAR', label: 'ZAR'},
+	{value: 'TZS', label: 'TZS'},
+	{value: 'UGX', label: 'UGX'},
+	{value: 'USD', label: 'USD'},
+	{value: 'GBP', label: 'GBP'},
 ];
 
 export const showOptions = [
-	{ value: '', label: 'Custom' },
-	{ value: 'Today', label: 'Today' },
-	{ value: 'Yesterday', label: 'Yesterday' },
-	{ value: 'Last 7 days', label: 'Last 7 days' },
-	{ value: 'Last 30 days', label: 'Last 30 days' },
-	{ value: 'This year', label: 'This year' },
-	{ value: 'All time', label: 'All time' },
+	{value: '', label: 'Custom'},
+	{value: 'Today', label: 'Today'},
+	{value: 'Yesterday', label: 'Yesterday'},
+	{value: 'Last 7 days', label: 'Last 7 days'},
+	{value: 'Last 30 days', label: 'Last 30 days'},
+	{value: 'This year', label: 'This year'},
+	{value: 'All time', label: 'All time'},
 ];
 
 export const Animate = (
@@ -434,32 +434,32 @@ export const handleShowFilter = (showSelect, setFilter) => {
 	const day = new Date();
 	switch (showSelect) {
 		case 'Today':
-			setFilter((prev) => ({ ...prev, from: formatDate(subDays(day, 0)) }));
-			setFilter((prev) => ({ ...prev, to: formatDate(subDays(day, 0)) }));
+			setFilter((prev) => ({...prev, from: formatDate(subDays(day, 0))}));
+			setFilter((prev) => ({...prev, to: formatDate(subDays(day, 0))}));
 			break;
 		case 'Yesterday':
-			setFilter((prev) => ({ ...prev, from: formatDate(subDays(day, 1)) }));
-			setFilter((prev) => ({ ...prev, to: formatDate(subDays(day, 1)) }));
+			setFilter((prev) => ({...prev, from: formatDate(subDays(day, 1))}));
+			setFilter((prev) => ({...prev, to: formatDate(subDays(day, 1))}));
 			break;
 		case 'Last 7 days':
-			setFilter((prev) => ({ ...prev, from: formatDate(subDays(day, 7)) }));
-			setFilter((prev) => ({ ...prev, to: formatDate(day) }));
+			setFilter((prev) => ({...prev, from: formatDate(subDays(day, 7))}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
 			break;
 		case 'Last 30 days':
 			setFilter((prev) => ({
 				...prev,
 				from: formatDate(subDays(day, 30)),
 			}));
-			setFilter((prev) => ({ ...prev, to: formatDate(day) }));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
 			break;
 		case 'This year':
 			let year = new Date().getFullYear();
-			setFilter((prev) => ({ ...prev, from: `${year}-01-01` }));
-			setFilter((prev) => ({ ...prev, to: formatDate(day) }));
+			setFilter((prev) => ({...prev, from: `${year}-01-01`}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
 			break;
 		case 'All time':
-			setFilter((prev) => ({ ...prev, from: '' }));
-			setFilter((prev) => ({ ...prev, to: formatDate(day) }));
+			setFilter((prev) => ({...prev, from: ''}));
+			setFilter((prev) => ({...prev, to: formatDate(day)}));
 			break;
 		default:
 			return;
@@ -470,7 +470,7 @@ export const formatDate = (date, formatArg = 'yyyy-MM-dd') => {
 	return format(date, formatArg);
 };
 
-export const RenderIf = ({ condition, children }) => {
+export const RenderIf = ({condition, children}) => {
 	return condition ? children : null;
 };
 
