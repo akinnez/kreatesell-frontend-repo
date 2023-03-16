@@ -251,24 +251,26 @@ export const notificationTime = (timeValue) => {
 	if (!timeValue) return '';
 
 	const parseServerTime = Date.parse(timeValue);
+	const milliseconds = Date.now() - parseServerTime;
+	const seconds = Math.floor(milliseconds / 1000);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+	const weeks = Math.floor(days / 7);
+	const months = Math.floor(weeks / 4);
+	const years = Math.floor(months / 12);
 
-	const secs = (Date.now() - parseServerTime) / 1000;
-	const mins = Math.round(secs / 60);
-	const hrs = Math.round(mins / 60);
-	const days = Math.round(hrs / 24);
-	const weeks = Math.round(days / 7);
-	const months = Math.round(weeks / 4);
-	const years = Math.round(months / 12);
+	// console.log(seconds,minutes,hours,'')
 
-	if (mins <= 59) return `${mins} minutes ago`;
-	if (hrs === 1) return 'An hour ago';
-	if (hrs <= 24) return `${hrs} hours ago`;
-	if (days === 1) return 'A day ago';
-	if (days <= 7) return `${days} days ago`;
+	if (seconds < 60) return `${seconds} seconds ago`;
+	if (minutes < 60) return `${minutes} minutes ago`;
+	if (hours < 24) return `${hours} hours ago`;
+	if (days === 1) return 'Yesterday';
+	if (days < 7) return `${days} days ago`;
 	if (weeks === 1) return 'A week ago';
-	if (weeks <= 3) return `${weeks} weeks ago`;
+	if (weeks < 4) return `${weeks} weeks ago`;
 	if (months === 1) return 'A month ago';
-	if (months <= 11) return `${months} months ago`;
+	if (months < 12) return `${months} months ago`;
 	if (years === 1) return 'A year ago';
 	return `${years} years ago`;
 };
