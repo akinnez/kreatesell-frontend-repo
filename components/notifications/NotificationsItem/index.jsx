@@ -50,7 +50,8 @@ const NotificationsItem = ({notification}) => {
 				<div className={styles.notification__content}>
 					<div className={styles.notification__info}>
 						<p>
-							{notification?.content || 'Notification content not provided'}
+							{notification?.content ||
+								'Notification content not provided'}
 						</p>
 						<p>{notificationTime(notification.created_at)}</p>
 					</div>
