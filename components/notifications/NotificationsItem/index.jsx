@@ -6,7 +6,7 @@ import {
 	generateProductName,
 	updateNotificationsFn,
 } from '../utils';
-import {notificationTypes} from 'utils/notificationTypes';
+// import {notificationTypes} from 'utils/notificationTypes';
 import {notificationTime} from 'utils';
 import styles from './index.module.scss';
 import {useRouter} from 'next/router';
@@ -17,7 +17,6 @@ const NotificationsItem = ({notification}) => {
 	const router = useRouter();
 
 	const handleClick = (notification) => {
-		// console.log(notification, 'notification')
 		if (!notification.is_read) {
 			updateNotificationsFn(notification.id, dispatch, mutate);
 		}
@@ -38,11 +37,6 @@ const NotificationsItem = ({notification}) => {
 	const name = generateName(notification.name, type);
 	const productName = generateProductName(notification.product_name, type);
 
-	console.log(
-		notification.created_at,
-		'notification.created_atnotification.created_at'
-	);
-
 	return (
 		<li
 			key={notification.id}
@@ -56,15 +50,7 @@ const NotificationsItem = ({notification}) => {
 				<div className={styles.notification__content}>
 					<div className={styles.notification__info}>
 						<p>
-							{type === 'affiliate request'
-								? notificationTypes[type](name, productName)
-								: type === 'approve affiliate'
-								? notificationTypes[type](name)
-								: type === 'Sales'
-								? notificationTypes[type](name, productName)
-								: type === 'Affiliate Sales'
-								? notificationTypes[type](name, productName)
-								: notificationTypes[type]}
+							{notification?.content || 'Notification content not provided'}
 						</p>
 						<p>{notificationTime(notification.created_at)}</p>
 					</div>
