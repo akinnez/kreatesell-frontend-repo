@@ -1,4 +1,4 @@
-import styles from "../styles/home.module.scss"; 
+import styles from "../styles/home.module.scss";
 import { Navbar } from "components/Nav";
 import MainAttention from "components/Attention";
 import SneakPeak from "components/SneakPeak";
@@ -6,8 +6,12 @@ import SneakPeak from "components/SneakPeak";
 import "antd/dist/antd.css";
 import { Modal } from "antd";
 import { Footer } from "components";
+import WaitlistModal from "./WaitlistModal/WaitlistModal";
+import { useState } from "react";
+import Head from 'next/head';
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false)
   function detailsSubmissionSuccess(msg = "") {
 
     const isAlreadyOnList = msg === "already on wait-list";
@@ -25,7 +29,7 @@ export default function Home() {
         />
       ),
       content: isAlreadyOnList ? (
-       <FinalMsg text="Thank you for registering." />
+        <FinalMsg text="Thank you for registering." />
       ) : (
         <Content />
       ),
@@ -46,22 +50,40 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}> 
-      <Navbar />
-      <section className={styles.doFlex}> 
-        <MainAttention
-          showSubmissionSuccessModal={detailsSubmissionSuccess}
-          showSubmissionFailureModal={detailsSubmissionFailure}
+    <>
+      <Head>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function(m, o, n, t, e, r, _){
+              m['__GetResponseAnalyticsObject'] = e;m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
+              r = o.createElement(n);_ = o.getElementsByTagName(n)[0];r.async = 1;r.src = t;r.setAttribute('crossorigin', 'use-credentials');_.parentNode .insertBefore(r, _);
+          })(window, document, 'script', 'https://ga.getresponse.com/script/5ee813de-9ca5-4d1f-8300-de4d1a7fcd5c/ga.js', 'GrTracking');
+            `,
+          }}
         />
-        <SneakPeak />
-      </section>
-      {/* <SocialIcons /> */}
-       <Footer />
-    </div>
+      </Head>
+      {showModal && <WaitlistModal setShowModal={setShowModal} />}
+      <div className={styles.container}>
+        <Navbar />
+        <section className={styles.doFlex}>
+          <MainAttention
+            showSubmissionSuccessModal={detailsSubmissionSuccess}
+            showSubmissionFailureModal={detailsSubmissionFailure}
+            setShowModal={setShowModal}
+          />
+          <getresponse-form form-id="beca359e-f705-49b7-b5d1-ad8859a54875" e="1"></getresponse-form>
+          <SneakPeak setShowModal={setShowModal} />
+        </section>
+        {/* <SocialIcons /> */}
+        <Footer />
+      </div>
+    </>
   );
 }
 
-const Title = ({ text }) => <h1 className={styles.heading}>{text}</h1>; 
+const Title = ({ text }) => <h1 className={styles.heading}>{text}</h1>;
 
 
 const Content = () => (
@@ -73,4 +95,4 @@ const Content = () => (
 );
 
 
-const FinalMsg = ({text}) => <p className={styles.content}>{text}</p>
+const FinalMsg = ({ text }) => <p className={styles.content}>{text}</p>

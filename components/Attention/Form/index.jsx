@@ -1,5 +1,5 @@
 import InputBox from "./InputBox";
-import styles from "./form.module.scss";
+import styles from "./form.module.scss"; 
 import cogoToast from "cogo-toast";
 import { WaitListSchema } from "../../../validations";
 import { isAnEmpytyObject } from "../../../utils";

@@ -16,27 +16,29 @@
   // object-fit: cover;
   // overflow: hidden;
   font-family: Inter, sans-serif;
-  @media (min-width: 1200px) {
-    height: 100vh;
-  }
+  // @media (min-width: 1200px) {
+  //   height: 100vh;
+  // }
 }
+
 // .try {
 //   position: relative;
 // }
 
 .doFlex {
-  display: flex;
+  // display: flex;
   position: relative;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
+  // justify-content: center;
+  // align-items: flex-start;
+  // flex-direction: column;
   padding: 1rem 2rem;
   transition: all 0.2s;
   background-image: url("../public/images/home-bg.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 70%;
-  margin-top: 5rem;
+  height: 100%;
+  margin-top: 1rem;
+
   // background-color: black;
   @media (min-width: 768px) {
     padding: 0.5rem 4rem;
@@ -44,13 +46,16 @@
 
     // margin-top: 1rem;
   }
+
   @media (min-width: 900px) {
     padding: 0.5rem 10.31rem;
     margin-top: 1rem;
   }
+
   @media (min-width: 1200px) {
     padding: 0.5rem 15rem;
   }
+
   .bannerImg {
     position: absolute;
     // background-image: url("../public/images/banner.png");
@@ -67,9 +72,15 @@
 .heading {
   font-size: 1.5rem;
   transition: font-size 0.2s;
+
   @media (min-width: 400px) {
     font-size: 2.5rem;
   }
+}
+
+.subheader {
+  font-size: 20px;
+  color: #00B140;
 }
 
 .content {
@@ -78,17 +89,86 @@
   // align-items: center;
   font-size: 0.8rem;
   transition: font-size 0.2s;
+
   @media (min-width: 400px) {
     font-size: 1rem;
   }
+
   margin-left: 1.7rem;
+
   .green {
     color: $base-green-100;
     margin-right: 0.3rem;
   }
+
   .blue {
     color: $base-blue;
     font-weight: bold;
     margin-left: 0.3rem;
+  }
+}
+
+.succesContainer {
+  background-image: url("../public/images/home-bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.subheadersection {
+  transition: all 0.2s;
+  margin: 4.5rem 0;
+  padding: 0 0 0 1rem;
+
+  @media (min-width: 600px) {
+    padding: 0 12rem;
+    margin: 2rem 0;
+  }
+
+  @media (min-width: 900px) {
+    padding: 0 12rem;
+    margin: 2rem 0;
+  }
+
+  .subheader {
+    font-size: 30px;
+    color: #0072EF;
+    font-weight: 500;
+  }
+
+  .success__msg__container {
+    margin-top: 1.5rem;
+    max-width: 90%;
+    @media (min-width: 600px) {
+      max-width: 85%;
+    }
+  
+    @media (min-width: 900px) {
+      max-width: 85%;
+    }
+    a {
+      color: #0072EF;
+    }
+
+    p {
+      font-size: 18px;
+      color: #262626;
+      font-weight: 400; 
+
+      @media (min-width: 600px) {
+        font-size: 20px;
+      }
+    
+      @media (min-width: 900px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .cheersText {
+    color: #0072EF;
+    font-size: 20px;
+    font-weight: 400;
   }
 }

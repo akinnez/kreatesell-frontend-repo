@@ -4,20 +4,24 @@
   // background-image: url("../../public/images/home-shape.png");
   align-self: flex-start;
   // align-self: center;
-  margin-top: 1.5rem;
+  // margin-top: .5rem;
   transition: all 0.2s;
   .heading {
     color: $base-blue;
-    font-size: 1.3rem;
+    font-size: 30px;
     margin-bottom: 0.6rem;
+    font-weight: 600;
+    line-height: 1.9rem;
   }
 
   @media (min-width: 768px) {
     margin-top: unset;
+    font-size: 40px;
     // align-self: center;
   }
   @media (min-width: 1200px) {
     margin: 5rem 0;
+    font-size: 40px;
   }
 }
 .offers {
@@ -26,7 +30,7 @@
   align-items: flex-start;
   // text-transform: capitalize;
   // line-height: 1.7;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #595959;
   // color: #d9d9d9;
   opacity: 0.6;
@@ -181,8 +185,51 @@
   animation: fireAnimation 3s infinite;
   display: inline-block;
   color: $base-green-100;
-  font-size: 1.2rem;
-  margin-right: 0.3rem;
+  font-size: 1.5rem;
+  margin-right: 0.3rem; 
   position: relative;
   top: -5px;
+}
+.so__much__more {
+  font-size: 1.5rem;
+}
+.peak_text {
+  font-size: 1rem;
+  max-width: 80%;
+  font-weight: 500;
+}
+
+.btn {
+  background-color: #00B140;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  font-size: 18px;
+  // text-transform: uppercase;
+  // font-weight: bolder;
+  // &:hover {
+  //   color: $base-blue;
+  //   background-color: #fff;
+  //   border: 1px solid $base-blue;
+  // }
+
+  // &:active {
+  //   background-color: $base-green-100;
+  //   color: #fff;
+  //   border: 1px solid transparent;
+  // }
+  @media (min-width: 600px) {
+    padding: 0.7rem 1.3rem;
+  }
+
+  @media (min-width: 900px) {
+    padding: 0.7rem 1.3rem;
+  }
 }

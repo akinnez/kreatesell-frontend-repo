@@ -15,8 +15,8 @@ export default function Home() {
   const [mail, setEmail] = useState("");
 
   return (
-    <Layout subFooter={false} defaultMarginTop={true}>
-      <div className={styles.container}>
+    <Layout subFooter={false} defaultMarginTop={true}>   
+      <div className={styles.container}> 
         <section className={styles.mainBody}>
           <div className={styles.left}>
             <h1>Be The First To Know!</h1>

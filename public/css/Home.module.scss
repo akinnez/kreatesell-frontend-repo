@@ -9,6 +9,7 @@
   background-repeat: repeat-x;
   position: relative;
   top: -20px;
+
   .mainBody {
     width: 100%;
     background-image: url("/images/partial-general-bg.svg");
@@ -19,11 +20,13 @@
     transition: padding 0.2s;
     max-width: 960px;
     margin: 0 auto;
+
     .countdown {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       flex-direction: column;
+
       .text {
         font-size: 1.5rem;
         text-align: center;
@@ -38,6 +41,7 @@
         right: 30px;
       }
     }
+
     .text,
     .textC {
       font-size: 16px;
@@ -61,11 +65,12 @@
         color: $base-blue;
         text-align: center;
       }
+
       h2 {
         font-size: 1.2rem;
         font-weight: normal;
         text-align: center;
-      }
+      }ß
 
       // h3:first-child {
       //   font-weight: bold;
@@ -73,7 +78,7 @@
       //   color: #0072ef;
       // }
 
-      h3 + h3 {
+      h3+h3 {
         // text-decoration: underline;
         font-weight: bold;
         color: #0072ef;
@@ -85,6 +90,7 @@
     .inputContainer {
       margin-top: 2rem;
     }
+
     @media (min-width: 1000px) {
       padding: 2rem 10.31rem;
     }
@@ -111,6 +117,7 @@
       margin-bottom: 1.3125rem;
       padding: 2rem;
     }
+
     .lodingText {
       margin: 4px auto;
       text-align: center;
@@ -123,9 +130,11 @@
     0% {
       opacity: 1;
     }
+
     50% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
@@ -135,31 +144,39 @@
     0% {
       opacity: 1;
     }
+
     50% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
   }
+
   @-moz-keyframes flickerAnimation {
     0% {
       opacity: 1;
     }
+
     50% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
   }
+
   @-webkit-keyframes flickerAnimation {
     0% {
       opacity: 1;
     }
+
     50% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
@@ -175,6 +192,7 @@
     font-size: 1.3rem;
     margin: 1.2rem;
     font-size: 2rem;
+
     .blue {
       color: $base-blue;
     }
@@ -185,6 +203,7 @@
       margin-right: 0.5rem;
       font-weight: normal;
     }
+
     // margin-bottom: 0.5rem;
   }
 
@@ -194,9 +213,11 @@
     0% {
       transform: scale(1);
     }
+
     50% {
       transform: scale(0.5);
     }
+
     100% {
       transform: scale(1);
     }
@@ -206,31 +227,39 @@
     0% {
       transform: scale(1);
     }
+
     50% {
       transform: scale(0.5);
     }
+
     100% {
       transform: scale(1);
     }
   }
+
   @-moz-keyframes fireAnimation {
     0% {
       transform: scale(1);
     }
+
     50% {
       transform: scale(0.5);
     }
+
     100% {
       transform: scale(1);
     }
   }
+
   @-webkit-keyframes fireAnimation {
     0% {
       transform: scale(1);
     }
+
     50% {
       transform: scale(0.5);
     }
+
     100% {
       transform: scale(1);
     }
@@ -253,6 +282,7 @@
     background-image: url("/images/partial-general-bg.svg");
     background-size: contain;
     padding: 0rem 10.31rem;
+
     // display:flex;
     // justify-content:center;
     // align-items:center;
@@ -260,6 +290,7 @@
       padding: 0rem 1rem;
       // justify-content:space-between;
     }
+
     @include screen("medium") {
       background-image: url("/images/mobile-general-bg.svg");
     }
@@ -278,6 +309,7 @@
           color: $base-blue;
         }
       }
+
       .subHeader {
         padding-top: 1rem;
         font-weight: 400;
@@ -285,9 +317,11 @@
         line-height: 1.5rem;
         color: $base-gray;
       }
+
       .mobileSubHeader {
         display: none;
       }
+
       .inputContainer {
         margin-top: 2rem;
       }
@@ -299,6 +333,7 @@
         font-size: 0.75rem;
         line-height: 0.9375rem;
         color: $base-gray;
+
         .benefitSpan {
           padding: 0 0.4rem;
         }
@@ -310,9 +345,11 @@
           font-size: 1.5rem;
           line-height: 1.9rem;
         }
+
         .subHeader {
           display: none;
         }
+
         .mobileSubHeader {
           display: block;
           text-align: center;
@@ -333,6 +370,7 @@
       margin-top: 3.125rem;
       margin-bottom: 2.53rem;
       text-align: center;
+
       .title {
         font-weight: 600;
         font-size: 1.5rem;
@@ -346,6 +384,7 @@
         border-top: 1px solid $gray-100;
         border-bottom: 1px solid $gray-100;
         padding: 2rem 0;
+
         .imageStyle {
           cursor: pointer;
         }
@@ -357,12 +396,15 @@
 
       @include screen("tablet") {
         margin-top: 1.5rem;
+
         .title {
           padding-bottom: 1rem;
         }
+
         .featuredImages {
           display: none;
         }
+
         .mobileFeaturedImages {
           display: flex;
           justify-content: space-evenly;
@@ -379,6 +421,7 @@
           .firstRow {
             @extend .mobileFeaturedStyle;
           }
+
           .secondRow {
             @extend .mobileFeaturedStyle;
           }
@@ -389,6 +432,7 @@
         margin-top: 1rem;
 
         padding-bottom: 1rem;
+
         .title {
           font-size: 1.4rem;
           line-height: 0rem;
@@ -404,14 +448,17 @@
     @include screen("tablet") {
       padding: 2rem 1rem;
     }
+
     .howItWorkstitleCont {
       text-align: center;
+
       .howItWorksTitle {
         font-weight: 700;
         font-size: 2.3rem;
         line-height: 3.375rem;
         color: $black-100;
       }
+
       .howItWorksSubTitle {
         font-weight: 400;
         font-size: 1.1rem;
@@ -432,6 +479,7 @@
 
       .howItWorksImgSingle {
         @include flex(column, null, null);
+
         .howItWorksImgTitle {
           font-weight: 600;
           font-size: 1.25rem;
@@ -439,6 +487,7 @@
           color: $black-100;
           text-align: center;
         }
+
         .howItWorksImgSubTitle {
           // font-size: 0.875rem;
           // line-height: 1.75rem;
@@ -448,12 +497,14 @@
           text-align: center;
         }
       }
+
       @include screen("tablet") {
         padding-top: 2rem;
         flex-direction: column;
 
         .howItWorksImgSingle {
           padding-bottom: 1rem;
+
           .howItWorksImgTitle {
             padding-top: 1.2rem;
             line-height: 0.1rem;
@@ -464,12 +515,14 @@
 
     .howItWorksBtnCont {
       @include flex(row, center, null);
+
       .howItWorksBtn {
         width: 10rem;
         height: 3.125rem;
         align-items: center;
         font-size: 1rem;
       }
+
       @include screen("tablet") {
         .howItWorksBtn {
           width: 50%;
@@ -482,6 +535,7 @@
 
   .featuresSection {
     padding: 4rem 10.31rem;
+
     @include screen("tablet") {
       padding: 0rem 1rem;
       padding-bottom: 3rem;
@@ -490,12 +544,14 @@
     .subHero {
       text-align: center;
       padding-top: 2rem;
+
       h3 {
         font-weight: 700;
         font-size: 2.5rem;
         line-height: 2rem;
         color: $black-100;
       }
+
       p {
         margin: 0;
         font-weight: 500;
@@ -503,6 +559,7 @@
         line-height: 1.75rem;
         color: $base-gray;
       }
+
       @include screen("tablet") {
         h3 {
           font-size: 1.7rem;
@@ -524,10 +581,12 @@
       .automationText {
         width: 50%;
         padding-left: 7rem;
+
         h3,
         p {
           margin: 0;
         }
+
         @include flex(column, center, null);
 
         .automationTitle {
@@ -548,6 +607,7 @@
           line-height: 1.75rem;
           color: $base-gray;
         }
+
         .mobileAutomationSubTitle {
           display: none;
         }
@@ -580,6 +640,7 @@
           display: flex;
           justify-content: center;
         }
+
         .automationText {
           width: 100%;
           padding-left: 0;
@@ -588,15 +649,18 @@
           .automationTitle {
             display: none;
           }
+
           .mobileAutomationTitle {
             display: block;
             font-weight: 600;
             font-size: 1.5rem;
             line-height: 2rem;
           }
+
           .automationSubTitle {
             display: none;
           }
+
           .mobileAutomationSubTitle {
             display: block;
             margin-top: 1rem;
@@ -607,6 +671,7 @@
             color: $base-gray;
             text-align: center;
           }
+
           .linkText {
             font-weight: 500;
             font-size: 1rem;
@@ -631,6 +696,7 @@
     display: flex;
     width: 100%;
     align-items: center;
+
     @include screen("tablet") {
       flex-direction: column;
     }
@@ -651,6 +717,7 @@
       .midSectionMobileTitle {
         display: none;
       }
+
       .midSectionMobileSubTitle {
         display: none;
       }
@@ -681,9 +748,11 @@
         .midSectionTitle {
           display: none;
         }
+
         .midSectionSubTitle {
           display: none;
         }
+
         .midSectionMobileTitle {
           display: block;
           font-weight: 600;
@@ -691,6 +760,7 @@
           line-height: 1.875rem;
           text-align: center;
         }
+
         .midSectionMobileSubTitle {
           display: block;
           font-weight: 400;
@@ -701,23 +771,28 @@
           padding: 0 3rem;
           padding-top: 0.5rem;
         }
+
         .midSectionInputBtn {
           margin: 3rem auto;
         }
       }
     }
+
     .midSectionImage {
       // width: 40%;
       width: 42%;
       display: flex;
       justify-content: center;
+
       @include screen("tablet") {
         display: none;
         width: 100%;
       }
     }
+
     .mobileMidSectionImage {
       display: none;
+
       @include screen("medium") {
         display: flex;
         justify-content: center;
@@ -765,6 +840,7 @@
 
       @include screen("tablet") {
         flex-direction: column;
+
         .newsAndEventTitle {
           text-align: center;
           font-weight: 650;
@@ -774,6 +850,7 @@
           color: $black-100;
           padding: 0 2rem;
         }
+
         .newsAndEventSubTitle {
           display: none;
         }
@@ -807,6 +884,7 @@
               line-height: 2.5rem;
               color: $black-100;
             }
+
             .primaryContent {
               font-weight: 400;
               font-size: 1rem;
@@ -822,6 +900,7 @@
               .primaryFooterImage {
                 padding-right: 1rem;
               }
+
               .primaryFooterPosition {
                 .primaryName {
                   font-weight: bold;
@@ -829,6 +908,7 @@
                   line-height: 1.75rem;
                   color: $base-gray;
                 }
+
                 .primaryPosition {
                   font-weight: 400;
                   font-size: 0.9rem;
@@ -840,11 +920,12 @@
           }
         }
       }
+
       .newsCard {
         background: $base-white;
 
-        .newsImage {
-        }
+        .newsImage {}
+
         .newsTextCont {
           background: $base-white;
           padding: 1rem;
@@ -856,6 +937,7 @@
             color: $black-100;
             cursor: pointer;
           }
+
           .newsAuthor {
             font-weight: 400;
             // font-size: 0.75rem;
@@ -864,6 +946,7 @@
             color: $gray-200;
           }
         }
+
         @include screen("tablet") {
           .newsTextCont {
             .newsTitle {
@@ -874,10 +957,12 @@
           }
         }
       }
+
       .secondRow {
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;
+
         @include screen("tablet") {
           flex-direction: column;
         }
@@ -889,6 +974,7 @@
       }
 
       @include screen("tablet") {
+
         .firstRow,
         .secondRow {
           display: none;
@@ -907,6 +993,7 @@
             display: flex;
 
             margin-top: 1rem;
+
             .firstChild {
               margin-right: 0.5rem;
             }
@@ -930,7 +1017,9 @@
           }
         }
       }
+
       @include screen("medium") {
+
         .firstRow,
         .secondRow {
           display: none;
@@ -950,6 +1039,7 @@
 
               padding-right: 0.5rem;
             }
+
             .primaryNewsCont {
               width: 50%;
               align-items: center;
@@ -961,6 +1051,7 @@
                 color: $black-100;
                 padding-top: 0.5rem;
               }
+
               .primaryContent {
                 font-weight: normal;
                 font-size: 0.875rem;
@@ -973,17 +1064,21 @@
                 display: -webkit-box;
                 padding: 0.5rem 0;
               }
+
               .primaryFooterCont {
                 display: flex;
                 align-items: center;
+
                 .primaryFooterPosition {
                   padding-left: 0.7rem;
+
                   .primaryName {
                     font-weight: bold;
                     font-size: 0.75rem;
                     line-height: 1rem;
                     color: $base-gray;
                   }
+
                   .primaryPosition {
                     font-size: 0.625rem;
                     line-height: 140%;
@@ -999,6 +1094,7 @@
             display: flex;
 
             margin-top: 1rem;
+
             .firstChild {
               margin-right: 0.5rem;
             }
@@ -1052,6 +1148,7 @@
           line-height: 3.375rem;
           color: $black-100;
         }
+
         .testimonialSubTitle {
           font-weight: 500;
           font-size: 1rem;
@@ -1068,6 +1165,7 @@
             font-size: 2rem;
             line-height: 2.6rem;
           }
+
           .testimonialSubTitle {
             text-align: center;
             font-size: 0.9375rem;
@@ -1088,14 +1186,15 @@
                 margin: 0 0.5rem;
                 cursor: pointer;
 
-                .mobileVideo {
-                }
+                .mobileVideo {}
+
                 .mobileAuthor {
                   font-weight: 550;
                   font-size: 1.1875rem;
                   line-height: 2rem;
                   color: $black-100;
                 }
+
                 .mobileExcerpt {
                   font-size: 0.9375rem;
                   line-height: 1.5625rem;
@@ -1115,6 +1214,7 @@
           @include screen("tablet") {
             display: none;
           }
+
           .singleVideoContainer {
             min-width: 33.3%;
             margin-right: 1rem;
@@ -1123,8 +1223,9 @@
             &:last-child {
               margin-right: 0;
             }
-            .videoImage {
-            }
+
+            .videoImage {}
+
             .videoAuthor {
               font-weight: 600;
               font-size: 1.3rem;
@@ -1132,6 +1233,7 @@
               padding-top: 0.8rem;
               color: $black-100;
             }
+
             .videoExcerpt {
               font-style: normal;
               font-weight: 450;
@@ -1139,8 +1241,8 @@
               line-height: 1.625rem;
               color: $base-gray;
             }
-            @include screen("medium") {
-            }
+
+            @include screen("medium") {}
           }
         }
       }
@@ -1165,24 +1267,29 @@
         color: $green-100;
       }
     }
+
     .subFooterTitle {
       @extend .subFooterStyle;
     }
+
     .subMobileFooterTitle {
       display: none;
       @extend .subFooterStyle;
     }
-    .footerInput {
-    }
+
+    .footerInput {}
+
     .benefits {
       display: none;
     }
 
     @include screen("tablet") {
       padding: 2rem 1rem;
+
       .subFooterTitle {
         display: none;
       }
+
       .subMobileFooterTitle {
         display: block;
         font-weight: 700;
@@ -1190,6 +1297,7 @@
         line-height: 2.5rem;
         padding-bottom: 1rem;
       }
+
       .benefits {
         display: flex;
         justify-content: center;
@@ -1213,6 +1321,7 @@
     @include screen("tablet") {
       width: 55%;
     }
+
     @include screen("medium") {
       width: 95%;
     }
@@ -1227,8 +1336,8 @@
         padding: 0 1rem 1rem 1rem;
       }
 
-      .inputCont {
-      }
+      .inputCont {}
+
       .context {
         font-size: 0.875rem;
         line-height: 1.375rem;
@@ -1237,6 +1346,7 @@
         opacity: 0.8;
         padding-bottom: 1rem;
       }
+
       .btnCont {
         width: 100%;
         height: 3.375rem;
