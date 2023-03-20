@@ -16,8 +16,8 @@ module.exports = (phase) => {
 	const env = {
 		isDev: isDev,
 		isProd: isProd,
-		// BASE_URL: 'https://kreatesell.io/api/',
-		BASE_URL: 'https://kreatesell-pilot.azurewebsites.net/api/',
+		BASE_URL: 'https://kreatesell.io/api/',
+		// BASE_URL: 'https://kreatesell-pilot.azurewebsites.net/api/',
 		NEXT_PUBLIC_RECAPTCHA_SITE_KEY:
 			'6Le7-jQcAAAAAOHkoLvhdgAjcmfi2gcHjLKkCzYB',
 		DISQUS_SHORTNAME: 'kreatesell-com',
