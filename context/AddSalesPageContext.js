@@ -7,7 +7,7 @@ const initialState = {
 	modalType: 'connectSalesModal',
 };
 const reducer = (state = initialState, action) => {
-	console.log('action', action);
+	// console.log('action', action);
 	switch (action.type) {
 		case 'TOGGLE_MODAL':
 			return {...state, showModal: !state.showModal};
@@ -48,6 +48,7 @@ export const SalesPageProvider = ({children}) => {
 	const [salesPage, salesPageDispatch] = useReducer(reducer, initialState);
 
 	return (
+		// FIXME:  This( value={{salesPage, salesPageDispatch}}) is not really performant and would always cause a re-render
 		<SalesPageContext.Provider value={{salesPage, salesPageDispatch}}>
 			{children}
 		</SalesPageContext.Provider>
