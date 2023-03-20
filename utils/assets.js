@@ -290,6 +290,9 @@ import CancelAlert from '../public/images/cancelAlert.png';
 import CancelMembershipSuccessIcon from '../public/images/undraw_celebrating.png';
 import CourseFileIcon from '../public/images/CourseFile.svg';
 import Copy2 from '../public/images/copy2.svg';
+import PlusIcon from '../public/images/plus-icon.svg';
+import MinusIcon from '../public/images/minusIcon.svg';
+import GreenCancel from '../public/images/GreenCancel.svg';
 
 import FacebookIcon from '../public/images/facebookicon.svg';
 import InstagramIcon from '../public/images/instagramicon.svg';
@@ -309,8 +312,28 @@ import Zapier from '../public/images/zapier.png';
 import MailReopen from '../public/images/mail_open.svg';
 import ShoppingCart from '../public/images/shopping_cart.svg';
 import Subscribers2 from '../public/images/subscribers.svg';
+import RestOfTheWorld from '../public/images/rest-of-the-world.svg';
+import VerificationIcon from '../public/images/verification.svg';
+import LargeVerificationIcon from '../public/images/verificationLarge.svg';
+import MediumVerificationIcon from '../public/images/verificationMedium.svg';
+import Cart from '../public/images/Cart.svg';
+import Copy from '../public/images/copy.svg';
+import PdfIcon from '../public/images/pdfIcon.png';
+import BlueAlert from '../public/images/blueAlert.png';
+import TelegramIcon from '../public/images/telegramIcon.png';
+import InfinityIcon from '../public/images/infinity.png';
+import QuestionIcon from '../public/images/questionIcon.png';
 
 export {
+	MinusIcon,
+	GreenCancel,
+	PlusIcon,
+	Copy,
+	Cart,
+	MediumVerificationIcon,
+	LargeVerificationIcon,
+	VerificationIcon,
+	RestOfTheWorld,
 	Subscribers2,
 	ShoppingCart,
 	MailReopen,
@@ -620,4 +643,9 @@ export {
 	Mailchimp,
 	GetResponse,
 	Zapier,
+	PdfIcon,
+	BlueAlert,
+	TelegramIcon,
+	InfinityIcon,
+	QuestionIcon,
 };

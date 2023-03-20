@@ -54,7 +54,10 @@ class ApiService {
 			sessionStorage.clear();
 			let nextPath = window.location.href;
 			window.location.href = `/login?next=${nextPath}`;
-			showToast('You need to be logged in to access resource', 'info');
+			showToast(
+				'Your session has timed out! Log in again to continue from where you stopped.',
+				'info'
+			);
 		}
 		return Promise.reject(error?.response?.data);
 	};

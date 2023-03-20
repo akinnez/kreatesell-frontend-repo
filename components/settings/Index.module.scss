@@ -26,6 +26,10 @@
 			border-radius: 0.5rem;
 			padding: 1.5rem 1.75rem;
 			background-color: white;
+			.customizeContainer {
+				flex-direction: column;
+				margin-block: 1rem;
+			}
 		}
 
 		h4 {
@@ -90,7 +94,6 @@
 }
 
 .mainText {
-	// border: 1px solid red;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;

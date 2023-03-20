@@ -1,17 +1,20 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import styles from './sidebar.module.scss';
-import {Layout, Modal, Typography} from 'antd';
-import Sidebar from './sidebar';
-import Logo from './logo';
-import Nav from './header';
+
 import useSWR from 'swr';
+import {Layout, Modal, Typography} from 'antd';
 import {Spin, Dropdown} from 'antd';
 import {ToastContainer} from 'react-toastify';
 import {useDispatch, useSelector} from 'react-redux';
-import ApiService from '../../utils/axios';
-import * as types from '../../redux/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import Router, {useRouter} from 'next/router';
+
+import styles from './sidebar.module.scss';
+import Sidebar from './sidebar';
+import Logo from './logo';
+import Nav from './header';
+import ApiService from '../../utils/axios';
+import * as types from '../../redux/types';
 import fetcher from '../../utils/fetcher';
 import {
 	checkExpiredUserToken,
@@ -26,7 +29,6 @@ import {
 	Congratulations,
 } from 'utils';
 import {Logout} from '../../redux/actions';
-import {useRouter} from 'next/router';
 import {USER} from 'redux/types/auth.types';
 import {GetProductTypes} from 'redux/actions/product.actions';
 import useFetchUtilities from 'hooks/useFetchUtilities';
@@ -37,7 +39,7 @@ import CloseIcon from 'components/affiliates/CloseIcon';
 import {Button} from 'components';
 import axiosAPI from 'utils/axios';
 import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
-import {TOGGLE_SIDEBAR} from '../../redux/types';
+import {TOGGLE_SIDEBAR, CLOSE_SIDEBAR} from '../../redux/types';
 
 const Loader = () => {
 	return (
@@ -146,6 +148,14 @@ const Index = ({
 	const isMobileSideBarOpen = useSelector(
 		(state) => state.mobileSideBar.isMobileSideBarOpen
 	);
+
+	useEffect(() => {
+		if (isMobileSideBarOpen) {
+			Router.events.on('routeChangeComplete', () => {
+				dispatch({type: CLOSE_SIDEBAR});
+			});
+		}
+	}, [isMobileSideBarOpen]);
 
 	const toggleView = () => {
 		dispatch({type: TOGGLE_SIDEBAR});

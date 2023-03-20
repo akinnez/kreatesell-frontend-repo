@@ -85,9 +85,6 @@ const DashboardFilters = ({
 				setFilters((prev) => ({
 					...prev,
 					fromDate: formatDate(subDays(day, 1)),
-				}));
-				setFilters((prev) => ({
-					...prev,
 					toDate: formatDate(subDays(day, 1)),
 				}));
 				// return [formatDate(subDays(day, 1)), formatDate(day)];

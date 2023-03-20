@@ -1,6 +1,11 @@
+@import '../../public/css/screens.scss';
+
 .PoweredByKS {
 	padding-block: 1rem;
-	p {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	.poweredBy {
 		margin-bottom: 0;
 		display: flex;
 		align-items: center;
@@ -9,5 +14,24 @@
 		font-size: 20px;
 		line-height: 30px;
 		color: #595959;
+	}
+	h5 {
+		margin-top: 2rem;
+		font-size: 18px;
+		line-height: 24px;
+		color: #002766;
+		font-weight: 400;
+		display: block;
+		width: 75%;
+
+		& > span {
+			font-weight: 700;
+		}
+	}
+	@include screen('inbetween') {
+		.disclaimer {
+			text-align: center;
+			width: 93%;
+		}
 	}
 }

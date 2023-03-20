@@ -6,17 +6,30 @@ import {
 	generateProductName,
 	updateNotificationsFn,
 } from '../utils';
-import {notificationTypes} from 'utils/notificationTypes';
+// import {notificationTypes} from 'utils/notificationTypes';
 import {notificationTime} from 'utils';
 import styles from './index.module.scss';
+import {useRouter} from 'next/router';
 
 const NotificationsItem = ({notification}) => {
 	const {mutate} = useSWRConfig();
 	const dispatch = useDispatch();
+	const router = useRouter();
 
 	const handleClick = (notification) => {
 		if (!notification.is_read) {
 			updateNotificationsFn(notification.id, dispatch, mutate);
+		}
+		if (
+			notification?.notification_type.toLowerCase() ===
+			'affiliate request'
+		) {
+			router.push('/account/affiliate/requests');
+			return;
+		}
+		if (notification?.notification_type.toLowerCase() === 'sales') {
+			router.push('/account/sales/transactions');
+			return;
 		}
 	};
 
@@ -37,11 +50,8 @@ const NotificationsItem = ({notification}) => {
 				<div className={styles.notification__content}>
 					<div className={styles.notification__info}>
 						<p>
-							{type === 'affiliate request'
-								? notificationTypes[type](name, productName)
-								: type === 'approve affiliate'
-								? notificationTypes[type](name)
-								: notificationTypes[type]}
+							{notification?.content ||
+								'Notification content not provided'}
 						</p>
 						<p>{notificationTime(notification.created_at)}</p>
 					</div>

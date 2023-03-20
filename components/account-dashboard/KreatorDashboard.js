@@ -2,7 +2,7 @@ import {useState} from 'react';
 import UserFilters from 'components/account-dashboard/UserFilters';
 import DashboardLinks from 'components/account-dashboard/DashboardLinks';
 import StatsHeader from 'components/account-dashboard/StatsHeader';
-import {RecentAnalytics} from 'components/account-dashboard/Recent';
+import {RecentKreatorAnalytics} from 'components/account-dashboard';
 import {StatsCard} from 'components/account-dashboard/StatsCard';
 import {useSelector} from 'react-redux';
 const KreatorDashboard = () => {
@@ -25,7 +25,7 @@ const KreatorDashboard = () => {
 				grossSales={salesStatistics.gross_sales}
 				profit={salesStatistics.profits}
 			/>
-			<RecentAnalytics />
+			<RecentKreatorAnalytics />
 		</div>
 	);
 };

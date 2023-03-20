@@ -35,7 +35,6 @@ import FileUpload from 'components/PostTicket/FileUpload';
 const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
-	// console.log('ticket', ticket);
 	const [files, setFiles] = useState([]);
 	const [uploadingFiles, setUploadingFiles] = useState([]);
 
@@ -44,12 +43,17 @@ const CardBody = ({ticketId, ticket}) => {
 	const [submitting, setSubmitting] = useState(false);
 
 	const [reopenSection, setReopenSection] = useState(false);
+
+	useEffect(() => {
+		if (router.query.reopen === 'true') {
+			setReopenSection(true);
+		}
+	}, [router?.query]);
+
 	const handleReopen = () => {
 		setReopenSection(true);
 	};
-
 	const handleSubmit = () => {
-		console.log('submit ');
 		checkExpiredUserToken();
 		const token = getUserToken();
 		setSubmitting(true);
@@ -79,7 +83,10 @@ const CardBody = ({ticketId, ticket}) => {
 				setMessage('');
 				setFiles([]);
 				// showSuccessModalFn(true);
-				// showToast('Ticket have been opened successfully', 'success');
+				showToast(
+					res?.data?.message || `Ticket has been opened successfully`,
+					'success'
+				);
 				setSubmitting(false);
 				setTimeout(() => {
 					router.push('/account/kreator/help');
@@ -91,6 +98,7 @@ const CardBody = ({ticketId, ticket}) => {
 			});
 	};
 	// console.log('ticket', ticket);
+
 	return (
 		<>
 			<div className={styles.cardResponsDiv}>
@@ -99,7 +107,9 @@ const CardBody = ({ticketId, ticket}) => {
 				>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Ticket ID</p>
-						<p className={styles.value}>#{ticketId}</p>
+						<p className={styles.value}>
+							{ticket?.ticket_reference}
+						</p>
 					</div>
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
@@ -338,6 +348,15 @@ const CardBody = ({ticketId, ticket}) => {
 						onClick={handleReopen}
 					/>
 				</RenderIf>
+				<RenderIf condition={ticket?.status?.toLowerCase() === 'open'}>
+					<Button
+						text="Reply"
+						leftIcon={<Image alt="icon" src={MailReopen} />}
+						className="p-3"
+						bgColor="blue"
+						onClick={handleReopen}
+					/>
+				</RenderIf>
 			</div>
 			<RenderIf condition={reopenSection}>
 				<div className={styles.formContainer}>
@@ -391,7 +410,7 @@ const CardBody = ({ticketId, ticket}) => {
 const Index = (props) => {
 	const ticketsURL = (id) =>
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [ticket, setTicket] = useState({});
 	const [ticketId, setTicketId] = useState('');
@@ -411,7 +430,7 @@ const Index = (props) => {
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
-
+			setLoading(false);
 			setError(true);
 		}
 	};
@@ -427,7 +446,11 @@ const Index = (props) => {
 	}
 
 	if (loading) {
-		return <Loader />;
+		return (
+			<AuthLayout>
+				<Loader />
+			</AuthLayout>
+		);
 	}
 	// console.log('ticket', ticket);
 	return (

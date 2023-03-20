@@ -5,6 +5,7 @@ import formatNumber from 'utils/formatNumber';
 import dateFormat from 'utils/dateFormat';
 import Basket from 'public/images/basket-grayed.png';
 import styles from './index.module.scss';
+import {RenderIf} from 'utils';
 
 const PayoutsMobileView = ({payouts}) => {
 	// console.log('payouts = ', payouts);
@@ -60,9 +61,30 @@ const PayoutsMobileView = ({payouts}) => {
 								</li>
 								<li className={styles.payout__detail}>
 									<strong>Amount</strong>
-									<span>
+									<span className={`flex`}>
 										{payout.currency}{' '}
 										{formatNumber(payout.amount)}
+										<RenderIf
+											condition={
+												payout?.earned_as ===
+												'Earned as Affiliate'
+											}
+										>
+											<p
+												className={`flex items-center justify-center ml-1`}
+												style={{
+													background: ' #00B140',
+													paddingInline: '.14rem',
+													color: '#fff',
+													marginBottom: '0',
+													fontSize: '9px',
+													fontWeight: 700,
+													borderRadius: '2px',
+												}}
+											>
+												Earned as an Affiliate
+											</p>
+										</RenderIf>
 									</span>
 								</li>
 							</ol>

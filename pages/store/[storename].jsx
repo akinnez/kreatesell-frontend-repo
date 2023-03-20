@@ -389,7 +389,7 @@ const StorePage = () => {
 						</div>
 					)}
 				</div>
-				<PoweredByKS />
+				<PoweredByKS showDisclaimer={true} {...{storename}} />
 			</div>
 			{/* TODO: Make this a single reusable component */}
 			{/* params to pass: openShareModal, handleModalClose, storeName, productName, origin */}
@@ -398,7 +398,7 @@ const StorePage = () => {
 				footer={null}
 				visible={openShareModal}
 				onCancel={handleModalClose}
-				// maskClosable={false}
+				// maskClosable={true}
 				closeIcon={<CloseIcon />}
 				className={styles.modalContainer}
 				width={700}
@@ -557,7 +557,8 @@ const ProductCard = ({
 		>
 			<div>
 				<Image
-					src={!imageShown ? len[len?.length - 1] : imageShown}
+					// src={!imageShown ? len[0] : imageShown}
+					src={len.length > 0 ? len[0] : imageShown}
 					width="320"
 					height="300"
 					className="rounded-t-lg object-cover"

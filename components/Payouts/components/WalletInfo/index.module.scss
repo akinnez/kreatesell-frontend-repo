@@ -8,6 +8,18 @@
 	padding: 15px;
 	background-color: #096dd9;
 	border-radius: 8px;
+	&.isAffiliate {
+		background-color: #bfbfbf;
+		.title {
+			color: #8c8c8c;
+			> span {
+				color: #8c8c8c;
+			}
+		}
+		.amount {
+			color: #8c8c8c;
+		}
+	}
 }
 
 .title {

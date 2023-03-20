@@ -20,18 +20,20 @@ const menu = ({
 	};
 	return (
 		<Menu className={styles.menu}>
-			<Menu.Item
-				key={1}
-				onClick={() => handler('approve', 'Approve')}
-				// disabled={status === 'Approved' || status === 'Revoked'}
-				disabled={status === 'Revoked'}
-			>
-				<span className={styles.image__wrapper}>
-					<Image src={ApproveImg} alt="Approve Icon" />
-				</span>
-				Approve
-			</Menu.Item>
-			<RenderIf condition={status !== 'Approved'}>
+			<RenderIf condition={['Pending', 'Declined'].includes(status)}>
+				<Menu.Item
+					key={1}
+					onClick={() => handler('approve', 'Approve')}
+					// disabled={status === 'Approved' || status === 'Revoked'}
+					disabled={status === 'Revoked'}
+				>
+					<span className={styles.image__wrapper}>
+						<Image src={ApproveImg} alt="Approve Icon" />
+					</span>
+					Approve
+				</Menu.Item>
+			</RenderIf>
+			<RenderIf condition={status === 'Pending'}>
 				<Menu.Item
 					key={2}
 					onClick={() => handler('decline', 'Decline')}
@@ -43,26 +45,37 @@ const menu = ({
 					Decline
 				</Menu.Item>
 			</RenderIf>
-			<Menu.Item
-				key={3}
-				onClick={() => handler('revoke', 'Revoke')}
-				disabled={status === 'Revoked'}
+			<RenderIf condition={['Approved', 'Declined'].includes(status)}>
+				<Menu.Item
+					key={3}
+					onClick={() => handler('revoke', 'Revoke')}
+					disabled={status === 'Revoked'}
+				>
+					<span className={styles.image__wrapper}>
+						<Image src={RevokeImg} alt="Revoke Icon" />
+					</span>
+					Revoke
+				</Menu.Item>
+			</RenderIf>
+			<RenderIf
+				condition={[
+					'Approved',
+					'Declined',
+					'Revoked',
+					'Pending',
+				].includes(status)}
 			>
-				<span className={styles.image__wrapper}>
-					<Image src={RevokeImg} alt="Revoke Icon" />
-				</span>
-				Revoke
-			</Menu.Item>
-			<Menu.Item
-				key={3}
-				onClick={() => showReportModal(affiliateId)}
-				// disabled={status === 'Revoked'}
-			>
-				<span className={styles.image__wrapper}>
-					<Image src={ReportImg} alt="Report Icon" />
-				</span>
-				Report Kreator
-			</Menu.Item>
+				<Menu.Item
+					key={3}
+					onClick={() => showReportModal(affiliateId)}
+					// disabled={status === 'Revoked'}
+				>
+					<span className={styles.image__wrapper}>
+						<Image src={ReportImg} alt="Report Icon" />
+					</span>
+					Report Kreator
+				</Menu.Item>
+			</RenderIf>
 		</Menu>
 	);
 };

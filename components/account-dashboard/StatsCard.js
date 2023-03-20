@@ -37,7 +37,7 @@ export const StatsCard = ({
 							</div>
 							<div className={styles.countCont}>
 								<div className={styles.value}>
-									{totalVisits}
+									{totalVisits || 0}
 								</div>
 								<div className={styles.valueText}>
 									Total visits
@@ -58,7 +58,10 @@ export const StatsCard = ({
 							</div>
 							<div className={styles.countCont}>
 								<div className={styles.value}>
-									{parseInt(unitSales)}
+									{/* {unitSales} */}
+									{(unitSales !== null &&
+										parseInt(unitSales)) ||
+										'0'}
 								</div>
 								<div className={styles.valueText}>
 									Sales in Unit
@@ -79,7 +82,7 @@ export const StatsCard = ({
 							</div>
 							<div className={styles.countCont}>
 								<div className={styles.value}>
-									{currency} {grossSales}
+									{currency} {grossSales || 0}
 								</div>
 								<div className={styles.valueText}>
 									Gross Sales
@@ -100,7 +103,7 @@ export const StatsCard = ({
 							</div>
 							<div className={styles.countCont}>
 								<div className={styles.value}>
-									{currency} {profit}
+									{currency} {profit || 0}
 								</div>
 								<div className={styles.valueText}>Profit</div>
 							</div>

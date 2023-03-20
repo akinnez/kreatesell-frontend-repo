@@ -130,9 +130,13 @@ export const CreateProductForm = ({
 	};
 	const imageIsEdits = (files) => {
 		const mapped = files?.map((items, i) => {
+			// console.log('items', items);
 			items.isEdits = true;
 			const fileMapped = {
-				file: {...items, name: `image${i + 1}`},
+				file: {
+					...items,
+					name: items?.item?.uploaded_name || `image${i + 1}`,
+				},
 				errors: [],
 			};
 			return fileMapped;
@@ -272,9 +276,11 @@ export const CreateProductForm = ({
 							?.filter((images) => images?.file_type !== 4)
 							?.map((item) => {
 								const arr = item?.filename?.split(',');
-								const truc = arr?.map((item) => {
+								// console.log('arr', arr);
+								const truc = arr?.map((item2) => {
 									return {
-										filename: item,
+										filename: item2,
+										item,
 									};
 								});
 								return truc;

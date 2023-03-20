@@ -324,6 +324,14 @@ select {
 	}
 }
 
+.ant-switch {
+	background-color: #00b140 !important;
+}
+
+.ant-switch-checked {
+	background-color: #096dd9 !important;
+}
+
 .membership_filter_form {
 	.ant-input-affix-wrapper {
 		&.ant-input-affix-wrapper-lg {

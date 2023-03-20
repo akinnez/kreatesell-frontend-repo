@@ -319,6 +319,11 @@
 	}
 }
 
+.disableClick {
+	cursor: not-allowed !important;
+	opacity: 0.8;
+}
+
 // for the card component
 .cardContainer {
 	margin-block-end: 1.5rem;

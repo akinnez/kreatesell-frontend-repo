@@ -2,19 +2,52 @@ import HistoryTag from '../components/HistoryTag';
 import formatAccountNumber from '../utils/formatAccountNumber';
 import dateFormat from 'utils/dateFormat';
 
+const statusColorComponent = (status) => {
+	const defaultStyle = {
+		borderRadius: '8px',
+		display: 'flex',
+		justifyContent: 'center',
+		marginBottom: '0px',
+		fontWeight: 400,
+		fontSize: '16px',
+	};
+	const StatusObj = {
+		Credit: {
+			color: '#2DC071',
+			background: '#F1FCF8',
+		},
+		Debit: {
+			color: '#FF4D4F',
+			background: 'rgba(255, 77, 79, 0.1)',
+		},
+	};
+	if (!StatusObj[status]) return;
+	return <p style={{...StatusObj[status], ...defaultStyle}}>{status}</p>;
+};
+
 export const walletColumns = [
 	{
-		title: 'Amount Withdrawn',
+		title: 'Amount',
 		render: (record) => `${record.currency} ${record.amount}`,
 	},
 	{
-		title: 'Description',
+		title: 'Type',
+		dataIndex: 'direction',
 		render: (record) =>
-			`${record.bank_name} (${formatAccountNumber(record.bank_account)})`,
+			record?.toLowerCase() === 'c'
+				? statusColorComponent('Credit')
+				: statusColorComponent('Debit'),
+	},
+	{
+		title: 'Description',
+		dataIndex: 'remarks',
+		// render: (record) =>
+		// 	`${record.bank_name} (${formatAccountNumber(record.bank_account)})`,
+		render: (record) => record,
 	},
 	{
 		title: 'Withdrawal Date',
-		dataIndex: 'withdrawal_date',
+		dataIndex: 'date_created',
 		render: (date) => dateFormat(date),
 	},
 	{

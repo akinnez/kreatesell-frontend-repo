@@ -1,7 +1,10 @@
-import {useState} from 'react';
-import useSWR from 'swr';
+import {useState, useEffect} from 'react';
 import {useRouter} from 'next/router';
-import {Table, Pagination, Spin, Modal, Button} from 'antd';
+
+import useSWR from 'swr';
+import {Table, Pagination, Spin, Modal, Button, Switch} from 'antd';
+import {useSelector} from 'react-redux';
+
 import SyncDataToCSV from 'components/DataToCSV/SyncDataToCSV';
 import PaginationSizeChanger from 'components/PaginationSizeChanger';
 import WalletBalance from '../WalletBalance';
@@ -15,18 +18,43 @@ import {showToast} from 'utils';
 import styles from './index.module.scss';
 import Loader from 'components/loader';
 import CloseIcon from 'components/affiliates/CloseIcon';
+import {AddBankModal} from 'components/bank';
 
 const rowKey = (record) => record.id;
 
 const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	const [loading, setLoading] = useState(false);
+	const [isBank, setIsBank] = useState(false);
 	const Router = useRouter();
+	const {store} = useSelector((state) => state.store);
 
+	// const {url, filters, setFilters} = useFilters(
+	// 	'v1/kreatesell/store/wallet/history'
+	// );
+	useEffect(() => {
+		if (Object.keys(store).length > 0) {
+			const {bank_details, user} = store;
+			if (!bank_details) {
+				setIsBank(true);
+			} else {
+				setIsBank(false);
+			}
+			return () => {
+				setIsBank(false);
+			};
+		}
+	}, [store]);
+	// TODO: put the wallet ID
 	const {url, filters, setFilters} = useFilters(
-		'affiliate/get-wallet-history'
+		'v1/kreatesell/store/wallet/history'
 	);
 
-	const {data, error, isValidating} = useSWR(url, (url) => {
+	const {
+		data,
+		error,
+		isValidating,
+		isLoading: swrLoading,
+	} = useSWR(url, (url) => {
 		return axiosApi.request(
 			'get',
 			url,
@@ -42,9 +70,11 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 		);
 	});
 
-	const histories = data || [];
+	const histories = data?.data || [];
 	const historiesTotal = data?.total_records || 0;
+	// console.log('histories', histories);
 
+	// FIXME: This is not necessary, as SWR gives us the accurate loading state across board
 	let isLoading;
 
 	if (loading) {
@@ -56,14 +86,20 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	} else {
 		isLoading = false;
 	}
+	// console.log('data', data);
 
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});
 	};
-	if (!data && !error) {
-		return <Loader />;
-	}
 
+	const handleKreatorAffiliateFilter = (walletType = '') => {
+		setFilters((prev) => ({...prev, WalletType: walletType}));
+	};
+	// if (!data && !error) {
+	// 	return <Loader />;
+	// }
+
+	// TODO: Check to see if this if statement is still required
 	if (
 		typeof data === 'string' &&
 		data.includes(
@@ -111,13 +147,26 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 				walletInfo={walletInfo}
 				loading={storeLoading}
 			/>
-			<h2 className={styles.heading}>Wallet History</h2>
+			<div className={`flex items-center mb-10 gap-4`}>
+				<h2 className={`${styles.heading} mb-0`}>Wallet History</h2>
+				<Switch
+					checkedChildren={"Kreator's Wallet"}
+					unCheckedChildren={"Affiliate's Wallet"}
+					onChange={(e) => {
+						handleKreatorAffiliateFilter(
+							e ? 'Kreator' : 'Affiliate'
+						);
+					}}
+					defaultChecked={true}
+					// disabled={swrLoading || isValidating}
+				/>
+			</div>
 			<section>
 				<Filters setFilters={setFilters} setLoading={setLoading} />
 			</section>
 			<section>
 				<SyncDataToCSV
-					data={histories}
+					data={histories || []}
 					headers={walletHeaders}
 					filename="wallet_history"
 				/>
@@ -138,6 +187,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 							columns={walletColumns}
 							pagination={false}
 							rowKey={rowKey}
+							// loading={swrLoading || isValidating}
 						/>
 					</div>
 				</section>
@@ -154,6 +204,9 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 					</section>
 				)}
 			</Spin>
+			{isBank && (
+				<AddBankModal closable={false} {...{isBank, setIsBank}} />
+			)}
 		</>
 	);
 };

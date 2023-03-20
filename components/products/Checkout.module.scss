@@ -161,6 +161,15 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			&.errorSpan {
+				background: red;
+			}
+		}
+		.borderRed {
+			border: 1px solid red !important;
+			&:hover {
+				border: 1px solid red !important;
+			}
 		}
 	}
 

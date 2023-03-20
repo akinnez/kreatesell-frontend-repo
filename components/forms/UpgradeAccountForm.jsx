@@ -30,6 +30,7 @@ import {useSelector} from 'react-redux';
 import {Input} from 'components';
 import axios from 'axios';
 import {countryPayments} from '../../utils/paymentOptions';
+import {GetStoreDetails} from 'redux/actions';
 
 export const UpgradeAccountForm = ({
 	subscriptionMode: {mode, price},
@@ -52,6 +53,8 @@ export const UpgradeAccountForm = ({
 	// const makePlanUpgrade = MakePlanUpgrade();
 	const {user} = useSelector((state) => state.auth);
 	const {store} = useSelector((state) => state.store);
+
+	const getStoreDetails = GetStoreDetails();
 
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [convertedPrice, setConvertedPrice] = useState(price);
@@ -158,7 +161,8 @@ export const UpgradeAccountForm = ({
 		sendPaymentCheckoutDetails(
 			paymentDetails({reference: reference?.reference, status}),
 			(res) => {
-				console.log('res is', res);
+				getStoreDetails();
+				setModal(false);
 				setSelectedPlan('Business');
 				//
 			}
@@ -232,9 +236,12 @@ export const UpgradeAccountForm = ({
 						},
 					}
 				);
+				setModal(false);
 				window.open(data.data.data.hosted_url, '_blank');
 			} catch (e) {
 				console.error(e);
+			} finally {
+				getStoreDetails();
 			}
 		}
 
@@ -250,10 +257,12 @@ export const UpgradeAccountForm = ({
 						cancel_url: `${location.origin}/account/kreator/settings?activeTab=billing?status=fail`,
 					}
 				);
+				setModal(false);
 				window.open(data.data.url, '_blank');
 			} catch (e) {
 				console.error(e);
 			} finally {
+				getStoreDetails();
 				return;
 			}
 		}
@@ -268,7 +277,11 @@ export const UpgradeAccountForm = ({
 						paymentDetails({
 							reference: response?.tx_ref,
 							status: response?.status,
-						})
+						}),
+						() => {
+							setModal(false);
+							getStoreDetails();
+						}
 					);
 					closePaymentModal();
 					//   openModal();

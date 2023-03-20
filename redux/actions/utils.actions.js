@@ -32,7 +32,7 @@ export const GetAllowedCurrencies = () => {
 			'GET',
 			'v1/kreatesell/utils/allowed-currencies',
 			(res) => {
-				// console.log("currency res.data", res.data);
+				console.log('currency res.data', res.data);
 				dispatch({
 					type: types.GET_CURRENCIES.SUCCESS,
 					payload: res?.data?.currencies,

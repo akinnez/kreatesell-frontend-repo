@@ -56,7 +56,7 @@ export default function PreviewProduct() {
 				className={styles.previewPageContainer}
 			>
 				<PreviewHeader id={router.query.id} isPreviewMain={true} />
-				<PreviewContent {...{productStatus}} />
+				<PreviewContent />
 				<PoweredByKS />
 			</div>
 		</AuthLayout>

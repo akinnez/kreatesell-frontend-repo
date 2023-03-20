@@ -223,7 +223,9 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 	return (
 		<div className={style.wrapper}>
 			<div className={style.bordered}>
-				<div className={`flex justify-between`}>
+				<div
+					className={`flex justify-between ${style.customizeContainer}`}
+				>
 					<h4>Customer&#39;s Currency Options</h4>
 					<CustomCheck
 						checked={allSelected.allCountriesCurrencies}
@@ -246,12 +248,15 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 				</p>
 
 				<div style={{width: '100%'}}>
-					<Row>
+					<Row gutter={[50, 0]}>
 						{countriesCurrency?.map((cur, i) => (
 							<Col
 								key={i}
-								md={4}
-								sm={8}
+								xl={3}
+								lg={6}
+								md={6}
+								sm={6}
+								xs={12}
 								style={{marginBlockEnd: '1rem'}}
 							>
 								<CustomCheck
@@ -303,12 +308,14 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 					</CustomCheck>
 				</div>
 				<div style={{width: '100%'}}>
-					<Row>
+					<Row gutter={[50, 0]}>
 						{filterdWest?.map((cur, i) => (
 							<Col
 								key={i}
-								md={5}
-								sm={8}
+								lg={6}
+								md={6}
+								sm={6}
+								xs={12}
 								style={{marginBlockEnd: '1rem'}}
 							>
 								<CustomCheck
@@ -359,12 +366,14 @@ const Index = ({countriesCurrency, filteredCentral, filterdWest, loading}) => {
 					</CustomCheck>
 				</div>
 				<div style={{width: '100%'}}>
-					<Row>
+					<Row gutter={[50, 0]}>
 						{filteredCentral?.map((cur, i) => (
 							<Col
 								key={i}
-								md={4}
+								lg={6}
+								md={6}
 								sm={6}
+								xs={12}
 								style={{marginBlockEnd: '1rem'}}
 							>
 								<CustomCheck

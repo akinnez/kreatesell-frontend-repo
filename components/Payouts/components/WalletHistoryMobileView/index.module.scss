@@ -92,3 +92,14 @@
 		column-gap: 10px;
 	}
 }
+@include screens.screen('tablet') {
+	.history__detail {
+		flex-wrap: nowrap;
+		& > strong {
+			flex: 2;
+		}
+		& > span {
+			flex: 5;
+		}
+	}
+}

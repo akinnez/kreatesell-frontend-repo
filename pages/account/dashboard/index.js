@@ -13,6 +13,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {mutate} from 'swr';
 import axiosAPI from 'utils/axios';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 // import useSWR from "swr";
 
@@ -26,7 +27,6 @@ const Dashboard = () => {
 	const isMobileSideBarOpen = useSelector(
 		(state) => state.mobileSideBar.isMobileSideBarOpen
 	);
-
 	const [filters, setFilters] = useState({
 		currency: '',
 		fromDate: '',
@@ -99,9 +99,9 @@ const Dashboard = () => {
 	useEffect(() => {
 		getUserVisitStatus();
 
-		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
+		// console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
-	// console.log('filters', filters);
+
 	return (
 		<AuthLayout>
 			<Head>
@@ -112,6 +112,7 @@ const Dashboard = () => {
 					isMobileSideBarOpen ? styles.mobileSideBarInView : ''
 				}`}
 			>
+				<TelegramFloatingDiv left="15%" top="45%" />
 				<header className={styles.boardSection}>
 					<DashboardFilters
 						data={[]}
@@ -157,27 +158,39 @@ const Dashboard = () => {
 							isAnAffiliate={isAnAffiliate}
 							isAffiliateCard={true}
 						/>
+
 						<StatsCard
 							isAnAffiliate={isAnAffiliate}
 							isAffiliateCard={true}
 							totalVisits={
-								affiliateSalesStatistics.total_visits === null
+								typeof affiliateSalesStatistics === 'string'
+									? 0
+									: affiliateSalesStatistics.total_visits ===
+									  null
 									? 0
 									: affiliateSalesStatistics.total_visits
 							}
 							unitSales={
-								affiliateSalesStatistics.total_sales === null
+								typeof affiliateSalesStatistics === 'string'
+									? 0
+									: affiliateSalesStatistics.total_sales ===
+									  null
 									? 0
 									: affiliateSalesStatistics.total_sales
 							}
 							grossSales={
-								affiliateSalesStatistics.gross_sales === null
+								typeof affiliateSalesStatistics === 'string'
+									? 0
+									: affiliateSalesStatistics.gross_sales ===
+									  null
 									? 0
 									: affiliateSalesStatistics.gross_sales
 							}
 							profit={
-								affiliateSalesStatistics.total_commission_earned ===
-								null
+								typeof affiliateSalesStatistics === 'string'
+									? 0
+									: affiliateSalesStatistics.total_commission_earned ===
+									  null
 									? 0
 									: affiliateSalesStatistics.total_commission_earned
 							}

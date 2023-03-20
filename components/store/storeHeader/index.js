@@ -1,4 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Router from 'next/router';
+import Image from 'next/image';
+
+import {useSelector} from 'react-redux';
+import {Avatar, Modal} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
+import Drawer from 'react-bottom-drawer';
+
 import styles from './Index.module.scss';
 import {
 	EditIcon,
@@ -9,13 +17,16 @@ import {
 	Instagram,
 	LinkedIn,
 } from '../../IconPack';
-import {Avatar} from 'antd';
-import {UserOutlined} from '@ant-design/icons';
 import Dropdown from '../../dropdown';
-import Router from 'next/router';
 import Social from './social-media';
-import {useSelector} from 'react-redux';
-import Image from 'next/image';
+import {
+	VerificationIcon,
+	LargeVerificationIcon,
+	RenderIf,
+	MediumVerificationIcon,
+} from '../../../utils';
+import {Button} from 'components';
+import {VerifiedModal, VerifiedDrawer} from 'components/VerifiedComponents';
 
 const CtaButton = ({Icon = () => <></>, label, active}) => {
 	return (
@@ -53,9 +64,19 @@ export const ProtectedStoreHeader = ({
 	publicStoreInfo = {},
 }) => {
 	// console.log('store = ', publicStoreInfo);
-	// const { store } = useSelector((state) => state.store);
-	// console.log('store  = ', store)
-	// console.log('storeName = ', store?.user?.store_name)
+	const {kreatorFullName, kycStatus, storePlan} = useSelector(
+		(state) => state.product
+	);
+	const [showModal, setShowModal] = useState(false);
+	const [showDrawer, setShowDrawer] = useState(false);
+	// function to close drawer for mobile
+	const onClose = React.useCallback(() => {
+		setShowDrawer(false);
+	}, []);
+
+	const showBadge = () => {
+		return kycStatus?.kyc_status === 'Approved' && storePlan === 'Business';
+	};
 
 	return (
 		<>
@@ -90,18 +111,18 @@ export const ProtectedStoreHeader = ({
 				<div className={styles.inner}>
 					<div className={styles.inner_item_profile}>
 						<div className={styles.profile_wrapper}>
-							{
-								//*  !publicStoreInfo?.display_picture
-								!displayPicture ? (
-									<div className={styles.image_intro_text}>
-										<Avatar
-											shape="square"
-											className={styles.avatar}
-											size={70}
-											icon={<UserOutlined />}
-										/>
-									</div>
-								) : (
+							{!publicStoreInfo?.display_picture &&
+							!displayPicture ? (
+								<div className={styles.image_intro_text}>
+									<Avatar
+										shape="square"
+										className={styles.avatar}
+										size={70}
+										icon={<UserOutlined />}
+									/>
+								</div>
+							) : (
+								<>
 									<div
 										className={styles.image_intro_text}
 										style={{
@@ -112,13 +133,39 @@ export const ProtectedStoreHeader = ({
 											})`,
 										}}
 									/>
-								)
-							}
+								</>
+							)}
 							<div className={styles.txt_wrapper}>
-								<h3>
-									{(brandName ||
-										publicStoreInfo?.brand_name) ??
-										''}
+								<h3 className={`flex gap-1`}>
+									{kreatorFullName || ''}{' '}
+									<RenderIf condition={showBadge()}>
+										{/* mobile */}
+										<div
+											className={`${styles.mobileCheck} flex`}
+										>
+											<Image
+												className={`cursor-pointer`}
+												alt="blue verify checkmark"
+												src={VerificationIcon}
+												onClick={() =>
+													setShowDrawer(true)
+												}
+											/>
+										</div>
+										{/* Desktop view */}
+										<div
+											className={`${styles.desktopCheck} flex`}
+										>
+											<Image
+												className={`cursor-pointer`}
+												alt="blue verify checkmark"
+												src={VerificationIcon}
+												onClick={() =>
+													setShowModal(true)
+												}
+											/>
+										</div>
+									</RenderIf>
 								</h3>
 								<p>
 									https://kreatesell.com/store/
@@ -217,7 +264,46 @@ export const ProtectedStoreHeader = ({
 					</div>
 				</div>
 			)}
+			<VerifiedModal {...{showModal, setShowModal}}>
+				<VerifiedModalChildren />
+			</VerifiedModal>
+			<VerifiedDrawer {...{showDrawer, onClose}}>
+				<VerifiedDrawerChildren {...{onClose}} />
+			</VerifiedDrawer>
 		</>
+	);
+};
+
+const VerifiedModalChildren = () => {
+	return (
+		<div className={`${styles.modal} flex flex-col `}>
+			<Image alt="" src={LargeVerificationIcon} />
+			<h2 className={`text-center mt-3`}>Verified Account</h2>
+			<h5 className={``}>
+				This store is officially registered as a business on KreateSell.
+				They have been verified and you can pay them using Paypal,
+				Stripe, Cryptocurrency and other advanced payment options.{' '}
+				<span role="link">Learn more...</span>
+			</h5>
+		</div>
+	);
+};
+
+const VerifiedDrawerChildren = ({onClose}) => {
+	return (
+		<div className={`${styles.drawer} flex flex-col py-10`}>
+			<Image alt="" src={MediumVerificationIcon} />
+			<h2 className={`text-center mt-3`}>Verified Account</h2>
+			<h5 className={``}>
+				This store is officially registered as a business on KreateSell.
+				They have been verified and you can pay them using Paypal,
+				Stripe, Cryptocurrency and other advanced payment options.{' '}
+				<span role="link">Learn more...</span>
+			</h5>
+			<div className={`${styles.buttonContainer} mt-5`} onClick={onClose}>
+				<Button text="Got It" bgColor="white" />
+			</div>
+		</div>
 	);
 };
 

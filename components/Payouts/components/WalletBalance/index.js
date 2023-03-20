@@ -1,7 +1,10 @@
 import {useState} from 'react';
+
 import useSWR from 'swr';
 import {Typography, Row, Col, Button} from 'antd';
 import {AiOutlineInfoCircle} from 'react-icons/ai';
+import {useSelector} from 'react-redux';
+
 import Spinner from 'components/Spinner';
 import SuccessModalBox from 'components/SuccessModalBox';
 import WithdrawModal from '../WithdrawModal';
@@ -20,8 +23,10 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 	const [withdrawModal, setWithdrawModal] = useState(false);
 	const [successModal, setSuccessModal] = useState(false);
 
-	const {data: affiliateBalance} = useSWR(
-		`${process.env.BASE_URL}affiliate/get-wallet-account-balance`,
+	const {user} = useSelector((state) => state.auth);
+
+	const {data: affiliateBalance, error} = useSWR(
+		`${process.env.BASE_URL}v1/kreatesell/store/wallet/get-balance`,
 		(url) => {
 			return axiosApi.request(
 				'get',
@@ -44,8 +49,13 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 		// console.log('Currency does not exist');
 		return null;
 	}
+	if (!affiliateBalance && !error) return null;
 
-	const {available_balance: kreatorBalance} = walletInfo[0];
+	if (error) {
+		showToast('An error occurred', 'error');
+		return null;
+	}
+	const {available_balance} = affiliateBalance?.wallet_balance[0];
 
 	return (
 		<header className={styles.header}>
@@ -59,8 +69,11 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 						<Col {...breakPoints}>
 							<WalletInfo
 								title="Kreator"
-								currency={walletInfo[0]?.currency}
-								balance={kreatorBalance}
+								currency={
+									affiliateBalance?.wallet_balance[0]
+										?.currency_name
+								}
+								balance={available_balance}
 							>
 								<div className={styles.withdraw__btn}>
 									<Button
@@ -70,7 +83,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 											true
 										)}
 										disabled={
-											parseFloat(kreatorBalance) <= 0
+											parseFloat(available_balance) <= 0
 										}
 									>
 										Withdraw Funds $
@@ -81,14 +94,26 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 						<Col {...breakPoints}>
 							<WalletInfo
 								title="Affiliate"
-								currency={walletInfo[0]?.currency}
-								balance={affiliateBalance.toFixed(2)}
+								currency={
+									affiliateBalance?.wallet_balance[1]
+										?.currency_name
+								}
+								balance={
+									affiliateBalance?.wallet_balance[1]
+										?.available_balance
+								}
+								isAffiliate={user?.is_affiliate}
 							>
 								<div className={styles.affiliate__info}>
 									<span>
 										<AiOutlineInfoCircle />
 									</span>
-									<span>
+									<span
+										className={`${
+											!user?.is_affiliate &&
+											styles.isAffiliate
+										}`}
+									>
 										Money in your wallet will be withdrawn
 										into your account every Tuesday of the
 										week.
@@ -105,7 +130,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 					hideModal={handleClicks(setWithdrawModal, false)}
 					showSuccess={handleClicks(setSuccessModal, true)}
 					currency={walletInfo[0]?.currency}
-					balance={kreatorBalance}
+					balance={available_balance?.kreatorBalance}
 					bankDetails={bankDetails}
 				/>
 			)}

@@ -85,8 +85,9 @@ export const CheckoutForm = ({
 	const [billingFrequency, setBillingFrequency] = useState(0);
 	const [billed, setBilled] = useState(false);
 	const [customBillingDuration, setCustomBillingDuration] = useState('');
-	const [duration, setDuration] = useState('custom');
+	const [subLengthNo, setSubLengthNo] = useState(0);
 
+	const [duration, setDuration] = useState('custom');
 	const [usageType, setUsageType] = useState(0);
 	const [promotionalMaterial, setPromotionalMaterial] = useState([]);
 	const [frequencyOptions, setFrequencyOptions] = useState([]);
@@ -96,13 +97,14 @@ export const CheckoutForm = ({
 	const [firstPayment, setFirstPayment] = useState([]);
 	const [secondPayment, setSecondPayment] = useState([]);
 	const [thirdPayment, setThirdPayment] = useState([]);
-	const [billingIntervalDuration, setBillingIntervalDuration] = useState(7);
+	const [billingIntervalDuration, setBillingIntervalDuration] = useState(0);
 	const [initialBillingInput, setInitialBillingInput] = useState(0);
 	const [custombillingInterval, setCustomBillingInterval] = useState(0);
 	const [isBasic, setIsBasic] = useState(true);
 	const [isApplied, setIsApplied] = useState(false);
 	const [isUsage, setIsUsage] = useState(false);
 	const [isGreaterthanSug, setIsGreaterThanSug] = useState(false);
+	const [numOfBilledTimes, setNumOfBilledTimes] = useState(0);
 
 	const mounted = useRef(null);
 	const {Option} = Select;
@@ -148,6 +150,8 @@ export const CheckoutForm = ({
 	// Settings Controlled Inputs
 	const [allowAffiliateMarket, setAllowAffiliateMarket] = useState(false);
 	const [afiliatePercentage, setAfiliatePercentage] = useState(0);
+	const [errorAffiliatePercentage, setErrorAffiliatePercentage] =
+		useState(false);
 	const [uploadPromotionalMaterial, setUploadPromotionalMaterial] =
 		useState(false);
 	const [limitProductSale, setLimitProductSale] = useState(false);
@@ -193,7 +197,7 @@ export const CheckoutForm = ({
 	// console.log("product = ", product);
 
 	const durationOptions = [
-		{label: 'Daily', value: 'aaily'},
+		{label: 'Daily', value: 'daily'},
 		{label: 'Weekly', value: 'weekly'},
 		{label: 'Monthly', value: 'monthly'},
 		{label: 'Every 3 Months', value: 'every_3_Months'},
@@ -203,9 +207,9 @@ export const CheckoutForm = ({
 	];
 
 	const billedEveryDuration = [
-		{label: 'Days(s)', value: 'days'},
-		{label: 'Weeks(s)', value: 'weeks'},
-		{label: 'Month(s)', value: 'months'},
+		{label: 'Days', value: 'days'},
+		{label: 'Weeks', value: 'weeks'},
+		{label: 'Months', value: 'months'},
 	];
 
 	const customBillingIntervals = [
@@ -453,20 +457,46 @@ export const CheckoutForm = ({
 	}, []);
 
 	// function to check that all product currencies have been defined before submission is possible
-	const validateDefinedCurrencies = () => {
+	// returns true if not valid
+	const validateDefinedCurrencies = (priceType) => {
+		if (priceType === 'Fixed Price') {
+			if (
+				formattedStoreCurrencies.length !== fixedSellingPrice.length ||
+				(compareToPrice &&
+					formattedStoreCurrencies.length !==
+						savedFixedOriginalPrice.length)
+			) {
+				setErrorForNotMatchedCurrency(true);
+				return true;
+			}
+			const results = formattedStoreCurrencies.filter(
+				({currency: id1}) =>
+					!fixedSellingPrice.some(
+						({currency_name: id2}) => id2 === id1
+					)
+			);
+			if (results.length > 0) {
+				setErrorForNotMatchedCurrency(true);
+				return true;
+			}
+		} else if (priceType === 'Pay What You Want') {
+			if (
+				formattedStoreCurrencies.length !== minimumPrice.length ||
+				formattedStoreCurrencies.length !== suggestedPrice.length
+			) {
+				setErrorForNotMatchedCurrency(true);
+				return true;
+			}
+			const results = formattedStoreCurrencies.filter(
+				({currency: id1}) =>
+					!minimumPrice.some(({currency_name: id2}) => id2 === id1)
+			);
+			if (results.length > 0) {
+				setErrorForNotMatchedCurrency(true);
+				return true;
+			}
+		}
 		setErrorForNotMatchedCurrency(false);
-		if (formattedStoreCurrencies.length !== fixedSellingPrice.length) {
-			setErrorForNotMatchedCurrency(true);
-			return true;
-		}
-		const results = formattedStoreCurrencies.filter(
-			({currency: id1}) =>
-				!fixedSellingPrice.some(({currency_name: id2}) => id2 === id1)
-		);
-		if (results.length > 0) {
-			setErrorForNotMatchedCurrency(true);
-			return true;
-		}
 		return false;
 	};
 
@@ -488,11 +518,33 @@ export const CheckoutForm = ({
 	// ========================================================
 
 	const handleSubmit = (data) => {
+		if (
+			allowAffiliateMarket &&
+			(afiliatePercentage === '' || afiliatePercentage === 0)
+		) {
+			showToast('Put in a valid percentage value!', 'error');
+			setErrorAffiliatePercentage(true);
+			return;
+		}
+		if (errorAffiliatePercentage) {
+			setErrorAffiliatePercentage(false);
+		}
 		if (priceType === 'Fixed Price') {
-			if (validateDefinedCurrencies()) {
+			if (validateDefinedCurrencies('Fixed Price')) {
 				showToast('Please define prices for all currencies', 'error');
 				return;
 			}
+		}
+		if (priceType === 'Pay What You Want') {
+			if (validateDefinedCurrencies('Pay What You Want')) {
+				showToast('Please define prices for all currencies', 'error');
+				return;
+			}
+		}
+
+		if (duration.toLowerCase() !== 'custom') {
+			delete data.custom_billing_duration;
+			delete data.custom_billing_interval_times;
 		}
 
 		// console.log("data from submit = ", data);
@@ -529,6 +581,19 @@ export const CheckoutForm = ({
 		if (!data.is_show_compare_price) {
 			delete data.is_show_compare_price;
 		}
+		if (!data.is_fixed_number_of_payments) {
+			delete data.is_fixed_number_of_payments;
+		}
+		if (!data.isUnlimited_billing) {
+			delete data.isUnlimited_billing;
+		}
+		if (data.billing_frequency_duration !== 'custom') {
+			delete data.custom_billing_interval_times;
+			delete data.custom_billing_duration;
+		}
+		if (!data.no_of_subcription_length_times) {
+			delete data.no_of_subcription_length_times;
+		}
 
 		const checkedData = checkArrays(data);
 
@@ -558,7 +623,7 @@ export const CheckoutForm = ({
 		suggested_prices: [],
 		billing_frequency: 0,
 		minimum_prices: [],
-		no_of_subcription_length_times: '',
+		no_of_subcription_length_times: subLengthNo,
 		custom_billing_duration: '',
 		custom_billing_interval_times: customBillingDuration,
 		billing_frequency_duration: duration,
@@ -593,14 +658,14 @@ export const CheckoutForm = ({
 		},
 	};
 
-	const handleSelect = (field) => (value) => {
+	const handleSelect = (field, value) => {
 		setDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue(field, value);
 	};
 
-	const handleBilledSelect = (field) => (value) => {
+	const handleBilledSelect = (field, value) => {
 		setCustomBillingDuration(value);
-		setFieldValue({[field]: value});
+		setFieldValue(field, value);
 	};
 
 	const formik = useFormik({
@@ -648,6 +713,9 @@ export const CheckoutForm = ({
 		setFieldValue('who_bear_fee', buyerPaysTransactionFee);
 		setFieldValue('product_settings.is_limited_sales', limitProductSale);
 		setFieldValue('number_of_limited_product', +numberOfLimit);
+		setFieldValue('no_of_subcription_length_times', subLengthNo);
+		setFieldValue('custom_billing_interval_times', customBillingDuration);
+		setFieldValue('custom_billing_duration', numOfBilledTimes);
 		setFieldValue('minimum_prices', [...minimumPrice]);
 		setFieldValue('suggested_prices', [...suggestedPrice]);
 		setFieldValue('billing_frequency', numberOfInputs);
@@ -676,6 +744,10 @@ export const CheckoutForm = ({
 		suggestedPrice,
 		numberOfInputs,
 		couponVariance,
+		subLengthNo,
+		customBillingDuration,
+		numOfBilledTimes,
+		numberOfLimit,
 		priceType,
 		setFieldValue,
 	]);
@@ -766,6 +838,18 @@ export const CheckoutForm = ({
 					? product.product_details.upload_content
 					: false
 			);
+			// setFieldValue(
+			// 	'no_of_subcription_length_times',
+			// 	product?.product_details?.no_of_subcription_length_times
+			// );
+			// setFieldValue(
+			// 	'custom_billing_duration',
+			// 	product?.product_details?.custom_billing_duration
+			// );
+			setFieldValue(
+				'custom_billing_interval_times:',
+				product?.product_details?.custom_billing_interval_times
+			);
 			// setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
 			// setFieldValue("product_settings.show_number_of_sales", product.product_details.is_show_number_of_sales ? product.product_details.is_show_number_of_sales : false);
 
@@ -781,7 +865,7 @@ export const CheckoutForm = ({
 			if (product.product_details.is_show_number_of_sales) {
 				setShowTotalSales(true);
 			}
-			if (product.product_details.who_bears_fee) {
+			if (product.is_buyer_pays_for_fee === true) {
 				setBuyerPaysTransactionFee(true);
 			}
 
@@ -801,7 +885,25 @@ export const CheckoutForm = ({
 			if (product.product_details.is_limited_sales === true) {
 				setLimitProductSale(true);
 			}
-			// if(product.)
+			if (product?.product_details?.no_of_subcription_length_times < 1) {
+				setBillingFrequency(0);
+			} else {
+				setBillingFrequency(1);
+				setSubLengthNo(
+					product?.product_details?.no_of_subcription_length_times
+				);
+			}
+			setNumOfBilledTimes(
+				product?.product_details?.custom_billing_duration
+			);
+
+			setCustomBillingDuration(
+				product?.product_details?.custom_billing_interval_times
+			);
+
+			// custom_billing_interval_times
+			// custom_billing_duration
+			// billing_frequency_duration
 		}
 	}, [product]);
 
@@ -819,66 +921,69 @@ export const CheckoutForm = ({
 
 	const [isOpMoreThanSp, setIsOpMoreThanSp] = useState(false);
 	const [noMatchingCurrency, setNoMatchingCurrency] = useState(false);
-
 	useEffect(() => {
 		// if (priceType !== 'Make It Free') return
+		if (priceType === 'Pay What You Want') {
+			for (let i = 0; i < minimumPrice.length; i++) {
+				let item = minimumPrice[i];
+				const minPriceCurrency = item?.currency_name;
+				const minPriceValue = item?.currency_value;
 
-		minimumPrice.map((item) => {
-			const minPriceCurrency = item?.currency_name;
-			const minPriceValue = item?.currency_value;
+				const matchItem = suggestedPrice?.find((SpItem) => {
+					return SpItem?.currency_name === minPriceCurrency;
+				});
 
-			const matchItem = suggestedPrice?.find((SpItem) => {
-				return SpItem?.currency_name === minPriceCurrency;
-			});
-
-			if (minPriceValue > Number(matchItem?.currency_value)) {
-				showToast(
-					'suggested price must be greater than minimum price',
-					'error'
-				);
-				setIsGreaterThanSug(true);
-			} else {
-				setIsGreaterThanSug(false);
+				if (Number(minPriceValue) > Number(matchItem?.currency_value)) {
+					showToast(
+						'suggested price must be greater than minimum price',
+						'error'
+					);
+					setIsGreaterThanSug(true);
+					break;
+				} else {
+					setIsGreaterThanSug(false);
+				}
+				// return isGreaterthanSug;
 			}
-			return isGreaterthanSug;
-		}, []);
+		} else if (priceType === 'Fixed Price') {
+			for (let i = 0; i < fixedOriginalPrice.length; i++) {
+				let OpItem = fixedOriginalPrice[i];
+				const OpItemCurrency = OpItem?.currency_name;
+				const OpItemPrice = OpItem?.currency_value;
 
-		fixedOriginalPrice?.map((OpItem) => {
-			//* Op = Original Price and Sp = SellingPrice
-			const OpItemCurrency = OpItem?.currency_name;
-			const OpItemPrice = OpItem?.currency_value;
+				const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
+					return SpItem?.currency_name === OpItemCurrency;
+				});
 
-			const matchingSpItem = fixedSellingPrice?.find((SpItem) => {
-				return SpItem?.currency_name === OpItemCurrency;
-			});
+				if (
+					fixedSellingPrice.length === 0 ||
+					fixedOriginalPrice.length === 0
+				) {
+					setIsOpMoreThanSp(false);
+				} else if (
+					compareToPrice === true &&
+					fixedOriginalPrice.length === 0
+				) {
+					setIsOpMoreThanSp(false);
+				} else if (OpItemPrice > matchingSpItem?.currency_value) {
+					setIsOpMoreThanSp(true);
+					setNoMatchingCurrency(false);
+					break;
+				} else if (OpItemPrice < matchingSpItem?.currency_value) {
+					setIsOpMoreThanSp(false);
+					setNoMatchingCurrency(false);
+				} else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
+					setNoMatchingCurrency(true);
+					setIsOpMoreThanSp(false);
+					break;
+				} else {
+					setIsOpMoreThanSp(false);
+					setNoMatchingCurrency(false);
+				}
 
-			if (
-				fixedSellingPrice.length === 0 ||
-				fixedOriginalPrice.length === 0
-			) {
-				setIsOpMoreThanSp(false);
-			} else if (
-				compareToPrice === true &&
-				fixedOriginalPrice.length === 0
-			) {
-				setIsOpMoreThanSp(false);
-			} else if (OpItemPrice > matchingSpItem?.currency_value) {
-				setIsOpMoreThanSp(true);
-				setNoMatchingCurrency(false);
-			} else if (OpItemPrice < matchingSpItem?.currency_value) {
-				setIsOpMoreThanSp(false);
-				setNoMatchingCurrency(false);
-			} else if (!OpItemCurrency || !matchingSpItem?.currency_name) {
-				setNoMatchingCurrency(true);
-				setIsOpMoreThanSp(false);
-			} else {
-				setIsOpMoreThanSp(false);
-				setNoMatchingCurrency(false);
+				return isOpMoreThanSp && noMatchingCurrency;
 			}
-
-			return isOpMoreThanSp && noMatchingCurrency;
-			// console.log("isOpMore ? = ", isOpMoreThanSp);
-		});
+		}
 	}, [
 		fixedOriginalPrice,
 		fixedSellingPrice,
@@ -888,6 +993,18 @@ export const CheckoutForm = ({
 		minimumPrice,
 		suggestedPrice,
 	]);
+	// TODO: when payment type changes, work on the logic for button being disabled
+	// useEffect(() => {
+	// 	if (priceType) {
+	// 		if (priceType === 'Pay What You Want') {
+	// 			setFixedOriginalPrice([]);
+	// 			setFixedSellingPrice([]);
+	// 		} else if (priceType === 'Fixed Price') {
+	// 			setMinimumPrice([]);
+	// 			setSuggestedPrice([]);
+	// 		}
+	// 	}
+	// }, [priceType]);
 
 	const disableButton = useCallback(() => {
 		// console.log("compareToPrice = ", compareToPrice);
@@ -933,6 +1050,7 @@ export const CheckoutForm = ({
 		isGreaterthanSug,
 		numberOfLimit,
 		limitProductSale,
+		priceType,
 	]);
 
 	const salesLimitErrorMsg = () => {
@@ -949,7 +1067,6 @@ export const CheckoutForm = ({
 		}
 		return message;
 	};
-
 	return (
 		<Form onFinish={formik.handleSubmit}>
 			{priceType === 'Fixed Price' && (
@@ -980,6 +1097,7 @@ export const CheckoutForm = ({
 							title={'Minimum Amount'}
 							field={minimumPrice}
 							setField={setMinimumPrice}
+							error={errorForNotMatchedCurrency}
 							{...{
 								formattedStoreCurrencies,
 							}}
@@ -990,6 +1108,7 @@ export const CheckoutForm = ({
 							title={'Suggested Amount'}
 							field={suggestedPrice}
 							setField={setSuggestedPrice}
+							error={errorForNotMatchedCurrency}
 							{...{
 								formattedStoreCurrencies,
 							}}
@@ -1335,7 +1454,7 @@ export const CheckoutForm = ({
 										// value={no_of_frequency}
 										onChange={(e) =>
 											setFieldValue(
-												'coupon_settings.no_of_frequency',
+												'no_of_frequency',
 												e.target.value
 											)
 										}
@@ -1610,14 +1729,17 @@ export const CheckoutForm = ({
 							className='w-1/2'
 						/> */}
 						<Select
-							defaultValue="custom"
+							defaultValue={
+								product?.product_details
+									?.billing_frequency_duration || 'custom'
+							}
 							size="large"
 							className="w-1/2 text-lg mb-2 rounded-lg"
 							value={duration}
 							options={durationOptions}
-							onChange={handleSelect(
-								'billing_frequency_duration'
-							)}
+							onChange={(e) =>
+								handleSelect('billing_frequency_duration', e)
+							}
 						/>
 
 						{duration === 'custom' && (
@@ -1633,8 +1755,12 @@ export const CheckoutForm = ({
 										type="number"
 										placeholder="0"
 										// className="w-24"
+										// defaultValue='5'
 										name="custom_billing_duration"
-										onChange={formik.handleChange}
+										value={numOfBilledTimes}
+										onChange={(e) =>
+											setNumOfBilledTimes(e.target.value)
+										}
 										style={{
 											width: '60px',
 											marginLeft: '10px',
@@ -1642,12 +1768,19 @@ export const CheckoutForm = ({
 										}}
 									/>
 									<Select
-										defaultValue="days"
+										defaultValue={
+											product?.product_details
+												?.custom_billing_interval_times ||
+											'days'
+										}
 										className="w-24"
 										options={billedEveryDuration}
-										onChange={handleBilledSelect(
-											'billed_every_duration_length'
-										)}
+										onChange={(e) =>
+											handleBilledSelect(
+												'custom_billing_interval_times',
+												e
+											)
+										}
 									/>
 								</div>
 							</div>
@@ -1672,10 +1805,14 @@ export const CheckoutForm = ({
 										setBillingFrequency(e);
 										setFieldValue(
 											'isUnlimited_billing',
+											true
+										);
+										setFieldValue(
+											'is_fixed_number_of_payments',
 											false
 										);
 									}}
-									checked={!billed ? true : false}
+									// checked={!billed ? true : false}
 									labelStyle={styles.radioLabelStyle}
 								></Radio>
 							</div>
@@ -1692,8 +1829,12 @@ export const CheckoutForm = ({
 											'is_fixed_number_of_payments',
 											true
 										);
+										setFieldValue(
+											'isUnlimited_billing',
+											false
+										);
 									}}
-									checked={billed ? true : false}
+									// checked={billed ? true : false}
 									labelStyle={styles.radioLabelStyle}
 								></Radio>
 							</div>
@@ -1706,16 +1847,14 @@ export const CheckoutForm = ({
 							<Input
 								type="number"
 								label="no_of_subcription_length_times"
-								disabled={!billed ? true : false}
+								disabled={billingFrequency === 0 ? true : false}
 								name="no_of_subcription_length_times"
 								className="w-3/4"
-								// value={no_of_billed_times}
-								onChange={(e) =>
-									setFieldValue(
-										'no_of_subcription_length_times',
-										e.target.value
-									)
-								}
+								min={1}
+								maxLength={3}
+								placeholder={subLengthNo}
+								value={subLengthNo}
+								onChange={(e) => setSubLengthNo(e.target.value)}
 							/>
 						</div>
 					</div>
@@ -1772,7 +1911,11 @@ export const CheckoutForm = ({
 													? afiliatePercentage
 													: '0'
 											}
-											// value={afiliatePercentage}
+											value={
+												afiliatePercentage > 0
+													? afiliatePercentage
+													: ''
+											}
 											// pattern="/^([0-1]?[0-9]|100)$/"
 											max={100}
 											min={1}
@@ -1792,8 +1935,19 @@ export const CheckoutForm = ({
 													commisionAllowed
 												);
 											}}
+											className={
+												errorAffiliatePercentage &&
+												styles.borderRed
+											}
 										/>
-										<span>%</span>
+										<span
+											className={
+												errorAffiliatePercentage &&
+												styles.errorSpan
+											}
+										>
+											%
+										</span>
 									</div>
 
 									{/* <p
@@ -1983,7 +2137,9 @@ export const CheckoutForm = ({
 									onChange={(e) =>
 										setNumberOfLimit(e.target.value)
 									}
-									// value={numberOfLimit}
+									value={
+										numberOfLimit > 0 ? numberOfLimit : ''
+									}
 									className={styles.limitProductInput}
 								/>
 							</div>

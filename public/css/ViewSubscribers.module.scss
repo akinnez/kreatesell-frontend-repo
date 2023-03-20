@@ -30,17 +30,20 @@
 			display: block;
 			.cardContainer {
 				margin-block-end: 1.5rem;
+
 				.card {
 					@include flex(column, null, null);
 					border-radius: 8px;
-					padding: 1rem 0.5rem;
+					padding: 1rem;
 					// border: 1px solid;
 					width: 100%;
 					min-height: 200px;
 					.dateContainer {
-						@include flex(row, center, null);
+						@include flex(row, flex-start, null);
+						gap: 1rem;
 						.startDate,
 						.endDate {
+							flex: 1;
 							.dateFiller {
 								background: #e6f7ff;
 								padding: 0.3rem;
@@ -60,6 +63,9 @@
 						font-weight: 700;
 						font-size: 1rem;
 						color: #262626;
+						display: flex;
+						align-items: center;
+						gap: 0.5rem;
 					}
 					.customerDetails {
 						margin-block: 1rem;

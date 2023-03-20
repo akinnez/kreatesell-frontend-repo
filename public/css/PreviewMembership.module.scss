@@ -92,13 +92,16 @@
 									font-weight: 600;
 									font-size: 20px;
 									line-height: 32px;
-									color: #262626;
+									// color: #262626;
+									flex: 90%;
 								}
 
 								.icon {
 									display: flex;
 									align-items: center;
 									justify-content: center;
+									flex: 10%;
+									width: 100%;
 								}
 							}
 

@@ -1,3 +1,11 @@
+import Image from 'next/image';
+import {useState, useContext} from 'react';
+import {useRouter} from 'next/router';
+
+import {format, parseISO} from 'date-fns';
+import {Modal, Tag, Tooltip, Popover, Popconfirm, Input} from 'antd';
+import {useSelector} from 'react-redux';
+
 import {
 	MailClipboard,
 	_copyToClipboard,
@@ -11,23 +19,206 @@ import {
 	DeleteIcon,
 	Subscribers2,
 	RenderIf,
+	PlusIcon,
+	SuccessCheck,
+	GreenCancel,
+	MinusIcon,
 } from 'utils';
 import styles from '../../public/css/AllProducts.module.scss';
-import Image from 'next/image';
-import {useState} from 'react';
-import {Modal, Tag, Tooltip, Popover, Popconfirm} from 'antd';
 import {Button} from 'components';
-import {useRouter} from 'next/router';
-import {format, parseISO} from 'date-fns';
 import {
 	DuplicateProductAction,
 	GetProducts,
 	CreateProduct,
 	SetProductID,
 	SetProductTab,
+	AddSalesPage,
+	DisconnectSalesPage,
 } from 'redux/actions';
-import {useSelector} from 'react-redux';
-import {useEffect} from 'react';
+import CloseIcon from 'components/affiliates/CloseIcon';
+import {SalesPageContext} from 'context/AddSalesPageContext';
+
+export const SalesPageModal = ({
+	showModal = true,
+	closeModal = () => {},
+	type = 'connectSalesModal',
+}) => {
+	const [salesPageUrl, setSalesPageUrl] = useState('');
+	const addSalesPage = AddSalesPage();
+	const disconnectSalesPage = DisconnectSalesPage();
+	const getProducts = GetProducts();
+	const {salesPage, salesPageDispatch} = useContext(SalesPageContext);
+	const {addSalesPageLoading} = useSelector((state) => state.product);
+
+	// type can be connectSalesModal, salesPageConnected, disconnectSalesPage, salesPageDisconnected
+	if (type === 'connectSalesModal') {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => closeModal()}
+				maskClosable={true}
+				closeIcon={<CloseIcon />}
+				className={styles.modalContainer}
+				width={'500px'}
+			>
+				<br />
+				<h1 className={`${styles.modalTitle}`}>Connect Sales Page</h1>
+				<div style={{width: '70%', margin: 'auto'}}>
+					<p className={`mb-0 ${styles.subtitle} text-left mt-7`}>
+						Enter the URL of your sales page
+					</p>
+					<Input
+						placeholder="https://olumidej.kreatesell.com"
+						className={`${styles.input}`}
+						onChange={(e) => setSalesPageUrl(e.target.value)}
+						value={salesPageUrl}
+						style={{height: '2.5rem'}}
+					/>
+				</div>
+				<Button
+					text="Submit"
+					className="mt-4"
+					style={{width: '65%'}}
+					bgColor="blue"
+					onClick={() => {
+						addSalesPage(
+							{
+								productId: salesPage?.productId,
+								salesPageUrl,
+							},
+							() => {
+								setSalesPageUrl('');
+								salesPageDispatch({
+									type: 'CHANGE_MODAL_TYPE',
+									payload: {modalType: 'salesPageConnected'},
+								});
+								getProducts();
+							}
+						);
+					}}
+					loading={addSalesPageLoading}
+				/>
+			</Modal>
+		);
+	}
+	if (type === 'salesPageConnected') {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => closeModal()}
+				maskClosable={false}
+				closeIcon={<CloseIcon />}
+				className={styles.modalContainer}
+				width={'600px'}
+			>
+				<br />
+				<br />
+				<Image src={SuccessCheck} alt="Success checkmark" />
+				<h1 className={styles.modalTitle}>Sales Page Connected</h1>
+				<p className={`mb-3 ${styles.subtitle}`}>
+					You&apos;ve successfully connected your sales page{' '}
+				</p>
+				<Button
+					text="Close"
+					className="mt-3"
+					style={{width: '65%'}}
+					bgColor="blue"
+					onClick={() => {
+						salesPageDispatch({type: 'CLOSE_MODAL'});
+					}}
+				/>
+			</Modal>
+		);
+	}
+	if (type === 'disconnectSalesPage') {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => closeModal()}
+				maskClosable={false}
+				closeIcon={<CloseIcon />}
+				className={styles.modalContainer}
+				width={'600px'}
+			>
+				<h1 className={`${styles.modalTitle} mt-7`}>
+					Disconnect Sales Page
+				</h1>
+				<p className={`mb-3 mt-5 ${styles.subtitle}`}>
+					Are you sure you want to disconnect <br /> this sales page?
+				</p>
+				<div className={`flex justify-center gap-5`}>
+					<Button
+						text="Yes"
+						className="mt-3"
+						style={{width: '30%'}}
+						bgColor="blue"
+						onClick={() => {
+							disconnectSalesPage(
+								{
+									productId: salesPage?.productId,
+								},
+								() => {
+									salesPageDispatch({
+										type: 'CHANGE_MODAL_TYPE',
+										payload: {
+											modalType: 'salesPageDisconnected',
+										},
+									});
+									getProducts();
+								}
+							);
+						}}
+						loading={addSalesPageLoading}
+					/>
+					<Button
+						text="No"
+						className="mt-3"
+						style={{width: '30%'}}
+						bgColor="white"
+						onClick={() => {
+							salesPageDispatch({type: 'CLOSE_MODAL'});
+						}}
+					/>
+				</div>
+			</Modal>
+		);
+	}
+	if (type === 'salesPageDisconnected') {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => closeModal()}
+				maskClosable={false}
+				closeIcon={<CloseIcon />}
+				className={styles.modalContainer}
+				width={'600px'}
+			>
+				<Image src={GreenCancel} alt="" />
+				<h1 className={styles.modalTitle}>Sales Page Disconnected</h1>
+				<p className={`mb-0 ${styles.subtitle}`}>
+					You’ve disconnected your sales page{' '}
+				</p>
+				<Button
+					text="Close"
+					className="mt-3"
+					style={{width: '60%'}}
+					bgColor="blue"
+					onClick={() => {
+						salesPageDispatch({type: 'CLOSE_MODAL'});
+					}}
+				/>
+			</Modal>
+		);
+	}
+};
 
 export const MobileProductCard = ({item}) => {
 	const [showAction, setShowAction] = useState(false);
@@ -265,8 +456,10 @@ const ActionComponent = ({item}, all) => {
 	const createEditDeleteProduct = CreateProduct();
 	const setProductID = SetProductID();
 	const setProductTab = SetProductTab();
+
 	const id = item?.product_details?.id;
 	const kreasell_product_id = item?.product_details?.kreasell_product_id;
+	const {salesPageDispatch} = useContext(SalesPageContext);
 	// const productLink = item?.product_details?.product_link
 	// const productLink = "scam";
 
@@ -296,7 +489,6 @@ const ActionComponent = ({item}, all) => {
 				className="flex items-center cursor-pointer"
 				onClick={() => {
 					setProductID(kreasell_product_id);
-					// router.push("/account/kreator/products/create");
 					router.push(
 						{
 							pathname: `/account/kreator/products/create`,
@@ -309,7 +501,7 @@ const ActionComponent = ({item}, all) => {
 					setProductTab(0);
 				}}
 			>
-				<span>
+				<span className="flex">
 					<Image alt="" src={EditProduct} />
 				</span>
 				<p className="mb-0 ml-3">Edit Product</p>
@@ -338,21 +530,59 @@ const ActionComponent = ({item}, all) => {
 				}
 				className="flex items-center cursor-pointer"
 			>
-				<span>
+				<span className="flex">
 					<Image alt="" src={ViewSales} />
 				</span>
 				<p className="mb-0 ml-3"> Preview</p>
 			</li>
+			{/* set show modal */}
+			<RenderIf condition={all.salespageurl === null}>
+				<li
+					onClick={() =>
+						salesPageDispatch({
+							payload: {
+								modalType: 'connectSalesModal',
+								productId: kreasell_product_id,
+							},
+							type: 'OPEN_MODAL',
+						})
+					}
+				>
+					<span className="flex">
+						<Image src={PlusIcon} alt="sales page" />
+					</span>
+					<p className="mb-0 ml-3">Connect Sales Page</p>
+				</li>
+			</RenderIf>
+			<RenderIf condition={all.salespageurl !== null}>
+				{/* <RenderIf condition={true}> */}
+				<li
+					onClick={() =>
+						salesPageDispatch({
+							payload: {
+								modalType: 'disconnectSalesPage',
+								productId: kreasell_product_id,
+							},
+							type: 'OPEN_MODAL',
+						})
+					}
+				>
+					<span className="flex">
+						<Image src={MinusIcon} alt="sales page" />
+					</span>
+					<p className="mb-0 ml-3">Disconnect Sales Page</p>
+				</li>
+			</RenderIf>
 			<RenderIf condition={all.product_type !== 'Digital Download'}>
 				<li
 					onClick={() =>
 						router.push(
-							`/account/kreator/products/view-subscribers`
+							`/account/kreator/products/view-subscribers?KreatorProductId=${id}`
 						)
 					}
 					className="flex items-center cursor-pointer"
 				>
-					<span>
+					<span className="flex">
 						<Image alt="" src={Subscribers2} />
 					</span>
 					<p className="mb-0 ml-3"> Subscribers</p>
@@ -363,7 +593,7 @@ const ActionComponent = ({item}, all) => {
 				className="flex items-center cursor-pointer"
 				onClick={() => duplicateProduct(id, () => getProducts())}
 			>
-				<span>
+				<span className="flex">
 					<Image alt="" src={DuplicateProduct} />
 				</span>
 				<p className="mb-0 ml-3">Duplicate</p>
@@ -482,16 +712,18 @@ const ActionComponent = ({item}, all) => {
 		</ul>
 	);
 	return (
-		<Popover
-			overlayStyle={{width: '150px', padding: '0'}}
-			placement="bottomLeft"
-			overlayClassName={styles.action}
-			content={content}
-			title=""
-			trigger="click"
-		>
-			<h2 className="font-semibold cursor-pointer text-lg">...</h2>
-		</Popover>
+		<>
+			<Popover
+				overlayStyle={{width: '150px', padding: '0'}}
+				placement="bottomLeft"
+				overlayClassName={styles.action}
+				content={content}
+				title=""
+				trigger="click"
+			>
+				<h2 className="font-semibold cursor-pointer text-lg">...</h2>
+			</Popover>
+		</>
 	);
 };
 export const CouponActionComponent = ({item}) => {
@@ -655,6 +887,7 @@ const renderProductType = ({product_price_type, price}) => {
 	}
 	return;
 };
+
 export const AllProductsTableHeader = [
 	{
 		title: '',
@@ -686,7 +919,6 @@ export const AllProductsTableHeader = [
 		width: 210,
 		fixed: 'left',
 		render: (item, record) => {
-			// console.log('record', record);
 			return (
 				<div className={styles.productTableName + ' flex flex-col'}>
 					<h2 className="text-lg mb-1 font-semibold">{item}</h2>
@@ -745,6 +977,7 @@ export const AllProductsTableHeader = [
 		fixed: 'right',
 	},
 ];
+
 export const AllCouponTableHeader = [
 	{
 		title: 'S/N',
@@ -824,6 +1057,7 @@ export const AllCouponTableHeader = [
 		// width: 80
 	},
 ];
+
 export const emptyComponent = (text) => {
 	return (
 		<div className={styles.emptyTable + ' flex flex-col'}>

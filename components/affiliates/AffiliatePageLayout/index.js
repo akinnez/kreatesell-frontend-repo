@@ -1,4 +1,5 @@
 import {Pagination, Spin, Table} from 'antd';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 import PaginationSizeChanger from 'components/PaginationSizeChanger';
 import AffiliateFilters from '../AffiliateFilters';
 import MobileDataRenderer from '../MobileDataRenderer';
@@ -29,6 +30,7 @@ const AffiliatePageLayout = ({
 			<header className={styles.header}>
 				<h2>{title}</h2>
 			</header>
+			<TelegramFloatingDiv left="15%" top="60%" />
 			<AffiliateFilters setFilters={setFilters} setLoading={setLoading} />
 			<div className={styles['sales-stat']}>
 				Affiliate&apos;s Number of Sales: <span>{totalSales}</span>

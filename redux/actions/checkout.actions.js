@@ -16,7 +16,7 @@ export const SendPaymentCheckoutDetails = () => {
 					// payload: res?.data?.listing_status,
 				});
 				showToast(res?.message, 'info');
-				successCallback?.();
+				successCallback?.(res);
 			},
 			(err) => {
 				dispatch({

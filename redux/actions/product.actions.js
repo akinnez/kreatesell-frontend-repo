@@ -93,9 +93,9 @@ export const PublishProducts = () => {
 			`patch`,
 			`v1/kreatesell/product/configurations`,
 			(res) => {
-				console.log('publish', res);
+				// console.log('publish', res);
 				dispatch({type: types.PUBLISH_PRODUCT.SUCCESS});
-				showToast(res?.message, 'info');
+				// showToast(res?.message, 'info');
 				successCallback?.();
 			},
 			(err) => {
@@ -526,6 +526,9 @@ export const FetchSingleStoreProduct = () => {
 					singleStoreProducts,
 					singleStorePaginationDetails: {...data?.products},
 					defaultCurrency: data?.default_currency,
+					kreatorFullName: data?.kreator_full_name,
+					storePlan: data?.user_plan,
+					kycStatus: data?.kyc_status,
 				};
 
 				dispatch({
@@ -542,6 +545,72 @@ export const FetchSingleStoreProduct = () => {
 				showToast(err?.message, 'error');
 				errorCallback?.();
 			}
+		)
+	);
+};
+
+export const AddSalesPage = () => {
+	const dispatch = useDispatch();
+	return (
+		data = {productId: '', salesPageUrl: ''},
+		successCallback,
+		errorCallback
+	) => (
+		dispatch({type: types.CREATE_SALES_PAGE.REQUEST}),
+		axios.request(
+			`get`,
+			`affiliate/generate-salespage-link?productId=${data.productId}&salesPageUrl=${data.salesPageUrl}`,
+			(res) => {
+				dispatch({type: types.CREATE_SALES_PAGE.SUCCESS, payload: res});
+				showToast(res?.data?.message, 'info');
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({type: types.CREATE_SALES_PAGE.FAILURE, payload: err});
+				showToast(
+					err.message
+						? err.message
+						: 'Network Error, Check your Connection',
+					'error'
+				);
+				errorCallback?.();
+			},
+			data
+		)
+	);
+};
+export const DisconnectSalesPage = () => {
+	const dispatch = useDispatch();
+	return (data = {productId: ''}, successCallback, errorCallback) => (
+		dispatch({type: types.DISCONNECT_SALES_PAGE.REQUEST}),
+		axios.request(
+			`get`,
+			`affiliate/disconnect-salespage-link?productId=${data.productId}`,
+			(res) => {
+				dispatch({
+					type: types.DISCONNECT_SALES_PAGE.SUCCESS,
+					payload: res,
+				});
+				showToast(
+					'Successfully removed sales page link' || res?.message,
+					'info'
+				);
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.DISCONNECT_SALES_PAGE.FAILURE,
+					payload: err,
+				});
+				showToast(
+					err.message
+						? err.message
+						: 'Network Error, Check your Connection',
+					'error'
+				);
+				errorCallback?.();
+			},
+			data
 		)
 	);
 };

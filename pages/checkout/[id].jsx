@@ -24,6 +24,7 @@ import {
 	PaystackLogo,
 	RenderIf,
 	MakeItFreeIcon,
+	QuestionIcon,
 } from 'utils';
 import {Tooltip} from 'antd';
 import {SelectV2} from 'components/form-input';
@@ -50,6 +51,7 @@ import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
 import {countryPayments} from '../../utils/paymentOptions';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 export const pathName = typeof window !== 'undefined' && window;
 
@@ -108,6 +110,10 @@ const Checkout = () => {
 	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
+	const [taxValue, setTaxValue] = useState(0);
+	const [isChargable, setIsChargable] = useState(null);
+
+	const [transactionFee, setTransactionFee] = useState(0);
 
 	const testCurrency = activeCurrency?.currency
 		? activeCurrency?.currency
@@ -153,7 +159,11 @@ const Checkout = () => {
 
 	const getProductDetails = async (productLink) => {
 		try {
-			const response = await axios.get(productLink);
+			const response = await axios.get(productLink, {
+				headers: {
+					Authorization: 'none',
+				},
+			});
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(
@@ -161,6 +171,8 @@ const Checkout = () => {
 			);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
+			setTaxValue(response?.data?.data?.store_dto?.custom_tax_amount);
+			setIsChargable(response.data?.data?.is_buyer_pays_for_fee);
 		} catch (error) {
 			console.log(error);
 		}
@@ -187,7 +199,9 @@ const Checkout = () => {
 				checkOutInNaira?.price
 			);
 		} else if (priceOrName === 'total') {
-			return totalFee;
+			return taxValue
+				? getTaxDeduction('getCal')
+				: totalFee + transactionFee;
 		} else if (priceOrName === 'minimum') {
 			return (
 				MinimumPrices?.price ||
@@ -276,6 +290,7 @@ const Checkout = () => {
 			is_free_flow:
 				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
 			coupon_code: couponCode || '',
+			TransactionFee: transactionFee,
 		};
 		return value;
 	};
@@ -331,7 +346,7 @@ const Checkout = () => {
 			setSelectedPaymentMethod(
 				countryPayments[
 					activeCurrency?.currency || activeCurrency.currency_name
-				][0].value
+				]?.[0].value
 			);
 		}
 		handleCurrencyConversion(activeCurrency.currency);
@@ -428,6 +443,47 @@ const Checkout = () => {
 			? basicSubtotal
 			: standardPrice;
 
+	const getTaxDeduction = (val) => {
+		const calTax = Number(((taxValue / 100) * subTotal).toFixed(2));
+		return val === 'getVal'
+			? calTax
+			: Number(calTax) + Number(subTotal) + Number(transactionFee);
+	};
+
+	// calculate bearable fee from customer's indication
+	useEffect(() => {
+		const getTransactionFees = async () => {
+			// if (isChargable === "customer") {
+			if (!isChargable) return;
+			try {
+				await axios
+					.get(
+						`https://kreatesell.io/api/v1/kreatesell/product/get-bearable-fee/${
+							activeCurrency?.currency_name ||
+							activeCurrency?.currency
+						}`
+					)
+					//get actual fees and percentage indications
+					.then((res) => {
+						const value = res?.data?.data?.fee_amount;
+						const percentageValue = Number(
+							((value / 100) * subTotal).toFixed(2)
+						);
+						setTransactionFee(percentageValue);
+					});
+			} catch (err) {
+				console.log(err);
+				// }
+			}
+		};
+		getTransactionFees();
+	}, [
+		activeCurrency?.currency,
+		activeCurrency?.currency_name,
+		subTotal,
+		isChargable,
+	]);
+
 	// const calcNgN = 5 / 100 * subTotal
 
 	// let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
@@ -466,8 +522,10 @@ const Checkout = () => {
 		currency: 'NGN',
 		couponCode: '',
 	};
+	const currencyPaidIn = activeCurrency?.currency
+		? activeCurrency?.currency
+		: activeCurrency?.currency_name;
 
-	// console.log('storeDetails', storeDetails);
 	const handleSubmit = async () => {
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
@@ -533,7 +591,7 @@ const Checkout = () => {
 						}),
 						() =>
 							router.push(
-								`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+								`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
 							)
 					);
 					closePaymentModal();
@@ -558,7 +616,6 @@ const Checkout = () => {
 	});
 
 	const {errors, setFieldValue, values} = formik;
-
 	// ====================================================================================
 	//              PAYMENT CONFIG STARTS HERE
 	// ===================================================================================
@@ -576,7 +633,7 @@ const Checkout = () => {
 		},
 		type: '',
 		customizations: {
-			title: 'Kreatesell Title',
+			title: storeDetails?.product_details?.product_name || '',
 			description: 'Kreatesell description',
 			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
@@ -585,7 +642,6 @@ const Checkout = () => {
 	const handleFlutterPayment = useFlutterwave(flutterConfig);
 
 	// Flutterwave configurations end here
-
 	// paystack config
 	const payStackConfig = {
 		reference: randomId,
@@ -610,16 +666,16 @@ const Checkout = () => {
 			'bank_transfer',
 		],
 	};
+
 	const onPaystackSuccess = (reference) => {
 		// Implementation for whatever you want to do with reference and after success call.
-		// console.log(reference)
 		// const status = paymentStatusList[reference?.status];
 		const status = 'success';
 		sendPaymentCheckoutDetails(
 			paymentDetails({reference: reference?.reference, status: status}),
 			() =>
 				router.push(
-					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
 				)
 		);
 	};
@@ -727,412 +783,416 @@ const Checkout = () => {
 					</h2>
 				</div>
 			</nav>
-
-			<div className={`${styles.container}`}>
-				<div className="flex py-6 items-center">
-					<div
-						className={`flex cursor-pointer ${styles.backArrow}`}
-						onClick={() => router.back()}
-					>
-						<div>
-							<Image src={ArrowLeft} alt="go back" />{' '}
-						</div>
-						<span className="pl-2 font-semibold text-primary-blue">
-							BACK
-						</span>
-					</div>
-
-					<div className="mx-auto font-medium text-lg lg:text-2xl">
-						Payment Details
-					</div>
-				</div>
-
-				<div className="flex flex-col md:flex-row gap-6 w-full">
-					<div
-						style={{height: 'fit-content'}}
-						className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
-					>
-						<form>
-							<div>
-								<div className="text-black-100 font-bold text-lg mb-4">
-									Personal Info
-								</div>
-								<p className="text-base-gray-200">
-									Complete your purchase by filling in the
-									following details
-								</p>
-							</div>
-
-							<Input
-								name="firstName"
-								placeholder="Enter your Name"
-								label="First Name"
-								height="small"
-								onChange={formik.handleChange}
-								errorMessage={errors.firstName}
-								// validateOnChange
-							/>
-
-							<Input
-								name="lastName"
-								placeholder="Enter your Name"
-								label="Last Name"
-								height="small"
-								onChange={formik.handleChange}
-								errorMessage={errors.lastName}
-								// validateOnChange
-							/>
-
-							<Input
-								name="email"
-								placeholder="Enter your Email"
-								label="Email Address"
-								height="small"
-								onChange={formik.handleChange}
-								errorMessage={errors.email}
-							/>
-
-							<Row gutter={{xs: 0, sm: 0, md: 8}}>
-								<Col
-									xs={12}
-									md={12}
-									className={styles.phoneNumberLabel}
-								>
-									Phone Number
-								</Col>
-
-								<div className={styles.phoneCode}>
-									<Col xs={12} md={12}>
-										<SelectV2
-											label=""
-											size="large"
-											setCountry={setCountry}
-											list={countries}
-											placeholder="Nigeria (+234)"
-											// name="Country_Id"
-											isCheckout={true}
-											// rules={[
-											//   {
-											//     required: true,
-											//     message: "Country is a required field",
-											//   },
-											// ]}
-										/>
-									</Col>
-									<div className={styles.phoneBox}>
-										<Col>
-											<PhoneNumberInput
-												type="tel"
-												placeholder={
-													'Enter your phone number'
-												}
-												height="small"
-												name="phoneNo"
-												// value={values.phoneNo}
-												maxLength={11}
-												inputMode="numeric"
-												onChange={formik.handleChange}
-												errorMessage={errors.phoneNo}
-											/>
-										</Col>
-									</div>
-								</div>
-							</Row>
-						</form>
-					</div>
-
-					<div
-						className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8`}
-					>
-						<form
-							// validateOnChange
-							onSubmit={formik.handleSubmit}
-							autoComplete="off"
-							className="w-full"
+			<ErrorBoundary resetErrorBoundary={() => router.back()}>
+				<div className={`${styles.container}`}>
+					<div className="flex py-6 items-center">
+						<div
+							className={`flex cursor-pointer ${styles.backArrow}`}
+							onClick={() => router.back()}
 						>
-							{pricingTypeDetails.price_type !==
-								'Make it Free' && (
-								<div className="pb-4">
-									<div className="text-black-100">
-										Select Currency
+							<div>
+								<Image src={ArrowLeft} alt="go back" />{' '}
+							</div>
+							<span className="pl-2 font-semibold text-primary-blue">
+								BACK
+							</span>
+						</div>
+
+						<div className="mx-auto font-medium text-lg lg:text-2xl">
+							Payment Details
+						</div>
+					</div>
+
+					<div className="flex flex-col md:flex-row gap-6 w-full">
+						<div
+							style={{height: 'fit-content'}}
+							className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
+						>
+							<form>
+								<div>
+									<div className="text-black-100 font-bold text-lg mb-4">
+										Personal Info
 									</div>
 									<p className="text-base-gray-200">
-										Select your preferred currency and get
-										price equivalent
+										Complete your purchase by filling in the
+										following details
 									</p>
+								</div>
 
-									<div
-										className={`grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 ${styles.currencyCardCont}`}
+								<Input
+									name="firstName"
+									placeholder="Enter your Name"
+									label="First Name"
+									height="small"
+									onChange={formik.handleChange}
+									errorMessage={errors.firstName}
+									// validateOnChange
+								/>
+
+								<Input
+									name="lastName"
+									placeholder="Enter your Name"
+									label="Last Name"
+									height="small"
+									onChange={formik.handleChange}
+									errorMessage={errors.lastName}
+									// validateOnChange
+								/>
+
+								<Input
+									name="email"
+									placeholder="Enter your Email"
+									label="Email Address"
+									height="small"
+									onChange={formik.handleChange}
+									errorMessage={errors.email}
+								/>
+
+								<Row gutter={{xs: 0, sm: 0, md: 8}}>
+									<Col
+										xs={12}
+										md={12}
+										className={styles.phoneNumberLabel}
 									>
-										{countriesCurrency?.map(
-											({currency, currency_id, flag}) => (
-												<CurrencyCard
-													key={currency_id}
-													handleSelect={() =>
-														handleSelect({
-															currency_id,
-															currency,
-														})
+										Phone Number
+									</Col>
+
+									<div className={styles.phoneCode}>
+										<Col xs={12} md={12}>
+											<SelectV2
+												label=""
+												size="large"
+												setCountry={setCountry}
+												list={countries}
+												placeholder="Nigeria (+234)"
+												// name="Country_Id"
+												isCheckout={true}
+												// rules={[
+												//   {
+												//     required: true,
+												//     message: "Country is a required field",
+												//   },
+												// ]}
+											/>
+										</Col>
+										<div className={styles.phoneBox}>
+											<Col>
+												<PhoneNumberInput
+													type="tel"
+													placeholder={
+														'Enter your phone number'
 													}
-													{...{
-														currency,
-														currency_id,
-														flag,
-														activeCurrency,
-													}}
+													height="small"
+													name="phoneNo"
+													// value={values.phoneNo}
+													maxLength={11}
+													inputMode="numeric"
+													onChange={
+														formik.handleChange
+													}
+													errorMessage={
+														errors.phoneNo
+													}
 												/>
-											)
-										)}
-									</div>
-								</div>
-							)}
-							{pricingTypeDetails.price_type !==
-								'Make it Free' && (
-								<div className="py-7">
-									<h2>West African CFA Franc BCEAO(XOF)</h2>
-									<div
-										className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
-									>
-										{filterdWest.map(
-											(
-												{id, currency, flag, name},
-												index
-											) => (
-												<div
-													key={index}
-													className={
-														activeCurrency?.id ===
-														id
-															? styles.activeCard
-															: styles.card
-													}
-													onClick={() =>
-														handleSelect({
-															id,
-															currency,
-														})
-													}
-												>
-													<div
-														className={
-															styles.checFlag +
-															' mr-2'
-														}
-														style={{
-															borderRadius: '50%',
-														}}
-													>
-														<Image
-															src={flag}
-															alt="flag"
-															layout="fill"
-														/>
-													</div>
-													<div className="">
-														{name}
-													</div>
-													{activeCurrency?.id ===
-														id && (
-														<div className="pl-1 pt-1">
-															<Image
-																src={ActiveTick}
-																alt="active"
-																width="16"
-																height="16"
-															/>
-														</div>
-													)}
-												</div>
-											)
-										)}
-									</div>
-								</div>
-							)}
-							{pricingTypeDetails.price_type !==
-								'Make it Free' && (
-								<div className="py-7">
-									<h2>Central African CFA Franc BEAC(XAF)</h2>
-									<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
-										{filteredCentral.map(
-											(
-												{id, currency, name, flag},
-												index
-											) => (
-												<div
-													key={index}
-													className={
-														activeCurrency?.id ===
-														id
-															? styles.activeCard
-															: styles.card
-													}
-													onClick={() =>
-														handleSelect({
-															id,
-															currency,
-														})
-													}
-												>
-													<div
-														className={
-															styles.checFlag +
-															' mr-2'
-														}
-														style={{
-															borderRadius: '50%',
-														}}
-													>
-														<Image
-															src={flag}
-															alt="flag"
-															layout="fill"
-														/>
-													</div>
-													<div className="">
-														{name}
-													</div>
-													{activeCurrency?.id ===
-														id && (
-														<div className="pl-1 pt-1">
-															<Image
-																src={ActiveTick}
-																alt="active"
-																width="16"
-																height="16"
-															/>
-														</div>
-													)}
-												</div>
-											)
-										)}
-									</div>
-								</div>
-							)}
-
-							{/* start the pay as you want  */}
-							{pricingTypeDetails?.price_type ===
-								'Pay What You Want' && (
-								<div className="">
-									<h2 className={styles.desiredPayTitle}>
-										Pay what you want
-									</h2>
-									<p className={styles.desiredPayText}>
-										For this product, you can pay any price
-										above the minimum amount.
-									</p>
-									<div
-										className={styles.minimumPriceContainer}
-									>
-										<div
-											className={styles.minimumPriceText}
-										>
-											Minimum price:{' '}
-											{getCurrency('currency')}{' '}
-											{getCurrency('minimum')}
-											{/* {MinimumPrices ? getCurrency('minimum'): getCurrency('price').toFixed(2)} */}
-											{/* {Number( 
-													
-												).toFixed(2)} */}
+											</Col>
 										</div>
 									</div>
-									{desiredAmount &&
-										Number(desiredAmount) <
-											Number(
-												getCurrency('minimum')
-											).toFixed(2) && (
+								</Row>
+							</form>
+						</div>
+
+						<div
+							className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8`}
+						>
+							<form
+								// validateOnChange
+								onSubmit={formik.handleSubmit}
+								autoComplete="off"
+								className="w-full"
+							>
+								{pricingTypeDetails.price_type !==
+									'Make it Free' && (
+									<div className="pb-4">
+										<div className="text-black-100">
+											Select Currency
+										</div>
+										<p className="text-base-gray-200">
+											Select your preferred currency and
+											get price equivalent
+										</p>
+
+										<div
+											className={`grid gap-2 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 ${styles.currencyCardCont}`}
+										>
+											{countriesCurrency?.map(
+												({
+													currency,
+													currency_id,
+													flag,
+												}) => (
+													<CurrencyCard
+														key={currency_id}
+														handleSelect={() =>
+															handleSelect({
+																currency_id,
+																currency,
+															})
+														}
+														{...{
+															currency,
+															currency_id,
+															flag,
+															activeCurrency,
+														}}
+													/>
+												)
+											)}
+										</div>
+									</div>
+								)}
+								{pricingTypeDetails.price_type !==
+									'Make it Free' && (
+									<div className="py-7">
+										<h2>
+											West African CFA Franc BCEAO(XOF)
+										</h2>
+										<div
+											className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
+										>
+											{filterdWest.map(
+												(
+													{id, currency, flag, name},
+													index
+												) => (
+													<div
+														key={index}
+														className={
+															activeCurrency?.id ===
+															id
+																? styles.activeCard
+																: styles.card
+														}
+														onClick={() =>
+															handleSelect({
+																id,
+																currency,
+															})
+														}
+													>
+														<div
+															className={
+																styles.checFlag +
+																' mr-2'
+															}
+															style={{
+																borderRadius:
+																	'50%',
+															}}
+														>
+															<Image
+																src={flag}
+																alt="flag"
+																layout="fill"
+															/>
+														</div>
+														<div className="">
+															{name}
+														</div>
+														{activeCurrency?.id ===
+															id && (
+															<div className="pl-1 pt-1">
+																<Image
+																	src={
+																		ActiveTick
+																	}
+																	alt="active"
+																	width="16"
+																	height="16"
+																/>
+															</div>
+														)}
+													</div>
+												)
+											)}
+										</div>
+									</div>
+								)}
+								{pricingTypeDetails.price_type !==
+									'Make it Free' && (
+									<div className="py-7">
+										<h2>
+											Central African CFA Franc BEAC(XAF)
+										</h2>
+										<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
+											{filteredCentral.map(
+												(
+													{id, currency, name, flag},
+													index
+												) => (
+													<div
+														key={index}
+														className={
+															activeCurrency?.id ===
+															id
+																? styles.activeCard
+																: styles.card
+														}
+														onClick={() =>
+															handleSelect({
+																id,
+																currency,
+															})
+														}
+													>
+														<div
+															className={
+																styles.checFlag +
+																' mr-2'
+															}
+															style={{
+																borderRadius:
+																	'50%',
+															}}
+														>
+															<Image
+																src={flag}
+																alt="flag"
+																layout="fill"
+															/>
+														</div>
+														<div className="">
+															{name}
+														</div>
+														{activeCurrency?.id ===
+															id && (
+															<div className="pl-1 pt-1">
+																<Image
+																	src={
+																		ActiveTick
+																	}
+																	alt="active"
+																	width="16"
+																	height="16"
+																/>
+															</div>
+														)}
+													</div>
+												)
+											)}
+										</div>
+									</div>
+								)}
+
+								{/* start the pay as you want  */}
+								{pricingTypeDetails?.price_type ===
+									'Pay What You Want' && (
+									<div className="">
+										<h2 className={styles.desiredPayTitle}>
+											Pay what you want
+										</h2>
+										<p className={styles.desiredPayText}>
+											For this product, you can pay any
+											price above the minimum amount.
+										</p>
+										<div
+											className={
+												styles.minimumPriceContainer
+											}
+										>
 											<div
 												className={
-													styles.desiredAmountError
+													styles.minimumPriceText
 												}
 											>
-												<Image
-													src={ErrorIcon}
-													alt="error_icon"
-												/>
-												<p className={styles.errorText}>
-													Please read carefully <br />
-													Your desired amount is too
-													low. The minimum amount for
-													this product is{' '}
-													{getCurrency(
-														'currency'
-													)}{' '}
-													{Number(
-														getCurrency('minimum')
-													).toFixed(2)}
-													.
-												</p>
+												Minimum price:{' '}
+												{getCurrency('currency')}{' '}
+												{getCurrency('minimum')}
+												{/* {MinimumPrices ? getCurrency('minimum'): getCurrency('price').toFixed(2)} */}
+												{/* {Number( 
+													
+												).toFixed(2)} */}
 											</div>
-										)}
-									<div className={styles.desiredPayContainer}>
-										<p className={styles.desiredPayText}>
-											Desired Amount
-										</p>
-										<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
-											<Input
-												placeholder={`Suggested Amount: ${getCurrency(
-													'currency'
-												)} ${getCurrency(
-													'suggested'
-												)}.00 `}
-												onChange={(e) =>
-													setDesiredAmount(
-														e.target.value
-													)
+										</div>
+										{desiredAmount &&
+											Number(desiredAmount) <
+												Number(
+													getCurrency('minimum')
+												).toFixed(2) && (
+												<div
+													className={
+														styles.desiredAmountError
+													}
+												>
+													<Image
+														src={ErrorIcon}
+														alt="error_icon"
+													/>
+													<p
+														className={
+															styles.errorText
+														}
+													>
+														Please read carefully{' '}
+														<br />
+														Your desired amount is
+														too low. The minimum
+														amount for this product
+														is{' '}
+														{getCurrency(
+															'currency'
+														)}{' '}
+														{Number(
+															getCurrency(
+																'minimum'
+															)
+														).toFixed(2)}
+														.
+													</p>
+												</div>
+											)}
+										<div
+											className={
+												styles.desiredPayContainer
+											}
+										>
+											<p
+												className={
+													styles.desiredPayText
 												}
-											/>
+											>
+												Desired Amount
+											</p>
+											<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
+												<Input
+													placeholder={`Suggested Amount: ${getCurrency(
+														'currency'
+													)} ${getCurrency(
+														'suggested'
+													)}.00 `}
+													onChange={(e) =>
+														setDesiredAmount(
+															e.target.value
+														)
+													}
+												/>
+											</div>
 										</div>
 									</div>
-								</div>
-							)}
-							<div className="divider"></div>
-							<div className="pb-6">
-								<div className="text-black-100">
-									Payment Method
-								</div>
-								<p className="text-base-gray-200">
-									Select your preferred payment method
-								</p>
-								<div className="grid gap-4 grid-cols-3 w-full">
-									{countryPayments[
-										activeCurrency?.currency ||
-											activeCurrency?.currency_name
-									]
-										?.filter(({value}) => {
-											if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-													'approved' &&
-												[
-													'paypal',
-													'stripe',
-													'crypto',
-												].includes(value)
-											) {
-												return false;
-											} else if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-													'approved' &&
-												storeDetails?.user_plan?.toLowerCase() ===
-													'business' &&
-												value !== 'paypal'
-											) {
-												return true;
-											}
-											if (
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-													'approved' &&
-												storeDetails?.user_plan?.toLowerCase() ===
-													'business' &&
-												value === 'paypal'
-											) {
-												return false;
-											}
-											if (
-												storeDetails?.user_plan?.toLowerCase() !==
-													'business' ||
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-													'approved'
-											) {
+								)}
+								<div className="divider"></div>
+								<div className="pb-6">
+									<div className="text-black-100">
+										Payment Method
+									</div>
+									<p className="text-base-gray-200">
+										Select your preferred payment method
+									</p>
+									<div className="grid gap-4 grid-cols-3 w-full">
+										{countryPayments[
+											activeCurrency?.currency ||
+												activeCurrency?.currency_name
+										]
+											?.filter(({value}) => {
 												if (
 													![
 														'crypto',
@@ -1141,312 +1201,364 @@ const Checkout = () => {
 													].includes(value)
 												) {
 													return true;
+												} else if (
+													(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+														'approved' ||
+														storeDetails?.user_plan?.toLowerCase() !==
+															'business') &&
+													[
+														'paypal',
+														'stripe',
+														'crypto',
+													].includes(value)
+												) {
+													return false;
+												} else if (
+													storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
+														'approved' &&
+													storeDetails?.user_plan?.toLowerCase() ===
+														'business' &&
+													[
+														'stripe',
+														'crypto',
+													].includes(value)
+												) {
+													return true;
 												}
-											}
-											if (value === 'paypal') {
-												return false;
-											} else {
-												return true;
-											}
-										})
-										.map(({type, icon, value}) => (
-											<div
-												key={value}
-												onClick={() =>
-													handlePaymentMethod(value)
-												}
-												className={`${
-													selectedPaymentMethod ===
-													value
-														? 'activeCard'
-														: 'card'
-												} p-2 flex justify-around items-center`}
-											>
-												<Image
-													src={icon}
-													alt={type}
-													height="26"
-												/>
-												{selectedPaymentMethod ===
-													value && (
+											})
+											.map(({type, icon, value}) => (
+												<div
+													key={value}
+													onClick={() =>
+														handlePaymentMethod(
+															value
+														)
+													}
+													className={`${
+														selectedPaymentMethod ===
+														value
+															? 'activeCard'
+															: 'card'
+													} p-2 flex justify-around items-center`}
+												>
 													<Image
-														src={ActiveTick}
-														alt="active"
-														width="16"
-														height="16"
+														src={icon}
+														alt={type}
+														height="26"
 													/>
-												)}
-											</div>
-										))}
-									{/* active currency */}
-									{/* */}
-									<RenderIf
-										condition={
-											([
-												activeCurrency?.currency,
-												activeCurrency?.currency_name,
-											].includes('USD') ||
-												[
+													{selectedPaymentMethod ===
+														value && (
+														<Image
+															src={ActiveTick}
+															alt="active"
+															width="16"
+															height="16"
+														/>
+													)}
+												</div>
+											))}
+										{/* active currency */}
+										{/* */}
+										<RenderIf
+											condition={
+												([
 													activeCurrency?.currency,
 													activeCurrency?.currency_name,
-												].includes('GBP') ||
-												[
-													activeCurrency?.currency,
-													activeCurrency?.currency_name,
-												].includes('CAD')) &&
-											storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-												'approved' &&
-											storeDetails?.user_plan?.toLowerCase() ===
-												'business'
-										}
-									>
-										<Tooltip
-											title={
-												(!formik.values.firstName ||
-													!formik.values.lastName ||
-													!formik.values.email ||
-													!formik.values.phoneNo) &&
-												'Fill in all Customer Details to be able to select paypal'
+												].includes('USD') ||
+													[
+														activeCurrency?.currency,
+														activeCurrency?.currency_name,
+													].includes('GBP') ||
+													[
+														activeCurrency?.currency,
+														activeCurrency?.currency_name,
+													].includes('CAD')) &&
+												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
+													'approved' &&
+												storeDetails?.user_plan?.toLowerCase() ===
+													'business'
 											}
 										>
-											<div>
-												<PayPalButtons
-													style={{
-														layout: 'horizontal',
-														label: 'pay',
-													}}
-													disabled={
-														!formik.values
-															.firstName ||
+											<Tooltip
+												title={
+													(!formik.values.firstName ||
 														!formik.values
 															.lastName ||
 														!formik.values.email ||
-														!formik.values.phoneNo
-													}
-													className={`flex justify-around items-center ml-14 md:ml-1`}
-													createOrder={(
-														data,
-														actions
-													) => {
-														return actions.order.create(
-															{
-																purchase_units:
-																	[
-																		{
-																			description:
-																				'customDescription',
-																			amount: {
-																				// value: Number(
-																				// 	convertedPrice
-																				// ).toFixed(2),
-																				value: Number(
-																					getCurrency(
-																						'price'
-																					)
-																				).toFixed(
-																					2
-																				),
-																				currency:
-																					getCurrency(
-																						'currency'
-																					),
-																			},
-																		},
-																	],
-															}
-														);
-													}}
-													onApprove={(
-														data,
-														actions
-													) => {
-														console.log(
-															'data is',
-															data
-														);
-														paypalSuccess(
+														!formik.values
+															.phoneNo) &&
+													'Fill in all Customer Details to be able to select paypal'
+												}
+											>
+												<div>
+													<PayPalButtons
+														style={{
+															layout: 'horizontal',
+															label: 'pay',
+														}}
+														disabled={
+															!formik.values
+																.firstName ||
+															!formik.values
+																.lastName ||
+															!formik.values
+																.email ||
+															!formik.values
+																.phoneNo
+														}
+														className={`flex justify-around items-center ml-14 md:ml-1`}
+														createOrder={(
 															data,
 															actions
-														);
-														// TODO: handle payment success
-														alert(
-															'You have successfully completed the transaction'
-														);
-													}}
-												/>
-											</div>
-										</Tooltip>
-									</RenderIf>
-								</div>
-							</div>
-							{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
-
-							{/**Apply coupon feature is yet to be implemented */}
-							{pricingTypeDetails?.price_type !==
-								'Make it Free' && (
-								<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
-									<div className="w-3/5 xs:w-3/4 md:w-4/5">
-										<Input
-											placeholder="Coupon Code"
-											name="couponCode"
-											onChange={(e) =>
-												setCouponCode(e.target.value)
-											}
-										/>
-									</div>
-									<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
-										<Button
-											text={
-												loading
-													? 'wait'
-													: 'Apply Coupon'
-											}
-											className={styles.couponBtn}
-											onClick={handleApplyCoupon}
-										/>
-									</div>
-								</div>
-							)}
-
-							{pricingTypeDetails?.price_type !==
-								'Make it Free' && (
-								<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
-									<div className="w-4/5">
-										<Input
-											placeholder=" Enter Coupon Code"
-											name="couponCode"
-											onChange={(e) =>
-												setCouponCode(e.target.value)
-											}
-										/>
-									</div>
-									<div className="w-1/5 pb-2">
-										<Button
-											text={
-												loading
-													? 'please wait..'
-													: 'Apply Coupon'
-											}
-											className={styles.couponBtn}
-											onClick={handleApplyCoupon}
-										/>
+														) => {
+															return actions.order.create(
+																{
+																	purchase_units:
+																		[
+																			{
+																				description:
+																					'customDescription',
+																				amount: {
+																					// value: Number(
+																					// 	convertedPrice
+																					// ).toFixed(2),
+																					value: Number(
+																						getCurrency(
+																							'price'
+																						)
+																					).toFixed(
+																						2
+																					),
+																					currency:
+																						getCurrency(
+																							'currency'
+																						),
+																				},
+																			},
+																		],
+																}
+															);
+														}}
+														onApprove={(
+															data,
+															actions
+														) => {
+															console.log(
+																'data is',
+																data
+															);
+															paypalSuccess(
+																data,
+																actions
+															);
+															// TODO: handle payment success
+															alert(
+																'You have successfully completed the transaction'
+															);
+														}}
+													/>
+												</div>
+											</Tooltip>
+										</RenderIf>
 									</div>
 								</div>
-							)}
+								{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
-							{pricingTypeDetails?.price_type !==
-								'Make it Free' && (
-								<div
-									className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
-								>
-									<div className="flex justify-between">
-										<p>SubTotal</p>
-										<div className="flex gap-4">
-											{/* {checkoutDetails?.product_details
+								{/**Apply coupon feature is yet to be implemented */}
+								{pricingTypeDetails?.price_type !==
+									'Make it Free' && (
+									<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+										<div className="w-3/5 xs:w-3/4 md:w-4/5">
+											<Input
+												placeholder="Coupon Code"
+												name="couponCode"
+												onChange={(e) =>
+													setCouponCode(
+														e.target.value
+													)
+												}
+											/>
+										</div>
+										<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+											<Button
+												text={
+													loading
+														? 'wait'
+														: 'Apply Coupon'
+												}
+												className={styles.couponBtn}
+												onClick={handleApplyCoupon}
+											/>
+										</div>
+									</div>
+								)}
+
+								{pricingTypeDetails?.price_type !==
+									'Make it Free' && (
+									<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
+										<div className="w-4/5">
+											<Input
+												placeholder=" Enter Coupon Code"
+												name="couponCode"
+												onChange={(e) =>
+													setCouponCode(
+														e.target.value
+													)
+												}
+											/>
+										</div>
+										<div className="w-1/5 pb-2">
+											<Button
+												text={
+													loading
+														? 'please wait..'
+														: 'Apply Coupon'
+												}
+												className={styles.couponBtn}
+												onClick={handleApplyCoupon}
+											/>
+										</div>
+									</div>
+								)}
+
+								{pricingTypeDetails?.price_type !==
+									'Make it Free' && (
+									<div
+										className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
+									>
+										<div className="flex justify-between">
+											<p>SubTotal</p>
+											<div className="flex gap-4">
+												{/* {checkoutDetails?.product_details
                       ?.is_strike_original_price && (
                       <s className="text-base-gray-200">
                         {currency_name} 10000
                       </s>
                     )} */}
-											<p>
-												{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-												{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
-												{OriginalPrices && (
+												<p>
+													{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
+													{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+													{OriginalPrices && (
+														<span
+															style={{
+																fontSize:
+																	'15px',
+																color: '#8C8C8C',
+																textDecoration:
+																	'line-through',
+															}}
+														>
+															{getCurrency(
+																'currency'
+															)}{' '}
+														</span>
+													)}
 													<span
 														style={{
 															fontSize: '15px',
 															color: '#8C8C8C',
 															textDecoration:
 																'line-through',
+															marginRight: '7px',
 														}}
 													>
 														{getCurrency(
-															'currency'
-														)}{' '}
+															'original'
+														)}
 													</span>
-												)}
-												<span
-													style={{
-														fontSize: '15px',
-														color: '#8C8C8C',
-														textDecoration:
-															'line-through',
-														marginRight: '7px',
-													}}
-												>
-													{getCurrency('original')}
+													{getCurrency('currency')}{' '}
+													{subTotal}
+												</p>
+											</div>
+										</div>
+
+										{isChargable === true && (
+											<div className="flex justify-between">
+												<p>Transaction fees</p>
+												<p>{transactionFee || 0}</p>
+											</div>
+										)}
+
+										<div className="flex justify-between">
+											<p>
+												Tax{' '}
+												<span>
+													<Tooltip title="You are paying this tax to the kreator, in compliance with their country’s tax policy. KreateSell does not in anyway benefit from the taxes.">
+														<Image
+															src={QuestionIcon}
+															alt=""
+														/>
+													</Tooltip>
 												</span>
+											</p>
+
+											<p>
+												{getTaxDeduction('getVal') || 0}
+											</p>
+										</div>
+
+										<div className="divider"></div>
+
+										<div className="flex justify-between">
+											<p>Total</p>
+											<p className="text-primary-blue font-medium">
 												{getCurrency('currency')}{' '}
-												{subTotal}
+												{Number(
+													getCurrency('total')
+												).toFixed(2)}
 											</p>
 										</div>
 									</div>
+								)}
 
-									<div className="flex justify-between">
-										<p>Tax</p>
-										<p>0</p>
+								{pricingTypeDetails?.price_type ===
+									'Make it Free' && (
+									<div className="flex items-center justify-center">
+										<Image
+											src={MakeItFreeIcon}
+											width="240"
+											height="294"
+											alt=""
+										/>
 									</div>
+								)}
 
-									<div className="divider"></div>
-
-									<div className="flex justify-between">
-										<p>Total</p>
-										<p className="text-primary-blue font-medium">
-											{getCurrency('currency')}{' '}
-											{Number(totalFee).toFixed(2)}
-										</p>
-									</div>
-								</div>
-							)}
-
-							{pricingTypeDetails?.price_type ===
-								'Make it Free' && (
-								<div className="flex items-center justify-center">
-									<Image
-										src={MakeItFreeIcon}
-										width="240"
-										height="294"
-										alt=""
-									/>
-								</div>
-							)}
-
-							{pricingTypeDetails?.price_type !==
-							'Make it Free' ? (
-								<p className="text-base-gray text-center py-6 text-xs md:text-sm">
-									Get instant access to this product once your
-									payment is successful!
-								</p>
-							) : (
-								<>
+								{pricingTypeDetails?.price_type !==
+								'Make it Free' ? (
 									<p className="text-base-gray text-center py-6 text-xs md:text-sm">
-										<span className="text-base text-gray-700">
-											You are getting this product for
-											free!
-										</span>
-										<br /> Get instantly access this product
-										once your click the button
+										Get instant access to this product once
+										your payment is successful!
 									</p>
-								</>
-							)}
+								) : (
+									<>
+										<p className="text-base-gray text-center py-6 text-xs md:text-sm">
+											<span className="text-base text-gray-700">
+												You are getting this product for
+												free!
+											</span>
+											<br /> Get instantly access this
+											product once your click the button
+										</p>
+									</>
+								)}
 
-							{pricingTypeDetails?.price_type !==
-								'Make it Free' && (
-								<div className=" w-full lg:w-5/6 mx-auto">
-									<Button
-										text={`Pay Now`}
-										bgColor="blue"
-										className={styles.btnCont}
-										icon={<RightArrow />}
-										disabled={
-											currencyConverterLoading ||
-											disableBtn
-										}
-									/>
-								</div>
-							)}
+								{pricingTypeDetails?.price_type !==
+									'Make it Free' && (
+									<div className=" w-full lg:w-5/6 mx-auto">
+										<Button
+											text={`Pay Now`}
+											bgColor="blue"
+											className={styles.btnCont}
+											icon={<RightArrow />}
+											disabled={
+												currencyConverterLoading ||
+												disableBtn
+											}
+										/>
+									</div>
+								)}
 
-							{/* {isFree ? (
+								{/* {isFree ? (
                 <div className=" w-full lg:w-5/6 mx-auto">
                   <Button
                     text={`Pay Now`}
@@ -1465,57 +1577,59 @@ const Checkout = () => {
                   />
                 </div>
               )} */}
-						</form>
-						{pricingTypeDetails?.price_type === 'Make it Free' && (
-							<div className=" w-full lg:w-5/6 mx-auto">
-								<Button
-									text={`Get Now`}
-									bgColor="blue"
-									className={styles.btnCont}
-									onClick={handleMakeItFreePayment}
-								/>
-							</div>
-						)}
+							</form>
+							{pricingTypeDetails?.price_type ===
+								'Make it Free' && (
+								<div className=" w-full lg:w-5/6 mx-auto">
+									<Button
+										text={`Get Now`}
+										bgColor="blue"
+										className={styles.btnCont}
+										onClick={handleMakeItFreePayment}
+									/>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<DialogOverlay
-				isOpen={modal}
-				onDismiss={closeModal}
-				className="pt-12 "
-			>
-				<DialogContent className={styles.modal} aria-label="modal">
-					<SuccessfulCheckoutModal
-						productDetails={checkoutDetails}
-						price={price ?? checkoutDetails?.default_price}
-						currency={currency_name}
-					/>
-				</DialogContent>
-			</DialogOverlay>
-			<style jsx>{`
-				.activeCard {
-					border: 1px solid #2dc071;
-					border-radius: 0.5rem;
-					cursor: pointer;
-					color: #8c8c8c;
-					font-size: 12px;
-				}
+				<DialogOverlay
+					isOpen={modal}
+					onDismiss={closeModal}
+					className="pt-12 "
+				>
+					<DialogContent className={styles.modal} aria-label="modal">
+						<SuccessfulCheckoutModal
+							productDetails={checkoutDetails}
+							price={price ?? checkoutDetails?.default_price}
+							currency={currency_name}
+						/>
+					</DialogContent>
+				</DialogOverlay>
+				<style jsx>{`
+					.activeCard {
+						border: 1px solid #2dc071;
+						border-radius: 0.5rem;
+						cursor: pointer;
+						color: #8c8c8c;
+						font-size: 12px;
+					}
 
-				.card {
-					border-radius: 0.5rem;
-					border: 1px solid #f0f0f0;
-					cursor: pointer;
-					color: #8c8c8c;
-					font-size: 12px;
-				}
+					.card {
+						border-radius: 0.5rem;
+						border: 1px solid #f0f0f0;
+						cursor: pointer;
+						color: #8c8c8c;
+						font-size: 12px;
+					}
 
-				.priceMenu {
-					box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
-					background: #ffffff;
-					color: #262626;
-				}
-			`}</style>
+					.priceMenu {
+						box-shadow: 0px 20px 200px rgba(34, 34, 34, 0.1);
+						background: #ffffff;
+						color: #262626;
+					}
+				`}</style>
+			</ErrorBoundary>
 		</>
 	);
 };

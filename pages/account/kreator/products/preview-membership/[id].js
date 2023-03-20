@@ -17,11 +17,12 @@ const PreviewMembership = () => {
 	const router = useRouter();
 	const getProduct = AuthGetProductById();
 
+	// const {pathname} = router;
+
 	const {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
-	console.log(product, 'productproductproduct');
 
 	const [activeLink, setActiveLink] = useState({});
 
@@ -64,13 +65,14 @@ const PreviewMembership = () => {
 				title: product.section_name,
 				subList: product.product_subsection,
 				id: product.id,
+				product,
 			};
 		});
 		setAccordionData(products);
 	};
 
 	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	// console.log(activeLink, 'ctiveLink');
+
 	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
 
 	useMemo(() => {
@@ -133,14 +135,20 @@ const PreviewMembership = () => {
 								<div>
 									<div className={styles.accordion}>
 										{accordionData.map(
-											({title, subList}, idx) => (
+											(
+												{title, subList, product},
+												idx
+											) => (
 												<Accordion
 													key={idx}
+													// pathname={pathname}
 													{...{
 														setActiveLink,
 														subList,
 														title,
 														activeLink,
+														product,
+														// pathname,
 													}}
 												/>
 											)

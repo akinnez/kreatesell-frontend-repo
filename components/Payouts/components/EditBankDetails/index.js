@@ -1,3 +1,5 @@
+import {useMemo} from 'react';
+
 import {useSelector} from 'react-redux';
 import {Divider, Modal, Typography} from 'antd';
 import CloseIcon from 'components/affiliates/CloseIcon';
@@ -18,8 +20,17 @@ const EditBankDetails = ({
 	const {countries, banksByCountryId, loading} = useSelector(
 		(state) => state.utils
 	);
-	const {allAllowedCurrencies} = useCurrency();
-	// console.log('allAllowedCurrencies', allAllowedCurrencies);
+
+	// const memoizedCountries = useMemo(() => {
+	// 	if (countries) {
+	// 		return [
+	// 			...countries.filter((ctr) => ctr.is_payable),
+
+	// 		];
+	// 	}
+	// 	return [];
+	// }, [countries]);
+
 	return (
 		<Modal
 			title={null}
@@ -54,7 +65,7 @@ const EditBankDetails = ({
 					<PayoutsForm
 						hideModal={hideEditModal}
 						showSuccessModal={showSuccessModal}
-						countries={allAllowedCurrencies}
+						countries={countries}
 						banksByCountryId={banksByCountryId}
 						bankDetails={bankDetails}
 					/>

@@ -41,9 +41,9 @@ export const Footer = () => {
 							rel="noopener noreferrer"
 							className="text"
 							target="blank"
-							href="mailto:support@kreatesell.com"
+							href="mailto:info@kreatesell.com"
 						>
-							support@kreatesell.com
+							info@kreatesell.com
 						</a>
 					</div>
 
@@ -58,23 +58,26 @@ export const Footer = () => {
 							// href="tel:+2349062002777"
 							href="https://wa.me/+2349062002777"
 						>
-							Contact Us
+							&nbsp;Contact Us
 						</a>
 					</div>
 
-					{/* <div className={styles.brandContact}>
-            <div className={styles.brandContactIcon}>
-              <Image src={Location} alt="location" />
-            </div>
-            <a
-              className="text"
-              rel="noopener noreferrer"
-              target="blank"
-              href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
-            >
-              Cocoa house Dugbe, Ibadan
-            </a>
-          </div> */}
+					<div className={styles.brandContact}>
+						<div className={styles.brandContactIcon}>
+							<Image src={Location} alt="location" />
+						</div>
+						<a
+							className="text"
+							rel="noopener noreferrer"
+							target="blank"
+							href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
+						>
+							KREATESELL LTD <br />
+							17TH FLOOR, COCOA HOUSE, <br />
+							LIEBU BYPASS, DUGBE, IBADAN 200263
+							<br /> <span>Phone: +2349062002777</span>
+						</a>
+					</div>
 				</div>
 
 				<div>
@@ -213,7 +216,7 @@ export const Footer = () => {
 							/>
 						</a>
 						<a
-							href="https://t.me/Kreate_Sell"
+							href="https://t.me/UseKreateSell"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={styles.gramContainer}
@@ -327,9 +330,9 @@ export const Footer = () => {
 						rel="noopener noreferrer"
 						className={styles.mobileFooterEmail}
 						target="blank"
-						href="mailto:support@kreatesell.com"
+						href="mailto:info@kreatesell.com"
 					>
-						support@kreatesell.com
+						info@kreatesell.com
 					</a>
 
 					<div className={styles.engageUs}>Engage with us</div>
@@ -405,11 +408,16 @@ export const Footer = () => {
 						</a>
 					</div>
 
-					{/* <div className={styles.mobileAddress}>Cocoa house Dugbe, Ibadan</div> */}
+					<div className={styles.mobileAddress}>
+						KREATESELL LTD
+						<br />
+						17TH FLOOR, COCOA HOUSE, LIEBU BYPASS, DUGBE, IBADAN
+						200263
+					</div>
 
 					<div className={styles.mobileCopyright}>
-						Copyright &copy; {new Date().getFullYear()} Kreatesell.
-						All Rights Reserved
+						Copyright &copy; {new Date().getFullYear()} Kreatesell
+						LTD. All Rights Reserved
 					</div>
 				</div>
 			</div>

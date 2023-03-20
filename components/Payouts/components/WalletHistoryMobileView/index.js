@@ -5,6 +5,12 @@ import formatAccountNumber from '../../utils/formatAccountNumber';
 import dateFormat from 'utils/dateFormat';
 import styles from './index.module.scss';
 
+const renderlipsis = (str) => {
+	if (typeof str === 'string') {
+		return str.length > 15;
+	}
+	throw new Error('Must be type string');
+};
 const WalletHistoryMobileView = ({histories}) => (
 	<>
 		{histories.length === 0 ? (
@@ -22,7 +28,7 @@ const WalletHistoryMobileView = ({histories}) => (
 						</div>
 						<ol>
 							<li className={styles.history__detail}>
-								<strong>Amount Withdrawn</strong>
+								<strong>Amount</strong>
 								<span>
 									{history.currency} {history.amount}
 								</span>
@@ -30,10 +36,14 @@ const WalletHistoryMobileView = ({histories}) => (
 							<li className={styles.history__detail}>
 								<strong>Description</strong>
 								<span>
-									{history.bank_name}{' '}
+									{`${history?.remarks}${
+										renderlipsis(history?.remarks) && '...'
+									}`}
+
+									{/* {history.bank_name}{' '}
 									{`(${formatAccountNumber(
 										history.bank_account
-									)})`}
+									)})`} */}
 								</span>
 							</li>
 						</ol>

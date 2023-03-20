@@ -17,7 +17,6 @@ export default function ManageSection({
 	toSection,
 }) {
 	const [mediaContent, setMediaContent] = useState(null);
-	console.log(mediaContent, 'mediaContent');
 	const [productSection, setProductSection] = useState(null);
 	const {product, productID} = useSelector((state) => state.product);
 	const getProduct = AuthGetProductById();
@@ -86,7 +85,6 @@ export default function ManageSection({
 			}
 		);
 	};
-	// console.log("Product section", productSection)
 	return (
 		<div className="">
 			{play && (
@@ -109,13 +107,7 @@ export default function ManageSection({
 						Back
 					</h3>
 
-					<div className="flex items-center justify-between mb-7">
-						{/* <h1
-					className={`text-2xl text-blue-600 font-bold ${styles.titleMain}`}
-				>
-					How to Invest in Crypocurrency
-				</h1> */}
-					</div>
+					<div className="flex items-center justify-between mb-7"></div>
 				</div>
 				<div className={styles.miniSaveButtons + ' flex'}>
 					<Button type="primary" style={{color: '#0072ef'}}>

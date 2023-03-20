@@ -3,7 +3,13 @@ import {Button} from 'antd';
 import {AiOutlineEyeInvisible, AiOutlineEye} from 'react-icons/ai';
 import styles from './index.module.scss';
 
-const WalletInfo = ({children, title, currency, balance}) => {
+const WalletInfo = ({
+	children,
+	title,
+	currency,
+	balance,
+	isAffiliate = false,
+}) => {
 	const [toggle, setToggle] = useState(false);
 
 	const handleToggle = () => {
@@ -11,7 +17,11 @@ const WalletInfo = ({children, title, currency, balance}) => {
 	};
 
 	return (
-		<div className={`${styles.box} ${styles.kreator__box}`}>
+		<div
+			className={`${styles.box} ${
+				!isAffiliate && title === 'Affiliate' && styles.isAffiliate
+			} ${styles.kreator__box}`}
+		>
 			<div className={styles.title}>
 				<span>{title}&#39;s Wallet Balance</span>
 				<Button shape="circle" type="text" onClick={handleToggle}>

@@ -20,3 +20,5 @@ export const FETCH_SINGLE_STORE_PRODUCT = generateActions(
 );
 export const FETCH_PRODUCT_STATUS = generateActions('FETCH_PRODUCT_STATUS');
 export const FETCH_COUPON_PRODUCT = generateActions('FETCH_COUPON_PRODUCT');
+export const CREATE_SALES_PAGE = generateActions('CREATE_SALES_PAGE');
+export const DISCONNECT_SALES_PAGE = generateActions('DISCONNECT_SALES_PAGE');

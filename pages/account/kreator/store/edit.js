@@ -16,6 +16,7 @@ import style from '../../../../public/css/Store.module.scss';
 import ApiService from '../../../../utils/axios';
 import {toast} from 'react-toastify';
 import {showToast} from 'utils';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const Index = () => {
 	const store = useSelector((state) => state.store);
@@ -186,6 +187,7 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout loading={loading.fetching}>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<Row>
 					<Col span={24}>
 						<Card bordered={false} className={style.card}>

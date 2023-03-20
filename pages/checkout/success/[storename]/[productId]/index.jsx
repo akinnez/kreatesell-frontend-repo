@@ -529,17 +529,18 @@ const Success = () => {
 const ProductCard = ({productDetails, kreatorDetails}) => {
 	const [productImage] = useState(() => {
 		return productDetails?.product_images?.filter(
-			(img) => img.file_type === 1
+			(img) => img.file_type_name === 'Main'
 		)[0];
 	});
+
 	return (
 		<div className={styles.productCardContainer}>
 			<Image
 				className={`${styles.productImage} rounded-t-lg`}
-				src={productImage?.filename}
+				src={productImage?.filename.split(',')[0]}
 				width="320"
 				height="300"
-				alt="product image"
+				alt="product_image"
 			/>
 			<div className={styles.productDetails}>
 				<p className={styles.productName}>
@@ -729,9 +730,17 @@ const ProductCard2 = ({
 
 const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 	const productId = router?.query?.productId;
+	const paidIncurrency = router?.query?.currency;
 	const productDetails = product?.product_details;
 	const StoreDetails = product?.store_dto;
 	const productSectionCount = product?.content_section_tracker;
+	const checkoutDetails = product?.check_out_details;
+
+	const paidInCurrencyObject = checkoutDetails.find(
+		(_i) =>
+			_i?.currency_name === paidIncurrency &&
+			_i?.price_indicator === 'Selling'
+	);
 
 	const handleClick = (action = 'download') => {
 		if (action === 'download') {
@@ -748,13 +757,13 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 
 	const getFileSize = () => {
 		const numberSize = Number(
-			product?.product_images[1]?.size.split('MB')[0]
+			product?.product_images[0]?.size.split('MB')[0]
 		);
 		if (numberSize < 1) {
 			const kbSize = numberSize * 1000;
 			return `${kbSize} KB`;
 		}
-		return `${product?.product_images[1]?.size}`;
+		return `${product?.product_images[0]?.size}`;
 	};
 
 	return (
@@ -774,11 +783,13 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 							alt=""
 						/>
 						<span className="">
-							<div className={styles.top}>{productName}.zip</div>
+							<div
+								className={styles.top}
+							>{`${productName}.${product?.product_images[0]?.extension}`}</div>
 							<div className={styles.bottom}>
 								<div>
 									<p className={styles.left}>
-										{product?.product_images[1]?.size
+										{product?.product_images[0]?.size
 											? getFileSize()
 											: 'N/A'}
 									</p>{' '}
@@ -786,8 +797,8 @@ const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
 									{/* //TODO:
 								Replace this with appropriate size */}
 									<p className={styles.right}>
-										{product?.default_currency?.currency}{' '}
-										{product?.default_price}
+										{paidInCurrencyObject?.currency_name}{' '}
+										{paidInCurrencyObject?.price}
 									</p>
 								</div>
 								{/* TODO: don't show this button for preorder products */}

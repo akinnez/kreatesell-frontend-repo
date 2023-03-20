@@ -24,9 +24,7 @@ const Blog = () => {
 	const [isBlogDataLoading, setIsBlogDataLoading] = useState(true);
 	const [active, setActive] = useState('All');
 	const [Blogs, setBlogs] = useState({});
-	console.log(Blogs.data, 'BlogsBlogsBlogs');
 	const [RecentBlogs, setMostRecentBlog] = useState({});
-	console.log(RecentBlogs, 'RecentBlogsRecentBlogsRecentBlogs');
 	const [page, setPage] = useState(1);
 	const startLoading = () => setIsLoading(true);
 	const stopLoading = () => setIsLoading(false);
@@ -38,10 +36,6 @@ const Blog = () => {
 			Router.events.off('routeChangeComplete', stopLoading);
 		};
 	}, []);
-	// console.log("recent blogs", RecentBlogs)
-	// console.log("blogs", Blogs)
-
-	console.log(active, 'activeactiveactive');
 
 	useEffect(() => {
 		const func = async () => {

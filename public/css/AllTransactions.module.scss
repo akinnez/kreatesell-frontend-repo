@@ -119,14 +119,14 @@
 
 				.key {
 					font-weight: 700;
-					font-size: 0.875rem;
+					font-size: 0.775rem;
 					line-height: 20px;
 					color: #262626;
 				}
 
 				.value {
 					font-weight: 400;
-					font-size: 0.875rem;
+					font-size: 0.775rem;
 					line-height: 24px;
 					color: #595959;
 				}
@@ -159,19 +159,19 @@
 
 					.key {
 						font-weight: 700;
-						font-size: 0.875rem;
+						font-size: 0.775rem;
 						line-height: 20px;
 						color: #595959;
 					}
 
 					.value {
 						font-weight: 400;
-						font-size: 0.875rem;
+						font-size: 0.775rem;
 						line-height: 24px;
 						color: #595959;
 					}
 
-					&::nth-child(odd) {
+					&:nth-child(odd) {
 						background: #f1fcf8;
 						border-radius: 8px;
 					}

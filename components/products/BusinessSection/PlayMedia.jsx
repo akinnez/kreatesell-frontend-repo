@@ -5,11 +5,7 @@ import Image from 'next/image';
 import {CloseIcon} from 'utils';
 
 export default function PlayMedia({type, open, source, closePlay, title}) {
-	console.log(title, 'titletitle');
 	const [isOpen, setIsOpen] = useState(open);
-	// const handleclose = () => {
-	// 	setIsOpen(false);
-	// };
 	return (
 		<Modal
 			title={null}
@@ -55,6 +51,19 @@ export default function PlayMedia({type, open, source, closePlay, title}) {
 					className={styles.previewVideo}
 				/>
 			)}
+			{type === 'text' ||
+				(type === 'applicaation' && (
+					<div>
+						<iframe
+							src={`https://docs.google.com/gview?url=${source}&embedded=true`}
+							style={{
+								width: '100%',
+								height: '800px',
+								border: 'none',
+							}}
+						></iframe>
+					</div>
+				))}
 		</Modal>
 	);
 }

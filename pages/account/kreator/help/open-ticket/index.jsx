@@ -9,6 +9,7 @@ import {IoMdAdd} from 'react-icons/io';
 import {Button} from 'components/button/Button';
 import axios from 'axios';
 import BackButton from 'components/BackButton';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const OpenTicket = ({}) => {
 	const department = [
@@ -41,6 +42,7 @@ const OpenTicket = ({}) => {
 				<div className="mb-10">
 					<BackButton />
 				</div>
+				<TelegramFloatingDiv left="15%" top="50%" />
 				<div className={style.openTicketTop}>
 					<h3 className={style.header}>Open Ticket</h3>
 					<p className={`mb-10`}>

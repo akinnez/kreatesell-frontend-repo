@@ -15,10 +15,21 @@ import {
 	formatDateAndTime,
 } from 'utils';
 import {Button} from 'components/button/Button';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const statusComponent = (item) => {
 	const statusTextList = {
 		open: {
+			type: 'open',
+			styles: {
+				background: '#F1FCF8',
+				borderRadius: '.5rem',
+				color: ' #2DC071',
+				fontSize: '14px',
+			},
+			contents: '',
+		},
+		Open: {
 			type: 'open',
 			styles: {
 				background: '#F1FCF8',
@@ -83,9 +94,8 @@ const statusComponent = (item) => {
 
 const ActionComponent = (_, all) => {
 	const router = useRouter();
-
-	const handleReopenTicket = () => {
-		console.log('Handle Repopen', all);
+	const handleReopenTicket = (id) => {
+		router.push(`/account/kreator/help/responses/${id}?reopen=true`);
 	};
 	let content = (
 		<ul>
@@ -97,7 +107,17 @@ const ActionComponent = (_, all) => {
 			>
 				<Image alt="icon" src={MessageIcon} /> View Response
 			</li>
-			<li onClick={() => handleReopenTicket()} className="flex gap-1.5">
+
+			<li
+				onClick={
+					all?.status?.toLowerCase() === 'closed'
+						? () => handleReopenTicket(all.id)
+						: null
+				}
+				className={`flex gap-1.5 ${
+					all?.status?.toLowerCase() === 'open' && styles.disableClick
+				}`}
+			>
 				<Image alt="icon" src={OpenTicketIcon} /> Reopen Ticket
 			</li>
 		</ul>
@@ -120,8 +140,8 @@ const ActionComponent = (_, all) => {
 const tableHeader = [
 	{
 		title: 'Ticket ID',
-		dataIndex: 'id',
-		width: 100,
+		dataIndex: 'ticket_reference',
+		width: 250,
 		fixed: 'left',
 		render: (item) => <p className={styles.tableData}>{item}</p>,
 	},
@@ -149,6 +169,7 @@ const tableHeader = [
 		title: 'Status',
 		dataIndex: 'status',
 		render: (item) => statusComponent(item),
+		width: 100,
 	},
 	{
 		title: 'Actions',
@@ -207,15 +228,15 @@ const CardComponent = ({data}) => {
 					</li>
 					<li className={styles.ticketDetail}>
 						<h1 className={`${styles.key} mb-0`}>Ticket ID</h1>
-						<p className={`${styles.value} mb-0`}>
-							#{data.ticket_id}
+						<p className={`${styles.value} mb-0 text-right`}>
+							{data.ticket_reference}
 						</p>
 					</li>
 				</ul>
 				<div className={`${styles.ticketSubjectContainer}`}>
 					<h2 className={`${styles.ticketTitle}`}>Ticket Subject</h2>
 					<div className={`${styles.ticketReason}`}>
-						Login Difficulties
+						{data?.heading || ''}
 					</div>
 				</div>
 			</Card>
@@ -310,6 +331,7 @@ const TicketTable = ({tickets, isLoading}) => {
 
 	return (
 		<div className={styles.ticketsContainer}>
+			<TelegramFloatingDiv left="15%" top="60%" />
 			<div className={styles.dataSection}>
 				<div className={styles.mobile__wrapper}>
 					{tickets?.data?.map((ticket) => (

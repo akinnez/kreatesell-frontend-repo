@@ -10,13 +10,19 @@ import AffiliateLink from 'components/affiliateRequests/components/AffiliateLink
 import Overview from 'components/affiliates/Overview';
 import PromotionalMaterials from 'components/affiliateRequests/components/PromotionalMaterials';
 import useFetchData from 'hooks/useFetchData';
+import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
+import Loader from 'components/loader';
 
 const {TabPane} = Tabs;
 
 const AffiliateRequestLinK = () => {
 	const router = useRouter();
 
-	const {data: product, error} = useFetchData(
+	const {
+		affiliateLink: product,
+		salesPage,
+		error,
+	} = useFetchData(
 		router.query.pId && router?.query?.requiresApproval
 			? `${process.env.BASE_URL}affiliate/get-products-by-id/${router.query.pId}?requiresApproval=${router.query?.requiresApproval}`
 			: null
@@ -65,8 +71,20 @@ const AffiliateRequestLinK = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
+				<TelegramFloatingDiv left="13%" top="50%" />
 				<TabPane tab="Affiliate Link" key="1">
-					<AffiliateLink affiliateLink={product.affiliate_link} />
+					<>
+						{salesPage === undefined ? (
+							<>
+								<Loader />{' '}
+							</>
+						) : (
+							<AffiliateLink
+								affiliateLink={product.affiliate_link}
+								{...{salesPage, product}}
+							/>
+						)}
+					</>
 				</TabPane>
 				<TabPane tab="Overview" key="2">
 					<Overview

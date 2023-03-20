@@ -16,13 +16,48 @@ var timeOptions = {
 	hour12: true,
 };
 
+export const formatDate2 = (dateArg) => {
+	const date = new Date(dateArg);
+
+	const day = ('0' + date.getUTCDate()).slice(-2);
+	const month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+	const year = date.getUTCFullYear();
+
+	const formattedDate = `${day}/${month}/${year}`;
+	return formattedDate;
+};
+
 export const formatDateAndTime = (date) => {
 	return (
 		<>
-			{new Date(date).toLocaleDateString('en-US', options)}{' '}
+			{new Date(date).toLocaleDateString('en-US', options)} &nbsp;
 			{new Date(date).toLocaleString('en-US', timeOptions)}
 		</>
 	);
+};
+export const formatShortDateAndTime = (date) => {
+	let shortOptions = {...options, weekday: 'short'};
+	delete shortOptions.weekday;
+	return (
+		<>
+			{new Date(date).toLocaleDateString('en-US', shortOptions)} -{' '}
+			{new Date(date).toLocaleString('en-US', timeOptions)}
+		</>
+	);
+};
+
+export const getDate12MonthsAgo = () => {
+	var date = new Date();
+	date.setMonth(date.getMonth() - 12);
+
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+
+	month = month < 10 ? '0' + month : month;
+	day = day < 10 ? '0' + day : day;
+
+	return year + '-' + month + '-' + day;
 };
 
 export const transactionFees = {
@@ -216,24 +251,26 @@ export const notificationTime = (timeValue) => {
 	if (!timeValue) return '';
 
 	const parseServerTime = Date.parse(timeValue);
+	const milliseconds = Date.now() - parseServerTime;
+	const seconds = Math.floor(milliseconds / 1000);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+	const weeks = Math.floor(days / 7);
+	const months = Math.floor(weeks / 4);
+	const years = Math.floor(months / 12);
 
-	const secs = (Date.now() - parseServerTime) / 1000;
-	const mins = Math.round(secs / 60);
-	const hrs = Math.round(mins / 60);
-	const days = Math.round(hrs / 24);
-	const weeks = Math.round(days / 7);
-	const months = Math.round(weeks / 4);
-	const years = Math.round(months / 12);
+	// console.log(seconds,minutes,hours,'')
 
-	if (mins <= 59) return `${mins} minutes ago`;
-	if (hrs === 1) return 'An hour ago';
-	if (hrs <= 24) return `${hrs} hours ago`;
-	if (days === 1) return 'A day ago';
-	if (days <= 7) return `${days} days ago`;
+	if (seconds < 60) return `${seconds} seconds ago`;
+	if (minutes < 60) return `${minutes} minutes ago`;
+	if (hours < 24) return `${hours} hours ago`;
+	if (days === 1) return 'Yesterday';
+	if (days < 7) return `${days} days ago`;
 	if (weeks === 1) return 'A week ago';
-	if (weeks <= 3) return `${weeks} weeks ago`;
+	if (weeks < 4) return `${weeks} weeks ago`;
 	if (months === 1) return 'A month ago';
-	if (months <= 11) return `${months} months ago`;
+	if (months < 12) return `${months} months ago`;
 	if (years === 1) return 'A year ago';
 	return `${years} years ago`;
 };
@@ -319,6 +356,16 @@ export const currencyOptions = [
 	{value: 'UGX', label: 'UGX'},
 	{value: 'USD', label: 'USD'},
 	{value: 'GBP', label: 'GBP'},
+];
+
+export const showOptions = [
+	{value: '', label: 'Custom'},
+	{value: 'Today', label: 'Today'},
+	{value: 'Yesterday', label: 'Yesterday'},
+	{value: 'Last 7 days', label: 'Last 7 days'},
+	{value: 'Last 30 days', label: 'Last 30 days'},
+	{value: 'This year', label: 'This year'},
+	{value: 'All time', label: 'All time'},
 ];
 
 export const Animate = (
