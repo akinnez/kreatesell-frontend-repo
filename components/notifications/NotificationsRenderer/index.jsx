@@ -14,7 +14,6 @@ const NotificationsRenderer = ({notifications}) => {
 		return notifications.reduce((list, notification) => {
 			const type = notification.notification_type;
 			const typeExists = type in notificationTypes;
-
 			if (!typeExists) return list;
 
 			const jsx = (

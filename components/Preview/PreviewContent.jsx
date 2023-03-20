@@ -138,8 +138,8 @@ export default function PreviewContent({
 	const currentDate = new Date();
 	const dateToCompare = new Date(cookieExpiryTime);
 	const monthDifference =
-		(dateToCompare.getFullYear() - currentDate.getFullYear()) * 12 +
-		(dateToCompare.getMonth() - currentDate.getMonth());
+		(currentDate.getFullYear() - dateToCompare.getFullYear()) * 12 +
+		(currentDate.getMonth() - dateToCompare.getMonth());
 
 	const getCheckoutLink = () => {
 		if (affiliateRef && affiliateUniqueKey && monthDifference <= 6) {

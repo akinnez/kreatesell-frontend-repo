@@ -21,4 +21,11 @@ export const notificationTypes = {
 		'Hooray! Your store is live. Next is to register your account details for seamless payouts.',
 
 	payout: 'Congrats! Your account details registration was successful. Time to put up your first Digital product.',
+
+	Sales: (name, productName) => {
+		return `${name} just bought ${productName}.`;
+	},
+	'Affiliate Sales': (name, productName) => {
+		return `${name} just made sales using your afflitate link for ${productName}.`;
+	},
 };
