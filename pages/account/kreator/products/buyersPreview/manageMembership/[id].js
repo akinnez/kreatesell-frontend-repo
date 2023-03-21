@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
-import { useSelector } from 'react-redux';
-import { AuthGetProductById, GetProductByIDNotAut } from 'redux/actions';
-import { useRouter } from 'next/router';
+import {useSelector} from 'react-redux';
+import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
+import {useRouter} from 'next/router';
 import Image from 'next/image';
-import { PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon } from 'utils';
+import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
 import BackButton from 'components/BackButton';
 import MembershipCancelAlert from './MembershipCancelAlert';
 import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
@@ -20,11 +20,11 @@ const ManageMembership = () => {
 
 	const [showCancelAlert, setShowCancelAlert] = useState(false);
 	const [showSuccessCancel, setShowSuccessCancel] = useState(false);
-	const [email, setEmail] = useState("")
+	const [email, setEmail] = useState('');
 
 	const {
 		product,
-		product: { product_content },
+		product: {product_content},
 	} = useSelector((state) => state.product);
 
 	// console.log(product?.product_details, 'productproductproductproduct')
@@ -36,26 +36,29 @@ const ManageMembership = () => {
 	}, [router.query.id]);
 
 	// {
-	// 	"customer_email": "string",  
+	// 	"customer_email": "string",
 	// 	"product_id": "string"
 	//   }
 
 	// /customer/unsubscribe
-	const productId = router.query.id
+	const productId = router.query.id;
 
 	const handleCancelMembership = async () => {
 		try {
 			// const token = getToken()
-			const response = await axios.post(`${baseURL}v1/customer/unsubscribe`, {
-				customer_email: email,
-				product_id: productId
-			})
-			console.log(response, 'testaRES')
-			setShowCancelAlert(true)
+			const response = await axios.post(
+				`${baseURL}v1/customer/unsubscribe`,
+				{
+					customer_email: email,
+					product_id: productId,
+				}
+			);
+			console.log(response, 'testaRES');
+			setShowCancelAlert(true);
 		} catch (err) {
-			console.log(err, 'testerr') 
+			console.log(err, 'testerr');
 		}
-	}
+	};
 
 	return (
 		<>

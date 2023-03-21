@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import dynamic from 'next/dynamic';
 
 import useSWR from 'swr';
 import axios from 'axios';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
 import EditorToolbar, {
 	modules,
 	formats,
@@ -28,12 +28,12 @@ import {
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 // import {Button} from 'components/button/Button';
-import { Button } from 'antd';
+import {Button} from 'antd';
 import BackButton from 'components/BackButton';
-import { Input } from 'components/input/Input';
+import {Input} from 'components/input/Input';
 import FileUpload from 'components/PostTicket/FileUpload';
 
-const CardBody = ({ ticketId, ticket }) => {
+const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
 	const [files, setFiles] = useState([]);
@@ -115,10 +115,11 @@ const CardBody = ({ ticketId, ticket }) => {
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
 						<span
-							className={`${styles.status} ${ticket.status === 'Closed'
+							className={`${styles.status} ${
+								ticket.status === 'Closed'
 									? styles.closed
 									: styles.open
-								}`}
+							}`}
 						>
 							{ticket.status}
 						</span>
@@ -158,8 +159,9 @@ const CardBody = ({ ticketId, ticket }) => {
 						/>
 					</div>
 					<section
-						className={`${styles.complainDescription} ${showIssue ? styles.block : styles.hidden
-							}`}
+						className={`${styles.complainDescription} ${
+							showIssue ? styles.block : styles.hidden
+						}`}
 					>
 						<p
 							className={`mt-5 ${styles.description}`}
@@ -188,8 +190,8 @@ const CardBody = ({ ticketId, ticket }) => {
 												file-{idx}.
 												{
 													file.split('.')[
-													file.split('.').length -
-													1
+														file.split('.').length -
+															1
 													]
 												}
 											</p>
@@ -369,7 +371,7 @@ const CardBody = ({ ticketId, ticket }) => {
 							placeholder={
 								'Write the details of your ticket here'
 							}
-							style={{ height: '200px' }}
+							style={{height: '200px'}}
 							modules={modules}
 							formats={formats}
 						/>
@@ -384,17 +386,18 @@ const CardBody = ({ ticketId, ticket }) => {
 						setUploadingFiles={setUploadingFiles}
 					/>
 					<br />
-					<div className={styles.digitalBtn}>  
+					<div className={styles.digitalBtn}>
 						<Button
 							disabled={false || files?.length > 5}
-							// bgColor="blue" 
+							// bgColor="blue"
 							// text="Submit Response"
 							className="p-2 rounded-lg"
 							type="primary"
 							htmlType="submit"
 							loading={submitting}
 							onClick={() => handleSubmit()}
-						>Submit Response
+						>
+							Submit Response
 						</Button>
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						<Button
@@ -402,7 +405,9 @@ const CardBody = ({ ticketId, ticket }) => {
 							// text="Cancel"
 							className={styles.cancelSubmit}
 							onClick={() => router.back()}
-						>Cancel</Button>
+						>
+							Cancel
+						</Button>
 					</div>
 				</div>
 			</RenderIf>
@@ -410,8 +415,8 @@ const CardBody = ({ ticketId, ticket }) => {
 	);
 };
 
-
-{/* <Button
+{
+	/* <Button
 						type="primary"
 						htmlType="submit" 
 						loading={loading} 
@@ -421,7 +426,8 @@ const CardBody = ({ ticketId, ticket }) => {
 						{productType === 'Digital Download'
 							? 'Save and Preview'
 							: 'Save and Continue'}
-					</Button> */}
+					</Button> */
+}
 const Index = (props) => {
 	const ticketsURL = (id) =>
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
@@ -475,7 +481,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody {...{ ticketId, ticket }} />
+					<CardBody {...{ticketId, ticket}} />
 				</div>
 			</AuthLayout>
 		</>
