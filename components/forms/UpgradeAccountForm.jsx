@@ -102,6 +102,8 @@ export const UpgradeAccountForm = ({
 			affiliate_product_link: '',
 			user_identifier: user?.id,
 			duration: monthly ? 'monthly' : 'yearly',
+			TransactionFee: 0,
+			// TODO: add transaction fees
 		};
 		return value;
 	};
@@ -123,7 +125,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'KreateSell Title',
 			description: 'KreateSell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
