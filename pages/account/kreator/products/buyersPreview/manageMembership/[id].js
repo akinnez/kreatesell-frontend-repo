@@ -1,14 +1,18 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {useSelector} from 'react-redux';
-import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
-import {useRouter} from 'next/router';
+import { useSelector } from 'react-redux';
+import { AuthGetProductById, GetProductByIDNotAut } from 'redux/actions';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon } from 'utils';
 import BackButton from 'components/BackButton';
 import MembershipCancelAlert from './MembershipCancelAlert';
 import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
+import axios from 'axios';
+// import {}
+
+export const baseURL = process.env.BASE_URL;
 
 const ManageMembership = () => {
 	const router = useRouter();
@@ -16,17 +20,42 @@ const ManageMembership = () => {
 
 	const [showCancelAlert, setShowCancelAlert] = useState(false);
 	const [showSuccessCancel, setShowSuccessCancel] = useState(false);
+	const [email, setEmail] = useState("")
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
+
+	// console.log(product?.product_details, 'productproductproductproduct')
 
 	useEffect(() => {
 		if (router.query.id) {
 			getProduct(router.query.id);
 		}
 	}, [router.query.id]);
+
+	// {
+	// 	"customer_email": "string",  
+	// 	"product_id": "string"
+	//   }
+
+	// /customer/unsubscribe
+	const productId = router.query.id
+
+	const handleCancelMembership = async () => {
+		try {
+			// const token = getToken()
+			const response = await axios.post(`${baseURL}v1/customer/unsubscribe`, {
+				customer_email: email,
+				product_id: productId
+			})
+			console.log(response, 'testaRES')
+			setShowCancelAlert(true)
+		} catch (err) {
+			console.log(err, 'testerr') 
+		}
+	}
 
 	return (
 		<>
@@ -86,18 +115,19 @@ const ManageMembership = () => {
 						<input
 							type="text"
 							className={styles.emailInput}
-							placeholder="eamil address"
+							placeholder="email address"
+							onChange={(e) => setEmail(e.target.value)}
 						/>
-						<div
+						{/* <div
 							className={`flex items-center justify-between ${styles.cardDetailsContainer}`}
 						>
 							<p className={styles.cardDetailsLeft}>
 								Card details
 							</p>
 							<p className={styles.cardDetailsRight}>Save card</p>
-						</div>
+						</div> */}
 
-						<div
+						{/* <div
 							className={`flex items-center ${styles.cardContainer}`}
 						>
 							<div className={styles.cardImageContainer}>
@@ -109,7 +139,7 @@ const ManageMembership = () => {
 							</div>
 							<div className="ml-3">
 								<p className={styles.cardTextType}>
-									Mastercard
+									Mastercard 
 								</p>
 								<p className={styles.cardTextExpiry}>
 									Expires 12/2024
@@ -120,11 +150,11 @@ const ManageMembership = () => {
 									**** **** **** 9988
 								</p>
 							</div>
-						</div>
+						</div> */}
 
 						<div
 							className={styles.cancelMembershipContainer}
-							onClick={() => setShowCancelAlert(true)}
+							onClick={() => handleCancelMembership()}
 						>
 							<p className={styles.cancelMemberShipText}>
 								Cancel Membership

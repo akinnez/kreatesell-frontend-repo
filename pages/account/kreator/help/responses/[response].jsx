@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
 import useSWR from 'swr';
 import axios from 'axios';
-const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import EditorToolbar, {
 	modules,
 	formats,
@@ -27,12 +27,13 @@ import {
 	showToast,
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
-import {Button} from 'components/button/Button';
+// import {Button} from 'components/button/Button';
+import { Button } from 'antd';
 import BackButton from 'components/BackButton';
-import {Input} from 'components/input/Input';
+import { Input } from 'components/input/Input';
 import FileUpload from 'components/PostTicket/FileUpload';
 
-const CardBody = ({ticketId, ticket}) => {
+const CardBody = ({ ticketId, ticket }) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
 	const [files, setFiles] = useState([]);
@@ -114,11 +115,10 @@ const CardBody = ({ticketId, ticket}) => {
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
 						<span
-							className={`${styles.status} ${
-								ticket.status === 'Closed'
+							className={`${styles.status} ${ticket.status === 'Closed'
 									? styles.closed
 									: styles.open
-							}`}
+								}`}
 						>
 							{ticket.status}
 						</span>
@@ -158,9 +158,8 @@ const CardBody = ({ticketId, ticket}) => {
 						/>
 					</div>
 					<section
-						className={`${styles.complainDescription} ${
-							showIssue ? styles.block : styles.hidden
-						}`}
+						className={`${styles.complainDescription} ${showIssue ? styles.block : styles.hidden
+							}`}
 					>
 						<p
 							className={`mt-5 ${styles.description}`}
@@ -189,8 +188,8 @@ const CardBody = ({ticketId, ticket}) => {
 												file-{idx}.
 												{
 													file.split('.')[
-														file.split('.').length -
-															1
+													file.split('.').length -
+													1
 													]
 												}
 											</p>
@@ -243,7 +242,7 @@ const CardBody = ({ticketId, ticket}) => {
 								</div>
 							</RenderIf>
 							{/*TODO: Make it's own component */}
-							<div
+							{/* <div
 								className={`mb-10 ${styles.complainContainer}`}
 							>
 								<div
@@ -292,7 +291,7 @@ const CardBody = ({ticketId, ticket}) => {
 									>
 										Attachments (
 										{ticket?.uploaded_image_list?.length})
-										{/* files */}
+									
 										{Array.isArray(
 											ticket?.uploaded_image_list
 										) &&
@@ -333,7 +332,7 @@ const CardBody = ({ticketId, ticket}) => {
 											)}
 									</div>
 								</section>
-							</div>
+							</div> */}
 						</div>
 					))}
 				</RenderIf>
@@ -341,7 +340,7 @@ const CardBody = ({ticketId, ticket}) => {
 					condition={ticket?.status?.toLowerCase() === 'closed'}
 				>
 					<Button
-						text="Repopen"
+						text="Reopen"
 						leftIcon={<Image alt="icon" src={MailReopen} />}
 						className="p-3"
 						bgColor="blue"
@@ -370,7 +369,7 @@ const CardBody = ({ticketId, ticket}) => {
 							placeholder={
 								'Write the details of your ticket here'
 							}
-							style={{height: '200px'}}
+							style={{ height: '200px' }}
 							modules={modules}
 							formats={formats}
 						/>
@@ -385,21 +384,25 @@ const CardBody = ({ticketId, ticket}) => {
 						setUploadingFiles={setUploadingFiles}
 					/>
 					<br />
-					<div style={{marginTop: '6px'}}>
+					<div className={styles.digitalBtn}>  
 						<Button
 							disabled={false || files?.length > 5}
-							bgColor="blue"
-							text="Submit Response"
-							className="p-2"
+							// bgColor="blue" 
+							// text="Submit Response"
+							className="p-2 rounded-lg"
+							type="primary"
+							htmlType="submit"
+							loading={submitting}
 							onClick={() => handleSubmit()}
-						/>
+						>Submit Response
+						</Button>
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						<Button
 							disabled={false}
-							text="Cancel"
+							// text="Cancel"
 							className={styles.cancelSubmit}
 							onClick={() => router.back()}
-						/>
+						>Cancel</Button>
 					</div>
 				</div>
 			</RenderIf>
@@ -407,6 +410,18 @@ const CardBody = ({ticketId, ticket}) => {
 	);
 };
 
+
+{/* <Button
+						type="primary"
+						htmlType="submit" 
+						loading={loading} 
+						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
+						disabled={disableButton() || isGreaterthanSug} 
+					>
+						{productType === 'Digital Download'
+							? 'Save and Preview'
+							: 'Save and Continue'}
+					</Button> */}
 const Index = (props) => {
 	const ticketsURL = (id) =>
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;
@@ -460,7 +475,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody {...{ticketId, ticket}} />
+					<CardBody {...{ ticketId, ticket }} />
 				</div>
 			</AuthLayout>
 		</>
