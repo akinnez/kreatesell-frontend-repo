@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useLayoutEffect} from 'react';
 import Image from 'next/image';
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {
@@ -63,13 +63,13 @@ const resolveProtocol = (host) => {
 	if (!host || typeof host !== 'string') return;
 	return host.includes('localhost') ? 'http' : 'https';
 };
-const Checkout = ({host}) => {
+const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
-	console.log('host', host);
 
 	const [modal, setModal] = useState(false);
+	const [hostState, setHostState] = useState('');
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
@@ -89,11 +89,16 @@ const Checkout = ({host}) => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -543,11 +548,10 @@ const Checkout = ({host}) => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -578,13 +582,13 @@ const Checkout = ({host}) => {
 							: Number(getCurrency('price')).toFixed() * 100,
 						currency: getCurrency('currency').toLowerCase(),
 						quantity: 1,
-						success_url: `${resolveProtocol(host)}://${
-							host || 'kreatesell.com'
+						success_url: `${resolveProtocol(hostState)}://${
+							hostState || 'kreatesell.com'
 						}/checkout/success/${
 							storeDetails?.store_dto?.store_name
 						}/${router?.query?.id}/?currency=${currencyPaidIn}`,
-						cancel_url: `${resolveProtocol(host)}://${
-							host || 'dev.kreatesell.com'
+						cancel_url: `${resolveProtocol(hostState)}://${
+							hostState || 'dev.kreatesell.com'
 						}/checkout/${productId}?status=fail`,
 					}
 				);
@@ -650,7 +654,8 @@ const Checkout = ({host}) => {
 		customizations: {
 			title: storeDetails?.product_details?.product_name || '',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -753,6 +758,11 @@ const Checkout = ({host}) => {
 			setCouponDetails(res);
 		});
 	};
+
+	useLayoutEffect(() => {
+		// console.log('window.location', window.location);
+		setHostState(window.location.host);
+	}, []);
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (
@@ -1308,7 +1318,8 @@ const Checkout = ({host}) => {
 												<div>
 													<PayPalButtons
 														style={{
-															layout: 'horizontal',
+															layout:
+																'horizontal',
 															label: 'pay',
 														}}
 														disabled={
@@ -1328,29 +1339,27 @@ const Checkout = ({host}) => {
 														) => {
 															return actions.order.create(
 																{
-																	purchase_units:
-																		[
-																			{
-																				description:
-																					'customDescription',
-																				amount: {
-																					// value: Number(
-																					// 	convertedPrice
-																					// ).toFixed(2),
-																					value: Number(
-																						getCurrency(
-																							'price'
-																						)
-																					).toFixed(
-																						2
-																					),
-																					currency:
-																						getCurrency(
-																							'currency'
-																						),
-																				},
+																	purchase_units: [
+																		{
+																			description:
+																				'customDescription',
+																			amount: {
+																				// value: Number(
+																				// 	convertedPrice
+																				// ).toFixed(2),
+																				value: Number(
+																					getCurrency(
+																						'price'
+																					)
+																				).toFixed(
+																					2
+																				),
+																				currency: getCurrency(
+																					'currency'
+																				),
 																			},
-																		],
+																		},
+																	],
 																}
 															);
 														}}
@@ -1458,7 +1467,8 @@ const Checkout = ({host}) => {
 															style={{
 																fontSize:
 																	'15px',
-																color: '#8C8C8C',
+																color:
+																	'#8C8C8C',
 																textDecoration:
 																	'line-through',
 															}}
@@ -1685,8 +1695,5 @@ const SuccessfulCheckoutModal = ({productDetails, price, currency}) => {
 		</div>
 	);
 };
-export const getServerSideProps = async (context) => ({
-	props: {host: context.req.headers.host || null},
-});
 
 export default Checkout;
