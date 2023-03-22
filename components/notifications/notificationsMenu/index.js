@@ -99,10 +99,8 @@ const notificationsMenu = ({notifications, error, count, dispatch, mutate}) => {
 			>
 				<Link href="/account/kreator/notifications">
 					<a onClick={() => handleClick(notification)}>
-						<p className={styles.bold}>
-							{notification?.content}
-						</p>
-						<p>{notificationTime(notification.created_at)}</p> 
+						<p className={styles.bold}>{notification?.content}</p>
+						<p>{notificationTime(notification.created_at)}</p>
 					</a>
 				</Link>
 			</Menu.Item>

@@ -1,11 +1,11 @@
-import { Button } from 'components';
-import { CreateEditDomain, SetDomainScreen, GetDomains } from 'redux/actions';
+import {Button} from 'components';
+import {CreateEditDomain, SetDomainScreen, GetDomains} from 'redux/actions';
 import styles from './Domain.module.scss';
 import Link from 'next/link';
-import { ComingSoon } from 'utils';
+import {ComingSoon} from 'utils';
 import Image from 'next/image';
 
-export const EmptyDomain = ({ showHeader = true }) => {
+export const EmptyDomain = ({showHeader = true}) => {
 	const setDomainScreen = SetDomainScreen();
 
 	return (
@@ -27,7 +27,9 @@ export const EmptyDomain = ({ showHeader = true }) => {
 			)}
 
 			<div className="productBorder mt-2 flex items-center flex-col bg-white rounded-lg text-center">
-				<div className={styles.commingSoonText}>Setup your custom subdomain and connect an existing domain</div>
+				<div className={styles.commingSoonText}>
+					Setup your custom subdomain and connect an existing domain
+				</div>
 				<div className={styles.mainBox}>
 					<div className={styles.imgContainer}>
 						<Image
@@ -35,14 +37,20 @@ export const EmptyDomain = ({ showHeader = true }) => {
 							alt="commingsoonicon"
 							width={105}
 							height={120}
-						// className='ml-5'
+							// className='ml-5'
 						/>
 					</div>
 					<h1 className={styles.abadonedCartText}>Coming soon!</h1>
 					<p className={styles.abadonedCartP}>
-					Very soon you will be able to create your custom KreateSell subdomain <span className='text-blue-500'>yourname.kreatesell.com</span>
-					 and connect your own custom domain e.g. <span className='text-blue-500'>www.yourname.com</span> to your kreatesell store; 
-					 full customization at your fingertip.
+						Very soon you will be able to create your custom
+						KreateSell subdomain{' '}
+						<span className="text-blue-500">
+							yourname.kreatesell.com
+						</span>
+						and connect your own custom domain e.g.{' '}
+						<span className="text-blue-500">www.yourname.com</span>{' '}
+						to your kreatesell store; full customization at your
+						fingertip.
 					</p>
 				</div>
 

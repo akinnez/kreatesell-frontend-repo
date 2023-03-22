@@ -428,7 +428,6 @@
 				transition: margin-bottom 0.2s;
 
 				.mobileOnly {
-
 					// border: 1px solid red;
 					@include minScreen('tablet') {
 						display: none;
@@ -436,7 +435,6 @@
 				}
 
 				@media (min-width: 1300px) {
-
 					&:nth-child(1),
 					&:nth-child(3) {
 						// border: 1px solid red;
@@ -1163,7 +1161,8 @@
 							color: $base-gray;
 						}
 
-						@include screen('medium') {}
+						@include screen('medium') {
+						}
 					}
 				}
 			}
@@ -1355,7 +1354,7 @@
 			}
 
 			@include screen('medium') {
-				padding: .5rem .3rem;
+				padding: 0.5rem 0.3rem;
 				font-weight: 500;
 				font-size: 12px;
 			}
@@ -1376,7 +1375,7 @@
 			}
 
 			@include screen('medium') {
-				padding: .5rem .3rem;
+				padding: 0.5rem 0.3rem;
 				font-weight: 500;
 				font-size: 12px;
 			}
@@ -1563,7 +1562,6 @@
 		width: 100;
 
 		.min {
-
 			// display: none;
 			@media (min-width: 1440px) {
 				display: none;
@@ -1742,7 +1740,7 @@
 						// margin-bottom: unset;
 					}
 
-					p+p {
+					p + p {
 						font-family: Inter;
 						font-size: 9px;
 						font-weight: 500;
@@ -1798,7 +1796,7 @@
 				}
 			}
 
-			h5+p {
+			h5 + p {
 				@media (min-width: 768px) {
 					font-size: 16px;
 					font-weight: 500;

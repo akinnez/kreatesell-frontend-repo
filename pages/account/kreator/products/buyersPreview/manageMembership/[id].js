@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
-import { useSelector } from 'react-redux';
-import { AuthGetProductById, GetProductByIDNotAut } from 'redux/actions';
-import { useRouter } from 'next/router';
+import {useSelector} from 'react-redux';
+import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
+import {useRouter} from 'next/router';
 import Image from 'next/image';
-import { PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon } from 'utils';
+import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
 import BackButton from 'components/BackButton';
 import MembershipCancelAlert from './MembershipCancelAlert';
 import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
 import axios from 'axios';
-import { showToast } from 'utils';
+import {showToast} from 'utils';
 // import {}
 
 export const baseURL = process.env.BASE_URL;
@@ -25,10 +25,11 @@ const ManageMembership = () => {
 
 	const {
 		product,
-		product: { product_content },
+		product: {product_content},
 	} = useSelector((state) => state.product);
 
-	const BillingFrequency = product?.product_details?.custom_billing_interval_times;
+	const BillingFrequency =
+		product?.product_details?.custom_billing_interval_times;
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -40,15 +41,12 @@ const ManageMembership = () => {
 
 	const handleCancelMembership = async () => {
 		try {
-			await axios.post(
-				`${baseURL}v1/customer/unsubscribe`,
-				{
-					customer_email: email,
-					product_id: productId,
-				}
-			);
+			await axios.post(`${baseURL}v1/customer/unsubscribe`, {
+				customer_email: email,
+				product_id: productId,
+			});
 			setShowSuccessCancel(true);
-			window.location.reload()
+			window.location.reload();
 		} catch (err) {
 			showToast(
 				err.response.data.message || 'A network error occured',
@@ -100,7 +98,9 @@ const ManageMembership = () => {
 						<h1 className={styles.manageContainerText}>
 							Exixting Membership Details
 						</h1>
-						<p className={styles.membershipAmount}>NGN {product?.default_price}</p>
+						<p className={styles.membershipAmount}>
+							NGN {product?.default_price}
+						</p>
 
 						<p className={styles.frequency}>Billing frequency</p>
 
@@ -108,7 +108,13 @@ const ManageMembership = () => {
 							type="text"
 							disabled
 							className={styles.frequencyInput}
-							placeholder={BillingFrequency === "days" ? "Daily" : BillingFrequency === "weeks" ? "Weekly" : "Monthly"}
+							placeholder={
+								BillingFrequency === 'days'
+									? 'Daily'
+									: BillingFrequency === 'weeks'
+									? 'Weekly'
+									: 'Monthly'
+							}
 						/>
 						<p className={`mt-3 ${styles.frequency}`}>
 							Email Address

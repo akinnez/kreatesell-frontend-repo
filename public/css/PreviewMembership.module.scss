@@ -82,10 +82,10 @@
 
 					.accordion {
 						padding: 1rem 1.2rem;
-						margin-top: .6rem;
+						margin-top: 0.6rem;
 						height: 50vh;
 						overflow-y: scroll;
-						border-radius: .2rem;
+						border-radius: 0.2rem;
 						background-color: #f0f0f0;
 
 						.accordionItem {
@@ -136,8 +136,8 @@
 
 			.right {
 				background-color: white;
-				padding: .6rem;
-				height: 100Vh;
+				padding: 0.6rem;
+				height: 100vh;
 				overflow-y: scroll;
 
 				.card {
@@ -309,11 +309,11 @@
 
 .accessDeniedContainer {
 	border: 12%;
-	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16); 
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16);
 	// height: 25vh;
 	width: 100%;
 	margin-top: 1.5rem;
-	background: #FFFFFF;
+	background: #ffffff;
 	padding: 40px 30px;
 
 	h2 {
@@ -325,19 +325,19 @@
 		font-style: normal;
 		font-weight: 400;
 		font-size: 14px;
-		color: #8C8C8C;
+		color: #8c8c8c;
 	}
 
 	button {
 		border: none;
 		outline: none;
 		padding: 22px 12px;
-		background: #0072EF;
+		background: #0072ef;
 		border-radius: 8px;
 		font-style: normal;
 		font-weight: 700;
 		font-size: 12px;
-		color: #FFFFFF;
+		color: #ffffff;
 	}
 }
 
@@ -560,7 +560,7 @@
 	padding: 1rem 2.3rem;
 
 	.header {
-		&>h2 {
+		& > h2 {
 			font-weight: 600;
 			font-size: 1.5rem;
 			line-height: 32px;
@@ -569,7 +569,7 @@
 			color: #262626;
 		}
 
-		&>p {
+		& > p {
 			font-weight: 400;
 			font-size: 0.875rem;
 			line-height: 24px;
@@ -587,14 +587,14 @@
 			padding: 1rem;
 			margin-bottom: 1rem;
 
-			&>h5 {
+			& > h5 {
 				color: inherit;
 				font-weight: 500;
 				font-size: 1rem;
 				line-height: 26px;
 			}
 
-			&>p {
+			& > p {
 				color: inherit;
 				font-weight: 400;
 				font-size: 0.75rem;

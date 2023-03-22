@@ -276,9 +276,7 @@ export const notificationTime = (timeValue) => {
 	return `${years} years ago`;
 };
 
-
 // for WAT
-
 
 // export const notificationTime = (timeValue) => {
 // 	if (!timeValue) return '';
@@ -307,7 +305,6 @@ export const notificationTime = (timeValue) => {
 // 	if (years === 1) return 'A year ago';
 // 	return `${years} years ago`;
 // };
-
 
 export * from './assets';
 
