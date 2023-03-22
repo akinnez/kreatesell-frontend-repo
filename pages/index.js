@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import {
 	InputButton,
 	Layout,
@@ -9,8 +9,10 @@ import {
 } from '../components';
 import styles from '../public/css/Home.module.scss';
 import Link from 'next/link';
-import useSliderAndGetCurrentValues, {itemPosition} from '../utils/useSlide.js';
+import useSliderAndGetCurrentValues, { itemPosition } from '../utils/useSlide.js';
 import React from 'react';
+import ReactPlayer from 'react-player';
+import LogoImg from 'public/images/logo.svg';
 
 import {
 	RightArrow,
@@ -44,26 +46,33 @@ import {
 	Animate,
 } from '../utils';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 // import Slider from "react-slick";
-import {SubscribeEmailSchema} from '../validation';
-import {useFormik} from 'formik';
-import {GuestSubscription} from '../redux/actions';
-import {useSelector} from 'react-redux';
-import {useGetBlogPosts} from 'services/swrQueryHooks/Blogs';
+import { SubscribeEmailSchema } from '../validation';
+import { useFormik } from 'formik';
+import { GuestSubscription } from '../redux/actions';
+import { useSelector } from 'react-redux';
+import { useGetBlogPosts } from 'services/swrQueryHooks/Blogs';
 
 export default function Home() {
 	const router = useRouter();
-	const {data: blogData, error: blogError} = useGetBlogPosts(4);
+	const { data: blogData, error: blogError } = useGetBlogPosts(4);
 	const [blogPosts, setBlogPosts] = useState([]);
 
 	const [modalVisible, setVisible] = useState(false);
+	const [openVideoModal, setOpenVideoModal] = useState(false)
+
 	const [email, setEmail] = useState('');
 	useEffect(() => {
 		let data = blogData?.slice(0, 6);
 		setBlogPosts(data);
-		return () => {};
+		return () => { };
 	}, [blogData?.length]);
+
+	const handleClose = () => {
+		setOpenVideoModal(false);
+		setVisible(!modalVisible);
+	  };
 
 	const settings = {
 		dots: true,
@@ -127,7 +136,7 @@ export default function Home() {
 									e.preventDefault();
 									router.push({
 										pathname: '/signup',
-										query: {email},
+										query: { email },
 									});
 								}}
 							/>
@@ -298,7 +307,7 @@ export default function Home() {
 								width="194"
 								height="150"
 								alt="create store"
-								// layout="responsive"
+							// layout="responsive"
 							/>
 							<h5 className={styles.howItWorksImgTitle}>
 								Kreate your Store
@@ -310,7 +319,7 @@ export default function Home() {
 						{/* path line */}
 						<div
 							className={styles.lineImageOne}
-							// {...Animate("fade-up", 700, "ease")}
+						// {...Animate("fade-up", 700, "ease")}
 						>
 							<Image src={LineOne} alt="line one" />
 						</div>
@@ -323,7 +332,7 @@ export default function Home() {
 								width="194"
 								height="150"
 								alt="add product"
-								// layout="responsive"
+							// layout="responsive"
 							/>
 							<h5 className={styles.howItWorksImgTitle}>
 								Add Product
@@ -344,7 +353,7 @@ export default function Home() {
 								width="194"
 								height="150"
 								alt="publish"
-								// layout="responsive"
+							// layout="responsive"
 							/>
 							<h5 className={styles.howItWorksImgTitle}>
 								Publish
@@ -446,7 +455,7 @@ export default function Home() {
 							height="150"
 							width="500"
 							alt="right spiral"
-							// layout="responsive"
+						// layout="responsive"
 						/>
 					</div>
 
@@ -513,7 +522,7 @@ export default function Home() {
 									height="420"
 									width="417"
 									alt="payout method"
-									// layout="responsive"
+								// layout="responsive"
 								/>
 							</div>
 							<Image
@@ -536,7 +545,7 @@ export default function Home() {
 							width="500"
 							className={styles.img}
 							alt="left spiral"
-							// layout="responsive"
+						// layout="responsive"
 						/>
 					</div>
 
@@ -721,7 +730,7 @@ export default function Home() {
 								e.preventDefault();
 								router.push({
 									pathname: '/signup',
-									query: {email},
+									query: { email },
 								});
 							}}
 						/>
@@ -733,17 +742,33 @@ export default function Home() {
 					</div>
 				</div>
 
-				<Modal
-					onClose={() => setVisible(!modalVisible)}
-					visible={modalVisible}
-					cancelPropagation={true}
-					containerStyle={styles.modalContainer}
-					closeButton={true}
-					className={styles.modalParent}
-					closeBtnAction={() => setVisible(!modalVisible)}
-				>
-					<OnboardingModal />
-				</Modal>
+				{!openVideoModal && (
+					<Modal
+						onClose={() => setVisible(!modalVisible)}
+						visible={modalVisible}
+						cancelPropagation={true}
+						containerStyle={styles.modalContainer}
+						closeButton={true}
+						className={styles.modalParent}
+						closeBtnAction={() => setVisible(!modalVisible)}
+					>
+						<OnboardingModal setOpenVideoModal={setOpenVideoModal} />
+					</Modal>
+				)}
+
+				{openVideoModal && (
+					<Modal
+						onClose={() => handleClose()}
+						visible={openVideoModal}
+						cancelPropagation={true}
+						containerStyle={styles.videomodalContainer}
+						closeButton={true}
+						className={styles.modalParent}
+						closeBtnAction={() => handleClose()}
+					>
+						<VideoModal />
+					</Modal>
+				)}
 			</div>
 		</Layout>
 	);
@@ -772,7 +797,7 @@ const NewsCard = ({
 			<div className={styles.newsTextCont}>
 				<div className={styles.newsTitle}>
 					<Link href={`/blog/${category}/${postId}`}>
-						<a style={{color: 'black'}}>
+						<a style={{ color: 'black' }}>
 							{mainText}{' '}
 							{drop && (
 								<>
@@ -788,8 +813,9 @@ const NewsCard = ({
 	);
 };
 
-const OnboardingModal = () => {
-	const {loading} = useSelector((state) => state.utils);
+const OnboardingModal = ({ setOpenVideoModal }) => {
+	const { loading } = useSelector((state) => state.utils);
+
 
 	const guestSubscription = GuestSubscription();
 	const initialValues = {
@@ -798,9 +824,10 @@ const OnboardingModal = () => {
 	};
 
 	const handleSubmit = (data) => {
-		guestSubscription(data, () => {
-			window.location.href = 'https://t.me/kreatesell';
-		});
+		setOpenVideoModal(true)
+		// guestSubscription(data, () => {
+		// 	window.location.href = 'https://t.me/kreatesell';
+		// });
 	};
 
 	const formik = useFormik({
@@ -810,7 +837,7 @@ const OnboardingModal = () => {
 		validateOnChange: false,
 	});
 
-	const {errors} = formik;
+	const { errors } = formik;
 
 	return (
 		<form
@@ -860,10 +887,46 @@ const OnboardingModal = () => {
 	);
 };
 
+const VideoModal = () => {
+	const router = useRouter();
+	return (
+		<div className={styles.videoModal}> 
+			<div className='w-full flex items-center justify-center mb-2'>
+				<Image src={LogoImg} alt="logo" width={140} height={35} />
+			</div>
+			<div className='h-full'>
+				<ReactPlayer
+					url="https://youtu.be/0x5giyOpKYw"
+					controls={true}
+					width="100%"
+					height="100%"
+				/>
+			</div>
+			<div className='flex items-center w-full justify-center mt-5'>
+				<div className={styles.videoBtnWhite}>
+					<Button
+						text="Explore features"
+						className={styles.btn}
+					/>
+				</div>
+				<div className={styles.videoBtn}>
+					<Button
+						text="Get Started Free"
+						icon={<RightArrow color="white" />}
+						className={styles.btn}
+						onClick={() => router.push('/signup')}
+					/>
+				</div>
+			</div>
+		</div>
+	)
+}
+
+
 const productsList = ['Digital Products', 'Memberships', 'Subscriptions'];
 
 const ProductsSlide = () => {
-	const {items, index} = useSliderAndGetCurrentValues(productsList, 2000);
+	const { items, index } = useSliderAndGetCurrentValues(productsList, 2000);
 
 	return (
 		<>
@@ -874,9 +937,8 @@ const ProductsSlide = () => {
 					return (
 						<span
 							key={itemIndex}
-							className={`${styles.productItem} ${
-								styles[itemPosition(index, itemIndex, items)]
-							} ${isDigitalProduct ? styles.isDigital : ''}`}
+							className={`${styles.productItem} ${styles[itemPosition(index, itemIndex, items)]
+								} ${isDigitalProduct ? styles.isDigital : ''}`}
 						>
 							{item}
 						</span>

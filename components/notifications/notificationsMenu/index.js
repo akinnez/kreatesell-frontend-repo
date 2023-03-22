@@ -81,16 +81,16 @@ const notificationsMenu = ({notifications, error, count, dispatch, mutate}) => {
 		if (renderNotifications.length === 6) break;
 
 		const notification = notifications[i];
-		const type = notification.notification_type;
+		// const type = notification.notification_type;
 
-		if (!type in notificationTypes) continue;
-		if (notification.is_read) continue;
+		// if (!type in notificationTypes) continue;
+		// if (notification.is_read) continue;
 
-		const name = generateName(notification.name, type);
-		const productName = generateProductName(
-			notification.product_name,
-			type
-		);
+		// const name = generateName(notification.name, type);
+		// const productName = generateProductName(
+		// 	notification.product_name,
+		// 	type
+		// );
 
 		const jsx = (
 			<Menu.Item
@@ -100,13 +100,9 @@ const notificationsMenu = ({notifications, error, count, dispatch, mutate}) => {
 				<Link href="/account/kreator/notifications">
 					<a onClick={() => handleClick(notification)}>
 						<p className={styles.bold}>
-							{type === 'affiliate request'
-								? notificationTypes[type](name, productName)
-								: type === 'approve affiliate'
-								? notificationTypes[type](name)
-								: notificationTypes[type]}
+							{notification?.content}
 						</p>
-						<p>{notificationTime(notification.created_at)}</p>
+						<p>{notificationTime(notification.created_at)}</p> 
 					</a>
 				</Link>
 			</Menu.Item>

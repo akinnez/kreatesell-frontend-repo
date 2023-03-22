@@ -264,6 +264,7 @@ export const notificationTime = (timeValue) => {
 
 	if (seconds < 60) return `${seconds} seconds ago`;
 	if (minutes < 60) return `${minutes} minutes ago`;
+	// if (hours === 24) return `${hours} hour ago`;
 	if (hours < 24) return `${hours} hours ago`;
 	if (days === 1) return 'Yesterday';
 	if (days < 7) return `${days} days ago`;
@@ -274,6 +275,39 @@ export const notificationTime = (timeValue) => {
 	if (years === 1) return 'A year ago';
 	return `${years} years ago`;
 };
+
+
+// for WAT
+
+
+// export const notificationTime = (timeValue) => {
+// 	if (!timeValue) return '';
+
+// 	const parseServerTime = Date.parse(timeValue);
+// 	const milliseconds = Date.now() - parseServerTime + (1 * 60 * 60 * 1000);
+// 	const seconds = Math.floor(milliseconds / 1000);
+// 	const minutes = Math.floor(seconds / 60);
+// 	const hours = Math.floor(minutes / 60);
+// 	const days = Math.floor(hours / 24);
+// 	const weeks = Math.floor(days / 7);
+// 	const months = Math.floor(weeks / 4);
+// 	const years = Math.floor(months / 12);
+
+// 	// console.log(seconds,minutes,hours,'')
+
+// 	if (seconds < 60) return `${seconds} seconds ago`;
+// 	if (minutes < 60) return `${minutes} minutes ago`;
+// 	if (hours < 24) return `${hours} hours ago`;
+// 	if (days === 1) return 'Yesterday';
+// 	if (days < 7) return `${days} days ago`;
+// 	if (weeks === 1) return 'A week ago';
+// 	if (weeks < 4) return `${weeks} weeks ago`;
+// 	if (months === 1) return 'A month ago';
+// 	if (months < 12) return `${months} months ago`;
+// 	if (years === 1) return 'A year ago';
+// 	return `${years} years ago`;
+// };
+
 
 export * from './assets';
 

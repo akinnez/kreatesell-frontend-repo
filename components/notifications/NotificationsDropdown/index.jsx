@@ -8,14 +8,14 @@ import styles from './index.module.scss';
 
 const NotificationsDropdown = () => {
 	const {mutate} = useSWRConfig();
-	const {notifications, error} = useSelector((state) => state.notification);
+	const {notifications, error} = useSelector((state) => state.notification); 
 	const dispatch = useDispatch();
 
 	const count = useUnreadNotificationsCount(notifications);
 
 	return (
 		<Dropdown
-			overlay={notificationsMenu({
+			overlay={notificationsMenu({  
 				notifications,
 				error,
 				count,

@@ -1,15 +1,16 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {useSelector} from 'react-redux';
-import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
-import {useRouter} from 'next/router';
+import { useSelector } from 'react-redux';
+import { AuthGetProductById, GetProductByIDNotAut } from 'redux/actions';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon } from 'utils';
 import BackButton from 'components/BackButton';
 import MembershipCancelAlert from './MembershipCancelAlert';
 import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
 import axios from 'axios';
+import { showToast } from 'utils';
 // import {}
 
 export const baseURL = process.env.BASE_URL;
@@ -24,10 +25,10 @@ const ManageMembership = () => {
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
 
-	// console.log(product?.product_details, 'productproductproductproduct')
+	const BillingFrequency = product?.product_details?.custom_billing_interval_times;
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -35,28 +36,24 @@ const ManageMembership = () => {
 		}
 	}, [router.query.id]);
 
-	// {
-	// 	"customer_email": "string",
-	// 	"product_id": "string"
-	//   }
-
-	// /customer/unsubscribe
 	const productId = router.query.id;
 
 	const handleCancelMembership = async () => {
 		try {
-			// const token = getToken()
-			const response = await axios.post(
+			await axios.post(
 				`${baseURL}v1/customer/unsubscribe`,
 				{
 					customer_email: email,
 					product_id: productId,
 				}
 			);
-			console.log(response, 'testaRES');
-			setShowCancelAlert(true);
+			setShowSuccessCancel(true);
+			window.location.reload()
 		} catch (err) {
-			console.log(err, 'testerr');
+			showToast(
+				err.response.data.message || 'A network error occured',
+				'error'
+			);
 		}
 	};
 
@@ -98,19 +95,20 @@ const ManageMembership = () => {
 					<div className="flex-1"></div>
 				</div>
 
-				<div className="w-full flex justify-center items-center mt-6">
+				<div className="w-full flex justify-center items-center mt-9">
 					<div className={`bg-white ${styles.manageContainer}`}>
 						<h1 className={styles.manageContainerText}>
 							Exixting Membership Details
 						</h1>
-						<p className={styles.membershipAmount}>NGN 5,000</p>
+						<p className={styles.membershipAmount}>NGN {product?.default_price}</p>
 
 						<p className={styles.frequency}>Billing frequency</p>
 
 						<input
 							type="text"
+							disabled
 							className={styles.frequencyInput}
-							placeholder="weekly"
+							placeholder={BillingFrequency === "days" ? "Daily" : BillingFrequency === "weeks" ? "Weekly" : "Monthly"}
 						/>
 						<p className={`mt-3 ${styles.frequency}`}>
 							Email Address
@@ -118,7 +116,7 @@ const ManageMembership = () => {
 						<input
 							type="text"
 							className={styles.emailInput}
-							placeholder="email address"
+							placeholder="Email address"
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 						{/* <div
@@ -157,7 +155,7 @@ const ManageMembership = () => {
 
 						<div
 							className={styles.cancelMembershipContainer}
-							onClick={() => handleCancelMembership()}
+							onClick={() => setShowCancelAlert(true)}
 						>
 							<p className={styles.cancelMemberShipText}>
 								Cancel Membership
@@ -169,6 +167,7 @@ const ManageMembership = () => {
 					<MembershipCancelAlert
 						setShowCancelAlert={setShowCancelAlert}
 						setShowSuccessCancel={setShowSuccessCancel}
+						handleCancelMembership={handleCancelMembership}
 					/>
 				)}
 				{showSuccessCancel && <MembershipCancelSuccessAlert />}
