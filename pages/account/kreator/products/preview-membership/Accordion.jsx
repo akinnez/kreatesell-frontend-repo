@@ -12,6 +12,7 @@ const Accordion = ({
 	setActiveLink,
 	activeLink,
 	product,
+	setActiveSectionName,
 	// pathname,
 }) => {
 	const [isActive, setIsActive] = useState(false);
@@ -29,8 +30,10 @@ const Accordion = ({
 		if (
 			totalPayments < product?.frequency_of_availability &&
 			linkPath !== 'preview-membership'
-		)
+		) {
+			setActiveSectionName(true);
 			return;
+		}
 		setIsActive(!isActive);
 	};
 
