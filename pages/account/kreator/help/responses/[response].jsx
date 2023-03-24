@@ -69,11 +69,11 @@ const CardBody = ({ticketId, ticket}) => {
 		formData.append('Subject', ticket.heading);
 		formData.append('Message', message);
 		formData.append('Department', ticket.department);
-		const reopenUrl = `${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`
-		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply?ticketId=${ticketId}`
+		const reopenUrl = `${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`;
+		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply?ticketId=${ticketId}`;
 		return axios
 			.post(
-			 ticket?.status?.toLowerCase() === 'open' ? replyUrl : reopenUrl,
+				ticket?.status?.toLowerCase() === 'open' ? replyUrl : reopenUrl,
 				formData,
 				{
 					headers: {
