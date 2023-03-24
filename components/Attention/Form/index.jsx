@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { FormError } from "./FormError";
 // import axios from '../../../utils/axios'
 import axios from "axios";
+import { useRouter } from "next/router";
 
 
 const waitListUrl = `${process.env.BASE_URL}v1/kreatesell/utils/waitlist`;
@@ -16,6 +17,7 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
   //   hideAfter: 5,
   //   position: "center",
   // };
+  const router = useRouter()
 
   const initialValues = {
     customer_name: "",
@@ -34,7 +36,8 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
         .then((res) => {
           // console.log(res?.data?.message);
           // DETAILS GO THROUGH, THEN showSubmissionSuccessModal
-          showSubmissionSuccessModal(res?.data?.message);
+          // showSubmissionSuccessModal(res?.data?.message);
+          router.push("/WaitlistSucess")
         })
         .catch(() => {
           // ERROR OCCURRED
