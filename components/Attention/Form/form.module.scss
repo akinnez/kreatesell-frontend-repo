@@ -13,6 +13,8 @@
     margin-top: 0.5rem;
     transition: all 0.2s;
     border: 1px solid transparent;
+    width: 100%;
+    margin-top: 1rem;
     // text-transform: uppercase;
     // font-weight: bolder;
     &:hover {
@@ -31,10 +33,12 @@
 .formBox {
   // max-width: 290px;
   // margin: 0 auto;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: flex-start;
+  // display: flex;
+  // justify-content: flex-start;
+  // flex-direction: column;
+  // align-items: flex-start;
+  border-bottom: 1rem;
+  
   @media (min-width: 400px) {
     // justify-content: space-between;
     align-items: center;
@@ -55,6 +59,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  width: 100%;
   label {
     margin-right: 0.2rem;
     // font-weight: bold;
@@ -86,12 +91,15 @@
 
     &:first-child {
       @media (min-width: 400px) {
-        margin-right: 0.4rem;
+        margin-bottom: 0.4rem;
       }
+    }
+    @media (min-width: 400px) {
+      width: 100%;
     }
     @media (min-width: 1200px) {
       max-width: 400px;
-      width: 250px;
+      width: 100%;
     }
   }
 }

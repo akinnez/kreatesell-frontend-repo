@@ -1,5 +1,5 @@
-import InputBox from "./InputBox";
-import styles from "./form.module.scss"; 
+import InputBox from "./InputBox"; 
+import styles from "./form.module.scss";
 import cogoToast from "cogo-toast";
 import { WaitListSchema } from "../../../validations";
 import { isAnEmpytyObject } from "../../../utils";
@@ -53,14 +53,14 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
   const { errors } = formik;
 
   // state to track error view.
-  
 
- 
+
+
   return (
     <>
-      
-        {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
-      
+
+      {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+
 
       <form className={styles.formMain} onSubmit={formik.handleSubmit}>
         <div className={styles.formBox}>
@@ -78,7 +78,7 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
           />
         </div>
         <button type="submit" className={styles.btn}>
-          Join the wait-list
+         Submit
         </button>
       </form>
     </>
