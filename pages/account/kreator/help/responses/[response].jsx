@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
 import useSWR from 'swr';
 import axios from 'axios';
-const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import EditorToolbar, {
 	modules,
 	formats,
@@ -28,12 +28,12 @@ import {
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 // import {Button} from 'components/button/Button';
-import {Button} from 'antd';
+import { Button } from 'antd';
 import BackButton from 'components/BackButton';
-import {Input} from 'components/input/Input';
+import { Input } from 'components/input/Input';
 import FileUpload from 'components/PostTicket/FileUpload';
 
-const CardBody = ({ticketId, ticket}) => {
+const CardBody = ({ ticketId, ticket }) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
 	const [files, setFiles] = useState([]);
@@ -68,7 +68,7 @@ const CardBody = ({ticketId, ticket}) => {
 		}
 		formData.append('Subject', ticket.heading);
 		formData.append('Message', message);
-		formData.append('Department', router?.query?.department);
+		formData.append('Department', ticket.department);
 		return axios
 			.post(
 				`${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`,
@@ -115,11 +115,10 @@ const CardBody = ({ticketId, ticket}) => {
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
 						<span
-							className={`${styles.status} ${
-								ticket.status === 'Closed'
-									? styles.closed
-									: styles.open
-							}`}
+							className={`${styles.status} ${ticket.status === 'Closed'
+								? styles.closed
+								: styles.open
+								}`}
 						>
 							{ticket.status}
 						</span>
@@ -155,9 +154,8 @@ const CardBody = ({ticketId, ticket}) => {
 						</Button>
 					</div>
 					<section
-						className={`${styles.complainDescription} ${
-							showIssue ? styles.block : styles.hidden
-						}`}
+						className={`${styles.complainDescription} ${showIssue ? styles.block : styles.hidden
+							}`}
 					>
 						<p
 							className={`mt-5 ${styles.description}`}
@@ -186,8 +184,8 @@ const CardBody = ({ticketId, ticket}) => {
 												file-{idx}.
 												{
 													file.split('.')[
-														file.split('.').length -
-															1
+													file.split('.').length -
+													1
 													]
 												}
 											</p>
@@ -338,21 +336,29 @@ const CardBody = ({ticketId, ticket}) => {
 					condition={ticket?.status?.toLowerCase() === 'closed'}
 				>
 					<Button
-						text="Reopen"
-						leftIcon={<Image alt="icon" src={MailReopen} />}
-						className="p-3"
-						bgColor="blue"
+						// leftIcon={}
+						// className="p-5 rounded-lg"
+						type="primary"
+						htmlType="submit"
+						size="large"
+						// bgColor="blue"
 						onClick={handleReopen}
-					/>
+					>
+						<span className="mr-3">Reopen</span>
+						<Image alt="icon" src={MailReopen} />
+					</Button>
 				</RenderIf>
 				<RenderIf condition={ticket?.status?.toLowerCase() === 'open'}>
 					<Button
-						text="Reply"
-						leftIcon={<Image alt="icon" src={MailReopen} />}
-						className="p-3"
-						bgColor="blue"
+						// leftIcon={}
+						className="p-5 rounded-lg"
+						size="large"
+						type="primary"
 						onClick={handleReopen}
-					/>
+					>
+						<span className="mr-3">Reply</span>
+						<Image alt="icon" src={MailReopen} />
+					</Button>
 				</RenderIf>
 			</div>
 			<RenderIf condition={reopenSection}>
@@ -367,7 +373,7 @@ const CardBody = ({ticketId, ticket}) => {
 							placeholder={
 								'Write the details of your ticket here'
 							}
-							style={{height: '200px'}}
+							style={{ height: '200px' }}
 							modules={modules}
 							formats={formats}
 						/>
@@ -477,7 +483,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody {...{ticketId, ticket}} />
+					<CardBody {...{ ticketId, ticket }} />
 				</div>
 			</AuthLayout>
 		</>
