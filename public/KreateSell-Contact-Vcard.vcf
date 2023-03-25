@@ -1,0 +1,50 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Kreatesell Business
+N:Business;Kreatesell;;;
+item1.EMAIL;TYPE=INTERNET:business@kreatesell.com
+item1.X-ABLabel:
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Kreatesell Help
+N:Help;Kreatesell ;;;
+item1.EMAIL;TYPE=INTERNET:help@kreatesell.com
+item1.X-ABLabel:
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Kreatesell Info
+N:Info;Kreatesell ;;;
+item1.EMAIL;TYPE=INTERNET:info@kreatesell.com
+item1.X-ABLabel:
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Kreatesell LTD
+N:LTD;Kreatesell;;;
+item1.EMAIL;TYPE=INTERNET:hello@kreatesell.com
+item1.X-ABLabel:
+PHOTO:https://lh3.googleusercontent.com/contacts/ABsqplvbSNjvefE9ewVUCGdK0U
+ lWYycQossxTiQvSPawmd4usbizwrCi
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Kreatesell Payments
+N:;Kreatesell Payments;;;
+item1.EMAIL;TYPE=INTERNET:payment@kreatesell.com
+item1.X-ABLabel:
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Kreatesell Support
+N:;Kreatesell Support;;;
+item1.EMAIL;TYPE=INTERNET:support@kreatesell.com
+item1.X-ABLabel:
+CATEGORIES:myContacts
+END:VCARD
