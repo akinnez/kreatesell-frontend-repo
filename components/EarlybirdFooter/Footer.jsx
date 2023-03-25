@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Image from 'next/image';
+import Link from 'next/link';
+import {useRouter} from 'next/router';
 import {
 	FooterBrand,
 	Location,
@@ -11,8 +11,8 @@ import {
 	LinkedIcon,
 	TwitterIcon,
 	WhatsappIcon,
-} from "../../utils"; 
-import styles from "./Footer.module.scss";
+} from '../../utils';
+import styles from './Footer.module.scss';
 
 export const Footer = () => {
 	const router = useRouter();
@@ -21,7 +21,10 @@ export const Footer = () => {
 		<footer className={styles.footer}>
 			<div className={styles.footerCont}>
 				<div className={styles.brand}>
-					<div className={styles.brandTitle} onClick={() => router.push("/")}>
+					<div
+						className={styles.brandTitle}
+						onClick={() => router.push('/')}
+					>
 						<Image src={FooterBrand} alt="kreatesell" />
 					</div>
 
@@ -123,7 +126,9 @@ export const Footer = () => {
 							<a>Tutorials</a>
 						</Link>
 						{/* <Link href="#"> */}
-						<a href="https://wa.me/+2349016324945">Contact Support</a>
+						<a href="https://wa.me/+2349016324945">
+							Contact Support
+						</a>
 						{/* </Link> */}
 						<Link href="/faq">
 							<a>FAQ</a>
@@ -224,7 +229,9 @@ export const Footer = () => {
 								<a>Tutorials</a>
 							</Link>
 							{/* <Link href="#"> */}
-							<a href="https://wa.me/+2349016324945">Contact Support</a>
+							<a href="https://wa.me/+2349016324945">
+								Contact Support
+							</a>
 							{/* </Link> */}
 							<Link href="#">
 								<a>FAQ</a>
@@ -266,7 +273,11 @@ export const Footer = () => {
 					<div className={styles.engageUs}>Engage with us</div>
 
 					<div className={styles.mobileSocialLinks}>
-						<Image src={FBIcon} alt="kreatesell facebook" className="cursor" />
+						<Image
+							src={FBIcon}
+							alt="kreatesell facebook"
+							className="cursor"
+						/>
 						<Image
 							src={InstaIcon}
 							alt="kreatesell instagram"
@@ -289,14 +300,17 @@ export const Footer = () => {
 						/>
 					</div>
 
-					<div className={styles.mobileAddress}>	KREATESELL LTD <br />
+					<div className={styles.mobileAddress}>
+						{' '}
+						KREATESELL LTD <br />
 						17TH FLOOR, COCOA HOUSE, <br />
 						LIEBU BYPASS, DUGBE, IBADAN 200263
-						<br /> <span>Phone: +2349062002777</span></div>
+						<br /> <span>Phone: +2349062002777</span>
+					</div>
 
 					<div className={styles.mobileCopyright}>
-						Copyright &copy; {new Date().getFullYear()} Kreatesell. All Rights
-						Reserved
+						Copyright &copy; {new Date().getFullYear()} Kreatesell.
+						All Rights Reserved
 					</div>
 				</div>
 			</div>

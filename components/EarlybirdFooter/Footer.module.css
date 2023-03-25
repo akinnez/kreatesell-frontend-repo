@@ -1,199 +1,206 @@
-.base-link, .brandContact a, .categoryLink a {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.775rem;
-  line-height: 1.5rem;
-  color: #d9dbe1;
-  text-decoration: none;
+.base-link,
+.brandContact a,
+.categoryLink a {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.775rem;
+	line-height: 1.5rem;
+	color: #d9dbe1;
+	text-decoration: none;
 }
 
-.base-link:hover, .brandContact a:hover, .categoryLink a:hover {
-  color: #ffffff;
+.base-link:hover,
+.brandContact a:hover,
+.categoryLink a:hover {
+	color: #ffffff;
 }
 
 .footer {
-  font-family: "Manrope", sans-serif;
-  background-color: #003a8c;
-  padding: 6rem 10.31rem;
+	font-family: 'Manrope', sans-serif;
+	background-color: #003a8c;
+	padding: 6rem 10.31rem;
 }
 
 .footer .footerCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
 }
 
 @media screen and (max-width: 768px) {
-  .footer .footerCont {
-    display: none;
-  }
+	.footer .footerCont {
+		display: none;
+	}
 }
 
 .brand {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
 }
 
 .brandTitle {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .brandContact {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0.6rem 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 0.6rem 0;
 }
 
 .brandContactIcon {
-  padding-right: 0.5rem;
-  cursor: pointer;
+	padding-right: 0.5rem;
+	cursor: pointer;
 }
 
 .categoryTitle {
-  color: #ffffff;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.75rem;
-  margin-bottom: 0.5rem;
+	color: #ffffff;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.75rem;
+	margin-bottom: 0.5rem;
 }
 
 .categoryLink {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
 }
 
 .categoryLink a {
-  padding-bottom: 0.5rem;
+	padding-bottom: 0.5rem;
 }
 
 .subFooter {
-  background-color: #e6f7ff;
-  text-align: center;
-  padding: 3rem 0;
+	background-color: #e6f7ff;
+	text-align: center;
+	padding: 3rem 0;
 }
 
 .subFooter h3 {
-  margin: 0;
-  font-weight: 700;
-  font-size: 2.5rem;
-  line-height: 3.375rem;
-  margin-bottom: 2.5rem;
-  text-align: center;
-  color: #0072ef;
+	margin: 0;
+	font-weight: 700;
+	font-size: 2.5rem;
+	line-height: 3.375rem;
+	margin-bottom: 2.5rem;
+	text-align: center;
+	color: #0072ef;
 }
 
 @media screen and (max-width: 425px) {
-  .subFooter {
-    display: none;
-  }
+	.subFooter {
+		display: none;
+	}
 }
 
 .mobileFooter {
-  display: none;
-  padding: 0;
+	display: none;
+	padding: 0;
 }
 
 @media screen and (max-width: 768px) {
-  .footer {
-    padding: 0 1.5rem;
-    padding-top: 3.1875rem;
-    width: 100%;
-  }
-  .footer .mobileFooter {
-    padding-bottom: 4rem;
-    display: block;
-  }
-  .footer .mobileFooter .firstRowA {
-    width: 50%;
-  }
-  .footer .mobileFooter .firstRowB {
-    width: 50%;
-  }
-  .footer .mobileFooter .firstRow {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  .footer .mobileFooter .secondRow {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding-top: 3.75rem;
-  }
-  .footer .mobileFooter .thinLine {
-    margin: 0 5%;
-    margin-top: 2rem;
-    border: 1px solid #d9d9d9;
-    height: 0px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  .footer .mobileFooter .brandMobile {
-    text-align: center;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    margin-top: 2rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .footer .mobileFooter .brandMobile .mobileFooterText, .footer .mobileFooter .brandMobile .mobileFooterEmail, .footer .mobileFooter .brandMobile .engageUs, .footer .mobileFooter .brandMobile .mobileAddress {
-    font-weight: 500;
-    font-size: 0.875rem;
-    line-height: 1.625rem;
-    color: #d9dbe1;
-  }
-  .footer .mobileFooter .brandMobile .mobileFooterEmail {
-    text-decoration: none;
-    padding-top: 1.5rem;
-  }
-  .footer .mobileFooter .brandMobile .engageUs {
-    padding-top: 1rem;
-  }
-  .footer .mobileFooter .brandMobile .mobileSocialLinks {
-    margin: 1rem 5rem 1.25rem 4rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-  }
-  .footer .mobileFooter .brandMobile .mobileCopyright {
-    font-size: 0.75rem;
-    line-height: 1.5rem;
-    color: #d9dbe1;
-  }
+	.footer {
+		padding: 0 1.5rem;
+		padding-top: 3.1875rem;
+		width: 100%;
+	}
+	.footer .mobileFooter {
+		padding-bottom: 4rem;
+		display: block;
+	}
+	.footer .mobileFooter .firstRowA {
+		width: 50%;
+	}
+	.footer .mobileFooter .firstRowB {
+		width: 50%;
+	}
+	.footer .mobileFooter .firstRow {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.footer .mobileFooter .secondRow {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		padding-top: 3.75rem;
+	}
+	.footer .mobileFooter .thinLine {
+		margin: 0 5%;
+		margin-top: 2rem;
+		border: 1px solid #d9d9d9;
+		height: 0px;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.footer .mobileFooter .brandMobile {
+		text-align: center;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		margin-top: 2rem;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+	.footer .mobileFooter .brandMobile .mobileFooterText,
+	.footer .mobileFooter .brandMobile .mobileFooterEmail,
+	.footer .mobileFooter .brandMobile .engageUs,
+	.footer .mobileFooter .brandMobile .mobileAddress {
+		font-weight: 500;
+		font-size: 0.875rem;
+		line-height: 1.625rem;
+		color: #d9dbe1;
+	}
+	.footer .mobileFooter .brandMobile .mobileFooterEmail {
+		text-decoration: none;
+		padding-top: 1.5rem;
+	}
+	.footer .mobileFooter .brandMobile .engageUs {
+		padding-top: 1rem;
+	}
+	.footer .mobileFooter .brandMobile .mobileSocialLinks {
+		margin: 1rem 5rem 1.25rem 4rem;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+	.footer .mobileFooter .brandMobile .mobileCopyright {
+		font-size: 0.75rem;
+		line-height: 1.5rem;
+		color: #d9dbe1;
+	}
 }
 /*# sourceMappingURL=Footer.module.css.map */

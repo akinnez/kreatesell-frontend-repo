@@ -1,6 +1,6 @@
-import { RightArrow } from "../../utils";
-import { InputButton } from "../inputButton/InputButton";
-import styles from "./Footer.module.scss";
+import {RightArrow} from '../../utils';
+import {InputButton} from '../inputButton/InputButton';
+import styles from './Footer.module.scss';
 
 export const SubFooter = () => {
 	return (

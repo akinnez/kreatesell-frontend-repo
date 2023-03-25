@@ -1,10 +1,10 @@
-import styles from "./formError.module.scss";
+import styles from './formError.module.scss';
 
-export const FormError = ({ errors }) => {
-  const error = Object.values(errors)?.map((data) => data);
-  return (
-    <div className={styles.error}>
-      <p>{error?.[0]}</p>
-    </div>
-  );
+export const FormError = ({errors}) => {
+	const error = Object.values(errors)?.map((data) => data);
+	return (
+		<div className={styles.error}>
+			<p>{error?.[0]}</p>
+		</div>
+	);
 };
