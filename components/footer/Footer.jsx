@@ -57,7 +57,7 @@ export const Footer = () => {
 						<div className={styles.brandContactIcon}>
 							<Image src={Location} alt="location" />
 						</div>
-						<a
+						{/* <a
 							className="text"
 							rel="noopener noreferrer"
 							target="blank"
@@ -67,7 +67,8 @@ export const Footer = () => {
 							17TH FLOOR, COCOA HOUSE, <br />
 							LIEBU BYPASS, DUGBE, IBADAN 200263
 							<br /> <span>Phone: +2349062002777</span>
-						</a>
+						</a> */}
+						<p style={{color:'white'}}>Nigeria | Ghana | Kenya | USA</p>
 					</div>
 				</div>
 
@@ -288,11 +289,12 @@ export const Footer = () => {
 							className="cursor"
 						/>
 					</div>
+					<p style={{color:'white'}}>Nigeria | Ghana | Kenya | USA</p>
 
-					<div className={styles.mobileAddress}>	KREATESELL LTD <br />
+					{/* <div className={styles.mobileAddress}>	KREATESELL LTD <br />
 						17TH FLOOR, COCOA HOUSE, <br />
 						LIEBU BYPASS, DUGBE, IBADAN 200263
-						<br /> <span>Phone: +2349062002777</span></div>
+						<br /> <span>Phone: +2349062002777</span></div> */}
 
 					<div className={styles.mobileCopyright}>
 						Copyright &copy; {new Date().getFullYear()} Kreatesell. All Rights
