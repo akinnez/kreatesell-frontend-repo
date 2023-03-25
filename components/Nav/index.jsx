@@ -20,7 +20,7 @@ export const Navbar = () => {
             <Logo />
           </a>
         </Link>
-        <div className={styles.MobileLogo} onClick={() => router.push("/")}>
+        <div className={styles.MobileLogo} onClick={() => router.push("/earlybird")}>
           <MobileLogo />
         </div>
         <SocialIcons />
