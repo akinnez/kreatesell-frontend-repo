@@ -8,7 +8,7 @@ const MainAttention = (props) => {
   const { setShowModal } = props
   return (
     <section className={styles.container}>
-      <p className={styles.subheader}>Be the first to know</p>
+      <p className={styles.subheader}>Be the first to use it!</p>
       <motion.h1
         className={styles.mainHeading}
         variants={projectCardVariant(1, 0)}
@@ -29,7 +29,7 @@ const MainAttention = (props) => {
         <button type="submit" className={styles.btn} onClick={()=> setShowModal(true)}> 
           Join For Free Now!
         </button>
-        <p className={styles.offer__end}>Offer ends before Launch!</p>
+        <p className={styles.offer__end}>Offer ends soon!</p>
         {/* <Form {...props} />  */}
       </motion.div>
     </section>

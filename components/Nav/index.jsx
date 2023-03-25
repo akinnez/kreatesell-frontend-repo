@@ -15,7 +15,7 @@ export const Navbar = () => {
         {...variantProps}
         variants={pageVariant(1, 0)}
       >
-        <Link href="/">
+        <Link href="/earlybird">
           <a className={styles.imgCont}>
             <Logo />
           </a>
