@@ -69,3 +69,18 @@ export default function Home() {
     </>
   );
 }
+
+
+const Title = ({ text }) => <h1 className={styles.heading}>{text}</h1>;
+
+
+const Content = () => (
+  <p className={styles.content}>
+    You&rsquo;ll be alerted immediately{" "}
+    <span className={styles.blue}>Kreate</span>
+    <span className={styles.green}>Sell</span> launches.
+  </p>
+);
+
+
+const FinalMsg = ({ text }) => <p className={styles.content}>{text}</p>
