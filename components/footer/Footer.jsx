@@ -11,7 +11,7 @@ import {
 	LinkedIcon,
 	TwitterIcon,
 	WhatsappIcon,
-} from "../../utils";
+} from "../../utils"; 
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {
