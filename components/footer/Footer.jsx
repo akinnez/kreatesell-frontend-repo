@@ -11,7 +11,7 @@ import {
 	LinkedIcon,
 	TwitterIcon,
 	WhatsappIcon,
-} from "../../utils"; 
+} from "../../utils";
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {
@@ -39,7 +39,7 @@ export const Footer = () => {
 						</a>
 					</div>
 
-					<div className={styles.brandContact}>
+					{/* <div className={styles.brandContact}>
 						<div className={styles.brandContactIcon}>
 							<Image src={Mobile} alt="mobile" />
 						</div>
@@ -51,7 +51,7 @@ export const Footer = () => {
 						>
 							+2347019875432
 						</a>
-					</div>
+					</div> */}
 
 					<div className={styles.brandContact}>
 						<div className={styles.brandContactIcon}>
@@ -68,7 +68,7 @@ export const Footer = () => {
 							LIEBU BYPASS, DUGBE, IBADAN 200263
 							<br /> <span>Phone: +2349062002777</span>
 						</a> */}
-						<p style={{color:'white'}}>Nigeria | Ghana | Kenya | USA</p>
+						<p style={{ color: 'white' }}>Nigeria | Ghana | Kenya | USA</p>
 					</div>
 				</div>
 
@@ -289,7 +289,12 @@ export const Footer = () => {
 							className="cursor"
 						/>
 					</div>
-					<p style={{color:'white'}}>Nigeria | Ghana | Kenya | USA</p>
+					<div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+						<div className={styles.brandContactIcon}>
+							<Image src={Location} alt="location" />
+						</div>
+						<p style={{ color: 'white' }}>Nigeria | Ghana | Kenya | USA</p>
+					</div>
 
 					{/* <div className={styles.mobileAddress}>	KREATESELL LTD <br />
 						17TH FLOOR, COCOA HOUSE, <br />
