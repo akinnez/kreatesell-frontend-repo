@@ -100,6 +100,7 @@ export const SalesPageModal = ({
 					}}
 					loading={addSalesPageLoading}
 				/>
+				<div className={styles.view_guide}>View guide</div>
 			</Modal>
 		);
 	}

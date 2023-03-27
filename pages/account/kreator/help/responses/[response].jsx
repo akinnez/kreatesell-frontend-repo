@@ -64,13 +64,24 @@ const CardBody = ({ticketId, ticket}) => {
 		}
 		const formData = new FormData();
 		for (let i = 0; i < uploadingFiles.length; i++) {
-			formData.append('ImagePaths', uploadingFiles[i]);
+			ticket?.status?.toLowerCase() === 'open'
+				? formData.append('Replyfiles', uploadingFiles[i])
+				: formData.append('ImagePaths', uploadingFiles[i]);
 		}
-		formData.append('Subject', ticket.heading);
-		formData.append('Message', message);
-		formData.append('Department', ticket.department);
+		ticket?.status?.toLowerCase() !== 'open' &&
+			formData.append('Subject', ticket.heading);
+		ticket?.status?.toLowerCase() === 'open'
+			? formData.append('Reply', message)
+			: formData.append('Message', message);
+		ticket?.status?.toLowerCase() !== 'open' &&
+			formData.append('Department', ticket.department);
+
+		ticket?.status?.toLowerCase() === 'open' &&
+			formData.append('Id', ticketId);
+
 		const reopenUrl = `${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`;
-		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply?ticketId=${ticketId}`;
+		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply`;
+
 		return axios
 			.post(
 				ticket?.status?.toLowerCase() === 'open' ? replyUrl : reopenUrl,

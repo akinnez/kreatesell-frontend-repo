@@ -159,13 +159,21 @@ const ManageMembership = () => {
 							</div>
 						</div> */}
 
-						<div
-							className={styles.cancelMembershipContainer}
-							onClick={() => setShowCancelAlert(true)}
-						>
-							<p className={styles.cancelMemberShipText}>
-								Cancel Membership
-							</p>
+						<div className={styles.manageMembershipContainer}>
+							<div
+								className={styles.makePaymentContainer}
+								onClick={() =>
+									router.push(`/checkout/${productId}`)
+								}
+							>
+								<p>Make payment</p>
+							</div>
+							<div
+								className={styles.cancelMembershipContainer}
+								onClick={() => setShowCancelAlert(true)}
+							>
+								<p>Cancel Membership</p>
+							</div>
 						</div>
 					</div>
 				</div>
