@@ -27,9 +27,8 @@ const PreviewMembership = () => {
 	const [activeLink, setActiveLink] = useState({});
 
 	// console.log(activeLink, 'activeLink');
-	const [activeSelectedSectionId, setActiveSelectedSectionId] = useState(
-		null
-	);
+	const [activeSelectedSectionId, setActiveSelectedSectionId] =
+		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
 
@@ -218,8 +217,7 @@ const PreviewMembership = () => {
 								<div
 									className={styles.sectionName}
 									dangerouslySetInnerHTML={{
-										__html:
-											activeLink?.product_section_description,
+										__html: activeLink?.product_section_description,
 									}}
 								/>
 							</Card>
