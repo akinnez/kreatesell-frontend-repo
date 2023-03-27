@@ -464,7 +464,6 @@
 	}
 }
 
-
 .cancelMembershipModal {
 	background-color: rgba(0, 0, 0, 0.62);
 }
@@ -587,7 +586,7 @@
 	padding: 1rem 2.3rem;
 
 	.header {
-		&>h2 {
+		& > h2 {
 			font-weight: 600;
 			font-size: 1.5rem;
 			line-height: 32px;
@@ -596,7 +595,7 @@
 			color: #262626;
 		}
 
-		&>p {
+		& > p {
 			font-weight: 400;
 			font-size: 0.875rem;
 			line-height: 24px;
@@ -614,14 +613,14 @@
 			padding: 1rem;
 			margin-bottom: 1rem;
 
-			&>h5 {
+			& > h5 {
 				color: inherit;
 				font-weight: 500;
 				font-size: 1rem;
 				line-height: 26px;
 			}
 
-			&>p {
+			& > p {
 				color: inherit;
 				font-weight: 400;
 				font-size: 0.75rem;
