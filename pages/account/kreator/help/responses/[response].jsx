@@ -27,7 +27,8 @@ import {
 	showToast,
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
-import {Button} from 'components/button/Button';
+// import {Button} from 'components/button/Button';
+import {Button} from 'antd';
 import BackButton from 'components/BackButton';
 import {Input} from 'components/input/Input';
 import FileUpload from 'components/PostTicket/FileUpload';
@@ -67,10 +68,12 @@ const CardBody = ({ticketId, ticket}) => {
 		}
 		formData.append('Subject', ticket.heading);
 		formData.append('Message', message);
-		formData.append('Department', router?.query?.department);
+		formData.append('Department', ticket.department);
+		const reopenUrl = `${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`;
+		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply?ticketId=${ticketId}`;
 		return axios
 			.post(
-				`${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`,
+				ticket?.status?.toLowerCase() === 'open' ? replyUrl : reopenUrl,
 				formData,
 				{
 					headers: {
@@ -142,20 +145,16 @@ const CardBody = ({ticketId, ticket}) => {
 							{ticket?.heading}
 						</h2>
 						<Button
-							text="Show Message"
-							icon={
-								!showIssue ? (
-									<Image
-										src={CollapseArrowRight}
-										alt="icon"
-									/>
-								) : (
-									<Image src={CollapseArrowDown} alt="icon" />
-								)
-							}
 							className="p-2"
 							onClick={() => setShowIssue((prev) => !prev)}
-						/>
+						>
+							<span className="mr-3">Show Message</span>
+							{!showIssue ? (
+								<Image src={CollapseArrowRight} alt="icon" />
+							) : (
+								<Image src={CollapseArrowDown} alt="icon" />
+							)}
+						</Button>
 					</div>
 					<section
 						className={`${styles.complainDescription} ${
@@ -243,7 +242,7 @@ const CardBody = ({ticketId, ticket}) => {
 								</div>
 							</RenderIf>
 							{/*TODO: Make it's own component */}
-							<div
+							{/* <div
 								className={`mb-10 ${styles.complainContainer}`}
 							>
 								<div
@@ -292,7 +291,7 @@ const CardBody = ({ticketId, ticket}) => {
 									>
 										Attachments (
 										{ticket?.uploaded_image_list?.length})
-										{/* files */}
+									
 										{Array.isArray(
 											ticket?.uploaded_image_list
 										) &&
@@ -333,7 +332,7 @@ const CardBody = ({ticketId, ticket}) => {
 											)}
 									</div>
 								</section>
-							</div>
+							</div> */}
 						</div>
 					))}
 				</RenderIf>
@@ -341,21 +340,29 @@ const CardBody = ({ticketId, ticket}) => {
 					condition={ticket?.status?.toLowerCase() === 'closed'}
 				>
 					<Button
-						text="Repopen"
-						leftIcon={<Image alt="icon" src={MailReopen} />}
-						className="p-3"
-						bgColor="blue"
+						// leftIcon={}
+						// className="p-5 rounded-lg"
+						type="primary"
+						htmlType="submit"
+						size="large"
+						// bgColor="blue"
 						onClick={handleReopen}
-					/>
+					>
+						<span className="mr-3">Reopen</span>
+						<Image alt="icon" src={MailReopen} />
+					</Button>
 				</RenderIf>
 				<RenderIf condition={ticket?.status?.toLowerCase() === 'open'}>
 					<Button
-						text="Reply"
-						leftIcon={<Image alt="icon" src={MailReopen} />}
-						className="p-3"
-						bgColor="blue"
+						// leftIcon={}
+						className="p-5 rounded-lg"
+						size="large"
+						type="primary"
 						onClick={handleReopen}
-					/>
+					>
+						<span className="mr-3">Reply</span>
+						<Image alt="icon" src={MailReopen} />
+					</Button>
 				</RenderIf>
 			</div>
 			<RenderIf condition={reopenSection}>
@@ -385,21 +392,28 @@ const CardBody = ({ticketId, ticket}) => {
 						setUploadingFiles={setUploadingFiles}
 					/>
 					<br />
-					<div style={{marginTop: '6px'}}>
+					<div className={styles.digitalBtn}>
 						<Button
 							disabled={false || files?.length > 5}
-							bgColor="blue"
-							text="Submit Response"
-							className="p-2"
+							// bgColor="blue"
+							// text="Submit Response"
+							className="p-2 rounded-lg"
+							type="primary"
+							htmlType="submit"
+							loading={submitting}
 							onClick={() => handleSubmit()}
-						/>
+						>
+							Submit Response
+						</Button>
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						<Button
 							disabled={false}
-							text="Cancel"
+							// text="Cancel"
 							className={styles.cancelSubmit}
 							onClick={() => router.back()}
-						/>
+						>
+							Cancel
+						</Button>
 					</div>
 				</div>
 			</RenderIf>
@@ -407,6 +421,19 @@ const CardBody = ({ticketId, ticket}) => {
 	);
 };
 
+{
+	/* <Button
+						type="primary"
+						htmlType="submit" 
+						loading={loading} 
+						// disabled={(compareToPrice && noMatchingCurrency) || !isOpMoreThanSp}
+						disabled={disableButton() || isGreaterthanSug} 
+					>
+						{productType === 'Digital Download'
+							? 'Save and Preview'
+							: 'Save and Continue'}
+					</Button> */
+}
 const Index = (props) => {
 	const ticketsURL = (id) =>
 		`${process.env.BASE_URL}tickets/kreator/fetch/${id}`;

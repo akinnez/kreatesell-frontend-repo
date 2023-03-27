@@ -11,6 +11,8 @@ import styles from '../public/css/Home.module.scss';
 import Link from 'next/link';
 import useSliderAndGetCurrentValues, {itemPosition} from '../utils/useSlide.js';
 import React from 'react';
+import ReactPlayer from 'react-player';
+import LogoImg from 'public/images/logo.svg';
 
 import {
 	RightArrow,
@@ -58,12 +60,19 @@ export default function Home() {
 	const [blogPosts, setBlogPosts] = useState([]);
 
 	const [modalVisible, setVisible] = useState(false);
+	const [openVideoModal, setOpenVideoModal] = useState(false);
+
 	const [email, setEmail] = useState('');
 	useEffect(() => {
 		let data = blogData?.slice(0, 6);
 		setBlogPosts(data);
 		return () => {};
 	}, [blogData?.length]);
+
+	const handleClose = () => {
+		setOpenVideoModal(false);
+		setVisible(!modalVisible);
+	};
 
 	const settings = {
 		dots: true,
@@ -733,17 +742,35 @@ export default function Home() {
 					</div>
 				</div>
 
-				<Modal
-					onClose={() => setVisible(!modalVisible)}
-					visible={modalVisible}
-					cancelPropagation={true}
-					containerStyle={styles.modalContainer}
-					closeButton={true}
-					className={styles.modalParent}
-					closeBtnAction={() => setVisible(!modalVisible)}
-				>
-					<OnboardingModal />
-				</Modal>
+				{!openVideoModal && (
+					<Modal
+						onClose={() => setVisible(!modalVisible)}
+						visible={modalVisible}
+						cancelPropagation={true}
+						containerStyle={styles.modalContainer}
+						closeButton={true}
+						className={styles.modalParent}
+						closeBtnAction={() => setVisible(!modalVisible)}
+					>
+						<OnboardingModal
+							setOpenVideoModal={setOpenVideoModal}
+						/>
+					</Modal>
+				)}
+
+				{openVideoModal && (
+					<Modal
+						onClose={() => handleClose()}
+						visible={openVideoModal}
+						cancelPropagation={true}
+						containerStyle={styles.videomodalContainer}
+						closeButton={true}
+						className={styles.modalParent}
+						closeBtnAction={() => handleClose()}
+					>
+						<VideoModal />
+					</Modal>
+				)}
 			</div>
 		</Layout>
 	);
@@ -788,7 +815,7 @@ const NewsCard = ({
 	);
 };
 
-const OnboardingModal = () => {
+const OnboardingModal = ({setOpenVideoModal}) => {
 	const {loading} = useSelector((state) => state.utils);
 
 	const guestSubscription = GuestSubscription();
@@ -798,9 +825,10 @@ const OnboardingModal = () => {
 	};
 
 	const handleSubmit = (data) => {
-		guestSubscription(data, () => {
-			window.location.href = 'https://t.me/kreatesell';
-		});
+		setOpenVideoModal(true);
+		// guestSubscription(data, () => {
+		// 	window.location.href = 'https://t.me/kreatesell';
+		// });
 	};
 
 	const formik = useFormik({
@@ -857,6 +885,38 @@ const OnboardingModal = () => {
 				loading={loading}
 			/>
 		</form>
+	);
+};
+
+const VideoModal = () => {
+	const router = useRouter();
+	return (
+		<div className={styles.videoModal}>
+			<div className="w-full flex items-center justify-center mb-2">
+				<Image src={LogoImg} alt="logo" width={140} height={35} />
+			</div>
+			<div className="h-full">
+				<ReactPlayer
+					url="https://youtu.be/0x5giyOpKYw"
+					controls={true}
+					width="100%"
+					height="100%"
+				/>
+			</div>
+			<div className="flex items-center w-full justify-center mt-5">
+				<div className={styles.videoBtnWhite}>
+					<Button text="Explore features" className={styles.btn} />
+				</div>
+				<div className={styles.videoBtn}>
+					<Button
+						text="Get Started Free"
+						icon={<RightArrow color="white" />}
+						className={styles.btn}
+						onClick={() => router.push('/signup')}
+					/>
+				</div>
+			</div>
+		</div>
 	);
 };
 

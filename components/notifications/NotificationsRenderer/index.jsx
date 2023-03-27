@@ -11,22 +11,12 @@ const NotificationsRenderer = ({notifications}) => {
 	const count = useUnreadNotificationsCount(notifications);
 
 	const notificationsList = useMemo(() => {
-		return notifications.reduce((list, notification) => {
-			const type = notification.notification_type;
-			const typeExists = type in notificationTypes;
-			if (!typeExists) return list;
-
-			const jsx = (
-				<NotificationsItem
-					key={notification.id}
-					notification={notification}
-				/>
-			);
-
-			list.push(jsx);
-
-			return list;
-		}, []);
+		return notifications.map((notification) => (
+			<NotificationsItem
+				key={notification.id}
+				notification={notification}
+			/>
+		));
 	}, [notifications]);
 
 	return (

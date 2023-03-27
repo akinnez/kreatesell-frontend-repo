@@ -68,6 +68,7 @@
 					height: 100%;
 					overflow-y: scroll;
 					position: relative;
+
 					.mainTitle {
 						font-weight: 600;
 						font-size: 24px;
@@ -80,7 +81,12 @@
 					}
 
 					.accordion {
-						padding: 1rem 0.5rem;
+						padding: 1rem 1.2rem;
+						margin-top: 0.6rem;
+						height: 50vh;
+						overflow-y: scroll;
+						border-radius: 0.2rem;
+						background-color: #f0f0f0;
 
 						.accordionItem {
 							.accordionTitle {
@@ -129,6 +135,11 @@
 			}
 
 			.right {
+				background-color: white;
+				padding: 0.6rem;
+				height: 100vh;
+				overflow-y: scroll;
+
 				.card {
 					.sectionName {
 						font-weight: 500;
@@ -238,10 +249,10 @@
 	background: #f0f0f0;
 	border-radius: 8px;
 	cursor: pointer;
-	position: fixed;
-	top: 90%;
-	z-index: 99;
-	width: 400px;
+	// position: fixed;
+	// top: 90%;
+	// z-index: 99;
+	width: 100%;
 }
 
 .manageMembershipText {
@@ -294,6 +305,40 @@
 
 	// text-align: center;
 	color: #00b140;
+}
+
+.accessDeniedContainer {
+	border: 12%;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16);
+	// height: 25vh;
+	width: 100%;
+	margin-top: 1.5rem;
+	background: #ffffff;
+	padding: 40px 30px;
+
+	h2 {
+		font-weight: 500;
+		color: #262626;
+		font-size: 24px;
+	}
+	p {
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+		color: #8c8c8c;
+	}
+
+	button {
+		border: none;
+		outline: none;
+		padding: 22px 12px;
+		background: #0072ef;
+		border-radius: 8px;
+		font-style: normal;
+		font-weight: 700;
+		font-size: 12px;
+		color: #ffffff;
+	}
 }
 
 .frequency {
@@ -376,7 +421,7 @@
 }
 
 .cancelMembershipContainer {
-	margin-top: 20px;
+	margin-top: 2rem;
 	border: 1px solid #ff4d4f;
 	padding: 10px 0px;
 	text-align: center;
@@ -508,10 +553,12 @@
 	height: 433px;
 	margin: 0 auto;
 }
+
 //verify email modal styles
 
 .modal {
 	padding: 1rem 2.3rem;
+
 	.header {
 		& > h2 {
 			font-weight: 600;
@@ -521,6 +568,7 @@
 
 			color: #262626;
 		}
+
 		& > p {
 			font-weight: 400;
 			font-size: 0.875rem;
@@ -529,19 +577,23 @@
 			color: #595959;
 		}
 	}
+
 	.modalBody {
 		margin-top: 1rem;
+
 		.preorder {
 			background: #fffdd0;
 			color: #ff5c00;
 			padding: 1rem;
 			margin-bottom: 1rem;
+
 			& > h5 {
 				color: inherit;
 				font-weight: 500;
 				font-size: 1rem;
 				line-height: 26px;
 			}
+
 			& > p {
 				color: inherit;
 				font-weight: 400;
@@ -554,10 +606,12 @@
 
 .modalContainer {
 	padding: 1rem 2.5rem;
+
 	.modal {
 		padding-bottom: 5rem;
 		padding-top: 2rem;
 		padding-inline: 3.5rem;
+
 		h1 {
 			font-weight: 600;
 			font-size: 1.25rem;
@@ -565,11 +619,13 @@
 			color: #262626;
 			text-align: center;
 		}
+
 		.socialMediaContainer {
 			// border: 1px solid;
 			padding-block: 1.6rem;
 			text-align: center;
 		}
+
 		p {
 			font-weight: 500;
 			font-size: 1rem;

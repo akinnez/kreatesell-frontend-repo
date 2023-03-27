@@ -127,6 +127,7 @@ const BuyersPreview = () => {
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
 	const [showAccessPageModal, setShowAccessPageModal] = useState(false);
+	const [activeSectionName, setActiveSectionName] = useState(false);
 
 	const [errorModal, setErrorModal] = useState(false);
 	const [courseContent, setCourseContent] = useState([]);
@@ -290,6 +291,7 @@ const BuyersPreview = () => {
 															title,
 															activeLink,
 															product,
+															setActiveSectionName,
 															// pathname,
 														}}
 													/>
@@ -299,7 +301,7 @@ const BuyersPreview = () => {
 									</div>
 									{productTypeName === 'Membership' && (
 										<div
-											className={`w-full mt-3 py-2 ${styles.manageMembershipContainer}`}
+											className={`w-full mt-5 py-2 ${styles.manageMembershipContainer}`}
 											onClick={() =>
 												router.push(
 													`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
@@ -313,6 +315,35 @@ const BuyersPreview = () => {
 											</p>
 										</div>
 									)}
+
+									{activeSectionName && (
+										<div
+											className={
+												styles.accessDeniedContainer
+											}
+										>
+											<h2>
+												You do not have access to this
+												Section
+											</h2>
+											<p>
+												This section is only accessible
+												to subscribers who have made
+												payment up to x times. Please
+												make more payments in your
+												subscription to get access.
+											</p>
+											<button
+												onClick={() =>
+													router.push(
+														`/checkout/${router?.query?.id}`
+													)
+												}
+											>
+												I want to make payment
+											</button>
+										</div>
+									)}
 								</Card>
 							</Col>
 							<Col span={15} className={styles.right}>
@@ -320,10 +351,6 @@ const BuyersPreview = () => {
 									<h1 className={styles.sectionName}>
 										{activeLink?.product_section_name}
 									</h1>
-									{/* <h1 className={styles.sectionTitle}>
-											How To Invest In Cryptocurrency
-										</h1> */}
-									{/* {activeLink?.id} */}
 								</Card>
 								<div
 									style={{

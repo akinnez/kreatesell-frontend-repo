@@ -3,10 +3,14 @@ import styles from 'public/css/PreviewMembership.module.scss';
 import {CancelAlert, CancelMembershipSuccessIcon} from 'utils';
 import Image from 'next/image';
 
-const MembershipCancelAlert = ({setShowCancelAlert, setShowSuccessCancel}) => {
+const MembershipCancelAlert = ({
+	setShowCancelAlert,
+	setShowSuccessCancel,
+	handleCancelMembership,
+}) => {
 	const ShowSuccessModal = () => {
+		handleCancelMembership();
 		setShowCancelAlert(false);
-		setShowSuccessCancel(true);
 	};
 
 	return (
