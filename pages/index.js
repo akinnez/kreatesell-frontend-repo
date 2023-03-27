@@ -897,7 +897,7 @@ const VideoModal = () => {
 			</div>
 			<div className="h-full">
 				<ReactPlayer
-					url="https://youtu.be/0x5giyOpKYw"
+					url="https://youtu.be/vWOEY6nZLFc"
 					controls={true}
 					width="100%"
 					height="100%"

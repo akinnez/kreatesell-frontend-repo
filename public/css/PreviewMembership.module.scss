@@ -321,6 +321,7 @@
 		color: #262626;
 		font-size: 24px;
 	}
+
 	p {
 		font-style: normal;
 		font-weight: 400;
@@ -420,23 +421,49 @@
 	margin-bottom: 0;
 }
 
+.manageMembershipContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	background-color: white !important;
+	margin-top: 26px;
+}
+
 .cancelMembershipContainer {
-	margin-top: 2rem;
 	border: 1px solid #ff4d4f;
-	padding: 10px 0px;
+	padding: 10px 20px;
 	text-align: center;
 	border-radius: 8px;
 	cursor: pointer;
+	margin-left: 1.5rem;
+
+	p {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 14px;
+		color: #ff4d4f;
+		margin-bottom: 0;
+	}
 }
 
-.cancelMemberShipText {
-	font-family: 'Inter';
-	font-style: normal;
-	font-weight: 700;
-	font-size: 14px;
-	color: #ff4d4f;
-	margin-bottom: 0;
+.makePaymentContainer {
+	padding: 10px 20px;
+	text-align: center;
+	border-radius: 8px;
+	cursor: pointer;
+	background-color: #0072ef;
+	p {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 14px;
+		color: white;
+		margin-bottom: 0;
+	}
 }
+
 
 .cancelMembershipModal {
 	background-color: rgba(0, 0, 0, 0.62);
@@ -560,7 +587,7 @@
 	padding: 1rem 2.3rem;
 
 	.header {
-		& > h2 {
+		&>h2 {
 			font-weight: 600;
 			font-size: 1.5rem;
 			line-height: 32px;
@@ -569,7 +596,7 @@
 			color: #262626;
 		}
 
-		& > p {
+		&>p {
 			font-weight: 400;
 			font-size: 0.875rem;
 			line-height: 24px;
@@ -587,14 +614,14 @@
 			padding: 1rem;
 			margin-bottom: 1rem;
 
-			& > h5 {
+			&>h5 {
 				color: inherit;
 				font-weight: 500;
 				font-size: 1rem;
 				line-height: 26px;
 			}
 
-			& > p {
+			&>p {
 				color: inherit;
 				font-weight: 400;
 				font-size: 0.75rem;

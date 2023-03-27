@@ -24,7 +24,7 @@ import {
 	GreenCancel,
 	MinusIcon,
 } from 'utils';
-import styles from '../../public/css/AllProducts.module.scss';
+import styles from '../../public/css/AllProducts.module.scss'; 
 import {Button} from 'components';
 import {
 	DuplicateProductAction,
@@ -100,6 +100,9 @@ export const SalesPageModal = ({
 					}}
 					loading={addSalesPageLoading}
 				/>
+				<div className={styles.view_guide}>  
+					View guide
+				</div>
 			</Modal>
 		);
 	}

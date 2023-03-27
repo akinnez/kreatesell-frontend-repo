@@ -1,16 +1,16 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
-import {useSelector} from 'react-redux';
-import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
-import {useRouter} from 'next/router';
+import { useSelector } from 'react-redux';
+import { AuthGetProductById, GetProductByIDNotAut } from 'redux/actions';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
+import { PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon } from 'utils';
 import BackButton from 'components/BackButton';
 import MembershipCancelAlert from './MembershipCancelAlert';
 import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
 import axios from 'axios';
-import {showToast} from 'utils';
+import { showToast } from 'utils';
 // import {}
 
 export const baseURL = process.env.BASE_URL;
@@ -25,7 +25,7 @@ const ManageMembership = () => {
 
 	const {
 		product,
-		product: {product_content},
+		product: { product_content },
 	} = useSelector((state) => state.product);
 
 	const BillingFrequency =
@@ -112,8 +112,8 @@ const ManageMembership = () => {
 								BillingFrequency === 'days'
 									? 'Daily'
 									: BillingFrequency === 'weeks'
-									? 'Weekly'
-									: 'Monthly'
+										? 'Weekly'
+										: 'Monthly'
 							}
 						/>
 						<p className={`mt-3 ${styles.frequency}`}>
@@ -159,13 +159,23 @@ const ManageMembership = () => {
 							</div>
 						</div> */}
 
-						<div
-							className={styles.cancelMembershipContainer}
-							onClick={() => setShowCancelAlert(true)}
-						>
-							<p className={styles.cancelMemberShipText}>
-								Cancel Membership
-							</p>
+						<div className={styles.manageMembershipContainer}>
+							<div
+								className={styles.makePaymentContainer}
+								onClick={() => router.push(`/checkout/${productId}`)} 
+							>
+								<p>
+									Make payment
+								</p>
+							</div>
+							<div
+								className={styles.cancelMembershipContainer}
+								onClick={() => setShowCancelAlert(true)}
+							>
+								<p>
+									Cancel Membership
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>

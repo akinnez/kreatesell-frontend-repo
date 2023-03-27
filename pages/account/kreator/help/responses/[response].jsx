@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
 import useSWR from 'swr';
 import axios from 'axios';
-const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import EditorToolbar, {
 	modules,
 	formats,
@@ -28,12 +28,12 @@ import {
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 // import {Button} from 'components/button/Button';
-import {Button} from 'antd';
+import { Button } from 'antd';
 import BackButton from 'components/BackButton';
-import {Input} from 'components/input/Input';
+import { Input } from 'components/input/Input';
 import FileUpload from 'components/PostTicket/FileUpload';
 
-const CardBody = ({ticketId, ticket}) => {
+const CardBody = ({ ticketId, ticket }) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
 	const [files, setFiles] = useState([]);
@@ -64,13 +64,17 @@ const CardBody = ({ticketId, ticket}) => {
 		}
 		const formData = new FormData();
 		for (let i = 0; i < uploadingFiles.length; i++) {
-			formData.append('ImagePaths', uploadingFiles[i]);
+			ticket?.status?.toLowerCase() === 'open' ? formData.append('Replyfiles', uploadingFiles[i]) : formData.append('ImagePaths', uploadingFiles[i]);
 		}
-		formData.append('Subject', ticket.heading);
-		formData.append('Message', message);
-		formData.append('Department', ticket.department);
+		ticket?.status?.toLowerCase() !== 'open' && formData.append('Subject', ticket.heading);
+		ticket?.status?.toLowerCase() === 'open' ? formData.append('Reply', message) : formData.append('Message', message);
+		ticket?.status?.toLowerCase() !== 'open' && formData.append('Department', ticket.department);
+
+		ticket?.status?.toLowerCase() === 'open' && formData.append('Id', ticketId);
+
 		const reopenUrl = `${process.env.BASE_URL}tickets/re-open?ticketId=${ticketId}`;
-		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply?ticketId=${ticketId}`;
+		const replyUrl = `${process.env.BASE_URL}tickets/kreator/reply`;
+
 		return axios
 			.post(
 				ticket?.status?.toLowerCase() === 'open' ? replyUrl : reopenUrl,
@@ -117,11 +121,10 @@ const CardBody = ({ticketId, ticket}) => {
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
 						<span
-							className={`${styles.status} ${
-								ticket.status === 'Closed'
+							className={`${styles.status} ${ticket.status === 'Closed'
 									? styles.closed
 									: styles.open
-							}`}
+								}`}
 						>
 							{ticket.status}
 						</span>
@@ -157,9 +160,8 @@ const CardBody = ({ticketId, ticket}) => {
 						</Button>
 					</div>
 					<section
-						className={`${styles.complainDescription} ${
-							showIssue ? styles.block : styles.hidden
-						}`}
+						className={`${styles.complainDescription} ${showIssue ? styles.block : styles.hidden
+							}`}
 					>
 						<p
 							className={`mt-5 ${styles.description}`}
@@ -188,8 +190,8 @@ const CardBody = ({ticketId, ticket}) => {
 												file-{idx}.
 												{
 													file.split('.')[
-														file.split('.').length -
-															1
+													file.split('.').length -
+													1
 													]
 												}
 											</p>
@@ -377,7 +379,7 @@ const CardBody = ({ticketId, ticket}) => {
 							placeholder={
 								'Write the details of your ticket here'
 							}
-							style={{height: '200px'}}
+							style={{ height: '200px' }}
 							modules={modules}
 							formats={formats}
 						/>
@@ -487,7 +489,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody {...{ticketId, ticket}} />
+					<CardBody {...{ ticketId, ticket }} />
 				</div>
 			</AuthLayout>
 		</>
