@@ -92,11 +92,15 @@ export default function MembershipIndex({
 						<Button
 							type="default"
 							icon={<Image src={Subscribers} alt="empty" />}
-							onClick={() =>
-								route.push(
-									`/account/kreator/products/view-subscribers`
-								)
-							}
+							onClick={() => {
+								product?.product_type_details === 'Membership'
+									? route.push(
+											`/account/kreator/products/view-subscribers?KreatorProductId=${product.product_details.id}`
+									  )
+									: route.push(
+											`/account/kreator/products/view-onetime-subscribers?KreatorProductId=${product.product_details.id}`
+									  );
+							}}
 						>
 							{' '}
 							View Subscribers
