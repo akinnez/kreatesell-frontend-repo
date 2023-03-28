@@ -136,11 +136,17 @@ export const validateAccountOnBlur = ({
 	setValidating,
 	// setIsValid,
 }) => {
-	// console.log('formik.values', formik.values)
 	formik.handleBlur(e);
 	// only validate if country is Nigeria
 	const bankId = formik.values.bank;
 	const accountNumber = formik.values.account_number.trim();
+	console.log('bankId', bankId);
+	console.log('banks', banks);
+	console.log(
+		'getData(banks, bankId)?.bank_code',
+		getData(banks, bankId)?.bank_code
+	);
+	console.log('getData(banks, bankId)?.code', getData(banks, bankId)?.code);
 	// only validate if country is Nigeria
 	if (formik.values.country === 1) {
 		if (!accountNumber || !bankId) return;
