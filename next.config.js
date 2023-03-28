@@ -18,8 +18,8 @@ module.exports = (phase) => {
 		isProd: isProd,
 		BASE_URL:
 			!isDev && !isProd
-				? 'https://kreatesell.io/api/'
-				: 'https://kreatesell-pilot.azurewebsites.net/api/',
+				? 'https://kreatesell-pilot.azurewebsites.net/api/'
+				: 'https://kreatesell.io/api/',
 		// BASE_URL: 'https://kreatesell-pilot.azurewebsites.net/api/',
 		NEXT_PUBLIC_RECAPTCHA_SITE_KEY:
 			'6Le7-jQcAAAAAOHkoLvhdgAjcmfi2gcHjLKkCzYB',
