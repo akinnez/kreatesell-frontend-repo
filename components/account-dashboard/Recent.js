@@ -21,11 +21,9 @@ export const RecentAnalytics = () => {
 
 	// Revenue data
 	/////////////////////////////////////////////////////////////
-	const {
-		url: revenueUrl,
-		setFilters,
-		filters,
-	} = useRevenueFilter('affiliate/total-revenue');
+	const {url: revenueUrl, setFilters, filters} = useRevenueFilter(
+		'affiliate/total-revenue'
+	);
 	// api call for revenue
 	const {revenueData, revenueLoading, revenueError} = useGetRevenue(
 		revenueUrl,
@@ -37,19 +35,20 @@ export const RecentAnalytics = () => {
 	const {setLoading, recentKreatorsData} = useKreatorRecentCustomers(url);
 
 	// endpoint to get data for chart for last 12 months
-	const {kreatorSalesHistoryData: affiliateSalesHistory} =
-		useGetKreatorSalesHistory(
-			`affiliate/transactions-count?startDate=${getDate12MonthsAgo()}`
-		);
+	const {
+		kreatorSalesHistoryData: affiliateSalesHistory,
+	} = useGetKreatorSalesHistory(
+		`affiliate/transactions-count?startDate=${getDate12MonthsAgo()}`
+	);
 
 	const MemoizedData = useMemo(() => {
 		let months = new Array(12).fill(0);
 		if (affiliateSalesHistory) {
 			let KTotal = affiliateSalesHistory?.total_revenue;
 			months.forEach((_, monthIndex) => {
-				for (let i = 0; i < KTotal.length; i++) {
-					if (monthIndex + 1 == KTotal[i].month_number) {
-						months[i] = Number(KTotal[i].count);
+				for (let i = 0; i < KTotal?.length; i++) {
+					if (monthIndex + 1 == KTotal[i]?.month_number) {
+						months[i] = Number(KTotal[i]?.count);
 					}
 				}
 			});
