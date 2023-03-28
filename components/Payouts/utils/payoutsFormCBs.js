@@ -108,13 +108,12 @@ export const countryHandler = async ({
 	}
 };
 
-export const bankHandler = (value, formik) => {
+export const bankHandler = (value, formik, form) => {
 	formik.setFieldValue('bank', value);
 };
 
 export const accountNumberHandler = (e, formik, form) => {
 	const {value} = e.target;
-
 	const index = value.length - 1;
 	const lastCharacter = value.charAt(index);
 
@@ -175,7 +174,9 @@ export const validateAccountOnBlur = ({
 			},
 			{
 				account_number: accountNumber,
-				account_bank: getData(banks, bankId)?.bank_code,
+				account_bank:
+					getData(banks, bankId)?.bank_code ||
+					getData(banks, bankId)?.code,
 			}
 		);
 	}
