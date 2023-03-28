@@ -23,7 +23,7 @@ export const Navbar = () => {
         <div className={styles.MobileLogo} onClick={() => router.push("/earlybird")}>
           <MobileLogo />
         </div>
-        <SocialIcons />
+        {/* <SocialIcons /> */}
       </motion.nav>
     </>
   );

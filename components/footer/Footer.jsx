@@ -225,7 +225,7 @@ export const Footer = () => {
 								<a>Tutorials</a>
 							</Link>
 							{/* <Link href="#"> */}
-							<a href="https://wa.me/+2349016324945">Contact Support</a>
+							<a href="https://wa.me/+2349062002777">Contact Support</a>
 							{/* </Link> */}
 							<Link href="#">
 								<a>FAQ</a>
