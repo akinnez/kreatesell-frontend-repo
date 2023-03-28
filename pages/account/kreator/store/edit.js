@@ -151,8 +151,8 @@ const Index = () => {
 					Country_Id: notNull(data?.store_details?.country_name)
 						? data?.store_details?.country_name
 						: '',
-					Mobile_Number: notNull(data?.store_details?.mobile_number)
-						? data?.store_details?.mobile_number
+					Mobile_Number: notNull(data?.user?.phone_number)
+						? data?.user?.phone_number
 						: '',
 					Facebook: notNull(data?.store_details?.facebook)
 						? data?.store_details?.facebook
@@ -283,7 +283,7 @@ const Index = () => {
 										<Input
 											addonBefore={
 												countryCode?.country_code ||
-												'+thy'
+												'---'
 											}
 											type="tel"
 											label="Phone Number"

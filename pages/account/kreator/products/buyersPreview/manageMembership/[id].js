@@ -9,6 +9,11 @@ import {PlayIcon2, PlayIconBlue, KreateSellLogo, MastercardIcon} from 'utils';
 import BackButton from 'components/BackButton';
 import MembershipCancelAlert from './MembershipCancelAlert';
 import MembershipCancelSuccessAlert from './MembershipCancelSuccessAlert';
+import axios from 'axios';
+import {showToast} from 'utils';
+// import {}
+
+export const baseURL = process.env.BASE_URL;
 
 const ManageMembership = () => {
 	const router = useRouter();
@@ -16,17 +21,39 @@ const ManageMembership = () => {
 
 	const [showCancelAlert, setShowCancelAlert] = useState(false);
 	const [showSuccessCancel, setShowSuccessCancel] = useState(false);
+	const [email, setEmail] = useState('');
 
 	const {
 		product,
 		product: {product_content},
 	} = useSelector((state) => state.product);
 
+	const BillingFrequency =
+		product?.product_details?.custom_billing_interval_times;
+
 	useEffect(() => {
 		if (router.query.id) {
 			getProduct(router.query.id);
 		}
 	}, [router.query.id]);
+
+	const productId = router.query.id;
+
+	const handleCancelMembership = async () => {
+		try {
+			await axios.post(`${baseURL}v1/customer/unsubscribe`, {
+				customer_email: email,
+				product_id: productId,
+			});
+			setShowSuccessCancel(true);
+			window.location.reload();
+		} catch (err) {
+			showToast(
+				err.response.data.message || 'A network error occured',
+				'error'
+			);
+		}
+	};
 
 	return (
 		<>
@@ -66,19 +93,28 @@ const ManageMembership = () => {
 					<div className="flex-1"></div>
 				</div>
 
-				<div className="w-full flex justify-center items-center mt-6">
+				<div className="w-full flex justify-center items-center mt-9">
 					<div className={`bg-white ${styles.manageContainer}`}>
 						<h1 className={styles.manageContainerText}>
 							Exixting Membership Details
 						</h1>
-						<p className={styles.membershipAmount}>NGN 5,000</p>
+						<p className={styles.membershipAmount}>
+							NGN {product?.default_price}
+						</p>
 
 						<p className={styles.frequency}>Billing frequency</p>
 
 						<input
 							type="text"
+							disabled
 							className={styles.frequencyInput}
-							placeholder="weekly"
+							placeholder={
+								BillingFrequency === 'days'
+									? 'Daily'
+									: BillingFrequency === 'weeks'
+									? 'Weekly'
+									: 'Monthly'
+							}
 						/>
 						<p className={`mt-3 ${styles.frequency}`}>
 							Email Address
@@ -86,18 +122,19 @@ const ManageMembership = () => {
 						<input
 							type="text"
 							className={styles.emailInput}
-							placeholder="eamil address"
+							placeholder="Email address"
+							onChange={(e) => setEmail(e.target.value)}
 						/>
-						<div
+						{/* <div
 							className={`flex items-center justify-between ${styles.cardDetailsContainer}`}
 						>
 							<p className={styles.cardDetailsLeft}>
 								Card details
 							</p>
 							<p className={styles.cardDetailsRight}>Save card</p>
-						</div>
+						</div> */}
 
-						<div
+						{/* <div
 							className={`flex items-center ${styles.cardContainer}`}
 						>
 							<div className={styles.cardImageContainer}>
@@ -109,7 +146,7 @@ const ManageMembership = () => {
 							</div>
 							<div className="ml-3">
 								<p className={styles.cardTextType}>
-									Mastercard
+									Mastercard 
 								</p>
 								<p className={styles.cardTextExpiry}>
 									Expires 12/2024
@@ -120,15 +157,23 @@ const ManageMembership = () => {
 									**** **** **** 9988
 								</p>
 							</div>
-						</div>
+						</div> */}
 
-						<div
-							className={styles.cancelMembershipContainer}
-							onClick={() => setShowCancelAlert(true)}
-						>
-							<p className={styles.cancelMemberShipText}>
-								Cancel Membership
-							</p>
+						<div className={styles.manageMembershipContainer}>
+							<div
+								className={styles.makePaymentContainer}
+								onClick={() =>
+									router.push(`/checkout/${productId}`)
+								}
+							>
+								<p>Make payment</p>
+							</div>
+							<div
+								className={styles.cancelMembershipContainer}
+								onClick={() => setShowCancelAlert(true)}
+							>
+								<p>Cancel Membership</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -136,6 +181,7 @@ const ManageMembership = () => {
 					<MembershipCancelAlert
 						setShowCancelAlert={setShowCancelAlert}
 						setShowSuccessCancel={setShowSuccessCancel}
+						handleCancelMembership={handleCancelMembership}
 					/>
 				)}
 				{showSuccessCancel && <MembershipCancelSuccessAlert />}

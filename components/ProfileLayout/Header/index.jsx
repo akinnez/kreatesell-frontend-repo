@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
 import {Button, Dropdown, Layout, Menu, Badge} from 'antd';
 import {MdOutlineLogout} from 'react-icons/md';
@@ -9,6 +10,7 @@ import Logo from '../Logo';
 import {ProfileIcon, Cog, EditPen2} from '../../IconPack';
 import {Logout} from '../../../redux/actions';
 import style from './index.module.scss';
+import {shortenDetail, NavCloseIcon, NavCloseLogo} from 'utils';
 
 const Profile = ({name, avi}) => {
 	return (
@@ -72,7 +74,7 @@ const Profile = ({name, avi}) => {
 };
 
 const menu = (logout) => (
-	<Menu>
+	<Menu className={style.authMenu}>
 		<Menu.Item key="prof-1">
 			<Link href="/account/kreator/store/edit">
 				<a className={style.edit}>
@@ -93,7 +95,7 @@ const menu = (logout) => (
 
 const Header = () => {
 	const {Header: AntHeader} = Layout;
-
+	const router = useRouter();
 	const [info, setInfo] = useState({});
 
 	const {
@@ -101,6 +103,9 @@ const Header = () => {
 	} = useSelector((state) => state.store);
 
 	const logout = Logout();
+	const toggleView = () => {
+		dispatch({type: TOGGLE_SIDEBAR});
+	};
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'));
@@ -108,25 +113,47 @@ const Header = () => {
 	}, []);
 
 	return (
-		<AntHeader className={style.header}>
-			<Link href="/account/dashboard">
-				<a>
-					<Logo />
-				</a>
-			</Link>
-			<div className={style.nav_right}>
-				<Button type="text" shape="circle" icon={<Cog />} />
-				<NotificationsDropdown />
-				<Dropdown overlay={menu(logout)} placement="bottom" arrow>
-					<Button type="text" className={style.dropdown__btn}>
-						<Profile
-							name={info?.full_name}
-							avi={store_details?.display_picture}
+		<>
+			{/* <section
+			className={`${style.mainNav} ${isOverLayView ? style.hide : ''} ${
+				patchMainHeaderWidth ? style.withPatch : ''
+			}`}
+		>
+
+    </section> */}
+			<div className={style.lg}>
+				<AntHeader className={style.header}>
+					<Link href="/account/dashboard">
+						<a>
+							<Logo />
+						</a>
+					</Link>
+					<div className={style.nav_right}>
+						<Button
+							type="text"
+							shape="circle"
+							icon={<Cog />}
+							onClick={() =>
+								router.push('/account/kreator/settings')
+							}
 						/>
-					</Button>
-				</Dropdown>
+						<NotificationsDropdown />
+						<Dropdown
+							overlay={menu(logout)}
+							placement="bottom"
+							arrow
+						>
+							<Button type="text" className={style.dropdown__btn}>
+								<Profile
+									name={info?.full_name}
+									avi={store_details?.display_picture}
+								/>
+							</Button>
+						</Dropdown>
+					</div>
+				</AntHeader>
 			</div>
-		</AntHeader>
+		</>
 	);
 };
 

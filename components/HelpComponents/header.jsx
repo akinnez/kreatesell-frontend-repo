@@ -54,7 +54,7 @@ const HelpHeader = ({setFilters, setLoading, filters}) => {
 		}));
 	};
 	const departmentOptions = [
-		{value: 'value', label: 'label'},
+		// {value: 'value', label: 'label'},
 		{
 			value: 'Technical',
 			label: 'Technical',

@@ -9,6 +9,7 @@ import {
 	Subscribers,
 	MobileViewSubscribers,
 	MobileSettingsIcon,
+	RenderIf,
 } from 'utils';
 import productStyles from '../../../public/css/AllProducts.module.scss';
 import AddSection from './AddSection';
@@ -91,11 +92,15 @@ export default function MembershipIndex({
 						<Button
 							type="default"
 							icon={<Image src={Subscribers} alt="empty" />}
-							onClick={() =>
-								route.push(
-									`/account/kreator/products/view-subscribers`
-								)
-							}
+							onClick={() => {
+								product?.product_type_details === 'Membership'
+									? route.push(
+											`/account/kreator/products/view-subscribers?KreatorProductId=${product.product_details.id}`
+									  )
+									: route.push(
+											`/account/kreator/products/view-onetime-subscribers?KreatorProductId=${product.product_details.id}`
+									  );
+							}}
 						>
 							{' '}
 							View Subscribers
@@ -107,16 +112,40 @@ export default function MembershipIndex({
 						>
 							Manage All Sections
 						</Button>
-						<Button
-							type="primary"
-							onClick={() =>
-								route.push(
-									`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`
-								)
+						<RenderIf
+							condition={
+								product?.product_type_details === 'Membership'
 							}
 						>
-							Preview Membership
-						</Button>
+							<Button
+								type="primary"
+								onClick={() =>
+									route.push(
+										`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`
+									)
+								}
+							>
+								Preview Membership
+							</Button>
+						</RenderIf>
+						<RenderIf
+							condition={
+								product?.product_type_details ===
+								'One-Time Subscription'
+							}
+						>
+							<Button
+								type="primary"
+								onClick={() =>
+									// TODO: change the page it routes to to a one time subscription page
+									route.push(
+										`/account/kreator/products/preview-subscription/${product.product_details.kreasell_product_id}`
+									)
+								}
+							>
+								Preview Subscription
+							</Button>
+						</RenderIf>
 					</div>
 				)}
 				{/* mobile */}

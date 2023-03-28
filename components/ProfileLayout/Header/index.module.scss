@@ -31,12 +31,25 @@
 	padding: 0;
 }
 
+.authMenu {
+	max-width: 200px !important;
+	// border: 1px solid red;
+	margin-left: auto;
+}
 @include screens.minScreen('tablet') {
 	.header {
 		padding: 25px;
 	}
 
-	.nav_right > button:first-child {
-		display: flex !important;
+	.nav_right button {
+		&:first-of-type {
+			display: flex !important;
+		}
+	}
+}
+
+.lg {
+	@media (max-width: 992px) {
+		display: none;
 	}
 }

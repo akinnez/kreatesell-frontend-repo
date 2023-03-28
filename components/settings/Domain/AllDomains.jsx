@@ -30,14 +30,14 @@ export const AllDomains = () => {
 		<div>
 			<div className="flex justify-between items-center pt-2">
 				<h3 className="text-black-100 font-medium text-2xl">Domains</h3>
-				<div>
+				{/* <div>
 					<Button
 						text="Connect a domain"
 						bgColor="blue"
 						className={styles.btnStyle}
 						onClick={() => setDomainScreen(3)}
 					/>
-				</div>
+				</div> */}
 			</div>
 
 			{domains?.map((domain) => (

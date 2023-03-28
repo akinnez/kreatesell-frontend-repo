@@ -47,9 +47,9 @@ export const RecentAnalytics = () => {
 		if (affiliateSalesHistory) {
 			let KTotal = affiliateSalesHistory?.total_revenue;
 			months.forEach((_, monthIndex) => {
-				for (let i = 0; i < KTotal.length; i++) {
-					if (monthIndex + 1 == KTotal[i].month_number) {
-						months[i] = Number(KTotal[i].count);
+				for (let i = 0; i < KTotal?.length; i++) {
+					if (monthIndex + 1 == KTotal[i]?.month_number) {
+						months[i] = Number(KTotal[i]?.count);
 					}
 				}
 			});

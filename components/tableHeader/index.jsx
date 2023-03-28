@@ -100,6 +100,7 @@ export const SalesPageModal = ({
 					}}
 					loading={addSalesPageLoading}
 				/>
+				<div className={styles.view_guide}>View guide</div>
 			</Modal>
 		);
 	}
@@ -575,11 +576,15 @@ const ActionComponent = ({item}, all) => {
 			</RenderIf>
 			<RenderIf condition={all.product_type !== 'Digital Download'}>
 				<li
-					onClick={() =>
-						router.push(
-							`/account/kreator/products/view-subscribers?KreatorProductId=${id}`
-						)
-					}
+					onClick={() => {
+						all.product_type === 'One-Time Subscription'
+							? router.push(
+									`/account/kreator/products/view-onetime-subscribers?KreatorProductId=${id}`
+							  )
+							: router.push(
+									`/account/kreator/products/view-subscribers?KreatorProductId=${id}`
+							  );
+					}}
 					className="flex items-center cursor-pointer"
 				>
 					<span className="flex">

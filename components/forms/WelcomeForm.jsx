@@ -44,14 +44,29 @@ export const WelcomeForm = () => {
 			onSubmit={formik.handleSubmit}
 			autoComplete="off"
 		>
-			<h5 className={styles.mobileTitle}>
-				{step === 1 && `Tell us a little about <br /> yourself`}
-				{step === 2 && `Here is what your store link looks like`}
-			</h5>
-			<h5 className={styles.webTitle}>
-				{step === 1 && `Tell us a little about yourself`}
-				{step === 2 && `Here is what your store link looks like`}
-			</h5>
+			<h5
+				className={styles.mobileTitle}
+				dangerouslySetInnerHTML={{
+					__html:
+						step === 1
+							? `Tell us a little about <br/> yourself`
+							: step === 2
+							? `Here is what your store link looks like`
+							: ``,
+				}}
+			/>
+			<h5
+				className={styles.webTitle}
+				dangerouslySetInnerHTML={{
+					__html:
+						step === 1
+							? `Tell us a little about <br/> yourself`
+							: step === 2
+							? `Here is what your store link looks like`
+							: ``,
+				}}
+			/>
+
 			<p className={styles.subTitle}>
 				{step === 1 &&
 					`Now that you're all signed up, let's personalize your store.`}

@@ -37,6 +37,14 @@ const CreateProduct = () => {
 		}
 	}, [router.query]);
 
+	useEffect(() => {
+		if (router?.query?.tab) {
+			setTimeout(() => {
+				setProductTab(2);
+			}, 500);
+		}
+	}, [router?.query?.tab]);
+
 	return (
 		<AuthLayout>
 			{isTabsActive && (

@@ -1,4 +1,5 @@
 import axios from '../../utils/axios';
+import axiosReq from 'axios';
 import * as types from '../types';
 import {useDispatch} from 'react-redux';
 import {useRouter} from 'next/router';
@@ -146,29 +147,53 @@ export const AuthGetProductById = () => {
 };
 export const GetProductByIDNotAut = () => {
 	const dispatch = useDispatch();
+
 	return (productID, successCallback, errorCallback) => (
 		dispatch({type: types.GET_PRODUCT_NOT_BY_ID.REQUEST}),
-		axios.request(
-			`get`,
-			`v1/kreatesell/product/get/${productID}`,
-			(res) => {
+		// axios.request(
+		// 	`get`,
+		// 	`v1/kreatesell/product/get/${productID}`,
+		// 	(res) => {
+		// 		console.log(' response from getproductById = ', res);
+		// 		dispatch({
+		// 			type: types.GET_PRODUCT_NOT_BY_ID.SUCCESS,
+		// 			payload: res?.data?.data,
+		// 		});
+		// 		successCallback?.(res);
+		// 	},
+		// 	(err) => {
+		// 		dispatch({
+		// 			type: types.GET_PRODUCT_NOT_BY_ID.FAILURE,
+		// 			payload: err,
+		// 		});
+		// 		showToast(err?.message, 'error');
+		// 		errorCallback?.(err.status);
+		// 	},
+		// 	productID
+		// )
+		axiosReq
+			.get(
+				`${process.env.BASE_URL}v1/kreatesell/product/get/${productID}`,
+				{
+					headers: null,
+				}
+			)
+			.then((res) => {
 				console.log(' response from getproductById = ', res);
 				dispatch({
 					type: types.GET_PRODUCT_NOT_BY_ID.SUCCESS,
 					payload: res?.data?.data,
 				});
 				successCallback?.(res);
-			},
-			(err) => {
+			})
+			.catch((err) => {
 				dispatch({
 					type: types.GET_PRODUCT_NOT_BY_ID.FAILURE,
 					payload: err,
 				});
 				showToast(err?.message, 'error');
 				errorCallback?.(err.status);
-			},
-			productID
-		)
+			})
 	);
 };
 

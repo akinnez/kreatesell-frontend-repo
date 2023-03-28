@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useLayoutEffect} from 'react';
 import Image from 'next/image';
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {
@@ -54,13 +54,22 @@ import {countryPayments} from '../../utils/paymentOptions';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 export const pathName = typeof window !== 'undefined' && window;
-
+/**
+ *
+ * @param {*} host - can either be 'localhost' or the hosted site's url
+ * @returns http or https
+ */
+const resolveProtocol = (host) => {
+	if (!host || typeof host !== 'string') return;
+	return host.includes('localhost') ? 'http' : 'https';
+};
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
 
 	const [modal, setModal] = useState(false);
+	const [hostState, setHostState] = useState('');
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
@@ -569,8 +578,14 @@ const Checkout = () => {
 							: Number(getCurrency('price')).toFixed() * 100,
 						currency: getCurrency('currency').toLowerCase(),
 						quantity: 1,
-						success_url: 'http://localhost:3000/success',
-						cancel_url: `http://localhost:3000/checkout/${productId}?status=fail`,
+						success_url: `${resolveProtocol(hostState)}://${
+							hostState || 'kreatesell.com'
+						}/checkout/success/${
+							storeDetails?.store_dto?.store_name
+						}/${router?.query?.id}/?currency=${currencyPaidIn}`,
+						cancel_url: `${resolveProtocol(hostState)}://${
+							hostState || 'dev.kreatesell.com'
+						}/checkout/${productId}?status=fail`,
 					}
 				);
 				window.open(data.data.url, '_blank');
@@ -738,6 +753,11 @@ const Checkout = () => {
 			setCouponDetails(res);
 		});
 	};
+
+	useLayoutEffect(() => {
+		// console.log('window.location', window.location);
+		setHostState(window.location.host);
+	}, []);
 
 	if (storecheckoutCurrencyLoading || storeCheckoutCurrenciesLoading)
 		return (

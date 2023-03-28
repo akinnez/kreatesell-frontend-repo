@@ -102,6 +102,8 @@ export const UpgradeAccountForm = ({
 			affiliate_product_link: '',
 			user_identifier: user?.id,
 			duration: monthly ? 'monthly' : 'yearly',
+			TransactionFee: 0,
+			// TODO: add transaction fees
 		};
 		return value;
 	};
