@@ -214,16 +214,16 @@ const PayoutsForm = ({
 									onChange={(value) =>
 										bankHandler(value, formik)
 									}
-									onBlur={(e) => {
-										validateAccountOnBlur({
-											e,
-											formik,
-											form,
-											banks,
-											setValidating,
-											// setIsValid,
-										});
-									}}
+									// onBlur={(e) => {
+									// 	validateAccountOnBlur({
+									// 		e,
+									// 		formik,
+									// 		form,
+									// 		banks,
+									// 		setValidating,
+									// 		// setIsValid,
+									// 	});
+									// }}
 									value={formik.values.bank}
 									loading={banksLoading}
 									disabled={banksLoading}
@@ -268,11 +268,11 @@ const PayoutsForm = ({
 										accountNumberHandler(e, formik, form)
 									}
 									onBlur={(e) => {
-										validateAccountOnBlur({
+										validateAccountOnBlur({ 
 											e,
 											formik,
 											form,
-											banks,
+											banks, 
 											setValidating,
 											// setIsValid,
 										});
@@ -301,6 +301,7 @@ const PayoutsForm = ({
 									autoComplete="off"
 									placeholder="Enter account name"
 									// disabled={isValid}
+									disabled
 									{...formik.getFieldProps('account_name')}
 								/>
 							</Form.Item>
