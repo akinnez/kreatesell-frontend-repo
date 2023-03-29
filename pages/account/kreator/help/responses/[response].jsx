@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import dynamic from 'next/dynamic';
-import { BsReplyFill } from 'react-icons/bs'
+import {BsReplyFill} from 'react-icons/bs';
 
 import useSWR from 'swr';
 import axios from 'axios';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
 import EditorToolbar, {
 	modules,
 	formats,
@@ -29,12 +29,12 @@ import {
 } from 'utils';
 import CustomErrorPage from 'components/CustomErrorPage/CustomErrorPage';
 // import {Button} from 'components/button/Button';
-import { Button } from 'antd';
+import {Button} from 'antd';
 import BackButton from 'components/BackButton';
-import { Input } from 'components/input/Input';
+import {Input} from 'components/input/Input';
 import FileUpload from 'components/PostTicket/FileUpload';
 
-const CardBody = ({ ticketId, ticket }) => {
+const CardBody = ({ticketId, ticket}) => {
 	const [showIssue, setShowIssue] = useState(false);
 	const router = useRouter();
 	const [files, setFiles] = useState([]);
@@ -129,10 +129,11 @@ const CardBody = ({ ticketId, ticket }) => {
 					<div className={styles.ticketDetail}>
 						<p className={styles.title}>Status</p>
 						<span
-							className={`${styles.status} ${ticket.status === 'Closed'
+							className={`${styles.status} ${
+								ticket.status === 'Closed'
 									? styles.closed
 									: styles.open
-								}`}
+							}`}
 						>
 							{ticket.status}
 						</span>
@@ -168,8 +169,9 @@ const CardBody = ({ ticketId, ticket }) => {
 						</Button>
 					</div>
 					<section
-						className={`${styles.complainDescription} ${showIssue ? styles.block : styles.hidden
-							}`}
+						className={`${styles.complainDescription} ${
+							showIssue ? styles.block : styles.hidden
+						}`}
 					>
 						<p
 							className={`mt-5 ${styles.description}`}
@@ -198,8 +200,8 @@ const CardBody = ({ ticketId, ticket }) => {
 												file-{idx}.
 												{
 													file.split('.')[
-													file.split('.').length -
-													1
+														file.split('.').length -
+															1
 													]
 												}
 											</p>
@@ -347,7 +349,10 @@ const CardBody = ({ ticketId, ticket }) => {
 					))}
 				</RenderIf>
 				<RenderIf
-					condition={ticket?.status?.toLowerCase() === 'closed' && !reopenSection}
+					condition={
+						ticket?.status?.toLowerCase() === 'closed' &&
+						!reopenSection
+					}
 				>
 					<Button
 						// leftIcon={}
@@ -362,7 +367,12 @@ const CardBody = ({ ticketId, ticket }) => {
 						<Image alt="icon" src={MailReopen} />
 					</Button>
 				</RenderIf>
-				<RenderIf condition={ticket?.status?.toLowerCase() === 'open' && !reopenSection}>
+				<RenderIf
+					condition={
+						ticket?.status?.toLowerCase() === 'open' &&
+						!reopenSection
+					}
+				>
 					<Button
 						// leftIcon={}
 						className="p-5 rounded-lg"
@@ -371,7 +381,7 @@ const CardBody = ({ ticketId, ticket }) => {
 						onClick={handleReopen}
 					>
 						<span className="mr-3">Reply</span>
-						<BsReplyFill className='text-white text-base h-6'/>
+						<BsReplyFill className="text-white text-base h-6" />
 					</Button>
 				</RenderIf>
 			</div>
@@ -387,7 +397,7 @@ const CardBody = ({ ticketId, ticket }) => {
 							placeholder={
 								'Write the details of your ticket here'
 							}
-							style={{ height: '200px' }}
+							style={{height: '200px'}}
 							modules={modules}
 							formats={formats}
 						/>
@@ -497,7 +507,7 @@ const Index = (props) => {
 					<BackButton />
 				</div>
 				<div className={styles.container}>
-					<CardBody {...{ ticketId, ticket }} />
+					<CardBody {...{ticketId, ticket}} />
 				</div>
 			</AuthLayout>
 		</>

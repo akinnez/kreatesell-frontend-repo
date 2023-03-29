@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Menu } from 'antd';
+import {Menu} from 'antd';
 import NoNotifications from '../NoNotifications';
 import Spinner from 'components/Spinner';
 import {
@@ -7,11 +7,11 @@ import {
 	generateProductName,
 	updateNotificationsFn,
 } from '../utils';
-import { notificationTime } from 'utils';
-import { notificationTypes } from 'utils/notificationTypes';
+import {notificationTime} from 'utils';
+import {notificationTypes} from 'utils/notificationTypes';
 import styles from './index.module.scss';
 
-const notificationsMenu = ({ notifications, error, count, dispatch, mutate }) => {
+const notificationsMenu = ({notifications, error, count, dispatch, mutate}) => {
 	if (error) {
 		return (
 			<Menu>
@@ -109,10 +109,7 @@ const notificationsMenu = ({ notifications, error, count, dispatch, mutate }) =>
 		renderNotifications.push(jsx);
 	}
 
-	return <Menu
-		className={styles.menu_container}
-	>{renderNotifications}
-	</Menu>;
+	return <Menu className={styles.menu_container}>{renderNotifications}</Menu>;
 };
 
 export default notificationsMenu;
