@@ -258,8 +258,10 @@ export default function PreviewContent({
 
 	const isProductOutOfStock = () => {
 		if (product?.product_details) {
-			const {is_limited_sales, number_of_product} =
-				product?.product_details;
+			const {
+				is_limited_sales,
+				number_of_product,
+			} = product?.product_details;
 			return (
 				is_limited_sales &&
 				number_of_product - product?.number_sold <= 0
@@ -630,6 +632,6 @@ const VerifiedDrawerChildren = ({onClose}) => {
 	);
 };
 
-// export function getServerSideProps({ req, res }) {
-// 	return { props: { token: req.cookies || "" } }
-// }
+export function getServerSideProps({req, res}) {
+	return {props: {token: req.cookies || ''}};
+}
