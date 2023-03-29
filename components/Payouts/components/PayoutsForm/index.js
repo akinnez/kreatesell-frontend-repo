@@ -268,11 +268,11 @@ const PayoutsForm = ({
 										accountNumberHandler(e, formik, form)
 									}
 									onBlur={(e) => {
-										validateAccountOnBlur({ 
+										validateAccountOnBlur({
 											e,
 											formik,
 											form,
-											banks, 
+											banks,
 											setValidating,
 											// setIsValid,
 										});
