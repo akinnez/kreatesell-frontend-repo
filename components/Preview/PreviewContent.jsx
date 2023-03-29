@@ -630,6 +630,6 @@ const VerifiedDrawerChildren = ({onClose}) => {
 	);
 };
 
-// export function getServerSideProps({ req, res }) {
-// 	return { props: { token: req.cookies || "" } }
-// }
+export function getServerSideProps({req, res}) {
+	return {props: {token: req.cookies || ''}};
+}
