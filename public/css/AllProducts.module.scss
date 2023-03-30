@@ -544,11 +544,18 @@
 		margin-bottom: 0px !important;
 	}
 
+	.modalSubtitle {
+		font-weight: 600;
+		font-size: 18px;
+		line-height: 33px;
+		color: #262626;
+	}
+
 	.subtitle {
-		font-weight: 400;
+		font-weight: 500;
 		font-size: 16px;
 		line-height: 26px;
-		color: #8c8c8c;
+		color: #262626;
 	}
 
 	.view_guide {
@@ -557,5 +564,86 @@
 		font-weight: 500;
 		font-size: 16px;
 		cursor: pointer;
+	}
+	.action {
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 26px;
+		color: #ff4d4f;
+		cursor: auto;
+		span {
+			font-weight: 600;
+			text-decoration: underline;
+		}
+	}
+	.number {
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 26px;
+		color: #262626;
+		margin-bottom: 0.3rem;
+	}
+
+	.container {
+		width: 73%;
+		margin: auto;
+		text-align: left;
+	}
+
+	.selectDropdown {
+		width: 100%;
+	}
+}
+
+.copyInput {
+	position: relative;
+	width: 75%;
+	margin: auto;
+	input {
+		// width: 100%;
+		padding: 0.5rem !important;
+		border: 2px solid $base-blue !important;
+		font-weight: 400;
+		font-size: 0.875rem;
+		color: #0072ef;
+	}
+	span {
+		width: 10%;
+		height: 100%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		background-color: $base-blue;
+		border-radius: 0 8px 8px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid $base-blue;
+	}
+}
+.copyInput2 {
+	position: relative;
+	width: 100%;
+	margin: auto;
+	input {
+		// width: 100%;
+		padding: 0.5rem !important;
+		border: 2px solid $base-blue !important;
+		font-weight: 400;
+		font-size: 0.875rem;
+		color: #0072ef;
+	}
+	span {
+		width: 10%;
+		height: 100%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		background-color: $base-blue;
+		border-radius: 0 8px 8px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid $base-blue;
 	}
 }
