@@ -154,7 +154,7 @@ const Checkout = () => {
 	);
 
 	const checkout = checkOutDetails?.filter(
-		// (item) => item?.currency_name === activeCurrency?.currency
+		// (item) => item?.currency_name === activeCurrency?.currency.
 		(item) =>
 			(item?.price_indicator === pricingTypeDetails.price_type) ===
 			'Pay What You Want'
@@ -162,6 +162,8 @@ const Checkout = () => {
 				: 'Selling' &&
 				  item?.currency_name === baseCurrencyObbject?.currency_name
 	);
+	
+
 
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price || 0;
