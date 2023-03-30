@@ -60,6 +60,8 @@ const generateSalesPageScript = () => {
   <style>\n \
 .kreatesell-btn{\n \
    cursor: pointer;\n \
+   width: 300px;\n \
+   max-width: 300px;\n \
 }\n  \
 </style>\n \
   <script> \n \
