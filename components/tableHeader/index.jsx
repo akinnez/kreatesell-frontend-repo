@@ -89,7 +89,7 @@ const generateSalesPageScript = () => {
 };
 
 const generateImageTag = (prodID, storename, selectedBtn) => {
-	return `<img width="300" height="100" alt = ""+${prodID};${storename} class="kreatesell-btn" src=""+${selectedBtn} />`;
+	return `<img width="300" height="100" alt = "${prodID};${storename}" class="kreatesell-btn" src="${selectedBtn}" />`;
 	// return `<img width="300" height="100" alt = \`${prodID};${storename}\` class="kreatesell-btn" src=\`${selectedBtn}\` />`;
 };
 export const SalesPageModal = ({
