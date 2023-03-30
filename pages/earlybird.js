@@ -56,16 +56,10 @@ export default function Home() {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `
-              (function(m, o, n, t, e, r, _) {
-                m['__GetResponseAnalyticsObject'] = e;
-                m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
-                r = o.createElement(n);
-                _ = o.getElementsByTagName(n)[0];
-                r.async = 1;
-                r.src = t;
-                r.setAttribute('crossorigin', 'use-credentials');
-                _.parentNode.insertBefore(r, _);
-              })(window, document, 'script', 'https://ga.getresponse.com/script/5ee813de-9ca5-4d1f-8300-de4d1a7fcd5c/ga.js', 'GrTracking');
+            (function(m, o, n, t, e, r, _){
+              m['__GetResponseAnalyticsObject'] = e;m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
+              r = o.createElement(n);_ = o.getElementsByTagName(n)[0];r.async = 1;r.src = t;r.setAttribute('crossorigin', 'use-credentials');_.parentNode .insertBefore(r, _);
+          })(window, document, 'script', 'https://ga.getresponse.com/script/5ee813de-9ca5-4d1f-8300-de4d1a7fcd5c/ga.js', 'GrTracking');
             `
           }}
         />

@@ -61,7 +61,7 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
 
   return (
     <>
-
+{/* 
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
 
@@ -83,7 +83,8 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
         <button type="submit" className={styles.btn}>
          Submit
         </button>
-      </form>
+      </form> */}
+      <getresponse-form form-id="beca359e-f705-49b7-b5d1-ad8859a54875" e="1"></getresponse-form>
     </>
   );
 };
