@@ -134,6 +134,11 @@
 			font-size: 0.94rem;
 			line-height: 40px;
 			color: #f90005;
+			a {
+				font-weight: 900;
+				color: #f90005 !important;
+				text-decoration: underline;
+			}
 		}
 	}
 
