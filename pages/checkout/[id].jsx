@@ -154,7 +154,7 @@ const Checkout = () => {
 	);
 
 	const checkout = checkOutDetails?.filter(
-		// (item) => item?.currency_name === activeCurrency?.currency,
+		// (item) => item?.currency_name === activeCurrency?.currency
 		(item) =>
 			(item?.price_indicator === pricingTypeDetails.price_type) ===
 			'Pay What You Want'
