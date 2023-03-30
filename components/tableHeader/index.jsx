@@ -58,7 +58,7 @@ const buttonLinks = [
 const generateSalesPageScript = () => {
 	return " \
   <script> \n \
-  // Get the query params \
+  // Get the query params \n \
       const queryString = window.location.search; \n \
       const urlParams = new URLSearchParams(queryString);\n \
       let ref = urlParams.get('ref')||0;\n \
