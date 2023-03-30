@@ -553,7 +553,7 @@ export default function PreviewContent({
 							onClick={getCheckoutLink}
 							type="primary"
 							disabled={isProductOutOfStock()}
-						    className={styles.preview_btn}
+							className={styles.preview_btn}
 						>
 							{product?.product_details?.enable_preorder
 								? 'Preorder'
@@ -574,7 +574,7 @@ export default function PreviewContent({
 						<div
 							className={styles.moreDetails}
 							dangerouslySetInnerHTML={{
-								__html: details?.product_details, 
+								__html: details?.product_details,
 							}}
 						></div>
 					)}
