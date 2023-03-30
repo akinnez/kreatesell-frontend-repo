@@ -245,10 +245,17 @@ const Advanced = () => {
 						<Image src={InfoIcon} alt="" height={50} width={50} />
 						<p className={styles.info}>
 							Sorry, you don’t yet have access to this premium
-							feature. You need to upgrade your account to
-							BUSINESS, then submit your credentials to activate
-							these global payment methods and get paid by anyone,
-							anywhere in the world.
+							feature. You need to{' '}
+							<Link
+								href={
+									'/account/kreator/settings?activeTab=billing'
+								}
+							>
+								upgrade your account
+							</Link>{' '}
+							to BUSINESS, then submit your credentials to
+							activate these global payment methods and get paid
+							by anyone, anywhere in the world.
 						</p>
 					</div>
 				</RenderIf>

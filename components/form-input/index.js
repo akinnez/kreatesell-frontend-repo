@@ -14,6 +14,7 @@ import {toast} from 'react-toastify';
 import {MdDelete} from 'react-icons/md';
 import NImg from 'next/image';
 import {DeleteImage} from '../../redux/actions';
+import {showToast} from 'utils';
 
 function getBase64(img, callback) {
 	const reader = new FileReader();
@@ -431,6 +432,14 @@ export const FileInput = ({
 	};
 
 	const handleChange = (e) => {
+		{
+			/* console.log('e', e.target.files[0].size); */
+		}
+
+		if (e.target.files[0].size > 1048576) {
+			showToast('Selected file is larger than 1mb', 'warn');
+			return;
+		}
 		setFile(e.target.files[0].name);
 		onChange(e.target.files[0]);
 	};
@@ -507,7 +516,9 @@ export const FileInput = ({
 						type="file"
 						disabled={!!value}
 						accept="image/*"
+						maxLength={'1048576'}
 						onChange={(e) => handleChange(e)}
+						multiple={false}
 					/>
 					{!!value ? (
 						<div style={{display: 'flex'}}>
@@ -540,8 +551,8 @@ export const FileInput = ({
 						</div>
 					) : (
 						<span>
-							upload a profile picture of 300 X 300 pixel not
-							exceed 300KB
+							upload a profile picture not exceeding 1MB, 300 x
+							300 pixel is the ideal dimension
 						</span>
 					)}
 				</label>
