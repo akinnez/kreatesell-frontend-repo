@@ -56,7 +56,12 @@ const buttonLinks = [
 ];
 
 const generateSalesPageScript = () => {
-	return " \
+	return " \n \
+  <style>\n \
+.kreatesell-btn{\n \
+   cursor: pointer;\n \
+}\n  \
+</style>\n \
   <script> \n \
   // Get the query params \n \
       const queryString = window.location.search; \n \
