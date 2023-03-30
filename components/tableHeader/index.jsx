@@ -56,9 +56,16 @@ const buttonLinks = [
 ];
 
 const generateSalesPageScript = () => {
-	return " \
+	return " \n \
+  <style>\n \
+.kreatesell-btn{\n \
+   cursor: pointer;\n \
+   width: 300px;\n \
+   max-width: 300px;\n \
+}\n  \
+</style>\n \
   <script> \n \
-  // Get the query params \
+  // Get the query params \n \
       const queryString = window.location.search; \n \
       const urlParams = new URLSearchParams(queryString);\n \
       let ref = urlParams.get('ref')||0;\n \

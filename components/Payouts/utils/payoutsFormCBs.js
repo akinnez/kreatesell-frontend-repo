@@ -200,7 +200,8 @@ export const createSubmitHandler = ({
 
 		if (values.country === 1 || values.country === 72) {
 			const bank = getData(banks, values.bank);
-
+			// console.log('bank', bank);
+			// console.log('values', values);
 			axiosApi.request(
 				'post',
 				`${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
@@ -249,7 +250,7 @@ export const createSubmitHandler = ({
 				{
 					account_number: values.account_number.trim(),
 					// account_bank: '044',
-					account_bank: bank.bank_code,
+					account_bank: bank.code || bank.bank_code,
 				}
 			);
 		} else {
