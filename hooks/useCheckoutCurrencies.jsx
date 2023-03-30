@@ -5,12 +5,14 @@ import {useSelector} from 'react-redux';
 const useCheckoutCurrency = () => {
 	const [loading, setLoading] = useState(false);
 	const {countries} = useSelector((state) => state.utils);
-	const {storeCheckoutCurrencies, loading: storeCheckoutCurrenciesLoading} =
-		useSelector((state) => state.store);
+	const {
+		storeCheckoutCurrencies,
+		loading: storeCheckoutCurrenciesLoading,
+	} = useSelector((state) => state.store);
 
 	const countriesCurrency = useMemo(() => {
 		if (storeCheckoutCurrencies.length > 0) {
-			return countries?.filter((country) => {
+			return countries.filter((country) => {
 				return storeCheckoutCurrencies.some((checkoutCurrency) => {
 					// there are some countries spending USD and are not US
 					// to prevent duplication of USD being stored
@@ -21,7 +23,7 @@ const useCheckoutCurrency = () => {
 						return true;
 					}
 					return (
-						country.currency_id === checkoutCurrency.currency_id &&
+						country.id === checkoutCurrency.country_id &&
 						checkoutCurrency.currency_short_name !== 'USD' &&
 						!['XOF', 'XAF'].includes(
 							checkoutCurrency.currency_short_name
