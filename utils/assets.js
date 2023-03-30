@@ -293,6 +293,7 @@ import Copy2 from '../public/images/copy2.svg';
 import PlusIcon from '../public/images/plus-icon.svg';
 import MinusIcon from '../public/images/minusIcon.svg';
 import GreenCancel from '../public/images/GreenCancel.svg';
+import ErrorInfoIcon from '../public/images/error-info-icon.svg';
 
 import FacebookIcon from '../public/images/facebookicon.svg';
 import InstagramIcon from '../public/images/instagramicon.svg';
@@ -325,6 +326,7 @@ import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
 
 export {
+	ErrorInfoIcon,
 	MinusIcon,
 	GreenCancel,
 	PlusIcon,

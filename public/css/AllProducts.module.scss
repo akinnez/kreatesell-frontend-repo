@@ -571,10 +571,10 @@
 		line-height: 26px;
 		color: #ff4d4f;
 		cursor: auto;
-		span {
-			font-weight: 600;
-			text-decoration: underline;
-		}
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
 	}
 	.number {
 		font-weight: 500;
@@ -588,6 +588,9 @@
 		width: 73%;
 		margin: auto;
 		text-align: left;
+		.number {
+			text-align: center;
+		}
 	}
 
 	.selectDropdown {

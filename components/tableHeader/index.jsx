@@ -24,6 +24,7 @@ import {
 	GreenCancel,
 	MinusIcon,
 	LinkCopy,
+	ErrorInfoIcon,
 } from 'utils';
 import styles from '../../public/css/AllProducts.module.scss';
 import {Button} from 'components';
@@ -97,7 +98,6 @@ const generateSalesPageScript = () => {
 
 const generateImageTag = (prodID, storename, selectedBtn) => {
 	return `<img width="300" height="100" alt = "${prodID};${storename}" class="kreatesell-btn" src="${selectedBtn}" />`;
-	// return `<img width="300" height="100" alt = \`${prodID};${storename}\` class="kreatesell-btn" src=\`${selectedBtn}\` />`;
 };
 export const SalesPageModal = ({
 	showModal = true,
@@ -185,8 +185,8 @@ export const SalesPageModal = ({
 				<h1 className={styles.modalTitle}>Sales Page Connected</h1>
 				<p className={`mb-3 ${styles.action}`}>
 					{/* TODO: Icon comes here */}
-					Make sure you copy the link below and <br />
-					<span>view the guide</span> to complete the setup
+					<Image alt="Error Info Icon" src={ErrorInfoIcon} /> Make
+					sure you copy the link below and click Continue
 				</p>
 				<div className={styles.copyInput + ' flex'}>
 					<Input
@@ -209,7 +209,7 @@ export const SalesPageModal = ({
 					</span>
 				</div>
 				<Button
-					text="Continue Sales Page Setup"
+					text="Continue "
 					className="mt-3"
 					style={{width: '75%'}}
 					bgColor="blue"
@@ -319,8 +319,8 @@ export const SalesPageModal = ({
 				<h1 className={styles.modalSubtitle}>Almost Done...</h1>
 				<div className={styles.container}>
 					<p className={styles.number}>
-						1. Copy and paste this link in the footer section of
-						your store front.
+						1. Copy and paste this link before the closing body tag
+						or footer code of your sales page
 					</p>
 					<div className={styles.copyInput2 + ' flex'}>
 						<Input
@@ -344,8 +344,8 @@ export const SalesPageModal = ({
 					<br />
 					<br />
 					<p className={styles.number}>
-						2. Copy and paste this code in the HTML for your Sales
-						Page button.
+						2. Copy and paste this code as a custom or raw HTML for
+						your Sales Page button
 					</p>
 					<div className={styles.copyInput2 + ' flex'}>
 						<Input
