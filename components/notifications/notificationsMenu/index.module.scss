@@ -1,8 +1,19 @@
 @use 'public/css/colors';
+.menu_container {
+	width: 295px;
+	overflow-y: scroll;
+	height: 50vh;
+
+	@media (max-width: 450px) {
+		width: 85%;
+		// height: 100vh;
+		margin-left: 3rem;
+		margin-top: 0.5rem;
+	}
+}
 
 .menu__item {
 	// width: 295px;
-
 	&:not([class*='data-menu__item']):hover {
 		background-color: transparent;
 	}

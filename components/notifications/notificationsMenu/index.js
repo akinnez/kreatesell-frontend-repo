@@ -109,7 +109,7 @@ const notificationsMenu = ({notifications, error, count, dispatch, mutate}) => {
 		renderNotifications.push(jsx);
 	}
 
-	return <Menu>{renderNotifications}</Menu>;
+	return <Menu className={styles.menu_container}>{renderNotifications}</Menu>;
 };
 
 export default notificationsMenu;
