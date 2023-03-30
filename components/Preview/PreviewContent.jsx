@@ -493,7 +493,7 @@ export default function PreviewContent({
 									{sellingPrice?.length > 0 &&
 										productPriceType !==
 											'Pay What You Want' && (
-											<h1 className="text-3xl font-bold">
+											<h1 className="text-xl md:text-3xl font-bold">
 												{`${
 													alreadyDefinedPrice?.currency_name ||
 													convertedCurrency?.to_currency_name ||
@@ -519,7 +519,7 @@ export default function PreviewContent({
 
 									{productPriceType ===
 										'Pay What You Want' && (
-										<h1 className="text-3xl font-bold">{`${
+										<h1 className="text-xl md:text-3xl font-bold">{`${
 											alreadyDefinedPrice?.currency_name ||
 											convertedCurrency?.to_currency_name ||
 											getMinimumCurrency()
@@ -553,6 +553,7 @@ export default function PreviewContent({
 							onClick={getCheckoutLink}
 							type="primary"
 							disabled={isProductOutOfStock()}
+						    className={styles.preview_btn}
 						>
 							{product?.product_details?.enable_preorder
 								? 'Preorder'
@@ -566,14 +567,14 @@ export default function PreviewContent({
 
 			<section className={styles.more}>
 				<div className="mt-5 flex flex-col ">
-					<h2 className="mb-7 pt-5 font-semibold text-lg">
+					<h2 className="mb-7 pt-5 font-semibold text-base md:text-lg lg:text-lg">
 						More Details:
 					</h2>
 					{details !== undefined && Object.keys(details)?.length > 0 && (
 						<div
 							className={styles.moreDetails}
 							dangerouslySetInnerHTML={{
-								__html: details?.product_details,
+								__html: details?.product_details, 
 							}}
 						></div>
 					)}
