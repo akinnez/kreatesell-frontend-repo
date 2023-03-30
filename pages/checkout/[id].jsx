@@ -162,6 +162,7 @@ const Checkout = () => {
 				: 'Selling' &&
 				  item?.currency_name === baseCurrencyObbject?.currency_name
 	);
+	
 
 	const currency_name = checkout?.[0]?.currency_name;
 	const price = checkout?.[0]?.price || 0;
