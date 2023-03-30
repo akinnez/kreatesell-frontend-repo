@@ -3,7 +3,7 @@ import {useState, useContext} from 'react';
 import {useRouter} from 'next/router';
 
 import {format, parseISO} from 'date-fns';
-import {Modal, Tag, Tooltip, Popover, Popconfirm, Input} from 'antd';
+import {Modal, Tag, Tooltip, Popover, Popconfirm, Input, Select} from 'antd';
 import {useSelector} from 'react-redux';
 
 import {
@@ -23,6 +23,7 @@ import {
 	SuccessCheck,
 	GreenCancel,
 	MinusIcon,
+	LinkCopy,
 } from 'utils';
 import styles from '../../public/css/AllProducts.module.scss';
 import {Button} from 'components';
@@ -38,19 +39,74 @@ import {
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {SalesPageContext} from 'context/AddSalesPageContext';
 
+const {Option} = Select;
+const buttonLinks = [
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679919368/Button1.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679494367/Button2.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679494367/Button3.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679494366/Button4.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679494367/Button5.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918396/Button6.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918397/Button7.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918395/Button8.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918395/Button9.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918398/Button10.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918395/Button11.png',
+	'https://res.cloudinary.com/salvoagency/image/upload/v1679918399/Button12.png',
+];
+
+const generateSalesPageScript = () => {
+	return " \
+  <script> \n \
+  // Get the query params \
+      const queryString = window.location.search; \n \
+      const urlParams = new URLSearchParams(queryString);\n \
+      let ref = urlParams.get('ref')||0;\n \
+      let uniqkey = urlParams.get('uniqkey')||0;\n \
+      let prodId = urlParams.get('prodId');\n \
+      let storename = urlParams.get('storename');\n \
+    // Get all elements with class \"kreatesell-btn\"\n \
+  const kreatesellBtns = document.querySelectorAll('.kreatesell-btn');\n \
+  // Add an onclick event listener to each element\n \
+  kreatesellBtns.forEach(btn => {\n \
+    btn.addEventListener('click', function() {\n \
+      console.log('clicked')\n \
+       if (prodId && storename) { \n\
+          window.location.href = `https://dev.kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}&uniqkey=${uniqkey}`;\n \
+        } \n\
+     else if(!prodId || !storename){\n \
+       if(btn.alt){ \
+          //format for alt will be \"prod_id;storename\" \n\
+          let splittedValue = btn?.alt?.split(';')\n \
+          if(splittedValue.length === 2){\n \
+             window.location.href = `https://dev.kreatesell.com/store/${splittedValue[1]}/product/${splittedValue[0]}?ref=${ref}&uniqkey=${uniqkey}`;\n \
+          }\n \
+       }\n \
+    }\n \
+    });\n \
+  });\n \
+  </script>";
+};
+
+const generateImageTag = (prodID, storename, selectedBtn) => {
+	return `<img width="300" height="100" alt = "${prodID};${storename}" class="kreatesell-btn" src="${selectedBtn}" />`;
+	// return `<img width="300" height="100" alt = \`${prodID};${storename}\` class="kreatesell-btn" src=\`${selectedBtn}\` />`;
+};
 export const SalesPageModal = ({
 	showModal = true,
 	closeModal = () => {},
 	type = 'connectSalesModal',
 }) => {
 	const [salesPageUrl, setSalesPageUrl] = useState('');
+	const [linkImage, setLinkImage] = useState({link: '', imageLink: ''});
 	const addSalesPage = AddSalesPage();
 	const disconnectSalesPage = DisconnectSalesPage();
 	const getProducts = GetProducts();
 	const {salesPage, salesPageDispatch} = useContext(SalesPageContext);
 	const {addSalesPageLoading} = useSelector((state) => state.product);
+	const {store} = useSelector((state) => state.store);
 
-	// type can be connectSalesModal, salesPageConnected, disconnectSalesPage, salesPageDisconnected
+	// NOTE:type can be connectSalesModal, salesPageConnected, disconnectSalesPage, salesPageDisconnected, generateLinkStepOne, generateLinkStepTwo
 	if (type === 'connectSalesModal') {
 		return (
 			<Modal
@@ -66,7 +122,7 @@ export const SalesPageModal = ({
 				<br />
 				<h1 className={`${styles.modalTitle}`}>Connect Sales Page</h1>
 				<div style={{width: '70%', margin: 'auto'}}>
-					<p className={`mb-0 ${styles.subtitle} text-left mt-7`}>
+					<p className={`mb-1 ${styles.subtitle} text-left mt-7`}>
 						Enter the URL of your sales page
 					</p>
 					<Input
@@ -120,16 +176,207 @@ export const SalesPageModal = ({
 				<br />
 				<Image src={SuccessCheck} alt="Success checkmark" />
 				<h1 className={styles.modalTitle}>Sales Page Connected</h1>
-				<p className={`mb-3 ${styles.subtitle}`}>
-					You&apos;ve successfully connected your sales page{' '}
+				<p className={`mb-3 ${styles.action}`}>
+					{/* TODO: Icon comes here */}
+					Make sure you copy the link below and <br />
+					<span>view the guide</span> to complete the setup
 				</p>
+				<div className={styles.copyInput + ' flex'}>
+					<Input
+						readOnly
+						bordered
+						className="rounded-lg"
+						// placeholder={`${salesPage?.productId};${store?.store_details?.store_name}`}
+						value={`${salesPage?.productId};${store?.store_details?.store_name}`}
+					/>
+					<span
+						onClick={() =>
+							_copyToClipboard(
+								`${salesPage?.productId};${store?.store_details?.store_name}`,
+								'The product link was successfully copied!'
+							)
+						}
+						className="cursor-pointer"
+					>
+						<Image src={LinkCopy} alt="copy" />
+					</span>
+				</div>
 				<Button
-					text="Close"
+					text="Continue Sales Page Setup"
 					className="mt-3"
-					style={{width: '65%'}}
+					style={{width: '75%'}}
 					bgColor="blue"
 					onClick={() => {
-						salesPageDispatch({type: 'CLOSE_MODAL'});
+						salesPageDispatch({
+							type: 'CHANGE_MODAL_TYPE',
+							payload: {modalType: 'generateLinkStepOne'},
+						});
+					}}
+				/>
+				<div className={styles.view_guide}>View guide</div>
+			</Modal>
+		);
+	}
+	if (type === 'generateLinkStepOne') {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => closeModal()}
+				maskClosable={false}
+				closeIcon={<CloseIcon />}
+				className={`${styles.modalContainer}`}
+				width={'600px'}
+			>
+				<br />
+				<br />
+				<div className={styles.container}>
+					<p className={styles.number}>
+						1. Paste the link you copied on the previous page here
+					</p>
+					<Input
+						value={linkImage.link}
+						onChange={(e) =>
+							setLinkImage((prev) => ({
+								...prev,
+								link: e.target.value,
+							}))
+						}
+						placeholder="Paste the link here - KREATE-storename63810919410833;storename"
+					/>
+					<br />
+					<br />
+					<p className={styles.number}>
+						2. Select the desired button for your sales page
+					</p>
+					<Select
+						className={styles.selectDropdown}
+						// defaultValue={buttonLinks[0]}
+						placeholder="Select Option"
+						onChange={(e) => {
+							setLinkImage((prev) => ({...prev, imageLink: e}));
+						}}
+					>
+						{buttonLinks.map((btnLink, idx) => (
+							<Option
+								key={idx}
+								value={btnLink}
+								style={{display: 'flex', alignItems: 'center'}}
+							>
+								<Image
+									alt={`button ${idx + 1} image`}
+									src={btnLink}
+									width={60}
+									height={30}
+								/>{' '}
+								&nbsp;&nbsp; Button {idx + 1}
+							</Option>
+						))}
+					</Select>
+				</div>
+
+				<Button
+					text="Submit"
+					className="mt-3"
+					style={{width: '75%'}}
+					bgColor="blue"
+					onClick={() => {
+						salesPageDispatch({
+							type: 'CHANGE_MODAL_TYPE',
+							payload: {
+								modalType: 'generateLinkStepTwo',
+								linkImage,
+							},
+						});
+					}}
+				/>
+			</Modal>
+		);
+	}
+	if (type === 'generateLinkStepTwo') {
+		return (
+			<Modal
+				title={null}
+				footer={null}
+				visible={showModal}
+				onCancel={() => closeModal()}
+				maskClosable={false}
+				closeIcon={<CloseIcon />}
+				className={styles.modalContainer}
+				width={'700px'}
+			>
+				{/* <br /> */}
+				{/* <br /> */}
+
+				<h1 className={styles.modalSubtitle}>Almost Done...</h1>
+				<div className={styles.container}>
+					<p className={styles.number}>
+						1. Copy and paste this link in the footer section of
+						your store front.
+					</p>
+					<div className={styles.copyInput2 + ' flex'}>
+						<Input
+							readOnly
+							bordered
+							className="rounded-lg"
+							value={generateSalesPageScript()}
+						/>
+						<span
+							onClick={() =>
+								_copyToClipboard(
+									generateSalesPageScript(),
+									'The product link was successfully copied!'
+								)
+							}
+							className="cursor-pointer"
+						>
+							<Image src={LinkCopy} alt="copy" />
+						</span>
+					</div>
+					<br />
+					<br />
+					<p className={styles.number}>
+						2. Copy and paste this code in the HTML for your Sales
+						Page button.
+					</p>
+					<div className={styles.copyInput2 + ' flex'}>
+						<Input
+							readOnly
+							bordered
+							className="rounded-lg"
+							value={generateImageTag(
+								salesPage?.productId,
+								store?.store_details?.store_name,
+								linkImage?.imageLink
+							)}
+						/>
+						<span
+							onClick={() =>
+								_copyToClipboard(
+									generateImageTag(
+										salesPage?.productId,
+										store?.store_details?.store_name,
+										linkImage?.imageLink
+									),
+									'The product link was successfully copied!'
+								)
+							}
+							className="cursor-pointer"
+						>
+							<Image src={LinkCopy} alt="copy" />
+						</span>
+					</div>
+				</div>
+				<Button
+					text="Done"
+					className="mt-3"
+					style={{width: '75%'}}
+					bgColor="blue"
+					onClick={() => {
+						salesPageDispatch({
+							type: 'CLOSE_MODAL',
+						});
 					}}
 				/>
 			</Modal>
@@ -457,7 +704,6 @@ const ActionComponent = ({item}, all) => {
 	const createEditDeleteProduct = CreateProduct();
 	const setProductID = SetProductID();
 	const setProductTab = SetProductTab();
-
 	const id = item?.product_details?.id;
 	const kreasell_product_id = item?.product_details?.kreasell_product_id;
 	const {salesPageDispatch} = useContext(SalesPageContext);

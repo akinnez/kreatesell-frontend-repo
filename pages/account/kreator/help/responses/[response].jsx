@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
 import dynamic from 'next/dynamic';
+import {BsReplyFill} from 'react-icons/bs';
 
 import useSWR from 'swr';
 import axios from 'axios';
@@ -348,7 +349,10 @@ const CardBody = ({ticketId, ticket}) => {
 					))}
 				</RenderIf>
 				<RenderIf
-					condition={ticket?.status?.toLowerCase() === 'closed'}
+					condition={
+						ticket?.status?.toLowerCase() === 'closed' &&
+						!reopenSection
+					}
 				>
 					<Button
 						// leftIcon={}
@@ -363,7 +367,12 @@ const CardBody = ({ticketId, ticket}) => {
 						<Image alt="icon" src={MailReopen} />
 					</Button>
 				</RenderIf>
-				<RenderIf condition={ticket?.status?.toLowerCase() === 'open'}>
+				<RenderIf
+					condition={
+						ticket?.status?.toLowerCase() === 'open' &&
+						!reopenSection
+					}
+				>
 					<Button
 						// leftIcon={}
 						className="p-5 rounded-lg"
@@ -372,7 +381,7 @@ const CardBody = ({ticketId, ticket}) => {
 						onClick={handleReopen}
 					>
 						<span className="mr-3">Reply</span>
-						<Image alt="icon" src={MailReopen} />
+						<BsReplyFill className="text-white text-base h-6" />
 					</Button>
 				</RenderIf>
 			</div>

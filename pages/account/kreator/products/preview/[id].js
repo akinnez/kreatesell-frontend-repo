@@ -18,10 +18,9 @@ export default function PreviewProduct() {
 			getProductByID(
 				router.query.id,
 				(res) => {
-					// console.log('successs', res.data.data.status);
 					if (
 						['deactivate', 'deativate'].includes(
-							res.data.data.status.toLowerCase()
+							res?.data?.data?.status.toLowerCase()
 						)
 					) {
 						setProductStatus('deactivated');

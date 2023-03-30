@@ -293,6 +293,7 @@ const Index = () => {
 			}
 		);
 	});
+
 	const memoisedDataForExport = useMemo(() => {
 		if (requests.data.length > 0) {
 			const formattedData = requests.data.map((dat) => ({

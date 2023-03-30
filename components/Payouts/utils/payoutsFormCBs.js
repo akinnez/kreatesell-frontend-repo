@@ -248,8 +248,8 @@ export const createSubmitHandler = ({
 				},
 				{
 					account_number: values.account_number.trim(),
-					account_bank: '044',
-					// account_bank: bank.bank_code,
+					// account_bank: '044',
+					account_bank: bank.bank_code,
 				}
 			);
 		} else {
