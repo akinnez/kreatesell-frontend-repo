@@ -8,7 +8,7 @@ export const CreateCouponSchema = () => {
 			// 	.min(8, 'Coupon Code must be exactly 8 characters')
 			// 	.max(8, 'Coupon Code must be exactly 8 characters'),
 			is_percentage: Yup.boolean(),
-			percentage_value: Yup.number().when('is_percentage', {
+			percentage_value: Yup.string().when('is_percentage', {
 				is: true,
 				then: Yup.number().required('Kindly add a Percentage Value'),
 			}),
