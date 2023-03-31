@@ -156,31 +156,65 @@ export const EditCouponForm = () => {
 		setFieldValue('coupon_settings.is_apply_to_recurring', isApplied);
 	}, [isApplied]);
 
-
-	
-
 	useEffect(() => {
-		console.log(updateCouponData[0],'jj')
+		console.log(updateCouponData[0], 'jj');
 		if (updateCouponData.length > 0) {
-			setFieldValue('coupon_settings.coupon_code', updateCouponData[0]?.coupons?.coupon_code);
+			setFieldValue(
+				'coupon_settings.coupon_code',
+				updateCouponData[0]?.coupons?.coupon_code
+			);
 			// setFieldValue('coupon_settings.is_coupon', '');
-			setFieldValue('coupon_settings.start_date',  updateCouponData[0]?.coupons?.start_date);
-			setFieldValue('coupon_settings.end_date',  updateCouponData[0]?.coupons?.end_date);
-			setFieldValue('coupon_settings.fixed_amount_value', updateCouponData[0]?.coupons?.fixed_amount_value);
-			setFieldValue('coupon_settings.percentage_value', updateCouponData[0]?.coupons?.percentage_value);
-			setFieldValue('coupon_settings.is_percentage', updateCouponData[0]?.coupons?.is_percentage);
-			setFieldValue('coupon_settings.is_fixed_amount', updateCouponData[0]?.coupons?.is_fixed_amount);
-			setFieldValue('coupon_settings.is_coupon_limited',updateCouponData[0]?.coupons?.is_coupon_limited);
-			setFieldValue('coupon_settings.no_of_frequency', "updateCouponData[0]?.coupons?.number_of_usages");
-			setFieldValue('coupon_settings.is_usage_limited',  updateCouponData[0]?.coupons?.is_usage_limited_per_customer);
-			setFieldValue('coupon_settings.no_of_usage',  "updateCouponData[0]?.coupons?.number_of_customer_usages");
-			setFieldValue('coupon_settings.is_apply_to_recurring', updateCouponData[0]?.coupons?.can_be_on_recurring_payment);
+			setFieldValue(
+				'coupon_settings.start_date',
+				updateCouponData[0]?.coupons?.start_date
+			);
+			setFieldValue(
+				'coupon_settings.end_date',
+				updateCouponData[0]?.coupons?.end_date
+			);
+			setFieldValue(
+				'coupon_settings.fixed_amount_value',
+				updateCouponData[0]?.coupons?.fixed_amount_value
+			);
+			setFieldValue(
+				'coupon_settings.percentage_value',
+				updateCouponData[0]?.coupons?.percentage_value
+			);
+			setFieldValue(
+				'coupon_settings.is_percentage',
+				updateCouponData[0]?.coupons?.is_percentage
+			);
+			setFieldValue(
+				'coupon_settings.is_fixed_amount',
+				updateCouponData[0]?.coupons?.is_fixed_amount
+			);
+			setFieldValue(
+				'coupon_settings.is_coupon_limited',
+				updateCouponData[0]?.coupons?.is_coupon_limited
+			);
+			setFieldValue(
+				'coupon_settings.no_of_frequency',
+				'updateCouponData[0]?.coupons?.number_of_usages'
+			);
+			setFieldValue(
+				'coupon_settings.is_usage_limited',
+				updateCouponData[0]?.coupons?.is_usage_limited_per_customer
+			);
+			setFieldValue(
+				'coupon_settings.no_of_usage',
+				'updateCouponData[0]?.coupons?.number_of_customer_usages'
+			);
+			setFieldValue(
+				'coupon_settings.is_apply_to_recurring',
+				updateCouponData[0]?.coupons?.can_be_on_recurring_payment
+			);
 			setFieldValue('action', 'e');
 			setFieldValue('coupon_id', updateCouponData[0]?.coupons?.id);
-			setIsPercentage(updateCouponData[0]?.coupons?.is_percentage)
-			setIsLimited(updateCouponData[0]?.coupons?.is_coupon_limited)
-			setIsUsage(updateCouponData[0]?.coupons?.is_usage_limited_per_customer)
-
+			setIsPercentage(updateCouponData[0]?.coupons?.is_percentage);
+			setIsLimited(updateCouponData[0]?.coupons?.is_coupon_limited);
+			setIsUsage(
+				updateCouponData[0]?.coupons?.is_usage_limited_per_customer
+			);
 
 			// setFieldValue('isBasicPlan', '');
 		}
@@ -381,7 +415,7 @@ export const EditCouponForm = () => {
 						>
 							<Input
 								type="datetime-local"
-								name='coupon_settings.end_date'
+								name="coupon_settings.end_date"
 								onChange={formik.handleChange}
 								// value={end_date}
 							/>
