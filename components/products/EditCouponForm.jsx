@@ -420,7 +420,7 @@ export const EditCouponForm = () => {
 							type="number"
 							placeholder={
 								updateCouponData[0]?.coupons
-									?.number_of_frequencies || '0'
+									?.number_of_usages || '0'
 							}
 							label="Number of Times"
 							disabled={!isLimited ? true : false}
@@ -479,7 +479,7 @@ export const EditCouponForm = () => {
 							type="number"
 							placeholder={
 								updateCouponData[0]?.coupons
-									?.number_of_usages || '0'
+									?.number_of_customer_usages || '0'
 							}
 							name="no_of_usage"
 							value={no_of_usage}
