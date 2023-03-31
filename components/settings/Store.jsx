@@ -131,7 +131,7 @@ const StoreSettings = () => {
 			<div className="flex justify-between items-center w-full lg:w-2/4 pt-4 mt-4">
 				<div className="text-black-100 text-base">
 					{/* Enable products cross-sell on store product page */}
-					Enable context for your buyers
+					Enable cross sell for your buyers
 				</div>
 				<div className="flex pb-4 md:pb-0">
 					<Switch

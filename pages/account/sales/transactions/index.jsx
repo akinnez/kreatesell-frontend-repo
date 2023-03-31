@@ -359,6 +359,10 @@ const Index = () => {
 		}
 	}, [filters?.show]);
 
+	const handlePagination = (e) => {
+		setFilters((prev) => ({...prev, page: e}));
+	};
+
 	return (
 		<AuthLayout>
 			<div className={styles.transaction__header}>Transactions</div>
@@ -391,6 +395,11 @@ const Index = () => {
 						locale={tableLocale}
 						scroll={{
 							x: 1000,
+						}}
+						pagination={{
+							position: ['bottomLeft'],
+							onChange: handlePagination,
+							total: response?.data?.total_records,
 						}}
 					/>
 				</div>
