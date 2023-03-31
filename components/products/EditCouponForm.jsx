@@ -201,7 +201,7 @@ export const EditCouponForm = () => {
 			);
 			setFieldValue(
 				'coupon_settings.no_of_usage',
-				'updateCouponData[0]?.coupons?.number_of_customer_usages'
+				updateCouponData[0]?.coupons?.number_of_customer_usages
 			);
 			setFieldValue(
 				'coupon_settings.is_apply_to_recurring',
