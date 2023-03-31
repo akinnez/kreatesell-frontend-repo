@@ -32,7 +32,9 @@ const PayoutsMobileView = ({payouts}) => {
 										<p>Settlement Date:</p>
 										<p>
 											{/* {dateFormat(payout.settlement_date)} */}
-											{dateFormat(payout?.payment_date)}
+											{dateFormat(
+												payout?.settlement_date
+											)}
 										</p>
 									</div>
 								</div>
