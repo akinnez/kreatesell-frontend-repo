@@ -157,6 +157,69 @@ export const EditCouponForm = () => {
 	}, [isApplied]);
 
 	useEffect(() => {
+		if (updateCouponData.length > 0) {
+			setFieldValue(
+				'coupon_settings.coupon_code',
+				updateCouponData[0]?.coupons?.coupon_code
+			);
+			// setFieldValue('coupon_settings.is_coupon', '');
+			setFieldValue(
+				'coupon_settings.start_date',
+				updateCouponData[0]?.coupons?.start_date
+			);
+			setFieldValue(
+				'coupon_settings.end_date',
+				updateCouponData[0]?.coupons?.end_date
+			);
+			setFieldValue(
+				'coupon_settings.fixed_amount_value',
+				updateCouponData[0]?.coupons?.fixed_amount_value
+			);
+			setFieldValue(
+				'coupon_settings.percentage_value',
+				updateCouponData[0]?.coupons?.percentage_value
+			);
+			setFieldValue(
+				'coupon_settings.is_percentage',
+				updateCouponData[0]?.coupons?.is_percentage
+			);
+			setFieldValue(
+				'coupon_settings.is_fixed_amount',
+				updateCouponData[0]?.coupons?.is_fixed_amount
+			);
+			setFieldValue(
+				'coupon_settings.is_coupon_limited',
+				updateCouponData[0]?.coupons?.is_coupon_limited
+			);
+			setFieldValue(
+				'coupon_settings.no_of_frequency',
+				updateCouponData[0]?.coupons?.number_of_usages
+			);
+			setFieldValue(
+				'coupon_settings.is_usage_limited',
+				updateCouponData[0]?.coupons?.is_usage_limited_per_customer
+			);
+			setFieldValue(
+				'coupon_settings.no_of_usage',
+				updateCouponData[0]?.coupons?.number_of_customer_usages
+			);
+			setFieldValue(
+				'coupon_settings.is_apply_to_recurring',
+				updateCouponData[0]?.coupons?.can_be_on_recurring_payment
+			);
+			setFieldValue('action', 'e');
+			setFieldValue('coupon_id', updateCouponData[0]?.coupons?.id);
+			setIsPercentage(updateCouponData[0]?.coupons?.is_percentage);
+			setIsLimited(updateCouponData[0]?.coupons?.is_coupon_limited);
+			setIsUsage(
+				updateCouponData[0]?.coupons?.is_usage_limited_per_customer
+			);
+
+			// setFieldValue('isBasicPlan', '');
+		}
+	}, [updateCouponData.length]);
+
+	useEffect(() => {
 		if (Object.keys(store).length > 0) {
 			const {user} = store;
 			if (user.user_plan === 'Basic') {
@@ -195,8 +258,8 @@ export const EditCouponForm = () => {
 						label="Coupon Code"
 						labelExtra=" Letters and Numbers only!."
 						style={{width: '100%'}}
-						placeholder={updateCouponData[0]?.coupons?.coupon_code}
-						name="coupon_code"
+						// placeholder={updateCouponData[0]?.coupons?.coupon_code}
+						name="coupon_settings.coupon_code"
 						disabled
 						onChange={(e) =>
 							setFieldValue(
@@ -204,7 +267,7 @@ export const EditCouponForm = () => {
 								e?.toUpperCase()
 							)
 						}
-						value={coupon_code}
+						value={values?.coupon_settings?.coupon_code}
 					/>
 				</div>
 				<div className="flex flex-col mt-8">
@@ -286,19 +349,18 @@ export const EditCouponForm = () => {
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
 									type="number"
-									placeholder={
-										updateCouponData[0]?.coupons
-											?.percentage_value || '0'
-									}
-									name="percentage_value"
-									onChange={(e) =>
-										setFieldValue(
-											'coupon_settings.percentage_value',
-											e.target.value
-										)
-									}
+									name="coupon_settings.percentage_value"
+									onChange={formik.handleChange}
 									disabled={!isPercentage ? true : false}
-									value={percentage_value}
+									value={
+										values?.coupon_settings
+											?.percentage_value
+									}
+									// placeholder={
+									// 	updateCouponData[0]?.coupons
+									// 		?.percentage_value || '0'
+									// }
+									// value={percentage_value}
 								/>
 							</div>
 						</div>
@@ -323,19 +385,17 @@ export const EditCouponForm = () => {
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
 									type="number"
-									placeholder={
-										updateCouponData[0]?.coupons
-											?.fixed_amount_value || '0'
+									// placeholder={
+									// 	updateCouponData[0]?.coupons
+									// 		?.fixed_amount_value || '0'
+									// }
+									name="coupon_settings.fixed_amount_value"
+									value={
+										values?.coupon_settings
+											?.fixed_amount_value
 									}
-									name="fixed_amount_value"
-									value={fixed_amount_value}
 									disabled={isPercentage ? true : false}
-									onChange={(e) =>
-										setFieldValue(
-											'coupon_settings.fixed_amount_value',
-											e.target.value
-										)
-									}
+									onChange={formik.handleChange}
 								/>
 							</div>
 						</div>
@@ -348,13 +408,9 @@ export const EditCouponForm = () => {
 						<div className={styles.inputGroup /*+"  w-3/5"*/}>
 							<Input
 								type="datetime-local"
-								onChange={(e) => {
-									setFieldValue(
-										'coupon_settings.start_date',
-										e.target.value
-									);
-								}}
-								value={start_date}
+								name="coupon_settings.start_date"
+								onChange={formik.handleChange}
+								value={values?.coupon_settings.start_date}
 							/>
 						</div>
 					</div>
@@ -365,13 +421,9 @@ export const EditCouponForm = () => {
 						>
 							<Input
 								type="datetime-local"
-								onChange={(e) =>
-									setFieldValue(
-										'coupon_settings.end_date',
-										e.target.value
-									)
-								}
-								value={end_date}
+								name="coupon_settings.end_date"
+								onChange={formik.handleChange}
+								value={values?.coupon_settings.end_date}
 							/>
 						</div>
 					</div>
@@ -417,21 +469,16 @@ export const EditCouponForm = () => {
 							Number of Times
 						</h2>
 						<Input
-							type="number"
-							placeholder={
-								updateCouponData[0]?.coupons
-									?.number_of_usages || '0'
-							}
+							// type="number"
+							// placeholder={
+							// 	updateCouponData[0]?.coupons
+							// 		?.number_of_usages || '0'
+							// }
 							label="Number of Times"
 							disabled={!isLimited ? true : false}
-							name="no_of_frequency"
-							value={no_of_frequency}
-							onChange={(e) =>
-								setFieldValue(
-									'coupon_settings.no_of_frequency',
-									e.target.value
-								)
-							}
+							name="coupon_settings.no_of_frequency"
+							value={values?.coupon_settings?.no_of_frequency}
+							onChange={formik.handleChange}
 						/>
 					</div>
 				</div>
@@ -477,19 +524,14 @@ export const EditCouponForm = () => {
 						</h2>
 						<Input
 							type="number"
-							placeholder={
-								updateCouponData[0]?.coupons
-									?.number_of_customer_usages || '0'
-							}
-							name="no_of_usage"
-							value={no_of_usage}
+							// placeholder={
+							// 	updateCouponData[0]?.coupons
+							// 		?.number_of_customer_usages || '0'
+							// }
+							name="coupon_settings.no_of_usage"
+							value={values?.coupon_settings.no_of_usage}
 							disabled={isUsage ? false : true}
-							onChange={(e) =>
-								setFieldValue(
-									'coupon_settings.no_of_usage',
-									e.target.value
-								)
-							}
+							onChange={formik.handleChange}
 						/>
 					</div>
 				</div>
