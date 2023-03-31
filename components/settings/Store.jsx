@@ -31,8 +31,10 @@ const StoreSettings = () => {
 	const [taxValue, setTaxValue] = useState(store?.custom_tax_amount);
 	const [errorTax, setErrorTax] = useState(false);
 
-	const {enable_disable_tax, is_enable_product_cross_sell} =
-		userStoreSettings;
+	const {
+		enable_disable_tax,
+		is_enable_product_cross_sell,
+	} = userStoreSettings;
 	const [ctaBtnValue, setCtaBtnValue] = useState({
 		option: 'store',
 		cta_button: defaultCTA || '',
@@ -131,7 +133,7 @@ const StoreSettings = () => {
 			<div className="flex justify-between items-center w-full lg:w-2/4 pt-4 mt-4">
 				<div className="text-black-100 text-base">
 					{/* Enable products cross-sell on store product page */}
-					Enable context for your buyers
+					Enable cross sell for your buyers
 				</div>
 				<div className="flex pb-4 md:pb-0">
 					<Switch
@@ -140,8 +142,7 @@ const StoreSettings = () => {
 						onChange={async () => {
 							setUserStoreSettings((value) => ({
 								...value,
-								is_enable_product_cross_sell:
-									!value.is_enable_product_cross_sell,
+								is_enable_product_cross_sell: !value.is_enable_product_cross_sell,
 							}));
 
 							// await updateStoreSettings(userStoreSettings, () => {
