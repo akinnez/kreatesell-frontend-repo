@@ -101,7 +101,7 @@ export const CouponHeader = ({
 							/>
 						</Form.Item>
 					</Col>
-					<Col xs={4} lg={2} className={styles.filter__btn}>
+					<Col xs={6} lg={2} className={styles.filter__btn}>
 						<Form.Item>
 							<Button
 								type="primary"

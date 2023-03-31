@@ -269,11 +269,7 @@ const Index = () => {
 	const {url, filters, setFilters} = useFilters(
 		'v1/kreatesell/store/fetch/revenue/all'
 	);
-	const {
-		data: response,
-		error,
-		isValidating,
-	} = useSWR(url.href, (url) => {
+	const {data: response, error, isValidating} = useSWR(url.href, (url) => {
 		return axiosAPI.request(
 			'get',
 			url,
@@ -342,6 +338,7 @@ const Index = () => {
 									data={request}
 								/>
 						  ))}
+					{/* TODO: Add pagination for mobile */}
 				</div>
 				<div className={styles.table__wrapper}>
 					<Table
