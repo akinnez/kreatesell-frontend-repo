@@ -312,7 +312,11 @@ const Index = () => {
 		'v1/kreatesell/store/fetch/transactions/all'
 	);
 
-	const {data: response, error, isValidating} = useSWR(url.href, (url) => {
+	const {
+		data: response,
+		error,
+		isValidating,
+	} = useSWR(url.href, (url) => {
 		return axiosAPI.request(
 			'get',
 			url,
