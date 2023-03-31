@@ -1,12 +1,13 @@
-import {Button, Divider, Modal, Typography} from 'antd';
-import {showToast} from 'utils';
+import { Button, Divider, Modal, Typography, Input } from 'antd';
+import { showToast } from 'utils';
 import axiosApi from 'utils/axios';
 import styles from './index.module.scss';
+import { useState } from 'react';
 
-const {Text} = Typography;
+const { Text } = Typography;
 const fee = 2;
 
-const WithdrawModal = ({
+const WithdrawModal = ({ 
 	withdrawModal,
 	hideModal,
 	showSuccess,
@@ -14,11 +15,17 @@ const WithdrawModal = ({
 	balance,
 	bankDetails,
 }) => {
+
+  console.log(balance,'balancebalance')
+
+
+	const [amountToWithdraw, setAmountToWithdraw] = useState(0)
+
 	const handleWithdraw = () => {
 		const data = {
 			account_bank: bankDetails.account_name,
 			account_number: bankDetails.account_number,
-			amount: parseFloat(balance),
+			amount: parseFloat(amountToWithdraw),
 			narration: `Payout transaction for ${bankDetails.account_name}`,
 			currency: bankDetails.currency_name,
 			debit_currency: bankDetails.currency_name,
@@ -57,7 +64,7 @@ const WithdrawModal = ({
 							&nbsp;
 							<span
 								className={styles.value}
-							>{`${currency} ${balance}`}</span>
+							>{`${currency} ${amountToWithdraw}`}</span>
 						</p>
 						<p>
 							<Text>into</Text>
@@ -65,7 +72,7 @@ const WithdrawModal = ({
 					</div>
 					<div className={styles.bank__info}>
 						{bankDetails.country_id === '1' ||
-						bankDetails.country_id === '72' ? (
+							bankDetails.country_id === '72' ? (
 							<>
 								<p>
 									<Text>Account Number:</Text>
@@ -98,6 +105,15 @@ const WithdrawModal = ({
 						</Text>
 					</p>
 				</div>
+				<Input
+					type="number"
+					placeholder={`Available balance: ${bankDetails?.currency_name} ${balance}`}
+					label="Amount to withdraw"
+					name="amount_to_withdraw"
+					onChange={(e)=> setAmountToWithdraw(e.target.value)}
+					style={{width:'70%', marginTop:'1.3rem', padding:'.6rem'}}
+
+				/>
 				<Divider className={styles.divider} />
 				<footer className={styles.footer}>
 					<p>
