@@ -519,3 +519,9 @@
 		}
 	}
 }
+
+.content {
+	@media (max-width: 750px) {
+		padding: 50px 10px 10px 10px !important;
+	}
+}

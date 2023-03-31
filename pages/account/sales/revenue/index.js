@@ -342,6 +342,7 @@ const Index = () => {
 									data={request}
 								/>
 						  ))}
+					{/* TODO: Add pagination for mobile */}
 				</div>
 				<div className={styles.table__wrapper}>
 					<Table

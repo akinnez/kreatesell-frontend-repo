@@ -282,7 +282,7 @@ const Index = ({
 
 					<Content
 						// The previous style above was replaced with the one below cos a different bg needed to be dynamically rendered for mobile view.
-						className={`content ${
+						className={`content ${styles.content} ${
 							mobilePadding && `authLayout-no-mobile-padding`
 						}`}
 					>

@@ -463,7 +463,6 @@ const AllProducts = () => {
 	};
 
 	const salesPage = useContext(SalesPageContext);
-
 	return (
 		<AuthLayout>
 			<div className={styles.allProduct + ' pb-10'}>
@@ -586,12 +585,44 @@ const AllProducts = () => {
 										{product.default_currency.currency}{' '}
 										{product.price.productPrice}
 									</h5>
-									{AvailabilityStatus(
-										product?.number_sold ===
+									{/* {AvailabilityStatus(
+										product?.number_sold >=
 											product?.product_details
 												?.no_of_product
 											? 'Out of Stock'
 											: 'In Stock'
+									)} */}
+									{/* TODO: Make individual components */}
+									{/* unlimited */}
+									{!product?.product_details
+										?.is_limited_sales ? (
+										<p className="text-xs mb-4 w-3/4 text-green-600 py-1 text-center border-green-400 rounded-md border">
+											{' '}
+											Unlimited Copies
+										</p>
+									) : product?.product_details
+											?.is_limited_sales &&
+									  product?.number_sold >
+											product?.product_details
+												?.number_of_product ? (
+										<p className="text-xs mb-4 w-3/4 text-red-600 py-1 text-center border-red-400 rounded-md border">
+											{' '}
+											Out of stock
+										</p>
+									) : product?.product_details
+											?.is_limited_sales &&
+									  product?.number_sold <
+											product?.product_details
+												?.number_of_product ? (
+										<p className="text-xs mb-4 w-3/4 text-blue-600 py-1 text-center border-blue-400 rounded-md border">
+											{' '}
+											{product?.product_details
+												?.number_of_product -
+												product?.number_sold}{' '}
+											Copies in stock
+										</p>
+									) : (
+										<></>
 									)}
 
 									<p>
