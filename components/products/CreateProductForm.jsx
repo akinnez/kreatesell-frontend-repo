@@ -58,6 +58,7 @@ export const CreateProductForm = ({
 	const filterListingStatus = (id) =>
 		listingStatus?.filter((item) => item.id === id);
 
+	const today = new Date().toISOString().slice(0, 16);
 	const activateStatus = filterListingStatus(1);
 	const deActivateStatus = filterListingStatus(2);
 	const unListStatus = filterListingStatus(3);
@@ -574,6 +575,7 @@ export const CreateProductForm = ({
 										values?.preorder_details
 											?.preorder_release_date
 									}
+									min={today}
 								/>
 							</div>
 						)}
