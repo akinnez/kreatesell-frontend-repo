@@ -180,6 +180,10 @@ const TransactionHeader = ({
 					totalWithdrawn={response?.total_withdraw}
 					totalPending={response?.total_pending}
 					availableToWithdraw={response?.available_to_withdraw}
+					expectedEarnings={response?.expected_earning}
+					expectedEarningsCurrency={
+						response?.expected_earning_currency
+					}
 				/>
 				<StatusButtons {...{setFilters, filters, setLoading}} />
 				<div
