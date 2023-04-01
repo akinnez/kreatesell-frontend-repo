@@ -130,7 +130,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 					hideModal={handleClicks(setWithdrawModal, false)}
 					showSuccess={handleClicks(setSuccessModal, true)}
 					currency={walletInfo[0]?.currency}
-					balance={available_balance?.kreatorBalance}
+					balance={available_balance}
 					bankDetails={bankDetails}
 				/>
 			)}
