@@ -2123,7 +2123,7 @@ export const CheckoutForm = ({
 					{limitProductSale && (
 						<div className={`${styles.limitProductContainer}`}>
 							<div
-								className={`items-center mt-2 flex justify-between pt-3 w-2/3 `}
+								className={`items-center mt-2 flex justify-between pt-3 w-2/3 ${styles.limitProduct}`}
 							>
 								<h2 className="text-base-gray-200 mb-0 font-medium text-base">
 									Product Sales Limit
