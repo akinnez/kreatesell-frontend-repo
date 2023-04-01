@@ -72,3 +72,7 @@ module.exports = (phase) => {
 		images,
 	};
 };
+
+// stripe keys
+// pk_live_51KHkOkEiRwUsDs0AlNvA7bynwKfMvaj7rdfGpejucsZalNh7KwlWe3RcUizNoYk16yvJ9MSgcALp5SzUFAyFAA3g00OnWxz6eA
+// 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

@@ -16,6 +16,10 @@ export const SendPaymentCheckoutDetails = () => {
 					// payload: res?.data?.listing_status,
 				});
 				showToast(res?.message, 'info');
+				// showToast(
+				// 	'Successful Payment, Redirecting to Success page',
+				// 	'info'
+				// );
 				successCallback?.(res);
 			},
 			(err) => {

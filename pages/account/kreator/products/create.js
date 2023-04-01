@@ -38,6 +38,7 @@ const CreateProduct = () => {
 	}, [router.query]);
 
 	useEffect(() => {
+		// FIXME: Work on the tab flow
 		if (router?.query?.tab) {
 			setTimeout(() => {
 				setProductTab(2);
