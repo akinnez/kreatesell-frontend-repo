@@ -10,13 +10,18 @@ export const StatsCard = ({
 	totalWithdrawn = 0,
 	totalPending = 0,
 	availableToWithdraw = 0,
+	expectedEarnings = 0,
+	expectedEarningsCurrency = 'NGN',
 }) => {
 	return (
 		<div className={`${styles.container} my-5`}>
 			<div className={`flex justify-between items-center my-3`}>
 				<h1 className={`${styles.earnings} mb-0`}>Earnings</h1>
 				<h1 className={`${styles.expected} mb-0`}>
-					Expected Earnings: <span>$4,500</span>
+					Expected Earnings:{' '}
+					<span>
+						{expectedEarningsCurrency} {expectedEarnings}
+					</span>
 				</h1>
 			</div>
 			<div className={`${styles.midSection}`}>
