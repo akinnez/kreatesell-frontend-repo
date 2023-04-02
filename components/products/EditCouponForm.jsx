@@ -52,7 +52,7 @@ export const EditCouponForm = () => {
 			coupon_code: '',
 			is_coupon: true,
 			start_date: '',
-			// is_for_all_product: true,
+			// is_for_all_product: true
 			end_date: '',
 			fixed_amount_value:
 				updateCouponData[0]?.coupons?.fixed_amount_value || '',
