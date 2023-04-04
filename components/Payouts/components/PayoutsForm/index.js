@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
-import {useDispatch} from 'react-redux';
-import {Typography, Form, Select, Input, Button} from 'antd';
-import {Formik} from 'formik';
+import { useDispatch } from 'react-redux';
+import { Typography, Form, Select, Input, Button } from 'antd';
+import { Formik } from 'formik';
 
 import PayoutsFormWarning from '../PayoutsFormWarning';
 import {
@@ -16,12 +16,12 @@ import {
 	paypalCB,
 	validateAccountOnBlur,
 } from 'components/Payouts/utils/payoutsFormCBs';
-import {PayoutFormValidator} from 'validation/PayoutForm.validation';
-import {RestOfTheWorld} from 'utils';
+import { PayoutFormValidator } from 'validation/PayoutForm.validation';
+import { RestOfTheWorld } from 'utils';
 import styles from './index.module.scss';
 
-const {Text} = Typography;
-const {Option} = Select;
+const { Text } = Typography;
+const { Option } = Select;
 
 const RestOfTheWorldObj = {
 	country_code: '+1',
@@ -48,6 +48,7 @@ const PayoutsForm = ({
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
 	const [paypal, setPaypal] = useState(() => paypalCB(bankDetails));
+	const [actNoState, setActNoState] = useState(null)
 	const [banks, setBanks] = useState(() => {
 		return banksCB(bankDetails, banksByCountryId);
 	});
@@ -103,7 +104,7 @@ const PayoutsForm = ({
 						<Select
 							showSearch
 							autoComplete="country"
-							placeholder="Nigeria"
+							placeholder="Choose your country"
 							// disabled={bankDetails}
 							onChange={(value) =>
 								countryHandler({
@@ -264,32 +265,53 @@ const PayoutsForm = ({
 								<Input
 									autoComplete="off"
 									placeholder="Enter account number"
-									onChange={(e) =>
-										accountNumberHandler(e, formik, form)
-									}
-									onBlur={(e) => {
+									onChange={(e) => {
+										accountNumberHandler(e, formik, form);
+										setActNoState(e.target.value);
+									}}
+									// onBlur={(e) => {
+									// 	validateAccountOnBlur({
+									// 		e,
+									// 		formik,
+									// 		form,
+									// 		banks,
+									// 		setValidating,
+									// 		// setIsValid,
+									// 	});
+									// }}
+									value={formik.values.account_number}
+								/>
+							</Form.Item>
+
+							<Form.Item>
+								<Button
+									type="primary"
+									htmlType="submit"
+									onClick={() =>
 										validateAccountOnBlur({
-											e,
+											actNoState,
 											formik,
 											form,
 											banks,
 											setValidating,
 											// setIsValid,
-										});
-									}}
-									value={formik.values.account_number}
-								/>
+										})
+									}
+								>
+									Verify Account Number
+								</Button>
 							</Form.Item>
+
 							<Form.Item
 								name="account_name"
 								label="Account Name"
 								validateStatus={
 									formik.touched.account_name &&
-									formik.errors.account_name
+										formik.errors.account_name 
 										? 'error'
 										: validating
-										? 'validating'
-										: 'success'
+											? 'validating'
+											: 'success'
 								}
 								hasFeedback={validating}
 								help={

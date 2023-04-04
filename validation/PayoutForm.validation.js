@@ -32,11 +32,11 @@ export const PayoutFormValidator = yup.object({
 			: schema;
 	}),
 
-	account_name: yup.string().when('country', (country, schema) => {
-		return !country || country === 1 || country === 72
-			? validator(schema, 'Enter your bank account name')
-			: schema;
-	}),
+	// account_name: yup.string().when('country', (country, schema) => {
+	// 	return !country || country === 1 || country === 72
+	// 		? validator(schema, 'Enter your bank account name')
+	// 		: schema;
+	// }),
 
 	password: yup.string().required('Enter your password'),
 });
