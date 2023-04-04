@@ -25,7 +25,7 @@ export const Footer = () => {
 						className={styles.brandTitle}
 						onClick={() => router.push('/')}
 					>
-						<Image src={FooterBrand} alt="kreatesell" />
+						<Image src={FooterBrand} alt="kreatesell" width={400} />
 					</div>
 
 					<div className={styles.brandContact}>
@@ -66,15 +66,28 @@ export const Footer = () => {
 							target="blank"
 							href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
 						>
-							KREATESELL LTD <br />
-							17TH FLOOR, COCOA HOUSE, <br />
+							KREATESELL LTD 17TH FLOOR, COCOA HOUSE,
+							<br />
 							LIEBU BYPASS, DUGBE, IBADAN 200263
-							<br /> <span>Phone: +2349062002777</span>
+							<span>Phone: +2349062002777</span>
 						</a>
+					</div>
+					<div className={styles.disclaimer}>
+						DISCLAIMER NOTICE: This website and its partners have no
+						relationship with Facebook, Google or any of the
+						advertising platforms you may have seen our ads on.
+						Additionally, this site is NOT endorsed by Facebook,
+						Google or any advertising platforms in any way. FACEBOOK
+						is a trademark of FACEBOOK Inc. This website and all of
+						its contents are the property of KreateSell.
+					</div>
+					<div className={styles.Copyright}>
+						Copyright &copy; {new Date().getFullYear()} Kreatesell.
+						All Rights Reserved
 					</div>
 				</div>
 
-				<div>
+				{/* <div>
 					<div className={styles.categoryTitle}>Product</div>
 					<div className={styles.categoryLink}>
 						<Link href="/">
@@ -93,10 +106,10 @@ export const Footer = () => {
 							<a>Affiliates</a>
 						</Link>
 					</div>
-				</div>
+				</div> */}
 
-				<div>
-					<div className={styles.categoryTitle}>Company</div>
+				{/* <div>
+					<div className={styles.categoryTitle}>Company</div> 
 					<div className={styles.categoryLink}>
 						<Link href="#">
 							<a>About</a>
@@ -114,8 +127,8 @@ export const Footer = () => {
 							<a>Integration</a>
 						</Link>
 					</div>
-				</div>
-
+				</div> */}
+				{/* 
 				<div>
 					<div className={styles.categoryTitle}>Support</div>
 					<div className={styles.categoryLink}>
@@ -125,18 +138,18 @@ export const Footer = () => {
 						<Link href="/how-it-works">
 							<a>Tutorials</a>
 						</Link>
-						{/* <Link href="#"> */}
+	
 						<a href="https://wa.me/+2349016324945">
 							Contact Support
 						</a>
-						{/* </Link> */}
+
 						<Link href="/faq">
 							<a>FAQ</a>
 						</Link>
 					</div>
-				</div>
+				</div> */}
 
-				<div>
+				{/* <div>
 					<div className={styles.categoryTitle}>Legal</div>
 					<div className={styles.categoryLink}>
 						<Link href="/legal/cookie-policy">
@@ -152,9 +165,9 @@ export const Footer = () => {
 							<a>Terms of Service</a>
 						</Link>
 					</div>
-				</div>
+				</div> */}
 
-				<div>
+				{/* <div>
 					<div className={styles.categoryTitle}>Follow us</div>
 					<div className={styles.categoryLink}>
 						<Link href="#">
@@ -170,11 +183,11 @@ export const Footer = () => {
 							<a>Linkedin</a>
 						</Link>
 					</div>
-				</div>
+				</div> */}
 			</div>
 
 			<div className={styles.mobileFooter}>
-				<div className={styles.firstRow}>
+				{/* <div className={styles.firstRow}>
 					<div className={styles.firstRowA}>
 						<div className={styles.categoryTitle}>Product</div>
 						<div className={styles.categoryLink}>
@@ -216,9 +229,9 @@ export const Footer = () => {
 							</Link>
 						</div>
 					</div>
-				</div>
+				</div> */}
 
-				<div className={styles.secondRow}>
+				{/* <div className={styles.secondRow}>
 					<div className={styles.firstRowA}>
 						<div className={styles.categoryTitle}>Support</div>
 						<div className={styles.categoryLink}>
@@ -228,11 +241,11 @@ export const Footer = () => {
 							<Link href="#">
 								<a>Tutorials</a>
 							</Link>
-							{/* <Link href="#"> */}
+							
 							<a href="https://wa.me/+2349016324945">
 								Contact Support
 							</a>
-							{/* </Link> */}
+						
 							<Link href="#">
 								<a>FAQ</a>
 							</Link>
@@ -256,8 +269,8 @@ export const Footer = () => {
 							</Link>
 						</div>
 					</div>
-				</div>
-				<span className={styles.thinLine}></span>
+				</div> */}
+				{/* <span className={styles.thinLine}></span> */}
 
 				<div className={styles.brandMobile}>
 					<Image src={FooterBrand} alt="footer brand" />
@@ -306,6 +319,16 @@ export const Footer = () => {
 						17TH FLOOR, COCOA HOUSE, <br />
 						LIEBU BYPASS, DUGBE, IBADAN 200263
 						<br /> <span>Phone: +2349062002777</span>
+					</div>
+
+					<div className={styles.disclaimer__mobile}>
+						DISCLAIMER NOTICE: This website and its partners have no
+						relationship with Facebook, Google or any of the
+						advertising platforms you may have seen our ads on.
+						Additionally, this site is NOT endorsed by Facebook,
+						Google or any advertising platforms in any way. FACEBOOK
+						is a trademark of FACEBOOK Inc. This website and all of
+						its contents are the property of KreateSell.
 					</div>
 
 					<div className={styles.mobileCopyright}>

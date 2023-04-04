@@ -34,17 +34,19 @@ const SneakPeak = ({setShowModal}) => {
 				And so much more!
 			</motion.h2>
 			<motion.p className={styles.peak_text}>
-				Quickly join the early birds to enjoy all these for FREE once
-				KreateSell launches! Time is running out and people are joining
-				fast! Don’t be left out of this mouth-watering offer.
+				Quickly join the early birds to enjoy all these for FREE from
+				when KreateSell launches! Time is running out and people are
+				joining fast! Don’t be left out of this mouth-watering offer.
 			</motion.p>
-			<button
-				type="submit"
-				className={styles.btn}
-				onClick={() => setShowModal(true)}
-			>
-				Join For Free Now!
-			</button>
+			<div className={styles.btn_container}>
+				<button
+					type="submit"
+					className={styles.btn}
+					onClick={() => setShowModal(true)}
+				>
+					Join For Free Now!
+				</button>
+			</div>
 		</div>
 	);
 };
