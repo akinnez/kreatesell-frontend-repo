@@ -578,11 +578,16 @@ const Checkout = () => {
 							: Number(getCurrency('price')).toFixed() * 100,
 						currency: getCurrency('currency').toLowerCase(),
 						quantity: 1,
-						success_url: `${resolveProtocol(hostState)}://${
-							hostState || 'kreatesell.com'
-						}/checkout/success/${
-							storeDetails?.store_dto?.store_name
-						}/${router?.query?.id}/?currency=${currencyPaidIn}`,
+						success_url: storeDetails?.product_details
+							?.is_redirect_buyer
+							? storeDetails?.product_details?.redirect_url
+							: `${resolveProtocol(hostState)}://${
+									hostState || 'kreatesell.com'
+							  }/checkout/success/${
+									storeDetails?.store_dto?.store_name
+							  }/${
+									router?.query?.id
+							  }/?currency=${currencyPaidIn}`,
 						cancel_url: `${resolveProtocol(hostState)}://${
 							hostState || 'dev.kreatesell.com'
 						}/checkout/${productId}?status=fail`,
@@ -604,10 +609,13 @@ const Checkout = () => {
 							reference: response?.tx_ref,
 							status: 'success',
 						}),
-						() =>
-							router.push(
-								`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
-							)
+						() => {
+							storeDetails?.product_details?.is_redirect_buyer
+								? storeDetails?.product_details?.redirect_url
+								: router.push(
+										`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
+								  );
+						}
 					);
 					closePaymentModal();
 					//   openModal();
@@ -688,10 +696,13 @@ const Checkout = () => {
 		const status = 'success';
 		sendPaymentCheckoutDetails(
 			paymentDetails({reference: reference?.reference, status: status}),
-			() =>
-				router.push(
-					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
-				)
+			() => {
+				storeDetails?.product_details?.is_redirect_buyer
+					? storeDetails?.product_details?.redirect_url
+					: router.push(
+							`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
+					  );
+			}
 		);
 	};
 

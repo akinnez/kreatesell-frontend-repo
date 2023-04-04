@@ -98,6 +98,12 @@ export const SignupForm = () => {
 		if (email) setFieldValue('Email', email);
 	}, [email]);
 
+	const handleKeyPress = (event) => {
+		if (event.key === ' ') {
+			event.preventDefault();
+		}
+	};
+
 	return (
 		<>
 			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
@@ -131,6 +137,7 @@ export const SignupForm = () => {
 					name="Password"
 					placeholder="Create Password"
 					onChange={formik.handleChange}
+					onKeyPress={handleKeyPress}
 				/>
 
 				{/* <ReCAPTCHA

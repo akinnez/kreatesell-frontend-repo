@@ -159,7 +159,7 @@ export const CheckoutForm = ({
 	const [showTotalSales, setShowTotalSales] = useState(false);
 	const [buyerPaysTransactionFee, setBuyerPaysTransactionFee] =
 		useState(false);
-
+	const [externalSiteInput, setExternalSiteInput] = useState(false);
 	const [totalSelling, setTotalSelling] = useState([]);
 	const mapNumberToArray = (number) => {
 		const arrayNumbers = [];
@@ -595,6 +595,11 @@ export const CheckoutForm = ({
 			delete data.no_of_subcription_length_times;
 		}
 
+		// TODO: delete for when redirect url isnt selected
+		if (!externalSiteInput) {
+			delete data.RedirectUrl;
+		}
+
 		const checkedData = checkArrays(data);
 
 		const result = transformToFormData(checkedData);
@@ -656,6 +661,8 @@ export const CheckoutForm = ({
 			is_limited_sales: limitProductSale,
 			show_number_of_sales: showTotalSales,
 		},
+		RedirectUrl: '',
+		Redirect_Buyer: externalSiteInput,
 	};
 
 	const handleSelect = (field, value) => {
@@ -676,7 +683,6 @@ export const CheckoutForm = ({
 	});
 
 	const {errors, setFieldValue, values} = formik;
-	// console.log('formik values', values);
 
 	//Updating Formik values
 
@@ -728,6 +734,7 @@ export const CheckoutForm = ({
 			couponVariance.is_fixed_amount
 		);
 		setFieldValue('set_price', priceType === 'Make it Free' ? false : true);
+		setFieldValue('Redirect_Buyer', externalSiteInput);
 	}, [
 		ctaBtnText,
 		fixedSellingPrice,
@@ -750,6 +757,7 @@ export const CheckoutForm = ({
 		numberOfLimit,
 		priceType,
 		setFieldValue,
+		externalSiteInput,
 	]);
 
 	// useEffect(() => {
@@ -867,6 +875,19 @@ export const CheckoutForm = ({
 			}
 			if (product.is_buyer_pays_for_fee === true) {
 				setBuyerPaysTransactionFee(true);
+			}
+
+			// if (product.product_details.redirect_url) {
+			setFieldValue(
+				'RedirectUrl',
+				!!product?.product_details?.redirect_url
+					? product?.product_details?.redirect_url
+					: ''
+			);
+			// }
+
+			if (!!product.product_details.is_redirect_buyer) {
+				setExternalSiteInput(true);
 			}
 
 			if (
@@ -2199,6 +2220,60 @@ export const CheckoutForm = ({
 							</span>
 						</div>
 					</div>
+					<div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+						<div className={`${styles.settingsSubLabel}`}>
+							Automatically send the buyer to an external site
+							<br />
+							after a purchase
+						</div>
+						<div className="flex">
+							<Switch
+								onChange={(e) => {
+									setExternalSiteInput((value) => !value);
+								}}
+								checked={externalSiteInput}
+							/>
+							<span className="pl-6 font-semibold text-black-100">
+								{externalSiteInput ? 'ON' : 'OFF'}
+							</span>
+						</div>
+					</div>
+					<RenderIf condition={externalSiteInput}>
+						<br />
+						<br />
+						<Form
+							layout="vertical"
+							className={styles.antRadioLabel}
+						>
+							<Form.Item label={null}>
+								<div className="w-full md:w-3/5">
+									<Input
+										placeholder="http://website.com"
+										className={styles.ctaBtn}
+										name="RedirectUrl"
+										// value={redirectUrlState}
+										onChange={(e) => {
+											formik.handleChange(e);
+											// setRedirectUrlState(e.target.value)
+										}}
+										value={values.RedirectUrl}
+										// onMouseLeave={handleMouseOut}
+									/>
+								</div>
+								<p
+									className="text-xs text-base-red-200 mt-3 md:w-3/5"
+									style={{color: '#F90005'}}
+								>
+									Activating this option means that your
+									customers will be redirected to the web
+									address you provided, after a successful
+									payment. If you want them to access the file
+									you uploaded on KreateSell instead, put the
+									toggle OFF!
+								</p>
+							</Form.Item>
+						</Form>
+					</RenderIf>
 				</div>
 
 				<div className={styles.digitalBtn}>
