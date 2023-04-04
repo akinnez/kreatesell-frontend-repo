@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import {
 	FooterBrand,
 	Location,
@@ -66,14 +66,20 @@ export const Footer = () => {
 							target="blank"
 							href="https://www.google.com/maps/place/Cocoa+House+Ibadan/@7.3875478,3.8767496,17z/data=!3m1!4b1!4m5!3m4!1s0x10398d0e3452ea31:0x8da53949f2293130!8m2!3d7.3875425!4d3.8789383"
 						>
-							KREATESELL LTD
-							17TH FLOOR, COCOA HOUSE,<br />
+							KREATESELL LTD 17TH FLOOR, COCOA HOUSE,
+							<br />
 							LIEBU BYPASS, DUGBE, IBADAN 200263
 							<span>Phone: +2349062002777</span>
 						</a>
 					</div>
 					<div className={styles.disclaimer}>
-						DISCLAIMER NOTICE: This website and its partners have no relationship with Facebook, Google or any of the advertising platforms you may have seen our ads on. Additionally, this site is NOT endorsed by Facebook, Google or any advertising platforms in any way. FACEBOOK is a trademark of FACEBOOK Inc. This website and all of its contents are the property of KreateSell.
+						DISCLAIMER NOTICE: This website and its partners have no
+						relationship with Facebook, Google or any of the
+						advertising platforms you may have seen our ads on.
+						Additionally, this site is NOT endorsed by Facebook,
+						Google or any advertising platforms in any way. FACEBOOK
+						is a trademark of FACEBOOK Inc. This website and all of
+						its contents are the property of KreateSell.
 					</div>
 					<div className={styles.Copyright}>
 						Copyright &copy; {new Date().getFullYear()} Kreatesell.
@@ -316,7 +322,13 @@ export const Footer = () => {
 					</div>
 
 					<div className={styles.disclaimer__mobile}>
-						DISCLAIMER NOTICE: This website and its partners have no relationship with Facebook, Google or any of the advertising platforms you may have seen our ads on. Additionally, this site is NOT endorsed by Facebook, Google or any advertising platforms in any way. FACEBOOK is a trademark of FACEBOOK Inc. This website and all of its contents are the property of KreateSell.
+						DISCLAIMER NOTICE: This website and its partners have no
+						relationship with Facebook, Google or any of the
+						advertising platforms you may have seen our ads on.
+						Additionally, this site is NOT endorsed by Facebook,
+						Google or any advertising platforms in any way. FACEBOOK
+						is a trademark of FACEBOOK Inc. This website and all of
+						its contents are the property of KreateSell.
 					</div>
 
 					<div className={styles.mobileCopyright}>

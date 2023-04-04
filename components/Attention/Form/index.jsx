@@ -11,56 +11,54 @@ import {useRouter} from 'next/router';
 
 const waitListUrl = `${process.env.BASE_URL}v1/kreatesell/utils/waitlist`;
 
-const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
-  // const feedBackOptions = {
-  //   hideAfter: 5,
-  //   position: "center",
-  // };
-  const router = useRouter()
+const Form = ({showSubmissionSuccessModal, showSubmissionFailureModal}) => {
+	// const feedBackOptions = {
+	//   hideAfter: 5,
+	//   position: "center",
+	// };
+	const router = useRouter();
 
-  const initialValues = {
-    customer_name: "",
-    customer_email: "",
-  };
- 
-  const handleSubmit = (values) => {
-    const { customer_name, customer_email } = values;
-    const data = { customer_name, customer_email };
+	const initialValues = {
+		customer_name: '',
+		customer_email: '',
+	};
 
-    // always show the submitting details message
-    cogoToast.loading("Saving your details...").then(() => {
-      // make request to submit details
-      axios
-        .post(waitListUrl, data)
-        .then((res) => {
-          // console.log(res?.data?.message);
-          // DETAILS GO THROUGH, THEN showSubmissionSuccessModal
-          // showSubmissionSuccessModal(res?.data?.message);
-          router.push("/WaitlistSucess")
-        })
-        .catch(() => {
-          // ERROR OCCURRED
-          showSubmissionFailureModal();
-        });
-    });
-  };
+	const handleSubmit = (values) => {
+		const {customer_name, customer_email} = values;
+		const data = {customer_name, customer_email};
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit: handleSubmit,
-    validationSchema: WaitListSchema,
-    validateOnChange: false,
-  });
+		// always show the submitting details message
+		cogoToast.loading('Saving your details...').then(() => {
+			// make request to submit details
+			axios
+				.post(waitListUrl, data)
+				.then((res) => {
+					// console.log(res?.data?.message);
+					// DETAILS GO THROUGH, THEN showSubmissionSuccessModal
+					// showSubmissionSuccessModal(res?.data?.message);
+					router.push('/WaitlistSucess');
+				})
+				.catch(() => {
+					// ERROR OCCURRED
+					showSubmissionFailureModal();
+				});
+		});
+	};
 
-  const { errors } = formik;
+	const formik = useFormik({
+		initialValues,
+		onSubmit: handleSubmit,
+		validationSchema: WaitListSchema,
+		validateOnChange: false,
+	});
 
-  // state to track error view.
+	const {errors} = formik;
 
+	// state to track error view.
 
-
-  return (
-    <>
-{/* 
+	return (
+		<>
+			{/* 
       {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
 
@@ -83,9 +81,12 @@ const Form = ({ showSubmissionSuccessModal, showSubmissionFailureModal }) => {
          Submit
         </button>
       </form> */}
-      <getresponse-form form-id="beca359e-f705-49b7-b5d1-ad8859a54875" e="1"></getresponse-form>
-    </>
-  );
+			<getresponse-form
+				form-id="beca359e-f705-49b7-b5d1-ad8859a54875"
+				e="1"
+			></getresponse-form>
+		</>
+	);
 };
 
 export default Form;

@@ -15,7 +15,7 @@ const WaitlistSucess = () => {
 				// Setting various property values
 				let alink = document.createElement('a');
 				alink.href = fileURL;
-				alink.download = 'KreateSell-Contact-Vcard.vcf'; 
+				alink.download = 'KreateSell-Contact-Vcard.vcf';
 				alink.click();
 			});
 		});
@@ -61,9 +61,10 @@ const WaitlistSucess = () => {
 						</a>
 					</p> */}
 					<p>
-						<span className={styles.link__text}>3</span>   <button
+						<span className={styles.link__text}>3</span>{' '}
+						<button
 							onClick={() => onButtonClick()}
-							style={{ color: '#0072ef', marginBottom: '1rem' }}
+							style={{color: '#0072ef', marginBottom: '1rem'}}
 						>
 							Click here
 						</button>{' '}

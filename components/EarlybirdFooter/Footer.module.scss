@@ -21,7 +21,7 @@
 	padding: 2.8rem 10.31rem;
 
 	.footerCont {
-		@include flex(row, center, center); 
+		@include flex(row, center, center);
 		@include screen('tablet') {
 			display: none;
 		}
@@ -34,7 +34,7 @@
 
 .brandTitle {
 	cursor: pointer;
-	margin: .2rem auto;
+	margin: 0.2rem auto;
 }
 
 .brandContact {
@@ -44,7 +44,7 @@
 
 	a {
 		@extend .base-link;
-		font-size: .8rem;
+		font-size: 0.8rem;
 	}
 }
 
@@ -54,17 +54,17 @@
 }
 .disclaimer {
 	color: $base-white;
-	font-size: .8rem;
+	font-size: 0.8rem;
 	margin-top: 1rem;
 }
 .disclaimer__mobile {
-   color: white;
-   font-size: .7rem;
-   margin: .8rem 0;
+	color: white;
+	font-size: 0.7rem;
+	margin: 0.8rem 0;
 }
 .Copyright {
 	text-align: center;
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 	color: white;
 }
 
