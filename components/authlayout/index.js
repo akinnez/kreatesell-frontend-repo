@@ -431,7 +431,7 @@ const WelcomeOnBoard = () => {
 				</div>
 				<footer className={styles.footer}>
 					{/* {user?.percentage_completed !== 100 && ( */}
-					<Link href="/account/dashboard/affiliate">
+					<Link href="/blog">
 						<a>Tips to sell your contents</a>
 					</Link>
 					<Button

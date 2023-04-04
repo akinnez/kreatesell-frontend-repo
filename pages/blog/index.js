@@ -97,7 +97,7 @@ const Blog = () => {
 			</Layout>
 		);
 	return (
-		<Layout defaultMarginTop={true}>
+		<Layout defaultMarginTop={true}> 
 			<div className={styles.container}>
 				<div className={styles.pageTitle}>
 					<h3>Kreatesell blog</h3>
@@ -105,7 +105,7 @@ const Blog = () => {
 				</div>
 
 				{RecentBlogs ? (
-					<div className={styles.hero}>
+					<div className={styles.hero}> 
 						<div className={styles.left}>
 							<div className={styles.heroImage}>
 								{RecentBlogs?.thumbnail && (

@@ -18,10 +18,10 @@
 .footer {
 	font-family: 'Manrope', sans-serif;
 	background-color: $dark-blue;
-	padding: 6rem 10.31rem;
+	padding: 2.8rem 10.31rem;
 
 	.footerCont {
-		@include flex(row, space-between, null);
+		@include flex(row, center, center); 
 		@include screen('tablet') {
 			display: none;
 		}
@@ -34,20 +34,38 @@
 
 .brandTitle {
 	cursor: pointer;
+	margin: .2rem auto;
 }
 
 .brandContact {
-	@include flex(row, null, center);
+	@include flex(row, center, center);
 	padding: 0.6rem 0;
+	width: 100%;
 
 	a {
 		@extend .base-link;
+		font-size: .8rem;
 	}
 }
 
 .brandContactIcon {
 	padding-right: 0.5rem;
 	cursor: pointer;
+}
+.disclaimer {
+	color: $base-white;
+	font-size: .8rem;
+	margin-top: 1rem;
+}
+.disclaimer__mobile {
+   color: white;
+   font-size: .7rem;
+   margin: .8rem 0;
+}
+.Copyright {
+	text-align: center;
+	margin-top: .5rem;
+	color: white;
 }
 
 .categoryTitle {
