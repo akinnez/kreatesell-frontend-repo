@@ -8,15 +8,28 @@ export const SignupSchema = () => {
 			.required('Please input a valid email address'),
 		Password: Yup.string()
 			.required('Please enter a valid password')
-			.min(6, 'Password must have six to eleven characters')
-			.max(11, 'Password must have six to eleven characters'),
+			.min(8, 'Password must be at least 8 characters long')
+			.matches(
+				/[A-Z]/,
+				'Password must include at least one uppercase letter'
+			)
+			.matches(
+				/[a-z]/,
+				'Password must include at least one lowercase letter'
+			)
+			.matches(/[0-9]/, 'Password must include at least one number'),
 		FullName: Yup.string()
+			.trim()
 			.required('Please enter your full name')
 			// regex accounting for whites in between first and last name.
 			.matches(
 				/^[a-z ,.'-]+$/i,
 				'Unsupported character. The full name field only accepts alphabets.'
-			),
+			)
+			.test('words', 'Please enter your full name', (value) => {
+				const words = value.trim().split(' ');
+				return words.length === 2;
+			}),
 		phoneNo: Yup.string()
 			.required('Phone number is required')
 			// .matches(/^[0-9]+$/, 'Phone number can only be digits')
