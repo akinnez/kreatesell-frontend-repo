@@ -58,27 +58,33 @@ const Form = ({showSubmissionSuccessModal, showSubmissionFailureModal}) => {
 
 	return (
 		<>
-			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+			{/* 
+      {!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
-			<form className={styles.formMain} onSubmit={formik.handleSubmit}>
-				<div className={styles.formBox}>
-					<InputBox
-						type="text"
-						placeholder="Enter your First Name"
-						name="customer_name"
-						onChange={formik.handleChange}
-					/>
-					<InputBox
-						type="mail"
-						placeholder="Enter your Email Address"
-						name="customer_email"
-						onChange={formik.handleChange}
-					/>
-				</div>
-				<button type="submit" className={styles.btn}>
-					Submit
-				</button>
-			</form>
+
+      <form className={styles.formMain} onSubmit={formik.handleSubmit}>
+        <div className={styles.formBox}>
+          <InputBox
+            type="text"
+            placeholder="Enter your First Name"
+            name="customer_name"
+            onChange={formik.handleChange}
+          />
+          <InputBox
+            type="mail"
+            placeholder="Enter your Email Address"
+            name="customer_email"
+            onChange={formik.handleChange}
+          />
+        </div>
+        <button type="submit" className={styles.btn}>
+         Submit
+        </button>
+      </form> */}
+			<getresponse-form
+				form-id="beca359e-f705-49b7-b5d1-ad8859a54875"
+				e="1"
+			></getresponse-form>
 		</>
 	);
 };

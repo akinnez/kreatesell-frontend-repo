@@ -27,7 +27,7 @@ export const Navbar = () => {
 				>
 					<MobileLogo />
 				</div>
-				<SocialIcons />
+				{/* <SocialIcons /> */}
 			</motion.nav>
 		</>
 	);
