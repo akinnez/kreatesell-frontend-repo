@@ -33,15 +33,21 @@ const WaitlistSucess = () => {
 						and for updates on freebies and more, do these 3 things:
 					</p>
 					<div className={styles.button__contain}>
-						<div className={styles.btn_tel}>
-							<a href="https://t.me/UseKreateSell">
-								Join the Kreatesell Telegram channel
-							</a>
+						<div className={styles.btn__link}>
+							<div className={styles.link__text}>1</div>
+							<div className={styles.btn_tel}>
+								<a href="https://t.me/UseKreateSell">
+									Join the Kreatesell Telegram channel
+								</a>
+							</div>
 						</div>
-						<div className={styles.btn_fb}>
-							<a href="https://www.facebook.com/groups/1143014409782318/">
-								Join the Kreatesell Facebook group
-							</a>
+						<div className={styles.btn__link}>
+							<div className={styles.link__text}>2</div>
+							<div className={styles.btn_fb}>
+								<a href="https://www.facebook.com/groups/1143014409782318/">
+									Join the Kreatesell Facebook group
+								</a>
+							</div>
 						</div>
 					</div>
 					{/* <p>
@@ -55,6 +61,7 @@ const WaitlistSucess = () => {
 						</a>
 					</p> */}
 					<p>
+						<span className={styles.link__text}>3</span>{' '}
 						<button
 							onClick={() => onButtonClick()}
 							style={{color: '#0072ef', marginBottom: '1rem'}}
@@ -72,5 +79,3 @@ const WaitlistSucess = () => {
 };
 
 export default WaitlistSucess;
-
-3;
