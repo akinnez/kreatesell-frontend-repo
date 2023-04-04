@@ -136,7 +136,7 @@ export const validateAccountOnBlur = ({
 	setValidating,
 	// setIsValid,
 }) => {
-	if (!actNoState) return
+	if (!actNoState) return;
 	formik.handleChange(actNoState);
 	// only validate if country is Nigeria
 	const bankId = formik.values.bank;

@@ -12,7 +12,7 @@ import {
 	TwitterIcon,
 	WhatsappIcon,
 } from '../../utils';
-import styles from './Footer.module.scss'; 
+import styles from './Footer.module.scss';
 
 export const Footer = () => {
 	const router = useRouter();

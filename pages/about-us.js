@@ -1,7 +1,7 @@
-import { Layout } from 'components';
+import {Layout} from 'components';
 import styles from '../public/css/about-us.module.scss';
 import Image from 'next/image';
-import { Collapse } from 'antd';
+import {Collapse} from 'antd';
 import ReactPlayer from 'react-player';
 import {
 	AboutUsBlueBox,
@@ -32,7 +32,7 @@ import {
 	MnVanguard,
 	MnTechCity,
 } from '../utils/assets';
-import { useState } from 'react';
+import {useState} from 'react';
 import Link from 'next/link';
 const AboutUs = () => {
 	const [cardState, setCardState] = useState({
@@ -40,7 +40,7 @@ const AboutUs = () => {
 		isVisionCardHovered: true,
 	});
 
-	const { isMissionCardHovered, isVisionCardHovered } = cardState;
+	const {isMissionCardHovered, isVisionCardHovered} = cardState;
 
 	const handleOver = (id) => {
 		setCardState({
@@ -66,7 +66,7 @@ const AboutUs = () => {
 		service: false,
 	});
 
-	const { customerCentric, teamWork, respect, transparent, service } =
+	const {customerCentric, teamWork, respect, transparent, service} =
 		coreValue;
 
 	const handleCoreValueHover = (id) => {
@@ -208,18 +208,20 @@ const AboutUs = () => {
 								}
 							>
 								<div
-									className={`${styles.visionBox} ${isVisionCardHovered
+									className={`${styles.visionBox} ${
+										isVisionCardHovered
 											? styles.showVisionImage
 											: ''
-										}`}
+									}`}
 								>
 									<Image src={VisionImage} alt="vision " />
 								</div>
 								<div
-									className={`${styles.missionBox} ${isMissionCardHovered
+									className={`${styles.missionBox} ${
+										isMissionCardHovered
 											? styles.showMissionImage
 											: ''
-										}`}
+									}`}
 								>
 									<Image src={MissionImage} alt="mission " />
 								</div>
@@ -227,15 +229,16 @@ const AboutUs = () => {
 							<div className={styles.slideCards}>
 								<div className={styles.cardMain}>
 									<div
-										className={`${styles.card} ${isMissionCardHovered
+										className={`${styles.card} ${
+											isMissionCardHovered
 												? styles.missionCardHovered
 												: styles.missionCardInit
-											}`}
+										}`}
 										// id="isMissionCardHovered"
 										onMouseEnter={() =>
 											handleOver('isMissionCardHovered')
 										}
-									// onMouseLeave={handleMouseLeave}
+										// onMouseLeave={handleMouseLeave}
 									>
 										<h3 className={styles.heading}>
 											<Image
@@ -254,10 +257,11 @@ const AboutUs = () => {
 										</p>
 									</div>
 									<div
-										className={`${styles.card} ${isVisionCardHovered
+										className={`${styles.card} ${
+											isVisionCardHovered
 												? styles.visionCardHovered
 												: styles.visionCardInit
-											}`}
+										}`}
 										// id="isVisionCardHovered"
 										onMouseEnter={() =>
 											handleOver('isVisionCardHovered')
@@ -346,33 +350,38 @@ const AboutUs = () => {
 							</div>
 							<div className={styles.lgImages}>
 								<div
-									className={`${styles.lgImgBox
-										} ${coreValueClass(customerCentric)}`}
+									className={`${
+										styles.lgImgBox
+									} ${coreValueClass(customerCentric)}`}
 								>
 									<Image src={CoreOne} alt="core 1" />
 								</div>
 								<div
-									className={`${styles.lgImgBox
-										} ${coreValueClass(teamWork)}`}
+									className={`${
+										styles.lgImgBox
+									} ${coreValueClass(teamWork)}`}
 								>
 									<Image src={CoreTwo} alt="core 2" />
 								</div>
 								<div
-									className={`${styles.lgImgBox
-										} ${coreValueClass(respect)}`}
+									className={`${
+										styles.lgImgBox
+									} ${coreValueClass(respect)}`}
 								>
 									<Image src={CoreThree} alt="core 3" />
 								</div>
 								<div
-									className={`${styles.lgImgBox
-										} ${coreValueClass(transparent)}`}
+									className={`${
+										styles.lgImgBox
+									} ${coreValueClass(transparent)}`}
 								>
 									{' '}
 									<Image src={CoreFour} alt="core 4" />
 								</div>
 								<div
-									className={`${styles.lgImgBox
-										} ${coreValueClass(service)}`}
+									className={`${
+										styles.lgImgBox
+									} ${coreValueClass(service)}`}
 								>
 									<Image src={CoreFive} alt="core 5" />
 								</div>
@@ -382,10 +391,11 @@ const AboutUs = () => {
 									return (
 										<div
 											key={item?.headingText}
-											className={`${styles.lgContent} ${isActiveHeader(item?.id)
+											className={`${styles.lgContent} ${
+												isActiveHeader(item?.id)
 													? styles.isActive
 													: ''
-												} `}
+											} `}
 										>
 											{item?.content}
 										</div>
@@ -407,9 +417,9 @@ const AboutUs = () => {
 							</h5>
 							<div className={styles.videoContainer}>
 								<div className={styles.mobile}>
-								<div className="">
+									<div className="">
 										<ReactPlayer
-											url="https://youtu.be/vWOEY6nZLFc" 
+											url="https://youtu.be/vWOEY6nZLFc"
 											controls={true}
 											width="100%"
 											height="100%"
@@ -419,7 +429,7 @@ const AboutUs = () => {
 								<div className={styles.lg}>
 									<div className="h-full">
 										<ReactPlayer
-											url="https://youtu.be/vWOEY6nZLFc" 
+											url="https://youtu.be/vWOEY6nZLFc"
 											controls={true}
 											width="100%"
 											height="100%"
@@ -539,7 +549,7 @@ const AboutUsImages = () => {
 	);
 };
 
-const StoryTexts = ({ heading, texts }) => {
+const StoryTexts = ({heading, texts}) => {
 	return (
 		<div className={styles.storyBox}>
 			<h1 className={styles.heading}>{heading}</h1>
@@ -596,11 +606,11 @@ That solution was named KreateSell. And today, we’re live!`,
 	},
 };
 
-const { first, second } = storyTexts;
+const {first, second} = storyTexts;
 
-const MobileCollapsible = ({ headingText, content, itemId, itemIndex }) => {
+const MobileCollapsible = ({headingText, content, itemId, itemIndex}) => {
 	console.log('itemIndex = ', itemId);
-	const { Panel } = Collapse;
+	const {Panel} = Collapse;
 	return (
 		<Collapse
 			expandIconPosition="right"
@@ -609,14 +619,14 @@ const MobileCollapsible = ({ headingText, content, itemId, itemIndex }) => {
 			// defaultActiveKey={["0", "1", "2"]}
 			accordion
 			className={styles.collapse}
-		// id="collapse"
+			// id="collapse"
 		>
 			<Panel
 				header={<CustomHeader>{headingText}</CustomHeader>}
 				className={styles.panelHeader}
 
-			// className={`${styles.panelHeader} Collapse-${itemId}`}
-			// id={`panelHeader-${itemId}`}
+				// className={`${styles.panelHeader} Collapse-${itemId}`}
+				// id={`panelHeader-${itemId}`}
 			>
 				<div className={styles.moreInfo}>{content}</div>
 			</Panel>
@@ -657,7 +667,7 @@ const data = [
 	},
 ];
 
-const CustomHeader = ({ children }) => {
+const CustomHeader = ({children}) => {
 	return <h3 className={styles.customHeader}>{children}</h3>;
 };
 const LgCustomHeader = ({
@@ -669,8 +679,9 @@ const LgCustomHeader = ({
 }) => {
 	return (
 		<h3
-			className={`${styles.lgCustomHeader} ${isActive() ? styles.isActive : ''
-				}`}
+			className={`${styles.lgCustomHeader} ${
+				isActive() ? styles.isActive : ''
+			}`}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
