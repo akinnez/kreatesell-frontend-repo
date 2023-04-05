@@ -2,6 +2,7 @@ import {Layout} from 'components';
 import styles from '../public/css/about-us.module.scss';
 import Image from 'next/image';
 import {Collapse} from 'antd';
+import ReactPlayer from 'react-player';
 import {
 	AboutUsBlueBox,
 	AboutUsFour,
@@ -416,20 +417,24 @@ const AboutUs = () => {
 							</h5>
 							<div className={styles.videoContainer}>
 								<div className={styles.mobile}>
-									<Image
-										src={MockVideo}
-										alt="mock video"
-										height={225}
-										width={431}
-									/>
+									<div className="">
+										<ReactPlayer
+											url="https://youtu.be/vWOEY6nZLFc"
+											controls={true}
+											width="100%"
+											height="100%"
+										/>
+									</div>
 								</div>
 								<div className={styles.lg}>
-									<Image
-										src={MockVideo}
-										alt="mock video"
-										height={480}
-										width={920}
-									/>
+									<div className="h-full">
+										<ReactPlayer
+											url="https://youtu.be/vWOEY6nZLFc"
+											controls={true}
+											width="100%"
+											height="100%"
+										/>
+									</div>
 								</div>
 							</div>
 						</div>

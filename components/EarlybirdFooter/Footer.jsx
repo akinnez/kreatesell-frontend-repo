@@ -28,7 +28,7 @@ export const Footer = () => {
 						<Image src={FooterBrand} alt="kreatesell" width={400} />
 					</div>
 
-					<div className={styles.brandContact}>
+					{/* <div className={styles.brandContact}>
 						<div className={styles.brandContactIcon}>
 							<Image src={Message} alt="kreatesell" />
 						</div>
@@ -40,9 +40,9 @@ export const Footer = () => {
 						>
 							info@kreatesell.com
 						</a>
-					</div>
+					</div> */}
 
-					<div className={styles.brandContact}>
+					{/* <div className={styles.brandContact}>
 						<div className={styles.brandContactIcon}>
 							<Image src={Mobile} alt="mobile" />
 						</div>
@@ -54,9 +54,9 @@ export const Footer = () => {
 						>
 							+2347019875432
 						</a>
-					</div>
+					</div> */}
 
-					<div className={styles.brandContact}>
+					{/* <div className={styles.brandContact}>
 						<div className={styles.brandContactIcon}>
 							<Image src={Location} alt="location" />
 						</div>
@@ -71,7 +71,7 @@ export const Footer = () => {
 							LIEBU BYPASS, DUGBE, IBADAN 200263
 							<span>Phone: +2349062002777</span>
 						</a>
-					</div>
+					</div> */}
 					<div className={styles.disclaimer}>
 						DISCLAIMER NOTICE: This website and its partners have no
 						relationship with Facebook, Google or any of the
@@ -274,18 +274,18 @@ export const Footer = () => {
 
 				<div className={styles.brandMobile}>
 					<Image src={FooterBrand} alt="footer brand" />
-					<a
+					{/* <a
 						rel="noopener noreferrer"
 						className={styles.mobileFooterEmail}
 						target="blank"
 						href="mailto:info@kreatesell.com"
 					>
 						info@kreatesell.com
-					</a>
+					</a> */}
 
-					<div className={styles.engageUs}>Engage with us</div>
+					{/* <div className={styles.engageUs}>Engage with us</div> */}
 
-					<div className={styles.mobileSocialLinks}>
+					{/* <div className={styles.mobileSocialLinks}>
 						<Image
 							src={FBIcon}
 							alt="kreatesell facebook"
@@ -311,15 +311,15 @@ export const Footer = () => {
 							alt="kreatesell twitter"
 							className="cursor"
 						/>
-					</div>
+					</div> */}
 
-					<div className={styles.mobileAddress}>
+					{/* <div className={styles.mobileAddress}>
 						{' '}
 						KREATESELL LTD <br />
 						17TH FLOOR, COCOA HOUSE, <br />
 						LIEBU BYPASS, DUGBE, IBADAN 200263
 						<br /> <span>Phone: +2349062002777</span>
-					</div>
+					</div> */}
 
 					<div className={styles.disclaimer__mobile}>
 						DISCLAIMER NOTICE: This website and its partners have no
