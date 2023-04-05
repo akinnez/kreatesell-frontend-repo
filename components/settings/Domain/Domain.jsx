@@ -14,7 +14,7 @@ const Domain = () => {
 	const setDomainScreen = SetDomainScreen();
 
 	const {domains, domainScreen, loading} = useSelector(
-		(state) => state.domain
+		(state) => state?.domain
 	);
 
 	useEffect(() => {
@@ -22,7 +22,7 @@ const Domain = () => {
 	}, []);
 
 	useEffect(() => {
-		if (domains.length > 0) {
+		if (domains?.length > 0) {
 			setDomainScreen(2);
 		}
 	}, [domains]);
