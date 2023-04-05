@@ -521,3 +521,13 @@ export const getQueryKeys = (namespace) => ({
 	put: `${namespace}/put`,
 	delete: `${namespace}/delete`,
 });
+
+/**
+ *
+ * @param {*} host - can either be 'localhost' or the hosted site's url
+ * @returns http or https
+ */
+export const resolveProtocol = (host) => {
+	if (!host || typeof host !== 'string') return;
+	return host.includes('localhost') ? 'http' : 'https';
+};
