@@ -4,12 +4,17 @@ const validator = (schema, msg) => schema.required(msg).trim(msg);
 
 export const PayoutFormValidator = yup.object({
 	country: yup.number().required('Select your country'),
-	
-	paypal_email: yup.string().email('Enter a valid email').when('country', (country, schema) => {
-		return country && country !== 1 && country !== 72
-		  ? schema.email('Enter a valid paypal email').required('Enter your paypal email')
-		  : schema;
-	  }),
+
+	paypal_email: yup
+		.string()
+		.email('Enter a valid email')
+		.when('country', (country, schema) => {
+			return country && country !== 1 && country !== 72
+				? schema
+						.email('Enter a valid paypal email')
+						.required('Enter your paypal email')
+				: schema;
+		}),
 
 	// paypal_email: yup.string().when('country', (country, schema) => {
 	// 	return country && country !== 1 && country !== 72
