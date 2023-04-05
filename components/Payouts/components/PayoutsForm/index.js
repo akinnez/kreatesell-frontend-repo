@@ -48,6 +48,7 @@ const PayoutsForm = ({
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
 	const [paypal, setPaypal] = useState(() => paypalCB(bankDetails));
+	const [actNoState, setActNoState] = useState(null);
 	const [banks, setBanks] = useState(() => {
 		return banksCB(bankDetails, banksByCountryId);
 	});
@@ -103,7 +104,7 @@ const PayoutsForm = ({
 						<Select
 							showSearch
 							autoComplete="country"
-							placeholder="Nigeria"
+							placeholder="Choose your country"
 							// disabled={bankDetails}
 							onChange={(value) =>
 								countryHandler({
@@ -264,22 +265,43 @@ const PayoutsForm = ({
 								<Input
 									autoComplete="off"
 									placeholder="Enter account number"
-									onChange={(e) =>
-										accountNumberHandler(e, formik, form)
-									}
-									onBlur={(e) => {
+									onChange={(e) => {
+										accountNumberHandler(e, formik, form);
+										setActNoState(e.target.value);
+									}}
+									// onBlur={(e) => {
+									// 	validateAccountOnBlur({
+									// 		e,
+									// 		formik,
+									// 		form,
+									// 		banks,
+									// 		setValidating,
+									// 		// setIsValid,
+									// 	});
+									// }}
+									value={formik.values.account_number}
+								/>
+							</Form.Item>
+
+							<Form.Item>
+								<Button
+									type="primary"
+									htmlType="submit"
+									onClick={() =>
 										validateAccountOnBlur({
-											e,
+											actNoState,
 											formik,
 											form,
 											banks,
 											setValidating,
 											// setIsValid,
-										});
-									}}
-									value={formik.values.account_number}
-								/>
+										})
+									}
+								>
+									Verify Account Number
+								</Button>
 							</Form.Item>
+
 							<Form.Item
 								name="account_name"
 								label="Account Name"

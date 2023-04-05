@@ -129,14 +129,15 @@ export const accountNumberHandler = (e, formik, form) => {
 };
 
 export const validateAccountOnBlur = ({
-	e,
+	actNoState,
 	formik,
 	form,
 	banks,
 	setValidating,
 	// setIsValid,
 }) => {
-	formik.handleBlur(e);
+	if (!actNoState) return;
+	formik.handleChange(actNoState);
 	// only validate if country is Nigeria
 	const bankId = formik.values.bank;
 	const accountNumber = formik.values.account_number.trim();
