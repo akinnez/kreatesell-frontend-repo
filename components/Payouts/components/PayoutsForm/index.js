@@ -103,7 +103,7 @@ const PayoutsForm = ({
 						<Select
 							showSearch
 							autoComplete="country"
-							placeholder="Nigeria"
+							placeholder="Select Country"
 							// disabled={bankDetails}
 							onChange={(value) =>
 								countryHandler({
