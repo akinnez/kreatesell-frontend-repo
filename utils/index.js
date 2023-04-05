@@ -176,8 +176,7 @@ export const showToast = (message, type) => {
 };
 
 export const _validateEmail = (email) => {
-	const re =
-		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(email);
 };
 
@@ -521,3 +520,13 @@ export const getQueryKeys = (namespace) => ({
 	put: `${namespace}/put`,
 	delete: `${namespace}/delete`,
 });
+
+/**
+ *
+ * @param {*} host - can either be 'localhost' or the hosted site's url
+ * @returns http or https
+ */
+export const resolveProtocol = (host) => {
+	if (!host || typeof host !== 'string') return;
+	return host.includes('localhost') ? 'http' : 'https';
+};

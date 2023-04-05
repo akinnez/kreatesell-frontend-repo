@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useLayoutEffect} from 'react';
 import Image from 'next/image';
 
 import {useSelector} from 'react-redux';
@@ -22,6 +22,7 @@ import {
 	SearchIcon,
 	LinkCopy,
 	MobileBackArrow,
+	resolveProtocol,
 } from 'utils';
 import styles from './PreviewHeader.module.scss';
 import CloseIcon from 'components/affiliates/CloseIcon';
@@ -84,6 +85,11 @@ export default function PreviewHeader({
 		product_id: '',
 		publish: 'live',
 	};
+	const [hostState, setHostState] = useState('');
+	useLayoutEffect(() => {
+		// console.log('window.location', window.location);
+		setHostState(window.location.host);
+	}, []);
 
 	const formik = useFormik({
 		initialValues,
@@ -98,7 +104,9 @@ export default function PreviewHeader({
 		// * try this
 
 		setLink(
-			`http://dev.kreatesell.com/store/${storeName}/product/${productId}`
+			`${resolveProtocol(hostState)}://${
+				hostState || 'kreatesell.com'
+			}/store/${storeName}/product/${productId}`
 		);
 	}, [product, productId, storeName]);
 
@@ -375,12 +383,12 @@ export default function PreviewHeader({
 										readOnly
 										bordered
 										className="rounded-lg"
-										placeholder={`${domainLink}/${id}`}
+										placeholder={`${domainLink}/product/${id}`}
 									/>
 									<span
 										onClick={() =>
 											_copyToClipboard(
-												`${domainLink}/${values.product_id}`,
+												`${domainLink}/product/${id}`,
 												'The product link was successfully copied!'
 											)
 										}
