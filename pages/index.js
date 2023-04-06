@@ -664,7 +664,7 @@ export default function Home() {
 										styles.newsCardsGridWithTopImageM
 									}
 								>
-									{blogPosts.slice(0, 5).map((blog) => (
+									{blogPosts.slice(0, 6).map((blog) => (
 										<NewsCard
 											key={blog.id}
 											imgSrc={blog.thumbnail}
@@ -793,7 +793,7 @@ const NewsCard = ({
 					height="132"
 					alt="news card"
 					layout="responsive"
-					objectFit="cover"
+					objectFit="contain"
 				/>
 			</div>
 			<div className={styles.newsTextCont}>
