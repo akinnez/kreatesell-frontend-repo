@@ -11,7 +11,7 @@
 	}
 	@include screen('tablet') {
 		padding: 0 1rem;
-		padding-block-start: 5rem;
+		padding-block-start: 5rem; 
 		width: 100%;
 	}
 }
@@ -121,13 +121,19 @@
 			.title {
 				font-weight: 700;
 				font-size: 2.4rem;
-				line-height: 4rem;
+				line-height: 3rem;
+				margin-top: .7rem;
 				color: $black-100;
-				@include screen('tablet') {
+				@include screen('tablet') { 
 					font-size: 2rem;
-					line-height: 1rem;
+					line-height: 2rem;
 					padding-top: 1rem;
 				}
+				// @include screen('medium') { 
+				// 	font-size: 2rem;
+				// 	line-height: 2rem;
+				// 	padding-top: 1rem;
+				// }
 			}
 
 			.smallInfoDiv {
