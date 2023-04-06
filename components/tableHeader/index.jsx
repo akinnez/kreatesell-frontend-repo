@@ -112,7 +112,7 @@ export const SalesPageModal = ({
 	const {salesPage, salesPageDispatch} = useContext(SalesPageContext);
 	const {addSalesPageLoading} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);
-
+	//WIP: Adding validations to the add sales page modal
 	// NOTE:type can be connectSalesModal, salesPageConnected, disconnectSalesPage, salesPageDisconnected, generateLinkStepOne, generateLinkStepTwo
 	if (type === 'connectSalesModal') {
 		return (
@@ -184,7 +184,6 @@ export const SalesPageModal = ({
 				<Image src={SuccessCheck} alt="Success checkmark" />
 				<h1 className={styles.modalTitle}>Sales Page Connected</h1>
 				<p className={`mb-3 ${styles.action}`}>
-					{/* TODO: Icon comes here */}
 					<Image alt="Error Info Icon" src={ErrorInfoIcon} /> Make
 					sure you copy the link below and click Continue
 				</p>
