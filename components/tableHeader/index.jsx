@@ -5,6 +5,7 @@ import {useRouter} from 'next/router';
 import {format, parseISO} from 'date-fns';
 import {Modal, Tag, Tooltip, Popover, Popconfirm, Input, Select} from 'antd';
 import {useSelector} from 'react-redux';
+import {useFormik} from 'formik';
 
 import {
 	MailClipboard,
@@ -39,6 +40,7 @@ import {
 } from 'redux/actions';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {SalesPageContext} from 'context/AddSalesPageContext';
+import {SalesPageSchema1, SalesPageSchema2} from 'validation';
 
 const {Option} = Select;
 const buttonLinks = [
@@ -104,15 +106,65 @@ export const SalesPageModal = ({
 	closeModal = () => {},
 	type = 'connectSalesModal',
 }) => {
-	const [salesPageUrl, setSalesPageUrl] = useState('');
-	const [linkImage, setLinkImage] = useState({link: '', imageLink: ''});
 	const addSalesPage = AddSalesPage();
 	const disconnectSalesPage = DisconnectSalesPage();
 	const getProducts = GetProducts();
 	const {salesPage, salesPageDispatch} = useContext(SalesPageContext);
 	const {addSalesPageLoading} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);
-	//WIP: Adding validations to the add sales page modal
+	//WIP(work in progress): Adding validations to the add sales page modal
+	const initialValues = {
+		connectSalesModal: {
+			salesPageUrl: '',
+		},
+		salesPageConnected: null,
+		generateLinkStepOne: {
+			link: '',
+			imageLink: '',
+		},
+		generateLinkStepTwo: null,
+	};
+
+	const handleSubmit = (values) => {
+		if (type === 'connectSalesModal') {
+			addSalesPage(
+				{
+					productId: salesPage?.productId,
+					salesPageUrl: values?.salesPageUrl,
+				},
+				() => {
+					// TODO: reset the input fields values
+					salesPageDispatch({
+						type: 'CHANGE_MODAL_TYPE',
+						payload: {
+							modalType: 'salesPageConnected',
+						},
+					});
+					getProducts();
+				}
+			);
+		}
+		if (type === 'generateLinkStepOne') {
+			delete values?.salesPageUrl;
+			salesPageDispatch({
+				type: 'CHANGE_MODAL_TYPE',
+				payload: {
+					modalType: 'generateLinkStepTwo',
+					values,
+				},
+			});
+		}
+	};
+	const formik = useFormik({
+		initialValues: initialValues[type],
+		onSubmit: handleSubmit,
+		validationSchema:
+			type === 'connectSalesModal' ? SalesPageSchema1 : SalesPageSchema2,
+		validateOnChange: false,
+	});
+
+	const {values, errors, handleChange, handleBlur} = formik;
+
 	// NOTE:type can be connectSalesModal, salesPageConnected, disconnectSalesPage, salesPageDisconnected, generateLinkStepOne, generateLinkStepTwo
 	if (type === 'connectSalesModal') {
 		return (
@@ -127,43 +179,52 @@ export const SalesPageModal = ({
 				width={'500px'}
 			>
 				<br />
-				<h1 className={`${styles.modalTitle}`}>Connect Sales Page</h1>
-				<div style={{width: '70%', margin: 'auto'}}>
-					<p className={`mb-1 ${styles.subtitle} text-left mt-7`}>
-						Enter the URL of your sales page
-					</p>
-					<Input
-						placeholder="https://olumidej.kreatesell.com"
-						className={`${styles.input}`}
-						onChange={(e) => setSalesPageUrl(e.target.value)}
-						value={salesPageUrl}
-						style={{height: '2.5rem'}}
+				<form
+					// onSubmit={(e) => {
+					// 	// e.preventDefault();
+					// 	handleSubmit;
+					// }}
+					onSubmit={formik.handleSubmit}
+				>
+					<h1 className={`${styles.modalTitle}`}>
+						Connect Sales Page
+					</h1>
+					<div
+						style={{
+							width: '70%',
+							margin: 'auto',
+							textAlign: 'left',
+						}}
+					>
+						<p className={`mb-1 ${styles.subtitle} text-left mt-7`}>
+							Enter the URL of your sales page
+						</p>
+						<Input
+							placeholder="https://olumidej.kreatesell.com"
+							className={`${styles.input} ${
+								errors?.salesPageUrl && styles.errorDiv
+							}`}
+							onChange={handleChange}
+							value={values?.salesPageUrl}
+							style={{height: '2.5rem'}}
+							name="salesPageUrl"
+						/>
+						<RenderIf condition={errors?.salesPageUrl}>
+							<span className={`${styles.error}`}>
+								{errors.salesPageUrl}
+							</span>
+						</RenderIf>
+					</div>
+					<Button
+						text="Submit"
+						className="mt-4"
+						style={{width: '65%'}}
+						bgColor="blue"
+						type="submit"
+						loading={addSalesPageLoading}
 					/>
-				</div>
-				<Button
-					text="Submit"
-					className="mt-4"
-					style={{width: '65%'}}
-					bgColor="blue"
-					onClick={() => {
-						addSalesPage(
-							{
-								productId: salesPage?.productId,
-								salesPageUrl,
-							},
-							() => {
-								setSalesPageUrl('');
-								salesPageDispatch({
-									type: 'CHANGE_MODAL_TYPE',
-									payload: {modalType: 'salesPageConnected'},
-								});
-								getProducts();
-							}
-						);
-					}}
-					loading={addSalesPageLoading}
-				/>
-				<div className={styles.view_guide}>View guide</div>
+					<div className={styles.view_guide}>View guide</div>
+				</form>
 			</Modal>
 		);
 	}
@@ -237,66 +298,75 @@ export const SalesPageModal = ({
 			>
 				<br />
 				<br />
-				<div className={styles.container}>
-					<p className={styles.number}>
-						1. Paste the link you copied on the previous page here
-					</p>
-					<Input
-						value={linkImage.link}
-						onChange={(e) =>
-							setLinkImage((prev) => ({
-								...prev,
-								link: e.target.value,
-							}))
-						}
-						placeholder="Paste the link here - KREATE-storename63810919410833;storename"
-					/>
-					<br />
-					<br />
-					<p className={styles.number}>
-						2. Select the desired button for your sales page
-					</p>
-					<Select
-						className={styles.selectDropdown}
-						// defaultValue={buttonLinks[0]}
-						placeholder="Select Option"
-						onChange={(e) => {
-							setLinkImage((prev) => ({...prev, imageLink: e}));
-						}}
-					>
-						{buttonLinks.map((btnLink, idx) => (
-							<Option
-								key={idx}
-								value={btnLink}
-								style={{display: 'flex', alignItems: 'center'}}
-							>
-								<Image
-									alt={`button ${idx + 1} image`}
-									src={btnLink}
-									width={60}
-									height={30}
-								/>{' '}
-								&nbsp;&nbsp; Button {idx + 1}
-							</Option>
-						))}
-					</Select>
-				</div>
+				<form onSubmit={formik.handleSubmit}>
+					<div className={styles.container}>
+						<p className={styles.number}>
+							1. Paste the link you copied on the previous page
+							here
+						</p>
+						<Input
+							value={values.link}
+							name="link"
+							onChange={handleChange}
+							placeholder="Paste the link here - {{product_id}};{{storename}}"
+							className={`${errors?.link && styles.errorDiv}`}
+							// required
+						/>
+						<RenderIf condition={errors?.link}>
+							<span className={`${styles.error}`}>
+								{errors.link}
+							</span>
+						</RenderIf>
 
-				<Button
-					text="Submit"
-					className="mt-3"
-					style={{width: '75%'}}
-					bgColor="blue"
-					onClick={() => {
-						salesPageDispatch({
-							type: 'CHANGE_MODAL_TYPE',
-							payload: {
-								modalType: 'generateLinkStepTwo',
-								linkImage,
-							},
-						});
-					}}
-				/>
+						<br />
+						<br />
+						<p className={styles.number}>
+							2. Select the desired button for your sales page
+						</p>
+						<Select
+							className={`${styles.selectDropdown} ${
+								errors?.imageLink && styles.errorDiv
+							}`}
+							// defaultValue={buttonLinks[0]}
+							placeholder="Select Option"
+							name="imageLink"
+							onChange={(e) => {
+								formik.setFieldValue('imageLink', e);
+							}}
+						>
+							{buttonLinks.map((btnLink, idx) => (
+								<Option
+									key={idx}
+									value={btnLink}
+									style={{
+										display: 'flex',
+										alignItems: 'center',
+									}}
+								>
+									<Image
+										alt={`button ${idx + 1} image`}
+										src={btnLink}
+										width={60}
+										height={30}
+									/>{' '}
+									&nbsp;&nbsp; Button {idx + 1}
+								</Option>
+							))}
+						</Select>
+						<RenderIf condition={errors?.imageLink}>
+							<span className={`${styles.error}`}>
+								{errors.imageLink}
+							</span>
+						</RenderIf>
+					</div>
+					<Button
+						text="Submit"
+						type="submit"
+						className="mt-3"
+						style={{width: '75%'}}
+						bgColor="blue"
+					/>
+				</form>
 			</Modal>
 		);
 	}
@@ -354,7 +424,7 @@ export const SalesPageModal = ({
 							value={generateImageTag(
 								salesPage?.productId,
 								store?.store_details?.store_name,
-								linkImage?.imageLink
+								salesPage?.imageLink
 							)}
 						/>
 						<span
@@ -363,7 +433,7 @@ export const SalesPageModal = ({
 									generateImageTag(
 										salesPage?.productId,
 										store?.store_details?.store_name,
-										linkImage?.imageLink
+										salesPage?.imageLink
 									),
 									'The product link was successfully copied!'
 								)

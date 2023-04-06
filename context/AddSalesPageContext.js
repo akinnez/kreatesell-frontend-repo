@@ -7,7 +7,6 @@ const initialState = {
 	modalType: 'connectSalesModal',
 };
 const reducer = (state = initialState, action) => {
-	// console.log('action', action);
 	switch (action.type) {
 		case 'TOGGLE_MODAL':
 			return {...state, showModal: !state.showModal};
@@ -36,6 +35,7 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				modalType: action.payload.modalType,
+				imageLink: action.payload?.values?.imageLink,
 			};
 
 		default:

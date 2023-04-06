@@ -650,3 +650,10 @@
 		border: 2px solid $base-blue;
 	}
 }
+.error {
+	color: #f90005;
+	padding-block: 10px;
+}
+.errorDiv {
+	border: 1px solid #f90005;
+}
