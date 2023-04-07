@@ -26,10 +26,14 @@ export const SignupSchema = () => {
 				/^[a-z ,.'-]+$/i,
 				'Unsupported character. The full name field only accepts alphabets.'
 			)
-			.test('words', 'Please enter your full name', (value) => {
-				const words = value.trim().split(' ');
-				return words.length === 2;
-			}),
+			.test(
+				'words',
+				'Please input only your first and last name.',
+				(value) => {
+					const words = value.trim().split(' ');
+					return words.length === 2;
+				}
+			),
 		phoneNo: Yup.string()
 			.required('Phone number is required')
 			// .matches(/^[0-9]+$/, 'Phone number can only be digits')
