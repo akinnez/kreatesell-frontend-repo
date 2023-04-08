@@ -51,10 +51,36 @@ export const SignupSchema = () => {
 export const LoginSchema = () => {
 	return Yup.object().shape({
 		username: Yup.string()
-			.email()
-			.required('Please input a valid email address'),
+			.required('Email / Phone is required')
+			.test(
+				'username',
+				'Please input a valid email address or Phone Number',
+				(value) => {
+					if (value.includes('@')) {
+						return validateEmail(value);
+					} else {
+						return validatePhone(value);
+					}
+				}
+			),
 		password: Yup.string().required('Please enter a valid password'),
 	});
+};
+
+const validateEmail = (email) => {
+	return Yup.string().email().isValidSync(email);
+};
+
+const validatePhone = (phone) => {
+	return (
+		Yup.string()
+			.required('Phone number is required')
+			// .matches(/^[0-9]+$/, 'Phone number can only be digits')
+			.matches(/^[\+\d]?(?:[\d-.\s()]*)$/, 'Invalid character supplied')
+			// .length(11, 'Phone number must be 11 digits'),
+			.max(15, "Phone number can't be more than 15 characters")
+			.isValidSync(phone)
+	);
 };
 
 export const EmailSchema = () => {
