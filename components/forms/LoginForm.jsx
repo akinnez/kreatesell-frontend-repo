@@ -99,6 +99,12 @@ export const LoginForm = () => {
 
 	const {errors} = formik;
 
+	const handleKeyPress = (event) => {
+		if (event.key === ' ') {
+			event.preventDefault();
+		}
+	};
+
 	return (
 		<>
 			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
@@ -122,6 +128,7 @@ Please login below...`}
 					placeholder="Enter your Password"
 					onChange={formik.handleChange}
 					className={styles.password}
+					onKeyPress={handleKeyPress}
 				/>
 
 				<div className={styles.terms}>
