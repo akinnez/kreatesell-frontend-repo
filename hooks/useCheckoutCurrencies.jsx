@@ -5,8 +5,10 @@ import {useSelector} from 'react-redux';
 const useCheckoutCurrency = () => {
 	const [loading, setLoading] = useState(false);
 	const {countries} = useSelector((state) => state.utils);
-	const {storeCheckoutCurrencies, loading: storeCheckoutCurrenciesLoading} =
-		useSelector((state) => state.store);
+	const {
+		storeCheckoutCurrencies,
+		loading: storeCheckoutCurrenciesLoading,
+	} = useSelector((state) => state.store);
 
 	const countriesCurrency = useMemo(() => {
 		if (storeCheckoutCurrencies.length > 0) {

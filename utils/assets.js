@@ -84,6 +84,7 @@ import RelatedImgSmall from '../public/images/related-img.svg';
 import FAQHero from '../public/images/Faq-hero.svg';
 import ArrowDown from '../public/images/arrow-down.svg';
 import LandingPageHero from '../public/images/landing-hero.svg';
+import LandingPageHeroPng from '../public/images/landing-hero.svg';
 import GrossSales from '../public/images/dashboard-gross-sales.svg';
 import Profit from '../public/images/dashboard-profit.svg';
 import UnitSales from '../public/images/dashboard-unit-sales.svg';
@@ -326,6 +327,7 @@ import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
 
 export {
+	LandingPageHeroPng,
 	ErrorInfoIcon,
 	MinusIcon,
 	GreenCancel,

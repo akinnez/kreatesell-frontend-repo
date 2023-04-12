@@ -20,6 +20,7 @@ import {PayPalScriptProvider} from '@paypal/react-paypal-js';
 import {setAuthorizationHeader} from '../utils/index';
 import ChatScript from '../components/ChatWidgetScript';
 import {SalesPageProvider} from 'context/AddSalesPageContext';
+import {Metas} from '../components/shared/Meta';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -39,6 +40,7 @@ function MyApp({Component, pageProps}) {
 
 	return (
 		<Provider store={store}>
+			<Metas />
 			<SalesPageProvider>
 				<Script
 					charset="UTF-8"
