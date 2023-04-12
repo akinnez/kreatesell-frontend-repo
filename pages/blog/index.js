@@ -251,20 +251,20 @@ export const BlogPreview = ({
 		<div className={styles.singlePost}>
 			<div className={styles.singleImage}>
 				{thumbnail !== 'string' && (
-					// <Image
-					// 	src={thumbnail}
-					// 	width="428"
-					// 	height="220"
-					// 	objectFit="contain"
-					// 	alt={thumbnail_alt ? thumbnail_alt : title}
-					// 	className={styles.blogImage}
-					// />
-					<div className="w-full h-60">
-						<img
-							src={thumbnail}
-							className="w-full h-full object-contain"
-						/>
-					</div>
+					<Image
+						src={thumbnail}
+						width="428"
+						height="320"
+						objectFit="contain"
+						alt={thumbnail_alt ? thumbnail_alt : title}
+						className={styles.blogImage}
+					/>
+					// <div className="w-full h-60">
+					// 	<img
+					// 		src={thumbnail}
+					// 		className="w-full h-full object-contain"
+					// 	/>
+					// </div>
 				)}
 			</div>
 			<div className={styles.singleDate}>

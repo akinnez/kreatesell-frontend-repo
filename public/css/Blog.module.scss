@@ -227,13 +227,13 @@
 	}
 
 	.singleImage {
+		width: 100%;
 		.blogImage {
 			height: 220px;
 			width: 100% !important;
 			object-fit: cover;
 			border-radius: 8px;
 			// display: none;
-			background-color: #0072ef;
 		}
 	}
 
