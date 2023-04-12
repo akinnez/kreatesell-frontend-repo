@@ -50,7 +50,6 @@
 			flex: 3;
 			.heroImage {
 				width: 100%;
-
 				.recentBlogImage {
 					border-radius: 8px;
 				}
@@ -228,9 +227,10 @@
 	}
 
 	.singleImage {
+		width: 100%;
 		.blogImage {
 			height: 220px;
-			width: 345px;
+			width: 100% !important;
 			object-fit: cover;
 			border-radius: 8px;
 			// display: none;
