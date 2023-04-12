@@ -50,7 +50,6 @@
 			flex: 3;
 			.heroImage {
 				width: 100%;
-
 				.recentBlogImage {
 					border-radius: 8px;
 				}
@@ -219,6 +218,10 @@
 	}
 }
 
+
+ 
+
+
 .singlePost {
 	@include flex(column, null, null);
 	min-width: 33.333%;
@@ -230,10 +233,11 @@
 	.singleImage {
 		.blogImage {
 			height: 220px;
-			width: 345px;
+			width: 100% !important;
 			object-fit: cover;
 			border-radius: 8px;
 			// display: none;
+			background-color: #0072ef;
 		}
 	}
 

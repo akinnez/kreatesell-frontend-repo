@@ -114,7 +114,7 @@ const Blog = () => {
 										alt={RecentBlogs?.thumbnail_alt}
 										width="635"
 										height="400"
-										objectFit="cover"
+										objectFit="contain"
 										className={styles.recentBlogImage}
 									/>
 								)}
@@ -133,7 +133,7 @@ const Blog = () => {
 									</a>
 								</Link>
 								{RecentBlogs?.created_at && (
-									<div className={styles.categoryTime}>
+									<div className={styles.categoryTime}> 
 										<span className={styles.category}>
 											<Image
 												src={Briefcase}
@@ -251,13 +251,17 @@ export const BlogPreview = ({
 		<div className={styles.singlePost}>
 			<div className={styles.singleImage}>
 				{thumbnail !== 'string' && (
-					<Image
-						src={thumbnail}
-						width="345"
-						height="220"
-						alt={thumbnail_alt ? thumbnail_alt : title}
-						className={styles.blogImage}
-					/>
+					// <Image
+					// 	src={thumbnail}
+					// 	width="428"
+					// 	height="220"
+					// 	objectFit="contain"
+					// 	alt={thumbnail_alt ? thumbnail_alt : title}
+					// 	className={styles.blogImage}
+					// />
+					<div className='w-full h-60'>
+						<img src={thumbnail} className="w-full h-full object-contain"/>
+					</div>
 				)}
 			</div>
 			<div className={styles.singleDate}>
