@@ -19,8 +19,8 @@ export const PayoutFormValidator = yup.object({
 	paypal_email: yup.string().when('country', (country, schema) => {
 		return country && country !== 1 && country !== 72
 			? schema
-				.email('Enter a valid paypal email')
-				.required('Enter your paypal email')
+					.email('Enter a valid paypal email')
+					.required('Enter your paypal email')
 			: schema;
 	}),
 
@@ -33,12 +33,12 @@ export const PayoutFormValidator = yup.object({
 	account_number: yup.string().when('country', (country, schema) => {
 		return !country || country === 1 || country === 72
 			? validator(schema, 'Enter your bank account number')
-				.min(10, 'Account number cannot be less than 10 digits')
-				.max(10, 'Account number cannot be more than 10 digits')
-				.matches(
-					/^\d+$/,
-					'Account number should only contain numbers'
-				)
+					.min(10, 'Account number cannot be less than 10 digits')
+					.max(10, 'Account number cannot be more than 10 digits')
+					.matches(
+						/^\d+$/,
+						'Account number should only contain numbers'
+					)
 			: schema;
 	}),
 

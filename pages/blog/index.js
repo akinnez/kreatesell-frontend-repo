@@ -133,7 +133,7 @@ const Blog = () => {
 									</a>
 								</Link>
 								{RecentBlogs?.created_at && (
-									<div className={styles.categoryTime}> 
+									<div className={styles.categoryTime}>
 										<span className={styles.category}>
 											<Image
 												src={Briefcase}
@@ -259,8 +259,11 @@ export const BlogPreview = ({
 					// 	alt={thumbnail_alt ? thumbnail_alt : title}
 					// 	className={styles.blogImage}
 					// />
-					<div className='w-full h-60'>
-						<img src={thumbnail} className="w-full h-full object-contain"/>
+					<div className="w-full h-60">
+						<img
+							src={thumbnail}
+							className="w-full h-full object-contain"
+						/>
 					</div>
 				)}
 			</div>
