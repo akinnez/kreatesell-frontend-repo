@@ -44,6 +44,7 @@ const PayoutsForm = ({
 	banksByCountryId,
 	bankDetails,
 }) => {
+	console.log(bankDetails, 'bankDetailsbankDetailsbankDetails');
 	const [banksLoading, setBanksLoading] = useState(false);
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
@@ -175,7 +176,7 @@ const PayoutsForm = ({
 							</Option>
 						</Select>
 					</Form.Item>
-					{paypal ? (
+					{bankDetails?.country_name === 'United States' || paypal ? (
 						<Form.Item
 							name="paypal_email"
 							label="PayPal Email"

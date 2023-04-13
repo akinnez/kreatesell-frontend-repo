@@ -44,6 +44,7 @@ import {
 	PlayIcon,
 	isAnEmpytyObject,
 	Animate,
+	LandingPageHeroPng,
 } from '../utils';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
@@ -160,7 +161,8 @@ export default function Home() {
 						className={styles.heroImage}
 					>
 						<Image
-							src={LandingPageHero}
+							// src={LandingPageHero}
+							src={LandingPageHeroPng}
 							alt="kreatesell hero"
 							layout="responsive"
 							onClick={() => setVisible(!modalVisible)}

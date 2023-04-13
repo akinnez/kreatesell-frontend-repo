@@ -114,7 +114,7 @@ const Blog = () => {
 										alt={RecentBlogs?.thumbnail_alt}
 										width="635"
 										height="400"
-										objectFit="cover"
+										objectFit="contain"
 										className={styles.recentBlogImage}
 									/>
 								)}
@@ -253,11 +253,18 @@ export const BlogPreview = ({
 				{thumbnail !== 'string' && (
 					<Image
 						src={thumbnail}
-						width="345"
-						height="220"
+						width="428"
+						height="320"
+						objectFit="contain"
 						alt={thumbnail_alt ? thumbnail_alt : title}
 						className={styles.blogImage}
 					/>
+					// <div className="w-full h-60">
+					// 	<img
+					// 		src={thumbnail}
+					// 		className="w-full h-full object-contain"
+					// 	/>
+					// </div>
 				)}
 			</div>
 			<div className={styles.singleDate}>

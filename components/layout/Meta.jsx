@@ -3,7 +3,7 @@ import Head from 'next/head';
 export const Meta = ({title, keywords, description}) => {
 	const name = 'KreateSell';
 	const websiteURL = 'https://kreatesell.com';
-	const twitterHandle = '@KreateSell';
+	const twitterHandle = '@useKreatesell';
 	const metaContent = '';
 
 	return (

@@ -255,7 +255,7 @@ const Checkout = () => {
 	const paymentStatusList = {
 		success: 's',
 		failed: 'f',
-		// abandoned: "a"
+		abandoned: 'a',
 	};
 
 	const getPurchaseDetails = () => {
@@ -620,7 +620,9 @@ const Checkout = () => {
 					closePaymentModal();
 					//   openModal();
 				},
-				onClose: () => {},
+				onClose: () => {
+					// TODO: on abandon flow
+				},
 			});
 		}
 		if (selectedPaymentMethod === 'paystack') {
@@ -709,6 +711,7 @@ const Checkout = () => {
 	const onPaystackClose = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
 		console.log('closed');
+		// TODO: on abandon flow
 	};
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
