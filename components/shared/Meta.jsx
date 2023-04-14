@@ -59,7 +59,12 @@ export function Metas(props) {
 			{/* Check this link for clearer explanation: https://neilpatel.com/blog/open-graph-meta-tags/ */}
 			<meta
 				property="og:url"
-				content={data?.facebook?.url || canonicalHref || metaData.url}
+				content={
+					websiteURL ||
+					data?.facebook?.url ||
+					canonicalHref ||
+					metaData.url
+				}
 				key="facebook url"
 			/>
 			<meta property="og:type" content="website" key="facebook type" />
@@ -110,10 +115,10 @@ export function Metas(props) {
 			{/* Facebook Meta Tags Ends */}
 
 			{/* Twitter Meta Tags */}
+			<meta name="twitter:card" content="summary" key="twitter card" />
 			<meta
-				name="twitter:card"
-				content="summary_large_image"
-				key="twitter card"
+				property="twitter:url"
+				content={canonicalHref || metaData.url}
 			/>
 			<meta
 				name="twitter:title"
@@ -129,6 +134,7 @@ export function Metas(props) {
 				}
 				key="twitter description"
 			/>
+
 			<meta
 				name="twitter:image"
 				content={data?.twitter?.image || data?.image || metaData.image}

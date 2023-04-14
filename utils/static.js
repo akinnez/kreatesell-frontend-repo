@@ -1,10 +1,10 @@
 export const metaData = {
 	siteName: 'Kreatesell',
-	title: 'Kreatesell title',
-	description: 'Kreatesell Description',
+	title: 'Kreatesell',
+	description: 'KreateSell , Sell more, Do less',
 	image: '',
-	keywords: '',
-	url: 'config.SITE_URL',
+	keywords: 'e-commerce',
+	url: 'https://kreatesell.com',
 	geo: {
 		placeName: 'Ibadan',
 		position: '',
