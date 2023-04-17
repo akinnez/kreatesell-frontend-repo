@@ -79,11 +79,12 @@ const Index = ({
 	} = useSelector((state) => state.store);
 
 	const {data} = useSWR('v1/kreatesell/store/me', fetcher);
-	// console.log("data from store = ", data?.user);
 
 	const userPlan = data?.user?.user_plan;
 	const percentageCompleted = data?.percentage_completed;
 
+	// FIXME: Make sure this ony shows when the store details have not been setup,
+	// having less than 80% might not be enough to choose when the modal should show
 	const storeSetupPromptIsShown = useCallback(() => {
 		return (
 			percentageCompleted <= 80 &&
@@ -91,8 +92,6 @@ const Index = ({
 				pathname === '/account/dashboard')
 		);
 	}, [percentageCompleted, pathname]);
-
-	// console.log("prompt is Visible = ", storeSetupPromptIsShown);
 
 	useEffect(() => {
 		checkExpiredUserToken();
@@ -104,8 +103,6 @@ const Index = ({
 		setInfo(user);
 	}, []);
 
-	// console.log("info = ", info);
-	// console.log("store details = ", store_details);
 	//* uncomment - temp by-pass
 	useEffect(() => {
 		if (!_isUserLoggedIn()) {
@@ -329,7 +326,11 @@ const SetUpPrompt = ({show}) => {
 				Provide all the required information for your store to be fully
 				setup and activated.{' '}
 				<Link href="/account/kreator/store/edit">
-					Click here to proceed
+					Click to customize your storefront
+				</Link>{' '}
+				and{' '}
+				<Link href="/account/sales/payouts/set-up-bank-details">
+					click to set up your payout details
 				</Link>
 				.
 			</p>
