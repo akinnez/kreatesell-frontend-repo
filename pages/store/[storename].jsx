@@ -296,7 +296,7 @@ const StorePage = () => {
 					</div>
 				</nav>
 
-				<div className="px-4 lg:px-40">
+				<div className="px-4 lg:px-40" style={{minHeight: '100vh'}}>
 					<div className="flex items-center py-10">
 						{false && (
 							<div
@@ -472,7 +472,9 @@ const ProductCard = ({
 	const pricingType =
 		productDetails?.product_details?.pricing_type?.price_type;
 	const router = useRouter();
-	const setCheckoutDetails = SetCheckoutDetails();
+	//=========================================================================//
+	//==========================Images=========================================//
+	//=========================================================================//
 	const images = productDetails?.product_images?.filter(
 		(img) => !['.rar', '.zip'].includes(img.filename) || img !== null
 	);
@@ -501,6 +503,9 @@ const ProductCard = ({
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
+	//=========================================================================//
+	//==========================Images ENDS====================================//
+	//=========================================================================//
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
@@ -555,7 +560,7 @@ const ProductCard = ({
 				);
 			}}
 		>
-			<div>
+			<div className={styles.imageContainer}>
 				<Image
 					// src={!imageShown ? len[0] : imageShown}
 					src={len.length > 0 ? len[0] : imageShown}
@@ -563,6 +568,8 @@ const ProductCard = ({
 					height="300"
 					className="rounded-t-lg object-cover"
 					alt=""
+					layout="responsive"
+					quality={100}
 				/>
 			</div>
 			<div className={`flex justify-between p-2 ${styles.productStatus}`}>

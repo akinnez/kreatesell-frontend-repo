@@ -83,7 +83,11 @@
 .productCardCtn {
 	color: #262626;
 	text-overflow: ellipsis;
-
+	.imageContainer {
+		display: block;
+		img {
+		}
+	}
 	.productStatus {
 		.status {
 			&.inStock {
