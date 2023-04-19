@@ -511,7 +511,12 @@ const ProductCard = ({
 		'Out of Stock': {color: '#FF4D4F'},
 	};
 
-	const getPredefinedPrice = (type) => {
+	/**
+	 *
+	 * @param {*} type - can be Pay What You Want or 'Fixed Price'
+	 * @returns the predefined price for a particular currency
+	 */
+	const getPredefinedPrice = (type, priceType = 'Selling') => {
 		let predefinedAmount;
 		if (type === 'Pay What You Want') {
 			predefinedAmount = productDetails?.check_out_details?.find(
@@ -522,11 +527,15 @@ const ProductCard = ({
 			// minimum
 		} else if (type === 'Fixed Price') {
 			//selling
+			// if(priceType === "Selling"){
 			predefinedAmount = productDetails?.check_out_details?.find(
 				(det) =>
-					det?.price_indicator === 'Selling' &&
+					det?.price_indicator === priceType &&
 					det?.currency_name === targetCurrency
 			);
+			// }else if(priceType === "Original"){
+			//   predefinedAmount = productDetails.check_out_details
+			// }
 		}
 		return predefinedAmount?.price;
 	};
@@ -669,28 +678,26 @@ const ProductCard = ({
 													productDetails
 														?.default_currency
 														?.currency}{' '}
-												{convertedCurrency
+												{getPredefinedPrice(
+													productDetails?.product_price_type,
+													'Original'
+												)
+													? getPredefinedPrice(
+															productDetails?.product_price_type,
+															'Original'
+													  )
+													: convertedCurrency
 													? new Intl.NumberFormat().format(
 															Number(
-																convertedCurrency
-															).toFixed(2) *
-																(Number(
+																convertedCurrency *
 																	originalPrice
-																).toFixed(2) ??
-																	Number(
-																		productDetails?.default_price
-																	).toFixed(
-																		2
-																	))
+															).toFixed(2)
 													  )
 													: !convertedCurrency
 													? new Intl.NumberFormat().format(
 															Number(
 																originalPrice
-															).toFixed(2) ??
-																Number(
-																	productDetails?.default_price
-																).toFixed(2)
+															).toFixed(2)
 													  )
 													: '0.00'}
 											</p>
