@@ -208,17 +208,17 @@ export default function PreviewProduct(props) {
 	);
 }
 
-export async function getServerSideProps(context) {
-	const {/*res,*/ query /*, params, req*/} = context;
-	// console.log('query', query);
-	const res2 = await axios
-		.get(`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`, {
-			headers: null,
-		})
-		.then((res) => res?.data.data);
-	return {
-		props: {
-			data: res2,
-		}, // will be passed to the page component as props
-	};
-}
+// export async function getServerSideProps(context) {
+// 	const {/*res,*/ query /*, params, req*/} = context;
+// 	// console.log('query', query);
+// 	const res2 = await axios
+// 		.get(`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`, {
+// 			headers: null,
+// 		})
+// 		.then((res) => res?.data.data);
+// 	return {
+// 		props: {
+// 			data: res2,
+// 		}, // will be passed to the page component as props
+// 	};
+// }
