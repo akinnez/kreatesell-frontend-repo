@@ -23,6 +23,7 @@
 	// width: 85%;
 	margin: 9rem auto 0 auto;
 	padding: 1rem;
+	min-height: 100vh;
 	// border: 100px solid red;
 
 	@media (min-width: 500px) {
@@ -425,7 +426,7 @@
 	// left: 0;
 	// right: 0;
 	// bottom: 0;
-	min-width: 100vw !important;
+	// min-width: 100vw !important;
 	// border: 1px solid red;
 
 	@media (min-width: 320px) {

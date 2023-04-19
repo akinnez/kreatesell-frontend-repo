@@ -268,7 +268,8 @@ export default function PreviewContent({
 		return;
 	};
 
-	if (productStatus === 'idle') return null;
+	if (productStatus === 'idle')
+		return <div style={{minHeight: '100vh'}}></div>;
 
 	if (productStatus === 'deactivated') {
 		return (
