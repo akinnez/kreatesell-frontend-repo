@@ -296,7 +296,7 @@ const StorePage = () => {
 					</div>
 				</nav>
 
-				<div className="px-4 lg:px-40">
+				<div className="px-4 lg:px-40" style={{minHeight: '100vh'}}>
 					<div className="flex items-center py-10">
 						{false && (
 							<div
@@ -472,7 +472,9 @@ const ProductCard = ({
 	const pricingType =
 		productDetails?.product_details?.pricing_type?.price_type;
 	const router = useRouter();
-	const setCheckoutDetails = SetCheckoutDetails();
+	//=========================================================================//
+	//==========================Images=========================================//
+	//=========================================================================//
 	const images = productDetails?.product_images?.filter(
 		(img) => !['.rar', '.zip'].includes(img.filename) || img !== null
 	);
@@ -501,12 +503,20 @@ const ProductCard = ({
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	let len = imageRendered?.split(',');
+	//=========================================================================//
+	//==========================Images ENDS====================================//
+	//=========================================================================//
 	const statusLabel = {
 		'In Stock': {color: '#2DC071'},
 		'Out of Stock': {color: '#FF4D4F'},
 	};
 
-	const getPredefinedPrice = (type) => {
+	/**
+	 *
+	 * @param {*} type - can be Pay What You Want or 'Fixed Price'
+	 * @returns the predefined price for a particular currency
+	 */
+	const getPredefinedPrice = (type, priceType = 'Selling') => {
 		let predefinedAmount;
 		if (type === 'Pay What You Want') {
 			predefinedAmount = productDetails?.check_out_details?.find(
@@ -517,11 +527,15 @@ const ProductCard = ({
 			// minimum
 		} else if (type === 'Fixed Price') {
 			//selling
+			// if(priceType === "Selling"){
 			predefinedAmount = productDetails?.check_out_details?.find(
 				(det) =>
-					det?.price_indicator === 'Selling' &&
+					det?.price_indicator === priceType &&
 					det?.currency_name === targetCurrency
 			);
+			// }else if(priceType === "Original"){
+			//   predefinedAmount = productDetails.check_out_details
+			// }
 		}
 		return predefinedAmount?.price;
 	};
@@ -555,7 +569,7 @@ const ProductCard = ({
 				);
 			}}
 		>
-			<div>
+			<div className={styles.imageContainer}>
 				<Image
 					// src={!imageShown ? len[0] : imageShown}
 					src={len.length > 0 ? len[0] : imageShown}
@@ -563,6 +577,8 @@ const ProductCard = ({
 					height="300"
 					className="rounded-t-lg object-cover"
 					alt=""
+					layout="responsive"
+					quality={100}
 				/>
 			</div>
 			<div className={`flex justify-between p-2 ${styles.productStatus}`}>
@@ -662,28 +678,26 @@ const ProductCard = ({
 													productDetails
 														?.default_currency
 														?.currency}{' '}
-												{convertedCurrency
+												{getPredefinedPrice(
+													productDetails?.product_price_type,
+													'Original'
+												)
+													? getPredefinedPrice(
+															productDetails?.product_price_type,
+															'Original'
+													  )
+													: convertedCurrency
 													? new Intl.NumberFormat().format(
 															Number(
-																convertedCurrency
-															).toFixed(2) *
-																(Number(
+																convertedCurrency *
 																	originalPrice
-																).toFixed(2) ??
-																	Number(
-																		productDetails?.default_price
-																	).toFixed(
-																		2
-																	))
+															).toFixed(2)
 													  )
 													: !convertedCurrency
 													? new Intl.NumberFormat().format(
 															Number(
 																originalPrice
-															).toFixed(2) ??
-																Number(
-																	productDetails?.default_price
-																).toFixed(2)
+															).toFixed(2)
 													  )
 													: '0.00'}
 											</p>

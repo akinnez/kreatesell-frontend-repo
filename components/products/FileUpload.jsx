@@ -227,7 +227,7 @@ export default function FileUpload({
 							src={file ? CloudUploadDisable : CloudUpload}
 							alt="upload image"
 						/>
-						<p className="hidden md:block text-sm pl-4 my-auto">
+						<p className="hidden md:block text-sm pl-4">
 							Drag and Drop or Click to Upload Your Product File
 						</p>
 						<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">

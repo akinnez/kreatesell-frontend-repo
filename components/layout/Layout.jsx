@@ -8,11 +8,19 @@ export const Layout = ({
 	description,
 	subFooter = false,
 	defaultMarginTop,
+	url = 'https://kreatesell.com',
+	name = 'Kreatesell',
+	image = '',
 	...subFooterProps
 }) => {
 	return (
 		<>
-			<Meta title={title} keywords={keywords} description={description} />
+			<Meta
+				title={title}
+				keywords={keywords}
+				description={description}
+				data={{url, title, keywords, name, image}}
+			/>
 			<section
 				className={styles.layout}
 				style={{width: '100%', overflow: 'hidden'}}

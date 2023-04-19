@@ -40,7 +40,7 @@ function MyApp({Component, pageProps}) {
 
 	return (
 		<Provider store={store}>
-			<Metas />
+			{/* <Metas /> */}
 			<SalesPageProvider>
 				{/* <Script
 					charset="UTF-8"

@@ -16,7 +16,6 @@ import LogoImg from 'public/images/logo.svg';
 
 import {
 	RightArrow,
-	LandingPageHero,
 	DashPreviewOne,
 	DashPreviewTwo,
 	PaymentPreview,
@@ -45,6 +44,7 @@ import {
 	isAnEmpytyObject,
 	Animate,
 	LandingPageHeroPng,
+	DashPreviewOnePng,
 } from '../utils';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
@@ -161,7 +161,6 @@ export default function Home() {
 						className={styles.heroImage}
 					>
 						<Image
-							// src={LandingPageHero}
 							src={LandingPageHeroPng}
 							alt="kreatesell hero"
 							layout="responsive"
@@ -396,14 +395,14 @@ export default function Home() {
 							{/* layout="responsive" isn't applied on mobile images */}
 							<div className={styles.mobileOnly}>
 								<Image
-									src={DashPreviewOne}
+									src={DashPreviewOnePng}
 									height="420"
 									width="417"
 									alt="automation icon"
 								/>
 							</div>
 							<Image
-								src={DashPreviewOne}
+								src={DashPreviewOnePng}
 								height="420"
 								width="417"
 								alt="automation icon"

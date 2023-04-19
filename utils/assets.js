@@ -83,7 +83,7 @@ import RelatedBlog from '../public/images/related-blog.svg';
 import RelatedImgSmall from '../public/images/related-img.svg';
 import FAQHero from '../public/images/Faq-hero.svg';
 import ArrowDown from '../public/images/arrow-down.svg';
-import LandingPageHero from '../public/images/landing-hero.svg';
+// import LandingPageHero from '../public/images/landing-hero.svg';
 import LandingPageHeroPng from '../public/images/landing-hero.svg';
 import GrossSales from '../public/images/dashboard-gross-sales.svg';
 import Profit from '../public/images/dashboard-profit.svg';
@@ -193,6 +193,7 @@ import TechCrunch from '../public/images/tech-crunch.svg';
 import LineOne from '../public/images/line-1.svg';
 import LineTwo from '../public/images/line-2.svg';
 import DashPreviewOne from '../public/images/dash-preview-1.svg';
+import DashPreviewOnePng from '../public/images/dash-preview-1.png';
 import DashPreviewTwo from '../public/images/dash-preview-2.svg';
 import PaymentPreview from '../public/images/foreign-payments-preview.svg';
 import PublishProduct from '../public/images/publish.svg';
@@ -327,6 +328,7 @@ import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
 
 export {
+	DashPreviewOnePng,
 	LandingPageHeroPng,
 	ErrorInfoIcon,
 	MinusIcon,
@@ -557,7 +559,7 @@ export {
 	FBLike,
 	FAQHero,
 	ArrowDown,
-	LandingPageHero,
+	// LandingPageHero,
 	GrossSales,
 	Profit,
 	UnitSales,

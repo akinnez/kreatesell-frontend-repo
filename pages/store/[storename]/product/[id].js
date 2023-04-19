@@ -7,8 +7,11 @@ import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
+import axios from 'axios';
+import {Meta} from 'components/layout';
 
-export default function PreviewProduct() {
+export default function PreviewProduct(props) {
+	// console.log('Props', props?.data);
 	const router = useRouter();
 
 	const {
@@ -144,6 +147,31 @@ export default function PreviewProduct() {
 		}
 	};
 
+	// WIP: Meta tag for product page
+	const formatDataForMetaTag = (data) => {
+		//
+		const MetaDataObj = {
+			data: {
+				url: ``,
+				title: '',
+				keywords: '',
+				name: '',
+				description: '',
+				image: '',
+				siteName: '',
+			},
+			title: '',
+			keywords: '',
+			description: '',
+		};
+
+		return MetaDataObj;
+		// data:{
+		//   url:'',title:'', keywords:'', name:'', description: '', image:'', siteName:''
+		// }
+		// title, keywords, description
+	};
+
 	if (!router.query.id) {
 		return null;
 	}
@@ -161,6 +189,7 @@ export default function PreviewProduct() {
 					// width: '100%',
 				}}
 			>
+				{/* <Meta /> */}
 				<PreviewHeader
 					id={router.query.id}
 					showNavLinks={false}
@@ -178,3 +207,18 @@ export default function PreviewProduct() {
 		</>
 	);
 }
+
+// export async function getServerSideProps(context) {
+// 	const {/*res,*/ query /*, params, req*/} = context;
+// 	// console.log('query', query);
+// 	const res2 = await axios
+// 		.get(`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`, {
+// 			headers: null,
+// 		})
+// 		.then((res) => res?.data.data);
+// 	return {
+// 		props: {
+// 			data: res2,
+// 		}, // will be passed to the page component as props
+// 	};
+// }
