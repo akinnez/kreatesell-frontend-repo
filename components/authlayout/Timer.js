@@ -12,7 +12,7 @@ import {BusinessPlanBox} from '../../utils/assets';
 const Timer = () => {
 	const router = useRouter();
 	const {
-		store: {plan_expiry_date, user},
+		store: {plan_expiry_date},
 	} = useSelector((state) => state.store);
 	const [days, hours, minutes, seconds] = useCountdown(plan_expiry_date);
 
@@ -51,8 +51,7 @@ const Timer = () => {
 										<div>ACTIVE</div>
 									</div>
 								</div>
-								{/* TODO: this will be changed when we go live */}
-								{days <= 30 && (
+								{days <= 7 && (
 									<>
 										<h3 className={style.title}>
 											Time Left
