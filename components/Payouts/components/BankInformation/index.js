@@ -11,7 +11,7 @@ const BankInformation = ({bankDetails}) => (
 			>
 				<p className={styles.text}>
 					<Text>Currency:</Text>
-					<Text>&nbsp; {bankDetails.currency || 'NGN'}</Text>
+					<Text>&nbsp; {bankDetails.currency || bankDetails.currency_name || 'NGN'}</Text>
 				</p>
 				<p className={styles.text}>
 					<Text>Bank Name:</Text>
