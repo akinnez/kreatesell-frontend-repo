@@ -89,11 +89,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -156,7 +161,7 @@ const Checkout = () => {
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency.
 		(item) =>
-			(item?.price_indicator === pricingTypeDetails.price_type) ===
+			(item?.price_indicator === pricingTypeDetails?.price_type) ===
 			'Pay What You Want'
 				? 'Minimum'
 				: 'Selling' &&
@@ -173,6 +178,7 @@ const Checkout = () => {
 					Authorization: 'none',
 				},
 			});
+			console.log('response.data?.data', response.data?.data);
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(
@@ -264,7 +270,7 @@ const Checkout = () => {
 				product_id: productId,
 				quantity: 1,
 				amount:
-					pricingTypeDetails.price_type === 'Make it Free'
+					pricingTypeDetails?.price_type === 'Make it Free'
 						? 0
 						: totalFee,
 			},
@@ -279,7 +285,7 @@ const Checkout = () => {
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
 			total:
-				pricingTypeDetails.price_type === 'Make it Free'
+				pricingTypeDetails?.price_type === 'Make it Free'
 					? 0
 					: getCurrency('total'),
 			reference_id: reference,
@@ -288,7 +294,7 @@ const Checkout = () => {
 			card_type: selectedPaymentMethod,
 			last_four: '',
 			currency:
-				pricingTypeDetails.price_type === 'Make it Free'
+				pricingTypeDetails?.price_type === 'Make it Free'
 					? getCurrency('free')
 					: getCurrency('currency'),
 			payment_type: 'purchase',
@@ -297,7 +303,9 @@ const Checkout = () => {
 			affiliate_id: getAffiliateRef(),
 			user_identifier: 'user-' + randomId,
 			is_free_flow:
-				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
+				pricingTypeDetails?.price_type === 'Make it Free'
+					? true
+					: false,
 			coupon_code: couponCode || '',
 			TransactionFee: transactionFee,
 		};
@@ -403,7 +411,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		Number(desiredAmount) < Number(getCurrency('minimum')) &&
-		pricingTypeDetails.price_type === 'Pay What You Want'
+		pricingTypeDetails?.price_type === 'Pay What You Want'
 			? setDisableBtn(true)
 			: setDisableBtn(false);
 	}, [desiredAmount]);
@@ -543,11 +551,10 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -660,7 +667,8 @@ const Checkout = () => {
 		customizations: {
 			title: storeDetails?.product_details?.product_name || '',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -944,7 +952,7 @@ const Checkout = () => {
 								autoComplete="off"
 								className="w-full"
 							>
-								{pricingTypeDetails.price_type !==
+								{pricingTypeDetails?.price_type !==
 									'Make it Free' && (
 									<div className="pb-4">
 										<div className="text-black-100">
@@ -984,7 +992,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails.price_type !==
+								{pricingTypeDetails?.price_type !==
 									'Make it Free' && (
 									<div className="py-7">
 										<h2>
@@ -1051,7 +1059,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails.price_type !==
+								{pricingTypeDetails?.price_type !==
 									'Make it Free' && (
 									<div className="py-7">
 										<h2>
@@ -1327,7 +1335,8 @@ const Checkout = () => {
 												<div>
 													<PayPalButtons
 														style={{
-															layout: 'horizontal',
+															layout:
+																'horizontal',
 															label: 'pay',
 														}}
 														disabled={
@@ -1347,29 +1356,27 @@ const Checkout = () => {
 														) => {
 															return actions.order.create(
 																{
-																	purchase_units:
-																		[
-																			{
-																				description:
-																					'customDescription',
-																				amount: {
-																					// value: Number(
-																					// 	convertedPrice
-																					// ).toFixed(2),
-																					value: Number(
-																						getCurrency(
-																							'price'
-																						)
-																					).toFixed(
-																						2
-																					),
-																					currency:
-																						getCurrency(
-																							'currency'
-																						),
-																				},
+																	purchase_units: [
+																		{
+																			description:
+																				'customDescription',
+																			amount: {
+																				// value: Number(
+																				// 	convertedPrice
+																				// ).toFixed(2),
+																				value: Number(
+																					getCurrency(
+																						'price'
+																					)
+																				).toFixed(
+																					2
+																				),
+																				currency: getCurrency(
+																					'currency'
+																				),
 																			},
-																		],
+																		},
+																	],
 																}
 															);
 														}}
@@ -1477,7 +1484,8 @@ const Checkout = () => {
 															style={{
 																fontSize:
 																	'15px',
-																color: '#8C8C8C',
+																color:
+																	'#8C8C8C',
 																textDecoration:
 																	'line-through',
 															}}
