@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
-import {useDispatch} from 'react-redux';
-import {Typography, Form, Select, Input, Button} from 'antd';
-import {Formik} from 'formik';
+import { useDispatch } from 'react-redux';
+import { Typography, Form, Select, Input, Button } from 'antd';
+import { Formik } from 'formik';
 
 import PayoutsFormWarning from '../PayoutsFormWarning';
 import {
@@ -15,13 +15,14 @@ import {
 	isValidCB,
 	paypalCB,
 	validateAccountOnBlur,
+	// validateIsmobileMoney
 } from 'components/Payouts/utils/payoutsFormCBs';
-import {PayoutFormValidator} from 'validation/PayoutForm.validation';
-import {RestOfTheWorld} from 'utils';
+import { PayoutFormValidator } from 'validation/PayoutForm.validation';
+import { RestOfTheWorld } from 'utils';
 import styles from './index.module.scss';
 
-const {Text} = Typography;
-const {Option} = Select;
+const { Text } = Typography;
+const { Option } = Select;
 
 const RestOfTheWorldObj = {
 	country_code: '+1',
@@ -44,15 +45,18 @@ const PayoutsForm = ({
 	banksByCountryId,
 	bankDetails,
 }) => {
-	console.log(bankDetails, 'bankDetailsbankDetailsbankDetails');
 	const [banksLoading, setBanksLoading] = useState(false);
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
 	const [paypal, setPaypal] = useState(() => paypalCB(bankDetails));
+	const [bankType, setBankType] = useState("")
 	const [actNoState, setActNoState] = useState(null);
+	const [isNigerian, setIsNigerian] = useState(false)
 	const [banks, setBanks] = useState(() => {
 		return banksCB(bankDetails, banksByCountryId);
 	});
+
+	console.log(bankDetails, 'kkkkkkppppppp')
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 
@@ -64,6 +68,7 @@ const PayoutsForm = ({
 		showSuccessModal,
 	});
 
+	console.log(bankDetails, banksByCountryId, 'to test for why ghana is not returning bank for updates')
 	return (
 		<Formik
 			initialValues={{
@@ -73,6 +78,7 @@ const PayoutsForm = ({
 				account_number: bankDetails?.account_number || '',
 				account_name: bankDetails?.account_name || '',
 				password: '',
+				bank_type: 'bankaccount'
 			}}
 			validationSchema={PayoutFormValidator}
 			onSubmit={submitHandler}
@@ -90,6 +96,7 @@ const PayoutsForm = ({
 						bank: formik.values.bank || null,
 						account_number: formik.values.account_number,
 						account_name: formik.values.account_name,
+						bank_type: 'bankaccount'
 					}}
 				>
 					<Form.Item
@@ -117,6 +124,7 @@ const PayoutsForm = ({
 									setBanksLoading,
 									dispatch,
 									countries,
+									setIsNigerian
 								})
 							}
 							optionFilterProp="children"
@@ -284,50 +292,108 @@ const PayoutsForm = ({
 								/>
 							</Form.Item>
 
-							<Form.Item>
-								<Button
-									type="primary"
-									htmlType="submit"
-									onClick={() =>
-										validateAccountOnBlur({
-											actNoState,
-											formik,
-											form,
-											banks,
-											setValidating,
-											// setIsValid,
-										})
-									}
-								>
-									Verify Account Number
-								</Button>
-							</Form.Item>
-
 							<Form.Item
-								name="account_name"
-								label="Account Name"
+								name="bank_type"
+								label="Select Bank Type"
+								// hasFeedback={validating}
 								validateStatus={
-									formik.touched.account_name &&
-									formik.errors.account_name
-										? 'error'
-										: validating
-										? 'validating'
-										: 'success'
+									formik.touched.bank_type &&
+									formik.errors.bank_type &&
+									'error'
 								}
-								hasFeedback={validating}
 								help={
-									formik.touched.account_name &&
-									formik.errors.account_name
+									formik.touched.bank_type &&
+									formik.errors.bank_type
 								}
 							>
-								<Input
-									autoComplete="off"
-									placeholder="Enter account name"
-									// disabled={isValid}
-									disabled
-									{...formik.getFieldProps('account_name')}
-								/>
+								<Select
+									placeholder="Choose your bank type"
+									onChange={(value) => {
+										setBankType(value)
+										formik.setFieldValue('bank_type', value)
+									}}
+									value={formik.values.bank_type}
+								>
+									<Option value="bankaccount">Bank</Option>
+									<Option value="mobilemoney">Mobile Money</Option>
+								</Select>
 							</Form.Item>
+
+							{isNigerian || bankDetails?.country_name === 'Nigeria' ? (
+								<>
+									<Form.Item>
+										<Button
+											type="primary"
+											// htmlType="submit"
+											onClick={() =>
+												validateAccountOnBlur({
+													actNoState,
+													formik,
+													form,
+													banks,
+													setValidating,
+													// setIsValid,
+												})
+											}
+										>
+											Verify Account Number
+										</Button>
+									</Form.Item>
+									<Form.Item
+										name="account_name"
+										label="Account Name"
+										validateStatus={
+											formik.touched.account_name &&
+												formik.errors.account_name
+												? 'error'
+												: validating
+													? 'validating'
+													: 'success'
+										}
+										hasFeedback={validating}
+										help={
+											formik.touched.account_name &&
+											formik.errors.account_name
+										}
+									>
+										<Input
+											autoComplete="off"
+											placeholder="Enter account name"
+											// disabled={isValid}
+											disabled
+											{...formik.getFieldProps('account_name')}
+										/>
+									</Form.Item></>
+							) : (
+								<div>
+									<Form.Item
+										name="account_name"
+										label="Account Name"
+										// validateStatus={
+										// 	formik.touched.account_name &&
+										// 		formik.errors.account_name
+										// 		? 'error'
+										// 		: validating
+										// 			? 'validating'
+										// 			: 'success'
+										// }
+										hasFeedback={validating}
+										help={
+											formik.touched.account_name &&
+											formik.errors.account_name
+										}
+									>
+										<Input
+											autoComplete="off"
+											placeholder="Enter account name"
+											// disabled={isValid}
+											// disabled
+											{...formik.getFieldProps('account_name')}
+										/>
+									</Form.Item>
+								</div>
+							)}
+
 						</>
 					)}
 					<PayoutsFormWarning />

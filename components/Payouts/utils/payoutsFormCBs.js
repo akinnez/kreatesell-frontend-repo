@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {isAnEmpytyObject, showToast} from 'utils';
-import {bankSuccess, updateStore} from 'redux/actions';
+import { isAnEmpytyObject, showToast } from 'utils';
+import { bankSuccess, updateStore } from 'redux/actions';
 import axiosApi from 'utils/axios';
 
 const getData = (dataSet, id) => dataSet.find((item) => item.id === id);
@@ -42,7 +42,7 @@ export const createAccount = ({
 }) => {
 	axiosApi.request(
 		'post',
-		`${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
+		`${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,  
 		(res) => {
 			showSuccessModal();
 			hideModal();
@@ -65,18 +65,26 @@ export const countryHandler = async ({
 	setBanksLoading,
 	dispatch,
 	countries,
+	setIsNigerian
 }) => {
+	console.log(value, 'valuess')
 	formik.setFieldValue('country', value);
 	let tempValue = value;
 	// change this to only US and UK
-	const {short_name} = countries.find((country) => {
+	const { short_name } = countries.find((country) => {
 		// if value is rest of the world, make it USA's payload
 		if (value === -10) tempValue = 188;
 		return country?.id === tempValue;
 	});
 
-	// US and UK are 187 and 188
-	if (![187, 188].includes(tempValue)) {
+	if (tempValue === 1) {
+		setIsNigerian(true)
+	} else {
+		setIsNigerian(false)
+	}
+
+	// US UK and canada are 187 188 34
+	if (![187, 188, 34].includes(tempValue)) {
 		setPaypal(false);
 
 		if (tempValue in banksByCountryId) {
@@ -100,7 +108,7 @@ export const countryHandler = async ({
 			const banksData = banksResponse.data;
 
 			setBanks(banksData);
-			dispatch(bankSuccess({id: tempValue, banks: banksData}));
+			dispatch(bankSuccess({ id: tempValue, banks: banksData }));
 			setBanksLoading(false);
 		}
 	} else {
@@ -113,14 +121,14 @@ export const bankHandler = (value, formik, form) => {
 };
 
 export const accountNumberHandler = (e, formik, form) => {
-	const {value} = e.target;
+	const { value } = e.target;
 	const index = value.length - 1;
 	const lastCharacter = value.charAt(index);
 
 	if (!/\d/.test(lastCharacter)) {
 		const characters = value.slice(0, value.length - 1);
 
-		form.setFieldsValue({account_number: characters});
+		form.setFieldsValue({ account_number: characters });
 		formik.setFieldValue('account_number', characters);
 		return;
 	}
@@ -164,7 +172,7 @@ export const validateAccountOnBlur = ({
 				if (res.status === 'error') {
 					showToast(
 						res.message ||
-							'Invalid account number, please check again',
+						'Invalid account number, please check again',
 						'warn'
 					);
 					// setIsValid(false);
@@ -172,7 +180,7 @@ export const validateAccountOnBlur = ({
 				}
 
 				formik.setFieldValue('account_name', res.data.account_name);
-				form.setFieldsValue({account_name: res.data.account_name});
+				form.setFieldsValue({ account_name: res.data.account_name });
 			},
 			() => {
 				setValidating(false);
@@ -189,6 +197,16 @@ export const validateAccountOnBlur = ({
 	}
 };
 
+// export const validateIsmobileMoney =  (value) => {
+//    console.log(value, 'lopopopop')
+//    return value?.value
+// }
+
+// export const validateIsmobileMoney = (value) => {
+// 	console.log(value,'vaaaaa')
+// 	return value
+// }
+
 export const createSubmitHandler = ({
 	dispatch,
 	countries,
@@ -199,10 +217,8 @@ export const createSubmitHandler = ({
 	return (values, actions) => {
 		const country = getData(countries, values.country);
 
-		if (values.country === 1 || values.country === 72) {
+		if (values.country === 1) {
 			const bank = getData(banks, values.bank);
-			// console.log('bank', bank);
-			// console.log('values', values);
 			axiosApi.request(
 				'post',
 				`${process.env.BASE_URL}v1/kreatesell/payment/validate-account`,
@@ -220,6 +236,7 @@ export const createSubmitHandler = ({
 						account_number: values.account_number.trim(),
 						account_name: values.account_name.trim(),
 						password: values.password,
+						bank_type: values.bank_type,
 					};
 
 					const dispatchObj = {
@@ -229,6 +246,7 @@ export const createSubmitHandler = ({
 						country_name: country.name,
 						account_name: values.account_name.trim(),
 						account_number: values.account_number.trim(),
+						bank_type: values.bank_type,
 					};
 
 					createAccount({
@@ -250,11 +268,10 @@ export const createSubmitHandler = ({
 				},
 				{
 					account_number: values.account_number.trim(),
-					// account_bank: '044',
 					account_bank: bank.code || bank.bank_code,
 				}
 			);
-		} else {
+		} else if (values.country === 187 || values.country === 188 || values.country === 34) {
 			const data = {
 				country_id: values.country === -10 ? 188 : values.country,
 				account_number: values.paypal_email.trim(),
@@ -269,6 +286,37 @@ export const createSubmitHandler = ({
 				country_name: country.name,
 				account_name: values.paypal_email.trim(),
 				account_number: values.paypal_email.trim(),
+			};
+
+			createAccount({
+				data,
+				hideModal,
+				showSuccessModal,
+				dispatchObj,
+				dispatch,
+				actions,
+			});
+		} else {
+			const bank = getData(banks, values.bank);
+			console.log(bank,'nnnn')
+			console.log( bank?.name,' bank?.name bank?.name')
+			const data = {
+				country_id: values.country,
+				account_number: values.account_number.trim(),
+				account_name: values.account_name.trim(),
+				password: values.password,
+				bank_type: values.bank_type,
+				bank_id: values?.bank,
+			};
+
+			const dispatchObj = {
+				bank_name: bank?.name,
+				bank_id: values?.bank,
+				country_id: values.country,
+				country_name: country.name,
+				account_name: values.account_name.trim(),
+				account_number: values.account_number.trim(),
+				bank_type: values.bank_type,
 			};
 
 			createAccount({
