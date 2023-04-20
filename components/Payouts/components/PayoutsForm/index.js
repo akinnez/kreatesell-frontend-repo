@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Image from 'next/image';
 
-import { useDispatch } from 'react-redux';
-import { Typography, Form, Select, Input, Button } from 'antd';
-import { Formik } from 'formik';
+import {useDispatch} from 'react-redux';
+import {Typography, Form, Select, Input, Button} from 'antd';
+import {Formik} from 'formik';
 
 import PayoutsFormWarning from '../PayoutsFormWarning';
 import {
@@ -17,12 +17,12 @@ import {
 	validateAccountOnBlur,
 	// validateIsmobileMoney
 } from 'components/Payouts/utils/payoutsFormCBs';
-import { PayoutFormValidator } from 'validation/PayoutForm.validation';
-import { RestOfTheWorld } from 'utils';
+import {PayoutFormValidator} from 'validation/PayoutForm.validation';
+import {RestOfTheWorld} from 'utils';
 import styles from './index.module.scss';
 
-const { Text } = Typography;
-const { Option } = Select;
+const {Text} = Typography;
+const {Option} = Select;
 
 const RestOfTheWorldObj = {
 	country_code: '+1',
@@ -49,14 +49,14 @@ const PayoutsForm = ({
 	const [validating, setValidating] = useState(false);
 	// const [isValid, setIsValid] = useState(() => isValidCB(bankDetails));
 	const [paypal, setPaypal] = useState(() => paypalCB(bankDetails));
-	const [bankType, setBankType] = useState("")
+	const [bankType, setBankType] = useState('');
 	const [actNoState, setActNoState] = useState(null);
-	const [isNigerian, setIsNigerian] = useState(false)
+	const [isNigerian, setIsNigerian] = useState(false);
 	const [banks, setBanks] = useState(() => {
 		return banksCB(bankDetails, banksByCountryId);
 	});
 
-	console.log(bankDetails, 'kkkkkkppppppp')
+	console.log(bankDetails, 'kkkkkkppppppp');
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 
@@ -68,7 +68,11 @@ const PayoutsForm = ({
 		showSuccessModal,
 	});
 
-	console.log(bankDetails, banksByCountryId, 'to test for why ghana is not returning bank for updates')
+	console.log(
+		bankDetails,
+		banksByCountryId,
+		'to test for why ghana is not returning bank for updates'
+	);
 	return (
 		<Formik
 			initialValues={{
@@ -78,7 +82,7 @@ const PayoutsForm = ({
 				account_number: bankDetails?.account_number || '',
 				account_name: bankDetails?.account_name || '',
 				password: '',
-				bank_type: 'bankaccount'
+				bank_type: 'bankaccount',
 			}}
 			validationSchema={PayoutFormValidator}
 			onSubmit={submitHandler}
@@ -96,7 +100,7 @@ const PayoutsForm = ({
 						bank: formik.values.bank || null,
 						account_number: formik.values.account_number,
 						account_name: formik.values.account_name,
-						bank_type: 'bankaccount'
+						bank_type: 'bankaccount',
 					}}
 				>
 					<Form.Item
@@ -124,7 +128,7 @@ const PayoutsForm = ({
 									setBanksLoading,
 									dispatch,
 									countries,
-									setIsNigerian
+									setIsNigerian,
 								})
 							}
 							optionFilterProp="children"
@@ -309,17 +313,23 @@ const PayoutsForm = ({
 								<Select
 									placeholder="Choose your bank type"
 									onChange={(value) => {
-										setBankType(value)
-										formik.setFieldValue('bank_type', value)
+										setBankType(value);
+										formik.setFieldValue(
+											'bank_type',
+											value
+										);
 									}}
 									value={formik.values.bank_type}
 								>
 									<Option value="bankaccount">Bank</Option>
-									<Option value="mobilemoney">Mobile Money</Option>
+									<Option value="mobilemoney">
+										Mobile Money
+									</Option>
 								</Select>
 							</Form.Item>
 
-							{isNigerian || bankDetails?.country_name === 'Nigeria' ? (
+							{isNigerian ||
+							bankDetails?.country_name === 'Nigeria' ? (
 								<>
 									<Form.Item>
 										<Button
@@ -344,11 +354,11 @@ const PayoutsForm = ({
 										label="Account Name"
 										validateStatus={
 											formik.touched.account_name &&
-												formik.errors.account_name
+											formik.errors.account_name
 												? 'error'
 												: validating
-													? 'validating'
-													: 'success'
+												? 'validating'
+												: 'success'
 										}
 										hasFeedback={validating}
 										help={
@@ -361,9 +371,12 @@ const PayoutsForm = ({
 											placeholder="Enter account name"
 											// disabled={isValid}
 											disabled
-											{...formik.getFieldProps('account_name')}
+											{...formik.getFieldProps(
+												'account_name'
+											)}
 										/>
-									</Form.Item></>
+									</Form.Item>
+								</>
 							) : (
 								<div>
 									<Form.Item
@@ -388,12 +401,13 @@ const PayoutsForm = ({
 											placeholder="Enter account name"
 											// disabled={isValid}
 											// disabled
-											{...formik.getFieldProps('account_name')}
+											{...formik.getFieldProps(
+												'account_name'
+											)}
 										/>
 									</Form.Item>
 								</div>
 							)}
-
 						</>
 					)}
 					<PayoutsFormWarning />

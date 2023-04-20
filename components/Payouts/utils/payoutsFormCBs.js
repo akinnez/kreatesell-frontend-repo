@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { isAnEmpytyObject, showToast } from 'utils';
-import { bankSuccess, updateStore } from 'redux/actions';
+import {isAnEmpytyObject, showToast} from 'utils';
+import {bankSuccess, updateStore} from 'redux/actions';
 import axiosApi from 'utils/axios';
 
 const getData = (dataSet, id) => dataSet.find((item) => item.id === id);
@@ -42,7 +42,7 @@ export const createAccount = ({
 }) => {
 	axiosApi.request(
 		'post',
-		`${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,  
+		`${process.env.BASE_URL}v1/kreatesell/payment/bank-details`,
 		(res) => {
 			showSuccessModal();
 			hideModal();
@@ -65,22 +65,22 @@ export const countryHandler = async ({
 	setBanksLoading,
 	dispatch,
 	countries,
-	setIsNigerian
+	setIsNigerian,
 }) => {
-	console.log(value, 'valuess')
+	console.log(value, 'valuess');
 	formik.setFieldValue('country', value);
 	let tempValue = value;
 	// change this to only US and UK
-	const { short_name } = countries.find((country) => {
+	const {short_name} = countries.find((country) => {
 		// if value is rest of the world, make it USA's payload
 		if (value === -10) tempValue = 188;
 		return country?.id === tempValue;
 	});
 
 	if (tempValue === 1) {
-		setIsNigerian(true)
+		setIsNigerian(true);
 	} else {
-		setIsNigerian(false)
+		setIsNigerian(false);
 	}
 
 	// US UK and canada are 187 188 34
@@ -108,7 +108,7 @@ export const countryHandler = async ({
 			const banksData = banksResponse.data;
 
 			setBanks(banksData);
-			dispatch(bankSuccess({ id: tempValue, banks: banksData }));
+			dispatch(bankSuccess({id: tempValue, banks: banksData}));
 			setBanksLoading(false);
 		}
 	} else {
@@ -121,14 +121,14 @@ export const bankHandler = (value, formik, form) => {
 };
 
 export const accountNumberHandler = (e, formik, form) => {
-	const { value } = e.target;
+	const {value} = e.target;
 	const index = value.length - 1;
 	const lastCharacter = value.charAt(index);
 
 	if (!/\d/.test(lastCharacter)) {
 		const characters = value.slice(0, value.length - 1);
 
-		form.setFieldsValue({ account_number: characters });
+		form.setFieldsValue({account_number: characters});
 		formik.setFieldValue('account_number', characters);
 		return;
 	}
@@ -172,7 +172,7 @@ export const validateAccountOnBlur = ({
 				if (res.status === 'error') {
 					showToast(
 						res.message ||
-						'Invalid account number, please check again',
+							'Invalid account number, please check again',
 						'warn'
 					);
 					// setIsValid(false);
@@ -180,7 +180,7 @@ export const validateAccountOnBlur = ({
 				}
 
 				formik.setFieldValue('account_name', res.data.account_name);
-				form.setFieldsValue({ account_name: res.data.account_name });
+				form.setFieldsValue({account_name: res.data.account_name});
 			},
 			() => {
 				setValidating(false);
@@ -271,7 +271,11 @@ export const createSubmitHandler = ({
 					account_bank: bank.code || bank.bank_code,
 				}
 			);
-		} else if (values.country === 187 || values.country === 188 || values.country === 34) {
+		} else if (
+			values.country === 187 ||
+			values.country === 188 ||
+			values.country === 34
+		) {
 			const data = {
 				country_id: values.country === -10 ? 188 : values.country,
 				account_number: values.paypal_email.trim(),
@@ -298,8 +302,8 @@ export const createSubmitHandler = ({
 			});
 		} else {
 			const bank = getData(banks, values.bank);
-			console.log(bank,'nnnn')
-			console.log( bank?.name,' bank?.name bank?.name')
+			console.log(bank, 'nnnn');
+			console.log(bank?.name, ' bank?.name bank?.name');
 			const data = {
 				country_id: values.country,
 				account_number: values.account_number.trim(),

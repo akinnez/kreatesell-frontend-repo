@@ -32,7 +32,7 @@ const PayoutsPage = () => {
 
 	const {store, loading} = useSelector((state) => state.store);
 	const {bank_details: bankDetails, wallet_details_dtos: walletInfo} = store;
-	console.log(bankDetails,'bankDetails,bankDetails,bankDetails,')
+	console.log(bankDetails, 'bankDetails,bankDetails,bankDetails,');
 
 	const handleClick = (key) => {
 		setTab(key);
