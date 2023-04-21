@@ -1,11 +1,9 @@
-import { Typography } from 'antd';
+import {Typography} from 'antd';
 import styles from './index.module.scss';
 
-const { Text } = Typography;
+const {Text} = Typography;
 
-
-
-const BankInformation = ({ bankDetails }) => (
+const BankInformation = ({bankDetails}) => (
 	<>
 		{bankDetails.country_id === '1' || bankDetails.country_id === '72' ? (
 			<div
@@ -33,7 +31,9 @@ const BankInformation = ({ bankDetails }) => (
 					<Text>&nbsp; {bankDetails.account_name}</Text>
 				</p>
 			</div>
-		) : bankDetails.country_id === '187' || bankDetails.country_id === '188' || bankDetails.country_id === '34' ? (
+		) : bankDetails.country_id === '187' ||
+		  bankDetails.country_id === '188' ||
+		  bankDetails.country_id === '34' ? (
 			<div
 				className={`${styles.bank__info__details} ${styles.paypal__info}`}
 			>

@@ -82,7 +82,7 @@ const PayoutsForm = ({
 				account_name: bankDetails?.account_name || '',
 				password: '',
 				bank_type: 'bankaccount',
-				action:bankDetails ? 'e' : 'c'
+				action: bankDetails ? 'e' : 'c',
 			}}
 			validationSchema={PayoutFormValidator}
 			onSubmit={submitHandler}
@@ -101,7 +101,7 @@ const PayoutsForm = ({
 						account_number: formik.values.account_number,
 						account_name: formik.values.account_name,
 						bank_type: 'bankaccount',
-						action:bankDetails ? 'e' : 'c'
+						action: bankDetails ? 'e' : 'c',
 					}}
 				>
 					<Form.Item

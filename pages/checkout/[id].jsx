@@ -116,7 +116,7 @@ const Checkout = () => {
 	const [storeDetails, setStoreDetails] = useState(null);
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
 
-	const [pricingTypeDetails, setPricingTypeDetails] = useState("");
+	const [pricingTypeDetails, setPricingTypeDetails] = useState('');
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
 	const [taxValue, setTaxValue] = useState(0);
@@ -175,9 +175,7 @@ const Checkout = () => {
 			});
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
-			setPricingTypeDetails(
-				response.data?.data?.product_price_type
-			);
+			setPricingTypeDetails(response.data?.data?.product_price_type);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 			setTaxValue(response?.data?.data?.store_dto?.custom_tax_amount);
@@ -263,10 +261,7 @@ const Checkout = () => {
 			{
 				product_id: productId,
 				quantity: 1,
-				amount:
-					pricingTypeDetails === 'Make it Free'
-						? 0
-						: totalFee,
+				amount: pricingTypeDetails === 'Make it Free' ? 0 : totalFee,
 			},
 		];
 	};
@@ -296,8 +291,7 @@ const Checkout = () => {
 			affiliate_product_link: getAffiliateUniqueKey(),
 			affiliate_id: getAffiliateRef(),
 			user_identifier: 'user-' + randomId,
-			is_free_flow:
-				pricingTypeDetails === 'Make it Free' ? true : false,
+			is_free_flow: pricingTypeDetails === 'Make it Free' ? true : false,
 			coupon_code: couponCode || '',
 			TransactionFee: transactionFee,
 		};
@@ -944,8 +938,7 @@ const Checkout = () => {
 								autoComplete="off"
 								className="w-full"
 							>
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="pb-4">
 										<div className="text-black-100">
 											Select Currency
@@ -984,8 +977,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="py-7">
 										<h2>
 											West African CFA Franc BCEAO(XOF)
@@ -1051,8 +1043,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="py-7">
 										<h2>
 											Central African CFA Franc BEAC(XAF)
@@ -1118,8 +1109,7 @@ const Checkout = () => {
 								)}
 
 								{/* start the pay as you want  */}
-								{pricingTypeDetails ===
-									'Pay What You Want' && (
+								{pricingTypeDetails === 'Pay What You Want' && (
 									<div className="">
 										<h2 className={styles.desiredPayTitle}>
 											Pay what you want
@@ -1399,8 +1389,7 @@ const Checkout = () => {
 								{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
 								{/**Apply coupon feature is yet to be implemented */}
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 										<div className="w-3/5 xs:w-3/4 md:w-4/5">
 											<Input
@@ -1427,8 +1416,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
 										<div className="w-4/5">
 											<Input
@@ -1455,8 +1443,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div
 										className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
 									>
@@ -1545,8 +1532,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails ===
-									'Make it Free' && (
+								{pricingTypeDetails === 'Make it Free' && (
 									<div className="flex items-center justify-center">
 										<Image
 											src={MakeItFreeIcon}
@@ -1557,8 +1543,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails !==
-								'Make it Free' ? (
+								{pricingTypeDetails !== 'Make it Free' ? (
 									<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 										Get instant access to this product once
 										your payment is successful!
@@ -1576,8 +1561,7 @@ const Checkout = () => {
 									</>
 								)}
 
-								{pricingTypeDetails !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className=" w-full lg:w-5/6 mx-auto">
 										<Button
 											text={`Pay Now`}
@@ -1612,8 +1596,7 @@ const Checkout = () => {
                 </div>
               )} */}
 							</form>
-							{pricingTypeDetails ===
-								'Make it Free' && (
+							{pricingTypeDetails === 'Make it Free' && (
 								<div className=" w-full lg:w-5/6 mx-auto">
 									<Button
 										text={`Get Now`}

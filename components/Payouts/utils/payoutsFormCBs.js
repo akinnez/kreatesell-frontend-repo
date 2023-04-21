@@ -215,7 +215,7 @@ export const createSubmitHandler = ({
 	showSuccessModal,
 }) => {
 	return (values, actions) => {
-		console.log(values,'nfnfnfnf')
+		console.log(values, 'nfnfnfnf');
 		const country = getData(countries, values.country);
 
 		if (values.country === 1) {
@@ -238,7 +238,7 @@ export const createSubmitHandler = ({
 						account_name: values.account_name.trim(),
 						password: values.password,
 						bank_type: values.bank_type,
-						action:values.action
+						action: values.action,
 					};
 
 					const dispatchObj = {
@@ -249,7 +249,7 @@ export const createSubmitHandler = ({
 						account_name: values.account_name.trim(),
 						account_number: values.account_number.trim(),
 						bank_type: values.bank_type,
-						action:values.action
+						action: values.action,
 					};
 
 					createAccount({
@@ -284,7 +284,7 @@ export const createSubmitHandler = ({
 				account_number: values.paypal_email.trim(),
 				account_name: values.paypal_email.trim(),
 				password: values.password,
-				action:values.action
+				action: values.action,
 			};
 
 			const dispatchObj = {
@@ -294,7 +294,7 @@ export const createSubmitHandler = ({
 				country_name: country.name,
 				account_name: values.paypal_email.trim(),
 				account_number: values.paypal_email.trim(),
-				action:values.action
+				action: values.action,
 			};
 
 			createAccount({
@@ -316,7 +316,7 @@ export const createSubmitHandler = ({
 				password: values.password,
 				bank_type: values.bank_type,
 				bank_id: values?.bank,
-				action:values.action
+				action: values.action,
 			};
 
 			const dispatchObj = {
@@ -327,7 +327,7 @@ export const createSubmitHandler = ({
 				account_name: values.account_name.trim(),
 				account_number: values.account_number.trim(),
 				bank_type: values.bank_type,
-				action:values.action
+				action: values.action,
 			};
 
 			createAccount({

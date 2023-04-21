@@ -21,7 +21,7 @@ const EditBankDetails = ({
 		(state) => state.utils
 	);
 
-	console.log(bankDetails,'bankdetails')
+	console.log(bankDetails, 'bankdetails');
 
 	// const memoizedCountries = useMemo(() => {
 	// 	if (countries) {
@@ -43,7 +43,7 @@ const EditBankDetails = ({
 			className={styles.modal}
 			width={765}
 		>
-			<header className={styles.header}>   
+			<header className={styles.header}>
 				<Title level={2}>Existing Bank Details</Title>
 				<BankInformation bankDetails={bankDetails} />
 			</header>
