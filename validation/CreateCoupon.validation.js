@@ -10,7 +10,7 @@ export const CreateCouponSchema = () => {
 			is_percentage: Yup.boolean(),
 			percentage_value: Yup.string().when('is_percentage', {
 				is: true,
-				then: Yup.number().required('Kindly add a Percentage Value'),
+				then: Yup.string().required('Kindly add a Percentage Value'),
 			}),
 			is_fixed_amount: Yup.boolean(),
 			fixed_amount_value: Yup.string().when('is_fixed_amount', {

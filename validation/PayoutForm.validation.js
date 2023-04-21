@@ -48,5 +48,7 @@ export const PayoutFormValidator = yup.object({
 	// 		: schema;
 	// }),
 
+	bank_type: yup.string().required('Select your bank type'),
+
 	password: yup.string().required('Enter your password'),
 });

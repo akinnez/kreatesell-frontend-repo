@@ -11,7 +11,12 @@ const BankInformation = ({bankDetails}) => (
 			>
 				<p className={styles.text}>
 					<Text>Currency:</Text>
-					<Text>&nbsp; {bankDetails.currency || 'NGN'}</Text>
+					<Text>
+						&nbsp;{' '}
+						{bankDetails.currency ||
+							bankDetails.currency_name ||
+							'NGN'}
+					</Text>
 				</p>
 				<p className={styles.text}>
 					<Text>Bank Name:</Text>
@@ -26,12 +31,40 @@ const BankInformation = ({bankDetails}) => (
 					<Text>&nbsp; {bankDetails.account_name}</Text>
 				</p>
 			</div>
-		) : (
+		) : bankDetails.country_id === '187' ||
+		  bankDetails.country_id === '188' ||
+		  bankDetails.country_id === '34' ? (
 			<div
 				className={`${styles.bank__info__details} ${styles.paypal__info}`}
 			>
 				<p>
 					<Text>PayPal Email:</Text>
+					<Text>&nbsp; {bankDetails.account_name}</Text>
+				</p>
+			</div>
+		) : (
+			<div
+				className={`${styles.bank__info__details} ${styles.bank__info}`}
+			>
+				<p className={styles.text}>
+					<Text>Currency:</Text>
+					<Text>
+						&nbsp;{' '}
+						{bankDetails.currency ||
+							bankDetails.currency_name ||
+							'NGN'}
+					</Text>
+				</p>
+				<p className={styles.text}>
+					<Text>Bank Name:</Text>
+					<Text>&nbsp; {bankDetails.bank_name}</Text>
+				</p>
+				<p className={styles.text}>
+					<Text>Account Number:</Text>
+					<Text>&nbsp; {bankDetails.account_number}</Text>
+				</p>
+				<p className={styles.text}>
+					<Text>Account Name:</Text>
 					<Text>&nbsp; {bankDetails.account_name}</Text>
 				</p>
 			</div>
