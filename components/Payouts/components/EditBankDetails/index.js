@@ -21,8 +21,6 @@ const EditBankDetails = ({
 		(state) => state.utils
 	);
 
-	console.log(bankDetails, 'bankdetails');
-
 	// const memoizedCountries = useMemo(() => {
 	// 	if (countries) {
 	// 		return [

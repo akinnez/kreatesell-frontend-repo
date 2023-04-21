@@ -67,7 +67,6 @@ export const countryHandler = async ({
 	countries,
 	setIsNigerian,
 }) => {
-	console.log(value, 'valuess');
 	formik.setFieldValue('country', value);
 	let tempValue = value;
 	// change this to only US and UK
