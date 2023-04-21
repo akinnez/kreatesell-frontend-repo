@@ -116,7 +116,7 @@ const Checkout = () => {
 	const [storeDetails, setStoreDetails] = useState(null);
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
 
-	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
+	const [pricingTypeDetails, setPricingTypeDetails] = useState("");
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
 	const [taxValue, setTaxValue] = useState(0);
@@ -156,7 +156,7 @@ const Checkout = () => {
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency.
 		(item) =>
-			(item?.price_indicator === pricingTypeDetails.price_type) ===
+			(item?.price_indicator === pricingTypeDetails) ===
 			'Pay What You Want'
 				? 'Minimum'
 				: 'Selling' &&
@@ -176,7 +176,7 @@ const Checkout = () => {
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(
-				response.data?.data?.product_details?.pricing_type
+				response.data?.data?.product_price_type
 			);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
@@ -264,7 +264,7 @@ const Checkout = () => {
 				product_id: productId,
 				quantity: 1,
 				amount:
-					pricingTypeDetails.price_type === 'Make it Free'
+					pricingTypeDetails === 'Make it Free'
 						? 0
 						: totalFee,
 			},
@@ -279,7 +279,7 @@ const Checkout = () => {
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
 			total:
-				pricingTypeDetails.price_type === 'Make it Free'
+				pricingTypeDetails === 'Make it Free'
 					? 0
 					: getCurrency('total'),
 			reference_id: reference,
@@ -288,7 +288,7 @@ const Checkout = () => {
 			card_type: selectedPaymentMethod,
 			last_four: '',
 			currency:
-				pricingTypeDetails.price_type === 'Make it Free'
+				pricingTypeDetails === 'Make it Free'
 					? getCurrency('free')
 					: getCurrency('currency'),
 			payment_type: 'purchase',
@@ -297,7 +297,7 @@ const Checkout = () => {
 			affiliate_id: getAffiliateRef(),
 			user_identifier: 'user-' + randomId,
 			is_free_flow:
-				pricingTypeDetails.price_type === 'Make it Free' ? true : false,
+				pricingTypeDetails === 'Make it Free' ? true : false,
 			coupon_code: couponCode || '',
 			TransactionFee: transactionFee,
 		};
@@ -403,7 +403,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		Number(desiredAmount) < Number(getCurrency('minimum')) &&
-		pricingTypeDetails.price_type === 'Pay What You Want'
+		pricingTypeDetails === 'Pay What You Want'
 			? setDisableBtn(true)
 			: setDisableBtn(false);
 	}, [desiredAmount]);
@@ -434,7 +434,7 @@ const Checkout = () => {
 	};
 
 	const standardPrice =
-		pricingTypeDetails?.price_type === 'Pay What You Want'
+		pricingTypeDetails === 'Pay What You Want'
 			? desiredAmount
 				? desiredAmount
 				: getCurrency('minimum')
@@ -944,7 +944,7 @@ const Checkout = () => {
 								autoComplete="off"
 								className="w-full"
 							>
-								{pricingTypeDetails.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div className="pb-4">
 										<div className="text-black-100">
@@ -984,7 +984,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div className="py-7">
 										<h2>
@@ -1051,7 +1051,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div className="py-7">
 										<h2>
@@ -1118,7 +1118,7 @@ const Checkout = () => {
 								)}
 
 								{/* start the pay as you want  */}
-								{pricingTypeDetails?.price_type ===
+								{pricingTypeDetails ===
 									'Pay What You Want' && (
 									<div className="">
 										<h2 className={styles.desiredPayTitle}>
@@ -1399,7 +1399,7 @@ const Checkout = () => {
 								{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
 								{/**Apply coupon feature is yet to be implemented */}
-								{pricingTypeDetails?.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 										<div className="w-3/5 xs:w-3/4 md:w-4/5">
@@ -1427,7 +1427,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
 										<div className="w-4/5">
@@ -1455,7 +1455,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div
 										className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
@@ -1545,7 +1545,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type ===
+								{pricingTypeDetails ===
 									'Make it Free' && (
 									<div className="flex items-center justify-center">
 										<Image
@@ -1557,7 +1557,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type !==
+								{pricingTypeDetails !==
 								'Make it Free' ? (
 									<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 										Get instant access to this product once
@@ -1576,7 +1576,7 @@ const Checkout = () => {
 									</>
 								)}
 
-								{pricingTypeDetails?.price_type !==
+								{pricingTypeDetails !==
 									'Make it Free' && (
 									<div className=" w-full lg:w-5/6 mx-auto">
 										<Button
@@ -1612,7 +1612,7 @@ const Checkout = () => {
                 </div>
               )} */}
 							</form>
-							{pricingTypeDetails?.price_type ===
+							{pricingTypeDetails ===
 								'Make it Free' && (
 								<div className=" w-full lg:w-5/6 mx-auto">
 									<Button
