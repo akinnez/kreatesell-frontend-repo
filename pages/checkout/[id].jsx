@@ -89,11 +89,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -156,7 +161,7 @@ const Checkout = () => {
 	const checkout = checkOutDetails?.filter(
 		// (item) => item?.currency_name === activeCurrency?.currency.
 		(item) =>
-			(item?.price_indicator === pricingTypeDetails?.price_type) ===
+			(item?.price_indicator === pricingTypeDetails) ===
 			'Pay What You Want'
 				? 'Minimum'
 				: 'Selling' &&
@@ -176,9 +181,7 @@ const Checkout = () => {
 			console.log('response.data?.data', response.data?.data);
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
-			setPricingTypeDetails(
-				response.data?.data?.product_details?.pricing_type
-			);
+			setPricingTypeDetails(response.data?.data?.product_price_type);
 			setCheckOutDetails(response?.data?.data?.check_out_details);
 			setStoreId(response?.data?.data?.store_dto?.store_id);
 			setTaxValue(response?.data?.data?.store_dto?.custom_tax_amount);
@@ -264,10 +267,7 @@ const Checkout = () => {
 			{
 				product_id: productId,
 				quantity: 1,
-				amount:
-					pricingTypeDetails?.price_type === 'Make it Free'
-						? 0
-						: totalFee,
+				amount: pricingTypeDetails === 'Make it Free' ? 0 : totalFee,
 			},
 		];
 	};
@@ -280,7 +280,7 @@ const Checkout = () => {
 			mobile_number: values?.phoneNo,
 			datetime: new Date().toISOString(),
 			total:
-				pricingTypeDetails?.price_type === 'Make it Free'
+				pricingTypeDetails === 'Make it Free'
 					? 0
 					: getCurrency('total'),
 			reference_id: reference,
@@ -289,7 +289,7 @@ const Checkout = () => {
 			card_type: selectedPaymentMethod,
 			last_four: '',
 			currency:
-				pricingTypeDetails?.price_type === 'Make it Free'
+				pricingTypeDetails === 'Make it Free'
 					? getCurrency('free')
 					: getCurrency('currency'),
 			payment_type: 'purchase',
@@ -297,10 +297,7 @@ const Checkout = () => {
 			affiliate_product_link: getAffiliateUniqueKey(),
 			affiliate_id: getAffiliateRef(),
 			user_identifier: 'user-' + randomId,
-			is_free_flow:
-				pricingTypeDetails?.price_type === 'Make it Free'
-					? true
-					: false,
+			is_free_flow: pricingTypeDetails === 'Make it Free' ? true : false,
 			coupon_code: couponCode || '',
 			TransactionFee: transactionFee,
 		};
@@ -406,7 +403,7 @@ const Checkout = () => {
 
 	useEffect(() => {
 		Number(desiredAmount) < Number(getCurrency('minimum')) &&
-		pricingTypeDetails?.price_type === 'Pay What You Want'
+		pricingTypeDetails === 'Pay What You Want'
 			? setDisableBtn(true)
 			: setDisableBtn(false);
 	}, [desiredAmount]);
@@ -437,7 +434,7 @@ const Checkout = () => {
 	};
 
 	const standardPrice =
-		pricingTypeDetails?.price_type === 'Pay What You Want'
+		pricingTypeDetails === 'Pay What You Want'
 			? desiredAmount
 				? desiredAmount
 				: getCurrency('minimum')
@@ -546,11 +543,10 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: getCurrency('price'),
@@ -663,7 +659,8 @@ const Checkout = () => {
 		customizations: {
 			title: storeDetails?.product_details?.product_name || '',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -947,8 +944,7 @@ const Checkout = () => {
 								autoComplete="off"
 								className="w-full"
 							>
-								{pricingTypeDetails?.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="pb-4">
 										<div className="text-black-100">
 											Select Currency
@@ -987,7 +983,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails?.price_type !==
+								{pricingTypeDetails.price_type !==
 									'Make it Free' && (
 									<div className="py-7">
 										<h2>
@@ -1054,8 +1050,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails?.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="py-7">
 										<h2>
 											Central African CFA Franc BEAC(XAF)
@@ -1121,8 +1116,7 @@ const Checkout = () => {
 								)}
 
 								{/* start the pay as you want  */}
-								{pricingTypeDetails?.price_type ===
-									'Pay What You Want' && (
+								{pricingTypeDetails === 'Pay What You Want' && (
 									<div className="">
 										<h2 className={styles.desiredPayTitle}>
 											Pay what you want
@@ -1330,7 +1324,8 @@ const Checkout = () => {
 												<div>
 													<PayPalButtons
 														style={{
-															layout: 'horizontal',
+															layout:
+																'horizontal',
 															label: 'pay',
 														}}
 														disabled={
@@ -1350,29 +1345,27 @@ const Checkout = () => {
 														) => {
 															return actions.order.create(
 																{
-																	purchase_units:
-																		[
-																			{
-																				description:
-																					'customDescription',
-																				amount: {
-																					// value: Number(
-																					// 	convertedPrice
-																					// ).toFixed(2),
-																					value: Number(
-																						getCurrency(
-																							'price'
-																						)
-																					).toFixed(
-																						2
-																					),
-																					currency:
-																						getCurrency(
-																							'currency'
-																						),
-																				},
+																	purchase_units: [
+																		{
+																			description:
+																				'customDescription',
+																			amount: {
+																				// value: Number(
+																				// 	convertedPrice
+																				// ).toFixed(2),
+																				value: Number(
+																					getCurrency(
+																						'price'
+																					)
+																				).toFixed(
+																					2
+																				),
+																				currency: getCurrency(
+																					'currency'
+																				),
 																			},
-																		],
+																		},
+																	],
 																}
 															);
 														}}
@@ -1402,8 +1395,7 @@ const Checkout = () => {
 								{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
 								{/**Apply coupon feature is yet to be implemented */}
-								{pricingTypeDetails?.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
 										<div className="w-3/5 xs:w-3/4 md:w-4/5">
 											<Input
@@ -1430,8 +1422,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
 										<div className="w-4/5">
 											<Input
@@ -1458,8 +1449,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div
 										className={`p-6 w-full lg:w-5/6 mx-auto shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
 									>
@@ -1480,7 +1470,8 @@ const Checkout = () => {
 															style={{
 																fontSize:
 																	'15px',
-																color: '#8C8C8C',
+																color:
+																	'#8C8C8C',
 																textDecoration:
 																	'line-through',
 															}}
@@ -1548,8 +1539,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type ===
-									'Make it Free' && (
+								{pricingTypeDetails === 'Make it Free' && (
 									<div className="flex items-center justify-center">
 										<Image
 											src={MakeItFreeIcon}
@@ -1560,8 +1550,7 @@ const Checkout = () => {
 									</div>
 								)}
 
-								{pricingTypeDetails?.price_type !==
-								'Make it Free' ? (
+								{pricingTypeDetails !== 'Make it Free' ? (
 									<p className="text-base-gray text-center py-6 text-xs md:text-sm">
 										Get instant access to this product once
 										your payment is successful!
@@ -1579,8 +1568,7 @@ const Checkout = () => {
 									</>
 								)}
 
-								{pricingTypeDetails?.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className=" w-full lg:w-5/6 mx-auto">
 										<Button
 											text={`Pay Now`}
@@ -1615,8 +1603,7 @@ const Checkout = () => {
                 </div>
               )} */}
 							</form>
-							{pricingTypeDetails?.price_type ===
-								'Make it Free' && (
+							{pricingTypeDetails === 'Make it Free' && (
 								<div className=" w-full lg:w-5/6 mx-auto">
 									<Button
 										text={`Get Now`}
