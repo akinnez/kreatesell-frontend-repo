@@ -116,7 +116,7 @@ const Checkout = () => {
 	const [storeDetails, setStoreDetails] = useState(null);
 	const [checkOutDetails, setCheckOutDetails] = useState([]);
 
-	const [pricingTypeDetails, setPricingTypeDetails] = useState({});
+	const [pricingTypeDetails, setPricingTypeDetails] = useState('');
 	const [couponCode, setCouponCode] = useState('');
 	const [couponDetails, setCouponDetails] = useState({});
 	const [taxValue, setTaxValue] = useState(0);
@@ -978,8 +978,7 @@ const Checkout = () => {
 										</div>
 									</div>
 								)}
-								{pricingTypeDetails.price_type !==
-									'Make it Free' && (
+								{pricingTypeDetails !== 'Make it Free' && (
 									<div className="py-7">
 										<h2>
 											West African CFA Franc BCEAO(XOF)

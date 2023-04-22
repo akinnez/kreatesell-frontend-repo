@@ -21,6 +21,7 @@ import {
 	MediumVerificationIcon,
 } from 'utils';
 import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
+import axios from 'axios';
 
 var options = {
 	weekday: 'long',
@@ -47,7 +48,10 @@ export default function PreviewContent({
 	const [sellingPrice, setSellingPrice] = useState([]);
 	const [originalPrice, setOriginalPrice] = useState([]);
 	const [domainLink, setDomainLink] = useState('');
+	const [uniqueKey, setUniqueKey] = useState('');
+	const [affiliateRef, setAffiliateRef] = useState('');
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
+
 	// const []
 
 	// verification modal and drawers controls
@@ -69,54 +73,49 @@ export default function PreviewContent({
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
-
-	// const productId = product?.product_details?.kreasell_product_id;
 	const productPriceType = product?.product_details?.pricing_type?.price_type;
 
-	const affiliateRef = router.query.ref;
-	const affiliateUniqueKey = router.query.uniqkey;
+	//get refs from router
+	const ref = router.query.ref;
 	const storename = router.query.storename;
 	const productId = router.query?.id;
 
-	//set cookie on load of the component
-	const getAffiliateCookie = () => {
-		const affilateCookieObj = {
-			affiliate_product_id: productId,
-			affliate_uniquekey: affiliateUniqueKey,
-			affliate_createdAt: new Date(),
-		};
-		//to test in  two minutes
-		// let inTowMinutes = new Date(new Date().getTime() + 2 * 60 * 1000)
-
-		Cookies.set(
-			'affliate-cookie-storage',
-			JSON.stringify(affilateCookieObj),
-			{
-				expires: 365 * 60,
-			}
+	//get cred from endpoint on load of the component
+	const getAffliatekeys = async () => {
+		if (!ref) return;
+		const response = await axios.get(
+			`${process.env.BASE_URL}/affiliate/confirm-short-link/${ref}`
 		);
-
-		return;
-
-		// if (productId) {
-		// 	Cookies.set('affliate-product-id', productId, {
-		// 		expires: 365 * 60,
-		// 	});
-		// }
-		// Cookies.set('affliate-unique-key', affiliateUniqueKey, {
-		// 	expires: 365 * 60,
-		// });
-		// Cookies.set('affliate-createdAt', new Date(), {
-		// 	expires: 365 * 60,
-		// });
-
-		//i neeed another way to persist the data immediately it is being set
-		// window.location.reload();
+		setUniqueKey(response?.data?.unique_key);
+		setAffiliateRef(response?.data?.affiliate_id);
 	};
+
+	//set cookie on load of the component
+	useEffect(() => {
+		const getAffiliateCookie = () => {
+			getAffliatekeys();
+			const affilateCookieObj = {
+				affiliate_product_id: productId,
+				affliate_uniquekey: uniqueKey,
+				affliate_createdAt: new Date(),
+			};
+
+			Cookies.set(
+				'affliate-cookie-storage',
+				JSON.stringify(affilateCookieObj),
+				{
+					expires: 365 * 60,
+				}
+			);
+		};
+
+		getAffiliateCookie();
+		return () => {};
+	}, [productId, uniqueKey, ref]);
 
 	useEffect(() => {
 		// to prevent infinite loops in the product preview page without afilliate link
-		if (!affiliateRef && !affiliateUniqueKey) return;
+		if (!ref) return;
 
 		//run check to see if exist
 		const affiliteCookieOObject = Cookies.get('affliate-cookie-storage');
@@ -129,11 +128,10 @@ export default function PreviewContent({
 		const cookieProductId = cookieObj?.affiliate_product_id;
 
 		cookieCreatedAt &&
-		cookieUniqueKey === affiliateUniqueKey &&
-		cookieProductId === productId
-			? setCookieExpiryTime(cookieCreatedAt)
-			: getAffiliateCookie();
-	}, []);
+			cookieUniqueKey === uniqueKey &&
+			cookieProductId === productId &&
+			setCookieExpiryTime(cookieCreatedAt);
+	}, [ref]);
 
 	const currentDate = new Date();
 	const dateToCompare = new Date(cookieExpiryTime);
@@ -142,11 +140,10 @@ export default function PreviewContent({
 		(currentDate.getMonth() - dateToCompare.getMonth());
 
 	const getCheckoutLink = () => {
-		if (affiliateRef && affiliateUniqueKey && monthDifference <= 6) {
+		if (affiliateRef && uniqueKey && monthDifference <= 6) {
 			return router.push(
 				`/checkout/${productId}?${
-					affiliateUniqueKey &&
-					`affiliateUniqueKey=${affiliateUniqueKey}`
+					uniqueKey && `affiliateUniqueKey=${uniqueKey}`
 				}&${affiliateRef && `affiliateRef=${affiliateRef}`}`
 			);
 		} else {
