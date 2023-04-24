@@ -1,4 +1,4 @@
-import {useEffect, useState, useLayoutEffect} from 'react';
+import {useEffect, useState} from 'react';
 import Image from 'next/image';
 
 import {useSelector} from 'react-redux';
@@ -86,7 +86,7 @@ export default function PreviewHeader({
 		publish: 'live',
 	};
 	const [hostState, setHostState] = useState('');
-	useLayoutEffect(() => {
+	useEffect(() => {
 		// console.log('window.location', window.location);
 		setHostState(window.location.host);
 	}, []);

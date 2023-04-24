@@ -231,6 +231,7 @@ export const SelectV2 = ({
 	list = [],
 	setCountry,
 	isCheckout = false,
+	errorMessage = null,
 	...rest
 }) => {
 	return (
@@ -282,6 +283,15 @@ export const SelectV2 = ({
 						))}
 					</AntSelect>
 				}
+				<>
+					{errorMessage && (
+						<p
+							className={`text-red-600 text-sm pt-2 ${style.errorMsg}`}
+						>
+							{errorMessage}
+						</p>
+					)}
+				</>
 			</Form.Item>
 		</>
 	);
