@@ -104,8 +104,7 @@ const AllProducts = () => {
 							return !!arr ? [...arr] : [];
 						})[0],
 					product_name: item?.product_details?.product_name,
-					product_type:
-						item?.product_details?.product_type?.product_type_name,
+					product_type: item?.product_type_details,
 					date_created: item?.product_details?.date_created,
 					status: item?.product_details?.status,
 					price: {
