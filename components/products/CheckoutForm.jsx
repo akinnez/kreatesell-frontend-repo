@@ -57,8 +57,7 @@ export const CheckoutForm = ({
 		(state) => state.product
 	);
 
-	const productType =
-		product?.product_details?.product_type?.product_type_name;
+	const productType = product?.product_type_details;
 
 	const [productID] = useState(product?.product_details?.kreasell_product_id);
 
@@ -605,6 +604,7 @@ export const CheckoutForm = ({
 		const result = transformToFormData(checkedData);
 
 		createProduct(result, (res) => {
+			console.log('product type', productType);
 			if (productType === 'Digital Download') {
 				router.push(
 					`/account/kreator/products/preview/${res?.product_id}`

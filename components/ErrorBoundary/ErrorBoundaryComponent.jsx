@@ -38,6 +38,7 @@ export const ErrorBoundaryComponent = ({
 	return (
 		<ErrorBoundary
 			FallbackComponent={ErrorHandler}
+			onError={() => {}}
 			// reset the state of your app so the error doesn't happen again
 			onReset={resetErrorBoundary}
 		>

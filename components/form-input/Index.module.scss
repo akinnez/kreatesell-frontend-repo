@@ -38,6 +38,17 @@
 	line-height: 24px;
 	color: #f90005;
 }
+.errorMsg {
+	// border: 1px solid red;
+	margin-bottom: 0px;
+	position: relative;
+	top: -20px;
+
+	// & + input {
+	//   position: relative;
+	//   top: -18px;
+	// }
+}
 
 .container {
 	margin-block: 20px;

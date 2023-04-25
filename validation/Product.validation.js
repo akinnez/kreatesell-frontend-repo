@@ -85,7 +85,7 @@ export const ConsumerSalesCheckoutSchema = () => {
 				/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
 				'Phone number is not valid'
 			),
-
+		Country_code: Yup.string().required('Country code is required'),
 		// 	  Yup.number("Phone number must be a number").required(
 		//   "Phone number is required"
 		// ),

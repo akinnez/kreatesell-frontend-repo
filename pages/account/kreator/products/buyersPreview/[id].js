@@ -135,8 +135,7 @@ const BuyersPreview = () => {
 
 	const productDetails = acessProductDetails?.product_details;
 
-	const productTypeName =
-		acessProductDetails?.product_details?.product_type?.product_type_name;
+	const productTypeName = acessProductDetails?.product_type_details;
 
 	//open email modal on loading of page
 	useEffect(() => {
