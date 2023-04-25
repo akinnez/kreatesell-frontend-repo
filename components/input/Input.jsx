@@ -31,13 +31,7 @@ export const PhoneNumberInput = ({
 					{label}
 				</label>
 			)}
-			<>
-				{errorMessage && (
-					<p className={`text-red-600 text-sm ${styles.errorMsg}`}>
-						{errorMessage}
-					</p>
-				)}
-			</>
+
 			<input
 				{...rest}
 				type={type}
@@ -56,12 +50,16 @@ export const PhoneNumberInput = ({
 					height === 'small' && styles.smallHeight
 				} ${type === 'search' && styles.search} ${styles.input}`}
 			/>
-			{/* {
-        errorMessage && (
-          <p className="text-red-600 text-sm pt-2">{errorMessage}</p>
-        )
-        // !val && <p className="text-red-600 text-sm pt-2">{errorMessage}</p>
-      } */}
+
+			<>
+				{errorMessage && (
+					<p
+						className={`text-red-600 text-sm pt-2 ${styles.errorMsg}`}
+					>
+						{errorMessage}
+					</p>
+				)}
+			</>
 		</div>
 	);
 };

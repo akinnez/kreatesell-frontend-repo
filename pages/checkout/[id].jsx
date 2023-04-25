@@ -1,4 +1,4 @@
-import {useState, useEffect, useLayoutEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Image from 'next/image';
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {
@@ -173,7 +173,7 @@ const Checkout = () => {
 					Authorization: 'none',
 				},
 			});
-			console.log('response.data?.data', response.data?.data);
+			// console.log('response.data?.data', response.data?.data);
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(response.data?.data?.product_price_type);
@@ -269,10 +269,13 @@ const Checkout = () => {
 
 	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
+		const countryCode = countries.find(
+			(country) => country?.name === values.Country_code
+		);
 		const value = {
 			fullname: `${values?.firstName} ${values?.lastName}`,
 			email_address: values?.email,
-			mobile_number: values?.phoneNo,
+			mobile_number: `${countryCode?.country_code}${values?.phoneNo}`,
 			datetime: new Date().toISOString(),
 			total:
 				pricingTypeDetails === 'Make it Free'
@@ -525,6 +528,7 @@ const Checkout = () => {
 		phoneNo: '',
 		currency: 'NGN',
 		couponCode: '',
+		Country_code: '',
 	};
 	const currencyPaidIn = activeCurrency?.currency
 		? activeCurrency?.currency
@@ -548,6 +552,7 @@ const Checkout = () => {
 							amount: getCurrency('price'),
 							currency: 'USDT',
 						},
+						// TODO: change this to actual customer ID and name
 						metadata: {
 							customer_id: '342',
 							customer_name: 1,
@@ -763,7 +768,7 @@ const Checkout = () => {
 		});
 	};
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		// console.log('window.location', window.location);
 		setHostState(window.location.host);
 	}, []);
@@ -894,13 +899,23 @@ const Checkout = () => {
 												setCountry={setCountry}
 												list={countries}
 												placeholder="Nigeria (+234)"
-												// name="Country_Id"
+												name="Country_code"
 												isCheckout={true}
+												onChange={(country) => {
+													formik.setFieldValue(
+														'Country_code',
+														country
+													);
+												}}
+												errorMessage={
+													errors.Country_code
+												}
 												// rules={[
-												//   {
-												//     required: true,
-												//     message: "Country is a required field",
-												//   },
+												// 	{
+												// 		required: true,
+												// 		message:
+												// 			'Country Code is a required field',
+												// 	},
 												// ]}
 											/>
 										</Col>
@@ -1368,10 +1383,10 @@ const Checkout = () => {
 															data,
 															actions
 														) => {
-															console.log(
-																'data is',
-																data
-															);
+															// console.log(
+															// 	'data is',
+															// 	data
+															// );
 															paypalSuccess(
 																data,
 																actions
@@ -1381,6 +1396,11 @@ const Checkout = () => {
 																'You have successfully completed the transaction'
 															);
 														}}
+														onCancel={(
+															data,
+															actions
+														) => {}}
+														onError={(err) => {}}
 													/>
 												</div>
 											</Tooltip>
