@@ -122,9 +122,8 @@ const BuyersPreview = () => {
 	// const {pathname} = router;
 
 	const [activeLink, setActiveLink] = useState({});
-	const [activeSelectedSectionId, setActiveSelectedSectionId] = useState(
-		null
-	);
+	const [activeSelectedSectionId, setActiveSelectedSectionId] =
+		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
 	const [showAccessPageModal, setShowAccessPageModal] = useState(false);
@@ -417,8 +416,7 @@ const BuyersPreview = () => {
 									<div
 										className={styles.sectionName}
 										dangerouslySetInnerHTML={{
-											__html:
-												activeLink?.product_section_description,
+											__html: activeLink?.product_section_description,
 										}}
 									/>
 								</Card>
