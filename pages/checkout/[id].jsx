@@ -275,7 +275,8 @@ const Checkout = () => {
 		const value = {
 			fullname: `${values?.firstName} ${values?.lastName}`,
 			email_address: values?.email,
-			mobile_number: `${countryCode?.country_code}${values?.phoneNo}`,
+			mobile_number: `${values?.phoneNo}`,
+			country_code: `${countryCode?.country_code}`,
 			datetime: new Date().toISOString(),
 			total:
 				pricingTypeDetails === 'Make it Free'
@@ -549,7 +550,7 @@ const Checkout = () => {
 							),
 						pricing_type: 'fixed_price',
 						local_price: {
-							amount: getCurrency('price'),
+							amount: Number(getCurrency('price')) / 100,
 							currency: 'USDT',
 						},
 						// TODO: change this to actual customer ID and name
@@ -585,7 +586,7 @@ const Checkout = () => {
 									hostState || 'kreatesell.com'
 							  }/checkout/success/${
 									storeDetails?.store_dto?.store_name
-							  }/${
+							  }_${
 									router?.query?.id
 							  }/?currency=${currencyPaidIn}`,
 						cancel_url: `${resolveProtocol(hostState)}://${
@@ -613,14 +614,14 @@ const Checkout = () => {
 							storeDetails?.product_details?.is_redirect_buyer
 								? storeDetails?.product_details?.redirect_url
 								: router.push(
-										`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
+										`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 								  );
 						}
 					);
 					closePaymentModal();
 					//   openModal();
 				},
-				onClose: () => {
+				onClose: async () => {
 					// TODO: on abandon flow
 				},
 			});
@@ -702,7 +703,7 @@ const Checkout = () => {
 				storeDetails?.product_details?.is_redirect_buyer
 					? storeDetails?.product_details?.redirect_url
 					: router.push(
-							`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
+							`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 					  );
 			}
 		);
@@ -719,6 +720,8 @@ const Checkout = () => {
 
 	// paypal success
 	const paypalSuccess = (data, actions) => {
+		console.log('data', data);
+		console.log('actions', actions);
 		// sendPaymentCheckoutDetails(
 		// 	paymentDetails({reference: reference?.reference, status: status}),
 		// 	() =>
@@ -728,6 +731,7 @@ const Checkout = () => {
 		// );
 	};
 
+	// stripe logic is being handled on the backend
 	const stripeSuccess = () => {};
 
 	// ===================================================================================
@@ -786,6 +790,8 @@ const Checkout = () => {
 				<Loader />
 			</div>
 		);
+
+	// TODO: Show screen for if product is not available/deactivated for preview
 
 	return (
 		<>
@@ -1383,15 +1389,11 @@ const Checkout = () => {
 															data,
 															actions
 														) => {
-															// console.log(
-															// 	'data is',
-															// 	data
-															// );
 															paypalSuccess(
 																data,
 																actions
 															);
-															// TODO: handle payment success
+															// TODO: handle payment success for paypal
 															alert(
 																'You have successfully completed the transaction'
 															);
