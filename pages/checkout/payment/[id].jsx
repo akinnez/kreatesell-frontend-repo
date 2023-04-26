@@ -29,7 +29,7 @@ import {
 import {Tooltip} from 'antd';
 import {SelectV2} from 'components/form-input';
 import {PhoneNumberInput} from 'components';
-import styles from '../../public/css/checkout.module.scss';
+import styles from '../../../public/css/checkout.module.scss';
 import {Input, Button} from 'components';
 import CurrencyCard from 'components/settings/CurrencyCard';
 import {ConsumerSalesCheckoutSchema} from 'validation';
@@ -45,12 +45,12 @@ import {
 	ApplyCoupon,
 } from 'redux/actions';
 import crypto from 'crypto';
-import LogoImg from '../../public/images/logo.svg';
+import LogoImg from '../../../public/images/logo.svg';
 import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
-import {countryPayments} from '../../utils/paymentOptions';
+import {countryPayments} from '../../../utils/paymentOptions';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 export const pathName = typeof window !== 'undefined' && window;
@@ -89,11 +89,16 @@ const Checkout = () => {
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
-	const {countriesCurrency, filterdWest, filteredCentral} =
-		useCheckoutCurrency();
+	const {
+		countriesCurrency,
+		filterdWest,
+		filteredCentral,
+	} = useCheckoutCurrency();
 
-	const [storecheckoutCurrencyLoading, setStorecheckoutCurrencyLoading] =
-		useState(true);
+	const [
+		storecheckoutCurrencyLoading,
+		setStorecheckoutCurrencyLoading,
+	] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState({});
 	const [desiredAmount, setDesiredAmount] = useState('');
 
@@ -543,11 +548,10 @@ const Checkout = () => {
 					'https://kreatesell.io/api/v1/kreatesell/payment/coinbase-charge',
 					{
 						name: storeDetails?.product_details?.product_name,
-						description:
-							storeDetails?.product_details?.product_description.substring(
-								0,
-								199
-							),
+						description: storeDetails?.product_details?.product_description.substring(
+							0,
+							199
+						),
 						pricing_type: 'fixed_price',
 						local_price: {
 							amount: Number(getCurrency('price')) / 100,
@@ -591,7 +595,7 @@ const Checkout = () => {
 							  }/?currency=${currencyPaidIn}`,
 						cancel_url: `${resolveProtocol(hostState)}://${
 							hostState || 'dev.kreatesell.com'
-						}/checkout/${productId}?status=fail`,
+						}/payment/checkout/${productId}?status=fail`,
 					}
 				);
 				window.open(data.data.url, '_blank');
@@ -661,7 +665,8 @@ const Checkout = () => {
 		customizations: {
 			title: storeDetails?.product_details?.product_name || '',
 			description: 'Kreatesell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
@@ -1339,7 +1344,8 @@ const Checkout = () => {
 												<div>
 													<PayPalButtons
 														style={{
-															layout: 'horizontal',
+															layout:
+																'horizontal',
 															label: 'pay',
 														}}
 														disabled={
@@ -1359,29 +1365,27 @@ const Checkout = () => {
 														) => {
 															return actions.order.create(
 																{
-																	purchase_units:
-																		[
-																			{
-																				description:
-																					'customDescription',
-																				amount: {
-																					// value: Number(
-																					// 	convertedPrice
-																					// ).toFixed(2),
-																					value: Number(
-																						getCurrency(
-																							'price'
-																						)
-																					).toFixed(
-																						2
-																					),
-																					currency:
-																						getCurrency(
-																							'currency'
-																						),
-																				},
+																	purchase_units: [
+																		{
+																			description:
+																				'customDescription',
+																			amount: {
+																				// value: Number(
+																				// 	convertedPrice
+																				// ).toFixed(2),
+																				value: Number(
+																					getCurrency(
+																						'price'
+																					)
+																				).toFixed(
+																					2
+																				),
+																				currency: getCurrency(
+																					'currency'
+																				),
 																			},
-																		],
+																		},
+																	],
 																}
 															);
 														}}
@@ -1487,7 +1491,8 @@ const Checkout = () => {
 															style={{
 																fontSize:
 																	'15px',
-																color: '#8C8C8C',
+																color:
+																	'#8C8C8C',
 																textDecoration:
 																	'line-through',
 															}}

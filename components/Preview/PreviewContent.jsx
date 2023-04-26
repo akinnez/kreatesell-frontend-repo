@@ -142,12 +142,12 @@ export default function PreviewContent({
 	const getCheckoutLink = () => {
 		if (affiliateRef && uniqueKey && monthDifference <= 6) {
 			return router.push(
-				`/checkout/${productId}?${
+				`/checkout/payment/${productId}?${
 					uniqueKey && `affiliateUniqueKey=${uniqueKey}`
 				}&${affiliateRef && `affiliateRef=${affiliateRef}`}`
 			);
 		} else {
-			return router.push(`/checkout/${productId}`);
+			return router.push(`/checkout/payment/${productId}`);
 		}
 	};
 	const getMinimumPrice = () => {
@@ -255,8 +255,10 @@ export default function PreviewContent({
 
 	const isProductOutOfStock = () => {
 		if (product?.product_details) {
-			const {is_limited_sales, number_of_product} =
-				product?.product_details;
+			const {
+				is_limited_sales,
+				number_of_product,
+			} = product?.product_details;
 			return (
 				is_limited_sales &&
 				number_of_product - product?.number_sold <= 0

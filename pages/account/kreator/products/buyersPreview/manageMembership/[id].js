@@ -163,7 +163,9 @@ const ManageMembership = () => {
 							<div
 								className={styles.makePaymentContainer}
 								onClick={() =>
-									router.push(`/checkout/${productId}`)
+									router.push(
+										`/checkout/payment/${productId}`
+									)
 								}
 							>
 								<p>Make payment</p>
