@@ -104,6 +104,7 @@ export default function Home() {
 	};
 	console.log('Is prod', process.env.isProd);
 	console.log('Is Staging', process.env.isStaging);
+	console.log('Is dev', process.env.isDev);
 	// test push
 	return (
 		<Layout subFooter={false} defaultMarginTop={true}>
