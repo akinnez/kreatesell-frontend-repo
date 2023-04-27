@@ -173,7 +173,6 @@ const Checkout = () => {
 					Authorization: 'none',
 				},
 			});
-			console.log('response.data?.data', response.data?.data);
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(response.data?.data?.product_price_type);

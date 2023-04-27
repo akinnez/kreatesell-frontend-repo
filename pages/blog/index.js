@@ -43,8 +43,7 @@ const Blog = () => {
 			try {
 				const reqOne = axios.get(
 					// `${process.env.BASE_URL}blogs/posts/active?page=${page}`
-					`${process.env.BASE_URL}blogs/posts/active?page=${page}
-					${active.toLocaleLowerCase() !== 'all' && `&category=${active}`}`
+					`${process.env.BASE_URL}blogs/posts/active?page=${page}&category=${active}` 
 				);
 
 				const res = await reqOne;
