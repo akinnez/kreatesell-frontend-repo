@@ -74,6 +74,9 @@ const Checkout = () => {
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
 
+	// paypal
+	const [{isPending, isResolved, isRejected}] = usePayPalScriptReducer();
+
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
@@ -844,111 +847,158 @@ const Checkout = () => {
 					</div>
 
 					<div className="flex flex-col md:flex-row gap-6 w-full">
-						<div
-							style={{height: 'fit-content'}}
-							className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
-						>
-							<form>
-								<div>
-									<div className="text-black-100 font-bold text-lg mb-4">
-										Personal Info
+						<div className="w-full md:w-2/5 flex flex-col">
+							<div
+								style={{height: 'fit-content'}}
+								className="bg-white shadow rounded-lg w-full p-10 lg:p-5 lg:px-16"
+							>
+								<form>
+									<div>
+										<div className="text-black-100 font-bold text-lg mb-4">
+											Personal Info
+										</div>
+										<p className="text-base-gray-200">
+											Complete your purchase by filling in
+											the following details
+										</p>
 									</div>
-									<p className="text-base-gray-200">
-										Complete your purchase by filling in the
-										following details
-									</p>
-								</div>
 
-								<Input
-									name="firstName"
-									placeholder="Enter your Name"
-									label="First Name"
-									height="small"
-									onChange={formik.handleChange}
-									errorMessage={errors.firstName}
-									// validateOnChange
-								/>
+									<Input
+										name="firstName"
+										placeholder="Enter your Name"
+										label="First Name"
+										height="small"
+										onChange={formik.handleChange}
+										errorMessage={errors.firstName}
+										// validateOnChange
+									/>
 
-								<Input
-									name="lastName"
-									placeholder="Enter your Name"
-									label="Last Name"
-									height="small"
-									onChange={formik.handleChange}
-									errorMessage={errors.lastName}
-									// validateOnChange
-								/>
+									<Input
+										name="lastName"
+										placeholder="Enter your Name"
+										label="Last Name"
+										height="small"
+										onChange={formik.handleChange}
+										errorMessage={errors.lastName}
+										// validateOnChange
+									/>
 
-								<Input
-									name="email"
-									placeholder="Enter your Email"
-									label="Email Address"
-									height="small"
-									onChange={formik.handleChange}
-									errorMessage={errors.email}
-								/>
+									<Input
+										name="email"
+										placeholder="Enter your Email"
+										label="Email Address"
+										height="small"
+										onChange={formik.handleChange}
+										errorMessage={errors.email}
+									/>
 
-								<Row gutter={{xs: 0, sm: 0, md: 8}}>
-									<Col
-										xs={12}
-										md={12}
-										className={styles.phoneNumberLabel}
-									>
-										Phone Number
-									</Col>
-
-									<div className={styles.phoneCode}>
-										<Col xs={12} md={12}>
-											<SelectV2
-												label=""
-												size="large"
-												setCountry={setCountry}
-												list={countries}
-												placeholder="Nigeria (+234)"
-												name="Country_code"
-												isCheckout={true}
-												onChange={(country) => {
-													formik.setFieldValue(
-														'Country_code',
-														country
-													);
-												}}
-												errorMessage={
-													errors.Country_code
-												}
-												// rules={[
-												// 	{
-												// 		required: true,
-												// 		message:
-												// 			'Country Code is a required field',
-												// 	},
-												// ]}
-											/>
+									<Row gutter={{xs: 0, sm: 0, md: 8}}>
+										<Col
+											xs={12}
+											md={12}
+											className={styles.phoneNumberLabel}
+										>
+											Phone Number
 										</Col>
-										<div className={styles.phoneBox}>
-											<Col>
-												<PhoneNumberInput
-													type="tel"
-													placeholder={
-														'Enter your phone number'
-													}
-													height="small"
-													name="phoneNo"
-													// value={values.phoneNo}
-													maxLength={11}
-													inputMode="numeric"
-													onChange={
-														formik.handleChange
-													}
+
+										<div className={styles.phoneCode}>
+											<Col xs={12} md={12}>
+												<SelectV2
+													label=""
+													size="large"
+													setCountry={setCountry}
+													list={countries}
+													placeholder="Nigeria (+234)"
+													name="Country_code"
+													isCheckout={true}
+													onChange={(country) => {
+														formik.setFieldValue(
+															'Country_code',
+															country
+														);
+													}}
 													errorMessage={
-														errors.phoneNo
+														errors.Country_code
 													}
+													// rules={[
+													// 	{
+													// 		required: true,
+													// 		message:
+													// 			'Country Code is a required field',
+													// 	},
+													// ]}
 												/>
 											</Col>
+											<div className={styles.phoneBox}>
+												<Col>
+													<PhoneNumberInput
+														type="tel"
+														placeholder={
+															'Enter your phone number'
+														}
+														height="small"
+														name="phoneNo"
+														// value={values.phoneNo}
+														maxLength={11}
+														inputMode="numeric"
+														onChange={
+															formik.handleChange
+														}
+														errorMessage={
+															errors.phoneNo
+														}
+													/>
+												</Col>
+											</div>
 										</div>
+									</Row>
+								</form>
+							</div>
+							<div
+								className={`bg-white shadow rounded-lg w-full mt-7 p-10 lg:p-5 lg:px-7 ${styles.productDetailsContainer}`}
+							>
+								<h4 className={styles.productDetails}>
+									Product Details
+								</h4>
+								<div className={`flex gap-3`}>
+									<div
+										className={`${styles.productImageContainer}`}
+									>
+										<Image
+											width={120}
+											height={120}
+											src={
+												storeDetails.product_images.filter(
+													(image) =>
+														image.file_type === 1
+												)[0].filename
+											}
+											alt="product Image"
+										/>
 									</div>
-								</Row>
-							</form>
+									<div>
+										<h5 className={styles.productTitle}>
+											{
+												storeDetails?.product_details
+													?.product_name
+											}
+										</h5>
+										<p className={styles.productPrice}>
+											<RenderIf
+												condition={
+													storeDetails?.product_price_type?.toLowerCase() !==
+													'make it free'
+												}
+											>
+												{`${storeDetails?.default_currency?.currency}${storeDetails?.default_price}`}
+											</RenderIf>
+										</p>
+										<p className={styles.name}>
+											{storeDetails?.kreator_full_name}
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div
@@ -1357,8 +1407,8 @@ const Checkout = () => {
 															data,
 															actions
 														) => {
-															return actions.order.create(
-																{
+															return actions.order
+																.create({
 																	purchase_units:
 																		[
 																			{
@@ -1368,27 +1418,39 @@ const Checkout = () => {
 																					// value: Number(
 																					// 	convertedPrice
 																					// ).toFixed(2),
-																					value: Number(
-																						getCurrency(
-																							'price'
-																						)
-																					).toFixed(
-																						2
+																					value: getCurrency(
+																						'price'
 																					),
-																					currency:
+																					currency_code:
 																						getCurrency(
 																							'currency'
 																						),
 																				},
+																				reference_id:
+																					'',
 																			},
 																		],
-																}
-															);
+																	payer: '',
+																})
+																.then(
+																	(
+																		orderId
+																	) => {
+																		return orderId;
+																	}
+																);
 														}}
 														onApprove={(
 															data,
 															actions
 														) => {
+															// return actions.order
+															// 	.capture()
+															// 	.then(
+															// 		function () {
+															// 			// Your code here after capture the order
+															// 		}
+															// 	);
 															paypalSuccess(
 																data,
 																actions
