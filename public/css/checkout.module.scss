@@ -104,6 +104,40 @@
 		justify-content: space-evenly;
 		// gap: 2rem;
 	}
+	.productDetailsContainer {
+		.productDetails {
+			font-weight: 500;
+			font-size: 18px;
+			text-align: left;
+			color: #262626;
+		}
+		.productTitle {
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 28px;
+			color: #262626;
+		}
+		.productPrice {
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 20px;
+			color: #1a1a1a;
+		}
+		.name {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 24px;
+			color: #8c8c8c;
+		}
+		.productImageContainer {
+			height: fit-content;
+
+			img {
+				object-fit: cover;
+				border-radius: 8px;
+			}
+		}
+	}
 }
 
 .modal {
