@@ -388,7 +388,7 @@ const SingleBlogPost = () => {
 							</section> */}
 
 							{/* <section className={styles.socialsSection}> */}
-								{/* <div className={styles.socialsDiv}>
+							{/* <div className={styles.socialsDiv}>
 									<div
 										className={styles.likeButtonDiv}
 										onClick={() => handleLikePost()}
@@ -423,8 +423,8 @@ const SingleBlogPost = () => {
 										Share
 									</div>
 								</div> */}
-								{/* TODO: Move this to a popover */}
-								{/* <div className={styles.socialDiv}>
+							{/* TODO: Move this to a popover */}
+							{/* <div className={styles.socialDiv}>
                   <ul className={styles.socialUl}>
                     <li className={styles.socialLi}>
                       <FacebookShareButton url={genUrl}>
