@@ -259,7 +259,8 @@ const SingleBlogPost = () => {
 				<div className={styles.categoryTime}>
 					<span className={styles.category}>
 						<Image src={Briefcase} alt="" width="25" />
-						{'  '}{category}
+						{'  '}
+						{category}
 					</span>
 					<p className={styles.time}>
 						<Image src={Clock} alt="" width="15" /> 7 days ago
