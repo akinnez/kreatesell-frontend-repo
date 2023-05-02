@@ -37,10 +37,8 @@ export default function PreviewProduct() {
 	// kreator and is also the active currency selected
 	// for "fixed price"
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [
-		alreadyDefinedOriginalPrice,
-		setAlreadyDefinedOriginalPrice,
-	] = useState(null);
+	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
+		useState(null);
 
 	// prices for "pay what you want"
 	const [suggestedPrice, setSuggestedPrice] = useState(null); //predefined suggested price for a particular currency
