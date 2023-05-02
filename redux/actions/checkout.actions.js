@@ -5,7 +5,12 @@ import {showToast} from 'utils';
 
 export const SendPaymentCheckoutDetails = () => {
 	const dispatch = useDispatch();
-	return (paymentDetails, successCallback, errorCallback) => (
+	return (
+		paymentDetails,
+		successCallback,
+		errorCallback,
+		displayToast = true
+	) => (
 		dispatch({type: types.SEND_PAYMENT_CHECKOUT_DETAILS.REQUEST}),
 		axios.request(
 			`post`,
@@ -15,11 +20,8 @@ export const SendPaymentCheckoutDetails = () => {
 					type: types.SEND_PAYMENT_CHECKOUT_DETAILS.SUCCESS,
 					// payload: res?.data?.listing_status,
 				});
-				showToast(res?.message, 'info');
-				// showToast(
-				// 	'Successful Payment, Redirecting to Success page',
-				// 	'info'
-				// );
+				displayToast && showToast(res?.message, 'info');
+
 				successCallback?.(res);
 			},
 			(err) => {
