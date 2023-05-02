@@ -73,7 +73,7 @@ export default function PreviewContent({
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
 	);
-	const productPriceType = product?.product_details?.pricing_type?.price_type;
+	const productPriceType = product?.product_price_type;
 
 	//get refs from router
 	const ref = router.query.ref;
@@ -150,6 +150,8 @@ export default function PreviewContent({
 			return router.push(`/checkout/payment/${productId}`);
 		}
 	};
+
+	// NOTE: This is for pay what you want
 	const getMinimumPrice = () => {
 		const minPrice = checkout?.find(
 			(itemPrice) =>
@@ -162,6 +164,7 @@ export default function PreviewContent({
 				itemPrice.currency_name === convertedCurrency?.to_currency_name
 		);
 
+		// console.log('minDefinedPrice', minDefinedPrice);
 		// TODO:if there are already predefined prices, show them instead
 		if (minDefinedPrice && Object.keys(minDefinedPrice).length > 0) {
 			return minDefinedPrice?.price;
@@ -171,6 +174,8 @@ export default function PreviewContent({
 		}
 		return minPrice?.price;
 	};
+
+	// console.log('getMinimumPrice', getMinimumPrice());
 
 	const getMinimumCurrency = () => {
 		const minPrice = checkout?.find(
@@ -219,9 +224,7 @@ export default function PreviewContent({
 		}
 		if (checkout && checkout?.length > 0) {
 			const defaultPrice = product?.default_currency?.currency;
-			// if(!defaultPrice){
-			//   defaultPrice =
-			// }
+
 			const prices = checkout?.filter(
 				(item) => item?.currency_name === defaultPrice
 			);
@@ -470,8 +473,6 @@ export default function PreviewContent({
 					<div className={styles.padBottom1}></div>
 					<div className={styles.priceSection}>
 						<div className="flex flex-col">
-							{/*  */}
-							{/* {sellingPrice?.length > 0 && sellingPrice?.map((item, i) => <h1 key={i} className='text-3xl font-bold'>{`${item?.currency_name}  ${item?.price}`}</h1>)} */}
 							{/* FIXME: We need to refactor this properly */}
 							{productPriceType === 'Make it Free' ? (
 								<p
@@ -488,41 +489,47 @@ export default function PreviewContent({
 								</p>
 							) : (
 								<>
-									{sellingPrice?.length > 0 &&
-										productPriceType !==
-											'Pay What You Want' && (
-											<h1 className="text-xl md:text-3xl font-bold">
-												{`${
-													alreadyDefinedPrice?.currency_name ||
-													convertedCurrency?.to_currency_name ||
-													sellingPrice[0]
-														?.currency_name
-												} ${
-													alreadyDefinedPrice?.price
-														? alreadyDefinedPrice?.price
-														: convertedCurrency?.buy_rate
-														? formatPrice(
-																convertedCurrency?.buy_rate *
-																	sellingPrice[0]
-																		?.price
-														  )
-														: formatPrice(
+									{/* {console.log(
+										'productPriceType',
+										productPriceType
+									)} */}
+									{/* Fixed price */}
+									{/* {sellingPrice?.length > 0 && */}
+									{productPriceType !==
+										'Pay What You Want' && (
+										<h1 className="text-xl md:text-3xl font-bold">
+											{`${
+												alreadyDefinedPrice?.currency_name ||
+												convertedCurrency?.to_currency_name ||
+												sellingPrice?.[0]?.currency_name
+											} ${
+												alreadyDefinedPrice?.price
+													? alreadyDefinedPrice?.price
+													: convertedCurrency?.buy_rate
+													? formatPrice(
+															convertedCurrency?.buy_rate *
 																sellingPrice[0]
 																	?.price
-														  )
-												}  
+													  )
+													: formatPrice(
+															sellingPrice[0]
+																?.price
+													  )
+											}  
                       `}
-											</h1>
-										)}
+										</h1>
+									)}
 
 									{productPriceType ===
 										'Pay What You Want' && (
-										<h1 className="text-xl md:text-3xl font-bold">{`${
-											alreadyDefinedPrice?.currency_name ||
-											convertedCurrency?.to_currency_name ||
-											getMinimumCurrency()
-										} 
-                  ${formatPrice(getMinimumPrice())}`}</h1>
+										<h1 className="text-xl md:text-3xl font-bold">
+											{`${
+												alreadyDefinedPrice?.currency_name ||
+												convertedCurrency?.to_currency_name ||
+												getMinimumCurrency()
+											} 
+                  ${formatPrice(getMinimumPrice())}`}
+										</h1>
 									)}
 									{originalPrice?.length > 0 &&
 										productPriceType !==

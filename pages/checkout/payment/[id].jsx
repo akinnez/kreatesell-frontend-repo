@@ -625,6 +625,14 @@ const Checkout = () => {
 				},
 				onClose: async () => {
 					// TODO: on abandon flow
+					await sendPaymentCheckoutDetails(
+						paymentDetails({
+							status: 'abandoned',
+						}),
+						() => {},
+						() => {},
+						false
+					);
 				},
 			});
 		}
@@ -713,8 +721,15 @@ const Checkout = () => {
 
 	const onPaystackClose = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
-		console.log('closed');
-		// TODO: on abandon flow
+		// Abandon transaction
+		sendPaymentCheckoutDetails(
+			paymentDetails(
+				{status: 'abandoned'},
+				() => {},
+				() => {},
+				false
+			)
+		);
 	};
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
