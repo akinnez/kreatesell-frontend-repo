@@ -37,8 +37,10 @@ export default function PreviewProduct() {
 	// kreator and is also the active currency selected
 	// for "fixed price"
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
-		useState(null);
+	const [
+		alreadyDefinedOriginalPrice,
+		setAlreadyDefinedOriginalPrice,
+	] = useState(null);
 
 	// prices for "pay what you want"
 	const [suggestedPrice, setSuggestedPrice] = useState(null); //predefined suggested price for a particular currency
@@ -286,14 +288,21 @@ export default function PreviewProduct() {
 
 export async function getServerSideProps(context) {
 	const {query} = context;
-	const res2 = await axios
-		.get(`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`, {
-			headers: null,
-		})
-		.then((res) => res?.data.data);
-	return {
-		props: {
-			data: res2,
-		},
-	};
+	try {
+		const {data} = await axios.get(
+			`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`
+		);
+		return {
+			props: {
+				data,
+			},
+		};
+	} catch (error) {
+		console.error('Error fetching data:', error);
+		return {
+			props: {
+				data: null,
+			},
+		};
+	}
 }
