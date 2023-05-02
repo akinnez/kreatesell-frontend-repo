@@ -1,18 +1,22 @@
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-import styles from '../../../../public/css/storeName-product-id.module.scss';
+
 import {useSelector} from 'react-redux';
+
+import styles from '../../../../public/css/storeName-product-id.module.scss';
 import PreviewHeader from 'components/Preview/PreviewHeader';
 import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
-import axios from 'axios';
-import {Meta} from 'components/layout';
+import useLocation from 'hooks/useLocation';
+// import axios from 'axios';
+// import {Meta} from 'components/layout';
 
-export default function PreviewProduct(props) {
-	// console.log('Props', props?.data);
+export default function PreviewProduct() {
 	const router = useRouter();
+
+	const {countryDetails, countryDetailsLoading: loading} = useLocation();
 
 	const {
 		product: {store_dto, check_out_details, default_currency},
@@ -22,11 +26,15 @@ export default function PreviewProduct(props) {
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
 	const [productStatus, setProductStatus] = useState('idle');
+
+	const [targetCurrency, setTargetCurrency] = useState('');
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
-	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
-		useState(null);
+	const [
+		alreadyDefinedOriginalPrice,
+		setAlreadyDefinedOriginalPrice,
+	] = useState(null);
 
 	const getProductByID = GetProductByIDNotAut();
 	const convertCurrency = ConvertCurrency();
@@ -100,8 +108,22 @@ export default function PreviewProduct(props) {
 			handleCurrencyConversion(activeCurrency);
 		}
 	}, [activeCurrency]);
+	useEffect(() => {
+		if (targetCurrency && check_out_details?.length > 0) {
+			handleCurrencyConversion(targetCurrency);
+		}
+	}, [targetCurrency, check_out_details?.length]);
+
+	//TODO: Convert currency based off of user's location
+	useEffect(() => {
+		if (countryDetails?.currency) {
+			setTargetCurrency(countryDetails?.currency);
+		}
+	}, [countryDetails?.currency]);
 
 	const handleCurrencyConversion = (toCurrency) => {
+		// WIP: This is for only fixed price
+		//TODO: Do for pay what you want
 		let sellingIndex = check_out_details.findIndex(
 			(detail) =>
 				detail?.currency_name === toCurrency &&
@@ -176,6 +198,9 @@ export default function PreviewProduct(props) {
 		return null;
 	}
 
+	console.log('alreadyDefinedPrice', alreadyDefinedPrice);
+	console.log('alreadyDefinedOriginalPrice', alreadyDefinedOriginalPrice);
+
 	return (
 		<>
 			<div
@@ -189,7 +214,6 @@ export default function PreviewProduct(props) {
 					// width: '100%',
 				}}
 			>
-				{/* <Meta /> */}
 				<PreviewHeader
 					id={router.query.id}
 					showNavLinks={false}
