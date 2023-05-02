@@ -286,23 +286,23 @@ export default function PreviewProduct() {
 	);
 }
 
-export async function getServerSideProps(context) {
-	const {query} = context;
-	try {
-		const {data} = await axios.get(
-			`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`
-		);
-		return {
-			props: {
-				data,
-			},
-		};
-	} catch (error) {
-		console.error('Error fetching data:', error);
-		return {
-			props: {
-				data: null,
-			},
-		};
-	}
-}
+// export async function getServerSideProps(context) {
+// 	const {query} = context;
+// 	try {
+// 		const {data} = await axios.get(
+// 			`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`
+// 		);
+// 		return {
+// 			props: {
+// 				data,
+// 			},
+// 		};
+// 	} catch (error) {
+// 		console.error('Error fetching data:', error);
+// 		return {
+// 			props: {
+// 				data: null,
+// 			},
+// 		};
+// 	}
+// }
