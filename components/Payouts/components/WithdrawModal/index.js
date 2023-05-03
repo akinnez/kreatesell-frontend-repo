@@ -12,10 +12,9 @@ const WithdrawModal = ({
 	showSuccess,
 	currency,
 	balance,
-	bankDetails, 
-	fees
+	bankDetails,
+	fees,
 }) => {
-
 	const [amountToWithdraw, setAmountToWithdraw] = useState(0);
 
 	const handleWithdraw = () => {
@@ -97,9 +96,7 @@ const WithdrawModal = ({
 						)}
 					</div>
 					<p>
-						<Text>
-							Transaction Fee: {fees}
-						</Text>
+						<Text>Transaction Fee: {fees}</Text>
 					</p>
 				</div>
 				<Input

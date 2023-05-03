@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Image from 'next/image';
 
-import { useDispatch } from 'react-redux';
-import { Typography, Form, Select, Input, Button } from 'antd';
-import { Formik } from 'formik';
+import {useDispatch} from 'react-redux';
+import {Typography, Form, Select, Input, Button} from 'antd';
+import {Formik} from 'formik';
 
 import PayoutsFormWarning from '../PayoutsFormWarning';
 import {
@@ -17,12 +17,12 @@ import {
 	validateAccountOnBlur,
 	// validateIsmobileMoney
 } from 'components/Payouts/utils/payoutsFormCBs';
-import { PayoutFormValidator } from 'validation/PayoutForm.validation';
-import { RestOfTheWorld } from 'utils';
+import {PayoutFormValidator} from 'validation/PayoutForm.validation';
+import {RestOfTheWorld} from 'utils';
 import styles from './index.module.scss';
 
-const { Text } = Typography;
-const { Option } = Select;
+const {Text} = Typography;
+const {Option} = Select;
 
 const RestOfTheWorldObj = {
 	country_code: '+1',
@@ -74,14 +74,14 @@ const PayoutsForm = ({
 	// );
 	const bankTypes = [
 		{
-			value: "bankaccount",
-			name: "Bank"
+			value: 'bankaccount',
+			name: 'Bank',
 		},
 		{
-			value: "mobilemoney",
-			name: "Mobile Money"
-		}
-	]
+			value: 'mobilemoney',
+			name: 'Mobile Money',
+		},
+	];
 	return (
 		<Formik
 			initialValues={{
@@ -342,7 +342,7 @@ const PayoutsForm = ({
 							</Form.Item>
 
 							{isNigerian ||
-								bankDetails?.country_name === 'Nigeria' ? (
+							bankDetails?.country_name === 'Nigeria' ? (
 								<>
 									<Form.Item>
 										<Button
@@ -367,11 +367,11 @@ const PayoutsForm = ({
 										label="Account Name"
 										validateStatus={
 											formik.touched.account_name &&
-												formik.errors.account_name
+											formik.errors.account_name
 												? 'error'
 												: validating
-													? 'validating'
-													: 'success'
+												? 'validating'
+												: 'success'
 										}
 										hasFeedback={validating}
 										help={

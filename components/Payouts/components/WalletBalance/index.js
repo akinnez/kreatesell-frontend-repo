@@ -1,42 +1,43 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 import useSWR from 'swr';
-import { Typography, Row, Col, Button } from 'antd';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import {Typography, Row, Col, Button} from 'antd';
+import {AiOutlineInfoCircle} from 'react-icons/ai';
+import {useSelector} from 'react-redux';
 
 import Spinner from 'components/Spinner';
 import SuccessModalBox from 'components/SuccessModalBox';
 import WithdrawModal from '../WithdrawModal';
 import WalletInfo from '../WalletInfo';
 import axiosApi from 'utils/axios';
-import { showToast, getTransactionFees } from 'utils';
+import {showToast, getTransactionFees} from 'utils';
 import styles from './index.module.scss';
 
-const { Text } = Typography;
+const {Text} = Typography;
 const breakPoints = {
-	xs: { span: 24 },
-	md: { span: 12 },
+	xs: {span: 24},
+	md: {span: 12},
 };
 
-const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
-
+const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 	const [withdrawModal, setWithdrawModal] = useState(false);
 	const [successModal, setSuccessModal] = useState(false);
 
-	const { user } = useSelector((state) => state.auth);
-	const [fees, setFees] = useState("");
+	const {user} = useSelector((state) => state.auth);
+	const [fees, setFees] = useState('');
 
 	//get transaction fees for each withdrawals made based on bank type and currency
 	useEffect(() => {
 		if (bankDetails && walletInfo[0]) {
-		  const transactionFees = getTransactionFees(walletInfo[0].currency, bankDetails.bank_type);
-		  setFees(transactionFees);
+			const transactionFees = getTransactionFees(
+				walletInfo[0].currency,
+				bankDetails.bank_type
+			);
+			setFees(transactionFees);
 		}
-	  }, [bankDetails, walletInfo]); 
+	}, [bankDetails, walletInfo]);
 
-
-	const { data: affiliateBalance, error } = useSWR(
+	const {data: affiliateBalance, error} = useSWR(
 		`${process.env.BASE_URL}v1/kreatesell/store/wallet/get-balance`,
 		(url) => {
 			return axiosApi.request(
@@ -53,7 +54,7 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
 		}
 	);
 
-	console.log(walletInfo,'walletInfowalletInfo')
+	console.log(walletInfo, 'walletInfowalletInfo');
 
 	const handleClicks = (setter, value) => () => {
 		setter(value);
@@ -68,15 +69,14 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
 		showToast('An error occurred', 'error');
 		return null;
 	}
-	const { available_balance } = affiliateBalance?.wallet_balance[0];
-
+	const {available_balance} = affiliateBalance?.wallet_balance[0];
 
 	return (
 		<header className={styles.header}>
 			<div className={styles.card}>
 				{loading ||
-					affiliateBalance === null ||
-					affiliateBalance === undefined ? (
+				affiliateBalance === null ||
+				affiliateBalance === undefined ? (
 					<Spinner />
 				) : (
 					<Row gutter={[40, 16]}>
@@ -123,9 +123,10 @@ const WalletBalance = ({ bankDetails, walletInfo, loading }) => {
 										<AiOutlineInfoCircle />
 									</span>
 									<span
-										className={`${!user?.is_affiliate &&
+										className={`${
+											!user?.is_affiliate &&
 											styles.isAffiliate
-											}`}
+										}`}
 									>
 										Money in your wallet will be withdrawn
 										into your account every Tuesday of the
