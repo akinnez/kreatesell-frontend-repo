@@ -19,8 +19,14 @@ const AffiliateProducts = () => {
 	const {url, filters, setFilters} = useAffiliateFilters(
 		'affiliate/get-products'
 	);
-	const {products, loading, setLoading, response, error, isValidating} =
-		useFetcher(user, url);
+	const {
+		products,
+		loading,
+		setLoading,
+		response,
+		error,
+		isValidating,
+	} = useFetcher(user, url);
 
 	const isLoading = dataLoading({
 		products: products.data,
@@ -36,7 +42,7 @@ const AffiliateProducts = () => {
 				data: products?.data?.map((product) => {
 					return {
 						...product,
-						affiliateSales: store?.total_sales_till_date,
+						affiliateSales: product?.total_affiliate_sales,
 					};
 				}),
 			};

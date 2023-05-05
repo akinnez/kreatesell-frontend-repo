@@ -32,7 +32,6 @@ const PayoutsPage = () => {
 
 	const {store, loading} = useSelector((state) => state.store);
 	const {bank_details: bankDetails, wallet_details_dtos: walletInfo} = store;
-	console.log(bankDetails, 'bankDetails,bankDetails,bankDetails,');
 
 	const handleClick = (key) => {
 		setTab(key);
@@ -120,8 +119,12 @@ const AddPasswordModal = ({showModal = true, setShowModal}) => {
 		validationSchema: createPasswordSchema,
 		validateOnChange: false,
 	});
-	const {errors, handleSubmit, /*handleChange,*/ setFieldValue, values} =
-		formik;
+	const {
+		errors,
+		handleSubmit,
+		/*handleChange,*/ setFieldValue,
+		values,
+	} = formik;
 	useEffect(() => {
 		if (user) {
 			setFieldValue('username', user?.email);
