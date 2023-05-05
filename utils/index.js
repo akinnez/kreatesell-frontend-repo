@@ -123,12 +123,13 @@ export const _isUserLoggedIn = () => {
 };
 
 let listOfAlertMessages = [];
-export const showToast = (message, type) => {
+export const showToast = (message, type, optionsArg = {}) => {
 	if (type) type = type.toLowerCase();
 
 	const options = {
 		position: 'top-center',
 		hideAfter: 3,
+		...optionsArg,
 	};
 
 	const pushMessageIntoArr = (value) => {
