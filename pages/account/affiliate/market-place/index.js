@@ -19,14 +19,8 @@ const AffiliateProducts = () => {
 	const {url, filters, setFilters} = useAffiliateFilters(
 		'affiliate/get-products'
 	);
-	const {
-		products,
-		loading,
-		setLoading,
-		response,
-		error,
-		isValidating,
-	} = useFetcher(user, url);
+	const {products, loading, setLoading, response, error, isValidating} =
+		useFetcher(user, url);
 
 	const isLoading = dataLoading({
 		products: products.data,
