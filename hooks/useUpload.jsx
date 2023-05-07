@@ -8,10 +8,6 @@ export const useUpload = ({fileType}) => {
 	//* edits
 	const onDrop = useCallback(
 		(acceptedFiles, rejectedFiles) => {
-			// console.log('onDrop');
-			// console.log('acceptedFiles = ', acceptedFiles);
-			// console.log('rejectedFiles = ', rejectedFiles);
-
 			/**
 			 * TODO: we should refactor this to accept the accepted MIME type
 			 *  e.g. acceptedFile = ['.rar', .'png']

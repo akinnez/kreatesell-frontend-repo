@@ -50,6 +50,8 @@ export const CreateProductForm = ({
 	const [contentFiles, setContentFiles] = useState(false);
 	const [isImageFilled, setIsImageFilled] = useState(false);
 	const [contents, setContents] = useState('');
+
+	const [disableButton, setDisableButton] = useState(false);
 	/**product is for single product fetched by ID */
 	const {listingStatus, loading, productID, product} = useSelector(
 		(state) => state.product
@@ -600,7 +602,7 @@ export const CreateProductForm = ({
 								isToggleable={true}
 								toggleValue={contentFiles}
 								setFile={setProductFile}
-								// onLoadCb={()=>setFieldValue('')}
+								onLoadCb={setDisableButton}
 							/>
 						)}
 					</div>
@@ -723,7 +725,12 @@ export const CreateProductForm = ({
 						})}
 				</Form.Item>
 				<div className={`flex justify-center ${styles.saveButton}`}>
-					<Button loading={loading} type="primary" htmlType="submit">
+					<Button
+						loading={loading}
+						disabled={disableButton}
+						type="primary"
+						htmlType="submit"
+					>
 						Save and Continue
 					</Button>
 				</div>

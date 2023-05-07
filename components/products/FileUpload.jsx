@@ -39,22 +39,46 @@ export default function FileUpload({
 			console.log(error);
 		}
 	};
-	const getBase64 = (file) => {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onprogress = (data) => {
-				if (data.lengthComputable) {
-					var progress = parseInt(
-						(data.loaded / data.total) * 100,
-						10
-					);
-					setProgress(progress);
-				}
-			};
-			reader.onload = () => resolve(reader.result);
-			reader.onerror = (error) => reject(error);
-		});
+	const getBase64 = async (file) => {
+		const formData = new FormData();
+		formData.append('upload_preset', 'kreatesell');
+		formData.append('file', file);
+		const options = {
+			onUploadProgress: (progressEvent) => {
+				const {loaded, total} = progressEvent;
+				let percent = Math.floor((loaded * 100) / total);
+				setProgress(percent);
+			},
+		};
+		try {
+			const instance = axios.create();
+			delete instance.defaults.headers.common['Authorization'];
+			// change the auto to appropriate file type
+			const {data} = await instance.post(
+				'https://api.cloudinary.com/v1_1/salvoagency/auto/upload',
+				formData,
+				options
+			);
+			setFile(data?.secure_url);
+			// console.log('data', data?.secure_url);
+		} catch (error) {
+			console.log('ERROR', error);
+		}
+		// return new Promise((resolve, reject) => {
+		// 	const reader = new FileReader();
+		// 	reader.readAsDataURL(file);
+		// 	reader.onprogress = (data) => {
+		// 		if (data.lengthComputable) {
+		// 			var progress = parseInt(
+		// 				(data.loaded / data.total) * 100,
+		// 				10
+		// 			);
+		// 			setProgress(progress);
+		// 		}
+		// 	};
+		// 	reader.onload = () => resolve(reader.result);
+		// 	reader.onerror = (error) => reject(error);
+		// });
 	};
 	const handleDeleteFile = () => {
 		deleteFile(mainFile[0].file);
@@ -66,6 +90,16 @@ export default function FileUpload({
 			setFile(null);
 		};
 	}, [isToggleable, toggleValue]);
+
+	useEffect(() => {
+		if (progress) {
+			if (progress !== 100) {
+				onLoadCb(true);
+			} else {
+				onLoadCb(false);
+			}
+		}
+	}, [progress]);
 
 	useMemo(() => {
 		if (initialFile) {
@@ -87,7 +121,7 @@ export default function FileUpload({
 					(item, i) =>
 						new Promise(async (res, rej) => {
 							await getBase64(item.file);
-							setFile(item.file);
+							// setFile(item.file);
 							res(null);
 						})
 				);
