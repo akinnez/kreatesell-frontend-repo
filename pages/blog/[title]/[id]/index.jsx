@@ -160,7 +160,7 @@ const SingleBlogPost = () => {
 				console.log('data is', res);
 			},
 			(err) => {
-				console.log('err is', err);
+				x.log('err is', err);
 			}
 		);
 		console.log('comment clicked');
@@ -259,7 +259,8 @@ const SingleBlogPost = () => {
 				<div className={styles.categoryTime}>
 					<span className={styles.category}>
 						<Image src={Briefcase} alt="" width="25" />
-						{'  '}Marketing
+						{'  '}
+						{category}
 					</span>
 					<p className={styles.time}>
 						<Image src={Clock} alt="" width="15" /> 7 days ago
