@@ -251,7 +251,7 @@ const Index = () => {
 									name="Store_Name"
 									label="Username"
 									extraLabel="- This is your unique store link"
-									prefixText="Kreatesell.com/"
+									prefixText="Kreatesell.com//store/"
 									disabled={false}
 									rules={[
 										{
