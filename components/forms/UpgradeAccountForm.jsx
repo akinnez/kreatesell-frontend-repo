@@ -80,7 +80,7 @@ export const UpgradeAccountForm = ({
 	const paymentStatusList = {
 		success: 's',
 		failed: 'f',
-		// abandoned: "a"
+		abandoned: 'a',
 	};
 	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
@@ -125,7 +125,8 @@ export const UpgradeAccountForm = ({
 		customizations: {
 			title: 'KreateSell Title',
 			description: 'KreateSell description',
-			logo: 'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
+			logo:
+				'https://res.cloudinary.com/salvoagency/image/upload/v1636216109/kreatesell/mailimages/KreateLogo_sirrou.png',
 		},
 	};
 
