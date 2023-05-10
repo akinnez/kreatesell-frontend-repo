@@ -1,8 +1,10 @@
+import {useState} from 'react';
+
 import {Button, Divider, Modal, Typography, Input} from 'antd';
+
 import {showToast} from 'utils';
 import axiosApi from 'utils/axios';
 import styles from './index.module.scss';
-import {useState} from 'react';
 
 const {Text} = Typography;
 
@@ -14,6 +16,7 @@ const WithdrawModal = ({
 	balance,
 	bankDetails,
 	fees,
+	mutateCallback,
 }) => {
 	const [amountToWithdraw, setAmountToWithdraw] = useState(0);
 
@@ -33,6 +36,7 @@ const WithdrawModal = ({
 			() => {
 				showSuccess();
 				hideModal();
+				mutateCallback();
 			},
 			(err) => {
 				showToast(err.message, 'error');

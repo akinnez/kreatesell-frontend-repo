@@ -19,7 +19,7 @@ const breakPoints = {
 	md: {span: 12},
 };
 
-const WalletBalance = ({bankDetails, walletInfo, loading}) => {
+const WalletBalance = ({bankDetails, walletInfo, loading, mutateCallback}) => {
 	const [withdrawModal, setWithdrawModal] = useState(false);
 	const [successModal, setSuccessModal] = useState(false);
 
@@ -53,8 +53,6 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 			);
 		}
 	);
-
-	console.log(walletInfo, 'walletInfowalletInfo');
 
 	const handleClicks = (setter, value) => () => {
 		setter(value);
@@ -147,6 +145,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 					balance={available_balance}
 					bankDetails={bankDetails}
 					fees={fees}
+					mutateCallback={mutateCallback}
 				/>
 			)}
 			{successModal && (
