@@ -1,7 +1,7 @@
 import {useState, useCallback} from 'react';
 import {useDropzone} from 'react-dropzone';
 
-export const useUpload = ({fileType}) => {
+export const useUpload = ({fileType, multiple}) => {
 	const [files, setFiles] = useState([]);
 	const [showImageFileFeedback, setShowImageFileFeedback] = useState(false);
 
@@ -74,7 +74,7 @@ export const useUpload = ({fileType}) => {
 		onDrop,
 		// TODO: work on the accept
 		// accept: fileType,
-		maxFiles: fileType === 'image' ? 3 : 50,
+		maxFiles: !multiple ? 1 : fileType === 'image' ? 3 : 50,
 		maxSize: fileType === 'image' ? 2097152 : 5368709120,
 	});
 
