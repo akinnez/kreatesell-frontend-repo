@@ -54,6 +54,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 		error,
 		isValidating,
 		isLoading: swrLoading,
+		mutate,
 	} = useSWR(url, (url) => {
 		return axiosApi.request(
 			'get',
@@ -146,6 +147,7 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 				bankDetails={bankDetails}
 				walletInfo={walletInfo}
 				loading={storeLoading}
+				mutateCallback={() => mutate()}
 			/>
 			<div className={`flex items-center mb-10 gap-4`}>
 				<h2 className={`${styles.heading} mb-0`}>Wallet History</h2>

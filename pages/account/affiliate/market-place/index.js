@@ -36,7 +36,7 @@ const AffiliateProducts = () => {
 				data: products?.data?.map((product) => {
 					return {
 						...product,
-						affiliateSales: store?.total_sales_till_date,
+						affiliateSales: product?.total_affiliate_sales,
 					};
 				}),
 			};

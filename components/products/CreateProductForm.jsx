@@ -1,5 +1,12 @@
 import {useState, useEffect} from 'react';
 import Image from 'next/image';
+import {useRouter} from 'next/router';
+
+import {Switch} from 'antd';
+import {Form, Input, Button} from 'antd';
+import {useFormik} from 'formik';
+import {useSelector} from 'react-redux';
+
 import {
 	CloudUpload,
 	ErrorIcon,
@@ -8,9 +15,6 @@ import {
 } from 'utils';
 import styles from './CreateProduct.module.scss';
 import {Radio} from 'components/inputPack';
-import {Switch} from 'antd';
-import {useFormik} from 'formik';
-import {Form, Input, Button} from 'antd';
 import {
 	DigitalProductSchema,
 	// oneTimeSubscriptionSchema,
@@ -24,12 +28,10 @@ import {
 	AuthGetProductById,
 	SetProductID,
 } from 'redux/actions';
-import {useSelector} from 'react-redux';
 import {useUpload} from 'hooks';
 import ImageUpload from './ImageUpload';
 import ProductEditor from './ProductEditor';
 import ImageError from './ImageError';
-import {useRouter} from 'next/router';
 import FileUpload from './FileUpload';
 
 export const CreateProductForm = ({
@@ -48,6 +50,8 @@ export const CreateProductForm = ({
 	const [contentFiles, setContentFiles] = useState(false);
 	const [isImageFilled, setIsImageFilled] = useState(false);
 	const [contents, setContents] = useState('');
+
+	const [disableButton, setDisableButton] = useState(false);
 	/**product is for single product fetched by ID */
 	const {listingStatus, loading, productID, product} = useSelector(
 		(state) => state.product
@@ -179,12 +183,8 @@ export const CreateProductForm = ({
 			setFieldValue('isBasicPlan', false);
 		};
 	}, [preOrder, store]);
-	useEffect(() => {
-		// console.log('here', product)
-	}, [product]);
 
 	useEffect(() => {
-		// console.log('imageUploads = ', imageUploads);
 		if (imageUploads.length >= 3) {
 			setIsImageFilled(true);
 			return;
@@ -192,12 +192,9 @@ export const CreateProductForm = ({
 		return setIsImageFilled(false);
 	}, [imageUploads]);
 
-	// console.log("imageUploads = ", imageUploads);
-
 	const findUnsupportedFileFormat = imageUploads.find((item) =>
 		item?.file?.name.includes('.png')
 	);
-	// console.log("imageUploads = ", imageUploads);
 
 	useEffect(() => {
 		setFieldValue('product_details', contents);
@@ -605,7 +602,8 @@ export const CreateProductForm = ({
 								isToggleable={true}
 								toggleValue={contentFiles}
 								setFile={setProductFile}
-								// onLoadCb={()=>setFieldValue('')}
+								onLoadCb={setDisableButton}
+								multiple={false}
 							/>
 						)}
 					</div>
@@ -728,7 +726,12 @@ export const CreateProductForm = ({
 						})}
 				</Form.Item>
 				<div className={`flex justify-center ${styles.saveButton}`}>
-					<Button loading={loading} type="primary" htmlType="submit">
+					<Button
+						loading={loading}
+						disabled={disableButton}
+						type="primary"
+						htmlType="submit"
+					>
 						Save and Continue
 					</Button>
 				</div>

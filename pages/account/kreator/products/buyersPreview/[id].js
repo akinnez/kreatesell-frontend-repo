@@ -335,7 +335,7 @@ const BuyersPreview = () => {
 											<button
 												onClick={() =>
 													router.push(
-														`/checkout/${router?.query?.id}`
+														`/checkout/payment/${router?.query?.id}`
 													)
 												}
 											>

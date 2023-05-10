@@ -546,6 +546,8 @@ export const CheckoutForm = ({
 			delete data.custom_billing_interval_times;
 		}
 
+		//if make it free delete who bears fee
+
 		// console.log("data from submit = ", data);
 		// setProductID(productID);
 		// const dataWithCompare = {
@@ -1088,6 +1090,7 @@ export const CheckoutForm = ({
 		}
 		return message;
 	};
+
 	return (
 		<Form onFinish={formik.handleSubmit}>
 			{priceType === 'Fixed Price' && (
@@ -2202,24 +2205,26 @@ export const CheckoutForm = ({
 						</div>
 					</div>
 
-					<div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
-						<div className={`${styles.settingsSubLabel}`}>
-							Buyer Pays for Transaction Fee
+					{priceType !== 'Make it Free' && (
+						<div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
+							<div className={`${styles.settingsSubLabel}`}>
+								Buyer Pays for Transaction Fee
+							</div>
+							<div className="flex">
+								<Switch
+									onChange={(e) => {
+										setBuyerPaysTransactionFee(
+											(value) => !value
+										);
+									}}
+									checked={buyerPaysTransactionFee}
+								/>
+								<span className="pl-6 font-semibold text-black-100">
+									{buyerPaysTransactionFee ? 'ON' : 'OFF'}
+								</span>
+							</div>
 						</div>
-						<div className="flex">
-							<Switch
-								onChange={(e) => {
-									setBuyerPaysTransactionFee(
-										(value) => !value
-									);
-								}}
-								checked={buyerPaysTransactionFee}
-							/>
-							<span className="pl-6 font-semibold text-black-100">
-								{buyerPaysTransactionFee ? 'ON' : 'OFF'}
-							</span>
-						</div>
-					</div>
+					)}
 					<div className="flex justify-between items-center w-full lg:w-3/4 pt-4">
 						<div className={`${styles.settingsSubLabel}`}>
 							Automatically send the buyer to an external site

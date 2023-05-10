@@ -17,12 +17,7 @@ import styles from 'public/css/checkoutSuccess.module.scss';
 import {Button, Input} from 'components';
 import {
 	ZipFile,
-	SuccessProduct,
-	OtherProductsSuccess,
-	ExternalLink2,
 	SuccessCheck,
-	DownloadIcon2,
-	SuccessKreatesellLogo,
 	UserPicture,
 	CourseFileIcon,
 	ErrorIcon,
@@ -191,8 +186,14 @@ const Success = () => {
 	// make call to get page details here
 	const router = useRouter();
 
-	const productId = router?.query?.productId;
-	const storename = router?.query?.storename;
+	// const storename = 'swivehub';
+	// const productId = 'ks-sw8175WE2aq';
+	const [urlDetails, setUrlDetails] = useState({
+		storename: null,
+		productId: null,
+	});
+
+	const {storename, productId} = urlDetails;
 
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
 
@@ -212,7 +213,18 @@ const Success = () => {
 	);
 
 	useEffect(() => {
-		if (storename !== undefined) {
+		if (router?.query?.storename_productId) {
+			const storename_productId =
+				router?.query?.storename_productId?.split('_');
+			setUrlDetails({
+				storename: storename_productId[0],
+				productId: storename_productId[1],
+			});
+		}
+	}, [router?.query?.storename_productId]);
+
+	useEffect(() => {
+		if (storename !== null) {
 			fetchSingleStoreProduct(
 				storename,
 				1,
@@ -432,7 +444,7 @@ const Success = () => {
 											product?.product_details
 												?.product_name
 										}
-										{...{product}}
+										{...{product, productId}}
 									/>
 								</Col>
 							</Row>
@@ -464,7 +476,7 @@ const Success = () => {
 											product?.product_details
 												?.product_name
 										}
-										{...{product}}
+										{...{product, productId}}
 									/>
 								</Col>
 							</Row>
@@ -728,8 +740,12 @@ const ProductCard2 = ({
 	);
 };
 
-const PurchaseSummaryCard = ({handleClickAction, productName, product}) => {
-	const productId = router?.query?.productId;
+const PurchaseSummaryCard = ({
+	handleClickAction,
+	productName,
+	product,
+	productId,
+}) => {
 	const paidIncurrency = router?.query?.currency;
 	const productDetails = product?.product_details;
 	const StoreDetails = product?.store_dto;

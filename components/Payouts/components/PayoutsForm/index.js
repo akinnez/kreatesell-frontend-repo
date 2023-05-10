@@ -72,6 +72,16 @@ const PayoutsForm = ({
 	// 	banksByCountryId,
 	// 	'to test for why ghana is not returning bank for updates'
 	// );
+	const bankTypes = [
+		{
+			value: 'bankaccount',
+			name: 'Bank',
+		},
+		{
+			value: 'mobilemoney',
+			name: 'Mobile Money',
+		},
+	];
 	return (
 		<Formik
 			initialValues={{
@@ -81,7 +91,7 @@ const PayoutsForm = ({
 				account_number: bankDetails?.account_number || '',
 				account_name: bankDetails?.account_name || '',
 				password: '',
-				bank_type: 'bankaccount',
+				bank_type: bankDetails ? bankDetails?.bank_type : 'bankaccount',
 				action: bankDetails ? 'e' : 'c',
 			}}
 			validationSchema={PayoutFormValidator}
@@ -313,6 +323,7 @@ const PayoutsForm = ({
 							>
 								<Select
 									placeholder="Choose your bank type"
+									autoComplete="bank_type"
 									onChange={(value) => {
 										setBankType(value);
 										formik.setFieldValue(
@@ -322,10 +333,11 @@ const PayoutsForm = ({
 									}}
 									value={formik.values.bank_type}
 								>
-									<Option value="bankaccount">Bank</Option>
-									<Option value="mobilemoney">
-										Mobile Money
-									</Option>
+									{bankTypes.map((type, _id) => (
+										<Option key={_id} value={type.value}>
+											{type.name}
+										</Option>
+									))}
 								</Select>
 							</Form.Item>
 

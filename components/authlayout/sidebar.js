@@ -192,7 +192,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 
 	useEffect(() => {
 		getUserVisitStatus();
-		console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
+		// console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
 
 	return (

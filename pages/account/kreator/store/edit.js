@@ -17,6 +17,7 @@ import ApiService from '../../../../utils/axios';
 import {toast} from 'react-toastify';
 import {showToast} from 'utils';
 import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
+import {GetStoreDetails} from 'redux/actions';
 
 const Index = () => {
 	const store = useSelector((state) => state.store);
@@ -37,6 +38,7 @@ const Index = () => {
 	const [isStoreSetUp, SetIsStorSetup] = useState(false);
 	const [isFirstTimeUser, SetIsFirstTimeUser] = useState(false);
 	const [form] = Form.useForm();
+	const getStoreDetails = GetStoreDetails();
 
 	const handleFinish = async (info) => {
 		setLoading({...loading, updating: true});
@@ -58,9 +60,15 @@ const Index = () => {
 			({data}) => {
 				setLoading({...loading, updating: false});
 				toast.success('Successful');
-				setTimeout(() => {
-					Router.push('/account/kreator/store');
-				}, 3000);
+				getStoreDetails(() => {
+					setTimeout(() => {
+						if (Router.query?.returnTo) {
+							Router.push('/account/kreator/products/create');
+						} else {
+							Router.push('/account/kreator/store');
+						}
+					}, 3000);
+				});
 			},
 			(err) => {
 				setLoading({...loading, updating: false});
@@ -137,7 +145,7 @@ const Index = () => {
 						? data?.store_details?.country_id
 						: ''
 				);
-				setLoading({...loading, fetching: false});
+
 				form.setFieldsValue({
 					Brand_Name: notNull(data?.store_details?.brand_name)
 						? data?.store_details?.brand_name
@@ -167,6 +175,7 @@ const Index = () => {
 						? data?.store_details?.linked_ln
 						: '',
 				});
+				setLoading({...loading, fetching: false});
 			},
 			(err) => {
 				console.log(err);
@@ -183,6 +192,9 @@ const Index = () => {
 	const updateUiOnDelete = () => {
 		setFile({...file, Cover_Picture: null});
 	};
+
+	if (loading.fetching) return null;
+	// console.log('form', form.getFieldsValue());
 
 	return (
 		<>
@@ -239,7 +251,7 @@ const Index = () => {
 									name="Store_Name"
 									label="Username"
 									extraLabel="- This is your unique store link"
-									prefixText="Kreatesell.com/"
+									prefixText="Kreatesell.com//store/"
 									disabled={false}
 									rules={[
 										{
@@ -270,6 +282,7 @@ const Index = () => {
 											list={countries}
 											placeholder="Choose an option"
 											name="Country_Id"
+											loading={loading.fetching}
 											rules={[
 												{
 													required: true,

@@ -7,7 +7,7 @@ import 'react-dates/initialize';
 import 'antd/dist/antd.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Router from 'next/router';
+import Router, {useRouter} from 'next/router';
 // aos animations
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -20,7 +20,7 @@ import {PayPalScriptProvider} from '@paypal/react-paypal-js';
 import {setAuthorizationHeader} from '../utils/index';
 import ChatScript from '../components/ChatWidgetScript';
 import {SalesPageProvider} from 'context/AddSalesPageContext';
-import {Metas} from '../components/shared/Meta';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -28,6 +28,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({Component, pageProps}) {
 	const store = useStore(pageProps.initialReduxState);
+	const router = useRouter();
 	useEffect(() => {
 		setAuthorizationHeader();
 	}, []);
@@ -39,25 +40,28 @@ function MyApp({Component, pageProps}) {
 	}, []);
 
 	return (
-		<Provider store={store}>
-			{/* <Metas /> */}
-			<SalesPageProvider>
-				{/* <Script
-					charset="UTF-8"
-					src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
-					async
-				/> */}
-				<ChatScript />
-				<PayPalScriptProvider
-					options={{
-						'client-id':
-							process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
-					}}
-				>
-					<Component {...pageProps} />
-				</PayPalScriptProvider>
-			</SalesPageProvider>
-		</Provider>
+		<ErrorBoundary
+			resetErrorBoundary={() => router.reload(window.location.pathname)}
+		>
+			<Provider store={store}>
+				<SalesPageProvider>
+					{/* <Script
+            charset="UTF-8"
+            src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
+            async
+          /> */}
+					<ChatScript />
+					<PayPalScriptProvider
+						options={{
+							'client-id':
+								process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
+						}}
+					>
+						<Component {...pageProps} />
+					</PayPalScriptProvider>
+				</SalesPageProvider>
+			</Provider>
+		</ErrorBoundary>
 	);
 }
 

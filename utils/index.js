@@ -123,12 +123,13 @@ export const _isUserLoggedIn = () => {
 };
 
 let listOfAlertMessages = [];
-export const showToast = (message, type) => {
+export const showToast = (message, type, optionsArg = {}) => {
 	if (type) type = type.toLowerCase();
 
 	const options = {
 		position: 'top-center',
 		hideAfter: 3,
+		...optionsArg,
 	};
 
 	const pushMessageIntoArr = (value) => {
@@ -530,4 +531,65 @@ export const getQueryKeys = (namespace) => ({
 export const resolveProtocol = (host) => {
 	if (!host || typeof host !== 'string') return;
 	return host.includes('localhost') ? 'http' : 'https';
+};
+
+export const getTransactionFees = (currency, bankType) => {
+	switch (currency) {
+		case 'NGN':
+			if (bankType === 'mobilemoney') {
+				return 'NGN 150';
+			} else if (bankType === 'bankaccount') {
+				return 'NGN 50';
+			}
+			break;
+		case 'GHS':
+			if (bankType === 'mobilemoney') {
+				return '1.50%';
+			} else if (bankType === 'bankaccount') {
+				return 'GHS 10';
+			}
+			break;
+		case 'KES':
+			if (bankType === 'mobilemoney') {
+				return 'KES 100';
+			} else if (bankType === 'bankaccount') {
+				return 'KES 100';
+			}
+			break;
+		case 'TZS':
+			if (bankType === 'mobilemoney') {
+				return 'TZS 400';
+			} else if (bankType === 'bankaccount') {
+				return 'TZS 12,000';
+			}
+			break;
+		case 'UGX':
+			if (bankType === 'mobilemoney') {
+				return 'UGX 500';
+			} else if (bankType === 'bankaccount') {
+				return 'UGX 17,000';
+			}
+			break;
+		case 'XOF':
+			if (bankType === 'mobilemoney') {
+				return 'XOF 500';
+			} else if (bankType === 'bankaccount') {
+				return '$4';
+			}
+			break;
+		case 'XAF':
+			if (bankType === 'mobilemoney') {
+				return 'XAF 500';
+			} else if (bankType === 'bankaccount') {
+				return '$4';
+			}
+			break;
+		case 'SLL':
+			if (bankType === 'mobilemoney') {
+				return 'SLL 40,000';
+			}
+			break;
+		default:
+			return 'Currency not found.';
+	}
 };

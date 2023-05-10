@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 
 import {useSelector} from 'react-redux';
 import {Row, Col} from 'antd';
@@ -14,6 +15,7 @@ import {
 import {GetProductTypes} from 'redux/actions';
 import {Popover} from 'components/popover/Popover';
 import {AddBankModal} from 'components/bank';
+import {showToast} from 'utils';
 
 export const CreateProductTab = ({
 	setTitles,
@@ -22,6 +24,7 @@ export const CreateProductTab = ({
 	selectedTab,
 	productId,
 }) => {
+	const router = useRouter();
 	const getProductTypes = GetProductTypes();
 
 	const [tab, setTab] = useState(1);
@@ -41,6 +44,7 @@ export const CreateProductTab = ({
 	const oneTimeSubMenu = filterProductType(2);
 	const membershipMenu = filterProductType(3);
 	const [isBank, setIsBank] = useState(false);
+	const [hasSetupStore, setHasSetupStore] = useState(false);
 	const [isTypeEditable, setIsTypeEditable] = useState(false);
 	const [isBasic, setIsBasic] = useState(true);
 	const [productsMounted, setProductMounted] = useState(false);
@@ -48,12 +52,29 @@ export const CreateProductTab = ({
 
 	useEffect(() => {
 		if (Object.keys(store).length > 0) {
-			const {bank_details, user} = store;
-			if (user.user_plan === 'Business') setIsBasic(false);
+			const {bank_details, user, store_details} = store;
+			if (user?.user_plan === 'Business') setIsBasic(false);
 			if (!bank_details) {
 				setIsBank(true);
 			} else {
 				setIsBank(false);
+			}
+
+			// check for if store has been setup
+			// we will use bio data to check here because, bio data is
+			// a compulsory field on the store page
+			if (!store_details?.bio_data) {
+				setTimeout(() => {
+					router.push(
+						'/account/kreator/store/edit?returnTo=/account/kreator/products/create',
+						'/account/kreator/store/edit'
+					);
+				}, 2000);
+				showToast(
+					'Redirecting!!! You have to setup store details before you create a product.',
+					'info',
+					{hideAfter: 2}
+				);
 			}
 			return () => {
 				setIsBank(false);

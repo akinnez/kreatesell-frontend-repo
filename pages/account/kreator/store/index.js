@@ -89,7 +89,10 @@ const Index = () => {
 						<Card style={cardStyles}>
 							<div className={styles.bio_info}>
 								<h5>Bio</h5>
-								<p>{data?.store_details?.bio_data}</p>
+								<p>
+									{data?.store_details?.bio_data ||
+										'No Bio information has been added yet.'}
+								</p>
 							</div>
 						</Card>
 					</Column>
@@ -98,8 +101,11 @@ const Index = () => {
 							<div className={styles.progress_wrapper}>
 								<div className={styles.progress}>
 									<CircularProgressbar
-										text={data?.percentage_completed + '%'}
-										value={data?.percentage_completed}
+										text={
+											(data?.percentage_completed || 0) +
+											'%'
+										}
+										value={data?.percentage_completed || 0}
 										strokeWidth={15}
 										styles={progressbarStyles}
 									/>
@@ -108,7 +114,7 @@ const Index = () => {
 									<p>
 										You&#39;ve completed{' '}
 										<strong>
-											{data?.percentage_completed}%
+											{data?.percentage_completed || 0}%
 										</strong>{' '}
 										of your store setup
 									</p>

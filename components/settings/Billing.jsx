@@ -11,7 +11,7 @@ import useLocation from 'hooks/useLocation';
 
 import {PricingCard, Button, UpgradeAccountForm, Select} from 'components';
 
-import {PaymentUnsubscribe} from 'redux/actions';
+import {PaymentUnsubscribe, SendPaymentCheckoutDetails} from 'redux/actions';
 import {useGetUpgradePlansPrices} from 'services/swrQueryHooks/UpgradePlansQuery';
 
 import styles from './Settings.module.scss';
@@ -20,6 +20,7 @@ import Spinner from 'components/Spinner';
 const Billing = () => {
 	const [modal, setModal] = useState(false);
 	const Router = useRouter();
+	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
 
 	const {store} = useSelector((state) => state.store);
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
@@ -148,8 +149,43 @@ const Billing = () => {
 		}
 	}, [countriesCurrency?.length]);
 
+	const {user} = useSelector((state) => state.auth);
+
+	// this is the payment details for abandon transations
+	const paymentDetails = (status = 'a') => {
+		const value = {
+			fullname: user?.full_name,
+			email_address: user?.email,
+			mobile_number: user?.mobile,
+			datetime: new Date().toISOString(),
+			// total: convertedPrice,
+			total: 0,
+			reference_id: '',
+			purchase_details: [],
+			status: status,
+			card_type: '',
+			last_four: '',
+			currency: selectedCurrency,
+			payment_type: 'subscription',
+			is_affiliate: user?.is_affiliate,
+			affiliate_product_link: '',
+			user_identifier: user?.id,
+			duration: 'monthly',
+			TransactionFee: 0,
+		};
+		return value;
+	};
+
 	const openModal = () => setModal(true);
-	const closeModal = () => setModal(false);
+	const closeModal = () => {
+		setModal(false);
+		sendPaymentCheckoutDetails(
+			paymentDetails(),
+			() => {},
+			() => {},
+			false
+		);
+	};
 
 	if ((!upgradePlanErrors && !upgradePlanPrices) || !selectedCurrency)
 		return (
