@@ -603,6 +603,7 @@ export const CreateProductForm = ({
 								toggleValue={contentFiles}
 								setFile={setProductFile}
 								onLoadCb={setDisableButton}
+								multiple={false}
 							/>
 						)}
 					</div>

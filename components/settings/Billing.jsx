@@ -28,17 +28,11 @@ const Billing = () => {
 	);
 	const {countryDetails, countryDetailsLoading} = useLocation();
 
-	const {
-		data: upgradePlanPrices,
-		error: upgradePlanErrors,
-	} = useGetUpgradePlansPrices();
+	const {data: upgradePlanPrices, error: upgradePlanErrors} =
+		useGetUpgradePlansPrices();
 	const paymentUnsubscribe = PaymentUnsubscribe();
-	const {
-		countriesCurrency,
-		loading,
-		filteredCentral,
-		filterdWest,
-	} = useCurrency();
+	const {countriesCurrency, loading, filteredCentral, filterdWest} =
+		useCurrency();
 	// return either monthly or annual upgrade price
 	const getUpgradePrice = (type = 'monthly') => {
 		if (type === 'monthly') {
