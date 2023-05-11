@@ -29,7 +29,7 @@ import {
 import {Tooltip} from 'antd';
 import {SelectV2} from 'components/form-input';
 import {PhoneNumberInput} from 'components';
-import styles from '../../public/css/checkout.module.scss';
+import styles from '../../../public/css/checkout.module.scss';
 import {Input, Button} from 'components';
 import CurrencyCard from 'components/settings/CurrencyCard';
 import {ConsumerSalesCheckoutSchema} from 'validation';
@@ -45,13 +45,14 @@ import {
 	ApplyCoupon,
 } from 'redux/actions';
 import crypto from 'crypto';
-import LogoImg from '../../public/images/logo.svg';
+import LogoImg from '../../../public/images/logo.svg';
 import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
 import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
-import {countryPayments} from '../../utils/paymentOptions';
+import {countryPayments} from '../../../utils/paymentOptions';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
+import {AiFillCheckCircle} from 'react-icons/ai';
 
 export const pathName = typeof window !== 'undefined' && window;
 /**
@@ -73,6 +74,9 @@ const Checkout = () => {
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
+
+	// paypal
+	const [{isPending, isResolved, isRejected}] = usePayPalScriptReducer();
 
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
@@ -121,6 +125,8 @@ const Checkout = () => {
 	const [couponDetails, setCouponDetails] = useState({});
 	const [taxValue, setTaxValue] = useState(0);
 	const [isChargable, setIsChargable] = useState(null);
+	const [couponSuccess, setCouponSuccess] = useState(false);
+	const [isCouponLoading, setIsCouponLoading] = useState(false);
 
 	const [transactionFee, setTransactionFee] = useState(0);
 
@@ -146,7 +152,6 @@ const Checkout = () => {
 	);
 
 	const [storeId, setStoreId] = useState();
-
 	// TODO: set to the base currency
 
 	const baseCurrencyObbject = checkOutDetails?.find(
@@ -173,7 +178,6 @@ const Checkout = () => {
 					Authorization: 'none',
 				},
 			});
-			// console.log('response.data?.data', response.data?.data);
 			setStoreDetails(response.data.data);
 			setDefaultCurrency(response.data?.data?.default_currency);
 			setPricingTypeDetails(response.data?.data?.product_price_type);
@@ -275,7 +279,8 @@ const Checkout = () => {
 		const value = {
 			fullname: `${values?.firstName} ${values?.lastName}`,
 			email_address: values?.email,
-			mobile_number: `${countryCode?.country_code}${values?.phoneNo}`,
+			mobile_number: `${values?.phoneNo}`,
+			country_code: `${countryCode?.country_code}`,
 			datetime: new Date().toISOString(),
 			total:
 				pricingTypeDetails === 'Make it Free'
@@ -549,7 +554,7 @@ const Checkout = () => {
 							),
 						pricing_type: 'fixed_price',
 						local_price: {
-							amount: getCurrency('price'),
+							amount: Number(getCurrency('price')) / 100,
 							currency: 'USDT',
 						},
 						// TODO: change this to actual customer ID and name
@@ -585,12 +590,12 @@ const Checkout = () => {
 									hostState || 'kreatesell.com'
 							  }/checkout/success/${
 									storeDetails?.store_dto?.store_name
-							  }/${
+							  }_${
 									router?.query?.id
 							  }/?currency=${currencyPaidIn}`,
 						cancel_url: `${resolveProtocol(hostState)}://${
 							hostState || 'dev.kreatesell.com'
-						}/checkout/${productId}?status=fail`,
+						}/payment/checkout/${productId}?status=fail`,
 					}
 				);
 				window.open(data.data.url, '_blank');
@@ -613,15 +618,23 @@ const Checkout = () => {
 							storeDetails?.product_details?.is_redirect_buyer
 								? storeDetails?.product_details?.redirect_url
 								: router.push(
-										`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
+										`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 								  );
 						}
 					);
 					closePaymentModal();
 					//   openModal();
 				},
-				onClose: () => {
+				onClose: async () => {
 					// TODO: on abandon flow
+					await sendPaymentCheckoutDetails(
+						paymentDetails({
+							status: 'abandoned',
+						}),
+						() => {},
+						() => {},
+						false
+					);
 				},
 			});
 		}
@@ -702,7 +715,7 @@ const Checkout = () => {
 				storeDetails?.product_details?.is_redirect_buyer
 					? storeDetails?.product_details?.redirect_url
 					: router.push(
-							`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}/?currency=${currencyPaidIn}`
+							`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 					  );
 			}
 		);
@@ -710,8 +723,15 @@ const Checkout = () => {
 
 	const onPaystackClose = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
-		console.log('closed');
-		// TODO: on abandon flow
+		// Abandon transaction
+		sendPaymentCheckoutDetails(
+			paymentDetails(
+				{status: 'abandoned'},
+				() => {},
+				() => {},
+				false
+			)
+		);
 	};
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
@@ -719,6 +739,8 @@ const Checkout = () => {
 
 	// paypal success
 	const paypalSuccess = (data, actions) => {
+		console.log('data', data);
+		console.log('actions', actions);
 		// sendPaymentCheckoutDetails(
 		// 	paymentDetails({reference: reference?.reference, status: status}),
 		// 	() =>
@@ -728,6 +750,7 @@ const Checkout = () => {
 		// );
 	};
 
+	// stripe logic is being handled on the backend
 	const stripeSuccess = () => {};
 
 	// ===================================================================================
@@ -762,10 +785,26 @@ const Checkout = () => {
 	};
 
 	const handleApplyCoupon = async (e) => {
+		if (!couponData.customer_email) return;
 		e.preventDefault();
-		await applyCoupon(couponData, (res) => {
-			setCouponDetails(res);
-		});
+		try {
+			setIsCouponLoading(true);
+			await applyCoupon(
+				couponData,
+				(res) => {
+					setCouponDetails(res);
+					setCouponSuccess(true);
+					setIsCouponLoading(false);
+				},
+				() => {
+					setIsCouponLoading(false);
+				}
+			);
+		} catch (err) {
+			setCouponSuccess(false);
+			setIsCouponLoading(false);
+			console.error(err);
+		}
 	};
 
 	useEffect(() => {
@@ -786,6 +825,8 @@ const Checkout = () => {
 				<Loader />
 			</div>
 		);
+
+	// TODO: Show screen for if product is not available/deactivated for preview
 
 	return (
 		<>
@@ -838,111 +879,162 @@ const Checkout = () => {
 					</div>
 
 					<div className="flex flex-col md:flex-row gap-6 w-full">
-						<div
-							style={{height: 'fit-content'}}
-							className="bg-white shadow rounded-lg w-full md:w-2/5 p-10 lg:p-5 lg:px-16"
-						>
-							<form>
-								<div>
-									<div className="text-black-100 font-bold text-lg mb-4">
-										Personal Info
+						<div className="w-full md:w-2/5 flex flex-col">
+							<div
+								style={{height: 'fit-content'}}
+								className="bg-white shadow rounded-lg w-full p-10 lg:p-5 lg:px-16"
+							>
+								<form>
+									<div>
+										<div className="text-black-100 font-bold text-lg mb-4">
+											Personal Info
+										</div>
+										<p className="text-base-gray-200">
+											Complete your purchase by filling in
+											the following details
+										</p>
 									</div>
-									<p className="text-base-gray-200">
-										Complete your purchase by filling in the
-										following details
-									</p>
-								</div>
 
-								<Input
-									name="firstName"
-									placeholder="Enter your Name"
-									label="First Name"
-									height="small"
-									onChange={formik.handleChange}
-									errorMessage={errors.firstName}
-									// validateOnChange
-								/>
+									<Input
+										name="firstName"
+										placeholder="Enter your Name"
+										label="First Name"
+										height="small"
+										onChange={formik.handleChange}
+										errorMessage={errors.firstName}
+										// validateOnChange
+									/>
 
-								<Input
-									name="lastName"
-									placeholder="Enter your Name"
-									label="Last Name"
-									height="small"
-									onChange={formik.handleChange}
-									errorMessage={errors.lastName}
-									// validateOnChange
-								/>
+									<Input
+										name="lastName"
+										placeholder="Enter your Name"
+										label="Last Name"
+										height="small"
+										onChange={formik.handleChange}
+										errorMessage={errors.lastName}
+										// validateOnChange
+									/>
 
-								<Input
-									name="email"
-									placeholder="Enter your Email"
-									label="Email Address"
-									height="small"
-									onChange={formik.handleChange}
-									errorMessage={errors.email}
-								/>
+									<Input
+										name="email"
+										placeholder="Enter your Email"
+										label="Email Address"
+										height="small"
+										onChange={formik.handleChange}
+										errorMessage={errors.email}
+									/>
 
-								<Row gutter={{xs: 0, sm: 0, md: 8}}>
-									<Col
-										xs={12}
-										md={12}
-										className={styles.phoneNumberLabel}
-									>
-										Phone Number
-									</Col>
-
-									<div className={styles.phoneCode}>
-										<Col xs={12} md={12}>
-											<SelectV2
-												label=""
-												size="large"
-												setCountry={setCountry}
-												list={countries}
-												placeholder="Nigeria (+234)"
-												name="Country_code"
-												isCheckout={true}
-												onChange={(country) => {
-													formik.setFieldValue(
-														'Country_code',
-														country
-													);
-												}}
-												errorMessage={
-													errors.Country_code
-												}
-												// rules={[
-												// 	{
-												// 		required: true,
-												// 		message:
-												// 			'Country Code is a required field',
-												// 	},
-												// ]}
-											/>
+									<Row gutter={{xs: 0, sm: 0, md: 8}}>
+										<Col
+											xs={12}
+											md={12}
+											className={styles.phoneNumberLabel}
+										>
+											Phone Number
 										</Col>
-										<div className={styles.phoneBox}>
-											<Col>
-												<PhoneNumberInput
-													type="tel"
-													placeholder={
-														'Enter your phone number'
-													}
-													height="small"
-													name="phoneNo"
-													// value={values.phoneNo}
-													maxLength={11}
-													inputMode="numeric"
-													onChange={
-														formik.handleChange
-													}
+
+										<div className={styles.phoneCode}>
+											<Col xs={12} md={12}>
+												<SelectV2
+													label=""
+													size="large"
+													setCountry={setCountry}
+													list={countries}
+													placeholder="Nigeria (+234)"
+													name="Country_code"
+													isCheckout={true}
+													onChange={(country) => {
+														formik.setFieldValue(
+															'Country_code',
+															country
+														);
+													}}
 													errorMessage={
-														errors.phoneNo
+														errors.Country_code
 													}
+													// rules={[
+													// 	{
+													// 		required: true,
+													// 		message:
+													// 			'Country Code is a required field',
+													// 	},
+													// ]}
 												/>
 											</Col>
+											<div className={styles.phoneBox}>
+												<Col>
+													<PhoneNumberInput
+														type="tel"
+														placeholder={
+															'Enter your phone number'
+														}
+														height="small"
+														name="phoneNo"
+														// value={values.phoneNo}
+														maxLength={11}
+														inputMode="numeric"
+														onChange={
+															formik.handleChange
+														}
+														errorMessage={
+															errors.phoneNo
+														}
+													/>
+												</Col>
+											</div>
 										</div>
+									</Row>
+								</form>
+							</div>
+							<div
+								className={`bg-white shadow rounded-lg w-full mt-7 p-10 lg:p-5 lg:px-7 ${styles.productDetailsContainer}`}
+							>
+								<h4 className={styles.productDetails}>
+									Product Details
+								</h4>
+								<div className={`flex gap-3`}>
+									<div
+										className={`${styles.productImageContainer}`}
+									>
+										<Image
+											width={120}
+											height={120}
+											src={
+												storeDetails.product_images
+													.filter(
+														(image) =>
+															image.file_type ===
+															1
+													)[0]
+													?.filename?.split(',')[0]
+											}
+											// src={QuestionIcon}
+											alt="product Image"
+										/>
 									</div>
-								</Row>
-							</form>
+									<div>
+										<h5 className={styles.productTitle}>
+											{
+												storeDetails?.product_details
+													?.product_name
+											}
+										</h5>
+										<p className={styles.productPrice}>
+											<RenderIf
+												condition={
+													storeDetails?.product_price_type?.toLowerCase() !==
+													'make it free'
+												}
+											>
+												{`${storeDetails?.default_currency?.currency}${storeDetails?.default_price}`}
+											</RenderIf>
+										</p>
+										<p className={styles.name}>
+											{storeDetails?.kreator_full_name}
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div
@@ -1220,249 +1312,271 @@ const Checkout = () => {
 									</div>
 								)}
 								<div className="divider"></div>
-								<div className="pb-6">
-									<div className="text-black-100">
-										Payment Method
-									</div>
-									<p className="text-base-gray-200">
-										Select your preferred payment method
-									</p>
-									<div className="grid gap-4 grid-cols-3 w-full">
-										{countryPayments[
-											activeCurrency?.currency ||
-												activeCurrency?.currency_name
-										]
-											?.filter(({value}) => {
-												if (
-													![
-														'crypto',
-														'stripe',
-														'paypal',
-													].includes(value)
-												) {
-													return true;
-												} else if (
-													(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-														'approved' ||
-														storeDetails?.user_plan?.toLowerCase() !==
-															'business') &&
-													[
-														'paypal',
-														'stripe',
-														'crypto',
-													].includes(value)
-												) {
-													return false;
-												} else if (
+								{pricingTypeDetails !== 'Make it Free' && (
+									<div className="pb-6">
+										<div className="text-black-100">
+											Payment Method
+										</div>
+										<p className="text-base-gray-200">
+											Select your preferred payment method
+										</p>
+										<div className="grid gap-4 grid-cols-3 w-full">
+											{countryPayments[
+												activeCurrency?.currency ||
+													activeCurrency?.currency_name
+											]
+												?.filter(({value}) => {
+													if (
+														![
+															'crypto',
+															'stripe',
+															'paypal',
+														].includes(value)
+													) {
+														return true;
+													} else if (
+														(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+															'approved' ||
+															storeDetails?.user_plan?.toLowerCase() !==
+																'business') &&
+														[
+															'paypal',
+															'stripe',
+															'crypto',
+														].includes(value)
+													) {
+														return false;
+													} else if (
+														storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
+															'approved' &&
+														storeDetails?.user_plan?.toLowerCase() ===
+															'business' &&
+														[
+															'stripe',
+															'crypto',
+														].includes(value)
+													) {
+														return true;
+													}
+												})
+												.map(({type, icon, value}) => (
+													<div
+														key={value}
+														onClick={() =>
+															handlePaymentMethod(
+																value
+															)
+														}
+														className={`${
+															selectedPaymentMethod ===
+															value
+																? 'activeCard'
+																: 'card'
+														} p-2 flex justify-around items-center`}
+													>
+														<Image
+															src={icon}
+															alt={type}
+															height="26"
+														/>
+														{selectedPaymentMethod ===
+															value && (
+															<Image
+																src={ActiveTick}
+																alt="active"
+																width="16"
+																height="16"
+															/>
+														)}
+													</div>
+												))}
+											{/* active currency */}
+											{/* */}
+											<RenderIf
+												condition={
+													([
+														activeCurrency?.currency,
+														activeCurrency?.currency_name,
+													].includes('USD') ||
+														[
+															activeCurrency?.currency,
+															activeCurrency?.currency_name,
+														].includes('GBP') ||
+														[
+															activeCurrency?.currency,
+															activeCurrency?.currency_name,
+														].includes('CAD')) &&
 													storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 														'approved' &&
 													storeDetails?.user_plan?.toLowerCase() ===
-														'business' &&
-													[
-														'stripe',
-														'crypto',
-													].includes(value)
-												) {
-													return true;
-												}
-											})
-											.map(({type, icon, value}) => (
-												<div
-													key={value}
-													onClick={() =>
-														handlePaymentMethod(
-															value
-														)
-													}
-													className={`${
-														selectedPaymentMethod ===
-														value
-															? 'activeCard'
-															: 'card'
-													} p-2 flex justify-around items-center`}
-												>
-													<Image
-														src={icon}
-														alt={type}
-														height="26"
-													/>
-													{selectedPaymentMethod ===
-														value && (
-														<Image
-															src={ActiveTick}
-															alt="active"
-															width="16"
-															height="16"
-														/>
-													)}
-												</div>
-											))}
-										{/* active currency */}
-										{/* */}
-										<RenderIf
-											condition={
-												([
-													activeCurrency?.currency,
-													activeCurrency?.currency_name,
-												].includes('USD') ||
-													[
-														activeCurrency?.currency,
-														activeCurrency?.currency_name,
-													].includes('GBP') ||
-													[
-														activeCurrency?.currency,
-														activeCurrency?.currency_name,
-													].includes('CAD')) &&
-												storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-													'approved' &&
-												storeDetails?.user_plan?.toLowerCase() ===
-													'business'
-											}
-										>
-											<Tooltip
-												title={
-													(!formik.values.firstName ||
-														!formik.values
-															.lastName ||
-														!formik.values.email ||
-														!formik.values
-															.phoneNo) &&
-													'Fill in all Customer Details to be able to select paypal'
+														'business'
 												}
 											>
-												<div>
-													<PayPalButtons
-														style={{
-															layout: 'horizontal',
-															label: 'pay',
-														}}
-														disabled={
-															!formik.values
-																.firstName ||
+												<Tooltip
+													title={
+														(!formik.values
+															.firstName ||
 															!formik.values
 																.lastName ||
 															!formik.values
 																.email ||
 															!formik.values
-																.phoneNo
-														}
-														className={`flex justify-around items-center ml-14 md:ml-1`}
-														createOrder={(
-															data,
-															actions
-														) => {
-															return actions.order.create(
-																{
-																	purchase_units:
-																		[
-																			{
-																				description:
-																					'customDescription',
-																				amount: {
-																					// value: Number(
-																					// 	convertedPrice
-																					// ).toFixed(2),
-																					value: Number(
-																						getCurrency(
-																							'price'
-																						)
-																					).toFixed(
-																						2
-																					),
-																					currency:
-																						getCurrency(
-																							'currency'
-																						),
-																				},
-																			},
-																		],
-																}
-															);
-														}}
-														onApprove={(
-															data,
-															actions
-														) => {
-															// console.log(
-															// 	'data is',
-															// 	data
-															// );
-															paypalSuccess(
+																.phoneNo) &&
+														'Fill in all Customer Details to be able to select paypal'
+													}
+												>
+													<div>
+														<PayPalButtons
+															style={{
+																layout: 'horizontal',
+																label: 'pay',
+															}}
+															disabled={
+																!formik.values
+																	.firstName ||
+																!formik.values
+																	.lastName ||
+																!formik.values
+																	.email ||
+																!formik.values
+																	.phoneNo
+															}
+															className={`flex justify-around items-center ml-14 md:ml-1`}
+															createOrder={(
 																data,
 																actions
-															);
-															// TODO: handle payment success
-															alert(
-																'You have successfully completed the transaction'
-															);
-														}}
-														onCancel={(
-															data,
-															actions
-														) => {}}
-														onError={(err) => {}}
-													/>
-												</div>
-											</Tooltip>
-										</RenderIf>
+															) => {
+																return actions.order
+																	.create({
+																		purchase_units:
+																			[
+																				{
+																					description:
+																						'customDescription',
+																					amount: {
+																						// value: Number(
+																						// 	convertedPrice
+																						// ).toFixed(2),
+																						value: getCurrency(
+																							'price'
+																						),
+																						currency_code:
+																							getCurrency(
+																								'currency'
+																							),
+																					},
+																					reference_id:
+																						'',
+																				},
+																			],
+																		payer: '',
+																	})
+																	.then(
+																		(
+																			orderId
+																		) => {
+																			return orderId;
+																		}
+																	);
+															}}
+															onApprove={(
+																data,
+																actions
+															) => {
+																// return actions.order
+																// 	.capture()
+																// 	.then(
+																// 		function () {
+																// 			// Your code here after capture the order
+																// 		}
+																// 	);
+																paypalSuccess(
+																	data,
+																	actions
+																);
+																// TODO: handle payment success for paypal
+																alert(
+																	'You have successfully completed the transaction'
+																);
+															}}
+															onCancel={(
+																data,
+																actions
+															) => {}}
+															onError={(
+																err
+															) => {}}
+														/>
+													</div>
+												</Tooltip>
+											</RenderIf>
+										</div>
 									</div>
-								</div>
+								)}
 								{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
 								{/**Apply coupon feature is yet to be implemented */}
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
-										<div className="w-3/5 xs:w-3/4 md:w-4/5">
-											<Input
-												placeholder="Coupon Code"
-												name="couponCode"
-												onChange={(e) =>
-													setCouponCode(
-														e.target.value
-													)
-												}
-											/>
+								{pricingTypeDetails !== 'Make it Free' &&
+									!couponSuccess && (
+										<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+											<div className="w-3/5 xs:w-3/4 md:w-4/5">
+												<Input
+													placeholder="Coupon Code"
+													name="couponCode"
+													onChange={(e) =>
+														setCouponCode(
+															e.target.value
+														)
+													}
+												/>
+											</div>
+											<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
+												<Button
+													text={'Apply Coupon'}
+													className={styles.couponBtn}
+													onClick={handleApplyCoupon}
+													disabled={isCouponLoading}
+												/>
+											</div>
 										</div>
-										<div className="w-30 xs:w-1/4 md:w-1/5 pb-2">
-											<Button
-												text={
-													loading
-														? 'wait'
-														: 'Apply Coupon'
-												}
-												className={styles.couponBtn}
-												onClick={handleApplyCoupon}
-											/>
-										</div>
-									</div>
-								)}
+									)}
 
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
-										<div className="w-4/5">
-											<Input
-												placeholder=" Enter Coupon Code"
-												name="couponCode"
-												onChange={(e) =>
-													setCouponCode(
-														e.target.value
-													)
-												}
-											/>
+								{pricingTypeDetails !== 'Make it Free' &&
+									!couponSuccess && (
+										<div className="w-full lg:w-5/6 mx-auto hidden lg:flex gap-4 items-center">
+											<div className="w-4/5">
+												<Input
+													placeholder=" Enter Coupon Code"
+													name="couponCode"
+													onChange={(e) =>
+														setCouponCode(
+															e.target.value
+														)
+													}
+												/>
+											</div>
+											<div className="w-1/5 pb-2">
+												<Button
+													text={'Apply Coupon'}
+													className={styles.couponBtn}
+													onClick={handleApplyCoupon}
+													disabled={isCouponLoading}
+												/>
+											</div>
 										</div>
-										<div className="w-1/5 pb-2">
-											<Button
-												text={
-													loading
-														? 'please wait..'
-														: 'Apply Coupon'
-												}
-												className={styles.couponBtn}
-												onClick={handleApplyCoupon}
-											/>
+									)}
+
+								{pricingTypeDetails !== 'Make it Free' &&
+									couponSuccess && (
+										<div className="w-full md:w-2/4 flex gap-2 items-center my-6 rounded-lg border-2 p-2 ml-16 justify-center">
+											<p className="text-lg my-auto">
+												Coupon succesfully Applied
+											</p>
+											<div>
+												<AiFillCheckCircle className="text-2xl text-base-green-200" />
+											</div>
 										</div>
-									</div>
-								)}
+									)}
 
 								{pricingTypeDetails !== 'Make it Free' && (
 									<div

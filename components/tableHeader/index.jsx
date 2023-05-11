@@ -1144,7 +1144,7 @@ export const CouponActionComponent = ({item}) => {
 			<h2
 				className={
 					styles.spanCont +
-					' text-sm mb-0 font-semibold inline-flex flex-col cursor-pointer text-lg'
+					' text-sm mb-0 font-semibold inline-flex flex-col cursor-pointer'
 				}
 			>
 				<span>.</span>

@@ -1,32 +1,48 @@
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-import styles from '../../../../public/css/storeName-product-id.module.scss';
+
 import {useSelector} from 'react-redux';
+
+import styles from '../../../../public/css/storeName-product-id.module.scss';
 import PreviewHeader from 'components/Preview/PreviewHeader';
 import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
+import useLocation from 'hooks/useLocation';
 import axios from 'axios';
-import {Meta} from 'components/layout';
+// import {Meta} from 'components/layout';
 
-export default function PreviewProduct(props) {
-	// console.log('Props', props?.data);
+export default function PreviewProduct() {
 	const router = useRouter();
 
+	const {countryDetails, countryDetailsLoading: loading} = useLocation();
+
 	const {
-		product: {store_dto, check_out_details, default_currency},
+		product: {
+			store_dto,
+			check_out_details,
+			default_currency,
+			product_price_type,
+		},
 	} = useSelector((state) => state.product);
 	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
 
 	const [activeCurrency, setActiveCurrency] = useState('');
 	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
 	const [productStatus, setProductStatus] = useState('idle');
+
+	const [targetCurrency, setTargetCurrency] = useState('');
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
+	// for "fixed price"
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
 	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
 		useState(null);
+
+	// prices for "pay what you want"
+	const [suggestedPrice, setSuggestedPrice] = useState(null); //predefined suggested price for a particular currency
+	const [minimumPrice, setMinimumPrice] = useState(null); //predefined minimum price for a particular currency
 
 	const getProductByID = GetProductByIDNotAut();
 	const convertCurrency = ConvertCurrency();
@@ -87,8 +103,7 @@ export default function PreviewProduct(props) {
 			});
 		setFormattedCurrencies(currencies);
 	};
-	// console.log('storeCheckoutCurrencies', storeCheckoutCurrencies);
-	// console.log('formattedCurrencies', formattedCurrencies);
+
 	useEffect(() => {
 		if (storeCheckoutCurrencies.length > 0) {
 			formatCurrencies();
@@ -100,21 +115,54 @@ export default function PreviewProduct(props) {
 			handleCurrencyConversion(activeCurrency);
 		}
 	}, [activeCurrency]);
+	useEffect(() => {
+		if (targetCurrency && check_out_details?.length > 0) {
+			handleCurrencyConversion(targetCurrency);
+		}
+	}, [targetCurrency, check_out_details?.length]);
+
+	//TODO: Convert currency based off of user's location
+	useEffect(() => {
+		if (countryDetails?.currency) {
+			setTargetCurrency(countryDetails?.currency);
+		}
+	}, [countryDetails?.currency]);
 
 	const handleCurrencyConversion = (toCurrency) => {
-		let sellingIndex = check_out_details.findIndex(
-			(detail) =>
-				detail?.currency_name === toCurrency &&
-				detail?.price_indicator === 'Selling'
-		);
-		let originalIndex = check_out_details.findIndex(
-			(detail) =>
-				detail?.currency_name === toCurrency &&
-				detail?.price_indicator === 'Original'
-		);
-		if (sellingIndex !== -1) {
-			setAlreadyDefinedPrice(check_out_details[sellingIndex]);
-			if (originalIndex === -1) {
+		// WIP: This is for only fixed price
+		//TODO: Do for pay what you want
+		if (product_price_type?.toLowerCase() === 'fixed price') {
+			let sellingIndex = check_out_details.findIndex(
+				(detail) =>
+					detail?.currency_name === toCurrency &&
+					detail?.price_indicator === 'Selling'
+			);
+			let originalIndex = check_out_details.findIndex(
+				(detail) =>
+					detail?.currency_name === toCurrency &&
+					detail?.price_indicator === 'Original'
+			);
+			if (sellingIndex !== -1) {
+				setAlreadyDefinedPrice(check_out_details[sellingIndex]);
+				if (originalIndex === -1) {
+					setAlreadyDefinedOriginalPrice(null);
+					const data = {
+						amount: 0,
+						from_currency_name: default_currency?.currency,
+						to_currency_name: toCurrency,
+					};
+					convertCurrency(
+						data,
+						() => console.log('success'),
+						() => console.log('error')
+					);
+				} else {
+					setAlreadyDefinedOriginalPrice(
+						check_out_details[originalIndex]
+					);
+				}
+			} else if (toCurrency) {
+				setAlreadyDefinedPrice(null);
 				setAlreadyDefinedOriginalPrice(null);
 				const data = {
 					amount: 0,
@@ -126,24 +174,50 @@ export default function PreviewProduct(props) {
 					() => console.log('success'),
 					() => console.log('error')
 				);
-			} else {
-				setAlreadyDefinedOriginalPrice(
-					check_out_details[originalIndex]
+			}
+		} else if (product_price_type?.toLowerCase() === 'pay what you want') {
+			let minimumIndex = check_out_details.findIndex(
+				(detail) =>
+					detail?.currency_name === toCurrency &&
+					detail?.price_indicator === 'Minimum'
+			);
+			let suggestedIndex = check_out_details.findIndex(
+				(detail) =>
+					detail?.currency_name === toCurrency &&
+					detail?.price_indicator === 'Suggested'
+			);
+			if (suggestedIndex !== -1) {
+				setSuggestedPrice(check_out_details[suggestedIndex]);
+				if (minimumIndex === -1) {
+					setMinimumPrice(null);
+					const data = {
+						amount: 0,
+						from_currency_name: default_currency?.currency,
+						to_currency_name: toCurrency,
+					};
+					convertCurrency(
+						data,
+						() => console.log('success'),
+						() => console.log('error')
+					);
+				} else {
+					setMinimumPrice(check_out_details[minimumIndex]);
+				}
+			} else if (toCurrency) {
+				//there is no predefined minimum or suggested price for the particular currency
+				setMinimumPrice(null);
+				setSuggestedPrice(null);
+				const data = {
+					amount: 0,
+					from_currency_name: default_currency?.currency,
+					to_currency_name: toCurrency,
+				};
+				convertCurrency(
+					data,
+					() => console.log('success'),
+					() => console.log('error')
 				);
 			}
-		} else if (toCurrency) {
-			setAlreadyDefinedPrice(null);
-			setAlreadyDefinedOriginalPrice(null);
-			const data = {
-				amount: 0,
-				from_currency_name: default_currency?.currency,
-				to_currency_name: toCurrency,
-			};
-			convertCurrency(
-				data,
-				() => console.log('success'),
-				() => console.log('error')
-			);
 		}
 	};
 
@@ -176,6 +250,9 @@ export default function PreviewProduct(props) {
 		return null;
 	}
 
+	// console.log('alreadyDefinedPrice', alreadyDefinedPrice);
+	// console.log('alreadyDefinedOriginalPrice', alreadyDefinedOriginalPrice);
+
 	return (
 		<>
 			<div
@@ -189,7 +266,6 @@ export default function PreviewProduct(props) {
 					// width: '100%',
 				}}
 			>
-				{/* <Meta /> */}
 				<PreviewHeader
 					id={router.query.id}
 					showNavLinks={false}
@@ -209,16 +285,22 @@ export default function PreviewProduct(props) {
 }
 
 // export async function getServerSideProps(context) {
-// 	const {/*res,*/ query /*, params, req*/} = context;
-// 	// console.log('query', query);
-// 	const res2 = await axios
-// 		.get(`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`, {
-// 			headers: null,
-// 		})
-// 		.then((res) => res?.data.data);
-// 	return {
-// 		props: {
-// 			data: res2,
-// 		}, // will be passed to the page component as props
-// 	};
+// 	const {query} = context;
+// 	try {
+// 		const {data} = await axios.get(
+// 			`${process.env.BASE_URL}v1/kreatesell/product/get/${query?.id}`
+// 		);
+// 		return {
+// 			props: {
+// 				data,
+// 			},
+// 		};
+// 	} catch (error) {
+// 		console.error('Error fetching data:', error);
+// 		return {
+// 			props: {
+// 				data: null,
+// 			},
+// 		};
+// 	}
 // }

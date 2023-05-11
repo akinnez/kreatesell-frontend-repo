@@ -160,7 +160,7 @@ const SingleBlogPost = () => {
 				console.log('data is', res);
 			},
 			(err) => {
-				console.log('err is', err);
+				x.log('err is', err);
 			}
 		);
 		console.log('comment clicked');
@@ -259,7 +259,8 @@ const SingleBlogPost = () => {
 				<div className={styles.categoryTime}>
 					<span className={styles.category}>
 						<Image src={Briefcase} alt="" width="25" />
-						{'  '}Marketing
+						{'  '}
+						{category}
 					</span>
 					<p className={styles.time}>
 						<Image src={Clock} alt="" width="15" /> 7 days ago
@@ -370,7 +371,7 @@ const SingleBlogPost = () => {
 						></div>
 						<br />
 						<div className={styles.blogBottomDiv}>
-							<section className={styles.postActions}>
+							{/* <section className={styles.postActions}>
 								<div className={styles.likeIcon}>
 									<Image src={LikeIcon} alt="" width="25" />
 									<p className={styles.count}>
@@ -385,10 +386,10 @@ const SingleBlogPost = () => {
 									/>
 									<p className={styles.count}>5.4k</p>
 								</div>
-							</section>
+							</section> */}
 
-							<section className={styles.socialsSection}>
-								<div className={styles.socialsDiv}>
+							{/* <section className={styles.socialsSection}> */}
+							{/* <div className={styles.socialsDiv}>
 									<div
 										className={styles.likeButtonDiv}
 										onClick={() => handleLikePost()}
@@ -422,9 +423,9 @@ const SingleBlogPost = () => {
 										/>{' '}
 										Share
 									</div>
-								</div>
-								{/* TODO: Move this to a popover */}
-								{/* <div className={styles.socialDiv}>
+								</div> */}
+							{/* TODO: Move this to a popover */}
+							{/* <div className={styles.socialDiv}>
                   <ul className={styles.socialUl}>
                     <li className={styles.socialLi}>
                       <FacebookShareButton url={genUrl}>
@@ -472,7 +473,7 @@ const SingleBlogPost = () => {
                     </button>
                   </div>
                 </div> */}
-							</section>
+							{/* </section> */}
 						</div>
 						<br />
 						<br />

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import useSWR from 'swr';
 import {Typography, Row, Col, Button} from 'antd';
@@ -10,7 +10,7 @@ import SuccessModalBox from 'components/SuccessModalBox';
 import WithdrawModal from '../WithdrawModal';
 import WalletInfo from '../WalletInfo';
 import axiosApi from 'utils/axios';
-import {showToast} from 'utils';
+import {showToast, getTransactionFees} from 'utils';
 import styles from './index.module.scss';
 
 const {Text} = Typography;
@@ -19,11 +19,23 @@ const breakPoints = {
 	md: {span: 12},
 };
 
-const WalletBalance = ({bankDetails, walletInfo, loading}) => {
+const WalletBalance = ({bankDetails, walletInfo, loading, mutateCallback}) => {
 	const [withdrawModal, setWithdrawModal] = useState(false);
 	const [successModal, setSuccessModal] = useState(false);
 
 	const {user} = useSelector((state) => state.auth);
+	const [fees, setFees] = useState('');
+
+	//get transaction fees for each withdrawals made based on bank type and currency
+	useEffect(() => {
+		if (bankDetails && walletInfo[0]) {
+			const transactionFees = getTransactionFees(
+				walletInfo[0].currency,
+				bankDetails.bank_type
+			);
+			setFees(transactionFees);
+		}
+	}, [bankDetails, walletInfo]);
 
 	const {data: affiliateBalance, error} = useSWR(
 		`${process.env.BASE_URL}v1/kreatesell/store/wallet/get-balance`,
@@ -132,6 +144,8 @@ const WalletBalance = ({bankDetails, walletInfo, loading}) => {
 					currency={walletInfo[0]?.currency}
 					balance={available_balance}
 					bankDetails={bankDetails}
+					fees={fees}
+					mutateCallback={mutateCallback}
 				/>
 			)}
 			{successModal && (

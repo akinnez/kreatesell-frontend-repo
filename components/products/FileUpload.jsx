@@ -12,6 +12,12 @@ import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 import Filters from 'components/Payouts/components/Filters';
 
+// var public_id = '<public_id>';
+let cloud_name = 'salvoagency';
+let upload_preset = 'kreatesell';
+let sliceSize = 6000000; //TODO: Let's see if we can change this
+let XUniqueUploadId = +new Date();
+
 export default function FileUpload({
 	file,
 	setFile,
@@ -19,10 +25,13 @@ export default function FileUpload({
 	toggleValue,
 	initialFile,
 	onLoadCb = () => {},
+	multiple = null,
 }) {
 	const [progress, setProgress] = useState(0);
+	const [isUploading, setIsUploading] = useState(false);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: 'all',
+		multiple,
 	});
 
 	const [files, setFiles] = useState([]);
@@ -39,23 +48,88 @@ export default function FileUpload({
 			console.log(error);
 		}
 	};
-	const getBase64 = (file) => {
-		return new Promise((resolve, reject) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onprogress = (data) => {
-				if (data.lengthComputable) {
-					var progress = parseInt(
-						(data.loaded / data.total) * 100,
-						10
-					);
-					setProgress(progress);
-				}
-			};
-			reader.onload = () => resolve(reader.result);
-			reader.onerror = (error) => reject(error);
-		});
-	};
+	// ================================================================================
+	// cloudinary upload functions starts here
+	// ================================================================================
+
+	function getBase64(files) {
+		setIsUploading(true);
+		const file = files;
+		let start = 0;
+		let size = file.size;
+
+		setTimeout(loop, 3);
+		function loop() {
+			let end = start + sliceSize;
+
+			// this is to ensure that the slicesize is not bigger than the file size
+			if (end > size) {
+				end = size;
+			}
+
+			var s = slice(file, start, end);
+			send(s, start, end - 1, size, file.name);
+			if (end < size) {
+				start += sliceSize;
+				setProgress(Math.round((start / size) * 100));
+				setTimeout(loop, 3);
+			}
+		}
+	}
+
+	async function send(piece, start, end, size, filename) {
+		let formData = new FormData();
+
+		formData.append('file', piece);
+		formData.append('upload_preset', upload_preset);
+		formData.append('cloud_name', cloud_name);
+		formData.append('public_id', filename);
+
+		const xhr = new XMLHttpRequest();
+
+		xhr.onload = function (e) {
+			let parsedData = JSON.parse(this.responseText);
+			if (parsedData.done === true) {
+				setIsUploading(false);
+				setProgress(100);
+				setFile(parsedData.secure_url);
+			}
+		};
+
+		xhr.onerror = function () {
+			setIsUploading(false);
+		};
+
+		xhr.open(
+			'POST',
+			'https://api.cloudinary.com/v1_1/salvoagency/auto/upload',
+			false
+		);
+		xhr.setRequestHeader('X-Unique-Upload-Id', XUniqueUploadId);
+		xhr.setRequestHeader(
+			'Content-Range',
+			'bytes ' + start + '-' + end + '/' + size
+		);
+
+		xhr.send(formData);
+	}
+
+	function slice(file, start, end) {
+		let slice = file?.mozSlice
+			? file?.mozSlice
+			: file?.webkitSlice
+			? file?.webkitSlice
+			: file.slice
+			? file.slice
+			: returnNull;
+		return slice.bind(file)(start, end);
+	}
+
+	function returnNull() {}
+	// ================================================================================
+	// cloudinary upload functions ends here
+	// ================================================================================
+
 	const handleDeleteFile = () => {
 		deleteFile(mainFile[0].file);
 		setFile(null);
@@ -66,6 +140,17 @@ export default function FileUpload({
 			setFile(null);
 		};
 	}, [isToggleable, toggleValue]);
+
+	// This is for the upload
+	useEffect(() => {
+		if (progress) {
+			if (progress !== 100) {
+				onLoadCb(true);
+			} else {
+				onLoadCb(false);
+			}
+		}
+	}, [progress]);
 
 	useMemo(() => {
 		if (initialFile) {
@@ -87,7 +172,7 @@ export default function FileUpload({
 					(item, i) =>
 						new Promise(async (res, rej) => {
 							await getBase64(item.file);
-							setFile(item.file);
+							// setFile(item.file);
 							res(null);
 						})
 				);
@@ -214,17 +299,23 @@ export default function FileUpload({
 					))}
 			</RenderIf>
 			<div className={styles.fileUploader}>
-				{file && <span></span>}
+				{(file || isUploading) && <span></span>}
 				<div
 					className={`${styles.contentFileUpload} ${
-						file ? styles.contentFileUploadDisabled : ''
+						file || isUploading
+							? styles.contentFileUploadDisabled
+							: ''
 					}`}
 					{...getRootProps()}
 				>
 					<div className="flex justify-center items-center">
 						<input {...getInputProps()} />
 						<Image
-							src={file ? CloudUploadDisable : CloudUpload}
+							src={
+								file || isUploading
+									? CloudUploadDisable
+									: CloudUpload
+							}
 							alt="upload image"
 						/>
 						<p className="hidden md:block text-sm pl-4">
