@@ -517,8 +517,6 @@ export const GetStoreCheckoutCurrencies = () => {
 					type: types.GET_STORE_CHECKOUT_CURRENCY.SUCCESS,
 					payload: res?.data?.store_product_currencies,
 				});
-				// console.log('res get currencies checkout', res.data)
-				// showToast(res?.data?.message, 'info')
 				successCallback?.();
 			},
 			(err) => {

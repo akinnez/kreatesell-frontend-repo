@@ -152,7 +152,6 @@ const Checkout = () => {
 	);
 
 	const [storeId, setStoreId] = useState();
-
 	// TODO: set to the base currency
 
 	const baseCurrencyObbject = checkOutDetails?.find(
@@ -1001,11 +1000,15 @@ const Checkout = () => {
 											width={120}
 											height={120}
 											src={
-												storeDetails.product_images.filter(
-													(image) =>
-														image.file_type === 1
-												)[0].filename
+												storeDetails.product_images
+													.filter(
+														(image) =>
+															image.file_type ===
+															1
+													)[0]
+													?.filename?.split(',')[0]
 											}
+											// src={QuestionIcon}
 											alt="product Image"
 										/>
 									</div>

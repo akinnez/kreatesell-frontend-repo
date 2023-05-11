@@ -89,7 +89,7 @@ export default function FileUpload({
 
 		xhr.onload = function (e) {
 			let parsedData = JSON.parse(this.responseText);
-			if (JSON.parse(parsedData.done) === true) {
+			if (parsedData.done === true) {
 				setIsUploading(false);
 				setProgress(100);
 				setFile(parsedData.secure_url);
