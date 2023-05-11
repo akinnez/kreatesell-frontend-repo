@@ -1564,7 +1564,7 @@ const Checkout = () => {
 									)}
 
 								{pricingTypeDetails !== 'Make it Free' &&
-									!couponSuccess && (
+									couponSuccess && (
 										<div className="w-full md:w-2/4 flex gap-2 items-center my-6 rounded-lg border-2 p-2 ml-16 justify-center">
 											<p className="text-lg my-auto">
 												Coupon succesfully Applied
