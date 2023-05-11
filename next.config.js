@@ -18,10 +18,7 @@ module.exports = (phase) => {
 		isDev: isDev,
 		isProd: isProd,
 		isStaging: isStaging,
-		BASE_URL:
-			!isDev && !isProd
-				? 'https://kreatesell-pilot.azurewebsites.net/api/'
-				: 'https://kreatesell.io/api/',
+		BASE_URL:'https://kreatesell-pilot.azurewebsites.net/api/',
 		// BASE_URL: 'https://kreatesell-pilot.azurewebsites.net/api/',
 		NEXT_PUBLIC_RECAPTCHA_SITE_KEY:
 			'6Le7-jQcAAAAAOHkoLvhdgAjcmfi2gcHjLKkCzYB',
@@ -34,21 +31,13 @@ module.exports = (phase) => {
 		NEXT_PUBLIC_RECAPTCHA_SITE_KEY:
 			'6Le7-jQcAAAAAOHkoLvhdgAjcmfi2gcHjLKkCzYB',
 		NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY:
-			'pk_test_1507a32eacc6e969e3c63d30052f77e12f29f78f',
+			'pk_live_862dd40636ff51c765e98e2a5424c398cde511fd',
 		NEXT_PUBLIC_PAYSTACK_GHANA_PUBLIC_KEY:
-			'pk_test_25cc61cc04df35fe9e3e09f4a7b830b8050b7d89',
-		NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY: isProd
-			? 'FLWPUBK-248deb1e4c4da9c14870e2ad5300b513-X'
-			: 'FLWPUBK_TEST-3f92e2c7e96647a15cfd7206f88dcd60-X',
-		// NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY:
-		// 	'FLWPUBK-248deb1e4c4da9c14870e2ad5300b513-X',
-		// NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: 'pk_live_51KHkOkEiRwUsDs0AlNvA7bynwKfMvaj7rdfGpejucsZalNh7KwlWe3RcUizNoYk16yvJ9MSgcALp5SzUFAyFAA3g00OnWxz6eA',
-		NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: isProd
-			? 'pk_live_51KHkOkEiRwUsDs0AlNvA7bynwKfMvaj7rdfGpejucsZalNh7KwlWe3RcUizNoYk16yvJ9MSgcALp5SzUFAyFAA3g00OnWxz6eA'
-			: 'pk_test_51KHkOkEiRwUsDs0AJ15ufHXXYL7Zbs26ZpKiqiSuWjnjeDtYkMaMPAdL4eEBVwQtzrZs12abo0UxtNdNzXFiywsQ005dNpADpb',
+			'pk_live_dcdd1c4edd578e9183f1386cd41903f37f801811',
+		NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY: 'FLWPUBK-248deb1e4c4da9c14870e2ad5300b513-X',
+		NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: 'pk_live_51KHkOkEiRwUsDs0AlNvA7bynwKfMvaj7rdfGpejucsZalNh7KwlWe3RcUizNoYk16yvJ9MSgcALp5SzUFAyFAA3g00OnWxz6eA',
 		NEXT_SECRET_STRIPE_PUBLISHABLE_KEY:
-			'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',
-
+			'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',
 		//  kreatesell paypal
 		NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY:
 			'AW7u10uJYBenaA-igO_LE3kZFljEyvqIQtl_gI7NM8bsl8ItY6m4g8mHaYl41FJHgvjZiJ2RnoOQkKcf',
