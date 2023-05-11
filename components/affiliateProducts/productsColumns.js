@@ -24,9 +24,9 @@ const productsColumns = [
 		render: (dateStr) => dateString(dateStr),
 	},
 	{
-		title: 'No of Sales',
-		dataIndex: 'total_affiliate_sales',
-		render: (sales) => formatNumber(sales),
+		title: 'Product Price',
+		dataIndex: 'price',
+		render: (price, all) => `${all?.default_currency?.currency} ${price}`,
 	},
 	{
 		title: 'Performance',
