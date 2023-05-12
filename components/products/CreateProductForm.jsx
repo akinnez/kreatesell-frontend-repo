@@ -185,21 +185,21 @@ export const CreateProductForm = ({
 	}, [preOrder, store]);
 
 	useEffect(() => {
-		if (imageUploads.length >= 3) {
+		if (imageUploads?.length >= 3) {
 			setIsImageFilled(true);
 			return;
 		}
 		return setIsImageFilled(false);
 	}, [imageUploads]);
 
-	const findUnsupportedFileFormat = imageUploads.find((item) =>
+	const findUnsupportedFileFormat = imageUploads?.find((item) =>
 		item?.file?.name.includes('.png')
 	);
 
 	useEffect(() => {
 		setFieldValue('product_details', contents);
 		setFieldValue('product_images.productFiles', [
-			...imageUploads.map((file) =>
+			...imageUploads?.map((file) =>
 				file.url ? file.url : file.file.filename
 			),
 		]);
@@ -265,7 +265,7 @@ export const CreateProductForm = ({
 						?.filter((images) => images?.file_type !== 4)
 						?.map((item) => {
 							const arr = item?.filename?.split(',');
-							return arr.length > 0 ? [...arr] : [];
+							return arr?.length > 0 ? [...arr] : [];
 						})
 				);
 				setFiles(
@@ -490,14 +490,14 @@ export const CreateProductForm = ({
 								</div>
 								<div
 									className={
-										imageUploads.length > 0
+										imageUploads?.length > 0
 											? styles.isImage
 											: styles.noImage + ' ml-3'
 									}
 								>
 									{/* {console.log('imageUploads', imageUploads)} */}
 									<ul className="flex flex-col mb-0">
-										{imageUploads.map((fileWrap, indx) => {
+										{imageUploads?.map((fileWrap, indx) => {
 											if (!(fileWrap.errors.length > 0)) {
 												return (
 													<ImageUpload

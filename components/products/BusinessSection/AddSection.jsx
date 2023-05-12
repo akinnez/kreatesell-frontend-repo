@@ -59,13 +59,13 @@ export default function AddSection({toSection}) {
 	};
 	const handleSubmit = (data) => {
 		createSection(data, () => {
-			getProduct(prodId);
+			getProduct(prodId || productID);
 		});
 	};
 
 	const submitSub = (data) => {
 		createContent(data, () => {
-			getProduct(prodId);
+			getProduct(prodId || productID);
 		});
 	};
 	const formik = useFormik({
@@ -87,14 +87,14 @@ export default function AddSection({toSection}) {
 		createSection(
 			{
 				product_id: product?.product_details?.id,
-				kreatesell_id: prodId,
+				kreatesell_id: prodId || productID,
 				product_content_name: `Section ${
 					product?.product_content.length + 1
 				}`,
 				action: 'c',
 			},
 			() => {
-				getProduct(prodId);
+				getProduct(prodId || productID);
 			}
 		);
 	};
@@ -108,7 +108,7 @@ export default function AddSection({toSection}) {
 				content_id: item.id,
 			},
 			() => {
-				getProduct(prodId);
+				getProduct(prodId || productID);
 			}
 		);
 	};
@@ -140,7 +140,7 @@ export default function AddSection({toSection}) {
 				content_id: item.id,
 			},
 			() => {
-				getProduct(prodId);
+				getProduct(prodId || productID);
 			}
 		);
 	};
@@ -234,7 +234,7 @@ export default function AddSection({toSection}) {
 				action: 'c',
 			},
 			() => {
-				getProduct(prodId);
+				getProduct(prodId || productID);
 			}
 		);
 	};
@@ -253,7 +253,7 @@ export default function AddSection({toSection}) {
 				},
 			},
 			() => {
-				getProduct(prodId);
+				getProduct(prodId || productID);
 			}
 		);
 	};
@@ -271,7 +271,7 @@ export default function AddSection({toSection}) {
 				},
 			},
 			() => {
-				getProduct(prodId);
+				getProduct(prodId || productID);
 			}
 		);
 	};
@@ -281,7 +281,7 @@ export default function AddSection({toSection}) {
 			setProductSection(product_content);
 		}
 	}, [product]);
-	// console.log('productSection', productSection);
+
 	return (
 		<div className={styles.allSection}>
 			{productSection !== null &&
