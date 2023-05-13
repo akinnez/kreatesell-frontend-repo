@@ -164,7 +164,7 @@ export default function Home() {
 							src={LandingPageHeroPng}
 							alt="kreatesell hero"
 							layout="responsive"
-							onClick={() => setVisible(!modalVisible)}
+							onClick={() => setOpenVideoModal(true)}
 						/>
 					</div>
 
@@ -743,7 +743,7 @@ export default function Home() {
 					</div>
 				</div>
 
-				{!openVideoModal && (
+				{/* {!openVideoModal && (
 					<Modal
 						onClose={() => setVisible(!modalVisible)}
 						visible={modalVisible}
@@ -757,7 +757,7 @@ export default function Home() {
 							setOpenVideoModal={setOpenVideoModal}
 						/>
 					</Modal>
-				)}
+				)} */}
 
 				{openVideoModal && (
 					<Modal
