@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import {Menu} from 'antd';
+import { Menu } from 'antd';
 import style from './sidebar.module.scss';
-import {useRouter} from 'next/router';
-import {SetProductDefault, SetProductID} from 'redux/actions';
+import { useRouter } from 'next/router';
+import { SetProductDefault, SetProductID } from 'redux/actions';
 import Image from 'next/image';
-import {mutate} from 'swr';
+import { mutate } from 'swr';
 import {
 	Shop,
 	Dashboard,
@@ -27,12 +27,12 @@ import {
 	forwardRef,
 	useCallback,
 } from 'react';
-import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
-import {RenderIf, CloseIcon} from 'utils';
-import {guideDataObject} from '../../Models/onboardingGuideData';
+import { BusinessPlanBox, OpenSubMenu, TelegramIconWhite } from '../../utils/assets';
+import { RenderIf, CloseIcon } from 'utils';
+import { guideDataObject } from '../../Models/onboardingGuideData';
 import axiosAPI from 'utils/axios';
 
-import {Logout as LogoutAction} from '../../redux/actions/auth.actions';
+import { Logout as LogoutAction } from '../../redux/actions/auth.actions';
 import Timer from './Timer';
 
 const menuItemStyle = {
@@ -41,8 +41,8 @@ const menuItemStyle = {
 };
 
 const MenuItem = memo(
-	forwardRef(({Icon = () => <></>, title, target = '#', ...rest}, ref) => {
-		const {pathname} = useRouter();
+	forwardRef(({ Icon = () => <></>, title, target = '#', ...rest }, ref) => {
+		const { pathname } = useRouter();
 		const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 		return (
@@ -69,15 +69,15 @@ const MenuItem = memo(
 );
 MenuItem.displayName = 'MenuItem';
 
-const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
-	const {pathname} = useRouter();
+const LogoutItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+	const { pathname } = useRouter();
 	const logout = LogoutAction();
 	const isPath = target.split('/')[3] == pathname.split('/')[3];
 
 	return (
 		<Menu.Item
 			{...rest}
-			style={{background: '#0072EF', color: 'white', ...menuItemStyle}}
+			style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
 			icon={
 				<Icon
 					className={style.icon}
@@ -95,10 +95,31 @@ const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
 	);
 };
 
-// console.log(OpenSubMenu);
 
-const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
-	const {SubMenu} = Menu;
+const TelegramIconItem = ({ Icon = () => <></>, title, target = '#', ...rest }) => {
+	return (
+		<Menu.Item
+			{...rest}
+			style={{ background: '#0072EF', color: 'white', ...menuItemStyle }}
+			icon={
+				<Icon
+					className={style.icon}
+					active={true}
+					height={20}
+					width={20}
+				/>
+			}
+			title={title}
+			className={style.active}
+			onClick={() => console.log('hello')}
+		>
+
+		</Menu.Item>
+	)
+}
+
+const Sidebar = ({ isMobileView = false, setProceedToOnboard }) => {
+	const { SubMenu } = Menu;
 	const router = useRouter();
 	const setProductId = SetProductID();
 	const setProductDefault = SetProductDefault();
@@ -136,10 +157,10 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 		isSalesOpen: false,
 	});
 
-	const {isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen} = isOpen;
+	const { isAffiliateOpen, isKreatorOpen, isProductOpen, isSalesOpen } = isOpen;
 	const onOpenChange = (id) => {
 		// setIsOpen((isOpen) => !isOpen);
-		setIsOpen((prev) => ({...isOpen, [id]: !isOpen[id]}));
+		setIsOpen((prev) => ({ ...isOpen, [id]: !isOpen[id] }));
 	};
 
 	const offsetCalculate = () => {
@@ -201,7 +222,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 				mode="inline"
 				theme="light"
 				className={style.menu}
-				// onClick={handleClick}
+			// onClick={handleClick}
 			>
 				<MenuItem
 					ref={
@@ -256,7 +277,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 									alt="open"
 									width={14}
 									height={14}
-									// onClick={handleClick}
+								// onClick={handleClick}
 								/>
 							);
 						}}
@@ -325,7 +346,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 									alt="open"
 									width={14}
 									height={14}
-									// onClick={handleClick}
+								// onClick={handleClick}
 								/>
 							);
 						}}
@@ -378,7 +399,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 									alt="open"
 									width={14}
 									height={14}
-									// onClick={handleClick}
+								// onClick={handleClick}
 								/>
 							);
 						}}
@@ -431,7 +452,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 									alt="open"
 									width={14}
 									height={14}
-									// onClick={handleClick}
+								// onClick={handleClick}
 								/>
 							);
 						}}
@@ -443,7 +464,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 						</Menu.Item>
 						<Menu.Item key="sales-transactions">
 							<Link href="/account/sales/transactions">
-								<a>Transactions</a>
+								<a>Kreator Transactions</a>
 							</Link>
 						</Menu.Item>
 						<Menu.Item key="sales-revenue">
@@ -460,7 +481,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 					isHelp={true}
 					title="Help"
 					target="/account/kreator/help"
-					// onClick={() => setIsActive('help')}
+				// onClick={() => setIsActive('help')}
 				/>
 				<MenuItem
 					ref={
@@ -472,7 +493,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 					Icon={Ticket}
 					title="Integrations"
 					target="/account/kreator/integrations"
-					// onClick={() => setIsActive('integrations')}
+				// onClick={() => setIsActive('integrations')}
 				/>{' '}
 				<MenuItem
 					ref={
@@ -485,7 +506,20 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 					title="Settings"
 					target="/account/kreator/settings"
 				/>
-				<LogoutItem key={8} Icon={Logout} title="Logout" />
+			  {/* Telegram channel */}
+				<div style={{ color: '#BFBFBF', fontSize: '14px', fontWeight: '400', paddingLeft: '3px', marginBottom:'12px' }}>
+					Community
+				</div>
+				<div className='flex items-center justify-center cursor-pointer gap-3 tracking-wide text-white px-4 py-3' style={{ background: 'linear-gradient(180deg, #0069F3 0%, #01875E 100%)', borderRadius: '8px', fontSize: '14px', fontWeight: '400',marginBottom:'58px' }} onClick={()=> router.push('https://t.me/UseKreateSell')}>
+					<Image
+						src={TelegramIconWhite}
+						alt="telegram__icon"
+						width={25}
+						height={25}
+					/>
+					<div>Join Telegram</div>
+				</div>
+				<LogoutItem key={9} Icon={Logout} title="Logout" />
 			</Menu>
 			<RenderIf
 				condition={

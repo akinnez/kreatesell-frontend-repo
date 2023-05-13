@@ -326,6 +326,7 @@ import BlueAlert from '../public/images/blueAlert.png';
 import TelegramIcon from '../public/images/telegramIcon.png';
 import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
+import TelegramIconWhite from '../public/images/Telegramwhite.png';
 
 export {
 	DashPreviewOnePng,
@@ -654,4 +655,5 @@ export {
 	TelegramIcon,
 	InfinityIcon,
 	QuestionIcon,
+	TelegramIconWhite
 };

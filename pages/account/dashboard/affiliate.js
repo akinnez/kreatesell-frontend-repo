@@ -5,7 +5,7 @@ import AuthLayout from '../../../components/authlayout';
 import UserFilters from 'components/account-dashboard/UserFilters';
 import StatsHeader from 'components/account-dashboard/StatsHeader';
 import DashboardLinks from 'components/account-dashboard/DashboardLinks';
-import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
+
 
 const Affiliate = () => {
 	const [_, setFiltered] = useState(null);
@@ -16,7 +16,6 @@ const Affiliate = () => {
 				<title>KreateSell | Affiliate Dashboard</title>
 			</Head>
 			<div>
-				<TelegramFloatingDiv left="15%" top="60%" />
 				<UserFilters
 					data={[]}
 					searchQuery=""

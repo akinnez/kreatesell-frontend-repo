@@ -10,7 +10,6 @@ import AffiliateLink from 'components/affiliateRequests/components/AffiliateLink
 import Overview from 'components/affiliates/Overview';
 import PromotionalMaterials from 'components/affiliateRequests/components/PromotionalMaterials';
 import useFetchData from 'hooks/useFetchData';
-import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 import Loader from 'components/loader';
 
 const {TabPane} = Tabs;
@@ -71,7 +70,6 @@ const AffiliateRequestLinK = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
-				<TelegramFloatingDiv left="13%" top="50%" />
 				<TabPane tab="Affiliate Link" key="1">
 					<>
 						{salesPage === undefined ? (
