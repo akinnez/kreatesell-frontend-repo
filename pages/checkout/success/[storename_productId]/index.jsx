@@ -539,11 +539,11 @@ const Success = () => {
 };
 
 const ProductCard = ({productDetails, kreatorDetails}) => {
-	const [productImage] = useState(() => {
-		return productDetails?.product_images?.filter(
-			(img) => img.file_type_name === 'Main'
-		)[0];
-	});
+  const [productImage] = useState(() => {
+    return productDetails?.product_images?.filter(
+      (img) => img.file_type_name === 'Main'
+      )[0];
+    });
 
 	return (
 		<div className={styles.productCardContainer}>

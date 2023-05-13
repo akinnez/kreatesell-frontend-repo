@@ -52,32 +52,36 @@ export default function FileUpload({
 	// cloudinary upload functions starts here
 	// ================================================================================
 
-	function getBase64(files) {
+	function getBase64(file) {
 		setIsUploading(true);
-		const file = files;
+		// console.log('file', file);
 		let start = 0;
 		let size = file.size;
 
 		setTimeout(loop, 3);
 		function loop() {
+			// console.log('Entered Loop function');
 			let end = start + sliceSize;
-
+			// console.log('size', size);
+			// console.log('end', end);
 			// this is to ensure that the slicesize is not bigger than the file size
 			if (end > size) {
+				// console.log('slice is bigger than size');
 				end = size;
 			}
 
 			var s = slice(file, start, end);
 			send(s, start, end - 1, size, file.name);
 			if (end < size) {
+				// console.log('slice is lesser than size');
 				start += sliceSize;
-				setProgress(Math.round((start / size) * 100));
 				setTimeout(loop, 3);
+				setProgress(Math.round((start / size) * 100));
 			}
 		}
 	}
 
-	async function send(piece, start, end, size, filename) {
+	 function send(piece, start, end, size, filename) {
 		let formData = new FormData();
 
 		formData.append('file', piece);
@@ -89,10 +93,17 @@ export default function FileUpload({
 
 		xhr.onload = function (e) {
 			let parsedData = JSON.parse(this.responseText);
-			if (parsedData.done === true) {
+			// TODO: Account for files smaller than 6mb
+			if (parsedData.bytes < sliceSize) {
 				setIsUploading(false);
 				setProgress(100);
 				setFile(parsedData.secure_url);
+			} else {
+				if (parsedData.done === true) {
+					setIsUploading(false);
+					setProgress(100);
+					setFile(parsedData.secure_url);
+				}
 			}
 		};
 
