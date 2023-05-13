@@ -11,7 +11,6 @@ import Overview from 'components/affiliates/Overview';
 import useFetchData from 'hooks/useFetchData';
 import productImageFn from 'utils/productImageFn';
 
-
 const {TabPane} = Tabs;
 
 const AffiliateProductRequest = () => {
@@ -65,7 +64,6 @@ const AffiliateProductRequest = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
-
 				<TabPane tab="Request" key="1">
 					<Request
 						hasRequestedAccess={

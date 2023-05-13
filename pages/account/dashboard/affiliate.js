@@ -6,7 +6,6 @@ import UserFilters from 'components/account-dashboard/UserFilters';
 import StatsHeader from 'components/account-dashboard/StatsHeader';
 import DashboardLinks from 'components/account-dashboard/DashboardLinks';
 
-
 const Affiliate = () => {
 	const [_, setFiltered] = useState(null);
 

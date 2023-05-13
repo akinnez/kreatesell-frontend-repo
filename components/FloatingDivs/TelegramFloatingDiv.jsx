@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import {TelegramIcon} from 'utils'; 
+import {TelegramIcon} from 'utils';
 
 const TelegramFloatingDiv = ({left, top}) => {
 	return (

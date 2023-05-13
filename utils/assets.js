@@ -655,5 +655,5 @@ export {
 	TelegramIcon,
 	InfinityIcon,
 	QuestionIcon,
-	TelegramIconWhite
+	TelegramIconWhite,
 };
