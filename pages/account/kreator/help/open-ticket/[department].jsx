@@ -27,7 +27,6 @@ import {
 } from 'utils';
 import BackButton from 'components/BackButton';
 import {useSelector} from 'react-redux';
-import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 
 const CardProfile = ({storeDetails, user}) => {
 	return (
@@ -224,7 +223,6 @@ const Department = () => {
 	return (
 		<AuthLayout>
 			<div className={styles.container}>
-				<TelegramFloatingDiv left="15%" top="50%" />
 				<div className="mb-10">
 					<BackButton />
 				</div>

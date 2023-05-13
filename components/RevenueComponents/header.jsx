@@ -70,7 +70,7 @@ const TransactionHeader = ({
 	return (
 		<>
 			<Head>
-				<title>KreateSell | Transactions</title>
+				<title>KreateSell | Kreator Transactions</title>
 			</Head>
 			<div className={styles.container}>
 				<div>
