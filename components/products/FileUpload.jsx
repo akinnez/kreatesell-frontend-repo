@@ -81,7 +81,7 @@ export default function FileUpload({
 		}
 	}
 
-	 function send(piece, start, end, size, filename) {
+	function send(piece, start, end, size, filename) {
 		let formData = new FormData();
 
 		formData.append('file', piece);
