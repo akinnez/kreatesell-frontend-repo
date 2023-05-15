@@ -365,7 +365,9 @@ const Index = () => {
 
 	return (
 		<AuthLayout>
-			<div className={styles.transaction__header}>Transactions</div>
+			<div className={styles.transaction__header}>
+				Kreator Transactions
+			</div>
 			<TransactionHeader
 				{...{
 					setFilters,
