@@ -128,7 +128,7 @@ const AllProducts = () => {
 							kreasell_product_id:
 								item?.product_details?.kreasell_product_id,
 							product_name: item?.product_details?.product_name,
-							product_link: `${domainLink}/${item?.product_details?.kreasell_product_id}`,
+							product_link: `${domainLink}/product/${item?.product_details?.kreasell_product_id}`,
 						},
 					},
 				})),
