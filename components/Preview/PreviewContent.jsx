@@ -368,6 +368,7 @@ export default function PreviewContent({
 						<div className={styles.dp}>
 							{product?.store_dto?.profile_pix && (
 								<Image
+									// src={product?.store_dto?.profile_pix.split('')}
 									src={product?.store_dto?.profile_pix}
 									width="100"
 									height={100}
