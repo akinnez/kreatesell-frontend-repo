@@ -16,6 +16,7 @@
 }
 
 .container {
+
 	.productTypeTab,
 	.productTypeTabDisabled {
 		border-radius: 0.5rem;
@@ -32,15 +33,18 @@
 		// transition: .3s all ease;
 		position: relative;
 		border: 2px solid $gray-100;
+
 		span {
 			color: $gray-200;
 			font-weight: 400;
 			padding-right: 0.75rem;
 			font-size: 0.875rem;
 		}
+
 		h2 {
 			margin-bottom: 0;
 		}
+
 		h3 {
 			position: absolute;
 			right: -2px;
@@ -64,9 +68,11 @@
 				padding-left: 1rem;
 				font-size: 0.8rem;
 			}
+
 			.mobileContainer {
 				display: flex;
 				flex-direction: column;
+
 				.mobileSubTitle {
 					padding-left: 0rem;
 					font-size: 0.75rem;
@@ -79,18 +85,22 @@
 		cursor: not-allowed;
 		color: $gray-100;
 		border: 2px solid $gray-100;
+
 		span {
 			color: $gray-200;
 		}
+
 		h3 {
 			background-color: $green-200;
 			color: $base-white;
 			border: 1px solid $green-200;
 		}
+
 		h2 {
 			color: $gray-200;
 		}
 	}
+
 	.productTypeTab {
 		&.active {
 			border: 2px solid $base-blue;
@@ -100,11 +110,13 @@
 			h2 {
 				color: $base-blue;
 			}
+
 			span {
 				color: $base-blue;
 				font-weight: 400;
 			}
 		}
+
 		&:hover {
 			border: 2px solid $base-blue;
 			color: $base-blue;
@@ -124,6 +136,7 @@
 .businessPlan {
 	background-color: $white-200;
 	padding: 0.5em 0.5em 0.5em 2em;
+
 	h2 {
 		margin-bottom: 0px;
 	}
@@ -133,13 +146,16 @@
 	.inputLabel {
 		font-weight: 600;
 		font-size: 16px;
+		margin-bottom: 8px;
 		@extend .label;
 	}
+
 	.label2 {
 		font-weight: 500;
 		font-size: 1rem;
 		color: #262626;
 	}
+
 	.inputCont {
 		.input {
 			height: 2.5rem;
@@ -147,19 +163,23 @@
 		}
 	}
 }
+
 .upload {
 	border: 2px dotted $base-blue;
 	width: 100%;
 	border-radius: 0.5rem;
+
 	&.activeUpload {
 		border-top: 8px solid #00b140;
 	}
 }
+
 .uploadChart {
 	width: 280px;
 	height: 240px;
 
 	margin-right: 8px;
+
 	@include screen('tablet') {
 		min-width: 100%;
 	}
@@ -171,15 +191,18 @@
 	// 	height: 240px;
 	// }
 }
+
 .uploadCont {
 	flex-direction: column;
 	height: 100%;
 	display: flex;
 	padding: 45px 0;
 	cursor: pointer !important;
+
 	h5 {
 		margin-bottom: 8px;
 	}
+
 	button {
 		font-weight: 500;
 		width: 124px;
@@ -187,13 +210,16 @@
 		border-radius: 8px;
 		align-self: center;
 	}
+
 	@include screen('medium') {
 		padding: 0.1rem 0;
 	}
 }
+
 .fileUploader {
 	position: relative;
-	& > span {
+
+	&>span {
 		width: 100%;
 		height: 100%;
 		background-color: transparent;
@@ -204,6 +230,7 @@
 		left: 0;
 	}
 }
+
 .contentFileUpload {
 	padding: 0.8em;
 	margin-top: 1em;
@@ -214,6 +241,7 @@
 		color: $base-blue;
 	}
 }
+
 .contentFileUploadDisabled {
 	background-color: $white-200 !important;
 
@@ -221,8 +249,10 @@
 		color: $gray-200 !important;
 	}
 }
+
 .fileUpload {
 	margin-top: 35px;
+
 	.uploaded {
 		display: flex;
 		justify-content: space-between;
@@ -233,7 +263,7 @@
 		padding: 12px 24px;
 		position: relative;
 
-		& > span {
+		&>span {
 			width: 100%;
 			height: 100%;
 			background-color: rgba(34, 34, 34, 0.574);
@@ -245,10 +275,12 @@
 			border-radius: 8px;
 		}
 	}
-	& > p {
+
+	&>p {
 		color: $base-green-100;
 	}
 }
+
 .deleteFile {
 	width: 32px;
 	height: 32px;
@@ -257,22 +289,26 @@
 	padding: 4px;
 	cursor: pointer;
 }
+
 .imageContent {
 	width: 100%;
 	height: 68px;
 	border-radius: 8px;
 	margin: 6px 0;
 	padding: 8px 12px;
-	& > div,
+
+	&>div,
 	img {
 		border-radius: 8px;
 	}
+
 	.imageWrap {
 		width: 52px;
 		height: 52px;
 		margin-right: 8px;
 	}
 }
+
 .noImage {
 	// border: 1px solid $gray-100;
 	width: 435px;
@@ -280,6 +316,7 @@
 	flex: 1;
 	display: none;
 	max-height: 240px;
+
 	@include screen('laptop') {
 		min-height: 20vh;
 	}
@@ -292,16 +329,20 @@
 	background-color: rgba(34, 34, 34, 0.03);
 	flex: 1;
 	max-height: 240px;
+
 	@include screen('laptop') {
 		min-height: 20vh;
 	}
+
 	@include screen('medium-large') {
 		width: 100% !important;
 	}
 }
+
 .saveButton {
 	margin: 24px auto 0;
 	min-width: 10%;
+
 	button {
 		width: 180px;
 		height: 52px;
@@ -314,6 +355,7 @@
 		background-color: $base-blue;
 	}
 }
+
 .radioLabel {
 	font-weight: 400 !important;
 	color: $black-100 !important;
@@ -322,6 +364,7 @@
 
 .extralableStyle {
 	font-weight: 400 !important;
+
 	@include screen('medium') {
 		font-size: 0.875rem !important;
 	}
@@ -331,6 +374,7 @@
 	// width: 28%;
 	width: 35%;
 	padding-top: 0.5rem;
+
 	.inputHeight {
 		height: 2.5rem;
 		border: 1px solid $gray-100;
@@ -346,12 +390,14 @@
 	height: 3.3rem;
 	font-size: 1rem;
 }
+
 .errorContent {
 	background-color: $error-bg;
 	margin: 24px 0;
 	display: flex;
 	padding: 8px 8px 8px 32px;
 	align-items: center;
+
 	h2 {
 		color: $error-main;
 		margin-left: 24px;
@@ -366,6 +412,7 @@
 	@media (max-width: 380px) {
 		width: 150px;
 	}
+
 	a {
 		padding: 1em;
 

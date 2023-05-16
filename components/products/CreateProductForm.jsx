@@ -401,14 +401,14 @@ export const CreateProductForm = ({
 				</Form.Item>
 				<Form.Item>
 					<div className="mt-4 w-full lg:w-3/4">
-						<p className={styles.inputLabel}>Product Image</p>
+						<p className={styles.inputLabel}>Product Image</p> 
 						<div className="flex flex-col">
 							<p className="text-base-gray-200 text-xs">
 								This image will be displayed on your store page!
 								(You can upload up to 3 images)
 							</p>
 							<p
-								className={`text-black font-medium text-xs ${
+								className={`text-black font-normal text-xs mt-2 ${
 									showImageFileFeedback
 										? styles.showError
 										: ''
@@ -420,13 +420,13 @@ export const CreateProductForm = ({
 								['oneTimeSubscription', 'membership'].includes(
 									productType
 								) && (
-									<h2 className="text-black font-medium text-md">
+									<h2 className="text-black font-medium text-md mt-1">
 										User needs to upgrade to business plan
 										to add product
 									</h2>
 								)}
 
-							<div className="flex flex-col-reverse sm:flex-row">
+							<div className="flex flex-col-reverse sm:flex-row md:mt-2 gap-2">
 								<div
 									className={'relative ' + styles.uploadChart}
 								>

@@ -253,7 +253,7 @@ export const CreateCouponForm = () => {
 							</Radio>
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
-									type="number"
+									// type="number"
 									placeholder="0"
 									name="percentage_value"
 									onChange={(e) =>
@@ -287,7 +287,7 @@ export const CreateCouponForm = () => {
 							</Radio>
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
-									type="number"
+									// type="number"
 									placeholder="0"
 									name="fixed_amount_value"
 									value={fixed_amount_value}
@@ -381,7 +381,7 @@ export const CreateCouponForm = () => {
 							Number of Times
 						</h2>
 						<Input
-							type="number"
+							// type="number"
 							label="Number of Times"
 							disabled={!isLimited ? true : false}
 							name="no_of_frequency"
@@ -436,7 +436,7 @@ export const CreateCouponForm = () => {
 							Number of times coupon can be used per customer
 						</h2>
 						<Input
-							type="number"
+							// type="number"
 							placeholder="1"
 							name="no_of_usage"
 							value={no_of_usage}

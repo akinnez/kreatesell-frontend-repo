@@ -320,7 +320,7 @@ const Index = () => {
 	};
 	return (
 		<AuthLayout>
-			<div className={styles.transaction__header}>Revenue</div>
+			<div className={styles.transaction__header}>Affiliate Transactions</div>
 			<RevenueHeader
 				{...{
 					setFilters,
