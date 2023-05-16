@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 
 import styles from './PreviewHeader.module.scss';
 import {Button as NormalButton} from 'components';
-import {VerifiedModal, VerifiedDrawer} from 'components/VerifiedComponents'; 
+import {VerifiedModal, VerifiedDrawer} from 'components/VerifiedComponents';
 import {
 	RightPreviewArrow,
 	LeftPreviewArrow,
@@ -557,7 +557,7 @@ export default function PreviewContent({
 							onClick={getCheckoutLink}
 							type="primary"
 							disabled={isProductOutOfStock()}
-							className={styles.preview_btn} 
+							className={styles.preview_btn}
 						>
 							{product?.product_details?.enable_preorder
 								? 'Preorder'

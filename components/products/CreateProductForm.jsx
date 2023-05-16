@@ -401,7 +401,7 @@ export const CreateProductForm = ({
 				</Form.Item>
 				<Form.Item>
 					<div className="mt-4 w-full lg:w-3/4">
-						<p className={styles.inputLabel}>Product Image</p> 
+						<p className={styles.inputLabel}>Product Image</p>
 						<div className="flex flex-col">
 							<p className="text-base-gray-200 text-xs">
 								This image will be displayed on your store page!

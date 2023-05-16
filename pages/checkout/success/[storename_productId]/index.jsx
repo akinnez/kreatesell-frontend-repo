@@ -13,7 +13,7 @@ import {
 	EmailShareButton,
 } from 'react-share';
 
-import styles from 'public/css/checkoutSuccess.module.scss'; 
+import styles from 'public/css/checkoutSuccess.module.scss';
 import {Button, Input} from 'components';
 import {
 	ZipFile,

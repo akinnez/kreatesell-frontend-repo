@@ -16,7 +16,6 @@
 }
 
 .container {
-
 	.productTypeTab,
 	.productTypeTabDisabled {
 		border-radius: 0.5rem;
@@ -219,7 +218,7 @@
 .fileUploader {
 	position: relative;
 
-	&>span {
+	& > span {
 		width: 100%;
 		height: 100%;
 		background-color: transparent;
@@ -263,7 +262,7 @@
 		padding: 12px 24px;
 		position: relative;
 
-		&>span {
+		& > span {
 			width: 100%;
 			height: 100%;
 			background-color: rgba(34, 34, 34, 0.574);
@@ -276,7 +275,7 @@
 		}
 	}
 
-	&>p {
+	& > p {
 		color: $base-green-100;
 	}
 }
@@ -297,7 +296,7 @@
 	margin: 6px 0;
 	padding: 8px 12px;
 
-	&>div,
+	& > div,
 	img {
 		border-radius: 8px;
 	}
