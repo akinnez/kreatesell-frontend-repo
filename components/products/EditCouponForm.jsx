@@ -348,7 +348,7 @@ export const EditCouponForm = () => {
 							</Radio>
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
-									type="number"
+									// type="number"
 									name="coupon_settings.percentage_value"
 									onChange={formik.handleChange}
 									disabled={!isPercentage ? true : false}
@@ -384,7 +384,7 @@ export const EditCouponForm = () => {
 							</Radio>
 							<div className={styles.inputGroup + ' w-full mt-2'}>
 								<Input
-									type="number"
+									// type="number"
 									// placeholder={
 									// 	updateCouponData[0]?.coupons
 									// 		?.fixed_amount_value || '0'
@@ -523,7 +523,7 @@ export const EditCouponForm = () => {
 							Number of times coupon can be used per customer
 						</h2>
 						<Input
-							type="number"
+							// type="number"
 							// placeholder={
 							// 	updateCouponData[0]?.coupons
 							// 		?.number_of_customer_usages || '0'

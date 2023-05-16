@@ -475,7 +475,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 						</Menu.Item>
 						<Menu.Item key="sales-revenue">
 							<Link href="/account/sales/revenue">
-								<a>Revenue</a>
+								<a>Affiliate Transactions</a>
 							</Link>
 						</Menu.Item>
 					</SubMenu>
