@@ -79,7 +79,6 @@ const generateSalesPageScript = () => {
   // Add an onclick event listener to each element\n \
   kreatesellBtns.forEach(btn => {\n \
     btn.addEventListener('click', function() {\n \
-      console.log('clicked')\n \
        if (prodId && storename) { \n\
           window.location.href = `https://kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}`;\n \
         } \n\

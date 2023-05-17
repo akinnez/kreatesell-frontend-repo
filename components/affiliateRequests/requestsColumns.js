@@ -6,20 +6,41 @@ import formatNumber from 'utils/formatNumber';
 import GetLink from './components/GetLink';
 import RequestStatus from './components/RequestStatus';
 
-const productPriceFn = (prices, defaultCurrency="NGN", priceType='Fixed Price') => {
+const productPriceFn = (
+	prices,
+	defaultCurrency = 'NGN',
+	priceType = 'Fixed Price'
+) => {
 	if (!prices || prices.length === 0) return null;
-  if(priceType?.toLowerCase() === 'fixed price'){
-    return {
-      currency: prices.find(price => price?.price_indicator === 'Selling' && defaultCurrency === price?.currency_name)?.currency_name || '',
-      price: prices.find(price => price?.price_indicator === 'Selling' && defaultCurrency === price?.currency_name)?.price
-    }
-  }else if(priceType?.toLowerCase() === 'pay what you want'){
-    return {
-      currency: prices.find(price => price?.price_indicator === 'Minimum' && defaultCurrency === price?.currency_name)?.currency_name || '',
-      price: prices.find(price => price?.price_indicator === 'Minimum' && defaultCurrency === price?.currency_name)?.price
-    }
-  }
-
+	if (priceType?.toLowerCase() === 'fixed price') {
+		return {
+			currency:
+				prices.find(
+					(price) =>
+						price?.price_indicator === 'Selling' &&
+						defaultCurrency === price?.currency_name
+				)?.currency_name || '',
+			price: prices.find(
+				(price) =>
+					price?.price_indicator === 'Selling' &&
+					defaultCurrency === price?.currency_name
+			)?.price,
+		};
+	} else if (priceType?.toLowerCase() === 'pay what you want') {
+		return {
+			currency:
+				prices.find(
+					(price) =>
+						price?.price_indicator === 'Minimum' &&
+						defaultCurrency === price?.currency_name
+				)?.currency_name || '',
+			price: prices.find(
+				(price) =>
+					price?.price_indicator === 'Minimum' &&
+					defaultCurrency === price?.currency_name
+			)?.price,
+		};
+	}
 };
 
 const requestsColumns = [
@@ -41,7 +62,7 @@ const requestsColumns = [
 		render: (record) => {
 			const priceDetails = productPriceFn(
 				record.kreator_product_price_details,
-        record?.default_currency || "NGN"
+				record?.default_currency || 'NGN'
 			);
 			return !priceDetails
 				? 0
