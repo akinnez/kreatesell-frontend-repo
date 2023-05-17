@@ -2,9 +2,25 @@ import Tags from 'components/Tags';
 import Performance from 'components/affiliates/Performance';
 import {dateString} from 'utils/dateFormat';
 import formatNumber from 'utils/formatNumber';
-import productPriceFn from 'utils/productPriceFn';
+// import productPriceFn from 'utils/productPriceFn';
 import GetLink from './components/GetLink';
 import RequestStatus from './components/RequestStatus';
+
+const productPriceFn = (prices, defaultCurrency="NGN", priceType='Fixed Price') => {
+	if (!prices || prices.length === 0) return null;
+  if(priceType?.toLowerCase() === 'fixed price'){
+    return {
+      currency: prices.find(price => price?.price_indicator === 'Selling' && defaultCurrency === price?.currency_name)?.currency_name || '',
+      price: prices.find(price => price?.price_indicator === 'Selling' && defaultCurrency === price?.currency_name)?.price
+    }
+  }else if(priceType?.toLowerCase() === 'pay what you want'){
+    return {
+      currency: prices.find(price => price?.price_indicator === 'Minimum' && defaultCurrency === price?.currency_name)?.currency_name || '',
+      price: prices.find(price => price?.price_indicator === 'Minimum' && defaultCurrency === price?.currency_name)?.price
+    }
+  }
+
+};
 
 const requestsColumns = [
 	{
@@ -24,12 +40,13 @@ const requestsColumns = [
 		title: 'Sales Price',
 		render: (record) => {
 			const priceDetails = productPriceFn(
-				record.kreator_product_price_details
+				record.kreator_product_price_details,
+        record?.default_currency || "NGN"
 			);
 			return !priceDetails
 				? 0
-				: `${priceDetails.currency} ${formatNumber(
-						priceDetails.price
+				: `${priceDetails?.currency} ${formatNumber(
+						priceDetails.price || 0
 				  )}`;
 		},
 	},
