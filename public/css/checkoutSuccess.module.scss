@@ -17,6 +17,12 @@
 		box-shadow: 0px 1px 0px rgba(34, 34, 34, 0.05);
 		padding-inline: 2rem;
 
+		@include screen('medium-large') {
+			padding: 15px 24px;
+			align-items: center;
+			justify-content: flex-start;
+		}
+
 		@include screen('medium') {
 			padding: 15px 24px;
 			align-items: center;
@@ -30,6 +36,10 @@
 
 		.emptyContainer {
 			flex: 1;
+
+			@include screen('medium-large') {
+				display: none;
+			}
 
 			@include screen('medium') {
 				display: none;
@@ -52,6 +62,16 @@
 					font-size: 24px;
 					text-align: left;
 				}
+
+				@include screen('medium-large') {
+					font-size: 24px;
+					text-align: left;
+				}
+			}
+
+			@include screen('medium-large') {
+				flex: 2;
+				justify-content: flex-start;
 			}
 
 			@include screen('medium') {
@@ -81,6 +101,9 @@
 				@include screen('medium') {
 					display: none;
 				}
+				@include screen('medium-large') {
+					display: none;
+				}
 			}
 		}
 	}
@@ -91,6 +114,10 @@
 		margin: auto;
 
 		@include screen('medium') {
+			width: 100%;
+			margin: 0 auto;
+		}
+		@include screen('medium-large') {
 			width: 100%;
 			margin: 0 auto;
 		}
@@ -114,6 +141,10 @@
 						font-size: 24px;
 						margin-top: 24px;
 					}
+					@include screen('medium-large') {
+						font-size: 24px;
+						margin-top: 24px;
+					}
 				}
 
 				.description {
@@ -129,6 +160,10 @@
 						width: 80px;
 						height: 80px;
 					}
+					@include screen('medium-large') {
+						width: 80px;
+						height: 80px;
+					}
 				}
 			}
 
@@ -140,12 +175,19 @@
 				@include screen('medium') {
 					display: none;
 				}
+				@include screen('medium-large') {
+					display: none;
+				}
 			}
 
 			.mobileItems {
 				display: none;
 
 				@include screen('medium') {
+					display: inline-block;
+					width: 100%;
+				}
+				@include screen('medium-large') {
 					display: inline-block;
 					width: 100%;
 				}
@@ -180,6 +222,9 @@
 			@include screen('medium') {
 				padding: 32px 40px;
 			}
+			@include screen('medium-large') {
+				padding: 32px 40px;
+			}
 
 			.header {
 				font-weight: 500;
@@ -203,6 +248,9 @@
 				@include screen('medium') {
 					font-size: 20px;
 				}
+				@include screen('medium-large') {
+					font-size: 20px;
+				}
 			}
 
 			.purchase {
@@ -222,6 +270,9 @@
 						color: #262626;
 
 						@include screen('medium') {
+							line-height: 25px;
+						}
+						@include screen('medium-large') {
 							line-height: 25px;
 						}
 					}
@@ -255,12 +306,20 @@
 				@include screen('medium') {
 					display: none;
 				}
+				@include screen('medium-large') {
+					display: none;
+				}
 			}
 
 			.downloadBtnMobile {
 				display: none;
 
 				@include screen('medium') {
+					display: inline-block;
+					margin-top: 26px;
+					margin-bottom: 10px;
+				}
+				@include screen('medium-large') {
 					display: inline-block;
 					margin-top: 26px;
 					margin-bottom: 10px;
@@ -300,6 +359,11 @@
 			}
 
 			@include screen('medium') {
+				font-size: 15px;
+				line-height: 15px;
+				gap: 0.1rem;
+			}
+			@include screen('medium-large') {
 				font-size: 15px;
 				line-height: 15px;
 				gap: 0.1rem;

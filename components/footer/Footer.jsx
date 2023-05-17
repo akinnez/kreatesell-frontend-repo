@@ -62,7 +62,7 @@ export const Footer = () => {
 						</a>
 					</div>
 
-					<div className={styles.brandContact}>
+					{/* <div className={styles.brandContact}>
 						<div className={styles.brandContactIcon}>
 							<Image src={Location} alt="location" />
 						</div>
@@ -77,7 +77,7 @@ export const Footer = () => {
 							LIEBU BYPASS, DUGBE, IBADAN 200263
 							<br /> <span>Phone: +2349062002777</span>
 						</a>
-					</div>
+					</div> */}
 				</div>
 
 				<div>
@@ -408,12 +408,12 @@ export const Footer = () => {
 						</a>
 					</div>
 
-					<div className={styles.mobileAddress}>
+					{/* <div className={styles.mobileAddress}>
 						KREATESELL LTD
 						<br />
 						17TH FLOOR, COCOA HOUSE, LIEBU BYPASS, DUGBE, IBADAN
 						200263
-					</div>
+					</div> */}
 
 					<div className={styles.mobileCopyright}>
 						Copyright &copy; {new Date().getFullYear()} Kreatesell
