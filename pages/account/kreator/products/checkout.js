@@ -19,8 +19,8 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout>
-        <div></div>
-      </AuthLayout>
+				<div></div>
+			</AuthLayout>
 
 			<style jsx>{`
 				.grey-bg {
