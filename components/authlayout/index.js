@@ -84,11 +84,11 @@ const Index = ({
 	const userPlan = data?.user?.user_plan;
 	const percentageCompleted = data?.percentage_completed;
 
-	// FIXME: Make sure this ony shows when the store details have not been setup,
+	// FIXME: Make sure this only shows when the store details have not been setup,
 	// having less than 80% might not be enough to choose when the modal should show
 	const storeSetupPromptIsShown = useCallback(() => {
 		return (
-			percentageCompleted <= 80 &&
+			percentageCompleted < 80 &&
 			(pathname === '/account/kreator/store' ||
 				pathname === '/account/dashboard')
 		);
