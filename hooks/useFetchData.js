@@ -3,24 +3,25 @@ import {useRouter} from 'next/router';
 import axiosAPI from 'utils/axios';
 
 const useFetchData = (url) => {
+	const [data, setData] = useState(null);
 	const [affiliateLink, setAffiliateLink] = useState(null);
 	const [salesPage, setSalesPage] = useState(null);
 	const [error, setError] = useState(null);
 	const router = useRouter();
 
 	useEffect(() => {
-		// if (url) {
-		// 	axiosAPI.request(
-		// 		'get',
-		// 		url,
-		// 		(res) => {
-		// 			setData(res.data);
-		// 		},
-		// 		(err) => {
-		// 			setError(err.message);
-		// 		}
-		// 	);
-		// }
+		if (url) {
+			axiosAPI.request(
+				'get',
+				url,
+				(res) => {
+					setData(res.data);
+				},
+				(err) => {
+					setError(err.message);
+				}
+			);
+		}
 		if (router.query.pId && url) {
 			const fetcher = async () => {
 				axiosAPI.request(
@@ -68,7 +69,7 @@ const useFetchData = (url) => {
 			fetcher();
 		}
 	}, [url, router.query.productId]);
-	return {affiliateLink, setAffiliateLink, salesPage, error};
+	return {data, setData, affiliateLink, setAffiliateLink, salesPage, error};
 };
 
 export default useFetchData;
