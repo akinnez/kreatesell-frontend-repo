@@ -10,8 +10,7 @@ import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 import useLocation from 'hooks/useLocation';
-import axios from 'axios';
-// import {Meta} from 'components/layout';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 export default function PreviewProduct() {
 	const router = useRouter();
@@ -53,7 +52,6 @@ export default function PreviewProduct() {
 			getProductByID(
 				router.query.id,
 				(res) => {
-					// console.log('successs', res.data.data.status);
 					if (
 						['deactivate', 'deativate'].includes(
 							res.data.data.status.toLowerCase()
@@ -65,7 +63,6 @@ export default function PreviewProduct() {
 					setProductStatus('not-deactivated');
 				},
 				(status) => {
-					// console.log('failed', status);
 					if (status === 'failed') {
 						setProductStatus('deactivated');
 					}
@@ -271,13 +268,19 @@ export default function PreviewProduct() {
 					showNavLinks={false}
 					{...{formattedCurrencies, setActiveCurrency}}
 				/>
-				<PreviewContent
-					{...{
-						alreadyDefinedPrice,
-						alreadyDefinedOriginalPrice,
-						productStatus,
-					}}
-				/>
+				<ErrorBoundary
+					resetErrorBoundary={() =>
+						router.reload(window.location.pathname)
+					}
+				>
+					<PreviewContent
+						{...{
+							alreadyDefinedPrice,
+							alreadyDefinedOriginalPrice,
+							productStatus,
+						}}
+					/>
+				</ErrorBoundary>
 				<PoweredByKS />
 			</div>
 		</>

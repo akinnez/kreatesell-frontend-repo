@@ -296,6 +296,7 @@ import PlusIcon from '../public/images/plus-icon.svg';
 import MinusIcon from '../public/images/minusIcon.svg';
 import GreenCancel from '../public/images/GreenCancel.svg';
 import ErrorInfoIcon from '../public/images/error-info-icon.svg';
+import MaintenanceIcon from '../public/images/maintenance.svg';
 
 import FacebookIcon from '../public/images/facebookicon.svg';
 import InstagramIcon from '../public/images/instagramicon.svg';
@@ -329,6 +330,7 @@ import QuestionIcon from '../public/images/questionIcon.png';
 import TelegramIconWhite from '../public/images/Telegramwhite.png';
 
 export {
+	MaintenanceIcon,
 	DashPreviewOnePng,
 	LandingPageHeroPng,
 	ErrorInfoIcon,

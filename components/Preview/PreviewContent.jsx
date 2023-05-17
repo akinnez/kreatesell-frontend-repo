@@ -359,7 +359,7 @@ export default function PreviewContent({
 					<div className="flex flex-col mb-5">
 						{details !== undefined &&
 							Object.keys(details).length > 0 && (
-								<h2 className="mb-0 text-left text-3xl text-base-black-100 font-bold capitalize">
+								<h2 className="mb-0 text-left text-xl md:text-3xl text-base-black-100 font-bold capitalize">
 									{details?.product_name}
 								</h2>
 							)}
@@ -368,7 +368,6 @@ export default function PreviewContent({
 						<div className={styles.dp}>
 							{product?.store_dto?.profile_pix && (
 								<Image
-									// src={product?.store_dto?.profile_pix.split('')}
 									src={product?.store_dto?.profile_pix}
 									width="100"
 									height={100}
@@ -380,7 +379,7 @@ export default function PreviewContent({
 						<div className="flex  ml-6 flex-col">
 							<div className={`flex flex-col`}>
 								<h2
-									className={`text-lg mb-0 font-semibold capitalize ${styles.userName}`}
+									className={`text-sm md:text-lg mb-0 font-medium capitalize ${styles.userName}`}
 								>
 									{product?.kreator_full_name ||
 										user?.full_name}
@@ -449,7 +448,7 @@ export default function PreviewContent({
 						</h2>
 						{details !== undefined &&
 							Object.keys(details).length > 0 && (
-								<p className="text-left">
+								<p className="text-left text-sm md:text-lg font-normal">
 									{details.product_description}
 								</p>
 							)}
@@ -572,7 +571,7 @@ export default function PreviewContent({
 
 			<section className={styles.more}>
 				<div className="mt-5 flex flex-col ">
-					<h2 className="mb-7 pt-5 font-semibold text-base md:text-lg lg:text-lg">
+					<h2 className="mb-7 pt-5 font-semibold text-lg md:text-lg lg:text-lg">
 						More Details:
 					</h2>
 					{details !== undefined && Object.keys(details)?.length > 0 && (

@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
+import Router, {useRouter} from 'next/router';
 
 import useSWR from 'swr';
 import {Layout, Modal, Typography} from 'antd';
@@ -7,7 +8,6 @@ import {ToastContainer} from 'react-toastify';
 import {useDispatch, useSelector} from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
-import Router, {useRouter} from 'next/router';
 
 import styles from './sidebar.module.scss';
 import Sidebar from './sidebar';
@@ -40,6 +40,7 @@ import {Button} from 'components';
 import axiosAPI from 'utils/axios';
 import {SuccessfulAffiliateSales} from 'redux/actions/affiliate.actions';
 import {TOGGLE_SIDEBAR, CLOSE_SIDEBAR} from '../../redux/types';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 const Loader = () => {
 	return (
@@ -294,7 +295,13 @@ const Index = ({
 							draggable
 							pauseOnHover
 						/>
-						{loading ? <Loader /> : children}
+						<ErrorBoundary
+							resetErrorBoundary={() =>
+								router.reload(window.location.pathname)
+							}
+						>
+							{loading ? <Loader /> : children}
+						</ErrorBoundary>
 					</Content>
 				</Layout>
 			</Layout>
