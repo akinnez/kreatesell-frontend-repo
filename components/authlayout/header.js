@@ -132,7 +132,7 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 			? 'COUPON CODES'
 			: pageTitle.includes('create') && pageTitle[3] === 'products'
 			? 'CREATE PRODUCT'
-			:pageTitle.includes('revenue') && pageTitle[3] === 'revenue'
+			: pageTitle.includes('revenue') && pageTitle[3] === 'revenue'
 			? 'AFILIATES TRANSACTIONS'
 			: 'Dashboard';
 

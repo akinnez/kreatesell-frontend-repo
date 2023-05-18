@@ -384,7 +384,7 @@ export const CreateCouponForm = () => {
 						</h2>
 						<Input
 							type="number"
-							placeholder='0'
+							placeholder="0"
 							min={0}
 							label="Number of Times"
 							disabled={!isLimited ? true : false}

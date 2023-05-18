@@ -222,7 +222,6 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 		// console.log('isFirstTimeUser  from useEffect = ', isFirstTimeUser);
 	}, [isFirstTimeUser, getUserVisitStatus]);
 
-
 	return (
 		<div className={style.sidebar}>
 			<Menu
