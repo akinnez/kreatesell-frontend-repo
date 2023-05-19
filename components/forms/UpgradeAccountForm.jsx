@@ -81,6 +81,7 @@ export const UpgradeAccountForm = ({
 		success: 's',
 		failed: 'f',
 		abandoned: 'a',
+    successful: 's'
 	};
 	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
@@ -93,7 +94,7 @@ export const UpgradeAccountForm = ({
 			total: totalPrice,
 			reference_id: reference,
 			purchase_details: [],
-			status: statusValue,
+			status: statusValue || status,
 			card_type: '',
 			last_four: '',
 			currency: activeCurrency?.currency,
