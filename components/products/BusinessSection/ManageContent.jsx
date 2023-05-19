@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import {
 	ArrowLeft,
 	BlueAlert,
@@ -9,14 +9,14 @@ import {
 	EditPen,
 	FileDelete,
 } from 'utils';
-import { Button, Switch } from 'antd';
+import {Button, Switch} from 'antd';
 import style from './MembershipTab.module.scss';
 import ProductEditor from '../ProductEditor';
 import ContentUpload from '../ContentUpload';
-import { useFormik } from 'formik';
-import { AuthGetProductById, CreateContent } from 'redux/actions';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import {useFormik} from 'formik';
+import {AuthGetProductById, CreateContent} from 'redux/actions';
+import {useSelector} from 'react-redux';
+import {useRouter} from 'next/router';
 // import ContentEditor from "../ContentEditor"
 
 export default function ManageContent({
@@ -31,7 +31,7 @@ export default function ManageContent({
 	const [isDownload, setIsDownload] = useState(false);
 	const router = useRouter();
 
-	const { loading, productID } = useSelector((state) => state.product);
+	const {loading, productID} = useSelector((state) => state.product);
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
@@ -65,7 +65,7 @@ export default function ManageContent({
 		validateOnChange: false,
 	});
 
-	const { setFieldValue } = formik;
+	const {setFieldValue} = formik;
 
 	useEffect(() => {
 		if (content) {
