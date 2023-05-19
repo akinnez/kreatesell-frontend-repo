@@ -81,7 +81,7 @@ export const UpgradeAccountForm = ({
 		success: 's',
 		failed: 'f',
 		abandoned: 'a',
-    successful: 's'
+		successful: 's',
 	};
 	const paymentDetails = ({reference = '', status = ''}) => {
 		const statusValue = paymentStatusList[status];
