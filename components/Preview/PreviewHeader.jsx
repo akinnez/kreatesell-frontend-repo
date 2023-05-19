@@ -332,7 +332,7 @@ export default function PreviewHeader({
 										cb={(e) => setActiveCurrency(e)}
 									/>
 								</div>
-								<div className={styles.btns}>
+								{/* <div className={styles.btns}>
 									<div
 										className={styles.loginBtn}
 										onClick={() => router.push('/login')}
@@ -352,7 +352,7 @@ export default function PreviewHeader({
 											className={styles.signUpBtnStyle}
 										/>
 									</div>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					)}
