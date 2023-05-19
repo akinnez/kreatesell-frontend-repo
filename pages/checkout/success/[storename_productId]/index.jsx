@@ -847,7 +847,7 @@ const PurchaseSummaryCard = ({
 					)}
 					{/* mobiles */}
 				</>
-			) : product?.product_type_details === 'Membership' ? (
+			) : product?.product_type_details === 'Membership' || product?.product_type_details === 'One-Time Subscription' ? (
 				<>
 					<div className={`${styles.purchase} mb-2`}>
 						<Image
