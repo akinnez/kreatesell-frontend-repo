@@ -626,6 +626,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 					</div>
 				</div>
 			</RenderIf>
+
 			{!isMobileView && <Timer />}
 		</div>
 	);

@@ -123,6 +123,7 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 		pageTitle.length >= 4 &&
 		!pageTitle.includes('affiliate') &&
 		!pageTitle.includes('coupons') &&
+		!pageTitle.includes('revenue') &&
 		!pageTitle.includes('create')
 			? `${pageTitle[3].toLocaleUpperCase().replace(/[\-_]/g, ' ')}`
 			: pageTitle.includes('affiliate')
@@ -131,6 +132,8 @@ const Nav = ({headerTitle, toggleView, isMobileSideBarOpen}) => {
 			? 'COUPON CODES'
 			: pageTitle.includes('create') && pageTitle[3] === 'products'
 			? 'CREATE PRODUCT'
+			: pageTitle.includes('revenue') && pageTitle[3] === 'revenue'
+			? 'AFILIATES TRANSACTIONS'
 			: 'Dashboard';
 
 	useEffect(() => {

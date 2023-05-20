@@ -810,15 +810,12 @@ const ActionComponent = ({item}, all) => {
 				className="flex items-center cursor-pointer"
 				onClick={() => {
 					setProductID(kreasell_product_id);
-					router.push(
-						{
-							pathname: `/account/kreator/products/create`,
-							query: {
-								productId: kreasell_product_id,
-							},
-						}
-						// '/account/kreator/products/create',
-					);
+					router.push({
+						pathname: `/account/kreator/products/create`,
+						query: {
+							productId: kreasell_product_id,
+						},
+					});
 					setProductTab(0);
 				}}
 			>

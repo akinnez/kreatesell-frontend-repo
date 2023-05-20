@@ -31,12 +31,12 @@ export default function ManageContent({
 	const [isDownload, setIsDownload] = useState(false);
 	const router = useRouter();
 
-	const {loading} = useSelector((state) => state.product);
+	const {loading, productID} = useSelector((state) => state.product);
 	const goBack = () => {
 		setIsTabsActive(true);
 		setMajorPage('index');
 	};
-	const productID = router.query?.productId;
+	const product_id = router.query?.productId;
 
 	const initialValues = {
 		section_id: '',
@@ -54,7 +54,7 @@ export default function ManageContent({
 
 	const handleSubmit = (data) => {
 		createContent(data, () => {
-			getProduct(productID, () => goBack());
+			getProduct(productID ? productID : product_id, () => goBack());
 		});
 	};
 

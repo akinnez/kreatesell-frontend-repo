@@ -84,7 +84,6 @@ const Payouts = ({bankDetails, handleClick}) => {
 						setFilters={setFilters}
 					/>
 				</section>
-				{/* {console.log('payouts', payouts)} */}
 				<section className={styles.data__section}>
 					<PayoutsMobileView payouts={payouts.data} />
 					<div className={styles.table__wrapper}>
