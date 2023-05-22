@@ -53,6 +53,7 @@ import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
 import {countryPayments} from '../../../utils/paymentOptions';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 import {AiFillCheckCircle} from 'react-icons/ai';
+import useLocation from 'hooks/useLocation';
 
 export const pathName = typeof window !== 'undefined' && window;
 /**
@@ -71,6 +72,7 @@ const Checkout = () => {
 
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
+  const {countryDetails, countryDetailsLoading} = useLocation();
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
@@ -344,12 +346,7 @@ const Checkout = () => {
 
 	// set currency on mount
 
-	useEffect(() => {
-		if (checkOutDetails.length) {
-			// we need to check for the default currency here
-			setActiveCurrency(baseCurrencyObbject);
-		}
-	}, [checkOutDetails.length]);
+
 
 	useEffect(() => {
 		// TODO: if the active currency is equal to the base currency, no need to convert
@@ -376,6 +373,15 @@ const Checkout = () => {
 		}
 		// else if its not crypto,
 	}, [selectedPaymentMethod]);
+
+	useEffect(() => {
+		if (selectedPaymentMethod && randomId) {
+			if (['flutterwave', 'paystack'].includes(selectedPaymentMethod)) {
+				// TODO: Make request to backend
+				// console.log('I am making a request here')
+			}
+		}
+	}, [selectedPaymentMethod, randomId]);
 
 	const checkOutInNaira = checkOutDetails?.find(
 		(item) =>
@@ -609,6 +615,7 @@ const Checkout = () => {
 		if (selectedPaymentMethod === 'flutterwave') {
 			handleFlutterPayment({
 				callback: async (response) => {
+					console.log('response', response);
 					await sendPaymentCheckoutDetails(
 						paymentDetails({
 							reference: response?.tx_ref,
@@ -706,6 +713,7 @@ const Checkout = () => {
 	};
 
 	const onPaystackSuccess = (reference) => {
+		console.log('reference', reference);
 		// Implementation for whatever you want to do with reference and after success call.
 		// const status = paymentStatusList[reference?.status];
 		const status = 'success';
@@ -760,6 +768,24 @@ const Checkout = () => {
 	const handleSelect = (currency) => {
 		setActiveCurrency(currency);
 	};
+
+  // Set currency based on user's location
+  useEffect(() => {
+    if(countryDetails?.currency && countries?.length > 0){
+      //TODO: get the currency list and find the country with this country code
+      let country = countries.find(({country_code, currency}) => country_code === countryDetails.countryCode && currency === countryDetails.currency)
+      if(country){
+        handleSelect(country)
+      }
+    }else if(checkOutDetails.length) {
+			// we need to check for the default currency here
+			setActiveCurrency(baseCurrencyObbject);
+		}
+    return () => {
+      
+    }
+  }, [countryDetails?.currency, countries?.length, checkOutDetails.length])
+  
 
 	const handlePaymentMethod = (method) => {
 		setSelectedPaymentMethod(method);
