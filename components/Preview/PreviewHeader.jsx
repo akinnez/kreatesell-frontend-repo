@@ -41,6 +41,8 @@ export default function PreviewHeader({
 	formattedCurrencies,
 	setActiveCurrency,
 	isPreviewMain = false,
+	countryDetailsLoading,
+	countryDetails,
 }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isResponse, setIsResponse] = useState(false);
@@ -87,7 +89,6 @@ export default function PreviewHeader({
 	};
 	const [hostState, setHostState] = useState('');
 	useEffect(() => {
-		// console.log('window.location', window.location);
 		setHostState(window.location.host);
 	}, []);
 
@@ -322,14 +323,21 @@ export default function PreviewHeader({
 							<div className={styles.selectAndButtons}>
 								<div className="w-20  mx-4">
 									<CSelect
-										options={[
-											// ...[{ label: 'Select currency', value: '' }],
-											...formattedCurrencies,
-										]}
+										options={[...formattedCurrencies]}
 										border="none"
-										loading={currencyLoading}
-										defaultValue={'NGN'}
 										cb={(e) => setActiveCurrency(e)}
+										defaultValue={
+											countryDetails?.currency
+												? {
+														value: countryDetails?.currency,
+														label: countryDetails?.currency,
+												  }
+												: null
+										}
+										loading={
+											currencyLoading ||
+											countryDetailsLoading
+										}
 									/>
 								</div>
 								{/* <div className={styles.btns}>
