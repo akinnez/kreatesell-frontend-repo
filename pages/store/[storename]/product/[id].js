@@ -231,7 +231,6 @@ export default function PreviewProduct() {
 		// title, keywords, description
 	};
 
-
 	if (!router.query.id) {
 		return null;
 	}

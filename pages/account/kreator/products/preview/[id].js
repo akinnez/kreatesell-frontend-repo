@@ -1,10 +1,14 @@
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 
-import { useSelector } from "react-redux";
+import {useSelector} from 'react-redux';
 
 import PreviewHeader from 'components/Preview/PreviewHeader';
-import {AuthGetProductById, ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
+import {
+	AuthGetProductById,
+	ConvertCurrency,
+	GetStoreCheckoutCurrencies,
+} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import AuthLayout from '../../../../../components/authlayout';
 import styles from '../../../../../components/Preview/PreviewHeader.module.scss';
@@ -16,9 +20,9 @@ export default function PreviewProduct() {
 	const router = useRouter();
 	const getProductByID = AuthGetProductById();
 
-  const {countryDetails, countryDetailsLoading: loading} = useLocation();
+	const {countryDetails, countryDetailsLoading: loading} = useLocation();
 
-  const {
+	const {
 		product: {
 			store_dto,
 			check_out_details,
@@ -26,25 +30,24 @@ export default function PreviewProduct() {
 			product_price_type,
 		},
 	} = useSelector((state) => state.product);
-  const {storeCheckoutCurrencies} = useSelector((state) => state.store);
+	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
 
 	const [productStatus, setProductStatus] = useState('idle');
 
-  const [targetCurrency, setTargetCurrency] = useState('');
+	const [targetCurrency, setTargetCurrency] = useState('');
 
-  // this is the product details for a product whose price has been defined by
+	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	// for "fixed price"
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
 	const [alreadyDefinedOriginalPrice, setAlreadyDefinedOriginalPrice] =
 		useState(null);
 
-    // prices for "pay what you want"
+	// prices for "pay what you want"
 	const [suggestedPrice, setSuggestedPrice] = useState(null); //predefined suggested price for a particular currency
 	const [minimumPrice, setMinimumPrice] = useState(null); //predefined minimum price for a particular currency
 
-
-  const convertCurrency = ConvertCurrency();
+	const convertCurrency = ConvertCurrency();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 
 	useEffect(() => {
@@ -72,14 +75,13 @@ export default function PreviewProduct() {
 		}
 	}, [router.query.id]);
 
-  useEffect(() => {
+	useEffect(() => {
 		if (!!store_dto?.store_id) {
 			getStoreCheckoutCurrencies(store_dto?.store_id);
 		}
 	}, [store_dto?.store_id]);
 
-
-  useEffect(() => {
+	useEffect(() => {
 		if (targetCurrency && check_out_details?.length > 0) {
 			handleCurrencyConversion(targetCurrency);
 		}
@@ -166,12 +168,14 @@ export default function PreviewProduct() {
 				className={styles.previewPageContainer}
 			>
 				<PreviewHeader id={router.query.id} isPreviewMain={true} />
-				<PreviewContent {...{
-							alreadyDefinedPrice,
-							alreadyDefinedOriginalPrice,
-							productStatus,
-							minimumPrice,
-						}}/>
+				<PreviewContent
+					{...{
+						alreadyDefinedPrice,
+						alreadyDefinedOriginalPrice,
+						productStatus,
+						minimumPrice,
+					}}
+				/>
 				<PoweredByKS />
 			</div>
 		</AuthLayout>
