@@ -193,7 +193,7 @@ export default function ManageContent({
 						</p>
 					</div>
 					<div className="mt-2">
-						<ProductEditor 
+						<ProductEditor
 							content={contents}
 							setContent={setContents}
 						/>
