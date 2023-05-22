@@ -89,10 +89,10 @@ export default function ManageSection({
 		<div className="">
 			{play && (
 				<PlayMedia
-					source={mediaContent?.files[0].filename}
+					source={mediaContent?.files[mediaContent?.files.length-1].filename}
 					open={play}
 					closePlay={setPlay}
-					type={mediaContent?.files[0].type}
+					type={mediaContent?.files[mediaContent?.files.length-1].type}
 					title={mediaContent?.product_section_name}
 				/>
 			)}

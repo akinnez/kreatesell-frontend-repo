@@ -866,7 +866,7 @@ const PurchaseSummaryCard = ({
 										className={styles.left}
 									>{`${productSectionCount?.content_count} Sections, ${productSectionCount?.sub_section_count} Lectures`}</p>
 									|
-									<p className={styles.right}>
+									<p className={styles.right}> 
 										{product?.default_currency?.currency}{' '}
 										{product?.default_price}
 									</p>

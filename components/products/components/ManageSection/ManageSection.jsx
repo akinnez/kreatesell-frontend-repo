@@ -45,6 +45,8 @@ const ManageSection = ({
 	// 	if()
 	// }
 
+	console.log(items,'	items	items	items')
+
 	const router = useRouter();
 	const productID = router.query.productId;
 
@@ -263,12 +265,12 @@ const ManageSection = ({
 										width={25}
 										height={25}
 										src={
-											item?.files[0]?.type === 'audio'
+											item?.files[item?.files.length-1]?.type === 'audio'
 												? Audio
-												: item?.files[0]?.type ===
+												: item?.files[item?.files.length-1]?.type ===
 												  'video'
 												? Video
-												: item?.files[0]?.type ===
+												: item?.files[item?.files.length-1]?.type ===
 												  'image'
 												? ImageIcon
 												: PdfIcon
