@@ -12,6 +12,9 @@ import {
 	ErrorIcon,
 	isAnEmpytyObject,
 	transformToFormData,
+	imagesExtensions,
+	videoExtensions,
+	showToast,
 } from 'utils';
 import styles from './CreateProduct.module.scss';
 import {Radio} from 'components/inputPack';
@@ -33,6 +36,31 @@ import ImageUpload from './ImageUpload';
 import ProductEditor from './ProductEditor';
 import ImageError from './ImageError';
 import FileUpload from './FileUpload';
+
+/**
+ * @description -	Check for the file type
+ * if file type is a raw file .rar, .zip ensure that the file size is not more than 500mb
+ * else ensure it is not more than 1gb
+ * @params - file
+ * @returns - boolean
+ */
+function validateFile(file) {
+	// if it is not an image or video, it cant be more than 500mb
+	if (![...imagesExtensions, ...videoExtensions].includes(file.path)) {
+		if (file.size <= 524288000) {
+			return true;
+		}
+		showToast('Raw files upload can not be more than 500MB');
+		return false;
+	} else if ([...imagesExtensions, ...videoExtensions].includes(file.path)) {
+		if (file.size <= 1073741824) {
+			return true;
+		}
+		showToast('Images and Video file upload can not be more than 1GB');
+		return false;
+	}
+	return false;
+}
 
 export const CreateProductForm = ({
 	productType = 'digitalDownload',
@@ -604,6 +632,7 @@ export const CreateProductForm = ({
 								setFile={setProductFile}
 								onLoadCb={setDisableButton}
 								multiple={false}
+								validateFunction={validateFile}
 							/>
 						)}
 					</div>
