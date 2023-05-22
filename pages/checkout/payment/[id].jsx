@@ -72,7 +72,7 @@ const Checkout = () => {
 
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
-  const {countryDetails, countryDetailsLoading} = useLocation();
+	const {countryDetails, countryDetailsLoading} = useLocation();
 
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
@@ -345,8 +345,6 @@ const Checkout = () => {
 	}, [storeId]);
 
 	// set currency on mount
-
-
 
 	useEffect(() => {
 		// TODO: if the active currency is equal to the base currency, no need to convert
@@ -769,23 +767,24 @@ const Checkout = () => {
 		setActiveCurrency(currency);
 	};
 
-  // Set currency based on user's location
-  useEffect(() => {
-    if(countryDetails?.currency && countries?.length > 0){
-      //TODO: get the currency list and find the country with this country code
-      let country = countries.find(({country_code, currency}) => country_code === countryDetails.countryCode && currency === countryDetails.currency)
-      if(country){
-        handleSelect(country)
-      }
-    }else if(checkOutDetails.length) {
+	// Set currency based on user's location
+	useEffect(() => {
+		if (countryDetails?.currency && countries?.length > 0) {
+			//TODO: get the currency list and find the country with this country code
+			let country = countries.find(
+				({country_code, currency}) =>
+					country_code === countryDetails.countryCode &&
+					currency === countryDetails.currency
+			);
+			if (country) {
+				handleSelect(country);
+			}
+		} else if (checkOutDetails.length) {
 			// we need to check for the default currency here
 			setActiveCurrency(baseCurrencyObbject);
 		}
-    return () => {
-      
-    }
-  }, [countryDetails?.currency, countries?.length, checkOutDetails.length])
-  
+		return () => {};
+	}, [countryDetails?.currency, countries?.length, checkOutDetails.length]);
 
 	const handlePaymentMethod = (method) => {
 		setSelectedPaymentMethod(method);
