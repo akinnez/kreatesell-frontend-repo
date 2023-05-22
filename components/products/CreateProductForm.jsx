@@ -45,18 +45,27 @@ import FileUpload from './FileUpload';
  * @returns - boolean
  */
 function validateFile(file) {
+	let length = file.path.split('.').length;
+	let fileArr = file.path.split('.');
 	// if it is not an image or video, it cant be more than 500mb
-	if (![...imagesExtensions, ...videoExtensions].includes(file.path)) {
+	if (
+		![...imagesExtensions, ...videoExtensions].includes(fileArr[length - 1])
+	) {
 		if (file.size <= 524288000) {
 			return true;
 		}
-		showToast('Raw files upload can not be more than 500MB');
+		showToast('Raw files upload size can not be more than 500MB', 'error');
 		return false;
-	} else if ([...imagesExtensions, ...videoExtensions].includes(file.path)) {
+	} else if (
+		[...imagesExtensions, ...videoExtensions].includes(fileArr[length - 1])
+	) {
 		if (file.size <= 1073741824) {
 			return true;
 		}
-		showToast('Images and Video file upload can not be more than 1GB');
+		showToast(
+			'Images and Video file upload size can not be more than 1GB',
+			'error'
+		);
 		return false;
 	}
 	return false;

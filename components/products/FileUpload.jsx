@@ -197,11 +197,12 @@ export default function FileUpload({
 	return (
 		<div className="pt-2">
 			<p className="text-base-gray-200 text-xs mb-0">
-				Only one file is allowed to be uploaded. Bundles all your files
-				into single RAR or ZIP file.
+				Only one file is allowed to be uploaded. For multiple uploads,
+				bundle all your files into a single ZIP or RAR file
 			</p>
 			<small className="text-black mb-4 font-normal">
-				The maximum allowed file size is 1GB.
+				The maximum allowed size is 1GB for Images and Videos and 500MB
+				for any other file type
 			</small>
 			{/* show this if there's  */}
 			{files.length > 0 &&

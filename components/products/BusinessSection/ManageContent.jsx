@@ -8,6 +8,9 @@ import {
 	Audio,
 	EditPen,
 	FileDelete,
+	videoExtensions,
+	audioExtensions,
+	showToast,
 } from 'utils';
 import {Button, Switch} from 'antd';
 import style from './MembershipTab.module.scss';
@@ -18,6 +21,40 @@ import {AuthGetProductById, CreateContent} from 'redux/actions';
 import {useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
 // import ContentEditor from "../ContentEditor"
+
+/**
+ * @description -	Check for the file type
+ * if file type is a raw file .rar, .zip ensure that the file size is not more than 500mb
+ * else ensure it is not more than 1gb
+ * @params - file
+ * @returns - boolean
+ */
+function validateFunction(file) {
+	let length = file.path.split('.').length;
+	let fileArr = file.path.split('.');
+
+	// if it is not an image or video, it cant be more than 500mb
+	if (
+		[...audioExtensions, ...videoExtensions, '.pdf'].includes(
+			fileArr[length - 1]
+		)
+	) {
+		if (file.size <= 1073741824) {
+			return true;
+		}
+		showToast(
+			'Images and Video file upload size can not be more than 1GB',
+			'error'
+		);
+		return false;
+	} else {
+		showToast(
+			'File format not accepted - only audio, video and pdf are accepted file formats.',
+			'error'
+		);
+		return false;
+	}
+}
 
 export default function ManageContent({
 	setIsTabsActive,
@@ -160,6 +197,7 @@ export default function ManageContent({
 							file={file}
 							setFile={setFile}
 							initialFile={file}
+							{...{validateFunction}}
 						/>
 						<div className="mt-5 flex justify-between items-start">
 							<div className="flex flex-col">

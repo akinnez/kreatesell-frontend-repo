@@ -15,11 +15,17 @@ import {
 import axios from 'axios';
 import styles from './CreateProduct.module.scss';
 
-export default function ContentUpload({file, setFile, initialFile}) {
+export default function ContentUpload({
+	file,
+	setFile,
+	initialFile,
+	validateFunction = () => {},
+}) {
 	const [progress, setProgress] = useState(0);
 	const [files, setFiles] = useState([]);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: 'all',
+		validateFunction,
 	});
 
 	const handleDeleteFile = () => {
@@ -289,7 +295,7 @@ export default function ContentUpload({file, setFile, initialFile}) {
 							alt="upload image"
 						/>
 						<p className="hidden md:block text-sm pl-4 my-auto">
-							Drag and Drop or Click to Upload Your Product Fileg
+							Drag and Drop or Click to Upload Your Product File
 						</p>
 						<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
 							Drag & Drop Or Click to Upload Your Product File
