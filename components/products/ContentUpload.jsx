@@ -289,7 +289,7 @@ export default function ContentUpload({file, setFile, initialFile}) {
 							alt="upload image"
 						/>
 						<p className="hidden md:block text-sm pl-4 my-auto">
-							Drag and Drop or Click to Upload Your Product Fileg
+							Drag and Drop or Click to Upload Your Product Files
 						</p>
 						<p className="md:hidden text-primary-blue text-sm pl-4 my-auto">
 							Drag & Drop Or Click to Upload Your Product File
