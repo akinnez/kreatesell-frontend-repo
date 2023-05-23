@@ -20,7 +20,7 @@ import {useFormik} from 'formik';
 import {AuthGetProductById, CreateContent} from 'redux/actions';
 import {useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
-// import ContentEditor from "../ContentEditor"
+// import ContentEditor from "../ContentEditor";
 
 /**
  * @description -	Check for the file type
