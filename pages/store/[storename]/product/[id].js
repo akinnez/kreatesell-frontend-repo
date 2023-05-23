@@ -5,13 +5,12 @@ import {useSelector} from 'react-redux';
 
 import styles from '../../../../public/css/storeName-product-id.module.scss';
 import PreviewHeader from 'components/Preview/PreviewHeader';
-import {AuthGetProductById, GetProductByIDNotAut} from 'redux/actions';
+import {GetProductByIDNotAut} from 'redux/actions';
 import PreviewContent from 'components/Preview/PreviewContent';
 import {ConvertCurrency, GetStoreCheckoutCurrencies} from 'redux/actions';
 import {PoweredByKS} from 'components/PoweredByKs';
 import useLocation from 'hooks/useLocation';
-import axios from 'axios';
-// import {Meta} from 'components/layout';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 export default function PreviewProduct() {
 	const router = useRouter();
@@ -28,11 +27,18 @@ export default function PreviewProduct() {
 	} = useSelector((state) => state.product);
 	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
 
+	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
+		(state) => state.currencyConverter
+	);
+
+	// currency selected from the currency dropdown
 	const [activeCurrency, setActiveCurrency] = useState('');
+
 	const [formattedCurrencies, setFormattedCurrencies] = useState([]);
 	const [productStatus, setProductStatus] = useState('idle');
 
 	const [targetCurrency, setTargetCurrency] = useState('');
+
 	// this is the product details for a product whose price has been defined by
 	// kreator and is also the active currency selected
 	// for "fixed price"
@@ -48,12 +54,14 @@ export default function PreviewProduct() {
 	const convertCurrency = ConvertCurrency();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 
+	/////////////////////////////////////////////////////////////////////////////
+	//  API REQUESTS MADE WHEN COMPONENT MOUNTS
+	/////////////////////////////////////////////////////////////////////////////
 	useEffect(() => {
 		if (router.query.id) {
 			getProductByID(
 				router.query.id,
 				(res) => {
-					// console.log('successs', res.data.data.status);
 					if (
 						['deactivate', 'deativate'].includes(
 							res.data.data.status.toLowerCase()
@@ -65,7 +73,6 @@ export default function PreviewProduct() {
 					setProductStatus('not-deactivated');
 				},
 				(status) => {
-					// console.log('failed', status);
 					if (status === 'failed') {
 						setProductStatus('deactivated');
 					}
@@ -79,6 +86,10 @@ export default function PreviewProduct() {
 			getStoreCheckoutCurrencies(store_dto?.store_id);
 		}
 	}, [store_dto?.store_id]);
+
+	/////////////////////////////////////////////////////////////////////////////
+	//  ON MOUNT API REQUESTS ENDS HERE
+	/////////////////////////////////////////////////////////////////////////////
 
 	const formatCurrencies = () => {
 		// remove duplicate values (XOF and XAF) from the array
@@ -129,6 +140,11 @@ export default function PreviewProduct() {
 	}, [countryDetails?.currency]);
 
 	const handleCurrencyConversion = (toCurrency) => {
+		const data = {
+			amount: 0,
+			from_currency_name: default_currency?.currency,
+			to_currency_name: toCurrency,
+		};
 		// WIP: This is for only fixed price
 		//TODO: Do for pay what you want
 		if (product_price_type?.toLowerCase() === 'fixed price') {
@@ -142,33 +158,17 @@ export default function PreviewProduct() {
 					detail?.currency_name === toCurrency &&
 					detail?.price_indicator === 'Original'
 			);
+			// if there is a predefined selling price
 			if (sellingIndex !== -1) {
 				setAlreadyDefinedPrice(check_out_details[sellingIndex]);
-				if (originalIndex === -1) {
-					setAlreadyDefinedOriginalPrice(null);
-					const data = {
-						amount: 0,
-						from_currency_name: default_currency?.currency,
-						to_currency_name: toCurrency,
-					};
-					convertCurrency(
-						data,
-						() => console.log('success'),
-						() => console.log('error')
-					);
-				} else {
-					setAlreadyDefinedOriginalPrice(
-						check_out_details[originalIndex]
-					);
-				}
+				convertCurrency(
+					data,
+					() => console.log('success'),
+					() => console.log('error')
+				);
 			} else if (toCurrency) {
 				setAlreadyDefinedPrice(null);
 				setAlreadyDefinedOriginalPrice(null);
-				const data = {
-					amount: 0,
-					from_currency_name: default_currency?.currency,
-					to_currency_name: toCurrency,
-				};
 				convertCurrency(
 					data,
 					() => console.log('success'),
@@ -186,32 +186,17 @@ export default function PreviewProduct() {
 					detail?.currency_name === toCurrency &&
 					detail?.price_indicator === 'Suggested'
 			);
-			if (suggestedIndex !== -1) {
-				setSuggestedPrice(check_out_details[suggestedIndex]);
-				if (minimumIndex === -1) {
-					setMinimumPrice(null);
-					const data = {
-						amount: 0,
-						from_currency_name: default_currency?.currency,
-						to_currency_name: toCurrency,
-					};
-					convertCurrency(
-						data,
-						() => console.log('success'),
-						() => console.log('error')
-					);
-				} else {
-					setMinimumPrice(check_out_details[minimumIndex]);
-				}
+			if (minimumIndex !== -1) {
+				setMinimumPrice(check_out_details[minimumIndex]);
+				convertCurrency(
+					data,
+					() => console.log('success'),
+					() => console.log('error')
+				);
 			} else if (toCurrency) {
 				//there is no predefined minimum or suggested price for the particular currency
 				setMinimumPrice(null);
 				setSuggestedPrice(null);
-				const data = {
-					amount: 0,
-					from_currency_name: default_currency?.currency,
-					to_currency_name: toCurrency,
-				};
 				convertCurrency(
 					data,
 					() => console.log('success'),
@@ -250,34 +235,36 @@ export default function PreviewProduct() {
 		return null;
 	}
 
-	// console.log('alreadyDefinedPrice', alreadyDefinedPrice);
-	// console.log('alreadyDefinedOriginalPrice', alreadyDefinedOriginalPrice);
-
 	return (
 		<>
 			<div
 				className={styles.container}
 				style={{
-					// position: 'absolute',
 					background: '#e5e5e5',
 					minHeight: '100vh',
-					// left: 0,
-					// top: 0,
-					// width: '100%',
 				}}
 			>
 				<PreviewHeader
 					id={router.query.id}
 					showNavLinks={false}
+					countryDetails
+					countryDetailsLoading={loading}
 					{...{formattedCurrencies, setActiveCurrency}}
 				/>
-				<PreviewContent
-					{...{
-						alreadyDefinedPrice,
-						alreadyDefinedOriginalPrice,
-						productStatus,
-					}}
-				/>
+				<ErrorBoundary
+					resetErrorBoundary={() =>
+						router.reload(window.location.pathname)
+					}
+				>
+					<PreviewContent
+						{...{
+							alreadyDefinedPrice,
+							alreadyDefinedOriginalPrice,
+							productStatus,
+							minimumPrice,
+						}}
+					/>
+				</ErrorBoundary>
 				<PoweredByKS />
 			</div>
 		</>

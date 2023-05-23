@@ -26,12 +26,14 @@ export default function FileUpload({
 	initialFile,
 	onLoadCb = () => {},
 	multiple = null,
+	validateFunction = () => {},
 }) {
 	const [progress, setProgress] = useState(0);
 	const [isUploading, setIsUploading] = useState(false);
 	const {mainFile, getRootProps, getInputProps, deleteFile} = useUpload({
 		fileType: 'all',
 		multiple,
+		validateFunction,
 	});
 
 	const [files, setFiles] = useState([]);
@@ -41,27 +43,25 @@ export default function FileUpload({
 		delete instance.defaults.headers.common['Authorization'];
 		try {
 			const data = await axios.get(url, {resource_type: 'raw'});
-			// console.log(data);
 			let buffer = new Buffer(data.data.toString());
 			// console.log(buffer.toString('base64'));
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
 	// ================================================================================
 	// cloudinary upload functions starts here
 	// ================================================================================
 
-	function getBase64(files) {
+	function getBase64(file) {
 		setIsUploading(true);
-		const file = files;
 		let start = 0;
 		let size = file.size;
 
 		setTimeout(loop, 3);
 		function loop() {
 			let end = start + sliceSize;
-
 			// this is to ensure that the slicesize is not bigger than the file size
 			if (end > size) {
 				end = size;
@@ -71,13 +71,13 @@ export default function FileUpload({
 			send(s, start, end - 1, size, file.name);
 			if (end < size) {
 				start += sliceSize;
-				setProgress(Math.round((start / size) * 100));
 				setTimeout(loop, 3);
+				setProgress(Math.round((start / size) * 100));
 			}
 		}
 	}
 
-	async function send(piece, start, end, size, filename) {
+	function send(piece, start, end, size, filename) {
 		let formData = new FormData();
 
 		formData.append('file', piece);
@@ -89,10 +89,17 @@ export default function FileUpload({
 
 		xhr.onload = function (e) {
 			let parsedData = JSON.parse(this.responseText);
-			if (parsedData.done === true) {
+			// TODO: Account for files smaller than 6mb
+			if (parsedData.bytes < sliceSize) {
 				setIsUploading(false);
 				setProgress(100);
 				setFile(parsedData.secure_url);
+			} else {
+				if (parsedData.done === true) {
+					setIsUploading(false);
+					setProgress(100);
+					setFile(parsedData.secure_url);
+				}
 			}
 		};
 
@@ -141,7 +148,7 @@ export default function FileUpload({
 		};
 	}, [isToggleable, toggleValue]);
 
-	// This is for the upload
+	// This is for the upload progress
 	useEffect(() => {
 		if (progress) {
 			if (progress !== 100) {
@@ -190,11 +197,12 @@ export default function FileUpload({
 	return (
 		<div className="pt-2">
 			<p className="text-base-gray-200 text-xs mb-0">
-				Only one file is allowed to be uploaded. Bundles all your files
-				into single RAR or ZIP file.
+				Only one file is allowed to be uploaded. For multiple uploads,
+				bundle all your files into a single ZIP or RAR file
 			</p>
 			<small className="text-black mb-4 font-normal">
-				The maximum allowed file size is 1GB.
+				The maximum allowed size is 1GB for Images and Videos and 500MB
+				for any other file type
 			</small>
 			{/* show this if there's  */}
 			{files.length > 0 &&

@@ -1,30 +1,35 @@
-import {Button} from 'components';
 import React from 'react';
+import Image from 'next/image';
 
 import {ErrorBoundary} from 'react-error-boundary';
+
+import {Button} from 'components';
+import {MaintenanceIcon} from 'utils';
+import styles from './ErrorBoundary.module.scss';
 
 function ErrorHandler({error, resetErrorBoundary}) {
 	return (
 		<div
 			role="alert"
+			className={`flex flex-col justify-center items-center w-100 ${styles.container}`}
 			style={{
-				border: '1px solid',
-				width: '80%',
-				background: 'rgba(255, 0,0,0.2)',
-				color: 'red',
-				margin: 'auto',
-				marginBlockStart: '2rem',
-				padding: '1.5rem',
+				height: '100vh',
 			}}
 		>
-			<p>An error occurred:</p>
+			<Image src={MaintenanceIcon} alt="error boundary image" />
+			<h5 className={styles.heading}>Oh Snap! Something&apos;s broken</h5>
+			<p className={styles.subtitle}>
+				This needs a quick fix and our engineers are currently <br /> on
+				it. Please, check back shortly.
+			</p>
+			{/* <p>An error occurred:</p>
 			<pre>{error.message}</pre>
 			<Button
 				bgColor="blue"
 				type="button"
 				text="Try Again"
 				onClick={resetErrorBoundary}
-			/>
+			/> */}
 		</div>
 	);
 }

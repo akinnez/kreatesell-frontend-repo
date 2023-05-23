@@ -255,6 +255,7 @@ export const CreateCouponForm = () => {
 								<Input
 									type="number"
 									placeholder="0"
+									min={0}
 									name="percentage_value"
 									onChange={(e) =>
 										setFieldValue(
@@ -289,6 +290,7 @@ export const CreateCouponForm = () => {
 								<Input
 									type="number"
 									placeholder="0"
+									min={0}
 									name="fixed_amount_value"
 									value={fixed_amount_value}
 									disabled={isPercentage ? true : false}
@@ -382,6 +384,8 @@ export const CreateCouponForm = () => {
 						</h2>
 						<Input
 							type="number"
+							placeholder="0"
+							min={0}
 							label="Number of Times"
 							disabled={!isLimited ? true : false}
 							name="no_of_frequency"
@@ -437,7 +441,8 @@ export const CreateCouponForm = () => {
 						</h2>
 						<Input
 							type="number"
-							placeholder="1"
+							placeholder="0"
+							min={0}
 							name="no_of_usage"
 							value={no_of_usage}
 							disabled={isUsage ? false : true}

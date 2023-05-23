@@ -23,14 +23,21 @@ import {
 import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
 const statusComponent = (item) => {
+	console.log('Item is', item);
+	const commonStyles = {
+		paddingInline: '.5rem',
+		width: 'fit-content',
+		fontSize: '.85rem',
+		borderRadius: '.5rem',
+	};
 	const statusTextList = {
 		Successful: {
 			type: 'successful',
 			styles: {
 				background: '#F1FCF8',
-				borderRadius: '.5rem',
 				color: ' #2DC071',
-				fontSize: '.85rem',
+
+				...commonStyles,
 			},
 			contents: '',
 		},
@@ -38,9 +45,17 @@ const statusComponent = (item) => {
 			type: 'pending',
 			styles: {
 				background: 'rgba(0, 0, 0, 0.05)',
-				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '.85rem',
+				...commonStyles,
+			},
+			contents: '',
+		},
+		Failed: {
+			type: 'failed',
+			styles: {
+				background: 'rgba(255, 77, 79, 0.1)',
+				color: ' #F90005',
+				...commonStyles,
 			},
 			contents: '',
 		},
@@ -365,7 +380,9 @@ const Index = () => {
 
 	return (
 		<AuthLayout>
-			<div className={styles.transaction__header}>Transactions</div>
+			<div className={styles.transaction__header}>
+				Kreator Transactions
+			</div>
 			<TransactionHeader
 				{...{
 					setFilters,

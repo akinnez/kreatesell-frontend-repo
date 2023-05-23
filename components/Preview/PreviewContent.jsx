@@ -20,7 +20,7 @@ import {
 	LargeVerificationIcon,
 	MediumVerificationIcon,
 } from 'utils';
-import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
+
 import axios from 'axios';
 
 var options = {
@@ -29,6 +29,7 @@ var options = {
 	month: 'short',
 	day: 'numeric',
 };
+
 var timeOptions = {
 	hour: 'numeric',
 	minute: 'numeric',
@@ -39,6 +40,7 @@ export default function PreviewContent({
 	alreadyDefinedPrice,
 	alreadyDefinedOriginalPrice,
 	productStatus,
+	minimumPrice,
 }) {
 	const [details, setDetails] = useState({});
 	const [images, setImages] = useState([]);
@@ -164,7 +166,6 @@ export default function PreviewContent({
 				itemPrice.currency_name === convertedCurrency?.to_currency_name
 		);
 
-		// console.log('minDefinedPrice', minDefinedPrice);
 		// TODO:if there are already predefined prices, show them instead
 		if (minDefinedPrice && Object.keys(minDefinedPrice).length > 0) {
 			return minDefinedPrice?.price;
@@ -174,8 +175,6 @@ export default function PreviewContent({
 		}
 		return minPrice?.price;
 	};
-
-	// console.log('getMinimumPrice', getMinimumPrice());
 
 	const getMinimumCurrency = () => {
 		const minPrice = checkout?.find(
@@ -223,10 +222,10 @@ export default function PreviewContent({
 			setCheckout(product?.check_out_details);
 		}
 		if (checkout && checkout?.length > 0) {
-			const defaultPrice = product?.default_currency?.currency;
+			const defaultCurrency = product?.default_currency?.currency;
 
 			const prices = checkout?.filter(
-				(item) => item?.currency_name === defaultPrice
+				(item) => item?.currency_name === defaultCurrency
 			);
 			setSellingPrice(
 				prices?.filter((item) => item?.price_indicator === 'Selling')
@@ -310,7 +309,6 @@ export default function PreviewContent({
 			<VerifiedDrawer {...{showDrawer, onClose}}>
 				<VerifiedDrawerChildren {...{onClose}} />
 			</VerifiedDrawer>
-			<TelegramFloatingDiv left="7%" top="30%" />
 			<div className={`flex ${styles.previewContainer}`}>
 				<div className={styles.imageGallery}>
 					<div className={styles.mainImage}>
@@ -360,7 +358,7 @@ export default function PreviewContent({
 					<div className="flex flex-col mb-5">
 						{details !== undefined &&
 							Object.keys(details).length > 0 && (
-								<h2 className="mb-0 text-left text-3xl text-base-black-100 font-bold capitalize">
+								<h2 className="mb-0 text-left text-xl md:text-3xl text-base-black-100 font-bold capitalize">
 									{details?.product_name}
 								</h2>
 							)}
@@ -380,7 +378,7 @@ export default function PreviewContent({
 						<div className="flex  ml-6 flex-col">
 							<div className={`flex flex-col`}>
 								<h2
-									className={`text-lg mb-0 font-semibold capitalize ${styles.userName}`}
+									className={`text-sm md:text-lg mb-0 font-medium capitalize ${styles.userName}`}
 								>
 									{product?.kreator_full_name ||
 										user?.full_name}
@@ -449,7 +447,7 @@ export default function PreviewContent({
 						</h2>
 						{details !== undefined &&
 							Object.keys(details).length > 0 && (
-								<p className="text-left">
+								<p className="text-left text-sm md:text-lg font-normal">
 									{details.product_description}
 								</p>
 							)}
@@ -489,10 +487,6 @@ export default function PreviewContent({
 								</p>
 							) : (
 								<>
-									{/* {console.log(
-										'productPriceType',
-										productPriceType
-									)} */}
 									{/* Fixed price */}
 									{/* {sellingPrice?.length > 0 && */}
 									{productPriceType !==
@@ -500,8 +494,7 @@ export default function PreviewContent({
 										<h1 className="text-xl md:text-3xl font-bold">
 											{`${
 												alreadyDefinedPrice?.currency_name ||
-												convertedCurrency?.to_currency_name ||
-												sellingPrice?.[0]?.currency_name
+												convertedCurrency?.to_currency_name
 											} ${
 												alreadyDefinedPrice?.price
 													? alreadyDefinedPrice?.price
@@ -524,7 +517,7 @@ export default function PreviewContent({
 										'Pay What You Want' && (
 										<h1 className="text-xl md:text-3xl font-bold">
 											{`${
-												alreadyDefinedPrice?.currency_name ||
+												minimumPrice?.currency_name ||
 												convertedCurrency?.to_currency_name ||
 												getMinimumCurrency()
 											} 
@@ -572,7 +565,7 @@ export default function PreviewContent({
 
 			<section className={styles.more}>
 				<div className="mt-5 flex flex-col ">
-					<h2 className="mb-7 pt-5 font-semibold text-base md:text-lg lg:text-lg">
+					<h2 className="mb-7 pt-5 font-semibold text-lg md:text-lg lg:text-lg">
 						More Details:
 					</h2>
 					{details !== undefined && Object.keys(details)?.length > 0 && (
@@ -603,6 +596,7 @@ export default function PreviewContent({
 		</div>
 	);
 }
+
 const VerifiedModalChildren = () => {
 	return (
 		<div className={`${styles.modal} flex flex-col `}>

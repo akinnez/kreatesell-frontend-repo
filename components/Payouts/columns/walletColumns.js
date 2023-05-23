@@ -20,6 +20,10 @@ const statusColorComponent = (status) => {
 			color: '#FF4D4F',
 			background: 'rgba(255, 77, 79, 0.1)',
 		},
+		Pending: {
+			color: '#FBB500',
+			background: 'rgba(255, 214, 102, 0.2)',
+		},
 	};
 	if (!StatusObj[status]) return;
 	return <p style={{...StatusObj[status], ...defaultStyle}}>{status}</p>;

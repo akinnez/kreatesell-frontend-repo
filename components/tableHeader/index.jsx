@@ -72,7 +72,6 @@ const generateSalesPageScript = () => {
       const queryString = window.location.search; \n \
       const urlParams = new URLSearchParams(queryString);\n \
       let ref = urlParams.get('ref')||0;\n \
-      let uniqkey = urlParams.get('uniqkey')||0;\n \
       let prodId = urlParams.get('prodId');\n \
       let storename = urlParams.get('storename');\n \
     // Get all elements with class \"kreatesell-btn\"\n \
@@ -80,16 +79,15 @@ const generateSalesPageScript = () => {
   // Add an onclick event listener to each element\n \
   kreatesellBtns.forEach(btn => {\n \
     btn.addEventListener('click', function() {\n \
-      console.log('clicked')\n \
        if (prodId && storename) { \n\
-          window.location.href = `https://kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}&uniqkey=${uniqkey}`;\n \
+          window.location.href = `https://kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}`;\n \
         } \n\
      else if(!prodId || !storename){\n \
        if(btn.alt){ \
           //format for alt will be \"prod_id;storename\" \n\
           let splittedValue = btn?.alt?.split(';')\n \
           if(splittedValue.length === 2){\n \
-             window.location.href = `https://kreatesell.com/store/${splittedValue[1]}/product/${splittedValue[0]}?ref=${ref}&uniqkey=${uniqkey}`;\n \
+             window.location.href = `https://kreatesell.com/store/${splittedValue[1]}/product/${splittedValue[0]}?ref=${ref}`;\n \
           }\n \
        }\n \
     }\n \
@@ -812,15 +810,12 @@ const ActionComponent = ({item}, all) => {
 				className="flex items-center cursor-pointer"
 				onClick={() => {
 					setProductID(kreasell_product_id);
-					router.push(
-						{
-							pathname: `/account/kreator/products/create`,
-							query: {
-								productId: kreasell_product_id,
-							},
-						}
-						// '/account/kreator/products/create',
-					);
+					router.push({
+						pathname: `/account/kreator/products/create`,
+						query: {
+							productId: kreasell_product_id,
+						},
+					});
 					setProductTab(0);
 				}}
 			>

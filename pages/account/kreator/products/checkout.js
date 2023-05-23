@@ -18,7 +18,9 @@ import {Formik, Form} from 'formik';
 const Index = () => {
 	return (
 		<>
-			<AuthLayout></AuthLayout>
+			<AuthLayout>
+				<div></div>
+			</AuthLayout>
 
 			<style jsx>{`
 				.grey-bg {
