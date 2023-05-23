@@ -23,6 +23,7 @@ import {
 import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
 const statusComponent = (item) => {
+	console.log('Item is', item);
 	const commonStyles = {
 		paddingInline: '.5rem',
 		width: 'fit-content',
@@ -45,6 +46,15 @@ const statusComponent = (item) => {
 			styles: {
 				background: 'rgba(0, 0, 0, 0.05)',
 				color: ' #FBB500',
+				...commonStyles,
+			},
+			contents: '',
+		},
+		Failed: {
+			type: 'failed',
+			styles: {
+				background: 'rgba(255, 77, 79, 0.1)',
+				color: ' #F90005',
 				...commonStyles,
 			},
 			contents: '',

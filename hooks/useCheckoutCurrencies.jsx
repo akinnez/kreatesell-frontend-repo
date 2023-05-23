@@ -33,14 +33,6 @@ const useCheckoutCurrency = () => {
 		return [];
 	}, [countries, storeCheckoutCurrencies.length]);
 
-	// console.log(
-	// 	'country',
-	// 	countries.find((ctr) => ctr.short_name === 'TZ')
-	// );
-	// console.log('storeCheckoutCurrencies', storeCheckoutCurrencies);
-	// console.log('countriesCurrency', countriesCurrency);
-	// allowed currencies: {label:"",value:""}
-
 	const filterdWest = useMemo(() => {
 		if (storeCheckoutCurrencies.length > 0) {
 			return countries?.filter((country) => {

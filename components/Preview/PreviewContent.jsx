@@ -29,6 +29,7 @@ var options = {
 	month: 'short',
 	day: 'numeric',
 };
+
 var timeOptions = {
 	hour: 'numeric',
 	minute: 'numeric',
@@ -595,6 +596,7 @@ export default function PreviewContent({
 		</div>
 	);
 }
+
 const VerifiedModalChildren = () => {
 	return (
 		<div className={`${styles.modal} flex flex-col `}>
