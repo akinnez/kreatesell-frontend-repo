@@ -23,7 +23,6 @@ import {
 import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
 const statusComponent = (item) => {
-	console.log('Item is', item);
 	const commonStyles = {
 		paddingInline: '.5rem',
 		width: 'fit-content',
