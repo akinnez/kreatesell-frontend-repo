@@ -45,7 +45,6 @@ const ManageSection = ({
 	// 	if()
 	// }
 
-
 	const router = useRouter();
 	const productID = router.query.productId;
 

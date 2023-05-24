@@ -79,7 +79,6 @@ const PreviewMembership = () => {
 		? activeLink?.files[activeLink?.files.length - 1]?.type
 		: '';
 
-
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
 			sortProducts();
