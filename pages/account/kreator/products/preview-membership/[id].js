@@ -74,12 +74,11 @@ const PreviewMembership = () => {
 	const fileMedia = activeLink?.files
 		? activeLink?.files[activeLink?.files.length - 1]?.filename
 		: '';
-	console.log(fileMedia, 'fileMediafileMediafileMedia');
 
 	const fileMediaType = activeLink?.files
 		? activeLink?.files[activeLink?.files.length - 1]?.type
 		: '';
-	console.log(fileMediaType, 'ileMediaTypeileMediaTypeileMediaType');
+
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
