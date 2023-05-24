@@ -54,8 +54,6 @@ export default function PreviewContent({
 	const [affiliateRef, setAffiliateRef] = useState('');
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
 
-	// const []
-
 	// verification modal and drawers controls
 	const [showModal, setShowModal] = useState(false);
 	const [showDrawer, setShowDrawer] = useState(false);
