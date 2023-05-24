@@ -124,7 +124,6 @@ const ActionComponent = (
 			placement="bottomRight"
 			title={title}
 			content={content}
-			// overlayStyle={{border: '1px solid red'}}
 			overlayInnerStyle={{
 				padding: '2rem 1rem',
 			}}
