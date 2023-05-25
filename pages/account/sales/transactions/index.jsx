@@ -23,7 +23,6 @@ import {
 import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
 const statusComponent = (item) => {
-	console.log('Item is', item);
 	const commonStyles = {
 		paddingInline: '.5rem',
 		width: 'fit-content',
@@ -125,7 +124,6 @@ const ActionComponent = (
 			placement="bottomRight"
 			title={title}
 			content={content}
-			// overlayStyle={{border: '1px solid red'}}
 			overlayInnerStyle={{
 				padding: '2rem 1rem',
 			}}
