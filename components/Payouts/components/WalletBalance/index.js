@@ -24,6 +24,7 @@ const WalletBalance = ({bankDetails, walletInfo, loading, mutateCallback}) => {
 	const [successModal, setSuccessModal] = useState(false);
 
 	const {user} = useSelector((state) => state.auth);
+	const {store} = useSelector((state) => state.store);
 	const [fees, setFees] = useState('');
 
 	//get transaction fees for each withdrawals made based on bank type and currency
@@ -108,11 +109,12 @@ const WalletBalance = ({bankDetails, walletInfo, loading, mutateCallback}) => {
 								title="Affiliate"
 								currency={
 									affiliateBalance?.wallet_balance[1]
-										?.currency_name
+										?.currency_name ||
+									store?.bank_details?.currency_name
 								}
 								balance={
 									affiliateBalance?.wallet_balance[1]
-										?.available_balance
+										?.available_balance || 0
 								}
 								isAffiliate={user?.is_affiliate}
 							>
