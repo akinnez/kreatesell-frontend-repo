@@ -1,7 +1,13 @@
 import {useState, useCallback} from 'react';
 import {useDropzone} from 'react-dropzone';
 
-export const useUpload = ({fileType, multiple}) => {
+export const useUpload = ({
+	fileType,
+	multiple,
+	validateFunction = () => {
+		return true;
+	},
+}) => {
 	const [files, setFiles] = useState([]);
 	const [showImageFileFeedback, setShowImageFileFeedback] = useState(false);
 
@@ -29,9 +35,10 @@ export const useUpload = ({fileType, multiple}) => {
 
 				const filesInAcceptedFormats = fileMatched.filter(
 					(file) =>
-						!file?.file?.name.toLowerCase().endsWith('.png') ||
-						!file?.file?.name.toLowerCase().endsWith('.jpg') ||
-						!file?.file?.name.toLowerCase().endsWith('.jpeg')
+						validateFunction(file.file) &&
+						(!file?.file?.name.toLowerCase().endsWith('.png') ||
+							!file?.file?.name.toLowerCase().endsWith('.jpg') ||
+							!file?.file?.name.toLowerCase().endsWith('.jpeg'))
 				);
 
 				if (fileType === 'image') {

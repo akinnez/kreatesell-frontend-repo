@@ -263,13 +263,16 @@ const ManageSection = ({
 										width={25}
 										height={25}
 										src={
-											item?.files[0]?.type === 'audio'
+											item?.files[item?.files.length - 1]
+												?.type === 'audio'
 												? Audio
-												: item?.files[0]?.type ===
-												  'video'
+												: item?.files[
+														item?.files.length - 1
+												  ]?.type === 'video'
 												? Video
-												: item?.files[0]?.type ===
-												  'image'
+												: item?.files[
+														item?.files.length - 1
+												  ]?.type === 'image'
 												? ImageIcon
 												: PdfIcon
 										}

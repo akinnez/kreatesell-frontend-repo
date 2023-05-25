@@ -1,8 +1,16 @@
 import cogoToast from 'cogo-toast';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-export const pathName = typeof window !== 'undefined' && window;
 import {subDays, format} from 'date-fns';
+
+export {
+	imagesExtensions,
+	audioExtensions,
+	videoExtensions,
+	compressedFilesExtensions,
+} from './fileTypes';
+
+export const pathName = typeof window !== 'undefined' && window;
 
 var options = {
 	weekday: 'long',

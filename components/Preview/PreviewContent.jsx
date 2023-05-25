@@ -29,6 +29,7 @@ var options = {
 	month: 'short',
 	day: 'numeric',
 };
+
 var timeOptions = {
 	hour: 'numeric',
 	minute: 'numeric',
@@ -39,6 +40,7 @@ export default function PreviewContent({
 	alreadyDefinedPrice,
 	alreadyDefinedOriginalPrice,
 	productStatus,
+	minimumPrice,
 }) {
 	const [details, setDetails] = useState({});
 	const [images, setImages] = useState([]);
@@ -51,8 +53,6 @@ export default function PreviewContent({
 	const [uniqueKey, setUniqueKey] = useState('');
 	const [affiliateRef, setAffiliateRef] = useState('');
 	const [cookieExpiryTime, setCookieExpiryTime] = useState('');
-
-	// const []
 
 	// verification modal and drawers controls
 	const [showModal, setShowModal] = useState(false);
@@ -164,7 +164,6 @@ export default function PreviewContent({
 				itemPrice.currency_name === convertedCurrency?.to_currency_name
 		);
 
-		// console.log('minDefinedPrice', minDefinedPrice);
 		// TODO:if there are already predefined prices, show them instead
 		if (minDefinedPrice && Object.keys(minDefinedPrice).length > 0) {
 			return minDefinedPrice?.price;
@@ -174,8 +173,6 @@ export default function PreviewContent({
 		}
 		return minPrice?.price;
 	};
-
-	// console.log('getMinimumPrice', getMinimumPrice());
 
 	const getMinimumCurrency = () => {
 		const minPrice = checkout?.find(
@@ -223,10 +220,10 @@ export default function PreviewContent({
 			setCheckout(product?.check_out_details);
 		}
 		if (checkout && checkout?.length > 0) {
-			const defaultPrice = product?.default_currency?.currency;
+			const defaultCurrency = product?.default_currency?.currency;
 
 			const prices = checkout?.filter(
-				(item) => item?.currency_name === defaultPrice
+				(item) => item?.currency_name === defaultCurrency
 			);
 			setSellingPrice(
 				prices?.filter((item) => item?.price_indicator === 'Selling')
@@ -488,10 +485,6 @@ export default function PreviewContent({
 								</p>
 							) : (
 								<>
-									{/* {console.log(
-										'productPriceType',
-										productPriceType
-									)} */}
 									{/* Fixed price */}
 									{/* {sellingPrice?.length > 0 && */}
 									{productPriceType !==
@@ -499,8 +492,7 @@ export default function PreviewContent({
 										<h1 className="text-xl md:text-3xl font-bold">
 											{`${
 												alreadyDefinedPrice?.currency_name ||
-												convertedCurrency?.to_currency_name ||
-												sellingPrice?.[0]?.currency_name
+												convertedCurrency?.to_currency_name
 											} ${
 												alreadyDefinedPrice?.price
 													? alreadyDefinedPrice?.price
@@ -523,7 +515,7 @@ export default function PreviewContent({
 										'Pay What You Want' && (
 										<h1 className="text-xl md:text-3xl font-bold">
 											{`${
-												alreadyDefinedPrice?.currency_name ||
+												minimumPrice?.currency_name ||
 												convertedCurrency?.to_currency_name ||
 												getMinimumCurrency()
 											} 
@@ -602,6 +594,7 @@ export default function PreviewContent({
 		</div>
 	);
 }
+
 const VerifiedModalChildren = () => {
 	return (
 		<div className={`${styles.modal} flex flex-col `}>

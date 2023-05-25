@@ -212,8 +212,15 @@ const BuyersPreview = () => {
 		setAccordionData(products);
 	};
 
-	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
-	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
+	const fileMedia = activeLink?.files
+		? activeLink?.files[activeLink?.files.length - 1]?.filename
+		: '';
+	console.log(activeLink, 'activeLinkactiveLinkactiveLinkactiveLink');
+	console.log(fileMedia, 'fileMediafileMediafileMediafileMedia');
+	const fileMediaType = activeLink?.files
+		? activeLink?.files[activeLink?.files.length - 1]?.type
+		: '';
+	console.log(fileMediaType, 'fileMediaTypefileMediaTypefileMediaType');
 
 	useMemo(() => {
 		if (Array.isArray(courseContent) && courseContent.length > 0) {
@@ -391,6 +398,19 @@ const BuyersPreview = () => {
 												className={styles.previewVideo}
 											/>
 										)}
+									{activeLink?.files &&
+										fileMediaType === 'applicaation' && (
+											<div>
+												<iframe
+													src={`https://docs.google.com/gview?url=${fileMedia}&embedded=true`}
+													style={{
+														width: '100%',
+														height: '400px',
+														border: 'none',
+													}}
+												></iframe>
+											</div>
+										)}
 								</div>
 
 								<Card>
@@ -405,10 +425,14 @@ const BuyersPreview = () => {
 											}}
 											onClick={() =>
 												handleDownload(
-													activeLink?.files[0]
-														?.filename,
-													activeLink?.files[0]
-														?.extension
+													activeLink?.files[
+														activeLink?.files
+															.length - 1
+													]?.filename,
+													activeLink?.files[
+														activeLink?.files
+															.length - 1
+													]?.extension
 												)
 											}
 										/>

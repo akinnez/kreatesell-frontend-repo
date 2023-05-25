@@ -71,9 +71,13 @@ const PreviewMembership = () => {
 		setAccordionData(products);
 	};
 
-	const fileMedia = activeLink?.files ? activeLink?.files[0]?.filename : '';
+	const fileMedia = activeLink?.files
+		? activeLink?.files[activeLink?.files.length - 1]?.filename
+		: '';
 
-	const fileMediaType = activeLink?.files ? activeLink?.files[0]?.type : '';
+	const fileMediaType = activeLink?.files
+		? activeLink?.files[activeLink?.files.length - 1]?.type
+		: '';
 
 	useMemo(() => {
 		if (Array.isArray(product_content) && product_content.length > 0) {
@@ -206,6 +210,19 @@ const PreviewMembership = () => {
 											alt=""
 											className={styles.previewVideo}
 										/>
+									)}
+								{activeLink?.files &&
+									fileMediaType === 'applicaation' && (
+										<div>
+											<iframe
+												src={`https://docs.google.com/gview?url=${fileMedia}&embedded=true`}
+												style={{
+													width: '100%',
+													height: '800px',
+													border: 'none',
+												}}
+											></iframe>
+										</div>
 									)}
 							</div>
 							<Card>

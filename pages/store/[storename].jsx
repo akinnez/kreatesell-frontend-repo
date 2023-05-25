@@ -176,7 +176,6 @@ const StorePage = () => {
 			formatCurrencies();
 		}
 	}, [allowedCurrencies.length]);
-	// console.log('formattedCurrencies', formattedCurrencies);
 
 	return (
 		<>
