@@ -133,7 +133,7 @@ export default function PreviewHeader({
 
 	return (
 		<header
-			className={`flex items-center justify-between bg-white px-10 py-6 ${styles.header}`}
+			className={`flex items-center justify-between bg-white px-2 md:px-10 lg:px-10 py-6 ${styles.header}`}
 		>
 			<div className={`${styles.lgLeft} flex items-center`}>
 				<div className="flex">
