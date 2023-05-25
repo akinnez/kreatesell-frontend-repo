@@ -254,7 +254,7 @@ const StorePage = () => {
 								<Image src={SearchIcon} alt="search" />
 								<div className="w-20 mr-4 ml-5">
 									<Select
-										options={currencyOptions}
+										options={formattedCurrencies}
 										border="none"
 										cb={(targetCurrency) =>
 											setTargetCurrency(targetCurrency)
