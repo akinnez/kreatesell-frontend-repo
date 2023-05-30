@@ -35,7 +35,7 @@ function validateFunction(file) {
 
 	// if it is not an image or video, it cant be more than 500mb
 	if (
-		[...audioExtensions, ...videoExtensions, '.pdf'].includes(
+		[...audioExtensions, ...videoExtensions, 'pdf'].includes(
 			fileArr[length - 1]
 		)
 	) {

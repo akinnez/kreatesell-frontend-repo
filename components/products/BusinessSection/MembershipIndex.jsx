@@ -175,7 +175,7 @@ export default function MembershipIndex({
 							type="primary"
 							onClick={() =>
 								route.push(
-									`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`
+									`/account/kreator/products/preview-subscription/${product.product_details.kreasell_product_id}`
 								)
 							}
 						>
