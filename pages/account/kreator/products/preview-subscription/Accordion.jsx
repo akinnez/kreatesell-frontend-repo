@@ -1,8 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useState} from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
-import { AccordionDown, AccordionRight, PlayIcon2 } from 'utils';
+import {AccordionDown, AccordionRight, PlayIcon2} from 'utils';
 import styles from 'public/css/PreviewMembership.module.scss';
 export const pathsName = typeof window !== 'undefined' && window;
 
@@ -12,7 +12,7 @@ const Accordion = ({
 	setActiveLink,
 	activeLink,
 	product,
-	setShowMobileContents
+	setShowMobileContents,
 	// pathname,
 }) => {
 	const [isActive, setIsActive] = useState(false);
@@ -21,7 +21,7 @@ const Accordion = ({
 	);
 
 	const router = useRouter();
-	const { pathname } = router;
+	const {pathname} = router;
 
 	const path = pathname.split('/');
 	const linkPath = path[path.length - 2];
@@ -36,13 +36,17 @@ const Accordion = ({
 	};
 
 	return (
-		<div className={`${styles.accordionItem} py-3 md:py-1 px-2 md:px-1 border md:border-0 rounded-xl mb-2`}>
+		<div
+			className={`${styles.accordionItem} py-3 md:py-1 px-2 md:px-1 border md:border-0 rounded-xl mb-2`}
+		>
 			<div
-				className={`${styles.accordionTitle
-					} flex justify-between text-gray-700 cursor-pointer ${totalPayments < product?.frequency_of_availability &&
+				className={`${
+					styles.accordionTitle
+				} flex justify-between text-gray-700 cursor-pointer ${
+					totalPayments < product?.frequency_of_availability &&
 					linkPath !== 'preview-membership' &&
 					'bg-gray-300 text-grey-100'
-					}cursor-pointer`}
+				}cursor-pointer`}
 			>
 				<div
 					className={styles.title}
@@ -77,19 +81,25 @@ const Accordion = ({
 						{product?.product_subsection.map((itm) => (
 							<>
 								<div
-									className={`cursor-pointer hidden md:flex gap-5 md:gap-3 rounded-xl py-2 md:py-0 px-4 md:px-0 ${styles.subTextContainer
-										} ${activeLink?.id === itm.id &&
+									className={`cursor-pointer hidden md:flex gap-5 md:gap-3 rounded-xl py-2 md:py-0 px-4 md:px-0 ${
+										styles.subTextContainer
+									} ${
+										activeLink?.id === itm.id &&
 										styles.activeSublist
-										}`}
+									}`}
 									key={itm?.id}
 									onClick={() => {
 										setActiveLink(itm);
 									}}
 								>
-									<div className={`${styles.subText} md:text-base text-sm`}>
+									<div
+										className={`${styles.subText} md:text-base text-sm`}
+									>
 										{itm.product_section_name}
 									</div>
-									<div className={`${styles?.subBtn} flex justify-end`}>
+									<div
+										className={`${styles?.subBtn} flex justify-end`}
+									>
 										<Image
 											src={PlayIcon2}
 											width={20}
@@ -101,13 +111,15 @@ const Accordion = ({
 
 								{/* //mobile layout till i find a way to make sure the onclick functions don't get call unecessarily */}
 								<div
-									className={`cursor-pointer md:hidden flex justify-between rounded-xl py-4 md:py-0 px-2 md:px-0 ${styles.subTextContainer
-										} ${activeLink?.id === itm.id &&
+									className={`cursor-pointer md:hidden flex justify-between rounded-xl py-4 md:py-0 px-2 md:px-0 ${
+										styles.subTextContainer
+									} ${
+										activeLink?.id === itm.id &&
 										styles.activeSublist
-										}`}
+									}`}
 									key={itm?.id}
 									onClick={() => {
-										setShowMobileContents(true)
+										setShowMobileContents(true);
 										setActiveLink(itm);
 									}}
 								>
@@ -124,7 +136,6 @@ const Accordion = ({
 									</div>
 								</div>
 							</>
-
 						))}
 					</div>
 					<hr />

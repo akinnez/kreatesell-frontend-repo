@@ -661,5 +661,5 @@ export {
 	QuestionIcon,
 	TelegramIconWhite,
 	logoIcon,
-	SettingsIcon
+	SettingsIcon,
 };

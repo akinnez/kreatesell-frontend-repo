@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Image from 'next/image';
 
-import { useSelector } from 'react-redux';
-import { Card, Row, Col } from 'antd';
+import {useSelector} from 'react-redux';
+import {Card, Row, Col} from 'antd';
 
-import { PlayIcon2, PlayIconBlue, LogoV2, SettingsIcon, ArrowLeft } from 'utils';
-import { Button } from 'components/form-input';
+import {PlayIcon2, PlayIconBlue, LogoV2, SettingsIcon, ArrowLeft} from 'utils';
+import {Button} from 'components/form-input';
 import BackButton from 'components/BackButton';
 import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
-import { AuthGetProductById } from 'redux/actions';
-import { CloudDownload } from 'utils/icons/CloudDownload';
+import {AuthGetProductById} from 'redux/actions';
+import {CloudDownload} from 'utils/icons/CloudDownload';
 
 const PreviewMembership = () => {
 	const router = useRouter();
@@ -22,7 +22,7 @@ const PreviewMembership = () => {
 
 	const {
 		product,
-		product: { product_content },
+		product: {product_content},
 	} = useSelector((state) => state.product);
 
 	const [activeLink, setActiveLink] = useState({});
@@ -32,7 +32,7 @@ const PreviewMembership = () => {
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
-	const [showMobileContents, setShowMobileContents] = useState(false)
+	const [showMobileContents, setShowMobileContents] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -92,9 +92,7 @@ const PreviewMembership = () => {
 			<Head>
 				<title>KreateSell | Preview Subscription</title>
 			</Head>
-			<section>
-
-			</section>
+			<section></section>
 			<div className={styles.container2}>
 				<header className={`flex px-5 w-full`}>
 					<div className={`flex items-center gap-5 ${styles.left}`}>
@@ -107,13 +105,12 @@ const PreviewMembership = () => {
 								alt=""
 							/>
 						</h3>
-						<div className='block md:hidden'>
+						<div className="block md:hidden">
 							<Image alt="" src={ArrowLeft} />
 						</div>
-						<div className='hidden md:block'>
+						<div className="hidden md:block">
 							<BackButton />
 						</div>
-
 					</div>
 					<div
 						className={`flex items-center justify-end md:gap-5 gap-3 ${styles.right}`}
@@ -152,7 +149,7 @@ const PreviewMembership = () => {
 									<div className={styles.accordion}>
 										{accordionData.map(
 											(
-												{ title, subList, product },
+												{title, subList, product},
 												idx
 											) => (
 												<Accordion
@@ -237,7 +234,10 @@ const PreviewMembership = () => {
 					{/* mobile */}
 					<div className={`${styles.mobile}`}>
 						{showMobileContents && (
-							<h2 className={`text-left ${styles.mainTitle} ml-5 py-3 flex items-center gap-3`} onClick={() => setShowMobileContents(false)}>
+							<h2
+								className={`text-left ${styles.mainTitle} ml-5 py-3 flex items-center gap-3`}
+								onClick={() => setShowMobileContents(false)}
+							>
 								<Image alt="" src={ArrowLeft} />
 								BACK
 							</h2>
@@ -245,16 +245,21 @@ const PreviewMembership = () => {
 						<div className={`bg-white w-full mx-auto px-2 py-5`}>
 							{!showMobileContents && (
 								<>
-									<div className={`flex items-center justify-between py-2 px-2 border-b border-gray-200 rounded-xl`}>
+									<div
+										className={`flex items-center justify-between py-2 px-2 border-b border-gray-200 rounded-xl`}
+									>
 										<h2 className={`${styles.mainTitle}`}>
-											{product?.product_details?.product_name}
+											{
+												product?.product_details
+													?.product_name
+											}
 										</h2>
 									</div>
 									<div className={`mt-3`}>
 										<div className={styles.mobileAccordion}>
 											{accordionData.map(
 												(
-													{ title, subList, product },
+													{title, subList, product},
 													idx
 												) => (
 													<Accordion
@@ -266,7 +271,7 @@ const PreviewMembership = () => {
 															title,
 															activeLink,
 															product,
-															setShowMobileContents
+															setShowMobileContents,
 															// pathname,
 														}}
 													/>
@@ -320,11 +325,14 @@ const PreviewMembership = () => {
 													loop
 													src={fileMedia}
 													alt=""
-													className={styles.previewVideo}
+													className={
+														styles.previewVideo
+													}
 												/>
 											)}
 										{activeLink?.files &&
-											fileMediaType === 'applicaation' && (
+											fileMediaType ===
+												'applicaation' && (
 												<div>
 													<iframe
 														src={`https://docs.google.com/gview?url=${fileMedia}&embedded=true`}
@@ -340,16 +348,15 @@ const PreviewMembership = () => {
 
 									<Card>
 										{activeLink?.is_content_downloadable && (
-											<Button 
+											<Button
 												icon={<CloudDownload />}
 												text="Download Content"
 												bgColor="blue"
-
 												// style={{
 												// 	padding: '1rem',
 												// 	marginBottom: '1rem',
 												// }}
-												className='p-2 md:p-4 mb-4'
+												className="p-2 md:p-4 mb-4"
 												onClick={() =>
 													handleDownload(
 														activeLink?.files[
@@ -373,7 +380,6 @@ const PreviewMembership = () => {
 									</Card>
 								</div>
 							)}
-
 						</div>
 					</div>
 				</section>

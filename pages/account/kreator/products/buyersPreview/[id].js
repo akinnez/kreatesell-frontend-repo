@@ -1,17 +1,23 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import Image from 'next/image';
-import { PlayIcon2, PlayIconBlue, KreateSellLogo, SettingsIcon, ArrowLeft } from 'utils';
+import {
+	PlayIcon2,
+	PlayIconBlue,
+	KreateSellLogo,
+	SettingsIcon,
+	ArrowLeft,
+} from 'utils';
 // import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
-import { useRouter } from 'next/router';
-import { Card, Row, Col, Modal } from 'antd';
+import {useRouter} from 'next/router';
+import {Card, Row, Col, Modal} from 'antd';
 import Accordion from '../preview-membership/Accordion';
-import { CloudDownload } from 'utils/icons/CloudDownload';
+import {CloudDownload} from 'utils/icons/CloudDownload';
 
 import axios from 'axios';
-import { Input, Button } from 'components';
+import {Input, Button} from 'components';
 
 const AccessPageModal = ({
 	showAccessPageModal,
@@ -21,7 +27,7 @@ const AccessPageModal = ({
 	setCourseContent,
 	setAcessProductDetails,
 	product_id,
-	setProdData
+	setProdData,
 }) => {
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/payment/access-product`;
 	const [email, setEmail] = useState('');
@@ -41,7 +47,7 @@ const AccessPageModal = ({
 			const response = await axios.post(productLink, productDetailsData);
 			setCourseContent(response?.data?.product_dto?.product_content);
 			setAcessProductDetails(response?.data?.product_dto);
-			setProdData(response?.data)
+			setProdData(response?.data);
 			// console.log(response?.data?.total_payment_to_date,'response?.data?')
 			window.localStorage?.setItem(
 				'total_payments_made',
@@ -64,9 +70,9 @@ const AccessPageModal = ({
 			closeIcon={null}
 			closable={true}
 			width={595}
-			onOk={() => { }}
-			style={{ top: 200 }}
-		// centered
+			onOk={() => {}}
+			style={{top: 200}}
+			// centered
 		>
 			<div className={styles.modal}>
 				<header className={styles.header}>
@@ -86,7 +92,7 @@ const AccessPageModal = ({
 						label="Email address"
 						height="small"
 						onChange={(e) => setEmail(e.target.value)}
-						containerStyle={{ width: '100%' }}
+						containerStyle={{width: '100%'}}
 					/>
 
 					{/* TODO: show for incorrect email */}
@@ -108,7 +114,7 @@ const AccessPageModal = ({
 						loading={false}
 						disabled={false}
 						bgColor="blue"
-						style={{ width: '100%' }}
+						style={{width: '100%'}}
 						onClick={handleSubmit}
 					/>
 				</div>
@@ -130,20 +136,16 @@ const BuyersPreview = () => {
 	const [selectedSection, setSelectedSection] = useState([]);
 	const [showAccessPageModal, setShowAccessPageModal] = useState(false);
 	const [activeSectionName, setActiveSectionName] = useState(false);
-	const [showMobileContents, setShowMobileContents] = useState(false)
+	const [showMobileContents, setShowMobileContents] = useState(false);
 
 	const [errorModal, setErrorModal] = useState(false);
 	const [courseContent, setCourseContent] = useState([]);
 	const [acessProductDetails, setAcessProductDetails] = useState({});
-	const [prodData, setProdData] = useState({})
+	const [prodData, setProdData] = useState({});
 
 	const productDetails = acessProductDetails?.product_details;
 
 	const productTypeName = acessProductDetails?.product_type_details;
-
-
-
-
 
 	//open email modal on loading of page
 	useEffect(() => {
@@ -223,11 +225,10 @@ const BuyersPreview = () => {
 	const fileMedia = activeLink?.files
 		? activeLink?.files[activeLink?.files.length - 1]?.filename
 		: '';
-	
+
 	const fileMediaType = activeLink?.files
 		? activeLink?.files[activeLink?.files.length - 1]?.type
 		: '';
-
 
 	useMemo(() => {
 		if (Array.isArray(courseContent) && courseContent.length > 0) {
@@ -271,26 +272,38 @@ const BuyersPreview = () => {
 						<div
 							className={`flex items-center gap-5 ${styles.middle} `}
 						>
-							<h3 className={`hidden md:block ${styles.previewTitle}`}>
+							<h3
+								className={`hidden md:block ${styles.previewTitle}`}
+							>
 								{productDetails?.product_name}
 							</h3>
 						</div>
-						<div className={`w-full hidden md:flex items-center gap-2 justify-end cursor-pointer ${styles?.left}`} onClick={() => router.push(`/store/${prodData?.store_name}`)}>
+						<div
+							className={`w-full hidden md:flex items-center gap-2 justify-end cursor-pointer ${styles?.left}`}
+							onClick={() =>
+								router.push(`/store/${prodData?.store_name}`)
+							}
+						>
 							<div>
-								{prodData?.kreator_profile_pic &&
+								{prodData?.kreator_profile_pic && (
 									<Image
 										src={prodData?.kreator_profile_pic}
 										// onClick={() => router.push('/')}
 										width={40}
 										height={40}
 										alt=""
-									/>}
+									/>
+								)}
 							</div>
-							<h3 className='text-base'>{prodData?.kreator_name}</h3>
+							<h3 className="text-base">
+								{prodData?.kreator_name}
+							</h3>
 						</div>
 
 						{/* header nav for mobile */}
-						<div className={`md:hidden flex items-center gap-4 w-full px-2 ml-4`}>
+						<div
+							className={`md:hidden flex items-center gap-4 w-full px-2 ml-4`}
+						>
 							<h3 className="md:hidden block mb-0 w-1/2">
 								<Image
 									src={KreateSellLogo}
@@ -300,18 +313,28 @@ const BuyersPreview = () => {
 									alt=""
 								/>
 							</h3>
-							<div className='w-full flex items-center gap-2 justify-end' onClick={() => router.push(`/store/${prodData?.store_name}`)}>
+							<div
+								className="w-full flex items-center gap-2 justify-end"
+								onClick={() =>
+									router.push(
+										`/store/${prodData?.store_name}`
+									)
+								}
+							>
 								<div>
-									{prodData?.kreator_profile_pic &&
+									{prodData?.kreator_profile_pic && (
 										<Image
 											src={prodData?.kreator_profile_pic}
 											// onClick={() => router.push('/')}
 											width={40}
 											height={40}
 											alt=""
-										/>}
+										/>
+									)}
 								</div>
-								<h3 className='text-xs'>{prodData?.kreator_name}</h3>
+								<h3 className="text-xs">
+									{prodData?.kreator_name}
+								</h3>
 							</div>
 						</div>
 						{/* header nav for mobile */}
@@ -332,7 +355,7 @@ const BuyersPreview = () => {
 										<div className={styles.accordion}>
 											{accordionData.map(
 												(
-													{ title, subList, product },
+													{title, subList, product},
 													idx
 												) => (
 													<Accordion
@@ -496,24 +519,37 @@ const BuyersPreview = () => {
 						{/* mobile */}
 						<div className={`${styles.mobile}`}>
 							{showMobileContents && (
-								<h2 className={`text-left ${styles.mainTitle} ml-5 py-3 flex items-center gap-3`} onClick={() => setShowMobileContents(false)}>
+								<h2
+									className={`text-left ${styles.mainTitle} ml-5 py-3 flex items-center gap-3`}
+									onClick={() => setShowMobileContents(false)}
+								>
 									<Image alt="" src={ArrowLeft} />
 									BACK
 								</h2>
 							)}
-							<div className={`bg-white w-full mx-auto px-2 py-5`}>
+							<div
+								className={`bg-white w-full mx-auto px-2 py-5`}
+							>
 								{!showMobileContents && (
 									<>
-										<div className={`flex items-center justify-between py-2 px-2 border-b border-gray-200 rounded-xl`}>
-											<h2 className={`${styles.mainTitle}`}>
+										<div
+											className={`flex items-center justify-between py-2 px-2 border-b border-gray-200 rounded-xl`}
+										>
+											<h2
+												className={`${styles.mainTitle}`}
+											>
 												{productDetails?.product_name}
 											</h2>
-											{productTypeName === 'Membership' && (
-												<h3 className="md:hidden block mb-0" onClick={() =>
-													router.push(
-														`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
-													)
-												}>
+											{productTypeName ===
+												'Membership' && (
+												<h3
+													className="md:hidden block mb-0"
+													onClick={() =>
+														router.push(
+															`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
+														)
+													}
+												>
 													<Image
 														src={SettingsIcon}
 														width={50}
@@ -524,10 +560,18 @@ const BuyersPreview = () => {
 											)}
 										</div>
 										<div className={`mt-3`}>
-											<div className={styles.mobileAccordion}>
+											<div
+												className={
+													styles.mobileAccordion
+												}
+											>
 												{accordionData.map(
 													(
-														{ title, subList, product },
+														{
+															title,
+															subList,
+															product,
+														},
 														idx
 													) => (
 														<Accordion
@@ -540,7 +584,7 @@ const BuyersPreview = () => {
 																activeLink,
 																product,
 																setActiveSectionName,
-																setShowMobileContents
+																setShowMobileContents,
 																// pathname,
 															}}
 														/>
@@ -554,7 +598,9 @@ const BuyersPreview = () => {
 									<div className={styles.right}>
 										<div>
 											<h1 className={styles.sectionName}>
-												{activeLink?.product_section_name}
+												{
+													activeLink?.product_section_name
+												}
 											</h1>
 										</div>
 										<div
@@ -594,11 +640,14 @@ const BuyersPreview = () => {
 														loop
 														src={fileMedia}
 														alt=""
-														className={styles.previewVideo}
+														className={
+															styles.previewVideo
+														}
 													/>
 												)}
 											{activeLink?.files &&
-												fileMediaType === 'applicaation' && (
+												fileMediaType ===
+													'applicaation' && (
 													<div>
 														<iframe
 															src={`https://docs.google.com/gview?url=${fileMedia}&embedded=true`}
@@ -622,15 +671,17 @@ const BuyersPreview = () => {
 													// 	padding: '1rem',
 													// 	marginBottom: '1rem',
 													// }}
-													className='p-2 md:p-4 mb-4'
+													className="p-2 md:p-4 mb-4"
 													onClick={() =>
 														handleDownload(
 															activeLink?.files[
-																activeLink?.files
+																activeLink
+																	?.files
 																	.length - 1
 															]?.filename,
 															activeLink?.files[
-																activeLink?.files
+																activeLink
+																	?.files
 																	.length - 1
 															]?.extension
 														)
@@ -646,7 +697,6 @@ const BuyersPreview = () => {
 										</Card>
 									</div>
 								)}
-
 							</div>
 						</div>
 					</section>
