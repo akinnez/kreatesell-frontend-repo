@@ -328,6 +328,8 @@ import TelegramIcon from '../public/images/telegramIcon.png';
 import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
 import TelegramIconWhite from '../public/images/Telegramwhite.png';
+import logoIcon from '../public/images/logoIcon.png';
+import SettingsIcon from '../public/images/settings.png';
 
 export {
 	MaintenanceIcon,
@@ -658,4 +660,6 @@ export {
 	InfinityIcon,
 	QuestionIcon,
 	TelegramIconWhite,
+	logoIcon,
+	SettingsIcon,
 };

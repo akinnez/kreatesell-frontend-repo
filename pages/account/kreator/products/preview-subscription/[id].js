@@ -6,12 +6,13 @@ import Image from 'next/image';
 import {useSelector} from 'react-redux';
 import {Card, Row, Col} from 'antd';
 
-import {PlayIcon2, PlayIconBlue, LogoV2} from 'utils';
+import {PlayIcon2, PlayIconBlue, LogoV2, SettingsIcon, ArrowLeft} from 'utils';
 import {Button} from 'components/form-input';
 import BackButton from 'components/BackButton';
 import Accordion from './Accordion';
 import styles from 'public/css/PreviewMembership.module.scss';
 import {AuthGetProductById} from 'redux/actions';
+import {CloudDownload} from 'utils/icons/CloudDownload';
 
 const PreviewMembership = () => {
 	const router = useRouter();
@@ -31,6 +32,7 @@ const PreviewMembership = () => {
 		useState(null);
 	const [accordionData, setAccordionData] = useState([]);
 	const [selectedSection, setSelectedSection] = useState([]);
+	const [showMobileContents, setShowMobileContents] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -90,8 +92,9 @@ const PreviewMembership = () => {
 			<Head>
 				<title>KreateSell | Preview Subscription</title>
 			</Head>
+			<section></section>
 			<div className={styles.container2}>
-				<header className={`flex px-5`}>
+				<header className={`flex px-5 w-full`}>
 					<div className={`flex items-center gap-5 ${styles.left}`}>
 						<h3 className="hidden md:block mb-0">
 							<Image
@@ -102,10 +105,15 @@ const PreviewMembership = () => {
 								alt=""
 							/>
 						</h3>
-						<BackButton />
+						<div className="block md:hidden">
+							<Image alt="" src={ArrowLeft} />
+						</div>
+						<div className="hidden md:block">
+							<BackButton />
+						</div>
 					</div>
 					<div
-						className={`flex items-center justify-end gap-5 ${styles.right}`}
+						className={`flex items-center justify-end md:gap-5 gap-3 ${styles.right}`}
 					>
 						<Button
 							className={styles.outlinedBtn}
@@ -225,109 +233,154 @@ const PreviewMembership = () => {
 					</Row>
 					{/* mobile */}
 					<div className={`${styles.mobile}`}>
-						<h2 className={`text-left ${styles.mainTitle}`}>
-							{product?.product_details?.product_name}
-						</h2>
-						<div
-							className={`flex justify-evenly ${styles.mainSections}`}
-						>
-							{accordionData.map(({title, id, subList}, idx) => (
-								<div
-									key={idx}
-									className={`p-2 ${styles.title} ${
-										id === activeSelectedSectionId &&
-										styles.active
-									}`}
-									onClick={() => {
-										setSelectedSection(subList);
-										setActiveSelectedSectionId(id);
-									}}
-								>
-									{title}
-								</div>
-							))}
-						</div>
-						<hr />
-						{selectedSection.length > 0 && (
-							<>
-								<div
-									className={`flex justify-evenly my-5 ${styles.subSection}`}
-								>
-									{selectedSection.map((sec, idx) => (
-										<div
-											key={idx}
-											className={`p-3 ${
-												styles.sections
-											} ${
-												activeLink?.id === sec.id &&
-												styles.active2
-											}`}
-											onClick={() => {
-												setActiveLink(sec);
-											}}
-										>
-											{sec?.product_section_name}{' '}
-											<Image
-												src={
-													activeLink?.id === sec.id
-														? PlayIconBlue
-														: PlayIcon2
-												}
-												width={20}
-												height={15}
-												alt=""
-											/>
-										</div>
-									))}
-								</div>
-								<Card className={`${styles.card}`}>
-									{activeLink?.id ? (
-										<div>
-											<h3>Lecture 1</h3>
-											<h2>
-												{
-													product?.product_details
-														?.product_name
-												}
-											</h2>
-											<h1>
-												How Cryptocurrency Came To Be
-											</h1>
-											<p>
-												Lorem ipsum dolor sit amet,
-												consectetur adipiscing elit.
-												Lectus feugiat turpis sed fusce
-												in. Pulvinar id enim tellus
-												pharetra diam ac. Bibendum in
-												consectetur amet mi condimentum
-												suspendisse. Pellentes integer
-												aliquet congue at proin
-												adipiscing aliquet. Neque, nunc
-												arcu euismod eget proin est
-												volutpat, vestibulum nibh.
-												Pharetra lectus semper tellus
-												condimentum risus, tortor
-												pulvinar nullam senectus.
-												Dignissim malesuada eu, aliquam
-												enim ultrices neque, eget nibh.
-												At adipiscing congue bibendum
-												at. Viverra justo, viverra
-												dictum risus lacus nullam
-												pharetra lacus. Aliquet feugiat
-												magna proin elementum mauris.
-												Duis vulputate ante magna
-												tellus.
-											</p>
-											{activeLink?.id}
-										</div>
-									) : (
-										<h2 className="text-center">
-											Select a Lecture
-										</h2>
-									)}
-								</Card>
-							</>
+						{showMobileContents && (
+							<h2
+								className={`text-left ${styles.mainTitle} ml-5 py-3 flex items-center gap-3`}
+								onClick={() => setShowMobileContents(false)}
+							>
+								<Image alt="" src={ArrowLeft} />
+								BACK
+							</h2>
 						)}
+						<div className={`bg-white w-full mx-auto px-2 py-5`}>
+							{!showMobileContents && (
+								<>
+									<div
+										className={`flex items-center justify-between py-2 px-2 border-b border-gray-200 rounded-xl`}
+									>
+										<h2 className={`${styles.mainTitle}`}>
+											{
+												product?.product_details
+													?.product_name
+											}
+										</h2>
+									</div>
+									<div className={`mt-3`}>
+										<div className={styles.mobileAccordion}>
+											{accordionData.map(
+												(
+													{title, subList, product},
+													idx
+												) => (
+													<Accordion
+														key={idx}
+														// pathname={pathname}
+														{...{
+															setActiveLink,
+															subList,
+															title,
+															activeLink,
+															product,
+															setShowMobileContents,
+															// pathname,
+														}}
+													/>
+												)
+											)}
+										</div>
+									</div>
+								</>
+							)}
+							{showMobileContents && (
+								<div className={styles.right}>
+									<div>
+										<h1 className={styles.sectionName}>
+											{activeLink?.product_section_name}
+										</h1>
+									</div>
+									<div
+										style={{
+											padding: '20px',
+											backgroundColor: 'white',
+										}}
+									>
+										{activeLink?.files &&
+											fileMediaType === 'image' && (
+												<Image
+													src={fileMedia}
+													alt="media"
+													width={755}
+													height={450}
+													objectFit="cover"
+												/>
+											)}
+										{activeLink?.files &&
+											fileMediaType === 'audio' && (
+												<audio
+													controls
+													controlsList="nodownload"
+													className={styles.audio}
+												>
+													<source
+														src={fileMedia}
+														type="audio/mpeg"
+													/>
+												</audio>
+											)}
+										{activeLink?.files &&
+											fileMediaType === 'video' && (
+												<video
+													controls
+													controlsList="nodownload"
+													loop
+													src={fileMedia}
+													alt=""
+													className={
+														styles.previewVideo
+													}
+												/>
+											)}
+										{activeLink?.files &&
+											fileMediaType ===
+												'applicaation' && (
+												<div>
+													<iframe
+														src={`https://docs.google.com/gview?url=${fileMedia}&embedded=true`}
+														style={{
+															width: '100%',
+															height: '400px',
+															border: 'none',
+														}}
+													></iframe>
+												</div>
+											)}
+									</div>
+
+									<Card>
+										{activeLink?.is_content_downloadable && (
+											<Button
+												icon={<CloudDownload />}
+												text="Download Content"
+												bgColor="blue"
+												// style={{
+												// 	padding: '1rem',
+												// 	marginBottom: '1rem',
+												// }}
+												className="p-2 md:p-4 mb-4"
+												onClick={() =>
+													handleDownload(
+														activeLink?.files[
+															activeLink?.files
+																.length - 1
+														]?.filename,
+														activeLink?.files[
+															activeLink?.files
+																.length - 1
+														]?.extension
+													)
+												}
+											/>
+										)}
+										<div
+											className={styles.sectionName}
+											dangerouslySetInnerHTML={{
+												__html: activeLink?.product_section_description,
+											}}
+										/>
+									</Card>
+								</div>
+							)}
+						</div>
 					</div>
 				</section>
 			</div>

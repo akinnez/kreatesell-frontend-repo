@@ -13,6 +13,7 @@ const Accordion = ({
 	activeLink,
 	product,
 	setActiveSectionName,
+	setShowMobileContents,
 	// pathname,
 }) => {
 	const [isActive, setIsActive] = useState(false);
@@ -38,11 +39,13 @@ const Accordion = ({
 	};
 
 	return (
-		<div className={styles.accordionItem}>
+		<div
+			className={`${styles.accordionItem} py-3 md:py-1 px-2 md:px-1 border md:border-0 rounded-xl mb-2`}
+		>
 			<div
 				className={`${
 					styles.accordionTitle
-				} flex text-gray-700 cursor-pointer ${
+				} flex justify-between text-gray-700 cursor-pointer ${
 					totalPayments < product?.frequency_of_availability &&
 					linkPath !== 'preview-membership' &&
 					'bg-gray-300 text-grey-100'
@@ -55,7 +58,7 @@ const Accordion = ({
 					{product?.section_name}
 				</div>
 				<div
-					className={styles.icon}
+					className={`${styles.icon} cursor-pointer`}
 					onClick={() => handleSectionOpen()}
 				>
 					{isActive ? (
@@ -77,32 +80,66 @@ const Accordion = ({
 			</div>
 			{isActive && (
 				<>
-					<div className={styles.accordionContent}>
+					<div className={`${styles.accordionContent}`}>
 						{product?.product_subsection.map((itm) => (
-							<div
-								className={`cursor-pointer flex justify-between ${
-									styles.subTextContainer
-								} ${
-									activeLink?.id === itm.id &&
-									styles.activeSublist
-								}`}
-								key={itm?.id}
-								onClick={() => {
-									setActiveLink(itm);
-								}}
-							>
-								<span className={`${styles.subText}`}>
-									{itm.product_section_name}
-								</span>
-								<div className="flex">
-									<Image
-										src={PlayIcon2}
-										width={20}
-										height={15}
-										alt=""
-									/>
+							<>
+								<div
+									className={`cursor-pointer hidden md:flex gap-5 md:gap-3 rounded-xl py-2 md:py-0 px-4 md:px-0 ${
+										styles.subTextContainer
+									} ${
+										activeLink?.id === itm.id &&
+										styles.activeSublist
+									}`}
+									key={itm?.id}
+									onClick={() => {
+										setActiveLink(itm);
+									}}
+								>
+									<span
+										className={`${styles.subText} md:text-base text-sm`}
+									>
+										{itm.product_section_name}
+									</span>
+									<div
+										className={`${styles?.subBtn} flex justify-end`}
+									>
+										<Image
+											src={PlayIcon2}
+											width={20}
+											height={15}
+											alt=""
+										/>
+									</div>
 								</div>
-							</div>
+
+								{/* //mobile layout till i find a way to make sure the onclick functions don't get call unecessarily */}
+
+								<div
+									className={`cursor-pointer md:hidden flex justify-between rounded-xl py-4 md:py-0 px-4 md:px-0 ${
+										styles.subTextContainer
+									} ${
+										activeLink?.id === itm.id &&
+										styles.activeSublist
+									}`}
+									key={itm?.id}
+									onClick={() => {
+										setShowMobileContents(true);
+										setActiveLink(itm);
+									}}
+								>
+									<span className={`${styles.subText}`}>
+										{itm.product_section_name}
+									</span>
+									<div className="flex">
+										<Image
+											src={PlayIcon2}
+											width={20}
+											height={15}
+											alt=""
+										/>
+									</div>
+								</div>
+							</>
 						))}
 					</div>
 					<hr />
