@@ -5,9 +5,9 @@ import {Tooltip} from 'antd';
 
 import styles from './index.module.scss';
 
-const RequestAccessLink = ({productId, status}) => (
+const RequestAccessLink = ({productId, status, statusType}) => (
 	<>
-		{!status ? (
+		{!status || statusType === 'Revoked' ? (
 			<Link href={`/account/affiliate/market-place/${productId}`}>
 				<a className={styles.request__link}>
 					Request Access
