@@ -431,19 +431,27 @@ export default function AddSection({toSection}) {
 						{item?.product_subsection?.map((lecture, idx) => (
 							<div
 								key={idx}
-								className="flex mt-5 ml-5 justify-between items-center"
+								className="flex mt-5 ml-2 md:ml-5 justify-between items-center w-full"
 							>
-								<div className="flex items-center">
+								<div
+									className="flex items-center w-full shadow rounded-lg p-2 border"
+									style={{flex: '70%'}}
+								>
 									<Image
 										className="mr-2"
 										src={HandleBar}
 										alt="handle"
+										style={{flex: '10%'}}
 									/>
 
-									<div className="flex items-center">
+									<div
+										className="flex items-center"
+										style={{flex: '90%'}}
+									>
 										<h2
 											// onClick={(e) => handleClick(e.target)}
 											className="text-base mb-0 ml-2 font-medium cursor-pointer"
+											style={{flex: '85%'}}
 										>
 											{lecture.product_section_name}
 										</h2>
@@ -457,6 +465,7 @@ export default function AddSection({toSection}) {
 											}}
 											placement="right"
 											title="Rename lecture"
+											style={{flex: '15%'}}
 										>
 											<BsFillPencilFill
 												className="text-blue-500 ml-3 cursor-pointer"
@@ -470,7 +479,10 @@ export default function AddSection({toSection}) {
 										</Tooltip>
 									</div>
 
-									<div className="hidden items-center ml-3">
+									<div
+										className="hidden items-center ml-3"
+										style={{flex: '90%'}}
+									>
 										<Input
 											autoFocus={true}
 											value={
@@ -512,7 +524,10 @@ export default function AddSection({toSection}) {
 										</div>
 									</div>
 								</div>
-								<div className="flex items-center">
+								<div
+									className="flex items-center w-full justify-end"
+									style={{flex: '30%'}}
+								>
 									<div
 										className={
 											styles.manageButton + ' mr-3'
@@ -534,11 +549,7 @@ export default function AddSection({toSection}) {
 											Manage Lecture
 										</Button>
 									</div>
-									<div
-										className={
-											styles.mobileManageButton + ' mr-3'
-										}
-									>
+									<div className={styles.mobileManageButton}>
 										<Button
 											onClick={() =>
 												toSection(

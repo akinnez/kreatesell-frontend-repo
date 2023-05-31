@@ -2,7 +2,13 @@ import React, {useState, useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import styles from 'public/css/PreviewMembership.module.scss';
 import Image from 'next/image';
-import {PlayIcon2, PlayIconBlue, KreateSellLogo} from 'utils';
+import {
+	PlayIcon2,
+	PlayIconBlue,
+	KreateSellLogo,
+	SettingsIcon,
+	ArrowLeft,
+} from 'utils';
 // import { Button } from 'components/form-input';
 import BackButton from 'components/BackButton';
 import {useRouter} from 'next/router';
@@ -21,6 +27,7 @@ const AccessPageModal = ({
 	setCourseContent,
 	setAcessProductDetails,
 	product_id,
+	setProdData,
 }) => {
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/payment/access-product`;
 	const [email, setEmail] = useState('');
@@ -40,6 +47,7 @@ const AccessPageModal = ({
 			const response = await axios.post(productLink, productDetailsData);
 			setCourseContent(response?.data?.product_dto?.product_content);
 			setAcessProductDetails(response?.data?.product_dto);
+			setProdData(response?.data);
 			// console.log(response?.data?.total_payment_to_date,'response?.data?')
 			window.localStorage?.setItem(
 				'total_payments_made',
@@ -128,10 +136,12 @@ const BuyersPreview = () => {
 	const [selectedSection, setSelectedSection] = useState([]);
 	const [showAccessPageModal, setShowAccessPageModal] = useState(false);
 	const [activeSectionName, setActiveSectionName] = useState(false);
+	const [showMobileContents, setShowMobileContents] = useState(false);
 
 	const [errorModal, setErrorModal] = useState(false);
 	const [courseContent, setCourseContent] = useState([]);
 	const [acessProductDetails, setAcessProductDetails] = useState({});
+	const [prodData, setProdData] = useState({});
 
 	const productDetails = acessProductDetails?.product_details;
 
@@ -215,12 +225,10 @@ const BuyersPreview = () => {
 	const fileMedia = activeLink?.files
 		? activeLink?.files[activeLink?.files.length - 1]?.filename
 		: '';
-	console.log(activeLink, 'activeLinkactiveLinkactiveLinkactiveLink');
-	console.log(fileMedia, 'fileMediafileMediafileMediafileMedia');
+
 	const fileMediaType = activeLink?.files
 		? activeLink?.files[activeLink?.files.length - 1]?.type
 		: '';
-	console.log(fileMediaType, 'fileMediaTypefileMediaTypefileMediaType');
 
 	useMemo(() => {
 		if (Array.isArray(courseContent) && courseContent.length > 0) {
@@ -243,12 +251,13 @@ const BuyersPreview = () => {
 					setCourseContent={setCourseContent}
 					setAcessProductDetails={setAcessProductDetails}
 					product_id={productId}
+					setProdData={setProdData}
 				/>
 			)}
 
 			{!showAccessPageModal && (
 				<div className={styles.container2}>
-					<header className={`flex px-5`}>
+					<header className={`flex px-5 items-center`}>
 						<div className={`flex items-center ${styles.left}`}>
 							<h3 className="hidden md:block mb-0">
 								<Image
@@ -261,13 +270,74 @@ const BuyersPreview = () => {
 							</h3>
 						</div>
 						<div
-							className={`flex items-center gap-5 ${styles.middle}`}
+							className={`flex items-center gap-5 ${styles.middle} `}
 						>
-							<h3 className={styles.previewTitle}>
+							<h3
+								className={`hidden md:block ${styles.previewTitle}`}
+							>
 								{productDetails?.product_name}
 							</h3>
 						</div>
-						<div className={styles.right}></div>
+						<div
+							className={`w-full hidden md:flex items-center gap-2 justify-end cursor-pointer ${styles?.left}`}
+							onClick={() =>
+								router.push(`/store/${prodData?.store_name}`)
+							}
+						>
+							<div>
+								{prodData?.kreator_profile_pic && (
+									<Image
+										src={prodData?.kreator_profile_pic}
+										// onClick={() => router.push('/')}
+										width={40}
+										height={40}
+										alt=""
+									/>
+								)}
+							</div>
+							<h3 className="text-base">
+								{prodData?.kreator_name}
+							</h3>
+						</div>
+
+						{/* header nav for mobile */}
+						<div
+							className={`md:hidden flex items-center gap-4 w-full px-2 ml-4`}
+						>
+							<h3 className="md:hidden block mb-0 w-1/2">
+								<Image
+									src={KreateSellLogo}
+									onClick={() => router.push('/')}
+									width={150}
+									height={40}
+									alt=""
+								/>
+							</h3>
+							<div
+								className="w-full flex items-center gap-2 justify-end"
+								onClick={() =>
+									router.push(
+										`/store/${prodData?.store_name}`
+									)
+								}
+							>
+								<div>
+									{prodData?.kreator_profile_pic && (
+										<Image
+											src={prodData?.kreator_profile_pic}
+											// onClick={() => router.push('/')}
+											width={40}
+											height={40}
+											alt=""
+										/>
+									)}
+								</div>
+								<h3 className="text-xs">
+									{prodData?.kreator_name}
+								</h3>
+							</div>
+						</div>
+						{/* header nav for mobile */}
 					</header>
 
 					<section>
@@ -448,117 +518,186 @@ const BuyersPreview = () => {
 						</Row>
 						{/* mobile */}
 						<div className={`${styles.mobile}`}>
-							<h2 className={`text-left ${styles.mainTitle}`}>
-								{/* {product?.product_details?.product_name} */}
-							</h2>
+							{showMobileContents && (
+								<h2
+									className={`text-left ${styles.mainTitle} ml-5 py-3 flex items-center gap-3`}
+									onClick={() => setShowMobileContents(false)}
+								>
+									<Image alt="" src={ArrowLeft} />
+									BACK
+								</h2>
+							)}
 							<div
-								className={`flex justify-evenly ${styles.mainSections}`}
+								className={`bg-white w-full mx-auto px-2 py-5`}
 							>
-								{accordionData.map(
-									({title, id, subList}, idx) => (
+								{!showMobileContents && (
+									<>
 										<div
-											key={idx}
-											className={`p-2 ${styles.title} ${
-												id ===
-													activeSelectedSectionId &&
-												styles.active
-											}`}
-											onClick={() => {
-												setSelectedSection(subList);
-												setActiveSelectedSectionId(id);
+											className={`flex items-center justify-between py-2 px-2 border-b border-gray-200 rounded-xl`}
+										>
+											<h2
+												className={`${styles.mainTitle}`}
+											>
+												{productDetails?.product_name}
+											</h2>
+											{productTypeName ===
+												'Membership' && (
+												<h3
+													className="md:hidden block mb-0"
+													onClick={() =>
+														router.push(
+															`/account/kreator/products/buyersPreview/manageMembership/${router?.query?.id}`
+														)
+													}
+												>
+													<Image
+														src={SettingsIcon}
+														width={50}
+														height={50}
+														alt=""
+													/>
+												</h3>
+											)}
+										</div>
+										<div className={`mt-3`}>
+											<div
+												className={
+													styles.mobileAccordion
+												}
+											>
+												{accordionData.map(
+													(
+														{
+															title,
+															subList,
+															product,
+														},
+														idx
+													) => (
+														<Accordion
+															key={idx}
+															// pathname={pathname}
+															{...{
+																setActiveLink,
+																subList,
+																title,
+																activeLink,
+																product,
+																setActiveSectionName,
+																setShowMobileContents,
+																// pathname,
+															}}
+														/>
+													)
+												)}
+											</div>
+										</div>
+									</>
+								)}
+								{showMobileContents && (
+									<div className={styles.right}>
+										<div>
+											<h1 className={styles.sectionName}>
+												{
+													activeLink?.product_section_name
+												}
+											</h1>
+										</div>
+										<div
+											style={{
+												padding: '20px',
+												backgroundColor: 'white',
 											}}
 										>
-											{title}
+											{activeLink?.files &&
+												fileMediaType === 'image' && (
+													<Image
+														src={fileMedia}
+														alt="media"
+														width={755}
+														height={450}
+														objectFit="cover"
+													/>
+												)}
+											{activeLink?.files &&
+												fileMediaType === 'audio' && (
+													<audio
+														controls
+														controlsList="nodownload"
+														className={styles.audio}
+													>
+														<source
+															src={fileMedia}
+															type="audio/mpeg"
+														/>
+													</audio>
+												)}
+											{activeLink?.files &&
+												fileMediaType === 'video' && (
+													<video
+														controls
+														controlsList="nodownload"
+														loop
+														src={fileMedia}
+														alt=""
+														className={
+															styles.previewVideo
+														}
+													/>
+												)}
+											{activeLink?.files &&
+												fileMediaType ===
+													'applicaation' && (
+													<div>
+														<iframe
+															src={`https://docs.google.com/gview?url=${fileMedia}&embedded=true`}
+															style={{
+																width: '100%',
+																height: '400px',
+																border: 'none',
+															}}
+														></iframe>
+													</div>
+												)}
 										</div>
-									)
+
+										<Card>
+											{activeLink?.is_content_downloadable && (
+												<Button
+													icon={<CloudDownload />}
+													text="Download Content"
+													bgColor="blue"
+													// style={{
+													// 	padding: '1rem',
+													// 	marginBottom: '1rem',
+													// }}
+													className="p-2 md:p-4 mb-4"
+													onClick={() =>
+														handleDownload(
+															activeLink?.files[
+																activeLink
+																	?.files
+																	.length - 1
+															]?.filename,
+															activeLink?.files[
+																activeLink
+																	?.files
+																	.length - 1
+															]?.extension
+														)
+													}
+												/>
+											)}
+											<div
+												className={styles.sectionName}
+												dangerouslySetInnerHTML={{
+													__html: activeLink?.product_section_description,
+												}}
+											/>
+										</Card>
+									</div>
 								)}
 							</div>
-							<hr />
-
-							{selectedSection.length > 0 && (
-								<>
-									<div
-										className={`flex justify-evenly my-5 ${styles.subSection}`}
-									>
-										{selectedSection.map((sec, idx) => (
-											<div
-												key={idx}
-												className={`p-3 ${
-													styles.sections
-												} ${
-													activeLink?.id === sec.id &&
-													styles.active2
-												}`}
-												onClick={() => {
-													setActiveLink(sec);
-												}}
-											>
-												{sec?.product_section_name}{' '}
-												<Image
-													src={
-														activeLink?.id ===
-														sec.id
-															? PlayIconBlue
-															: PlayIcon2
-													}
-													width={20}
-													height={15}
-													alt=""
-												/>
-											</div>
-										))}
-									</div>
-									<Card className={`${styles.card}`}>
-										{activeLink?.id ? (
-											<div>
-												<h3>Lecture 1</h3>
-												<h2>
-													{/* {
-														product?.product_details
-															?.product_name
-													} */}
-												</h2>
-												<h1>
-													How Cryptocurrency Came To
-													Be
-												</h1>
-												<p>
-													Lorem ipsum dolor sit amet,
-													consectetur adipiscing elit.
-													Lectus feugiat turpis sed
-													fusce in. Pulvinar id enim
-													tellus pharetra diam ac.
-													Bibendum in consectetur amet
-													mi condimentum suspendisse.
-													Pellentes integer aliquet
-													congue at proin adipiscing
-													aliquet. Neque, nunc arcu
-													euismod eget proin est
-													volutpat, vestibulum nibh.
-													Pharetra lectus semper
-													tellus condimentum risus,
-													tortor pulvinar nullam
-													senectus. Dignissim
-													malesuada eu, aliquam enim
-													ultrices neque, eget nibh.
-													At adipiscing congue
-													bibendum at. Viverra justo,
-													viverra dictum risus lacus
-													nullam pharetra lacus.
-													Aliquet feugiat magna proin
-													elementum mauris. Duis
-													vulputate ante magna tellus.
-												</p>
-												{activeLink?.id}
-											</div>
-										) : (
-											<h2 className="text-center">
-												Select a Lecture
-											</h2>
-										)}
-									</Card>
-								</>
-							)}
 						</div>
 					</section>
 				</div>

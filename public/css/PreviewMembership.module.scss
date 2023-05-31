@@ -3,8 +3,22 @@
 @import '../css//screens.scss';
 
 .container2 {
+	width: 100%;
 	@media (max-width: 700px) {
-		width: 130vh;
+		width: 100vh;
+		min-width: 100vw;
+	}
+
+	@media (max-width: 900px) {
+		// width: 140vw;
+		min-width: 100vw;
+	}
+
+	@media (max-width: 500px) {
+		// min-width: 120vw; //* took out for the dashboard quirk
+		width: 100vw;
+
+		min-width: 100vw;
 	}
 
 	position: relative;
@@ -56,6 +70,10 @@
 
 		@include screen('x-large') {
 			padding: 1rem 2.2rem;
+		}
+
+		@include screen('medium') {
+			min-height: 100vh;
 		}
 
 		.largeScreen {
@@ -117,9 +135,17 @@
 
 									.subText {
 										font-weight: 500;
-										font-size: 16px;
+										// font-size: 16px;
 										line-height: 30px;
 										color: #595959;
+										flex: 85%;
+										width: 100%;
+										// background: #00b140;
+									}
+									.subBtn {
+										width: 100%;
+										flex: 15%;
+										// background-color: #f5222d;
 									}
 								}
 
@@ -175,8 +201,8 @@
 			}
 
 			.mainTitle {
-				font-weight: 600;
-				font-size: 1.5rem;
+				font-weight: 500;
+				font-size: 1rem;
 				line-height: 32px;
 				color: #0072ef;
 			}
@@ -240,6 +266,14 @@
 					line-height: 24px;
 					color: #595959;
 				}
+			}
+
+			.mobileAccordion {
+				padding: 1rem 1.2rem;
+				margin-top: 0.6rem;
+				height: 100%;
+				overflow-y: scroll;
+				border-radius: 0.2rem;
 			}
 		}
 	}
@@ -454,6 +488,7 @@
 	border-radius: 8px;
 	cursor: pointer;
 	background-color: #0072ef;
+
 	p {
 		font-family: 'Inter';
 		font-style: normal;
@@ -569,7 +604,7 @@
 }
 
 .audio {
-	width: 677px;
+	width: 100%;
 	height: 64px;
 	margin: 0 auto;
 }
