@@ -71,7 +71,7 @@ export default function MembershipIndex({
 			<div
 				className={`flex items-center justify-between mb-7 ${styles.sectionContainerTitle}`}
 			>
-				<h1 className={``} style={{color: '#0072ef'}}>
+				<h1 className={`hidden md:block`} style={{color: '#0072ef'}}>
 					{product?.product_details?.product_name}
 				</h1>
 				{fields === 'empty' && (
@@ -175,7 +175,7 @@ export default function MembershipIndex({
 							type="primary"
 							onClick={() =>
 								route.push(
-									`/account/kreator/products/preview-membership/${product.product_details.kreasell_product_id}`
+									`/account/kreator/products/preview-subscription/${product.product_details.kreasell_product_id}`
 								)
 							}
 						>
@@ -183,6 +183,11 @@ export default function MembershipIndex({
 						</Button>
 					</div>
 				)}
+			</div>
+			<div className="w-11/12 mx-auto md:hidden block">
+				<h1 className={``} style={{color: '#0072ef'}}>
+					{product?.product_details?.product_name}
+				</h1>
 			</div>
 			{fields === 'empty' && (
 				<>

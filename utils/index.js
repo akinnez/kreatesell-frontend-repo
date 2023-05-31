@@ -9,6 +9,7 @@ export {
 	videoExtensions,
 	compressedFilesExtensions,
 } from './fileTypes';
+export {countries} from './countries';
 
 export const pathName = typeof window !== 'undefined' && window;
 

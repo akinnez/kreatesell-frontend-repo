@@ -87,7 +87,6 @@ const Wallet = ({bankDetails, walletInfo, storeLoading}) => {
 	} else {
 		isLoading = false;
 	}
-	// console.log('data', data);
 
 	const handlePageChange = (page) => {
 		setFilters({...filters, page});

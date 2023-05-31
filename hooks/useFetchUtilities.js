@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {bankSuccess, countriesRequest, countriesSuccess} from 'redux/actions';
-import {isAnEmpytyObject} from 'utils';
+import {isAnEmpytyObject, countries as CountriesWithFlag} from 'utils';
 
 const useFetchUtilities = () => {
 	const {store, utils} = useSelector((state) => state);
@@ -26,16 +26,12 @@ const useFetchUtilities = () => {
 					'https://restcountries.com/v3.1/all'
 				);
 
-				const [countriesResponse, countriesWithFlagResponse] =
-					await Promise.all([getCountries, getCountriesWithFlag]);
+				const [countriesResponse] = await Promise.all([getCountries]);
 
-				const countryFlags = countriesWithFlagResponse.data.reduce(
-					(acc, curr) => {
-						acc[curr.cca2] = curr.flags.png;
-						return acc;
-					},
-					{}
-				);
+				const countryFlags = CountriesWithFlag.reduce((acc, curr) => {
+					acc[curr.cca2] = curr.flags.png;
+					return acc;
+				}, {});
 
 				const countries = countriesResponse.data.list_of_countries
 					.filter(
