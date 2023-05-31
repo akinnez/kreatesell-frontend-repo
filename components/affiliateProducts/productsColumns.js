@@ -59,6 +59,7 @@ const productsColumns = [
 				<RequestAccessLink
 					productId={record.id}
 					status={record.has_requested_access}
+					statusType={record.request_status}
 				/>
 			);
 		},
