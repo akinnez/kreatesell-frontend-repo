@@ -1,5 +1,8 @@
-import {ActivePrice} from '../../utils';
 import Image from 'next/image';
+
+import {Tooltip} from 'antd';
+
+import {ActivePrice, RenderIf} from '../../utils';
 import styles from './PricingCard.module.scss';
 import {Button} from '../index';
 import Spinner from 'components/Spinner';
@@ -76,7 +79,27 @@ export const PricingCard = ({
 						<div className={styles.featuresIcons}>
 							<Image src={ActivePrice} height="15" width="15" />
 						</div>
-						<h6 className={styles.featuresContent}>{features}</h6>
+						<h6 className={styles.featuresContent}>
+							{features}
+							<RenderIf
+								condition={features.includes(
+									'Customize your store URL'
+								)}
+							>
+								<Tooltip
+									overlayStyle={{
+										width: '450px',
+										borderRadius: '10px',
+									}}
+									title={
+										'Customize your store URL (Switch from (www.kreatesell.com/storename) to your custom domain (http://ww.yourname.com ))'
+									}
+									// placement="topCenter"
+								>
+									<b>&nbsp;?</b>
+								</Tooltip>
+							</RenderIf>
+						</h6>
 					</div>
 				))}
 			</div>
@@ -93,17 +116,19 @@ export const PricingCard = ({
 const BasicFeatures = [
 	'Unlimited Products',
 	'Unlimited Army of Affiliates ',
+	'Fully customizable storefront',
 	'Robust dashboard analytics.',
-	'Multi-currency store - six currencies',
+	'Set unique prices in multiple currencies',
+	'Multi-Currency - 21 Currencies (add a question mark with hover tip - Receive payments globally)',
 	'1 Abandoned Cart Follow up Email ',
-	'PDF Stamping',
+	'Instant Sales Notification',
 	'Pixel Tracking',
 	'Instant Sales Notification',
 	'Affiliate Instant Commission',
-	'500MB Storage',
-	'Limit Product Sales',
-	'Custom Checkout Button ',
-	'Branded Profile',
+	'Customizable Checkout CTA Button ',
+	'Pay what you want payment option',
+	'Advanced Issue Resolution Ticketing System',
+	'Cryptocurrency Payment option',
 	// "Instant Sale Notification ",
 	// "Affiliate Instant Commission",
 	// "Storage 500MB",
@@ -114,22 +139,23 @@ const BasicFeatures = [
 
 const BusinessFeatures = [
 	'Everything in Basic Plan + ',
-	'Full Email Service Provider Integration ',
-	'Webinar Integration',
 	'3 Abandoned Cart Follow up Emails',
-	'Instalmental Payment',
-	'Membership Course Creation',
-	'Zapier Integration',
-	'Paypal + Stripe for Verified Kreators',
-	'Webinar Replays Online Streaming',
-	'Social Proof',
-	'Use Your Own Domain',
+	'Automated WhatsApp Successful Purchase Messages',
+	'Automated WhatsApp Abandoned Cart Messages',
 	'Set Pre-orders',
-	'Offer Coupons',
-	'Remove Default Stamps',
-	'15 Gb Storage Space',
-	'Advanced Reports',
-	'Sell in Cryptocurrency',
+	'Create “Make it free” products',
+	'One-time subscription course creation',
+	'Membership Course Creation with customized billing frequency',
+	'Create Coupons',
+	'Paypal for Verified Kreators',
+	'Stripe for Verified Kreators',
+	'KreateSell Verified blue tick badge for verified users',
+	'Customize your store URL ',
+	// 'Offer Coupons',
+	// 'Remove Default Stamps',
+	// '15 Gb Storage Space',
+	// 'Advanced Reports',
+	// 'Sell in Cryptocurrency',
 	// "15GB Storage",
 	// "Advanced reports",
 ];
