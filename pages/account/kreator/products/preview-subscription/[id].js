@@ -184,6 +184,7 @@ const PreviewMembership = () => {
 								style={{
 									padding: '20px',
 									backgroundColor: 'white',
+									width:'100%'
 								}}
 							>
 								{activeLink?.files &&
