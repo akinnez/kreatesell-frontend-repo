@@ -1,8 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, {memo, useState} from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
-import { AccordionDown, AccordionRight, PlayIcon2 } from 'utils';
+import {AccordionDown, AccordionRight, PlayIcon2} from 'utils';
 import styles from 'public/css/PreviewMembership.module.scss';
 export const pathsName = typeof window !== 'undefined' && window;
 
@@ -21,7 +21,7 @@ const Accordion = ({
 	);
 
 	const router = useRouter();
-	const { pathname } = router;
+	const {pathname} = router;
 
 	const path = pathname.split('/');
 	const linkPath = path[path.length - 2];
@@ -40,22 +40,24 @@ const Accordion = ({
 			className={`${styles.accordionItem} py-3 md:py-1 px-2 md:px-1 border md:border-0 rounded-xl mb-2`}
 		>
 			<div
-				className={`${styles.accordionTitle
-					} flex justify-between text-gray-700 cursor-pointer ${totalPayments < product?.frequency_of_availability &&
+				className={`${
+					styles.accordionTitle
+				} flex justify-between text-gray-700 cursor-pointer ${
+					totalPayments < product?.frequency_of_availability &&
 					linkPath !== 'preview-membership' &&
 					'bg-gray-300 text-grey-100'
-					}cursor-pointer`}
+				}cursor-pointer`}
 				onClick={() => handleSectionOpen()}
 			>
 				<div
 					className={styles.title}
-				// onClick={() => handleSectionOpen()}
+					// onClick={() => handleSectionOpen()}
 				>
 					{product?.section_name}
 				</div>
 				<div
 					className={styles.icon}
-				// onClick={() => handleSectionOpen()}
+					// onClick={() => handleSectionOpen()}
 				>
 					{isActive ? (
 						<Image
@@ -80,10 +82,12 @@ const Accordion = ({
 						{product?.product_subsection.map((itm) => (
 							<>
 								<div
-									className={`cursor-pointer hidden md:flex gap-5 md:gap-3 rounded-xl py-2 md:py-0 px-4 md:px-0 ${styles.subTextContainer
-										} ${activeLink?.id === itm.id &&
+									className={`cursor-pointer hidden md:flex gap-5 md:gap-3 rounded-xl py-2 md:py-0 px-4 md:px-0 ${
+										styles.subTextContainer
+									} ${
+										activeLink?.id === itm.id &&
 										styles.activeSublist
-										}`}
+									}`}
 									key={itm?.id}
 									onClick={() => {
 										setActiveLink(itm);
@@ -108,20 +112,28 @@ const Accordion = ({
 
 								{/* //mobile layout till i find a way to make sure the onclick functions don't get call unecessarily */}
 								<div
-									className={`cursor-pointer md:hidden flex rounded-xl py-4 md:py-0 px-2 md:px-0 ${styles.subTextContainer
-										} ${activeLink?.id === itm.id &&
+									className={`cursor-pointer md:hidden flex rounded-xl py-4 md:py-0 px-2 md:px-0 ${
+										styles.subTextContainer
+									} ${
+										activeLink?.id === itm.id &&
 										styles.activeSublist
-										}`}
+									}`}
 									key={itm?.id}
 									onClick={() => {
 										setShowMobileContents(true);
 										setActiveLink(itm);
 									}}
 								>
-									<div className={`${styles.subText} w-full`} style={{ flex: '85%' }}>
+									<div
+										className={`${styles.subText} w-full`}
+										style={{flex: '85%'}}
+									>
 										{itm.product_section_name}
 									</div>
-									<div className="flex w-full justify-end" style={{ flex: '15%' }}>
+									<div
+										className="flex w-full justify-end"
+										style={{flex: '15%'}}
+									>
 										<Image
 											src={PlayIcon2}
 											width={20}
