@@ -39,7 +39,7 @@ export const SendPaymentCheckoutDetails = () => {
 
 export const RevalidateReference = () => {
 	const dispatch = useDispatch();
-	return (successCallback, errorCallback) => {
+	return (items, successCallback, errorCallback) => {
 		dispatch({
 			type: types.REVALIDATE_REFERENCE.REQUEST,
 		});
