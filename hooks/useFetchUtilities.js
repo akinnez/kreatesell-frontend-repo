@@ -40,10 +40,18 @@ const useFetchUtilities = () => {
 					.map((country) => {
 						if (country.short_name in countryFlags) {
 							country.flag = countryFlags[country.short_name];
-							return country;
+							return {
+								...country,
+								alpha2Code: country?.short_name,
+								label: country?.short_name,
+							};
 						}
 
-						return country;
+						return {
+							...country,
+							alpha2Code: country?.short_name,
+							label: country?.short_name,
+						};
 					});
 
 				dispatch(countriesSuccess(countries));

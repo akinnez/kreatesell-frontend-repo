@@ -37,6 +37,36 @@ export const SendPaymentCheckoutDetails = () => {
 	);
 };
 
+export const RevalidateReference = () => {
+	const dispatch = useDispatch();
+	return (successCallback, errorCallback) => {
+		dispatch({
+			type: types.REVALIDATE_REFERENCE.REQUEST,
+		});
+		axios.request(
+			`post`,
+			`settlements/checkout/revalidate-reference`,
+			(res) => {
+				dispatch({
+					type: types.REVALIDATE_REFERENCE.SUCCESS,
+					payload: res?.data,
+				});
+				showToast(res?.message, 'info');
+				successCallback?.();
+			},
+			(err) => {
+				dispatch({
+					type: types.REVALIDATE_REFERENCE.FAILURE,
+					payload: err,
+				});
+				showToast(err?.message, 'error');
+				errorCallback?.();
+			},
+			items
+		);
+	};
+};
+
 export const CreateIntent = () => {
 	const dispatch = useDispatch();
 	return (items, successCallback, errorCallback) => {

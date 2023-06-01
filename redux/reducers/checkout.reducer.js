@@ -10,10 +10,13 @@ const CheckoutReducer = (state = initialState, {type, payload}) => {
 	switch (type) {
 		case types.SEND_PAYMENT_CHECKOUT_DETAILS.REQUEST:
 		case types.CREATE_INTENT.REQUEST:
+		case types.REVALIDATE_REFERENCE.REQUEST:
 			return {...state, loading: true};
 
 		case types.SEND_PAYMENT_CHECKOUT_DETAILS.SUCCESS:
 		case types.SEND_PAYMENT_CHECKOUT_DETAILS.FAILURE:
+		case types.REVALIDATE_REFERENCE.SUCCESS:
+		case types.REVALIDATE_REFERENCE.FAILURE:
 			return {...state, loading: false, ...payload};
 
 		case types.CREATE_INTENT.SUCCESS:

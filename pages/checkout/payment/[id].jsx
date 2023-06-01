@@ -1,13 +1,27 @@
 import {useState, useEffect} from 'react';
 import Image from 'next/image';
-import {DialogOverlay, DialogContent} from '@reach/dialog';
-import {
-	Row,
-	Col,
-	// Card, Form, Input as AntInput
-} from 'antd';
-import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 
+import {DialogOverlay, DialogContent} from '@reach/dialog';
+import {Row, Col} from 'antd';
+import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
+import {getExample} from 'awesome-phonenumber';
+
+import {Tooltip} from 'antd';
+import {useFormik} from 'formik';
+import {useSelector} from 'react-redux';
+import {useRouter} from 'next/router';
+import {usePaystackPayment} from 'react-paystack';
+import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
+import crypto from 'crypto';
+import axios from 'axios';
+import {AiFillCheckCircle} from 'react-icons/ai';
+
+import {SelectV2} from 'components/form-input';
+import {PhoneNumberInput} from 'components';
+import styles from '../../../public/css/checkout.module.scss';
+import {Input, Button} from 'components';
+import CurrencyCard from 'components/settings/CurrencyCard';
+import {ConsumerSalesCheckoutSchema} from 'validation';
 import {
 	ActiveTick,
 	ArrowLeft,
@@ -18,41 +32,26 @@ import {
 	AdvancedBitcoin,
 	AdvancedPaypal,
 	splitFullName,
+	PaystackLogo,
 	FlutterwaveLogo,
 	ErrorIcon,
 	transactionFees,
-	PaystackLogo,
 	RenderIf,
 	MakeItFreeIcon,
 	QuestionIcon,
 } from 'utils';
-import {Tooltip} from 'antd';
-import {SelectV2} from 'components/form-input';
-import {PhoneNumberInput} from 'components';
-import styles from '../../../public/css/checkout.module.scss';
-import {Input, Button} from 'components';
-import CurrencyCard from 'components/settings/CurrencyCard';
-import {ConsumerSalesCheckoutSchema} from 'validation';
-import {useFormik, Formik} from 'formik';
-import {useSelector} from 'react-redux';
-import {useRouter} from 'next/router';
-import {usePaystackPayment} from 'react-paystack';
-import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3';
 import {
 	SendPaymentCheckoutDetails,
 	ConvertCurrency,
 	GetStoreCheckoutCurrencies,
 	ApplyCoupon,
 } from 'redux/actions';
-import crypto from 'crypto';
 import LogoImg from '../../../public/images/logo.svg';
 import useFetchUtilities from 'hooks/useFetchUtilities';
 import Loader from 'components/loader';
-import axios from 'axios';
 import useCheckoutCurrency from 'hooks/useCheckoutCurrencies';
 import {countryPayments} from '../../../utils/paymentOptions';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
-import {AiFillCheckCircle} from 'react-icons/ai';
 import useLocation from 'hooks/useLocation';
 
 export const pathName = typeof window !== 'undefined' && window;
@@ -65,6 +64,7 @@ const resolveProtocol = (host) => {
 	if (!host || typeof host !== 'string') return;
 	return host.includes('localhost') ? 'http' : 'https';
 };
+
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
@@ -72,13 +72,13 @@ const Checkout = () => {
 
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
+	const [placeholderNumber, setPlaceholderNumber] = useState(
+		'Enter your phone number'
+	);
+	const [countryCode, setCountryCode] = useState('');
 	const {countryDetails, countryDetailsLoading} = useLocation();
-
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 	const checkoutDetails = useSelector((state) => state.checkout);
-
-	// paypal
-	const [{isPending, isResolved, isRejected}] = usePayPalScriptReducer();
 
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
@@ -87,10 +87,7 @@ const Checkout = () => {
 		(state) => state.store
 	);
 
-	const {loading, applyCouponResponse} = useSelector((state) => state.coupon);
-
 	const [country, setCountry] = useState('');
-	const [countryCode, setCountryCode] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const {countries} = useSelector((state) => state.utils);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
@@ -250,7 +247,7 @@ const Checkout = () => {
 		let phoneCode = countries.find(
 			(country) => country.name === countryParam
 		);
-		setCountryCode(phoneCode?.country_code);
+		// setCountryCode(phoneCode?.country_code);
 		setCountryId(phoneCode?.id);
 		// setCountryId(phoneCode?.id)
 	};
@@ -345,7 +342,6 @@ const Checkout = () => {
 	}, [storeId]);
 
 	// set currency on mount
-
 	useEffect(() => {
 		// TODO: if the active currency is equal to the base currency, no need to convert
 
@@ -500,34 +496,6 @@ const Checkout = () => {
 		isChargable,
 	]);
 
-	// const calcNgN = 5 / 100 * subTotal
-
-	// let transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
-
-	// if (
-	// 	[
-	// 		'KES',
-	// 		'GHS',
-	// 		'MWK',
-	// 		'SLL',
-	// 		'ZAR',
-	// 		'TZS',
-	// 		'UGX',
-	// 		'XOF',
-	// 		'XAF',
-	// 	].includes(activeCurrency?.currency || activeCurrency?.currency_name)
-	// ) {
-	// 	transactionFee = Number(((6 / 100) * subTotal).toFixed(2));
-	// } else if (
-	// 	['USD', 'GBP'].includes(
-	// 		activeCurrency?.currency || activeCurrency?.currency_name
-	// 	)
-	// ) {
-	// 	transactionFee = Number(((10 / 100) * subTotal).toFixed(2));
-	// } else {
-	// 	transactionFee = Number(((5 / 100) * subTotal).toFixed(2));
-	// }
-
 	const totalFee = Number(subTotal);
 
 	const initialValues = {
@@ -659,6 +627,12 @@ const Checkout = () => {
 	});
 
 	const {errors, setFieldValue, values} = formik;
+	useEffect(() => {
+		if (countryCode) {
+			const sampleNumber = getExample(countryCode, 'mobile');
+			setPlaceholderNumber(sampleNumber.number.national);
+		}
+	}, [countryCode]);
 	// ====================================================================================
 	//              PAYMENT CONFIG STARTS HERE
 	// ===================================================================================
@@ -711,7 +685,6 @@ const Checkout = () => {
 	};
 
 	const onPaystackSuccess = (reference) => {
-		console.log('reference', reference);
 		// Implementation for whatever you want to do with reference and after success call.
 		// const status = paymentStatusList[reference?.status];
 		const status = 'success';
@@ -974,8 +947,12 @@ const Checkout = () => {
 															country
 														);
 													}}
+													phoneNumberInput={true}
 													errorMessage={
 														errors.Country_code
+													}
+													placeholderSetterFn={
+														setCountryCode
 													}
 													// rules={[
 													// 	{
@@ -990,8 +967,9 @@ const Checkout = () => {
 												<Col>
 													<PhoneNumberInput
 														type="tel"
+														// TODO: Make this change
 														placeholder={
-															'Enter your phone number'
+															placeholderNumber
 														}
 														height="small"
 														name="phoneNo"
