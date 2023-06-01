@@ -21,16 +21,6 @@ const EditBankDetails = ({
 		(state) => state.utils
 	);
 
-	// const memoizedCountries = useMemo(() => {
-	// 	if (countries) {
-	// 		return [
-	// 			...countries.filter((ctr) => ctr.is_payable),
-
-	// 		];
-	// 	}
-	// 	return [];
-	// }, [countries]);
-
 	return (
 		<Modal
 			title={null}
