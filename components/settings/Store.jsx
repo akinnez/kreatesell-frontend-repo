@@ -47,7 +47,7 @@ const StoreSettings = () => {
 		const data = {
 			option_id: store.store_id,
 			option: 'store',
-			cta_button: defaultCTA || '',
+			cta_button: ctaBtnValue?.cta_button || '',
 			store_settings: {
 				set_context: is_enable_product_cross_sell,
 				set_enable_tax: enable_disable_tax,
@@ -57,6 +57,7 @@ const StoreSettings = () => {
 		!enable_disable_tax && delete data.store_settings.custom_tax_amount;
 
 		updateCTAButton(data, () => {
+			
 			getStoreDetails();
 		});
 	};

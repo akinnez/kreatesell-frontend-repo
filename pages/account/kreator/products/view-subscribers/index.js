@@ -213,7 +213,7 @@ const ViewSubscribers = () => {
 				<BackButton />
 			</header>
 			<div>
-				<ViewSubscribersHeader submitCb={setFilters} />
+				<ViewSubscribersHeader submitCb={setFilters} /> 
 
 				<div className={styles.exportDiv}>
 					<SyncDataToCSV
