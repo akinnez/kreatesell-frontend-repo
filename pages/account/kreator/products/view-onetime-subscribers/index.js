@@ -215,7 +215,7 @@ const ViewSubscribers = () => {
 			<div>
 				<ViewSubscribersHeader submitCb={setFilters} />
 
-				<div className={styles.exportDiv}> 
+				<div className={styles.exportDiv}>
 					<SyncDataToCSV
 						data={[]}
 						headers={headCells}
@@ -231,7 +231,7 @@ const ViewSubscribers = () => {
 					</section>
 					<section className={styles.tableWrapper}>
 						<Table
-							dataSource={subscribers?.data || []} 
+							dataSource={subscribers?.data || []}
 							columns={subscribersColumns}
 							pagination={{
 								position: ['bottomLeft'],

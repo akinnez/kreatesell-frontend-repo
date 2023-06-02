@@ -57,7 +57,6 @@ const StoreSettings = () => {
 		!enable_disable_tax && delete data.store_settings.custom_tax_amount;
 
 		updateCTAButton(data, () => {
-			
 			getStoreDetails();
 		});
 	};

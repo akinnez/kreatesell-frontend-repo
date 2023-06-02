@@ -40,9 +40,9 @@ const Index = () => {
 	const getStoreDetails = GetStoreDetails();
 
 	const handleFinish = async (info) => {
-		if(!file?.Profile_Picture) {
-			toast.error('Profile picture is required')
-			return
+		if (!file?.Profile_Picture) {
+			toast.error('Profile picture is required');
+			return;
 		}
 		setLoading({...loading, updating: true});
 		const formData = new FormData();
