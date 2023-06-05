@@ -33,13 +33,25 @@ const useFetchUtilities = () => {
 					return acc;
 				}, {});
 
+				const countryCurrencies = CountriesWithFlag.reduce(
+					(acc, curr) => {
+						acc[curr.cca2] = curr.currencies;
+						return acc;
+					}
+				);
+
 				const countries = countriesResponse.data.list_of_countries
 					.filter(
 						(country) => country.name !== 'Netherlands Antilles'
 					)
 					.map((country) => {
-						if (country.short_name in countryFlags) {
+						if (
+							country.short_name in countryFlags &&
+							country.short_name in countryCurrencies
+						) {
 							country.flag = countryFlags[country.short_name];
+							country.currencyObj =
+								countryCurrencies[country.short_name];
 							return {
 								...country,
 								alpha2Code: country?.short_name,
