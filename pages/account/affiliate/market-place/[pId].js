@@ -53,6 +53,7 @@ const AffiliateProductRequest = () => {
 		}));
 	};
 
+	// console.log('product', product.affiliate_kreator_product);
 	return (
 		<ProfileLayout>
 			<Head>
@@ -70,6 +71,7 @@ const AffiliateProductRequest = () => {
 							product.affiliate_kreator_product
 								.has_requested_access
 						}
+						isRevoked={product}
 						productId={product.affiliate_kreator_product.id}
 						updateProduct={updateProduct}
 					/>
