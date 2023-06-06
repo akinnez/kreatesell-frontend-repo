@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {Row, Col, Select} from 'antd';
-import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
+import {PayPalButtons} from '@paypal/react-paypal-js';
 import {getExample} from 'awesome-phonenumber';
 
 import {Tooltip} from 'antd';
@@ -1147,139 +1147,6 @@ const Checkout = () => {
 										</div>
 									</div>
 								</RenderIf>
-
-								{/* {pricingTypeDetails !== 'Make it Free' && <></>}
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div className="py-7">
-										<h2>
-											West African CFA Franc BCEAO(XOF)
-										</h2>
-										<div
-											className={`grid gap-4 grid-cols-4 ${styles.currencyWestAfCardCont}`}
-										>
-											{filterdWest.map(
-												(
-													{id, currency, flag, name},
-													index
-												) => (
-													<div
-														key={index}
-														className={
-															activeCurrency?.id ===
-															id
-																? styles.activeCard
-																: styles.card
-														}
-														onClick={() =>
-															handleSelect({
-																id,
-																currency,
-															})
-														}
-													>
-														<div
-															className={
-																styles.checFlag +
-																' mr-2'
-															}
-															style={{
-																borderRadius:
-																	'50%',
-															}}
-														>
-															<Image
-																src={flag}
-																alt="flag"
-																layout="fill"
-															/>
-														</div>
-														<div className="">
-															{name}
-														</div>
-														{activeCurrency?.id ===
-															id && (
-															<div className="pl-1 pt-1">
-																<Image
-																	src={
-																		ActiveTick
-																	}
-																	alt="active"
-																	width="16"
-																	height="16"
-																/>
-															</div>
-														)}
-													</div>
-												)
-											)}
-										</div>
-									</div>
-								)}
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div className="py-7">
-										<h2>
-											Central African CFA Franc BEAC(XAF)
-										</h2>
-										<div className="grid gap-4 grid-cols-3 md:grid-cols-4 w-full">
-											{filteredCentral.map(
-												(
-													{id, currency, name, flag},
-													index
-												) => (
-													<div
-														key={index}
-														className={
-															activeCurrency?.id ===
-															id
-																? styles.activeCard
-																: styles.card
-														}
-														onClick={() =>
-															handleSelect({
-																id,
-																currency,
-															})
-														}
-													>
-														<div
-															className={
-																styles.checFlag +
-																' mr-2'
-															}
-															style={{
-																borderRadius:
-																	'50%',
-															}}
-														>
-															<Image
-																src={flag}
-																alt="flag"
-																layout="fill"
-															/>
-														</div>
-														<div className="">
-															{name}
-														</div>
-														{activeCurrency?.id ===
-															id && (
-															<div className="pl-1 pt-1">
-																<Image
-																	src={
-																		ActiveTick
-																	}
-																	alt="active"
-																	width="16"
-																	height="16"
-																/>
-															</div>
-														)}
-													</div>
-												)
-											)}
-										</div>
-									</div>
-								)} */}
-
 								{/* start the pay as you want  */}
 								{pricingTypeDetails === 'Pay What You Want' && (
 									<div className="">
@@ -1508,11 +1375,15 @@ const Checkout = () => {
 															) => {
 																return actions.order
 																	.create({
+																		intent: 'CAPTURE',
 																		purchase_units:
 																			[
 																				{
 																					description:
-																						'customDescription',
+																						storeDetails
+																							?.product_details
+																							?.product_name ||
+																						'',
 																					amount: {
 																						// value: Number(
 																						// 	convertedPrice
@@ -1525,11 +1396,8 @@ const Checkout = () => {
 																								'currency'
 																							),
 																					},
-																					reference_id:
-																						'',
 																				},
 																			],
-																		payer: '',
 																	})
 																	.then(
 																		(
@@ -1539,10 +1407,16 @@ const Checkout = () => {
 																		}
 																	);
 															}}
-															onApprove={(
+															onApprove={async (
 																data,
 																actions
 															) => {
+																const order =
+																	await actions.order.capture();
+																console.log(
+																	'order success',
+																	order
+																);
 																// return actions.order
 																// 	.capture()
 																// 	.then(
