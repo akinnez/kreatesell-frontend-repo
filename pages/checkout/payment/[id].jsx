@@ -39,7 +39,7 @@ import {
 	RenderIf,
 	MakeItFreeIcon,
 	QuestionIcon,
-	CloseIcon,
+	CloseButton,
 } from 'utils';
 import {
 	SendPaymentCheckoutDetails,
@@ -584,7 +584,6 @@ const Checkout = () => {
 		if (selectedPaymentMethod === 'flutterwave') {
 			handleFlutterPayment({
 				callback: async (response) => {
-					console.log('response', response);
 					await sendPaymentCheckoutDetails(
 						paymentDetails({
 							reference: response?.tx_ref,
@@ -1101,7 +1100,7 @@ const Checkout = () => {
 										<div>
 											{/* TODO: Make this compulsory */}
 											<Select
-												className={`w-8/12 mb-5 selectCurrencyDropdown`}
+												className={`w-full mb-5 selectCurrencyDropdown`}
 												placeholder={
 													generatePlaceholder(
 														countriesCurrency[0]
@@ -1580,20 +1579,24 @@ const Checkout = () => {
 								{pricingTypeDetails !== 'Make it Free' &&
 									!couponSuccess && (
 										<>
-											<p className={`font-[16px]`}>
-												Have a Coupon Code?{' '}
-												<span
-													className={`underline font-bold cursor-pointer`}
-													style={{color: '#0072EF'}}
-													onClick={() =>
-														setShowCoupon(true)
-													}
-												>
-													Click here to Add
-												</span>{' '}
-											</p>
+											<RenderIf condition={!showCoupon}>
+												<p className={`font-[16px]`}>
+													Have a Coupon Code?{' '}
+													<span
+														className={`underline font-bold cursor-pointer`}
+														style={{
+															color: '#0072EF',
+														}}
+														onClick={() =>
+															setShowCoupon(true)
+														}
+													>
+														Click here to Add
+													</span>{' '}
+												</p>
+											</RenderIf>
 											<RenderIf condition={showCoupon}>
-												<div className="w-full flex gap-2 items-center pr-4 lg:hidden">
+												<div className="w-full flex gap-2 items-start pr-4 lg:hidden">
 													<div className="w-3/5 xs:w-3/4 md:w-4/5">
 														<Input
 															placeholder="Coupon Code"
@@ -1606,7 +1609,7 @@ const Checkout = () => {
 															}
 														/>
 													</div>
-													<div className="w-30 xs:w-1/4 md:w-1/5 pb-2 fle gap-2">
+													<div className="w-30 xs:w-1/4 md:w-1/5 pb-2 flex items-center gap-2">
 														<Button
 															text={
 																'Apply Coupon'
@@ -1621,13 +1624,24 @@ const Checkout = () => {
 																isCouponLoading
 															}
 														/>
-														<Image
-															src={CloseIcon}
-															alt="cancel icon"
-														/>
+														<span className="inline-block cursor-pointer">
+															<Image
+																src={
+																	CloseButton
+																}
+																alt="cancel icon"
+																height={30}
+																width={30}
+																onClick={() =>
+																	setShowCoupon(
+																		false
+																	)
+																}
+															/>
+														</span>
 													</div>
 												</div>
-												<div className="w-full lg:w-5/6 hidden lg:flex gap-4 items-start">
+												<div className="w-full hidden lg:flex gap-4 items-center">
 													<div className="w-4/5">
 														<Input
 															placeholder=" Enter Coupon Code"
@@ -1655,18 +1669,21 @@ const Checkout = () => {
 																isCouponLoading
 															}
 														/>
-														<Image
-															src={CloseIcon}
-															alt="cancel icon"
-															style={{
-																cursor: 'pointer',
-															}}
-															onClick={() =>
-																setShowCoupon(
-																	false
-																)
-															}
-														/>
+														<span className="inline-block cursor-pointer">
+															<Image
+																src={
+																	CloseButton
+																}
+																alt="cancel icon"
+																onClick={() =>
+																	setShowCoupon(
+																		false
+																	)
+																}
+																height={30}
+																width={30}
+															/>
+														</span>
 													</div>
 												</div>
 											</RenderIf>
@@ -1687,7 +1704,7 @@ const Checkout = () => {
 
 								{pricingTypeDetails !== 'Make it Free' && (
 									<div
-										className={`p-6 w-full lg:w-5/6 shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
+										className={`p-6 w-full shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
 									>
 										<div className="flex justify-between">
 											<p>SubTotal</p>
