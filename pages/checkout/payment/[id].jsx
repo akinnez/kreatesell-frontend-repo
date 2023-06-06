@@ -1641,7 +1641,7 @@ const Checkout = () => {
 														</span>
 													</div>
 												</div>
-												<div className="w-full hidden lg:flex gap-4 items-center">
+												<div className="w-full hidden lg:flex gap-4 items-start">
 													<div className="w-4/5">
 														<Input
 															placeholder=" Enter Coupon Code"
