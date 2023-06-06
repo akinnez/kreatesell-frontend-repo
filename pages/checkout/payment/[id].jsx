@@ -5,7 +5,6 @@ import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {Row, Col, Select} from 'antd';
 import {PayPalButtons} from '@paypal/react-paypal-js';
 import {getExample} from 'awesome-phonenumber';
-
 import {Tooltip} from 'antd';
 import {useFormik} from 'formik';
 import {useSelector} from 'react-redux';
@@ -28,12 +27,6 @@ import {
 	MobileBackArrow,
 	RightArrow,
 	CloudDownload,
-	ActiveStripe,
-	AdvancedBitcoin,
-	AdvancedPaypal,
-	splitFullName,
-	PaystackLogo,
-	FlutterwaveLogo,
 	ErrorIcon,
 	transactionFees,
 	RenderIf,
