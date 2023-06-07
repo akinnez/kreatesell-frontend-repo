@@ -713,15 +713,14 @@ const Checkout = () => {
 
 	// paypal success
 	const paypalSuccess = (data, actions) => {
-		// console.log('data', data);
-		// console.log('actions', actions);
-		// sendPaymentCheckoutDetails(
-		// 	paymentDetails({reference: reference?.reference, status: status}),
-		// 	() =>
-		// 		router.push(
-		// 			`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
-		// 		)
-		// );
+		const status = 'success';
+		sendPaymentCheckoutDetails(
+			paymentDetails({reference: data?.orderID, status: status}),
+			() =>
+				router.push(
+					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
+				)
+		);
 	};
 
 	// stripe logic is being handled on the backend
