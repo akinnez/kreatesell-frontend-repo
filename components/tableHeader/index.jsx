@@ -225,20 +225,20 @@ export const SalesPageModal = ({
 					/>
 					<div
 						className={styles.view_guide}
-						//link to the how to guide blog it had to be hardcoded cause it has it's own uniqueId 
+						//link to the how to guide blog it had to be hardcoded cause it has it's own uniqueId
 						onClick={() =>
 							router.push(
 								'/blog/How-Tos/4c0d936e-4025-4eb6-ad6d-73fc24b9fe53'
 							)
 						}
-					> 
+					>
 						View guide
 					</div>
 				</form>
 			</Modal>
 		);
 	}
-	if (type === 'salesPageConnected') { 
+	if (type === 'salesPageConnected') {
 		return (
 			<Modal
 				title={null}
