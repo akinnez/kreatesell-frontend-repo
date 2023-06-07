@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import Image from 'next/image';
 
 import {DialogOverlay, DialogContent} from '@reach/dialog';
@@ -64,6 +64,7 @@ const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
+	const paypalRef = useRef();
 
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
@@ -266,7 +267,11 @@ const Checkout = () => {
 		];
 	};
 
-	const paymentDetails = ({reference = '', status = ''}) => {
+	const paymentDetails = ({
+		reference = '',
+		status = '',
+		card_type = selectedPaymentMethod,
+	}) => {
 		const statusValue = paymentStatusList[status];
 		const countryCode = countries.find(
 			(country) => country?.name === values.Country_code
@@ -284,7 +289,7 @@ const Checkout = () => {
 			reference_id: reference,
 			purchase_details: getPurchaseDetails(),
 			status: statusValue,
-			card_type: selectedPaymentMethod,
+			card_type,
 			last_four: '',
 			currency:
 				pricingTypeDetails === 'Make it Free'
@@ -621,7 +626,14 @@ const Checkout = () => {
 		validateOnChange: true,
 	});
 
-	const {errors, setFieldValue, values} = formik;
+	const {errors, setFieldValue, values, dirty} = formik;
+
+	// Update ref so I can pass values to paypal
+	useEffect(() => {
+		if (dirty) {
+		}
+	}, [dirty]);
+
 	useEffect(() => {
 		if (countryCode) {
 			const sampleNumber = getExample(countryCode, 'mobile');
@@ -712,19 +724,45 @@ const Checkout = () => {
 	// paystack config ends here
 
 	// paypal success
-	const paypalSuccess = (data, actions) => {
+	const paypalSuccess = (data /*, actions, order*/) => {
 		const status = 'success';
 		sendPaymentCheckoutDetails(
-			paymentDetails({reference: data?.orderID, status: status}),
-			() =>
+			paymentDetails({
+				reference: data?.orderID,
+				status: status,
+				card_type: 'paypal',
+			}),
+			() => {
 				router.push(
-					`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
-				)
+					`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
+				);
+			}
 		);
 	};
 
+	const paypalHandler = (data, actions) => {
+		// paypalRef.current = values;
+		return actions.order
+			.create({
+				intent: 'CAPTURE',
+				purchase_units: [
+					{
+						description:
+							storeDetails?.product_details?.product_name || '',
+						amount: {
+							value: getCurrency('price'),
+							currency_code: getCurrency('currency'),
+						},
+					},
+				],
+			})
+			.then((orderId) => {
+				return orderId;
+			});
+	};
+
 	// stripe logic is being handled on the backend
-	const stripeSuccess = () => {};
+	// const stripeSuccess = () => {};
 
 	// ===================================================================================
 	//              PAYMENT CONFIG ENDS HERE
@@ -1364,65 +1402,23 @@ const Checkout = () => {
 															createOrder={(
 																data,
 																actions
-															) => {
-																return actions.order
-																	.create({
-																		intent: 'CAPTURE',
-																		purchase_units:
-																			[
-																				{
-																					description:
-																						storeDetails
-																							?.product_details
-																							?.product_name ||
-																						'',
-																					amount: {
-																						// value: Number(
-																						// 	convertedPrice
-																						// ).toFixed(2),
-																						value: getCurrency(
-																							'price'
-																						),
-																						currency_code:
-																							getCurrency(
-																								'currency'
-																							),
-																					},
-																				},
-																			],
-																	})
-																	.then(
-																		(
-																			orderId
-																		) => {
-																			return orderId;
-																		}
-																	);
-															}}
+															) =>
+																paypalHandler(
+																	data,
+																	actions
+																)
+															}
 															onApprove={async (
 																data,
 																actions
 															) => {
 																const order =
 																	await actions.order.capture();
-																console.log(
-																	'order success',
-																	order
-																);
-																// return actions.order
-																// 	.capture()
-																// 	.then(
-																// 		function () {
-																// 			// Your code here after capture the order
-																// 		}
-																// 	);
+
 																paypalSuccess(
 																	data,
-																	actions
-																);
-																// TODO: handle payment success for paypal
-																alert(
-																	'You have successfully completed the transaction'
+																	actions,
+																	order
 																);
 															}}
 															onCancel={(
