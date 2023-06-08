@@ -894,687 +894,763 @@ const Checkout = () => {
 			<nav
 				className={
 					styles.nav +
-					' white relative py-8 px-10 flex shadow items-center text-center'
+					' white relative py-8 px-10 shadow items-center'
 				}
 			>
-				<div className={styles.smContent}>
-					<div onClick={() => router.back()}>
+				<div
+					className={`white relative flex items-center text-center ${styles.navContainer}`}
+				>
+					<div className={styles.smContent}>
+						<div onClick={() => router.back()}>
+							<Image
+								src={MobileBackArrow}
+								alt="backArrow"
+								width={20}
+								height={20}
+							/>
+						</div>
+
+						<h2 className="font-bold mb-0 text-lg lg:text-2xl">
+							Checkout
+						</h2>
 						<Image
-							src={MobileBackArrow}
-							alt="backArrow"
-							width={20}
-							height={20}
+							src={LogoImg}
+							alt="logo"
+							width={140}
+							height={35}
 						/>
 					</div>
-
-					<h2 className="font-bold mb-0 text-lg lg:text-2xl">
-						Checkout
-					</h2>
-					<Image src={LogoImg} alt="logo" width={140} height={35} />
-				</div>
-				<div className={styles.lgContent}>
-					<Image src={LogoImg} alt="logo" width={140} height={35} />
-					<h2 className=" font-bold mb-0 text-lg lg:text-2xl">
-						Checkout
-					</h2>
+					<div className={styles.lgContent}>
+						<Image
+							src={LogoImg}
+							alt="logo"
+							width={140}
+							height={35}
+						/>
+						<h2 className=" font-bold mb-0 text-lg lg:text-2xl">
+							Checkout
+						</h2>
+					</div>
 				</div>
 			</nav>
 			<ErrorBoundary resetErrorBoundary={() => router.back()}>
 				<div className={`${styles.container}`}>
-					<div className="flex py-6 items-center gap-12">
-						<div
-							className={`flex cursor-pointer ${styles.backArrow}`}
-							onClick={() => router.back()}
-						>
-							<div>
-								<Image src={ArrowLeft} alt="go back" />{' '}
-							</div>
-							<span className="pl-2 font-semibold text-primary-blue">
-								BACK
-							</span>
-						</div>
-
-						<div className="mx-auto font-medium text-lg lg:text-2xl">
-							Payment Details
-						</div>
-					</div>
-
-					<div className="flex flex-col md:flex-row gap-6 w-full">
-						<div className="w-full md:w-2/5 flex flex-col">
+					<div className={styles.bodyWrapper}>
+						<div className="flex py-6 items-center gap-12">
 							<div
-								className={`bg-white shadow rounded-lg w-full mb-7 p-10 lg:p-5 lg:px-7 ${styles.productDetailsContainer}`}
+								className={`flex cursor-pointer ${styles.backArrow}`}
+								onClick={() => router.back()}
 							>
-								<h4 className={styles.productDetails}>
-									Product Details
-								</h4>
-								<div className={`flex gap-3`}>
-									<div
-										className={`${styles.productImageContainer}`}
-									>
-										<Image
-											width={120}
-											height={120}
-											src={
-												storeDetails.product_images
-													.filter(
-														(image) =>
-															image.file_type ===
-															1
-													)[0]
-													?.filename?.split(',')[0]
-											}
-											// src={QuestionIcon}
-											alt="product Image"
-										/>
-									</div>
-									<div>
-										<h5 className={styles.productTitle}>
-											{
-												storeDetails?.product_details
-													?.product_name
-											}
-										</h5>
-										<p className={styles.productPrice}>
-											<RenderIf
-												condition={
-													storeDetails?.product_price_type?.toLowerCase() !==
-													'make it free'
+								<div>
+									<Image src={ArrowLeft} alt="go back" />{' '}
+								</div>
+								<span className="pl-2 font-semibold text-primary-blue">
+									BACK
+								</span>
+							</div>
+
+							<div className="mx-auto font-medium text-lg lg:text-2xl">
+								Payment Details
+							</div>
+						</div>
+
+						<div className="flex flex-col md:flex-row gap-6 w-full">
+							<div className="w-full md:w-2/5 flex flex-col">
+								<div
+									className={`bg-white shadow rounded-lg w-full mb-7 p-10 lg:p-5 lg:px-7 ${styles.productDetailsContainer}`}
+								>
+									<h4 className={styles.productDetails}>
+										Product Details
+									</h4>
+									<div className={`flex gap-3`}>
+										<div
+											className={`${styles.productImageContainer}`}
+										>
+											<Image
+												width={120}
+												height={120}
+												src={
+													storeDetails.product_images
+														.filter(
+															(image) =>
+																image.file_type ===
+																1
+														)[0]
+														?.filename?.split(
+															','
+														)[0]
 												}
-											>
-												{`${storeDetails?.default_currency?.currency}${storeDetails?.default_price}`}
-											</RenderIf>
-										</p>
-										<p className={styles.name}>
-											{storeDetails?.kreator_full_name}
-										</p>
+												// src={QuestionIcon}
+												alt="product Image"
+											/>
+										</div>
+										<div>
+											<h5 className={styles.productTitle}>
+												{
+													storeDetails
+														?.product_details
+														?.product_name
+												}
+											</h5>
+											<p className={styles.productPrice}>
+												<RenderIf
+													condition={
+														storeDetails?.product_price_type?.toLowerCase() !==
+														'make it free'
+													}
+												>
+													{`${storeDetails?.default_currency?.currency}${storeDetails?.default_price}`}
+												</RenderIf>
+											</p>
+											<p className={styles.name}>
+												{
+													storeDetails?.kreator_full_name
+												}
+											</p>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div
-								style={{height: 'fit-content'}}
-								className={`bg-white shadow rounded-lg w-full p-10 lg:p-5 lg:px-16 ${styles.cardBoxShadow}`}
-							>
-								<form>
-									<div>
-										<div className="text-black-100 font-bold text-lg mb-4">
-											Personal Info
+								<div
+									style={{height: 'fit-content'}}
+									className={`bg-white shadow rounded-lg w-full p-10 lg:p-5 lg:px-16 ${styles.cardBoxShadow}`}
+								>
+									<form>
+										<div>
+											<div className="text-black-100 font-bold text-lg mb-4">
+												Personal Info
+											</div>
+											<p className="text-base-gray-200">
+												Complete your purchase by
+												filling in the following details
+											</p>
 										</div>
-										<p className="text-base-gray-200">
-											Complete your purchase by filling in
-											the following details
-										</p>
-									</div>
 
-									<Input
-										name="firstName"
-										placeholder="Enter your Name"
-										label="First Name"
-										height="small"
-										onChange={formik.handleChange}
-										errorMessage={errors.firstName}
-										// validateOnChange
-									/>
+										<Input
+											name="firstName"
+											placeholder="Enter your Name"
+											label="First Name"
+											height="small"
+											onChange={formik.handleChange}
+											errorMessage={errors.firstName}
+											// validateOnChange
+										/>
 
-									<Input
-										name="lastName"
-										placeholder="Enter your Name"
-										label="Last Name"
-										height="small"
-										onChange={formik.handleChange}
-										errorMessage={errors.lastName}
-										// validateOnChange
-									/>
+										<Input
+											name="lastName"
+											placeholder="Enter your Name"
+											label="Last Name"
+											height="small"
+											onChange={formik.handleChange}
+											errorMessage={errors.lastName}
+											// validateOnChange
+										/>
 
-									<Input
-										name="email"
-										placeholder="Enter your Email"
-										label="Email Address"
-										height="small"
-										onChange={formik.handleChange}
-										errorMessage={errors.email}
-									/>
+										<Input
+											name="email"
+											placeholder="Enter your Email"
+											label="Email Address"
+											height="small"
+											onChange={formik.handleChange}
+											errorMessage={errors.email}
+										/>
 
-									<Row gutter={{xs: 0, sm: 0, md: 0}}>
-										<Col
-											xs={12}
-											md={12}
-											className={styles.phoneNumberLabel}
-										>
-											Phone Number
-										</Col>
-
-										<div
-											className={`${styles.phoneCode} phoneCode`}
-										>
-											<Col xs={9} md={10}>
-												<SelectV2
-													label=""
-													size="large"
-													setCountry={setCountry}
-													list={countries}
-													placeholder="Nigeria (+234)"
-													name="Country_code"
-													isCheckout={true}
-													onChange={(country) => {
-														formik.setFieldValue(
-															'Country_code',
-															country
-														);
-													}}
-													phoneNumberInput={true}
-													errorMessage={
-														errors.Country_code
-													}
-													placeholderSetterFn={
-														setCountryCode
-													}
-													// rules={[
-													// 	{
-													// 		required: true,
-													// 		message:
-													// 			'Country Code is a required field',
-													// 	},
-													// ]}
-												/>
+										<Row gutter={{xs: 0, sm: 0, md: 0}}>
+											<Col
+												xs={12}
+												md={12}
+												className={
+													styles.phoneNumberLabel
+												}
+											>
+												Phone Number
 											</Col>
-											<div className={styles.phoneBox}>
-												<Col>
-													<PhoneNumberInput
-														type="tel"
-														// TODO: Make this change
-														placeholder={
-															placeholderNumber
-														}
-														height="small"
-														name="phoneNo"
-														// value={values.phoneNo}
-														maxLength={11}
-														inputMode="numeric"
-														onChange={
-															formik.handleChange
-														}
+
+											<div
+												className={`${styles.phoneCode} phoneCode`}
+											>
+												<Col xs={9} md={10}>
+													<SelectV2
+														label=""
+														size="large"
+														setCountry={setCountry}
+														list={countries}
+														placeholder="Nigeria (+234)"
+														name="Country_code"
+														isCheckout={true}
+														onChange={(country) => {
+															formik.setFieldValue(
+																'Country_code',
+																country
+															);
+														}}
+														phoneNumberInput={true}
 														errorMessage={
-															errors.phoneNo
+															errors.Country_code
 														}
+														placeholderSetterFn={
+															setCountryCode
+														}
+														// rules={[
+														// 	{
+														// 		required: true,
+														// 		message:
+														// 			'Country Code is a required field',
+														// 	},
+														// ]}
 													/>
 												</Col>
+												<div
+													className={styles.phoneBox}
+												>
+													<Col>
+														<PhoneNumberInput
+															type="tel"
+															// TODO: Make this change
+															placeholder={
+																placeholderNumber
+															}
+															height="small"
+															name="phoneNo"
+															// value={values.phoneNo}
+															maxLength={11}
+															inputMode="numeric"
+															onChange={
+																formik.handleChange
+															}
+															errorMessage={
+																errors.phoneNo
+															}
+														/>
+													</Col>
+												</div>
 											</div>
-										</div>
-									</Row>
-								</form>
+										</Row>
+									</form>
+								</div>
 							</div>
-						</div>
 
-						<div
-							className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8 ${styles.cardBoxShadow}`}
-						>
-							<form
-								// validateOnChange
-								onSubmit={formik.handleSubmit}
-								autoComplete="off"
-								className="w-full"
+							<div
+								className={`bg-white shadow rounded-lg w-full md:w-3/5 p-4 lg:p-8 ${styles.cardBoxShadow}`}
 							>
-								<RenderIf
-									condition={
-										pricingTypeDetails !== 'Make it Free'
-									}
+								<form
+									// validateOnChange
+									onSubmit={formik.handleSubmit}
+									autoComplete="off"
+									className="w-full"
 								>
-									<div className="pb-4">
-										<div className="text-black-100">
-											Select Currency
-										</div>
-										<p className="text-base-gray-200">
-											Select your preferred currency and
-											get price equivalent
-										</p>
-										<div>
-											{/* TODO: Make this compulsory */}
-											<Select
-												className={`w-full mb-5 selectCurrencyDropdown`}
-												placeholder={
-													generatePlaceholder(
-														countriesCurrency[0]
-													) || 'Select Currency'
-												}
-												name="paymentCurrency"
-												onChange={(e) => {
-													const allCurrencies = [
+									<RenderIf
+										condition={
+											pricingTypeDetails !==
+											'Make it Free'
+										}
+									>
+										<div className="pb-4">
+											<div className="text-black-100">
+												Select Currency
+											</div>
+											<p className="text-base-gray-200">
+												Select your preferred currency
+												and get price equivalent
+											</p>
+											<div>
+												{/* TODO: Make this compulsory */}
+												<Select
+													className={`w-full mb-5 selectCurrencyDropdown`}
+													placeholder={
+														generatePlaceholder(
+															countriesCurrency[0]
+														) || 'Select Currency'
+													}
+													name="paymentCurrency"
+													onChange={(e) => {
+														const allCurrencies = [
+															...countriesCurrency,
+															...filterdWest,
+															...filteredCentral,
+														];
+														const currency =
+															allCurrencies.find(
+																(cur) =>
+																	cur.currency_id ===
+																	e
+															);
+														if (currency) {
+															handleSelect(
+																currency
+															);
+														}
+													}}
+													defaultValue={
+														activeCurrency.currency_id
+													}
+												>
+													{[
 														...countriesCurrency,
 														...filterdWest,
 														...filteredCentral,
-													];
-													const currency =
-														allCurrencies.find(
-															(cur) =>
-																cur.currency_id ===
-																e
-														);
-													if (currency) {
-														handleSelect(currency);
-													}
-												}}
-												defaultValue={
-													activeCurrency.currency_id
-												}
-											>
-												{[
-													...countriesCurrency,
-													...filterdWest,
-													...filteredCentral,
-												].map((currencyObj, idx) => (
-													<Option
-														key={idx}
-														value={
-															currencyObj.currency_id
-														}
-													>
-														{generatePlaceholder(
-															currencyObj
-														)}
-													</Option>
-												))}
-											</Select>
-										</div>
-									</div>
-								</RenderIf>
-								{/* start the pay as you want  */}
-								{pricingTypeDetails === 'Pay What You Want' && (
-									<div className="">
-										<h2 className={styles.desiredPayTitle}>
-											Pay what you want
-										</h2>
-										<p className={styles.desiredPayText}>
-											For this product, you can pay any
-											price above the minimum amount.
-										</p>
-										<div
-											className={
-												styles.minimumPriceContainer
-											}
-										>
-											<div
-												className={
-													styles.minimumPriceText
-												}
-											>
-												Minimum price:{' '}
-												{getCurrency('currency')}{' '}
-												{getCurrency('minimum')}
+													].map(
+														(currencyObj, idx) => (
+															<Option
+																key={idx}
+																value={
+																	currencyObj.currency_id
+																}
+															>
+																{generatePlaceholder(
+																	currencyObj
+																)}
+															</Option>
+														)
+													)}
+												</Select>
 											</div>
 										</div>
-										{desiredAmount &&
-											Number(desiredAmount) <
-												Number(
-													getCurrency('minimum')
-												).toFixed(2) && (
-												<div
-													className={
-														styles.desiredAmountError
-													}
-												>
-													<Image
-														src={ErrorIcon}
-														alt="error_icon"
-													/>
-													<p
-														className={
-															styles.errorText
-														}
-													>
-														Please read carefully{' '}
-														<br />
-														Your desired amount is
-														too low. The minimum
-														amount for this product
-														is{' '}
-														{getCurrency(
-															'currency'
-														)}{' '}
-														{Number(
-															getCurrency(
-																'minimum'
-															)
-														).toFixed(2)}
-														.
-													</p>
-												</div>
-											)}
-										<div
-											className={
-												styles.desiredPayContainer
-											}
-										>
+									</RenderIf>
+									{/* start the pay as you want  */}
+									{pricingTypeDetails ===
+										'Pay What You Want' && (
+										<div className="">
+											<h2
+												className={
+													styles.desiredPayTitle
+												}
+											>
+												Pay what you want
+											</h2>
 											<p
 												className={
 													styles.desiredPayText
 												}
 											>
-												Desired Amount
+												For this product, you can pay
+												any price above the minimum
+												amount.
 											</p>
-											<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
-												<Input
-													placeholder={`Suggested Amount: ${getCurrency(
-														'currency'
-													)} ${getCurrency(
-														'suggested'
-													)}.00 `}
-													onChange={(e) =>
-														setDesiredAmount(
-															e.target.value
-														)
+											<div
+												className={
+													styles.minimumPriceContainer
+												}
+											>
+												<div
+													className={
+														styles.minimumPriceText
 													}
-												/>
+												>
+													Minimum price:{' '}
+													{getCurrency('currency')}{' '}
+													{getCurrency('minimum')}
+												</div>
+											</div>
+											{desiredAmount &&
+												Number(desiredAmount) <
+													Number(
+														getCurrency('minimum')
+													).toFixed(2) && (
+													<div
+														className={
+															styles.desiredAmountError
+														}
+													>
+														<Image
+															src={ErrorIcon}
+															alt="error_icon"
+														/>
+														<p
+															className={
+																styles.errorText
+															}
+														>
+															Please read
+															carefully <br />
+															Your desired amount
+															is too low. The
+															minimum amount for
+															this product is{' '}
+															{getCurrency(
+																'currency'
+															)}{' '}
+															{Number(
+																getCurrency(
+																	'minimum'
+																)
+															).toFixed(2)}
+															.
+														</p>
+													</div>
+												)}
+											<div
+												className={
+													styles.desiredPayContainer
+												}
+											>
+												<p
+													className={
+														styles.desiredPayText
+													}
+												>
+													Desired Amount
+												</p>
+												<div className="w-full md:w-4/5 border rounded-md border-gray-200 p-2 mt-0 mb-2">
+													<Input
+														placeholder={`Suggested Amount: ${getCurrency(
+															'currency'
+														)} ${getCurrency(
+															'suggested'
+														)}.00 `}
+														onChange={(e) =>
+															setDesiredAmount(
+																e.target.value
+															)
+														}
+													/>
+												</div>
 											</div>
 										</div>
-									</div>
-								)}
-								<div className="divider"></div>
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div className="pb-6">
-										<div className="text-black-100">
-											Payment Method
-										</div>
-										<p className="text-base-gray-200">
-											Select your preferred payment method
-										</p>
-										<div className="grid gap-4 grid-cols-3 w-full">
-											{countryPayments[
-												activeCurrency?.currency ||
-													activeCurrency?.currency_name
-											]
-												?.filter(({value}) => {
-													if (
-														![
-															'crypto',
-															'stripe',
-															'paypal',
-														].includes(value)
-													) {
-														return true;
-													} else if (
-														(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
-															'approved' ||
-															storeDetails?.user_plan?.toLowerCase() !==
-																'business') &&
-														[
-															'paypal',
-															'stripe',
-															'crypto',
-														].includes(value)
-													) {
-														return false;
-													} else if (
+									)}
+									<div className="divider"></div>
+									{pricingTypeDetails !== 'Make it Free' && (
+										<div className="pb-6">
+											<div className="text-black-100">
+												Payment Method
+											</div>
+											<p className="text-base-gray-200">
+												Select your preferred payment
+												method
+											</p>
+											<div className="grid gap-4 grid-cols-3 w-full">
+												{countryPayments[
+													activeCurrency?.currency ||
+														activeCurrency?.currency_name
+												]
+													?.filter(({value}) => {
+														if (
+															![
+																'crypto',
+																'stripe',
+																'paypal',
+															].includes(value)
+														) {
+															return true;
+														} else if (
+															(storeDetails?.kyc_status?.kyc_status?.toLowerCase() !==
+																'approved' ||
+																storeDetails?.user_plan?.toLowerCase() !==
+																	'business') &&
+															[
+																'paypal',
+																'stripe',
+																'crypto',
+															].includes(value)
+														) {
+															return false;
+														} else if (
+															storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
+																'approved' &&
+															storeDetails?.user_plan?.toLowerCase() ===
+																'business' &&
+															[
+																'stripe',
+																'crypto',
+															].includes(value)
+														) {
+															return true;
+														}
+													})
+													.map(
+														({
+															type,
+															icon,
+															value,
+														}) => (
+															<div
+																key={value}
+																onClick={() =>
+																	handlePaymentMethod(
+																		value
+																	)
+																}
+																className={`${
+																	selectedPaymentMethod ===
+																	value
+																		? 'activeCard'
+																		: 'card'
+																} p-2 flex justify-around items-center`}
+															>
+																<Image
+																	src={icon}
+																	alt={type}
+																	height="26"
+																/>
+																{selectedPaymentMethod ===
+																	value && (
+																	<Image
+																		src={
+																			ActiveTick
+																		}
+																		alt="active"
+																		width="16"
+																		height="16"
+																	/>
+																)}
+															</div>
+														)
+													)}
+												{/* active currency */}
+												{/* */}
+												<RenderIf
+													condition={
+														([
+															activeCurrency?.currency,
+															activeCurrency?.currency_name,
+														].includes('USD') ||
+															[
+																activeCurrency?.currency,
+																activeCurrency?.currency_name,
+															].includes('GBP') ||
+															[
+																activeCurrency?.currency,
+																activeCurrency?.currency_name,
+															].includes(
+																'CAD'
+															)) &&
 														storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
 															'approved' &&
 														storeDetails?.user_plan?.toLowerCase() ===
-															'business' &&
-														[
-															'stripe',
-															'crypto',
-														].includes(value)
-													) {
-														return true;
-													}
-												})
-												.map(({type, icon, value}) => (
-													<div
-														key={value}
-														onClick={() =>
-															handlePaymentMethod(
-																value
-															)
-														}
-														className={`${
-															selectedPaymentMethod ===
-															value
-																? 'activeCard'
-																: 'card'
-														} p-2 flex justify-around items-center`}
-													>
-														<Image
-															src={icon}
-															alt={type}
-															height="26"
-														/>
-														{selectedPaymentMethod ===
-															value && (
-															<Image
-																src={ActiveTick}
-																alt="active"
-																width="16"
-																height="16"
-															/>
-														)}
-													</div>
-												))}
-											{/* active currency */}
-											{/* */}
-											<RenderIf
-												condition={
-													([
-														activeCurrency?.currency,
-														activeCurrency?.currency_name,
-													].includes('USD') ||
-														[
-															activeCurrency?.currency,
-															activeCurrency?.currency_name,
-														].includes('GBP') ||
-														[
-															activeCurrency?.currency,
-															activeCurrency?.currency_name,
-														].includes('CAD')) &&
-													storeDetails?.kyc_status?.kyc_status?.toLowerCase() ===
-														'approved' &&
-													storeDetails?.user_plan?.toLowerCase() ===
-														'business'
-												}
-											>
-												<Tooltip
-													title={
-														(!formik.values
-															.firstName ||
-															!formik.values
-																.lastName ||
-															!formik.values
-																.email ||
-															!formik.values
-																.phoneNo) &&
-														'Fill in all Customer Details to be able to select paypal'
+															'business'
 													}
 												>
-													<div>
-														<PayPalButtons
-															style={{
-																layout: 'horizontal',
-																label: 'pay',
-															}}
-															disabled={
-																!formik.values
-																	.firstName ||
+													<Tooltip
+														title={
+															(!formik.values
+																.firstName ||
 																!formik.values
 																	.lastName ||
 																!formik.values
 																	.email ||
 																!formik.values
-																	.phoneNo
-															}
-															className={`flex justify-around items-center ml-14 md:ml-1`}
-															createOrder={(
-																data,
-																actions
-															) =>
-																paypalHandler(
-																	data,
-																	actions
-																)
-															}
-															onApprove={async (
-																data,
-																actions
-															) => {
-																const order =
-																	await actions.order.capture();
-
-																paypalSuccess(
-																	data,
-																	actions,
-																	order
-																);
-															}}
-															onCancel={(
-																data,
-																actions
-															) => {}}
-															onError={(
-																err
-															) => {}}
-														/>
-													</div>
-												</Tooltip>
-											</RenderIf>
-										</div>
-									</div>
-								)}
-								{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
-
-								{/**Apply coupon feature is yet to be implemented */}
-								{pricingTypeDetails !== 'Make it Free' &&
-									!couponSuccess && (
-										<>
-											<RenderIf condition={!showCoupon}>
-												<p className={`font-[16px]`}>
-													Have a Coupon Code?{' '}
-													<span
-														className={`underline font-bold cursor-pointer`}
-														style={{
-															color: '#0072EF',
-														}}
-														onClick={() =>
-															setShowCoupon(true)
+																	.phoneNo) &&
+															'Fill in all Customer Details to be able to select paypal'
 														}
 													>
-														Click here to Add
-													</span>{' '}
-												</p>
-											</RenderIf>
-											<RenderIf condition={showCoupon}>
-												<div className="w-full flex gap-2 items-start pr-4 lg:hidden">
-													<div className="w-3/5 xs:w-3/4 md:w-4/5">
-														<Input
-															placeholder="Coupon Code"
-															name="couponCode"
-															onChange={(e) =>
-																setCouponCode(
-																	e.target
-																		.value
-																)
-															}
-														/>
-													</div>
-													<div className="w-30 xs:w-1/4 md:w-1/5 pb-2 flex items-center gap-2">
-														<Button
-															text={
-																'Apply Coupon'
-															}
-															className={
-																styles.couponBtn
-															}
-															onClick={
-																handleApplyCoupon
-															}
-															disabled={
-																isCouponLoading
-															}
-														/>
-														<span className="inline-block cursor-pointer">
-															<Image
-																src={
-																	CloseButton
+														<div>
+															<PayPalButtons
+																style={{
+																	layout: 'horizontal',
+																	label: 'pay',
+																}}
+																disabled={
+																	!formik
+																		.values
+																		.firstName ||
+																	!formik
+																		.values
+																		.lastName ||
+																	!formik
+																		.values
+																		.email ||
+																	!formik
+																		.values
+																		.phoneNo
 																}
-																alt="cancel icon"
-																height={30}
-																width={30}
-																onClick={() =>
-																	setShowCoupon(
-																		false
+																className={`flex justify-around items-center ml-14 md:ml-1`}
+																createOrder={(
+																	data,
+																	actions
+																) =>
+																	paypalHandler(
+																		data,
+																		actions
 																	)
 																}
-															/>
-														</span>
-													</div>
-												</div>
-												<div className="w-full hidden lg:flex gap-4 items-start">
-													<div className="w-4/5">
-														<Input
-															placeholder=" Enter Coupon Code"
-															name="couponCode"
-															onChange={(e) =>
-																setCouponCode(
-																	e.target
-																		.value
-																)
-															}
-														/>
-													</div>
-													<div className="w-1/5 pb-2 flex items-center gap-2">
-														<Button
-															text={
-																'Apply Coupon'
-															}
-															className={
-																styles.couponBtn
-															}
-															onClick={
-																handleApplyCoupon
-															}
-															disabled={
-																isCouponLoading
-															}
-														/>
-														<span className="inline-block cursor-pointer">
-															<Image
-																src={
-																	CloseButton
-																}
-																alt="cancel icon"
-																onClick={() =>
-																	setShowCoupon(
-																		false
-																	)
-																}
-																height={30}
-																width={30}
-															/>
-														</span>
-													</div>
-												</div>
-											</RenderIf>
-										</>
-									)}
+																onApprove={async (
+																	data,
+																	actions
+																) => {
+																	const order =
+																		await actions.order.capture();
 
-								{pricingTypeDetails !== 'Make it Free' &&
-									couponSuccess && (
-										<div className="w-full md:w-2/4 flex gap-2 items-center my-6 rounded-lg border-2 p-2 ml-16 justify-center">
-											<p className="text-lg my-auto">
-												Coupon successfully Applied
-											</p>
-											<div>
-												<AiFillCheckCircle className="text-2xl text-base-green-200" />
+																	paypalSuccess(
+																		data,
+																		actions,
+																		order
+																	);
+																}}
+																onCancel={(
+																	data,
+																	actions
+																) => {}}
+																onError={(
+																	err
+																) => {}}
+															/>
+														</div>
+													</Tooltip>
+												</RenderIf>
 											</div>
 										</div>
 									)}
+									{/**This is reserved for Premium users who have activated tier 2 payment options. Uncomment the code block below to and implement the functionality */}
 
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div
-										className={`p-6 w-full shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
-									>
-										<div className="flex justify-between">
-											<p>SubTotal</p>
-											<div className="flex gap-4">
-												<p>
-													{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
-													{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
-													{OriginalPrices && (
+									{/**Apply coupon feature is yet to be implemented */}
+									{pricingTypeDetails !== 'Make it Free' &&
+										!couponSuccess && (
+											<>
+												<RenderIf
+													condition={!showCoupon}
+												>
+													<p
+														className={`font-[16px]`}
+													>
+														Have a Coupon Code?{' '}
+														<span
+															className={`underline font-bold cursor-pointer`}
+															style={{
+																color: '#0072EF',
+															}}
+															onClick={() =>
+																setShowCoupon(
+																	true
+																)
+															}
+														>
+															Click here to Add
+														</span>{' '}
+													</p>
+												</RenderIf>
+												<RenderIf
+													condition={showCoupon}
+												>
+													<div className="w-full flex gap-2 items-start pr-4 lg:hidden">
+														<div className="w-3/5 xs:w-3/4 md:w-4/5">
+															<Input
+																placeholder="Coupon Code"
+																name="couponCode"
+																onChange={(e) =>
+																	setCouponCode(
+																		e.target
+																			.value
+																	)
+																}
+															/>
+														</div>
+														<div className="w-30 xs:w-1/4 md:w-1/5 pb-2 flex items-center gap-2">
+															<Button
+																text={
+																	'Apply Coupon'
+																}
+																className={
+																	styles.couponBtn
+																}
+																onClick={
+																	handleApplyCoupon
+																}
+																disabled={
+																	isCouponLoading
+																}
+															/>
+															<span className="inline-block cursor-pointer">
+																<Image
+																	src={
+																		CloseButton
+																	}
+																	alt="cancel icon"
+																	height={30}
+																	width={30}
+																	onClick={() =>
+																		setShowCoupon(
+																			false
+																		)
+																	}
+																/>
+															</span>
+														</div>
+													</div>
+													<div className="w-full hidden lg:flex gap-4 items-start">
+														<div className="w-4/5">
+															<Input
+																placeholder=" Enter Coupon Code"
+																name="couponCode"
+																onChange={(e) =>
+																	setCouponCode(
+																		e.target
+																			.value
+																	)
+																}
+															/>
+														</div>
+														<div className="w-1/5 pb-2 flex items-center gap-2">
+															<Button
+																text={
+																	'Apply Coupon'
+																}
+																className={
+																	styles.couponBtn
+																}
+																onClick={
+																	handleApplyCoupon
+																}
+																disabled={
+																	isCouponLoading
+																}
+															/>
+															<span className="inline-block cursor-pointer">
+																<Image
+																	src={
+																		CloseButton
+																	}
+																	alt="cancel icon"
+																	onClick={() =>
+																		setShowCoupon(
+																			false
+																		)
+																	}
+																	height={30}
+																	width={30}
+																/>
+															</span>
+														</div>
+													</div>
+												</RenderIf>
+											</>
+										)}
+
+									{pricingTypeDetails !== 'Make it Free' &&
+										couponSuccess && (
+											<div className="w-full md:w-2/4 flex gap-2 items-center my-6 rounded-lg border-2 p-2 ml-16 justify-center">
+												<p className="text-lg my-auto">
+													Coupon successfully Applied
+												</p>
+												<div>
+													<AiFillCheckCircle className="text-2xl text-base-green-200" />
+												</div>
+											</div>
+										)}
+
+									{pricingTypeDetails !== 'Make it Free' && (
+										<div
+											className={`p-6 w-full shadow rounded-md bg-white flex flex-col ${styles.boxShadow}`}
+										>
+											<div className="flex justify-between">
+												<p>SubTotal</p>
+												<div className="flex gap-4">
+													<p>
+														{/* {currency_name} {price ?? checkoutDetails?.default_price} */}
+														{/* {checkOutInNaira?.currency_name} {checkOutInNaira?.price} */}
+														{OriginalPrices && (
+															<span
+																style={{
+																	fontSize:
+																		'15px',
+																	color: '#8C8C8C',
+																	textDecoration:
+																		'line-through',
+																}}
+															>
+																{getCurrency(
+																	'currency'
+																)}{' '}
+															</span>
+														)}
 														<span
 															style={{
 																fontSize:
@@ -1582,116 +1658,111 @@ const Checkout = () => {
 																color: '#8C8C8C',
 																textDecoration:
 																	'line-through',
+																marginRight:
+																	'7px',
 															}}
 														>
 															{getCurrency(
-																'currency'
-															)}{' '}
+																'original'
+															)}
 														</span>
-													)}
-													<span
-														style={{
-															fontSize: '15px',
-															color: '#8C8C8C',
-															textDecoration:
-																'line-through',
-															marginRight: '7px',
-														}}
-													>
 														{getCurrency(
-															'original'
-														)}
+															'currency'
+														)}{' '}
+														{subTotal}
+													</p>
+												</div>
+											</div>
+
+											{isChargable === true && (
+												<div className="flex justify-between">
+													<p>Transaction fees</p>
+													<p>{transactionFee || 0}</p>
+												</div>
+											)}
+
+											<div className="flex justify-between">
+												<p>
+													Tax{' '}
+													<span>
+														<Tooltip title="You are paying this tax to the kreator, in compliance with their country’s tax policy. KreateSell does not in anyway benefit from the taxes.">
+															<Image
+																src={
+																	QuestionIcon
+																}
+																alt=""
+															/>
+														</Tooltip>
 													</span>
+												</p>
+
+												<p>
+													{getTaxDeduction(
+														'getVal'
+													) || 0}
+												</p>
+											</div>
+
+											<div className="divider"></div>
+
+											<div className="flex justify-between">
+												<p>Total</p>
+												<p className="text-primary-blue font-medium">
 													{getCurrency('currency')}{' '}
-													{subTotal}
+													{Number(
+														getCurrency('total')
+													).toFixed(2)}
 												</p>
 											</div>
 										</div>
+									)}
 
-										{isChargable === true && (
-											<div className="flex justify-between">
-												<p>Transaction fees</p>
-												<p>{transactionFee || 0}</p>
-											</div>
-										)}
-
-										<div className="flex justify-between">
-											<p>
-												Tax{' '}
-												<span>
-													<Tooltip title="You are paying this tax to the kreator, in compliance with their country’s tax policy. KreateSell does not in anyway benefit from the taxes.">
-														<Image
-															src={QuestionIcon}
-															alt=""
-														/>
-													</Tooltip>
-												</span>
-											</p>
-
-											<p>
-												{getTaxDeduction('getVal') || 0}
-											</p>
+									{pricingTypeDetails === 'Make it Free' && (
+										<div className="flex items-center justify-center">
+											<Image
+												src={MakeItFreeIcon}
+												width="240"
+												height="294"
+												alt=""
+											/>
 										</div>
+									)}
 
-										<div className="divider"></div>
-
-										<div className="flex justify-between">
-											<p>Total</p>
-											<p className="text-primary-blue font-medium">
-												{getCurrency('currency')}{' '}
-												{Number(
-													getCurrency('total')
-												).toFixed(2)}
-											</p>
-										</div>
-									</div>
-								)}
-
-								{pricingTypeDetails === 'Make it Free' && (
-									<div className="flex items-center justify-center">
-										<Image
-											src={MakeItFreeIcon}
-											width="240"
-											height="294"
-											alt=""
-										/>
-									</div>
-								)}
-
-								{pricingTypeDetails !== 'Make it Free' ? (
-									<p className="text-base-gray text-center py-6 text-xs md:text-sm">
-										Get instant access to this product once
-										your payment is successful!
-									</p>
-								) : (
-									<>
+									{pricingTypeDetails !== 'Make it Free' ? (
 										<p className="text-base-gray text-center py-6 text-xs md:text-sm">
-											<span className="text-base text-gray-700">
-												You are getting this product for
-												free!
-											</span>
-											<br /> Get instantly access this
-											product once your click the button
+											Get instant access to this product
+											once your payment is successful!
 										</p>
-									</>
-								)}
+									) : (
+										<>
+											<p className="text-base-gray text-center py-6 text-xs md:text-sm">
+												<span className="text-base text-gray-700">
+													You are getting this product
+													for free!
+												</span>
+												<br /> Get instantly access this
+												product once your click the
+												button
+											</p>
+										</>
+									)}
 
-								{pricingTypeDetails !== 'Make it Free' && (
-									<div className=" w-full lg:w-5/6 mx-auto">
-										<Button
-											text={`Pay Now`}
-											bgColor="blue"
-											className={styles.btnCont}
-											icon={<RightArrow />}
-											disabled={
-												currencyConverterLoading ||
-												disableBtn
-											}
-										/>
-									</div>
-								)}
+									{pricingTypeDetails !== 'Make it Free' && (
+										<div className=" w-full lg:w-5/6 mx-auto">
+											<Button
+												text={`Pay Now`}
+												bgColor="blue"
+												className={styles.btnCont}
+												icon={<RightArrow />}
+												disabled={
+													currencyConverterLoading ||
+													disableBtn
+												}
+											/>
+										</div>
+									)}
 
-								{/* {isFree ? (
+									{/* {isFree ? (
                 <div className=" w-full lg:w-5/6 mx-auto">
                   <Button
                     text={`Pay Now`}
@@ -1710,17 +1781,18 @@ const Checkout = () => {
                   />
                 </div>
               )} */}
-							</form>
-							{pricingTypeDetails === 'Make it Free' && (
-								<div className=" w-full lg:w-5/6 mx-auto">
-									<Button
-										text={`Get Now`}
-										bgColor="blue"
-										className={styles.btnCont}
-										onClick={handleMakeItFreePayment}
-									/>
-								</div>
-							)}
+								</form>
+								{pricingTypeDetails === 'Make it Free' && (
+									<div className=" w-full lg:w-5/6 mx-auto">
+										<Button
+											text={`Get Now`}
+											bgColor="blue"
+											className={styles.btnCont}
+											onClick={handleMakeItFreePayment}
+										/>
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>

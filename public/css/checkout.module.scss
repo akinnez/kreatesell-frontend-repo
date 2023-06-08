@@ -6,36 +6,39 @@
 }
 
 .nav {
-	max-width: 106.25rem;
-	h2 {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-	}
-
-	.lgContent {
-		display: block;
-
-		@media (max-width: 600px) {
-			display: none;
-		}
-	}
-
-	.smContent {
-		display: flex;
-		width: 100%;
-		justify-content: space-between;
-		align-items: center;
-
+	.navContainer {
+		margin: auto;
+		max-width: 106.25rem;
 		h2 {
-			position: unset;
-			transform: unset;
-			font-weight: 700;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
 		}
 
-		@media (min-width: 600px) {
-			display: none;
+		.lgContent {
+			display: block;
+
+			@media (max-width: 600px) {
+				display: none;
+			}
+		}
+
+		.smContent {
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			align-items: center;
+
+			h2 {
+				position: unset;
+				transform: unset;
+				font-weight: 700;
+			}
+
+			@media (min-width: 600px) {
+				display: none;
+			}
 		}
 	}
 }
@@ -44,7 +47,6 @@
 	background-image: url('../images/checkout-bg.png');
 	// width: 80%;
 	padding: 2.5rem 80px;
-	max-width: 106.25rem;
 
 	@media (max-width: 1200px) {
 		padding: 1rem;
@@ -62,7 +64,10 @@
 	@include screen('medium') {
 		background-image: none;
 	}
-
+	.bodyWrapper {
+		max-width: 106.25rem;
+		margin: auto;
+	}
 	.checFlag {
 		position: relative;
 		width: 20px;
