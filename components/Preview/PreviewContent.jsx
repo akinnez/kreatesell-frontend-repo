@@ -407,9 +407,9 @@ export default function PreviewContent({
 										</div>
 									</RenderIf>
 								</h2>
-								<div className={styles.visitLink}>
+								<div className={`${styles.visitLink}`}>
 									<Link
-										href={domainLink}
+										href={`/store/${product?.store_dto?.store_name}`}
 										className="mb-0 font-medium"
 									>
 										<a>
