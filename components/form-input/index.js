@@ -232,6 +232,8 @@ export const SelectV2 = ({
 	setCountry,
 	isCheckout = false,
 	errorMessage = null,
+	phoneNumberInput = false,
+	placeholderSetterFn = () => {},
 	...rest
 }) => {
 	return (
@@ -262,25 +264,32 @@ export const SelectV2 = ({
 						size={size}
 						placeholder={placeholder}
 					>
-						{list?.map(({name, flag, country_code}, i) => (
-							<AntSelect.Option key={i} value={name}>
-								<div className={style.select}>
-									{label === 'Country' && (
-										<NImg
-											style={{borderRadius: '5px'}}
-											objectFit="cover"
-											width={40}
-											height={30}
-											src={flag}
-										/>
-									)}
-									{name}
-									{isCheckout && (
-										<span>({country_code})</span>
-									)}
-								</div>
-							</AntSelect.Option>
-						))}
+						{list?.map(
+							({name, flag, country_code, alpha2Code}, i) => (
+								<AntSelect.Option key={i} value={name}>
+									<div
+										className={style.select}
+										onClick={() =>
+											placeholderSetterFn(alpha2Code)
+										}
+									>
+										{label === 'Country' && (
+											<NImg
+												style={{borderRadius: '5px'}}
+												objectFit="cover"
+												width={40}
+												height={30}
+												src={flag}
+											/>
+										)}
+										{name}
+										{isCheckout && (
+											<span>({country_code})</span>
+										)}
+									</div>
+								</AntSelect.Option>
+							)
+						)}
 					</AntSelect>
 				}
 				<>

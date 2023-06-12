@@ -20,6 +20,7 @@ import {
 import {PayoutFormValidator} from 'validation/PayoutForm.validation';
 import {RestOfTheWorld} from 'utils';
 import styles from './index.module.scss';
+import {GetStoreDetails} from 'redux/actions';
 
 const {Text} = Typography;
 const {Option} = Select;
@@ -58,6 +59,7 @@ const PayoutsForm = ({
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
+	const getStoreDetails = GetStoreDetails();
 
 	const submitHandler = createSubmitHandler({
 		dispatch,
@@ -67,11 +69,6 @@ const PayoutsForm = ({
 		showSuccessModal,
 	});
 
-	// console.log(
-	// 	bankDetails,
-	// 	banksByCountryId,
-	// 	'to test for why ghana is not returning bank for updates'
-	// );
 	const bankTypes = [
 		{
 			value: 'bankaccount',
@@ -95,7 +92,9 @@ const PayoutsForm = ({
 				action: bankDetails ? 'e' : 'c',
 			}}
 			validationSchema={PayoutFormValidator}
-			onSubmit={submitHandler}
+			onSubmit={(values, actions) => {
+				submitHandler(values, actions, getStoreDetails);
+			}}
 		>
 			{(formik) => (
 				<Form

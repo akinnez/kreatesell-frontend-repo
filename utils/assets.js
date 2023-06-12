@@ -297,6 +297,7 @@ import MinusIcon from '../public/images/minusIcon.svg';
 import GreenCancel from '../public/images/GreenCancel.svg';
 import ErrorInfoIcon from '../public/images/error-info-icon.svg';
 import MaintenanceIcon from '../public/images/maintenance.svg';
+import CloseButton from '../public/images/closeButton.svg';
 
 import FacebookIcon from '../public/images/facebookicon.svg';
 import InstagramIcon from '../public/images/instagramicon.svg';
@@ -332,6 +333,7 @@ import logoIcon from '../public/images/logoIcon.png';
 import SettingsIcon from '../public/images/settings.png';
 
 export {
+	CloseButton,
 	MaintenanceIcon,
 	DashPreviewOnePng,
 	LandingPageHeroPng,

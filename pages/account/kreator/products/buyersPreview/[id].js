@@ -15,6 +15,8 @@ import {useRouter} from 'next/router';
 import {Card, Row, Col, Modal} from 'antd';
 import Accordion from '../preview-membership/Accordion';
 import {CloudDownload} from 'utils/icons/CloudDownload';
+import {PoweredByKS} from 'components/PoweredByKs';
+import {AiOutlineCloseCircle} from 'react-icons/ai';
 
 import axios from 'axios';
 import {Input, Button} from 'components';
@@ -120,6 +122,46 @@ const AccessPageModal = ({
 				</div>
 			</div>
 		</Modal>
+	);
+};
+
+const NoaccessModal = ({setActiveSectionName}) => {
+	const router = useRouter();
+	return (
+		<div className="fixed inset-0 z-[1000] flex items-center justify-center z-50">
+			<div
+				className="absolute inset-0"
+				style={{background: 'rgba(0,0,0,0.7)'}}
+				onClick={() => setActiveSectionName(false)}
+			></div>
+			<div
+				className={`${styles.accessDeniedContainer} relative z-10 bg-white px-6 py-6 md:py-8 rounded-lg shadow-lg w-11/12 md:w-1/4`}
+			>
+				<div
+					className="w-full flex items-center justify-end"
+					onClick={() => setActiveSectionName(false)}
+				>
+					<AiOutlineCloseCircle className="text-black text-xl cursor-pointer" />
+				</div>
+				<h2>You do not have access to this Section</h2>
+				<p>
+					This section is only accessible to subscribers who have made
+					payment up to x times. Please make more payments in your
+					subscription to get access.
+				</p>
+				<div className="w-full">
+					<button
+						onClick={() =>
+							router.push(
+								`/checkout/payment/${router?.query?.id}`
+							)
+						}
+					>
+						I want to make payment
+					</button>
+				</div>
+			</div>
+		</div>
 	);
 };
 
@@ -393,32 +435,37 @@ const BuyersPreview = () => {
 									)}
 
 									{activeSectionName && (
-										<div
-											className={
-												styles.accessDeniedContainer
+										// <div
+										// 	className={
+										// 		styles.accessDeniedContainer
+										// 	}
+										// >
+										// 	<h2>
+										// 		You do not have access to this
+										// 		Section
+										// 	</h2>
+										// 	<p>
+										// 		This section is only accessible
+										// 		to subscribers who have made
+										// 		payment up to x times. Please
+										// 		make more payments in your
+										// 		subscription to get access.
+										// 	</p>
+										// 	<button
+										// 		onClick={() =>
+										// 			router.push(
+										// 				`/checkout/payment/${router?.query?.id}`
+										// 			)
+										// 		}
+										// 	>
+										// 		I want to make payment
+										// 	</button>
+										// </div>
+										<NoaccessModal
+											setActiveSectionName={
+												setActiveSectionName
 											}
-										>
-											<h2>
-												You do not have access to this
-												Section
-											</h2>
-											<p>
-												This section is only accessible
-												to subscribers who have made
-												payment up to x times. Please
-												make more payments in your
-												subscription to get access.
-											</p>
-											<button
-												onClick={() =>
-													router.push(
-														`/checkout/payment/${router?.query?.id}`
-													)
-												}
-											>
-												I want to make payment
-											</button>
-										</div>
+										/>
 									)}
 								</Card>
 							</Col>
@@ -594,6 +641,39 @@ const BuyersPreview = () => {
 										</div>
 									</>
 								)}
+								{activeSectionName && (
+									// <div
+									// 	className={
+									// 		styles.accessDeniedContainer
+									// 	}
+									// >
+									// 	<h2>
+									// 		You do not have access to this
+									// 		Section
+									// 	</h2>
+									// 	<p>
+									// 		This section is only accessible
+									// 		to subscribers who have made
+									// 		payment up to x times. Please
+									// 		make more payments in your
+									// 		subscription to get access.
+									// 	</p>
+									// 	<button
+									// 		onClick={() =>
+									// 			router.push(
+									// 				`/checkout/payment/${router?.query?.id}`
+									// 			)
+									// 		}
+									// 	>
+									// 		I want to make payment
+									// 	</button>
+									// </div>
+									<NoaccessModal
+										setActiveSectionName={
+											setActiveSectionName
+										}
+									/>
+								)}
 								{showMobileContents && (
 									<div className={styles.right}>
 										<div>
@@ -700,6 +780,7 @@ const BuyersPreview = () => {
 							</div>
 						</div>
 					</section>
+					<PoweredByKS showDisclaimer={false} />
 				</div>
 			)}
 		</>

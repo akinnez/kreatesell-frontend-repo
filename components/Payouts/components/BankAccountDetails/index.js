@@ -18,7 +18,6 @@ const BankAccountDetails = ({bankDetails}) => {
 		setter(value);
 	};
 
-	console.log(bankDetails, 'bankDetailsbankDetailsbankDetails');
 	return (
 		<>
 			<Card className={styles.card__wrapper}>
