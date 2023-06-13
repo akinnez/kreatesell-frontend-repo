@@ -85,7 +85,9 @@ const Checkout = () => {
 
 	const [country, setCountry] = useState('');
 	const [countryId, setCountryId] = useState(null);
-	const {countries} = useSelector((state) => state.utils);
+	const {countries, loading: countriesLoading} = useSelector(
+		(state) => state.utils
+	);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
@@ -628,15 +630,20 @@ const Checkout = () => {
 
 	const {errors, setFieldValue, values, dirty} = formik;
 
-	// Update ref so I can pass values to paypal
+	const [countryCode2, setCountryCode2] = useState();
 	useEffect(() => {
-		if (dirty) {
+		if (
+			activeCurrency instanceof Object &&
+			Object.keys(activeCurrency).length > 0
+		) {
+			setCountryCode2(activeCurrency?.name);
 		}
-	}, [dirty]);
+	}, [activeCurrency]);
 
 	useEffect(() => {
 		if (countryCode) {
-			const sampleNumber = getExample(countryCode, 'mobile');
+			// console.log('country code', countryCode);
+			const sampleNumber = getExample(`${countryCode}`, 'mobile');
 			setPlaceholderNumber(sampleNumber.number.national);
 		}
 	}, [countryCode]);
@@ -790,6 +797,13 @@ const Checkout = () => {
 		}
 		return () => {};
 	}, [countryDetails?.currency, countries?.length, checkOutDetails.length]);
+
+	useEffect(() => {
+		if (countries?.length > 0) {
+			console.log('updated');
+			formik.setFieldValue('Country_code', countries[0].name);
+		}
+	}, [countries?.length]);
 
 	const handlePaymentMethod = (method) => {
 		setSelectedPaymentMethod(method);
@@ -1089,6 +1103,15 @@ const Checkout = () => {
 														}
 														placeholderSetterFn={
 															setCountryCode
+														}
+														defaultValue={
+															countryCode2 ||
+															countries[0].name
+														}
+														loading={
+															countriesLoading ||
+															storecheckoutCurrencyLoading ||
+															storeCheckoutCurrenciesLoading
 														}
 														// rules={[
 														// 	{

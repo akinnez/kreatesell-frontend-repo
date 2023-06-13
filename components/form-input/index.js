@@ -234,6 +234,7 @@ export const SelectV2 = ({
 	errorMessage = null,
 	phoneNumberInput = false,
 	placeholderSetterFn = () => {},
+	defaultValue,
 	...rest
 }) => {
 	return (
@@ -256,6 +257,7 @@ export const SelectV2 = ({
 								.indexOf(input.toLowerCase()) >= 0
 						}
 						onChange={(e) => {
+							// console.log('country is', e);
 							setCountry(e);
 							onChange(e);
 						}}
@@ -263,6 +265,7 @@ export const SelectV2 = ({
 						className={style.input}
 						size={size}
 						placeholder={placeholder}
+						defaultValue={defaultValue}
 					>
 						{list?.map(
 							({name, flag, country_code, alpha2Code}, i) => (
