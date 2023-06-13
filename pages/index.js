@@ -45,6 +45,7 @@ import {
 	Animate,
 	LandingPageHeroPng,
 	DashPreviewOnePng,
+	MaintenanceIcon2,
 } from '../utils';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
