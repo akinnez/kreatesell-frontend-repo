@@ -29,9 +29,6 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({Component, pageProps}) {
 	const router = useRouter();
 
-	useEffect(() => {
-		router.push('/');
-	}, []);
 	const store = useStore(pageProps.initialReduxState);
 	useEffect(() => {
 		setAuthorizationHeader();
