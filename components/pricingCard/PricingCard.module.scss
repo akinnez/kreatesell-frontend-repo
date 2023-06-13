@@ -117,7 +117,7 @@
 		@include flex(column, null, center);
 
 		.features {
-			width: 85%;
+			width: 90%;
 			display: flex;
 			padding-bottom: 0.5rem;
 
@@ -131,9 +131,11 @@
 				justify-content: flex-start;
 				align-items: center;
 				text-align: left;
+				flex: 10;
 			}
 
 			.featuresIcons {
+				flex: 1;
 				// border: 1px solid red;
 				// display: flex;
 				// justify-content: flex-start;
