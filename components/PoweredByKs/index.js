@@ -12,6 +12,7 @@ export const PoweredByKS = ({showDisclaimer = true, storename = ''}) => {
 					alt="powered by KreateSell"
 				/>
 			</p>
+			<p>{`@ ${new Date().getFullYear()} ${storename} store. All rights reserved`}</p>
 			<RenderIf condition={showDisclaimer}>
 				<h5 className={styles.disclaimer}>
 					<span>DISCLAIMER NOTICE: </span>

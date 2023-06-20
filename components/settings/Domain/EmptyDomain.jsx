@@ -30,7 +30,7 @@ export const EmptyDomain = ({showHeader = true}) => {
 				{/* <div className={styles.commingSoonText}>
 					Setup your custom subdomain and connect an existing domain
 				</div> */}
-				<div className={styles.mainBox}>
+				{/* <div className={styles.mainBox}>
 					<div className={styles.imgContainer}>
 						<Image
 							src={ComingSoon}
@@ -52,23 +52,23 @@ export const EmptyDomain = ({showHeader = true}) => {
 						to your kreatesell store; full customization at your
 						fingertip.
 					</p>
-				</div>
-
-				{/* <div className="text-base text-black-100 font-medium">
-					Connect an existing domain
 				</div> */}
-				{/* <p className="text-xs text-base-gray-200 pt-2">
+
+				<div className="text-base text-black-100 font-medium">
+					Connect an existing domain
+				</div>
+				<p className="text-xs text-base-gray-200 pt-2">
 					Have a domain? Connect it here.
-				</p> */}
-				{/* <div className="my-4">
+				</p>
+				<div className="my-4">
 					<Button
 						text="Connect a domain"
 						bgColor="blue"
 						className={styles.btnStyle}
 						onClick={() => setDomainScreen(3)}
 					/>
-				</div> */}
-				{/* <Link href="/account/kreator/settings/about-domain">
+				</div>
+				<Link href="/account/kreator/settings/about-domain">
 					<a
 						target="_blank"
 						rel="noopener norefferer"
@@ -76,7 +76,7 @@ export const EmptyDomain = ({showHeader = true}) => {
 					>
 						View Guide
 					</a>
-				</Link> */}
+				</Link>
 			</div>
 		</div>
 	);
