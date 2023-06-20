@@ -332,8 +332,10 @@ import QuestionIcon from '../public/images/questionIcon.png';
 import TelegramIconWhite from '../public/images/Telegramwhite.png';
 import logoIcon from '../public/images/logoIcon.png';
 import SettingsIcon from '../public/images/settings.png';
+import EarnedAsAffiliateTag from '../public/images/earnedAsAffiliateTag.png';
 
 export {
+	EarnedAsAffiliateTag,
 	MaintenanceIcon2,
 	CloseButton,
 	MaintenanceIcon,
