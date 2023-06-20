@@ -54,6 +54,8 @@ export default function PreviewProduct() {
 	const convertCurrency = ConvertCurrency();
 	const getStoreCheckoutCurrencies = GetStoreCheckoutCurrencies();
 
+	const storename = store_dto?.store_name;
+
 	/////////////////////////////////////////////////////////////////////////////
 	//  API REQUESTS MADE WHEN COMPONENT MOUNTS
 	/////////////////////////////////////////////////////////////////////////////
@@ -265,7 +267,7 @@ export default function PreviewProduct() {
 						}}
 					/>
 				</ErrorBoundary>
-				<PoweredByKS />
+				<PoweredByKS {...{storename}} />
 			</div>
 		</>
 	);
