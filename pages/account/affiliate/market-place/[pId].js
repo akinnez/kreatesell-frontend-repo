@@ -65,7 +65,7 @@ const AffiliateProductRequest = () => {
 				}
 				productName={product.affiliate_kreator_product.product_name}
 			>
-				<TabPane tab="Request" key="1">
+				<TabPane tab="Request" key="request">
 					<Request
 						hasRequestedAccess={
 							product.affiliate_kreator_product
@@ -79,7 +79,7 @@ const AffiliateProductRequest = () => {
 						updateProduct={updateProduct}
 					/>
 				</TabPane>
-				<TabPane tab="Overview" key="2">
+				<TabPane tab="Overview" key="overview">
 					<Overview
 						productImages={productImages}
 						productName={
