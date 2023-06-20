@@ -7,6 +7,11 @@ import styles from './PricingCard.module.scss';
 import {Button} from '../index';
 import Spinner from 'components/Spinner';
 
+const TooltipOption = {
+	'Multi-Currency - 21 Currencies': 'Receive payments globally',
+	'Customize your store URL':
+		'Switch from (www.kreatesell.com/storename) to your custom domain (http://ww.yourname.com )',
+};
 export const PricingCard = ({
 	title,
 	subTitle,
@@ -82,21 +87,20 @@ export const PricingCard = ({
 						<h6 className={styles.featuresContent}>
 							{features}
 							<RenderIf
-								condition={features.includes(
-									'Customize your store URL'
-								)}
+								condition={[
+									'Multi-Currency - 21 Currencies',
+									'Customize your store URL',
+								].includes(features)}
 							>
 								<Tooltip
 									overlayStyle={{
-										width: '450px',
+										width: '400px',
 										borderRadius: '10px',
 									}}
-									title={
-										'Customize your store URL (Switch from (www.kreatesell.com/storename) to your custom domain (http://ww.yourname.com ))'
-									}
+									title={TooltipOption[features]}
 									// placement="topCenter"
 								>
-									<b>&nbsp;?</b>
+									<b className="cursor-pointer">&nbsp;?</b>
 								</Tooltip>
 							</RenderIf>
 						</h6>
@@ -119,7 +123,7 @@ const BasicFeatures = [
 	'Fully customizable storefront',
 	'Robust dashboard analytics.',
 	'Set unique prices in multiple currencies',
-	'Multi-Currency - 21 Currencies (add a question mark with hover tip - Receive payments globally)',
+	'Multi-Currency - 21 Currencies',
 	'1 Abandoned Cart Follow up Email ',
 	'Instant Sales Notification',
 	'Pixel Tracking',
@@ -129,12 +133,6 @@ const BasicFeatures = [
 	'Pay what you want payment option',
 	'Advanced Issue Resolution Ticketing System',
 	'Cryptocurrency Payment option',
-	// "Instant Sale Notification ",
-	// "Affiliate Instant Commission",
-	// "Storage 500MB",
-	// "Limit downloads",
-	// "Custom Checkout Button (CTA)",
-	// "Branded Profile",
 ];
 
 const BusinessFeatures = [
@@ -150,12 +148,5 @@ const BusinessFeatures = [
 	'Paypal for Verified Kreators',
 	'Stripe for Verified Kreators',
 	'KreateSell Verified blue tick badge for verified users',
-	'Customize your store URL ',
-	// 'Offer Coupons',
-	// 'Remove Default Stamps',
-	// '15 Gb Storage Space',
-	// 'Advanced Reports',
-	// 'Sell in Cryptocurrency',
-	// "15GB Storage",
-	// "Advanced reports",
+	'Customize your store URL',
 ];
