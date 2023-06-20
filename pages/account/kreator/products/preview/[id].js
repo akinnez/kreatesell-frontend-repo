@@ -32,6 +32,8 @@ export default function PreviewProduct() {
 	} = useSelector((state) => state.product);
 	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
 
+	const storename = store_dto?.store_name;
+
 	const [productStatus, setProductStatus] = useState('idle');
 
 	const [targetCurrency, setTargetCurrency] = useState('');
@@ -155,6 +157,7 @@ export default function PreviewProduct() {
 		return null;
 	}
 
+
 	return (
 		<AuthLayout>
 			<div
@@ -176,7 +179,7 @@ export default function PreviewProduct() {
 						minimumPrice,
 					}}
 				/>
-				<PoweredByKS />
+				<PoweredByKS {...{storename}}/>  
 			</div>
 		</AuthLayout>
 	);
