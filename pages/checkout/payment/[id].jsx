@@ -547,7 +547,6 @@ const Checkout = () => {
 				return;
 			}
 		}
-
 		if (selectedPaymentMethod === 'stripe') {
 			try {
 				const data = await axios.post(
@@ -580,7 +579,6 @@ const Checkout = () => {
 				return;
 			}
 		}
-
 		if (selectedPaymentMethod === 'flutterwave') {
 			handleFlutterPayment({
 				callback: async (response) => {
@@ -1070,13 +1068,14 @@ const Checkout = () => {
 
 										<Row gutter={{xs: 0, sm: 0, md: 0}}>
 											<Col
-												xs={12}
-												md={12}
+												// xs={12}
+												// md={12}
 												className={
 													styles.phoneNumberLabel
 												}
 											>
-												Phone Number
+												Phone number (Provide WhatsApp
+												number if available)
 											</Col>
 
 											<div
