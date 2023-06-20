@@ -267,7 +267,7 @@ export default function PreviewProduct() {
 						}}
 					/>
 				</ErrorBoundary>
-				<PoweredByKS {...{storename}}/>
+				<PoweredByKS {...{storename}} />
 			</div>
 		</>
 	);

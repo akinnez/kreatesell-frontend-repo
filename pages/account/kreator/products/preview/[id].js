@@ -157,7 +157,6 @@ export default function PreviewProduct() {
 		return null;
 	}
 
-
 	return (
 		<AuthLayout>
 			<div
@@ -179,7 +178,7 @@ export default function PreviewProduct() {
 						minimumPrice,
 					}}
 				/>
-				<PoweredByKS {...{storename}}/>  
+				<PoweredByKS {...{storename}} />
 			</div>
 		</AuthLayout>
 	);
