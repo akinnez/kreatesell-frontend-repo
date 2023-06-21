@@ -589,7 +589,16 @@ const Checkout = () => {
 						}),
 						() => {
 							storeDetails?.product_details?.is_redirect_buyer
-								? storeDetails?.product_details?.redirect_url
+								? (window.location.href =
+										`${storeDetails?.product_details?.redirect_url}`.includes(
+											'http://'
+										) ||
+										`${storeDetails?.product_details?.redirect_url}`.includes(
+											'https://'
+										)
+											? storeDetails?.product_details
+													?.redirect_url
+											: `http://${storeDetails?.product_details?.redirect_url}`)
 								: router.push(
 										`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 								  );
@@ -704,7 +713,15 @@ const Checkout = () => {
 			paymentDetails({reference: reference?.reference, status: status}),
 			() => {
 				storeDetails?.product_details?.is_redirect_buyer
-					? storeDetails?.product_details?.redirect_url
+					? (window.location.href =
+							`${storeDetails?.product_details?.redirect_url}`.includes(
+								'http://'
+							) ||
+							`${storeDetails?.product_details?.redirect_url}`.includes(
+								'https://'
+							)
+								? storeDetails?.product_details?.redirect_url
+								: `http://${storeDetails?.product_details?.redirect_url}`)
 					: router.push(
 							`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 					  );
