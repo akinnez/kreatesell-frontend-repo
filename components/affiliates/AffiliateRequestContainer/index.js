@@ -17,20 +17,20 @@ const AffiliateRequestContainer = ({children, productTypeId, productName}) => {
 	const [activeTab, setActiveTab] = useState('request');
 	// const path = `/account/affiliate/market-place/${queryId}`
 
-	useEffect(() => {
-		if (router.query?.pId) {
-			setPath(`/account/affiliate/market-place/${router.query?.pId}`);
-		}
-	}, [router.query?.pId]);
+	// useEffect(() => {
+	// 	if (router.query?.pId) {
+	// 		setPath(`/account/affiliate/market-place/${router.query?.pId}`);
+	// 	}
+	// }, [router.query?.pId]);
 	const handleTabChange = (tab) => {
 		router.push({pathname: path, query: {activeTab: tab}}, undefined, {});
 	};
 
-	useEffect(() => {
-		if (router.query?.activeTab) {
-			setActiveTab(router.query.activeTab);
-		}
-	}, [router.query]);
+	// useEffect(() => {
+	// 	if (router.query?.activeTab) {
+	// 		setActiveTab(router.query.activeTab);
+	// 	}
+	// }, [router.query]);
 
 	return (
 		<>
@@ -52,11 +52,11 @@ const AffiliateRequestContainer = ({children, productTypeId, productName}) => {
 			</header>
 			<div className={styles.card__container}>
 				<Tabs
-					activeKey={activeTab}
+					// activeKey={activeTab}
 					className={styles.tabs}
-					// defaultActiveKey="1"
+					defaultActiveKey="1"
 					centered
-					onChange={handleTabChange}
+					// onChange={handleTabChange}
 				>
 					{children}
 				</Tabs>
