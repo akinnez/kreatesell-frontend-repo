@@ -1435,7 +1435,7 @@ const Checkout = () => {
 														)
 													)}
 												{/* active currency */}
-												{/* */}
+												{/* Render onl when currency is USD, GPB, CAD*/}
 												<RenderIf
 													condition={
 														([
@@ -1458,19 +1458,10 @@ const Checkout = () => {
 															'business'
 													}
 												>
-													<Tooltip
-														title={
-															(!formik.values
-																.firstName ||
-																!formik.values
-																	.lastName ||
-																!formik.values
-																	.email ||
-																!formik.values
-																	.phoneNo) &&
-															'Fill in all Customer Details to be able to select paypal'
-														}
-													>
+													{formik.values.firstName &&
+													formik.values.lastName &&
+													formik.values.email &&
+													formik.values.phoneNo ? (
 														<div>
 															<PayPalButtons
 																style={{
@@ -1514,16 +1505,56 @@ const Checkout = () => {
 																		order
 																	);
 																}}
-																onCancel={(
-																	data,
-																	actions
-																) => {}}
-																onError={(
-																	err
-																) => {}}
+																onCancel={() => {}}
+																onError={() => {}}
 															/>
 														</div>
-													</Tooltip>
+													) : (
+														<Tooltip
+															title={
+																(!formik.values
+																	.firstName ||
+																	!formik
+																		.values
+																		.lastName ||
+																	!formik
+																		.values
+																		.email ||
+																	!formik
+																		.values
+																		.phoneNo) &&
+																'Fill in all Customer Details to be able to select paypal'
+															}
+														>
+															<div>
+																<PayPalButtons
+																	style={{
+																		layout: 'horizontal',
+																		label: 'pay',
+																	}}
+																	disabled={
+																		!formik
+																			.values
+																			.firstName ||
+																		!formik
+																			.values
+																			.lastName ||
+																		!formik
+																			.values
+																			.email ||
+																		!formik
+																			.values
+																			.phoneNo
+																	}
+																	className={`flex justify-around items-center ml-14 md:ml-1`}
+																	createOrder={() => {}}
+																	onApprove={async () => {}}
+																	onCancel={() => {}}
+																	onError={() => {}}
+																/>
+															</div>
+														</Tooltip>
+													)}
 												</RenderIf>
 											</div>
 										</div>
