@@ -10,7 +10,7 @@ import Spinner from 'components/Spinner';
 const TooltipOption = {
 	'Multi-Currency - 21 Currencies': 'Receive payments globally',
 	'Customize your store URL':
-		'Switch from (www.kreatesell.com/storename) to your custom domain (http://ww.yourname.com )',
+		'Switch from (www.kreatesell.com/storename) to your custom domain (http://www.yourname.com )',
 };
 export const PricingCard = ({
 	title,
@@ -126,7 +126,6 @@ const BasicFeatures = [
 	'Multi-Currency - 21 Currencies',
 	'1 Abandoned Cart Follow up Email ',
 	'Instant Sales Notification',
-	'Pixel Tracking',
 	'Instant Sales Notification',
 	'Affiliate Instant Commission',
 	'Customizable Checkout CTA Button ',
