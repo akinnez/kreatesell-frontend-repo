@@ -4,6 +4,8 @@ import styles from './header.module.scss';
 const statusArr = [
 	{type: 'All', label: 'All'},
 	{type: 'Successful', label: 'Successful'},
+	{type: 'Cleared', label: 'Cleared'},
+	{type: 'Cancelled', label: 'Cancelled'},
 	{type: 'Failed', label: 'Failed'},
 ];
 
