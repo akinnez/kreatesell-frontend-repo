@@ -273,7 +273,7 @@ const StoreSettings = () => {
 			<div className="flex items-center">
 				<div className="flex justify-between items-center w-full lg:w-2/4 pt-4 mt-4">
 					<div className="text-black-100 text-base">
-						Disable "Powered by KreateSell"
+						Disable Powered by KreateSell
 					</div>
 					<div className="flex pb-4 md:pb-0">
 						<Switch
@@ -302,8 +302,8 @@ const StoreSettings = () => {
 				</div>
 			</div>
 			<p className="text-base-gray-200 text-xs pt-2">
-				Add more personalization to your store by turning off "powered
-				by kreatesell" from the footer of your store and product pages.
+				Add more personalization to your store by turning off powered
+				by kreatesell from the footer of your store and product pages.
 			</p>
 
 			<div className="hidden lg:block mt-8 w-1/5">
