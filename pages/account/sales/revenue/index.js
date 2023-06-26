@@ -116,12 +116,12 @@ const columns = [
 		width: 120,
 	},
 	{
-		title: 'Product',
+		title: 'Product Name',
 		dataIndex: 'products',
 		width: 200,
 	},
 	{
-		title: 'transaction_amount',
+		title: 'Product Price',
 		render: (_, data) => {
 			return (
 				<span>{`${data?.currency} ${data?.transaction_amount}`}</span>
@@ -133,6 +133,25 @@ const columns = [
 		title: 'Commission',
 		dataIndex: 'commission',
 		width: 100,
+	},
+	{
+		title: 'Transaction Date',
+		dataIndex: 'date_created',
+		width: 180,
+		render: (item) => {
+			const time = parseISO(item);
+
+			const formatTime = format(time, 'PPPp');
+			const formatDate = format(time, 'PPP');
+			return (
+				<div className="flex flex-col items-center">
+					<div>
+						{`${formatDate.split('at')[0]},`}{' '}
+						{formatTime.split('at')[1]}
+					</div>
+				</div>
+			);
+		},
 	},
 	{
 		title: 'Clearance Date',
@@ -247,6 +266,13 @@ const CardComponent = ({data}) => {
 						<h1 className={`${styles.key} mb-0`}>Commission</h1>
 						<p className={`${styles.value} mb-0`}>
 							{data?.commission_currency} {data?.commission}
+						</p>
+					</li>
+
+					<li className={styles.orderDetail}>
+						<h1 className={`${styles.key} mb-0`}>Transaction Date</h1>
+						<p className={`${styles.value} mb-0`}>
+							{formatDateFn(data?.date_created)}
 						</p>
 					</li>
 
