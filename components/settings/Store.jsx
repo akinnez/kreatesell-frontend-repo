@@ -302,8 +302,8 @@ const StoreSettings = () => {
 				</div>
 			</div>
 			<p className="text-base-gray-200 text-xs pt-2">
-				Add more personalization to your store by turning off powered
-				by kreatesell from the footer of your store and product pages.
+				Add more personalization to your store by turning off powered by
+				kreatesell from the footer of your store and product pages.
 			</p>
 
 			<div className="hidden lg:block mt-8 w-1/5">
