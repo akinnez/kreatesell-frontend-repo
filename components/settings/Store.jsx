@@ -16,7 +16,7 @@ const StoreSettings = () => {
 	const updateStoreSettings = UpdateStoreSettings();
 	const updateCTAButton = UpdateCTAButton();
 	const store = _getMyStoreDetails();
-	const userDetails = _getMyStoreUserDetails()
+	const userDetails = _getMyStoreUserDetails();
 
 	const {loading} = useSelector((state) => state.store);
 
@@ -29,7 +29,7 @@ const StoreSettings = () => {
 	const [userStoreSettings, setUserStoreSettings] = useState(() => ({
 		enable_disable_tax: store?.customer_pay_tax,
 		is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
-		is_enable_powered_by_kreatesell: store?.is_powered_by_kreatesell
+		is_enable_powered_by_kreatesell: store?.is_powered_by_kreatesell,
 	}));
 
 	const [taxValue, setTaxValue] = useState(store?.custom_tax_amount);
@@ -280,7 +280,7 @@ const StoreSettings = () => {
 							checked={
 								userStoreSettings.is_enable_powered_by_kreatesell
 							}
-							disabled={userDetails?.user_plan!== 'Business'}
+							disabled={userDetails?.user_plan !== 'Business'}
 							id="disable_powered_by_kreatesell"
 							onChange={async () => {
 								setUserStoreSettings((value) => ({
@@ -297,7 +297,9 @@ const StoreSettings = () => {
 						</div>
 					</div>
 				</div>
-				<div className="ml-4 mt-3 bg-green-500 text-white py-1 px-2 uppercase">Business</div>
+				<div className="ml-4 mt-3 bg-green-500 text-white py-1 px-2 uppercase">
+					Business
+				</div>
 			</div>
 			<p className="text-base-gray-200 text-xs pt-2">
 				Add more personalization to your store by turning off "powered

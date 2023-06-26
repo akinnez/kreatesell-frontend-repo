@@ -270,7 +270,9 @@ const CardComponent = ({data}) => {
 					</li>
 
 					<li className={styles.orderDetail}>
-						<h1 className={`${styles.key} mb-0`}>Transaction Date</h1>
+						<h1 className={`${styles.key} mb-0`}>
+							Transaction Date
+						</h1>
 						<p className={`${styles.value} mb-0`}>
 							{formatDateFn(data?.date_created)}
 						</p>
