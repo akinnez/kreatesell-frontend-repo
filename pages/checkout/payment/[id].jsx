@@ -531,7 +531,7 @@ const Checkout = () => {
 				is_affiliate: affliateRef ? true : false,
 				affiliate_id: getAffiliateRef(),
 				affiliate_link: getAffiliateUniqueKey(),
-				is_free_flow: '',
+				is_free_flow: pricingTypeDetails === 'Make it Free',
 			},
 			() => {},
 			() => {}
