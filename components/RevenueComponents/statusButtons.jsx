@@ -1,3 +1,5 @@
+import {useEffect} from 'react';
+
 import {Button} from 'antd';
 import styles from './header.module.scss';
 
@@ -11,6 +13,9 @@ const statusArr = [
 ];
 
 const StatusButtons = ({setFilters, filters, setLoading}) => {
+	useEffect(() => {
+		setFilters((prev) => ({...prev, status: 'successful'}));
+	}, []);
 	const handleClick = (type) => {
 		setFilters({...filters, status: type});
 		setLoading(true);
