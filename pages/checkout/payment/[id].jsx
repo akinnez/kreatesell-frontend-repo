@@ -39,6 +39,7 @@ import {
 	ConvertCurrency,
 	GetStoreCheckoutCurrencies,
 	ApplyCoupon,
+	RevalidateReference,
 } from 'redux/actions';
 import LogoImg from '../../../public/images/logo.svg';
 import useFetchUtilities from 'hooks/useFetchUtilities';
@@ -109,6 +110,7 @@ const Checkout = () => {
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
+	const revalidateReference = RevalidateReference();
 	const convertCurrency = ConvertCurrency();
 	const applyCoupon = ApplyCoupon();
 
@@ -515,6 +517,25 @@ const Checkout = () => {
 		: activeCurrency?.currency_name;
 
 	const handleSubmit = async () => {
+		// Send request immediately a payment is triggered
+		await revalidateReference(
+			{
+				payment_identifier: selectedPaymentMethod,
+				payment_id: randomId,
+				debit_currency:
+					pricingTypeDetails === 'Make it Free'
+						? getCurrency('free')
+						: getCurrency('currency'),
+				payment_type: 'purchase',
+				product_id: productId,
+				is_affiliate: affliateRef ? true : false,
+				affiliate_id: getAffiliateRef(),
+				affiliate_link: getAffiliateUniqueKey(),
+				is_free_flow: '',
+			},
+			() => {},
+			() => {}
+		);
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
 			try {
@@ -570,6 +591,7 @@ const Checkout = () => {
 						cancel_url: `${resolveProtocol(hostState)}://${
 							hostState || 'dev.kreatesell.com'
 						}/payment/checkout/${productId}?status=fail`,
+						product_name: productId,
 					}
 				);
 				window.open(data.data.url, '_blank');
@@ -815,7 +837,6 @@ const Checkout = () => {
 
 	useEffect(() => {
 		if (countries?.length > 0) {
-			console.log('updated');
 			formik.setFieldValue('Country_code', countries[0].name);
 		}
 	}, [countries?.length]);
