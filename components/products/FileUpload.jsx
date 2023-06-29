@@ -194,6 +194,15 @@ export default function FileUpload({
 		setFiles([]);
 	};
 
+	const fileSize = (fileSize) => {
+		let oneMb = 1048576;
+		if (fileSize < oneMb) {
+			return `${(fileSize / 1024).toFixed(2)}KB`;
+		}
+
+		return `${(fileSize / (1024 * 1024)).toFixed(2)}MB`;
+	};
+
 	return (
 		<div className="pt-2">
 			<p className="text-base-gray-200 text-xs mb-0">
@@ -287,10 +296,9 @@ export default function FileUpload({
 										<h2 className="mb-3 text-base font-bold">
 											{item.file.name}
 										</h2>
-										<p className="mb-0">{`${(
-											item.file.size /
-											(1024 * 1024)
-										).toFixed()}MB`}</p>
+										<p className="mb-0">
+											{fileSize(item.file.size)}
+										</p>
 									</div>
 								</div>
 								<div

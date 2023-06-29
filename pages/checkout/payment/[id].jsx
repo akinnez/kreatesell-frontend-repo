@@ -39,6 +39,7 @@ import {
 	ConvertCurrency,
 	GetStoreCheckoutCurrencies,
 	ApplyCoupon,
+	RevalidateReference,
 } from 'redux/actions';
 import LogoImg from '../../../public/images/logo.svg';
 import useFetchUtilities from 'hooks/useFetchUtilities';
@@ -85,7 +86,9 @@ const Checkout = () => {
 
 	const [country, setCountry] = useState('');
 	const [countryId, setCountryId] = useState(null);
-	const {countries} = useSelector((state) => state.utils);
+	const {countries, loading: countriesLoading} = useSelector(
+		(state) => state.utils
+	);
 	const [defaultCurrency, setDefaultCurrency] = useState('');
 
 	const {countriesCurrency, filterdWest, filteredCentral} =
@@ -107,6 +110,7 @@ const Checkout = () => {
 	// kreator and is also the active currency selected
 	const [alreadyDefinedPrice, setAlreadyDefinedPrice] = useState(null);
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
+	const revalidateReference = RevalidateReference();
 	const convertCurrency = ConvertCurrency();
 	const applyCoupon = ApplyCoupon();
 
@@ -513,6 +517,25 @@ const Checkout = () => {
 		: activeCurrency?.currency_name;
 
 	const handleSubmit = async () => {
+		// Send request immediately a payment is triggered
+		await revalidateReference(
+			{
+				payment_identifier: selectedPaymentMethod,
+				payment_id: randomId,
+				debit_currency:
+					pricingTypeDetails === 'Make it Free'
+						? getCurrency('free')
+						: getCurrency('currency'),
+				payment_type: 'purchase',
+				product_id: productId,
+				is_affiliate: affliateRef ? true : false,
+				affiliate_id: getAffiliateRef(),
+				affiliate_link: getAffiliateUniqueKey(),
+				is_free_flow: pricingTypeDetails === 'Make it Free',
+			},
+			() => {},
+			() => {}
+		);
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
 			try {
@@ -545,7 +568,6 @@ const Checkout = () => {
 				return;
 			}
 		}
-
 		if (selectedPaymentMethod === 'stripe') {
 			try {
 				const data = await axios.post(
@@ -569,6 +591,7 @@ const Checkout = () => {
 						cancel_url: `${resolveProtocol(hostState)}://${
 							hostState || 'dev.kreatesell.com'
 						}/payment/checkout/${productId}?status=fail`,
+						product_name: productId,
 					}
 				);
 				window.open(data.data.url, '_blank');
@@ -578,7 +601,6 @@ const Checkout = () => {
 				return;
 			}
 		}
-
 		if (selectedPaymentMethod === 'flutterwave') {
 			handleFlutterPayment({
 				callback: async (response) => {
@@ -589,7 +611,16 @@ const Checkout = () => {
 						}),
 						() => {
 							storeDetails?.product_details?.is_redirect_buyer
-								? storeDetails?.product_details?.redirect_url
+								? (window.location.href =
+										`${storeDetails?.product_details?.redirect_url}`.includes(
+											'http://'
+										) ||
+										`${storeDetails?.product_details?.redirect_url}`.includes(
+											'https://'
+										)
+											? storeDetails?.product_details
+													?.redirect_url
+											: `http://${storeDetails?.product_details?.redirect_url}`)
 								: router.push(
 										`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 								  );
@@ -628,15 +659,20 @@ const Checkout = () => {
 
 	const {errors, setFieldValue, values, dirty} = formik;
 
-	// Update ref so I can pass values to paypal
+	const [countryCode2, setCountryCode2] = useState();
 	useEffect(() => {
-		if (dirty) {
+		if (
+			activeCurrency instanceof Object &&
+			Object.keys(activeCurrency).length > 0
+		) {
+			setCountryCode2(activeCurrency?.name);
 		}
-	}, [dirty]);
+	}, [activeCurrency]);
 
 	useEffect(() => {
 		if (countryCode) {
-			const sampleNumber = getExample(countryCode, 'mobile');
+			// console.log('country code', countryCode);
+			const sampleNumber = getExample(`${countryCode}`, 'mobile');
 			setPlaceholderNumber(sampleNumber.number.national);
 		}
 	}, [countryCode]);
@@ -699,7 +735,15 @@ const Checkout = () => {
 			paymentDetails({reference: reference?.reference, status: status}),
 			() => {
 				storeDetails?.product_details?.is_redirect_buyer
-					? storeDetails?.product_details?.redirect_url
+					? (window.location.href =
+							`${storeDetails?.product_details?.redirect_url}`.includes(
+								'http://'
+							) ||
+							`${storeDetails?.product_details?.redirect_url}`.includes(
+								'https://'
+							)
+								? storeDetails?.product_details?.redirect_url
+								: `http://${storeDetails?.product_details?.redirect_url}`)
 					: router.push(
 							`/checkout/success/${storeDetails?.store_dto?.store_name}_${router?.query?.id}/?currency=${currencyPaidIn}`
 					  );
@@ -790,6 +834,12 @@ const Checkout = () => {
 		}
 		return () => {};
 	}, [countryDetails?.currency, countries?.length, checkOutDetails.length]);
+
+	useEffect(() => {
+		if (countries?.length > 0) {
+			formik.setFieldValue('Country_code', countries[0].name);
+		}
+	}, [countries?.length]);
 
 	const handlePaymentMethod = (method) => {
 		setSelectedPaymentMethod(method);
@@ -1056,13 +1106,14 @@ const Checkout = () => {
 
 										<Row gutter={{xs: 0, sm: 0, md: 0}}>
 											<Col
-												xs={12}
-												md={12}
+												// xs={12}
+												// md={12}
 												className={
 													styles.phoneNumberLabel
 												}
 											>
-												Phone Number
+												Phone number (Provide WhatsApp
+												number if available)
 											</Col>
 
 											<div
@@ -1089,6 +1140,15 @@ const Checkout = () => {
 														}
 														placeholderSetterFn={
 															setCountryCode
+														}
+														defaultValue={
+															countryCode2 ||
+															countries[0].name
+														}
+														loading={
+															countriesLoading ||
+															storecheckoutCurrencyLoading ||
+															storeCheckoutCurrenciesLoading
 														}
 														// rules={[
 														// 	{
@@ -1396,7 +1456,7 @@ const Checkout = () => {
 														)
 													)}
 												{/* active currency */}
-												{/* */}
+												{/* Render onl when currency is USD, GPB, CAD*/}
 												<RenderIf
 													condition={
 														([
@@ -1419,19 +1479,10 @@ const Checkout = () => {
 															'business'
 													}
 												>
-													<Tooltip
-														title={
-															(!formik.values
-																.firstName ||
-																!formik.values
-																	.lastName ||
-																!formik.values
-																	.email ||
-																!formik.values
-																	.phoneNo) &&
-															'Fill in all Customer Details to be able to select paypal'
-														}
-													>
+													{formik.values.firstName &&
+													formik.values.lastName &&
+													formik.values.email &&
+													formik.values.phoneNo ? (
 														<div>
 															<PayPalButtons
 																style={{
@@ -1475,16 +1526,56 @@ const Checkout = () => {
 																		order
 																	);
 																}}
-																onCancel={(
-																	data,
-																	actions
-																) => {}}
-																onError={(
-																	err
-																) => {}}
+																onCancel={() => {}}
+																onError={() => {}}
 															/>
 														</div>
-													</Tooltip>
+													) : (
+														<Tooltip
+															title={
+																(!formik.values
+																	.firstName ||
+																	!formik
+																		.values
+																		.lastName ||
+																	!formik
+																		.values
+																		.email ||
+																	!formik
+																		.values
+																		.phoneNo) &&
+																'Fill in all Customer Details to be able to select paypal'
+															}
+														>
+															<div>
+																<PayPalButtons
+																	style={{
+																		layout: 'horizontal',
+																		label: 'pay',
+																	}}
+																	disabled={
+																		!formik
+																			.values
+																			.firstName ||
+																		!formik
+																			.values
+																			.lastName ||
+																		!formik
+																			.values
+																			.email ||
+																		!formik
+																			.values
+																			.phoneNo
+																	}
+																	className={`flex justify-around items-center ml-14 md:ml-1`}
+																	createOrder={() => {}}
+																	onApprove={async () => {}}
+																	onCancel={() => {}}
+																	onError={() => {}}
+																/>
+															</div>
+														</Tooltip>
+													)}
 												</RenderIf>
 											</div>
 										</div>

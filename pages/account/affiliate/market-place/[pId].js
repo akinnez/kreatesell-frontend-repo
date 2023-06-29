@@ -71,7 +71,10 @@ const AffiliateProductRequest = () => {
 							product.affiliate_kreator_product
 								.has_requested_access
 						}
-						isRevoked={product}
+						isRevoked={
+							product.affiliate_kreator_product
+								?.request_status === 'Revoked'
+						}
 						productId={product.affiliate_kreator_product.id}
 						updateProduct={updateProduct}
 					/>

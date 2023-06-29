@@ -1,4 +1,8 @@
-import {RenderIf} from 'utils';
+import Image from 'next/image';
+
+import {Tooltip} from 'antd';
+
+import {RenderIf, EarnedAsAffiliateTag} from 'utils';
 import dateFormat from 'utils/dateFormat';
 
 export const payoutsColumns = [
@@ -8,40 +12,39 @@ export const payoutsColumns = [
 	{
 		title: 'Amount',
 		render: (record) => (
-			<div className={`flex`}>
+			<div className={`flex gap-2`}>
 				{`${record.currency} ${Number(record.amount).toFixed(2)}`}
 				<RenderIf
 					condition={record?.earned_as === 'Earned as Affiliate'}
 				>
-					<p
-						className={`flex items-center justify-center ml-1`}
-						style={{
-							background: ' #00B140',
-							paddingInline: '.14rem',
-							color: '#fff',
-							marginBottom: '0',
-							fontSize: '9px',
-							fontWeight: 700,
-							borderRadius: '2px',
-						}}
+					<Tooltip
+						title="You earned this amount as an affiliate"
+						placement="top"
 					>
-						Earned as an Affiliate
-					</p>
+						<div style={{}}>
+							<Image
+								width={40}
+								height={20}
+								alt="Earned as Affiliate Tag"
+								src={EarnedAsAffiliateTag}
+							/>
+						</div>
+					</Tooltip>
 				</RenderIf>
 			</div>
 		),
-		width: 300,
+		width: 200,
 	},
 	{
 		title: 'Transaction Date',
 		dataIndex: 'transaction_date',
 		render: (transactionDate) => dateFormat(transactionDate),
-		width: 130,
+		width: 200,
 	},
 	{
 		title: 'Settlement Date',
 		dataIndex: 'settlement_date',
 		render: (settlementDate) => dateFormat(settlementDate),
-		width: 130,
+		width: 200,
 	},
 ];

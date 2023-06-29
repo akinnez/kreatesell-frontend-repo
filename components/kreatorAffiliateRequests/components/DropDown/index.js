@@ -73,7 +73,7 @@ const menu = ({
 					<span className={styles.image__wrapper}>
 						<Image src={ReportImg} alt="Report Icon" />
 					</span>
-					Report Kreator
+					Report Affiliate
 				</Menu.Item>
 			</RenderIf>
 		</Menu>

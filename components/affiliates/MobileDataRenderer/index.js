@@ -67,6 +67,7 @@ const MobileDataRenderer = ({
 							commission={Math.abs(
 								Number(product.affiliate_percentage_on_sales)
 							)}
+							productId={product.id}
 						/>
 					</li>
 				))}

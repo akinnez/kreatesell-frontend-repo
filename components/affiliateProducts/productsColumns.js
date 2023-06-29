@@ -45,7 +45,10 @@ const productsColumns = [
 	{
 		title: 'Action',
 		render: (record) => {
-			if (record?.affiliateSales >= 5) {
+			if (
+				record?.affiliateSales >= 5 ||
+				record?.request_status?.toLowerCase() === 'approved'
+			) {
 				return (
 					<GetLink
 						status={'Approved'}

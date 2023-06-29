@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 
 const {TextArea} = Input;
 
-const Request = ({productId, hasRequestedAccess, updateProduct}) => {
+const Request = ({productId, hasRequestedAccess, updateProduct, isRevoked}) => {
 	const [showModal, setShowModal] = useState(false);
 
 	const submitHandler = (values, actions) => {
@@ -77,7 +77,7 @@ const Request = ({productId, hasRequestedAccess, updateProduct}) => {
 									rows={5}
 									placeholder="Fill out how you want to promote this product"
 									{...formik.getFieldProps('permission')}
-									disabled={hasRequestedAccess}
+									disabled={hasRequestedAccess && !isRevoked}
 									onKeyUp={handleKeyUp}
 								/>
 							</Form.Item>
@@ -90,7 +90,7 @@ const Request = ({productId, hasRequestedAccess, updateProduct}) => {
 								</p>
 							</div>
 							<Form.Item>
-								{hasRequestedAccess ? (
+								{hasRequestedAccess && !isRevoked ? (
 									<Button
 										type="primary"
 										className={styles.submit__btn}

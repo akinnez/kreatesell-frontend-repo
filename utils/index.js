@@ -125,6 +125,11 @@ export const _getMyStoreDetails = () => {
 	return pathName.JSON?.parse(store_details);
 };
 
+export const _getMyStoreUserDetails = () => {
+	const user_details = pathName.localStorage?.getItem('user_details');
+	return pathName.JSON?.parse(user_details);
+};
+
 export const _isUserLoggedIn = () => {
 	const user = getUser();
 	if (!isAnEmpytyObject(user) && getToken()) return true;
