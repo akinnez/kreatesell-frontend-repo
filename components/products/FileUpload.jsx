@@ -200,7 +200,7 @@ export default function FileUpload({
 			return `${(fileSize / 1024).toFixed(2)}KB`;
 		}
 
-		return `${(item.file.size / (1024 * 1024)).toFixed(2)}MB`;
+		return `${(fileSize / (1024 * 1024)).toFixed(2)}MB`;
 	};
 
 	return (
