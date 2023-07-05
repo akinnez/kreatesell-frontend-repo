@@ -36,7 +36,7 @@ const Index = () => {
 					{hideAfter: 5}
 				);
 				setTimeout(() => {
-					router.push('/account/sales/payouts');
+					router.push('/account/sales/payouts?activeTab=wallet');
 				}, 2000);
 			}
 		}
