@@ -271,46 +271,6 @@ const Checkout = () => {
 		];
 	};
 
-	const paymentDetails = ({
-		reference = '',
-		status = '',
-		card_type = selectedPaymentMethod,
-	}) => {
-		const statusValue = paymentStatusList[status];
-		const countryCode = countries.find(
-			(country) => country?.name === values.Country_code
-		);
-		const value = {
-			fullname: `${values?.firstName} ${values?.lastName}`,
-			email_address: values?.email,
-			mobile_number: `${values?.phoneNo}`,
-			country_code: `${countryCode?.country_code}`,
-			datetime: new Date().toISOString(),
-			total:
-				pricingTypeDetails === 'Make it Free'
-					? 0
-					: getCurrency('total'),
-			reference_id: reference,
-			purchase_details: getPurchaseDetails(),
-			status: statusValue,
-			card_type,
-			last_four: '',
-			currency:
-				pricingTypeDetails === 'Make it Free'
-					? getCurrency('free')
-					: getCurrency('currency'),
-			payment_type: 'purchase',
-			is_affiliate: affliateRef ? true : false,
-			affiliate_product_link: getAffiliateUniqueKey(),
-			affiliate_id: getAffiliateRef(),
-			user_identifier: 'user-' + randomId,
-			is_free_flow: pricingTypeDetails === 'Make it Free' ? true : false,
-			coupon_code: couponCode || '',
-			TransactionFee: transactionFee,
-		};
-		return value;
-	};
-
 	const calculatePriceWithFees = () => {
 		let feePercentage;
 		switch (activeCurrency?.currency) {
@@ -516,8 +476,17 @@ const Checkout = () => {
 		? activeCurrency?.currency
 		: activeCurrency?.currency_name;
 
-	const handleSubmit = async () => {
-		// Send request immediately a payment is triggered
+	/**
+     * @description - Send request immediately a payment is triggered
+      NOTE: We need this so as to able to settle all monet
+       there are instances where people make payment for products but it
+      does not reflect, so this is just a means to help us track.
+     */
+	const revalidateReferenceFn = async () => {
+		const countryCode = countries.find(
+			(country) => country?.name === values.Country_code
+		);
+
 		await revalidateReference(
 			{
 				payment_identifier: selectedPaymentMethod,
@@ -532,10 +501,15 @@ const Checkout = () => {
 				affiliate_id: getAffiliateRef(),
 				affiliate_link: getAffiliateUniqueKey(),
 				is_free_flow: pricingTypeDetails === 'Make it Free',
+				country_code: countryCode?.country_code,
 			},
 			() => {},
 			() => {}
 		);
+	};
+
+	const handleSubmit = async () => {
+		revalidateReferenceFn();
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
 			try {
@@ -676,6 +650,48 @@ const Checkout = () => {
 			setPlaceholderNumber(sampleNumber.number.national);
 		}
 	}, [countryCode]);
+	const paymentDetails = ({
+		reference = '',
+		status = '',
+		card_type = selectedPaymentMethod,
+	}) => {
+		const statusValue = paymentStatusList[status];
+		const countryCode = countries.find(
+			(country) => country?.name === values.Country_code
+		);
+		const value = {
+			fullname: `${values?.firstName} ${values?.lastName}`,
+			email_address: values?.email,
+			mobile_number: `${values?.phoneNo}`,
+			country_code: `${countryCode?.country_code}`,
+			datetime: new Date().toISOString(),
+			total:
+				pricingTypeDetails === 'Make it Free'
+					? 0
+					: getCurrency('total'),
+			reference_id: reference,
+			purchase_details: getPurchaseDetails(),
+			status: statusValue,
+			card_type,
+			last_four: '',
+			currency:
+				pricingTypeDetails === 'Make it Free'
+					? getCurrency('free')
+					: getCurrency('currency'),
+			payment_type: 'purchase',
+			is_affiliate: affliateRef ? true : false,
+			affiliate_product_link: getAffiliateUniqueKey(),
+			affiliate_id: getAffiliateRef(),
+			user_identifier: 'user-' + randomId,
+			is_free_flow: pricingTypeDetails === 'Make it Free' ? true : false,
+			coupon_code: couponCode || '',
+			TransactionFee: transactionFee,
+		};
+		return value;
+	};
+
+	// console.log('values', values);
+	// console.log('countryCode2', countryCode2);
 	// ====================================================================================
 	//              PAYMENT CONFIG STARTS HERE
 	// ===================================================================================
@@ -784,7 +800,8 @@ const Checkout = () => {
 		);
 	};
 
-	const paypalHandler = (data, actions) => {
+	const paypalHandler = async (data, actions) => {
+		revalidateReferenceFn();
 		// paypalRef.current = values;
 		return actions.order
 			.create({
@@ -836,10 +853,13 @@ const Checkout = () => {
 	}, [countryDetails?.currency, countries?.length, checkOutDetails.length]);
 
 	useEffect(() => {
-		if (countries?.length > 0) {
-			formik.setFieldValue('Country_code', countries[0].name);
+		if (countries?.length > 0 && !!countryCode2) {
+			formik.setFieldValue(
+				'Country_code',
+				countryCode2 || countries[0].name
+			);
 		}
-	}, [countries?.length]);
+	}, [countries?.length, countryCode2]);
 
 	const handlePaymentMethod = (method) => {
 		setSelectedPaymentMethod(method);
