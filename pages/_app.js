@@ -1,8 +1,6 @@
 import {useEffect} from 'react';
+
 import {Provider} from 'react-redux';
-import {useStore} from '../redux/store';
-import Script from 'next/script';
-import '../public/css/global.scss';
 import 'react-dates/initialize';
 import 'antd/dist/antd.css';
 import 'slick-carousel/slick/slick.css';
@@ -17,9 +15,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@reach/dialog/styles.css';
 import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 import {PayPalScriptProvider} from '@paypal/react-paypal-js';
+
+import {useStore} from '../redux/store';
+import '../public/css/global.scss';
 import {setAuthorizationHeader} from '../utils/index';
-import ChatScript from '../components/ChatWidgetScript';
 import {SalesPageProvider} from 'context/AddSalesPageContext';
+import ChatScript from '../components/ChatWidgetScript';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 Router.events.on('routeChangeStart', () => NProgress.start());

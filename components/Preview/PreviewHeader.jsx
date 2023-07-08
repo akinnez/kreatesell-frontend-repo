@@ -33,7 +33,7 @@ import Link from 'next/link';
 import useCurrency from 'hooks/useCurrency';
 
 import * as ROUTES from 'routes';
-import {StoreMobileDropView} from 'pages/store/[storename]';
+// import {StoreMobileDropView} from 'pages/store/[storename]';
 
 export default function PreviewHeader({
 	id,
@@ -239,13 +239,13 @@ export default function PreviewHeader({
 					</>
 				</div>
 			</div>
-			{mobileSideBarIsOpen && (
+			{/* {mobileSideBarIsOpen && (
 				<StoreMobileDropView
 					isVariant={true}
 					dp={displayPicture}
 					nameOfStore={nameOfStore}
 				/>
-			)}
+			)} */}
 			{showNavLinks ? (
 				<div className={styles.miniSaveButtons + ' flex self-end'}>
 					<Button
