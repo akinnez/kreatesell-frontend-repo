@@ -41,6 +41,10 @@ export const GetStoreDetails = () => {
 					'store_details',
 					JSON.stringify(data?.store_details)
 				);
+				localStorage.setItem(
+					'user_details',
+					JSON.stringify(data?.user)
+				);
 				successCallback?.();
 			},
 			(err) => {

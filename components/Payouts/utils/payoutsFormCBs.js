@@ -39,6 +39,7 @@ export const createAccount = ({
 	dispatchObj,
 	dispatch,
 	actions,
+	onSuccessCB,
 }) => {
 	axiosApi.request(
 		'post',
@@ -47,6 +48,7 @@ export const createAccount = ({
 			showSuccessModal();
 			hideModal();
 			dispatch(updateStore(dispatchObj));
+			onSuccessCB();
 		},
 		(err) => {
 			showToast(err.message, 'error');
@@ -207,7 +209,7 @@ export const createSubmitHandler = ({
 	hideModal,
 	showSuccessModal,
 }) => {
-	return (values, actions) => {
+	return (values, actions, onSuccessCB = () => {}) => {
 		const country = getData(countries, values.country);
 
 		if (values.country === 1) {
@@ -251,6 +253,7 @@ export const createSubmitHandler = ({
 						dispatchObj,
 						dispatch,
 						actions,
+						onSuccessCB,
 					});
 				},
 				() => {
@@ -296,6 +299,7 @@ export const createSubmitHandler = ({
 				dispatchObj,
 				dispatch,
 				actions,
+				onSuccessCB,
 			});
 		} else {
 			const bank = getData(banks, values.bank);
@@ -329,6 +333,7 @@ export const createSubmitHandler = ({
 				dispatchObj,
 				dispatch,
 				actions,
+				onSuccessCB,
 			});
 		}
 	};

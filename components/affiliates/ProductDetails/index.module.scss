@@ -35,6 +35,11 @@
 	column-gap: 15px;
 }
 
+.viewProductBtn {
+	border-radius: 0.5rem;
+	padding: 1.5rem 2.5rem;
+}
+
 @include screens.screen('medium') {
 	.product__detail {
 		padding-top: 4px;

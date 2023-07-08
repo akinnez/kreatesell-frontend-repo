@@ -83,11 +83,6 @@ export const CreateProductTab = ({
 		}
 	}, [store]);
 
-	// console.log("tab is", tab);
-	// console.log("isTypeEditable is", isTypeEditable);
-	// console.log("productsMounted is", productsMounted);
-	// console.log("mountedCount is", mountedCount);
-
 	useEffect(() => {
 		if (
 			Object.keys(product).length > 0 &&
