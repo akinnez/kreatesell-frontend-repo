@@ -16,7 +16,6 @@ import style from '../../../../public/css/Store.module.scss';
 import ApiService from '../../../../utils/axios';
 import {toast} from 'react-toastify';
 import {showToast} from 'utils';
-import TelegramFloatingDiv from 'components/FloatingDivs/TelegramFloatingDiv';
 import {GetStoreDetails} from 'redux/actions';
 
 const Index = () => {
@@ -41,6 +40,10 @@ const Index = () => {
 	const getStoreDetails = GetStoreDetails();
 
 	const handleFinish = async (info) => {
+		if (!file?.Profile_Picture) {
+			toast.error('Profile picture is required');
+			return;
+		}
 		setLoading({...loading, updating: true});
 		const formData = new FormData();
 		formData.append('Brand_Name', info.Brand_Name);
@@ -199,7 +202,6 @@ const Index = () => {
 	return (
 		<>
 			<AuthLayout loading={loading.fetching}>
-				<TelegramFloatingDiv left="15%" top="50%" />
 				<Row>
 					<Col span={24}>
 						<Card bordered={false} className={style.card}>
@@ -251,7 +253,7 @@ const Index = () => {
 									name="Store_Name"
 									label="Username"
 									extraLabel="- This is your unique store link"
-									prefixText="Kreatesell.com//store/"
+									prefixText="Kreatesell.com/store/"
 									disabled={false}
 									rules={[
 										{

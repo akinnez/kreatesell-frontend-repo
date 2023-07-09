@@ -79,7 +79,7 @@ export const ConsumerSalesCheckoutSchema = () => {
 			.email()
 			.required('Please input a valid email address'),
 		phoneNo: Yup.string()
-			.required('Phone Number is Required')
+			.required('Phone number is required')
 			.max(11) // * add maxLength property to field to restrict maximum
 			.matches(
 				/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,

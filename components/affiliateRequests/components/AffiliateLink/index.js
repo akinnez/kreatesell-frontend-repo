@@ -37,7 +37,7 @@ const AffiliateLink = ({affiliateLink, salesPage}) => {
 		if (typeof salesPage !== 'string') return false;
 		if (salesPage?.includes('not connected yet')) {
 			return false;
-		} else if (salesPage?.includes('uniqkey')) {
+		} else if (salesPage?.includes('ref')) {
 			return true;
 		}
 	};

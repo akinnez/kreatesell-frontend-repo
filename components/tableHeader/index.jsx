@@ -72,7 +72,6 @@ const generateSalesPageScript = () => {
       const queryString = window.location.search; \n \
       const urlParams = new URLSearchParams(queryString);\n \
       let ref = urlParams.get('ref')||0;\n \
-      let uniqkey = urlParams.get('uniqkey')||0;\n \
       let prodId = urlParams.get('prodId');\n \
       let storename = urlParams.get('storename');\n \
     // Get all elements with class \"kreatesell-btn\"\n \
@@ -80,16 +79,15 @@ const generateSalesPageScript = () => {
   // Add an onclick event listener to each element\n \
   kreatesellBtns.forEach(btn => {\n \
     btn.addEventListener('click', function() {\n \
-      console.log('clicked')\n \
        if (prodId && storename) { \n\
-          window.location.href = `https://kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}&uniqkey=${uniqkey}`;\n \
+          window.location.href = `https://kreatesell.com/store/${storename}/product/${prodId}?ref=${ref}`;\n \
         } \n\
      else if(!prodId || !storename){\n \
        if(btn.alt){ \
           //format for alt will be \"prod_id;storename\" \n\
           let splittedValue = btn?.alt?.split(';')\n \
           if(splittedValue.length === 2){\n \
-             window.location.href = `https://kreatesell.com/store/${splittedValue[1]}/product/${splittedValue[0]}?ref=${ref}&uniqkey=${uniqkey}`;\n \
+             window.location.href = `https://kreatesell.com/store/${splittedValue[1]}/product/${splittedValue[0]}?ref=${ref}`;\n \
           }\n \
        }\n \
     }\n \
@@ -113,6 +111,8 @@ export const SalesPageModal = ({
 	const {addSalesPageLoading} = useSelector((state) => state.product);
 	const {store} = useSelector((state) => state.store);
 	//WIP(work in progress): Adding validations to the add sales page modal
+	const router = useRouter();
+
 	const initialValues = {
 		connectSalesModal: {
 			salesPageUrl: '',
@@ -223,7 +223,17 @@ export const SalesPageModal = ({
 						type="submit"
 						loading={addSalesPageLoading}
 					/>
-					<div className={styles.view_guide}>View guide</div>
+					<div
+						className={styles.view_guide}
+						//link to the how to guide blog it had to be hardcoded cause it has it's own uniqueId
+						onClick={() =>
+							router.push(
+								'/blog/How-Tos/4c0d936e-4025-4eb6-ad6d-73fc24b9fe53'
+							)
+						}
+					>
+						View guide
+					</div>
 				</form>
 			</Modal>
 		);
@@ -812,15 +822,12 @@ const ActionComponent = ({item}, all) => {
 				className="flex items-center cursor-pointer"
 				onClick={() => {
 					setProductID(kreasell_product_id);
-					router.push(
-						{
-							pathname: `/account/kreator/products/create`,
-							query: {
-								productId: kreasell_product_id,
-							},
-						}
-						// '/account/kreator/products/create',
-					);
+					router.push({
+						pathname: `/account/kreator/products/create`,
+						query: {
+							productId: kreasell_product_id,
+						},
+					});
 					setProductTab(0);
 				}}
 			>
@@ -1144,7 +1151,7 @@ export const CouponActionComponent = ({item}) => {
 			<h2
 				className={
 					styles.spanCont +
-					' text-sm mb-0 font-semibold inline-flex flex-col cursor-pointer text-lg'
+					' text-sm mb-0 font-semibold inline-flex flex-col cursor-pointer'
 				}
 			>
 				<span>.</span>

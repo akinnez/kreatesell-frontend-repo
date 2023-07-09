@@ -8,7 +8,7 @@ import {
 	UpdateStoreSettings,
 	UpdateCTAButton,
 } from 'redux/actions';
-import {RenderIf, _getMyStoreDetails} from 'utils';
+import {RenderIf, _getMyStoreDetails, _getMyStoreUserDetails} from 'utils';
 import {showToast} from 'utils';
 
 const StoreSettings = () => {
@@ -16,6 +16,7 @@ const StoreSettings = () => {
 	const updateStoreSettings = UpdateStoreSettings();
 	const updateCTAButton = UpdateCTAButton();
 	const store = _getMyStoreDetails();
+	const userDetails = _getMyStoreUserDetails();
 
 	const {loading} = useSelector((state) => state.store);
 
@@ -23,16 +24,28 @@ const StoreSettings = () => {
 	const defaultCTA = store?.cta_button;
 	// console.log(store);
 
+	// console.log(userDetails, 'storeeee');
+
 	const [userStoreSettings, setUserStoreSettings] = useState(() => ({
 		enable_disable_tax: store?.customer_pay_tax,
 		is_enable_product_cross_sell: store?.is_enable_product_cross_sell,
+		is_enable_powered_by_kreatesell: store?.is_powered_by_kreatesell,
 	}));
 
 	const [taxValue, setTaxValue] = useState(store?.custom_tax_amount);
 	const [errorTax, setErrorTax] = useState(false);
 
-	const {enable_disable_tax, is_enable_product_cross_sell} =
-		userStoreSettings;
+	const {
+		enable_disable_tax,
+		is_enable_product_cross_sell,
+		is_enable_powered_by_kreatesell,
+	} = userStoreSettings;
+
+	// console.log(
+	// 	is_enable_powered_by_kreatesell,
+	// 	'is_enable_powered_by_kreatesellis_enable_powered_by_kreatesell'
+	// );
+
 	const [ctaBtnValue, setCtaBtnValue] = useState({
 		option: 'store',
 		cta_button: defaultCTA || '',
@@ -47,11 +60,12 @@ const StoreSettings = () => {
 		const data = {
 			option_id: store.store_id,
 			option: 'store',
-			cta_button: defaultCTA || '',
+			cta_button: ctaBtnValue?.cta_button || '',
 			store_settings: {
 				set_context: is_enable_product_cross_sell,
 				set_enable_tax: enable_disable_tax,
 				custom_tax_amount: taxValue,
+				powered_by_kreatesell: is_enable_powered_by_kreatesell,
 			},
 		};
 		!enable_disable_tax && delete data.store_settings.custom_tax_amount;
@@ -255,6 +269,43 @@ const StoreSettings = () => {
 					</RenderIf>
 				</>
 			</RenderIf>
+
+			<div className="flex items-center">
+				<div className="flex justify-between items-center w-full lg:w-2/4 pt-4 mt-4">
+					<div className="text-black-100 text-base">
+						Disable Powered by KreateSell
+					</div>
+					<div className="flex pb-4 md:pb-0">
+						<Switch
+							checked={
+								userStoreSettings.is_enable_powered_by_kreatesell
+							}
+							disabled={userDetails?.user_plan !== 'Business'}
+							id="disable_powered_by_kreatesell"
+							onChange={async () => {
+								setUserStoreSettings((value) => ({
+									...value,
+									is_enable_powered_by_kreatesell:
+										!value.is_enable_powered_by_kreatesell,
+								}));
+							}}
+						/>
+						<div className="pl-6 text-black-100">
+							{userStoreSettings?.is_enable_powered_by_kreatesell
+								? 'ON'
+								: 'OFF'}
+						</div>
+					</div>
+				</div>
+				<div className="ml-4 mt-3 bg-green-500 text-white py-1 px-2 uppercase">
+					Business
+				</div>
+			</div>
+			<p className="text-base-gray-200 text-xs pt-2">
+				Add more personalization to your store by turning off powered by
+				kreatesell from the footer of your store and product pages.
+			</p>
+
 			<div className="hidden lg:block mt-8 w-1/5">
 				<Button
 					text="Save Changes"

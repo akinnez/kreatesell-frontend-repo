@@ -1,12 +1,12 @@
 import {useState, useEffect, useMemo} from 'react';
 import {useRouter} from 'next/router';
+import Image from 'next/image';
 
 import {useSelector} from 'react-redux';
+
 import {Layout, PricingCard, Select, Button} from '../components';
 import styles from '../public/css/Pricing.module.scss';
 import {Faq, Animate} from '../utils';
-import Image from 'next/image';
-
 import {useGetUpgradePlansPrices} from 'services/swrQueryHooks/UpgradePlansQuery';
 import useCurrency from 'hooks/useCurrency';
 import useConvertRates from 'hooks/useConvertRates';

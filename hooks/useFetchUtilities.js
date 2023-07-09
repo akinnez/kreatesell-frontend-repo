@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {bankSuccess, countriesRequest, countriesSuccess} from 'redux/actions';
-import {isAnEmpytyObject} from 'utils';
+import {isAnEmpytyObject, countries as CountriesWithFlag} from 'utils';
 
 const useFetchUtilities = () => {
 	const {store, utils} = useSelector((state) => state);
@@ -26,15 +26,18 @@ const useFetchUtilities = () => {
 					'https://restcountries.com/v3.1/all'
 				);
 
-				const [countriesResponse, countriesWithFlagResponse] =
-					await Promise.all([getCountries, getCountriesWithFlag]);
+				const [countriesResponse] = await Promise.all([getCountries]);
 
-				const countryFlags = countriesWithFlagResponse.data.reduce(
+				const countryFlags = CountriesWithFlag.reduce((acc, curr) => {
+					acc[curr.cca2] = curr.flags.png;
+					return acc;
+				}, {});
+
+				const countryCurrencies = CountriesWithFlag.reduce(
 					(acc, curr) => {
-						acc[curr.cca2] = curr.flags.png;
+						acc[curr.cca2] = curr.currencies;
 						return acc;
-					},
-					{}
+					}
 				);
 
 				const countries = countriesResponse.data.list_of_countries
@@ -42,12 +45,25 @@ const useFetchUtilities = () => {
 						(country) => country.name !== 'Netherlands Antilles'
 					)
 					.map((country) => {
-						if (country.short_name in countryFlags) {
+						if (
+							country.short_name in countryFlags &&
+							country.short_name in countryCurrencies
+						) {
 							country.flag = countryFlags[country.short_name];
-							return country;
+							country.currencyObj =
+								countryCurrencies[country.short_name];
+							return {
+								...country,
+								alpha2Code: country?.short_name,
+								label: country?.short_name,
+							};
 						}
 
-						return country;
+						return {
+							...country,
+							alpha2Code: country?.short_name,
+							label: country?.short_name,
+						};
 					});
 
 				dispatch(countriesSuccess(countries));

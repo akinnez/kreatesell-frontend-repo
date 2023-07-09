@@ -1,11 +1,12 @@
 import {memo} from 'react';
 import Image from 'next/image';
+
 import NoData from 'components/NoData';
 import formatNumber from 'utils/formatNumber';
 import dateFormat from 'utils/dateFormat';
 import Basket from 'public/images/basket-grayed.png';
 import styles from './index.module.scss';
-import {RenderIf} from 'utils';
+import {RenderIf, EarnedAsAffiliateTag} from 'utils';
 
 const PayoutsMobileView = ({payouts}) => {
 	// console.log('payouts = ', payouts);
@@ -63,7 +64,7 @@ const PayoutsMobileView = ({payouts}) => {
 								</li>
 								<li className={styles.payout__detail}>
 									<strong>Amount</strong>
-									<span className={`flex`}>
+									<span className={`flex gap-2`}>
 										{payout.currency}{' '}
 										{formatNumber(payout.amount)}
 										<RenderIf
@@ -72,20 +73,14 @@ const PayoutsMobileView = ({payouts}) => {
 												'Earned as Affiliate'
 											}
 										>
-											<p
-												className={`flex items-center justify-center ml-1`}
-												style={{
-													background: ' #00B140',
-													paddingInline: '.14rem',
-													color: '#fff',
-													marginBottom: '0',
-													fontSize: '9px',
-													fontWeight: 700,
-													borderRadius: '2px',
-												}}
-											>
-												Earned as an Affiliate
-											</p>
+											<div style={{}}>
+												<Image
+													width={40}
+													height={20}
+													alt="Earned as Affiliate Tag"
+													src={EarnedAsAffiliateTag}
+												/>
+											</div>
 										</RenderIf>
 									</span>
 								</li>

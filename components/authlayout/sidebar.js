@@ -27,7 +27,11 @@ import {
 	forwardRef,
 	useCallback,
 } from 'react';
-import {BusinessPlanBox, OpenSubMenu} from '../../utils/assets';
+import {
+	BusinessPlanBox,
+	OpenSubMenu,
+	TelegramIconWhite,
+} from '../../utils/assets';
 import {RenderIf, CloseIcon} from 'utils';
 import {guideDataObject} from '../../Models/onboardingGuideData';
 import axiosAPI from 'utils/axios';
@@ -95,7 +99,30 @@ const LogoutItem = ({Icon = () => <></>, title, target = '#', ...rest}) => {
 	);
 };
 
-// console.log(OpenSubMenu);
+const TelegramIconItem = ({
+	Icon = () => <></>,
+	title,
+	target = '#',
+	...rest
+}) => {
+	return (
+		<Menu.Item
+			{...rest}
+			style={{background: '#0072EF', color: 'white', ...menuItemStyle}}
+			icon={
+				<Icon
+					className={style.icon}
+					active={true}
+					height={20}
+					width={20}
+				/>
+			}
+			title={title}
+			className={style.active}
+			onClick={() => console.log('hello')}
+		></Menu.Item>
+	);
+};
 
 const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 	const {SubMenu} = Menu;
@@ -443,12 +470,12 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 						</Menu.Item>
 						<Menu.Item key="sales-transactions">
 							<Link href="/account/sales/transactions">
-								<a>Transactions</a>
+								<a>Kreator Transactions</a>
 							</Link>
 						</Menu.Item>
 						<Menu.Item key="sales-revenue">
 							<Link href="/account/sales/revenue">
-								<a>Revenue</a>
+								<a>Affiliate Transactions</a>
 							</Link>
 						</Menu.Item>
 					</SubMenu>
@@ -485,7 +512,39 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 					title="Settings"
 					target="/account/kreator/settings"
 				/>
-				<LogoutItem key={8} Icon={Logout} title="Logout" />
+				{/* Telegram channel */}
+				<div
+					style={{
+						color: '#BFBFBF',
+						fontSize: '14px',
+						fontWeight: '400',
+						paddingLeft: '3px',
+						marginBottom: '12px',
+					}}
+				>
+					Community
+				</div>
+				<div
+					className="flex items-center justify-center cursor-pointer gap-3 tracking-wide text-white px-4 py-3"
+					style={{
+						background:
+							'linear-gradient(180deg, #0069F3 0%, #01875E 100%)',
+						borderRadius: '8px',
+						fontSize: '14px',
+						fontWeight: '400',
+						marginBottom: '58px',
+					}}
+					onClick={() => router.push('https://t.me/UseKreateSell')}
+				>
+					<Image
+						src={TelegramIconWhite}
+						alt="telegram__icon"
+						width={25}
+						height={25}
+					/>
+					<div>Join Telegram</div>
+				</div>
+				<LogoutItem key={9} Icon={Logout} title="Logout" />
 			</Menu>
 			<RenderIf
 				condition={
@@ -567,6 +626,7 @@ const Sidebar = ({isMobileView = false, setProceedToOnboard}) => {
 					</div>
 				</div>
 			</RenderIf>
+
 			{!isMobileView && <Timer />}
 		</div>
 	);

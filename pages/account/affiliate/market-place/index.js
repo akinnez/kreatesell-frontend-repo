@@ -29,6 +29,34 @@ const AffiliateProducts = () => {
 		error,
 		isValidating,
 	});
+
+	/**
+	 * @returns string - Price of the product
+	 * @params - priceType(can be "Fixed Price" or "Pay what you want"), checkoutDetails
+	 * @type - (priceType: string, checkoutDetails: []) => string;
+	 */
+	const returnPrice = (
+		priceType = 'Fixed Price',
+		checkoutDetails = [],
+		currency
+	) => {
+		let price;
+		if (priceType?.toLowerCase() === 'fixed price') {
+			price = checkoutDetails.find(
+				(detail) =>
+					detail?.price_indicator === 'Selling' &&
+					currency === detail.currency_name
+			);
+		} else if (priceType?.toLowerCase() === 'pay what you want') {
+			price = checkoutDetails.find(
+				(detail) =>
+					detail?.price_indicator === 'Minimum' &&
+					currency === detail.currency_name
+			);
+		}
+		return price?.price || 0;
+	};
+
 	const memoisedProducts = useMemo(() => {
 		if (products?.data?.length > 0 && Object.keys(store).length > 0) {
 			return {
@@ -37,6 +65,11 @@ const AffiliateProducts = () => {
 					return {
 						...product,
 						affiliateSales: product?.total_affiliate_sales,
+						price: returnPrice(
+							product.product_price_type,
+							product?.check_out_details,
+							product?.default_currency?.currency
+						),
 					};
 				}),
 			};

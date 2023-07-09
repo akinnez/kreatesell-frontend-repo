@@ -18,6 +18,7 @@ import {
 	_copyToClipboard,
 	PlusIcon,
 	MinusIcon,
+	RenderIf,
 } from 'utils';
 import AuthLayout from '../../../../components/authlayout';
 import styles from '../../../../public/css/AllProducts.module.scss';
@@ -128,7 +129,7 @@ const AllProducts = () => {
 							kreasell_product_id:
 								item?.product_details?.kreasell_product_id,
 							product_name: item?.product_details?.product_name,
-							product_link: `${domainLink}/${item?.product_details?.kreasell_product_id}`,
+							product_link: `${domainLink}/product/${item?.product_details?.kreasell_product_id}`,
 						},
 					},
 				})),
@@ -271,42 +272,46 @@ const AllProducts = () => {
 					<p className="mb-0 ml-3"> Preview</p>
 				</li>
 				{/* set show modal */}
-				<li
-					onClick={() =>
-						salesPageDispatch({
-							payload: {
-								modalType: 'connectSalesModal',
-								productId:
-									product.product_details
-										?.kreasell_product_id,
-							},
-							type: 'OPEN_MODAL',
-						})
-					}
-				>
-					<span className="flex">
-						<Image src={PlusIcon} alt="sales page" />
-					</span>
-					<p className="mb-0 ml-3">Connect Sales Page</p>
-				</li>
-				<li
-					onClick={() =>
-						salesPageDispatch({
-							payload: {
-								modalType: 'disconnectSalesPage',
-								productId:
-									product.product_details
-										?.kreasell_product_id,
-							},
-							type: 'OPEN_MODAL',
-						})
-					}
-				>
-					<span className="flex">
-						<Image src={MinusIcon} alt="sales page" />
-					</span>
-					<p className="mb-0 ml-3">Disconnect Sales Page</p>
-				</li>
+				<RenderIf condition={product?.salespageurl === null}>
+					<li
+						onClick={() =>
+							salesPageDispatch({
+								payload: {
+									modalType: 'connectSalesModal',
+									productId:
+										product.product_details
+											?.kreasell_product_id,
+								},
+								type: 'OPEN_MODAL',
+							})
+						}
+					>
+						<span className="flex">
+							<Image src={PlusIcon} alt="sales page" />
+						</span>
+						<p className="mb-0 ml-3">Connect Sales Page</p>
+					</li>
+				</RenderIf>
+				<RenderIf condition={product?.salespageurl !== null}>
+					<li
+						onClick={() =>
+							salesPageDispatch({
+								payload: {
+									modalType: 'disconnectSalesPage',
+									productId:
+										product.product_details
+											?.kreasell_product_id,
+								},
+								type: 'OPEN_MODAL',
+							})
+						}
+					>
+						<span className="flex">
+							<Image src={MinusIcon} alt="sales page" />
+						</span>
+						<p className="mb-0 ml-3">Disconnect Sales Page</p>
+					</li>
+				</RenderIf>
 
 				<li
 					className="flex items-center cursor-pointer"

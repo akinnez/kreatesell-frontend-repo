@@ -1,13 +1,21 @@
+import {useEffect} from 'react';
+
 import {Button} from 'antd';
 import styles from './header.module.scss';
 
 const statusArr = [
 	{type: 'All', label: 'All'},
 	{type: 'Successful', label: 'Successful'},
+	{type: 'Cleared', label: 'Cleared'},
+	{type: 'Cancelled', label: 'Cancelled'},
 	{type: 'Failed', label: 'Failed'},
 ];
 
 const StatusButtons = ({setFilters, filters, setLoading}) => {
+	useEffect(() => {
+		setFilters((prev) => ({...prev, status: 'Successful'}));
+	}, []);
+
 	const handleClick = (type) => {
 		setFilters({...filters, status: type});
 		setLoading(true);

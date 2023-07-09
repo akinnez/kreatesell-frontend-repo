@@ -176,7 +176,6 @@ const StorePage = () => {
 			formatCurrencies();
 		}
 	}, [allowedCurrencies.length]);
-	// console.log('formattedCurrencies', formattedCurrencies);
 
 	return (
 		<>
@@ -255,7 +254,7 @@ const StorePage = () => {
 								<Image src={SearchIcon} alt="search" />
 								<div className="w-20 mr-4 ml-5">
 									<Select
-										options={currencyOptions}
+										options={formattedCurrencies}
 										border="none"
 										cb={(targetCurrency) =>
 											setTargetCurrency(targetCurrency)
@@ -475,34 +474,28 @@ const ProductCard = ({
 	//=========================================================================//
 	//==========================Images=========================================//
 	//=========================================================================//
+
+	// NOTE: get only the images
 	const images = productDetails?.product_images?.filter(
-		(img) => !['.rar', '.zip'].includes(img.filename) || img !== null
+		(img) =>
+			img.file_type_name !== 'ContentZipFile' &&
+			!['.rar', '.zip', '.pdf'].includes(img.filename)
 	);
-	const imageShown = images?.[0]?.filename?.includes(',')
-		? images?.[0]?.filename?.split(',')[0]
-		: images?.[0]?.filename?.endsWith('.rar') ||
-		  images?.[0]?.filename?.endsWith('.zip')
-		? images?.[1]?.filename
-		: images?.[1]?.filename?.includes(',')
-		? images?.[1]?.filename?.split(',')[1]
-		: images?.[1]?.filename;
 
-	const initImage = images?.[0]?.filename?.includes(',')
-		? // * show full array
-		  images?.[0]?.filename?.split(',')
-		: // * show first item
-		  images?.[0]?.filename;
+	// NOTE: for products with multiple images, it is a string seperated by a comma, so we are getting the first image
+	const imageShown = images[0]?.filename?.split(',')[0];
 
-	const imageRendered =
-		images?.[1]?.filename ||
-		images?.[0]?.filename ||
-		(images?.[1]?.filename?.includes(',') &&
-			images?.[1]?.filename?.split(',')[0]) ||
-		(images?.[0]?.filename?.includes(',') &&
-			images?.[0]?.filename?.split(',')[0]);
+	// NOTE: Not sure what was intended here
+	// const imageRendered =
+	// 	images?.[1]?.filename ||
+	// 	images?.[0]?.filename ||
+	// 	(images?.[1]?.filename?.includes(',') &&
+	// 		images?.[1]?.filename?.split(',')[0]) ||
+	// 	(images?.[0]?.filename?.includes(',') &&
+	// 		images?.[0]?.filename?.split(',')[0]);
 
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
-	let len = imageRendered?.split(',');
+	// let len = imageRendered?.split(',');
 	//=========================================================================//
 	//==========================Images ENDS====================================//
 	//=========================================================================//
@@ -539,7 +532,6 @@ const ProductCard = ({
 		}
 		return predefinedAmount?.price;
 	};
-	// console.log('productDetails', productDetails);
 
 	const outOfStock = () => {
 		return (
@@ -559,6 +551,7 @@ const ProductCard = ({
 			return `${productDetails?.number_sold} sold`;
 		}
 	};
+	if (!images[0]?.filename) return null;
 	return (
 		<div
 			className={`bg-white w-full rounded-lg ${styles.productCardCtn}`}
@@ -571,8 +564,8 @@ const ProductCard = ({
 		>
 			<div className={styles.imageContainer}>
 				<Image
-					// src={!imageShown ? len[0] : imageShown}
-					src={len.length > 0 ? len[0] : imageShown}
+					// src={len?.length ? len[0] : imageShown}
+					src={imageShown}
 					width="320"
 					height="300"
 					className="rounded-t-lg object-cover"

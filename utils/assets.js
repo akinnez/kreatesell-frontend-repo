@@ -296,6 +296,9 @@ import PlusIcon from '../public/images/plus-icon.svg';
 import MinusIcon from '../public/images/minusIcon.svg';
 import GreenCancel from '../public/images/GreenCancel.svg';
 import ErrorInfoIcon from '../public/images/error-info-icon.svg';
+import MaintenanceIcon from '../public/images/maintenance.svg';
+import CloseButton from '../public/images/closeButton.svg';
+import MaintenanceIcon2 from '../public/images/Main.svg';
 
 import FacebookIcon from '../public/images/facebookicon.svg';
 import InstagramIcon from '../public/images/instagramicon.svg';
@@ -326,8 +329,16 @@ import BlueAlert from '../public/images/blueAlert.png';
 import TelegramIcon from '../public/images/telegramIcon.png';
 import InfinityIcon from '../public/images/infinity.png';
 import QuestionIcon from '../public/images/questionIcon.png';
+import TelegramIconWhite from '../public/images/Telegramwhite.png';
+import logoIcon from '../public/images/logoIcon.png';
+import SettingsIcon from '../public/images/settings.png';
+import EarnedAsAffiliateTag from '../public/images/earnedAsAffiliateTag.png';
 
 export {
+	EarnedAsAffiliateTag,
+	MaintenanceIcon2,
+	CloseButton,
+	MaintenanceIcon,
 	DashPreviewOnePng,
 	LandingPageHeroPng,
 	ErrorInfoIcon,
@@ -654,4 +665,7 @@ export {
 	TelegramIcon,
 	InfinityIcon,
 	QuestionIcon,
+	TelegramIconWhite,
+	logoIcon,
+	SettingsIcon,
 };

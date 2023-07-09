@@ -1,8 +1,17 @@
 import cogoToast from 'cogo-toast';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-export const pathName = typeof window !== 'undefined' && window;
 import {subDays, format} from 'date-fns';
+
+export {
+	imagesExtensions,
+	audioExtensions,
+	videoExtensions,
+	compressedFilesExtensions,
+} from './fileTypes';
+export {countries} from './countries';
+
+export const pathName = typeof window !== 'undefined' && window;
 
 var options = {
 	weekday: 'long',
@@ -114,6 +123,11 @@ export const getUser = () => {
 export const _getMyStoreDetails = () => {
 	const store_details = pathName.localStorage?.getItem('store_details');
 	return pathName.JSON?.parse(store_details);
+};
+
+export const _getMyStoreUserDetails = () => {
+	const user_details = pathName.localStorage?.getItem('user_details');
+	return pathName.JSON?.parse(user_details);
 };
 
 export const _isUserLoggedIn = () => {

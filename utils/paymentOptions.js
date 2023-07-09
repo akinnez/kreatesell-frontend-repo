@@ -9,14 +9,14 @@ import {
 export const countryPayments = {
 	NGN: [
 		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
 			type: 'Paystack',
 			icon: PaystackLogo,
 			value: 'paystack',
+		},
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
 		},
 		{
 			type: 'CryptoCurrency',
@@ -26,14 +26,14 @@ export const countryPayments = {
 	],
 	GHS: [
 		{
-			type: 'Flutterwave',
-			icon: FlutterwaveLogo,
-			value: 'flutterwave',
-		},
-		{
 			type: 'Paystack',
 			icon: PaystackLogo,
 			value: 'paystack',
+		},
+		{
+			type: 'Flutterwave',
+			icon: FlutterwaveLogo,
+			value: 'flutterwave',
 		},
 		{
 			type: 'CryptoCurrency',

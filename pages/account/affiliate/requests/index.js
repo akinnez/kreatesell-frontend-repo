@@ -34,7 +34,7 @@ const AffiliateRequests = () => {
 			</Head>
 			<AffiliatePageLayout
 				products={products}
-				isLoading={isLoading}
+				isLoading={loading}
 				setLoading={setLoading}
 				title="Affiliate Offers"
 				totalSales={store.total_sales_till_date}

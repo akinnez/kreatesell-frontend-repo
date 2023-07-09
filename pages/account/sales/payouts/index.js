@@ -21,7 +21,7 @@ import {
 import styles from 'public/css/PayoutsPage.module.scss';
 import {PasswordInput, Button} from '../../../../components';
 import {createPasswordSchema} from '../../../../validation';
-import {ResetPassword} from '../../../../redux/actions';
+import {ResetPassword, GetStoreDetails} from '../../../../redux/actions';
 
 const {TabPane} = Tabs;
 
@@ -29,7 +29,7 @@ const PayoutsPage = () => {
 	const [tab, setTab] = useState('1');
 	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
-
+	const getStoreDetails = GetStoreDetails();
 	const {store, loading} = useSelector((state) => state.store);
 	const {bank_details: bankDetails, wallet_details_dtos: walletInfo} = store;
 
@@ -54,6 +54,9 @@ const PayoutsPage = () => {
 			setShowModal(true);
 		}
 	}, [store]);
+	useEffect(() => {
+		getStoreDetails();
+	}, []);
 
 	return (
 		<AuthLayout>

@@ -60,13 +60,14 @@ const MobileDataRenderer = ({
 						<ProductDetails
 							kreatorName={product.kreator_name}
 							productType={product.product_type_name}
-							currency="NGN"
-							price="4,000"
+							currency={product?.default_currency?.currency}
+							price={product?.price}
 							sold={product.total_sold}
 							visits={product.total_product_visits}
 							commission={Math.abs(
 								Number(product.affiliate_percentage_on_sales)
 							)}
+							productId={product.id}
 						/>
 					</li>
 				))}

@@ -1,3 +1,5 @@
+// import {Quill} from 'react-quill';
+
 export const Toolbar = {
 	modules: {
 		toolbar: [
@@ -15,6 +17,11 @@ export const Toolbar = {
 			['clean'],
 			['code-block'],
 		],
+		// imageResize: {
+		// 	parchment: Quill.import('parchment'),
+		// 	modules: ['Resize', 'DisplaySize'],
+		// },
+		// clipboard: {}
 	},
 	formats: [
 		'header',

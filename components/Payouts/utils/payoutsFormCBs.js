@@ -39,6 +39,7 @@ export const createAccount = ({
 	dispatchObj,
 	dispatch,
 	actions,
+	onSuccessCB,
 }) => {
 	axiosApi.request(
 		'post',
@@ -47,6 +48,7 @@ export const createAccount = ({
 			showSuccessModal();
 			hideModal();
 			dispatch(updateStore(dispatchObj));
+			onSuccessCB();
 		},
 		(err) => {
 			showToast(err.message, 'error');
@@ -148,13 +150,7 @@ export const validateAccountOnBlur = ({
 	// only validate if country is Nigeria
 	const bankId = formik.values.bank;
 	const accountNumber = formik.values.account_number.trim();
-	// console.log('bankId', bankId);
-	// console.log('banks', banks);
-	// console.log(
-	// 	'getData(banks, bankId)?.bank_code',
-	// 	getData(banks, bankId)?.bank_code
-	// );
-	// console.log('getData(banks, bankId)?.code', getData(banks, bankId)?.code);
+
 	// only validate if country is Nigeria
 	if (formik.values.country === 1) {
 		if (!accountNumber || !bankId) return;
@@ -213,8 +209,7 @@ export const createSubmitHandler = ({
 	hideModal,
 	showSuccessModal,
 }) => {
-	return (values, actions) => {
-		console.log(values, 'nfnfnfnf');
+	return (values, actions, onSuccessCB = () => {}) => {
 		const country = getData(countries, values.country);
 
 		if (values.country === 1) {
@@ -258,6 +253,7 @@ export const createSubmitHandler = ({
 						dispatchObj,
 						dispatch,
 						actions,
+						onSuccessCB,
 					});
 				},
 				() => {
@@ -303,6 +299,7 @@ export const createSubmitHandler = ({
 				dispatchObj,
 				dispatch,
 				actions,
+				onSuccessCB,
 			});
 		} else {
 			const bank = getData(banks, values.bank);
@@ -336,6 +333,7 @@ export const createSubmitHandler = ({
 				dispatchObj,
 				dispatch,
 				actions,
+				onSuccessCB,
 			});
 		}
 	};

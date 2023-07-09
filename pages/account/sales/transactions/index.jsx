@@ -19,18 +19,26 @@ import {
 	DropDownUpIcon,
 	Cart,
 	Copy,
+	EarnedAsAffiliateTag,
+	RenderIf,
 } from 'utils';
 import PaymentMethodIcons from 'utils/paymentMethodIcons';
 
 const statusComponent = (item) => {
+	const commonStyles = {
+		paddingInline: '.5rem',
+		width: 'fit-content',
+		fontSize: '.85rem',
+		borderRadius: '.5rem',
+	};
 	const statusTextList = {
 		Successful: {
 			type: 'successful',
 			styles: {
 				background: '#F1FCF8',
-				borderRadius: '.5rem',
 				color: ' #2DC071',
-				fontSize: '.85rem',
+
+				...commonStyles,
 			},
 			contents: '',
 		},
@@ -38,9 +46,17 @@ const statusComponent = (item) => {
 			type: 'pending',
 			styles: {
 				background: 'rgba(0, 0, 0, 0.05)',
-				borderRadius: '.5rem',
 				color: ' #FBB500',
-				fontSize: '.85rem',
+				...commonStyles,
+			},
+			contents: '',
+		},
+		Failed: {
+			type: 'failed',
+			styles: {
+				background: 'rgba(255, 77, 79, 0.1)',
+				color: ' #F90005',
+				...commonStyles,
 			},
 			contents: '',
 		},
@@ -79,7 +95,13 @@ const statusComponent = (item) => {
 
 const ActionComponent = (
 	_,
-	{order_id, customer_full_name, customer_email_address}
+	{
+		order_id,
+		customer_full_name,
+		customer_email_address,
+		is_affiliate,
+		affiliate_name,
+	}
 ) => {
 	const title = (
 		<h1 className={styles.mainHeader}>Customer&apos;s Details</h1>
@@ -102,6 +124,14 @@ const ActionComponent = (
 					{customer_email_address}
 				</div>
 			</div>
+			<RenderIf condition={is_affiliate}>
+				<div className={`${styles.ActionComponentSection}`}>
+					<div className={`${styles.title} `}>Affiliate Name</div>
+					<div className={`${styles.subtitle} `}>
+						{affiliate_name}
+					</div>
+				</div>
+			</RenderIf>
 		</>
 	);
 	return (
@@ -110,7 +140,6 @@ const ActionComponent = (
 			placement="bottomRight"
 			title={title}
 			content={content}
-			// overlayStyle={{border: '1px solid red'}}
 			overlayInnerStyle={{
 				padding: '2rem 1rem',
 			}}
@@ -135,6 +164,30 @@ const columns = [
 		title: 'Price',
 		render: (_, data) => {
 			return <span>{`${data?.currency} ${data?.price}`}</span>;
+		},
+		width: 150,
+	},
+	{
+		title: 'Profit',
+		render: (_, data) => {
+			return (
+				<span>
+					{data.currency} {data.commission}
+					<RenderIf condition={data.is_affiliate}>
+						<Tooltip
+							title={`This sale was made by your Affiliate ${data.affiliate_name}`}
+							placement="top"
+						>
+							<Image
+								width={40}
+								height={20}
+								alt="Earned as Affiliate Tag"
+								src={EarnedAsAffiliateTag}
+							/>
+						</Tooltip>
+					</RenderIf>
+				</span>
+			);
 		},
 		width: 150,
 	},
@@ -365,7 +418,9 @@ const Index = () => {
 
 	return (
 		<AuthLayout>
-			<div className={styles.transaction__header}>Transactions</div>
+			<div className={styles.transaction__header}>
+				Kreator Transactions
+			</div>
 			<TransactionHeader
 				{...{
 					setFilters,

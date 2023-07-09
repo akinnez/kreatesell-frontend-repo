@@ -24,9 +24,9 @@ const productsColumns = [
 		render: (dateStr) => dateString(dateStr),
 	},
 	{
-		title: 'No of Sales',
-		dataIndex: 'total_affiliate_sales',
-		render: (sales) => formatNumber(sales),
+		title: 'Product Price',
+		dataIndex: 'price',
+		render: (price, all) => `${all?.default_currency?.currency} ${price}`,
 	},
 	{
 		title: 'Performance',
@@ -45,7 +45,10 @@ const productsColumns = [
 	{
 		title: 'Action',
 		render: (record) => {
-			if (record?.affiliateSales >= 5) {
+			if (
+				record?.affiliateSales >= 5 ||
+				record?.request_status?.toLowerCase() === 'approved'
+			) {
 				return (
 					<GetLink
 						status={'Approved'}
@@ -59,6 +62,7 @@ const productsColumns = [
 				<RequestAccessLink
 					productId={record.id}
 					status={record.has_requested_access}
+					statusType={record.request_status}
 				/>
 			);
 		},
