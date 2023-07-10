@@ -33,6 +33,7 @@ import {
 	MakeItFreeIcon,
 	QuestionIcon,
 	CloseButton,
+	RestOfTheWorld,
 } from 'utils';
 import {
 	SendPaymentCheckoutDetails,
@@ -61,11 +62,46 @@ const resolveProtocol = (host) => {
 };
 const {Option} = Select;
 
+const RestOfTheWorldObj = [
+	{
+		country_code: '+1',
+		short_name: 'US',
+		created_by: -1,
+		updated_by: null,
+		deleted_by: null,
+		date_created: '2021-05-09T00:22:26.867',
+		date_updated: '2021-05-09T00:22:26.867',
+		date_deleted: null,
+		currency: 'USD',
+		is_ofac: null,
+		is_euro: null,
+		allowed: null,
+		currency_id: -10,
+		is_payable: true,
+		taxable_amount: 10,
+		is_taxable_amount_percent: true,
+		// id: 188,
+		name: 'United States',
+		flag: 'https://flagcdn.com/w320/us.png',
+		currencyObj: {
+			USD: {
+				name: 'United States dollar',
+				symbol: '$',
+			},
+		},
+		alpha2Code: 'US',
+		label: 'US',
+		// id: 188,
+		id: -10, // I used this just for rest of the world
+		name: 'Rest of the world',
+		flag: RestOfTheWorld,
+	},
+];
+
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
-	const paypalRef = useRef();
 
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
@@ -1247,6 +1283,7 @@ const Checkout = () => {
 															...countriesCurrency,
 															...filterdWest,
 															...filteredCentral,
+															...RestOfTheWorldObj,
 														];
 														const currency =
 															allCurrencies.find(
@@ -1268,6 +1305,7 @@ const Checkout = () => {
 														...countriesCurrency,
 														...filterdWest,
 														...filteredCentral,
+														...RestOfTheWorldObj,
 													].map(
 														(currencyObj, idx) => (
 															<Option
