@@ -12,7 +12,7 @@ const ChatScript = () => {
 	);
 };
 
-export default ChatScript;
+export default ChatScript; 
 
 // this is tawkto implementattion
 // 		<Script

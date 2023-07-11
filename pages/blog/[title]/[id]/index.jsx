@@ -81,13 +81,18 @@ const SingleBlogPost = () => {
 
 	//get blog post data
 
+
+
+	const blogId = router.query.id
+
+
 	const fetchBlogsData = async () => {
 		let result = {};
 		let resultTwo = {};
 		let moreBlogs = {};
 		try {
 			result = await axios.get(
-				`${process.env.BASE_URL}blogs/posts/${router.query.id}`
+				`${process.env.BASE_URL}blogs/posts/${blogId}`
 			);
 
 			resultTwo = await axios.get(
@@ -125,8 +130,17 @@ const SingleBlogPost = () => {
 	// }
 
 	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const css = document.createElement('style');
+			css.innerHTML =
+				'.ql-video { width: 100% !important; height: 368px !important;}';
+			document.body.appendChild(css);
+		}
+	}, []);
+
+	useEffect(() => {
 		fetchBlogsData();
-	}, [router.query.id, router.query.title]);
+	}, [blogId, router.query.title]);
 
 	const handleLikePost = () => {
 		ApiService.request(

@@ -8,6 +8,7 @@ import {isAnEmpytyObject} from '../../utils';
 import {WelcomeStoreOnboarding} from '../../redux/actions';
 import {useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
+import {dataLayerTrackingLink} from 'utils/googleTagManger';
 
 export const WelcomeForm = () => {
 	const router = useRouter();
@@ -23,8 +24,12 @@ export const WelcomeForm = () => {
 
 	const handleSubmit = async (data) => {
 		if (step === 1) {
+			//trigger the datalayer tracking link for tell us more events
+			dataLayerTrackingLink(`'event':'complete_tell_us_more'`);
 			setStep(2);
 		} else if (step === 2) {
+			//trigger the datalayer tracking link for perssonalized store link events
+			dataLayerTrackingLink(`'Event':'complete_personalize_store_link'`);
 			await welcomeStoreOnboarding(data, () => {
 				router.push('/account/dashboard');
 			});
