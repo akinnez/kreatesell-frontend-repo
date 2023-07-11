@@ -81,10 +81,7 @@ const SingleBlogPost = () => {
 
 	//get blog post data
 
-
-
-	const blogId = router.query.id
-
+	const blogId = router.query.id;
 
 	const fetchBlogsData = async () => {
 		let result = {};

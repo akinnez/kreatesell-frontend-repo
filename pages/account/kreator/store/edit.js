@@ -17,7 +17,7 @@ import ApiService from '../../../../utils/axios';
 import {toast} from 'react-toastify';
 import {showToast} from 'utils';
 import {GetStoreDetails} from 'redux/actions';
-import { dataLayerTrackingLink } from 'utils/googleTagManger';
+import {dataLayerTrackingLink} from 'utils/googleTagManger';
 
 const Index = () => {
 	const store = useSelector((state) => state.store);
@@ -65,7 +65,7 @@ const Index = () => {
 				setLoading({...loading, updating: false});
 				toast.success('Successful');
 				//trigger the data-layer form store setup-complete
-                 dataLayerTrackingLink(`'event':'complete_store_setup'`)
+				dataLayerTrackingLink(`'event':'complete_store_setup'`);
 				getStoreDetails(() => {
 					setTimeout(() => {
 						if (Router.query?.returnTo) {

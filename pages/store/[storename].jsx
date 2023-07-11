@@ -62,11 +62,11 @@ const StorePage = () => {
 		singleStoreProducts,
 		singleStorePaginationDetails: pagination,
 		defaultCurrency,
-	} = useSelector((state) => state.product); 
+	} = useSelector((state) => state.product);
 
 	// console.log(singleStoreDetails,'singleStoreDetailssingleStoreDetailssingleStoreDetails')
 
-	const isPoweredByKreatesell = singleStoreDetails?.is_powered_by_kreatesell 
+	const isPoweredByKreatesell = singleStoreDetails?.is_powered_by_kreatesell;
 	// const [defaultCurrency, setDefaultCurrency] = useState('NGN');
 	const [targetCurrency, setTargetCurrency] = useState('');
 	const [tempTargetCurrency, setTempTargetCurrency] = useState(
@@ -392,8 +392,9 @@ const StorePage = () => {
 						</div>
 					)}
 				</div>
-				{isPoweredByKreatesell && <PoweredByKS showDisclaimer={true} {...{storename}} /> }  
-				
+				{isPoweredByKreatesell && (
+					<PoweredByKS showDisclaimer={true} {...{storename}} />
+				)}
 			</div>
 			{/* TODO: Make this a single reusable component */}
 			{/* params to pass: openShareModal, handleModalClose, storeName, productName, origin */}

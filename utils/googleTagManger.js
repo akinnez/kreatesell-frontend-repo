@@ -6,6 +6,6 @@ export const dataLayerTrackingLink = (action) => {
                 window dataLayer.push({${action}});
                 `,
 			}}
-		/> 
-	); 
+		/>
+	);
 };

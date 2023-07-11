@@ -93,7 +93,7 @@ const PayoutsForm = ({
 			}}
 			validationSchema={PayoutFormValidator}
 			onSubmit={(values, actions) => {
-				submitHandler(values, actions, getStoreDetails); 
+				submitHandler(values, actions, getStoreDetails);
 			}}
 		>
 			{(formik) => (

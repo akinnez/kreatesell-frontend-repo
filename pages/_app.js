@@ -51,7 +51,7 @@ function MyApp({Component, pageProps}) {
             src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
             async
           /> */}
-					<ChatScript /> 
+					<ChatScript />
 					<PayPalScriptProvider
 						options={{
 							'client-id':

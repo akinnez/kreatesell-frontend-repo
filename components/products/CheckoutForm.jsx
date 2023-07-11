@@ -29,7 +29,7 @@ import {useRouter} from 'next/router';
 import {transformToFormData, ErrorOutline} from 'utils';
 
 import axios from 'axios';
-import { dataLayerTrackingLink } from 'utils/googleTagManger';
+import {dataLayerTrackingLink} from 'utils/googleTagManger';
 
 export const CheckoutForm = ({
 	ctaBtnText,
@@ -609,7 +609,7 @@ export const CheckoutForm = ({
 		createProduct(result, (res) => {
 			// console.log('product type', productType);
 			//trigger the datalayer tracking link for create product complete events
-			dataLayerTrackingLink(`'event':'complete_create_product'`)
+			dataLayerTrackingLink(`'event':'complete_create_product'`);
 			if (productType === 'Digital Download') {
 				router.push(
 					`/account/kreator/products/preview/${res?.product_id}`

@@ -11,7 +11,7 @@ import {SignupSchema} from '../../validation';
 import {isAnEmpytyObject} from '../../utils';
 import {Signup, Login} from '../../redux/actions';
 import styles from '../../public/css/Signup.module.scss';
-import { dataLayerTrackingLink } from 'utils/googleTagManger';
+import {dataLayerTrackingLink} from 'utils/googleTagManger';
 
 export const SignupForm = () => {
 	const router = useRouter();
@@ -82,8 +82,8 @@ export const SignupForm = () => {
 
 		/**Signup endpoint is called with data */
 		await signup(formData, () => {
-			//call the tracking link after sign up action is being dispatched  
-			dataLayerTrackingLink(`'event':'complete_signup'`)
+			//call the tracking link after sign up action is being dispatched
+			dataLayerTrackingLink(`'event':'complete_signup'`);
 			return router.push('/login');
 		});
 	};

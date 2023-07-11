@@ -28,7 +28,7 @@ class MyDocument extends Document {
 					</noscript>
 					<Main />
 					<NextScript />
-				</body> 
+				</body>
 			</Html>
 		);
 	}

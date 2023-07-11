@@ -24,8 +24,6 @@ const StoreSettings = () => {
 	const defaultCTA = store?.cta_button;
 	// console.log(store);
 
-	
-
 	// console.log(userDetails, 'storeeee');
 
 	const [userStoreSettings, setUserStoreSettings] = useState(() => ({

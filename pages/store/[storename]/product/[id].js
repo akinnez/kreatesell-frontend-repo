@@ -23,10 +23,9 @@ export default function PreviewProduct() {
 			check_out_details,
 			default_currency,
 			product_price_type,
-		}
+		},
 	} = useSelector((state) => state.product);
 	const {storeCheckoutCurrencies} = useSelector((state) => state.store);
-
 
 	const {convertedCurrency, loading: currencyConverterLoading} = useSelector(
 		(state) => state.currencyConverter
