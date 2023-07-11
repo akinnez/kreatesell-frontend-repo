@@ -2,6 +2,7 @@ import axios from 'axios';
 import {isAnEmpytyObject, showToast} from 'utils';
 import {bankSuccess, updateStore} from 'redux/actions';
 import axiosApi from 'utils/axios';
+import {dataLayerTrackingLink} from 'utils/googleTagManger';
 
 const getData = (dataSet, id) => dataSet.find((item) => item.id === id);
 
@@ -222,6 +223,10 @@ export const createSubmitHandler = ({
 						actions.setFieldError('account_number', res.message);
 						actions.setFieldTouched('account_number', true, false);
 						actions.setSubmitting(false);
+						//trigeer the data-layer tracking for payout set up complete
+						dataLayerTrackingLink(
+							`'event':'complete_bank_account'`
+						);
 						return;
 					}
 

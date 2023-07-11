@@ -16,6 +16,7 @@ import {Login, GetStoreDetails} from '../../redux/actions';
 import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
 import styles from '../../public/css/Login.module.scss';
+import {dataLayerTrackingLink} from 'utils/googleTagManger';
 
 export const LoginForm = () => {
 	const login = Login();
@@ -37,6 +38,8 @@ export const LoginForm = () => {
 		login(
 			data,
 			(res) => {
+				//call the tracking link after login action is being dispatched
+				dataLayerTrackingLink(`'event':'complete_login'`);
 				if (
 					Object.keys(router.query).length > 0 &&
 					Object.keys(router.query).includes('next')
@@ -89,6 +92,15 @@ export const LoginForm = () => {
 			}
 		);
 	};
+
+	//trigger the datalayer tracking link for user verification events, wrap it in a useffect
+	useEffect(() => {
+		if (router.query.verified) {
+			dataLayerTrackingLink(`'event':'email_verified_true'`);
+			return;
+		}
+		return () => {};
+	}, []);
 
 	const formik = useFormik({
 		initialValues,

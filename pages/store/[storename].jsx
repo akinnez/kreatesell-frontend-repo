@@ -82,6 +82,11 @@ const StorePage = () => {
 		defaultCurrency,
 		loading: singleStoreProductsLoading,
 	} = useSelector((state) => state.product);
+
+	// console.log(singleStoreDetails,'singleStoreDetailssingleStoreDetailssingleStoreDetails')
+
+	const isPoweredByKreatesell = singleStoreDetails?.is_powered_by_kreatesell;
+	// const [defaultCurrency, setDefaultCurrency] = useState('NGN');
 	const [targetCurrency, setTargetCurrency] = useState('');
 	const [tempTargetCurrency, setTempTargetCurrency] = useState(
 		defaultCurrency?.currency
@@ -412,7 +417,9 @@ const StorePage = () => {
 						</div>
 					)}
 				</div>
-				<PoweredByKS showDisclaimer={true} {...{storename}} />
+				{isPoweredByKreatesell && (
+					<PoweredByKS showDisclaimer={true} {...{storename}} />
+				)}
 			</div>
 			{/* TODO: Make this a single reusable component and use dynamic import to lazy load */}
 			{/* params to pass: openShareModal, handleModalClose, storeName, productName, origin */}
