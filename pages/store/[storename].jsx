@@ -2,10 +2,11 @@ import Link from 'next/link';
 import router, {useRouter} from 'next/router';
 import Image from 'next/image';
 import {useEffect, useState, useRef} from 'react';
+import dynamic from 'next/dynamic';
 
-import {Pagination, Input, Spin, Modal} from 'antd';
-import {Avatar} from 'antd';
-import {UserOutlined} from '@ant-design/icons';
+import {Pagination, Input, Spin, Avatar} from 'antd';
+// import Modal from 'antd/es/modal'
+// import {UserOutlined} from '@ant-design/icons';
 import {useSelector} from 'react-redux';
 import {
 	FacebookShareButton,
@@ -22,10 +23,10 @@ import {
 	SearchIcon,
 	Copy2,
 	FacebookIcon,
-	InstagramIcon,
 	TwitterIcon2,
 	GmailIcon,
 	WhatsappIcon2,
+	RenderIf,
 } from 'utils';
 import {hashTagsWithHash, hashTagsWithoutHash} from 'utils/socialShareHashtags';
 import {Button, Select} from 'components';
@@ -39,6 +40,23 @@ import useLocation from 'hooks/useLocation';
 import useCurrency from 'hooks/useCurrency';
 import CloseIcon from 'components/affiliates/CloseIcon';
 import {showToast} from 'utils';
+
+const Modal = dynamic(() => import('antd/es/modal'), {ssr: false});
+
+/**
+ *
+ * @param {*} CLink
+ * @description - adds image transformations to the cloudinary link
+ * @returns
+ */
+function formatCloudinaryImage(CLink) {
+	if (CLink.includes('res.cloudinary.com')) {
+		let linkarr = CLink.split('/');
+		linkarr.splice(6, 0, 'q_auto:low');
+		return linkarr.join('/');
+	}
+	return CLink;
+}
 
 const StorePage = () => {
 	const router = useRouter();
@@ -62,8 +80,8 @@ const StorePage = () => {
 		singleStoreProducts,
 		singleStorePaginationDetails: pagination,
 		defaultCurrency,
+		loading: singleStoreProductsLoading,
 	} = useSelector((state) => state.product);
-	// const [defaultCurrency, setDefaultCurrency] = useState('NGN');
 	const [targetCurrency, setTargetCurrency] = useState('');
 	const [tempTargetCurrency, setTempTargetCurrency] = useState(
 		defaultCurrency?.currency
@@ -182,7 +200,7 @@ const StorePage = () => {
 			<div className={styles.container}>
 				<nav className="bg-white hidden lg:flex items-center px-4 lg:px-40">
 					<div className="w-1/5 hidden lg:flex justify-start">
-						<Link href="/">
+						<Link href="/" prefetch={false}>
 							<a className="">
 								<Logo />
 							</a>
@@ -239,7 +257,7 @@ const StorePage = () => {
 						</div>
 						{!openMobileNav && (
 							<div className="w-100">
-								<Link href="/">
+								<Link href="/" prefetch={false}>
 									<a className="">
 										<MobileLogo />
 									</a>
@@ -275,10 +293,6 @@ const StorePage = () => {
 								<Button text="Login" bgColor="white" />
 							</div>
 						)}
-
-						{/* <div onClick={() => logout()}>
-              <Button text="logout" bgColor="blue" />
-            </div> */}
 						{!openMobileNav && (
 							<div className={styles.btnsContainer}>
 								<div
@@ -325,55 +339,65 @@ const StorePage = () => {
 						</div>
 					</div>
 
-					<div className="w-full grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
-						{singleStoreProducts
-							?.filter(
-								(productDetails) =>
-									productDetails?.product_images !== null
-							)
-							?.map((productDetails) => {
-								const countrySale =
-									productDetails?.check_out_details?.find(
-										(item) =>
-											item?.currency_name ===
-												defaultCurrency?.currency &&
-											item?.price_indicator === 'Selling'
-									);
+					<div className="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 pb-20 mt-6">
+						<RenderIf condition={singleStoreProductsLoading}>
+							{Array.from({length: 10}, (_) => null).map(
+								(_, idx) => (
+									<div
+										key={idx}
+										className={`bg-white w-full rounded-lg ${styles.productCardCtnShimmer} ${styles.shimmerBG}`}
+									></div>
+								)
+							)}
+						</RenderIf>
+						{
+							<RenderIf condition={!singleStoreProductsLoading}>
+								{singleStoreProducts
+									?.filter(
+										(productDetails) =>
+											productDetails?.product_images !==
+											null
+									)
+									?.map((productDetails) => {
+										const sellingPrice =
+											productDetails?.default_price;
+										const originalSetting =
+											productDetails?.check_out_details?.find(
+												(item) =>
+													item?.currency_name ===
+														defaultCurrency?.currency &&
+													item?.price_indicator ===
+														'Original'
+											);
 
-								{
-									/* const sellingPrice = countrySale?.price; */
-								}
-								const sellingPrice =
-									productDetails?.default_price;
-								const originalSetting =
-									productDetails?.check_out_details?.find(
-										(item) =>
-											item?.currency_name ===
-												defaultCurrency?.currency &&
-											item?.price_indicator === 'Original'
-									);
-
-								const originalPrice = originalSetting?.price;
-								return (
-									<ProductCard
-										productDetails={productDetails}
-										key={productDetails?.id}
-										sellingPrice={sellingPrice}
-										originalPrice={originalPrice}
-										convertedCurrency={
-											convertedCurrency?.buy_rate
-										}
-										loading={currencyConverterLoading}
-										targetCurrency={tempTargetCurrency}
-										{...{
-											storename,
-											openShareModal,
-											setOpenShareModal,
-											handleModalOpen,
-										}}
-									/>
-								);
-							})}
+										const originalPrice =
+											originalSetting?.price;
+										return (
+											<ProductCard
+												productDetails={productDetails}
+												key={productDetails?.id}
+												sellingPrice={sellingPrice}
+												originalPrice={originalPrice}
+												convertedCurrency={
+													convertedCurrency?.buy_rate
+												}
+												loading={
+													currencyConverterLoading
+												}
+												targetCurrency={
+													tempTargetCurrency
+												}
+												{...{
+													storename,
+													openShareModal,
+													setOpenShareModal,
+													handleModalOpen,
+												}}
+											/>
+										);
+									})}
+							</RenderIf>
+						}
 					</div>
 
 					{pagination?.total_records > 12 && (
@@ -390,70 +414,72 @@ const StorePage = () => {
 				</div>
 				<PoweredByKS showDisclaimer={true} {...{storename}} />
 			</div>
-			{/* TODO: Make this a single reusable component */}
+			{/* TODO: Make this a single reusable component and use dynamic import to lazy load */}
 			{/* params to pass: openShareModal, handleModalClose, storeName, productName, origin */}
-			<Modal
-				title={null}
-				footer={null}
-				visible={openShareModal}
-				onCancel={handleModalClose}
-				// maskClosable={true}
-				closeIcon={<CloseIcon />}
-				className={styles.modalContainer}
-				width={700}
-			>
-				<div className={styles.modal}>
-					<h1>Share this product</h1>
-					<div
-						className={`${styles.socialMediaContainer} flex justify-center gap-10`}
-					>
-						<FacebookShareButton
-							url={`https://facebook.com`}
-							quote={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
-							hashtag={hashTagsWithHash[0]}
+			<RenderIf condition={openShareModal}>
+				<Modal
+					title={null}
+					footer={null}
+					visible={openShareModal}
+					onCancel={handleModalClose}
+					// maskClosable={true}
+					closeIcon={<CloseIcon />}
+					className={styles.modalContainer}
+					width={700}
+				>
+					<div className={styles.modal}>
+						<h1>Share this product</h1>
+						<div
+							className={`${styles.socialMediaContainer} flex justify-center gap-10`}
 						>
-							<Image alt="" src={FacebookIcon} />
-						</FacebookShareButton>
+							<FacebookShareButton
+								url={`https://facebook.com`}
+								quote={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
+								hashtag={hashTagsWithHash[0]}
+							>
+								<Image alt="" src={FacebookIcon} />
+							</FacebookShareButton>
 
-						<TwitterShareButton
-							url={`${origin}/store/${storename}/product/${productName}`}
-							title={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: `}
-							via={'kreatesell'}
-							hashtags={hashTagsWithoutHash}
-						>
-							<Image alt="" src={TwitterIcon2} />
-						</TwitterShareButton>
-						<WhatsappShareButton
-							url={`https://wa.me`}
-							title={'title of the post'}
-						>
-							<Image alt="" src={WhatsappIcon2} />
-						</WhatsappShareButton>
-						<EmailShareButton
-							url={``}
-							subject={'title of the shared page'}
-							body={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
-						>
-							<Image alt="" src={GmailIcon} />
-						</EmailShareButton>
-					</div>
-					<p className={`mb-0`}>
-						Click the copy icon to copy the product link
-					</p>
-					<div className={styles.link__container}>
-						<div className={styles.link}>
-							<span
-								ref={linkElement}
-							>{`${origin}/store/${storename}/product/${productName}`}</span>
+							<TwitterShareButton
+								url={`${origin}/store/${storename}/product/${productName}`}
+								title={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: `}
+								via={'kreatesell'}
+								hashtags={hashTagsWithoutHash}
+							>
+								<Image alt="" src={TwitterIcon2} />
+							</TwitterShareButton>
+							<WhatsappShareButton
+								url={`https://wa.me`}
+								title={'title of the post'}
+							>
+								<Image alt="" src={WhatsappIcon2} />
+							</WhatsappShareButton>
+							<EmailShareButton
+								url={``}
+								subject={'title of the shared page'}
+								body={`Hiii🤗 This is exciting! I found an astounding digital product I'm sure you would love. Click this link to check it out: ${origin}/store/${storename}/product/${productName}`}
+							>
+								<Image alt="" src={GmailIcon} />
+							</EmailShareButton>
 						</div>
-						<Button
-							className={styles.link__btn}
-							onClick={handleCopy}
-							text={<Image src={Copy2} alt="copy icon" />}
-						/>
+						<p className={`mb-0`}>
+							Click the copy icon to copy the product link
+						</p>
+						<div className={styles.link__container}>
+							<div className={styles.link}>
+								<span
+									ref={linkElement}
+								>{`${origin}/store/${storename}/product/${productName}`}</span>
+							</div>
+							<Button
+								className={styles.link__btn}
+								onClick={handleCopy}
+								text={<Image src={Copy2} alt="copy icon" />}
+							/>
+						</div>
 					</div>
-				</div>
-			</Modal>
+				</Modal>
+			</RenderIf>
 		</>
 	);
 };
@@ -485,15 +511,6 @@ const ProductCard = ({
 	// NOTE: for products with multiple images, it is a string seperated by a comma, so we are getting the first image
 	const imageShown = images[0]?.filename?.split(',')[0];
 
-	// NOTE: Not sure what was intended here
-	// const imageRendered =
-	// 	images?.[1]?.filename ||
-	// 	images?.[0]?.filename ||
-	// 	(images?.[1]?.filename?.includes(',') &&
-	// 		images?.[1]?.filename?.split(',')[0]) ||
-	// 	(images?.[0]?.filename?.includes(',') &&
-	// 		images?.[0]?.filename?.split(',')[0]);
-
 	// there are instances where imageshown does not exist and image rendered is in a bad format (.i.e. starts with ,)
 	// let len = imageRendered?.split(',');
 	//=========================================================================//
@@ -520,15 +537,11 @@ const ProductCard = ({
 			// minimum
 		} else if (type === 'Fixed Price') {
 			//selling
-			// if(priceType === "Selling"){
 			predefinedAmount = productDetails?.check_out_details?.find(
 				(det) =>
 					det?.price_indicator === priceType &&
 					det?.currency_name === targetCurrency
 			);
-			// }else if(priceType === "Original"){
-			//   predefinedAmount = productDetails.check_out_details
-			// }
 		}
 		return predefinedAmount?.price;
 	};
@@ -564,8 +577,7 @@ const ProductCard = ({
 		>
 			<div className={styles.imageContainer}>
 				<Image
-					// src={len?.length ? len[0] : imageShown}
-					src={imageShown}
+					src={formatCloudinaryImage(imageShown)}
 					width="320"
 					height="300"
 					className="rounded-t-lg object-cover"
@@ -594,7 +606,6 @@ const ProductCard = ({
 				</p>
 			</div>
 			<div className={`w-full px-2 md:px-4 ${styles.cardBox}`}>
-				{/* <p className={`pt-2 text-sm md:text-base ${styles.productName}`}> */}
 				<p className={`pt-2 mb-1 text-sm md:text-base `}>
 					{productDetails?.product_details?.product_name}
 				</p>
@@ -703,7 +714,6 @@ const ProductCard = ({
 						alt=""
 						src={ExternalLink}
 						onClick={(e) => {
-							// if (!outOfStock()) {
 							e.stopPropagation();
 							handleModalOpen(
 								productDetails?.product_details
@@ -749,12 +759,12 @@ export const StoreMobileDropView = ({
 					/>
 				) : (
 					<div className={styles.image_intro_text}>
-						<Avatar
+						{/* <Avatar
 							shape="square"
 							className={styles.avatar}
 							size={70}
 							icon={<UserOutlined />}
-						/>
+						/> */}
 					</div>
 				)}
 				<p>{storeName || nameOfStore}</p>
