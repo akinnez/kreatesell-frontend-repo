@@ -33,6 +33,7 @@ import {
 	MakeItFreeIcon,
 	QuestionIcon,
 	CloseButton,
+	RestOfTheWorld,
 } from 'utils';
 import {
 	SendPaymentCheckoutDetails,
@@ -61,11 +62,46 @@ const resolveProtocol = (host) => {
 };
 const {Option} = Select;
 
+const RestOfTheWorldObj = [
+	{
+		country_code: '+1',
+		short_name: 'US',
+		created_by: -1,
+		updated_by: null,
+		deleted_by: null,
+		date_created: '2021-05-09T00:22:26.867',
+		date_updated: '2021-05-09T00:22:26.867',
+		date_deleted: null,
+		currency: 'USD',
+		is_ofac: null,
+		is_euro: null,
+		allowed: null,
+		currency_id: -10,
+		is_payable: true,
+		taxable_amount: 10,
+		is_taxable_amount_percent: true,
+		// id: 188,
+		name: 'United States',
+		flag: 'https://flagcdn.com/w320/us.png',
+		currencyObj: {
+			USD: {
+				name: 'United States dollar',
+				symbol: '$',
+			},
+		},
+		alpha2Code: 'US',
+		label: 'US',
+		// id: 188,
+		id: -10, // I used this just for rest of the world
+		name: 'Rest of the world',
+		flag: RestOfTheWorld,
+	},
+];
+
 const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
-	const paypalRef = useRef();
 
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
@@ -269,46 +305,6 @@ const Checkout = () => {
 				amount: pricingTypeDetails === 'Make it Free' ? 0 : totalFee,
 			},
 		];
-	};
-
-	const paymentDetails = ({
-		reference = '',
-		status = '',
-		card_type = selectedPaymentMethod,
-	}) => {
-		const statusValue = paymentStatusList[status];
-		const countryCode = countries.find(
-			(country) => country?.name === values.Country_code
-		);
-		const value = {
-			fullname: `${values?.firstName} ${values?.lastName}`,
-			email_address: values?.email,
-			mobile_number: `${values?.phoneNo}`,
-			country_code: `${countryCode?.country_code}`,
-			datetime: new Date().toISOString(),
-			total:
-				pricingTypeDetails === 'Make it Free'
-					? 0
-					: getCurrency('total'),
-			reference_id: reference,
-			purchase_details: getPurchaseDetails(),
-			status: statusValue,
-			card_type,
-			last_four: '',
-			currency:
-				pricingTypeDetails === 'Make it Free'
-					? getCurrency('free')
-					: getCurrency('currency'),
-			payment_type: 'purchase',
-			is_affiliate: affliateRef ? true : false,
-			affiliate_product_link: getAffiliateUniqueKey(),
-			affiliate_id: getAffiliateRef(),
-			user_identifier: 'user-' + randomId,
-			is_free_flow: pricingTypeDetails === 'Make it Free' ? true : false,
-			coupon_code: couponCode || '',
-			TransactionFee: transactionFee,
-		};
-		return value;
 	};
 
 	const calculatePriceWithFees = () => {
@@ -516,8 +512,17 @@ const Checkout = () => {
 		? activeCurrency?.currency
 		: activeCurrency?.currency_name;
 
-	const handleSubmit = async () => {
-		// Send request immediately a payment is triggered
+	/**
+     * @description - Send request immediately a payment is triggered
+      NOTE: We need this so as to able to settle all monet
+       there are instances where people make payment for products but it
+      does not reflect, so this is just a means to help us track.
+     */
+	const revalidateReferenceFn = async () => {
+		const countryCode = countries.find(
+			(country) => country?.name === values.Country_code
+		);
+
 		await revalidateReference(
 			{
 				payment_identifier: selectedPaymentMethod,
@@ -532,10 +537,15 @@ const Checkout = () => {
 				affiliate_id: getAffiliateRef(),
 				affiliate_link: getAffiliateUniqueKey(),
 				is_free_flow: pricingTypeDetails === 'Make it Free',
+				country_code: countryCode?.country_code,
 			},
 			() => {},
 			() => {}
 		);
+	};
+
+	const handleSubmit = async () => {
+		revalidateReferenceFn();
 		// if selected is crypto
 		if (selectedPaymentMethod === 'crypto') {
 			try {
@@ -676,6 +686,48 @@ const Checkout = () => {
 			setPlaceholderNumber(sampleNumber.number.national);
 		}
 	}, [countryCode]);
+	const paymentDetails = ({
+		reference = '',
+		status = '',
+		card_type = selectedPaymentMethod,
+	}) => {
+		const statusValue = paymentStatusList[status];
+		const countryCode = countries.find(
+			(country) => country?.name === values.Country_code
+		);
+		const value = {
+			fullname: `${values?.firstName} ${values?.lastName}`,
+			email_address: values?.email,
+			mobile_number: `${values?.phoneNo}`,
+			country_code: `${countryCode?.country_code}`,
+			datetime: new Date().toISOString(),
+			total:
+				pricingTypeDetails === 'Make it Free'
+					? 0
+					: getCurrency('total'),
+			reference_id: reference,
+			purchase_details: getPurchaseDetails(),
+			status: statusValue,
+			card_type,
+			last_four: '',
+			currency:
+				pricingTypeDetails === 'Make it Free'
+					? getCurrency('free')
+					: getCurrency('currency'),
+			payment_type: 'purchase',
+			is_affiliate: affliateRef ? true : false,
+			affiliate_product_link: getAffiliateUniqueKey(),
+			affiliate_id: getAffiliateRef(),
+			user_identifier: 'user-' + randomId,
+			is_free_flow: pricingTypeDetails === 'Make it Free' ? true : false,
+			coupon_code: couponCode || '',
+			TransactionFee: transactionFee,
+		};
+		return value;
+	};
+
+	// console.log('values', values);
+	// console.log('countryCode2', countryCode2);
 	// ====================================================================================
 	//              PAYMENT CONFIG STARTS HERE
 	// ===================================================================================
@@ -784,7 +836,8 @@ const Checkout = () => {
 		);
 	};
 
-	const paypalHandler = (data, actions) => {
+	const paypalHandler = async (data, actions) => {
+		revalidateReferenceFn();
 		// paypalRef.current = values;
 		return actions.order
 			.create({
@@ -836,10 +889,13 @@ const Checkout = () => {
 	}, [countryDetails?.currency, countries?.length, checkOutDetails.length]);
 
 	useEffect(() => {
-		if (countries?.length > 0) {
-			formik.setFieldValue('Country_code', countries[0].name);
+		if (countries?.length > 0 && !!countryCode2) {
+			formik.setFieldValue(
+				'Country_code',
+				countryCode2 || countries[0].name
+			);
 		}
-	}, [countries?.length]);
+	}, [countries?.length, countryCode2]);
 
 	const handlePaymentMethod = (method) => {
 		setSelectedPaymentMethod(method);
@@ -1227,6 +1283,7 @@ const Checkout = () => {
 															...countriesCurrency,
 															...filterdWest,
 															...filteredCentral,
+															...RestOfTheWorldObj,
 														];
 														const currency =
 															allCurrencies.find(
@@ -1248,6 +1305,7 @@ const Checkout = () => {
 														...countriesCurrency,
 														...filterdWest,
 														...filteredCentral,
+														...RestOfTheWorldObj,
 													].map(
 														(currencyObj, idx) => (
 															<Option

@@ -26,15 +26,19 @@ import {ResetPassword, GetStoreDetails} from '../../../../redux/actions';
 const {TabPane} = Tabs;
 
 const PayoutsPage = () => {
-	const [tab, setTab] = useState('1');
+	const [tab, setTab] = useState('payouts');
 	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
 	const getStoreDetails = GetStoreDetails();
 	const {store, loading} = useSelector((state) => state.store);
 	const {bank_details: bankDetails, wallet_details_dtos: walletInfo} = store;
-
+	const path = '/account/sales/payouts';
 	const handleClick = (key) => {
 		setTab(key);
+	};
+
+	const handleTabChange = (tab) => {
+		router.push({pathname: path, query: {activeTab: tab}}, undefined, {});
 	};
 
 	useEffect(() => {
@@ -58,6 +62,12 @@ const PayoutsPage = () => {
 		getStoreDetails();
 	}, []);
 
+	useEffect(() => {
+		if (router.query?.activeTab) {
+			setTab(router.query.activeTab);
+		}
+	}, [router.query]);
+
 	return (
 		<AuthLayout>
 			<Head>
@@ -71,17 +81,18 @@ const PayoutsPage = () => {
 					onTabClick={handleClick}
 					centered
 					className={styles.tabs}
+					onChange={handleTabChange}
 				>
-					<TabPane tab="Payouts" key="1">
+					<TabPane tab="Payouts" key="payouts">
 						<Payouts
 							bankDetails={bankDetails}
 							handleClick={handleClick}
 						/>
 					</TabPane>
-					<TabPane tab="Bank Account Details" key="2">
+					<TabPane tab="Bank Account Details" key="bankAccount">
 						<BankAccountDetails bankDetails={bankDetails} />
 					</TabPane>
-					<TabPane tab="Wallet" key="3">
+					<TabPane tab="Wallet" key="wallet">
 						<Wallet
 							bankDetails={bankDetails}
 							walletInfo={walletInfo}
