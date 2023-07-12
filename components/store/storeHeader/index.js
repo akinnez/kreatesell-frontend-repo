@@ -3,9 +3,8 @@ import Router from 'next/router';
 import Image from 'next/image';
 
 import {useSelector} from 'react-redux';
-import {Avatar, Modal} from 'antd';
-import {UserOutlined} from '@ant-design/icons';
-import Drawer from 'react-bottom-drawer';
+import {Avatar} from 'antd';
+import UserOutlined from '@ant-design/icons/UserOutlined';
 
 import styles from './Index.module.scss';
 import {
