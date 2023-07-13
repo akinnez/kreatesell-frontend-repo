@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
 
-import {Table, Card, Tooltip} from 'antd';
+import {Table, Card, Tooltip, Pagination} from 'antd';
 
 import ProfileLayout from 'components/ProfileLayout';
 import BackButton from 'components/BackButton';
@@ -191,6 +191,7 @@ const ViewSubscribers = () => {
 	} = useSubscribersList(url, !!filters.KreatorProductId);
 
 	const handlePageChange = (page) => {
+		console.log('page', page);
 		setFilters({...filters, page});
 	};
 
@@ -234,17 +235,22 @@ const ViewSubscribers = () => {
 							dataSource={subscribers?.data || []}
 							columns={subscribersColumns}
 							pagination={{
-								position: ['bottomLeft'],
-								pageSize: filters.limit,
-								current: filters.page,
-								total: 0,
-								responsive: true,
-								onChange: handlePageChange,
+								position: ['none', 'none'],
 							}}
 							rowKey={rowKey}
 							loading={subscribersLoading || isValidating}
 						/>
 					</section>
+					<div className={``}>
+						<Pagination
+							position={['bottomLeft']}
+							total={subscribersData?.data?.total_records}
+							defaultCurrent={1}
+							onChange={handlePageChange}
+							current={filters.page}
+							defaultPageSize={filters.limit}
+						/>
+					</div>
 				</div>
 			</div>
 		</ProfileLayout>
