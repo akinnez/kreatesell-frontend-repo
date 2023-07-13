@@ -155,6 +155,8 @@ export default function PreviewProduct() {
 					detail?.currency_name === toCurrency &&
 					detail?.price_indicator === 'Selling'
 			);
+			// console.log('sellingIndex', sellingIndex);
+			// console.log('check_out_details', check_out_details);
 			let originalIndex = check_out_details.findIndex(
 				(detail) =>
 					detail?.currency_name === toCurrency &&
@@ -237,6 +239,8 @@ export default function PreviewProduct() {
 		return null;
 	}
 
+	// console.log('activeCurrency', activeCurrency);
+
 	return (
 		<>
 			<div
@@ -264,6 +268,7 @@ export default function PreviewProduct() {
 							alreadyDefinedOriginalPrice,
 							productStatus,
 							minimumPrice,
+							activeCurrency,
 						}}
 					/>
 				</ErrorBoundary>

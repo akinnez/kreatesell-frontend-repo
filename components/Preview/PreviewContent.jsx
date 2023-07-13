@@ -265,6 +265,13 @@ export default function PreviewContent({
 		return;
 	};
 
+	/**
+   * alreadyDefinedPrice?.currency_name ||
+												convertedCurrency?.to_currency_name
+   */
+	// console.log('alreadyDefinedPrice', alreadyDefinedPrice);
+	// console.log('convertedCurrency', convertedCurrency);
+
 	if (productStatus === 'idle')
 		return <div style={{minHeight: '100vh'}}></div>;
 
