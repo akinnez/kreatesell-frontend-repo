@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
 import AuthLayout from '../../../../components/authlayout';
@@ -33,6 +33,7 @@ const Index = () => {
 		fetching: true,
 	});
 	const [countryCode, setCountryCode] = useState('');
+	const [countryName, setCountryName] = useState('');
 	const [countryId, setCountryId] = useState(null);
 	const [country, setCountry] = useState('');
 	const [isStoreSetUp, SetIsStorSetup] = useState(false);
@@ -40,7 +41,21 @@ const Index = () => {
 	const [form] = Form.useForm();
 	const getStoreDetails = GetStoreDetails();
 
+	const memoisedCountryData = useMemo(() => {
+		if (countries && Array.isArray(countries)) {
+			return countries.map((country) => ({
+				...country,
+				value: country.id,
+			}));
+		}
+		return [];
+	}, [countries]);
+
 	const handleFinish = async (info) => {
+		const countryCode = countries.find(
+			(countryArg) =>
+				countryArg?.name?.toLowerCase() === country?.toLowerCase()
+		);
 		if (!file?.Profile_Picture) {
 			toast.error('Profile picture is required');
 			return;
@@ -151,6 +166,11 @@ const Index = () => {
 						? data?.store_details?.country_id
 						: ''
 				);
+				setCountryName(
+					notNull(data?.store_details?.country_name)
+						? data?.store_details?.country_name
+						: ''
+				);
 
 				form.setFieldsValue({
 					Brand_Name: notNull(data?.store_details?.brand_name)
@@ -162,8 +182,8 @@ const Index = () => {
 					Bio_Data: notNull(data?.store_details?.bio_data)
 						? data?.store_details?.bio_data
 						: '',
-					Country_Id: notNull(data?.store_details?.country_name)
-						? data?.store_details?.country_name
+					Country_Id: notNull(data?.store_details?.country_id)
+						? data?.store_details?.country_id
 						: '',
 					Mobile_Number: notNull(data?.user?.phone_number)
 						? data?.user?.phone_number
@@ -200,7 +220,6 @@ const Index = () => {
 	};
 
 	if (loading.fetching) return null;
-	// console.log('form', form.getFieldsValue());
 
 	return (
 		<>
@@ -284,7 +303,7 @@ const Index = () => {
 											label="Country"
 											size="large"
 											setCountry={setCountry}
-											list={countries}
+											list={memoisedCountryData}
 											placeholder="Choose an option"
 											name="Country_Id"
 											loading={loading.fetching}
@@ -295,6 +314,7 @@ const Index = () => {
 														'Country is a required field',
 												},
 											]}
+											defaultValue={countryName}
 										/>
 									</Col>
 									<Col xs={24} md={12}>
