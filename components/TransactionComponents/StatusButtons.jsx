@@ -7,7 +7,7 @@ const statusArr = [
 	{type: 'All', label: 'All'},
 	{type: 'Successful', label: 'Successful'},
 	{type: 'Cleared', label: 'Cleared'},
-	{type: 'Cancelled', label: 'Cancelled'},
+	{type: 'Abandoned', label: 'Abandoned'},
 	{type: 'Failed', label: 'Failed'},
 ];
 

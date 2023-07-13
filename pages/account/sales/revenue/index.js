@@ -36,6 +36,16 @@ const statusComponent = (item) => {
 			},
 			contents: '',
 		},
+		Abandoned: {
+			type: 'abandoned',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				borderRadius: '.5rem',
+				color: ' #FBB500',
+				fontSize: '.85rem',
+			},
+			contents: '',
+		},
 		Initiated: {
 			type: 'initiated',
 			styles: {

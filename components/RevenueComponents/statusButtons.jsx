@@ -7,7 +7,7 @@ const statusArr = [
 	{type: 'All', label: 'All'},
 	{type: 'successful', label: 'Successful'},
 	{type: 'cleared', label: 'Cleared'},
-	{type: 'abandoned', label: 'Abandoned'},
+	{type: 'Abandoned', label: 'Abandoned'},
 	// {type: 'pending', label: 'Pending clearance'},
 	{type: 'failed', label: 'Failed'},
 ];

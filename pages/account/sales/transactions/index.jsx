@@ -51,6 +51,15 @@ const statusComponent = (item) => {
 			},
 			contents: '',
 		},
+		Abandoned: {
+			type: 'abandoned',
+			styles: {
+				background: 'rgba(0, 0, 0, 0.05)',
+				color: ' #FBB500',
+				...commonStyles,
+			},
+			contents: '',
+		},
 		Failed: {
 			type: 'failed',
 			styles: {
