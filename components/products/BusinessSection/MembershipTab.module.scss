@@ -110,6 +110,7 @@
 	@include screen('inbetween') {
 		display: flex;
 		align-items: flex-start;
+		margin-left: 0px !important;
 	}
 }
 

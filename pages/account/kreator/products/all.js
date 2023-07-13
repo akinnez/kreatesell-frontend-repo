@@ -19,6 +19,7 @@ import {
 	PlusIcon,
 	MinusIcon,
 	RenderIf,
+	Subscribers2,
 } from 'utils';
 import AuthLayout from '../../../../components/authlayout';
 import styles from '../../../../public/css/AllProducts.module.scss';
@@ -61,21 +62,13 @@ const AllProducts = () => {
 
 	const {page, total_records, limit} = productPagination;
 
-	// console.log('pagination = ', productPagination);
-
 	const [productData, setProductData] = useState([]);
 	const [productName, setProductName] = useState('');
 	const [startDate, setStartDate] = useState('');
 	const [showSelect, setShowSelect] = useState('');
 	const [currencyFilter, setCurrencyFilter] = useState('');
-	const [productStatusId, setProductStatusId] = useState('');
 	const [endDate, setEndDate] = useState('');
 	const [domainLink, setDomainLink] = useState('');
-
-	const productStatusOptions = productStatus?.map((item) => ({
-		value: item.id,
-		label: item.status_name,
-	}));
 
 	const mapMinimumPrice = (priceObj) => {
 		const minPrice = priceObj?.check_out_details.find(
@@ -223,6 +216,7 @@ const AllProducts = () => {
 		});
 	};
 	let Content = (product) => {
+		const id = product?.product_details?.id;
 		const {salesPageDispatch} = useContext(SalesPageContext);
 		return (
 			<ul>
@@ -310,6 +304,27 @@ const AllProducts = () => {
 							<Image src={MinusIcon} alt="sales page" />
 						</span>
 						<p className="mb-0 ml-3">Disconnect Sales Page</p>
+					</li>
+				</RenderIf>
+				<RenderIf
+					condition={product.product_type !== 'Digital Download'}
+				>
+					<li
+						onClick={() => {
+							product.product_type === 'One-Time Subscription'
+								? router.push(
+										`/account/kreator/products/view-onetime-subscribers?KreatorProductId=${id}`
+								  )
+								: router.push(
+										`/account/kreator/products/view-subscribers?KreatorProductId=${id}`
+								  );
+						}}
+						className="flex items-center cursor-pointer"
+					>
+						<span className="flex">
+							<Image alt="" src={Subscribers2} />
+						</span>
+						<p className="mb-0 ml-3"> Subscribers</p>
 					</li>
 				</RenderIf>
 

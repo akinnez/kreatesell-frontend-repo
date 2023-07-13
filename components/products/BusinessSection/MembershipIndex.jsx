@@ -68,8 +68,13 @@ export default function MembershipIndex({
 
 	return (
 		<div className="flex flex-col mt-7">
+			<div className="w-11/12 mx-auto mb-8 md:hidden block">
+				<h1 className={``} style={{color: '#0072ef'}}>
+					{product?.product_details?.product_name}
+				</h1>
+			</div>
 			<div
-				className={`flex items-center justify-between mb-7 ${styles.sectionContainerTitle}`}
+				className={`flex items-center justify-center mb-7 ${styles.sectionContainerTitle}`}
 			>
 				<h1 className={`hidden md:block`} style={{color: '#0072ef'}}>
 					{product?.product_details?.product_name}
@@ -149,46 +154,80 @@ export default function MembershipIndex({
 					</div>
 				)}
 				{/* mobile */}
+
 				{fields === 'adding section' && (
-					<div className={styles.miniSaveButtonsMobile + ' flex'}>
-						<Button
-							type="default"
-							onClick={() =>
-								route.push(
-									`/account/kreator/products/view-subscribers`
-								)
+					<div className="flex flex-col justify-center w-[80%]">
+						<div
+							className={
+								styles.miniSaveButtonsMobile +
+								' flex ml-0 justify-center'
 							}
 						>
-							<Image src={MobileViewSubscribers} alt="empty" />
-						</Button>
-						<Button
-							type="primary"
-							className="flex gap-x-2"
-							onClick={() => toManageSection()}
-							icon={<Image src={MobileSettingsIcon} />}
-							style={{color: '#0072ef'}}
-						>
-							{' '}
-							{'  '}Manage All
-						</Button>
-						<Button
-							type="primary"
-							onClick={() =>
-								route.push(
-									`/account/kreator/products/preview-subscription/${product.product_details.kreasell_product_id}`
-								)
-							}
-						>
-							Preview
-						</Button>
+							<Button
+								type="default"
+								onClick={() =>
+									route.push(
+										`/account/kreator/products/view-subscribers`
+									)
+								}
+							>
+								<Image
+									src={MobileViewSubscribers}
+									alt="empty"
+								/>
+							</Button>
+							<Button
+								type="primary"
+								className="flex gap-x-2"
+								onClick={() => toManageSection()}
+								icon={<Image src={MobileSettingsIcon} />}
+								style={{color: '#0072ef'}}
+							>
+								{' '}
+								{'  '}Manage All
+							</Button>
+							<Button
+								type="primary"
+								style={{width: '150px'}}
+								className="flex justify-center"
+								onClick={() =>
+									route.push(
+										`/account/kreator/products/preview-subscription/${product.product_details.kreasell_product_id}`
+									)
+								}
+							>
+								Preview
+							</Button>
+						</div>
+						<div className="flex justify-end w-full mt-4 md:hidden">
+							<Button
+								type="default"
+								icon={<Image src={Subscribers} alt="empty" />}
+								onClick={() => {
+									product?.product_type_details ===
+									'Membership'
+										? route.push(
+												`/account/kreator/products/view-subscribers?KreatorProductId=${product.product_details.id}`
+										  )
+										: route.push(
+												`/account/kreator/products/view-onetime-subscribers?KreatorProductId=${product.product_details.id}`
+										  );
+								}}
+								style={{
+									borderRadius: '0.5rem',
+									padding: '.25rem 1rem',
+									display: 'flex !important',
+									gap: '0.25rem',
+								}}
+							>
+								{' '}
+								View Subscribers
+							</Button>
+						</div>
 					</div>
 				)}
 			</div>
-			<div className="w-11/12 mx-auto md:hidden block">
-				<h1 className={``} style={{color: '#0072ef'}}>
-					{product?.product_details?.product_name}
-				</h1>
-			</div>
+
 			{fields === 'empty' && (
 				<>
 					{' '}
