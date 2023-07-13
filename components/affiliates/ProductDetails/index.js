@@ -4,6 +4,7 @@ import {Button} from 'antd';
 
 import Performance from 'components/affiliates/Performance';
 import styles from './index.module.scss';
+import {RenderIf} from 'utils';
 
 const ProductDetails = ({
 	kreatorName,
@@ -46,20 +47,22 @@ const ProductDetails = ({
 					<span>{commission}%</span>
 				</li>
 			</ol>
-			<div className="my-5 text-center">
-				<Button
-					className={`${styles.viewProductBtn} px-5`}
-					type="primary"
-					htmlType="button"
-					onClick={() =>
-						router.push(
-							`/account/affiliate/market-place/${productId}?activeTab=overview`
-						)
-					}
-				>
-					View Product
-				</Button>
-			</div>
+			<RenderIf condition={router.pathname.includes('market-place')}>
+				<div className="my-5 text-center">
+					<Button
+						className={`${styles.viewProductBtn} px-5`}
+						type="primary"
+						htmlType="button"
+						onClick={() =>
+							router.push(
+								`/account/affiliate/market-place/${productId}?activeTab=overview`
+							)
+						}
+					>
+						View Product
+					</Button>
+				</div>
+			</RenderIf>
 		</>
 	);
 };
