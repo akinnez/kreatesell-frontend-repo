@@ -290,7 +290,9 @@ export const Navbar = () => {
 									bgColor="blue"
 									className={styles.freeBtn}
 									onClick={() =>
-										handleMobileNavLinkClick(`/signup?email=${email}`)
+										handleMobileNavLinkClick(
+											`/signup?email=${email}`
+										)
 									}
 								/>
 							</div>
