@@ -13,6 +13,7 @@ const resourcesRoute = ['/how-it-works', '/faq'];
 export const Navbar = () => {
 	const router = useRouter();
 	const [navBg, setNavBg] = useState(false);
+	const [email, setEmail] = useState(null);
 	const [openMobileNav, setOpenMobileNav] = useState(false);
 	const pathName = typeof window !== 'undefined' && window;
 	// const navDropIsInView = useSelector((state) => state.)
@@ -278,8 +279,9 @@ export const Navbar = () => {
 							</ul>
 							<div className={styles.mobileInput}>
 								<Input
-									type=""
-									placeholder="Enter your email.."
+									type="email"
+									placeholder="Enter your email..."
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 							<div className={styles.mobileButton}>
@@ -287,6 +289,9 @@ export const Navbar = () => {
 									text="Get Started Free"
 									bgColor="blue"
 									className={styles.freeBtn}
+									onClick={() =>
+										handleMobileNavLinkClick(`/signup?email=${email}`)
+									}
 								/>
 							</div>
 							<div className={styles.benefits}>
