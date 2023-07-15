@@ -172,6 +172,12 @@ const Index = () => {
 						: ''
 				);
 
+				setCountry(
+					notNull(data?.store_details?.country_name)
+						? data?.store_details?.country_name
+						: ''
+				);
+
 				form.setFieldsValue({
 					Brand_Name: notNull(data?.store_details?.brand_name)
 						? data?.store_details?.brand_name
@@ -333,14 +339,14 @@ const Index = () => {
 													required: true,
 													message:
 														'Valid phone number is required',
-													min: 11,
-													max: 14,
+													min: 6,
+													max: 14, 
 												},
 											]}
 											name="Mobile_Number"
 										/>
 									</Col>
-								</Row>
+								</Row> 
 
 								<Input
 									label="Facebook"
