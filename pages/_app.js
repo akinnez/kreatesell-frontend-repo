@@ -56,6 +56,7 @@ function MyApp({Component, pageProps}) {
 						options={{
 							'client-id':
 								process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
+							intent: 'capture',
 						}}
 					>
 						<Component {...pageProps} />
