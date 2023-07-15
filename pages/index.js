@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {
 	InputButton,
 	Layout,
@@ -16,7 +16,7 @@ import LogoImg from 'public/images/logo.svg';
 
 import {
 	RightArrow,
-	DashPreviewOne,
+	// DashPreviewOne,
 	DashPreviewTwo,
 	PaymentPreview,
 	LineOne,
@@ -27,12 +27,12 @@ import {
 	TechCabal,
 	Guardian,
 	TechCrunch,
-	NewsCardOne,
-	NewsCardTwo,
-	NewsCardThree,
-	NewsCardFour,
-	ProfileImage,
-	CardMain,
+	// NewsCardOne,
+	// NewsCardTwo,
+	// NewsCardThree,
+	// NewsCardFour,
+	// ProfileImage,
+	// CardMain,
 	AddProduct,
 	CreateStore,
 	Publish,
@@ -45,7 +45,13 @@ import {
 	Animate,
 	LandingPageHeroPng,
 	DashPreviewOnePng,
-	MaintenanceIcon2,
+	// MaintenanceIcon2,
+	HowToA,
+	HowToB,
+	HowToC,
+	HowToD,
+	HowToE,
+	HowToF,
 } from '../utils';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
@@ -54,7 +60,7 @@ import {SubscribeEmailSchema} from '../validation';
 import {useFormik} from 'formik';
 import {GuestSubscription} from '../redux/actions';
 import {useSelector} from 'react-redux';
-import {useGetBlogPosts} from 'services/swrQueryHooks/Blogs';
+// import {useGetBlogPosts} from 'services/swrQueryHooks/Blogs';
 
 // export default function Home() {
 // 	return (
@@ -98,53 +104,63 @@ import {useGetBlogPosts} from 'services/swrQueryHooks/Blogs';
 // 	);
 // }
 
+export const BlogStaticImages = [
+	HowToA,
+	HowToB,
+	HowToC,
+	HowToD,
+	HowToE,
+	HowToF,
+];
+
 export default function Home() {
 	const router = useRouter();
-	const {data: blogData, error: blogError} = useGetBlogPosts(4);
-	const [blogPosts, setBlogPosts] = useState([]);
+	// const {data: blogData, error: blogError} = useGetBlogPosts(4);
+	// const [blogPosts, setBlogPosts] = useState([]);
 
 	const [modalVisible, setVisible] = useState(false);
 	const [openVideoModal, setOpenVideoModal] = useState(false);
 
 	const [email, setEmail] = useState('');
-	useEffect(() => {
-		let data = blogData?.slice(0, 6);
-		setBlogPosts(data);
-		return () => {};
-	}, [blogData?.length]);
+
+	// useEffect(() => {
+	// 	let data = blogData?.slice(0, 6);
+	// 	setBlogPosts(data);
+	// 	return () => {};
+	// }, [blogData?.length]);
 
 	const handleClose = () => {
 		setOpenVideoModal(false);
 		setVisible(!modalVisible);
 	};
 
-	const settings = {
-		dots: true,
-		infinite: true,
-		speed: 3000,
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		adaptiveHeight: true,
-		autoplay: true,
-		arrows: false,
-		pauseOnHover: false,
-		responsive: [
-			{
-				breakpoint: 780,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1,
-				},
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-				},
-			},
-		],
-	};
+	// const settings = {
+	// 	dots: true,
+	// 	infinite: true,
+	// 	speed: 3000,
+	// 	slidesToShow: 3,
+	// 	slidesToScroll: 1,
+	// 	adaptiveHeight: true,
+	// 	autoplay: true,
+	// 	arrows: false,
+	// 	pauseOnHover: false,
+	// 	responsive: [
+	// 		{
+	// 			breakpoint: 780,
+	// 			settings: {
+	// 				slidesToShow: 2,
+	// 				slidesToScroll: 1,
+	// 			},
+	// 		},
+	// 		{
+	// 			breakpoint: 480,
+	// 			settings: {
+	// 				slidesToShow: 1,
+	// 				slidesToScroll: 1,
+	// 			},
+	// 		},
+	// 	],
+	// };
 	// test push
 	return (
 		<Layout subFooter={false} defaultMarginTop={true}>
@@ -697,7 +713,7 @@ export default function Home() {
 						</Link>
 					</div>
 
-					{Array.isArray(blogPosts) && blogPosts.length > 2 && (
+					{BlogStaticImages && BlogStaticImages.length > 0 && (
 						<section className={styles.parentCard}>
 							<div className={styles.profileAndCard}>
 								{/* mobiile - section 1 */}
@@ -708,16 +724,18 @@ export default function Home() {
 										styles.newsCardsGridWithTopImageM
 									}
 								>
-									{blogPosts.slice(0, 6).map((blog) => (
-										<NewsCard
-											key={blog.id}
-											imgSrc={blog.thumbnail}
-											mainText={blog.title}
-											authorName={blog.app_user.full_name}
-											postId={blog.id}
-											category={blog.category}
-										/>
-									))}
+									{BlogStaticImages.slice(0, 6).map(
+										(blog, _i) => (
+											<NewsCard
+												key={_i}
+												imgSrc={blog}
+												// mainText={'hello'}
+												// authorName={blog.app_user.full_name}
+												// postId={blog.id}
+												// category={blog.category}
+											/>
+										)
+									)}
 
 									{/* <NewsCard
                   imgSrc={NewsCardTwo}
@@ -821,26 +839,30 @@ export default function Home() {
 }
 
 const NewsCard = ({
-	mainText,
-	authorName,
+	// mainText,
+	// authorName,
 	imgSrc,
-	drop = '',
-	postId,
-	category,
+	// drop = '',
+	// postId,
+	// category,
 }) => {
+	// console.log(imgSrc, 'imgSrcimgSrcimgSrc');
+
 	return (
 		<div className={styles.newsCard}>
-			<div className={styles.newsImage}>
-				<Image
-					src={imgSrc}
-					width="207"
-					height="132"
-					alt="news card"
-					layout="responsive"
-					objectFit="contain"
-				/>
-			</div>
-			<div className={styles.newsTextCont}>
+			<Link href={`/blog`}>
+				<div className={styles.newsImage}>
+					<Image
+						src={imgSrc}
+						width="340"
+						height="200"
+						alt="newsxcard"
+						layout="responsive"
+						objectFit="contain"
+					/>
+				</div>
+			</Link>
+			{/* <div className={styles.newsTextCont}>
 				<div className={styles.newsTitle}>
 					<Link href={`/blog/${category}/${postId}`}>
 						<a style={{color: 'black'}}>
@@ -854,7 +876,7 @@ const NewsCard = ({
 					</Link>
 				</div>
 				<div className={styles.newsAuthor}>KreateSell</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };

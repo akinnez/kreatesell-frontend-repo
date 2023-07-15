@@ -333,6 +333,12 @@ import TelegramIconWhite from '../public/images/Telegramwhite.png';
 import logoIcon from '../public/images/logoIcon.png';
 import SettingsIcon from '../public/images/settings.png';
 import EarnedAsAffiliateTag from '../public/images/earnedAsAffiliateTag.png';
+import HowToA from '../public/images/howToA.webp';
+import HowToB from '../public/images/howToB.webp';
+import HowToC from '../public/images/howToC.webp';
+import HowToD from '../public/images/howToD.webp';
+import HowToE from '../public/images/howToE.webp';
+import HowToF from '../public/images/howToF.webp';
 
 export {
 	EarnedAsAffiliateTag,
@@ -668,4 +674,10 @@ export {
 	TelegramIconWhite,
 	logoIcon,
 	SettingsIcon,
+	HowToA,
+	HowToB,
+	HowToC,
+	HowToD,
+	HowToE,
+	HowToF,
 };
