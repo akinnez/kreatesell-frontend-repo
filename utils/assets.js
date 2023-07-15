@@ -340,8 +340,6 @@ import HowToD from '../public/images/howToD.webp';
 import HowToE from '../public/images/howToE.webp';
 import HowToF from '../public/images/howToF.webp';
 
-
-
 export {
 	EarnedAsAffiliateTag,
 	MaintenanceIcon2,
@@ -681,5 +679,5 @@ export {
 	HowToC,
 	HowToD,
 	HowToE,
-	HowToF
+	HowToF,
 };

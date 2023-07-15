@@ -110,7 +110,7 @@ export const BlogStaticImages = [
 	HowToC,
 	HowToD,
 	HowToE,
-	HowToF
+	HowToF,
 ];
 
 export default function Home() {

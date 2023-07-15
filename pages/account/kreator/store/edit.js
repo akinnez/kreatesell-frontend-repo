@@ -340,13 +340,13 @@ const Index = () => {
 													message:
 														'Valid phone number is required',
 													min: 6,
-													max: 14, 
+													max: 14,
 												},
 											]}
 											name="Mobile_Number"
 										/>
 									</Col>
-								</Row> 
+								</Row>
 
 								<Input
 									label="Facebook"

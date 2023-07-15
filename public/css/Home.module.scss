@@ -1506,8 +1506,9 @@
 		// border: 1px solid red;
 		border-radius: 8px;
 		margin-bottom: 1rem;
-		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        cursor: pointer;
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		cursor: pointer;
 		// border: 1px solid black;
 		@media (min-width: 450px) {
 			// margin-bottom: unset;
