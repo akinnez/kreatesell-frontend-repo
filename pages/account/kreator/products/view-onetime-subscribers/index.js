@@ -181,17 +181,10 @@ const ViewSubscribers = () => {
 		'v1/kreatesell/product/fetch/all/subscribers'
 	);
 
-	const {
-		loading,
-		subscribers,
-		subscribersData,
-		subscribersError,
-		subscribersLoading,
-		isValidating,
-	} = useSubscribersList(url, !!filters.KreatorProductId);
+	const {subscribers, subscribersData, subscribersLoading, isValidating} =
+		useSubscribersList(url, !!filters.KreatorProductId);
 
 	const handlePageChange = (page) => {
-		console.log('page', page);
 		setFilters({...filters, page});
 	};
 
@@ -244,7 +237,7 @@ const ViewSubscribers = () => {
 					<div className={``}>
 						<Pagination
 							position={['bottomLeft']}
-							total={subscribersData?.data?.total_records}
+							total={subscribersData?.data?.total_pages}
 							defaultCurrent={1}
 							onChange={handlePageChange}
 							current={filters.page}
