@@ -20,8 +20,8 @@ import {useStore} from '../redux/store';
 import '../public/css/global.scss';
 import {setAuthorizationHeader} from '../utils/index';
 import {SalesPageProvider} from 'context/AddSalesPageContext';
-import ChatScript from '../components/ChatWidgetScript';
-import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
+// import ChatScript from '../components/ChatWidgetScript';
+// import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -42,28 +42,28 @@ function MyApp({Component, pageProps}) {
 	}, []);
 
 	return (
-		<ErrorBoundary
-			resetErrorBoundary={() => router.reload(window.location.pathname)}
-		>
-			<Provider store={store}>
-				<SalesPageProvider>
-					{/* <Script
+		// <ErrorBoundary
+		// 	resetErrorBoundary={() => router.reload(window.location.pathname)}
+		// >
+		<Provider store={store}>
+			<SalesPageProvider>
+				{/* <Script
             charset="UTF-8"
             src="//web.webpushs.com/js/push/723b749315f187ddc541ac9a201d2dd2_1.js"
             async
           /> */}
-					<ChatScript />
-					<PayPalScriptProvider
-						options={{
-							'client-id':
-								process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
-						}}
-					>
-						<Component {...pageProps} />
-					</PayPalScriptProvider>
-				</SalesPageProvider>
-			</Provider>
-		</ErrorBoundary>
+				{/* <ChatScript /> */}
+				<PayPalScriptProvider
+					options={{
+						'client-id':
+							process.env.NEXT_PUBLIC_PAYPAL_PUBLISHABLE_KEY,
+					}}
+				>
+					<Component {...pageProps} />
+				</PayPalScriptProvider>
+			</SalesPageProvider>
+		</Provider>
+		// </ErrorBoundary>
 	);
 }
 
