@@ -10,7 +10,7 @@ pipelines:
     - step:
         name: Deploy to Azure
         script:
-          - pipe: atlassian/azure-webapps-deploy:0.2.1
+          - pipe: atlassian/azure-webapps-deploy:1.0.0
             variables:
               AZURE_APP_ID: '47140a82-b1f2-4c35-83a1-0fbd59c73e53'
               AZURE_PASSWORD: 'mye8Q~m5S-vz~pXbJBWyMzgGQvzp2f8hxbEGVbRY'
