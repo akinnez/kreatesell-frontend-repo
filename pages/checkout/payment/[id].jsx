@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import {DialogOverlay, DialogContent} from '@reach/dialog';
 import {Row, Col, Select} from 'antd';
-import {PayPalButtons} from '@paypal/react-paypal-js';
+import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 import {getExample} from 'awesome-phonenumber';
 import {Tooltip} from 'antd';
 import {useFormik} from 'formik';
@@ -102,7 +102,7 @@ const Checkout = () => {
 	const router = useRouter();
 	const productId = router.query.id;
 	const productLink = `${process.env.BASE_URL}v1/kreatesell/product/get/${productId}`;
-
+	const [{options}, dispatch] = usePayPalScriptReducer();
 	const [modal, setModal] = useState(false);
 	const [hostState, setHostState] = useState('');
 	const [placeholderNumber, setPlaceholderNumber] = useState(
@@ -326,6 +326,24 @@ const Checkout = () => {
 		);
 		return totalPrice;
 	};
+
+	useEffect(() => {
+		if (Object.keys(activeCurrency).length > 0 && convertedCurrency?.id) {
+			dispatch({
+				type: 'resetOptions',
+				value: {
+					...options,
+					currency:
+						activeCurrency?.currency ||
+						activeCurrency?.currency_name,
+				},
+			});
+		}
+	}, [
+		activeCurrency?.currency,
+		activeCurrency?.currency_name,
+		convertedCurrency?.id,
+	]);
 
 	useEffect(() => {
 		if (!!productId) {
@@ -847,7 +865,7 @@ const Checkout = () => {
 						description:
 							storeDetails?.product_details?.product_name || '',
 						amount: {
-							value: getCurrency('price'),
+							value: Number(getCurrency('price')).toFixed(2),
 							currency_code: getCurrency('currency'),
 						},
 					},
