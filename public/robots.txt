@@ -1,9 +1,3 @@
-# *
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: /
-
-# Host
-Host: https://kreatesell.com
-
-# Sitemaps
-Sitemap: https://kreatesell.com/sitemap.xml
+Disallow:
