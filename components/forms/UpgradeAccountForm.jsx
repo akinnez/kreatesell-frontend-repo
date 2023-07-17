@@ -177,7 +177,7 @@ export const UpgradeAccountForm = ({
 
 	const onPaystackClose = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
-		console.log('closed');
+		// console.log('closed');
 	};
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
