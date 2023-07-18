@@ -6,11 +6,13 @@ pipelines:
         script:
           - yarn install
           - yarn build
+          - ls -R
           - tar -czvf dist.tar.gz .next package.json package-lock.json
           - mv dist.tar.gz dist.zip
     - step:
         name: Deploy to Azure
         script:
+          - ls -R
           - pipe: microsoft/azure-web-apps-deploy:1.0.2
             variables:
               AZURE_APP_ID: '47140a82-b1f2-4c35-83a1-0fbd59c73e53'
