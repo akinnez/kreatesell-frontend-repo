@@ -11,16 +11,7 @@ import crypto from 'crypto';
 
 import {SendPaymentCheckoutDetails} from 'redux/actions';
 import {Button} from 'components/button/Button';
-import {
-	ActiveTick,
-	ActiveStripe,
-	AdvancedBitcoin,
-	AdvancedPaypal,
-	splitFullName,
-	FlutterwaveLogo,
-	transactionFees,
-	RenderIf,
-} from 'utils';
+import {ActiveTick, splitFullName, transactionFees, RenderIf} from 'utils';
 import {RightArrow} from 'utils/icons/RightArrow';
 import useConvertRates from 'hooks/useConvertRates';
 import Loader from '../loader';
@@ -44,11 +35,8 @@ export const UpgradeAccountForm = ({
 	convertedCurrency,
 	monthly,
 }) => {
-	// for paypal
-	// get the state for the sdk script and the dispatch method
-	const [{options}, dispatch] = usePayPalScriptReducer();
-
 	// TODO: handle currency change for crypto currency
+	const [{options}, dispatch] = usePayPalScriptReducer();
 
 	// const makePlanUpgrade = MakePlanUpgrade();
 	const {user} = useSelector((state) => state.auth);
@@ -69,6 +57,18 @@ export const UpgradeAccountForm = ({
 		'NGN',
 		activeCurrency?.currency || selectedCurrency
 	);
+
+	useEffect(() => {
+		if (activeCurrency && selectedCurrency && totalPrice) {
+			dispatch({
+				type: 'resetOptions',
+				value: {
+					...options,
+					currency: activeCurrency?.currency || selectedCurrency,
+				},
+			});
+		}
+	}, [activeCurrency?.currency, selectedCurrency, totalPrice]);
 
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 	const sendPaymentCheckoutDetails = SendPaymentCheckoutDetails();
@@ -174,21 +174,46 @@ export const UpgradeAccountForm = ({
 
 	const onPaystackClose = () => {
 		// implementation for  whatever you want to do when the Paystack dialog closed.
-		console.log('closed');
+		// console.log('closed');
 	};
 
 	const initializePaystackPayment = usePaystackPayment(payStackConfig);
 	// paystack config ends here
 
 	// paypal success
-	const paypalSuccess = (data, actions) => {
-		// sendPaymentCheckoutDetails(
-		// 	paymentDetails({reference: reference?.reference, status: status}),
-		// 	() =>
-		// 		router.push(
-		// 			`/checkout/success/${storeDetails?.store_dto?.store_name}/${router?.query?.id}`
-		// 		)
-		// );
+	const paypalSuccess = (data /*, actions, order*/) => {
+		const status = 'success';
+		sendPaymentCheckoutDetails(
+			paymentDetails({
+				reference: data?.orderID,
+				status: status,
+				card_type: 'paypal',
+			}),
+			() => {
+				getStoreDetails();
+				setModal(false);
+				setSelectedPlan('Business');
+			}
+		);
+	};
+
+	const paypalHandler = async (data, actions) => {
+		return actions.order
+			.create({
+				intent: 'CAPTURE',
+				purchase_units: [
+					{
+						description: 'Subscription' || '',
+						amount: {
+							value: Number(totalPrice).toFixed(2),
+							currency_code: activeCurrency?.currency,
+						},
+					},
+				],
+			})
+			.then((orderId) => {
+				return orderId;
+			});
 	};
 
 	const stripeSuccess = () => {};
@@ -537,43 +562,6 @@ export const UpgradeAccountForm = ({
 									{
 										/* if kyc is approved and userplan is business */
 									}
-									if (
-										store?.kyc_status?.kyc_status?.toLowerCase() ===
-											'approved' &&
-										store?.user?.user_plan?.toLowerCase() ===
-											'business' &&
-										value !== 'paypal'
-									) {
-										return true;
-									}
-									if (
-										store?.kyc_status?.kyc_status?.toLowerCase() ===
-											'approved' &&
-										store?.user?.user_plan?.toLowerCase() ===
-											'business' &&
-										value === 'paypal'
-									) {
-										return false;
-									}
-									if (
-										store?.user?.user_plan?.toLowerCase() !==
-											'business' ||
-										store?.kyc_status?.kyc_status?.toLowerCase() !==
-											'approved'
-									) {
-										if (
-											![
-												'crypto',
-												'stripe',
-												'paypal',
-											].includes(value)
-										) {
-											return true;
-											{
-												/* return false; */
-											}
-										}
-									}
 									if (value === 'paypal') {
 										return false;
 									} else {
@@ -605,17 +593,10 @@ export const UpgradeAccountForm = ({
 									</div>
 								))}
 							<RenderIf
-								condition={
-									store?.kyc_status?.is_kyc_verified &&
-									store?.kyc_status?.kyc_status?.toLowerCase() ===
-										'approved' &&
-									store?.user?.user_plan?.toLowerCase() ===
-										'business' &&
-									['USD', 'GBP', 'CAD'].includes(
-										activeCurrency?.currency ||
-											activeCurrency?.currency_name
-									)
-								}
+								condition={['USD', 'GBP', 'CAD'].includes(
+									activeCurrency?.currency ||
+										activeCurrency?.currency_name
+								)}
 							>
 								<PayPalButtons
 									style={{
@@ -623,34 +604,13 @@ export const UpgradeAccountForm = ({
 										label: 'pay',
 									}}
 									className={`flex justify-around items-center`}
-									createOrder={async (data, actions) => {
-										return actions.order.create({
-											purchase_units: [
-												{
-													description:
-														'customDescription',
-													amount: {
-														// value: Number(
-														// 	convertedPrice
-														// ).toFixed(2),
-														value: Number(
-															totalPrice
-														).toFixed(2),
-														currency:
-															activeCurrency?.currency ||
-															selectedCurrency.currency,
-													},
-												},
-											],
-										});
-									}}
-									onApprove={(data, actions) => {
-										// TODO: handle payment success
-										console.log('data is', data);
-										console.log('actions is', actions);
-										alert(
-											'You have successfully completed the transaction'
-										);
+									createOrder={(data, actions) =>
+										paypalHandler(data, actions)
+									}
+									onApprove={async (data, actions) => {
+										const order =
+											await actions.order.capture();
+										paypalSuccess(data, actions, order);
 									}}
 								/>
 							</RenderIf>
