@@ -6,7 +6,7 @@ pipelines:
         script:
           - yarn install
           - yarn build
-          - zip -r dist.zip .next package.json package-lock.json
+          - tar -czvf dist.tar.gz .next package.json package-lock.json
     - step:
         name: Deploy to Azure
         script:
@@ -17,4 +17,4 @@ pipelines:
               AZURE_TENANT_ID: '2075dd1a-d2b7-4e5a-b023-ef78ca875fa7'
               AZURE_RESOURCE_GROUP: 'TestingkreatesellDEV'
               AZURE_APP_NAME: 'devKreatesell'
-              ZIP_FILE: 'dist.zip'
+              ZIP_FILE: 'dist.tar.gz'
