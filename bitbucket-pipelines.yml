@@ -1,0 +1,17 @@
+pipelines:
+  default:
+    - step:
+        name: Install and Build
+        image: node:16
+        script:
+          - yarn install
+          - yarn build
+          - tar -czvf dist.tar.gz .next package.json package-lock.json
+    - step:
+        name: Deploy to Azure
+        script:
+          - apt-get update && apt-get install -y apt-transport-https
+          - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+          - az login --service-principal --username '47140a82-b1f2-4c35-83a1-0fbd59c73e53' --password 'mye8Q~m5S-vz~pXbJBWyMzgGQvzp2f8hxbEGVbRY' --tenant '2075dd1a-d2b7-4e5a-b023-ef78ca875fa7'
+          - az account set --subscription '861a268e-eb47-401e-8f12-fed6bcda2e05'
+          - az webapp deployment source config-zip -g 'TestingkreatesellDEV' -n 'devKreatesell' --src dist.tar.gz
