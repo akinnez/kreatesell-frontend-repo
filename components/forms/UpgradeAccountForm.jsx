@@ -68,7 +68,7 @@ export const UpgradeAccountForm = ({
 				},
 			});
 		}
-	}, [activeCurrency.currency, selectedCurrency, totalPrice]);
+	}, [activeCurrency?.currency, selectedCurrency, totalPrice]);
 
 	// console.log('selectedCurrency', selectedCurrency);
 	// console.log('activeCurrency', activeCurrency);
@@ -567,43 +567,6 @@ export const UpgradeAccountForm = ({
 									{
 										/* if kyc is approved and userplan is business */
 									}
-									if (
-										store?.kyc_status?.kyc_status?.toLowerCase() ===
-											'approved' &&
-										store?.user?.user_plan?.toLowerCase() ===
-											'business' &&
-										value !== 'paypal'
-									) {
-										return true;
-									}
-									if (
-										store?.kyc_status?.kyc_status?.toLowerCase() ===
-											'approved' &&
-										store?.user?.user_plan?.toLowerCase() ===
-											'business' &&
-										value === 'paypal'
-									) {
-										return false;
-									}
-									if (
-										store?.user?.user_plan?.toLowerCase() !==
-											'business' ||
-										store?.kyc_status?.kyc_status?.toLowerCase() !==
-											'approved'
-									) {
-										if (
-											![
-												'crypto',
-												'stripe',
-												'paypal',
-											].includes(value)
-										) {
-											return true;
-											{
-												/* return false; */
-											}
-										}
-									}
 									if (value === 'paypal') {
 										return false;
 									} else {
@@ -635,17 +598,10 @@ export const UpgradeAccountForm = ({
 									</div>
 								))}
 							<RenderIf
-								condition={
-									store?.kyc_status?.is_kyc_verified &&
-									store?.kyc_status?.kyc_status?.toLowerCase() ===
-										'approved' &&
-									store?.user?.user_plan?.toLowerCase() ===
-										'business' &&
-									['USD', 'GBP', 'CAD'].includes(
-										activeCurrency?.currency ||
-											activeCurrency?.currency_name
-									)
-								}
+								condition={['USD', 'GBP', 'CAD'].includes(
+									activeCurrency?.currency ||
+										activeCurrency?.currency_name
+								)}
 							>
 								<PayPalButtons
 									style={{
