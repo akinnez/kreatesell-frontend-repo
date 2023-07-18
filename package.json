@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+        "dev": "next dev",
+        "build": "next build",
+        "export": "npm run build && next export ",
+        "start": "next start -p $PORT"
+    },
   "dependencies": {
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
