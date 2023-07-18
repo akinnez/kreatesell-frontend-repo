@@ -7,11 +7,11 @@ pipelines:
           - yarn install
           - yarn build
           - tar -czvf dist.tar.gz .next package.json package-lock.json
-          - mv dist.tar.gz dist.zip
+          - mv dist.tar.gz /opt/atlassian/pipelines/agent/build/dist.zip
     - step:
         name: Deploy to Azure
         script:
-          - ls -R
+          - ls -R /opt/atlassian/pipelines/agent/build
           - pipe: microsoft/azure-web-apps-deploy:1.0.2
             variables:
               AZURE_APP_ID: '47140a82-b1f2-4c35-83a1-0fbd59c73e53'
@@ -19,4 +19,4 @@ pipelines:
               AZURE_TENANT_ID: '2075dd1a-d2b7-4e5a-b023-ef78ca875fa7'
               AZURE_RESOURCE_GROUP: 'TestingkreatesellDEV'
               AZURE_APP_NAME: 'devKreatesell'
-              ZIP_FILE: 'dist.zip'
+              ZIP_FILE: '/opt/atlassian/pipelines/agent/build/dist.zip'
