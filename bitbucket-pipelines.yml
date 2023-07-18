@@ -6,7 +6,6 @@ pipelines:
         script:
           - yarn install
           - yarn build
-          - ls -R
           - tar -czvf dist.tar.gz .next package.json package-lock.json
           - mv dist.tar.gz dist.zip
     - step:
