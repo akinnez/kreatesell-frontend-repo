@@ -1,5 +1,5 @@
 [build]
-publish = ".next"
+publish = "public"
 command = "npm run build"
 functions = ".next/functions"
 # Add this line to use _redirects file
