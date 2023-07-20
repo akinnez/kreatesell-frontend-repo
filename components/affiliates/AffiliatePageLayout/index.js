@@ -54,7 +54,7 @@ const AffiliatePageLayout = ({
 					/>
 					<div className={styles.table__wrapper}>
 						<Table
-							dataSource={[]}
+							dataSource={products?.data}
 							columns={columns}
 							locale={tableLocale}
 							pagination={false}
