@@ -519,7 +519,7 @@ const AllProducts = () => {
 				</div>
 				{/* mobile screen table */}
 				<div
-					className={`block md:hidden flex flex-col gap-4 mt-8 ${styles.productMobile}`}
+					className={`block md:hidden flex flex-col gap-4 mt-8 ${styles.productMobile}`} 
 				>
 					{memoisedProductData.map((product) => (
 						<div key={product.key} className={`${styles.product}`}>

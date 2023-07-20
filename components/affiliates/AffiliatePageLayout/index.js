@@ -3,6 +3,7 @@ import PaginationSizeChanger from 'components/PaginationSizeChanger';
 import AffiliateFilters from '../AffiliateFilters';
 import MobileDataRenderer from '../MobileDataRenderer';
 import styles from './index.module.scss';
+import { emptyComponent } from 'components';
 
 const rowKey = (record) => record.id;
 
@@ -24,6 +25,10 @@ const AffiliatePageLayout = ({
 		setFilters({...filters, page});
 	};
 
+	const tableLocale = {
+		emptyText: emptyComponent('No record yet'), 
+	};
+
 	return (
 		<>
 			<header className={styles.header}>
@@ -41,17 +46,18 @@ const AffiliatePageLayout = ({
 				/>
 				<section className={styles.data__section}>
 					<MobileDataRenderer
-						productKey={productKey}
+						productKey={productKey}  
 						statusKey={statusKey}
 						products={products?.data}
 						component={Component}
 						showStatus={showStatus}
 					/>
-					<div className={styles.table__wrapper}>
+					<div className={styles.table__wrapper}> 
 						<Table
-							dataSource={products.data}
+							dataSource={[]}
 							columns={columns}
-							pagination={false}
+							locale={tableLocale}
+							pagination={false} 
 							rowKey={rowKey}
 						/>
 					</div>
@@ -59,7 +65,7 @@ const AffiliatePageLayout = ({
 				{products?.data?.length > 0 && (
 					<section>
 						<Pagination
-							pageSize={filters.limit}
+							pageSize={filters.limit} 
 							current={filters.page}
 							total={products.total}
 							responsive={true}

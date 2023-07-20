@@ -16,7 +16,6 @@ import LogoImg from 'public/images/logo.svg';
 
 import {
 	RightArrow,
-	// DashPreviewOne,
 	DashPreviewTwo,
 	PaymentPreview,
 	LineOne,
@@ -27,12 +26,6 @@ import {
 	TechCabal,
 	Guardian,
 	TechCrunch,
-	// NewsCardOne,
-	// NewsCardTwo,
-	// NewsCardThree,
-	// NewsCardFour,
-	// ProfileImage,
-	// CardMain,
 	AddProduct,
 	CreateStore,
 	Publish,
@@ -45,7 +38,6 @@ import {
 	Animate,
 	LandingPageHeroPng,
 	DashPreviewOnePng,
-	// MaintenanceIcon2,
 	HowToA,
 	HowToB,
 	HowToC,
@@ -881,78 +873,78 @@ const NewsCard = ({
 	);
 };
 
-const OnboardingModal = ({setOpenVideoModal}) => {
-	const {loading} = useSelector((state) => state.utils);
+// const OnboardingModal = ({setOpenVideoModal}) => {
+// 	const {loading} = useSelector((state) => state.utils);
 
-	const guestSubscription = GuestSubscription();
-	const initialValues = {
-		customer_email: '',
-		customer_name: '',
-	};
+// 	const guestSubscription = GuestSubscription();
+// 	const initialValues = {
+// 		customer_email: '',
+// 		customer_name: '',
+// 	};
 
-	const handleSubmit = (data) => {
-		setOpenVideoModal(true);
-		// guestSubscription(data, () => {
-		// 	window.location.href = 'https://t.me/kreatesell';
-		// });
-	};
+// 	const handleSubmit = (data) => {
+// 		setOpenVideoModal(true);
+// 		guestSubscription(data, () => {
+// 			window.location.href = 'https://t.me/kreatesell';
+// 		});
+// 	};
 
-	const formik = useFormik({
-		initialValues,
-		onSubmit: handleSubmit,
-		validationSchema: SubscribeEmailSchema,
-		validateOnChange: false,
-	});
+// 	const formik = useFormik({
+// 		initialValues,
+// 		onSubmit: handleSubmit,
+// 		validationSchema: SubscribeEmailSchema,
+// 		validateOnChange: false,
+// 	});
 
-	const {errors} = formik;
+// 	const {errors} = formik;
 
-	return (
-		<form
-			className={styles.OnboardingModal}
-			onSubmit={formik.handleSubmit}
-			autoComplete="off"
-		>
-			<h5 className={styles.modalTitle}>
-				Do you want to see the amazing things KreateSell can do for you?{' '}
-				<br />
-				<span className={styles.span}>Watch KreateSell in action.</span>
-			</h5>
+// 	return (
+// 		<form
+// 			className={styles.OnboardingModal}
+// 			onSubmit={formik.handleSubmit}
+// 			autoComplete="off"
+// 		>
+// 			<h5 className={styles.modalTitle}>
+// 				Do you want to see the amazing things KreateSell can do for you?{' '}
+// 				<br />
+// 				<span className={styles.span}>Watch KreateSell in action.</span>
+// 			</h5>
 
-			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
+// 			{!isAnEmpytyObject(errors) && <FormError errors={errors} />}
 
-			<div className={styles.inputCont}>
-				<Input
-					name="customer_name"
-					placeholder="Enter your Name "
-					label="Name"
-					onChange={formik.handleChange}
-				/>
-			</div>
+// 			<div className={styles.inputCont}>
+// 				<Input
+// 					name="customer_name"
+// 					placeholder="Enter your Name "
+// 					label="Name"
+// 					onChange={formik.handleChange}
+// 				/>
+// 			</div>
 
-			<div className={styles.inputCont}>
-				<Input
-					name="customer_email"
-					placeholder="Enter your Email "
-					label="Email"
-					onChange={formik.handleChange}
-				/>
-			</div>
+// 			<div className={styles.inputCont}>
+// 				<Input
+// 					name="customer_email"
+// 					placeholder="Enter your Email "
+// 					label="Email"
+// 					onChange={formik.handleChange}
+// 				/>
+// 			</div>
 
-			<p className={styles.context}>
-				You&#39;ll get helpful resources on how to become and make huge
-				money as a Kreator.
-			</p>
+// 			<p className={styles.context}>
+// 				You&#39;ll get helpful resources on how to become and make huge
+// 				money as a Kreator.
+// 			</p>
 
-			<Button
-				leftIcon={<PlayIcon />}
-				text="Play Demo"
-				bgColor="blue"
-				className={styles.btnCont}
-				loading={loading}
-			/>
-		</form>
-	);
-};
+// 			<Button
+// 				leftIcon={<PlayIcon />}
+// 				text="Play Demo"
+// 				bgColor="blue"
+// 				className={styles.btnCont}
+// 				loading={loading}
+// 			/>
+// 		</form>
+// 	);
+// };
 
 const VideoModal = () => {
 	const router = useRouter();

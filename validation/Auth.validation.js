@@ -28,7 +28,7 @@ export const SignupSchema = () => {
 			)
 			.test(
 				'words',
-				'Please input only your first and last name.',
+				'Please input both first and last names.',
 				(value) => {
 					const words = value.trim().split(' ');
 					return words.length === 2;
