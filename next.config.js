@@ -11,8 +11,7 @@ module.exports = {
   // ...
 };
 module.exports = (phase) => {
-	// when started in development mode `next dev` or `npm run dev` regardless of the value of STAGING environment variable
-	assetPrefix: process.env.NODE_ENV === 'production' ? 'kreatesell' : '',
+	// when started in development mode `next dev` or `npm run dev` regardless of the value of STAGING environment variable;
 	//...
 	const isDev = phase === PHASE_DEVELOPMENT_SERVER;
 	// when `next build` or `npm run build` is used
@@ -23,6 +22,7 @@ module.exports = (phase) => {
 	const isStaging =
 		phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
 	const env = {
+		assetPrefix: process.env.NODE_ENV === 'production' ? 'kreatesell' : '',
 		isDev: isDev,
 		isProd: isProd,
 		isStaging: isStaging,
