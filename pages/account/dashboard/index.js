@@ -16,6 +16,7 @@ import axiosAPI from 'utils/axios';
 
 // import useSWR from "swr";
 
+//FIXME: Make it be a single component that holds Main, Kreator's and Affiliate's dashboard
 const Dashboard = () => {
 	const [_, setFiltered] = useState(null);
 	const [isAnAffiliate, setIsAnAffiliate] = useState(false);
