@@ -8,5 +8,4 @@ redirects = "_redirects"
 # Image redirect
 [[redirects]]
   from = "/images/*"
-  to = "/.next/static/images/:splat"
-  status = 200
+  to = "/_next/static/images/:splat"
