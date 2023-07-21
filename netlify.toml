@@ -1,6 +1,12 @@
 [build]
-publish = "_next"
+publish = ".next"
 command = "npm run build"
-functions = "_next/functions"
+functions = ".next/functions"
 # Add this line to use _redirects file
 redirects = "_redirects"
+
+# Image redirect
+[[redirects]]
+  from = "/images/*"
+  to = "/.next/static/images/:splat"
+  status = 200
