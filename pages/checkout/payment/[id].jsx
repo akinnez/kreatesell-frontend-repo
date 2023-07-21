@@ -599,7 +599,7 @@ const Checkout = () => {
 		if (selectedPaymentMethod === 'stripe') {
 			try {
 				const data = await axios.post(
-					'https://kreatesell.io/api/v1/kreatesell/payment/stripe/create-checkout-session',
+					`${process.env.BASE_URL}v1/kreatesell/payment/stripe/create-checkout-session`,
 					{
 						unit_amount: totalFee
 							? Number(getCurrency('total')).toFixed() * 100
