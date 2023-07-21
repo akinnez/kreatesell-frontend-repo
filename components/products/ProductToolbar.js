@@ -1,3 +1,4 @@
+
 export const Toolbar = {
 	modules: {
 		toolbar: [
@@ -11,7 +12,7 @@ export const Toolbar = {
 				{align: 'right'},
 				{align: 'justify'},
 			],
-			['link', 'image', 'video'],
+			['link'], ['image'], ['video'],
 			['clean'],
 			['code-block'],
 		],

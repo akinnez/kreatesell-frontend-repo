@@ -4,7 +4,7 @@ import {useRouter} from 'next/router';
 import dynamic from 'next/dynamic';
 import {BsReplyFill} from 'react-icons/bs';
 
-import useSWR from 'swr';
+// import useSWR from 'swr';
 import axios from 'axios';
 const ReactQuill = dynamic(() => import('react-quill'), {ssr: false});
 import EditorToolbar, {

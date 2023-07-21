@@ -480,7 +480,7 @@
 					.input {
 						margin-top: 1rem;
 						outline: none;
-						border: none;
+						border: 1px solid #ccc;
 						padding: 0.2rem;
 						transition: all 0.2s;
 						max-width: 150px;
@@ -492,6 +492,7 @@
 						// line-height: 24px;
 						font-weight: 700;
 						&:focus {
+							border: 1px solid #40a9ff;
 							background-color: #ffffff;
 						}
 						@media (min-width: 500px) {

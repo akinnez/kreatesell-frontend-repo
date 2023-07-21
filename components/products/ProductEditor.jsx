@@ -1,44 +1,57 @@
-// import {useEffect, useState} from 'react';
 import dynamic from 'next/dynamic';
-
-import {Button} from 'antd';
-import 'react-quill/dist/quill.snow.css';
-import {Toolbar} from './ProductToolbar';
+import { Button } from 'antd';
+import 'react-quill/dist/quill.snow.css'
+import { Toolbar } from './ProductToolbar';
 import styles from './ProductEditor.module.scss';
-//WIP: Making the image in the Rich Text Editor resizeable
-const ReactQuill = dynamic(import('react-quill'), {
-	ssr: false,
-	loading: () => <p>Loading ...</p>,
-});
-// const ImageResizeDynamic = dynamic(import('quill-image-resize-module'), {
-// 	ssr: false,
-// });
+import { useEffect, useState } from 'react';
 
-// ReactQuill.Quill.register('modules/imageResize', ImageResizeDynamic);
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-// const ReactQuill =
-// 	typeof window === 'object' ? require('react-quill') : () => false;
+export default function ProductEditor({ content, setContent }) {
+  const [quill, setQuill] = useState(null);
 
-export default function ProductEditor({content, setContent}) {
-	// const [enableEditor, setEnableEditor] = useState(false);
+  useEffect(() => {
+    const loadQuillModules = async () => {
+      if (typeof window !== 'undefined') {
+        const ImageResize = await import('quill-image-resize-module-react');
+        const Quill = require('react-quill');
 
-	return (
-		<div className={styles.quillEditor} style={{minHeight: '250px'}}>
-			<div className="w-full h-full">
-				{/* {enableEditor ? ( */}
-				<ReactQuill
-					placeholder="Text here"
-					value={content}
-					onChange={(e) => setContent(e)}
-					modules={Toolbar.modules}
-					formats={Toolbar.formats}
-				/>
-				{/* ) : null} */}
-			</div>
-			<div className="absolute">
-				<Button>Text</Button>
-				<Button>Html</Button>
-			</div>
-		</div>
-	);
+        Quill.Quill.register('modules/imageResize', ImageResize.default);
+
+        setQuill(Quill.Quill.import('parchment'));
+      }
+    };
+
+    loadQuillModules();
+  }, []);
+
+  if (!quill) {
+    return null;
+  }
+
+
+  return (
+    <div className={styles.quillEditor} style={{ minHeight: '250px'}}>
+      <div className="">
+        <ReactQuill
+          placeholder="Text here"
+          value={content}
+          onChange={setContent}
+          modules={{
+            ...Toolbar.modules,
+            imageResize: {
+              parchment: quill,
+              modules: ['Resize', 'DisplaySize', 'Toolbar'],
+            }
+          }}
+		  theme='snow'
+          formats={Toolbar.formats}
+        />
+      </div>
+      <div className="absolute hidden">
+        <Button>Text</Button>
+        <Button>Html</Button>
+      </div>
+    </div>
+  );
 }

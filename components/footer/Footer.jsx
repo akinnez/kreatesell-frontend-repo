@@ -56,7 +56,7 @@ export const Footer = () => {
 							rel="noopener noreferrer"
 							target="blank"
 							// href="tel:+2349062002777"
-							href="https://wa.me/+2349062002777"
+							href="https://wa.me/+2348101410461"
 						>
 							&nbsp;Contact Us
 						</a>
@@ -372,7 +372,7 @@ export const Footer = () => {
 							/>
 						</a>
 						<a
-							href="https://wa.me/+2349062002777"
+							href="https://wa.me/+2348101410461"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
