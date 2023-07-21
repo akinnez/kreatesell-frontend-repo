@@ -450,6 +450,7 @@ const Success = () => {
 							</Row>
 
 							{/* mobiles */}
+							
 							<Row
 								gutter={[32, 32]}
 								className={styles.mobileItems}
@@ -483,6 +484,7 @@ const Success = () => {
 							{/* mobiles */}
 						</div>
 					</section>
+
 					{storeDetails?.store_details
 						?.is_enable_product_cross_sell && (
 						<section className={styles.otherProducts}>
@@ -932,12 +934,14 @@ const PurchaseSummaryCard = ({
 				productType === 'Digital Download' && (
 					<div className={styles.error}>
 						<Image src={ErrorIcon} alt="" />
+						<div>
 						This content file is unavailable. Please reach out to
 						the{' '}
-						<Link href={`mailto:${StoreDetails?.store_email}`}>
+						<Link href={`mailto:${StoreDetails?.store_email}`} className="inline">
 							Kreator
 						</Link>{' '}
 						for more details.
+						</div>
 					</div>
 				)}
 		</div>
