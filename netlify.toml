@@ -8,4 +8,11 @@ redirects = "_redirects"
 # Image redirect
 [[redirects]]
   from = "/images/*"
-  to = "/_next/static/images/:splat"
+  to = "/.next/static/images/:splat"
+  status = 200
+
+# Serverless function routing
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
