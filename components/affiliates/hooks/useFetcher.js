@@ -22,8 +22,8 @@ const useFetcher = (user, url) => {
 					setLoading(false);
 					setProducts({
 						...products,
-						data: res.data.data,
-						total: res.data.total_records,
+						data: res.data.data || [],
+						total: res.data.total_records || 0,
 					});
 					return res;
 				},
