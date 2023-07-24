@@ -1,13 +1,14 @@
 [build]
-publish = ".next/server"
+publish = ".next"
 command = "npm run build"
 functions = ".next/functions"
+
+redirects = "_redirects"
 
 [[redirects]]
   from = "/*"
   to = "/.next/server/pages/:splat"
   status = 200
-  redirects = "_redirects"
 
 [[redirects]]
   from = "/images/*"
