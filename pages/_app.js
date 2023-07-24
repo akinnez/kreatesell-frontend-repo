@@ -21,7 +21,7 @@ import {setAuthorizationHeader} from '../utils/index';
 import ChatScript from '../components/ChatWidgetScript';
 import {SalesPageProvider} from 'context/AddSalesPageContext';
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundaryComponent';
-
+//Testing 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
