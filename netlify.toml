@@ -2,3 +2,15 @@
 publish = ".next"
 command = "npm run build"
 functions = ".next/functions"
+
+redirects = "_redirects"
+
+[[redirects]]
+  from = "/*"
+  to = "/.next/server/pages/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/static/image/*"
+  to = "/next/static/image/public/images/:splat"
+  status = 200
