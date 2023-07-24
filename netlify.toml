@@ -1,18 +1,15 @@
 [build]
-publish = ".next"
+publish = ".next/server"
 command = "npm run build"
 functions = ".next/functions"
-# Add this line to use _redirects file
-redirects = "_redirects"
 
-# Image redirect
+[[redirects]]
+  from = "/*"
+  to = "/.next/server/pages/:splat"
+  status = 200
+  redirects = "_redirects"
+
 [[redirects]]
   from = "/images/*"
-  to = "/.next/static/images/:splat"
-  status = 200
-
-# Serverless function routing
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  to = "/next/static/image/public/images/:splat"
   status = 200
